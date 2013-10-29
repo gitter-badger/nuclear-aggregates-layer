@@ -1,0 +1,1734 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FirmAddressContactTypePhone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="FirmAddressContactTypeFax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FirmAddressContactTypeEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="FirmAddressContactTypeWebsite" xml:space="preserve">
+    <value>Webová stránka</value>
+  </data>
+  <data name="FirmAddressContactTypeIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="FirmAddressContactTypeSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="FirmAddressContactTypeOther" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
+  <data name="CloseDealReasonReason1" xml:space="preserve">
+    <value>Dočasně zamítnuto. Chybí osoba, která přijímá rozhodnutí</value>
+  </data>
+  <data name="CloseDealReasonReason2" xml:space="preserve">
+    <value>Dočasně zamítnuto. Pochyby o efektivitě</value>
+  </data>
+  <data name="CloseDealReasonReason3" xml:space="preserve">
+    <value>Dočasně zamítnuto. Chybí finance</value>
+  </data>
+  <data name="CloseDealReasonReason4" xml:space="preserve">
+    <value>Dočasně zamítnuto. Nespokojenost s produktem</value>
+  </data>
+  <data name="CloseDealReasonReason5" xml:space="preserve">
+    <value>Dočasně zamítnuto. Jiné (uveďte dodatečně)</value>
+  </data>
+  <data name="CloseDealReasonReason6" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Negativní přístup klienta</value>
+  </data>
+  <data name="CloseDealReasonReason7" xml:space="preserve">
+    <value>Kategoricky zamítnuto.  Jiná cílová skupina</value>
+  </data>
+  <data name="CloseDealReasonReason8" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Inzeruje u konkurenčních společností</value>
+  </data>
+  <data name="CloseDealReasonReason9" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Nemá zájem</value>
+  </data>
+  <data name="CloseDealReasonReason10" xml:space="preserve">
+    <value>Kategoricky zamítnuto.  Jiné (uveďte dodatečně)</value>
+  </data>
+  <data name="DealStageCollectInformation" xml:space="preserve">
+    <value>Shromažďování informací</value>
+  </data>
+  <data name="DealStageHoldingProductPresentation" xml:space="preserve">
+    <value>Prezentace</value>
+  </data>
+  <data name="DealStageMatchAndSendProposition" xml:space="preserve">
+    <value>Schválení ON</value>
+  </data>
+  <data name="DealStageOrderFormed" xml:space="preserve">
+    <value>Objednávka vytvořena</value>
+  </data>
+  <data name="DealStageOrderApprovedForRelease" xml:space="preserve">
+    <value>Objednávka je schválena k vydání</value>
+  </data>
+  <data name="DealStageService" xml:space="preserve">
+    <value>Servis</value>
+  </data>
+  <data name="ReasonForNewDealClientCall" xml:space="preserve">
+    <value>Iniciativa klienta - hovor</value>
+  </data>
+  <data name="ReasonForNewDealClientEmail" xml:space="preserve">
+    <value>Iniciativa klienta - E-mail</value>
+  </data>
+  <data name="ReasonForNewDealClientVisit" xml:space="preserve">
+    <value>Iniciativa klienta - návštěva</value>
+  </data>
+  <data name="DocumentsDeliveryMethodPostOnly" xml:space="preserve">
+    <value>Poštou</value>
+  </data>
+  <data name="DocumentsDeliveryMethodDeliveryByManager" xml:space="preserve">
+    <value>Dodání MP</value>
+  </data>
+  <data name="DocumentsDeliveryMethodDeliveryByClient" xml:space="preserve">
+    <value>Samostatně klientem</value>
+  </data>
+  <data name="DocumentsDeliveryMethodByEmail" xml:space="preserve">
+    <value>Elektronické rozesílání</value>
+  </data>
+  <data name="DocumentsDeliveryMethodByCourier" xml:space="preserve">
+    <value>Kurýrem</value>
+  </data>
+  <data name="OrderTypeAdsBarter" xml:space="preserve">
+    <value>Reklamní barter</value>
+  </data>
+  <data name="OrderTypeProductAdsService" xml:space="preserve">
+    <value>ZRS (zboží, reklama, služby)</value>
+  </data>
+  <data name="OrderTypeSale" xml:space="preserve">
+    <value>Prodeje</value>
+  </data>
+  <data name="OrderTypeSelfAds" xml:space="preserve">
+    <value>Sebeprezentace</value>
+  </data>
+  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Garantované poskytnutí</value>
+  </data>
+  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Plánované poskytnutí</value>
+  </data>
+  <data name="PositionCalculationMethodPosition" xml:space="preserve">
+    <value>Položka</value>
+  </data>
+  <data name="PositionCalculationMethodUnit" xml:space="preserve">
+    <value>Jednotka</value>
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodFourMonths" xml:space="preserve">
+    <value>Čtyři měsíce</value>
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodOneMonth" xml:space="preserve">
+    <value>Jeden měsíc</value>
+  </data>
+  <data name="PositionPlatformPlacementPeriodDay" xml:space="preserve">
+    <value>Den</value>
+  </data>
+  <data name="PositionPlatformPlacementPeriodMonth" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressSingle" xml:space="preserve">
+    <value>Adresa (jedn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressCategoryMultiple" xml:space="preserve">
+    <value>Rubrika adresy (mn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressCategorySingle" xml:space="preserve">
+    <value>Rubrika adresy (jedn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategorySingle" xml:space="preserve">
+    <value>Rubrika (jedn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeFirm" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressMultiple" xml:space="preserve">
+    <value>Adresa (mn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategoryMultiple" xml:space="preserve">
+    <value>Rubrika (mn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeThemeMultiple" xml:space="preserve">
+    <value>Téma (mn.)</value>
+  </data>
+  <data name="ReasonForNewDealManagerCall" xml:space="preserve">
+    <value>Iniciativa manažera - hovor</value>
+  </data>
+  <data name="ReasonForNewDealManagerVisit" xml:space="preserve">
+    <value>Iniciativa manažera - návštěva</value>
+  </data>
+  <data name="InformationSourceWarmClient" xml:space="preserve">
+    <value>Možný klient</value>
+  </data>
+  <data name="OrderStateApproved" xml:space="preserve">
+    <value>Schváleno</value>
+  </data>
+  <data name="OrderStateArchive" xml:space="preserve">
+    <value>Archiv</value>
+  </data>
+  <data name="OrderStateOnApproval" xml:space="preserve">
+    <value>Schvaluje se</value>
+  </data>
+  <data name="OrderStateOnRegistration" xml:space="preserve">
+    <value>Vyřizuje se</value>
+  </data>
+  <data name="OrderStateOnTermination" xml:space="preserve">
+    <value>Ruší se</value>
+  </data>
+  <data name="OrderStateRejected" xml:space="preserve">
+    <value>Zamítnuto</value>
+  </data>
+  <data name="InformationSourceDoubleGis" xml:space="preserve">
+    <value>2GIS</value>
+  </data>
+  <data name="InformationSourceInformationDepartment" xml:space="preserve">
+    <value>Informační oddělení</value>
+  </data>
+  <data name="InformationSourceSalesDepartment" xml:space="preserve">
+    <value>Prodejní oddělení</value>
+  </data>
+  <data name="InformationSourceMedia" xml:space="preserve">
+    <value>Masmédia</value>
+  </data>
+  <data name="LimitStatusApproved" xml:space="preserve">
+    <value>Potvrzeno</value>
+  </data>
+  <data name="LimitStatusOpened" xml:space="preserve">
+    <value>Otevřeno</value>
+  </data>
+  <data name="LimitStatusRejected" xml:space="preserve">
+    <value>Zamítnuto</value>
+  </data>
+  <data name="ReasonForNewDealWarmClient" xml:space="preserve">
+    <value>Možný klient</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
+    <value>Článek</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeFasComment" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeImage" xml:space="preserve">
+    <value>Obrázek</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeText" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="OrderBudgetTypeBudget" xml:space="preserve">
+    <value>Rozpočet</value>
+  </data>
+  <data name="OrderBudgetTypeSell" xml:space="preserve">
+    <value>Prodeje</value>
+  </data>
+  <data name="OrderBudgetTypeUndefined" xml:space="preserve">
+    <value>Neurčeno</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FasCommentNewFasComment" xml:space="preserve">
+    <value>Nové upozornění.</value>
+  </data>
+  <data name="FasCommentAbortion" xml:space="preserve">
+    <value>Reklama zdravotních služeb na umělé přerušení těhotenství.</value>
+  </data>
+  <data name="FasCommentAlcohol" xml:space="preserve">
+    <value>Reklama na alkoholické výrobky.</value>
+  </data>
+  <data name="FasCommentBeer" xml:space="preserve">
+    <value>Reklama na pivo a nápoje vyráběné na jeho základě.</value>
+  </data>
+  <data name="FasCommentDrugsAndService" xml:space="preserve">
+    <value>Reklama na léčiva, zdravotnickou techniku, zdravotnické prostředky a zdravotní služby včetně způsobů léčby.</value>
+  </data>
+  <data name="FasCommentSmoke" xml:space="preserve">
+    <value>Reklama na tabák, tabákové výrobky a kuřácké potřeby.</value>
+  </data>
+  <data name="ProductTypeMass" xml:space="preserve">
+    <value>Spotřební služby</value>
+  </data>
+  <data name="ProductTypeConsideredDemand" xml:space="preserve">
+    <value>Uvážená poptávka</value>
+  </data>
+  <data name="MarketTypeB2B" xml:space="preserve">
+    <value>B2B</value>
+  </data>
+  <data name="MarketTypeB2C" xml:space="preserve">
+    <value>B2C</value>
+  </data>
+  <data name="UsingOtherMediaOptionTv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="UsingOtherMediaOptionRadio" xml:space="preserve">
+    <value>Rádio</value>
+  </data>
+  <data name="LegalPersonTypeBusinessman" xml:space="preserve">
+    <value>Soukromý podnikatel (OSVČ)</value>
+  </data>
+  <data name="LegalPersonTypeLegalPerson" xml:space="preserve">
+    <value>Právnická osoba</value>
+  </data>
+  <data name="LegalPersonTypeNaturalPerson" xml:space="preserve">
+    <value>Fyzická osoba</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>Rubrika 1. úrovně adresy (jedn.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>Rubrika 1. úrovně adresy (mn.)</value>
+  </data>
+  <data name="ReleaseInfoStatusInProgress" xml:space="preserve">
+    <value>IN PROGRESS</value>
+  </data>
+  <data name="ReleaseInfoStatusSuccess" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
+  <data name="ReleaseInfoStatusError" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="ReleaseInfoStatusReverted" xml:space="preserve">
+    <value>CANCELLED</value>
+  </data>
+  <data name="ReleaseInfoOperationTypeBeta" xml:space="preserve">
+    <value>Technická</value>
+  </data>
+  <data name="ReleaseInfoOperationTypeRelease" xml:space="preserve">
+    <value>Konečná</value>
+  </data>
+  <data name="AccountRoleMakingDecisions" xml:space="preserve">
+    <value>Rozhoduje</value>
+  </data>
+  <data name="AccountRoleInfluenceDecisions" xml:space="preserve">
+    <value>Má vliv na rozhodnutí</value>
+  </data>
+  <data name="AccountRoleEmployee" xml:space="preserve">
+    <value>Zaměstnanec</value>
+  </data>
+  <data name="FamilyStatusSingle" xml:space="preserve">
+    <value>Svobodný/svobodná</value>
+  </data>
+  <data name="FamilyStatusMarried" xml:space="preserve">
+    <value>Ženatý/vdaná</value>
+  </data>
+  <data name="GenderMale" xml:space="preserve">
+    <value>Muž</value>
+  </data>
+  <data name="GenderFemale" xml:space="preserve">
+    <value>Žena</value>
+  </data>
+  <data name="LocalMessageStatusNone" xml:space="preserve">
+    <value>Neurčeno</value>
+  </data>
+  <data name="LocalMessageStatusNotProcessed" xml:space="preserve">
+    <value>Nezpracováno</value>
+  </data>
+  <data name="LocalMessageStatusProcessed" xml:space="preserve">
+    <value>Zpracováno</value>
+  </data>
+  <data name="LocalMessageStatusFailed" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="IntegrationSystemNone" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="IntegrationSystemDgpp" xml:space="preserve">
+    <value>DGPP</value>
+  </data>
+  <data name="IntegrationSystemAds" xml:space="preserve">
+    <value>ADS</value>
+  </data>
+  <data name="IntegrationSystemBilling" xml:space="preserve">
+    <value>Fakturace</value>
+  </data>
+  <data name="IntegrationSystemErm" xml:space="preserve">
+    <value>ERM</value>
+  </data>
+  <data name="IntegrationSystemOneC" xml:space="preserve">
+    <value>1C</value>
+  </data>
+  <data name="IntegrationSystemExport" xml:space="preserve">
+    <value>Servis exportu</value>
+  </data>
+  <data name="IntegrationTypeNone" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
+    <value>Načtení firem</value>
+  </data>
+  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
+    <value>Načtení rubrik</value>
+  </data>
+  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
+    <value>Načtení území</value>
+  </data>
+  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
+    <value>Odeslání firem s aktivními objednávkami</value>
+  </data>
+  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
+    <value>Načtení odpisů</value>
+  </data>
+  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
+    <value>Odeslání objednávek</value>
+  </data>
+  <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
+    <value>Načtení připsaných částek na osobní účty</value>
+  </data>
+  <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
+    <value>Odeslání pr. osob klientů</value>
+  </data>
+  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
+    <value>Odeslání osobních účtů</value>
+  </data>
+  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
+    <value>Odeslání odpisů z osobních účtů</value>
+  </data>
+  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
+    <value>Odeslání ověření</value>
+  </data>
+  <data name="IntegrationTypeExportOrdersWithAdsToExport" xml:space="preserve">
+    <value>Odeslání aktivních objednávek</value>
+  </data>
+  <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
+    <value>Akční</value>
+  </data>
+  <data name="OrderDiscountReasonBargain" xml:space="preserve">
+    <value>Obchodní</value>
+  </data>
+  <data name="OrderDiscountReasonOther" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
+  <data name="OrderPositionDiscountReasonOther" xml:space="preserve">
+    <value>Jiný důvod</value>
+  </data>
+  <data name="OrderPositionDiscountReasonReason1" xml:space="preserve">
+    <value>1. důvod</value>
+  </data>
+  <data name="OrderPositionDiscountReasonReason2" xml:space="preserve">
+    <value>2. důvod</value>
+  </data>
+  <data name="LocalMessageStatusProcessing" xml:space="preserve">
+    <value>Zpracovává se</value>
+  </data>
+  <data name="LocalMessageStatusWaitForProcess" xml:space="preserve">
+    <value>Čeká na zpracování</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionDecisionMakerChanging" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Změna OPR.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLiquidation" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Zavření podniku.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLoanWriteOffs" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Odpis pohledávek.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLowEfficiency" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Nízká efektivita.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionOther" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Jiné (uveďte do komentáře).</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionServiceError" xml:space="preserve">
+    <value>Kategoricky zamítnuto. Chyba servisu.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionAdvertisementTypesAreUnacceptable" xml:space="preserve">
+    <value>Dočasně zamítnuto. Nevyhovují RM.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionBadTerms" xml:space="preserve">
+    <value>Dočasně zamítnuto. Nevyhovují podmínky.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionOther" xml:space="preserve">
+    <value>Dočasně zamítnuto. Jiné (uveďte do komentáře).</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionPlaceInOtherMedia" xml:space="preserve">
+    <value>Dočasně zamítnuto. Byl zvolen jiný zdroj.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionWrongSeason" xml:space="preserve">
+    <value>Dočasně zamítnuto. Není sezóna.</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
+    <value>Dohoda o zrušení objednávky pro SP</value>
+  </data>
+  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
+    <value>Smlouva pro SP</value>
+  </data>
+  <data name="TemplateCodeBillBusinessman" xml:space="preserve">
+    <value>Faktura pro SP</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
+    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro SP</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>Dohoda o zrušení objednávky pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
+    <value>Smlouva pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
+    <value>Faktura pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
+    <value>Objednávka (PC vč. DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderDesktopWithoutVat" xml:space="preserve">
+    <value>Objednávka (PC bez DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderMobileWithVat" xml:space="preserve">
+    <value>Objednávka (Mobile vč. DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderMobileWithoutVat" xml:space="preserve">
+    <value>Objednávka (Mobile bez DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderApiWithVat" xml:space="preserve">
+    <value>Objednávka (API vč. DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderApiWithoutVat" xml:space="preserve">
+    <value>Objednávka (API bez DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderOnlineWithVat" xml:space="preserve">
+    <value>Objednávka (Online vč. DPH)</value>
+  </data>
+  <data name="TemplateCodeOrderOnlineWithoutVat" xml:space="preserve">
+    <value>Objednávka (Online bez DPH)</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
+    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeLimitRequest" xml:space="preserve">
+    <value>Požadavek na limity</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
+    <value>Dod. dohoda pro fyz. osobu</value>
+  </data>
+  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
+    <value>Smlouva pro fyz. osobu</value>
+  </data>
+  <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
+    <value>Faktura pro fyz. osobu</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
+    <value>Oznámení o zrušení pro fyz. osobu</value>
+  </data>
+  <data name="OrderTypeSocialAds" xml:space="preserve">
+    <value>Sociální reklama</value>
+  </data>
+  <data name="FasCommentDisplayTextAbortion" xml:space="preserve">
+    <value>Existují kontraindikace, je třeba se poradit s odborným lékařem. Umělé přerušení těhotenství může zapříčinit neplodnost a poškodit zdravotní stav ženy.</value>
+  </data>
+  <data name="FasCommentDisplayTextAlcohol" xml:space="preserve">
+    <value>Nadměrné užívání alkoholu škodí Vašemu zdraví. Propagované alkoholické výrobky s obsahem maximálně pěti procent ethylalkoholu v objemu hotových výrobků.</value>
+  </data>
+  <data name="FasCommentDisplayTextBeer" xml:space="preserve">
+    <value>Nadměrné užívání alkoholu škodí Vašemu zdraví. Propagované alkoholické výrobky s obsahem maximálně pěti procent ethylalkoholu v objemu hotových výrobků.</value>
+  </data>
+  <data name="FasCommentDisplayTextDrugs" xml:space="preserve">
+    <value>Existují kontraindikace, je třeba si přečíst návod k použití.</value>
+  </data>
+  <data name="FasCommentDisplayTextSmoke" xml:space="preserve">
+    <value>Kouření škodí zdraví.</value>
+  </data>
+  <data name="FasCommentDrugs" xml:space="preserve">
+    <value>Reklama na léčiva, zdravotnickou techniku, zdravotnické prostředky.</value>
+  </data>
+  <data name="FasCommentDisplayTextDrugsAndService" xml:space="preserve">
+    <value>Existují kontraindikace, je třeba se poradit s odborným lékařem.</value>
+  </data>
+  <data name="OrderFileKindLetterOfGuaranteeScan" xml:space="preserve">
+    <value>Čestné prohlášení Objednavatele</value>
+  </data>
+  <data name="OrderFileKindOrderScan" xml:space="preserve">
+    <value>Objednávka</value>
+  </data>
+  <data name="OrderFileKindTerminationScan" xml:space="preserve">
+    <value>Zrušení</value>
+  </data>
+  <data name="OrderFileKindOtherDocumentScan" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
+  <data name="MarketTypeFmcg" xml:space="preserve">
+    <value>FMCG</value>
+  </data>
+  <data name="ProductTypePulseDemand" xml:space="preserve">
+    <value>Poptávka z náhlého popudu</value>
+  </data>
+  <data name="UsingOtherMediaOptionInternet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="UsingOtherMediaOptionOutdoorAds" xml:space="preserve">
+    <value>Venkovní reklama</value>
+  </data>
+  <data name="UsingOtherMediaOptionPrintMedia" xml:space="preserve">
+    <value>Tištěná média</value>
+  </data>
+  <data name="BudgetTypeFromOneHundredToFiveHundredThousands" xml:space="preserve">
+    <value>100 000 - 500 000</value>
+  </data>
+  <data name="BudgetTypeFromTenToThirtyThousands" xml:space="preserve">
+    <value>10 000 - 30 000</value>
+  </data>
+  <data name="BudgetTypeFromThirtyToOneHundredThousands" xml:space="preserve">
+    <value>30 000 - 100 000</value>
+  </data>
+  <data name="BudgetTypeLessTenThousand" xml:space="preserve">
+    <value>Do 10 000</value>
+  </data>
+  <data name="BudgetTypeMoreFiveHundredThousands" xml:space="preserve">
+    <value>Více než 500 000</value>
+  </data>
+  <data name="GeolocationDowntown" xml:space="preserve">
+    <value>Centrum</value>
+  </data>
+  <data name="GeolocationIndustrialZone" xml:space="preserve">
+    <value>Průmyslové zóny</value>
+  </data>
+  <data name="GeolocationSleepingQuarter" xml:space="preserve">
+    <value>Klidná čtvrť</value>
+  </data>
+  <data name="GeolocationTurnpike" xml:space="preserve">
+    <value>Dopravní tepny</value>
+  </data>
+  <data name="InCityBranchesAmountFromThreeToTen" xml:space="preserve">
+    <value>3 - 10</value>
+  </data>
+  <data name="InCityBranchesAmountLessThree" xml:space="preserve">
+    <value>Méně než 3</value>
+  </data>
+  <data name="InCityBranchesAmountMoreTen" xml:space="preserve">
+    <value>Více než 10</value>
+  </data>
+  <data name="OutCityBranchesAmountFromThreeToTen" xml:space="preserve">
+    <value>3 - 10</value>
+  </data>
+  <data name="OutCityBranchesAmountLessThree" xml:space="preserve">
+    <value>Méně než 3</value>
+  </data>
+  <data name="OutCityBranchesAmountMoreTen" xml:space="preserve">
+    <value>Více než 10</value>
+  </data>
+  <data name="StaffAmountFromFiftyToOneHundred" xml:space="preserve">
+    <value>51 – 100</value>
+  </data>
+  <data name="StaffAmountFromOneHundredToThreeHundred" xml:space="preserve">
+    <value>101 - 300</value>
+  </data>
+  <data name="StaffAmountFromThreeHundredToFiveHundred" xml:space="preserve">
+    <value>301 - 500</value>
+  </data>
+  <data name="StaffAmountFromTwentyToFifty" xml:space="preserve">
+    <value>21 - 50</value>
+  </data>
+  <data name="StaffAmountLessTwenty" xml:space="preserve">
+    <value>Do 20</value>
+  </data>
+  <data name="StaffAmountMoreFiveHundred" xml:space="preserve">
+    <value>501 a více</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategoryMultipleAsterix" xml:space="preserve">
+    <value>Rubrika (mn.)*</value>
+  </data>
+  <data name="AllOrdersReportTypeAll" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="AllOrdersReportTypeNew" xml:space="preserve">
+    <value>Nové</value>
+  </data>
+  <data name="AllOrdersReportTypeToProlongate" xml:space="preserve">
+    <value>K prolongaci</value>
+  </data>
+  <data name="BargainFileKindBargainScan" xml:space="preserve">
+    <value>Smlouva</value>
+  </data>
+  <data name="ObjectBindingTypeDifferent" xml:space="preserve">
+    <value>Vázané objekty se liší</value>
+  </data>
+  <data name="ObjectBindingTypeMatch" xml:space="preserve">
+    <value>Vázané objekty se shodují</value>
+  </data>
+  <data name="ObjectBindingTypeNoDependency" xml:space="preserve">
+    <value>Nezávisí na vázaném objektu</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeArbitraryValue" xml:space="preserve">
+    <value>Zadává se do položky objednávky</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeCounting" xml:space="preserve">
+    <value>Podle množství vybraných vázaných objektů</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeFixedValue" xml:space="preserve">
+    <value>Pevná hodnota</value>
+  </data>
+  <data name="AccountsReportTypeMonthly" xml:space="preserve">
+    <value>Měsíční</value>
+  </data>
+  <data name="AccountsReportTypeWeekly" xml:space="preserve">
+    <value>Týdenní</value>
+  </data>
+  <data name="SalesReportTypeAll" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="SalesReportTypeNew" xml:space="preserve">
+    <value>Nové</value>
+  </data>
+  <data name="SalesReportTypeToProlongation" xml:space="preserve">
+    <value>K prolongaci</value>
+  </data>
+  <data name="WithdrawalInfoStatusError" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="WithdrawalInfoStatusInProgress" xml:space="preserve">
+    <value>IN PROGRESS</value>
+  </data>
+  <data name="WithdrawalInfoStatusReverted" xml:space="preserve">
+    <value>CANCELLED</value>
+  </data>
+  <data name="WithdrawalInfoStatusSuccess" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
+  <data name="ActionTypeActivate" xml:space="preserve">
+    <value>Aktivace</value>
+  </data>
+  <data name="ActionTypeCreate" xml:space="preserve">
+    <value>Vytvoření</value>
+  </data>
+  <data name="ActionTypeDeactivate" xml:space="preserve">
+    <value>Deaktivace</value>
+  </data>
+  <data name="ActionTypeDelete" xml:space="preserve">
+    <value>Odstranění</value>
+  </data>
+  <data name="ActionTypeEdit" xml:space="preserve">
+    <value>Úprava</value>
+  </data>
+  <data name="OrderTypeProductBarter" xml:space="preserve">
+    <value>Směna zboží</value>
+  </data>
+  <data name="OrderTypeServiceBarter" xml:space="preserve">
+    <value>Barter služeb</value>
+  </data>
+  <data name="DocumentsDebtAbsent" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="DocumentsDebtFax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="DocumentsDebtOfficialNote" xml:space="preserve">
+    <value>Služební hlášení</value>
+  </data>
+  <data name="DocumentsDebtOriginal" xml:space="preserve">
+    <value>Originál</value>
+  </data>
+  <data name="DocumentsDebtOther" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
+  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
+    <value>Jednotná faktura pro SP</value>
+  </data>
+  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+    <value>Jednotná faktura pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
+    <value>Jednotná faktura pro fyz. osobu</value>
+  </data>
+  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
+    <value>Regionální oznámení o zrušení (pobočka - pobočka)</value>
+  </data>
+  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
+    <value>Regionální oznámení o zrušení (jiné než pobočka - pobočka)</value>
+  </data>
+  <data name="DocumentTypeBargain" xml:space="preserve">
+    <value>Smlouva</value>
+  </data>
+  <data name="DocumentTypeOrder" xml:space="preserve">
+    <value>Objednávka</value>
+  </data>
+  <data name="RegistryDocReportTypeDocument" xml:space="preserve">
+    <value>Podle smluv</value>
+  </data>
+  <data name="RegistryDocReportTypeOrder" xml:space="preserve">
+    <value>Podle objednávek</value>
+  </data>
+  <data name="RegistryDocReportTypeOutgoingRegional" xml:space="preserve">
+    <value>Odchozí regionální reklama</value>
+  </data>
+  <data name="RegistryDocReportTypeIncomingRegional" xml:space="preserve">
+    <value>Příchozí regionální reklama</value>
+  </data>
+  <data name="TemplateCodeReferenceInformation" xml:space="preserve">
+    <value>Referenční informace</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionTechnical" xml:space="preserve">
+    <value>Technické zrušení. Změna položek</value>
+  </data>
+  <data name="EntityNameLegalPerson" xml:space="preserve">
+    <value>Pr. osoba klienta</value>
+  </data>
+  <data name="EntityNameOrder" xml:space="preserve">
+    <value>Objednávka</value>
+  </data>
+  <data name="EntityNameOrderPosition" xml:space="preserve">
+    <value>Položka objednávky</value>
+  </data>
+  <data name="EntityNameOrderFile" xml:space="preserve">
+    <value>Soubor k objednávce</value>
+  </data>
+  <data name="EntityNameDeal" xml:space="preserve">
+    <value>Obchodní transakce</value>
+  </data>
+  <data name="EntityNameBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Pr. osoba oddělení organizace</value>
+  </data>
+  <data name="EntityNameOperationType" xml:space="preserve">
+    <value>Typ operace</value>
+  </data>
+  <data name="EntityNameAccountDetail" xml:space="preserve">
+    <value>Operace na osobním účtu</value>
+  </data>
+  <data name="EntityNamePrice" xml:space="preserve">
+    <value>Ceník</value>
+  </data>
+  <data name="EntityNameFirm" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="EntityNameFirmAddress" xml:space="preserve">
+    <value>Adresa firmy</value>
+  </data>
+  <data name="EntityNameFirmContact" xml:space="preserve">
+    <value>Firemní kontakt</value>
+  </data>
+  <data name="EntityNameBranchOffice" xml:space="preserve">
+    <value>Pr. osoba organizace</value>
+  </data>
+  <data name="EntityNameOrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="EntityNameClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="EntityNameBargain" xml:space="preserve">
+    <value>Smlouva</value>
+  </data>
+  <data name="EntityNameBargainType" xml:space="preserve">
+    <value>Typ smlouvy</value>
+  </data>
+  <data name="EntityNameBargainFile" xml:space="preserve">
+    <value>Soubor ke smlouvě</value>
+  </data>
+  <data name="EntityNameCurrency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="EntityNameCurrencyRate" xml:space="preserve">
+    <value>Směnný kurz</value>
+  </data>
+  <data name="EntityNamePlatform" xml:space="preserve">
+    <value>Platforma</value>
+  </data>
+  <data name="EntityNamePositionCategory" xml:space="preserve">
+    <value>Kategorie nomenklaturního prvku</value>
+  </data>
+  <data name="EntityNameAdvertisementTemplate" xml:space="preserve">
+    <value>Šablona reklamního materiálu</value>
+  </data>
+  <data name="EntityNamePricePosition" xml:space="preserve">
+    <value>Ceníkové položky</value>
+  </data>
+  <data name="EntityNameAccount" xml:space="preserve">
+    <value>Osobní účet</value>
+  </data>
+  <data name="EntityNameLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="EntityNamePosition" xml:space="preserve">
+    <value>Nomenklatura</value>
+  </data>
+  <data name="EntityNamePositionChildren" xml:space="preserve">
+    <value>Prvky kombinované nomenklatury</value>
+  </data>
+  <data name="EntityNameAssociatedPositionsGroup" xml:space="preserve">
+    <value>Skupina průvodních položek</value>
+  </data>
+  <data name="EntityNameAssociatedPosition" xml:space="preserve">
+    <value>Průvodní položka</value>
+  </data>
+  <data name="EntityNameDeniedPosition" xml:space="preserve">
+    <value>Zakázaná položka</value>
+  </data>
+  <data name="EntityNameContributionType" xml:space="preserve">
+    <value>Forma spolupráce</value>
+  </data>
+  <data name="EntityNameCategory" xml:space="preserve">
+    <value>Rubrika</value>
+  </data>
+  <data name="EntityNameCategoryGroup" xml:space="preserve">
+    <value>Skupina rubrik</value>
+  </data>
+  <data name="EntityNameCategoryOrganizationUnit" xml:space="preserve">
+    <value>Rubrika oddělení organizace</value>
+  </data>
+  <data name="EntityNameCategoryFirmAddress" xml:space="preserve">
+    <value>Rubrika adresy firmy</value>
+  </data>
+  <data name="EntityNameCountry" xml:space="preserve">
+    <value>Země</value>
+  </data>
+  <data name="EntityNameAdvertisement" xml:space="preserve">
+    <value>Reklamní materiál</value>
+  </data>
+  <data name="EntityNameAdvertisementElement" xml:space="preserve">
+    <value>Prvek reklamního materiálu</value>
+  </data>
+  <data name="EntityNameAdvertisementElementTemplate" xml:space="preserve">
+    <value>Šablona prvku reklamního materiálu</value>
+  </data>
+  <data name="EntityNameAdsTemplatesAdsElementTemplate" xml:space="preserve">
+    <value>Spojení prvku šablony RM s šablonou RM</value>
+  </data>
+  <data name="EntityNameBill" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="EntityNameLock" xml:space="preserve">
+    <value>Blokování</value>
+  </data>
+  <data name="EntityNameLockDetail" xml:space="preserve">
+    <value>Protokol blokování</value>
+  </data>
+  <data name="EntityNameContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="EntityNameWithdrawalInfo" xml:space="preserve">
+    <value>Odpis</value>
+  </data>
+  <data name="EntityNameReleaseInfo" xml:space="preserve">
+    <value>Sestavení</value>
+  </data>
+  <data name="EntityNameLocalMessage" xml:space="preserve">
+    <value>Místní zpráva</value>
+  </data>
+  <data name="EntityNamePrintFormTemplate" xml:space="preserve">
+    <value>Šablona výtisku</value>
+  </data>
+  <data name="EntityNameUserTerritoriesOrganizationUnits" xml:space="preserve">
+    <value>UserTerritoriesOrganizationUnits (poté bude vymazáno)</value>
+  </data>
+  <data name="EntityNameOrderReleaseTotal" xml:space="preserve">
+    <value>Plánované odpisy dle vydání (objednávka)</value>
+  </data>
+  <data name="EntityNameReleaseWithdrawal" xml:space="preserve">
+    <value>Plánované odpisy dle vydání (položka objednávky)</value>
+  </data>
+  <data name="EntityNameOrderPositionAdvertisement" xml:space="preserve">
+    <value>Reklamní materiál položky objednávky</value>
+  </data>
+  <data name="EntityNameUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="EntityNameUserRole" xml:space="preserve">
+    <value>Role uživatele</value>
+  </data>
+  <data name="EntityNameUserTerritory" xml:space="preserve">
+    <value>Území uživatele</value>
+  </data>
+  <data name="EntityNameUserOrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace uživatele</value>
+  </data>
+  <data name="EntityNameDepartment" xml:space="preserve">
+    <value>Pododdíl</value>
+  </data>
+  <data name="EntityNameRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="EntityNameTerritory" xml:space="preserve">
+    <value>Území</value>
+  </data>
+  <data name="EntityNameUserProfile" xml:space="preserve">
+    <value>Profil uživatele</value>
+  </data>
+  <data name="EntityNameRolePrivilege" xml:space="preserve">
+    <value>Oprávnění role</value>
+  </data>
+  <data name="EntityNameFile" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="EntityNameTimeZone" xml:space="preserve">
+    <value>Časové pásmo</value>
+  </data>
+  <data name="EntityNameNote" xml:space="preserve">
+    <value>Poznámka</value>
+  </data>
+  <data name="EntityAccessTypesAppend" xml:space="preserve">
+    <value>Připojení</value>
+  </data>
+  <data name="EntityAccessTypesAppendTo" xml:space="preserve">
+    <value>Připojení k</value>
+  </data>
+  <data name="EntityAccessTypesAssign" xml:space="preserve">
+    <value>Účel</value>
+  </data>
+  <data name="EntityAccessTypesCreate" xml:space="preserve">
+    <value>Vytvoření</value>
+  </data>
+  <data name="EntityAccessTypesDelete" xml:space="preserve">
+    <value>Odstranění</value>
+  </data>
+  <data name="EntityAccessTypesRead" xml:space="preserve">
+    <value>Čtení</value>
+  </data>
+  <data name="EntityAccessTypesShare" xml:space="preserve">
+    <value>Sdílení</value>
+  </data>
+  <data name="EntityAccessTypesUpdate" xml:space="preserve">
+    <value>Aktualizace</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitManagement" xml:space="preserve">
+    <value>Správa limitu</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitRecalculation" xml:space="preserve">
+    <value>Přepočet částky limitu</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitPeriodChanging" xml:space="preserve">
+    <value>Výběr období limitu</value>
+  </data>
+  <data name="FunctionalPrivilegeNamePositionAdministrationCode" xml:space="preserve">
+    <value>Správa nomenklatury</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderCreationExtended" xml:space="preserve">
+    <value>Rozšířené oprávnění pro vytvoření objednávky</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderStatesAccess" xml:space="preserve">
+    <value>Práce se stavem objednávky</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderChangeDocumentsDebt" xml:space="preserve">
+    <value>Nastavení/zrušení pohledávky v dokumentech</value>
+  </data>
+  <data name="FunctionalPrivilegeNameReserveAccess" xml:space="preserve">
+    <value>Práce s rezervou</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderBranchOfficeOrganizationUnitSelection" xml:space="preserve">
+    <value>Rozšířený výběr pr. osob organizace</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderChangeDealExtended" xml:space="preserve">
+    <value>Vazba objednávky na jinou obchodní transakci</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonChangeClient" xml:space="preserve">
+    <value>Změna klienta u pr. osoby klienta</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonChangeRequisites" xml:space="preserve">
+    <value>Změna údajů o pr. osobě klienta</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderCreationForFuture" xml:space="preserve">
+    <value>Rozšířený výběr období pro zveřejnění objednávky</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMergeClients" xml:space="preserve">
+    <value>Sloučení klientů</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCreateAccountDetails" xml:space="preserve">
+    <value>Vytvoření operace s osobním účtem</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCorporateQueueAccess" xml:space="preserve">
+    <value>Korporátní fronta</value>
+  </data>
+  <data name="FunctionalPrivilegeNameReleaseAccess" xml:space="preserve">
+    <value>Sestavení</value>
+  </data>
+  <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
+    <value>Odpis</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
+    <value>Vytvoření odchozí regionální reklamy</value>
+  </data>
+  <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
+    <value>Zpracování osobních účtů s pohledávkami</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCloseBargainOperationalPeriod" xml:space="preserve">
+    <value>Ukončení platnosti smluv</value>
+  </data>
+  <data name="FunctionalPrivilegeNameServiceUserAssign" xml:space="preserve">
+    <value>Stanovení správce pracovního uživatele</value>
+  </data>
+  <data name="FunctionalPrivilegeNameSendMassEmail" xml:space="preserve">
+    <value>Hromadné rozesílání e-mailů</value>
+  </data>
+  <data name="FunctionalPrivilegeNameChangeFirmClient" xml:space="preserve">
+    <value>Změna klienta u firmy</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLeaveClientWithNoFirms" xml:space="preserve">
+    <value>Ponechat klienta bez firem</value>
+  </data>
+  <data name="FunctionalPrivilegeNamePrereleaseOrderValidationExecution" xml:space="preserve">
+    <value>Hromadná kontrola objednávek</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditOrderType" xml:space="preserve">
+    <value>Změna typu objednávky</value>
+  </data>
+  <data name="FunctionalPrivilegeNameChangeFirmTerritory" xml:space="preserve">
+    <value>Změna území firmy</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMergeLegalPersons" xml:space="preserve">
+    <value>Sloučení právnických osob</value>
+  </data>
+  <data name="FunctionalPrivilegeNameFranchiseesWithdrawalExport" xml:space="preserve">
+    <value>Odeslání odpisů</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateDepartment" xml:space="preserve">
+    <value>Pododdíl</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateDepartmentAndChilds" xml:space="preserve">
+    <value>Pododdíl a podřízené prvky</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateOrganization" xml:space="preserve">
+    <value>Organizace</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="FPrvDepthDepartment" xml:space="preserve">
+    <value>Pododdíl</value>
+  </data>
+  <data name="FPrvDepthDepartment_Childs" xml:space="preserve">
+    <value>Pododdíl a podřízené prvky</value>
+  </data>
+  <data name="FPrvDepthOrgUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="FPrvDepthUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="FPrvDpthFullAccess" xml:space="preserve">
+    <value>Organizace</value>
+  </data>
+  <data name="FPrvDpthGranted" xml:space="preserve">
+    <value>Povoleno</value>
+  </data>
+  <data name="FPrvDpthGrantedLimited" xml:space="preserve">
+    <value>Částečně povoleno</value>
+  </data>
+  <data name="FPrvDpthOrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="FPrvDpthTerritory" xml:space="preserve">
+    <value>Území</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
+    <value>PPS1</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
+    <value>PPS2</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
+    <value>PPS3</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
+    <value>PPS4</value>
+  </data>
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+    <value>Vzít z rezervy</value>
+  </data>
+  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+    <value>Vrátit do rezervy</value>
+  </data>
+  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+    <value>Změna území</value>
+  </data>
+  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+    <value>Změna klienta</value>
+  </data>
+  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+    <value>Vytvoření PPS</value>
+  </data>
+  <data name="OperationStatusError" xml:space="preserve">
+    <value>Dokončeno s chybami</value>
+  </data>
+  <data name="OperationStatusInProgress" xml:space="preserve">
+    <value>Zpracovává se</value>
+  </data>
+  <data name="OperationStatusNone" xml:space="preserve">
+    <value>Neznámé</value>
+  </data>
+  <data name="OperationStatusSuccess" xml:space="preserve">
+    <value>Dokončeno</value>
+  </data>
+  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+    <value>Kontrola objednávek</value>
+  </data>
+  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+    <value>Odesílání odpisů do 1C</value>
+  </data>
+  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+    <value>Vytvoření regionální reklamy</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
+    <value>Vytvoření PPS</value>
+  </data>
+  <data name="EntityNameOperation" xml:space="preserve">
+    <value>Operace</value>
+  </data>
+  <data name="OrderProlongationReportTypeStandart" xml:space="preserve">
+    <value>Měsíční</value>
+  </data>
+  <data name="OrderProlongationReportTypeWeekly" xml:space="preserve">
+    <value>Týdenní</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeStandart" xml:space="preserve">
+    <value>Hlavní</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeOrderDebts" xml:space="preserve">
+    <value>Pohledávky z objednávek</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeBargainDebts" xml:space="preserve">
+    <value>Pohledávky ze smluv</value>
+  </data>
+  <data name="EntityNameLegalPersonProfile" xml:space="preserve">
+    <value>Profil pr. osoby klienta</value>
+  </data>
+  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
+    <value>Dod. služby pro firmy</value>
+  </data>
+  <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
+    <value>Odstranění profilu pr. osoby klienta</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeCertificate" xml:space="preserve">
+    <value>Listiny</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeCharter" xml:space="preserve">
+    <value>Stanov</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeWarranty" xml:space="preserve">
+    <value>Plné moci</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeBargain" xml:space="preserve">
+    <value>Smlouvy</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeFoundingBargain" xml:space="preserve">
+    <value>Zakladatelské smlouvy</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeUnderfined" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeRegistrationCertificate" xml:space="preserve">
+    <value>Osvědčení o registraci</value>
+  </data>
+  <data name="CannotRevertWithdrawalBecausePreviousWithdrawalIsFailed" xml:space="preserve">
+    <value>Není možné spustit obnovení, předchozí odpis proběhl s chybou</value>
+  </data>
+  <data name="WithdrawalIsAlreadyReverted" xml:space="preserve">
+    <value>Pokus o opětovné spuštění obnovení</value>
+  </data>
+  <data name="FailedToGetNumberForBargain" xml:space="preserve">
+    <value>Nepodařilo se získat číslo smlouvy</value>
+  </data>
+  <data name="TemplateCodeLetterOfGuarantee" xml:space="preserve">
+    <value>Čestné prohlášení Objednavatele</value>
+  </data>
+  <data name="TemplateCodeLetterOfGuaranteeAdvMaterial" xml:space="preserve">
+    <value>Čestné prohlášení Objednavatele (změna RM)</value>
+  </data>
+  <data name="EntityNameTheme" xml:space="preserve">
+    <value>Výběr podle tématu</value>
+  </data>
+  <data name="EntityNameThemeTemplate" xml:space="preserve">
+    <value>Šablona výběru podle témat</value>
+  </data>
+  <data name="ThemeTemplateCodeDefault" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="ThemeTemplateCodeRed" xml:space="preserve">
+    <value>Červený</value>
+  </data>
+  <data name="ThemeTemplateCodeGreen" xml:space="preserve">
+    <value>Zelený</value>
+  </data>
+  <data name="ThemeTemplateCodeBlue" xml:space="preserve">
+    <value>Modrý</value>
+  </data>
+  <data name="ThemeTemplateCodeSkyscraper" xml:space="preserve">
+    <value>Mrakodrap</value>
+  </data>
+  <data name="IntegrationTypeExportDataForAutoMailer" xml:space="preserve">
+    <value>Převedení dat</value>
+  </data>
+  <data name="IntegrationSystemAutoMailer" xml:space="preserve">
+    <value>Nástroj pro automatické rozesílání</value>
+  </data>
+  <data name="MailSendingTypeStatistic" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="MailSendingTypeCelebration" xml:space="preserve">
+    <value>Přání</value>
+  </data>
+  <data name="MailSendingTypePayment" xml:space="preserve">
+    <value>Oznámení o platbách</value>
+  </data>
+  <data name="MessageTypeError" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="MessageTypeWarning" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="TemplateCodeOrderWithoutVat" xml:space="preserve">
+    <value>Objednávka bez DPH</value>
+  </data>
+  <data name="TemplateCodeOrderWithVat" xml:space="preserve">
+    <value>Objednávka včetně DPH</value>
+  </data>
+  <data name="ActivityTypePhonecall" xml:space="preserve">
+    <value>Hovor</value>
+  </data>
+  <data name="ActivityTypeAppointment" xml:space="preserve">
+    <value>Setkání</value>
+  </data>
+  <data name="ActivityTypeTask" xml:space="preserve">
+    <value>Úkol</value>
+  </data>
+  <data name="ActivityPriorityLow" xml:space="preserve">
+    <value>Nízký</value>
+  </data>
+  <data name="ActivityPriorityAverage" xml:space="preserve">
+    <value>Střední</value>
+  </data>
+  <data name="ActivityPriorityHigh" xml:space="preserve">
+    <value>Vysoký</value>
+  </data>
+  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+    <value>První kontakt (seznámení)</value>
+  </data>
+  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+    <value>Prezentace</value>
+  </data>
+  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Prezentace reklamních možností</value>
+  </data>
+  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+    <value>Schválení a odeslání ON</value>
+  </data>
+  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+    <value>Dohodnutí lhůty na rozhodnutí</value>
+  </data>
+  <data name="ActivityPurposeSale" xml:space="preserve">
+    <value>Prodej</value>
+  </data>
+  <data name="ActivityPurposeService" xml:space="preserve">
+    <value>Servis</value>
+  </data>
+  <data name="ActivityPurposeUpsale" xml:space="preserve">
+    <value>Doprodej</value>
+  </data>
+  <data name="ActivityPurposeProlongation" xml:space="preserve">
+    <value>Prodloužení</value>
+  </data>
+  <data name="ActivityStatusInProgress" xml:space="preserve">
+    <value>Zpracovává se</value>
+  </data>
+  <data name="ActivityStatusCompleted" xml:space="preserve">
+    <value>Provedeno</value>
+  </data>
+  <data name="ActivityStatusCancelled" xml:space="preserve">
+    <value>Zrušeno</value>
+  </data>
+  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+    <value>Možný klient</value>
+  </data>
+  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+    <value>Úkol</value>
+  </data>
+  <data name="ActivityTaskTypeOther" xml:space="preserve">
+    <value>Více</value>
+  </data>
+  <data name="EntityNameProject" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="LanguageAbbreviationEn" xml:space="preserve">
+    <value>Angličtina</value>
+  </data>
+  <data name="LanguageAbbreviationIt" xml:space="preserve">
+    <value>Italština</value>
+  </data>
+  <data name="LanguageAbbreviationRu" xml:space="preserve">
+    <value>Ruština</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCascadeLegalPersonAssign" xml:space="preserve">
+    <value>Kaskádová výměna správce pr. osoby</value>
+  </data>
+  <data name="LanguageAbbreviationCs" xml:space="preserve">
+    <value>Čeština</value>
+  </data>
+  <data name="PlatformsExtendedDesktop" xml:space="preserve">
+    <value>Verze pro PC</value>
+  </data>
+  <data name="PlatformsExtendedMobile" xml:space="preserve">
+    <value>Mobilní verze</value>
+  </data>
+  <data name="PlatformsExtendedApi" xml:space="preserve">
+    <value>API</value>
+  </data>
+  <data name="PlatformsExtendedApiOnline" xml:space="preserve">
+    <value>API (online)</value>
+  </data>
+  <data name="PlatformsExtendedApiPartner" xml:space="preserve">
+    <value>API (partneři)</value>
+  </data>
+  <data name="PlatformsExtendedOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="PaymentMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentMethodBankChequePayment" xml:space="preserve">
+    <value>Šek</value>
+  </data>
+  <data name="PaymentMethodBankTransaction" xml:space="preserve">
+    <value>Bezhotovostní platba</value>
+  </data>
+  <data name="PaymentMethodCashPayment" xml:space="preserve">
+    <value>Platba v hotovosti</value>
+  </data>
+  <data name="PaymentMethodCreditCardPayment" xml:space="preserve">
+    <value>Bankovní karta</value>
+  </data>
+  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="ActivityPriorityNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="ActivityPurposeNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="ActivityStatusNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="ActivityTypeNotSet" xml:space="preserve">
+    <value>Nezadáno</value>
+  </data>
+  <data name="FirmAddressContactTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseDealReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealStageNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InformationSourceNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReasonForNewDealNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FasCommentNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MarketTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UsingOtherMediaOptionNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountRoleNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FamilyStatusNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GenderNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDiscountReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderTerminationReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionAccountingMethodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionBindingObjectTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionCalculationMethodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TemplateCodeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BudgetTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GeolocationNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InCityBranchesAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutCityBranchesAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StaffAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllOrdersReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ObjectBindingTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountsReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SalesReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegistryDocReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
+    <value>Zveřejnění šablony RM</value>
+  </data>
+  <data name="FunctionalPrivilegeNameUnpublishAdvertisementTemplate" xml:space="preserve">
+    <value>Zrušení zveřejnění šablony RM</value>
+  </data>
+  <data name="ESalesPointTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ESalesPointTypeFilial" xml:space="preserve">
+    <value>Pobočka</value>
+  </data>
+  <data name="ESalesPointTypeFranch" xml:space="preserve">
+    <value>Franšíza</value>
+  </data>
+  <data name="ESalesPointTypeSelf" xml:space="preserve">
+    <value>Místní</value>
+  </data>
+  <data name="ESalesPointTypeUk" xml:space="preserve">
+    <value>ŘS</value>
+  </data>
+  <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
+    <value>Místní reklama na pobočce</value>
+  </data>
+  <data name="ESalesPointTypePairFilialFilial" xml:space="preserve">
+    <value>Odchozí reklama z pobočky 1 na pobočku 2</value>
+  </data>
+  <data name="ESalesPointTypePairFilialFranch" xml:space="preserve">
+    <value>Odchozí reklama z pobočky do franšízy</value>
+  </data>
+  <data name="ESalesPointTypePairFranchSelf" xml:space="preserve">
+    <value>Místní reklama ve franšíze</value>
+  </data>
+  <data name="ESalesPointTypePairFranchFranch" xml:space="preserve">
+    <value>Odchozí reklama z franšízy 1 do franšízy 2</value>
+  </data>
+  <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
+    <value>Odchozí reklama z franšízy na pobočku</value>
+  </data>
+  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
+    <value>Neověřen</value>
+  </data>
+  <data name="AdvertisementElementStatusValid" xml:space="preserve">
+    <value>Ověřen</value>
+  </data>
+  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
+    <value>Zamítnutá</value>
+  </data>
+  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
+    <value>Právnická</value>
+  </data>
+  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
+    <value>Neodpovídá požadavkům</value>
+  </data>
+  <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
+    <value>Ověření RM</value>
+  </data>
+  <data name="AdvertisementElementModel_ToEntity_AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
+    <value>Úprava zástupného symbolu RM</value>
+  </data>
+  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+    <value>Hledání objednávek se zástupnými symboly RM</value>
+  </data>
+  <data name="FasCommentSupplements" xml:space="preserve">
+    <value>Reklama na BADy</value>
+  </data>
+  <data name="FasCommentDisplayTextSupplements" xml:space="preserve">
+    <value>Reklamovaný objekt není léčivem.</value>
+  </data>
+  <data name="OrderFileKindWarrantyScan" xml:space="preserve">
+    <value>PLNÁ MOC</value>
+  </data>
+  <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
+    <value>Čestné prohlášení Objednavatele</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonBusinessman" xml:space="preserve">
+    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro OSVČ</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonLegalPerson" xml:space="preserve">
+    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainBusinessman" xml:space="preserve">
+    <value>Oznámení o zrušení smlouvy s uvedením důvodu pro OSVČ</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainLegalPerson" xml:space="preserve">
+    <value>Oznámení o zrušení smlouvy s uvedením důvodu pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonBusinessman" xml:space="preserve">
+    <value>Oznámení o zrušení smlouvy bez uvedení důvodu pro OSVČ</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonLegalPerson" xml:space="preserve">
+    <value>Oznámení o zrušení smlouvy bez uvedení důvodu pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementBusinessman" xml:space="preserve">
+    <value>Dohoda o zrušení smlouvy pro OSVČ</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>Dohoda o zrušení smlouvy pro pr. osobu</value>
+  </data>
+</root>

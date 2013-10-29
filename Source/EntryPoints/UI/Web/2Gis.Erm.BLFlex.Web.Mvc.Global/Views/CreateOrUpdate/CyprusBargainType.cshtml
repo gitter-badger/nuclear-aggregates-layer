@@ -1,0 +1,26 @@
+﻿@model CyprusBargainTypeViewModel
+           
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.twins)
+            @Html.TemplateField(m=> m.VatRate, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.SyncCode1C, FieldFlex.lone)
+        </div>
+    </div>
+}

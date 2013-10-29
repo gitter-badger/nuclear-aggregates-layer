@@ -1,0 +1,1740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FirmAddressContactTypePhone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="FirmAddressContactTypeFax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FirmAddressContactTypeEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="FirmAddressContactTypeWebsite" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="FirmAddressContactTypeIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="FirmAddressContactTypeSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="FirmAddressContactTypeOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="CloseDealReasonReason1" xml:space="preserve">
+    <value>Temporary refusal. No decision maker</value>
+  </data>
+  <data name="CloseDealReasonReason2" xml:space="preserve">
+    <value>Temporary refusal. Doubts about efficiency</value>
+  </data>
+  <data name="CloseDealReasonReason3" xml:space="preserve">
+    <value>Temporary refusal. No money</value>
+  </data>
+  <data name="CloseDealReasonReason4" xml:space="preserve">
+    <value>Temporary refusal. Unsatisfied with the product</value>
+  </data>
+  <data name="CloseDealReasonReason5" xml:space="preserve">
+    <value>Temporary refusal. Other (specify)</value>
+  </data>
+  <data name="CloseDealReasonReason6" xml:space="preserve">
+    <value>Flat refusal. Client's negativity</value>
+  </data>
+  <data name="CloseDealReasonReason7" xml:space="preserve">
+    <value>Flat refusal.  Inappropriate target audience</value>
+  </data>
+  <data name="CloseDealReasonReason8" xml:space="preserve">
+    <value>Flat refusal. Advertise with competitors</value>
+  </data>
+  <data name="CloseDealReasonReason9" xml:space="preserve">
+    <value>Flat refusal. No interest</value>
+  </data>
+  <data name="CloseDealReasonReason10" xml:space="preserve">
+    <value>Flat refusal.  Other (specify)</value>
+  </data>
+  <data name="DealStageCollectInformation" xml:space="preserve">
+    <value>Collecting information</value>
+  </data>
+  <data name="DealStageHoldingProductPresentation" xml:space="preserve">
+    <value>Presentations</value>
+  </data>
+  <data name="DealStageMatchAndSendProposition" xml:space="preserve">
+    <value>Approval of CO</value>
+  </data>
+  <data name="DealStageOrderFormed" xml:space="preserve">
+    <value>Order is formed</value>
+  </data>
+  <data name="DealStageOrderApprovedForRelease" xml:space="preserve">
+    <value>Order approval for issue</value>
+  </data>
+  <data name="DealStageService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ReasonForNewDealClientCall" xml:space="preserve">
+    <value>Client's initiative Call</value>
+  </data>
+  <data name="ReasonForNewDealClientEmail" xml:space="preserve">
+    <value>Client's initiative E-mail</value>
+  </data>
+  <data name="ReasonForNewDealClientVisit" xml:space="preserve">
+    <value>Client's initiative Visit</value>
+  </data>
+  <data name="DocumentsDeliveryMethodPostOnly" xml:space="preserve">
+    <value>By post</value>
+  </data>
+  <data name="DocumentsDeliveryMethodDeliveryByManager" xml:space="preserve">
+    <value>Delivery by SR</value>
+  </data>
+  <data name="DocumentsDeliveryMethodDeliveryByClient" xml:space="preserve">
+    <value>By client</value>
+  </data>
+  <data name="DocumentsDeliveryMethodByEmail" xml:space="preserve">
+    <value>By e-mail</value>
+  </data>
+  <data name="DocumentsDeliveryMethodByCourier" xml:space="preserve">
+    <value>By courier</value>
+  </data>
+  <data name="OrderTypeAdsBarter" xml:space="preserve">
+    <value>Barter of advertisement</value>
+  </data>
+  <data name="OrderTypeProductAdsService" xml:space="preserve">
+    <value>GAS (goods, advertising, services)</value>
+  </data>
+  <data name="OrderTypeSale" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="OrderTypeSelfAds" xml:space="preserve">
+    <value>Self-advertisement</value>
+  </data>
+  <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Guaranteed rendering</value>
+  </data>
+  <data name="PositionAccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Planned rendering</value>
+  </data>
+  <data name="PositionCalculationMethodPosition" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="PositionCalculationMethodUnit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodFourMonths" xml:space="preserve">
+    <value>Four months</value>
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodOneMonth" xml:space="preserve">
+    <value>One month</value>
+  </data>
+  <data name="PositionPlatformPlacementPeriodDay" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="PositionPlatformPlacementPeriodMonth" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressSingle" xml:space="preserve">
+    <value>Address (sing.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressCategoryMultiple" xml:space="preserve">
+    <value>Address category (pl.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressCategorySingle" xml:space="preserve">
+    <value>Address category (sing.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategorySingle" xml:space="preserve">
+    <value>Category (sing.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeFirm" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressMultiple" xml:space="preserve">
+    <value>Address (pl.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategoryMultiple" xml:space="preserve">
+    <value>Category (pl.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeThemeMultiple" xml:space="preserve">
+    <value>Subject (pl.)</value>
+  </data>
+  <data name="ReasonForNewDealManagerCall" xml:space="preserve">
+    <value>Sale Representative's initiative Call</value>
+  </data>
+  <data name="ReasonForNewDealManagerVisit" xml:space="preserve">
+    <value>Sale Representative's initiative Visit</value>
+  </data>
+  <data name="InformationSourceWarmClient" xml:space="preserve">
+    <value>Warm Lead</value>
+  </data>
+  <data name="OrderStateApproved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="OrderStateArchive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="OrderStateOnApproval" xml:space="preserve">
+    <value>For approval</value>
+  </data>
+  <data name="OrderStateOnRegistration" xml:space="preserve">
+    <value>Preparation</value>
+  </data>
+  <data name="OrderStateOnTermination" xml:space="preserve">
+    <value>Termination in progress</value>
+  </data>
+  <data name="OrderStateRejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="InformationSourceDoubleGis" xml:space="preserve">
+    <value>2GIS</value>
+  </data>
+  <data name="InformationSourceInformationDepartment" xml:space="preserve">
+    <value>Information Department</value>
+  </data>
+  <data name="InformationSourceSalesDepartment" xml:space="preserve">
+    <value>Sales Department</value>
+  </data>
+  <data name="InformationSourceMedia" xml:space="preserve">
+    <value>Mass media</value>
+  </data>
+  <data name="LimitStatusApproved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="LimitStatusOpened" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="LimitStatusRejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="ReasonForNewDealWarmClient" xml:space="preserve">
+    <value>Warm Lead</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeFasComment" xml:space="preserve">
+    <value>FAS comments</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeImage" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeText" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="OrderBudgetTypeBudget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="OrderBudgetTypeSell" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="OrderBudgetTypeUndefined" xml:space="preserve">
+    <value>Not defined</value>
+  </data>
+  <data name="AdvertisementElementRestrictionTypeDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="FasCommentNewFasComment" xml:space="preserve">
+    <value>New FAS comments</value>
+  </data>
+  <data name="FasCommentAbortion" xml:space="preserve">
+    <value>Advertisement of medical services for induced termination of pregnancy.</value>
+  </data>
+  <data name="FasCommentAlcohol" xml:space="preserve">
+    <value>Advertisement of alcoholic products</value>
+  </data>
+  <data name="FasCommentBeer" xml:space="preserve">
+    <value>Advertisement of beer and beer-based beverages</value>
+  </data>
+  <data name="FasCommentDrugsAndService" xml:space="preserve">
+    <value>Advertisement of pharmaceuticals, medical equipment, health care products and medical services including treatment procedures.</value>
+  </data>
+  <data name="FasCommentSmoke" xml:space="preserve">
+    <value>Advertisement of tobacco, tobacco products and smoking requisites</value>
+  </data>
+  <data name="ProductTypeMass" xml:space="preserve">
+    <value>Mass services</value>
+  </data>
+  <data name="ProductTypeConsideredDemand" xml:space="preserve">
+    <value>Balanced demand</value>
+  </data>
+  <data name="MarketTypeB2B" xml:space="preserve">
+    <value>B2B</value>
+  </data>
+  <data name="MarketTypeB2C" xml:space="preserve">
+    <value>B2C</value>
+  </data>
+  <data name="UsingOtherMediaOptionTv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="UsingOtherMediaOptionRadio" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="LegalPersonTypeBusinessman" xml:space="preserve">
+    <value>Sole Proprietorship</value>
+  </data>
+  <data name="LegalPersonTypeLegalPerson" xml:space="preserve">
+    <value>Legal entity</value>
+  </data>
+  <data name="LegalPersonTypeNaturalPerson" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>Category of the 1st level address (sing.)</value>
+  </data>
+  <data name="PositionBindingObjectTypeAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>Category of the 1st level address (pl.)</value>
+  </data>
+  <data name="ReleaseInfoStatusInProgress" xml:space="preserve">
+    <value>IN PROGRESS</value>
+  </data>
+  <data name="ReleaseInfoStatusSuccess" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
+  <data name="ReleaseInfoStatusError" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="ReleaseInfoStatusReverted" xml:space="preserve">
+    <value>CANCELLED</value>
+  </data>
+  <data name="ReleaseInfoOperationTypeBeta" xml:space="preserve">
+    <value>Technical</value>
+  </data>
+  <data name="ReleaseInfoOperationTypeRelease" xml:space="preserve">
+    <value>Final</value>
+  </data>
+  <data name="AccountRoleMakingDecisions" xml:space="preserve">
+    <value>Takes decisions</value>
+  </data>
+  <data name="AccountRoleInfluenceDecisions" xml:space="preserve">
+    <value>Influences decisions</value>
+  </data>
+  <data name="AccountRoleEmployee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="FamilyStatusSingle" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="FamilyStatusMarried" xml:space="preserve">
+    <value>Married</value>
+  </data>
+  <data name="GenderMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="GenderFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="LocalMessageStatusNone" xml:space="preserve">
+    <value>Not defined</value>
+  </data>
+  <data name="LocalMessageStatusNotProcessed" xml:space="preserve">
+    <value>Not processed</value>
+  </data>
+  <data name="LocalMessageStatusProcessed" xml:space="preserve">
+    <value>Processed</value>
+  </data>
+  <data name="LocalMessageStatusFailed" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="IntegrationSystemNone" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="IntegrationSystemDgpp" xml:space="preserve">
+    <value>DGPP</value>
+  </data>
+  <data name="IntegrationSystemAds" xml:space="preserve">
+    <value>ADS</value>
+  </data>
+  <data name="IntegrationSystemBilling" xml:space="preserve">
+    <value>Billing</value>
+  </data>
+  <data name="IntegrationSystemErm" xml:space="preserve">
+    <value>ERM</value>
+  </data>
+  <data name="IntegrationSystemOneC" xml:space="preserve">
+    <value>1C</value>
+  </data>
+  <data name="IntegrationSystemExport" xml:space="preserve">
+    <value>Export service</value>
+  </data>
+  <data name="IntegrationTypeNone" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
+    <value>Loading companies</value>
+  </data>
+  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
+    <value>Loading categories</value>
+  </data>
+  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
+    <value>Loading territories</value>
+  </data>
+  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
+    <value>Unloading companies with active orders</value>
+  </data>
+  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
+    <value>Loading writing-offs</value>
+  </data>
+  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
+    <value>Unloading orders</value>
+  </data>
+  <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
+    <value>Loading account receipts</value>
+  </data>
+  <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
+    <value>Unloading legal entities of Clients</value>
+  </data>
+  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
+    <value>Unloading of personal accounts</value>
+  </data>
+  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
+    <value>Unloading account writing-offs</value>
+  </data>
+  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
+    <value>Unloading reconciliation reports</value>
+  </data>
+  <data name="IntegrationTypeExportOrdersWithAdsToExport" xml:space="preserve">
+    <value>Unloading active orders</value>
+  </data>
+  <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
+    <value>Promotional</value>
+  </data>
+  <data name="OrderDiscountReasonBargain" xml:space="preserve">
+    <value>Trade</value>
+  </data>
+  <data name="OrderDiscountReasonOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OrderPositionDiscountReasonOther" xml:space="preserve">
+    <value>Other reason</value>
+  </data>
+  <data name="OrderPositionDiscountReasonReason1" xml:space="preserve">
+    <value>Reason 1</value>
+  </data>
+  <data name="OrderPositionDiscountReasonReason2" xml:space="preserve">
+    <value>Reason 2</value>
+  </data>
+  <data name="LocalMessageStatusProcessing" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="LocalMessageStatusWaitForProcess" xml:space="preserve">
+    <value>Waiting for processing</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionDecisionMakerChanging" xml:space="preserve">
+    <value>Flat refusal. Change of a decision-maker</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLiquidation" xml:space="preserve">
+    <value>Flat refusal. Closure of an enterprise.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLoanWriteOffs" xml:space="preserve">
+    <value>Flat refusal. Writing-off of accounts receivable.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionLowEfficiency" xml:space="preserve">
+    <value>Flat refusal. Low efficiency.</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionOther" xml:space="preserve">
+    <value>Flat refusal. Other (specify in the comment).</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionServiceError" xml:space="preserve">
+    <value>Flat refusal. Service error.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionAdvertisementTypesAreUnacceptable" xml:space="preserve">
+    <value>Temporary refusal. AM does not suit.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionBadTerms" xml:space="preserve">
+    <value>Temporary refusal. Conditions do not suit.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionOther" xml:space="preserve">
+    <value>Temporary refusal. Other (specify in the comment).</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionPlaceInOtherMedia" xml:space="preserve">
+    <value>Temporary refusal. Another source is selected.</value>
+  </data>
+  <data name="OrderTerminationReasonTemporaryRejectionWrongSeason" xml:space="preserve">
+    <value>Temporary refusal. Off season.</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
+    <value>Sup. agreement for SP</value>
+  </data>
+  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
+    <value>Contract for SP</value>
+  </data>
+  <data name="TemplateCodeBillBusinessman" xml:space="preserve">
+    <value>Payment for SP</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
+    <value>Cancellation notice for SP</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>Sup. agreement for a legal entity</value>
+  </data>
+  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
+    <value>Contract for a legal entity</value>
+  </data>
+  <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
+    <value>Payment for a legal entity</value>
+  </data>
+  <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
+    <value>Invoice (PC, with VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderDesktopWithoutVat" xml:space="preserve">
+    <value>Invoice (PC, without VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderMobileWithVat" xml:space="preserve">
+    <value>Invoice (Mobile, with VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderMobileWithoutVat" xml:space="preserve">
+    <value>Invoice (Mobile, without VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderApiWithVat" xml:space="preserve">
+    <value>Invoice (API, with VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderApiWithoutVat" xml:space="preserve">
+    <value>Invoice (API, without VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderOnlineWithVat" xml:space="preserve">
+    <value>Invoice (Online, with VAT)</value>
+  </data>
+  <data name="TemplateCodeOrderOnlineWithoutVat" xml:space="preserve">
+    <value>Invoice (Online, without VAT)</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
+    <value>Cancellation notice for a legal entity</value>
+  </data>
+  <data name="TemplateCodeLimitRequest" xml:space="preserve">
+    <value>Request for limits</value>
+  </data>
+  <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
+    <value>Sup. agreement for an individual</value>
+  </data>
+  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
+    <value>Contract for an individual</value>
+  </data>
+  <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
+    <value>Payment for an individual</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
+    <value>Cancellation notice for an individual</value>
+  </data>
+  <data name="OrderTypeSocialAds" xml:space="preserve">
+    <value>Public service advertising</value>
+  </data>
+  <data name="FasCommentDisplayTextAbortion" xml:space="preserve">
+    <value>There are contra-indications; consult with a specialist; may cause harmful effects.</value>
+  </data>
+  <data name="FasCommentDisplayTextAlcohol" xml:space="preserve">
+    <value>Excessive consumption of alcohol is harmful to your health.</value>
+  </data>
+  <data name="FasCommentDisplayTextDrugs" xml:space="preserve">
+    <value>There are contra-indications; read directions for use.</value>
+  </data>
+  <data name="FasCommentDisplayTextSmoke" xml:space="preserve">
+    <value>Smoking is a health hazard.</value>
+  </data>
+  <data name="FasCommentDrugs" xml:space="preserve">
+    <value>Advertisement of pharmaceuticals, medical equipment, health care products.</value>
+  </data>
+  <data name="FasCommentDisplayTextDrugsAndService" xml:space="preserve">
+    <value>There are contra-indications; consult a specialist.</value>
+  </data>
+  <data name="OrderFileKindLetterOfGuaranteeScan" xml:space="preserve">
+    <value>Client's letter of guarantee</value>
+  </data>
+  <data name="OrderFileKindOrderScan" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="OrderFileKindTerminationScan" xml:space="preserve">
+    <value>Termination</value>
+  </data>
+  <data name="OrderFileKindOtherDocumentScan" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="CyprusOrderFileKindTerminationScan" xml:space="preserve">
+    <value>Termination</value>
+  </data>
+  <data name="CyprusOrderFileKindOtherDocumentScan" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="MarketTypeFmcg" xml:space="preserve">
+    <value>FMCG</value>
+  </data>
+  <data name="ProductTypePulseDemand" xml:space="preserve">
+    <value>Impulse demand</value>
+  </data>
+  <data name="UsingOtherMediaOptionInternet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="UsingOtherMediaOptionOutdoorAds" xml:space="preserve">
+    <value>Outdoor advertisement</value>
+  </data>
+  <data name="UsingOtherMediaOptionPrintMedia" xml:space="preserve">
+    <value>Print media</value>
+  </data>
+  <data name="BudgetTypeFromOneHundredToFiveHundredThousands" xml:space="preserve">
+    <value>100.000 - 500.000</value>
+  </data>
+  <data name="BudgetTypeFromTenToThirtyThousands" xml:space="preserve">
+    <value>10.000 - 30.000</value>
+  </data>
+  <data name="BudgetTypeFromThirtyToOneHundredThousands" xml:space="preserve">
+    <value>30.000 - 100.000</value>
+  </data>
+  <data name="BudgetTypeLessTenThousand" xml:space="preserve">
+    <value>Up to 10.000</value>
+  </data>
+  <data name="BudgetTypeMoreFiveHundredThousands" xml:space="preserve">
+    <value>More than 500.000</value>
+  </data>
+  <data name="GeolocationDowntown" xml:space="preserve">
+    <value>Downtown</value>
+  </data>
+  <data name="GeolocationIndustrialZone" xml:space="preserve">
+    <value>Industrial zones</value>
+  </data>
+  <data name="GeolocationSleepingQuarter" xml:space="preserve">
+    <value>Bedroom suburb</value>
+  </data>
+  <data name="GeolocationTurnpike" xml:space="preserve">
+    <value>Main lines</value>
+  </data>
+  <data name="InCityBranchesAmountFromThreeToTen" xml:space="preserve">
+    <value>3-10</value>
+  </data>
+  <data name="InCityBranchesAmountLessThree" xml:space="preserve">
+    <value>Less than 3</value>
+  </data>
+  <data name="InCityBranchesAmountMoreTen" xml:space="preserve">
+    <value>More than 10</value>
+  </data>
+  <data name="OutCityBranchesAmountFromThreeToTen" xml:space="preserve">
+    <value>3-10</value>
+  </data>
+  <data name="OutCityBranchesAmountLessThree" xml:space="preserve">
+    <value>Less than 3</value>
+  </data>
+  <data name="OutCityBranchesAmountMoreTen" xml:space="preserve">
+    <value>More than 10</value>
+  </data>
+  <data name="StaffAmountFromFiftyToOneHundred" xml:space="preserve">
+    <value>51-100</value>
+  </data>
+  <data name="StaffAmountFromOneHundredToThreeHundred" xml:space="preserve">
+    <value>101-300</value>
+  </data>
+  <data name="StaffAmountFromThreeHundredToFiveHundred" xml:space="preserve">
+    <value>301 - 500</value>
+  </data>
+  <data name="StaffAmountFromTwentyToFifty" xml:space="preserve">
+    <value>21-50</value>
+  </data>
+  <data name="StaffAmountLessTwenty" xml:space="preserve">
+    <value>Up to 20</value>
+  </data>
+  <data name="StaffAmountMoreFiveHundred" xml:space="preserve">
+    <value>501 and more</value>
+  </data>
+  <data name="PositionBindingObjectTypeCategoryMultipleAsterix" xml:space="preserve">
+    <value>Category (pl.)*</value>
+  </data>
+  <data name="AllOrdersReportTypeAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllOrdersReportTypeNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="AllOrdersReportTypeToProlongate" xml:space="preserve">
+    <value>For extension</value>
+  </data>
+  <data name="BargainFileKindBargainScan" xml:space="preserve">
+    <value>Contract</value>
+  </data>
+  <data name="ObjectBindingTypeDifferent" xml:space="preserve">
+    <value>Reference objects differ</value>
+  </data>
+  <data name="ObjectBindingTypeMatch" xml:space="preserve">
+    <value>Reference objects coincide</value>
+  </data>
+  <data name="ObjectBindingTypeNoDependency" xml:space="preserve">
+    <value>Independent of the reference object</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeArbitraryValue" xml:space="preserve">
+    <value>Specified in Order Item</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeCounting" xml:space="preserve">
+    <value>By number of selected reference objects</value>
+  </data>
+  <data name="PricePositionAmountSpecificationModeFixedValue" xml:space="preserve">
+    <value>Fixed value</value>
+  </data>
+  <data name="AccountsReportTypeMonthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="AccountsReportTypeWeekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="SalesReportTypeAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="SalesReportTypeNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="SalesReportTypeToProlongation" xml:space="preserve">
+    <value>For extension</value>
+  </data>
+  <data name="WithdrawalInfoStatusError" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="WithdrawalInfoStatusInProgress" xml:space="preserve">
+    <value>IN PROGRESS</value>
+  </data>
+  <data name="WithdrawalInfoStatusReverted" xml:space="preserve">
+    <value>CANCELLED</value>
+  </data>
+  <data name="WithdrawalInfoStatusSuccess" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
+  <data name="ActionTypeActivate" xml:space="preserve">
+    <value>Activation</value>
+  </data>
+  <data name="ActionTypeCreate" xml:space="preserve">
+    <value>Creation</value>
+  </data>
+  <data name="ActionTypeDeactivate" xml:space="preserve">
+    <value>Deactivation</value>
+  </data>
+  <data name="ActionTypeDelete" xml:space="preserve">
+    <value>Deleting</value>
+  </data>
+  <data name="ActionTypeEdit" xml:space="preserve">
+    <value>Editing</value>
+  </data>
+  <data name="OrderTypeProductBarter" xml:space="preserve">
+    <value>Barter of commodities</value>
+  </data>
+  <data name="OrderTypeServiceBarter" xml:space="preserve">
+    <value>Barter of services</value>
+  </data>
+  <data name="DocumentsDebtAbsent" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="DocumentsDebtFax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="DocumentsDebtOfficialNote" xml:space="preserve">
+    <value>Office memorandum</value>
+  </data>
+  <data name="DocumentsDebtOriginal" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="DocumentsDebtOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
+    <value>Joint payment for SP</value>
+  </data>
+  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+    <value>Joint payment for a legal entity</value>
+  </data>
+  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
+    <value>Joint payment for an individual</value>
+  </data>
+  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
+    <value>Regional cancellation notice (Branch-Branch)</value>
+  </data>
+  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
+    <value>Regional cancellation notice (different from Branch-Branch)</value>
+  </data>
+  <data name="DocumentTypeBargain" xml:space="preserve">
+    <value>Contract</value>
+  </data>
+  <data name="DocumentTypeOrder" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="RegistryDocReportTypeDocument" xml:space="preserve">
+    <value>By Contracts</value>
+  </data>
+  <data name="RegistryDocReportTypeOrder" xml:space="preserve">
+    <value>By Orders</value>
+  </data>
+  <data name="RegistryDocReportTypeOutgoingRegional" xml:space="preserve">
+    <value>Outgoing regional advertisement</value>
+  </data>
+  <data name="RegistryDocReportTypeIncomingRegional" xml:space="preserve">
+    <value>Incoming regional advertisement</value>
+  </data>
+  <data name="TemplateCodeReferenceInformation" xml:space="preserve">
+    <value>Reference info</value>
+  </data>
+  <data name="OrderTerminationReasonRejectionTechnical" xml:space="preserve">
+    <value>Technical cancellation. Item substitution</value>
+  </data>
+  <data name="EntityNameLegalPerson" xml:space="preserve">
+    <value>Legal entity of the client:</value>
+  </data>
+  <data name="EntityNameOrder" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="EntityNameOrderPosition" xml:space="preserve">
+    <value>Order item</value>
+  </data>
+  <data name="EntityNameOrderFile" xml:space="preserve">
+    <value>Order file</value>
+  </data>
+  <data name="EntityNameDeal" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="EntityNameBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Legal entity of a company division</value>
+  </data>
+  <data name="EntityNameOperationType" xml:space="preserve">
+    <value>Type of operation‎</value>
+  </data>
+  <data name="EntityNameAccountDetail" xml:space="preserve">
+    <value>Personal account operations</value>
+  </data>
+  <data name="EntityNamePrice" xml:space="preserve">
+    <value>Price-list</value>
+  </data>
+  <data name="EntityNameFirm" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="EntityNameFirmAddress" xml:space="preserve">
+    <value>Company address</value>
+  </data>
+  <data name="EntityNameFirmContact" xml:space="preserve">
+    <value>Company contact</value>
+  </data>
+  <data name="EntityNameBranchOffice" xml:space="preserve">
+    <value>Legal entity of company:</value>
+  </data>
+  <data name="EntityNameOrganizationUnit" xml:space="preserve">
+    <value>Company division</value>
+  </data>
+  <data name="EntityNameClient" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="EntityNameBargain" xml:space="preserve">
+    <value>Contract</value>
+  </data>
+  <data name="EntityNameBargainType" xml:space="preserve">
+    <value>Type of contract</value>
+  </data>
+  <data name="EntityNameBargainFile" xml:space="preserve">
+    <value>Contract file</value>
+  </data>
+  <data name="EntityNameCurrency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="EntityNameCurrencyRate" xml:space="preserve">
+    <value>Currency exchange rate</value>
+  </data>
+  <data name="EntityNamePlatform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="EntityNamePositionCategory" xml:space="preserve">
+    <value>Category of nomenclature component</value>
+  </data>
+  <data name="EntityNameAdvertisementTemplate" xml:space="preserve">
+    <value>Advertising template</value>
+  </data>
+  <data name="EntityNamePricePosition" xml:space="preserve">
+    <value>Price-list items</value>
+  </data>
+  <data name="EntityNameAccount" xml:space="preserve">
+    <value>Personal account</value>
+  </data>
+  <data name="EntityNameLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="EntityNamePosition" xml:space="preserve">
+    <value>Nomenclature</value>
+  </data>
+  <data name="EntityNamePositionChildren" xml:space="preserve">
+    <value>Components of complex nomenclature</value>
+  </data>
+  <data name="EntityNameAssociatedPositionsGroup" xml:space="preserve">
+    <value>Group of accompanying items</value>
+  </data>
+  <data name="EntityNameAssociatedPosition" xml:space="preserve">
+    <value>Accompanying item</value>
+  </data>
+  <data name="EntityNameDeniedPosition" xml:space="preserve">
+    <value>Banned item</value>
+  </data>
+  <data name="EntityNameContributionType" xml:space="preserve">
+    <value>Form of cooperation</value>
+  </data>
+  <data name="EntityNameCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="EntityNameCategoryGroup" xml:space="preserve">
+    <value>Category group</value>
+  </data>
+  <data name="EntityNameCategoryOrganizationUnit" xml:space="preserve">
+    <value>Company division category</value>
+  </data>
+  <data name="EntityNameCategoryFirmAddress" xml:space="preserve">
+    <value>Company address category</value>
+  </data>
+  <data name="EntityNameCountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="EntityNameAdvertisement" xml:space="preserve">
+    <value>Advertising material</value>
+  </data>
+  <data name="EntityNameAdvertisementElement" xml:space="preserve">
+    <value>Component of advertising material</value>
+  </data>
+  <data name="EntityNameAdvertisementElementTemplate" xml:space="preserve">
+    <value>Advertising template component</value>
+  </data>
+  <data name="EntityNameAdsTemplatesAdsElementTemplate" xml:space="preserve">
+    <value>Link between an AM template component and the AM template </value>
+  </data>
+  <data name="EntityNameBill" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="EntityNameLock" xml:space="preserve">
+    <value>Hold</value>
+  </data>
+  <data name="EntityNameLockDetail" xml:space="preserve">
+    <value>Log of holds</value>
+  </data>
+  <data name="EntityNameContact" xml:space="preserve">
+    <value>Contact person</value>
+  </data>
+  <data name="EntityNameWithdrawalInfo" xml:space="preserve">
+    <value>Writing off</value>
+  </data>
+  <data name="EntityNameReleaseInfo" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="EntityNameLocalMessage" xml:space="preserve">
+    <value>Local message</value>
+  </data>
+  <data name="EntityNamePrintFormTemplate" xml:space="preserve">
+    <value>Printed form template</value>
+  </data>
+  <data name="EntityNameUserTerritoriesOrganizationUnits" xml:space="preserve">
+    <value>UserTerritoriesOrganizationUnits (to be deleted later)</value>
+  </data>
+  <data name="EntityNameOrderReleaseTotal" xml:space="preserve">
+    <value>Planned writing-offs for issues (order)</value>
+  </data>
+  <data name="EntityNameReleaseWithdrawal" xml:space="preserve">
+    <value>Planned writing-offs for issues (order item)</value>
+  </data>
+  <data name="EntityNameOrderPositionAdvertisement" xml:space="preserve">
+    <value>Advertising material of the order item</value>
+  </data>
+  <data name="EntityNameUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="EntityNameUserRole" xml:space="preserve">
+    <value>User role</value>
+  </data>
+  <data name="EntityNameUserTerritory" xml:space="preserve">
+    <value>User's territory</value>
+  </data>
+  <data name="EntityNameUserOrganizationUnit" xml:space="preserve">
+    <value>Company division of user</value>
+  </data>
+  <data name="EntityNameDepartment" xml:space="preserve">
+    <value>Subdivision</value>
+  </data>
+  <data name="EntityNameRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="EntityNameTerritory" xml:space="preserve">
+    <value>Territory</value>
+  </data>
+  <data name="EntityNameUserProfile" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="EntityNameRolePrivilege" xml:space="preserve">
+    <value>Role privilege</value>
+  </data>
+  <data name="EntityNameFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="EntityNameTimeZone" xml:space="preserve">
+    <value>Time zone</value>
+  </data>
+  <data name="EntityNameNote" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="EntityAccessTypesAppend" xml:space="preserve">
+    <value>Joining</value>
+  </data>
+  <data name="EntityAccessTypesAppendTo" xml:space="preserve">
+    <value>Joining to</value>
+  </data>
+  <data name="EntityAccessTypesAssign" xml:space="preserve">
+    <value>Purpose</value>
+  </data>
+  <data name="EntityAccessTypesCreate" xml:space="preserve">
+    <value>Creation</value>
+  </data>
+  <data name="EntityAccessTypesDelete" xml:space="preserve">
+    <value>Deleting</value>
+  </data>
+  <data name="EntityAccessTypesRead" xml:space="preserve">
+    <value>Reading</value>
+  </data>
+  <data name="EntityAccessTypesShare" xml:space="preserve">
+    <value>Public access</value>
+  </data>
+  <data name="EntityAccessTypesUpdate" xml:space="preserve">
+    <value>Updating</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitManagement" xml:space="preserve">
+    <value>Limit control</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitRecalculation" xml:space="preserve">
+    <value>Recalculation of limit amount</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLimitPeriodChanging" xml:space="preserve">
+    <value>Selection of limit period</value>
+  </data>
+  <data name="FunctionalPrivilegeNamePositionAdministrationCode" xml:space="preserve">
+    <value>Nomenclature administration</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderCreationExtended" xml:space="preserve">
+    <value>Extended right to create order</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderStatesAccess" xml:space="preserve">
+    <value>Work with order statuses</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderChangeDocumentsDebt" xml:space="preserve">
+    <value>Setting/removal of indebtedness</value>
+  </data>
+  <data name="FunctionalPrivilegeNameReserveAccess" xml:space="preserve">
+    <value>Work with the reserve</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderBranchOfficeOrganizationUnitSelection" xml:space="preserve">
+    <value>Extended selection of legal entities for a company</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderChangeDealExtended" xml:space="preserve">
+    <value>Referencing orders to another opportunity</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonChangeClient" xml:space="preserve">
+    <value>Changing client for a legal entity </value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonChangeRequisites" xml:space="preserve">
+    <value>Changing requisites of a client's legal entity</value>
+  </data>
+  <data name="FunctionalPrivilegeNameOrderCreationForFuture" xml:space="preserve">
+    <value>Extended selection of the order placement period</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMergeClients" xml:space="preserve">
+    <value>Merging Clients</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCreateAccountDetails" xml:space="preserve">
+    <value>Create personal account operation</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCorporateQueueAccess" xml:space="preserve">
+    <value>Corporative queue</value>
+  </data>
+  <data name="FunctionalPrivilegeNameReleaseAccess" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
+    <value>Writing off</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
+    <value>Formation of outgoing regional advertisement</value>
+  </data>
+  <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
+    <value>Processing of personal accounts with indebtedness</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCloseBargainOperationalPeriod" xml:space="preserve">
+    <value>Closure of contracts</value>
+  </data>
+  <data name="FunctionalPrivilegeNameServiceUserAssign" xml:space="preserve">
+    <value>Appointment of a user as owner</value>
+  </data>
+  <data name="FunctionalPrivilegeNameSendMassEmail" xml:space="preserve">
+    <value>Email mailout</value>
+  </data>
+  <data name="FunctionalPrivilegeNameChangeFirmClient" xml:space="preserve">
+    <value>Changing client for a company</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLeaveClientWithNoFirms" xml:space="preserve">
+    <value>Remove all companies from a client</value>
+  </data>
+  <data name="FunctionalPrivilegeNamePrereleaseOrderValidationExecution" xml:space="preserve">
+    <value>Mass check of orders</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditOrderType" xml:space="preserve">
+    <value>Changing order type</value>
+  </data>
+  <data name="FunctionalPrivilegeNameChangeFirmTerritory" xml:space="preserve">
+    <value>Changing company's territory</value>
+  </data>
+  <data name="FunctionalPrivilegeNameMergeLegalPersons" xml:space="preserve">
+    <value>Merging legal entities</value>
+  </data>
+  <data name="FunctionalPrivilegeNameFranchiseesWithdrawalExport" xml:space="preserve">
+    <value>Unloading writing-offs</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateDepartment" xml:space="preserve">
+    <value>Subdivision</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateDepartmentAndChilds" xml:space="preserve">
+    <value>Subdivision and subsidiaries</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateOrganization" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="EntityPrivilegeDepthStateUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="FPrvDepthDepartment" xml:space="preserve">
+    <value>Subdivision</value>
+  </data>
+  <data name="FPrvDepthDepartment_Childs" xml:space="preserve">
+    <value>Subdivision and subsidiaries</value>
+  </data>
+  <data name="FPrvDepthOrgUnit" xml:space="preserve">
+    <value>Company division</value>
+  </data>
+  <data name="FPrvDepthUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="FPrvDpthFullAccess" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="FPrvDpthGranted" xml:space="preserve">
+    <value>Permitted</value>
+  </data>
+  <data name="FPrvDpthGrantedLimited" xml:space="preserve">
+    <value>Permitted partially</value>
+  </data>
+  <data name="FPrvDpthOrganizationUnit" xml:space="preserve">
+    <value>Company division</value>
+  </data>
+  <data name="FPrvDpthTerritory" xml:space="preserve">
+    <value>Territory</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
+    <value>After-sale service1</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
+    <value>After-sale service2</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
+    <value>After-sale service3</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
+    <value>After-sale service4</value>
+  </data>
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+    <value>Taking from the reserve</value>
+  </data>
+  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+    <value>Returning to the reserve</value>
+  </data>
+  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+    <value>Changing territory</value>
+  </data>
+  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+    <value>Changing client</value>
+  </data>
+  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+    <value>Formation of after-sale service</value>
+  </data>
+  <data name="OperationStatusError" xml:space="preserve">
+    <value>Completed with errors</value>
+  </data>
+  <data name="OperationStatusInProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="OperationStatusNone" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="OperationStatusSuccess" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+    <value>Checking orders</value>
+  </data>
+  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+    <value>Unloading writing-offs to 1C</value>
+  </data>
+  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+    <value>Formation of regional advertisement</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
+    <value>Formation of after-sale service</value>
+  </data>
+  <data name="EntityNameOperation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="OrderProlongationReportTypeStandart" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="OrderProlongationReportTypeWeekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeStandart" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeOrderDebts" xml:space="preserve">
+    <value>Order indebtedness</value>
+  </data>
+  <data name="AdvertisersDebtReportTypeBargainDebts" xml:space="preserve">
+    <value>Contract indebtedness</value>
+  </data>
+  <data name="EntityNameLegalPersonProfile" xml:space="preserve">
+    <value>Profile of client's legal entity</value>
+  </data>
+  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
+    <value>Add. services for a company</value>
+  </data>
+  <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
+    <value>Removing the profile of Client's legal entity</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeCertificate" xml:space="preserve">
+    <value>of Certificate</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeCharter" xml:space="preserve">
+    <value>of Regulations</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeWarranty" xml:space="preserve">
+    <value>of Power of Attorney</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeBargain" xml:space="preserve">
+    <value>of Contract</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeFoundingBargain" xml:space="preserve">
+    <value>of Memorandum of Association</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeUnderfined" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeRegistrationCertificate" xml:space="preserve">
+    <value>of Registration Certificate</value>
+  </data>
+  <data name="CannotRevertWithdrawalBecausePreviousWithdrawalIsFailed" xml:space="preserve">
+    <value>Start-up of the recovery operation is impossible, the previous writing-off has been completed with an error</value>
+  </data>
+  <data name="WithdrawalIsAlreadyReverted" xml:space="preserve">
+    <value>Attempt to restart recovery operation</value>
+  </data>
+  <data name="FailedToGetNumberForBargain" xml:space="preserve">
+    <value>Failed to obtain an ID number for the contract</value>
+  </data>
+  <data name="TemplateCodeLetterOfGuarantee" xml:space="preserve">
+    <value>Letter of guarantee</value>
+  </data>
+  <data name="TemplateCodeLetterOfGuaranteeAdvMaterial" xml:space="preserve">
+    <value>Letter of guarantee (change of AM)</value>
+  </data>
+  <data name="EntityNameTheme" xml:space="preserve">
+    <value>Topical collection</value>
+  </data>
+  <data name="EntityNameThemeTemplate" xml:space="preserve">
+    <value>Template for topical collection</value>
+  </data>
+  <data name="ThemeTemplateCodeDefault" xml:space="preserve">
+    <value>By default</value>
+  </data>
+  <data name="ThemeTemplateCodeRed" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="ThemeTemplateCodeGreen" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="ThemeTemplateCodeBlue" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="IntegrationTypeExportDataForAutoMailer" xml:space="preserve">
+    <value>Data unloading</value>
+  </data>
+  <data name="IntegrationSystemAutoMailer" xml:space="preserve">
+    <value>Auto mailer</value>
+  </data>
+  <data name="MailSendingTypeStatistic" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="MailSendingTypeCelebration" xml:space="preserve">
+    <value>Congratulations</value>
+  </data>
+  <data name="MailSendingTypePayment" xml:space="preserve">
+    <value>Payment notifications</value>
+  </data>
+  <data name="MessageTypeError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MessageTypeWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ThemeTemplateCodeSkyscraper" xml:space="preserve">
+    <value>Skyscraper</value>
+  </data>
+  <data name="TemplateCodeOrderWithoutVat" xml:space="preserve">
+    <value>Invoice without VAT</value>
+  </data>
+  <data name="TemplateCodeOrderWithVat" xml:space="preserve">
+    <value>Invoice with VAT</value>
+  </data>
+  <data name="ActivityTypePhonecall" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="ActivityTypeAppointment" xml:space="preserve">
+    <value>Meeting</value>
+  </data>
+  <data name="ActivityTypeTask" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="ActivityPriorityLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="ActivityPriorityAverage" xml:space="preserve">
+    <value>Middle</value>
+  </data>
+  <data name="ActivityPriorityHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+    <value>First contact (Aquaintance)</value>
+  </data>
+  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+    <value>Presentations</value>
+  </data>
+  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Presentation of advertising opportunity</value>
+  </data>
+  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+    <value>Approval and sending of CO</value>
+  </data>
+  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+    <value>Approval of decision deadline</value>
+  </data>
+  <data name="ActivityPurposeSale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="ActivityPurposeService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ActivityPurposeUpsale" xml:space="preserve">
+    <value>Upsale</value>
+  </data>
+  <data name="ActivityPurposeProlongation" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="ActivityStatusInProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="ActivityStatusCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="ActivityStatusCancelled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+    <value>Warm Lead</value>
+  </data>
+  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+    <value>Assignment of the executive</value>
+  </data>
+  <data name="ActivityTaskTypeOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="EntityNameProject" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="LanguageAbbreviationEn" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageAbbreviationIt" xml:space="preserve">
+    <value>Italian</value>
+  </data>
+  <data name="LanguageAbbreviationRu" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="FunctionalPrivilegeNameCascadeLegalPersonAssign" xml:space="preserve">
+    <value>Cascade change of the legal entity's owners</value>
+  </data>
+  <data name="LanguageAbbreviationCs" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentMethodBankChequePayment" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="PaymentMethodBankTransaction" xml:space="preserve">
+    <value>Bank account</value>
+  </data>
+  <data name="PaymentMethodCashPayment" xml:space="preserve">
+    <value>Cash payment</value>
+  </data>
+  <data name="PaymentMethodCreditCardPayment" xml:space="preserve">
+    <value>Bank card</value>
+  </data>
+  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ActivityPriorityNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ActivityPurposeNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ActivityStatusNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ActivityTypeNotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="FirmAddressContactTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseDealReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealStageNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InformationSourceNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReasonForNewDealNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FasCommentNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MarketTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UsingOtherMediaOptionNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountRoleNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FamilyStatusNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GenderNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDiscountReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderTerminationReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionAccountingMethodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionBindingObjectTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionCalculationMethodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TemplateCodeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BudgetTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GeolocationNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InCityBranchesAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutCityBranchesAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StaffAmountNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllOrdersReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ObjectBindingTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountsReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SalesReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegistryDocReportTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
+    <value>Публикация шаблона РМ</value>
+  </data>
+  <data name="FunctionalPrivilegeNameUnpublishAdvertisementTemplate" xml:space="preserve">
+    <value>Отмена публикации шаблона РМ</value>
+  </data>
+  <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
+    <value>Местная реклама в филиале</value>
+  </data>
+  <data name="ESalesPointTypePairFilialFilial" xml:space="preserve">
+    <value>Исходящая реклама из филиала 1 в филиал 2</value>
+  </data>
+  <data name="ESalesPointTypePairFilialFranch" xml:space="preserve">
+    <value>Исходящая реклама из филиала во франчайзи</value>
+  </data>
+  <data name="ESalesPointTypePairFranchSelf" xml:space="preserve">
+    <value>Местная реклама во франчайзи</value>
+  </data>
+  <data name="ESalesPointTypePairFranchFranch" xml:space="preserve">
+    <value>Исходящая реклама из франчайзи 1 во франчайзи 2</value>
+  </data>
+  <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
+    <value>Исходящая реклама из франчайзи в филиал</value>
+  </data>
+  <data name="ESalesPointTypeNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ESalesPointTypeFilial" xml:space="preserve">
+    <value>Filial</value>
+  </data>
+  <data name="ESalesPointTypeFranch" xml:space="preserve">
+    <value>Franch</value>
+  </data>
+  <data name="ESalesPointTypeSelf" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="ESalesPointTypeUk" xml:space="preserve">
+    <value>UK</value>
+  </data>
+  <data name="PlatformsExtendedDesktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="PlatformsExtendedMobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="PlatformsExtendedApi" xml:space="preserve">
+    <value>Api</value>
+  </data>
+  <data name="PlatformsExtendedApiOnline" xml:space="preserve">
+    <value>ApiOnline</value>
+  </data>
+  <data name="PlatformsExtendedApiPartner" xml:space="preserve">
+    <value>ApiPartner</value>
+  </data>
+  <data name="PlatformsExtendedOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
+    <value>Не выверен</value>
+  </data>
+  <data name="AdvertisementElementStatusValid" xml:space="preserve">
+    <value>Выверен</value>
+  </data>
+  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
+    <value>Отклонен</value>
+  </data>
+  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
+    <value>Юридическая</value>
+  </data>
+  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
+    <value>Несоответствие требованиям</value>
+  </data>
+  <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
+    <value>Выверка РМ</value>
+  </data>
+  <data name="AdvertisementElementModel_ToEntity_AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
+    <value>Редактирование заглушки РМ</value>
+  </data>
+  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+    <value>Поиск заказов с заглушками РМ</value>
+  </data>
+  <data name="FasCommentSupplements" xml:space="preserve">
+    <value>Реклама БАДов</value>
+  </data>
+  <data name="FasCommentDisplayTextSupplements" xml:space="preserve">
+    <value>Объект рекламирования не является лекарственным средством.</value>
+  </data>
+  <data name="OrderFileKindWarrantyScan" xml:space="preserve">
+    <value>Доверенность</value>
+  </data>
+  <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
+    <value>Заявление заказчика под присягой</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonBusinessman" xml:space="preserve">
+    <value>Уведомление о расторжении заказа без указания причины для ИП</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonLegalPerson" xml:space="preserve">
+    <value>Уведомление о расторжении заказа без указания причины для юр. лица</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainBusinessman" xml:space="preserve">
+    <value>Уведомление о расторжении договора с указанием причины для ИП</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainLegalPerson" xml:space="preserve">
+    <value>Уведомление о расторжении договора с указанием причины для юр. лица</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonBusinessman" xml:space="preserve">
+    <value>Уведомление о расторжении договора без указания причины для ИП</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonLegalPerson" xml:space="preserve">
+    <value>Уведомление о расторжении договора без указания причины для юр. лица</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementBusinessman" xml:space="preserve">
+    <value>Соглашение о прекращении действия договора для ИП</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>Соглашение о прекращении действия договора для юр. лица</value>
+  </data>
+</root>

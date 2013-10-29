@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Подключаем TransformXml для трансформаций конфигов -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+
+  <PropertyGroup Label="ERM hack: workaround бага в nuget">
+    <PrepareForBuildDependsOn Condition="$(RestorePackages) == 'true'">
+      $(PrepareForBuildDependsOn);
+      RestorePackages;
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+
+  <ItemGroup Label="ERM hack: включаем version file как content">
+    <Content Condition="Exists($(VersionFilePath))" Include="$(VersionFilePath)">
+      <Link>$([System.IO.Path]::GetFileName($(VersionFilePath)))</Link>
+    </Content>
+  </ItemGroup>
+
+  <!-- не можем включить в Erm.Common как content из за wix -->
+  <ItemGroup Label="ERM hack: включаем нативные dll для 7z в проект">
+    <None Include="$(SolutionDir)\BLFlex\Source\Libs\7-Zip 9.22\x86\7z.dll">
+      <Link>x86\7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(SolutionDir)\BLFlex\Source\Libs\7-Zip 9.22\x64\7z.dll">
+      <Link>x64\7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="TransformLog4NetConfig"
+          BeforeTargets="BeforeBuild"
+          Condition="Exists('log4net.$(Configuration).config')"
+          Label="ERM hack: Процессинг log4net.config во время билда">
+    
+    <TransformXml
+      Source="log4net.config"
+      Transform="log4net.$(Configuration).config"
+      Destination="log4net.transformed.config" />
+    
+    <ItemGroup>
+      <Content Remove="log4net.config" />
+      <None Remove="log4net.*.config" />
+      <Content Include="log4net.transformed.config">
+        <Link>log4net.config</Link>
+      </Content>
+    </ItemGroup>
+    
+  </Target>
+
+  <Target Name="AddExtraItemsToSourceManifest" AfterTargets="AddContentPathToSourceManifest" Label="Включаем анонимную и Windows аутентификацию">
+    <ItemGroup>
+      <MsDeploySourceManifest Include="ApphostAuthOverride">
+        <Path>$(DeployIisAppPath);anonymousAuthentication=Allow</Path>
+      </MsDeploySourceManifest>
+      <MsDeploySourceManifest Include="ApphostAuthOverride">
+        <Path>$(DeployIisAppPath);windowsAuthentication=Allow</Path>
+      </MsDeploySourceManifest>
+    </ItemGroup>
+  </Target>
+
+</Project>

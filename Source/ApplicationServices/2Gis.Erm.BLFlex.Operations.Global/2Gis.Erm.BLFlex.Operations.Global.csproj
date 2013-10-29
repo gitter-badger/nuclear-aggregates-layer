@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLFlex.Operations.Global</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLFlex.Operations.Global</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="microsoft.crm.sdk">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.crm.sdktypeproxy">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Cyprus\Handlers\AccountDetails\CyprusValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Clients\CyprusCheckClientActivitiesHandler.cs" />
+    <Compile Include="Cyprus\Handlers\LegalPersonProfiles\CyprusEditLegalPersonProfileHandler.cs" />
+    <Compile Include="Cyprus\Handlers\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Cyprus\Handlers\LegalPersons\CyprusEditLegalPersonHandler.cs" />
+    <Compile Include="Cyprus\Handlers\LegalPersons\CyprusMergeLegalPersonsHandler.cs" />
+    <Compile Include="Cyprus\Handlers\LegalPersons\CyprusValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Orders\Number\CyprusGenerateOrderNumberHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Cyprus\Handlers\Orders\PrintForms\CyprusPrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Cyprus\Services\Operations\Activate\CyprusActivateLegalPersonService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetAppointmentDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetLegalPersonDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetOrderDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetPhonecallDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Get\CyprusGetTaskDtoService.cs" />
+    <Compile Include="Cyprus\Services\Operations\List\CyprusListLegalPersonService.cs" />
+    <Compile Include="Cyprus\Services\Operations\List\CyprusListOrderService.cs" />
+    <Compile Include="Cyprus\Services\Operations\Obtain\CyprusAppointmentObtainer.cs" />
+    <Compile Include="Cyprus\Services\Operations\Obtain\CyprusLegalPersonObtainer.cs" />
+    <Compile Include="Cyprus\Services\Operations\Obtain\CyprusPhoneCallObtainer.cs" />
+    <Compile Include="Cyprus\Services\Operations\Obtain\CyprusTaskObtainer.cs" />
+    <Compile Include="Czech\Handlers\AccountDetails\CzechValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Czech\Handlers\Clients\CzechCheckClientActivitiesHandler.cs" />
+    <Compile Include="Czech\Handlers\LegalPersonProfiles\CzechEditLegalPersonProfileHandler.cs" />
+    <Compile Include="Czech\Handlers\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Czech\Handlers\LegalPersons\CzechEditLegalPersonHandler.cs" />
+    <Compile Include="Czech\Handlers\LegalPersons\CzechMergeLegalPersonsHandler.cs" />
+    <Compile Include="Czech\Handlers\LegalPersons\CzechValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\Number\CzechGenerateOrderNumberHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\PrintForms\CzechPrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\PrintForms\CzechPrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\PrintForms\CzechPrintOrderHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Czech\Handlers\Orders\PrintForms\CzechPrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Czech\Services\Operations\Activate\CzechActivateLegalPersonService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetAppointmentDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetLegalPersonDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetOrderDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetPhonecallDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\Get\CzechGetTaskDtoService.cs" />
+    <Compile Include="Czech\Services\Operations\List\CzechListClientService.cs" />
+    <Compile Include="Czech\Services\Operations\List\CzechListLegalPersonProfileService.cs" />
+    <Compile Include="Czech\Services\Operations\List\CzechListLegalPersonService.cs" />
+    <Compile Include="Czech\Services\Operations\List\CzechListOrderService.cs" />
+    <Compile Include="Czech\Services\Operations\List\DTO\CzechListClientDto.cs" />
+    <Compile Include="Czech\Services\Operations\List\DTO\CzechListLegalPersonDto.cs" />
+    <Compile Include="Czech\Services\Operations\List\DTO\CzechListLegalPersonProfileDto.cs" />
+    <Compile Include="Czech\Services\Operations\List\DTO\CzechListOrderDto.cs" />
+    <Compile Include="Czech\Services\Operations\Obtain\CzechAppointmentObtainer.cs" />
+    <Compile Include="Czech\Services\Operations\Obtain\CzechLegalPersonObtainer.cs" />
+    <Compile Include="Czech\Services\Operations\Obtain\CzechPhonecallObtainer.cs" />
+    <Compile Include="Czech\Services\Operations\Obtain\CzechTaskObtainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="Russia\Handlers\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Russia\Handlers\Clients\CheckClientActivitiesHandler.cs" />
+    <Compile Include="Russia\Handlers\LegalPersonProfiles\EditLegalPersonProfileHandler.cs" />
+    <Compile Include="Russia\Handlers\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Russia\Handlers\LegalPersons\EditLegalPersonHandler.cs" />
+    <Compile Include="Russia\Handlers\LegalPersons\MergeLegalPersonsHandler.cs" />
+    <Compile Include="Russia\Handlers\LegalPersons\ValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\Number\GenerateOrderNumberHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\PrintForms\PrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\PrintForms\PrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\PrintForms\PrintOrderHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\PrintForms\PrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Russia\Handlers\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Russia\Services\Operations\Activate\ActivateLegalPersonService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetAppointmentDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetLegalPersonDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetOrderDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetPhonecallDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\Get\GetTaskDtoService.cs" />
+    <Compile Include="Russia\Services\Operations\List\ListClientService.cs" />
+    <Compile Include="Russia\Services\Operations\List\ListLegalPersonProfileService.cs" />
+    <Compile Include="Russia\Services\Operations\List\ListLegalPersonService.cs" />
+    <Compile Include="Russia\Services\Operations\List\ListOrderService.cs" />
+    <Compile Include="Russia\Services\Operations\Obtain\AppointmentObtainer.cs" />
+    <Compile Include="Russia\Services\Operations\Obtain\LegalPersonObtainer.cs" />
+    <Compile Include="Russia\Services\Operations\Obtain\LegalPersonProfileObtainer.cs" />
+    <Compile Include="Russia\Services\Operations\Obtain\PhoneCallObtainer.cs" />
+    <Compile Include="Russia\Services\Operations\Obtain\TaskObtainer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BL.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BL.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{a012ac28-ebeb-4d9a-963a-7ceb72f54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

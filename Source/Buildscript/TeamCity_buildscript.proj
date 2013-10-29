@@ -1,0 +1,1056 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- script for build and deploy DoubleGis ERM project -->
+<Project
+  ToolsVersion="4.0"
+  InitialTargets="SetTeamCityBuildNumber"
+  DefaultTargets="HelloTarget"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- import third-party build tasks -->
+  <Import Project="DoubleGis.Erm.Build.targets" />
+
+  <PropertyGroup Label="Common versioning properties">
+    <Common_Version_Major>1</Common_Version_Major>
+    <Common_Version_Minor>0</Common_Version_Minor>
+    <Common_Version_Revision>0</Common_Version_Revision>
+    <Common_Version_Build>0</Common_Version_Build>
+    
+    <!-- ProductVersion can have only 3 numbers - Common_Version_Major.Common_Version_Minor.Revision, 4th number (Common_Version_Build) always ignored by installer engine -->
+    <ProductVersion>$(Common_Version_Major).$(Common_Version_Minor).$(Common_Version_Revision)</ProductVersion>
+    <FullProductVersion>$(ProductVersion).$(Common_Version_Build)</FullProductVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Common configurations">
+    <Configuration>Release</Configuration>
+    
+    <!-- specify build sub-toolset -->
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+
+    <!-- имя publish profile -->
+    <PublishProfileName>NOT SET</PublishProfileName>
+    <PublishProfileFileName>$(PublishProfileName).pubxml</PublishProfileFileName>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Common web publishing">
+
+    <!-- сервер куда устанавливаются конечные сервисы Erm -->
+    <EntryPoint_HostName>Not set</EntryPoint_HostName>
+
+    <!-- Microsoft Web Deploy V3 -->
+    <MsDeployServiceUrl>https://$(EntryPoint_HostName):8172/MSDeploy.axd</MsDeployServiceUrl>
+    <MsDeployPath>$(ProgramFiles)\IIS\Microsoft Web Deploy V3\msdeploy.exe</MsDeployPath>
+    
+  </PropertyGroup>
+
+  <PropertyGroup Label="Common web application publishing">
+
+    <!-- файл версии включается в корень zip пакета чтобы сразу было видно что за версия -->
+    <VersionFileName>version_$(Common_Version_Major)_$(Common_Version_Minor)_$(Common_Version_Revision)_$(Common_Version_Build)</VersionFileName>
+
+
+  </PropertyGroup>
+
+  <!-- import target for erm wpf client build and deploy -->
+  <Import Project="ErmWPFClientDeploy.targets" />
+
+  <PropertyGroup>
+    <ErmSolutionDir>..\</ErmSolutionDir>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Dynamics CRM">
+
+    <!-- имя пакета с hack файлами -->
+    <DynamicsCrmPackageName>$(MSBuildProjectDirectory)\CustomizeDynamicsCrm-$(ProductVersion)-$(Configuration).zip</DynamicsCrmPackageName>
+
+    <!-- имя сервера Dynamics CRM вместе с протоколом (пример: https://uk-erm-test.2gis.local/DoubleGis) -->
+    <DynamicsCrm_ServerName>Not set</DynamicsCrm_ServerName>
+    <DynamicsCrm_OrganizationName>DoubleGis</DynamicsCrm_OrganizationName>
+
+    <DynamicsCrm_UserDomain>2GIS</DynamicsCrm_UserDomain>
+    <DynamicsCrm_UserName>CRMAdministrator</DynamicsCrm_UserName>
+    <DynamicsCrm_UserPassword>{htyFYtGfhjkm!</DynamicsCrm_UserPassword>
+
+    <CrmSdkPath>$(ErmSolutionDir)Libs\Microsoft Dynamics CRM SDK 4.0.13</CrmSdkPath>
+    
+    <!-- строка подключения к Dynamics CRM в момент развёртывания (никак не связана со строкой подключения в самом приложении) -->
+    <DynamicsCrm_PublishConnectionString>Authentication Type=AD%3B Server=$(DynamicsCrm_ServerName)/$(DynamicsCrm_OrganizationName)%3B User ID=$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)%3B Password=$(DynamicsCrm_UserPassword)</DynamicsCrm_PublishConnectionString>
+
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Task service">
+
+    <TaskServicePlatform>x64</TaskServicePlatform>
+    <MsiFileNameWithoutExtension>2Gis.Erm.TaskService.Installer-$(TaskServicePlatform)-$(ProductVersion)-$(Configuration)</MsiFileNameWithoutExtension>
+    
+    <!-- имя файла с инсталлятором для task service -->
+    <MsiFileName>$(MsiFileNameWithoutExtension).msi</MsiFileName>
+    
+  </PropertyGroup>
+
+  <PropertyGroup Label="Web applications">
+
+    <ErmWebAppProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\UI\Web\2Gis.Erm.UI.Web.Mvc'))</ErmWebAppProjectLocation>
+    <OrderValidationServiceProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\WCF\2Gis.Erm.WCF.OrderValidation'))</OrderValidationServiceProjectLocation>
+    <FakeBusServiceProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)Tests\Functional\WCF\2gis.Erm.Functional.ServiceStubs'))</FakeBusServiceProjectLocation>
+    <BasicOperationsServiceProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\WCF\2Gis.Erm.WCF.BasicOperations'))</BasicOperationsServiceProjectLocation>
+    <MoneyDistributionServiceProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\WCF\2Gis.Erm.WCF.MoneyDistribution'))</MoneyDistributionServiceProjectLocation>
+    <MetadataServiceProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\WCF\2Gis.Erm.WCF.Metadata'))</MetadataServiceProjectLocation>
+    <ReportsProjectLocation>$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)ErmReports'))</ReportsProjectLocation>
+
+  </PropertyGroup>
+
+  <PropertyGroup Label="Options to choose only some targets">
+
+    <!-- fake bus option -->
+    <Option_ErmFakeBusService>True</Option_ErmFakeBusService>
+
+    <!-- task service option -->
+    <Option_ErmTaskService>True</Option_ErmTaskService>
+
+    <!-- task service option -->
+    <Option_Reports>True</Option_Reports>
+
+    <!-- web sites options -->
+    <Option_Websites_WebApp>True</Option_Websites_WebApp>
+    <Option_Websites_OrderValidations>True</Option_Websites_OrderValidations>
+    <Option_Websites_BasicOperations>True</Option_Websites_BasicOperations>
+    <Option_Websites_MoneyDistribution>False</Option_Websites_MoneyDistribution>
+    <Option_Websites_MetadataService>True</Option_Websites_MetadataService>
+
+    <!-- Dynamics CRM options -->
+    <Option_DynamicsCrm>True</Option_DynamicsCrm>
+    
+  </PropertyGroup>
+
+  <Target Name="WpfBuild" DependsOnTargets="UpdateAssemblyInfo;DeployWebsites;DeployClickOnceToInstallUrl" />
+
+  <PropertyGroup>
+    <WebBuildDependsOn>
+      PreWebBuild;
+      DeployErmTaskService;
+      DeployWebsites;
+      DeployDynamicsCrm;
+      DeployReports
+    </WebBuildDependsOn>
+  </PropertyGroup>
+  <Target Name="PreWebBuild">
+    <Message Importance="high" Text="Targets WebBuildDependsOn: $(WebBuildDependsOn)" />
+  </Target>
+  <Target Name="WebBuild" DependsOnTargets="UpdateAssemblyInfo;$(WebBuildDependsOn)" />
+  <Target Name="WebBuildParallel" DependsOnTargets="UpdateAssemblyInfo">
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="$(WebBuildDependsOn)" BuildInParallel="true" />
+  </Target>
+
+  <!-- PackagesBuild -->
+  <PropertyGroup>
+    <PackagesBuildDependsOn>
+      PrePackagesBuild;
+      BuildErmTaskService;
+      BuildWebsites;
+      BuildDynamicsCrm;
+      AddAdditionalBuildArtifacts
+    </PackagesBuildDependsOn>
+  </PropertyGroup>
+  <Target Name="PrePackagesBuild">
+    <Message Importance="high" Text="Targets PackagesBuildDependsOn: $(PackagesBuildDependsOn)" />
+  </Target>
+  <Target Name="PackagesBuild" DependsOnTargets="UpdateAssemblyInfo;$(PackagesBuildDependsOn)" />
+  <Target Name="PackagesBuildParallel" DependsOnTargets="UpdateAssemblyInfo">
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="$(PackagesBuildDependsOn)" BuildInParallel="true" />
+  </Target>
+
+  <!-- BuildDynamicsCrm -->
+  <PropertyGroup>
+    <BuildDynamicsCrmDependsOn>
+      PreBuildDynamicsCrm;
+      BuildDynamicsCrmHackFiles;
+      BuildDynamicsCrmPlugins
+    </BuildDynamicsCrmDependsOn>
+  </PropertyGroup>
+  <Target Name="PreBuildDynamicsCrm">
+    <Message Importance="high" Text="Targets BuildDynamicsCrmDependsOn: $(BuildDynamicsCrmDependsOn)" />
+  </Target>
+  <Target
+    Name="BuildDynamicsCrm"
+    Condition="'$(Option_DynamicsCrm)' == 'True'"
+    DependsOnTargets="$(BuildDynamicsCrmDependsOn)"
+  />
+
+  <!-- DeployDynamicsCrm -->
+  <PropertyGroup>
+    <DeployDynamicsCrmDependsOn>
+      PreDeployDynamicsCrm;
+      DeployDynamicsCrmHackFiles;
+      DeployDynamicsCrmPlugins
+    </DeployDynamicsCrmDependsOn>
+  </PropertyGroup>
+  <Target Name="PreDeployDynamicsCrm">
+    <Message Importance="high" Text="Targets DeployDynamicsCrmDependsOn: $(DeployDynamicsCrmDependsOn)" />
+  </Target>
+  <Target
+    Name="DeployDynamicsCrm"
+    Condition="'$(Option_DynamicsCrm)' == 'True'"
+    DependsOnTargets="$(DeployDynamicsCrmDependsOn)" />
+
+  <!-- BuildWebsites -->
+  <PropertyGroup>
+    <BuildWebsitesDependsOn>
+      PreBuildWebsites;
+      BuildErmWebApp;
+      BuildDatabaseMigrations;
+      BuildOrderValidationService;
+      BuildFakeBusService;
+      BuildBasicOperationsService;
+      BuildMoneyDistributionService;
+      BuildMetadataService
+    </BuildWebsitesDependsOn>
+  </PropertyGroup>
+  <Target Name="PreBuildWebsites">
+    <Message Importance="high" Text="Targets BuildWebsitesDependsOn: $(BuildWebsitesDependsOn)" />
+  </Target>
+  <Target Name="BuildWebsites" DependsOnTargets="$(BuildWebsitesDependsOn)" />
+
+  <!-- DeployWebsites -->
+  <PropertyGroup>
+    <DeployWebsitesDependsOn>
+      PreDeployWebsites;
+      DeployFakeBusService;
+      DeployErmWebApp;
+      DeployOrderValidationService;
+      DeployBasicOperationsService;
+      DeployMoneyDistributionService;
+      DeployMetadataService;
+      OverwriteProductionValues
+    </DeployWebsitesDependsOn>
+  </PropertyGroup>
+  <Target Name="PreDeployWebsites">
+    <Message Importance="high" Text="Targets DeployWebsitesDependsOn: $(DeployWebsitesDependsOn)" />
+  </Target>
+  <Target Name="DeployWebsites" DependsOnTargets="$(DeployWebsitesDependsOn)" />
+
+  <!-- SetTeamCityBuildNumber -->
+  <Target Name="SetTeamCityBuildNumber">
+    <Message Text="##teamcity[buildNumber '$(FullProductVersion)']" Importance="low" />
+  </Target>
+  
+  <!-- UpdateAssemblyInfo -->
+  <Target Name="UpdateAssemblyInfo">
+    
+    <DoubleGis.Erm.Build.Tasks.UpdateAssemblyInfo
+      AssemblyInfo="$(ErmSolutionDir)\AssemblyInfo.Version.cs"
+      First="$(Common_Version_Major)"
+      Second="$(Common_Version_Minor)"
+      Third="$(Common_Version_Revision)"
+      Fourth="$(Common_Version_Build)"
+      />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+
+  </Target>
+
+  <!-- BuildDynamicsCrmHackFiles -->
+  <Target Name="BuildDynamicsCrmHackFiles">
+    <PropertyGroup>
+      <DynamicsCrmWebsiteDir>C:\inetpub\wwwroot</DynamicsCrmWebsiteDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <HackFiles Include="$(ErmSolutionDir)CRM\2Gis.Erm.MsCRM\Customizations\Hack\**\*.*" />
+    </ItemGroup>
+
+    <!-- copy hack files to dynamics crm web site content folder -->
+    <Copy
+      SourceFiles="@(HackFiles)"
+      DestinationFiles="@(HackFiles->'$(DynamicsCrmWebsiteDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+      OverwriteReadOnlyFiles="True"
+    />
+
+    <!-- create deployment package -->
+    <Exec
+      Command="&quot;$(MsDeployPath)&quot; -verb:sync -source:manifest='$(MSBuildProjectDirectory)\DynamicsCrmHackFilesManifest.xml' -dest:package='$(DynamicsCrmPackageName)' -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -retryAttempts=2 -disablerule:BackupRule"
+    />
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$(DynamicsCrmPackageName) => Dynamics CRM']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+    
+  </Target>
+
+  <!-- DeployDynamicsCrmHackFiles -->
+  <Target Name="DeployDynamicsCrmHackFiles" DependsOnTargets="BuildDynamicsCrmHackFiles">
+
+    <!-- deploy package -->
+    <Exec
+      Command="&quot;$(MsDeployPath)&quot; -verbose -verb:sync -source:package='$(DynamicsCrmPackageName)' -dest:auto,ComputerName='$(DynamicsCrm_ServerName):8172/msdeploy.axd',AuthType='NTLM' -allowUntrusted -retryAttempts=2 -disablerule:BackupRule"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />    
+  </Target>
+
+  <!-- BuildDynamicsCrmPlugins -->
+  <Target Name="BuildDynamicsCrmPlugins">
+
+    <!-- build plugins -->
+    <MSBuild
+      Projects="$(ErmSolutionDir)CRM\2Gis.Erm.MsCRM\2Gis.Erm.MsCRM.csproj"
+      Properties="Configuration=$(Configuration);Platform=AnyCPU;VisualStudioVersion=$(VisualStudioVersion)"
+    />
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)CRM\2Gis.Erm.MsCRM\bin\$(Configuration)\2Gis.Erm.MsCRM.dll')) => Dynamics CRM\PluginRegistration']" Importance="low" />
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)CRM\2Gis.Erm.MsCRM\PluginRegistration.xml')) => Dynamics CRM\PluginRegistration']" Importance="low" />
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)Libs\Microsoft Dynamics CRM SDK 4.0.13\PluginRegistration.exe')) => Dynamics CRM\PluginRegistration']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployDynamicsCrmPlugins -->
+  <Target Name="DeployDynamicsCrmPlugins" DependsOnTargets="GetErmDeployIisAppPath;BuildDynamicsCrmPlugins">
+
+    <PropertyGroup>
+      <CrmProjectOutputDir>$(ErmSolutionDir)CRM\2Gis.Erm.MsCRM\bin\$(Configuration)</CrmProjectOutputDir>
+    </PropertyGroup>
+    
+    <DoubleGis.Erm.Build.Tasks.UnregisterPluginAssembly
+      CrmSdkPath="$(CrmSdkPath)"
+      CrmConnectionString="$(DynamicsCrm_PublishConnectionString)"
+      CrmProjectOutputDir="$(CrmProjectOutputDir)"
+    />
+
+    <DoubleGis.Erm.Build.Tasks.RegisterPluginAssembly
+      CrmSdkPath="$(CrmSdkPath)"
+      CrmConnectionString="$(DynamicsCrm_PublishConnectionString)"
+      CrmProjectOutputDir="$(CrmProjectOutputDir)"
+      ErmWebAppUrl="http://$(ErmDeployIisAppPath)/ErmService.svc"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- OverwriteProductionValues -->
+  <Target Name="OverwriteProductionValues" DependsOnTargets="UpdateErmStoredProcedures;UpdateCustomizationXml" />
+
+  <!-- UpdateCustomizationXml -->
+  <Target Name="UpdateCustomizationXml"
+          Condition="'$(Option_DynamicsCrm)' == 'True'"
+          DependsOnTargets="GetErmDeployIisAppPath">
+
+    <DoubleGis.Erm.Build.Tasks.UpdateCustomizationXml
+      CrmSdkPath="$(CrmSdkPath)"
+      CrmConnectionString="$(DynamicsCrm_PublishConnectionString)"
+      ErmWebAppUrl="https://$(ErmDeployIisAppPath)"
+    />
+    
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- UpdateErmStoredProcedures -->
+  <Target Name="UpdateErmStoredProcedures">
+
+    <!-- заменяем в Erm слово DoubleGis -->
+    <DoubleGis.Erm.Build.Tasks.UpdateStoredProcedures
+      ErmWebAppProjectLocation="$(ErmWebAppProjectLocation)"
+      PublishProfileName="$(PublishProfileName)"
+      SourceConnectionStringName="CrmConnection"
+      TargetConnectionStringName="Erm"
+    />
+    <DoubleGis.Erm.Build.Tasks.UpdateStoredProcedures
+      ErmWebAppProjectLocation="$(ErmWebAppProjectLocation)"
+      PublishProfileName="$(PublishProfileName)"
+      SourceConnectionStringName="ErmLogging"
+      TargetConnectionStringName="Erm"
+    />
+    
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <Target Name="GetErmDeployIisAppPath">
+    
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(ErmWebAppProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="ErmDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <Message Text="ErmDeployIisAppPath=$(ErmDeployIisAppPath)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildErmWebApp -->
+  <Target
+    Name="BuildErmWebApp"
+    Condition="'$(Option_Websites_WebApp)' == 'True'">
+
+    <!-- create version file -->
+    <WriteLinesToFile File="$(VersionFileName)" Lines="$(FullProductVersion)" Overwrite="true" Encoding="UTF-8"/>
+
+    <ItemGroup>
+      <!-- Erm web application -->
+      <WebApplicationProject
+        Include="$(ErmWebAppProjectLocation)\2Gis.Erm.UI.Web.Mvc.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </WebApplicationProject>
+    </ItemGroup>
+    <MSBuild Projects="@(WebApplicationProject)" />
+    
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(ErmWebAppProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(ErmWebAppProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.UI.Web.Mvc-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(ErmWebAppProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.UI.Web.Mvc-$(ProductVersion)-$(Configuration).zip => Web application']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployErmWebApp -->
+  <Target
+    Name="DeployErmWebApp"
+    Condition="'$(Option_Websites_WebApp)' == 'True'"
+    DependsOnTargets="BuildErmWebApp;GetErmDeployIisAppPath">
+    
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(ErmDeployIisAppPath)" />
+    
+    <Exec
+      Command="&quot;$(ErmWebAppProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- разворачиваем миграции после web app, т.к. миграции используют web.config от web app -->
+    <CallTarget Targets="DeployDatabaseMigrations" />
+    
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri Uri="https://$(ErmDeployIisAppPath)" Username="$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)" Password="$(DynamicsCrm_UserPassword)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildOrderValidationService -->
+  <Target
+    Name="BuildOrderValidationService"
+    Condition="'$(Option_Websites_OrderValidations)' == 'True'">
+    
+    <!-- create version file -->
+    <WriteLinesToFile File="$(VersionFileName)" Lines="$(FullProductVersion)" Overwrite="true" Encoding="UTF-8"/>
+
+    <ItemGroup>
+      <OrderValidationServiceProject
+        Include="$(OrderValidationServiceProjectLocation)\2Gis.Erm.WCF.OrderValidation.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </OrderValidationServiceProject>
+      
+    </ItemGroup>
+    <MSBuild Projects="@(OrderValidationServiceProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(OrderValidationServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(OrderValidationServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.OrderValidation-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(OrderValidationServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.OrderValidation-$(ProductVersion)-$(Configuration).zip => Services']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployOrderValidationService -->
+  <Target
+    Name="DeployOrderValidationService"
+    Condition="'$(Option_Websites_OrderValidations)' == 'True'"
+    DependsOnTargets="BuildOrderValidationService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(OrderValidationServiceProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="OrderValidationServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(OrderValidationServiceDeployIisAppPath)" />
+
+    <Exec
+      Command="&quot;$(OrderValidationServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri Uri="https://$(OrderValidationServiceDeployIisAppPath)/Validate.svc" Username="$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)" Password="$(DynamicsCrm_UserPassword)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildFakeBusService -->
+  <Target
+    Name="BuildFakeBusService"
+    Condition="'$(Option_ErmFakeBusService)' == 'True' And '$(PublishProfileName)' == 'Test.08'">
+    <ItemGroup>
+      <FakeBusServiceProject
+        Include="$(FakeBusServiceProjectLocation)\2gis.Erm.Functional.ServiceStubs.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </FakeBusServiceProject>
+
+    </ItemGroup>
+    <MSBuild Projects="@(FakeBusServiceProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(FakeBusServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(FakeBusServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2gis.Erm.Functional.ServiceStubs-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(FakeBusServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2gis.Erm.Functional.ServiceStubs-$(Configuration).zip => Services']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployFakeBusService -->
+  <Target
+    Name="DeployFakeBusService"
+    Condition="'$(Option_ErmFakeBusService)' == 'True' And '$(PublishProfileName)' == 'Test.08'"
+    DependsOnTargets="BuildFakeBusService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(FakeBusServiceProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="FakeBusServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(FakeBusServiceDeployIisAppPath)" />
+
+    <Exec
+      Command="&quot;$(FakeBusServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildBasicOperationsService -->
+  <Target
+    Name="BuildBasicOperationsService"
+    Condition="'$(Option_Websites_BasicOperations)' == 'True'">
+
+    <!-- create version file -->
+    <WriteLinesToFile File="$(VersionFileName)" Lines="$(FullProductVersion)" Overwrite="true" Encoding="UTF-8"/>
+
+    <ItemGroup>
+      <BasicOperationsServiceProject
+        Include="$(BasicOperationsServiceProjectLocation)\2Gis.Erm.WCF.BasicOperations.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </BasicOperationsServiceProject>
+
+    </ItemGroup>
+    <MSBuild Projects="@(BasicOperationsServiceProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(BasicOperationsServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(BasicOperationsServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.BasicOperations-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(BasicOperationsServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.BasicOperations-$(ProductVersion)-$(Configuration).zip => Services']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployBasicOperationsService -->
+  <Target
+    Name="DeployBasicOperationsService"
+    Condition="'$(Option_Websites_BasicOperations)' == 'True'"
+    DependsOnTargets="BuildBasicOperationsService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(BasicOperationsServiceProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="BasicOperationsServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(BasicOperationsServiceDeployIisAppPath)" />
+
+    <Exec
+      Command="&quot;$(BasicOperationsServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri Uri="https://$(BasicOperationsServiceDeployIisAppPath)/Delete.svc" Username="$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)" Password="$(DynamicsCrm_UserPassword)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- BuildMoneyDistributionService -->
+  <Target
+    Name="BuildMoneyDistributionService"
+    Condition="'$(Option_Websites_MoneyDistribution)' == 'True'">
+    
+    <ItemGroup>
+      <MoneyDistributionServiceProject
+        Include="$(MoneyDistributionServiceProjectLocation)\2Gis.Erm.WCF.MoneyDistribution.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </MoneyDistributionServiceProject>
+    </ItemGroup>
+    <MSBuild Projects="@(MoneyDistributionServiceProject)" />
+  
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(MoneyDistributionServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(MoneyDistributionServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.MoneyDistribution-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(MoneyDistributionServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.MoneyDistribution-$(ProductVersion)-$(Configuration).zip => Services']" Importance="low" />
+  
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployMoneyDistributionService -->
+  <Target
+    Name="DeployMoneyDistributionService"
+    Condition="'$(Option_Websites_MoneyDistribution)' == 'True'"
+    DependsOnTargets="BuildMoneyDistributionService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(MoneyDistributionServiceProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="MoneyDistributionServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(MoneyDistributionServiceDeployIisAppPath)" />
+
+    <Exec
+      Command="&quot;$(MoneyDistributionServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri Uri="https://$(MoneyDistributionServiceDeployIisAppPath)/Reports.svc" Username="$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)" Password="$(DynamicsCrm_UserPassword)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildMetadataService -->
+  <Target
+    Name="BuildMetadataService"
+    Condition="'$(Option_Websites_MetadataService)' == 'True'">
+
+    <!-- create version file -->
+    <WriteLinesToFile File="$(VersionFileName)" Lines="$(FullProductVersion)" Overwrite="true" Encoding="UTF-8"/>
+
+    <ItemGroup>
+      <MetadataServiceProject
+        Include="$(MetadataServiceProjectLocation)\2Gis.Erm.WCF.Metadata.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </MetadataServiceProject>
+
+    </ItemGroup>
+    <MSBuild Projects="@(MetadataServiceProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(MetadataServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(MetadataServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.Metadata-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(MetadataServiceProjectLocation)\DeployPackages\$(PublishProfileName)\2Gis.Erm.WCF.Metadata-$(ProductVersion)-$(Configuration).zip => Services']" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployMetadataService -->
+  <Target
+    Name="DeployMetadataService"
+    Condition="'$(Option_Websites_MetadataService)' == 'True'"
+    DependsOnTargets="BuildMetadataService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(MetadataServiceProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="MetadataServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(MetadataServiceDeployIisAppPath)" />
+    
+    <Exec
+      Command="&quot;$(MetadataServiceProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri Uri="https://$(MetadataServiceDeployIisAppPath)/Metadata.svc" Username="$(DynamicsCrm_UserDomain)\$(DynamicsCrm_UserName)" Password="$(DynamicsCrm_UserPassword)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildDatabaseMigrations -->
+  <Target Name="BuildDatabaseMigrations">
+
+    <PropertyGroup>
+      <DatabaseMigrationsProperties>
+        Configuration=$(Configuration);
+        Platform=AnyCPU;
+        VisualStudioVersion=$(VisualStudioVersion)
+      </DatabaseMigrationsProperties>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <DatabaseMigrationsProject
+        Include="$(ErmSolutionDir)Data\Migrations\2Gis.Erm.DB.Migration.Console\2Gis.Erm.DB.Migration.Console.csproj">
+        <AdditionalProperties>
+          $(DatabaseMigrationsProperties)
+        </AdditionalProperties>
+      </DatabaseMigrationsProject>
+    </ItemGroup>
+    <MSBuild Projects="@(DatabaseMigrationsProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)Data\Migrations\2Gis.Erm.DB.Migration.Console\bin\$(Configuration)')) => Database migrations']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- DeployDatabaseMigrations -->
+  <Target Name="DeployDatabaseMigrations" DependsOnTargets="BuildDatabaseMigrations;GetErmDeployIisAppPath">
+
+    <PropertyGroup>
+      <MigrationsTempFolderName>migrations-$(PublishProfileName)</MigrationsTempFolderName>
+      <MigrationsImlpPath Condition=" '$(MigrationsImlpPath)' == '' ">C:\inetpub\$(ErmDeployIisAppPath)</MigrationsImlpPath>
+    </PropertyGroup>
+    
+    <!-- копируем миграции на удалённую машину -->
+    <Exec
+      Command="&quot;$(MsDeployPath)&quot; -verbose -verb:sync -source:dirPath='$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)Data\Migrations\2Gis.Erm.DB.Migration.Console\bin\$(Configuration)'))' -dest:dirPath='C:\Windows\Temp\$(MigrationsTempFolderName)',ComputerName='$(MsDeployServiceUrl)',AuthType='NTLM' -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted -retryAttempts=2 -disablerule:BackupRule"
+    />
+
+    <!-- запускаем миграции на удалённой машине с использованием CredSSP -->
+    <PropertyGroup>
+      <PublishUserName>2GIS\erm-buildagent</PublishUserName>
+      <PublishPassword>c6Ssd1ML</PublishPassword>
+      <ScriptBlock>
+        #Requires -Version 3.0
+        $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
+        Set-StrictMode -Version Latest
+
+        $tempFileName = [System.IO.Path]::GetTempFileName()
+        C:\Windows\Temp\$(MigrationsTempFolderName)\2Gis.Erm.DB.Migration.Console.exe -root="$(MigrationsImlpPath)" -u | Out-File $tempFileName -Encoding Default
+
+        # читаем результат в кодировке cp866
+        [System.IO.File]::ReadAllText($tempFileName, [System.Text.Encoding]::GetEncoding("cp866"))
+      </ScriptBlock>
+    </PropertyGroup>
+    <DoubleGis.Erm.Build.Tasks.RemoteScriptBlock
+      ComputerName="$(EntryPoint_HostName)"
+      Username="$(PublishUserName)"
+      Password="$(PublishPassword)"
+      ScriptBlock="$(ScriptBlock)"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployDatabaseMigrationsErmOnly -->
+  <Target Name="DeployDatabaseMigrationsErmOnly">
+
+    <PropertyGroup>
+      
+      <!-- хардкод -->
+      <DatabasePublishServer>uk-erm-test06.2gis.local</DatabasePublishServer>
+      <Erm_DatabaseName>Erm23</Erm_DatabaseName>
+      <DatabasePublishConnectionString>Data Source=$(DatabasePublishServer)%3BIntegrated Security=True%3BPooling=False</DatabasePublishConnectionString>
+
+      <DatabaseMigrationsCommonOutputPath>$([System.IO.Path]::GetFullPath('migrations-with-impl'))</DatabaseMigrationsCommonOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <DatabaseMigrationsProperties>
+        Configuration=$(Configuration);
+        Platform=AnyCPU;
+        OutputPath=$(DatabaseMigrationsCommonOutputPath)
+      </DatabaseMigrationsProperties>
+    </PropertyGroup>
+
+    <!-- билдим impl, т.к. нужен свой impl а не чужой -->
+    <ItemGroup>
+      <DatabaseMigrationsProject
+        Include="$(ErmSolutionDir)Data\Migrations\2Gis.Erm.DB.Migration.Console\2Gis.Erm.DB.Migration.Console.csproj">
+        <AdditionalProperties>
+          $(DatabaseMigrationsProperties)
+        </AdditionalProperties>
+      </DatabaseMigrationsProject>
+      <DatabaseMigrationsImplProject
+        Include="$(ErmSolutionDir)Data\Migrations\2Gis.Erm.DB.Migration.Impl\2Gis.Erm.DB.Migration.Impl.csproj">
+        <AdditionalProperties>
+          $(DatabaseMigrationsProperties)
+        </AdditionalProperties>
+      </DatabaseMigrationsImplProject>
+    </ItemGroup>
+    <MSBuild Projects="@(DatabaseMigrationsProject);@(DatabaseMigrationsImplProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$(DatabaseMigrationsCommonOutputPath) => Database migrations impl']" Importance="low" />
+
+    <!-- копируем миграции вместе с impl на удалённую машину -->
+    <Exec
+      Command="&quot;$(MsDeployPath)&quot; -verbose -verb:sync -source:dirPath='$(DatabaseMigrationsCommonOutputPath)' -dest:dirPath='C:\Windows\Temp\migrations-with-impl',ComputerName='$(MsDeployServiceUrl)',AuthType='NTLM' -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted -retryAttempts=2 -disablerule:BackupRule"
+    />
+
+    <!-- запускаем миграции на удалённой машине с использованием CredSSP -->
+    <PropertyGroup>
+      <PublishUserName>2GIS\erm-buildagent</PublishUserName>
+      <PublishPassword>c6Ssd1ML</PublishPassword>
+      <ScriptBlock>
+        #Requires -Version 3.0
+        $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
+        Set-StrictMode -Version Latest
+
+        $tempFileName = [System.IO.Path]::GetTempFileName()
+        C:\Windows\Temp\migrations-with-impl\2Gis.Erm.DB.Migration.Console.exe -ermonly="$(DatabasePublishConnectionString);Initial Catalog=$(Erm_DatabaseName)" -u | Out-File $tempFileName -Encoding Default
+
+        # читаем результат в кодировке cp866
+        [System.IO.File]::ReadAllText($tempFileName, [System.Text.Encoding]::GetEncoding("cp866"))
+      </ScriptBlock>
+    </PropertyGroup>
+    <DoubleGis.Erm.Build.Tasks.RemoteScriptBlock
+      ComputerName="$(EntryPoint_HostName)"
+      Username="$(PublishUserName)"
+      Password="$(PublishPassword)"
+      ScriptBlock="$(ScriptBlock)"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- BuildErmTaskService -->
+  <Target
+    Name="BuildErmTaskService"
+    Condition="'$(Option_ErmTaskService)' == 'True'">
+
+    <PropertyGroup>
+      <DefineConstantsOverrides>ProductVersion=$(ProductVersion);PublishProfileName=$(PublishProfileName)</DefineConstantsOverrides>
+    </PropertyGroup>
+
+    <!-- build ERM task service installer project, we can't set 'Platform' property since this caused an error -->
+    <ItemGroup>
+      <WixInstallProject
+        Include="$(ErmSolutionDir)EntryPoints\2Gis.Erm.TaskService.Installer\2Gis.Erm.TaskService.Installer.wixproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          OutputName=$(MsiFileNameWithoutExtension)
+        </AdditionalProperties>
+      </WixInstallProject>
+    </ItemGroup>
+    <MSBuild
+      Projects="@(WixInstallProject)"
+
+      Properties="PublishProfileName=$(PublishProfileName);DefineConstantsOverrides=$([MSBuild]::Escape($(DefineConstantsOverrides)))"
+    />
+    
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('$(ErmSolutionDir)EntryPoints\2Gis.Erm.TaskService.Installer\bin\$(TaskServicePlatform)\$(Configuration)\$(MsiFileName)')) => Task service']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- DeployErmTaskService -->
+  <Target
+    Name="DeployErmTaskService"
+    Condition="'$(Option_ErmTaskService)' == 'True'"
+    DependsOnTargets="BuildErmTaskService">
+
+    <PropertyGroup>
+      <MsiDeployPackagePath>$(ErmSolutionDir)EntryPoints\2Gis.Erm.TaskService.Installer\bin\$(TaskServicePlatform)\$(Configuration)\$(MsiFileName)</MsiDeployPackagePath>
+      <MsiDeployPackageAbsolutePath>$([System.IO.Path]::GetFullPath('$(MsiDeployPackagePath)'))</MsiDeployPackageAbsolutePath>
+    </PropertyGroup>
+
+    <!-- copy msi to target machine -->
+    <Exec
+      Command="&quot;$(MsDeployPath)&quot; -verbose -verb:sync -source:filePath='$(MsiDeployPackageAbsolutePath)' -dest:filePath='C:\Windows\Temp\$(MsiFileName)',ComputerName='$(MsDeployServiceUrl)',AuthType='NTLM' -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted -retryAttempts=2 -disablerule:BackupRule"
+    />
+
+    <!-- stop service, install msi on target machine -->
+    <PropertyGroup>
+      <ScriptBlock>
+        #Requires -Version 3.0
+        $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
+        Set-StrictMode -Version Latest
+
+        $service = Get-Service -Include "$(PublishProfileName)"
+        if ($service -ne $null -and $service.Status -eq "Running"){
+          $service.Stop()
+        }
+
+        cmd.exe /c msiexec.exe -i C:\Windows\Temp\$(MsiFileName) -quiet -norestart /l*v C:\Windows\Temp\$(MsiFileName).log 
+
+        $service = Get-Service -Include "$(PublishProfileName)"
+        if ($service -ne $null -and "$(PublishProfileName)" -eq "Test.08"){
+          $service.Start()
+        }
+
+      </ScriptBlock>
+    </PropertyGroup>
+    <DoubleGis.Erm.Build.Tasks.RemoteScriptBlock
+      ComputerName="$(EntryPoint_HostName)"
+      Username="[EMPTY]"
+      Password="[EMPTY]"
+      ScriptBlock="$(ScriptBlock)"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- DeployReports -->
+  <PropertyGroup>
+    <DeployReportsDependsOn>
+      DeployRptFiles;
+      UpdateReportsStoredProcedures
+    </DeployReportsDependsOn>
+  </PropertyGroup>
+  <Target
+    Name="DeployReports"
+    Condition="'$(Option_Reports)' == 'True'"
+    DependsOnTargets="$(DeployReportsDependsOn)"
+  />
+
+  <!-- DeployRptFiles -->
+  <Target Name="DeployRptFiles">
+    <DoubleGis.Erm.Build.Tasks.DeployRpt
+      ErmWebAppProjectLocation="$(ErmWebAppProjectLocation)"
+      PublishProfileName="$(PublishProfileName)"
+      ReportsProjectLocation="$(ReportsProjectLocation)"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- UpdateReportsStoredProcedures -->
+  <Target Name="UpdateReportsStoredProcedures">
+    <!-- заменяем в ErmReports слово Erm -->
+    <DoubleGis.Erm.Build.Tasks.UpdateStoredProcedures
+      ErmWebAppProjectLocation="$(ErmWebAppProjectLocation)"
+      PublishProfileName="$(PublishProfileName)"
+      SourceConnectionStringName="Erm"
+      TargetConnectionStringName="ErmReports"
+    />
+    <DoubleGis.Erm.Build.Tasks.UpdateStoredProcedures
+      ErmWebAppProjectLocation="$(ErmWebAppProjectLocation)"
+      PublishProfileName="$(PublishProfileName)"
+      SourceConnectionStringName="CrmConnection"
+      TargetConnectionStringName="ErmReports"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- AddAdditionalBuildArtifacts -->
+  <Target Name="AddAdditionalBuildArtifacts">
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$([System.IO.Path]::GetFullPath('how to deploy.txt'))']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildUnitTests target -->
+  <Target Name="BuildUnitTests">
+
+    <!-- unit test projects -->
+    <ItemGroup>
+      <UnitTestsProject
+        Include="$(ErmSolutionDir)\Tests\Unit\2Gis.Erm.Unit.Tests\2Gis.Erm.Unit.Tests.csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion)
+        </AdditionalProperties>
+      </UnitTestsProject>
+    </ItemGroup>
+
+    <MSBuild Projects="@(UnitTestsProject)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildFunctionalTests target -->
+  <Target Name="BuildFunctionalTests">
+    <PropertyGroup>
+      <TestProjectPath>$(ErmSolutionDir)Tests\Functional\DoubleGis.Erm.Functional.Test</TestProjectPath>
+    </PropertyGroup>
+    <MSBuild Projects="$(TestProjectPath)\DoubleGis.Erm.Functional.Test.csproj" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- BuildIntegrationTests target -->
+  <Target Name="BuildIntegrationTests">
+    <MSBuild Projects="$(ErmSolutionDir)Tests\Integration\DoubleGis.Erm.Integration.Test\DoubleGis.Erm.Integration.Test.csproj" />
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- CleanCodeMetrics -->
+  <Target Name="CleanCodeMetrics">
+
+    <Exec
+      Command="rd /s /q CodeMetrics"
+      ContinueOnError="true"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- CodeMetrics -->
+  <Target Name="CodeMetrics" DependsOnTargets="CleanCodeMetrics">
+
+    <Exec
+      Command="mkdir CodeMetrics"
+      ContinueOnError="true"
+    />
+
+    <!-- Code Metrics Power Tool analysis -->
+    <Exec
+      Command="&quot;$(VS100COMNTOOLS)\..\..\Team Tools\Static Analysis Tools\FxCop\Metrics.exe&quot; /searchgac /file:&quot;$(ErmSolutionDir)EntryPoints\UI\2Gis.Erm.UI.Web.Mvc\bin\2Gis*.dll&quot; /out:&quot;CodeMetrics\CodeMetrics.xml&quot;"
+      ContinueOnError = "true"
+    />
+    <Exec
+      Command="&quot;..\tools\msxsl.exe&quot; &quot;CodeMetrics\CodeMetrics.xml&quot; &quot;..\tools\MSTest_CodeCoverageTools\CodeMetrics.xsl&quot; -o &quot;CodeMetrics\CodeMetrics.html&quot;"
+    />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+
+  <!-- CopyLocalizationFilesToErm -->
+  <Target Name="CopyLocalizationFilesToErm">
+    
+    <Copy
+      SourceFiles="..\Localization\En\client\Resources.resx"
+      DestinationFiles="$(ErmSolutionDir)Infrastructure\Resources\2Gis.Erm.ClientResourceStorage\Properties\Resources.en.resx" OverwriteReadOnlyFiles="true" />
+
+    <Copy
+      SourceFiles="..\Localization\En\server\EnumResources.resx"
+      DestinationFiles="$(ErmSolutionDir)Infrastructure\Resources\2Gis.Erm.ServerResourceStorage\Properties\EnumResources.en.resx" OverwriteReadOnlyFiles="true" />
+
+    <Copy
+      SourceFiles="..\Localization\En\server\ErmConfigLocalization.resx"
+      DestinationFiles="$(ErmSolutionDir)Infrastructure\Resources\2Gis.Erm.ServerResourceStorage\Properties\ErmConfigLocalization.en.resx" OverwriteReadOnlyFiles="true" />
+
+    <Copy
+      SourceFiles="..\Localization\En\server\MetadataResources.resx"
+      DestinationFiles="$(ErmSolutionDir)Infrastructure\Resources\2Gis.Erm.ServerResourceStorage\Properties\MetadataResources.en.resx"  OverwriteReadOnlyFiles="true" />
+
+    <Copy
+      SourceFiles="..\Localization\En\server\Resources.resx"
+      DestinationFiles="$(ErmSolutionDir)Infrastructure\Resources\2Gis.Erm.ServerResourceStorage\Properties\Resources.en.resx" OverwriteReadOnlyFiles="true" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- HelloTarget -->
+  <Target Name="HelloTarget">
+    <Message Importance="high" Text="Вы запустили билдскрипт системы ERM без укзания цели, укажите цель" />
+  </Target>
+
+  <!-- HandleBuildError -->
+  <Target Name="HandleBuildError">
+    <WriteLinesToFile File="buildreport.txt" Lines="Во время билда возникла ошибка, обратитесь к разработчикам." />
+  </Target>
+
+</Project>
