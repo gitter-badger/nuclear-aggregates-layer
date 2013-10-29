@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Подключаем TransformXml для трансформаций конфигов -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+
+  <PropertyGroup>
+    <SolutionFolder>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\..\..))</SolutionFolder>
+  </PropertyGroup>
+
+  <!-- не можем включить в Erm.Common как content из за wix -->
+  <ItemGroup Label="ERM hack: включаем нативные dll для 7z в проект">
+    <Content Include="$(SolutionFolder)\Platform\Source\Libs\7-Zip 9.22\x86\7z.dll">
+      <Link>x86\7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(SolutionFolder)\Platform\Source\Libs\7-Zip 9.22\x64\7z.dll">
+      <Link>x64\7z.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <Target Name="TransformLog4NetConfig"
+          BeforeTargets="BeforeBuild"
+          Condition="Exists('log4net.$(Configuration).config')"
+          Label="ERM hack: Процессинг log4net.config во время билда">
+    
+    <TransformXml
+      Source="log4net.config"
+      Transform="log4net.$(Configuration).config"
+      Destination="log4net.transformed.config" />
+    
+    <ItemGroup>
+      <None Remove="log4net.config" />
+      <None Remove="log4net.*.config" />
+      <None Include="log4net.transformed.config">
+        <Link>log4net.config</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+    
+  </Target>
+  
+  <Target Name="TransformAppConfig"
+          BeforeTargets="BeforeBuild"
+          Condition="Exists('app.$(PublishProfileName).config')"
+          Label="ERM hack: Процессинг app.config во время билда">
+    
+    <ItemGroup>
+      <AppConfigTransform Condition="Exists('app.$(PublishProfileName).config')" Include="app.$(PublishProfileName).config" />
+    </ItemGroup>
+    
+    <TransformXml
+      Source="app.config"
+      Transform="@(AppConfigTransform->'%(FullPath)')"
+      Destination="app.transformed.config" />
+    
+    <ItemGroup>
+      <None Remove="app.config" />
+      <None Remove="app.*.config" />
+      <None Include="app.transformed.config">
+        <Link>$(TargetFileName).config</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+    
+  </Target>
+
+  <Target Name="TransformErmClientPluginConfig"
+          BeforeTargets="BeforeBuild"
+          Condition="Exists('2Gis.Erm.UI.WPF.Client.$(Environment).$(EnvironmentNumber).config')"
+          Label="ERM hack: Процессинг 2Gis.Erm.UI.WPF.Client.config во время билда">
+
+    <ItemGroup>
+      <ErmClientPluginConfigTransform Condition="Exists('2Gis.Erm.UI.WPF.Client.$(Environment).$(EnvironmentNumber).config')" Include="2Gis.Erm.UI.WPF.Client.$(Environment).$(EnvironmentNumber).config" />
+    </ItemGroup>
+
+    <TransformXml
+      Source="2Gis.Erm.UI.WPF.Client.config"
+      Transform="@(ErmClientPluginConfigTransform->'%(FullPath)')"
+      Destination="2Gis.Erm.UI.WPF.Client.transformed.config" />
+
+    <ItemGroup>
+      <None Remove="2Gis.Erm.UI.WPF.Client.config" />
+      <None Remove="2Gis.Erm.UI.WPF.Client.*.config" />
+      <None Include="2Gis.Erm.UI.WPF.Client.transformed.config">
+        <Link>2Gis.Erm.UI.WPF.Client.config</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+  </Target>
+  
+</Project>

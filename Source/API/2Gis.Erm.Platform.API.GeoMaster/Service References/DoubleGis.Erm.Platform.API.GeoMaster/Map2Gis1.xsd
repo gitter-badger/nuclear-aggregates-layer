@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://2Gis/GeoMasterApi/2013/1" elementFormDefault="qualified" targetNamespace="http://2Gis/GeoMasterApi/2013/1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="GetCapabilities">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCapabilitiesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCapabilitiesResult" nillable="true" type="tns:Capabilities" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Capabilities">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Languages" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Capabilities" nillable="true" type="tns:Capabilities" />
+  <xs:element name="GetAllPhoneZones">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Header">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Header" nillable="true" type="tns:Header" />
+  <xs:element name="MyHeader" nillable="true" type="tns:Header" />
+  <xs:element name="GetAllPhoneZonesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAllPhoneZonesResult" nillable="true" type="tns:ArrayOfPhoneZone" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfPhoneZone">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PhoneZone" nillable="true" type="tns:PhoneZone" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhoneZone" nillable="true" type="tns:ArrayOfPhoneZone" />
+  <xs:complexType name="PhoneZone">
+    <xs:sequence>
+      <xs:element name="SynCode" type="xs:long" />
+      <xs:element minOccurs="0" name="PhoneCode" nillable="true" type="xs:string" />
+      <xs:element name="IsDeleted" type="xs:boolean" />
+      <xs:element name="IsDefault" type="xs:boolean" />
+      <xs:element name="CitySynCode" type="xs:long" />
+      <xs:element minOccurs="0" name="CityName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PhoneZone" nillable="true" type="tns:PhoneZone" />
+  <xs:complexType name="NotSupportedLanguage">
+    <xs:sequence>
+      <xs:element name="Language" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotSupportedLanguage" nillable="true" type="tns:NotSupportedLanguage" />
+  <xs:element name="GetAddressesString">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="codes" nillable="true" type="q2:ArrayOflong" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAddressesStringResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAddressesStringResult" nillable="true" type="tns:ArrayOfAddressDesc" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfAddressDesc">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressDesc" nillable="true" type="tns:AddressDesc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddressDesc" nillable="true" type="tns:ArrayOfAddressDesc" />
+  <xs:complexType name="AddressDesc">
+    <xs:sequence>
+      <xs:element name="Code" type="xs:long" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AddressDesc" nillable="true" type="tns:AddressDesc" />
+  <xs:complexType name="NotFoundObject">
+    <xs:sequence>
+      <xs:element name="Code" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotFoundObject" nillable="true" type="tns:NotFoundObject" />
+</xs:schema>

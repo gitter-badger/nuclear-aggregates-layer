@@ -1,0 +1,15 @@
+﻿<sitemanifest>
+
+  <!-- deploy dynamics crm hack files -->
+  <filePath path="C:\inetpub\wwwroot\_root\bar_Top.aspx" />
+  <filePath path="C:\inetpub\wwwroot\_root\HomePage.aspx" />
+  <filePath path="C:\inetpub\wwwroot\_static\_common\scripts\Global.js" />
+  <filePath path="C:\inetpub\wwwroot\_static\_controls\lookup\LookupDialogsAppGrid.js" />
+  <filePath path="C:\inetpub\wwwroot\_static\_grid\action.js" />
+  <filePath path="C:\inetpub\wwwroot\_static\_grid\grid.htc" />
+  <filePath path="C:\inetpub\wwwroot\Activities\dlg_create.aspx" />
+  <filePath path="C:\inetpub\wwwroot\AdvancedFind\fetchData.aspx" />
+  <filePath path="C:\inetpub\wwwroot\MA\MiniCampaign\MiniCampaign.aspx" />
+  <filePath path="C:\inetpub\wwwroot\UserDefined\edit.aspx" />
+
+</sitemanifest>

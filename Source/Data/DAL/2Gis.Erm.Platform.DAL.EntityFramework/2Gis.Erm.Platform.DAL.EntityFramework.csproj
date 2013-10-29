@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1DAF0763-543A-49D3-93D2-04F43A79D538}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.DAL.EntityFramework</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.DAL.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
+      <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="EFGenericRepository.cs" />
+    <Compile Include="EFEntityStateEntry.cs" />
+    <Compile Include="EFFileRepository.cs" />
+    <Compile Include="EFObjectContext.cs" />
+    <Compile Include="EFObjectSet.cs" />
+    <Compile Include="EFRepository.cs" />
+    <Compile Include="EFDomainContextFactory.cs" />
+    <Compile Include="EFConnectionFactory.cs" />
+    <Compile Include="EFSecureGenericRepository.cs" />
+    <Compile Include="EFUtils.cs" />
+    <Compile Include="EFDomainContext.cs" />
+    <Compile Include="IEFConnectionFactory.cs" />
+    <Compile Include="IObjectContext.cs" />
+    <Compile Include="IObjectSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

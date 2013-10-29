@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9df3b208-ba3f-4d06-a68c-f23c22c5015d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Map2Gis.wsdl" MetadataType="Wsdl" ID="235fb2e0-9a52-4d99-b451-013bd0241b61" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="Map2Gis.xsd" MetadataType="Schema" ID="ff3f0ce6-be3a-4652-894d-53298b382a17" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd1" />
+    <MetadataFile FileName="Map2Gis.disco" MetadataType="Disco" ID="bcae1fa7-27c3-4934-b7cb-5777ed66e428" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?disco" />
+    <MetadataFile FileName="MasterSystemApi.wsdl" MetadataType="Wsdl" ID="dac46c08-25c1-4f88-99b3-a204d92e12e6" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?wsdl" />
+    <MetadataFile FileName="Map2Gis1.xsd" MetadataType="Schema" ID="7936f213-1019-40fe-a6be-a72eb0ece637" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd0" />
+    <MetadataFile FileName="Map2Gis2.xsd" MetadataType="Schema" ID="7c78f5b7-1df6-4858-8184-72d53201c689" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

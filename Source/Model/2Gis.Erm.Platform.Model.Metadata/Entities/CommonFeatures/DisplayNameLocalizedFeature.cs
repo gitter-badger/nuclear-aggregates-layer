@@ -1,0 +1,27 @@
+﻿using System;
+using System.Linq.Expressions;
+
+using DoubleGis.Erm.Platform.Common.Utils;
+
+namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures
+{
+    public sealed class DisplayNameLocalizedFeature : IPropertyFeature, IDataFieldFeature
+    {
+        public DisplayNameLocalizedFeature(Type resourceManagerType, string resourceKey)
+        {
+            ResourceManagerType = resourceManagerType;
+            ResourceKey = resourceKey;
+        }
+
+        public Type ResourceManagerType { get; private set; }
+
+        public string ResourceKey { get; private set; }
+        public EntityProperty TargetProperty { get; set; }
+        public static DisplayNameLocalizedFeature Create<TKey>(Expression<Func<TKey>> resourceKeyExpression)
+        {
+            var keyName = StaticReflection.GetMemberName(resourceKeyExpression);
+            var resourceManagerType = StaticReflection.GetMemberDeclaringType(resourceKeyExpression);
+            return new DisplayNameLocalizedFeature(resourceManagerType, keyName);
+        }
+    }
+}

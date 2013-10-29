@@ -1,0 +1,188 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+namespace DoubleGis.Erm.Platform.Model.Entities
+{
+    public static partial class EntityNameUtils
+    {
+        /// <summary>
+        /// Список значений EntityName, являющихся composed - т.е. комбинирующими
+        /// </summary>
+        public static readonly EntityName[] ComposedEntityNames = { EntityName.None, EntityName.All };
+        
+        /// <summary>
+        /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
+        /// </summary>
+        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
+
+        /// <summary>
+        /// Список типов ERM существующих только на уровне persistance, используемых только в DAL и не используемых в более высокоуровневых слоях, чем агрегирующие репозитории 
+        /// </summary>
+        public static readonly HashSet<Type> PersistenceOnlyEntities = new HashSet<Type>
+            {
+                typeof(FunctionalPrivilegeDepth), 
+                typeof(OrganizationUnitDto),
+                typeof(Privilege),
+                typeof(TerritoryDto),
+                typeof(OrdersRegionalAdvertisingSharing),
+                typeof(OrderValidationRuleGroup),
+                typeof(OrderValidationRuleGroupDetail),
+                typeof(UsersDescendant),
+                typeof(BusinessOperationService),
+                typeof(DepCard),
+                typeof(Building),
+                typeof(SecurityAccelerator),
+            };
+
+        /// <summary>
+        /// Список сущностей ERM, обычно справочных, которые должны иметь строго одну и ту же identity в разных инсталляциях системы (например, на Кипре и в России)
+        /// Т.к. пока автоматический sharing (репликация и т.п.) экземпляров таких сущностей не реализован, то наличие сущности в этом списке означает, 
+        /// что для неё не всегда нужно генерировать ID, иногда ID вводится явно в ручном режиме администраторами системы
+        /// </summary>
+        // TODO {all, 29.07.2013}: Перевести shared entities на генерацию Id в master инсталяции Erm, с отключением возможности ручного задания ID администраторами системы
+        public static readonly HashSet<Type> InstanceSharedEntities = new HashSet<Type>
+            {
+                typeof(AdvertisementElementTemplate),
+                typeof(AdvertisementTemplate),
+                typeof(BargainType),
+                typeof(BranchOfficeOrganizationUnit),
+                typeof(BranchOffice),
+                typeof(Country),
+                typeof(ContributionType),
+                typeof(Currency),
+                typeof(OperationType),
+                typeof(OrderValidationRuleGroupDetail),
+                typeof(OrderValidationRuleGroup),
+                typeof(OrganizationUnit),
+                typeof(Platform.Model.Entities.Erm.Platform),
+                typeof(PositionCategory),
+                typeof(CategoryGroup),
+                typeof(Territory),
+                typeof(Department),
+                typeof(Privilege),
+                typeof(Role),
+                typeof(User),
+                typeof(MessageType),
+                typeof(Platform.Model.Entities.Security.TimeZone),
+                typeof(Position),
+                typeof(Theme),
+                typeof(UserProfile),
+                typeof(Project),
+            };
+
+        /// <summary>
+        /// Список сущностей являющихся базовыми классами, т.е. 
+        /// </summary>
+        public static readonly HashSet<Type> BaseEntities = new HashSet<Type>
+            {
+                typeof(ActivityBase)
+            };
+
+        /// <summary>
+        /// Разложить composed значение на составляющие, если на вход передано не composed (элементарное) значение EntityName - возвращается оно без изменений
+        /// </summary>
+        public static EntityName[] GetDecomposed(this EntityName entityName)
+        {
+            if (entityName == EntityName.None)
+            {
+                return new EntityName[0];
+            }
+
+            if (entityName == EntityName.All)
+            {
+                var allValues = (EntityName[])Enum.GetValues(typeof(EntityName));
+                return allValues
+                    .Except(ComposedEntityNames)
+                    //.Except(VirtualEntityNames)
+                    .ToArray();
+            }
+
+            return new[] { entityName };
+        }
+
+        public static bool IsVirtual(this EntityName entityName)
+        {
+            return VirtualEntityNames.Contains(entityName);
+        }
+
+        public static bool IsPersistenceOnly(this Type checkingType)
+        {
+            return PersistenceOnlyEntities.Contains(checkingType);
+        }
+
+        public static bool IsInstanceShared(this Type checkingType)
+        {
+            return InstanceSharedEntities.Contains(checkingType);
+        }
+
+        public static bool IsBaseEntity(this Type entityType)
+        {
+            return typeof(IBaseEntity).IsAssignableFrom(entityType);
+        }
+
+        public static bool IsEntity(this Type entityType)
+        {
+            return typeof(IEntity).IsAssignableFrom(entityType);
+        }
+
+        public static bool IsSecurableAccessRequired(this EntityName entityName)
+        {
+            return entityName.AsEntityType().IsSecurableAccessRequired();
+        }
+
+        public static bool IsSecurableAccessRequired(this Type entityType)
+        {
+            if (!entityType.IsEntity())
+            {
+                throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
+            }
+
+            return typeof(ICuratedEntity).IsAssignableFrom(entityType);
+        }
+
+        public static bool IsOwnerable(this EntityName entityName)
+        {
+            return typeof(ICuratedEntity).IsAssignableFrom(entityName.AsEntityType());
+        }
+
+        public static bool IsDeactivatable(this EntityName entityName)
+        {
+            return typeof(IDeactivatableEntity).IsAssignableFrom(entityName.AsEntityType());
+        }
+
+        public static bool IsDeletable(this EntityName entityName)
+        {
+            return typeof(IDeletableEntity).IsAssignableFrom(entityName.AsEntityType());
+        }
+
+        public static bool IsFileEntity(this EntityName entityName)
+        {
+            Type entityType = entityName.AsEntityType();
+            return typeof(IEntityFile).IsAssignableFrom(entityType) || typeof(IEntityFileOptional).IsAssignableFrom(entityType);
+        }
+
+        public static string EntitiesToString(this EntityName[] entityNames)
+        {
+            if (entityNames == null || entityNames.Length == 0)
+            {
+                return "Entities list is empty";
+            }
+
+            var sb = new StringBuilder();
+            sb.Append(entityNames[0].ToString());
+            for (int i = 1; i < entityNames.Length; i++)
+            {
+                sb.Append(";")
+                  .Append(entityNames[i].ToString());
+            }
+
+            return sb.ToString();
+        }
+    }
+}

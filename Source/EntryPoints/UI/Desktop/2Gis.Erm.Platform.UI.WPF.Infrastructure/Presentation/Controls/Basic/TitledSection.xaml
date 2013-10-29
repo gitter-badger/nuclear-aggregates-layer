@@ -1,0 +1,33 @@
+﻿<Button x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic.TitledSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+        xmlns:basic="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic"
+        mc:Ignorable="d" 
+        d:DesignHeight="30" d:DesignWidth="300">
+    <Button.Template>
+        <ControlTemplate TargetType="basic:TitledSection">
+            <controls:BriefGrid Name="Chrome" Rows="Auto,Auto" Columns="*"
+                                Margin="10 0 10 0"
+                                Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" 
+                                HorizontalAlignment="Stretch">
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin ="10 0 0 0" Text="{TemplateBinding Title}" Style="{TemplateBinding TitleTextStyle}"/>
+                <Line Grid.Row="1" Grid.Column="0">
+                    <Line.Style>
+                        <Style TargetType="Line">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="StrokeThickness" Value="1" />
+                            <Setter Property="Stretch" Value="Fill" />
+                            <Setter Property="Stroke" Value="{Binding SectionLineBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="StrokeThickness" Value="1" />
+                            <Setter Property="X1" Value="0" />
+                            <Setter Property="X2" Value="1" />
+                        </Style>
+                    </Line.Style>
+                </Line>
+            </controls:BriefGrid>
+        </ControlTemplate>
+    </Button.Template>
+</Button>

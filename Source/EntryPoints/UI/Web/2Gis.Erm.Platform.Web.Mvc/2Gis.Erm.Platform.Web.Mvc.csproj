@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.Web.Mvc</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.Web.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packages\Newtonsoft.Json.5.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\DependencyAttribute.cs" />
+    <Compile Include="Attributes\PresentationLayerPropertyAttribute.cs" />
+    <Compile Include="Attributes\YesNoRadioAttribute.cs" />
+    <Compile Include="Caching\WebCacheAdapter.cs" />
+    <Compile Include="DI\CustomLifetime.cs" />
+    <Compile Include="DI\MassProcessing\ControllersProcessor.cs" />
+    <Compile Include="DI\MassProcessing\EnumAdaptationMassProcessor.cs" />
+    <Compile Include="DI\MassProcessing\UIServicesMassProcessor.cs" />
+    <Compile Include="DI\UnityPerWebRequestLifetimeManager.cs" />
+    <Compile Include="DI\UnityPerWebRequestLifetimeModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="ResourceHandling\JsResourcesBuildHelper.cs" />
+    <Compile Include="ResourceHandling\ResourceAssemblyInfo.cs" />
+    <Compile Include="Security\IDefaultUserContextConfigurator.cs" />
+    <Compile Include="Security\IdentityWebExtensions.cs" />
+    <Compile Include="Security\WebDefaultUserContextConfigurator.cs" />
+    <Compile Include="Services\Enums\DefaultEnumAdaptationService.cs" />
+    <Compile Include="Services\Enums\EnumItem.cs" />
+    <Compile Include="Services\Enums\EnumItemsCache.cs" />
+    <Compile Include="Services\Enums\IEnumAdaptationService.cs" />
+    <Compile Include="Services\Enums\IEnumItemsCache.cs" />
+    <Compile Include="Services\IEntityUIService.cs" />
+    <Compile Include="Services\IUIService.cs" />
+    <Compile Include="Settings\IWebAppSettings.cs" />
+    <Compile Include="Utils\DateTimeSettings.cs" />
+    <Compile Include="Utils\JsonNetResult.cs" />
+    <Compile Include="Utils\JsonNetStrictResult.cs" />
+    <Compile Include="Utils\LookupField.cs" />
+    <Compile Include="Utils\LookupField.Server.cs" />
+    <Compile Include="Utils\LookupSettings.cs" />
+    <Compile Include="Utils\SilverlightControlSettings.cs" />
+    <Compile Include="Utils\SilverlightHtmlExtensions.cs" />
+    <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\MessageType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModel\ValidationMessage.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\ViewModel.Server.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6b8617e4-f688-45ed-a874-6692806dbf71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

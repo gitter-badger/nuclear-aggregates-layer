@@ -1,0 +1,81 @@
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
+{
+    public static partial class EntityProperties
+    {
+        public static readonly IEnumerable<EntityProperty> CategoryGroupProperties =
+            new[]
+                {
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.CategoryGroupName)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new LimitedLengthPropertyFeature(256),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CategoryGroupName)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.GroupRate)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CategoryGroupRate)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.Id),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.CreatedByRef)
+                                  .WithFeatures(
+                                      LookupPropertyFeature.Create(EntityName.User),
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.CreatedOn)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.ModifiedByRef)
+                                  .WithFeatures(
+                                      LookupPropertyFeature.Create(EntityName.User),
+                                      new ReadOnlyPropertyFeature(),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.ModifiedOn)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.Timestamp)
+                                  .WithFeatures(
+                                      new ReadOnlyPropertyFeature(),
+                                      new HiddenFeature()),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.IsActive)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      new HiddenFeature()),
+
+                    EntityProperty.Create<CategoryGroupDomainEntityDto>(dto => dto.IsDeleted)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      new HiddenFeature()),
+
+                    new EntityProperty
+                        {
+                            Name = "IsSecurityRoot",
+                            Type = typeof(bool),
+                        }
+                        .WithFeatures(
+                            new OnlyValuePropertyFeature<bool>(true),
+                            new HiddenFeature())
+                };
+    }
+}

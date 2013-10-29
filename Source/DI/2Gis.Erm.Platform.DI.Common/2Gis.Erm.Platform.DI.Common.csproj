@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6B8617E4-F688-45ED-A874-6692806DBF71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.DI.Common</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.DI.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\ContainerUtils.Common.cs" />
+    <Compile Include="Config\ContainerUtils.Resolve.cs" />
+    <Compile Include="Config\TypeExtensions.cs" />
+    <Compile Include="Config\DependencyScope.cs" />
+    <Compile Include="Config\ErmScope.cs" />
+    <Compile Include="Config\MassProcessing\IMassProcessor.cs" />
+    <Compile Include="Config\Lifetime.cs" />
+    <Compile Include="Config\LoggerConstants.cs" />
+    <Compile Include="Config\Policy.cs" />
+    <Compile Include="Config\ContainerUtils.Register.cs" />
+    <Compile Include="Config\Mapping.cs" />
+    <Compile Include="Config\UnsecureErmScope.cs" />
+    <Compile Include="Extensions\DisposableExtension\BuildTreeDisposer.cs" />
+    <Compile Include="Extensions\DisposableExtension\BuildTreeItemNode.cs" />
+    <Compile Include="Extensions\DisposableExtension\BuildTreeRecovery.cs" />
+    <Compile Include="Extensions\DisposableExtension\BuildTreeStore.cs" />
+    <Compile Include="Extensions\DisposableExtension\BuildTreeTracker.cs" />
+    <Compile Include="Extensions\DisposableExtension\DeferredResolutionTracker.cs" />
+    <Compile Include="Extensions\DisposableExtension\DisposableStrategyExtension.cs" />
+    <Compile Include="Extensions\DisposableExtension\IBuildTreeStore.cs" />
+    <Compile Include="Extensions\DisposableExtension\IBuildTreeTracker.cs" />
+    <Compile Include="Extensions\DisposableExtension\LockReader.cs" />
+    <Compile Include="Extensions\DisposableExtension\LockWriter.cs" />
+    <Compile Include="Extensions\InjectionConstructorEx.cs" />
+    <Compile Include="Extensions\PerScopeLifetimeBehaviorUtils.cs" />
+    <Compile Include="Extensions\QueryableContainerExtension.cs" />
+    <Compile Include="Extensions\ScopedDependencyOverride\ConstructorParamsExtractor.cs" />
+    <Compile Include="Extensions\ScopedDependencyOverride\ScopedDependencyOverride.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

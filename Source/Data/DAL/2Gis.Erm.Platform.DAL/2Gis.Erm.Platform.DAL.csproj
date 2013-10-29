@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.DAL</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
+      <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="DomainContextMetadata.cs" />
+    <Compile Include="IDomainEntityAccessor.cs" />
+    <Compile Include="IFileContentFinder.cs" />
+    <Compile Include="IPersistenceChangesRegistry.cs" />
+    <Compile Include="IPersistenceChangesRegistryProvider.cs" />
+    <Compile Include="IPersistenceService.cs" />
+    <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
+    <Compile Include="IRepositoryProxy.cs" />
+    <Compile Include="Model\Aggregates\IAggregateRepositoryFactory.cs" />
+    <Compile Include="Model\Aggregates\IAggregateRepositoryForHostFactory.cs" />
+    <Compile Include="Model\Aggregates\IAggregatesLayerRuntimeFactory.cs" />
+    <Compile Include="Model\SimplifiedModel\ISimplifiedModelConsumerFactory.cs" />
+    <Compile Include="NullPersistenceChangesRegistry.cs" />
+    <Compile Include="NullPersistenceChangesRegistryProvider.cs" />
+    <Compile Include="Specifications\SpecificationExtensions.cs" />
+    <Compile Include="Specifications\QueryableSpecificationExtensions.cs" />
+    <Compile Include="Specifications\GenericSpecifications.cs" />
+    <Compile Include="FinderBaseProvider.cs" />
+    <Compile Include="ICompositeRepository.cs" />
+    <Compile Include="IFinderBaseProvider.cs" />
+    <Compile Include="IReadDomainContextProviderForHost.cs" />
+    <Compile Include="DomainContextProviderProxy.cs" />
+    <Compile Include="DomainContextSaveStrategy.cs" />
+    <Compile Include="FindSpecificationExtensions.cs" />
+    <Compile Include="ForcePendingChangesHandlingStrategy.cs" />
+    <Compile Include="IFinderBase.cs" />
+    <Compile Include="IPendingChangesHandlingStrategy.cs" />
+    <Compile Include="IPendingChangesMonitorable.cs" />
+    <Compile Include="NullPendingChangesHandlingStrategy.cs" />
+    <Compile Include="ReadDomainContextCachingProxy.cs" />
+    <Compile Include="Finder.cs" />
+    <Compile Include="IDomainContext.cs" />
+    <Compile Include="IDomainContextFactory.cs" />
+    <Compile Include="IModifiableDomainContextProviderForHost.cs" />
+    <Compile Include="IDomainContextHost.cs" />
+    <Compile Include="IDomainContextSaveStrategy.cs" />
+    <Compile Include="IFinder.cs" />
+    <Compile Include="IDomainContextMetadataProvider.cs" />
+    <Compile Include="IModifiableDomainContext.cs" />
+    <Compile Include="IModifiableDomainContextFactory.cs" />
+    <Compile Include="IModifiableDomainContextProvider.cs" />
+    <Compile Include="IReadDomainContext.cs" />
+    <Compile Include="IReadDomainContextFactory.cs" />
+    <Compile Include="IReadDomainContextProvider.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="ISecureFinder.cs" />
+    <Compile Include="ISecureRepository.cs" />
+    <Compile Include="ISelectSpecification.cs" />
+    <Compile Include="IFindSpecification.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IUnitOfWorkScope.cs" />
+    <Compile Include="SaveOptions.cs" />
+    <Compile Include="SecureFinder.cs" />
+    <Compile Include="SecurityHelper.cs" />
+    <Compile Include="SelectSpecification.cs" />
+    <Compile Include="FindSpecification.cs" />
+    <Compile Include="Transactions\DefaultTransactionOptions.cs" />
+    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="UnitOfWorkException.cs" />
+    <Compile Include="UnitOfWorkScope.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,47 @@
+﻿namespace DoubleGis.Erm.Platform.Model.Entities.Enums
+{
+    /// <summary>
+    /// Действует на основании...
+    /// </summary>
+    // fixme {a.tukaev 2013-07-24}: не флаговое перечисление во множественном числе
+    // DONE {a.rechkalov, 24.07.2013}: fixed
+    public enum OperatesOnTheBasisType
+    {
+        Underfined = 0,
+
+        /// <summary>
+        /// Устав
+        /// </summary>
+        Charter = 1,
+
+        /// <summary>
+        /// Свидетельство
+        /// </summary>
+        Certificate = 2,
+
+        /// <summary>
+        /// Доверенность
+        /// </summary>
+        Warranty = 3,
+
+        /// <summary>
+        /// Учредительный договор
+        /// </summary>
+        FoundingBargain = 4,
+
+        /// <summary>
+        /// Договор
+        /// </summary>
+        Bargain = 5,
+
+        /// <summary>
+        /// Сертификат о регистрации
+        /// </summary>
+        RegistrationCertificate = 6,
+
+        /// <summary>
+        /// Отсутствует
+        /// </summary>
+        None = 7
+    }
+}

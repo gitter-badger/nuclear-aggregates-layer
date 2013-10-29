@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.UI.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.UI.Metadata</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\..\..\..\..\packages\FluentValidation-Signed.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\Common\Features\ViewModelViewMap\IBoundViewModelView.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMappingFeature.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingAspect.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingFeature.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingUtils.cs" />
+    <Compile Include="Config\Common\Hierarchy\HierarchyElementsBuilderExtensions.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMapping.cs" />
+    <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMapping.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeatureAspect.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Actions\IActionsContained.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\DynamicPropertiesFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\IViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\LocalizeViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Parts\IPartsContainerElement.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Parts\IViewModelPartsFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeatureAspect.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsHost.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeatureAspect.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\CompositeValidatorViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\DynamicValidatorModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\IDynamicValidatorModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\IDynamicViewModelValidator.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\IStaticValidatorViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\IValidationTarget.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\IValidatorViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\StaticValidatorViewModelFeature.cs" />
+    <Compile Include="Config\Common\ViewModel\Features\Validator\ValidatorViewModelFeatureAspect.cs" />
+    <Compile Include="Config\Common\ViewModel\IViewModelStructure.cs" />
+    <Compile Include="Config\Common\ViewModel\ViewModelStructure.cs" />
+    <Compile Include="Config\Common\ViewModel\ViewModelStructuresBuilder.cs" />
+    <Compile Include="Indicators\ICompositeViewModel.cs" />
+    <Compile Include="Indicators\IDynamicViewModel.cs" />
+    <Compile Include="Indicators\IView.cs" />
+    <Compile Include="Indicators\IViewModel.cs" />
+    <Compile Include="Indicators\IViewModelIdentity.cs" />
+    <Compile Include="Indicators\IViewModelProperty.cs" />
+    <Compile Include="Indicators\MVVMIndicators.cs" />
+    <Compile Include="Operations\IClientOperationIdentity.cs" />
+    <Compile Include="Operations\OperationUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

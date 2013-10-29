@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.Model.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.Model.Metadata</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Common\ConfigElement.cs" />
+    <Compile Include="Common\ConfigElementBuilder.cs" />
+    <Compile Include="Common\ConfigElementBuilderAspectBase.cs" />
+    <Compile Include="Common\ConfigElementUtils.cs" />
+    <Compile Include="Common\Features\Images\IImageBoundElement.cs" />
+    <Compile Include="Common\Features\Images\ImageFeature.cs" />
+    <Compile Include="Common\Features\Handler\IHandlerBoundElement.cs" />
+    <Compile Include="Common\Features\Handler\HandlerFeatureAspect.cs" />
+    <Compile Include="Common\Features\Mode\ISharable.cs" />
+    <Compile Include="Common\Features\Mode\SharedFeature.cs" />
+    <Compile Include="Common\Features\Mode\SharedFeatureAspect.cs" />
+    <Compile Include="Common\Features\Operations\BatchOperationFeature.cs" />
+    <Compile Include="Common\Features\Operations\EntitySpecificOperationFeature.cs" />
+    <Compile Include="Common\Features\Operations\OperationBoundFeatureAspect.cs" />
+    <Compile Include="Common\Features\Operations\OperatiosFeatureUtils.cs" />
+    <Compile Include="Common\Features\Titles\ITitledElement.cs" />
+    <Compile Include="Common\Features\Titles\TitleFeature.cs" />
+    <Compile Include="Common\Features\Titles\TitleFeatureAspect.cs" />
+    <Compile Include="Common\Features\Handler\IHandlerFeature.cs" />
+    <Compile Include="Common\Features\Operations\IBoundOperationFeature.cs" />
+    <Compile Include="Common\Features\Operations\IEntitySpecificOperationFeature.cs" />
+    <Compile Include="Common\Features\Operations\NonCoupledOperationFeature.cs" />
+    <Compile Include="Common\Features\Handler\Concrete\ShowGridHandlerFeature.cs" />
+    <Compile Include="Common\Hierarchy\HierarchyElement.cs" />
+    <Compile Include="Common\Hierarchy\HierarchyElementsBuilder.cs" />
+    <Compile Include="Common\IConfigElement.cs" />
+    <Compile Include="Common\IConfigElementAspect.cs" />
+    <Compile Include="Common\IConfigElementIdentity.cs" />
+    <Compile Include="Common\IConfigElementUpdater.cs" />
+    <Compile Include="Common\IConfigFeature.cs" />
+    <Compile Include="Common\Features\Images\IImageDescriptor.cs" />
+    <Compile Include="Common\Features\Images\ResourceImageDescriptor.cs" />
+    <Compile Include="Common\Features\Images\StaticPathImageDescriptor.cs" />
+    <Compile Include="Common\Features\Operations\IOperationsBoundElement.cs" />
+    <Compile Include="Common\Features\Images\ImageFeatureAspect.cs" />
+    <Compile Include="Common\IResourceDescriptor.cs" />
+    <Compile Include="Common\Features\Titles\ITitleDescriptor.cs" />
+    <Compile Include="Common\OrdinaryConfigElementIdentity.cs" />
+    <Compile Include="Common\ResourceEntryKey.cs" />
+    <Compile Include="Common\Features\Titles\ResourceTitleDescriptor.cs" />
+    <Compile Include="Common\SettingsExtractorUtils.cs" />
+    <Compile Include="Common\Features\Titles\StaticTitleDescriptor.cs" />
+    <Compile Include="Common\UIDGenerator.cs" />
+    <Compile Include="Entities\EntityPropertiesProvider.cs" />
+    <Compile Include="Entities\EntityProperty.cs" />
+    <Compile Include="Entities\ErrorDescription.cs" />
+    <Compile Include="Entities\IDataFieldFeature.cs" />
+    <Compile Include="Entities\IEntityPropertiesProvider.cs" />
+    <Compile Include="Entities\IPropertyFeature.cs" />
+    <Compile Include="Entities\IValidatablePropertyFeature.cs" />
+    <Compile Include="Entities\Properties\Configuration\LookupAttributeProvider.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdditionalFirmService.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdsTemplatesAdsElementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Advertisement.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElement.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AssociatedPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AssociatedPositionsGroup.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Bargain.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BargainFile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BargainType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Bill.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BranchOffice.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Category.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.CategoryGroup.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Client.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Contact.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ContributionType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Country.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Currency.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.CurrencyRate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Deal.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.DeniedPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Department.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Firm.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.FirmAddress.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.FirmContact.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LegalPerson.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LegalPersonProfile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Limit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LocalMessage.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Lock.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LockDetail.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Note.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Operation.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OperationType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Order.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrderFile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrderPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrganizationUnit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Platform.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Position.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PositionCategory.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PositionChildren.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Price.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PricePosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PrintFormTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ReleaseInfo.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Role.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Territory.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Theme.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ThemeTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.User.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
+    <Compile Include="Entities\PropertyFeatures\CheckDatePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ComboBoxPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\DatePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\DefaultValueProperty.cs" />
+    <Compile Include="Entities\PropertyFeatures\DigitsOnlyPropertyFeature.cs" />
+    <Compile Include="Entities\CommonFeatures\DisplayNameLocalizedFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\EmailPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\EnumPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ExcludeZeroValuePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\FilePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\GroupedPropertyFeature.cs" />
+    <Compile Include="Entities\CommonFeatures\HiddenFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\LimitedLengthPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\LookupPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\MultilinePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\MustBeGreaterOrEqualPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\NonZeroPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\OnlyValuePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\PresentationLayerPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RangePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ReadOnlyPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RegularExpressionPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RequiredPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\UrlPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\YesNoRadioPropertyFeature.cs" />
+    <Compile Include="Enums\CheckDayOfMonthType.cs" />
+    <Compile Include="Enums\DependencyType.cs" />
+    <Compile Include="Enums\DisplayStyle.cs" />
+    <Compile Include="Enums\PeriodType.cs" />
+    <Compile Include="Operations\Applicability\OperationApplicability.cs" />
+    <Compile Include="Operations\Applicability\Resolvers\OperationApplicabilityOverrides.cs" />
+    <Compile Include="Operations\Detail\Concrete\ActionHistoryMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ActivateMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\AppendMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\AssignMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ChangeClientMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ChangeTerritoryMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CheckForDebtsMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DeactivateMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DeleteMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DisqualifyMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ModifyBusinessModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ModifySimplifiedModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\UploadFileMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DownloadFileMetadata.cs" />
+    <Compile Include="Operations\Detail\EmptyOperationMetadata.cs" />
+    <Compile Include="Operations\Detail\IOperationMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\QualifyMetadata.cs" />
+    <Compile Include="Operations\Detail\OperationMetadataDetailContainer.cs" />
+    <Compile Include="Operations\Detail\OperationMetadataDetailRegistry.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

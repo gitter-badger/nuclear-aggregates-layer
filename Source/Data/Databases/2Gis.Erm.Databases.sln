@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ErmLogging", "ErmLogging\ErmLogging.sqlproj", "{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "2Gis.Erm.SqlClr", "2Gis.Erm.SqlClr\2Gis.Erm.SqlClr.sqlproj", "{60320C12-90FD-4329-9229-78BF58F28AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.SqlIdentityClient", "2Gis.Erm.SqlIdentityClient\2Gis.Erm.SqlIdentityClient.csproj", "{E1A45B28-2AAC-4BDD-8E32-F65485185F23}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ErmLogging\\ErmLogging.sqlproj
+		SccProjectName1 = ErmLogging
+		SccLocalPath1 = ErmLogging
+		SccProjectUniqueName2 = 2Gis.Erm.SqlClr\\2Gis.Erm.SqlClr.sqlproj
+		SccProjectName2 = 2Gis.Erm.SqlClr
+		SccLocalPath2 = 2Gis.Erm.SqlClr
+		SccProjectUniqueName3 = 2Gis.Erm.SqlIdentityClient\\2Gis.Erm.SqlIdentityClient.csproj
+		SccProjectName3 = 2Gis.Erm.SqlIdentityClient
+		SccLocalPath3 = 2Gis.Erm.SqlIdentityClient
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CAF769B-FF6B-4C52-A2B8-6757EF72554D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60320C12-90FD-4329-9229-78BF58F28AAB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E1A45B28-2AAC-4BDD-8E32-F65485185F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A45B28-2AAC-4BDD-8E32-F65485185F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A45B28-2AAC-4BDD-8E32-F65485185F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A45B28-2AAC-4BDD-8E32-F65485185F23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
