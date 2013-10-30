@@ -19,11 +19,11 @@
 
   <!-- не можем включить в Erm.Common как content из за wix -->
   <ItemGroup Label="ERM hack: включаем нативные dll для 7z в проект">
-    <None Include="$(SolutionDir)\BLFlex\Source\Libs\7-Zip 9.22\x86\7z.dll">
+    <None Include="$(SolutionDir)\..\..\BLFlex\Source\Libs\7-Zip 9.22\x86\7z.dll">
       <Link>x86\7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(SolutionDir)\BLFlex\Source\Libs\7-Zip 9.22\x64\7z.dll">
+    <None Include="$(SolutionDir)\..\..\BLFlex\Source\Libs\7-Zip 9.22\x64\7z.dll">
       <Link>x64\7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
