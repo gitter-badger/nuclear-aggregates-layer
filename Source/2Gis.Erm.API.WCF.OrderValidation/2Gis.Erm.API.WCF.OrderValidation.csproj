@@ -220,9 +220,6 @@
     <None Include="Web.Build.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.Edu.Cyprus.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -124,9 +124,6 @@
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
     <None Include="Properties\PublishProfiles\Test.22.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.Edu.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
