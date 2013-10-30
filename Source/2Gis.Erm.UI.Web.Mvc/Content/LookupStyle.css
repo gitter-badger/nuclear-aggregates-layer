@@ -1,0 +1,316 @@
+﻿DIV.x-contact-wrapper
+{
+    width: 100%!important;
+    border: 0px!important;
+}
+
+DIV.x-contact
+{
+    padding-top: 1px;
+    padding-left: 3px;
+    overflow-y:			auto;
+    word-wrap:			break-word;
+    height:				20px;
+    background:			window;
+    border:				1px solid #6699cc;
+    width: 100%;
+    scrollbar-3dlight-color:#6699CC;
+    scrollbar-arrow-color:#567DB1;
+    scrollbar-base-color:#D6E8FF;
+    scrollbar-darkshadow-color:#6699CC;
+    scrollbar-face-color: #b6d5fe;
+    scrollbar-highlight-color: #D6E8FF;
+    scrollbar-shadow-color: #D6E8FF;
+    scrollbar-track-color: rgb(220, 234, 254);
+}
+
+
+A.x-contact-link-href
+{
+    padding-left: 19px;
+    font-weight: normal;
+    text-decoration: underline;
+    background: url("images/Configuration/CommonUI/link.gif") no-repeat 0px 0px;
+}
+A.x-contact-link-email
+{
+    padding-left: 21px;
+    font-weight: normal;
+    text-decoration: underline;
+    background:  url("images/Configuration/CommonUI/email.gif") no-repeat 0px 0px;
+}
+
+TABLE.x-lookup
+{
+    border-collapse: collapse;
+    table-layout: fixed!important;
+    border-spacing: 0!important;
+    width: 100%!important;
+    border: 0px!important;
+}
+
+TABLE.x-lookup TD
+{
+    padding: 0px!important;
+}
+
+TABLE.x-lookup TD:first-child
+{
+    width: 100%;
+}
+
+SPAN.x-lookup-item
+{
+margin-top: -1px;
+color: #0000ff;
+cursor:	pointer;
+font-family: Tahoma;
+font-size: 11;
+text-decoration: underline;
+}
+SPAN.x-lookup-item-invalid
+{
+color: red!important;
+}
+IMG.x-lookup-item
+{
+margin-left: 2px;
+margin-top: 1px;
+margin-right: 5px;
+vertical-align: middle;
+border-width: 0px;
+cursor: pointer;
+}
+DIV.x-lookup
+{
+overflow-y:			auto;
+word-wrap:			break-word;
+height:				20px;
+background:			window;
+border:				1px solid #6699cc;
+width: 100%;
+scrollbar-3dlight-color:#6699CC;
+scrollbar-arrow-color:#567DB1;
+scrollbar-base-color:#D6E8FF;
+scrollbar-darkshadow-color:#6699CC;
+scrollbar-face-color: #b6d5fe;
+scrollbar-highlight-color: #D6E8FF;
+scrollbar-shadow-color: #D6E8FF;
+scrollbar-track-color: rgb(220, 234, 254);
+}
+DIV.x-lookup-thumb-head
+{
+    overflow:hidden;
+    height:20px;
+    background:#FFFFAE;
+    cursor: none;
+    width: 100%;
+    padding: 3px;
+    border: #FFFFAE 1px solid;
+}
+DIV.x-lookup-thumb-bottom
+{
+    overflow:hidden;
+    height:20px;
+    background:#C4DDFF;
+    cursor: none;
+    width: 100%;
+    padding: 3px;
+    border: #C4DDFF 1px solid;
+    text-align: center;
+}
+
+SPAN.x-lookup-thumb
+{
+margin-top: -1px;
+cursor:	pointer;
+font-family: Tahoma;
+font-size: 11;
+}
+DIV.x-lookup-thumb
+{
+    overflow:hidden;
+    height:20px;
+    background:window;
+    cursor: pointer;
+    width: 100%;
+    margin: 3px;
+    border: #ffffff 1px solid;
+}
+DIV.x-lookup-thumb-over
+{
+    background-color: #ffe6a0!important;
+    border: #ffb74c 1px solid!important;
+}
+DIV.x-lookup-focus
+{
+    background: #ABC0E7;
+}
+
+INPUT.x-lookup-normal
+{
+background: window;
+height: 20px!important;
+}
+DIV.x-lookup-readonly
+{
+height:				20px!important;
+}
+TABLE.x-calendar
+{
+    border-collapse: collapse;
+    table-layout: fixed!important;
+    border-spacing: 0!important;
+    width: 100%!important;
+    border: 0px!important;
+}
+TABLE.x-calendar TD
+{
+    padding: 0px!important;
+}
+
+TABLE.x-calendar TD:first-child
+{
+    width: 100%;
+}
+
+TABLE.x-search
+{
+    border-collapse: collapse;
+    table-layout: fixed!important;
+    border-spacing: 0!important;
+    width: 100%!important;
+    border: 0px!important;
+}
+TABLE.x-search TD
+{
+    padding: 0px!important;
+}
+INPUT.x-search
+{
+font-size: 8pt;
+font-family: tahoma;
+width: 100%;
+border: 1px solid #6699CC;
+background: window;
+height: 20px!important;
+}
+DIV.Tab
+{
+    padding: 0px !important;
+}
+span.x-ads-thumb
+{
+    margin-top: -1px;
+    cursor: pointer;
+    font-family: Tahoma;
+    font-size: 11;
+    text-decoration: underline;
+}
+TEXTAREA.x-ads-text
+{
+    background-color: #f9f9f9;
+    border: medium none;
+    width: 100%;
+    font-size: 8pt;
+    font-weight: normal;
+    cursor: text;
+    overflow: visible;
+    padding-left: 15px;
+}
+div.x-ads-thumb
+{
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    border: 1px solid #6699cc !important;
+    margin: 5px;
+    font-weight: bold;
+    background-color: #fffddd;
+    background-image: none;
+}
+div.x-ads-richtext
+{
+    padding-left: 15px;
+    vertical-align: top;
+    text-align: left;
+    font-weight: normal;
+}
+div.x-ads-richtext strong, div.x-ads-richtext b
+{
+    font-style: inherit;
+    font-weight: bold;
+}
+div.x-ads-richtext ol
+{
+    list-style-type: decimal;
+}
+div.x-ads-richtext ul
+{
+    list-style-type: disc;
+}
+div.x-ads-richtext em, div.x-ads-richtext i
+{
+    font-style: inherit;
+    font-style: italic;
+}
+div.x-ads-thumb-invalid
+{
+    background-color: #FFFFFF;
+    background-image: url("images/Configuration/CommonUI/app_invalid.gif");
+    background-repeat: repeat-x;
+}
+span.x-ads-empty
+{
+    padding-left: 15px;
+    font-style: italic;
+    text-align: left;
+    color: #999999;
+    font-weight: bold;
+    width: 45%;
+}
+        
+div.x-ads-thumb-over, div.x-ads-thumb-over textarea
+{
+    background-color: #ffe6a0;
+    background-image: none;
+}
+div.x-ads-thumb-selected, div.x-ads-thumb-selected TEXTAREA
+{
+    background-color: #A7CDF0;
+    background-image: none;
+}
+img.x-ads
+{
+    margin-left: 1px;
+    margin-top: 1px;
+    margin-right: 5px;
+    vertical-align: middle;
+    border: 0px;
+    cursor: pointer;
+}
+img.x-ads-img
+{
+    border: 1px solid #000000;
+}
+SPAN.x-ads-link
+{
+    color: #0000ff;
+    cursor: pointer;
+    font-weight: normal;
+    font-family: Tahoma;
+    font-size: 11;
+    text-decoration: underline;
+}
+SPAN.x-ads-date
+{
+    padding-left: 15px;
+    font-weight: normal;
+    font-family: Tahoma;
+    font-size: 11;
+}
+div.x-ads-body
+{
+    background-color: #eaf3ff!important;
+}

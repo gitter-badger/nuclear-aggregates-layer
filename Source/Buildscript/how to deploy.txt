@@ -1,0 +1,15 @@
+﻿Добрый день!
+
+Последовательность развёртывания:
+
+1. Пакеты
+1.1. Импортировать web-приложение (папка Web application).
+1.2. Установить ERM Task Service (папка Task service).
+1.3. Установить Сервисы (папка Services).
+
+2. Базы данных.
+2.1 Запустить утилиту database migrations (папка Database migrations).
+с параметрами командной строки:
+2Gis.Erm.DB.Migration.Console.exe -root="\\uk-crm01\c$\inetpub\web-app.erm.2gis.local" -u
+
+3. Развернуть хак-файлы, развернуть плагины (папка Dynamics CRM).

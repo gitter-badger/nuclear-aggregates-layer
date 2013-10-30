@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- common properties -->
+  <?define Manufacturer = "2GIS" ?>
+  <?define ManufacturerProjectName = "$(var.Manufacturer) ERM" ?>
+  <?define PackageDescription = "Сервис выполнения задач по расписанию системы ERM" ?>
+
+  <?ifdef PublishProfileName ?>
+    <?include Variables.$(var.PublishProfileName).wxi ?>
+    <?define QuartzConfigFileName = "quartz.$(var.PublishProfileName).config" ?>
+    <?define ProductLongName = "$(var.ManufacturerProjectName) $(var.PublishProfileName) Task Service" ?>
+    <?define ServiceName = "$(var.PublishProfileName)" ?>
+  <?else ?>
+    <?include Variables.wxi ?>
+    <?define QuartzConfigFileName = "quartz.config" ?>
+    <?define ProductLongName = "$(var.ManufacturerProjectName) Task Service" ?>
+    <?define ServiceName = "ErmTaskService" ?>
+  <?endif ?>
+
+  <!-- product version set externally by CI server, this is ProductVersion preprocessor variable -->
+  <?define ProductLongNameWithVersion = "$(var.ProductLongName) $(var.ProductVersion)" ?>
+
+  <!-- detect platform -->
+  <?if $(var.Platform) = x64 ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+
+  <Product
+		Id="*"
+		Manufacturer="$(var.Manufacturer)"
+		Language="1049"
+    Codepage="1251"
+		Name="$(var.ProductLongName)"
+		Version="$(var.ProductVersion)"
+		UpgradeCode="$(var.UpgradeCode)">
+
+    <Package
+			SummaryCodepage="1251"
+			InstallPrivileges="elevated"
+			InstallScope="perMachine"
+			InstallerVersion="500"
+			Compressed="yes"
+			Platform="$(var.Platform)"
+      
+      Description="$(var.PackageDescription)"
+		/>
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" CompressionLevel="high" />
+
+    <!-- directories -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)">
+          <Directory Id="x86" Name="x86" />
+          <Directory Id="x64" Name="x64" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- third party components -->
+    <ComponentGroup Id="ThirdPartyComponents">
+
+      <Component Id="x86_7z.dll" Directory="x86" Guid="*">
+        <File Id="x86_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip 9.22\x86\7z.dll" />
+      </Component>
+
+      <Component Id="x64_7z.dll" Directory="x64" Guid="*">
+        <File Id="x64_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip 9.22\x64\7z.dll" />
+      </Component>
+
+      <Component Id="SevenZipSharp.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Practices.ServiceLocation.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
+      </Component>
+
+      <Component Id="Quartz.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Quartz.2.2\lib\net40\Quartz.dll" />
+      </Component>
+
+      <Component Id="Common.Logging.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll" />
+      </Component>
+
+      <Component Id="Common.Logging.Log4Net1211.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Common.Logging.Log4Net1211.2.1.2\lib\net40\Common.Logging.Log4Net1211.dll" />
+      </Component>
+
+      <Component Id="log4net.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
+      </Component>
+
+      <Component Id="DocumentFormat.OpenXml.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="DocumentFormat.OpenXml.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Practices.Unity.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Practices.Unity.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Practices.Unity.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Practices.Unity.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Practices.Unity.Interception.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Practices.Unity.Interception.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Practices.Unity.Interception.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Practices.Unity.Interception.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+      </Component>
+
+      <Component Id="RabbitMQ.Client.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\RabbitMQ.Client.3.1.5\lib\net30\RabbitMQ.Client.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Xrm.Client.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Xrm.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Crm.Sdk.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Crm.Sdk.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Crm.SdkTypeProxy.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Crm.SdkTypeProxy.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
+      </Component>
+
+      <Component Id="Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
+      </Component>
+      
+      <Component Id="Newtonsoft.Json.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll" />
+      </Component>
+
+    </ComponentGroup>
+
+    <!-- NT service -->
+    <Component Id="_2Gis.Erm.TaskService.exe" Directory="INSTALLFOLDER" Guid="5104486C-4E8D-4024-BE81-5EACA325B42D">
+
+      <File Id="_2Gis.Erm.TaskService.exe" KeyPath="yes" Vital="yes" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe" />
+      <File Id="_2Gis.Erm.TaskService.pdb" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.pdb" />
+      <File Id="_2Gis.Erm.TaskService.exe.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe.config" />
+
+      <!-- configs -->
+      <File Id="log4net.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\log4net.config" />
+      <File Id="quartz.config" Name="quartz.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\$(var.QuartzConfigFileName)" />
+
+      <ServiceInstall
+				Id="ServiceInstaller"
+				Type="ownProcess"
+				Account="NT AUTHORITY\NetworkService"
+				Vital="yes"
+				Start="$(var.ServiceStartType)"
+				ErrorControl="ignore"
+				Interactive="no"
+        
+				Name="$(var.ServiceName)"
+				DisplayName="$(var.ProductLongNameWithVersion)"
+        Description="$(var.PackageDescription)"
+			/>
+
+      <ServiceControl
+				Id="StartService"
+        Name="$(var.ServiceName)"
+        
+				Stop="both"
+				Remove="uninstall"
+				Wait="yes"
+			/>
+
+    </Component>
+
+    <Feature Id="ProductFeature" Title="$(var.ProductLongNameWithVersion)" Level="1">
+
+      <ComponentRef Id="_2Gis.Erm.TaskService.exe" />
+      <ComponentGroupRef Id="ThirdPartyComponents" />
+
+      <!-- pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+
+    <!-- newer versions overwrites older versions -->
+    <MajorUpgrade
+      AllowDowngrades="yes"
+			Schedule="afterInstallInitialize"
+		/>
+
+    <!-- icon -->
+    <Property Id="ARPPRODUCTICON" Value="Icon" />
+    <Icon Id="Icon" SourceFile="$(var.2Gis.Erm.TaskService.ProjectDir)\icon.ico" />
+
+  </Product>
+</Wix>

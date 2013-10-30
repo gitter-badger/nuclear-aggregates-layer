@@ -1,0 +1,126 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true" hostSpecific="true"#>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Configuration.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.API.Core.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Web.Mvc.dll" #>
+<#@ assembly Name="System.Core.dll" #>
+<#@ assembly Name="Microsoft.VisualStudio.TextTemplating.Modeling.11.0.dll" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="DoubleGis.Erm.Common.Settings" #>
+<#@ import namespace="DoubleGis.Erm.BL.UI.Web.Mvc.ResourceHandling" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ output extension=".log" #> 
+
+<#  List<ResourceAssemblyInfo> resAssemblies = new List<ResourceAssemblyInfo>();
+    resAssemblies.Add(new ResourceAssemblyInfo("2Gis.Erm.BL.Resources.Client", "Resources"));
+
+    // Список локалей, для которых будут создаваться ресурсы.
+    CultureInfo[] cultures = LocalizationSettings.SupportedCultures;
+
+    EnvDTE.ProjectItem templateItem = Project.DTE.Solution.FindProjectItem(Host.TemplateFile);
+    // Скрипты берем из папки, в которой лежит текущий темплейт.
+    EnvDTE.ProjectItem jsFolderItem = (templateItem.Collection.Parent as EnvDTE.ProjectItem);
+    foreach(CultureInfo culture in cultures)
+    {
+        JsResourcesBuildHelper builder = new JsResourcesBuildHelper(resAssemblies);
+        builder.ProcessResourceManagers(culture);
+        BuildJsResourceFile(builder);
+        String outputFileName = String.Format(JsResourcesBuildHelper.JsResourceFileNameFormat,
+            culture.TwoLetterISOLanguageName);
+
+        String outputFileFullName = SaveOutput(outputFileName);
+        EnvDTE.ProjectItem addedItem = templateItem.ProjectItems.AddFromFile(outputFileFullName);
+        // Build action - content.
+        addedItem.Properties.Item("BuildAction").Value = 2;
+  }
+#>
+<#+  
+    private static EnvDTE.Project _project;
+    
+    /// <summary>
+    /// Текущий проект.
+    /// </summary>
+    private EnvDTE.Project Project
+    {
+        get
+        {
+            if(_project==null)
+            {
+                EnvDTE.DTE env = (EnvDTE.DTE)((IServiceProvider)this.Host).GetService(typeof(EnvDTE.DTE));
+                _project = (EnvDTE.Project)((Array)env.ActiveSolutionProjects).GetValue(0);
+            }
+            return _project;
+        }
+    }
+
+  private String SaveOutput(string outputFileName)
+  {
+      string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = System.IO.Path.Combine(templateDirectory, outputFileName);
+
+	  Project.DTE.SourceControl.CheckOutItem(outputFilePath);
+      System.IO.File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString(), System.Text.Encoding.UTF8); 
+
+      this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+      return outputFilePath;
+  }
+#>
+<#+
+private void BuildJsResourceFile(JsResourcesBuildHelper helper)
+{
+#>
+// Файл создан : <#= DateTime.Now.ToString(CultureInfo.CurrentCulture) #>
+// Использованы ресурсы из файлов:
+<#+
+    foreach(var a in helper.AssemblyInfos)
+    {
+#>
+// <#= String.Join(", ", a.ResXFiles) #> (сборка <#= a.AssemblyName #>)
+<#+
+	}
+#>
+// Создано строковых констант : <#= helper.ProcessedResourceStrings.Count #>
+<#+
+    foreach(String notFoundKey in helper.NotFoundKeys)
+    {
+#>
+// [!!] Ресурс с ключом "<#= notFoundKey#>" не найден.
+<#+
+	}
+
+    foreach(String notFoundKey in helper.InvalidCultureKeys)
+    {
+#>
+// [!] Ресурс с ключом "<#= notFoundKey#>" не найден для данной локали, использовано значение из другой культуры.
+<#+          
+    }
+
+    foreach(KeyValuePair<String, String> pair in helper.ProcessedResourceStrings)
+    {
+        if(pair.Value.IndexOf('\'') >= 0)
+        {
+#>
+// [!] В строке с ключом "<#= pair.Key #>" символ(ы) ' заменен(ы) на "
+<#+
+        }
+    }
+#>
+Ext.LocalizedResources =
+{
+<#+
+    Int32 countRem = helper.ProcessedResourceStrings.Count;
+    foreach(KeyValuePair<String, String> pair in helper.ProcessedResourceStrings)
+    {
+        countRem--;
+#>
+    <#= pair.Key #> : '<#= pair.Value.Replace('\'', '"') #>'<#= countRem > 0 ? "," : ""#>
+<#+          
+    }
+#>
+}<#+
+}
+#>

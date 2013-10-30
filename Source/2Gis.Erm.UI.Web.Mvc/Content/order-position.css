@@ -1,0 +1,58 @@
+﻿div.advertisementLookupOuter
+{
+    /*No need to set up any additional styles at the moment*/
+}
+
+div.Tab #linkingObjectContainer table td
+{
+    padding-bottom: 0px;
+    vertical-align:middle;
+}
+
+div.Tab #linkingObjectContainer .x-treegrid-col
+{
+    height:auto;
+    padding-top:3px;
+    padding-right:5px;
+}
+
+div.Tab #linkingObjectContainer div.floatLeft
+{
+    float:left;
+}
+
+div.Tab #linkingObjectContainer table.linkingObjects
+{
+    width:100% !important;
+    table-layout:fixed;
+    padding:0px;
+    margin-top:-2px;
+    top:0px;
+}
+
+div.Tab #linkingObjectContainer table.linkingObjects td
+{
+    color:Gray;
+}
+
+div.Tab #linkingObjectContainer td.addressCaption
+{
+    width:50px;
+    padding-left:5px;
+}
+
+div.Tab #linkingObjectContainer td.addressLookup
+{
+    /*No need to set up any additional styles at the moment*/
+}
+
+div.Tab #linkingObjectContainer td.categoryCaption
+{
+    width:50px;
+    padding-left:5px;
+}
+
+div.Tab #linkingObjectContainer td.categoryLookup
+{
+    /*No need to set up any additional styles at the moment*/
+}

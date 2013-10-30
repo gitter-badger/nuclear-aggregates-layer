@@ -1,0 +1,145 @@
+﻿table.x-async-file-wrap
+{
+    width: 100%!important;
+    border: 0px!important;
+    position: relative;
+}
+
+IMG.x-async-file-button
+{
+    border-width: 0px;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+}
+DIV.x-async-file
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 3;
+    overflow-y:			auto;
+    word-wrap:			break-word;
+    height:				20px;
+    background:			window;
+    border:				1px solid #6699cc;
+    width: 100%;
+    scrollbar-3dlight-color:#6699CC;
+    scrollbar-arrow-color:#567DB1;
+    scrollbar-base-color:#D6E8FF;
+    scrollbar-darkshadow-color:#6699CC;
+    scrollbar-face-color: #b6d5fe;
+    scrollbar-highlight-color: #D6E8FF;
+    scrollbar-shadow-color: #D6E8FF;
+    scrollbar-track-color: rgb(220, 234, 254);
+}
+DIV.x-async-file SPAN
+{
+    padding-left: 19px;
+    font-weight: normal;
+    text-decoration: underline;
+    margin-left: 3px;
+    margin-top: 1px;
+    color: #0000ff;
+    cursor:	pointer;
+    font-family: Tahoma;
+    font-size: 11;
+    text-decoration: underline;
+    height: 16px;
+}
+div.x-async-file div.x-progress-wrap 
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 18px;
+    border: none;
+    z-index: 4;
+}
+div.x-async-file div.x-progress-wrap .x-progress-text
+{
+    text-align: left;
+}
+DIV.x-async-file.ReadOnly
+{
+    height:				20px!important;
+}
+DIV.x-async-file-focus
+{
+    background: #ABC0E7;
+}
+input.x-async-file-input 
+{
+    z-index: 2;
+    position: absolute;
+    filter: alpha(opacity: 0);
+    height: 20px;
+    right: 0px;
+    top: 0px;
+    opacity: 0;
+    -moz-opacity: 0;
+    vertical-align: middle;
+    width: 0px;
+}
+span.x-async-file-acrobat
+{
+    background: url("images/Configuration/Attachments/acrobat.png") no-repeat 0px 0px;
+}
+span.x-async-file-attach
+{
+    background: url("images/Configuration/Attachments/attach.png") no-repeat 0px 0px;
+}
+span.x-async-file-compressed
+{
+    background: url("images/Configuration/Attachments/compressed.png") no-repeat 0px 0px;
+}
+span.x-async-file-excel
+{
+    background: url("images/Configuration/Attachments/excel.png") no-repeat 0px 0px;
+}
+span.x-async-file-exe
+{
+    background: url("images/Configuration/Attachments/exe.png") no-repeat 0px 0px;
+}
+span.x-async-file-flash
+{
+    background: url("images/Configuration/Attachments/flash.png") no-repeat 0px 0px;
+}
+span.x-async-file-html
+{
+    background: url("images/Configuration/Attachments/html.png") no-repeat 0px 0px;
+}
+span.x-async-file-image
+{
+    background: url("images/Configuration/Attachments/image.png") no-repeat 0px 0px;
+}
+span.x-async-file-media
+{
+    background: url("images/Configuration/Attachments/media.png") no-repeat 0px 0px;
+}
+span.x-async-file-powerpoint
+{
+    background: url("images/Configuration/Attachments/powerpoint.png") no-repeat 0px 0px;
+}
+
+span.x-async-file-text
+{
+    background: url("images/Configuration/Attachments/text.png") no-repeat 0px 0px;
+}
+
+span.x-async-file-visio
+{
+    background: url("images/Configuration/Attachments/visio.png") no-repeat 0px 0px;
+}
+
+span.x-async-file-word
+{
+    background: url("images/Configuration/Attachments/word.png") no-repeat 0px 0px;
+}
+
+span.x-async-file-zip
+{
+    background: url("images/Configuration/Attachments/zip.png") no-repeat 0px 0px;
+}

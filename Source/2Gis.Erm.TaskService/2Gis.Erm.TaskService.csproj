@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48}</ProjectGuid>
+    <ProjectTypeGuids>{32f31d43-81cc-4c15-9de6-3fc5453562b6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.TaskService</RootNamespace>
+    <AssemblyName>2Gis.Erm.TaskService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <StartArguments>console</StartArguments>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net1211, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Common.Logging.Log4Net1211.2.1.2\lib\net40\Common.Logging.Log4Net1211.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=2.2.400.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Quartz.2.2\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\ServiceClientConfig.cs" />
+    <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="ErmNtService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ErmNtService.Designer.cs">
+      <DependentUpon>ErmNtService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Settings\ErmServiceAppSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
+      <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
+      <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BL.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\TaskService\2Gis.Erm.BL.TaskService\2Gis.Erm.BL.TaskService.csproj">
+      <Project>{be701360-d551-40b4-bd60-5f70cf4de575}</Project>
+      <Name>2Gis.Erm.BL.TaskService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
+      <Project>{49d0d1c2-49a4-4063-bd9c-ac36be6c36dd}</Project>
+      <Name>2Gis.Erm.Platform.TaskService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{97992802-c651-46e9-ad0d-2c273152566b}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
+      <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
+      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj">
+      <Project>{b0425cb3-c6a3-4c79-bbc3-07bf53826a21}</Project>
+      <Name>2Gis.Erm.Platform.API.GeoMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
+      <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
+      <Name>2Gis.Erm.Platform.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BL.DI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Environments.config">
+      <Link>Environments.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.Edu.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Expl.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Int.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Edu.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Expl.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Int.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.01.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.02.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.03.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.04.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.05.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.06.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.07.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.08.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.09.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.10.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.11.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.12.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.13.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.14.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.15.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.16.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.17.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.18.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.19.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.20.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.21.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.22.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="log4net.Release.config">
+      <DependentUpon>log4net.config</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="quartz.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Edu.Cyprus.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Expl.Cyprus.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Int.Cyprus.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Production.Russia.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Production.Cyprus.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Edu.Russia.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Expl.Russia.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Int.Russia.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.01.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.02.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.03.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.04.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Test.05.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.06.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.07.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.08.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Test.09.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.10.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.11.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.12.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.13.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.14.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Test.15.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="quartz.Test.16.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.17.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.18.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.19.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.20.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.21.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.22.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль .NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\Buildscript\Erm.Desktop.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

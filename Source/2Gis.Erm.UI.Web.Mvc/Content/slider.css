@@ -1,0 +1,14 @@
+﻿#paymentsAmountSlider {
+    width:410px;
+    height: 45px;
+    padding-left:10px;
+    background-image:url("images/Erm/ticks.gif");
+}
+.bills-count-error
+{
+    color: #7D0000;
+}
+.bill-slider-tip 
+{
+    z-index: 1;   
+}

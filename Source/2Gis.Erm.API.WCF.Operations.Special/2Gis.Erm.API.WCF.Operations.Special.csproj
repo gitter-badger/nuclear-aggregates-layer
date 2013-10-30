@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FE6BD7B0-6129-4315-975F-876D79595776}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.API.WCF.Operations.Special</RootNamespace>
+    <AssemblyName>2Gis.Erm.API.WCF.Operations.Special</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44306</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="FinancialOperationsSharedTypesBehaviorFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\FinancialOperationsAppSettings.cs" />
+    <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
+    <Compile Include="SharedTypesProvider.cs" />
+    <Compile Include="UnityServiceHostFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BL.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations.Special\2Gis.Erm.BL.WCF.Operations.Special.csproj">
+      <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
+      <Name>2Gis.Erm.BL.WCF.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations\2Gis.Erm.BL.WCF.Operations.csproj">
+      <Project>{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}</Project>
+      <Name>2Gis.Erm.BL.WCF.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{DAE94B56-59E8-4907-A2BB-6372707C0B3B}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.WCF\2Gis.Erm.Platform.DI.WCF.csproj">
+      <Project>{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2}</Project>
+      <Name>2Gis.Erm.Platform.DI.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BL.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj">
+      <Project>{f09e7148-2f47-4bca-bf3c-410cda8018a4}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
+      <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
+      <Name>2Gis.Erm.Platform.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.API.WCF.Operations\2Gis.Erm.API.WCF.Operations.csproj">
+      <Project>{ACAA20F3-B75C-49C4-B32B-E636BDC8046C}</Project>
+      <Name>2Gis.Erm.API.WCF.Operations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Environments.config">
+      <Link>Environments.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Calculate.svc" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="log4net.Release.config">
+      <DependentUpon>log4net.config</DependentUpon>
+    </Content>
+    <Content Include="packages.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Expl.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Expl.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Int.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Int.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.01.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.02.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.03.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.04.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.05.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.06.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.07.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.08.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.09.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.10.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.11.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.12.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.13.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.14.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.15.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.16.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.17.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.18.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.19.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.20.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.21.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.22.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.23.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Edu.Cyprus.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Edu.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Edu.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Expl.Cyprus.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Expl.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Int.Cyprus.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Int.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Int.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Load.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Cyprus.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.01.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.02.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.03.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.04.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.05.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.06.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.07.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.08.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.09.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.10.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.11.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.12.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.13.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.14.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.15.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.16.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.17.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.18.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.19.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.20.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.21.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.22.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.23.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OrderRequest.svc" />
+    <Content Include="RequestState.svc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58533</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53584/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

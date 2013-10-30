@@ -1,0 +1,108 @@
+﻿
+UL.x-tab-strip-top
+{
+background-image: none;
+background-color: #d8e8ff!important;
+border:0!important;
+}
+.x-tab-panel-header
+{
+border:0!important;
+}
+
+.x-form-field
+{
+font-size:inherit!important;
+}
+
+.x-tool 
+{
+ float: left!important;
+}
+.x-panel-header-text
+{
+ vertical-align:middle!important;
+ height: 20px!important;
+}
+.x-panel-body-noborder {
+ border:0!important;
+}
+
+.x-panel-body{
+ border:0!important;
+}
+
+.x-tab-panel-body
+{
+   border-top: #898c95 1px solid!important;
+}
+
+.x-tab-panel-body {
+    border: 1px solid #898C95!important;
+    background-color: #EAF3FF!important;
+}
+
+.x-tab-panel-bbar .x-toolbar, .x-tab-panel-tbar .x-toolbar 
+{
+    border-color:#B0C2D0!important;
+}
+
+.x-toolbar{
+	border-color:#6893cf !important; 
+    background-color:#e3efff!important;
+    background-repeat: repeat-x !important;
+    background-image:url("images/Configuration/CommonUI/gridtoolbar_back.gif") !important;
+}
+
+.x-item-disabled .x-tbar-loading{
+	background-image: url("images/default/tree/loading.gif") !important;
+}
+
+.x-grid-panel .x-panel-mc .x-panel-body {
+    border-color:#B0C2D0 !important;
+}
+
+.x-grid-group-hd {
+    border-bottom-color:#B0C2D0 !important;
+}
+
+.x-panel {
+    border-color: #B0C2D0!important;
+}
+
+.x-panel-body {
+    border-color:#99bbe8!important;
+    background-color:#d9eaff!important;
+}
+.x-panel-bbar .x-toolbar, .x-panel-tbar .x-toolbar {
+    border-color:#B0C2D0!important;
+}
+
+.x-panel-tbar-noheader .x-toolbar, .x-panel-mc .x-panel-tbar .x-toolbar {
+    border-top-color:#B0C2D0!important;
+}
+
+.x-panel-body-noheader, .x-panel-mc .x-panel-body {
+    border-top-color:#B0C2D0!important;
+}
+
+.x-panel-tl, .x-panel-tr, .x-panel-bl,  .x-panel-br{
+	background-image: url("images/default/panel/corners-sprite.gif")!important;
+    border-bottom-color:#B0C2D0!important;
+}
+
+.x-form-field 
+{
+    font:normal 12px tahoma!important;
+}
+
+.x-toolbar{
+border-color:#6893cf!important; 
+background-color:#e3efff!important;
+background-repeat: repeat-x!important;
+background-image:url("images/Configuration/CommonUI/gridtoolbar_back.gif")!important;
+}
+
+body.ext-ie7 {
+    overflow: visible !important;
+}

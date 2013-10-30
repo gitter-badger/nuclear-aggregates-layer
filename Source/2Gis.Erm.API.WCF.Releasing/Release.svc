@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="DoubleGis.Erm.BL.WCF.Releasing.ReleaseApplicationService" 
+                Factory="DoubleGis.Erm.API.WCF.Releasing.UnityServiceHostFactory" %>
