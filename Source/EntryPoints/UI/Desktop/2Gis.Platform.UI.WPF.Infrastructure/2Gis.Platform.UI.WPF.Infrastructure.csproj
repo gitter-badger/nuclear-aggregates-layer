@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nJupiter.Configuration">
-      <HintPath>..\..\..\..\..\..\packages\nJupiter.Configuration.4.0.4.516\lib\net40\nJupiter.Configuration.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\nJupiter.Configuration.4.0.4.516\lib\net40\nJupiter.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

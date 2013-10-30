@@ -35,13 +35,14 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         protected CommonConfigFileAppSettings()
         {
-            var ermEnvironmentSettings = 
-                new ErmEnvironmentsSettingsAspect(ConfigFileSetting.String.Required("TargetEnvironmentName").Value, _entryPointName.Value);
+            var ermEnvironmentSettings = ErmEnvironmentsSettingsLoader.Load(ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFullPath,
+                                                                            ConfigFileSetting.String.Required("TargetEnvironmentName").Value,
+                                                                            _entryPointName.Value);
+
             _connectionStrings = new ConnectionStringsSettingsAspect(ermEnvironmentSettings.ConnectionStrings);
             MsCRMSettings = new MsCRMSettingsAspect(_connectionStrings);
             APIServicesSettings = new APIServicesSettingsAspect(ermEnvironmentSettings.AvailableServices);
-            
-            }
+        }
 
         public string ReserveUserAccount
         {

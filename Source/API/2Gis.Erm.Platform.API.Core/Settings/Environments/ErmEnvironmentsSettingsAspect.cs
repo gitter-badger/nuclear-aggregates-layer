@@ -8,14 +8,17 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
 {
-    public class ErmEnvironmentsSettingsAspect
+    public sealed class ErmEnvironmentsSettingsAspect
     {
+        public const string DefaultEnvironmentName = "Dev";
+
         private readonly IDictionary<ConnectionStringName, string> _connectionStringsMap = new Dictionary<ConnectionStringName, string>();
         private readonly IDictionary<Type, IAPIServiceSettings> _availableServicesMap = new Dictionary<Type, IAPIServiceSettings>();
 
-        public ErmEnvironmentsSettingsAspect(string environmentName, string entryPointName)
+        public ErmEnvironmentsSettingsAspect(Configuration configuration, string environmentName, string entryPointName)
         {
-            var targetEnvironment = ErmEnvironmentDescriptionsConfiguration.Instance.Value.ErmEnvironments.Cast<ErmEnvironmentElement>()
+            var targetConfigSettings = (ErmEnvironmentsDescriptionsConfigurationSection)configuration.GetSection("ermEnvironmentsSettings");
+            var targetEnvironment = targetConfigSettings.ErmEnvironments.Cast<ErmEnvironmentElement>()
                                                                            .SingleOrDefault(x => x.Name == environmentName);
 
             if (targetEnvironment == null)

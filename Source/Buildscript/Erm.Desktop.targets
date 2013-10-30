@@ -10,11 +10,11 @@
 
   <!-- не можем включить в Erm.Common как content из за wix -->
   <ItemGroup Label="ERM hack: включаем нативные dll для 7z в проект">
-    <Content Include="$(SolutionFolder)\Platform\Source\Libs\7-Zip 9.22\x86\7z.dll">
+    <Content Include="$(SolutionDir)\..\..\Platform\Source\Libs\7-Zip 9.22\x86\7z.dll">
       <Link>x86\7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(SolutionFolder)\Platform\Source\Libs\7-Zip 9.22\x64\7z.dll">
+    <Content Include="$(SolutionDir)\..\..\Platform\Source\Libs\7-Zip 9.22\x64\7z.dll">
       <Link>x64\7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

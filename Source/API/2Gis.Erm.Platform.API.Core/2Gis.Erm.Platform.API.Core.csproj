@@ -141,6 +141,7 @@
     <Compile Include="Settings\CRM\MsCRMSettingsAspect.cs" />
     <Compile Include="Settings\Environments\ErmEnvironmentDescriptionsConfiguration.cs" />
     <Compile Include="Settings\Environments\ErmEnvironmentsSettingsAspect.cs" />
+    <Compile Include="Settings\Environments\ErmEnvironmentsSettingsLoader.cs" />
     <Compile Include="Settings\IWebAppUriProvider.cs" />
     <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Settings\AppTargetEnvironment.cs" />

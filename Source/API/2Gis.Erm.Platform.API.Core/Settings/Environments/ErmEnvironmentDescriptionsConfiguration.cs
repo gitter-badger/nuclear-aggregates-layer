@@ -1,32 +1,9 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
+﻿using System.Configuration;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
 {
-    public static class ErmEnvironmentDescriptionsConfiguration
-    {
-        public static readonly Lazy<ErmEnvironmentsDescriptionsConfigurationSection> Instance =
-            new Lazy<ErmEnvironmentsDescriptionsConfigurationSection>(
-                () =>
-                    {
-                        var domain = AppDomain.CurrentDomain;
-                        var configMap = new ExeConfigurationFileMap
-                            {
-                                ExeConfigFilename = Path.Combine(string.IsNullOrEmpty(domain.RelativeSearchPath)
-                                                                     ? domain.BaseDirectory
-                                                                     : domain.RelativeSearchPath,
-                                                                 "Environments.config")
-                            };
-                        var config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-                        return (ErmEnvironmentsDescriptionsConfigurationSection)config.GetSection("ermEnvironmentsSettings");
-                    });
-    }
-
-
-
     public sealed class ErmEnvironmentsDescriptionsConfigurationSection : ConfigurationSection
     {
         [ConfigurationProperty("ermEnvironments", IsDefaultCollection = true, IsRequired = true)]
