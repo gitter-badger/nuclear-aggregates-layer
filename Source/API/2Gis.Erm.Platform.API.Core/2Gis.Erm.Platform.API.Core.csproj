@@ -117,11 +117,13 @@
     <Compile Include="Operations\RequestResponse\Response.cs" />
     <Compile Include="PersistenceCleanup\IDbCleaner.cs" />
     <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
+    <Compile Include="Settings\APIServices\APIFinancialOperationsServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIIdentityServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIIntrospectionServiceSettings.cs" />
     <Compile Include="Settings\APIServices\ApiMoDiServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIOperationsServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIOrderValidationServiceSettings.cs" />
+    <Compile Include="Settings\APIServices\ApiRealeasingServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
     <Compile Include="Settings\APIServices\IAPIMoDiServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIRealeasingServiceSettings.cs" />
@@ -133,7 +135,7 @@
     <Compile Include="Settings\APIServices\APIServicesSettingsAspect.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettingsHost.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettingsInitializer.cs" />
-    <Compile Include="Settings\APIServices\IAPICostCalculationServiceSettings.cs" />
+    <Compile Include="Settings\APIServices\IAPIFinancialOperationsServiceSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAccessors.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettingsHost.cs" />

@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
                     new APIOrderValidationServiceSettings(),
                     new ApiMoDiServiceSettings(),
                     new ApiRealeasingServiceSettings(),
-                    new APICostCalculationServiceSettings()
+                    new APIFinancialOperationsServiceSettings()
                 };
 
             foreach (var service in supportedServices)

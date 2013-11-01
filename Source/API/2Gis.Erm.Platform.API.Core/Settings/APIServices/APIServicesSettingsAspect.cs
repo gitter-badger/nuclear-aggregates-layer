@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
                     new APIOrderValidationServiceSettings(),
                     new ApiMoDiServiceSettings(),
                     new ApiRealeasingServiceSettings(),
-                    new APICostCalculationServiceSettings()
+                    new APIFinancialOperationsServiceSettings()
                 };
 
             var availableServices = new Dictionary<Type, IAPIServiceSettings>(globalServicesSettings);

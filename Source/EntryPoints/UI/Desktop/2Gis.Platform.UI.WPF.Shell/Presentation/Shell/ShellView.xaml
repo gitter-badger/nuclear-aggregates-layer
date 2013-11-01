@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalon="clr-namespace:AvalonDock;assembly=AvalonDock"
+        xmlns:avalonlayout="clr-namespace:AvalonDock.Layout;assembly=AvalonDock"
+        xmlns:metrotheme="clr-namespace:AvalonDock.Themes;assembly=AvalonDock.Themes.Metro"
+             xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:resources="clr-namespace:DoubleGis.Platform.UI.WPF.Resources;assembly=2Gis.Platform.UI.WPF.Resources"
+             xmlns:converters="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.Converters;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:documents="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:blendability="clr-namespace:DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability"
+             xmlns:avalonDockUtils="clr-namespace:DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell.AvalonDockUtils"
+             mc:Ignorable="d" d:DataContext="{x:Static blendability:DesignTimeViewModelLocator.ViewModel}" d:DesignHeight="480" d:DesignWidth="640">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\ShellStyles.xaml" />
+                <ResourceDictionary Source="..\Styles\AvalonCustomization.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="LogoImage" UriSource="{x:Static resources:ResourceUrls.Logo}" />
+            <avalonDockUtils:AvalonDockActiveContentConverter x:Key="AvalonDockActiveContentConverter"/>
+            <DataTemplate x:Key="ChildWindowTemplate">
+                <xctk:ChildWindow Caption="{Binding Title.Title}" WindowState="Open" WindowStartupLocation="Center" IsModal="True" CloseButtonVisibility="Collapsed">
+                    <ContentPresenter Content="{Binding}" ContentTemplateSelector="{Binding DataContext.DocumentManager.DialogsViewSelector, RelativeSource={RelativeSource AncestorType=avalon:DockingManager}}" ></ContentPresenter>
+                </xctk:ChildWindow>
+            </DataTemplate>
+            <converters:TypeToVisibilityConverter VisibleType="documents:IDocument" x:Key="VmTypeToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <controls:BriefGrid Columns="200,*,Auto" Rows="50,*">
+        <Image Grid.Row="0" Grid.Column="0"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               Height="50"
+               Stretch="Uniform"
+               Source="{StaticResource LogoImage}"/>
+        <ContentControl Grid.Row="0" Grid.Column="1" 
+                        VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                        Content="{Binding ToolbarManager.Toolbar}" 
+                        ContentTemplateSelector="{Binding ToolbarManager.ViewSelector}" />
+        <ContentControl Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" 
+                        Margin="5,5" 
+                        Content="{Binding UserManager.Info}" 
+                        ContentTemplateSelector="{Binding UserManager.ViewSelector}" />
+        <avalon:DockingManager Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                               Margin="0,10,0,0"
+                               DocumentsSource="{Binding DocumentManager.Documents}" 
+                               ActiveContent="{Binding DocumentManager.ActiveDocument, Mode=TwoWay, Converter={StaticResource AvalonDockActiveContentConverter}}" 
+
+                               DocumentTitleTemplateSelector="{Binding DocumentManager.HeaderViewSelector}">
+            <avalon:DockingManager.LayoutItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <ContentControl Content="{Binding}" ContentTemplateSelector="{Binding DataContext.DocumentManager.MainViewSelector, RelativeSource={RelativeSource AncestorType=avalon:DockingManager}}"></ContentControl>
+                        <ItemsControl Visibility="{Binding Converter={StaticResource VmTypeToVisibilityConverter}}" ItemsSource="{Binding DataContext.DocumentManager.ActiveDialogs, RelativeSource={RelativeSource AncestorType=avalon:DockingManager}}" ItemTemplate="{StaticResource ChildWindowTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </avalon:DockingManager.LayoutItemTemplate>
+            <avalon:DockingManager.AnchorablePaneControlStyle>
+                <StaticResource ResourceKey="AnchorablePaneControlStyle" />
+            </avalon:DockingManager.AnchorablePaneControlStyle>
+            <avalon:DockingManager.Theme>
+                <metrotheme:MetroTheme/>
+            </avalon:DockingManager.Theme>
+            <avalon:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.DocumentName}" />
+                </DataTemplate>
+            </avalon:DockingManager.DocumentHeaderTemplate>
+            <avalonlayout:LayoutRoot>
+                <avalonlayout:LayoutPanel Orientation="Horizontal" >
+                    <avalonlayout:LayoutAnchorablePane DockWidth="200">
+                        <avalonlayout:LayoutAnchorable Title="Navigation" AutoHideMinWidth="200" IsSelected="True">
+                            <TabControl ItemsSource="{Binding NavigationManager.Areas}" 
+                                        SelectedItem="{Binding NavigationManager.SelectedArea, Mode=TwoWay}"
+                                        ContentTemplateSelector="{Binding NavigationManager.ViewSelector}"
+                                        Style="{StaticResource NavigationPanel}" />
+                        </avalonlayout:LayoutAnchorable>
+                    </avalonlayout:LayoutAnchorablePane>
+                    <avalonlayout:LayoutPanel Orientation="Vertical">
+                        <avalonlayout:LayoutDocumentPane />
+                        <avalonlayout:LayoutAnchorablePane DockHeight="200">
+                            <avalonlayout:LayoutAnchorable Title="Notifications" AutoHideMinHeight="200">
+                                <ContentControl Content="{Binding NotificationsManager.NotificationList}"
+                                                ContentTemplateSelector="{Binding NotificationsManager.ViewSelector}" />
+                            </avalonlayout:LayoutAnchorable>
+                        </avalonlayout:LayoutAnchorablePane>
+                    </avalonlayout:LayoutPanel>
+                </avalonlayout:LayoutPanel>
+            </avalonlayout:LayoutRoot>
+        </avalon:DockingManager>
+    </controls:BriefGrid>
+</UserControl>

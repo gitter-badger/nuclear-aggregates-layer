@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
 {
-    public interface IAPIRealeasingServiceSettings : IAPIServiceSettings
+    public interface IAPIFinancialOperationsServiceSettings : IAPIServiceSettings
     {
         Uri RestUrl { get; }
         string SoapEndpointName { get; }

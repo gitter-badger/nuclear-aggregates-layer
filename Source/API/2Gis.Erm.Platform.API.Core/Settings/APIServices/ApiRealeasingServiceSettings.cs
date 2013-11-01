@@ -2,20 +2,13 @@
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
 {
-    public interface IAPICostCalculationServiceSettings : IAPIServiceSettings
-    {
-        Uri RestUrl { get; }
-        string SoapEndpointName { get; }
-        Uri BaseUrl { get; }
-    }
-
-    public class APICostCalculationServiceSettings : APIServiceSettingsBase<IAPICostCalculationServiceSettings>, IAPICostCalculationServiceSettings
+    public class ApiRealeasingServiceSettings : APIServiceSettingsBase<IAPIRealeasingServiceSettings>, IAPIRealeasingServiceSettings
     {
         public override string Name
         {
             get
             {
-                return "CostCalculationService";
+                return "RealeasingService";
             }
         }
 

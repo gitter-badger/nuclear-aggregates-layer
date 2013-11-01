@@ -393,30 +393,30 @@
     <Resource Include="Presentation\Resources\Images\warning.png" />
     <Resource Include="Presentation\Resources\Images\Add.gif" />
     <Resource Include="Presentation\Resources\Images\Accept-icon.png" />
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\Billing.gif">
-      <Link>Billing.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Deal.gif">
-      <Link>en_ico_16_Deal.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Default.gif">
-      <Link>en_ico_16_Default.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Department.gif">
-      <Link>en_ico_16_Department.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif">
-      <Link>en_ico_16_LegalPerson.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserAccount.gif">
-      <Link>en_ico_16_UserAccount.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserGroup.gif">
-      <Link>en_ico_16_UserGroup.gif</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\Settings.gif">
-      <Link>Settings.gif</Link>
-    </Content>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\Billing.gif">
+      <Link>Presentation\Resources\Images\Navigation\Billing.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Deal.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_Deal.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Default.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_Default.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Department.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_Department.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_LegalPerson.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserAccount.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_UserAccount.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserGroup.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_UserGroup.gif</Link>
+    </Resource>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\Settings.gif">
+      <Link>Presentation\Resources\Images\Navigation\Settings.gif</Link>
+    </Resource>
     <Content Include="Presentation\Resources\Images\CrmRefresh.gif" />
     <Resource Include="Presentation\Resources\Images\Delete.gif" />
     <Resource Include="Presentation\Resources\Images\DeleteDisabled.gif" />
@@ -476,9 +476,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presentation\Resources\Images\Navigation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
