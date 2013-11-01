@@ -18,7 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <StartArguments>-root="..\2Gis.Erm.UI.Web.Mvc" -u</StartArguments>
+    <StartArguments>-root="..\..\..\2Gis.Erm.UI.Web.Mvc" -u</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
