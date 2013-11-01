@@ -2,7 +2,7 @@
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
-namespace DoubleGis.Erm.Core.RequestResponse.LegalPersons
+namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Concrete.Old.LegalPersons
 {
     public sealed class CyprusChangeLegalPersonRequisitesRequest : Request, ICyprusAdapted
     {

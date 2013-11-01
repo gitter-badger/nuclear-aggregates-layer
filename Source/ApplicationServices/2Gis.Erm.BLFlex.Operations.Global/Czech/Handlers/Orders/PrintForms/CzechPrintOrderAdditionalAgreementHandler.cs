@@ -13,10 +13,9 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using LegalPersonProfile = DoubleGis.Erm.Platform.Model.Entities.Erm.LegalPersonProfile;
-
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Handlers.Orders.PrintForms
 {
     public sealed class CzechPrintOrderAdditionalAgreementHandler : RequestHandler<PrintOrderAdditionalAgreementRequest, Response>, ICzechAdapted
     {

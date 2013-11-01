@@ -7,8 +7,7 @@ using DoubleGis.Erm.BL.Aggregates.Users;
 using DoubleGis.Erm.BL.API.Operations.Metadata;
 using DoubleGis.Erm.BL.Operations.Operations.Generic.List.Infrastructure;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Services;
-using DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -19,9 +18,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Enums;
 
-namespace DoubleGis.Erm.BL.Services.Operations.List.Czech
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Services.Operations.List
 {
-    public class CzechListClientService : ListEntityDtoServiceBase<Client, CzechListClientDto>, ICzechAdapted
+    public sealed class CzechListClientService : ListEntityDtoServiceBase<Client, CzechListClientDto>, ICzechAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;

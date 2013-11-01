@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.Orders.PrintForms
 {
     public sealed class PrintOrderTerminationNoticeHandler : RequestHandler<PrintOrderTerminationNoticeRequest, Response>, IRussiaAdapted
     {

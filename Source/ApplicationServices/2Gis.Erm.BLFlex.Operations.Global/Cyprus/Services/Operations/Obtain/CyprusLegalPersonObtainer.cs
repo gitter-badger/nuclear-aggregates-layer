@@ -2,16 +2,15 @@
 
 using DoubleGis.Erm.BL.Aggregates.LegalPersons;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Core.Services;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BL.Services.Operations.Modify.DomainEntityObtainers
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Services.Operations.Obtain
 {
     public sealed class CyprusLegalPersonObtainer : IBusinessModelEntityObtainer<LegalPerson>, IAggregateReadModel<LegalPerson>, ICyprusAdapted
     {

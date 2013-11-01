@@ -7,8 +7,7 @@ using DoubleGis.Erm.BL.Operations.Operations.Generic.List.Infrastructure;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO;
-using DoubleGis.Erm.Core.Services;
-using DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -19,9 +18,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Services.Operations.List.Czech
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Services.Operations.List
 {
-    public class CzechListOrderService : ListEntityDtoServiceBase<Order, CzechListOrderDto>, ICzechAdapted
+    public sealed class CzechListOrderService : ListEntityDtoServiceBase<Order, CzechListOrderDto>, ICzechAdapted
     {
         private static readonly Func<CzechOrderGridViewDto, ISecurityServiceUserIdentifier, IUserContext, CzechListOrderDto> ListDataSelectFunc =
             (order, userIdentifierService, userContext) =>

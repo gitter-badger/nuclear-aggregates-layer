@@ -6,9 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
-using Response = DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse.Response;
-
-namespace DoubleGis.Erm.BL.Handlers.Clients
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Handlers.Clients
 {
     public sealed class CyprusCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, ICyprusAdapted
     {

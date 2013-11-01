@@ -7,12 +7,11 @@ using DoubleGis.Erm.BL.Aggregates.Orders;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.Core.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Compression;
 
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.Orders.PrintForms
 {
     public sealed class PrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, IRussiaAdapted
     {

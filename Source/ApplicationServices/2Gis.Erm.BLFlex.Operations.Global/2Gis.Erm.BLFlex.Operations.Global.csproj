@@ -114,10 +114,6 @@
     <Compile Include="Czech\Services\Operations\List\CzechListLegalPersonProfileService.cs" />
     <Compile Include="Czech\Services\Operations\List\CzechListLegalPersonService.cs" />
     <Compile Include="Czech\Services\Operations\List\CzechListOrderService.cs" />
-    <Compile Include="Czech\Services\Operations\List\DTO\CzechListClientDto.cs" />
-    <Compile Include="Czech\Services\Operations\List\DTO\CzechListLegalPersonDto.cs" />
-    <Compile Include="Czech\Services\Operations\List\DTO\CzechListLegalPersonProfileDto.cs" />
-    <Compile Include="Czech\Services\Operations\List\DTO\CzechListOrderDto.cs" />
     <Compile Include="Czech\Services\Operations\Obtain\CzechAppointmentObtainer.cs" />
     <Compile Include="Czech\Services\Operations\Obtain\CzechLegalPersonObtainer.cs" />
     <Compile Include="Czech\Services\Operations\Obtain\CzechPhonecallObtainer.cs" />

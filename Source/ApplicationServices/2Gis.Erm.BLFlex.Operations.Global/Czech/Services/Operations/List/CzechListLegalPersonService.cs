@@ -3,8 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.API.Operations.Metadata;
 using DoubleGis.Erm.BL.Operations.Operations.Generic.List.Infrastructure;
-using DoubleGis.Erm.Core.Services;
-using DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -13,9 +12,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Services.Operations.List.Czech
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Services.Operations.List
 {
-    public class CzechListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, CzechListLegalPersonDto>, ICzechAdapted
+    public sealed class CzechListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, CzechListLegalPersonDto>, ICzechAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 

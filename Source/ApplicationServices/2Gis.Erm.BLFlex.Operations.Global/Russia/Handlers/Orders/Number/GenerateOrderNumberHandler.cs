@@ -6,7 +6,7 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 
-namespace DoubleGis.Erm.BL.Handlers.Orders.Number
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.Orders.Number
 {
     public sealed class GenerateOrderNumberHandler : RequestHandler<GenerateOrderNumberRequest, GenerateOrderNumberResponse>, IRussiaAdapted
     {

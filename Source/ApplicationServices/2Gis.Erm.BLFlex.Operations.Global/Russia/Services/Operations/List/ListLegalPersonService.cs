@@ -4,8 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BL.API.Operations.Generic.List.DTO;
 using DoubleGis.Erm.BL.API.Operations.Metadata;
 using DoubleGis.Erm.BL.Operations.Operations.Generic.List.Infrastructure;
-using DoubleGis.Erm.Core.Services;
-using DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -14,7 +12,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Services.Operations.List
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Services.Operations.List
 {
     public class ListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, ListLegalPersonDto>, IRussiaAdapted
     {

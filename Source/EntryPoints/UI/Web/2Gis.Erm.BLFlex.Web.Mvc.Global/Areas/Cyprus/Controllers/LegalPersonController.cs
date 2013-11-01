@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.RequestResponse.LegalPersons;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;

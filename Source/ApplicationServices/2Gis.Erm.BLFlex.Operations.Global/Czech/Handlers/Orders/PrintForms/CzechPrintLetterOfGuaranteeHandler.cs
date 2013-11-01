@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Handlers.Orders.PrintForms
 {
     public sealed class CzechPrintLetterOfGuaranteeHandler : RequestHandler<PrintLetterOfGuaranteeRequest, Response>, ICzechAdapted
     {

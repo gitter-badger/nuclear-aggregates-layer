@@ -7,7 +7,6 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.RequestResponse.LegalPersons;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -16,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Handlers.LegalPersons
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.LegalPersons
 {
     public sealed class EditLegalPersonHandler : RequestHandler<EditRequest<LegalPerson>, EmptyResponse>, IRussiaAdapted
     {

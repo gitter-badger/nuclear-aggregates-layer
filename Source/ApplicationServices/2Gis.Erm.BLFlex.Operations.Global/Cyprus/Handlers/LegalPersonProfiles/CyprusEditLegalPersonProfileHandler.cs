@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Handlers.LegalPersonProfiles
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Handlers.LegalPersonProfiles
 {
     public sealed class CyprusEditLegalPersonProfileHandler : RequestHandler<EditRequest<LegalPersonProfile>, EmptyResponse>, ICyprusAdapted
     {

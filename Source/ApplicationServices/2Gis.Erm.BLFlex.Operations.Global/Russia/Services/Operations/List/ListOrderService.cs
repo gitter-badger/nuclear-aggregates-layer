@@ -8,8 +8,6 @@ using DoubleGis.Erm.BL.Operations.Operations.Generic.List.Infrastructure;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders.DTO;
-using DoubleGis.Erm.Core.Services;
-using DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -20,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.Services.Operations.List
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Services.Operations.List
 {
     public class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
     {

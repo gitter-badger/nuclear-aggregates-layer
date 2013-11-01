@@ -16,7 +16,6 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Operations.Crosscutting;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -29,9 +28,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using ContributionType = DoubleGis.Erm.BL.API.Common.Enums.ContributionTypeEnum;
-
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Handlers.Orders.PrintForms
 {
     public sealed class CyprusPrintOrderHandler : RequestHandler<PrintOrderRequest, StreamResponse>, ICyprusAdapted
     {
@@ -144,7 +141,7 @@ namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
 
         private TemplateCode GetLocalTemplateCode(long sourceOrganizationUnitId)
         {
-            var withVat = GetContributionType(sourceOrganizationUnitId) == ContributionType.Branch;
+            var withVat = GetContributionType(sourceOrganizationUnitId) == ContributionTypeEnum.Branch;
             return withVat ? TemplateCode.OrderWithVatWithDiscount : TemplateCode.OrderWithoutVatWithDiscount;
         }
 
@@ -443,7 +440,7 @@ namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
             return string.Format(CultureInfo.CurrentCulture, BLResources.PrintOrderHandler_DiscountInfo, discountPercentNumber, discountSumMoney, discountSumMoneyWords);
         }
 
-        private ContributionType GetContributionType(long organizationUnitId)
+        private ContributionTypeEnum GetContributionType(long organizationUnitId)
         {
             var contributionType = _finder.Find(GenericSpecifications.ById<OrganizationUnit>(organizationUnitId))
                 .SelectMany(x => x.BranchOfficeOrganizationUnits)
@@ -457,7 +454,7 @@ namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
                     string.Format(CultureInfo.CurrentCulture, BLResources.ContributionTypeIsNotSet, organizationUnitId));
             }
 
-            return (ContributionType)contributionType.Value;
+            return (ContributionTypeEnum)contributionType.Value;
         }
 
         private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, int currencyIsoCode)

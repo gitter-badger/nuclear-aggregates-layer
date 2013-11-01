@@ -5,13 +5,13 @@ using DoubleGis.Erm.BL.Operations.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BL.Services.Operations.Get
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Services.Operations.Get
 {
     public class CyprusGetLegalPersonDtoService : GetDomainEntityDtoServiceBase<LegalPerson>, ICyprusAdapted
     {

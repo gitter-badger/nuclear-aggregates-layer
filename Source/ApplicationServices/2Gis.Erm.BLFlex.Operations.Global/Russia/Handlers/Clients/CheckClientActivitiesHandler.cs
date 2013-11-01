@@ -18,7 +18,7 @@ using Microsoft.Xrm.Client;
 using Microsoft.Xrm.Client.Data.Services;
 using Microsoft.Xrm.Client.Services;
 
-namespace DoubleGis.Erm.BL.Handlers.Clients
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.Clients
 {
     public sealed class CheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IRussiaAdapted
     {

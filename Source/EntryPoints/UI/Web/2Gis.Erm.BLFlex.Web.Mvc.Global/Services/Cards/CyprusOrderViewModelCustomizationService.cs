@@ -6,8 +6,6 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Aggregates.Releases;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
-using DoubleGis.Erm.Core;
-using DoubleGis.Erm.Core.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;

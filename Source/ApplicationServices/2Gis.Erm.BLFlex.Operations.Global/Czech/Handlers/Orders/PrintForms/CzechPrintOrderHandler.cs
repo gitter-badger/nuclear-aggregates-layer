@@ -16,7 +16,6 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Operations.Crosscutting;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -30,7 +29,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-namespace DoubleGis.Erm.BL.Handlers.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Handlers.Orders.PrintForms
 {
     public sealed class CzechPrintOrderHandler : RequestHandler<PrintOrderRequest, StreamResponse>, ICzechAdapted
     {

@@ -1,11 +1,12 @@
 using System;
 
 using DoubleGis.Erm.BL.API.Operations.Generic.List;
+using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.Core.Services.Operations.Concrete.List.DTO
+namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List
 {
-    public class CzechListLegalPersonProfileDto : IListItemEntityDto<LegalPersonProfile>
+    public sealed class CzechListLegalPersonProfileDto : IListItemEntityDto<LegalPersonProfile>, ICzechAdapted
     {
         public long Id { get; set; }
         public string Name { get; set; }

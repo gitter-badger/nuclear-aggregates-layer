@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
-namespace DoubleGis.Erm.BL.Handlers.Clients
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Handlers.Clients
 {
     public sealed class CzechCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, ICzechAdapted
     {

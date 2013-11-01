@@ -4,7 +4,7 @@ using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
-namespace DoubleGis.Erm.BL.Handlers.AccountDetails
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.AccountDetails
 {
     public sealed class ValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>, IRussiaAdapted
     {
