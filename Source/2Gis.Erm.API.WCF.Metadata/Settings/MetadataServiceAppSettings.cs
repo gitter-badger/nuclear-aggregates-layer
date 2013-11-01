@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.WCF.Metadata.Settings;
@@ -20,5 +21,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Settings
         {
             get { return MsCRMSettings; }
         }
+
+        public APIServicesSettingsAspect ServicesSettings { get { return APIServicesSettings; } }
     }
 }

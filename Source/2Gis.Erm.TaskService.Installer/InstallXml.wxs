@@ -73,51 +73,51 @@
       </Component>
 
       <Component Id="SevenZipSharp.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
+        <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
 
       <Component Id="Microsoft.Practices.ServiceLocation.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
+        <File Id="Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
       </Component>
 
       <Component Id="Quartz.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Quartz.2.2\lib\net40\Quartz.dll" />
+        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2\lib\net40\Quartz.dll" />
       </Component>
 
       <Component Id="Common.Logging.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll" />
+        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll" />
       </Component>
 
       <Component Id="Common.Logging.Log4Net1211.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Common.Logging.Log4Net1211.2.1.2\lib\net40\Common.Logging.Log4Net1211.dll" />
+        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Log4Net1211.2.1.2\lib\net40\Common.Logging.Log4Net1211.dll" />
       </Component>
 
       <Component Id="log4net.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
+        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
       </Component>
 
       <Component Id="DocumentFormat.OpenXml.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="DocumentFormat.OpenXml.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
+        <File Id="DocumentFormat.OpenXml.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
 
       <Component Id="Microsoft.Practices.Unity.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+        <File Id="Microsoft.Practices.Unity.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
       </Component>
 
       <Component Id="Microsoft.Practices.Unity.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+        <File Id="Microsoft.Practices.Unity.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
 
       <Component Id="Microsoft.Practices.Unity.Interception.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Interception.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+        <File Id="Microsoft.Practices.Unity.Interception.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
 
       <Component Id="Microsoft.Practices.Unity.Interception.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Interception.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+        <File Id="Microsoft.Practices.Unity.Interception.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
       </Component>
 
       <Component Id="RabbitMQ.Client.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\RabbitMQ.Client.3.1.5\lib\net30\RabbitMQ.Client.dll" />
+        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\RabbitMQ.Client.3.1.5\lib\net30\RabbitMQ.Client.dll" />
       </Component>
 
       <Component Id="Microsoft.Xrm.Client.dll" Directory="INSTALLFOLDER" Guid="*">
@@ -137,7 +137,7 @@
       </Component>
       
       <Component Id="Newtonsoft.Json.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\..\..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll" />
+        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll" />
       </Component>
 
     </ComponentGroup>

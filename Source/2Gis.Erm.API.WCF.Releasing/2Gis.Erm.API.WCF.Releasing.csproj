@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Release.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -77,7 +79,6 @@
     <None Include="log4net.Release.config">
       <DependentUpon>log4net.config</DependentUpon>
     </None>
-    <Content Include="orderValidation.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Cyprus.pubxml" />

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
             var releasingSvcSettings = container.Resolve<IAPIRealeasingServiceSettings>();
             var modiSvcSettings = container.Resolve<IAPIMoDiServiceSettings>();
             var operationsSvcSettings = container.Resolve<IAPIOperationsServiceSettings>();
-            var costCalculationSvcSettings = container.Resolve<IAPICostCalculationServiceSettings>();
+            var costCalculationSvcSettings = container.Resolve<IAPIFinancialOperationsServiceSettings>();
             var orderValidationSvcSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
 
             var binding = BindingConfig.WsHttp

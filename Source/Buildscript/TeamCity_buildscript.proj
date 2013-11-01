@@ -58,7 +58,7 @@
   </PropertyGroup>
   
   <!-- import target for erm wpf client build and deploy -->
-  <Import Project="$(BLSources)\Buildscript\ErmWPFClientDeploy.targets" />
+  <Import Project="ErmWPFClientDeploy.targets" />
 
   <PropertyGroup Label="MsCRM properties">
     <MsCRMPluginsProjectName>2Gis.Erm.BL.MsCRM.Plugins</MsCRMPluginsProjectName>

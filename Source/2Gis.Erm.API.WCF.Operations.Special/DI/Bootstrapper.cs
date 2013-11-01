@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
+using DoubleGis.Erm.BL.API.Operations.Generic.Get;
 using DoubleGis.Erm.BL.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BL.DI.Config;
@@ -40,6 +42,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
 {
     internal static class Bootstrapper
     {
+        private readonly static Type[] EagerLoading = { typeof(IGetDomainEntityDtoService) };
+        
         public static IUnityContainer ConfigureUnity(IFinancialOperationsAppSettings settings, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();

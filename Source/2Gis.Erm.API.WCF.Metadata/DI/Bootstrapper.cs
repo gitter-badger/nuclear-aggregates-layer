@@ -55,7 +55,8 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
-            container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
+            container.RegisterAPIServiceSettings(settings).
+                      ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
                      .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
                      .ConfigureServiceClient();
 

@@ -1,0 +1,428 @@
+<Project
+	ToolsVersion="4.0"
+	DefaultTargets="Publish"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Main paths evaluations">
+    <!-- пока не используем более простой относительный путь, т.к. это скрипт могут импортировать в другой из другой дирректории - тогда пути поплывут 
+    Т.к. msbuild при запуске скрипта сначала склеивает с ним все импортируемые
+    <ErmSolutionDir Condition="$(ErmSolutionDir) == ''">..\</ErmSolutionDir>-->
+    <ErmSolutionDir Condition="$(ErmSolutionDir) == ''">$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\..\..))</ErmSolutionDir>
+    
+    <PlatformSources Condition="$(PlatformSources) == ''">$(ErmSolutionDir)\Platform\Source\</PlatformSources>
+    <BLSources Condition="$(BLSources) == ''">$(ErmSolutionDir)\BL\Source\</BLSources>
+    <BLFlexSources Condition="$(BLFlexSources) == ''">$(ErmSolutionDir)\BLFlex\Source\</BLFlexSources>
+    <CompositionRootsSources Condition="$(CompositionRootsSources) == ''">$(ErmSolutionDir)\CompositionRoots\Source\</CompositionRootsSources>
+    <AutoTestsSources Condition="$(AutoTestsSources) == ''">$(ErmSolutionDir)\AutoTests\Source\</AutoTestsSources>
+    
+    <ShellProjectName Condition="$(ShellProjectName) == ''">2Gis.Erm.UI.Desktop.WPF</ShellProjectName>
+    <ShellProjectDirectory Condition="$(ShellProjectDirectory) == ''">$(CompositionRootsSources)\$(ShellProjectName)</ShellProjectDirectory>
+    <ShellProjectFile Condition="$(ShellProjectFile) == ''">$(ShellProjectName).csproj</ShellProjectFile>
+    <ShellProjectFullPath Condition="$(ShellProjectFullPath) == ''">$(ShellProjectDirectory)\$(ShellProjectFile)</ShellProjectFullPath>
+    
+    <PlatformWpfComponentsLocation Condition="$(PlatformWpfComponentsLocation) == ''">$(PlatformSources)\EntryPoints\UI\Desktop</PlatformWpfComponentsLocation>
+    
+    <PluginProjectNameIndicator>2Gis.Erm.BL.UI.WPF.</PluginProjectNameIndicator>
+    <BLPluginsProjectsRootFolder Condition="$(BLPluginsProjectsRootFolder) == ''">$(BLSources)\EntryPoints\UI\Desktop</BLPluginsProjectsRootFolder>
+    <BLFlexPluginsProjectsRootFolder Condition="$(BLFlexPluginsProjectsRootFolder) == ''">$(BLFlexSources)\EntryPoints\UI\Desktop</BLFlexPluginsProjectsRootFolder>
+  </PropertyGroup>
+
+  <!-- import msbuild custom task library with library required preseted properties-->
+  <PropertyGroup Label="Required for MSBuild.Extension.Pack custom installation dir (nuget)">
+    <ExtensionTasksNugetPath>$(CompositionRootsSources)\packages\MSBuild.Extension.Pack.1.2.0\lib\net40\</ExtensionTasksNugetPath>
+    <ExtensionTasksPath>$(ExtensionTasksNugetPath)</ExtensionTasksPath>
+  </PropertyGroup>
+  <Import Project="$(ExtensionTasksNugetPath)MSBuild.ExtensionPack.tasks" />
+
+  <PropertyGroup Label="Common versioning properties">
+    <Common_Version_Major Condition="'$(Common_Version_Major)' == ''">1</Common_Version_Major>
+    <Common_Version_Minor Condition="'$(Common_Version_Minor)' == ''">0</Common_Version_Minor>
+    <Common_Version_Revision Condition="'$(Common_Version_Revision)' == ''">0</Common_Version_Revision>
+    <Common_Version_Build Condition="'$(Common_Version_Build)' == ''">0</Common_Version_Build>
+
+    <!-- ProductVersion can have only 3 numbers - Common_Version_Major.Common_Version_Minor.Revision, 4th number (Common_Version_Build) always ignored by installer engine -->
+    <ProductVersion Condition="'$(ProductVersion)' == ''">$(Common_Version_Major).$(Common_Version_Minor).$(Common_Version_Revision)</ProductVersion>
+    <FullProductVersion Condition="'$(FullProductVersion)' == ''">$(ProductVersion).$(Common_Version_Build)</FullProductVersion>
+  </PropertyGroup>
+
+ 
+  <PropertyGroup Label="Common configurations">
+    <Configuration Condition="$(Configuration) == ''">Release</Configuration>
+    <!-- If environment not specified explicitly target environment supposed Local developer $(COMPUTERNAME) -->
+    <Environment Condition="$(Environment) == ''">SET BY CI SERVER</Environment>
+    <EntryPoint_HostName Condition="'$(EntryPoint_HostName)' == ''"></EntryPoint_HostName>
+
+    <ErmWpfClientDownloadSiteIisAppPath Condition="'$(ErmWpfClientDownloadSiteIisAppPath)' == ''">erm06.test.erm.russia</ErmWpfClientDownloadSiteIisAppPath>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Use default ClickOnce settings if explicit not specified">
+    <TargetCulture Condition="$(TargetCulture) == ''">ru</TargetCulture>
+    <IsWebBootstrapper Condition="$(IsWebBootstrapper) == ''">true</IsWebBootstrapper>
+    <PublishUrl Condition="$(PublishUrl) == ''">publish\</PublishUrl>
+    <Install Condition="$(Install) == ''">true</Install>
+    <InstallFrom Condition="$(InstallFrom) == ''">Web</InstallFrom>
+    <UpdateEnabled Condition="$(UpdateEnabled) == ''">true</UpdateEnabled>
+    <UpdateMode Condition="$(UpdateMode) == ''">Foreground</UpdateMode>
+    <UpdateInterval Condition="$(UpdateInterval) == ''">7</UpdateInterval>
+    <UpdateIntervalUnits Condition="$(UpdateIntervalUnits) == ''">Days</UpdateIntervalUnits>
+    <UpdatePeriodically Condition="$(UpdatePeriodically) == ''">false</UpdatePeriodically>
+    <UpdateRequired Condition="$(UpdateRequired) == ''">false</UpdateRequired>
+    <MapFileExtensions Condition="$(MapFileExtensions) == ''">true</MapFileExtensions>
+    <InstallUrl Condition="$(InstallUrl) == ''">No correct default value</InstallUrl>
+    <ProductName Condition="$(ProductName) == ''">ERM WPF Client</ProductName>
+    <PublisherName Condition="$(PublisherName) == ''">2GIS</PublisherName>
+    <SuiteName Condition="$(SuiteName) == ''">ERM</SuiteName>
+    <CreateWebPageOnPublish Condition="$(CreateWebPageOnPublish) == ''">true</CreateWebPageOnPublish>
+    <WebPage Condition="$(WebPage) == ''">default.htm</WebPage>
+    <OpenBrowserOnPublish Condition="$(OpenBrowserOnPublish) == ''">false</OpenBrowserOnPublish>
+    <ApplicationRevision>$(BuildNumber)</ApplicationRevision>
+    <ApplicationVersion>$(FullProductVersion)</ApplicationVersion>
+    <UseApplicationTrust Condition="$(UseApplicationTrust) == ''">false</UseApplicationTrust>
+    <CreateDesktopShortcut Condition="$(CreateDesktopShortcut) == ''">true</CreateDesktopShortcut>
+    <PublishWizardCompleted Condition="$(PublishWizardCompleted) == ''">true</PublishWizardCompleted>
+    <BootstrapperEnabled Condition="$(BootstrapperEnabled) == ''">true</BootstrapperEnabled>
+    <SignManifests Condition="$(SignManifests) == ''">true</SignManifests>
+    <TargetZone Condition="$(TargetZone) == ''">LocalIntranet</TargetZone>
+    <GenerateManifests Condition="$(GenerateManifests) == ''">true</GenerateManifests>
+    <ManifestCertificateThumbprint Condition="$(ManifestCertificateThumbprint) == ''">151349E176B059355C5F4D119866E23D1E94D9FF</ManifestCertificateThumbprint>
+    <ManifestKeyFile Condition="$(ManifestKeyFile) == ''">2Gis.UI.WPF.Shell.pfx</ManifestKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Deploy target project default values">
+    <PlatformTarget Condition="$(PlatformTarget) == ''">AnyCPU</PlatformTarget>
+    <ModulesFolderName>Modules</ModulesFolderName>
+    <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
+    <OutputIntermediateResultPath>obj\$(Configuration)</OutputIntermediateResultPath>
+    <SourceBinariesFolder Label="Previously builded shell binaries folder">$(ShellProjectDirectory)\$(OutputPath)</SourceBinariesFolder>
+    <SourceDeployResourcesFolder>DeployResources</SourceDeployResourcesFolder>
+    <SourceDownloadWebPageFullPath>$(ShellProjectDirectory)\$(SourceDeployResourcesFolder)\$(TargetCulture)\$(WebPage)</SourceDownloadWebPageFullPath>
+    <SourceDownloadWebPageFullPath Condition="!Exists('$(SourceDownloadWebPageFullPath)')">$(ShellProjectDirectory)\$(SourceDeployResourcesFolder)\$(WebPage)</SourceDownloadWebPageFullPath>
+    <CertFileFullPath>$(ShellProjectDirectory)\$(ManifestKeyFile)</CertFileFullPath>
+    <CertFilePass>erm</CertFilePass>
+    <CertThumbprint>Not set</CertThumbprint>
+
+    <DeployTargetProject Condition="$(AssemblyName) != ''">$(AssemblyName)</DeployTargetProject>
+    <DeployTargetProject Condition="$(DeployTargetProject) == ''">$(ShellProjectName)</DeployTargetProject>
+    <DeployTargetFolder>$(ShellProjectDirectory)\$(OutputIntermediateResultPath)\$(PublishUrl)</DeployTargetFolder>
+    <DeployTargetApplicationFilesFolder>$(DeployTargetFolder)Application Files\</DeployTargetApplicationFilesFolder>
+    <DeployTargetVersionedApplicationName>$(DeployTargetProject)_$(Common_Version_Major)_$(Common_Version_Minor)_$(Common_Version_Revision)_$(Common_Version_Build)</DeployTargetVersionedApplicationName>
+    <DeployTargetVersionedBinariesFolder>$(DeployTargetApplicationFilesFolder)$(DeployTargetVersionedApplicationName)</DeployTargetVersionedBinariesFolder>
+    <DeployTargetVersionedModulesBinariesFolder>$(DeployTargetVersionedBinariesFolder)\$(ModulesFolderName)\</DeployTargetVersionedModulesBinariesFolder>
+    <DeployTargetApplicationManifestFileName>$(DeployTargetProject).exe.manifest</DeployTargetApplicationManifestFileName>
+    <DeployTargetDeploymentManifestFileName>$(DeployTargetProject).application</DeployTargetDeploymentManifestFileName>
+    <DeployTargetApplicationManifestFullPath>$(DeployTargetVersionedBinariesFolder)\$(DeployTargetApplicationManifestFileName)</DeployTargetApplicationManifestFullPath>
+    <DeployTargetDeploymentManifestFullPath>$(DeployTargetFolder)$(DeployTargetDeploymentManifestFileName)</DeployTargetDeploymentManifestFullPath>
+    <DeployTargetZipFolder>$(ShellProjectDirectory)\$(OutputIntermediateResultPath)\Package</DeployTargetZipFolder>
+    <DeployTargetZipTempFolder>$(DeployTargetZipFolder)\Temp\</DeployTargetZipTempFolder>
+    <DeployTargetZipFileFolder>$(DeployTargetZipFolder)\Zip</DeployTargetZipFileFolder>
+    <DeployTargetDownloadWebPageFullPath>$(DeployTargetFolder)$(WebPage)</DeployTargetDownloadWebPageFullPath>
+  </PropertyGroup>
+
+  <Target Name="PreparePublishTargetFolder">
+    <Message Text="Cleanup target publish folder" />
+
+    <RemoveDir Directories="$(DeployTargetFolder)" Condition="Exists('$(DeployTargetFolder)')" />
+    <MakeDir Directories="$(DeployTargetFolder)" Condition="!Exists('$(DeployTargetFolder)')" />
+    <MakeDir Directories="$(DeployTargetVersionedBinariesFolder)" Condition="!Exists('$(DeployTargetVersionedBinariesFolder)')" />
+    <MakeDir Directories="$(DeployTargetVersionedModulesBinariesFolder)" Condition="!Exists('$(DeployTargetVersionedModulesBinariesFolder)')" />
+  </Target>
+
+  <Target Name="ApplyAssemblyVersionToErmModuleContainerConfig" Label="Update assembly version in module container config files">
+    <Message Text="Update assembly version in module container config files" />
+    <ItemGroup>
+      <ModulesConfigFiles Include="$(BLPluginsProjectsRootFolder)\$(PluginProjectNameIndicator)*\*.config" />
+    </ItemGroup>
+    <Message Text="Config files: @(ModulesConfigFiles)" />
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="@(ModulesConfigFiles)"
+      RegexPattern="&lt;add(.+2[Gg]is\.Erm.+),\s*Version=[\d\.]+\s*,(.+)/&gt;"
+      Replacement="&lt;add$1, Version=$(ProductVersion).0,$2/&gt;"/>
+  </Target>
+
+  <Target Name="ApplyTargetCultureToShellConfig" Label="Update target culture for in shell app config">
+    <Message Text="Update target culture for in shell app config" />
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="$(ShellProjectDirectory)\App.config"
+      RegexPattern="&lt;add\s+key=\&quot;TargetCulture\&quot;\s+value=\&quot;[a-z]+\&quot;\s*/&gt;"
+      Replacement="&lt;add key=&quot;TargetCulture&quot; value=&quot;$(TargetCulture)&quot;/&gt;"  />
+  </Target>
+  
+  <Target Name="ApplyTargetCultureToNeutralResourcesLanguage" Label="Update value of attribute NeutralResourcesLanguage">
+    <Message Text="Update value of attribute NeutralResourcesLanguage" />
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="$(PlatformSources)\AssemblyInfo.Common.cs"
+      RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+      Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+    <MSBuild.ExtensionPack.FileSystem.File
+     TaskAction="Replace"
+     Files="$(BLSources)\AssemblyInfo.Common.cs"
+     RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+     Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+    <MSBuild.ExtensionPack.FileSystem.File
+     TaskAction="Replace"
+     Files="$(BLFlexSources)\AssemblyInfo.Common.cs"
+     RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+     Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+    <MSBuild.ExtensionPack.FileSystem.File
+     TaskAction="Replace"
+     Files="$(CompositionRootsSources)\AssemblyInfo.Common.cs"
+     RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+     Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="$(PlatformWpfComponentsLocation)\AssemblyInfo.WPF.cs"
+      RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+      Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="$(CompositionRootsSources)\AssemblyInfo.WPF.cs"
+      RegexPattern="\[assembly:\s+NeutralResourcesLanguage\s*\(\s*\&quot;[a-z]+\&quot;\s*"
+      Replacement="[assembly: NeutralResourcesLanguage(&quot;$(TargetCulture)&quot;"  />
+  </Target>
+
+  <Target Name="BuildErmWpfClientShellAndDependencies" Label="Build shell and all modules" DependsOnTargets="ApplyTargetCultureToNeutralResourcesLanguage;ApplyTargetCultureToShellConfig;ApplyAssemblyVersionToErmModuleContainerConfig">
+    <Message Text="ERM WPF client build start" />
+    <!-- Build shell and it explicit dependencies -->
+    <MSBuild Projects="$(ShellProjectFullPath)" Targets="Rebuild" Properties="Configuration=$(Configuration);PlatformTarget=$(PlatformTarget);" />
+    <ItemGroup>
+      <ModulesProjects Include="$(BLPluginsProjectsRootFolder)\$(PluginProjectNameIndicator)*\*.csproj" />
+      <!-- <ModulesProjects Include="$(BLFlexPluginsProjectsRootFolder)\$(PluginProjectNameIndicator)*\*.csproj" /> -->
+    </ItemGroup>
+    <!-- Build modules explicitly -->
+    <Message Text="Found wpf client modules projects: @(ModulesProjects->'%(Filename)')" />
+    <MSBuild Projects="@(ModulesProjects)" Targets="Rebuild" Properties="Configuration=$(Configuration);PlatformTarget=$(PlatformTarget);" />
+    <Message Text="ERM WPF client build finish" />
+  </Target>
+
+  <Target Name="__TEST" >
+    <Message Text="SourceBinariesFolder : $(SourceBinariesFolder)" />
+    <Message Text="DeployTargetFolder: $(DeployTargetFolder)" />
+    <ItemGroup>
+      <ErmPlugins Include="$([System.IO.Directory]::GetDirectories(`$(SourceBinariesFolder)$(ModulesFolderName)`,`$(PluginProjectNameIndicator)*`,System.IO.SearchOption.TopDirectoryOnly))"/>
+      <TargetModulesBinaries Include="%(ErmPlugins.Identity)\*.dll">
+        <TargetSubFolder>$(ModulesFolderName)</TargetSubFolder>
+      </TargetModulesBinaries>
+      <TargetModulesBinaries1 Include="@(TargetModulesBinaries->'%(FullPath)')">
+        <TargetSubFolder>$(ModulesFolderName)</TargetSubFolder>
+      </TargetModulesBinaries1>
+    </ItemGroup>
+    <Message Text="ErmPlugins : @(ErmPlugins->'%(Filename)%(Extension)')" />
+    <Message Text="TargetModulesBinaries : @(TargetModulesBinaries)" /> 
+  <Message Text="TargetModulesBinaries1 : @(TargetModulesBinaries1)" />
+  </Target>
+
+  <Target Name="CopyTargetFilesToDeploymentFolder" DependsOnTargets="BuildErmWpfClientShellAndDependencies;PreparePublishTargetFolder">
+    <Message Text="SourceBinariesFolder : $(SourceBinariesFolder)" />
+    <Message Text="DeployTargetFolder: $(DeployTargetFolder)" />
+    <ItemGroup>
+      <TargetShellBinaries Include="$(SourceBinariesFolder)*.dll;$(SourceBinariesFolder)*.exe;$(SourceBinariesFolder)*.config">
+        <TargetSubFolder></TargetSubFolder>
+      </TargetShellBinaries>
+      <TargetShellBinaries Include="$(SourceBinariesFolder)$(TargetCulture)\*.dll">
+        <TargetSubFolder>$(TargetCulture)</TargetSubFolder>
+      </TargetShellBinaries>
+    </ItemGroup>
+    <ItemGroup>
+      <ErmPlugins Include="$([System.IO.Directory]::GetDirectories(`$(SourceBinariesFolder)$(ModulesFolderName)`,`$(PluginProjectNameIndicator)*`,System.IO.SearchOption.TopDirectoryOnly))"/>
+    </ItemGroup>
+    <ItemGroup>
+      <TargetModulesBinaries Include="%(ErmPlugins.Identity)\*.dll;%(ErmPlugins.Identity)\*.config;">
+        <TargetSubFolder>$(ModulesFolderName)\%(ErmPlugins.Filename)%(ErmPlugins.Extension)</TargetSubFolder>
+      </TargetModulesBinaries>
+      <TargetModulesBinaries Include="%(ErmPlugins.Identity)\$(TargetCulture)\*.dll;">
+        <TargetSubFolder>$(ModulesFolderName)\%(ErmPlugins.Filename)%(ErmPlugins.Extension)\$(TargetCulture)</TargetSubFolder>
+      </TargetModulesBinaries>
+      <!-- Спец. обработка для native DLL 7z, если будут проблемы из-за удаления дубликатов (7z.dll называется одинаково и для x86 и для x64)
+        можно будет попробовать переименовать native dll, добавив например постфикс x86 или x64-->
+      <TargetModulesBinaries Include="%(ErmPlugins.Identity)\x86\*.dll;">
+        <TargetSubFolder>$(ModulesFolderName)\%(ErmPlugins.Filename)%(ErmPlugins.Extension)\x86</TargetSubFolder>
+      </TargetModulesBinaries>
+      <TargetModulesBinaries Include="%(ErmPlugins.Identity)\x64\*.dll;">
+        <TargetSubFolder>$(ModulesFolderName)\%(ErmPlugins.Filename)%(ErmPlugins.Extension)\x64</TargetSubFolder>
+      </TargetModulesBinaries>
+    </ItemGroup>
+
+    <Message Text="TargetShellBinaries : @(TargetShellBinaries->'%(Filename)%(Extension)')" />
+    <Message Text="TargetModulesBinaries : @(TargetModulesBinaries->'%(Filename)%(Extension)')" />
+
+    <!-- Remove duplicate files in modules -->
+    <MSBuild.ExtensionPack.Framework.MsBuildHelper TaskAction="RemoveDuplicateFiles" InputItems1="@(TargetModulesBinaries)">
+      <Output TaskParameter="OutputItems" ItemName="DistinctedTargetModulesBinaries"/>
+    </MSBuild.ExtensionPack.Framework.MsBuildHelper>
+
+    <!-- required for restore RecursiveDir well-known item metadata lost after duplications remove -->
+    <ItemGroup>
+      <CalculatedTargetModulesBinaries Include="@(TargetModulesBinaries)" Condition="'%(FullPath)' == '@(DistinctedTargetModulesBinaries->'%(FullPath)')'" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <TargetMergeBinaries Include="@(TargetShellBinaries)" />
+      <TargetMergeBinaries Include="@(CalculatedTargetModulesBinaries)" Condition="'%(Filename)%(Extension)' != '@(TargetMergeBinaries->'%(Filename)%(Extension)')'"/>
+    </ItemGroup>
+
+    <!-- calculating destination folder using metadata  -->
+    <ItemGroup>
+      <TargetMergeBinaries Condition="%(TargetMergeBinaries.TargetSubFolder) != ''">
+        <TargetDeployFolder>$(DeployTargetVersionedBinariesFolder)\%(TargetMergeBinaries.TargetSubFolder)\%(TargetMergeBinaries.RecursiveDir)</TargetDeployFolder>
+      </TargetMergeBinaries>
+      <TargetMergeBinaries Condition="%(TargetMergeBinaries.TargetSubFolder) == ''">
+        <TargetDeployFolder>$(DeployTargetVersionedBinariesFolder)\%(TargetMergeBinaries.RecursiveDir)</TargetDeployFolder>
+      </TargetMergeBinaries>
+    </ItemGroup>
+
+
+    <Copy SourceFiles="@(TargetMergeBinaries)" DestinationFolder="%(TargetDeployFolder)" />
+    <Copy SourceFiles="$(SourceDownloadWebPageFullPath)" DestinationFolder="$(DeployTargetFolder)" />
+
+    <!-- update download web page content-->
+    <ItemGroup>
+      <DeployTargetDownloadWebPage Include="$(DeployTargetDownloadWebPageFullPath)" />
+    </ItemGroup>
+    
+    <!-- update version info -->
+    <MSBuild.ExtensionPack.FileSystem.File 
+      TaskAction="Replace" 
+      Files="@(DeployTargetDownloadWebPage)" 
+      RegexPattern="&lt;TD\sid=&quot;ApplicationVersionPlaceholder&quot;&gt;[0-9X\.]*&lt;/TD&gt;" 
+      Replacement="&lt;TD id=&quot;ApplicationVersionPlaceholder&quot;&gt;$(FullProductVersion)&lt;/TD&gt;"  />
+    
+    <!-- update culture info -->
+    <MSBuild.ExtensionPack.FileSystem.File
+      TaskAction="Replace"
+      Files="@(DeployTargetDownloadWebPage)"
+      RegexPattern="&lt;TD\sid=&quot;ApplicationCulturePlaceholder&quot;&gt;[a-zA-Z]*&lt;/TD&gt;"
+      Replacement="&lt;TD id=&quot;ApplicationCulturePlaceholder&quot;&gt;$(TargetCulture)&lt;/TD&gt;"  />
+    
+  </Target>
+
+  <Target Name="EvaluateClickOnceInstallUrl" Label="Evaluate target install URL for deployed ClickOnce application">
+    <!--<MSBuild.ExtensionPack.Computer.Network TaskAction="GetDnsHostName" HostName="192.168.0.15">
+      <Output TaskParameter="DnsHostName" PropertyName="HostEntryName" />
+    </MSBuild.ExtensionPack.Computer.Network>-->
+    <PropertyGroup>
+      <InstallUrl>http://$(ErmWpfClientDownloadSiteIisAppPath)</InstallUrl>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="CreateClickOnceDeploymentFiles" DependsOnTargets="EvaluateClickOnceInstallUrl;CopyTargetFilesToDeploymentFolder;">
+    <MSBuild.ExtensionPack.Security.Certificate TaskAction="Add" FileName="$(CertFileFullPath)" CertPassword="$(CertFilePass)">
+      <Output TaskParameter="Thumbprint" PropertyName="CertThumbprint"/>
+      <!--<Output TaskParameter="SubjectDName" PropertyName="SName"/>-->
+    </MSBuild.ExtensionPack.Security.Certificate>
+
+    <Message Text="Generating Application Manifest" />
+    <GetFrameworkSdkPath>
+      <Output TaskParameter="Path" PropertyName="SdkPath" />
+    </GetFrameworkSdkPath>
+    <Exec Command='"$(SdkPath)bin\NETFX 4.0 Tools\mage.exe" -New Application -Processor Msil -ToFile "$(DeployTargetApplicationManifestFullPath)" -name "$(ProductName)" -Version "$(ApplicationVersion)" -FromDirectory "$(DeployTargetVersionedBinariesFolder)" -ch "$(CertThumbprint)"' />
+
+    <ItemGroup>
+      <TargetDeployFilesToRename Include="$(DeployTargetVersionedBinariesFolder)\**\*.*"  Exclude="$(DeployTargetVersionedBinariesFolder)\*.application;$(DeployTargetVersionedBinariesFolder)\*.manifest"/>
+    </ItemGroup>
+
+    <Move SourceFiles="@(TargetDeployFilesToRename)" DestinationFiles="@(TargetDeployFilesToRename->'$(DeployTargetVersionedBinariesFolder)\%(RecursiveDir)%(Filename)%(Extension).deploy')"/>
+
+    <Message Text="Generating Deployment Manifest" />
+    <ItemGroup>
+      <EntryPoint />
+    </ItemGroup>
+
+    <CreateItem Include='$(DeployTargetApplicationManifestFullPath)' AdditionalMetadata='TargetPath=Application%20Files\$(DeployTargetVersionedApplicationName)\$(DeployTargetApplicationManifestFileName)'>
+      <Output TaskParameter="Include" ItemName="EntryPoint"/>
+    </CreateItem>
+
+    <Message Text="EntryPoint specified at '$(EntryPoint)'" />
+    
+    <GenerateDeploymentManifest AssemblyName="$(DeployTargetProject).exe"
+                                AssemblyVersion="$(ApplicationVersion)"
+                                DeploymentUrl="$(InstallUrl)/$(DeployTargetDeploymentManifestFileName)"
+                                Description="$(ProductName)"
+                                EntryPoint="@(EntryPoint)"
+                                Install="$(Install)"
+                                OutputManifest="$(DeployTargetDeploymentManifestFullPath)"
+                                Product="$(ProductName)"
+                                Publisher="$(PublisherName)"
+                                SupportUrl="$(SupportUrl)"
+								                MapFileExtensions="$(MapFileExtensions)"
+                                UpdateEnabled="$(UpdateEnabled)"
+                                UpdateMode="$(UpdateMode)"
+								                Platform="$(PlatformTarget)"
+								                TargetFrameworkMoniker=".NETFramework,Version=v4.5">
+      <Output ItemName="DeployManifest" TaskParameter="OutputManifest"/>
+    </GenerateDeploymentManifest>
+    <Message Text="Deployment Manifest stored to '@(DeploymentManifest)'" />
+
+    <Exec Command='"$(SdkPath)bin\NETFX 4.0 Tools\mage.exe" -Update "$(DeployTargetDeploymentManifestFullPath)" -Publisher "$(PublisherName)" -ch "$(CertThumbprint)"' />
+
+    <Copy SourceFiles="$(DeployTargetDeploymentManifestFullPath)" DestinationFolder="$(DeployTargetVersionedBinariesFolder)" />
+
+    <ItemGroup>
+      <BootstrapperPackage Include=".NETFramework,Version=v4.5" KeepDuplicates="false">
+        <Visible>False</Visible>
+        <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+        <Install>true</Install>
+      </BootstrapperPackage>
+    </ItemGroup>
+
+    <RemoveDuplicates Inputs="@(BootstrapperPackage)">
+      <Output TaskParameter="Filtered" ItemName="DistinctedBootstrapperPackage"/>
+    </RemoveDuplicates>
+
+    <!-- $(TargetCulture) -->
+    <GenerateBootstrapper
+			ApplicationFile="$(DeployTargetDeploymentManifestFileName)"
+			ApplicationName="$(ProductName)"
+			ApplicationUrl="$(InstallUrl)"
+			BootstrapperItems="@(DistinctedBootstrapperPackage)"
+			Culture="en-US"
+			FallbackCulture="en-US"
+			CopyComponents="true"
+			Validate="false"
+			Path="$(SdkPath)Bootstrapper"
+			OutputPath="$(DeployTargetFolder)" />
+
+    <SignFile CertificateThumbprint="$(CertThumbprint)" SigningTarget="$(DeployTargetFolder)\setup.exe" />
+
+    <MSBuild.ExtensionPack.Security.Certificate TaskAction="Remove" Thumbprint="$(CertThumbprint)"/>
+  </Target>
+
+  <Target Name="PrepareZipPackageTargetFolder">
+    <Message Text="Cleanup target zip package folder" />
+
+    <RemoveDir Directories="$(DeployTargetZipFolder)" Condition="Exists('$(DeployTargetZipFolder)')" />
+    <MakeDir Directories="$(DeployTargetZipFolder)" Condition="!Exists('$(DeployTargetZipFolder)')" />
+    <MakeDir Directories="$(DeployTargetZipTempFolder)" Condition="!Exists('$(DeployTargetZipTempFolder)')" />
+    <MakeDir Directories="$(DeployTargetZipFileFolder)" Condition="!Exists('$(DeployTargetZipFileFolder)')" />
+  </Target>
+
+  <Target Name="CreateClickOnceDeploymentZipPackage" DependsOnTargets="CreateClickOnceDeploymentFiles;PrepareZipPackageTargetFolder">
+    <ItemGroup>
+      <FilesForZip Include="$(DeployTargetFolder)**\*.*" />
+    </ItemGroup>
+    <MSBuild.ExtensionPack.Compression.Zip
+      TaskAction="Create"
+      CompressFiles="@(FilesForZip)"
+      RemoveRoot="$(DeployTargetFolder)"
+      ZipFileName="$(DeployTargetZipFileFolder)\$(DeployTargetVersionedApplicationName)_ClickOnce.zip"/>
+
+    <RemoveDir Directories="$(DeployTargetZipTempFolder)" Condition="Exists('$(DeployTargetZipTempFolder)')" />
+
+    <!-- add TeamCity artifact -->
+    <Message Text="##teamcity[publishArtifacts '$(DeployTargetZipFileFolder)\$(DeployTargetVersionedApplicationName)_ClickOnce.zip => Erm WPF Client ClickOnce deployment package']" />
+  </Target>
+
+  <Target Name="DeployClickOnceToInstallUrl" DependsOnTargets="CreateClickOnceDeploymentFiles">
+    <PropertyGroup Label="Common web publishing">
+      <Erm_MsDeployServiceUrl>https://$(EntryPoint_HostName)</Erm_MsDeployServiceUrl>
+      <!-- путь до Microsoft Web Deploy V3 -->
+      <MsDeployPath>$(ProgramFiles)\IIS\Microsoft Web Deploy V3\msdeploy.exe</MsDeployPath>
+    </PropertyGroup>
+    <Exec Command="&quot;$(MsDeployPath)&quot; -verbose -verb:sync -source:contentPath='$(DeployTargetFolder)' -dest:contentPath='$(ErmWpfClientDownloadSiteIisAppPath)',ComputerName='$(Erm_MsDeployServiceUrl):8172/msdeploy.axd?site=$(ErmWpfClientDownloadSiteIisAppPath)',AuthType='NTLM' -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted -retryAttempts=2 -disablerule:BackupRule"
+    />
+  </Target>
+
+</Project>

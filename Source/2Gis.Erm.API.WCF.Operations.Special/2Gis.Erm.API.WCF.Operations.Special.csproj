@@ -99,6 +99,10 @@
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
       <Name>2Gis.Erm.BL.API.Operations.Special</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
