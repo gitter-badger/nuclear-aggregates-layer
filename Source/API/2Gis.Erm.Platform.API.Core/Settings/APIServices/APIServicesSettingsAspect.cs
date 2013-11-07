@@ -16,8 +16,8 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
                     new APIIntrospectionServiceSettings(),
                     new APIOperationsServiceSettings(),
                     new APIOrderValidationServiceSettings(),
-                    new ApiMoDiServiceSettings(),
-                    new ApiRealeasingServiceSettings(),
+                    new APIMoDiServiceSettings(),
+                    new APIRealeasingServiceSettings(),
                     new APIFinancialOperationsServiceSettings()
                 };
 

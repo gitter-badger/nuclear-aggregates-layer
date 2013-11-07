@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
-using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
@@ -22,7 +21,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
     [Scope(Tag = "DAL")]
     public class UnitOfWorkSteps
     {
-        private UnityUnitOfWork _unitOfWork;
         private StubUnitOfWork _stubUnitOfWork;
         private MockUnitOfWork _mockUnitOfWork;
 
@@ -33,14 +31,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         private TestDelegate _thenAction;
 
         #region Given
-
-        [Scope(Tag = "UnityUnitOfWork")]
-        [Given(@"create instance of UnityUnitOfWork class")]
-        public void GivenCreateInstanceOfUnityUnitOfWorkClass()
-        {
-            _unitOfWork = new UnityUnitOfWork(null, null, null, null, null);
-        }
-
 
         [Scope(Tag = "StubUnitOfWork")]
         [Given(@"create instance of StubUnitOfWork class")]
@@ -114,14 +104,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.SpecFlow
         [Then(@"UnityUnitOfWork instance should not be null")]
         public void ThenUnityUnitOfWorkInstanceShouldNotBeNull()
         {
-            Assert.That(_unitOfWork, Is.Not.Null);
+            Assert.That(_stubUnitOfWork, Is.Not.Null);
         }
 
         [Scope(Tag = "UnityUnitOfWork")]
         [Then(@"ScopeId should not be Guid\.Empty")]
         public void ThenScopeIdShouldNotBeGuid_Empty()
         {
-            Assert.That(_unitOfWork.ScopeId, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(_stubUnitOfWork.ScopeId, Is.Not.EqualTo(Guid.Empty));
         }
         
         [Then(@"exception shoud not be thrown")]

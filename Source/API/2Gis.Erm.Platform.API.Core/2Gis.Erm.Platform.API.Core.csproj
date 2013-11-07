@@ -120,10 +120,10 @@
     <Compile Include="Settings\APIServices\APIFinancialOperationsServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIIdentityServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIIntrospectionServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\ApiMoDiServiceSettings.cs" />
+    <Compile Include="Settings\APIServices\APIMoDiServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIOperationsServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIOrderValidationServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\ApiRealeasingServiceSettings.cs" />
+    <Compile Include="Settings\APIServices\APIRealeasingServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
     <Compile Include="Settings\APIServices\IAPIMoDiServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIRealeasingServiceSettings.cs" />

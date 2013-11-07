@@ -3,9 +3,9 @@
 @DAL
 Feature: UnitOfWork
 	
-	@UnityUnitOfWork
+	@StubUnitOfWork
 	Scenario: UnityUnitOfWork instantiating
-		Given create instance of UnityUnitOfWork class
+		Given create instance of StubUnitOfWork class
 		Then UnityUnitOfWork instance should not be null
 		Then ScopeId should not be Guid.Empty
 

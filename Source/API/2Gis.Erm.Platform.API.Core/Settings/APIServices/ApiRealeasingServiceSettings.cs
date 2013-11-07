@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
 {
-    public class ApiRealeasingServiceSettings : APIServiceSettingsBase<IAPIRealeasingServiceSettings>, IAPIRealeasingServiceSettings
+    public sealed class APIRealeasingServiceSettings : APIServiceSettingsBase<IAPIRealeasingServiceSettings>, IAPIRealeasingServiceSettings
     {
         public override string Name
         {

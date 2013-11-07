@@ -39,18 +39,12 @@
     <Reference Include="FluentAssertions">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.18-beta03\lib\net40\Machine.Specifications.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Machine.Specifications, Version=0.5.17.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    <Reference Include="Machine.Specifications.Clr4">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=4.1.1309.1617, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -135,10 +129,6 @@
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
-      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
-      <Name>2Gis.Erm.Platform.DI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
@@ -150,10 +140,6 @@
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
       <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
       <Name>2Gis.Erm.Platform.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
-      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
-      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>

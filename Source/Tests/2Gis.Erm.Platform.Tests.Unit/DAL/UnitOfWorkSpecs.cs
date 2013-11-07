@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
-using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
@@ -80,11 +79,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         [Tags("DAL")]
         [Subject(typeof(UnitOfWork))]
-        class When_getting_ModifiableDomainContexts
+        class When_getting_ModifiableDomainContexts : StubUnitOfWorkContext
         {
             static IEnumerable<IModifiableDomainContext> _modifiableDomainContexts;
 
-            Establish context = () => _unitOfWork = new UnityUnitOfWork(null, null, null, null, null);
             Because of = () => _modifiableDomainContexts = _unitOfWork.GetModifiableDomainContexts(Mock.Of<IDomainContextHost>());
             It contexts_should_be_empty = () => _modifiableDomainContexts.Should().BeEmpty();
         }
