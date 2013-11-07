@@ -3,7 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.Aggregates.Orders;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Handlers.Orders.Number;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
