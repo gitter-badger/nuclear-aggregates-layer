@@ -6,7 +6,7 @@ using DoubleGis.Erm.API.WCF.OrderValidation.Config;
 using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Operations.Concrete.Users;
+using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.OrderValidation;
 using DoubleGis.Erm.BL.OrderValidation.Configuration;
 using DoubleGis.Erm.BL.WCF.OrderValidation.Settings;

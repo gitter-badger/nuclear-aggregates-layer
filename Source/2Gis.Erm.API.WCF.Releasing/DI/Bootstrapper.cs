@@ -7,7 +7,7 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BL.API.Releasing.Releases;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Operations.Concrete.Users;
+using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.Releasing.Release;
 using DoubleGis.Erm.BL.WCF.Releasing.Settings;
 using DoubleGis.Erm.Platform.API.Core.Identities;

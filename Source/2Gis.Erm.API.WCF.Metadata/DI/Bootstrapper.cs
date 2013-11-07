@@ -4,7 +4,7 @@ using System.ServiceModel.Description;
 using DoubleGis.Erm.API.WCF.Metadata.Config;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Operations.Concrete.Users;
+using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;

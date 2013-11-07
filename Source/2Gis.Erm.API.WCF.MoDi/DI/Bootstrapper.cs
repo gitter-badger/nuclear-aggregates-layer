@@ -5,7 +5,7 @@ using DoubleGis.Erm.API.WCF.MoDi.Settings;
 using DoubleGis.Erm.BL.API.MoDi.Settings;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Operations.Concrete.Users;
+using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.WCF.MoDi;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
