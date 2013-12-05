@@ -6,9 +6,9 @@ namespace DoubleGis.Erm.TaskService
 {
     internal sealed partial class ErmNtService : ServiceBase
     {
-        private readonly SchedulerManager _schedulerManager;
+        private readonly ISchedulerManager _schedulerManager;
 
-        public ErmNtService(SchedulerManager schedulerManager)
+        public ErmNtService(ISchedulerManager schedulerManager)
         {
             _schedulerManager = schedulerManager;
             InitializeComponent();

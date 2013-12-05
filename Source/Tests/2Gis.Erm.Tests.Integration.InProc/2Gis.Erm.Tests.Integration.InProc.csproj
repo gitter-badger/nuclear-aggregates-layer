@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09F6445B-6378-4175-A12D-26D5D7A2B0C3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Tests.Integration.InProc</RootNamespace>
+    <AssemblyName>2Gis.Erm.Tests.Integration.InProc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\ServiceClientConfig.cs" />
+    <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="DI\IntegrationTestsMassProcessor.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Account\AccountReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activity\ActivityReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisement\AdvertisementReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deal\DealReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Order\OrderReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\MetadataTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\AfterSaleService\UpdateAfterSaleServiceOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Orders\CreateOrderOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Orders\ModifyOrderOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Themes\SetAsDefaultThemeOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ActionHistoryOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ActivateOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\AppendOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\AssignOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\CheckForDebtsOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ChangeTerritoryOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\DeactivateOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\DeleteOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\DisqualifyOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\DownloadFileOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ChangeClientOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ModifyOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\QualifyOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\UploadFileOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Advertisements\SelectAdvertisementToWhiteListHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\AfterSaleService\CreateAfterSaleServiceActivitiesHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Bills\DeleteBillsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Bills\PrintBillHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Bills\PrintJointBillHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Clients\AssignClientRelatedEntitiesHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Clients\CheckClientActivitiesHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Clients\CheckIsWarmClientHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Clients\CreateHotClientHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Clients\MergeClientsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Deals\ActualizeDealProfitIndicatorsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Deals\CheckDealHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Deals\CloseDealHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Deals\ReopenDealHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\LegalPersonProfiles\SetLegalPersonProfileForOrderHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\LegalPersons\ChangeLegalPersonRequisitesHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Limits\CheckLimitLockedByReleaseHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Limits\CreateLimitHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Limits\PrintLimitsHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Limits\RecalculateLimitHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\Limits\SetLimitStatusHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Old\UseModelEntityHandlerTestBase.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\UseModelEntityTestBase.cs" />
+    <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
+    <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\ICompositeTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\ITestFactory.cs" />
+    <Compile Include="Suite\Infrastructure\ITestRunner.cs" />
+    <Compile Include="Suite\Infrastructure\ITestStatusObserver.cs" />
+    <Compile Include="Suite\Infrastructure\ITestSuite.cs" />
+    <Compile Include="Suite\Infrastructure\NullTestStatusObserver.cs" />
+    <Compile Include="Suite\Infrastructure\OrdinaryTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\IIntegrationTest.cs" />
+    <Compile Include="Suite\Infrastructure\BDD\IBDDTestArgs.cs" />
+    <Compile Include="Suite\Infrastructure\ITestResult.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Generic\ListOperationServiceTest.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="Suite\Infrastructure\BDD\BDDIntegrationTestBase.cs" />
+    <Compile Include="Suite\Infrastructure\BDD\BDDOrdinaryTestArgs.cs" />
+    <Compile Include="Suite\Infrastructure\BDD\BDDTestRunConfig.cs" />
+    <Compile Include="Suite\Infrastructure\Result.cs" />
+    <Compile Include="Suite\Infrastructure\TestFactory.cs" />
+    <Compile Include="Suite\Infrastructure\TestResultsSet.cs" />
+    <Compile Include="Suite\Infrastructure\InProcTestRunner.cs" />
+    <Compile Include="Settings\ITestAPIInProcOperationsSettings.cs" />
+    <Compile Include="Settings\TestAPIInProcOperationsSettings.cs" />
+    <Compile Include="Suite\Infrastructure\TestScope.cs" />
+    <Compile Include="Suite\Infrastructure\TeamCityTestStatusObserver.cs" />
+    <Compile Include="Suite\Infrastructure\TestSuite.cs" />
+    <Compile Include="Suite\Infrastructure\TestSuiteBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Environments.config">
+      <Link>Environments.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.config" />
+    <None Include="App.Edu.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Expl.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Int.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Edu.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Expl.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Int.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.01.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.02.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.03.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.04.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.05.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.06.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.07.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.08.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.09.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.10.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.11.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.12.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.13.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.14.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.15.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.16.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.17.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.18.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.19.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.20.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.21.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.22.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
+      <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
+      <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BL.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BL.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Releasing\2Gis.Erm.BL.API.Releasing.csproj">
+      <Project>{7ba9237f-5018-4c37-a783-98cb2ffd1387}</Project>
+      <Name>2Gis.Erm.BL.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.OrderValidation\2Gis.Erm.BL.OrderValidation.csproj">
+      <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
+      <Name>2Gis.Erm.BL.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BL.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations\2Gis.Erm.BL.WCF.Operations.csproj">
+      <Project>{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}</Project>
+      <Name>2Gis.Erm.BL.WCF.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
+      <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
+      <Name>2Gis.Erm.Platform.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\Buildscript\Erm.Desktop.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -26,8 +26,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.Config
             var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None);
             var basicHttpBinding = BindingConfig.BasicHttp.UseTransportSecurity(HttpClientCredentialType.None).MaxReceivedMessageSize(20000000);
 
-
-
             provider
 
                 // order validation service

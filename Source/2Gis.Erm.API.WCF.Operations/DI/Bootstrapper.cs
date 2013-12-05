@@ -27,6 +27,7 @@ using DoubleGis.Erm.BL.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BL.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BL.Operations.Generic.Qualify;
 using DoubleGis.Erm.BL.OrderValidation;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BL.WCF.Operations;
 using DoubleGis.Erm.BL.WCF.Operations.Settings;
@@ -95,6 +96,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
+
+            CheckConventionsСomplianceExplicitly();
 
             container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
                      .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
@@ -195,6 +198,18 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
 
             return container;
+        }
+
+        private static void CheckConventionsСomplianceExplicitly()
+        {
+            var checkingResourceStorages = new[]
+                {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
+
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IBasicOperationsSettings settings)

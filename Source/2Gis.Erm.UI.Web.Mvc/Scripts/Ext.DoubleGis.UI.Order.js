@@ -469,6 +469,8 @@ window.InitPage = function () {
                     else
                         Ext.getDom('DiscountSumChecked').click();
 
+                    this.refreshDiscountRelatedAvailability();
+                    
                     card.isDirty &= cardWasDirty;
                 },
                 updateBargain: function (showAlert) {
@@ -725,9 +727,11 @@ window.InitPage = function () {
                                 discountComment.setValue(null);
                                 
                                 discountReason.dom.disabled = true;
+                                discountComment.dom.disabled = true;
                                 discountComment.addClass('readonly');
-                            } else {
+                            } else if(!this.disabled) {
                                 discountReason.dom.disabled = false;
+                                discountComment.dom.disabled = false;
                                 discountComment.removeClass('readonly');
                             }
 
@@ -754,9 +758,7 @@ window.InitPage = function () {
                 },
                 setupMenuAvailability: function () {
                     var item = this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintRegionalOrderAction');
-                    if (Ext.getDom("ShowRegionalAttributes").checked)
-                        item.enable();
-                    else {
+                    if (!Ext.getDom("ShowRegionalAttributes").checked) {
                         item.disable();
                     }
 
@@ -880,14 +882,17 @@ window.InitPage = function () {
             // Блокируем поля "причина скидки", "комментарий по скидке", если скидка не задана
             var discountReason = Ext.get('DiscountReason');
             var discountComment = Ext.get('DiscountComment');
-            var discountPercent = parseFloat(Ext.fly('DiscountPercent').getValue());
+            var discountPercent = parseFloat(Ext.fly('DiscountPercent').getValue().replace(',', '.'));
+            var disabled = window.Ext.getDom("ViewConfig_ReadOnly").checked;
             
             if (discountPercent == 0) {
                 discountReason.dom.disabled = true;
+                discountComment.dom.disabled = true;
                 discountComment.addClass('readonly');
             }
-            else if (discountPercent > 0) {
+            else if (discountPercent > 0 && !disabled) {
                 discountReason.dom.disabled = false;
+                discountComment.dom.disabled = false;
                 discountComment.removeClass('readonly');
             }
         },

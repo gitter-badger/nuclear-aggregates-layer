@@ -79,7 +79,7 @@ function New-SSRSFolder (
             $Parent = '/'
         }
         
-        $Proxy.CreateFolder($Leaf, $Parent, $null)
+        $Proxy.CreateFolder($Leaf, $Parent, $null) | Out-Null
     }
 }
 
@@ -107,7 +107,7 @@ function New-SSRSDataSource (
         Path =  $Folder + '/' + $Rds.RptDataSource.Name
     }
     
-	$Test = $Proxy.CreateDataSource($DataSource.Name, $Folder, $true, $Definition, $null)    
+	$Proxy.CreateDataSource($DataSource.Name, $Folder, $true, $Definition, $null) | Out-Null
     return $DataSource
 }
 
@@ -126,7 +126,7 @@ function New-SSRSDataset (
 	
 	$RsdBytes = Get-Content -Encoding Byte -Path $RsdPath
 	$warnings = @()
-	$Test = $Proxy.CreateCatalogItem("DataSet", $Dataset.Name, $Folder, $true, $RsdBytes, $null, [ref]$warnings)
+	$Proxy.CreateCatalogItem("DataSet", $Dataset.Name, $Folder, $true, $RsdBytes, $null, [ref]$warnings) | Out-Null
 	
 	return $Dataset
 }
@@ -188,7 +188,7 @@ $Project.SelectNodes('Project/DataSets/ProjectItem') |
         $DataSource.Item = $Reference
         $DataSource.Name = "DataSetDataSource"
 
-		$Proxy.SetItemDataSources($DatasetFolder + '/' + $Dataset.Name, [array]$DataSource)
+		$Proxy.SetItemDataSources($DatasetFolder + '/' + $Dataset.Name, [array]$DataSource) | Out-Null
     }
 
 $Project.SelectNodes('Project/Reports/ProjectItem') |
@@ -203,7 +203,7 @@ $Project.SelectNodes('Project/Reports/ProjectItem') |
         
         Write-Verbose "Creating report $Name"
 		$warnings = @()
-        $Proxy.CreateCatalogItem("Report", $Name, $Folder, $true, $RawDefinition, $null, [ref]$warnings)
+        $Proxy.CreateCatalogItem("Report", $Name, $Folder, $true, $RawDefinition, $null, [ref]$warnings) | Out-Null
 
 		# set report data sources
         $DataSourceXpath = 'd:Report/d:DataSources/d:DataSource/d:DataSourceReference/..'
@@ -221,7 +221,7 @@ $Project.SelectNodes('Project/Reports/ProjectItem') |
                 $DataSource
             }
         if ($DataSources) {
-            $Proxy.SetItemDataSources($Folder + '/' + $Name, $DataSources)
+            $Proxy.SetItemDataSources($Folder + '/' + $Name, $DataSources) | Out-Null
         }
 		
 		# set report data sets
@@ -239,6 +239,6 @@ $Project.SelectNodes('Project/Reports/ProjectItem') |
                 $Reference
 			}
         if ($Datasets) {
-            $Proxy.SetItemReferences($Folder + '/' + $Name, $Datasets)
+            $Proxy.SetItemReferences($Folder + '/' + $Name, $Datasets) | Out-Null
         }
     }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.BL.API.Operations.Special.Remote.CostCalculation;
+using DoubleGis.Erm.BL.API.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BL.DI.Config;
 
 namespace DoubleGis.Erm.API.WCF.Operations.Special
@@ -57,7 +58,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special
                            .Select(Assembly.Load)
                            .SelectMany(x => x.ExportedTypes)
                            .Where(x => (x == typeof(CalcPositionInfo) ||
-                                        typeof(ICostCalculationResult).IsAssignableFrom(x)) &&
+                                        typeof(ICostCalculationResult).IsAssignableFrom(x) ||
+                                        typeof(IOrderRequestStateDescription).IsAssignableFrom(x)) &&
                                        !x.IsGenericTypeDefinition)
                            .ToArray();
         }

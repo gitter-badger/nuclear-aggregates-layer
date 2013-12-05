@@ -11,7 +11,7 @@
   <Import Project="DoubleGis.Erm.Build.targets" />
 
   <PropertyGroup Label="Common versioning properties">
-    <Common_Version_Major>1</Common_Version_Major>
+    <Common_Version_Major>2</Common_Version_Major>
     <Common_Version_Minor>0</Common_Version_Minor>
     <Common_Version_Revision>0</Common_Version_Revision>
     <Common_Version_Build>0</Common_Version_Build>
@@ -132,6 +132,13 @@
     <Option_Websites_CostCalculation>True</Option_Websites_CostCalculation>
    </PropertyGroup>
   
+   <PropertyGroup Label="WCF.Releasing composition root properties">
+    <ReleasingProjectName>2Gis.Erm.API.WCF.Releasing</ReleasingProjectName>
+    <ReleasingProjectLocation>$(CompositionRootsSources)\$(ReleasingProjectName)</ReleasingProjectLocation>
+  
+    <Option_Websites_Releasing>False</Option_Websites_Releasing>
+   </PropertyGroup>
+  
   <PropertyGroup Label="WCF.MoDi composition root properties">
     <MoDiProjectName>2Gis.Erm.API.WCF.MoDi</MoDiProjectName>
     <MoneyDistributionServiceProjectLocation>$(CompositionRootsSources)\$(MoDiProjectName)</MoneyDistributionServiceProjectLocation>
@@ -163,6 +170,13 @@
     <BLFlexUnitTestsProjectName>2Gis.Erm.BLFlex.Tests.Unit</BLFlexUnitTestsProjectName>
     <BLFlexUnitTestsProjectLocation>$(BLFlexSources)\Tests\$(BLFlexUnitTestsProjectName)</BLFlexUnitTestsProjectLocation>
    </PropertyGroup>
+
+  <PropertyGroup Label="Integration InProc Tests properties">
+    <IntegrationInProcTestsProjectName>2Gis.Erm.Tests.Integration.InProc</IntegrationInProcTestsProjectName>
+    <IntegrationInProTestsProjectLocation>$(CompositionRootsSources)\Tests\$(IntegrationInProcTestsProjectName)</IntegrationInProTestsProjectLocation>
+    
+    <Option_Tests_Intergration_InProc>True</Option_Tests_Intergration_InProc>
+  </PropertyGroup>
   
   <PropertyGroup Label="AutoTests composition root properties">
     <FakeBusServiceProjectName>2gis.Erm.Functional.ServiceStubs</FakeBusServiceProjectName>
@@ -257,6 +271,7 @@
 		BuildFakeBusService;
 		BuildBasicOperationsService;
 		BuildCostCalculationService;
+    BuildReleasingService;
 		BuildMoneyDistributionService;
 		BuildMetadataService
 	</BuildWebsitesDependsOn>
@@ -276,6 +291,7 @@
 		DeployOrderValidationService;
 		DeployBasicOperationsService;
 		DeployCostCalculationService;
+    DeployReleasingService;
 		DeployMoneyDistributionService;
 		DeployMetadataService;
 		OverwriteProductionValues
@@ -690,6 +706,61 @@
 		<OnError ExecuteTargets="HandleBuildError" />
 	</Target>
   
+  <!-- BuildReleasingService -->
+  <Target
+    Name="BuildReleasingService"
+    Condition="'$(Option_Websites_Releasing)' == 'True'">
+
+    <!-- create version file -->
+    <WriteLinesToFile File="$(VersionFileName)" Lines="$(FullProductVersion)" Overwrite="true" Encoding="UTF-8"/>
+
+    <ItemGroup>
+      <ReleasingServiceProject
+        Include="$(ReleasingProjectLocation)\$(ReleasingProjectName).csproj">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion);
+          VersionFilePath=$([System.IO.Path]::GetFullPath('$(VersionFileName)'));
+          DeployOnBuild=True;
+          PublishProfile=$(PublishProfileFileName)
+        </AdditionalProperties>
+      </ReleasingServiceProject>
+
+    </ItemGroup>
+    <MSBuild Projects="@(ReleasingServiceProject)" />
+
+    <!-- add TeamCity artifact -->
+    <Copy SourceFiles="$(ReleasingProjectLocation)\DeployPackages\$(PublishProfileName)\Package.zip" DestinationFiles="$(ReleasingProjectLocation)\DeployPackages\$(PublishProfileName)\$(ReleasingProjectName)-$(ProductVersion)-$(Configuration).zip" />
+    <Message Text="##teamcity[publishArtifacts '$(ReleasingProjectLocation)\DeployPackages\$(PublishProfileName)\$(ReleasingProjectName)-$(ProductVersion)-$(Configuration).zip => Services']" Importance="low" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- DeployReleasingService -->
+  <Target
+    Name="DeployReleasingService"
+    Condition="'$(Option_Websites_Releasing)' == 'True'"
+    DependsOnTargets="BuildReleasingService">
+
+    <DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath PublishProfilePath="$(ReleasingProjectLocation)\Properties\PublishProfiles\$(PublishProfileFileName)">
+      <Output PropertyName="ReleasingServiceDeployIisAppPath" TaskParameter="DeployIisAppPath" />
+    </DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath>
+
+    <DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite ComputerName="$(EntryPoint_HostName)" WebsiteName="$(ReleasingServiceDeployIisAppPath)" />
+
+    <Exec
+      Command="&quot;$(ReleasingProjectLocation)\DeployPackages\$(PublishProfileName)\Package.deploy.cmd&quot; /Y /M:$(MsDeployServiceUrl) /A:NTLM -verbose -allowUntrusted -retryAttempts:2 -disablerule:BackupRule"
+    />
+
+    <!-- Проверяем доступность -->
+    <DoubleGis.Erm.Build.Tasks.GetUri
+      Condition="!$(PublishProfileName.Contains('Production'))"
+      Uri="https://$(ReleasingServiceDeployIisAppPath)/Release.svc" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
   <!-- BuildMoneyDistributionService -->
   <Target
     Name="BuildMoneyDistributionService"
@@ -1018,16 +1089,43 @@
 
     <OnError ExecuteTargets="HandleBuildError" />
   </Target>
+  
+  <!-- BuildIntegrationInProcTests target -->
+  <Target Name="BuildIntegrationInProcTests">
+
+    <!-- integration inproc test projects -->
+    <ItemGroup>
+      <IntegrationInProcTestsProject
+        Include="$(IntegrationInProTestsProjectLocation)\$(IntegrationInProcTestsProjectName).csproj;">
+        <AdditionalProperties>
+          Configuration=$(Configuration);
+          Platform=AnyCPU;
+          VisualStudioVersion=$(VisualStudioVersion)
+        </AdditionalProperties>
+      </IntegrationInProcTestsProject>
+    </ItemGroup>
+
+    <MSBuild Projects="@(IntegrationInProcTestsProject)" />
+
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
+  
+  <!-- ExecuteIntegrationInProcTests target -->
+  <Target Name="ExecuteIntegrationInProcTests" DependsOnTargets="BuildIntegrationInProcTests; DeployWebsites">
+    <Exec Command="&quot;$(IntegrationInProTestsProjectLocation)\bin\$(Configuration)\$(IntegrationInProcTestsProjectName).exe&quot; -buildscript "  />
+    
+    <OnError ExecuteTargets="HandleBuildError" />
+  </Target>
 
   <!-- BuildFunctionalTests target -->
-  <Target Name="BuildFunctionalTests">
+  <Target Name="BuildBLFunctionalTests">
     <MSBuild Projects="$(BLFunctionalTestsProjectLocation)\$(BLFunctionalTestsProjectName).csproj" />
 
     <OnError ExecuteTargets="HandleBuildError" />
   </Target>
 
-  <!-- BuildIntegrationTests target -->
-  <Target Name="BuildIntegrationTests">
+  <!-- BuildBLIntegrationTests target -->
+  <Target Name="BuildBLIntegrationTests">
     <MSBuild Projects="$(BLIntegrationTestsProjectLocation)\$(BLIntegrationTestsProjectName).csproj" />
     <OnError ExecuteTargets="HandleBuildError" />
   </Target>

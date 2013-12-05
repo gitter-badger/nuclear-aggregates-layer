@@ -8,6 +8,7 @@ using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.Operations.Crosscutting.AD;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.TaskService.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
@@ -33,17 +34,20 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+using DoubleGis.Erm.Platform.TaskService.Schedulers;
+using DoubleGis.Erm.Platform.TaskService.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
+using Quartz.Spi;
 
 namespace DoubleGis.Erm.TaskService.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(IErmServiceAppSettings settings)
+        public static IUnityContainer ConfigureUnity(ITaskServiceAppSettings settings)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -65,9 +69,10 @@ namespace DoubleGis.Erm.TaskService.DI
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                 };
 
+            CheckConventionsСomplianceExplicitly();
+
             container.ConfigureUnity(settings, massProcessors, true)  // первый проход
                      .ConfigureUnity(settings, massProcessors, false) // второй проход
-                     .ConfigureOperationLogging(() => Lifetime.PerScope, settings)
                      .ConfigureServiceClient();
 
             return container;
@@ -78,7 +83,7 @@ namespace DoubleGis.Erm.TaskService.DI
             return Lifetime.PerScope;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IErmServiceAppSettings settings, IMassProcessor[] massProcessors, bool firstRun)
+        private static IUnityContainer ConfigureUnity(this IUnityContainer container, ITaskServiceAppSettings settings, IMassProcessor[] massProcessors, bool firstRun)
         {
             container.ConfigureAppSettings(settings)
                 .ConfigureGlobal(settings)
@@ -91,14 +96,28 @@ namespace DoubleGis.Erm.TaskService.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                //.RegisterCorporateQueues(settings)
-                .RegisterJobs();
+                .RegisterCorporateQueues(settings)
+                .RegisterJobs()
+                .ConfigureQuartz();
+
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
 
             return container;
         }
 
-        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IErmServiceAppSettings settings)
+        private static void CheckConventionsСomplianceExplicitly()
+        {
+            var checkingResourceStorages = new[]
+                {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
+
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
+        }
+
+        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, ITaskServiceAppSettings settings)
         {
             return container.RegisterAPIServiceSettings(settings)
                             .RegisterMsCRMSettings(settings)
@@ -109,11 +128,11 @@ namespace DoubleGis.Erm.TaskService.DI
                             .RegisterInstance<INotificationProcessingSettings>(settings)
                             .RegisterInstance<IGetUserInfoFromAdSettings>(settings)
                             .RegisterInstance<IDBCleanupSettings>(settings)
-                            .RegisterInstance<IWebApplicationUriProvider>(settings)
-                            .RegisterInstance<IErmServiceAppSettings>(settings);
+                            .RegisterInstance<ITaskServiceProcesingSettings>(settings)
+                            .RegisterInstance<ITaskServiceAppSettings>(settings);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IErmServiceAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ITaskServiceAppSettings appSettings)
         {
             return appSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
@@ -127,53 +146,58 @@ namespace DoubleGis.Erm.TaskService.DI
                      .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.PerResolve);
         }
 
-        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IErmServiceAppSettings appSettings)
+        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, ITaskServiceAppSettings appSettings)
         {
-            const string mappingScope = Mapping.Erm;
+            const string MappingScope = Mapping.Erm;
 
             return container.RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                 // .RegisterTypeWithDependencies<IPublicService, PublicService>(mappingScope, Lifetime.PerScope)
                 // FIXME {d.ivanov, 28.08.2013}: IPublicService зарегистрирован в общем scope, чтобы работать с ним из SimplifiedModelConsumer-ов, см IOperationsExportService<,>
                 //                               Нужно вынести логику из наследников SerializeObjectsHandler в соответствующие OperationsExporter-ы
-                .RegisterTypeWithDependencies<IPublicService, PublicService>(Lifetime.PerScope, mappingScope)
+                .RegisterTypeWithDependencies<IPublicService, PublicService>(Lifetime.PerScope, MappingScope)
                 // services
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                 
-                .ConfigureNotificationsSender(appSettings.MsCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory);
-
-            return container;
+                .ConfigureNotificationsSender(appSettings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)
         {
-            const string mappingScope = Mapping.Erm;
+            const string MappingScope = Mapping.Erm;
 
             return container
-                .RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISecurityServiceFunctionalAccess, SecurityServiceFacade>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<IGetUserInfoService, GetUserInfoFromAdService>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(Lifetime.PerScope, mappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceFunctionalAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IGetUserInfoService, GetUserInfoFromAdService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(Lifetime.PerScope, MappingScope)
                 .RegisterType<IUserContext, UserContext>(Lifetime.PerScope, new InjectionFactory(c => new UserContext(null, null)))
-                .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, mappingScope)
-                .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, mappingScope);
+                .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);
         }
 
-        private static IUnityContainer RegisterCorporateQueues(this IUnityContainer container, IErmServiceAppSettings ermServiceAppSettings)
+        private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
+        {
+            return container
+                .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton)
+                .RegisterType<ISchedulerManager, SchedulerManager>(Lifetime.Singleton);
+        }
+
+        private static IUnityContainer RegisterCorporateQueues(this IUnityContainer container, ITaskServiceAppSettings taskServiceAppSettings)
         {
             return container.RegisterType<IRabbitMqQueueFactory, RabbitMqQueueFactory>(Lifetime.Singleton,
-                        new InjectionConstructor(ermServiceAppSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
+                        new InjectionConstructor(taskServiceAppSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
 
         private static IUnityContainer RegisterJobs(this IUnityContainer container)
         {
             var jobTypes = (from assemblyName in Assembly.GetExecutingAssembly().GetReferencedAssemblies()
                             from type in Assembly.Load(assemblyName).ExportedTypes
-                            where typeof(IDoubleGisJob).IsAssignableFrom(type) && !type.IsAbstract
+                            where typeof(ITaskServiceJob).IsAssignableFrom(type) && !type.IsAbstract
                             select type)
                 .ToList();
 

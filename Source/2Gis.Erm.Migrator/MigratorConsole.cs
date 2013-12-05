@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.Migrator
 
                     if (!Directory.Exists(_arguments.ApplicationRoot))
                     {
-                        System.Console.WriteLine("Can't access directory {0}", _arguments.ApplicationRoot);
+                        Console.WriteLine("Can't access directory {0}", _arguments.ApplicationRoot);
                         Environment.ExitCode = 1;
                         return;
                     }

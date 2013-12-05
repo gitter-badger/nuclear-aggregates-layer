@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
+using DoubleGis.Erm.API.WCF.Operations.Special.Config;
 using DoubleGis.Erm.BL.API.Operations.Generic.Get;
-using DoubleGis.Erm.BL.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
-using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequest;
-using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequest.Concrete;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.Services.Orders;
 using DoubleGis.Erm.BL.WCF.Operations.Special.FinancialOperations.Settings;
+using DoubleGis.Erm.Core.Services.Orders;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Settings;
@@ -67,8 +66,11 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
+            CheckConventionsСomplianceExplicitly();
+
             container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false); // второй проход
+                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
+                     .ConfigureServiceClient();
 
             return container;
         }
@@ -102,11 +104,25 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             return container;
         }
 
+        private static void CheckConventionsСomplianceExplicitly()
+        {
+            var checkingResourceStorages = new[]
+                {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
+
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
+        }
+
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IFinancialOperationsAppSettings settings)
         {
             return container.RegisterAPIServiceSettings(settings)
+                            .RegisterMsCRMSettings(settings)
                             .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<IGlobalizationSettings>(settings);
+                            .RegisterInstance<IGlobalizationSettings>(settings)
+                            .RegisterInstance<IFinancialOperationsAppSettings>(settings);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
@@ -161,10 +177,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            container.RegisterTypeWithDependencies<ICalculateCostService, CalculateCostService>(CustomLifetime.PerOperationContext, MappingScope)
-                     .RegisterTypeWithDependencies<IOrderProcessingRequestOperationService, OrderProcessingRequestOperationService>(
-                         CustomLifetime.PerOperationContext,
-                         MappingScope);
+            container.RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope);
 
             return container;
         }

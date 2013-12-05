@@ -9,6 +9,7 @@ using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.Releasing.Release;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.WCF.Releasing.Settings;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -62,6 +63,8 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
+            CheckConventionsСomplianceExplicitly();
+
             container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
                      .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
                      .ConfigureServiceClient();
@@ -102,6 +105,18 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
 
             return container;
+        }
+
+        private static void CheckConventionsСomplianceExplicitly()
+        {
+            var checkingResourceStorages = new[]
+                {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
+
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IReleasingSettings settings)

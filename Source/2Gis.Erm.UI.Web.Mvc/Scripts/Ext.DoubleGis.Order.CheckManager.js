@@ -188,7 +188,7 @@ function ()
                         };
                         
                         ensureResultWindowInitialized();
-                        checkResultWindow.showResult(messages, false);
+                        checkResultWindow.showResult(messages, true);
                     },
                     exception: function (proxy, type, action, o, response) {
                         messageBox.hide();

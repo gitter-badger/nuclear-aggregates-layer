@@ -27,9 +27,11 @@ using DoubleGis.Erm.BL.Operations.Crosscutting;
 using DoubleGis.Erm.BL.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BL.OrderValidation;
 using DoubleGis.Erm.BL.OrderValidation.Configuration;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BL.Web.Mvc.DI;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -50,7 +52,6 @@ using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -61,6 +62,7 @@ using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -109,12 +111,14 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new ControllersProcessor(container)
                 };
 
+            CheckConventionsСomplianceExplicitly();
+
             container.ConfigureUnity(settings, massProcessors, true) // первый проход
                      .ConfigureUnity(settings, massProcessors, false) // второй проход
                      .ConfigureInterception()
                      .ConfigureServiceClient();
                 
-            /// TODO {v.sinitsyn, 15.07.2013}: Инициализировать что-то такое совсем MVC специфичное лучше скорее в Application_Start MVCApplication внутри bootstrapper в идеале лучше не иметь вызово container resolve
+            /// TODO {all, 15.07.2013}: Инициализировать что-то такое совсем MVC специфичное лучше скорее в Application_Start MVCApplication внутри bootstrapper в идеале лучше не иметь вызово container resolve
             /// TODO {all, 15.07.2013}: Стоит проанализировать корректность такой статической привязки работы HTMLHelpers к кэшу, возможно стоит доступ к этому кэшу прокидывать в вызовы htmlhelpers прямо во view извлекая его из viewdata или @model и т.п.
             HtmlHelperExtensions.InitEnumItemsCache(container.Resolve<IEnumItemsCache>());
                 
@@ -189,6 +193,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMvcMetadataProvider()
+                     .ConfigureEAV()
                      // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
                      .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerRequest, Mapping.Erm)
                      .RegisterTypeWithDependencies<IOrderValidationSettings, OrderValidationSettings>(CustomLifetime.PerRequest, Mapping.Erm);
@@ -196,6 +201,18 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
 
             return container;
+        }
+
+        private static void CheckConventionsСomplianceExplicitly()
+        {
+            var checkingResourceStorages = new[]
+                {
+                    typeof(BLResources),
+                    typeof(MetadataResources),
+                    typeof(EnumResources)
+                };
+
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IWebAppSettings settings)
@@ -250,7 +267,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterType<IOperationsMetadataProvider, OperationsMetadataProvider>(Lifetime.Singleton)
                 .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
 
@@ -292,6 +308,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                              appSettings.AuthExpirationTimeInMinutes));
         }
 
+        private static IUnityContainer ConfigureEAV(this IUnityContainer container)
+        {
+            return container.RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+        }
+        
         private static IUnityContainer ConfigureMvcMetadataProvider(this IUnityContainer container)
         {
             return container.RegisterType<IUserContextProvider, UnityUserContextProvider>(Lifetime.Singleton)

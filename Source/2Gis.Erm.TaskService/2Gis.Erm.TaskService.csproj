@@ -121,7 +121,7 @@
       <DependentUpon>ErmNtService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Settings\ErmServiceAppSettings.cs" />
+    <Compile Include="Settings\TaskServiceAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
@@ -139,6 +139,10 @@
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
       <Name>2Gis.Erm.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>

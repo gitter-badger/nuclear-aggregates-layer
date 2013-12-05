@@ -1236,6 +1236,10 @@
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
       <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
       <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>

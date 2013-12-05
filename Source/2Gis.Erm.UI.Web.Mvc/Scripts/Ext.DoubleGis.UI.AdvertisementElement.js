@@ -85,8 +85,20 @@
         }
     }
 
-    if (Ext.getDom('TemplateRestrictionType').value == 'Text' && Ext.getDom('TemplateFormattedText').value == 'True') {
+    // Согласно http://msdn.microsoft.com/en-US/library/18zw7440.aspx специальными символами являются символы с 0x00 по 0x1F, 0x7F, и с from 0x80 по 0x9F
+    // Но символы 9, 10 мы оставляем. Так же игнорируем символ с кодом 13 - отучить вводить его пользователей IE нереально :) - его нужно просто молча удалять на серверной стороне.
+    // Помним, что работаем с unicode и диапазон от 127 до 255 не содержит кириллицы. Зато содержит много управляющих символов.
+    var controlChars = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x80-\x9F]/g;
 
+    var removeControlChars = function (text) {
+        return text.replace(controlChars, '');
+    };
+
+    var textContainsControlChars = function (text) {
+        return text.match(controlChars);
+    };
+    
+    if (Ext.getDom('TemplateRestrictionType').value == 'Text' && Ext.getDom('TemplateFormattedText').value == 'True') {
         Ext.ux.TinyMCE.initTinyMCE();
         maxLength = Ext.getDom("TemplateTextLengthRestriction").value * 1;
         maxSymbolsInWord = Ext.getDom("TemplateMaxSymbolsInWord").value * 1;
@@ -147,7 +159,6 @@
             Ext.DoubleGis.FormValidator.updateValidationMessage(fInfo, resultMsg);
         };
 
-
         this.RTE = new Ext.ux.TinyMCE({
             renderTo: "TxtContainer",
             xtype: "tinymce",
@@ -199,8 +210,8 @@
             },
             value: Ext.getDom("ctnt").innerText
         });
-        this.on('beforepost',
-            function () {
+        
+        this.on('beforepost', function () {
                 // set plaintext
                 var body = this.RTE.getEd().getBody();
                 var plainText = (body.innerText || body.textContent);
@@ -208,7 +219,7 @@
                 if (plainText) {
                     var plainTextWithTags = plainText.match(/(<([^>]+)>)/ig);
                     if (plainTextWithTags) {
-                        alert("Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён");
+                        alert(Ext.LocalizedResources.AdvertisementElementTextContainsHtmlTags);
                         return false;
                     }
                 }
@@ -222,12 +233,12 @@
                 // Как правило, это неотображаемые символы и они могут быть безболезненно удалены, 
                 // однако ползьзователь может отказаться и отредактировать текст РМ вручную.
                 if (textContainsControlChars(plainText) || textContainsControlChars(formattedText)) {
-                    var userAgreedToRemoveSymbols = confirm("Тест содержит управляющие символы, удалить их перед сохранением?");
+                    var userAgreedToRemoveSymbols = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlCharacters);
                     if (userAgreedToRemoveSymbols) {
                         formattedText = removeControlChars(formattedText);
                         plainText = removeControlChars(plainText);
                     } else {
-                        alert("Элемент РМ не был сохранён.");
+                        alert(Ext.LocalizedResources.AdvertisementElementWasNotSaved);
                         return false;
                     }
                 }
@@ -238,19 +249,7 @@
                 return true;
             });
 
-        var removeControlChars = function (text) {
-            var controlChars = /[\x00-\x1F\x7F\x80-\x9F]/g;
-            return text.replace(controlChars, '');
-        };
-
-        var textContainsControlChars = function (text) {
-            // Согласно http://msdn.microsoft.com/en-US/library/18zw7440.aspx специальными символами являются символы с 0x00 по 0x1F, 0x7F, и с from 0x80 по 0x9F
-            var controlChars = /[\x00-\x1F\x7F\x80-\x9F]/g;
-            return text.match(controlChars);
-        };
-
         var fixupStatusDependency = function (removeNullValue) {
-
             var status = Ext.getDom('Status');
             if (status) {
                 // Костыль для работы fireEvent в Chrome
@@ -274,6 +273,21 @@
 
         this.on('afterbuild', function () { fixupStatusDependency(true); });
         this.on('afterpost', performLength, this.RTE);
+    }
+    else if (Ext.getDom('TemplateRestrictionType').value == 'Text' || Ext.getDom('TemplateRestrictionType').value == 'FasComment') {
+        this.on('beforepost', function () {
+            var plainText = Ext.getDom("PlainText").value;
+            if (textContainsControlChars(plainText)) {
+                var userAgreedToRemoveSymbols = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlCharacters);
+                if (userAgreedToRemoveSymbols) {
+                    Ext.getDom("PlainText").value = removeControlChars(plainText);
+                    return true;
+                } else {
+                    alert(Ext.LocalizedResources.AdvertisementElementWasNotSaved);
+                    return false;
+                }
+            }
+        });
     }
 
     if (Ext.getDom('TemplateRestrictionType').value == 'Image' || Ext.getDom('TemplateRestrictionType').value == 'Article') {

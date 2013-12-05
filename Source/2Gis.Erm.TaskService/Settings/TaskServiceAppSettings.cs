@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.TaskService.Settings
 {
-    public class ErmServiceAppSettings : CommonConfigFileAppSettings, IErmServiceAppSettings
+    public sealed class TaskServiceAppSettings : CommonConfigFileAppSettings, ITaskServiceAppSettings
     {
         private const int LogSizeInDaysDefault = 60;
         private const string MailSenderUserNameDefault = "TEST";
@@ -36,16 +36,6 @@ namespace DoubleGis.Erm.TaskService.Settings
         private readonly StringSetting _adConnectionDomainName = ConfigFileSetting.String.Required("ADConnectionDomainName");
         private readonly StringSetting _adConnectionLogin = ConfigFileSetting.String.Required("ADConnectionLogin");
         private readonly StringSetting _adConnectionPassword = ConfigFileSetting.String.Required("ADConnectionPassword");
-
-        private readonly StringSetting _webApplicationRoot = ConfigFileSetting.String.Required("WebApplicationRoot");
-
-        public Uri WebApplicationRoot
-        {
-            get
-            {
-                return new Uri(_webApplicationRoot.Value);
-            }
-        }
 
         public bool EnableIntegration
         {

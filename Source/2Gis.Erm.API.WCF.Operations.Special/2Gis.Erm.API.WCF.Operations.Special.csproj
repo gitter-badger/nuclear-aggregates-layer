@@ -82,6 +82,7 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="FinancialOperationsSharedTypesBehaviorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
@@ -126,6 +131,10 @@
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

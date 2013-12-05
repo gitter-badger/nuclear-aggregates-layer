@@ -12,6 +12,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     Settings: {
         DecimalDigits: 2,
+        DiscountPercentDecimalDigits: 4,
         DiscountRecalcDelay: 1000
     },
 
@@ -307,7 +308,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         var self = this;
 
         var inPercent = this.UI.Radios.CalculateDiscountViaPercentTrue.dom.checked;
-        var discountPercent = this.formatLocalized(this.parseFloatLocalized(this.UI.Texts.DiscountPercent.dom.value));
+        var discountPercent = this.formatDiscountPercentLocalized(this.parseFloatLocalized(this.UI.Texts.DiscountPercent.dom.value));
         var discountSum = this.formatLocalized(this.parseFloatLocalized(this.UI.Texts.DiscountSum.dom.value));
         
         window.Ext.Ajax.request({
@@ -329,7 +330,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
                 // В jsonResponse суммы приходят с десятичным разделителем "."
                 var correctedDiscountSum = self.formatLocalized(jsonResponse.CorrectedDiscountSum);
-                var correctedDiscountPercent = self.formatLocalized(jsonResponse.CorrectedDiscountPercent);
+                var correctedDiscountPercent = self.formatDiscountPercentLocalized(jsonResponse.CorrectedDiscountPercent);
 
                 self.UI.Texts.DiscountSum.setValueAdv(correctedDiscountSum);
                 self.UI.Texts.DiscountPercent.setValueAdv(correctedDiscountPercent);
@@ -420,10 +421,18 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
     {
         return Number(number.toFixed(this.Settings.DecimalDigits));
     },
+    
+    roundDiscountPercent: function (number) {
+        return Number(number.toFixed(this.Settings.DiscountPercentDecimalDigits));
+    },
 
     formatLocalized: function (number)
     {
         return Number.formatToLocal(this.round(number));
+    },
+    
+    formatDiscountPercentLocalized: function (number) {
+        return Number.formatToLocal(this.roundDiscountPercent(number));
     },
 
     parseFloatLocalized: Number.parseFromLocal,

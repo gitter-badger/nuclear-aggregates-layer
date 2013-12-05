@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.TaskService
                 Debugger.Launch();
             }
 
-            var settings = new ErmServiceAppSettings();
+            var settings = new TaskServiceAppSettings();
             var loggerContextEntryProviders =
                 new ILoggerContextEntryProvider[] 
                 {
@@ -42,10 +42,10 @@ namespace DoubleGis.Erm.TaskService
                     loggerContextEntryProviders);
 
             var diContainer = Bootstrapper.ConfigureUnity(settings);
+            var schedulerManager = diContainer.Resolve<ISchedulerManager>();
 
             if (IsConsoleMode(args))
             {
-                var schedulerManager = diContainer.Resolve<SchedulerManager>();
                 schedulerManager.Start();
 
                 Console.WriteLine("ERM сервис запущен.");
@@ -58,8 +58,7 @@ namespace DoubleGis.Erm.TaskService
             }
             else
             {
-                var ermNtService = diContainer.Resolve<ErmNtService>();
-                using (ermNtService)
+                using (var ermNtService = new ErmNtService(schedulerManager))
                 {
                     ServiceBase.Run(ermNtService);
                 }
