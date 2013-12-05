@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Limit = EntityName.Limit,
         Lock = EntityName.Lock, 
         LockDetail = EntityName.LockDetail,
-        OperationType = EntityName.OperationType
+        OperationType = EntityName.OperationType,
+        WitdrawalInfo = EntityName.WithdrawalInfo
     }
 }

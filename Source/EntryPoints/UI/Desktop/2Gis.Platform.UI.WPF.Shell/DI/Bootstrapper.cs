@@ -72,9 +72,9 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
 
                 container.RegisterLogger(logger)
                          .RegisterModules()
-                                         .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
-                                         .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)
-                                         .RegisterType<INavigationManager, NavigationManager>(Lifetime.Singleton)
+                         .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
+                         .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)
+                         .RegisterType<INavigationManager, NavigationManager>(Lifetime.Singleton)
                          .RegisterType<IToolbarManager, ToolbarManager>(Lifetime.Singleton)
                          .ConfigureModules()
                          .ConfigureShellInfrastructure()

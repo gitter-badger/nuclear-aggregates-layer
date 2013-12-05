@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastruc
         private const string RestApiClientIndicator = "RestApiClient";
         private readonly RestClient _restClient;
 
-        public RestApiClient(ICommonSettings settings)
+        public RestApiClient(IApiSettings settings)
         {
             var cookieContainer = new CookieContainer();
             _restClient = new RestClient 

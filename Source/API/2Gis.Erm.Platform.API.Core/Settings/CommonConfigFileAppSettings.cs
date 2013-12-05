@@ -17,15 +17,17 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         private readonly StringSetting _basicLanguage = ConfigFileSetting.String.Required("BasicLanguage");
         private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
-        private readonly EnumSetting<BusinessModel> _businessLogicAdaptation =  ConfigFileSetting.Enum.Optional("BusinessModel", BusinessModel.Russia);
+        private readonly EnumSetting<BusinessModel> _businessModel =  ConfigFileSetting.Enum.Optional("BusinessModel", BusinessModel.Russia);
         private readonly BoolSetting _enableCaching = ConfigFileSetting.Bool.Required("EnableCaching");
         private readonly BoolSetting _enableNotifications = ConfigFileSetting.Bool.Required("EnableNotifications");
         private readonly DecimalSetting _minDebtAmount = ConfigFileSetting.Decimal.Required("MinDebtAmount");
         private readonly IntSetting _orderRequestProcessingHoursAmount = ConfigFileSetting.Int.Required("OrderRequestProcessingHoursAmount");
         private readonly StringSetting _reserveUserAccount = ConfigFileSetting.String.Required("ReserveUserAccount");
         private readonly IntSetting _significantDigitsNumber = ConfigFileSetting.Int.Required("SignificantDigitsNumber");
-        private readonly EnumSetting<AppTargetEnvironment> _targetEnvironment = ConfigFileSetting.Enum.Required<AppTargetEnvironment>("TargetEnvironment");
         private readonly IntSetting _warmClientDaysCount = ConfigFileSetting.Int.Optional("WarmClientDaysCount", WarmClientDaysCountDefault);
+        
+        private readonly EnumSetting<AppTargetEnvironment> _targetEnvironment = ConfigFileSetting.Enum.Required<AppTargetEnvironment>("TargetEnvironment");
+        private readonly StringSetting _targetEnvironmentName = ConfigFileSetting.String.Required("TargetEnvironmentName");
         private readonly StringSetting _entryPointName = ConfigFileSetting.String.Required("EntryPointName");
 
         private readonly ConnectionStringsSettingsAspect _connectionStrings;
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         protected CommonConfigFileAppSettings()
         {
             var ermEnvironmentSettings = ErmEnvironmentsSettingsLoader.Load(ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFullPath,
-                                                                            ConfigFileSetting.String.Required("TargetEnvironmentName").Value,
+                                                                            _targetEnvironmentName.Value,
                                                                             _entryPointName.Value);
 
             _connectionStrings = new ConnectionStringsSettingsAspect(ermEnvironmentSettings.ConnectionStrings);
@@ -47,17 +49,17 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         public string ReserveUserAccount
         {
             get { return _reserveUserAccount.Value; }
-            }
+        }
 
         public bool EnableNotifications
         {
             get { return _enableNotifications.Value; }
-            }
+        }
 
         public bool EnableCaching
         {
             get { return _enableCaching.Value; }
-            }
+        }
 
         public int WarmClientDaysCount
         {
@@ -67,7 +69,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         public int SignificantDigitsNumber
         {
             get { return _significantDigitsNumber.Value; }
-            }
+        }
 
         public decimal MinDebtAmount
         {
@@ -85,7 +87,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         public AppTargetEnvironment TargetEnvironment
         {
             get { return _targetEnvironment.Value; }
-            }
+        }
 
         public string EntryPointName
         {
@@ -104,12 +106,17 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         public BusinessModel BusinessModel
         {
-            get { return _businessLogicAdaptation.Value; }
+            get { return _businessModel.Value; }
         }
 
         public ConnectionStringsSettingsAspect ConnectionStrings 
         {
             get { return _connectionStrings; }
+        }
+
+        public string TargetEnvironmentName
+        {
+            get { return _targetEnvironmentName.Value; }
         }
     }
 }

@@ -28,7 +28,8 @@ namespace DoubleGis.Erm.Platform.Common.Utils
     {
         public StrictKeyEqualityComparer(Func<T, TKey> keyExtractor)
             : base(keyExtractor)
-        { }
+        {
+        }
 
         public override bool Equals(T x, T y)
         {

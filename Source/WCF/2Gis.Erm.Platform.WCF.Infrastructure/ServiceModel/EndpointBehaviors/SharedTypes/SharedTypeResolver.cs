@@ -36,9 +36,10 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehavio
         public override Type ResolveName(string typeName, string typeNamespace, Type declaredType, DataContractResolver knownTypeResolver)
         {
             // resolve names if xml namespace is 2Gis xml namespace
-            var type = string.Equals(typeNamespace, SoapTypeNameConveter.DataContractsNamespace, StringComparison.OrdinalIgnoreCase)
-                           ? knownTypeResolver.ResolveName(typeName, typeNamespace, declaredType, knownTypeResolver)
-                           : _typeNameConveter.ConvertToClrType(Tuple.Create(typeName, typeNamespace));
+            var type = typeNamespace.StartsWith(SoapTypeNameConveter.DataContractsNamespace, StringComparison.OrdinalIgnoreCase)
+                           ? _typeNameConveter.ConvertToClrType(Tuple.Create(typeName, typeNamespace))
+                           : knownTypeResolver.ResolveName(typeName, typeNamespace, declaredType, knownTypeResolver);
+                     
             return type;
         }
     }

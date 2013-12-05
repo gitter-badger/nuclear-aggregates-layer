@@ -14,15 +14,18 @@ using Quartz.Spi;
 
 namespace DoubleGis.Erm.Platform.TaskService.Schedulers
 {
-    public sealed class SchedulerManager
+    public sealed class SchedulerManager : ISchedulerManager
     {
         private const string SchedulerName = "SCHEDULER";
 
         private readonly ICommonLog _logger;
         private readonly ITaskServiceProcesingSettings _processingSettings;
-        private readonly JobFactory _jobFactory;
+        private readonly IJobFactory _jobFactory;
 
-        public SchedulerManager(ICommonLog logger, ITaskServiceProcesingSettings processingSettings, JobFactory jobFactory)
+        public SchedulerManager(
+            ITaskServiceProcesingSettings processingSettings, 
+            IJobFactory jobFactory,
+            ICommonLog logger)
         {
             _logger = logger;
             _processingSettings = processingSettings;

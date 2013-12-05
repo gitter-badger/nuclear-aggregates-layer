@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.A
     {
         public override int Id
         {
-            get { return OperationIdentityIds.UpdateAfterSaleService; }
+            get { return OperationIdentityIds.UpdateAfterSaleServiceIdentity; }
         }
 
         public override string Description

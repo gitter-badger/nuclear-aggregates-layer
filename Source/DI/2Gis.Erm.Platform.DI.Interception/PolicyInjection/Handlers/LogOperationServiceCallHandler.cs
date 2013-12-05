@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity.InterceptionExtension;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
 {
-    public class LogOperationServiceCallHandler : LoggingCallHandler
+    public sealed class LogOperationServiceCallHandler : LoggingCallHandler
     {
         private readonly IEnumerable<string> _elementsToIgnoreByDefault = new[] { "ModifiedOn", "ModifiedBy", "LastQualifyTime", "LastDisqualifyTime" };
 
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                                                                                 pair.Original,
                                                                                 pair.Modified,
                                                                                 _elementsToIgnoreByDefault.Union(_elementsToIgnore ?? Enumerable.Empty<string>()));
-                        _actionLogger.LogChanges(pair.Original.GetType().AsEntityName(), pair.Original.Id, differenceMap);
+                        _actionLogger.LogChanges(ChangesDescriptor.Create(pair.Original.GetType(), pair.Original.Id, differenceMap));
                     }
                 }
                 catch (Exception ex)

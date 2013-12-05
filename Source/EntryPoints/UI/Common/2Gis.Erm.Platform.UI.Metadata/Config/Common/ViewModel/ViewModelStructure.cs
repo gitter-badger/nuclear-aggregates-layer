@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;

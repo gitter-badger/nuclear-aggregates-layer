@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {

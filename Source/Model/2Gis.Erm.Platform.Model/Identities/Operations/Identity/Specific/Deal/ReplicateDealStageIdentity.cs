@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.D
     {
         public override int Id
         {
-            get { return OperationIdentityIds.ReplicateDealStage; }
+            get { return OperationIdentityIds.ReplicateDealStageIdentity; }
         }
 
         public override string Description

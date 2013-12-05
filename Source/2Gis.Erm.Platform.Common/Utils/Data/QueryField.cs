@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Common.Utils.Data
 {
-    public class QueryField
+    public sealed class QueryField
     {
         public string Name { get; set; }
         public string Expression { get; set; }

@@ -58,8 +58,9 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Jobs\DoubleGisJobBase.cs" />
-    <Compile Include="Jobs\IDoubleGisJob.cs" />
+    <Compile Include="Jobs\TaskServiceJobBase.cs" />
+    <Compile Include="Jobs\ITaskServiceJob.cs" />
+    <Compile Include="Schedulers\ISchedulerManager.cs" />
     <Compile Include="Schedulers\JobFactory.cs" />
     <Compile Include="Schedulers\SchedulerManager.cs" />
     <Compile Include="Settings\ITaskServiceProcesingSettings.cs" />

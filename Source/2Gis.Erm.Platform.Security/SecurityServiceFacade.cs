@@ -247,7 +247,7 @@ namespace DoubleGis.Erm.Platform.Security
                     return _finder.Find<SecurityAccelerator>(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.Department:
-                    var department = _finder.Find(GenericSpecifications.ById<User>(userCode)).Select(user => user.DepartmentId).SingleOrDefault();
+                    var department = _finder.Find(Specs.Find.ById<User>(userCode)).Select(user => user.DepartmentId).SingleOrDefault();
                     return _finder.Find<SecurityAccelerator>(accelerator => accelerator.DepartmentId == department).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.DepartmentAndChilds:

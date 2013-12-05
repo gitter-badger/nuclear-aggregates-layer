@@ -3,7 +3,7 @@ using System.IO;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes
 {
-    public class SoapTypeNameConveter
+    public sealed class SoapTypeNameConveter
     {
         internal const string DataContractsNamespace = "http://2gis.ru/erm/api/datacontracts/";
         private static readonly char PathSeparator = Path.AltDirectorySeparatorChar;

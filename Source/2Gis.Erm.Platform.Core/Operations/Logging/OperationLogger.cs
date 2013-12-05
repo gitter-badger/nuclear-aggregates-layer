@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         {
             string operationChangesDescription;
             if (!TrySerializeOperationChanges(scopesHierarchy, out operationChangesDescription))
-            {
+        {
                 return null;
             }
 

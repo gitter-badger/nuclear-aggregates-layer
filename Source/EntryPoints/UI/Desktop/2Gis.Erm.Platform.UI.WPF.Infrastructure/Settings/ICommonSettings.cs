@@ -4,7 +4,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings
 {
     public interface ICommonSettings : ISettings
     {
-        string ApiUrl { get; }
         bool EnableCaching { get; }
     }
 }

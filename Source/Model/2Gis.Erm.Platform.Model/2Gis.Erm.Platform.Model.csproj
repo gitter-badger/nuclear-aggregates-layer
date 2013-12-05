@@ -106,7 +106,26 @@
       <DependentUpon>ErmPOCO.tt</DependentUpon>
     </Compile>
     <Compile Include="ContainedTypesAttribute.cs" />
+    <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
+    <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
+    <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CancelOrderProcessingRequestIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\ProlongateOrderByRequestIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringRevertingWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeDealsDuringRevertingWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeDealsDuringWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeOrdersDuringRevertingWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeOrdersDuringWithdrawalIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Entities\DTOs\AppointmentDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoRegistry.cs" />
@@ -549,10 +568,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeTemplateDomainEntityDto.cs">
       <Link>Entities\DTOs\ThemeTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnitsDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\WithdrawalInfoDomainEntityDto.cs">
@@ -1184,7 +1199,6 @@
     <Compile Include="Entities\Enums\TemplateCode.cs" />
     <Compile Include="Entities\Enums\ThemeTemplateCode.cs" />
     <Compile Include="Entities\Enums\UsingOtherMediaOption.cs" />
-    <Compile Include="Entities\Enums\WithdrawalInfoStatus.cs" />
     <Compile Include="ModelIndicators.AggregateOperationSpecific.cs" />
     <Compile Include="Aggregates\AggregateDescriptor.cs" />
     <Compile Include="Aggregates\AggregateDescriptorUtils.cs" />
@@ -1260,7 +1274,7 @@
     <Compile Include="Identities\Operations\Identity\Generic\ChangeClientIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\ChangeTerritoryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\CheckForDebtsIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Generic\SetAsDefaultIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Themes\SetAsDefaultThemeIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\UpdateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\CreateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\MergeIdentity.cs" />
@@ -1307,6 +1321,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

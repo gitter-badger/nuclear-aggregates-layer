@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                 if (type.IsReadModel())
                 {
                     _readModelTypes.Add(type);
-        }
+                }
 
                 if (type.IsAggregateRepository())
                 {
@@ -62,6 +62,28 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             ProcessAggregateRepositories();
         }
 
+        private static bool ShouldBeProcessed(Type type)
+        {
+            if (type.IsInterface || type.IsAbstract)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static object AggregateRepositoryInjectionFactory(IUnityContainer container, Type repositoryType, string registrationName)
+        {
+            var aggregateRepositoryFactory = container.Resolve<IAggregatesLayerRuntimeFactory>();
+            return aggregateRepositoryFactory.CreateRepository(repositoryType);
+        }
+
+        private static object AggregateReadModelInjectionFactory(IUnityContainer container, Type readModelType, string registrationName)
+        {
+            var aggregateRepositoryFactory = container.Resolve<IAggregatesLayerRuntimeFactory>();
+            return aggregateRepositoryFactory.CreateReadModel(readModelType);
+        }
+
         private void ProcessAggregateRepositories()
         {
             var repositoriesMarkers = ModelIndicators.Aggregates.Group.Repositories.Union(ModelIndicators.Aggregates.Group.Repositories);
@@ -74,7 +96,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                             && !repositoriesMarkers.Contains(t.IsGenericType ? t.GetGenericTypeDefinition() : t))
                                   .Distinct()
                     .ToArray();
- 
+
                 // Т.е. чтобы получить агрегирующий репозиторий нужно чтобы он реализовывал специфичный для себя интерфейс (помимо IAggregateRepository) - 
                 // именно такой интерфейс нужно запрашивать тогда, когда понадобился конкретный агрегирующий репозиторий
                 if (!implementedInterfacesWithoutMarkers.Any())
@@ -89,57 +111,57 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                         !aggregateRepositoryInterface.IsGenericTypeDefinition &&
                             genericArguments.Any(x => x.IsGenericParameter))
                     {
-                            // Регистрация открытого generic-интерфейса и маппинг его на открытый generic-тип
-                            // В этом случае у типа T свойство IsGenericParameter = true
-                            // Например, IDeleteGenericEntityService<LegalPerson> <-> DeleteGenericEntityService<T>
-                            // Причем, в зависимости от ограничений на T регистрируем тип в secure, либо unsecure scope; 
+                        // Регистрация открытого generic-интерфейса и маппинг его на открытый generic-тип
+                        // В этом случае у типа T свойство IsGenericParameter = true
+                        // Например, IDeleteGenericEntityService<LegalPerson> <-> DeleteGenericEntityService<T>
+                        // Причем, в зависимости от ограничений на T регистрируем тип в secure, либо unsecure scope; 
                         string mapping = aggregateRepositoryType.GetGenericArguments().Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
                                                  ? Mapping.SecureOperationRepositoriesScope
                                                  : Mapping.UnsecureOperationRepositoriesScope;
-                            _container.RegisterType(
-                            aggregateRepositoryInterface.GetGenericTypeDefinition(),
-                                aggregateRepositoryType,
-                                mapping,
-                                Lifetime.PerResolve,
-                                new InjectionFactory(AggregateRepositoryInjectionFactory));
-                        }
-                        else
-                        {
-                            // Регистрация закрытого generic-интерфейса и маппинг его на конретный тип
-                            // В этом случае у типа T = LegalPerson свойство IsGenericParameter = false, т.к. generic закрытый
-                            // Например, IDeleteGenericEntityService<LegalPerson> <-> DeleteLegalPersonService
-                            // В этом случае появляется возможность спросить в конструктор не полный агрегирующий репозиторий, а одну из его функцинальных частей, например, удаление
-                            // Правильно это или нет, еще предстоит решить. Если это не верно, сделать здесь ограничитель на такие кейсы
-                            _container.RegisterType(
-                            aggregateRepositoryInterface,
-                                aggregateRepositoryType,
-                                Mapping.ConstructorInjectionAggregateRepositoriesScope,
-                                Lifetime.PerResolve,
-                                new InjectionFactory(AggregateRepositoryInjectionFactory));
-                            
-                            // COMMENT {all, 19.09.2013}: Регистрация в дополнительном scope для корректного резолвинга в UnityOperationServicesManager.GetEntitySpecificOperation
-                            var mapping = aggregateRepositoryInterface.GetGenericArguments().Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
-                                              ? Mapping.SecureOperationRepositoriesScope
-                                              : Mapping.UnsecureOperationRepositoriesScope;
-                            _container.RegisterType(aggregateRepositoryInterface,
-                                                    aggregateRepositoryType,
-                                                    mapping,
-                                                    Lifetime.PerResolve,
-                                                    new InjectionFactory(AggregateRepositoryInjectionFactory));
+                        _container.RegisterType(
+                        aggregateRepositoryInterface.GetGenericTypeDefinition(),
+                            aggregateRepositoryType,
+                            mapping,
+                            Lifetime.PerResolve,
+                            new InjectionFactory(AggregateRepositoryInjectionFactory));
+                    }
+                    else
+                    {
+                        // Регистрация закрытого generic-интерфейса и маппинг его на конретный тип
+                        // В этом случае у типа T = LegalPerson свойство IsGenericParameter = false, т.к. generic закрытый
+                        // Например, IDeleteGenericEntityService<LegalPerson> <-> DeleteLegalPersonService
+                        // В этом случае появляется возможность спросить в конструктор не полный агрегирующий репозиторий, а одну из его функцинальных частей, например, удаление
+                        // Правильно это или нет, еще предстоит решить. Если это не верно, сделать здесь ограничитель на такие кейсы
+                        _container.RegisterType(
+                        aggregateRepositoryInterface,
+                            aggregateRepositoryType,
+                            Mapping.ConstructorInjectionAggregateRepositoriesScope,
+                            Lifetime.PerResolve,
+                            new InjectionFactory(AggregateRepositoryInjectionFactory));
 
-                            // регистрации, чтобы можно было явно запрашивать создание агрегирующего репозитория, 
-                            // например у UoWScope, указывая интерфейс репозитория, а не конкретный класс - реализацию
-                            _container.RegisterType(
-                                aggregateRepositoryInterface,
-                                aggregateRepositoryType,
-                                Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
-                                Lifetime.PerResolve);
+                        // COMMENT {all, 19.09.2013}: Регистрация в дополнительном scope для корректного резолвинга в UnityOperationServicesManager.GetEntitySpecificOperation
+                        var mapping = aggregateRepositoryInterface.GetGenericArguments().Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                                          ? Mapping.SecureOperationRepositoriesScope
+                                          : Mapping.UnsecureOperationRepositoriesScope;
+                        _container.RegisterType(aggregateRepositoryInterface,
+                                                aggregateRepositoryType,
+                                                mapping,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(AggregateRepositoryInjectionFactory));
+
+                        // регистрации, чтобы можно было явно запрашивать создание агрегирующего репозитория, 
+                        // например у UoWScope, указывая интерфейс репозитория, а не конкретный класс - реализацию
+                        _container.RegisterType(
+                            aggregateRepositoryInterface,
+                            aggregateRepositoryType,
+                            Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
+                            Lifetime.PerResolve);
                     }
 
                     _container.RegisterTypeWithDependencies(
                         aggregateRepositoryType,
                         Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
-                        Lifetime.PerResolve, 
+                        Lifetime.PerResolve,
                         null);
                 }
             }
@@ -169,7 +191,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                     if (readModelInterface.IsGenericType &&
                         !readModelInterface.IsGenericTypeDefinition &&
                         genericArguments.Any(x => x.IsGenericParameter))
-                {
+                    {
                         throw new InvalidOperationException("Open generic implementations for read model are not allowed");
                     }
 
@@ -178,31 +200,9 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                            readModel,
                            Mapping.ConstructorInjectionReadModelsScope,
                            Lifetime.PerResolve,
-                           new InjectionFactory(AggregateReadModelInjectionFactory)); 
+                           new InjectionFactory(AggregateReadModelInjectionFactory));
                 }
             }
-        }
-
-        private static bool ShouldBeProcessed(Type type)
-        {
-            if (type.IsInterface || type.IsAbstract)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static object AggregateRepositoryInjectionFactory(IUnityContainer container, Type repositoryType, string registrationName)
-        {
-            var aggregateRepositoryFactory = container.Resolve<IAggregatesLayerRuntimeFactory>();
-            return aggregateRepositoryFactory.CreateRepository(repositoryType);
-        }
-
-        private static object AggregateReadModelInjectionFactory(IUnityContainer container, Type readModelType, string registrationName)
-        {
-            var aggregateRepositoryFactory = container.Resolve<IAggregatesLayerRuntimeFactory>();
-            return aggregateRepositoryFactory.CreateReadModel(readModelType);
         }
     }
 }

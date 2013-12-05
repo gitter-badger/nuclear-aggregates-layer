@@ -11,18 +11,19 @@
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantNameQualifier
 // ReSharper disable ConvertNullableToShortForm
+
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OrderProcessingRequestDomainEntityDto : IDomainEntityDto<OrderProcessingRequest>
+    public partial class OrderProcessingRequestDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.OrderProcessingRequest>
     {
     	[DataMember]
         public long Id { get; set; }
@@ -39,11 +40,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public EntityReference SourceOrganizationUnitRef { get; set; }
     	[DataMember]
-        public Nullable<System.DateTime> BeginDistributionDate { get; set; }
+        public System.DateTime BeginDistributionDate { get; set; }
     	[DataMember]
         public EntityReference FirmRef { get; set; }
     	[DataMember]
         public EntityReference LegalPersonProfileRef { get; set; }
+    	[DataMember]
+        public EntityReference LegalPersonRef { get; set; }
     	[DataMember]
         public string Description { get; set; }
     	[DataMember]
@@ -65,7 +68,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public byte[] Timestamp { get; set; }
     	[DataMember]
-        public int ReleaseCountPlan { get; set; }
+        public short ReleaseCountPlan { get; set; }
     }
 }
 

@@ -8,12 +8,10 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications
@@ -31,11 +29,12 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private readonly ICommonLog _logger;
         private readonly IIdentityProvider _identityProvider;
 
-        public NotificationsProcessor(INotificationProcessingSettings notificationProcessingSettings,
-                                      IFinder finder,
-                                      IRepository<NotificationProcessings> processingsEntityRepository,
-                                      ICommonLog logger,
-                                      IIdentityProvider identityProvider)
+        public NotificationsProcessor(
+            INotificationProcessingSettings notificationProcessingSettings,
+            IFinder finder,                            
+            IRepository<NotificationProcessings> processingsEntityRepository,
+            ICommonLog logger, 
+            IIdentityProvider identityProvider)
         {
             _defaultSender = notificationProcessingSettings.DefaultSender;
             _authenticationSettings = notificationProcessingSettings.AuthenticationSettings;
@@ -88,7 +87,7 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private IEnumerable<EmailDescriptor> GetEmailsForProcessing()
         {
             var currentTime = DateTime.UtcNow;
-            return _finder.Find(GenericSpecifications.ActiveAndNotDeleted<NotificationEmails>())
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<NotificationEmails>())
                           .Select(email => new
                               {
                                   Email = email,

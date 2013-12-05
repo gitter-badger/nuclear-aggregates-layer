@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy
 {
-    public sealed class ClientProxyFactory : IClientProxyFactory
+    public class ClientProxyFactory : IClientProxyFactory
     {
         private readonly IServiceClientSettingsProvider _serviceClientSettingsProvider;
 
@@ -14,9 +14,14 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy
            _serviceClientSettingsProvider = serviceClientSettingsProvider;
         }
 
+        protected IServiceClientSettingsProvider ServiceClientSettingsProvider
+        {
+            get { return _serviceClientSettingsProvider; }
+        }
+
         public IClientProxy<TChannel> GetClientProxy<TChannel, TBinding>() where TBinding : Binding
         {
-            var factory = new ChannelFactory<TChannel>(_serviceClientSettingsProvider.GetEndpoint(typeof(TChannel), typeof(TBinding)));
+            var factory = new ChannelFactory<TChannel>(ServiceClientSettingsProvider.GetEndpoint(typeof(TChannel), typeof(TBinding)));
             return new ClientProxy<TChannel>(factory.CreateChannel());
         }
 

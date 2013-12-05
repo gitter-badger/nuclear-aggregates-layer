@@ -6,13 +6,23 @@ namespace DoubleGis.Erm.Platform.Model.Entities
     [DataContract]
     public sealed class EntitySet : IEquatable<EntitySet>
     {
+        /// <summary>
+        /// ќзначает что вместо, данного fake composite entityname, может быть подставлено любое другое корректное значение - аналог open generic
+        /// </summary>
+        public const EntityName OpenEntitiesSetIndicator = EntityName.All;
+
+        /// <summary>
+        /// ќзначает что вместо, данного fake composite entityname, может быть подставлено любое другое корректное значение - аналог open generic
+        /// </summary>
+        public const EntityName EmptySetIndicator = EntityName.None;
+
         public static class Create
         {
             public static EntitySet NonCoupled
             {
                 get
                 {
-                    return new EntitySet(new[] { EntityName.None });
+                    return new EntitySet(new[] { EmptySetIndicator });
                 }
             }
 
@@ -20,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             {
                 get
                 {
-                    return new EntitySet(new[] { EntityName.All });
+                    return new EntitySet(new[] { OpenEntitiesSetIndicator });
                 }
             }
         }

@@ -53,6 +53,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
+    <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\ErmCommunicationException.cs" />
     <Compile Include="Globalization\BusinessModel.cs" />
     <Compile Include="Globalization\BusinessModelMapping.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Identities\IIdentityRequestStrategy.cs" />
     <Compile Include="Metadata\EndpointDescription.cs" />
     <Compile Include="Metadata\IServiceAvailabilityProvider.cs" />
-    <Compile Include="Metadata\OperationsEntityNameUtils.cs" />
     <Compile Include="Operations\IOperationProgressCallback.cs" />
     <Compile Include="Operations\Logging\IOperationContextParser.cs" />
     <Compile Include="Operations\Logging\IOperationScope.cs" />
@@ -144,7 +144,6 @@
     <Compile Include="Settings\Environments\ErmEnvironmentDescriptionsConfiguration.cs" />
     <Compile Include="Settings\Environments\ErmEnvironmentsSettingsAspect.cs" />
     <Compile Include="Settings\Environments\ErmEnvironmentsSettingsLoader.cs" />
-    <Compile Include="Settings\IWebAppUriProvider.cs" />
     <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Settings\AppTargetEnvironment.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringName.cs" />

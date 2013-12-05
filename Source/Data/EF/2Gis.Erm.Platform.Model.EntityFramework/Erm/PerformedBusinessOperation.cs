@@ -30,17 +30,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string Context { get; set; }
         public System.DateTime Date { get; set; }
         public Nullable<long> Parent { get; set; }
-    
-        public ExportFlowCardExtensionsCardCommercial ExportFlowCardExtensions_CardCommercial { get; set; }
-        public ExportFlowFinancialDataClient ExportFlowFinancialData_Client { get; set; }
-        public ExportFlowFinancialDataLegalEntity ExportFlowFinancialData_LegalEntity { get; set; }
-        public ExportFlowOrdersAdvMaterial ExportFlowOrders_AdvMaterial { get; set; }
-        public ExportFlowOrdersOrder ExportFlowOrders_Order { get; set; }
-        public ExportFlowOrdersResource ExportFlowOrders_Resource { get; set; }
-        public ExportFlowOrdersTheme ExportFlowOrders_Theme { get; set; }
-        public ExportFlowOrdersThemeBranch ExportFlowOrders_ThemeBranch { get; set; }
-        public ExportToMsCrm_HotClients ExportToMsCrm_HotClients { get; set; }
-        public ImportedFirmAddress ImportedFirmAddress { get; set; }
     }
 }
 

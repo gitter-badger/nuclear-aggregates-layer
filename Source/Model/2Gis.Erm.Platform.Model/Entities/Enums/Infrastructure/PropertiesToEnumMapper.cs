@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<PricePosition>(entity => entity.AmountSpecificationMode), typeof(PricePositionAmountSpecificationMode) },
                 { CreateKey<PrintFormTemplate>(entity => entity.TemplateCode), typeof(TemplateCode) },
                 { CreateKey<ReleaseInfo>(entity => entity.Status), typeof(ReleaseStatus) },
-                { CreateKey<WithdrawalInfo>(entity => entity.Status), typeof(WithdrawalInfoStatus) },
+                { CreateKey<WithdrawalInfo>(entity => entity.Status), typeof(WithdrawalStatus) },
                 { CreateKey<LegalPersonProfile>(entity => entity.PaymentMethod), typeof(PaymentMethod) },
                 { CreateKey<Order>(entity => entity.PaymentMethod), typeof(PaymentMethod) },
                 { CreateKey<OrderProcessingRequest>(entity => entity.State), typeof(OrderProcessingRequestState) },

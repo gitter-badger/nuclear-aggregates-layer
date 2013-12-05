@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Platform.DAL
             }
 
             var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
-            return queryableSource.Where(new FindSpecification<TEntity>(expression).Predicate);
+            return queryableSource.Where(expression);
         }
     }
 }

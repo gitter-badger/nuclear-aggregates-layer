@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
         }
     }
 
-
     public class ErmEnvironmentElementCollection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()

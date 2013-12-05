@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
     {
         public static DateTime TrimToSeconds(this DateTime dateTime)
         {
-            return new DateTime(dateTime.Ticks - dateTime.Ticks % TimeSpan.TicksPerSecond, dateTime.Kind);
+            return new DateTime(dateTime.Ticks - (dateTime.Ticks % TimeSpan.TicksPerSecond), dateTime.Kind);
         }
 
         public static DateTime GetFirstDateOfMonth(this DateTime dateTime)

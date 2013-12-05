@@ -10,7 +10,6 @@ namespace DoubleGis.Erm.Platform.API.Core.ActionLogging
     public interface IActionLoggingValidator : ISimplifiedModelConsumer
     {
         EntityName EntityType { get; }
-
         bool Validate(long entityId);
     }
 }

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public string Comment { get; set; }
     	[DataMember]
-        public WithdrawalInfoStatus Status { get; set; }
+        public WithdrawalStatus Status { get; set; }
     	[DataMember]
         public bool IsDeleted { get; set; }
     	[DataMember]

@@ -12,6 +12,7 @@
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantNameQualifier
 // ReSharper disable ConvertNullableToShortForm
+
 using System;
 using System.Collections.Generic;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -38,10 +39,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public System.DateTime DueDate { get; set; }
         public Nullable<long> BaseOrderId { get; set; }
         public Nullable<long> RenewedOrderId { get; set; }
-        public Nullable<long> SourceOrganizationUnitId { get; set; }
-        public Nullable<System.DateTime> BeginDistributionDate { get; set; }
-        public Nullable<long> FirmId { get; set; }
-        public Nullable<long> LegalPersonProfileId { get; set; }
+        public long SourceOrganizationUnitId { get; set; }
+        public System.DateTime BeginDistributionDate { get; set; }
+        public long FirmId { get; set; }
+        public long LegalPersonProfileId { get; set; }
+        public long LegalPersonId { get; set; }
         public string Description { get; set; }
         public int State { get; set; }
         public bool IsDeleted { get; set; }
@@ -66,8 +68,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public System.DateTime CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
-        public int ReleaseCountPlan { get; set; }
+        public short ReleaseCountPlan { get; set; }
     
+        public LegalPerson LegalPerson { get; set; }
         public Order BaseOrder { get; set; }
         public LegalPersonProfile LegalPersonProfile { get; set; }
         public Firm Firm { get; set; }

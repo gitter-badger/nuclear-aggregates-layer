@@ -83,20 +83,24 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehavio
             var body = envelope.Elements(ns + "Body").SingleOrDefault();
             if (body != null)
             {
-                var elementsToReplace = body.Descendants()
-                    .Where(x => !x.Attributes().Any(y => y.IsNamespaceDeclaration) &&
-                                !string.IsNullOrEmpty(x.GetPrefixOfNamespace(x.Name.Namespace)))
-                    .Select(x =>
-                    {
-                        var soapNamespace = x.Name.NamespaceName;
-                        var clrNamespace = _typeNameConveter.GetClrNamespace(soapNamespace);
+                var elementsToReplace =
+                    body.Descendants()
+                        .Where(x => x.Name.NamespaceName.Contains(DoubleGisNamespaceMarker) &&
+                                    !x.Attributes().Any(y => y.IsNamespaceDeclaration) &&
+                                    !string.IsNullOrEmpty(x.GetPrefixOfNamespace(x.Name.Namespace)))
+                        .Select(x =>
+                            {
+                                var soapNamespace = x.Name.NamespaceName;
+                                var clrNamespace = _typeNameConveter.GetClrNamespace(soapNamespace);
 
-                        ns = XNamespace.Get(StandartDataContractsNamespace + clrNamespace);
-                        var replacement = x.HasElements ? new XElement(ns + x.Name.LocalName, x.Descendants()) : new XElement(ns + x.Name.LocalName, x.Value);
-                        replacement.Add(x.Attributes());
-                        return Tuple.Create(x, replacement);
-                    })
-                    .ToArray();
+                                ns = XNamespace.Get(StandartDataContractsNamespace + clrNamespace);
+                                var replacement = x.HasElements
+                                                      ? new XElement(ns + x.Name.LocalName, x.Descendants())
+                                                      : new XElement(ns + x.Name.LocalName, x.Value);
+                                replacement.Add(x.Attributes());
+                                return Tuple.Create(x, replacement);
+                            })
+                        .ToArray();
                 foreach (var tuple in elementsToReplace)
                 {
                     tuple.Item1.ReplaceWith(tuple.Item2);

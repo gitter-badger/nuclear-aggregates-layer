@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.Environments
 {
     public static class ErmEnvironmentsSettingsLoader
     {
-        private const string DefaultEnvironmentsConfigFileName = "Environments.config";
+        public const string DefaultEnvironmentsConfigFileName = "Environments.config";
 
         public static string DefaultEnvironmentsConfigFullPath
         {

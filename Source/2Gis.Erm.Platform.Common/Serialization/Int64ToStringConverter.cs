@@ -32,6 +32,11 @@ namespace DoubleGis.Erm.Platform.Common.Serialization
                 }
             }
 
+            if (reader.Value == null)
+            {
+                return null;
+            }
+
             throw new JsonReaderException("Cannot convert value " + reader.Value + "to Int64");
         }
 

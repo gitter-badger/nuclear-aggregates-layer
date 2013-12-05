@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities
 
         public override string ToString()
         {
-            return string.Format("Id={0}. Description: {1}.", Id, Description);
+            return string.Format("Id={0}. Description: {1}", Id, Description);
         }
 
         #region Implementation of IEquatable<IOperationIdentity>

@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System;
+using System.Resources;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;
@@ -77,9 +78,9 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             return ReturnBuilder();
         }
 
-        public TBuilder Localizator(params ResourceManager[] resourceManagers)
+        public TBuilder Localizator(params Type[] resourceManagerHostTypes)
         {
-            Features.Add(new LocalizeViewModelFeature { ResourceManagers = resourceManagers });
+            Features.Add(new LocalizeViewModelFeature { ResourceManagerHostTypes = resourceManagerHostTypes });
             return ReturnBuilder();
         }
 

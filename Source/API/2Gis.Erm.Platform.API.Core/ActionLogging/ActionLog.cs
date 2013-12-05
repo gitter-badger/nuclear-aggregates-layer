@@ -3,38 +3,45 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.API.Core.ActionLogging
 {
     public static class ActionLog
     {
-        public static IDictionary<string, Tuple<object, object>> Diff
+        public static Dictionary<string, PropertyChangeDescriptor> Diff
         {
-            get { return new Dictionary<string, Tuple<object, object>>(); }
+            get { return new Dictionary<string, PropertyChangeDescriptor>(); }
         }
 
-        public static IDictionary<string, Tuple<object, object>> ForProperty<TEntity>(
-                this IDictionary<string, Tuple<object, object>> differences,
-                Expression<Func<TEntity, object>> propertyExpression, 
-                object propertyOriginalValue, 
-                object propertyModifiedValue)
+        public static Dictionary<string, PropertyChangeDescriptor> ForProperty<TEntity, TValue>(
+                this Dictionary<string, PropertyChangeDescriptor> differences,
+                Expression<Func<TEntity, TValue>> propertyExpression,
+                TValue propertyOriginalValue,
+                TValue propertyModifiedValue)
             where TEntity : class, IEntity
         {
             var propertyName = StaticReflection.GetMemberName(propertyExpression);
-            differences.Add(propertyName, new Tuple<object, object>(propertyOriginalValue, propertyModifiedValue));
+            differences.Add(propertyName, new PropertyChangeDescriptor(propertyOriginalValue, propertyModifiedValue));
             return differences;
         }
 
         public static void LogChanges<TEntity>(this IActionLogger actionLogger, 
-                long entityId,
-                Expression<Func<TEntity, object>> propertyExpression,
-                object propertyOriginalValue,
-                object propertyModifiedValue)
+                TEntity originalObject,
+                TEntity modifiedObject)
             where TEntity : class, IEntity
         {
-            actionLogger.LogChanges(typeof(TEntity).AsEntityName(), entityId, Diff.ForProperty(propertyExpression, propertyOriginalValue, propertyModifiedValue));
+            actionLogger.LogChanges(ChangesDescriptor.Create(originalObject, modifiedObject));
+        }
+
+        public static void LogChanges<TEntity, TValue>(this IActionLogger actionLogger, 
+                TEntity entity,
+                Expression<Func<TEntity, TValue>> propertyExpression,
+                TValue propertyOriginalValue,
+                TValue propertyModifiedValue)
+            where TEntity : class, IEntity
+        {
+            actionLogger.LogChanges(ChangesDescriptor.Create(entity, Diff.ForProperty(propertyExpression, propertyOriginalValue, propertyModifiedValue)));
         }
     }
 }

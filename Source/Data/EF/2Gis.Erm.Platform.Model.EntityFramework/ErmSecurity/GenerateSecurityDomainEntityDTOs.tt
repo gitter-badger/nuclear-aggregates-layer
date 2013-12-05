@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
-<#@ assembly name="$(SolutionDir)\Platform\Source\Model\2Gis.Erm.Platform.Model\bin\$(ConfigurationName)\2Gis.Erm.Platform.Model.dll" #> 
+<#@ assembly name="$(SolutionDir)\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\bin\$(ConfigurationName)\2Gis.Erm.Platform.Model.dll" #> 
 <#@ include file="EF.Utility.CS.ttinclude"#>
 <#@ output extension=".log" #> 
 <#

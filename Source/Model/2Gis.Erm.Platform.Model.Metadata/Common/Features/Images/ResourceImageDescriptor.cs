@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Images
 {

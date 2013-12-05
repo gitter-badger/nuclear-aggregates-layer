@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Reflection;
 using System.Resources;
 
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
@@ -12,12 +12,13 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
     {
         private readonly ResourceTitleDescriptor _descriptor;
         private readonly IUserInfo _userInfo;
+        private readonly Lazy<ResourceManager> _resourceManager;
 
         public ResourceTitleProvider(ResourceTitleDescriptor descriptor, IUserInfo userInfo)
         {
             _descriptor = descriptor;
             _userInfo = userInfo;
-            _resourceManager = new Lazy<ResourceManager>(GetResourceManger);
+            _resourceManager = new Lazy<ResourceManager>(GetResourceManager);
         }
 
         public string Title
@@ -41,18 +42,10 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
             return !string.IsNullOrEmpty(entryValue) ? entryValue : defaultValue;
         }
 
-        private readonly Lazy<ResourceManager> _resourceManager;
-
-        private ResourceManager GetResourceManger()
+        private ResourceManager GetResourceManager()
         {
-            const string ResoureManagerPropertyName = "ResourceManager";
-            var resourceManagerProperty = _descriptor.ResourceEntryKey.ResourceHostType.GetProperty(ResoureManagerPropertyName, BindingFlags.Public | BindingFlags.Static);
-            if (resourceManagerProperty == null)
-            {
-                throw new InvalidOperationException("Can't find required property " + ResoureManagerPropertyName + " in type " + _descriptor.ResourceEntryKey.ResourceHostType);
-            }
-
-            return (ResourceManager)resourceManagerProperty.GetValue(null);
+            ResourceManager resourceManager;
+            return ResourceUtils.TryResolveResourceManager(_descriptor.ResourceEntryKey.ResourceHostType, out resourceManager) ? resourceManager : null;
         }
     }
 }

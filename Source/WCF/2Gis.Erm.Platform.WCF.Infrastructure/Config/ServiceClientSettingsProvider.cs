@@ -6,21 +6,28 @@ using System.ServiceModel.Description;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Config
 {
-    public class ServiceClientSettingsProvider : IServiceClientSettingsProvider
+    public sealed class ServiceClientSettingsProvider : IServiceClientSettingsProvider
     {
         private readonly IDictionary<Tuple<Type, Type>, ServiceEndpoint> _contractToEndpointMap = new Dictionary<Tuple<Type, Type>, ServiceEndpoint>();
 
-        public ServiceClientSettingsProvider AddEndpoint<TContract>(Binding binding, Uri baseUrl, string operationApiUrl)
+        public ServiceClientSettingsProvider AddEndpoint<TContract>(Binding binding, Uri baseUrl, string operationApiUrl, params IEndpointBehavior[] endpointBehaviors)
         {
             if (!Attribute.IsDefined(typeof(TContract), typeof(ServiceContractAttribute)))
             {
                 throw new InvalidOperationException(string.Format("Can't add binding mapping since {0} is not an operation contract", typeof(TContract).FullName));
             }
 
-            _contractToEndpointMap[Tuple.Create(typeof(TContract), binding.GetType())] = new ServiceEndpoint(ContractDescription.GetContract(typeof(TContract)),
-                                                                                                             binding,
-                                                                                                             new EndpointAddress(new Uri(baseUrl,
-                                                                                                                                         new Uri(operationApiUrl, UriKind.Relative))));
+            var endpoint = new ServiceEndpoint(
+                ContractDescription.GetContract(typeof(TContract)),
+                binding,
+                new EndpointAddress(new Uri(baseUrl, new Uri(operationApiUrl, UriKind.Relative))));
+
+            foreach (var endpointBehavior in endpointBehaviors)
+            {
+                endpoint.Behaviors.Add(endpointBehavior);
+            }
+
+            _contractToEndpointMap[Tuple.Create(typeof(TContract), binding.GetType())] = endpoint;
 
             return this;
         }

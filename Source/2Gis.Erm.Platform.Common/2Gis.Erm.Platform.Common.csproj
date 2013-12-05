@@ -114,7 +114,7 @@
     <Compile Include="Utils\CompareObjectsHelper.cs" />
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\EnumerableExtensions.cs" />
-    <Compile Include="Utils\Data\ExpressionHelper.cs" />
+    <Compile Include="Utils\Data\ExpressionUtils.cs" />
     <Compile Include="Utils\Data\QueryableExtensions.cs" />
     <Compile Include="Utils\Data\QueryField.cs" />
     <Compile Include="Utils\Data\QuerySettings.cs" />
@@ -143,6 +143,11 @@
     <Compile Include="SolutionInfo.cs" />
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
+    <Compile Include="Utils\PropertyChangeDescriptor.cs" />
+    <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />
+    <Compile Include="Utils\Resources\ResourceEntryKey.cs" />
+    <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
+    <Compile Include="Utils\Resources\ResourceUtils.cs" />
     <Compile Include="Utils\StaticReflection.cs" />
     <Compile Include="Xml\XElementGeneratorStaticExtensions.cs" />
     <Compile Include="Xml\XmlValidator.cs" />

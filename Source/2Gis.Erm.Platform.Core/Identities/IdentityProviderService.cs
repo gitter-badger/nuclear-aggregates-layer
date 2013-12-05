@@ -5,7 +5,6 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {
-    // TODO {a.rechkalov, 30.07.2013}: Реализация IIdentityProviderService не должна быть в сборке бизнес-логики, т.к. является инфраструктурой системы
     public sealed class IdentityProviderService : IIdentityProviderService
     {
         private const int TimeMaskLength = 41;

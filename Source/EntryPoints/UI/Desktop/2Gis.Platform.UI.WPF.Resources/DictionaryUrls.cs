@@ -8,8 +8,8 @@ namespace DoubleGis.Platform.UI.WPF.Resources
         private static readonly Uri ModernUILightUri = new Uri("pack://application:,,,/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml");
         private static readonly Uri ModernButtonUri = new Uri("pack://application:,,,/FirstFloor.ModernUI;component/Assets/Button.xaml");
         private static readonly Uri ModernConvertersUri = new Uri("pack://application:,,,/FirstFloor.ModernUI;component/Assets/Converters.xaml");
-        private static readonly Uri ModernWindowUri = new Uri("pack://application:,,,/2Gis.UI.WPF.Resources;component/Styles/ModernWindow.xaml");
-        private static readonly Uri MenuUri = new Uri("pack://application:,,,/2Gis.UI.WPF.Resources;component/Styles/Menu.xaml");
+        private static readonly Uri ModernWindowUri = new Uri("pack://application:,,,/2Gis.Platform.UI.WPF.Resources;component/Styles/ModernWindow.xaml");
+        private static readonly Uri MenuUri = new Uri("pack://application:,,,/2Gis.Platform.UI.WPF.Resources;component/Styles/Menu.xaml");
 
         public static Uri ModernUI
         {

@@ -309,7 +309,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                     }
                 }
 
-                // обрабатываемые интерфейс - считается специфичным для всех типов сущностей, для которых специфичны расширяемые им базовые интерфейсы операций
+                // обрабатываемый интерфейс - считается специфичным для всех типов сущностей, для которых специфичны расширяемые им базовые интерфейсы операций
                 var mergedOperationSpecificTypes = operationSpecificTypesList.Merge();
                 AddEntitySpecificImplementationToMap(entitySpecificOperationsMap,
                                                      processingEntitySpecificOperation,
@@ -357,12 +357,33 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
             var targetOperationEntitiesCount = targetEntityOperationType.GetGenericArguments().Length;
             var genericArguments = processingType.GetGenericArguments();
-            if (!processingType.IsGenericTypeDefinition && !genericArguments.Any(x => x.IsGenericParameter))
-            {   // операция реализована специфическим образом для конкретного типа сущности(ей), т.е. closed generic
-                return new EntitySet(genericArguments.Take(targetOperationEntitiesCount).Select(t => t.AsEntityName()).ToArray());
+            if (genericArguments.Length != targetOperationEntitiesCount)
+            {
+                // TODO {all, 12.11.2013}: подумать корректна ли данная ситуация, пока выглядит как не корректная поэтому exception
+                // хотя потенциально возможно, что у типа generic от трех параметров, а у в базовом интерфейсе сущностно специфичной операции, например, 2
+                // при этом первые 2 соответствуют аргументам базового интерфейса сущностно специфичной операции, а
+                // трейтий параметр, может использоваться для каких-то внутренний целей и т.п. типа реализатора
+                throw new InvalidOperationException(
+                    string.Format("Type {0} with {1} type arguments extend base interface for entity specific operation {2} with type args count {3}, type argumetns count mismatch",
+                    processingType,
+                    genericArguments.Length,
+                    targetEntityOperationType,
+                    targetOperationEntitiesCount
+                ));
             }
 
-            return new EntitySet(new[] { OperationsEntityNameUtils.EntitySpecificGenericImplementationIndicator });
+            var entityNames = new EntityName[targetOperationEntitiesCount];
+            for (int i = 0; i < targetOperationEntitiesCount; i++)
+            {
+                var currentTypeParameter = genericArguments[i];
+                var appropriateEntityName =
+                    !currentTypeParameter.IsGenericParameter
+                        ? currentTypeParameter.AsEntityName()
+                        : EntitySet.OpenEntitiesSetIndicator;
+                entityNames[i] = appropriateEntityName;
+            }
+
+            return entityNames.ToEntitySet();
         }
 
         private void ConfigureOperationsInfrastructureForDi(IUnityContainer container,
@@ -420,16 +441,21 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                        .ToDictionary(t => t.Key, t => t.Value.Single());
 
             container
-                .RegisterType<IOperationAcceptabilityRegistrar, OperationAcceptabilityRegistrar>(Lifetime.Singleton)
-                .RegisterType<IOperationApplicabilityByMetadataResolver, OperationApplicabilityByMetadataResolver>(Lifetime.Singleton)
-                .RegisterType<IOperationsMetadataProvider, OperationsMetadataProvider>(_lifetimeManagerFactoryMethod())
-                .RegisterType<IOperationIdentityRegistry, OperationIdentityRegistry>(Lifetime.Singleton,
-                                                                       new InjectionConstructor(_baseOperations2IdentitiesMap.Values))
                 .RegisterType<IOperationsRegistry, OperationsRegistry>(Lifetime.Singleton,
-                                                                       new InjectionConstructor(
-                                                                           entitySpecificOperationsMapShrink, 
-                                                                           nonCoupledOperationsMapShrink,
-                                                                           _baseOperations2IdentitiesMap));
+                                                                       new InjectionConstructor(entitySpecificOperationsMapShrink,
+                                                                                                nonCoupledOperationsMapShrink,
+                                                                                                _baseOperations2IdentitiesMap))
+                .RegisterType<IOperationAcceptabilityRegistrar, OperationAcceptabilityRegistrar>(Lifetime.Singleton)
+                .RegisterType<IOperationsMetadataProvider, OperationsMetadataProvider>(_lifetimeManagerFactoryMethod())
+
+                // FIXME {d.ivanov, 02.12.2013}: IOperationsMetadataProvider зарегистрирован второй раз в _mappingScope, 
+                //                               т.к. от него зависит операция IActionsHistoryService, а все зависимости операций регистрируются в _mappingScope.
+                //                               Чтобы убрать эту двойную регистрацию, нужно избавиться от ErmScope и SecurityScope, т.к. в них сейчас уже нет смысла
+                .RegisterType<IOperationsMetadataProvider, OperationsMetadataProvider>(_mappingScope, _lifetimeManagerFactoryMethod())
+                
+                .RegisterType<IOperationApplicabilityByMetadataResolver, OperationApplicabilityByMetadataResolver>(Lifetime.Singleton)
+                .RegisterType<IOperationIdentityRegistry, OperationIdentityRegistry>(Lifetime.Singleton,
+                                                                                     new InjectionConstructor(_baseOperations2IdentitiesMap.Values));
         }
 
         private void ResolveConflictsForEntitySpecificOperations(Dictionary<Type, Dictionary<EntitySet, HashSet<Type>>> entitySpecificOperationsMap)

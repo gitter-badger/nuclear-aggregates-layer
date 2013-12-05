@@ -21,10 +21,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed partial class UserTerritoriesOrganizationUnits : 
-        IEntity, 
-        IEntityKey
+        IEntity
     {
-        public long Id { get; set; }
         public long UserId { get; set; }
         public long OrganizationUnitId { get; set; }
         public Nullable<long> TerritoryId { get; set; }

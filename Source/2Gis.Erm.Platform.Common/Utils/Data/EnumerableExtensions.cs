@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace DoubleGis.Erm.Platform.Common.Utils.Data
 {
-    public static partial class EnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             return source.DistinctBy(keySelector, null);
         }
-
 
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
                                                                      Func<TSource, TKey> keySelector,

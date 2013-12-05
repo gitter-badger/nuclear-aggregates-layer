@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="117">
+      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="34">
         <edmx:EntityTypeShape EntityType="ErmModel.CurrencyRate" Width="1.5" PointX="3" PointY="80.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.MessageType" Width="1.5" PointX="8.25" PointY="101.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPositionsGroup" Width="1.5" PointX="18" PointY="77.125" IsExpanded="true" />
@@ -256,16 +256,6 @@
         <edmx:AssociationConnector Association="ErmModel.FK_ActivityPropertyInstances_ActivityInstances" ManuallyRouted="false" />
         <edmx:EntityTypeShape EntityType="ErmModel.BusinessOperationService" Width="1.5" PointX="0.99956246698254825" PointY="6.0447178660168861" />
         <edmx:EntityTypeShape EntityType="ErmModel.PerformedBusinessOperation" Width="1.5" PointX="1.1643178989944598" PointY="25.584350270025595" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowFinancialData_Client_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowOrders_Order_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowOrders_Resource_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowOrders_Theme_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ExportToMsCrm_HotClients_PerformedBusinessOperations" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ImportedFirmAddresses_PerformedBusinessOperations" />
         <edmx:EntityTypeShape EntityType="ErmModel.SecurityAccelerator" Width="1.5" PointX="9.0770890438356862" PointY="2.3663200151018424" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_BaseOrders" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_LegalPersonProfiles" />

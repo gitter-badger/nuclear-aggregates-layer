@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Resources;
 
 using DoubleGis.Platform.UI.WPF.Infrastructure.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
@@ -14,10 +13,10 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
     {
         private readonly IUserInfo _userInfo;
 
-        public Localizer(IUserInfo userInfo, params ResourceManager[] resourceManagers)
+        public Localizer(IUserInfo userInfo, params Type[] resourceManagerHostTypes)
         {
             _userInfo = userInfo;
-            Localized = new DynamicResourceDictionary(userInfo.Culture, resourceManagers);
+            Localized = new DynamicResourceDictionary(userInfo.Culture, resourceManagerHostTypes);
             // когда появится необходимость реагировать на переключения культуры пользователя userInfo.Changed += OnCultureInfoChanged;
         }
 

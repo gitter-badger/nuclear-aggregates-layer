@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
                 throw new InvalidOperationException(string.Format("Type {0} is not assignable from {1}", tFrom, tTo));
             }
 
-            return container.RegisterTypeWithDependencies(tFrom, tTo, GetPerCallUniqueMarker(), lifetimeManager);
+            return container.RegisterTypeWithDependencies(tFrom, tTo, GetPerCallUniqueMarker(), lifetimeManager, (string)null);
         }
 
         public static IUnityContainer RegisterOne2ManyTypesPerCallUniqueness<TFrom, TTo>(this IUnityContainer container, LifetimeManager lifetimeManager) where TTo : TFrom
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
                 throw new InvalidOperationException(string.Format("Type {0} is not assignable from {1}", tFrom, tTo));
             }
 
-            return container.RegisterTypeWithDependencies(tFrom, tTo, tTo.GetPerTypeUniqueMarker(), lifetimeManager);
+            return container.RegisterTypeWithDependencies(tFrom, tTo, tTo.GetPerTypeUniqueMarker(), lifetimeManager, (string)null);
         }
 
         public static IUnityContainer RegisterOne2ManyTypesPerTypeUniqueness<TFrom, TTo>(this IUnityContainer container, LifetimeManager lifetimeManager) where TTo : TFrom

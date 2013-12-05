@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         int OrderRequestProcessingHoursAmount { get; }
 
         AppTargetEnvironment TargetEnvironment { get; }
+        string TargetEnvironmentName { get; }
         string EntryPointName { get; }
     }
 }

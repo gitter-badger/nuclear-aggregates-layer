@@ -10,6 +10,7 @@ using System.Transactions;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -122,17 +123,17 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         public IQueryable<FileWithContent> Find(IFindSpecification<FileWithContent> findSpecification)
         {
-            return FindInternal(findSpecification);
+            return FindInternal(findSpecification.Predicate);
         }
 
         public IQueryable<TOutput> Find<TOutput>(ISelectSpecification<FileWithContent, TOutput> selectSpecification, IFindSpecification<FileWithContent> findSpecification)
         {
-            return FindInternal(findSpecification).Select(selectSpecification.Selector);
+            return FindInternal(findSpecification.Predicate).Select(selectSpecification.Selector);
         }
 
         public IQueryable<FileWithContent> Find(Expression<Func<FileWithContent, bool>> expression)
         {
-            return FindInternal(new FindSpecification<FileWithContent>(expression));
+            return FindInternal(expression);
         }
 
         private static void CheckArgumentNull<T>(T value, string parameterName) where T : class
@@ -143,9 +144,9 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             }
         }
 
-        private IQueryable<FileWithContent> FindInternal(IFindSpecification<FileWithContent> findSpecification)
+        private IQueryable<FileWithContent> FindInternal(Expression<Func<FileWithContent, bool>> findExpression)
         {
-            var result = RepositoryFileQuery.Where(findSpecification.ReplaceParameterType<FileWithContent, File>().Predicate).ToArray();
+            var result = RepositoryFileQuery.Where(findExpression.ReplaceParameterType<FileWithContent, File>()).ToArray();
             return result.Select(OpenContentForFile).AsQueryable();
         }
 

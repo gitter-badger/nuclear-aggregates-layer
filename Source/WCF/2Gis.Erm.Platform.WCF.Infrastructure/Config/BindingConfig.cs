@@ -188,5 +188,18 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Config
             Binding.ClientBaseAddress = new Uri(clientBaseAddress);
             return this;
         }
+
+        public WsDualHttpBindingBuilder UseMessageSecurity(MessageCredentialType type)
+        {
+            Binding.Security.Mode = WSDualHttpSecurityMode.Message;
+            Binding.Security.Message.ClientCredentialType = type;
+            return this;
+        }
+
+        public WsDualHttpBindingBuilder MaxReceivedMessageSize(long messageSize)
+        {
+            Binding.MaxReceivedMessageSize = messageSize;
+            return this;
+        }
     }
 }

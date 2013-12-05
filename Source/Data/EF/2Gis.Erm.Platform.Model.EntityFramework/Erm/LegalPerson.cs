@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.Bargains = new HashSet<Bargain>();
             this.LegalPersonProfiles = new HashSet<LegalPersonProfile>();
             this.Orders = new HashSet<Order>();
+            this.OrderProcessingRequests = new HashSet<OrderProcessingRequest>();
         }
     
         public long Id { get; set; }
@@ -88,6 +89,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Client Client { get; set; }
         public ICollection<LegalPersonProfile> LegalPersonProfiles { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ICollection<OrderProcessingRequest> OrderProcessingRequests { get; set; }
     }
 }
 

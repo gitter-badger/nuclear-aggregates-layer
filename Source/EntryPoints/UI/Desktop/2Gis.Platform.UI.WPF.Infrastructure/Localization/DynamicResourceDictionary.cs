@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
-using System.Text;
 
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
 {
+    // TODO {all, 27.11.2013}: пока обрабатываются только указанные ресурсники + смене целевой культуры происходит повторная обработка - нужно подумать над кэшированием (как внутри экземпляра - найденных ресурсников, так и самих containers)
+    // TODO {all, 27.11.2013}: подумать над переходом к DynamicObject в данном конкретном случае, т.к. профит ICustomTypeProvider в его поддержки конкретных типов для динамических свойств
+    // Однако, для работы со строковыми ресурсами это асболютно никчему, работа идет в режиме readonly (oneway) binding, и тип свойств и так строки (значения resourceentry для конкретной культуры)
     /// <summary>
     /// Объекты класса используются в качестве прокси-свойств в различных View
     /// Пример: <Label Content="{Binding DynamicResourceDictionary.ResourceId}"/>
@@ -18,12 +18,12 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
     public sealed class DynamicResourceDictionary : ICustomTypeProvider, IDynamicPropertiesContainer
     {
         private readonly DynamicPropertiesContainer<DynamicResourceDictionary> _dynamicViewModelPropertiesContainer = new DynamicPropertiesContainer<DynamicResourceDictionary>();
-        private readonly ResourceManager[] _resourceManagers;
+        private readonly Type[] _resourceManagerHostTypes;
         private CultureInfo _culture;
 
-        public DynamicResourceDictionary(CultureInfo targetInitialCulture, params ResourceManager[] resourceManagers)
+        public DynamicResourceDictionary(CultureInfo targetInitialCulture, params Type[] resourceManagerHostTypeHostTypes)
         {
-            _resourceManagers = resourceManagers;
+            _resourceManagerHostTypes = resourceManagerHostTypeHostTypes;
             _culture = targetInitialCulture;
 
             InitResourceEntriesMap(targetInitialCulture);
@@ -94,18 +94,19 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
 
         private void InitResourceEntriesMap(CultureInfo targetCultureInfo)
         {
+            // TODO {all, 27.11.2013}: если будет переработана схема хранения использования/информации на кэширующую и т.п. - нужно будет отказаться от проверок на уникальность ресурсов в данном типе - тогда ими должны будут заниматься только на этапе конфигурирования приложения
             var configurator = (IDynamicPropertiesContainerConfigurator)_dynamicViewModelPropertiesContainer;
-            var allResourceEntries = GetResourceEntries(_resourceManagers, targetCultureInfo);
+            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(targetCultureInfo);
 
-            string duplicatesDesciption;
-            if (TryGetDuplicatedResourceEntry(allResourceEntries, out duplicatesDesciption))
+            string report;
+            if (availableResources.TryGetDuplicatedResourceEntry(out report))
             {
-                throw new InvalidOperationException("Duplicated resource entries detected. " + duplicatesDesciption);
+                throw new InvalidOperationException("Resources usage conventions violated. Duplicated resource entries detected. " + report);
             }
 
-            foreach (var dictionaryEntry in allResourceEntries)
+            foreach (var entryInfo in availableResources)
             {
-                configurator.AddProperty((string)dictionaryEntry.Key, typeof(string), dictionaryEntry.Value.Single().Item2.Value, Enumerable.Empty<Attribute>());
+                configurator.AddProperty(entryInfo.Key, typeof(string), entryInfo.Value.Entries.Single().Value.ValuesMap[targetCultureInfo], Enumerable.Empty<Attribute>());
             }
 
             configurator.Lock();
@@ -113,47 +114,12 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
 
         private void UpdateResourceEntriesMap(CultureInfo targetCultureInfo)
         {
-            var allResourceEntries = GetResourceEntries(_resourceManagers, targetCultureInfo);
+            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(targetCultureInfo);
             var entriesContainer = (IDynamicPropertiesContainer)_dynamicViewModelPropertiesContainer;
-            foreach (var dictionaryEntry in allResourceEntries)
+            foreach (var entryInfo in availableResources)
             {
-                entriesContainer.SetDynamicPropertyValue((string)dictionaryEntry.Key, dictionaryEntry.Value.Single().Item2.Value);
+                entriesContainer.SetDynamicPropertyValue(entryInfo.Key, entryInfo.Value.Entries.Single().Value.ValuesMap[targetCultureInfo]);
             }
-        }
-
-        private static IReadOnlyDictionary<object, List<Tuple<ResourceManager, DictionaryEntry>>> GetResourceEntries(IEnumerable<ResourceManager> resourceManagers, CultureInfo culture)
-        {
-            var resourceEntriesRegistry = new Dictionary<object, List<Tuple<ResourceManager, DictionaryEntry>>>();
-            foreach (var resourceManager in resourceManagers)
-            {
-                foreach (var entry in resourceManager.GetResourceSet(culture, true, true).Cast<DictionaryEntry>())
-                {
-                    List<Tuple<ResourceManager, DictionaryEntry>> entries;
-                    if (!resourceEntriesRegistry.TryGetValue(entry.Key, out entries))
-                    {
-                        entries = new List<Tuple<ResourceManager, DictionaryEntry>>();
-                        resourceEntriesRegistry.Add(entry.Key, entries);
-                    }
-
-                    entries.Add(new Tuple<ResourceManager, DictionaryEntry>(resourceManager, entry));
-                }
-            }
-
-            return resourceEntriesRegistry;
-        }
-
-        private static bool TryGetDuplicatedResourceEntry(IEnumerable<KeyValuePair<object, List<Tuple<ResourceManager, DictionaryEntry>>>> entriesregistry, out string duplicatesDescription)
-        {
-            StringBuilder sb = null;
-            foreach (var entry in entriesregistry.Where(e => e.Value.Count > 1))
-            {
-                sb = sb ?? new StringBuilder();
-                sb.AppendFormat("ResourceEntry:{0} is duplicated in several resources: {1}\n", entry.Key,
-                                string.Join(";", entry.Value.Select(b => b.Item1.BaseName)));
-            }
-
-            duplicatesDescription = sb != null ? sb.ToString() : null;
-            return duplicatesDescription != null;
         }
     }
 }

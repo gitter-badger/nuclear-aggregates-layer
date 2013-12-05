@@ -26,8 +26,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     {
         public long Id { get; set; }
         public System.DateTime Date { get; set; }
-    
-        public PerformedBusinessOperation PerformedBusinessOperation { get; set; }
     }
 }
 

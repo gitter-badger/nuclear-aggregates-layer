@@ -1,9 +1,9 @@
-﻿using System.Resources;
+﻿using System;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features
 {
     public sealed class LocalizeViewModelFeature : IViewModelFeature
     {
-        public ResourceManager[] ResourceManagers { get; set; }
+        public Type[] ResourceManagerHostTypes { get; set; }
     }
 }

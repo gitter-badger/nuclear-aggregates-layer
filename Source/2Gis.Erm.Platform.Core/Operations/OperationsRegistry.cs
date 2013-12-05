@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations
             where TOperation : class, IOperation
         {
             resolvedImplementation = null;
-            var defaultDescriptor = new EntitySet(new[] { EntityName.None });
+            var defaultDescriptor = EntitySet.Create.GenericEntitySpecific;
             resolvedOperationDescriptor = defaultDescriptor;
             var operationType = typeof(TOperation);
 

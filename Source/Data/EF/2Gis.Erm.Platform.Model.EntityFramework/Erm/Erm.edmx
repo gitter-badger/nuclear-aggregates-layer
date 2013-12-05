@@ -128,8 +128,7 @@
           </EntitySet>
           <EntitySet Name="vwUserTerritoriesOrganizationUnits" EntityType="ErmModel.Store.vwUserTerritoriesOrganizationUnits" store:Type="Views" store:Schema="Security" store:Name="vwUserTerritoriesOrganizationUnits">
             <DefiningQuery>SELECT 
-      [vwUserTerritoriesOrganizationUnits].[Id] AS [Id], 
-      [vwUserTerritoriesOrganizationUnits].[UserId] AS [UserId], 
+     [vwUserTerritoriesOrganizationUnits].[UserId] AS [UserId], 
       [vwUserTerritoriesOrganizationUnits].[OrganizationUnitId] AS [OrganizationUnitId], 
       [vwUserTerritoriesOrganizationUnits].[TerritoryId] AS [TerritoryId]
       FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrganizationUnits]</DefiningQuery>
@@ -342,42 +341,6 @@
             <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowCardExtensions_CardCommercial" EntitySet="ExportFlowCardExtensions_CardCommercial" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowFinancialData_Client_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowFinancialData_Client_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowFinancialData_Client" EntitySet="ExportFlowFinancialData_Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowFinancialData_LegalEntity" EntitySet="ExportFlowFinancialData_LegalEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowOrders_AdvMaterial" EntitySet="ExportFlowOrders_AdvMaterial" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowOrders_Order_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowOrders_Order_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowOrders_Order" EntitySet="ExportFlowOrders_Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowOrders_Resource_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowOrders_Resource_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowOrders_Resource" EntitySet="ExportFlowOrders_Resource" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowOrders_Theme_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowOrders_Theme_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowOrders_Theme" EntitySet="ExportFlowOrders_Theme" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportFlowOrders_ThemeBranch" EntitySet="ExportFlowOrders_ThemeBranch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExportToMsCrm_HotClients_PerformedBusinessOperations" Association="ErmModel.Store.FK_ExportToMsCrm_HotClients_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ExportToMsCrm_HotClients" EntitySet="ExportToMsCrm_HotClients" />
-          </AssociationSet>
           <AssociationSet Name="FK_FirmAddresses_Buildings" Association="ErmModel.Store.FK_FirmAddresses_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="FirmAddresses" EntitySet="FirmAddresses" />
@@ -405,10 +368,6 @@
           <AssociationSet Name="FK_Firms_Territories" Association="ErmModel.Store.FK_Firms_Territories">
             <End Role="Territories" EntitySet="Territories" />
             <End Role="Firms" EntitySet="Firms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ImportedFirmAddresses_PerformedBusinessOperations" Association="ErmModel.Store.FK_ImportedFirmAddresses_PerformedBusinessOperations">
-            <End Role="PerformedBusinessOperations" EntitySet="PerformedBusinessOperations" />
-            <End Role="ImportedFirmAddresses" EntitySet="ImportedFirmAddresses" />
           </AssociationSet>
           <AssociationSet Name="FK_LegalPersonProfiles_LegalPersons" Association="ErmModel.Store.FK_LegalPersonProfiles_LegalPersons">
             <End Role="LegalPersons" EntitySet="LegalPersons" />
@@ -1538,11 +1497,12 @@
           <Property Name="DueDate" Type="datetime2" Nullable="false" Precision="2" />
           <Property Name="BaseOrderId" Type="bigint" />
           <Property Name="RenewedOrderId" Type="bigint" />
-          <Property Name="ReleaseCountPlan" Type="int" Nullable="false" />
-          <Property Name="SourceOrganizationUnitId" Type="bigint" />
-          <Property Name="BeginDistributionDate" Type="datetime2" Precision="2" />
-          <Property Name="FirmId" Type="bigint" />
-          <Property Name="LegalPersonProfileId" Type="bigint" />
+          <Property Name="ReleaseCountPlan" Type="smallint" Nullable="false" />
+          <Property Name="SourceOrganizationUnitId" Type="bigint" Nullable="false" />
+          <Property Name="BeginDistributionDate" Type="datetime2" Nullable="false" Precision="2" />
+          <Property Name="FirmId" Type="bigint" Nullable="false" />
+          <Property Name="LegalPersonProfileId" Type="bigint" Nullable="false" />
+          <Property Name="LegalPersonId" Type="bigint" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="State" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -2590,16 +2550,11 @@
           <Property Name="DescendantId" Type="bigint" />
           <Property Name="Level" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="vwUserTerritoriesOrganizationUnits">
           <Key>
-            
-            
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrganizationUnitId" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
           <Property Name="TerritoryId" Type="bigint" />
@@ -3228,114 +3183,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowCardExtensions_CardCommercial" Type="ErmModel.Store.ExportFlowCardExtensions_CardCommercial" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowCardExtensions_CardCommercial">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowFinancialData_Client_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowFinancialData_Client" Type="ErmModel.Store.ExportFlowFinancialData_Client" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowFinancialData_Client">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowFinancialData_LegalEntity" Type="ErmModel.Store.ExportFlowFinancialData_LegalEntity" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowFinancialData_LegalEntity">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowOrders_AdvMaterial" Type="ErmModel.Store.ExportFlowOrders_AdvMaterial" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowOrders_AdvMaterial">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowOrders_Order_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowOrders_Order" Type="ErmModel.Store.ExportFlowOrders_Order" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowOrders_Order">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowOrders_Resource_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowOrders_Resource" Type="ErmModel.Store.ExportFlowOrders_Resource" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowOrders_Resource">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowOrders_Theme_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowOrders_Theme" Type="ErmModel.Store.ExportFlowOrders_Theme" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowOrders_Theme">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportFlowOrders_ThemeBranch" Type="ErmModel.Store.ExportFlowOrders_ThemeBranch" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportFlowOrders_ThemeBranch">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExportToMsCrm_HotClients_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ExportToMsCrm_HotClients" Type="ErmModel.Store.ExportToMsCrm_HotClients" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExportToMsCrm_HotClients">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FirmAddresses_Buildings">
           <End Role="Buildings" Type="ErmModel.Store.Buildings" Multiplicity="0..1" />
           <End Role="FirmAddresses" Type="ErmModel.Store.FirmAddresses" Multiplicity="*" />
@@ -3417,18 +3264,6 @@
             </Principal>
             <Dependent Role="Firms">
               <PropertyRef Name="TerritoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ImportedFirmAddresses_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperations" Type="ErmModel.Store.PerformedBusinessOperations" Multiplicity="1" />
-          <End Role="ImportedFirmAddresses" Type="ErmModel.Store.ImportedFirmAddresses" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PerformedBusinessOperations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ImportedFirmAddresses">
-              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3829,7 +3664,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_Firms">
-          <End Role="Firms" Type="ErmModel.Store.Firms" Multiplicity="0..1" />
+          <End Role="Firms" Type="ErmModel.Store.Firms" Multiplicity="1" />
           <End Role="OrderProcessingRequests" Type="ErmModel.Store.OrderProcessingRequests" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Firms">
@@ -3841,7 +3676,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_LegalPersonProfiles">
-          <End Role="LegalPersonProfiles" Type="ErmModel.Store.LegalPersonProfiles" Multiplicity="0..1" />
+          <End Role="LegalPersonProfiles" Type="ErmModel.Store.LegalPersonProfiles" Multiplicity="1" />
           <End Role="OrderProcessingRequests" Type="ErmModel.Store.OrderProcessingRequests" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LegalPersonProfiles">
@@ -3849,6 +3684,18 @@
             </Principal>
             <Dependent Role="OrderProcessingRequests">
               <PropertyRef Name="LegalPersonProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProcessingRequests_LegalPersons">
+          <End Role="LegalPersons" Type="Self.LegalPersons" Multiplicity="1" />
+          <End Role="OrderProcessingRequests" Type="Self.OrderProcessingRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LegalPersons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderProcessingRequests">
+              <PropertyRef Name="LegalPersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3865,7 +3712,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_SourceOrganizationUnits">
-          <End Role="OrganizationUnits" Type="ErmModel.Store.OrganizationUnits" Multiplicity="0..1" />
+          <End Role="OrganizationUnits" Type="ErmModel.Store.OrganizationUnits" Multiplicity="1" />
           <End Role="OrderProcessingRequests" Type="ErmModel.Store.OrderProcessingRequests" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizationUnits">
@@ -4519,6 +4366,9 @@
           <Parameter Name="Id" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ReplicateOrderPosition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Billing">
+          <Parameter Name="Id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="ReplicateOrderProcessingRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Billing">
           <Parameter Name="Id" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ReplicateOrganizationUnit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Billing">
@@ -5366,46 +5216,6 @@
         <EntitySet Name="HotClientRequests" EntityType="ErmModel.HotClientRequest" />
         <EntitySet Name="BusinessOperationServices" EntityType="ErmModel.BusinessOperationService" />
         <EntitySet Name="PerformedBusinessOperations" EntityType="ErmModel.PerformedBusinessOperation" />
-        <AssociationSet Name="FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowCardExtensionsCardCommercial" EntitySet="ExportFlowCardExtensionsCardCommercials" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowFinancialData_Client_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowFinancialData_Client_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowFinancialDataClient" EntitySet="ExportFlowFinancialDataClients" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowFinancialDataLegalEntity" EntitySet="ExportFlowFinancialDataLegalEntities" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowOrdersAdvMaterial" EntitySet="ExportFlowOrdersAdvMaterials" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowOrders_Order_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowOrders_Order_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowOrdersOrder" EntitySet="ExportFlowOrdersOrders" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowOrders_Resource_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowOrders_Resource_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowOrdersResource" EntitySet="ExportFlowOrdersResources" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowOrders_Theme_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowOrders_Theme_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowOrdersTheme" EntitySet="ExportFlowOrdersThemes" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations" Association="ErmModel.FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportFlowOrdersThemeBranch" EntitySet="ExportFlowOrdersThemeBranches" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ExportToMsCrm_HotClients_PerformedBusinessOperations" Association="ErmModel.FK_ExportToMsCrm_HotClients_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ExportToMsCrm_HotClients" EntitySet="ExportToMsCrm_HotClients" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ImportedFirmAddresses_PerformedBusinessOperations" Association="ErmModel.FK_ImportedFirmAddresses_PerformedBusinessOperations">
-          <End Role="PerformedBusinessOperation" EntitySet="PerformedBusinessOperations" />
-          <End Role="ImportedFirmAddress" EntitySet="ImportedFirmAddresses" />
-        </AssociationSet>
           <EntitySet Name="SecurityAccelerators" EntityType="ErmModel.SecurityAccelerator" />
           <AssociationSet Name="FK_OrderProcessingRequests_BaseOrders" Association="ErmModel.FK_OrderProcessingRequests_BaseOrders">
             <End Role="Order" EntitySet="Orders" />
@@ -5427,6 +5237,13 @@
             <End Role="OrganizationUnit" EntitySet="OrganizationUnits" />
             <End Role="OrderProcessingRequest" EntitySet="OrderProcessingRequests" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderProcessingRequests_LegalPersons" Association="ErmModel.FK_OrderProcessingRequests_LegalPersons">
+            <End Role="LegalPerson" EntitySet="LegalPersons" />
+            <End Role="OrderProcessingRequest" EntitySet="OrderProcessingRequests" />
+          </AssociationSet>
+          <FunctionImport Name="ReplicateOrderProcessingRequest">
+          <Parameter Name="Id" Mode="In" Type="Int64" />
+          </FunctionImport>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -6038,9 +5855,9 @@
       </Association>
       <EntityType Name="UserTerritoriesOrganizationUnits">
         <Key>
-          <PropertyRef Name="Id" />
+            <PropertyRef Name="OrganizationUnitId" />
+            <PropertyRef Name="UserId" />
         </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int64" Name="UserId" Nullable="false" />
         <Property Type="Int64" Name="OrganizationUnitId" Nullable="false" />
         <Property Type="Int64" Name="TerritoryId" />
@@ -6922,10 +6739,12 @@
         <Property Type="DateTime" Name="DueDate" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="BaseOrderId" />
         <Property Type="Int64" Name="RenewedOrderId" />
-        <Property Type="Int64" Name="SourceOrganizationUnitId" />
-        <Property Type="DateTime" Name="BeginDistributionDate" Precision="2" />
-        <Property Type="Int64" Name="FirmId" />
-        <Property Type="Int64" Name="LegalPersonProfileId" />
+        <Property Type="Int64" Name="SourceOrganizationUnitId" Nullable="false" />
+        <Property Type="DateTime" Name="BeginDistributionDate" Nullable="false" Precision="2" />
+        <Property Type="Int64" Name="FirmId" Nullable="false" />
+        <Property Type="Int64" Name="LegalPersonProfileId" Nullable="false" />
+       <Property Name="LegalPersonId" Type="Int64" Nullable="false" />
+       
         <Property Type="String" Name="Description" Unicode="true" FixedLength="false" MaxLength="Max" />
         <Property Type="Int32" Name="State" Nullable="false" />
 		<Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -6936,12 +6755,13 @@
         <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
         <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+       <NavigationProperty Name="LegalPerson" Relationship="ErmModel.FK_OrderProcessingRequests_LegalPersons" FromRole="OrderProcessingRequest" ToRole="LegalPerson" />
           <NavigationProperty Name="BaseOrder" Relationship="ErmModel.FK_OrderProcessingRequests_BaseOrders" FromRole="OrderProcessingRequest" ToRole="Order" />
           <NavigationProperty Name="LegalPersonProfile" Relationship="ErmModel.FK_OrderProcessingRequests_LegalPersonProfiles" FromRole="OrderProcessingRequest" ToRole="LegalPersonProfile" />
           <NavigationProperty Name="Firm" Relationship="ErmModel.FK_OrderProcessingRequests_Firms" FromRole="OrderProcessingRequest" ToRole="Firm" />
           <NavigationProperty Name="RenewedOrder" Relationship="ErmModel.FK_OrderProcessingRequests_RenewedOrders" FromRole="OrderProcessingRequest" ToRole="Order" />
           <NavigationProperty Name="SourceOrganizationUnit" Relationship="ErmModel.FK_OrderProcessingRequests_SourceOrganizationUnits" FromRole="OrderProcessingRequest" ToRole="OrganizationUnit" />
-          <Property Type="Int32" Name="ReleaseCountPlan" Nullable="false" />
+          <Property Type="Int16" Name="ReleaseCountPlan" Nullable="false" />
       </EntityType>
       <EntityType Name="Contact">
         <Key>
@@ -8670,6 +8490,7 @@
         <NavigationProperty Name="Client" Relationship="ErmModel.FK_LegalPersons_Clients" FromRole="LegalPerson" ToRole="Client" />
         <NavigationProperty Name="LegalPersonProfiles" Relationship="ErmModel.FK_LegalPersonProfiles_LegalPersons" FromRole="LegalPerson" ToRole="LegalPersonProfile" />
         <NavigationProperty Name="Orders" Relationship="ErmModel.FK_Orders_LegalPersons" FromRole="LegalPerson" ToRole="Order" />
+        <NavigationProperty Name="OrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_LegalPersons" FromRole="LegalPerson" ToRole="OrderProcessingRequest" />
         <Property Type="String" Name="VAT" MaxLength="11" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="CardNumber" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Ic" FixedLength="false" MaxLength="8" Unicode="true" Nullable="true" />
@@ -9222,7 +9043,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations" FromRole="ExportFlowCardExtensionsCardCommercial" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowFinancialDataLegalEntity">
         <Key>
@@ -9230,7 +9050,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations" FromRole="ExportFlowFinancialDataLegalEntity" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowOrdersAdvMaterial">
         <Key>
@@ -9238,7 +9057,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations" FromRole="ExportFlowOrdersAdvMaterial" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowOrdersOrder">
         <Key>
@@ -9246,7 +9064,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowOrders_Order_PerformedBusinessOperations" FromRole="ExportFlowOrdersOrder" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowOrdersResource">
         <Key>
@@ -9254,7 +9071,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowOrders_Resource_PerformedBusinessOperations" FromRole="ExportFlowOrdersResource" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowOrdersTheme">
         <Key>
@@ -9262,7 +9078,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowOrders_Theme_PerformedBusinessOperations" FromRole="ExportFlowOrdersTheme" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFlowOrdersThemeBranch">
         <Key>
@@ -9270,7 +9085,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations" FromRole="ExportFlowOrdersThemeBranch" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ImportedFirmAddress">
         <Key>
@@ -9278,7 +9092,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ImportedFirmAddresses_PerformedBusinessOperations" FromRole="ImportedFirmAddress" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportFailedEntity">
         <Key>
@@ -9294,7 +9107,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportFlowFinancialData_Client_PerformedBusinessOperations" FromRole="ExportFlowFinancialDataClient" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="ExportToMsCrm_HotClients">
         <Key>
@@ -9302,7 +9114,6 @@
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-        <NavigationProperty Name="PerformedBusinessOperation" Relationship="ErmModel.FK_ExportToMsCrm_HotClients_PerformedBusinessOperations" FromRole="ExportToMsCrm_HotClients" ToRole="PerformedBusinessOperation" />
       </EntityType>
       <EntityType Name="HotClientRequest">
         <Key>
@@ -9345,137 +9156,7 @@
         <Property Type="String" Name="Context" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="Parent" />
-        <NavigationProperty Name="ExportFlowCardExtensions_CardCommercial" Relationship="ErmModel.FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowCardExtensionsCardCommercial" />
-        <NavigationProperty Name="ExportFlowFinancialData_Client" Relationship="ErmModel.FK_ExportFlowFinancialData_Client_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowFinancialDataClient" />
-        <NavigationProperty Name="ExportFlowFinancialData_LegalEntity" Relationship="ErmModel.FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowFinancialDataLegalEntity" />
-        <NavigationProperty Name="ExportFlowOrders_AdvMaterial" Relationship="ErmModel.FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowOrdersAdvMaterial" />
-        <NavigationProperty Name="ExportFlowOrders_Order" Relationship="ErmModel.FK_ExportFlowOrders_Order_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowOrdersOrder" />
-        <NavigationProperty Name="ExportFlowOrders_Resource" Relationship="ErmModel.FK_ExportFlowOrders_Resource_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowOrdersResource" />
-        <NavigationProperty Name="ExportFlowOrders_Theme" Relationship="ErmModel.FK_ExportFlowOrders_Theme_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowOrdersTheme" />
-        <NavigationProperty Name="ExportFlowOrders_ThemeBranch" Relationship="ErmModel.FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportFlowOrdersThemeBranch" />
-        <NavigationProperty Name="ExportToMsCrm_HotClients" Relationship="ErmModel.FK_ExportToMsCrm_HotClients_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ExportToMsCrm_HotClients" />
-        <NavigationProperty Name="ImportedFirmAddress" Relationship="ErmModel.FK_ImportedFirmAddresses_PerformedBusinessOperations" FromRole="PerformedBusinessOperation" ToRole="ImportedFirmAddress" />
       </EntityType>
-      <Association Name="FK_ExportFlowCardExtensions_CardCommercial_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowCardExtensionsCardCommercial" Role="ExportFlowCardExtensionsCardCommercial" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowCardExtensionsCardCommercial">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowFinancialData_Client_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowFinancialDataClient" Role="ExportFlowFinancialDataClient" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowFinancialDataClient">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowFinancialData_LegalEntity_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowFinancialDataLegalEntity" Role="ExportFlowFinancialDataLegalEntity" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowFinancialDataLegalEntity">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowOrders_AdvMaterial_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowOrdersAdvMaterial" Role="ExportFlowOrdersAdvMaterial" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowOrdersAdvMaterial">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowOrders_Order_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowOrdersOrder" Role="ExportFlowOrdersOrder" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowOrdersOrder">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowOrders_Resource_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowOrdersResource" Role="ExportFlowOrdersResource" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowOrdersResource">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowOrders_Theme_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowOrdersTheme" Role="ExportFlowOrdersTheme" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowOrdersTheme">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportFlowOrders_ThemeBranch_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportFlowOrdersThemeBranch" Role="ExportFlowOrdersThemeBranch" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportFlowOrdersThemeBranch">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ExportToMsCrm_HotClients_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ExportToMsCrm_HotClients" Role="ExportToMsCrm_HotClients" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ExportToMsCrm_HotClients">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ImportedFirmAddresses_PerformedBusinessOperations">
-        <End Type="ErmModel.PerformedBusinessOperation" Role="PerformedBusinessOperation" Multiplicity="1" />
-        <End Type="ErmModel.ImportedFirmAddress" Role="ImportedFirmAddress" Multiplicity="0..1" />
-        <ReferentialConstraint>
-          <Principal Role="PerformedBusinessOperation">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ImportedFirmAddress">
-            <PropertyRef Name="Id" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
         <EntityType Name="SecurityAccelerator">
           <Key>
             <PropertyRef Name="UserId" />
@@ -9499,7 +9180,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_LegalPersonProfiles">
-          <End Type="ErmModel.LegalPersonProfile" Role="LegalPersonProfile" Multiplicity="0..1" />
+          <End Type="ErmModel.LegalPersonProfile" Role="LegalPersonProfile" Multiplicity="1" />
           <End Type="ErmModel.OrderProcessingRequest" Role="OrderProcessingRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LegalPersonProfile">
@@ -9511,7 +9192,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_Firms">
-          <End Type="ErmModel.Firm" Role="Firm" Multiplicity="0..1" />
+          <End Type="ErmModel.Firm" Role="Firm" Multiplicity="1" />
           <End Type="ErmModel.OrderProcessingRequest" Role="OrderProcessingRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Firm">
@@ -9535,7 +9216,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderProcessingRequests_SourceOrganizationUnits">
-          <End Type="ErmModel.OrganizationUnit" Role="OrganizationUnit" Multiplicity="0..1" />
+          <End Type="ErmModel.OrganizationUnit" Role="OrganizationUnit" Multiplicity="1" />
           <End Type="ErmModel.OrderProcessingRequest" Role="OrderProcessingRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizationUnit">
@@ -9546,6 +9227,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+      <Association Name="FK_OrderProcessingRequests_LegalPersons">
+        <End Type="ErmModel.LegalPerson" Role="LegalPerson" Multiplicity="1" />
+        <End Type="ErmModel.OrderProcessingRequest" Role="OrderProcessingRequest" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="LegalPerson">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="OrderProcessingRequest">
+            <PropertyRef Name="LegalPersonId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -10222,7 +9915,6 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
               <ScalarProperty Name="TerritoryId" ColumnName="TerritoryId" />
               <ScalarProperty Name="OrganizationUnitId" ColumnName="OrganizationUnitId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>
@@ -10402,6 +10094,7 @@
 		    <EntitySetMapping Name="OrderProcessingRequests">
           <EntityTypeMapping TypeName="ErmModel.OrderProcessingRequest">
             <MappingFragment StoreEntitySet="OrderProcessingRequests">
+              <ScalarProperty Name="LegalPersonId" ColumnName="LegalPersonId" />
               <ScalarProperty Name="ReleaseCountPlan" ColumnName="ReleaseCountPlan" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
@@ -11515,6 +11208,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ReplicateOrderProcessingRequest" FunctionName="ErmModel.Store.ReplicateOrderProcessingRequest" />
       </EntityContainerMapping>
     </Mapping>
   </edmx:Mappings>

@@ -96,6 +96,32 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
         #endregion
 
+        #region Constructor
+
+        /// <summary>
+        /// Set up defaults for the comparison
+        /// </summary>
+        public CompareObjects()
+        {
+            Differences = new List<string>();
+            DifferenceMap = new Dictionary<string, PropertyChangeDescriptor>();
+            ElementsToIgnore = new List<string>();
+            AttributesToIgnore = new List<Type>();
+            CompareStaticFields = true;
+            CompareStaticProperties = true;
+            ComparePrivateProperties = false;
+            ComparePrivateFields = false;
+            CompareChildren = true;
+            CompareReadOnly = true;
+            CompareFields = true;
+            CompareProperties = true;
+            Caching = true;
+            AutoClearCache = true;
+            MaxDifferences = 1;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -168,7 +194,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         /// <summary>
         /// The differences found during the compare
         /// </summary>
-        public List<String> Differences { get; set; }
+        public List<string> Differences { get; set; }
 
         /// <summary>
         /// The differences found in a string suitable for a textbox
@@ -177,7 +203,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         {
             get
             {
-                StringBuilder sb = new StringBuilder(4096);
+                var sb = new StringBuilder(4096);
 
                 sb.Append("\r\nBegin Differences:\r\n");
 
@@ -212,33 +238,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         /// <example>AttributesToIgnore.Add(typeof(XmlIgnoreAttribute));</example>
         public List<Type> AttributesToIgnore { get; set; }
 
-        public Dictionary<string, Tuple<object, object>> DifferenceMap { get; private set; }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Set up defaults for the comparison
-        /// </summary>
-        public CompareObjects()
-        {
-            Differences = new List<string>();
-            DifferenceMap = new Dictionary<string, Tuple<object, object>>();
-            ElementsToIgnore = new List<string>();
-            AttributesToIgnore = new List<Type>();
-            CompareStaticFields = true;
-            CompareStaticProperties = true;
-            ComparePrivateProperties = false;
-            ComparePrivateFields = false;
-            CompareChildren = true;
-            CompareReadOnly = true;
-            CompareFields = true;
-            CompareProperties = true;
-            Caching = true;
-            AutoClearCache = true;
-            MaxDifferences = 1;
-        }
+        public Dictionary<string, PropertyChangeDescriptor> DifferenceMap { get; private set; }
 
         #endregion
 
@@ -371,8 +371,6 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
         }
 
-
-
         /// <summary>
         /// Check if any type has attributes that should be bypassed
         /// </summary>
@@ -382,7 +380,9 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             foreach (Type attributeType in AttributesToIgnore)
             {
                 if (type.GetCustomAttributes(attributeType, false).Length > 0)
+                {
                     return true;
+                }
             }
 
             return false;
@@ -1171,7 +1171,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
         {
             if (!_elementToIgnoreWildcards.Any(wildcard => wildcard.IsMatch(breadCrumb)))
             {
-                DifferenceMap.Add(breadCrumb.Trim('.'), Tuple.Create(object1, object2));
+                DifferenceMap.Add(breadCrumb.Trim('.'), new PropertyChangeDescriptor(object1, object2));
             }
         }
 

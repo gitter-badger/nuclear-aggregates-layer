@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
@@ -20,68 +19,84 @@ namespace DoubleGis.Erm.Platform.Core.ActionLogging
         private readonly IRepository<ActionsHistoryDetail> _actionsHistoryDetailRepository;
         private readonly IActionLoggingValidatorFactory _actionLoggingValidatorFactory;
         private readonly IIdentityProvider _identityProvider;
-        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IOperationScopeFactory _scopeFactory;
 
         public ActionsLogger(IRepository<ActionsHistory> actionsHistoryRepository,
                              IRepository<ActionsHistoryDetail> actionsHistoryDetailRepository,
                              IActionLoggingValidatorFactory actionLoggingValidatorFactory,
                              IIdentityProvider identityProvider,
-                             IOperationScopeFactory operationScopeFactory)
+                             IOperationScopeFactory scopeFactory)
         {
             _actionsHistoryRepository = actionsHistoryRepository;
             _actionsHistoryDetailRepository = actionsHistoryDetailRepository;
             _actionLoggingValidatorFactory = actionLoggingValidatorFactory;
             _identityProvider = identityProvider;
-            _operationScopeFactory = operationScopeFactory;
+            _scopeFactory = scopeFactory;
         }
 
-        public IDictionary<string, Tuple<object, object>> LogChanges(EntityName entityType, long entityId, object originalObject, object modifiedObject)
+        public void LogChanges(IEnumerable<ChangesDescriptor> changeDescriptors)
         {
-            var differences = CompareObjectsHelper.CompareObjects(CompareObjectMode.Shallow, originalObject, modifiedObject, Enumerable.Empty<string>());
-            LogChanges(entityType, entityId, differences);
-            return differences;
-        }
-
-        public void LogChanges(EntityName entityType, long entityId, IDictionary<string, Tuple<object, object>> differences)
-        {
-            var validators = _actionLoggingValidatorFactory.GetValidators(entityType);
-
-            var canLogChanges = validators.All(x => x.Validate(entityId));
-            if (!canLogChanges)
+            using (var scope = _scopeFactory.CreateSpecificFor<BulkCreateIdentity, ActionsHistory>())
             {
-                return;
+                LogChanges(scope, changeDescriptors);
+                scope.Complete();
+        }
+        }
+
+        public void LogChanges(ChangesDescriptor changeDescriptor)
+        {
+            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, ActionsHistory>())
+            {
+                LogChanges(scope, new[] { changeDescriptor });
+                scope.Complete();
+            }
+        }
+
+        private void LogChanges(IOperationScope scope, IEnumerable<ChangesDescriptor> changeDescriptors)
+        {
+            foreach (var changesDescriptor in changeDescriptors)
+            {
+                if (!CanLog(changesDescriptor))
+            {
+                    continue;
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, ActionsHistory>())
-            {
                 var actionsHistoryItem = new ActionsHistory
                     {
                         ActionType = (int)ActionType.Edit, // edit only for now
-                        EntityType = (int)entityType,
-                        EntityId = entityId
+                    EntityType = (int)changesDescriptor.EntityType,
+                    EntityId = changesDescriptor.EntityId
                     };
+
                 _identityProvider.SetFor(actionsHistoryItem);
                 _actionsHistoryRepository.Add(actionsHistoryItem);
-                _actionsHistoryRepository.Save();
-                operationScope.Added<ActionsHistory>(actionsHistoryItem.Id);
+                scope.Added<ActionsHistory>(actionsHistoryItem.Id);
 
-                foreach (var difference in differences)
+                foreach (var difference in changesDescriptor.Changes)
                 {
                     var actionsHistoryDetailItem = new ActionsHistoryDetail
                         {
                             ActionsHistoryId = actionsHistoryItem.Id,
                             PropertyName = difference.Key,
-                            OriginalValue = difference.Value.Item1 != null ? difference.Value.Item1.ToString() : null,
-                            ModifiedValue = difference.Value.Item2 != null ? difference.Value.Item2.ToString() : null,
+                        OriginalValue = difference.Value.OriginalValue != null ? difference.Value.OriginalValue.ToString() : null,
+                        ModifiedValue = difference.Value.ModifiedValue != null ? difference.Value.ModifiedValue.ToString() : null,
                         };
+
                     _identityProvider.SetFor(actionsHistoryDetailItem);
                     _actionsHistoryDetailRepository.Add(actionsHistoryDetailItem);
-                    operationScope.Added<ActionsHistoryDetail>(actionsHistoryDetailItem.Id);
+                    scope.Added<ActionsHistoryDetail>(actionsHistoryDetailItem.Id);
+                }
                 }
 
+            _actionsHistoryRepository.Save();
                 _actionsHistoryDetailRepository.Save();
-                operationScope.Complete();
             }
+
+        private bool CanLog(ChangesDescriptor changesDescriptor)
+        {
+            // FIXME {i.maslennikov, 24.09.2013}: в процессе рефакторинга - попробовать перенести в точки вызова/конфигурирования логирования изменений
+            var validators = _actionLoggingValidatorFactory.GetValidators(changesDescriptor.EntityType);
+            return validators.All(x => x.Validate(changesDescriptor.EntityId));
         }
     }
 }

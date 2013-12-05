@@ -25,9 +25,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         [EnumMember]
         AccountDetailsTo1C = 24,
 
+        // заблокировано ERM-2372
         // AccountSaldosTo1C = 25, - not implemented yet
-        [EnumMember]
-        AccountDetailsToServiceBus = 26,
+//        [EnumMember]
+//        AccountDetailsToServiceBus = 26,
 
        // ERM <-> AutoMailer (range 41 - 50)
         [EnumMember]

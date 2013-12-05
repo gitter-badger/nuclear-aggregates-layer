@@ -12,6 +12,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long? AdvertisementId { get; set; }
 
         [DataMember]
+        public long? DummyAdvertisementId { get; set; }
+
+        [DataMember]
         public string AdvertisementName { get; set; }
 
         [DataMember]

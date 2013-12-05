@@ -23,7 +23,6 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
             IReadOnlyDictionary<Type, IOperationIdentity> operations2IdentitiesMap)
         {
             var operationApplicabilities = new Dictionary<int, OperationApplicability>();
-            var allEntitites = EntityName.All.GetDecomposed().Where(e => !e.IsVirtual()).ToArray();
 
             foreach (var entitySpecificOperation in entitySpecificOperations)
             {
@@ -31,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
                 bool hasGenericImplementation = false;
                 foreach (var implementation in entitySpecificOperation.Value)
                 {
-                    if (implementation.Key.IsOpenGenericOperation())
+                    if (implementation.Key.IsOpenSet())
                     {
                         if (hasGenericImplementation)
                         {
@@ -39,9 +38,8 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
                         }
 
                         // generic реализацию раскладываем на составляющие - т.е. пытаемся отресолвить метаданные для всех возможных типов сущностей
-                        foreach (var entityName in allEntitites)
+                        foreach (var operationSpecificTypes in implementation.Key.ToConcreteSets())
                         {
-                            var operationSpecificTypes = entityName.ToEntitySet();
                             if (metadataDetailMap.ContainsKey(operationSpecificTypes))
                             {   // для данного типа сущности уже были настроены metadataDetail - ничего не делаем, т.к. generic реализации имеют заведомо более низкий приоритет,
                                 // чем специфические реализации
@@ -51,7 +49,6 @@ namespace DoubleGis.Erm.Platform.Core.Metadata
                             IOperationMetadata genericMetadataDetail;
                             if (!TryGetMetadataDetail(operations2IdentitiesMap, entitySpecificOperation.Key, operationSpecificTypes, out genericMetadataDetail))
                             {   // пока для generic реализаций считаем операцию недоступной для конкретного типа сущности, если для неё не удалось определить metadataDetail
-                                // ЗАМЕЧАНИЕ: пока не учитываем в generic реализациях существование операций специфичных для более чем одного типа сущности (например, таких как Append)
                                 continue;
                             }
 

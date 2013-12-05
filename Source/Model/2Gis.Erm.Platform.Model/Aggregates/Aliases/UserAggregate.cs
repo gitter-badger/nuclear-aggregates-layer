@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Firm = EntityName.Firm, //
         Deal = EntityName.Deal, //
         LegalPerson = EntityName.LegalPerson, //
+        LegalPersonProfile = EntityName.LegalPersonProfile, //
         Bargain = EntityName.Bargain, //
         Contact = EntityName.Contact, //
         Order = EntityName.Order, //
