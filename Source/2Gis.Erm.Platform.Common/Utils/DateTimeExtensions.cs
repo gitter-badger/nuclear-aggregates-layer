@@ -23,6 +23,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             return new DateTime(nextMonthDate.Year, nextMonthDate.Month, 1, 0, 0, 0);
         }
 
+        public static DateTime GetPrevMonthLastDate(this DateTime dateTime)
+        {
+            var nextMonthDate = dateTime.AddMonths(-1);
+            return GetEndPeriodOfThisMonth(nextMonthDate);
+        }
+
         public static DateTime GetNextMonthFirstDate(this DateTime dateTime)
         {
             var nextMonthDate = dateTime.AddMonths(1);
