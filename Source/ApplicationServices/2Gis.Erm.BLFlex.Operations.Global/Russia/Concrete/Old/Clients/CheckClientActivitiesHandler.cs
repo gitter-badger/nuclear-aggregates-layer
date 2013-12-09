@@ -2,6 +2,7 @@
 using System.Net;
 
 using DoubleGis.Erm.BL.Aggregates.Firms;
+using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Operations.Concrete.Old.Clients;
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
             if (_crmSettings.EnableReplication)
             {
-                var clientReplicationCode = _finder.Find(GenericSpecifications.ById<Client>(request.ClientId)).Select(x => x.ReplicationCode).Single();
+                var clientReplicationCode = _finder.Find(Specs.Find.ById<Client>(request.ClientId)).Select(x => x.ReplicationCode).Single();
 
                 try
                 {
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients
                         throw new NotificationException(BLResources.NeedToCloseAllActivities);
                     }
                         
-                    var firmReplicationCodes = _finder.Find(FirmSpecifications.Find.FirmsByClientId(request.ClientId))
+                    var firmReplicationCodes = _finder.Find(FirmSpecs.Firms.Find.ByClient(request.ClientId))
                         .Select(x => x.ReplicationCode).ToArray();
 
                     if (firmReplicationCodes.Any(x => ActivityHelper.HasAnyOpenedActivities(crmDataContext, x)))

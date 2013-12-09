@@ -166,12 +166,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 dto.ShowRegionalAttributes = !isBranchToBranch;
             }
 
-            // В представление отдаем значение скидки и процент скидки, округленный до 2-х знаков
+            // В представление отдаем значение скидки, округленный до 2-х знаков
             // То же делается на клиентской стороне при асинхронных пересчетах при изменении этих полей
             if (dto.DiscountSum.HasValue && dto.DiscountPercent.HasValue)
             {
                 dto.DiscountSum = Math.Round(dto.DiscountSum.Value, 2, MidpointRounding.ToEven);
-                dto.DiscountPercent = Math.Round(dto.DiscountPercent.Value, 2, MidpointRounding.ToEven);
             }
 
             return dto;
@@ -251,7 +250,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                          out EntityReference legalPersonRef,
                                                          out EntityReference destOrganizationUnitId)
         {
-            var data = _finder.Find(GenericSpecifications.ById<LegalPerson>(legalPersonId))
+            var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                               .Select(person => new
                                   {
                                       Firms = person.Client.Firms.Select(firm =>
@@ -284,7 +283,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                   out EntityReference legalPersonRef,
                                                   out EntityReference destOrganizationUnitId)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Firm>(firmId))
+            var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
                               .Select(firm => new
                                   {
                                       Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
@@ -308,7 +307,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                     out EntityReference legalPersonRef,
                                                     out EntityReference destOrganizationUnitId)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Client>(clientId))
+            var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                               .Select(client => new
                                   {
                                       Firms = client.Firms.Select(firm =>
@@ -468,7 +467,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
             if (dto.DealRef != null && dto.DealRef.Id.HasValue)
             {
-                var ownerId = _finder.Find(GenericSpecifications.ById<Deal>(dto.DealRef.Id.Value))
+                var ownerId = _finder.Find(Specs.Find.ById<Deal>(dto.DealRef.Id.Value))
                        .Select(deal => deal.OwnerCode)
                        .Single();
 

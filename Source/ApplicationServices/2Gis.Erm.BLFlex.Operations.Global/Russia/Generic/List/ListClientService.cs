@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Activities.PropertyIdentities;
 using DoubleGis.Erm.BL.Aggregates.Users;
 using DoubleGis.Erm.BL.API.Operations.Generic.List.DTO;
 using DoubleGis.Erm.BL.API.Operations.Metadata;
@@ -17,6 +16,7 @@ using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Enums;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {

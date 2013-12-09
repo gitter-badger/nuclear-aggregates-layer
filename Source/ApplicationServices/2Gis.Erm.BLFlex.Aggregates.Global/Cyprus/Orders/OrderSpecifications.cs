@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Orders.DTO;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Orders

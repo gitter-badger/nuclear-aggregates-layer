@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
             var printData =
-                _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                        .Select(
                            order =>
                            new

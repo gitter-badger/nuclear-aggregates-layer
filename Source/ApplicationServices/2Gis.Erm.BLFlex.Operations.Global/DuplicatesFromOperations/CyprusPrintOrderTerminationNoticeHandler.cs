@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            var orderInfo = _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         OrderState = (OrderState)order.WorkflowStepId,
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var printData = _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+            var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         Order = order,

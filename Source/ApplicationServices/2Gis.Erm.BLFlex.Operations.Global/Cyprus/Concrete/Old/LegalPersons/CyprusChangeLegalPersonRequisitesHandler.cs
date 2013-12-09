@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPersons
 {
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                 throw new NotificationException(BLResources.AccessDenied);
             }
 
-            var entity = _finder.Find(GenericSpecifications.ById<LegalPerson>(request.LegalPersonId)).First();
+            var entity = _finder.Find(Specs.Find.ById<LegalPerson>(request.LegalPersonId)).First();
             var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
 
             // три стратегии замены реквизитов для трех разных типов юрлиц
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                 entity.VAT = request.VAT;
             }
 
-            using (var operationScope = _scopeFactory.CreateOrUpdateOperationFor(entity))
+            using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())
             {
                 _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity }, Context);
                 _legalPersonRepository.CreateOrUpdate(entity);

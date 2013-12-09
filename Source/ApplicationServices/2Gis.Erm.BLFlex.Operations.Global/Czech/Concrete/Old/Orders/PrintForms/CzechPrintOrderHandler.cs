@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
-            var orderInfo = _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         order.BranchOfficeOrganizationUnitId,
@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         private TemplateCode GetTemplateCode(PrintOrderRequest request)
         {
-            var sourceOrganizationUnitId = _finder.Find(GenericSpecifications.ById<Order>(request.OrderId)).Select(order => order.SourceOrganizationUnitId).Single();
+            var sourceOrganizationUnitId = _finder.Find(Specs.Find.ById<Order>(request.OrderId)).Select(order => order.SourceOrganizationUnitId).Single();
 
             var templateCode = GetLocalTemplateCode(sourceOrganizationUnitId);
             return templateCode;
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         {
             var orderOwnerName = _userIdentifierService.GetUserInfo(ownerCode).DisplayName;
 
-            var orderInfo = _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Where(x => x.Id == request.OrderId)
                 .Select(x => new
                     {
@@ -447,7 +447,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         private ContributionTypeEnum GetContributionType(long organizationUnitId)
         {
-            var contributionType = _finder.Find(GenericSpecifications.ById<OrganizationUnit>(organizationUnitId))
+            var contributionType = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                 .SelectMany(x => x.BranchOfficeOrganizationUnits)
                 .Where(x => x.IsActive && !x.IsDeleted && x.IsPrimary)
                 .Select(x => x.BranchOffice.ContributionTypeId)

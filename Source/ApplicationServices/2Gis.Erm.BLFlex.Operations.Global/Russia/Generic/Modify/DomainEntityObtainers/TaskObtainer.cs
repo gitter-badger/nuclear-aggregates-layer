@@ -1,11 +1,14 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.Aggregates.Activities;
+using DoubleGis.Erm.BL.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -13,23 +16,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
 {
     public sealed class TaskObtainer : IBusinessModelEntityObtainer<Task>, IAggregateReadModel<ActivityBase>, IRussiaAdapted
     {
-        private readonly IActivityService _activityService;
         private readonly IUserContext _userContext;
+        private readonly IFinder _finder;
+        private readonly IActivityDynamicPropertiesConverter _activityDynamicPropertiesConverter;
 
-        public TaskObtainer(IActivityService activityService, IUserContext userContext)
+        public TaskObtainer(IUserContext userContext, IFinder finder, IActivityDynamicPropertiesConverter activityDynamicPropertiesConverter)
         {
-            _activityService = activityService;
             _userContext = userContext;
+            _finder = finder;
+            _activityDynamicPropertiesConverter = activityDynamicPropertiesConverter;
         }
 
         public Task ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
-            var task = dto.Id == 0
-                           ? new Task { IsActive = true }
-                           : _activityService.GetTask(dto.Id);
-            
+            var task = dto.IsNew() ? new Task { IsActive = true } : _finder.Single<Task>(dto.Id, _activityDynamicPropertiesConverter);
+
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
             
             task.TaskType = dto.TaskType;

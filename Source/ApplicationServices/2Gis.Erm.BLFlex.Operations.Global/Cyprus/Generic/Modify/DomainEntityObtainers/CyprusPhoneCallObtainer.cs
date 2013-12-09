@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Activities;
+using DoubleGis.Erm.BL.Aggregates.Activities.DTO;
+using DoubleGis.Erm.BL.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -13,22 +19,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.DomainEnt
 {
     public sealed class CyprusPhonecallObtainer : IBusinessModelEntityObtainer<Phonecall>, IAggregateReadModel<ActivityBase>, ICyprusAdapted
     {
-        private readonly IActivityService _activityService;
         private readonly IUserContext _userContext;
+        private readonly IFinder _finder;
+        private readonly IActivityDynamicPropertiesConverter _activityDynamicPropertiesConverter;
 
-        public CyprusPhonecallObtainer(IActivityService activityService, IUserContext userContext)
+        public CyprusPhonecallObtainer(IUserContext userContext, IFinder finder, IActivityDynamicPropertiesConverter activityDynamicPropertiesConverter)
         {
-            _activityService = activityService;
             _userContext = userContext;
+            _finder = finder;
+            _activityDynamicPropertiesConverter = activityDynamicPropertiesConverter;
         }
 
         public Phonecall ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (PhonecallDomainEntityDto)domainEntityDto;
 
-            var phoneCall = dto.Id == 0
-                                ? new Phonecall { IsActive = true }
-                                : _activityService.GetPhonecall(dto.Id);
+            var phoneCall = dto.IsNew() ? new Phonecall { IsActive = true } : _finder.Single<Phonecall>(dto.Id, _activityDynamicPropertiesConverter);
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 

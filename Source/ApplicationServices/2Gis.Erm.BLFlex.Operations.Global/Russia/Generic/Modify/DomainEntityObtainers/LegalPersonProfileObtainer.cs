@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.LegalPersons;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
             var legalPersonProfile =
                 dto.Id == 0
                     ? new LegalPersonProfile { IsActive = true }
-                    : _finder.Find(LegalPersonSpecifications.Find.LegalPersonProfileById(dto.Id)).Single();
+                    : _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).Single();
 
             legalPersonProfile.Name = dto.Name;
             legalPersonProfile.PositionInGenitive = dto.PositionInGenitive;

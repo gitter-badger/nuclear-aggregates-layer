@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                 throw new NotificationException(BLResources.AccessDenied);
             }
 
-            var entity = _finder.Find(GenericSpecifications.ById<LegalPerson>(request.LegalPersonId)).First();
+            var entity = _finder.Find(Specs.Find.ById<LegalPerson>(request.LegalPersonId)).First();
             entity.LegalName = request.LegalName;
             entity.ShortName = request.ShortName;
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())

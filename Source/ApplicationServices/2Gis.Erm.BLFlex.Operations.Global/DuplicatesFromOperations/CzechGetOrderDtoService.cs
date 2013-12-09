@@ -166,12 +166,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
                 dto.ShowRegionalAttributes = !isBranchToBranch;
             }
 
-            // В представление отдаем значение скидки и процент скидки, округленный до 2-х знаков
+            // В представление отдаем значение скидки, округленный до 2-х знаков
             // То же делается на клиентской стороне при асинхронных пересчетах при изменении этих полей
             if (dto.DiscountSum.HasValue && dto.DiscountPercent.HasValue)
             {
                 dto.DiscountSum = Math.Round(dto.DiscountSum.Value, 2, MidpointRounding.ToEven);
-                dto.DiscountPercent = Math.Round(dto.DiscountPercent.Value, 2, MidpointRounding.ToEven);
             }
 
             return dto;
@@ -257,7 +256,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
                                                          out EntityReference firmRef,
                                                          out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<LegalPerson>(legalPersonId))
+            var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                 .Select(person => new
                     {
                         Client = new { person.Client.Id, person.Client.Name },
@@ -282,7 +281,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
                                                   out EntityReference firmRef,
                                                   out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Firm>(firmId))
+            var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
                 .Select(firm => new
                     {
                         Firm = new { firm.Id, firm.Name },
@@ -311,7 +310,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
                                                     out EntityReference firmRef,
                                                     out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Client>(clientId))
+            var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                 .Select(client => new
                     {
                         Client = new { client.Id, client.Name },

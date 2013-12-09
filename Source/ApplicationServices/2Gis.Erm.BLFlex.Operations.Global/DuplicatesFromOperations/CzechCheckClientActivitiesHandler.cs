@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BL.Aggregates.Activities;
+using DoubleGis.Erm.BL.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
@@ -12,11 +12,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
     // указан модификатор доступа internal, чтобы не подхватывался massprocessor
     internal sealed class CzechCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, ICzechAdapted
     {
-        private readonly IActivityService _activityService;
+        private readonly IActivityReadModel _activityReadModel;
 
-        public CzechCheckClientActivitiesHandler(IActivityService activityService)
+        public CzechCheckClientActivitiesHandler(IActivityReadModel activityReadModel)
         {
-            _activityService = activityService;
+            _activityReadModel = activityReadModel;
         }
 
         protected override EmptyResponse Handle(CheckClientActivitiesRequest request)
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.DuplicatesFromOperations
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-            var hasRelatedOpenedActivities = _activityService.CheckIfExistsRelatedActivities(request.ClientId);
+            var hasRelatedOpenedActivities = _activityReadModel.CheckIfRelatedActivitiesExists(request.ClientId);
 
             if (hasRelatedOpenedActivities)
             {

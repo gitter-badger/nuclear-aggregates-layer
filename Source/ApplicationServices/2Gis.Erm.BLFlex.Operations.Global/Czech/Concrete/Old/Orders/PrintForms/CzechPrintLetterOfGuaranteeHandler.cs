@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
             var orderInfo =
-                _finder.Find(GenericSpecifications.ById<Order>(request.OrderId))
+                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new
                             {
                                 Order = order,

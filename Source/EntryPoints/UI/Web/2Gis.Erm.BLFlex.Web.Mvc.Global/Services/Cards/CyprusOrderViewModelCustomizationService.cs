@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Aggregates.Releases;
+using DoubleGis.Erm.BL.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -83,10 +84,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Services.Cards
             // Если есть права и нет сборки в настоящий момент 
             entityViewModel.HasOrderDocumentsDebtChecking &= !entityViewModel.IsWorkflowLocked;
 
-            // Карточка только на чтение если не "на регистрациии"
-            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration;
+            var isClosedWithDenial = !entityViewModel.IsActive;
 
-            if (!entityViewModel.IsActive)
+            // Карточка только на чтение если не "на регистрациии" или закрыта отказом
+            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
+
+            if (isClosedWithDenial)
             {
                 entityViewModel.MessageType = MessageType.Warning;
                 entityViewModel.Message = BLResources.WarningOrderIsRejected;

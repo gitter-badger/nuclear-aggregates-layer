@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Cyprus\Concrete\Old\AccountDetails\CyprusValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Orders\CyprusCalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonProfileHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonHandler.cs" />
@@ -85,8 +86,10 @@
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusLegalPersonObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusPhoneCallObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusTaskObtainer.cs" />
+    <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditOrderPositionHandler.cs" />
     <Compile Include="Czech\Concrete\Old\AccountDetails\CzechValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Clients\CzechCheckClientActivitiesHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\CzechCalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonProfileHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechLegalPersonObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechPhonecallObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechTaskObtainer.cs" />
+    <Compile Include="Czech\Generic\Modify\Old\CzechEditOrderPositionHandler.cs" />
     <Compile Include="DuplicatesFromOperations\CyprusPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="DuplicatesFromOperations\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="DuplicatesFromOperations\CzechActivateLegalPersonService.cs" />
@@ -164,6 +168,7 @@
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
@@ -174,9 +179,17 @@
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BL.API.MoDi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
@@ -210,6 +223,10 @@
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
@@ -230,7 +247,6 @@
   <ItemGroup>
     <Folder Include="Cyprus\Generic\Old\" />
     <Folder Include="Czech\Generic\Old\" />
-    <Folder Include="Russia\Generic\Old\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

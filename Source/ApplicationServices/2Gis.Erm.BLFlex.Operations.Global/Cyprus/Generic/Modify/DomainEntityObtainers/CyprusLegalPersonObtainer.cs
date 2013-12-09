@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.LegalPersons;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.DomainEnt
 
             var legalPerson = dto.Id == 0
                                   ? new LegalPerson { IsActive = true }
-                                  : _finder.Find(LegalPersonSpecifications.Find.ById(dto.Id)).Single();
+                                  : _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).Single();
 
             if (!dto.IsInSyncWith1C)
             {

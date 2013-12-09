@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.Aggregates.Activities;
+﻿using DoubleGis.Erm.BL.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
@@ -10,11 +10,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Clients
 {
     public sealed class CyprusCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, ICyprusAdapted
     {
-        private readonly IActivityService _activityService;
+        private readonly IActivityReadModel _activityReadModel;
 
-        public CyprusCheckClientActivitiesHandler(IActivityService activityService)
+        public CyprusCheckClientActivitiesHandler(IActivityReadModel activityReadModel)
         {
-            _activityService = activityService;
+            _activityReadModel = activityReadModel;
         }
 
         protected override EmptyResponse Handle(CheckClientActivitiesRequest request)
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Clients
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-            var hasRelatedOpenedActivities = _activityService.CheckIfExistsRelatedActivities(request.ClientId);
+            var hasRelatedOpenedActivities = _activityReadModel.CheckIfRelatedActivitiesExists(request.ClientId);
 
             if (hasRelatedOpenedActivities)
             {

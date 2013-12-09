@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Aggregates.Releases;
+using DoubleGis.Erm.BL.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;

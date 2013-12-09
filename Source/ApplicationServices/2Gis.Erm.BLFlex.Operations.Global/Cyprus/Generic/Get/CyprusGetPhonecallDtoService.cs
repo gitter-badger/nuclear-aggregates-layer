@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Activities;
+using DoubleGis.Erm.BL.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BL.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -18,20 +18,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
     public class CyprusGetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>, ICyprusAdapted
     {
         private readonly IFinder _finder;
-        private readonly IActivityService _activityService;
+        private readonly IActivityReadModel _activityReadModel;
         private readonly IUserContext _userContext;
 
-        public CyprusGetPhonecallDtoService(IUserContext userContext, IFinder finder, IActivityService activityService)
+        public CyprusGetPhonecallDtoService(IUserContext userContext, IFinder finder, IActivityReadModel activityReadModel)
             : base(userContext)
         {
             _finder = finder;
-            _activityService = activityService;
+            _activityReadModel = activityReadModel;
             _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
         {
-            var phonecall = _activityService.GetPhonecall(entityId);
+            var phonecall = _activityReadModel.GetActivity<Phonecall>(entityId);
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
@@ -87,21 +87,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
                     dto.ClientRef = new EntityReference
                         {
                             Id = parentEntityId,
-                            Name = _finder.Find(GenericSpecifications.ById<Client>(parentEntityId.Value)).Select(x => x.Name).Single()
+                            Name = _finder.Find(Specs.Find.ById<Client>(parentEntityId.Value)).Select(x => x.Name).Single()
                         };
                     break;
                 case EntityName.Firm:
                     dto.FirmRef = new EntityReference
                         {
                             Id = parentEntityId,
-                            Name = _finder.Find(GenericSpecifications.ById<Firm>(parentEntityId.Value)).Select(x => x.Name).Single()
+                            Name = _finder.Find(Specs.Find.ById<Firm>(parentEntityId.Value)).Select(x => x.Name).Single()
                         };
                     break;
                 case EntityName.Contact:
                     dto.ContactRef = new EntityReference
                         {
                             Id = parentEntityId,
-                            Name = _finder.Find(GenericSpecifications.ById<Contact>(parentEntityId.Value)).Select(x => x.FullName).Single()
+                            Name = _finder.Find(Specs.Find.ById<Contact>(parentEntityId.Value)).Select(x => x.FullName).Single()
                         };
                     break;
             }

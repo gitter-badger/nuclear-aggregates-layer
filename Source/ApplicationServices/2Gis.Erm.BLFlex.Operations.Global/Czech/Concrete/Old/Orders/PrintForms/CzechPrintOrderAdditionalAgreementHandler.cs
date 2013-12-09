@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
             var orderInfoValidation =
-                _finder.Find(GenericSpecifications.ById<Platform.Model.Entities.Erm.Order>(request.OrderId))
+                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.OrderRejectDateFieldIsNotFilled);
             }
 
-            var orderInfo = _finder.Find(GenericSpecifications.ById<Platform.Model.Entities.Erm.Order>(request.OrderId))
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         Order = order,

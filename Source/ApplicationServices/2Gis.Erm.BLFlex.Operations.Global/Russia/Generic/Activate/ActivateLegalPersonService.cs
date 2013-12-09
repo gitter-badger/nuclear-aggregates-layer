@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BL.Aggregates.LegalPersons;
+using DoubleGis.Erm.BL.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var restoringLegalPerson = _finder.Find(GenericSpecifications.ById<LegalPerson>(entityId)).Single();
+                var restoringLegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
 
                 if (restoringLegalPerson.IsActive)
                 {
@@ -48,18 +49,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
                     case LegalPersonType.LegalPerson:
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Kpp) && !string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                         {
-                            dublicateLegalPerson = _finder.Find(LegalPersonSpecifications.Find.ActiveLegalPersonsByInnAndKpp(
-                                restoringLegalPerson.Inn,
-                                restoringLegalPerson.Kpp))
-                                .FirstOrDefault();
+                            dublicateLegalPerson = 
+                                _finder
+                                    .Find(
+                                        Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                            && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.LegalPerson)
+                                            && LegalPersonSpecs.LegalPersons.Find.ByInnAndKpp(restoringLegalPerson.Inn, restoringLegalPerson.Kpp))
+                                    .FirstOrDefault();
                         }
 
                         break;
                     case LegalPersonType.Businessman:
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                         {
-                            dublicateLegalPerson = _finder.Find(LegalPersonSpecifications.Find.ActiveBusinessmenByInn(restoringLegalPerson.Inn))
-                                .FirstOrDefault();
+                            dublicateLegalPerson = 
+                                _finder
+                                    .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                            && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.Businessman)
+                                            && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
+                                    .FirstOrDefault();
                         }
 
                         break;
@@ -67,10 +75,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.PassportNumber) &&
                             !string.IsNullOrWhiteSpace(restoringLegalPerson.PassportSeries))
                         {
-                            dublicateLegalPerson = _finder.Find(LegalPersonSpecifications.Find.ActiveNaturalPersonsByPassport(
-                                restoringLegalPerson.PassportSeries,
-                                restoringLegalPerson.PassportNumber))
-                                .FirstOrDefault();
+                            dublicateLegalPerson = 
+                                _finder
+                                    .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                            && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.NaturalPerson)
+                                            && LegalPersonSpecs.LegalPersons.Find.ByPassport(restoringLegalPerson.PassportSeries, restoringLegalPerson.PassportNumber))
+                                    .FirstOrDefault();
                         }
 
                         break;

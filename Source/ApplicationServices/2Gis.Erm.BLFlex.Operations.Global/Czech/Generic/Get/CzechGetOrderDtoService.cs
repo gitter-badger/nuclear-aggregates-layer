@@ -255,7 +255,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
                                                          out EntityReference firmRef,
                                                          out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<LegalPerson>(legalPersonId))
+            var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                 .Select(person => new
                     {
                         Client = new { person.Client.Id, person.Client.Name },
@@ -280,7 +280,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
                                                   out EntityReference firmRef,
                                                   out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Firm>(firmId))
+            var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
                 .Select(firm => new
                     {
                         Firm = new { firm.Id, firm.Name },
@@ -309,7 +309,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
                                                     out EntityReference firmRef,
                                                     out EntityReference legalPersonRef)
         {
-            var data = _finder.Find(GenericSpecifications.ById<Client>(clientId))
+            var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                 .Select(client => new
                     {
                         Client = new { client.Id, client.Name },
