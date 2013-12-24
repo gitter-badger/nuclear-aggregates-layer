@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.Core.Enums;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+﻿using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -7,7 +6,6 @@ using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {

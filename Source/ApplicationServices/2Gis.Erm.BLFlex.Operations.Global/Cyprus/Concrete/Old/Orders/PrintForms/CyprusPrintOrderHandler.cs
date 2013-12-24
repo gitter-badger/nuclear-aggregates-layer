@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                  y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales).BranchOffice,
                     x.DestOrganizationUnit.ElectronicMedia,
                     SchedulePayments = x.Bills.Where(y => y.IsActive && !y.IsDeleted)
-                        .OrderBy(y => y.BillDate)
+                        .OrderBy(y => y.PaymentDatePlan)
                         .Select(y => new
                         {
                             y.BillNumber,

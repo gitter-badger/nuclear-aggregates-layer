@@ -1,6 +1,5 @@
 using System;
 
-using DoubleGis.Erm.Core.Enums;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -11,17 +10,19 @@ using DoubleGis.Erm.Platform.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {
     public sealed class LegalPersonViewModel : EntityViewModelBase<LegalPerson>, IRussiaAdapted
     {
         public Guid? ReplicationCode { get; set; }
+
+        [SanitizedString]
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         public string LegalName { get; set; }
 
+        [SanitizedString]
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         public string ShortName { get; set; }
@@ -54,45 +55,52 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         [Dependency(DependencyType.ReadOnly, "PassportNumber", "this.value && this.value.toLowerCase() == 'true'")]
         public bool IsInSyncWith1C { get; set; }
 
-
+        [SanitizedString]
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
-
         // TODO {y.baranihin, 12.08.2013}: Осталось единственное строкое поле в модели без аттрибута StringLengthLocalized. Возможно, имеет смысл и его покрыть.
         // DONE {v.sinitsyn, 12.08.2013}: Ok
+        [SanitizedString]
         [StringLengthLocalized(512)]
         public string LegalAddress { get; set; }
-        
+
+        [SanitizedString]
         [StringLengthLocalized(10, MinimumLength = 10)]
         [Dependency(DependencyType.ReadOnly, "Inn", "Ext.getDom('Id').value != '0'")]
         [OnlyDigitsLocalized]
         public string Inn { get; set; }
 
+        [SanitizedString]
         [StringLengthLocalized(9, MinimumLength = 9)]
         [Dependency(DependencyType.ReadOnly, "Kpp", "Ext.getDom('Id').value != '0'")]
         [OnlyDigitsLocalized]
         public string Kpp { get; set; }
 
+        [SanitizedString]
         [DisplayNameLocalized("Inn")]
         [StringLengthLocalized(12, MinimumLength = 12)]
         [Dependency(DependencyType.ReadOnly, "BusinessmanInn", "Ext.getDom('Id').value != '0'")]
         [OnlyDigitsLocalized]
         public string BusinessmanInn { get; set; }
 
+        [SanitizedString]
         [Dependency(DependencyType.ReadOnly, "PassportSeries", "Ext.getDom('Id').value != '0'")]
         [StringLengthLocalized(4, MinimumLength = 4)]
         [OnlyDigitsLocalized]
         public string PassportSeries { get; set; }
 
+        [SanitizedString]
         [StringLengthLocalized(6, MinimumLength = 6)]
         [Dependency(DependencyType.ReadOnly, "PassportNumber", "Ext.getDom('Id').value != '0'")]
         [OnlyDigitsLocalized]
         public string PassportNumber { get; set; }
 
+        [SanitizedString]
         [StringLengthLocalized(512)]
         public string PassportIssuedBy { get; set; }
 
+        [SanitizedString]
         [StringLengthLocalized(512)]
         public string RegistrationAddress { get; set; }
 
@@ -108,7 +116,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         public override bool IsSecurityRoot
         {
             get { return true; }
-       } 
+        }
 
         public bool HasProfiles { get; set; }
 
@@ -140,26 +148,26 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             return new LegalPersonDomainEntityDto
-                {
-                    Id = Id,
-                    LegalName = LegalName,
-                    ShortName = ShortName,
-                    LegalPersonTypeEnum = LegalPersonType,
-                    LegalAddress = LegalAddress,
-                    Inn = Inn,
-                    Kpp = Kpp,
-                    BusinessmanInn = BusinessmanInn,
-                    PassportSeries = PassportSeries,
-                    PassportNumber = PassportNumber,
-                    PassportIssuedBy = PassportIssuedBy,
-                    RegistrationAddress = RegistrationAddress,
-                    ClientRef = Client.ToReference(),
-                    IsInSyncWith1C = IsInSyncWith1C,
-                    ReplicationCode = ReplicationCode.Value,
-                    Comment = Comment,
-                    OwnerRef = Owner.ToReference(),
-                    Timestamp = Timestamp
-                };
+            {
+                Id = Id,
+                LegalName = LegalName,
+                ShortName = ShortName,
+                LegalPersonTypeEnum = LegalPersonType,
+                LegalAddress = LegalAddress,
+                Inn = Inn,
+                Kpp = Kpp,
+                BusinessmanInn = BusinessmanInn,
+                PassportSeries = PassportSeries,
+                PassportNumber = PassportNumber,
+                PassportIssuedBy = PassportIssuedBy,
+                RegistrationAddress = RegistrationAddress,
+                ClientRef = Client.ToReference(),
+                IsInSyncWith1C = IsInSyncWith1C,
+                ReplicationCode = ReplicationCode.Value,
+                Comment = Comment,
+                OwnerRef = Owner.ToReference(),
+                Timestamp = Timestamp
+            };
         }
     }
 }

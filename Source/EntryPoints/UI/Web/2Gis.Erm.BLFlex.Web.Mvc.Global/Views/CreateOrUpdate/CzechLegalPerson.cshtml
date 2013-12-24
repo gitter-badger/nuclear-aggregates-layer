@@ -24,6 +24,8 @@
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
                             var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;
+                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
                             var msg = isInSyncWith1C.toLowerCase() == 'true' ? '@BLResources.OnLegalPersonRequisitesChangedMessageSync1C' : '@BLResources.OnLegalPersonRequisitesChangedMessageNotSync1C';
                             window.Ext.MessageBox.show({
                                 title: '',

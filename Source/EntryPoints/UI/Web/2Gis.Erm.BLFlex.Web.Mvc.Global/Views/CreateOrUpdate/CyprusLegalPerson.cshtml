@@ -1,6 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Model.Entities
-@using Platform.Web.Mvc.Utils
-@model CyprusLegalPersonViewModel
+﻿@model CyprusLegalPersonViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -25,7 +23,9 @@
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
                             var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;
-                            var msg = isInSyncWith1C.toLowerCase() == 'true' ? '@BLResources.OnLegalPersonRequisitesChangedMessageSync1C' : '@BLResources.OnLegalPersonRequisitesChangedMessageNotSync1C';
+                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                            var msg = isInSyncWith1C.toLowerCase() == 'true' ? '@Resources.OnLegalPersonRequisitesChangedMessageSync1C' : '@Resources.OnLegalPersonRequisitesChangedMessageNotSync1C';
                             window.Ext.MessageBox.show({
                                 title: '',
                                 msg: msg,
@@ -127,7 +127,7 @@
     @Html.HiddenFor(m => m.IsInSyncWith1C)
     @Html.HiddenFor(m => m.HasProfiles)
 
-    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+    <div class="Tab" id="MainTab" title="@Resources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.LegalName, FieldFlex.twins)
             @Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager)

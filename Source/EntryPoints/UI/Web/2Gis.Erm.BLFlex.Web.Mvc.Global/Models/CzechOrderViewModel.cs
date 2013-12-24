@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Enums;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -14,7 +13,6 @@ using DoubleGis.Erm.Platform.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {

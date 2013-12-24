@@ -1,18 +1,21 @@
 using System;
 
+ 
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
+ 
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {
+    // 2+: BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.Web.Mvc.Global\Models\CzechClientViewModel.cs
     public sealed class CzechClientViewModel : EntityViewModelBase<Client>, ICzechAdapted
     {
         [PresentationLayerProperty]
@@ -72,6 +75,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         // Дата возврата в резерв
         public DateTime? LastDisqualifyTime { get; set; }
 
+        // Дата возврата в резерв
+        public bool IsAdvertisingAgency { get; set; }
+
+        [Dependency(DependencyType.ReadOnly, "IsAdvertisingAgency", "this.value == 'False'")]
+        public bool CanEditIsAdvertisingAgency { get; set; }
+
         // Куратор
         public override byte[] Timestamp { get; set; }
 
@@ -105,6 +114,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
             ReplicationCode = modelDto.ReplicationCode;
             Comment = modelDto.Comment;
             MainAddress = modelDto.MainAddress;
+            IsAdvertisingAgency = modelDto.IsAdvertisingAgency;
             LastQualifyTime = modelDto.LastQualifyTime;
             LastDisqualifyTime = modelDto.LastDisqualifyTime;
             MainFirm = LookupField.FromReference(modelDto.MainFirmRef);
@@ -115,24 +125,25 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             var dto = new ClientDomainEntityDto
-                {
-                    Id = Id,
-                    Name = Name,
-                    MainPhoneNumber = MainPhoneNumber,
-                    AdditionalPhoneNumber1 = AdditionalPhoneNumber1,
-                    AdditionalPhoneNumber2 = AdditionalPhoneNumber2,
-                    Email = Email,
-                    Fax = Fax,
-                    Website = Website,
-                    InformationSource = InformationSource,
-                    Comment = Comment,
-                    MainAddress = MainAddress,
-                    LastQualifyTime = LastQualifyTime,
-                    LastDisqualifyTime = LastDisqualifyTime,
-                    MainFirmRef = MainFirm.ToReference(),
-                    OwnerRef = Owner.ToReference(),
-                    Timestamp = Timestamp
-                };
+            {
+                Id = Id,
+                Name = Name,
+                MainPhoneNumber = MainPhoneNumber,
+                AdditionalPhoneNumber1 = AdditionalPhoneNumber1,
+                AdditionalPhoneNumber2 = AdditionalPhoneNumber2,
+                Email = Email,
+                Fax = Fax,
+                Website = Website,
+                InformationSource = InformationSource,
+                Comment = Comment,
+                MainAddress = MainAddress,
+                LastQualifyTime = LastQualifyTime,
+                IsAdvertisingAgency = IsAdvertisingAgency,
+                LastDisqualifyTime = LastDisqualifyTime,
+                MainFirmRef = MainFirm.ToReference(),
+                OwnerRef = Owner.ToReference(),
+                Timestamp = Timestamp
+            };
 
             if (Territory != null && Territory.Key != null)
             {

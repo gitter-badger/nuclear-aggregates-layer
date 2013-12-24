@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -300,9 +300,6 @@ Bank Name {7}
   </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, tel. {1}, {2}</value>
-  </data>
-  <data name="SymbolsLeft" xml:space="preserve">
-    <value>Number of symbols remained: {0}</value>
   </data>
   <data name="LocalMessageController_DgppToErm_Firms" xml:space="preserve">
     <value>Companies from Dgpp</value>
@@ -1016,7 +1013,7 @@ Bank Name {7}
   <data name="AssignAccountAccessDenied" xml:space="preserve">
     <value>Not enough rights to change the owner of the personal account</value>
   </data>
-  <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPaуment" xml:space="preserve">
+  <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment" xml:space="preserve">
     <value>Start date of the period should be earlier than end date of the period for the payment "{0}"</value>
   </data>
   <data name="PeriodValidationEndDateIsIncorrect" xml:space="preserve">
@@ -1819,9 +1816,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="OrderAmount" xml:space="preserve">
     <value>Amount of the order</value>
   </data>
-  <data name="TextEditorOverflow" xml:space="preserve">
-    <value>Number of symbols exceeds permitted {0} symbols per {1}.</value>
-  </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Cannot start light building, please perform building through Export client</value>
   </data>
@@ -1863,9 +1857,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="ProcessAccountsWithDebtsOperationIsNotAllowed" xml:space="preserve">
     <value>You have no rights to process personal accounts with indebtedness</value>
-  </data>
-  <data name="LineBreaksLeft" xml:space="preserve">
-    <value>Number of lines left {0}</value>
   </data>
   <data name="PropertyName" xml:space="preserve">
     <value>Editable field</value>
@@ -1932,9 +1923,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="PositionCanNotBeProhibitedForASelf" xml:space="preserve">
     <value>Prohibited item cannot be an item of a price-list</value>
-  </data>
-  <data name="Payments" xml:space="preserve">
-    <value>Payments</value>
   </data>
   <data name="BillRegistrationTypeSingleBillWithPaymentPlanLegend" xml:space="preserve">
     <value>One payment with schedule of payments</value>
@@ -3142,9 +3130,6 @@ The operation has been executed: {4}.</value>
   <data name="PrivilegeDepth" xml:space="preserve">
     <value>Depth of the privilege</value>
   </data>
-  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
-    <value>Number of lines exceeds permitted {0} lines per {1}.</value>
-  </data>
   <data name="OrdersCheckOrderHasLock" xml:space="preserve">
     <value>The order {0} has a generated hold for the specified period</value>
   </data>
@@ -3884,7 +3869,7 @@ The operation has been executed: {4}.</value>
     <value>Termination</value>
   </data>
   <data name="TitleServiceInformation" xml:space="preserve">
-    <value>Termination</value>
+    <value>Служебные сведения</value>
   </data>
   <data name="TitleEmployeeInformation" xml:space="preserve">
     <value>Information about the officer</value>
@@ -4275,7 +4260,7 @@ The operation has been executed: {4}.</value>
     <value>Quantity of advertisements for an  issue.</value>
   </data>
   <data name="AdvertisementAmountErrorMessage" xml:space="preserve">
-    <value>Item {0} should be present in build in quantity {1} up to {2}. Actual quantity {3} (Issued - {4}, number of errors - {5}).</value>
+    <value>Позиция {0} должна присутствовать в сборке в количестве от {1} до {2}. Фактическое количество в месяц {6} - {3} (Оформлено - {4}, содержит ошибки - {5}).</value>
   </data>
   <data name="FirmContactContainsSponsoredLinkError" xml:space="preserve">
     <value>For the company {0}, an advertising link {1} item {2} in the order {3} is ordered and it doubles contact of the company.</value>
@@ -4354,7 +4339,7 @@ The operation has been executed: {4}.</value>
 {0}</value>
   </data>
   <data name="ExportLocalMessageError" xml:space="preserve">
-    <value>Error occurred. See details in description of the message</value>
+    <value>Error occurred: {0}. See details in description of the message</value>
   </data>
   <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
     <value>The limit of topics for the company division {0} is reached</value>
@@ -5044,9 +5029,6 @@ The operation has been executed: {4}.</value>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у заказа № '{0}'</value>
   </data>
-  <data name="AdvertisementIsInvalidMessage" xml:space="preserve">
-    <value>При выверке РМ "{0}" по фирме "{1}" модератором был отклонён элемент РМ "{2}". Необходимо внести корректировки в данный элемент РМ до наступления сборки за текущий месяц. Заказ с не валидными РМ не выйдет в выпуск!</value>
-  </data>
   <data name="AdvertisementIsInvalidSubject" xml:space="preserve">
     <value>Модератором отклонён РМ</value>
   </data>
@@ -5219,6 +5201,9 @@ Penezni ustav:  {5}</value>
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value>Существует скрытое юр. лицо клиента с указанными ИНН и КПП</value>
   </data>
+  <data name="RegionalApiError" xml:space="preserve">
+    <value>В позиции {0} оформлена реклама API, хотя у фирмы нет адреса в проекте города размещения заказа</value>
+  </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>Необходимо создать хотя бы один счёт на оплату</value>
   </data>
@@ -5229,5 +5214,71 @@ Penezni ustav:  {5}</value>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>Nazev pravnicke osoby:</value>
     <comment>используется в печатной форме заказа в Праге</comment>
+  </data>
+  <data name="OpenOrder" xml:space="preserve">
+    <value>Открыть заказ.</value>
+    <comment>Опциональное предложение в теле письма, должно заканчиваться точкой</comment>
+  </data>
+  <data name="InTheCostCalculationServiceErrorOccured" xml:space="preserve">
+    <value>В сервисе расчета стоимости произошла ошибка</value>
+  </data>
+  <data name="PositionIsNotInPrice" xml:space="preserve">
+    <value>По выбранному городу размещения рекламы невозможно приобрести позицию {0}</value>
+  </data>
+  <data name="AdvertisementIsInvalidMessage" xml:space="preserve">
+    <value>При выверке РМ «{0}» по фирме «{1}» модератором был отклонeн элемент РМ «{2}». Необходимо внести исправления в данный элемент РМ до наступления сборки за текущий месяц.</value>
+  </data>
+  <data name="OrdersWillNotBePublishedMessage" xml:space="preserve">
+    <value>Если не исправить данный РМ, следущие заказы не попадут в выпуск: {0}.</value>
+  </data>
+  <data name="OrderProlongation" xml:space="preserve">
+    <value>Продление</value>
+  </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>Новый заказ</value>
+  </data>
+  <data name="InTheOrderProcessingRequestsServiceErrorOccured" xml:space="preserve">
+    <value>В сервисе заявок работы с заказами произошла ошибка</value>
+  </data>
+  <data name="OrderToProlongateDoesntHaveAnyPositions" xml:space="preserve">
+    <value>У продляемого заказа нет позиций</value>
+  </data>
+  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
+    <value>Нельзя деактивировать юридическое лицо клиента, имеющее связанные лицевые счета</value>
+  </data>
+  <data name="OrderForProlongationNotFound" xml:space="preserve">
+    <value>Не найден заказ для продления</value>
+  </data>
+  <data name="PlatformMustBeSpecified" xml:space="preserve">
+    <value>У заказа должна быть указана платформа</value>
+  </data>
+  <data name="OutdatedPositionDoesntHaveAdvertisement" xml:space="preserve">
+    <value>Для позиции {0} не указан рекламный материал и отсутсвует заглушка</value>
+  </data>
+  <data name="NoDebitsForSpecifiedPeriod" xml:space="preserve">
+    <value>Не обнаружено списаний за период {0:d} - {1:d}</value>
+  </data>
+  <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
+    <value>Для измения признака является ли клиент рекламным агентством нужна соответсвующая привилегия</value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value>8.</value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value>7.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
+9.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value>7. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
+8.</value>
+  </data>
+  <data name="StringContainsControlCharacters" xml:space="preserve">
+    <value>Строка содержит управляющие символы</value>
+  </data>
+  <data name="FieldValueContainsControlCharacters" xml:space="preserve">
+    <value>Поле {0} содержит управляющие символы</value>
   </data>
 </root>

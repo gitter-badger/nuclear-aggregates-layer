@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -71,14 +71,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 return streamResponse;
             }
 
+            var templateCode = GetTemplateCode(request);
             var response = (StreamResponse)_requestProcessor.HandleSubRequest(
                 new PrintDocumentRequest
                     {
                         CurrencyIsoCode = orderInfo.ISOCode,
                         FileName = orderInfo.Number,
                         BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                        TemplateCode = GetTemplateCode(request),
-                        PrintData = GetPrintData(request, orderInfo.OwnerCode)
+                        TemplateCode = templateCode,
+                        PrintData = GetPrintData(request, orderInfo.OwnerCode, templateCode)
                     },
                 Context);
 
@@ -135,7 +136,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             return withDiscount ? TemplateCode.OrderWithoutVatWithDiscount : TemplateCode.OrderWithoutVatWithoutDiscount;
         }
 
-        private object GetPrintData(PrintOrderRequest request, long ownerCode)
+        private object GetPrintData(PrintOrderRequest request, long ownerCode, TemplateCode templateCode)
         {
             var orderOwnerName = _userIdentifierService.GetUserInfo(ownerCode).DisplayName;
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
@@ -144,14 +145,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     {
                         Order = x,
 
-                        // TODO. В этом объекте уже нет нужды, в связи с удалением OrderExtensions, надо его удалить 
-                        // и поправить хренову тучу печатных форм :/.
+                        // TODO. Р’ СЌС‚РѕРј РѕР±СЉРµРєС‚Рµ СѓР¶Рµ РЅРµС‚ РЅСѓР¶РґС‹, РІ СЃРІСЏР·Рё СЃ СѓРґР°Р»РµРЅРёРµРј OrderExtensions, РЅР°РґРѕ РµРіРѕ СѓРґР°Р»РёС‚СЊ 
+                        // Рё РїРѕРїСЂР°РІРёС‚СЊ С…СЂРµРЅРѕРІСѓ С‚СѓС‡Сѓ РїРµС‡Р°С‚РЅС‹С… С„РѕСЂРј :/.
                         OrderExtension = new OrderExtensionDto
                             {
                                 PayablePrice = x.PayablePrice,
                                 PayablePlan = x.PayablePlan,
 
-                                // нет такой колонки, высчитываем сами
+                                // РЅРµС‚ С‚Р°РєРѕР№ РєРѕР»РѕРЅРєРё, РІС‹СЃС‡РёС‚С‹РІР°РµРј СЃР°РјРё
                                 Vat = x.PayablePrice * x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate / 100m,
                                 PayablePriceWithVat = x.PayablePrice * (100m + x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate) / 100m,
                                 VatPlan = x.VatPlan,
@@ -171,7 +172,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                             .Select(y => new AddressDto
                                 {
                                     Id = y.Id,
-                                    Address = y.Address + ((y.ReferencePoint == null) ? string.Empty : " — " + y.ReferencePoint),
+                                    Address = y.Address + ((y.ReferencePoint == null) ? string.Empty : " вЂ” " + y.ReferencePoint),
                                     WorkingTime = y.WorkingTime,
                                     PaymentMethods = y.PaymentMethods,
                                 }),
@@ -188,7 +189,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                      y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales).BranchOffice,
                         x.DestOrganizationUnit.ElectronicMedia,
                         SchedulePayments = x.Bills.Where(y => y.IsActive && !y.IsDeleted)
-                            .OrderBy(y => y.BillDate)
+                            .OrderBy(y => y.PaymentDatePlan)
                             .Select(y => new
                                 {
                                     y.PaymentDatePlan,
@@ -209,13 +210,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                     Platform = y.PricePosition.Position.Platform.DgppId,
                                     y.PricePosition.Position.IsComposite,
 
-                                    // нет такой колонки, высчитываем сами
+                                    // РЅРµС‚ С‚Р°РєРѕР№ РєРѕР»РѕРЅРєРё, РІС‹СЃС‡РёС‚С‹РІР°РµРј СЃР°РјРё
                                     PayablePriceWithVat = y.PricePerUnitWithVat * y.ShipmentPlan,
                                     Vat = (y.PricePerUnitWithVat * y.ShipmentPlan) - y.PayablePrice,
                                     PriceForMonthWithDiscount = (y.PayablePlanWoVat / y.Amount) / y.Order.ReleaseCountPlan,
                                     y.PayablePlan,
                                     Advertisements = y.OrderPositionAdvertisements
-                                    .Select(z => new { Category = z.Category.Name, Address = z.FirmAddress.Address + ((z.FirmAddress.ReferencePoint == null) ? string.Empty : " — " + z.FirmAddress.ReferencePoint), z.Theme })
+                                    .Select(z => new { Category = z.Category.Name, Address = z.FirmAddress.Address + ((z.FirmAddress.ReferencePoint == null) ? string.Empty : " вЂ” " + z.FirmAddress.ReferencePoint), z.Theme })
                                     .GroupBy(z => z.Address)
                                     .Select(
                                         z =>
@@ -289,6 +290,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                         x.OrderExtension.PayablePlanWithoutVat = orderPositions.Sum(y => y.PayablePlanWithoutVat);
                         x.OrderExtension.VatSum = orderPositions.Sum(y => y.VatSum);
 
+                        var priceWithoutDiscount = x.Order.PayablePlan + (x.Order.DiscountSum.HasValue ? x.Order.DiscountSum.Value : 0);
+                        var discountSum = x.Order.DiscountSum.HasValue ? x.Order.DiscountSum.Value : 0;
+
                         return new
                                 {
                                     x.Order, 
@@ -324,7 +328,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
                                     PriceAllUnitsPerRelease = orderPositions.Sum(position => position.PricePerUnit),
  
-                                    // оплата через 5 дней с учётом выходных (пока просто суббота\воскресенье)
+                                    // РѕРїР»Р°С‚Р° С‡РµСЂРµР· 5 РґРЅРµР№ СЃ СѓС‡С‘С‚РѕРј РІС‹С…РѕРґРЅС‹С… (РїРѕРєР° РїСЂРѕСЃС‚Рѕ СЃСѓР±Р±РѕС‚Р°\РІРѕСЃРєСЂРµСЃРµРЅСЊРµ)
                                     RegionalFranchiseeData = new
                                         {
                                             PaymentDate = x.Order.BeginDistributionDate.AddDaysWithDayOffs(4), 
@@ -334,21 +338,28 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                                                x.CurrencyISOCode), 
                                     NowDate = DateTime.Now, 
 
-                                    // абзац про заключение договора
+                                    // Р°Р±Р·Р°С† РїСЂРѕ Р·Р°РєР»СЋС‡РµРЅРёРµ РґРѕРіРѕРІРѕСЂР°
                                     BeginContractParagraph = GetBeginContractParagraph(x.BranchOfficeOrganizationUnit, x.LegalPerson, x.Profile), 
 
-                                    // абзац про техническое расторжение
-                                    TechnicalTerminationParagraph = GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder, x.CurrencyISOCode), 
+                                    // Р°Р±Р·Р°С† РїСЂРѕ С‚РµС…РЅРёС‡РµСЃРєРѕРµ СЂР°СЃС‚РѕСЂР¶РµРЅРёРµ
+                                    TechnicalTerminationParagraph = GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder, x.CurrencyISOCode, templateCode), 
 
-                                    // абзац про платёжные реквизиты
+                                    // Р°Р±Р·Р°С† РїСЂРѕ РїР»Р°С‚С‘Р¶РЅС‹Рµ СЂРµРєРІРёР·РёС‚С‹
                                     ClientRequisitesParagraph = GetClientRequisitesParagraph(x.LegalPerson, x.Profile), 
+
+                                    PriceWithoutDiscount = FormatMoneyNumber(priceWithoutDiscount, x.CurrencyISOCode),
+                                    PriceWithoutDiscountWords = FormatMoneyWords(priceWithoutDiscount, x.CurrencyISOCode),
+
+                                    DiscountSum = FormatMoneyNumber(discountSum, x.CurrencyISOCode),
+                                    DiscountSumWords = FormatMoneyWords(discountSum, x.CurrencyISOCode),
                                 };
                     })
                 .Single();
 
-            // task 3818 нужно доработать
+            // task 3818 РЅСѓР¶РЅРѕ РґРѕСЂР°Р±РѕС‚Р°С‚СЊ
             // AddOrSetJournalProperty<List<int>>(JournalMakeRegionalAdsDocsProperties.OrderIds, orderInfo.Order.Id);
             // AddOrSetJournalProperty<decimal?>(JournalMakeRegionalAdsDocsProperties.TotalAmount, orderInfo.OrderExtension.PayablePlan);
+
             return orderInfo;
         }
 
@@ -372,14 +383,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             var discountPercentNumber = decimalPercentsFormatter.Format(discountPercent);
 
             // discount sum (money formatter)
-            var decimalMoneyFormatter = _formatterFactory.Create(typeof(decimal), FormatType.Money, currencyIsoCode);
-            var discountSumMoney = decimalMoneyFormatter.Format(discountSum);
+            var discountSumMoney = FormatMoneyNumber(discountSum, currencyIsoCode);
 
             // discount sum (money words formatter)
-            var decimalMoneyWordsFormatter = _formatterFactory.Create(typeof(decimal), FormatType.MoneyWords, currencyIsoCode);
-            var discountSumMoneyWords = decimalMoneyWordsFormatter.Format(discountSum);
+            var discountSumMoneyWords = FormatMoneyWords(discountSum, currencyIsoCode);
 
             return string.Format(CultureInfo.CurrentCulture, BLResources.PrintOrderHandler_DiscountInfo, discountPercentNumber, discountSumMoney, discountSumMoneyWords);
+        }
+
+        private string FormatMoneyNumber(decimal? value, int currencyIsoCode)
+        {
+            var formatter = _formatterFactory.Create(typeof(decimal), FormatType.Money, currencyIsoCode);
+            return formatter.Format(value);
+        }
+
+        private string FormatMoneyWords(decimal? value, int currencyIsoCode)
+        {
+            var formatter = _formatterFactory.Create(typeof(decimal), FormatType.MoneyWords, currencyIsoCode);
+            return formatter.Format(value);
         }
 
         private ContributionTypeEnum GetContributionType(long organizationUnitId)
@@ -399,11 +420,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             return (ContributionTypeEnum)contributionType.Value;
         }
 
-        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, int currencyIsoCode)
+        private string GetTechnicalTerminationParagraph(Order order, Order terminatedOrder, int currencyIsoCode, TemplateCode templateCode)
         {
             if (terminatedOrder == null)
             {
-                return BLResources.PrintOrderHandler_TechnicalTerminationParagraph1;
+                return EmptyTechnicalTerminationParagraph(templateCode);
             }
 
             // order.BeginDistributionDate
@@ -422,11 +443,40 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLResources.PrintOrderHandler_TechnicalTerminationParagraph2,
+                TechnicalTerminationParagraph(templateCode),
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,
                 terminatedOrderEndDistributionDateFact);
+        }
+
+        private static string TechnicalTerminationParagraph(TemplateCode templateCode)
+        {
+            return TechnicalTerminationParagraphDependsOnTemplate(templateCode,
+                                                                  BLResources.PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount,
+                                                                  BLResources.PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount);
+        }
+
+        private static string EmptyTechnicalTerminationParagraph(TemplateCode templateCode)
+        {
+            return TechnicalTerminationParagraphDependsOnTemplate(templateCode,
+                                                                  BLResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount,
+                                                                  BLResources.PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount);
+        }
+
+        private static string TechnicalTerminationParagraphDependsOnTemplate(TemplateCode templateCode, string withDiscount, string withoutDiscount)
+        {
+            switch (templateCode)
+            {
+                case TemplateCode.OrderWithVatWithDiscount:
+                case TemplateCode.OrderWithoutVatWithDiscount:
+                    return withDiscount;
+                case TemplateCode.OrderWithVatWithoutDiscount:
+                case TemplateCode.OrderWithoutVatWithoutDiscount:
+                    return withoutDiscount;
+                default:
+                    throw new ArgumentException(string.Format("РЁР°Р±Р»РѕРЅ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ {0}", templateCode), "templateCode");
+            }
         }
 
         private static string GetBeginContractParagraph(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile profile)
@@ -652,13 +702,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             public string ElectronicMediaParagraph { get; set; }
 
-            // без скидки без НДС
+            // Р±РµР· СЃРєРёРґРєРё Р±РµР· РќР”РЎ
             public decimal PayablePrice { get; set; }
 
-            // без скидки с НДС
+            // Р±РµР· СЃРєРёРґРєРё СЃ РќР”РЎ
             public decimal PayablePriceWithVat { get; set; }
 
-            // со скидкой с НДС
+            // СЃРѕ СЃРєРёРґРєРѕР№ СЃ РќР”РЎ
             public decimal PayablePlan { get; set; }
 
             public decimal Vat { get; set; }

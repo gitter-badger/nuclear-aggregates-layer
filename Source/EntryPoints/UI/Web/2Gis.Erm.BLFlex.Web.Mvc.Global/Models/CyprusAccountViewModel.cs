@@ -5,7 +5,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {

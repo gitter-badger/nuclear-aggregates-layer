@@ -5,14 +5,15 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {
+    // 2+: BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.Web.Mvc.Global\Models\CyprusClientViewModel.cs
     public sealed class CyprusClientViewModel : EntityViewModelBase<Client>, ICyprusAdapted
     {
         [PresentationLayerProperty]
@@ -75,6 +76,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
         // Дата возврата в резерв
         public DateTime? LastDisqualifyTime { get; set; }
 
+        // Дата возврата в резерв
+        public bool IsAdvertisingAgency { get; set; }
+
+        [Dependency(DependencyType.ReadOnly, "IsAdvertisingAgency", "this.value == 'False'")]
+        public bool CanEditIsAdvertisingAgency { get; set; }
+
         // Куратор
         public override byte[] Timestamp { get; set; }
 
@@ -111,6 +118,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
             MainAddress = modelDto.MainAddress;
             LastQualifyTime = modelDto.LastQualifyTime;
             LastDisqualifyTime = modelDto.LastDisqualifyTime;
+            IsAdvertisingAgency = modelDto.IsAdvertisingAgency;
             MainFirm = LookupField.FromReference(modelDto.MainFirmRef);
             Territory = LookupField.FromReference(modelDto.TerritoryRef);
             Timestamp = modelDto.Timestamp;
@@ -134,6 +142,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Models
                     MainAddress = MainAddress,
                     LastQualifyTime = LastQualifyTime,
                     LastDisqualifyTime = LastDisqualifyTime,
+                    IsAdvertisingAgency = IsAdvertisingAgency,
                     MainFirmRef = MainFirm.ToReference(),
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp

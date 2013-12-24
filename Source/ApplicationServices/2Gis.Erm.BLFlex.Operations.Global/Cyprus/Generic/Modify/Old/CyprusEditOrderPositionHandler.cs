@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BL.Aggregates.Orders;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.Discounts;
@@ -9,7 +10,6 @@ using DoubleGis.Erm.BL.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.Core.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

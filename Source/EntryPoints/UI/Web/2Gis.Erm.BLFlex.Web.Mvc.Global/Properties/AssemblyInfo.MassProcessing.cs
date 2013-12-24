@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Web.Mvc.Services;
-using DoubleGis.Erm.UI.Web.Mvc.Services;
 
 [assembly: ContainedTypes(
     typeof(IController), 

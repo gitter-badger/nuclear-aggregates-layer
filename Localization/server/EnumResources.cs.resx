@@ -354,9 +354,6 @@
   <data name="FasCommentAlcohol" xml:space="preserve">
     <value>Reklama na alkoholické výrobky.</value>
   </data>
-  <data name="FasCommentBeer" xml:space="preserve">
-    <value>Reklama na pivo a nápoje vyráběné na jeho základě.</value>
-  </data>
   <data name="FasCommentDrugsAndService" xml:space="preserve">
     <value>Reklama na léčiva, zdravotnickou techniku, zdravotnické prostředky a zdravotní služby včetně způsobů léčby.</value>
   </data>
@@ -634,9 +631,6 @@
     <value>Existují kontraindikace, je třeba se poradit s odborným lékařem. Umělé přerušení těhotenství může zapříčinit neplodnost a poškodit zdravotní stav ženy.</value>
   </data>
   <data name="FasCommentDisplayTextAlcohol" xml:space="preserve">
-    <value>Nadměrné užívání alkoholu škodí Vašemu zdraví. Propagované alkoholické výrobky s obsahem maximálně pěti procent ethylalkoholu v objemu hotových výrobků.</value>
-  </data>
-  <data name="FasCommentDisplayTextBeer" xml:space="preserve">
     <value>Nadměrné užívání alkoholu škodí Vašemu zdraví. Propagované alkoholické výrobky s obsahem maximálně pěti procent ethylalkoholu v objemu hotových výrobků.</value>
   </data>
   <data name="FasCommentDisplayTextDrugs" xml:space="preserve">
@@ -1383,12 +1377,6 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Upozornění</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVat" xml:space="preserve">
-    <value>Objednávka bez DPH</value>
-  </data>
-  <data name="TemplateCodeOrderWithVat" xml:space="preserve">
-    <value>Objednávka včetně DPH</value>
-  </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Hovor</value>
   </data>
@@ -1698,6 +1686,9 @@
   <data name="FasCommentDisplayTextSupplements" xml:space="preserve">
     <value>Reklamovaný objekt není léčivem.</value>
   </data>
+  <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Выгрузка в шину списаний по лицевым счетам</value>
+  </data>
   <data name="OrderFileKindWarrantyScan" xml:space="preserve">
     <value>PLNÁ MOC</value>
   </data>
@@ -1730,5 +1721,44 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Dohoda o zrušení smlouvy pro pr. osobu</value>
+  </data>
+  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
+    <value>Бланк заказа без НДС со скидкой</value>
+  </data>
+  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
+    <value>Бланк заказа с НДС со скидкой</value>
+  </data>
+  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
+    <value>Бланк заказа без НДС без скидки</value>
+  </data>
+  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
+    <value>Бланк заказа с НДС без скидки</value>
+  </data>
+  <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="OrderProcessingRequestStateCompleted" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="OrderProcessingRequestStateOpened" xml:space="preserve">
+    <value>Открыто</value>
+  </data>
+  <data name="OrderProcessingRequestStatePending" xml:space="preserve">
+    <value>Ожидание</value>
+  </data>
+  <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
+    <value>Не определено</value>
+  </data>
+  <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
+    <value>Заявка на создание заказа</value>
+  </data>
+  <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
+    <value>Обработка горячих клиентов</value>
+  </data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории</value>
+  </data>
+  <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
+    <value>Управление рекламными агентствами</value>
   </data>
 </root>

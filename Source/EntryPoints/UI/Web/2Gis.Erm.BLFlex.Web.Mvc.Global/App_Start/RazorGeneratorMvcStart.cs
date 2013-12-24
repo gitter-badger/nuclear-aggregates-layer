@@ -5,16 +5,12 @@ using RazorGenerator.Mvc;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DoubleGis.Erm.BLFlex.Web.Mvc.Global.App_Start.RazorGeneratorMvcStart), "Start")]
 
-namespace DoubleGis.Erm.BLFlex.Web.Mvc.Global.App_Start 
-{
-    public static class RazorGeneratorMvcStart 
-    {
-        public static void Start()
-        {
-            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
-                {
-                    UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
-                };
+namespace DoubleGis.Erm.BLFlex.Web.Mvc.Global.App_Start {
+    public static class RazorGeneratorMvcStart {
+        public static void Start() {
+            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly) {
+                UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
+            };
 
             ViewEngines.Engines.Insert(0, engine);
 

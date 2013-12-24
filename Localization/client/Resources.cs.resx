@@ -127,7 +127,7 @@
     <value>Akce: {0}, Hotovo: {1} Dne: {2}</value>
   </data>
   <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;změna&quot;: values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;změny&quot;:&quot;změn&quot;]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "změna": values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"změny":"změn"]})</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Aktivní</value>
@@ -208,7 +208,7 @@
     <value>Rubrika</value>
   </data>
   <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
-    <value>Seznam již obsahuje rubriku &apos;{0}&apos;.</value>
+    <value>Seznam již obsahuje rubriku '{0}'.</value>
   </data>
   <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
     <value>Probíhá kontrola. Počkejte, prosím...</value>
@@ -890,5 +890,44 @@
   </data>
   <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
     <value>Adresa nemá vazbu na mapu</value>
+  </data>
+  <data name="InputValidationInvalidUrl" xml:space="preserve">
+    <value>Hodnota pole „{0}“ neni spravnou URL adresou</value>
+  </data>
+  <data name="TextEditorOverflow" xml:space="preserve">
+    <value>Pocet symbolu presahuje povoleny pocet {0} symbolu o {1}.</value>
+  </data>
+  <data name="SymbolsLeft" xml:space="preserve">
+    <value>Zbyvajici symboly: {0}</value>
+  </data>
+  <data name="AdsCheckTooLongWord" xml:space="preserve">
+    <value>Ve slove '{0}' byl prekrocen maximalni pocet symbolu: {1} z moznych {2}.</value>
+  </data>
+  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
+    <value>Pocet radku presahuje povoleny pocet {0} o {1}.</value>
+  </data>
+  <data name="LineBreaksLeft" xml:space="preserve">
+    <value>Zbyvajicich radku {0}</value>
+  </data>
+  <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
+    <value>Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.</value>
+  </data>
+  <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
+    <value>Текст содержит управляющие символы, удалить их перед сохранением?</value>
+  </data>
+  <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
+    <value>Элемент РМ не был сохранён.</value>
+  </data>
+  <data name="OrderCreation" xml:space="preserve">
+    <value>Создание заказа</value>
+  </data>
+  <data name="OrderCreationIsInProgress" xml:space="preserve">
+    <value>Идёт создание заказа. Пожалуйста, подождите...</value>
+  </data>
+  <data name="OrderIsCreated" xml:space="preserve">
+    <value>Создан заказ {entity}</value>
+  </data>
+  <data name="OrderProcessingRequestCancelled" xml:space="preserve">
+    <value>Заявка отклонена</value>
   </data>
 </root>

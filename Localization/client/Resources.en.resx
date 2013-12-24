@@ -891,4 +891,43 @@
   <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
     <value>Адрес не привязан к карте</value>
   </data>
+  <data name="InputValidationInvalidUrl" xml:space="preserve">
+    <value>Value of the field "{0}" is not a correct url-address</value>
+  </data>
+  <data name="TextEditorOverflow" xml:space="preserve">
+    <value>Number of symbols exceeds permitted {0} symbols per {1}.</value>
+  </data>
+  <data name="SymbolsLeft" xml:space="preserve">
+    <value>Number of symbols remained: {0}</value>
+  </data>
+  <data name="AdsCheckTooLongWord" xml:space="preserve">
+    <value>Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.</value>
+  </data>
+  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
+    <value>Number of lines exceeds permitted {0} lines per {1}.</value>
+  </data>
+  <data name="LineBreaksLeft" xml:space="preserve">
+    <value>Number of lines left {0}</value>
+  </data>
+  <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
+    <value>Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.</value>
+  </data>
+  <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
+    <value>Текст содержит управляющие символы, удалить их перед сохранением?</value>
+  </data>
+  <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
+    <value>Элемент РМ не был сохранён.</value>
+  </data>
+  <data name="OrderCreation" xml:space="preserve">
+    <value>Создание заказа</value>
+  </data>
+  <data name="OrderCreationIsInProgress" xml:space="preserve">
+    <value>Идёт создание заказа. Пожалуйста, подождите...</value>
+  </data>
+  <data name="OrderIsCreated" xml:space="preserve">
+    <value>Создан заказ {entity}</value>
+  </data>
+  <data name="OrderProcessingRequestCancelled" xml:space="preserve">
+    <value>Заявка отклонена</value>
+  </data>
 </root>

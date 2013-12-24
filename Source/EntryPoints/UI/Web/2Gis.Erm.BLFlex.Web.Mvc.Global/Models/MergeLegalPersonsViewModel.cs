@@ -1,8 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.Web.Mvc.ViewModel;
 using DoubleGis.Erm.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.UI.Web.Mvc.Models.Base;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Models
 {

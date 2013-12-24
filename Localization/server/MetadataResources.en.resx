@@ -1285,4 +1285,31 @@
     <value>Зарегистрировано</value>
     <comment>поле профиля юр. лица</comment>
   </data>
+  <data name="CreateCsvFile" xml:space="preserve">
+    <value>Выгрузить дополнительно файл в формате csv</value>
+  </data>
+  <data name="OrderProcessingRequest" xml:space="preserve">
+    <value>Заявка из ЛК</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Срок</value>
+  </data>
+  <data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
+    <value>Продляемый заказ</value>
+  </data>
+  <data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
+    <value>Созданный заказ</value>
+  </data>
+  <data name="OrderProcessingRequestState" xml:space="preserve">
+    <value>Статус заявки</value>
+  </data>
+  <data name="OrderProcessingRequestTitle" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="ReleaseCountPlan" xml:space="preserve">
+    <value>Количество выпусков размещения</value>
+  </data>
+  <data name="IsAdvertisingAgency" xml:space="preserve">
+    <value>Является рекламным агентством</value>
+  </data>
 </root>

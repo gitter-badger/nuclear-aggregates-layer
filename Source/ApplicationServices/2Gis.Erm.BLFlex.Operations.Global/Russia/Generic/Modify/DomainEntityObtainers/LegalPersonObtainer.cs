@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.LegalPersons;
-using DoubleGis.Erm.BL.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.Common.Utils;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -34,21 +33,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
             if (!dto.IsInSyncWith1C)
             {
                 legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
-                legalPerson.LegalName = dto.LegalName;
-                legalPerson.ShortName = dto.ShortName;
-                legalPerson.LegalAddress = dto.LegalAddress;
-                legalPerson.Kpp = dto.Kpp;
-                legalPerson.Ic = dto.Ic;
-                legalPerson.PassportNumber = dto.PassportNumber;
-                legalPerson.RegistrationAddress = dto.RegistrationAddress;
+                legalPerson.LegalName = dto.LegalName.EnsureСleanness();
+                legalPerson.ShortName = dto.ShortName.EnsureСleanness();
+                legalPerson.LegalAddress = dto.LegalAddress.EnsureСleanness();
+                legalPerson.Kpp = dto.Kpp.EnsureСleanness();
+                legalPerson.Ic = dto.Ic.EnsureСleanness();
+                legalPerson.PassportNumber = dto.PassportNumber.EnsureСleanness();
+                legalPerson.RegistrationAddress = dto.RegistrationAddress.EnsureСleanness();
             }
 
-            legalPerson.Inn = dto.LegalPersonTypeEnum == LegalPersonType.Businessman ? dto.BusinessmanInn : dto.Inn;
-            legalPerson.PassportSeries = dto.PassportSeries;
+            legalPerson.Inn = (dto.LegalPersonTypeEnum == LegalPersonType.Businessman ? dto.BusinessmanInn : dto.Inn).EnsureСleanness();
+            legalPerson.PassportSeries = dto.PassportSeries.EnsureСleanness();
             legalPerson.OwnerCode = dto.OwnerRef.Id.Value;
             legalPerson.ClientId = dto.ClientRef.Id;
-            legalPerson.Comment = dto.Comment;
-            legalPerson.PassportIssuedBy = dto.PassportIssuedBy;
+            legalPerson.Comment = dto.Comment.EnsureСleanness();
+            legalPerson.PassportIssuedBy = dto.PassportIssuedBy.EnsureСleanness();
             legalPerson.Timestamp = dto.Timestamp;
 
             return legalPerson;

@@ -1013,7 +1013,7 @@ SWIFT {5}
   <data name="AssignAccountAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у лицевого счета</value>
   </data>
-  <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment" xml:space="preserve">
+  <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPaуment" xml:space="preserve">
     <value>Дата начала периода должна быть меньше даты окончания периода для платежа "{0}"</value>
   </data>
   <data name="PeriodValidationEndDateIsIncorrect" xml:space="preserve">

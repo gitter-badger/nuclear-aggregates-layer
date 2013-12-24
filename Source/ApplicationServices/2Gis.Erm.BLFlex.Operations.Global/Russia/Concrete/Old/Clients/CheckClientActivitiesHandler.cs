@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.BL.Aggregates.Firms;
 using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;

@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Model.Entities
-@using Platform.Web.Mvc.Utils
+﻿@using Platform.Web.Mvc.Utils
 @model CyprusClientViewModel
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -81,6 +80,8 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.ReplicationCode)
     @Html.HiddenFor(m => m.PromisingScore)
+    @Html.HiddenFor(m => m.CanEditIsAdvertisingAgency)
+    @Html.HiddenFor(m => m.IsAdvertisingAgency)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.lone)

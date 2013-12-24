@@ -1752,4 +1752,41 @@
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Čestné prohlášení Objednavatele</value>
   </data>
+  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Выгрузка списаний в шину</value>
+  </data>
+  <data name="DCategoryGroup" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="NavOrderProcessingRequest" xml:space="preserve">
+    <value>Заявки от ЛК</value>
+  </data>
+  <data name="ControlCreateOrder" xml:space="preserve">
+    <value>Создать заказ</value>
+  </data>
+  <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
+    <value>Отменить заявку</value>
+  </data>
+  <data name="EnOrderProcessingRequest" xml:space="preserve">
+    <value>Заявка от ЛК</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
+    <value>Продляемый заказ</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
+    <value>Созданный заказ</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="DListOrderProcessingRequest" xml:space="preserve">
+    <value>Все заявки</value>
+  </data>
+  <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
+    <value>Заявка от ЛК</value>
+    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
+  </data>
 </root>
