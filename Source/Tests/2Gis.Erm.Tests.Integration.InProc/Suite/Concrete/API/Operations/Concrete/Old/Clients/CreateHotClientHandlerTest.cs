@@ -3,6 +3,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -14,7 +15,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
     {
         private readonly IMsCrmSettings _msCrmSettings;
 
-        public CreateHotClientHandlerTest(IPublicService publicService, IAppropriateEntityProvider<HotClientRequest> appropriateEntityProvider, IMsCrmSettings msCrmSettings)
+        public CreateHotClientHandlerTest(IPublicService publicService,
+                                          IAppropriateEntityProvider<HotClientRequest> appropriateEntityProvider,
+                                          IMsCrmSettings msCrmSettings)
             : base(publicService, appropriateEntityProvider)
         {
             _msCrmSettings = msCrmSettings;
@@ -35,11 +38,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             return true;
         }
 
-        protected override OrdinaryTestResult AssertResponse(CreateHotClientResponse response)
+
+        protected override IResponseAsserter<CreateHotClientResponse> ResponseAsserter
         {
-            return _msCrmSettings.EnableReplication
-                       ? Result.When(response).Then(r => r.Success.Should().BeTrue())
-                       : base.AssertResponse(response);
+            get { return _msCrmSettings.EnableReplication ? new DelegateResponseAsserter<CreateHotClientResponse>(Assert) : base.ResponseAsserter; }
+        }
+
+        private OrdinaryTestResult Assert(CreateHotClientResponse response)
+        {
+            return Result.When(response).Then(r => r.Success.Should().BeTrue());
         }
     }
 }

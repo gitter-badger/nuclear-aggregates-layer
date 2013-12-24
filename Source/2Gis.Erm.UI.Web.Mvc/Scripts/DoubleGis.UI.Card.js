@@ -369,10 +369,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
     },
 
     postForm: function () {
-        this.RemoveNotification("ServerWarning");
-        this.RemoveNotification("ServerError");
-        this.RemoveNotification("ServerInfo");
-        this.validator.clearMessages();
+        this.clearMessages();
         this.Mask.show();
         Ext.Ajax.request(
         {
@@ -386,6 +383,14 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             timeout: 300000
         });
     },
+    
+    clearMessages: function () {
+        this.RemoveNotification("ServerWarning");
+        this.RemoveNotification("ServerError");
+        this.RemoveNotification("ServerInfo");
+        this.validator.clearMessages();
+    },
+    
     postFormSuccess: function (response, opts) {
         if (this.fireEvent('afterpost', this) === false) {
             return;
@@ -613,6 +618,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
         this.recalcToolbarButtonsAvailability();
     },
     normalizeForm: function () {
+        this.clearMessages();
         if (this.Settings.CardRelatedItems.length && this.Settings.CardRelatedItems.length > 0) {
             window.Ext.getCmp("CardRelatedItemsTree").root.childNodes[0].firstChild.select();
             this.changeFrame(window.Ext.getCmp("CardRelatedItemsTree").root.childNodes[0].firstChild);

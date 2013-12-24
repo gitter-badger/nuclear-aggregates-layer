@@ -53,23 +53,12 @@
     <!-- directories -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="$(var.PlatformProgramFilesFolder)">
-        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)">
-          <Directory Id="x86Dir" Name="x86" />
-          <Directory Id="x64Dir" Name="x64" />
-        </Directory>
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)" />
       </Directory>
     </Directory>
 
     <!-- third party components -->
     <ComponentGroup Id="ThirdPartyComponents">
-
-      <Component Id="x86_7z.dll" Directory="x86Dir" Guid="*">
-        <File Id="x86_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip 9.22\x86\7z.dll" />
-      </Component>
-
-      <Component Id="x64_7z.dll" Directory="x64Dir" Guid="*">
-        <File Id="x64_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip 9.22\x64\7z.dll" />
-      </Component>
 
       <Component Id="SevenZipSharp.dll" Directory="INSTALLFOLDER" Guid="*">
         <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
@@ -80,7 +69,7 @@
       </Component>
 
       <Component Id="Quartz.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2\lib\net40\Quartz.dll" />
+        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2.1\lib\net40\Quartz.dll" />
       </Component>
 
       <Component Id="Common.Logging.dll" Directory="INSTALLFOLDER" Guid="*">
@@ -92,7 +81,7 @@
       </Component>
 
       <Component Id="log4net.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
+        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\log4net.2.0.3\lib\net40-full\log4net.dll" />
       </Component>
 
       <Component Id="DocumentFormat.OpenXml.dll" Directory="INSTALLFOLDER" Guid="*">
@@ -116,7 +105,7 @@
       </Component>
 
       <Component Id="RabbitMQ.Client.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\RabbitMQ.Client.3.1.5\lib\net30\RabbitMQ.Client.dll" />
+        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
 
       <Component Id="Microsoft.Xrm.Client.dll" Directory="INSTALLFOLDER" Guid="*">
@@ -136,7 +125,7 @@
       </Component>
       
       <Component Id="Newtonsoft.Json.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll" />
+        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll" />
       </Component>
 
     </ComponentGroup>

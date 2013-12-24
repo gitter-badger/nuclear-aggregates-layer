@@ -90,8 +90,6 @@ function()
                 return a.OrderPositionId - b.OrderPositionId;
             });
 
-            var prevGroupNumber = -1;
-
             while (domObjects.detailsCell.lastChild) {
                 domObjects.detailsCell.removeChild(domObjects.detailsCell.lastChild);
             }
@@ -99,12 +97,6 @@ function()
             for (var index = 0; index < messages.length; index++) {
                 var row = document.createElement('div');
                 domObjects.detailsCell.appendChild(row);
-
-                if (prevGroupNumber != -1 && prevGroupNumber != messages[index].GroupNumber) {
-                    row.className = 'firstInGroup';
-                }
-
-                prevGroupNumber = messages[index].GroupNumber;
 
                 var imageCell = document.createElement('div');
                 row.appendChild(imageCell);

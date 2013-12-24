@@ -9,7 +9,6 @@ using System.Web.Routing;
 
 using DoubleGis.Erm.BL.Web.Mvc.Logging;
 using DoubleGis.Erm.BL.Web.Mvc.DI;
-using DoubleGis.Erm.BLFlex.Web.Mvc.Global.App_Start;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;

@@ -1,7 +1,7 @@
-﻿// Файл создан : 25.10.2013 16:45:51
+﻿// Файл создан : 18.12.2013 16:24:23
 // Использованы ресурсы из файлов:
-// Resources (сборка 2Gis.Erm.ClientResourceStorage)
-// Создано строковых констант : 271
+// Resources (сборка 2Gis.Erm.BL.Resources.Client)
+// Создано строковых констант : 276
 // [!] В строке с ключом "ListingCantGetResultForEntityList" символ(ы) ' заменен(ы) на "
 Ext.LocalizedResources =
 {
@@ -169,6 +169,8 @@ Ext.LocalizedResources =
     MergeLegalPersonsAlert : 'Attention! After merging, only the main legal entity of the Client will remain in the system, secondary legal entity of the Client will be hidden. The operation cannot be undone!',
     MergeLegalPersonsSucceded : 'Merged successfully',
     MessageNotProcessedCorrectly : 'Failed to correctly process message {0}',
+    MessageText : 'Текст сообщения',
+    MessageType : 'Тип сообщения',
     MinDateText : 'Date in this field should be later than {0}',
     Modified : 'Modified',
     ModifiedValue : 'Set value',
@@ -209,8 +211,11 @@ Ext.LocalizedResources =
     OrderIsCorrect : 'The order is correct',
     OrderIsCreated : 'Создан заказ {entity}',
     OrderIsNotRelatedToAccount : 'The order is not referenced to any personal account ',
-    OrderProcessingRequestCancelled : 'Заявка отклонена',
+    OrderProcessingRequestCancelled : 'Заявка отменена',
     OrderRepairFailed : 'Failed to correct items of the order',
+    OrderRequestMessagesTabGroupRenderer : 'Выполнено: {0}    Дата: {1}',
+    OrderRequestMessagesTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10>0 && values.rs.length%10<5?"сообщения":"сообщений"]})',
+    OrderRequestMessagesTabTitle : 'Сообщения по заявке',
     OrderState : 'Order status',
     OrderUpgradeProducedTheFollowingWarnings : 'Order update will produce the following changes:',
     OrderValidationFailed : 'Failed to check',

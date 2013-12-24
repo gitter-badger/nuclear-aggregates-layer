@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.Dictionary.Platforms;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 

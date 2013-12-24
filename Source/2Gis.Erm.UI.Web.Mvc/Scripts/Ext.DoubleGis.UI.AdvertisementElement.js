@@ -320,10 +320,10 @@
                     },
                     fileInfo:
                     {
-                        fileId: Ext.getDom('FileId'),
-                        fileName: Ext.getDom('FileName'),
-                        contentType: Ext.getDom('FileContentType'),
-                        fileSize: Ext.getDom('FileContentLength')
+                        fileId: Ext.getDom('FileId').value,
+                        fileName: Ext.getDom('FileName').value,
+                        contentType: Ext.getDom('FileContentType').value,
+                        fileSize: Ext.getDom('FileContentLength').value
                     }
                 });
             if (Ext.getDom('TemplateRestrictionType').value == "Image" && (Ext.getDom('FileId').value * 1)) {

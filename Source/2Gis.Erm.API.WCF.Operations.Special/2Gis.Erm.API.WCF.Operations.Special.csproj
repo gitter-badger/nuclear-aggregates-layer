@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoubleGis.Erm.API.WCF.Operations.Special</RootNamespace>
     <AssemblyName>2Gis.Erm.API.WCF.Operations.Special</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44306</IISExpressSSLPort>
@@ -26,6 +26,7 @@
     <SccProvider>SAK</SccProvider>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,14 +48,18 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
@@ -62,7 +67,6 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
@@ -213,18 +217,20 @@
     <Content Include="log4net.Release.config">
       <DependentUpon>log4net.config</DependentUpon>
     </Content>
-    <Content Include="packages.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Load.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Russia2.pubxml" />
     <None Include="Properties\PublishProfiles\Test.01.pubxml" />
     <None Include="Properties\PublishProfiles\Test.02.pubxml" />
     <None Include="Properties\PublishProfiles\Test.03.pubxml" />
@@ -246,7 +252,6 @@
     <None Include="Properties\PublishProfiles\Test.19.pubxml" />
     <None Include="Properties\PublishProfiles\Test.20.pubxml" />
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.22.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
     <None Include="Web.Edu.Cyprus.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -282,6 +287,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Production.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Russia2.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
@@ -348,9 +356,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.21.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.22.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.23.config">

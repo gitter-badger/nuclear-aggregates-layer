@@ -2,6 +2,13 @@
     this.renderHeader = false;
     Ext.apply(this,
         {
+            // дублирует OrderProcessingRequestType
+            RequestType : {
+                Undefined: 'Undefined',
+                ProlongateOrder: 'ProlongateOrder',
+                CreateOrder: 'CreateOrder'
+            },
+            
             checkDirty: function () {
                 if (this.form.Id.value == 0) {
                     Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -15,21 +22,33 @@
             },
             CreateOrder: function () {
                 if (!this.checkDirty()) return;
+                this.Items.Toolbar.disable();
                 var renewedOrder = Ext.getCmp('RenewedOrder').getValue();
                 var self = this;
                 if (!renewedOrder) {
                     var progressWindow = Ext.MessageBox.wait(Ext.LocalizedResources.OrderCreationIsInProgress, Ext.LocalizedResources.OrderCreation);
 
+                    var requestType = Ext.getDom('RequestType').value;
+
+                    if (requestType !== this.RequestType.ProlongateOrder
+                        && requestType !== this.RequestType.CreateOrder) {
+                        alert("Unknown OrderProcessingRequest type!");
+                        return;
+                    }
+
+                    var url = requestType === this.RequestType.ProlongateOrder
+                        ? '/Order/ProlongateOrderForOrderProcessingRequest'
+                        : '/Order/CreateOrderForOrderProcessingRequest';
+                    
                     Ext.Ajax.request({
                         timeout: 1200000,
                         method: 'POST',
-                        url: '/Order/ProlongateOrderForOrderProcessingRequest',
+                        url: url,
                         params: { orderProcessingRequestId: this.form.Id.value },
                         success: function (xhr) {
                             progressWindow.hide();
                             var response = Ext.decode(xhr.responseText);
                             self.onCreationCompleted(self, response);
-
                         },
                         failure: function (xhr) {
                             progressWindow.hide();
@@ -40,7 +59,10 @@
                                     ? xhr.responseText
                                     : Ext.LocalizedResources.ApplicationError,
                                 buttons: Ext.Msg.OK,
-                                icon: Ext.MessageBox.ERROR
+                                icon: Ext.MessageBox.ERROR,
+                                fn: function() {
+                                    location.reload();
+                                }
                             });
                         }
                     });
@@ -48,6 +70,7 @@
             },
             CancelOrderProcessingRequest: function () {
                 if (!this.checkDirty()) return;
+                this.Items.Toolbar.disable();
                 Ext.Ajax.request({
                     method: 'POST',
                     url: '/OrderProcessingRequest/CancelOrderProcessingRequest',
@@ -68,7 +91,10 @@
                             title: Ext.LocalizedResources.Error,
                             msg: Ext.LocalizedResources.ApplicationError,
                             buttons: Ext.Msg.OK,
-                            icon: Ext.MessageBox.ERROR
+                            icon: Ext.MessageBox.ERROR,
+                            fn: function () {
+                                location.reload();
+                            }
                         });
                     }
                 });
@@ -107,5 +133,17 @@
                 });
             }
         });
-
+    
+    window.Card.on("afterbuild", function (card) {
+        if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
+            this.Items.TabPanel.add(
+                {
+                    xtype: "requestmessagestab",
+                    pCardInfo:
+                    {
+                        pId: window.Ext.getDom("ViewConfig_Id").value
+                    }
+                });
+        }
+    });
 };

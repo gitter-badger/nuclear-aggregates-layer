@@ -1,7 +1,7 @@
-﻿// Файл создан : 25.10.2013 16:45:51
+﻿// Файл создан : 18.12.2013 16:24:23
 // Использованы ресурсы из файлов:
-// Resources (сборка 2Gis.Erm.ClientResourceStorage)
-// Создано строковых констант : 271
+// Resources (сборка 2Gis.Erm.BL.Resources.Client)
+// Создано строковых констант : 276
 // [!] В строке с ключом "AdsCheckTooLongWord" символ(ы) ' заменен(ы) на "
 // [!] В строке с ключом "CategoryAlreasyExistsInTheList" символ(ы) ' заменен(ы) на "
 Ext.LocalizedResources =
@@ -170,6 +170,8 @@ Ext.LocalizedResources =
     MergeLegalPersonsAlert : 'Pozor! Po dokončení operace sloučení zůstane v systému pouze hlavní pr. osoba klienta, vedlejší pr. osoba klienta bude skrytá. Operaci nebude možné zrušit!',
     MergeLegalPersonsSucceded : 'Operace sloučení proběhla úspěšně',
     MessageNotProcessedCorrectly : 'Nebylo možné správně zpracovat zprávu {0}',
+    MessageText : 'Текст сообщения',
+    MessageType : 'Тип сообщения',
     MinDateText : 'Datum v tomto poli musí být po {0}',
     Modified : 'Změněno',
     ModifiedValue : 'Stanovená hodnota',
@@ -210,8 +212,11 @@ Ext.LocalizedResources =
     OrderIsCorrect : 'Objednávka je správná',
     OrderIsCreated : 'Создан заказ {entity}',
     OrderIsNotRelatedToAccount : 'Objednávka není propojena s žádným osobním účtem',
-    OrderProcessingRequestCancelled : 'Заявка отклонена',
+    OrderProcessingRequestCancelled : 'Заявка отменена',
     OrderRepairFailed : 'Nebylo možné upravit položky objednávky',
+    OrderRequestMessagesTabGroupRenderer : 'Выполнено: {0}    Дата: {1}',
+    OrderRequestMessagesTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10>0 && values.rs.length%10<5?"сообщения":"сообщений"]})',
+    OrderRequestMessagesTabTitle : 'Сообщения по заявке',
     OrderState : 'Stav objednávky',
     OrderUpgradeProducedTheFollowingWarnings : 'Po aktualizaci objednávky došlo k následujícím změnám:',
     OrderValidationFailed : 'Nebylo možné provést kontrolu',

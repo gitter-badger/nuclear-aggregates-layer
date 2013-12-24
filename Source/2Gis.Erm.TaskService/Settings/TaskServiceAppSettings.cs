@@ -37,11 +37,22 @@ namespace DoubleGis.Erm.TaskService.Settings
         private readonly StringSetting _adConnectionLogin = ConfigFileSetting.String.Required("ADConnectionLogin");
         private readonly StringSetting _adConnectionPassword = ConfigFileSetting.String.Required("ADConnectionPassword");
 
+        private readonly BoolSetting _useWarehouseIntegration = ConfigFileSetting.Bool.Required("UseWarehouseIntegration");
+
         public bool EnableIntegration
         {
             get
             {
                 return _enableIntegration.Value;
+            }
+        }
+
+
+        public bool UseWarehouseIntegration
+        {
+            get
+            {
+                return _useWarehouseIntegration.Value;
             }
         }
 

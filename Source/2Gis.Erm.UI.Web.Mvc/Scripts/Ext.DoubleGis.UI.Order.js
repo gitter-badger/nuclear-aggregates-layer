@@ -884,8 +884,8 @@ window.InitPage = function () {
             var discountComment = Ext.get('DiscountComment');
             var discountPercent = parseFloat(Ext.fly('DiscountPercent').getValue().replace(',', '.'));
             var disabled = window.Ext.getDom("ViewConfig_ReadOnly").checked;
-            
-            if (discountPercent == 0) {
+
+            if (discountPercent == 0 || isNaN(discountPercent)) {
                 discountReason.dom.disabled = true;
                 discountComment.dom.disabled = true;
                 discountComment.addClass('readonly');
@@ -959,7 +959,7 @@ window.InitPage = function () {
                             success: function(xhr)
                             {
                                 var legalPersonInfo = Ext.decode(xhr.responseText);
-                                if (legalPersonInfo)
+                                if (legalPersonInfo && legalPersonInfo.Id && legalPersonInfo.Name)
                                 {
                                     Ext.getCmp('LegalPerson').setValue({ id: legalPersonInfo.Id, name: legalPersonInfo.Name });
                                 }

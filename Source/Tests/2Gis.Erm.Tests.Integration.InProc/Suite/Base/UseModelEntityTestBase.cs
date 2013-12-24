@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Base
 {
     public abstract class UseModelEntityTestBase<TEntity> : IIntegrationTest
         where TEntity : class, IEntity

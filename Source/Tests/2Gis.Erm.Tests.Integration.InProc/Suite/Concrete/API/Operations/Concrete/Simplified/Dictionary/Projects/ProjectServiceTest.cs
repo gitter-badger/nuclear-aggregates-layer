@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -24,7 +25,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             //modelEntity.ResetToNew();
             //_projectService.CreateOrUpdate(modelEntity);
 
-            _projectService.GetBranchDirector(modelEntity.Code);
             _projectService.GetProjectsByOrganizationUnit(modelEntity.Id);
 
             return OrdinaryTestResult.As.Succeeded;

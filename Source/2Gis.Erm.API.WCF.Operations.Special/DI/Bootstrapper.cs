@@ -4,14 +4,16 @@ using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Operations.Special.Config;
+using DoubleGis.Erm.BL.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Get;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
+using DoubleGis.Erm.BL.Operations.Services.Operations.OrderProcessingRequest;
+using DoubleGis.Erm.BL.Operations.Services.OrderProcessingRequest;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.Services.Orders;
 using DoubleGis.Erm.BL.WCF.Operations.Special.FinancialOperations.Settings;
-using DoubleGis.Erm.Core.Services.Orders;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Settings;
@@ -173,11 +175,18 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             return container;
         }
 
-        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IFinancialOperationsAppSettings appSettings)
         {
             const string MappingScope = Mapping.Erm;
 
-            container.RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope);
+            container.RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope)
+                     .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(
+                         CustomLifetime.PerOperationContext,
+                         MappingScope)
+                     .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(
+                         CustomLifetime.PerOperationContext,
+                         MappingScope)
+                     .ConfigureNotificationsSender(appSettings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
             return container;
         }

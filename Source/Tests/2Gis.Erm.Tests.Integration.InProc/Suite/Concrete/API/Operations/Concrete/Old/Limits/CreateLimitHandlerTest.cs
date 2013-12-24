@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Limits;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -27,7 +28,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             return true;
         }
 
-        protected override OrdinaryTestResult AssertResponse(CreateLimitResponse response)
+        protected override IResponseAsserter<CreateLimitResponse> ResponseAsserter
+        {
+            get { return new DelegateResponseAsserter<CreateLimitResponse>(Assert); }
+        }
+
+        private static OrdinaryTestResult Assert(CreateLimitResponse response)
         {
             return Result.When(response)
                          .Then(r => r.StartPeriodDate.Should().BeAfter(DateTime.UtcNow));

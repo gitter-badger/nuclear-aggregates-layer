@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.API.WCF.Releasing.Settings
             get { return _enableIntegration.Value; }
         }
 
+        public bool UseWarehouseIntegration
+        {
+            get { throw new NotSupportedException(); }
+        }
+
         public string IntegrationApplicationName
         {
             get { return _integrationApplicationName.Value; }

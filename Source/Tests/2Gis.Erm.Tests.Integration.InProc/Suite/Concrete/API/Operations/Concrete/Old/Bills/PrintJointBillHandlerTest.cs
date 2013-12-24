@@ -5,10 +5,8 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
-
-using FluentAssertions;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Old.Bills
 {
@@ -41,10 +39,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             return true;
         }
 
-        protected override OrdinaryTestResult AssertResponse(StreamResponse response)
+        protected override IResponseAsserter<StreamResponse> ResponseAsserter
         {
-            return Result.When(response)
-             .Then(r => r.Stream.Should().NotBeNull());
+            get { return new StreamResponseAsserter(); }
         }
     }
 }

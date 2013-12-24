@@ -1,6 +1,6 @@
 ﻿Ext.ns("Ext.DoubleGis.UI");
 
-Ext.grid.CategoryNameColumn = Ext.extend(Object, {
+Ext.grid.CategoryColumn = Ext.extend(Object, {
     readonly: false,
 
     constructor: function(config) {
@@ -139,12 +139,19 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Object,
                     dataIndex: 'CategoryId',
                     hidden: true
                 });
-            columns.push( new Ext.grid.CategoryNameColumn(
+            columns.push( new Ext.grid.CategoryColumn(
                 {
                     header: Ext.LocalizedResources.CategoryName,
                     dataIndex: 'CategoryName',
                     sortable: true,
                     width: 400
+                }));
+            columns.push(new Ext.grid.CategoryColumn(
+                {
+                    header: 'Level',
+                    dataIndex: 'CategoryLevel',
+                    sortable: true,
+                    width: 50
                 }));
             
             var checkColumns = [];
@@ -228,6 +235,7 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Object,
                     { name: 'Id', type: 'int' },
                     { name: 'CategoryId', type: 'string' },
                     { name: 'CategoryName', type: 'string' },
+                    { name: 'CategoryLevel', type: 'string' },
                     { name: 'CategoryGroupId', type: 'string' }
                 ]
             }),

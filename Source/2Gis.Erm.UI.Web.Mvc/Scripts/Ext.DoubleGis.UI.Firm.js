@@ -97,6 +97,9 @@
             };
 
             var onFailure = function () {
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: alert можно заменить на ext'овый messagebox
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
                 alert('@Resources.SaveError');
                 card.Items.Toolbar.enable();
             };

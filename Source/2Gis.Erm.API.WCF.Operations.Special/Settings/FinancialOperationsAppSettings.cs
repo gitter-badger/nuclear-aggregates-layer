@@ -20,12 +20,5 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.Settings
             get { return MsCRMSettings; }
         }
 
-        public bool CreationOrderRequestsEnabled
-        {
-            get
-            {
-                return _creationOrderRequestsEnabled.Value;
-            }
-        }
     }
 }

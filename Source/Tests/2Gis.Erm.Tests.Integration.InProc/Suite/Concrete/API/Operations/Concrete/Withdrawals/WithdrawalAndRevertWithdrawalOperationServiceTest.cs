@@ -4,6 +4,7 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 

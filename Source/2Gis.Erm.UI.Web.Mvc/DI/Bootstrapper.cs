@@ -11,6 +11,8 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BL.API.Operations.Generic.File;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests.OrderProcessingRequests;
 using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.DAL.PersistenceServices.Reports;
@@ -25,6 +27,8 @@ using DoubleGis.Erm.BL.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.Operations.Crosscutting;
 using DoubleGis.Erm.BL.Operations.Generic.Modify.UsingHandler;
+using DoubleGis.Erm.BL.Operations.Services.OrderProcessingRequest;
+using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BL.OrderValidation;
 using DoubleGis.Erm.BL.OrderValidation.Configuration;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
@@ -204,25 +208,25 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly()
-        {
+            {
             var checkingResourceStorages = new[]
-                {
+            {
                     typeof(BLResources),
                     typeof(MetadataResources),
                     typeof(EnumResources)
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-        }
+            }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IWebAppSettings settings)
-        {
+            {
             return container.RegisterAPIServiceSettings(settings)
                             .RegisterMsCRMSettings(settings)
                             .RegisterInstance<IAppSettings>(settings)
                             .RegisterInstance<IGlobalizationSettings>(settings)
                             .RegisterInstance<IWebAppSettings>(settings);
-        }
+            }
 
         private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IWebAppSettings appSettings)
         {
@@ -272,9 +276,16 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
 
+                .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
+
                 // notification sender
                 .RegisterType<ILinkToEntityCardFactory, WebAppLinkToEntityCardFactory>()
+                .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
+                .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
+
                 .ConfigureNotificationsSender(settings.MsCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
+
+            return container;
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -312,13 +323,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         {
             return container.RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
-        
+
         private static IUnityContainer ConfigureMvcMetadataProvider(this IUnityContainer container)
         {
             return container.RegisterType<IUserContextProvider, UnityUserContextProvider>(Lifetime.Singleton)
-                            .RegisterType<ModelMetadataProvider, LocalizedMetaDataProvider>(Lifetime.Singleton,
-                                                                     new InjectionConstructor(
-                                                                         typeof(IUserContextProvider)));
+                .RegisterType<ModelMetadataProvider, LocalizedMetaDataProvider>(Lifetime.Singleton,
+                                                         new InjectionConstructor(
+                                                             typeof(IUserContextProvider)));
         }
     }
 }

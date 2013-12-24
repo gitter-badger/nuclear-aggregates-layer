@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -19,6 +20,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         UseModelEntityHandlerTestBase<OrganizationUnit, CreateAfterSaleServiceActivitiesRequest, CreateAfterSaleServiceActivitiesResponse>
     {
         private readonly TimePeriod _period;
+
         public CreateAfterSaleServiceActivitiesHandlerTest(IPublicService publicService, IAppropriateEntityProvider<OrganizationUnit> appropriateEntityProvider)
             : base(publicService, appropriateEntityProvider)
         {
@@ -48,7 +50,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             return true;
         }
 
-        protected override OrdinaryTestResult AssertResponse(CreateAfterSaleServiceActivitiesResponse response)
+        protected override IResponseAsserter<CreateAfterSaleServiceActivitiesResponse> ResponseAsserter
+        {
+            get { return new DelegateResponseAsserter<CreateAfterSaleServiceActivitiesResponse>(Assert); }
+        }
+
+        private static OrdinaryTestResult Assert(CreateAfterSaleServiceActivitiesResponse response)
         {
             return Result.When(response).Then(r => r.CreatedActivities.Should().NotBeEmpty());
         }

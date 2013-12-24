@@ -876,7 +876,7 @@ window.InitPage = function () {
             var discountComment = Ext.get('DiscountComment');
             var discountPercent = parseFloat(Ext.fly('DiscountPercent').getValue());
 
-            if (discountPercent == 0) {
+            if (discountPercent == 0 || isNaN(discountPercent)) {
                 discountReason.dom.disabled = true;
                 discountComment.addClass('readonly');
             }

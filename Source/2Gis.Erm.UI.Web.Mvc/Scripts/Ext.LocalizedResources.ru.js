@@ -1,7 +1,9 @@
-﻿// Файл создан : 25.10.2013 16:45:51
+﻿ 
+
+// Файл создан : 18.12.2013 16:24:23
 // Использованы ресурсы из файлов:
-// Resources (сборка 2Gis.Erm.ClientResourceStorage)
-// Создано строковых констант : 271
+// Resources (сборка 2Gis.Erm.BL.Resources.Client)
+// Создано строковых констант : 276
 // [!] В строке с ключом "AdsCheckTooLongWord" символ(ы) ' заменен(ы) на "
 // [!] В строке с ключом "CategoryAlreasyExistsInTheList" символ(ы) ' заменен(ы) на "
 Ext.LocalizedResources =
@@ -170,6 +172,8 @@ Ext.LocalizedResources =
     MergeLegalPersonsAlert : 'Внимание! После завершения операции слияния в системе останется только основное Юр. лицо клиента, не основное Юр. лицо клиента будет скрыто. Операцию нельзя будет отменить!',
     MergeLegalPersonsSucceded : 'Операция слияния проведена успешно',
     MessageNotProcessedCorrectly : 'Сообщение {0} не удалось корректно обработать',
+    MessageText : 'Текст сообщения',
+    MessageType : 'Тип сообщения',
     MinDateText : 'Дата в этом поле должна быть позже {0}',
     Modified : 'Изменено',
     ModifiedValue : 'Установленное значение',
@@ -210,8 +214,11 @@ Ext.LocalizedResources =
     OrderIsCorrect : 'Заказ корректен',
     OrderIsCreated : 'Создан заказ {entity}',
     OrderIsNotRelatedToAccount : 'Заказ не связан ни с одним лицевым счётом',
-    OrderProcessingRequestCancelled : 'Заявка отклонена',
+    OrderProcessingRequestCancelled : 'Заявка отменена',
     OrderRepairFailed : 'Не удалось исправить позиции заказа',
+    OrderRequestMessagesTabGroupRenderer : 'Выполнено: {0}    Дата: {1}',
+    OrderRequestMessagesTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10>0 && values.rs.length%10<5?"сообщения":"сообщений"]})',
+    OrderRequestMessagesTabTitle : 'Сообщения по заявке',
     OrderState : 'Статус заказа',
     OrderUpgradeProducedTheFollowingWarnings : 'Обновление заказа привело к следующим изменениям:',
     OrderValidationFailed : 'Не удалось выполнить проверку',

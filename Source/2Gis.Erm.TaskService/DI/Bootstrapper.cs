@@ -3,11 +3,20 @@ using System.Reflection;
 
 using DoubleGis.Erm.BL.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.MsCRM;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests.OrderProcessingRequests;
+using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
+using DoubleGis.Erm.BL.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
 using DoubleGis.Erm.BL.Operations.Crosscutting.AD;
+using DoubleGis.Erm.BL.Operations.Services.Operations.OrderProcessingRequest;
+using DoubleGis.Erm.BL.Operations.Services.OrderProcessingRequest;
+using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequests.Concrete;
+using DoubleGis.Erm.BL.OrderValidation;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.TaskService.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
@@ -108,7 +117,7 @@ namespace DoubleGis.Erm.TaskService.DI
         private static void CheckConventionsСomplianceExplicitly()
         {
             var checkingResourceStorages = new[]
-                {
+        {
                     typeof(BLResources),
                     typeof(MetadataResources),
                     typeof(EnumResources)
@@ -118,7 +127,7 @@ namespace DoubleGis.Erm.TaskService.DI
         }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, ITaskServiceAppSettings settings)
-        {
+            {
             return container.RegisterAPIServiceSettings(settings)
                             .RegisterMsCRMSettings(settings)
                             .RegisterInstance<IAppSettings>(settings)
@@ -130,14 +139,14 @@ namespace DoubleGis.Erm.TaskService.DI
                             .RegisterInstance<IDBCleanupSettings>(settings)
                             .RegisterInstance<ITaskServiceProcesingSettings>(settings)
                             .RegisterInstance<ITaskServiceAppSettings>(settings);
-        }
+            }
 
         private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ITaskServiceAppSettings appSettings)
         {
             return appSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
-            }
+        }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
@@ -155,9 +164,17 @@ namespace DoubleGis.Erm.TaskService.DI
                 // FIXME {d.ivanov, 28.08.2013}: IPublicService зарегистрирован в общем scope, чтобы работать с ним из SimplifiedModelConsumer-ов, см IOperationsExportService<,>
                 //                               Нужно вынести логику из наследников SerializeObjectsHandler в соответствующие OperationsExporter-ы
                 .RegisterTypeWithDependencies<IPublicService, PublicService>(Lifetime.PerScope, MappingScope)
+                
+                .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(Lifetime.PerScope, MappingScope)
+
                 // services
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
-                
+                .RegisterTypeWithDependencies<ICrmTaskFactory, CrmTaskFactory>(Lifetime.PerScope, MappingScope)
+
+                .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
+
                 .ConfigureNotificationsSender(appSettings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -21,6 +22,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         [STAThread]
         public static void Main(string[] args)
         {
+            var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+
             var settings = new TestAPIInProcOperationsSettings();
             var logger = CreateLogger();
 

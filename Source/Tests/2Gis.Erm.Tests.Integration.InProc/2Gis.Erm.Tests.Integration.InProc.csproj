@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoubleGis.Erm.Tests.Integration.InProc</RootNamespace>
     <AssemblyName>2Gis.Erm.Tests.Integration.InProc</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -17,6 +17,8 @@
     <SccProvider>SAK</SccProvider>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,23 +41,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
+    <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Omu.ValueInjecter">
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -75,6 +82,10 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="DI\IntegrationTestsMassProcessor.cs" />
+    <Compile Include="Suite\Base\DelegateResponseAsserter.cs" />
+    <Compile Include="Suite\Base\EmptyResponseAsserter.cs" />
+    <Compile Include="Suite\Base\IResponseAsserter.cs" />
+    <Compile Include="Suite\Base\StreamResponseAsserter.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Account\AccountReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activity\ActivityReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisement\AdvertisementReadModelTest.cs" />
@@ -85,6 +96,13 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\AfterSaleService\UpdateAfterSaleServiceOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
+    <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CancelOrderProcessingRequestOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderCreationRequestOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderProlongationRequestOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\ProcessOrderCreationRequestSingleOperationTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\ProcessOrderProlongationRequestMassOperationTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\ProcessOrderProlongationRequestSingleOperationTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Orders\CreateOrderOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Orders\ModifyOrderOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\ContributionTypes\ContributionTypeServiceTest.cs" />
@@ -153,8 +171,14 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Territories\SelectOrganizationUnitTerritoriesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Territories\ValidateTerritoryAvailabilityHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\UseModelEntityHandlerTestBase.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\UseModelEntityTestBase.cs" />
+    <Compile Include="Suite\Base\UseModelEntityTestBase.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\Number\GenerateOrderNumberHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\RequestStateApplicationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
@@ -309,6 +333,10 @@
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BL.API.MoDi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
@@ -328,6 +356,10 @@
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
       <Name>2Gis.Erm.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
@@ -412,7 +444,6 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Buildscript\Erm.Desktop.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

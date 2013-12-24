@@ -3,9 +3,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Old
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Base
 {
-    public abstract class UseModelEntityHandlerTestBase<TEntity, TRequest, TResponse> : UseModelEntityTestBase<TEntity> 
+    public abstract class UseModelEntityHandlerTestBase<TEntity, TRequest, TResponse> : UseModelEntityTestBase<TEntity>
         where TEntity : class, IEntity
         where TRequest : Request
         where TResponse : Response
@@ -13,7 +13,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         private readonly IPublicService _publicService;
 
         protected UseModelEntityHandlerTestBase(IPublicService publicService,
-            IAppropriateEntityProvider<TEntity> appropriateEntityProvider) : base(appropriateEntityProvider)
+                                                IAppropriateEntityProvider<TEntity> appropriateEntityProvider)
+            : base(appropriateEntityProvider)
         {
             _publicService = publicService;
         }
@@ -34,12 +35,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                 return OrdinaryTestResult.As.Failed.WithReport("Can't cast response of type {0} to type {1}", response.GetType().Name, typeof(TResponse).Name);
             }
 
-            return AssertResponse(typedResponse);
+            return ResponseAsserter.Assert(typedResponse);
         }
 
-        protected virtual OrdinaryTestResult AssertResponse(TResponse response)
+        protected virtual IResponseAsserter<TResponse> ResponseAsserter
         {
-            return OrdinaryTestResult.As.Succeeded;
+            get { return new EmptyResponseAsserter(); }
         }
 
         protected abstract bool TryCreateRequest(TEntity modelEntity, out TRequest request);
