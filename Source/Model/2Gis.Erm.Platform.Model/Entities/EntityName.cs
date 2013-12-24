@@ -90,6 +90,7 @@
         FirmAddressService = 237,
         ReleaseValidationResult = 238, 
         UserEntity = 239,
+        DepCard = 240,
         
         PerformedBusinessOperation = 244,
         ExportFlowCardExtensionsCardCommercial = 246,
@@ -140,6 +141,7 @@
         Task = 503,
 
         // заявка на создание или продление заказа от Личного кабинета
-        OrderProcessingRequest = 550
+        OrderProcessingRequest = 550,
+        OrderProcessingRequestMessage = 551
     }
 }

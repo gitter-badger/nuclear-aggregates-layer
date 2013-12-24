@@ -51,10 +51,16 @@ namespace DoubleGis.Erm.Platform.Migration.Base
 
         public string GetConnectionString(ErmConnectionStringKey key = ErmConnectionStringKey.Default)
         {
+            // Если запрашивается подключение к базе crm, то изготовим его с помощью 
+            // такой то матери, порции костылей и строки подключения к erm.
+            var connectionStringKeyForRequest = key == ErmConnectionStringKey.Crm
+                                                    ? ErmConnectionStringKey.Default
+                                                    : key;
+
             var connectionStringBuilder = new DbConnectionStringBuilder
-            {
-                ConnectionString = GetConnectionStringInternal(key)
-            };
+                {
+                    ConnectionString = GetConnectionStringInternal(connectionStringKeyForRequest)
+                };
 
             if (key == ErmConnectionStringKey.Crm)
             {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://2Gis/GeoMasterApi/2013/1" elementFormDefault="qualified" targetNamespace="http://2Gis/GeoMasterApi/2013/1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="GetCapabilities">
     <xs:complexType>
       <xs:sequence />
@@ -71,27 +71,8 @@
   <xs:element name="GetAddressesStringResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetAddressesStringResult" nillable="true" type="tns:ArrayOfAddressDesc" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAddressesStringResult" nillable="true" type="q3:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="ArrayOfAddressDesc">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressDesc" nillable="true" type="tns:AddressDesc" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAddressDesc" nillable="true" type="tns:ArrayOfAddressDesc" />
-  <xs:complexType name="AddressDesc">
-    <xs:sequence>
-      <xs:element name="Code" type="xs:long" />
-      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="AddressDesc" nillable="true" type="tns:AddressDesc" />
-  <xs:complexType name="NotFoundObject">
-    <xs:sequence>
-      <xs:element name="Code" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="NotFoundObject" nillable="true" type="tns:NotFoundObject" />
 </xs:schema>

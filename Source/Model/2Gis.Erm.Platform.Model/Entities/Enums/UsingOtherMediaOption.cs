@@ -1,7 +1,5 @@
 namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
-    // fixme {a.tukaev 2013-07-24}: не флаговое перечисление во множественном числе
-    // DONE {a.rechkalov, 24.07.2013}: fixed
     public enum UsingOtherMediaOption
     {
         None = 0,

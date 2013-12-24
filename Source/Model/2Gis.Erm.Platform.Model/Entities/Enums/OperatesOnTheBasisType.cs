@@ -3,8 +3,6 @@
     /// <summary>
     /// Действует на основании...
     /// </summary>
-    // fixme {a.tukaev 2013-07-24}: не флаговое перечисление во множественном числе
-    // DONE {a.rechkalov, 24.07.2013}: fixed
     public enum OperatesOnTheBasisType
     {
         Underfined = 0,

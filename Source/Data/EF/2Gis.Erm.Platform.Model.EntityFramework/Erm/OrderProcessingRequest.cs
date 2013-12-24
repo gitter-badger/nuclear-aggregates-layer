@@ -33,9 +33,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         private long? _oldOwnerCode;
         long? ICuratedEntity.OldOwnerCode { get { return _oldOwnerCode; } }
     
+        public OrderProcessingRequest()
+        {
+            this.OrderProcessingRequestMessages = new HashSet<OrderProcessingRequestMessage>();
+        }
+    
         public long Id { get; set; }
         public System.Guid ReplicationCode { get; set; }
         public string Title { get; set; }
+        public int RequestType { get; set; }
         public System.DateTime DueDate { get; set; }
         public Nullable<long> BaseOrderId { get; set; }
         public Nullable<long> RenewedOrderId { get; set; }
@@ -76,6 +82,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Firm Firm { get; set; }
         public Order RenewedOrder { get; set; }
         public OrganizationUnit SourceOrganizationUnit { get; set; }
+        public ICollection<OrderProcessingRequestMessage> OrderProcessingRequestMessages { get; set; }
     }
 }
 

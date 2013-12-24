@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
 {
     public static class SimplifiedEntities
     {
-        public static readonly EntityName[] Entities = new[] 
+        public static readonly EntityName[] Entities =
         { 
             EntityName.AdditionalFirmService,
             EntityName.Category,
@@ -48,7 +48,8 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
             EntityName.ExportToMsCrmHotClients,
             EntityName.UserEntity,
             EntityName.FileWithContent,
-            EntityName.OrderProcessingRequest
+            EntityName.OrderProcessingRequest,
+            EntityName.OrderProcessingRequestMessage
         };
 
         private static readonly IDictionary<EntityName, Type> SimplifiedEntitiesMap = new Dictionary<EntityName, Type>();

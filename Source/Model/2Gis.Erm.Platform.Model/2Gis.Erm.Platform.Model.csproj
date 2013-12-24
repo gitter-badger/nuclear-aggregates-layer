@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoubleGis.Erm.Platform.Model</RootNamespace>
     <AssemblyName>2Gis.Erm.Platform.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +93,7 @@
       <Link>Entities\DTOs\GenerateErmDomainEntityDTOs.tt</Link>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateErmDomainEntityDTOs.log</LastGenOutput>
+      <CustomToolNamespace>DoubleGis.Erm.Platform.Model.Entities.DTOs</CustomToolNamespace>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -101,22 +103,44 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
+      <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessageDomainEntityDto.cs">
+      <Link>Entities\DTOs\OrderProcessingRequestMessageDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\SecurityAccelerator.cs">
       <Link>Entities\Erm\SecurityAccelerator.cs</Link>
       <DependentUpon>ErmPOCO.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnitsDomainEntityDto.cs">
+      <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="ContainedTypesAttribute.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
+    <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
+    <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFlowCardsForErmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CancelOrderProcessingRequestIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\CreateOrderByRequestIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\GetOrderRequestMessagesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\ProlongateOrderByRequestIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\ProlongateOrderForAllRequestsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringWithdrawalIdentity.cs" />

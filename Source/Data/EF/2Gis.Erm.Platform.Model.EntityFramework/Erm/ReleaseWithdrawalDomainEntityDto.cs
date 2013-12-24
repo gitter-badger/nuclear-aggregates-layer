@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {

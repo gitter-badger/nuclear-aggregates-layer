@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
@@ -29,6 +30,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long Id { get; set; }
     	[DataMember]
         public EntityReference FirmRef { get; set; }
+    	[DataMember]
+        public EntityReference TerritoryRef { get; set; }
     	[DataMember]
         public string Address { get; set; }
     	[DataMember]

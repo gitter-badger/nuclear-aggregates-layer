@@ -6,7 +6,7 @@
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
     <GenerateInternalTypes>false</GenerateInternalTypes>
-    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <GenerateMessageContracts>true</GenerateMessageContracts>
     <NamespaceMappings />
     <CollectionMappings />
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
@@ -18,15 +18,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Map2Gis.wsdl" MetadataType="Wsdl" ID="235fb2e0-9a52-4d99-b451-013bd0241b61" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="Map2Gis.xsd" MetadataType="Schema" ID="ff3f0ce6-be3a-4652-894d-53298b382a17" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd1" />
-    <MetadataFile FileName="Map2Gis.disco" MetadataType="Disco" ID="bcae1fa7-27c3-4934-b7cb-5777ed66e428" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?disco" />
-    <MetadataFile FileName="MasterSystemApi.wsdl" MetadataType="Wsdl" ID="dac46c08-25c1-4f88-99b3-a204d92e12e6" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?wsdl" />
-    <MetadataFile FileName="Map2Gis1.xsd" MetadataType="Schema" ID="7936f213-1019-40fe-a6be-a72eb0ece637" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd0" />
-    <MetadataFile FileName="Map2Gis2.xsd" MetadataType="Schema" ID="7c78f5b7-1df6-4858-8184-72d53201c689" SourceId="1" SourceUrl="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" />
+    <MetadataFile FileName="Map2Gis33.xsd" MetadataType="Schema" ID="b996afb4-2fbe-4249-916f-c0d813fe0f47" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" />
+    <MetadataFile FileName="Map2Gis11.wsdl" MetadataType="Wsdl" ID="124b3367-f4f5-437c-891c-0814af916227" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="MasterSystemApi1.wsdl" MetadataType="Wsdl" ID="783b3b6d-5ef2-433e-ab4c-5cefdc998780" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?wsdl" />
+    <MetadataFile FileName="Map2Gis34.xsd" MetadataType="Schema" ID="dcf3bf09-8c69-41b8-8fb3-3d34834700b4" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd1" />
+    <MetadataFile FileName="Map2Gis35.xsd" MetadataType="Schema" ID="2dbc7536-4c23-4ea6-a15a-d0fa4c0e09fb" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd0" />
+    <MetadataFile FileName="Map2Gis11.disco" MetadataType="Disco" ID="1bca9908-5363-4c6b-8f75-8eac82b97a87" SourceId="1" SourceUrl="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

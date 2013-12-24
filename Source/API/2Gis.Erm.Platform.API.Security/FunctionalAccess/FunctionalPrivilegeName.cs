@@ -1,5 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 {
+    // 2+: Platform\Source\API\2Gis.Erm.Platform.API.Security\FunctionalAccess\FunctionalPrivilegeName.cs
     // refers to table 'Security.Privileges', column 'Id'
     public enum FunctionalPrivilegeName
     {
@@ -43,5 +44,8 @@
         PublishAdvertisementTemplate = 643,
         UnpublishAdvertisementTemplate = 644,
         EditDummyAdvertisement = 645,
+        HotClientProcessing = 646,
+        HotClientTelemarketingProcessing = 647,
+        AdvertisementAgencyManagement = 648,
     }
 }

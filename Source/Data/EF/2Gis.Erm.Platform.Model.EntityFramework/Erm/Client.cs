@@ -82,6 +82,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public System.DateTime CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
+        public bool IsAdvertisingAgency { get; set; }
     
         public Territory Territory { get; set; }
         public ICollection<Contact> Contacts { get; set; }

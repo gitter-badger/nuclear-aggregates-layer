@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Resources;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;

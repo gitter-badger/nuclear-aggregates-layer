@@ -28,8 +28,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         [Obsolete("CreateIdentity or UpdateIdentity must be used")]
         public const int CreateOrUpdateIdentity = 23;
 
-        // TODO {y.baranihin, 11.11.2013}: два раза CopyOrderIdentity
-        // DONE {v.lapeev, 11.11.2013}: поправил
         [Obsolete("CopyOrderIdentity or CopyPriceIdentity must be used")]
         public const int CopyIdentity = 24;
         public const int MergeIdentity = 25;
@@ -40,7 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int RevertWithdrawalIdentity = 33;
         public const int DetachIdentity = 34;
         public const int MsCrmExportIdentity = 35;
-        public const int PrintIdentity = 36;
+        public const int PrintIdentity = 36;   
         public const int BulkDeactivateIdentity = 37;
         public const int BulkActivateIdentity = 38;
         public const int BulkCreateIdentity = 39;
@@ -83,6 +81,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardsFromServiceBusIdentity = 14601;
         public const int ImportFirmIdentity = 14602;
         public const int ImportTerritoriesFromDgppIdentity = 14603;
+        public const int ImportFlowCardsForErmIdentity = 14604;
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
@@ -106,9 +105,11 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int WorkflowProcessingIdentity = 15111;
         public const int CalculateOrderCostIdentity = 15112;
         public const int CopyOrderIdentity = 15113;
+        public const int ObtainDealForBizaccountOrderIdentity = 15114;
 
         // EntityName.OrderPosition = 150
         public const int CalculateOrderPositionCostIdentity = 15001;
+        public const int ValidateOrderPositionAdvertisementsIdentity = 15002;
 
         // Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -128,5 +129,12 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int RequestOrderCreationIdentity = 55002;
         public const int CancelOrderProcessingRequestIdentity = 55003;
         public const int ProlongateOrderByRequestIdentity = 55004;     
+        public const int CreateOrderByRequestIdentity = 55005;
+        public const int ProlongateOrderForAllRequestsIdentity = 55006;
+        public const int GetOrderRequestMessagesIdentity = 55007;
+        public const int SelectOrderProcessingOwnerIdentity = 55008;
+
+        // EntityName.Deal = 199
+        public const int GenerateDealNameIdentity = 19901;
     }
 }

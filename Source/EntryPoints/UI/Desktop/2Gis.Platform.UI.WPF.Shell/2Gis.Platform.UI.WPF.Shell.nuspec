@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <description>$description$</description>
+  </metadata>
+  <files>
+  	<file src="bin\$configuration$\$id$.pdb" target="lib\net45" />
+  	<file src="bin\$configuration$\**\$id$.resources.dll" target="lib\net45" />
+  </files>
+</package>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="zcSgCcnIuA/IojcN1f/1Y8DM3M8=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="4o+aqPOxjzk+zyh5RC/DqhYaIF4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpEndpoint">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpEndpoint" contract="DoubleGis.Erm.Platform.API.GeoMaster.IMsReadApi" bindingType="basicHttpBinding" address="http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc" bindingConfiguration="BasicHttpEndpoint">
+    <endpoint name="BasicHttpEndpoint" contract="DoubleGis.Erm.Platform.API.GeoMaster.IMsReadApi" bindingType="basicHttpBinding" address="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc" bindingConfiguration="BasicHttpEndpoint">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://uk-map-test01.2gis.local/GeMasterApi/Map2Gis.Service.MasterSystemApi.svc</serializedValue>
+          <serializedValue>http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

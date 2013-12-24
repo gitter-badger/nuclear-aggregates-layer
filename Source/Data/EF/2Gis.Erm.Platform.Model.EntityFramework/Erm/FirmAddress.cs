@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     
         public long Id { get; set; }
         public long FirmId { get; set; }
+        public Nullable<long> TerritoryId { get; set; }
         public string Address { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<OrderPositionAdvertisement> OrderPositionAdvertisements { get; set; }
         public Firm Firm { get; set; }
         public Building Building { get; set; }
+        public Territory Territory { get; set; }
         public ICollection<FirmAddressService> FirmAddressServices { get; set; }
     }
 }

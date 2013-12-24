@@ -19,7 +19,15 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                                  "Для вызова использованы параметры '{2}'",
                                  connectionString,
                                  procedureName,
-                                 string.Join(", ", procedureParameters.Select(tuple => string.Format("{0}={1}", tuple.Item1, tuple.Item2))));
+                                 string.Join(", ", procedureParameters.Select(tuple => string.Format("{0}={1}", tuple.Item1, ShortenParameter(tuple.Item2)))));
+        }
+
+        private static string ShortenParameter(object item2)
+        {
+            var x = item2.ToString();
+            return x.Length > 100
+                       ? x.Substring(0, 100) + "..."
+                       : x;
         }
     }
 }

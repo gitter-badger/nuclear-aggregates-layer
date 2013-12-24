@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Migration.Core;
+
 namespace DoubleGis.Erm.Platform.Migration.Runner
 {
     public class MigrationRunResult
@@ -10,7 +12,7 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
         }
 
         public List<long> SuccessfullMigrations { get; private set; }
-        public long? FailureMigration { get; set; }
+        public MigrationDescriptor FailureMigration { get; set; }
 
         public bool IsEmpty()
         {

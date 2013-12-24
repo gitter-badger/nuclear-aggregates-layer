@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
@@ -31,6 +32,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public System.Guid ReplicationCode { get; set; }
     	[DataMember]
         public string Title { get; set; }
+    	[DataMember]
+        public OrderProcessingRequestType RequestType { get; set; }
     	[DataMember]
         public System.DateTime DueDate { get; set; }
     	[DataMember]

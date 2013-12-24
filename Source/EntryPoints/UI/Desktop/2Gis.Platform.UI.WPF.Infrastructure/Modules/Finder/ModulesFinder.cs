@@ -159,7 +159,7 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder
                     })
                     .ToArray();
 
-                var modulesContainerConfigFullPath = string.Format("{0}.config",
+                var modulesContainerConfigFullPath = string.Format("{0}.dll.config",
                                                                    Path.Combine(Path.GetDirectoryName(assemblyFullPath),
                                                                                 Path.GetFileNameWithoutExtension(assemblyFullPath)));
                 return new ModulesDescriptor

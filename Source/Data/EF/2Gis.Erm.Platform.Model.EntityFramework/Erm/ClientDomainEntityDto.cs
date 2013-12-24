@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
@@ -77,6 +78,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     	[DataMember]
         public byte[] Timestamp { get; set; }
+    	[DataMember]
+        public bool IsAdvertisingAgency { get; set; }
     }
 }
 

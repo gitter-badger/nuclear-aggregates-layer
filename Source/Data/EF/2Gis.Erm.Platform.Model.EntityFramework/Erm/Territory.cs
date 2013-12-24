@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.UserTerritoriesOrganizationUnits = new HashSet<UserTerritoriesOrganizationUnits>();
             this.Clients = new HashSet<Client>();
             this.Firms = new HashSet<Firm>();
+            this.FirmAddresses = new HashSet<FirmAddress>();
             this.Buildings = new HashSet<Building>();
         }
     
@@ -52,6 +53,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<UserTerritoriesOrganizationUnits> UserTerritoriesOrganizationUnits { get; set; }
         public ICollection<Client> Clients { get; set; }
         public ICollection<Firm> Firms { get; set; }
+        public ICollection<FirmAddress> FirmAddresses { get; set; }
         public ICollection<Building> Buildings { get; set; }
     }
 }

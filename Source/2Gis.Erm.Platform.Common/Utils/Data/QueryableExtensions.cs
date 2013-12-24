@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Data
         {
             var newQuery = query;
 
-            if (querySettings.SkipCount > 0)
+            if (querySettings.SkipCount >= 0)
             {
                 newQuery = System.Linq.Dynamic.DynamicQueryable.Skip(newQuery, querySettings.SkipCount);
             }

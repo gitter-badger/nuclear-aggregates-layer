@@ -39,6 +39,9 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
         public void ProcessTypes(IEnumerable<Type> types, bool firstRun)
         {
+            // FIXME {a.tukaev, 23.12.2013}: Убрать после мерджа с 1.0
+            return;
+
             if (!firstRun)
             {   // выполняем проверки только при первом проходе
                 return;

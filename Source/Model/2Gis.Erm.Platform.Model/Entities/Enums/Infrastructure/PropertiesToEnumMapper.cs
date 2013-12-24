@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
+using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
 {
+    // 2+: Platform\Source\Model\2Gis.Erm.Platform.Model\Entities\Enums\Infrastructure\PropertiesToEnumMapper.cs
     public static class PropertiesToEnumMapper
     {
         public static readonly IReadOnlyDictionary<string, Type> Map = new Dictionary<string, Type>
@@ -60,6 +62,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<LegalPersonProfile>(entity => entity.PaymentMethod), typeof(PaymentMethod) },
                 { CreateKey<Order>(entity => entity.PaymentMethod), typeof(PaymentMethod) },
                 { CreateKey<OrderProcessingRequest>(entity => entity.State), typeof(OrderProcessingRequestState) },
+                { CreateKey<OrderProcessingRequestMessage>(entity => entity.MessageType), typeof(RequestMessageType) },
+                { CreateKey<OrderProcessingRequest>(entity => entity.RequestType), typeof(OrderProcessingRequestType) },
             };
 
         private static string CreateKey<TEntity>(Expression<Func<TEntity, object>> propertyExpression)

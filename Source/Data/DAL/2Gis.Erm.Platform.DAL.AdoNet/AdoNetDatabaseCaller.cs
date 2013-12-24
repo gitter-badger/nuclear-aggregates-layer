@@ -86,40 +86,47 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             IEnumerable<long> pregeneratedIds,
             params Tuple<string, object>[] inputParameters)
         {
-            var idsTable = new DataTable("PregenaratedIds");
-            idsTable.Columns.Add("Id", typeof(long));
-            foreach (var id in pregeneratedIds)
+            try
             {
-                idsTable.Rows.Add(id);
-            }
-
-            var commandParametrs =
-                inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToList();
-            commandParametrs.Add(new SqlParameter { ParameterName = "PregenaratedIds", Value = idsTable, Direction = ParameterDirection.Input });
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand(procedureName, connection))
-            {
-
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddRange(commandParametrs.ToArray());
-                if (commandTimeout.HasValue)
+                var idsTable = new DataTable("PregenaratedIds");
+                idsTable.Columns.Add("Id", typeof(long));
+                foreach (var id in pregeneratedIds)
                 {
-                    command.CommandTimeout = commandTimeout.Value;
+                    idsTable.Rows.Add(id);
                 }
 
-                connection.Open();
-
-                var list = new List<T>();
-                using (var reader = command.ExecuteReader())
+                var commandParametrs =
+                    inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToList();
+                commandParametrs.Add(new SqlParameter { ParameterName = "PregenaratedIds", Value = idsTable, Direction = ParameterDirection.Input });
+                using (var connection = new SqlConnection(_connectionString))
+                using (var command = new SqlCommand(procedureName, connection))
                 {
-                    while (reader.Read())
+
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddRange(commandParametrs.ToArray());
+                    if (commandTimeout.HasValue)
                     {
-                        var value = reader.GetValue(0);
-                        list.Add(Cast<T>(value));
+                        command.CommandTimeout = commandTimeout.Value;
                     }
-                }
 
-                return list;
+                    connection.Open();
+
+                    var list = new List<T>();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var value = reader.GetValue(0);
+                            list.Add(Cast<T>(value));
+                        }
+                    }
+
+                    return list;
+                }
+            }
+            catch (SqlException exception)
+            {
+                throw new ErmDataAccessException(_connectionString, procedureName, inputParameters, exception);
             }
         }
 
@@ -300,9 +307,9 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                throw new StoredProcedureCallException(e, procedureName, inputParameters);
+                throw new ErmDataAccessException(_connectionString, procedureName, inputParameters, exception);
             }
         }
 

@@ -21,14 +21,15 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed partial class DepCard : 
-        IEntity
+        IEntity, 
+        IEntityKey
     {
         public DepCard()
         {
             this.FirmContacts = new HashSet<FirmContact>();
         }
     
-        public long Code { get; set; }
+        public long Id { get; set; }
         public bool IsHiddenOrArchived { get; set; }
     
         public ICollection<FirmContact> FirmContacts { get; set; }

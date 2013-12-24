@@ -52,12 +52,14 @@ namespace DoubleGis.Erm.Platform.Migration.Core
             var migrationAttribute = type.GetOneAttribute<MigrationAttribute>();
             var migrationVersion = migrationAttribute.Version;
             var migrationDescription = migrationAttribute.Description;
+            var migrationAuthor = migrationAttribute.Author;
 
             return new MigrationDescriptor
             {
                 Type = type,
                 Version = migrationVersion,
-                Description = migrationDescription
+                Description = migrationDescription,
+                Author = migrationAuthor,
             };
         }
 

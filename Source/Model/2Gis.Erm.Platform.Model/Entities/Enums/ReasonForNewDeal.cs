@@ -9,5 +9,6 @@
         ClientCall = 4,
         ClientVisit = 5,
         ClientEmail = 6,
+        Bizaccount = 7
     }
 }

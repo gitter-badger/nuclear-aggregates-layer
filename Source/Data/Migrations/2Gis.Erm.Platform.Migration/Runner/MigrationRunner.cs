@@ -42,9 +42,9 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
                     _output.WriteLine("Migrations applied: {0}", string.Join(", ", _runResult.SuccessfullMigrations));
                 }
 
-                if (_runResult.FailureMigration.HasValue)
+                if (_runResult.FailureMigration != null)
                 {
-                    _output.WriteLine("Migration failed: " + _runResult.FailureMigration);
+                    _output.WriteLine("Migration failed: " + _runResult.FailureMigration.Version + " written by " + _runResult.FailureMigration.Author);
                 }
 
                 _output.WriteLine();
@@ -102,14 +102,14 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
                 }
                 catch (MigrationKnownException ex)
                 {
-                    _runResult.FailureMigration = m.Version;
+                    _runResult.FailureMigration = m;
                     Log(ex.Message + "\n" + (ex.InnerException != null ? ex.InnerException.Message : string.Empty));
                     throw;
                 }
                 catch (Exception ex)
                 {
-                    _runResult.FailureMigration = m.Version;
-                    Log("Error during apply of the migration" + m.Version + ".\n" + ex);
+                    _runResult.FailureMigration = m;
+                    Log("Error during apply of the migration" + m.Version + " written by " + m.Author + ".\n" + ex);
                     throw;
                 }
             }
@@ -147,8 +147,8 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
                 }
                 catch (Exception ex)
                 {
-                    _runResult.FailureMigration = m.Version;
-                    Log("Error when reverting the migration" + m.Version + ".\n" + ex);
+                    _runResult.FailureMigration = m;
+                    Log("Error when reverting the migration" + m.Version + " written by " + m.Author + ".\n" + ex);
                     throw;
                 }
             }

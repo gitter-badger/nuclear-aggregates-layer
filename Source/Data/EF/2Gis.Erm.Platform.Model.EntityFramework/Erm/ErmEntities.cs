@@ -100,6 +100,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(OrderPosition),
     		typeof(OrderPositionAdvertisement),
     		typeof(OrderProcessingRequest),
+    		typeof(OrderProcessingRequestMessage),
     		typeof(OrderReleaseTotal),
     		typeof(OrdersRegionalAdvertisingSharing),
     		typeof(OrderValidationResult),

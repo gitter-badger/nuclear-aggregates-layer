@@ -220,7 +220,8 @@ using System.Runtime.Serialization;{0}
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;{1}",
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Model.Entities.Enums;{1}",
 			includeCollections ? (Environment.NewLine + @"using System.Collections.Generic;") : "",
 			Environment.NewLine);
     }
