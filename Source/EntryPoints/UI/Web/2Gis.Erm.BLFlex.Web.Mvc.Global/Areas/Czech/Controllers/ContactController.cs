@@ -12,6 +12,7 @@ using DoubleGis.Erm.UI.Web.Mvc.Controllers.Base;
 
 namespace DoubleGis.Erm.BLFlex.Web.Mvc.Global.Areas.Czech.Controllers
 {
+    // TODO {all, 25.12.2013}: странно все выглядит - похоже на эмуляцию локализованного enum + 2 разных entry в ресурсниках для фактически одного и тоже бизнес значения
     public sealed class ContactController : ControllerBase
     {
         public ContactController(IMsCrmSettings msCrmSettings,

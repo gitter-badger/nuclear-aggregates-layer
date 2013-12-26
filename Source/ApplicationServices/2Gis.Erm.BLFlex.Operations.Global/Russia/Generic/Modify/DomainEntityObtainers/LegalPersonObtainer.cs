@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Common.Utils;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
