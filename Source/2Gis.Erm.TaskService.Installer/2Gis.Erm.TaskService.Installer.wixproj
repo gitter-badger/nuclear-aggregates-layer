@@ -38,7 +38,8 @@
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
       <Project>{5fc26f81-5100-43b5-b55b-e470308338d2}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -55,7 +56,8 @@
       <Name>2Gis.Erm.BL.API.Common</Name>
       <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -63,7 +65,8 @@
       <Name>2Gis.Erm.BL.API.Operations.Special</Name>
       <Project>{dd4d387b-5ed9-482d-a704-d664ee16e9ef}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -71,7 +74,8 @@
       <Name>2Gis.Erm.BL.API.Operations</Name>
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -79,7 +83,8 @@
       <Name>2Gis.Erm.BL.API.OrderValidation</Name>
       <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -87,7 +92,8 @@
       <Name>2Gis.Erm.BL.API.Releasing</Name>
       <Project>{7ba9237f-5018-4c37-a783-98cb2ffd1387}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -104,7 +110,8 @@
       <Name>2Gis.Erm.BL.Common</Name>
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -112,7 +119,8 @@
       <Name>2Gis.Erm.BL.Operations.Special</Name>
       <Project>{13700fdc-7d78-4105-b382-1b824bb608d1}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -129,7 +137,8 @@
       <Name>2Gis.Erm.BL.OrderValidation</Name>
       <Project>{1de6ffcd-a1e7-4670-83c7-67f52b129b58}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -137,7 +146,8 @@
       <Name>2Gis.Erm.BL.Reports</Name>
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -145,7 +155,8 @@
       <Name>2Gis.Erm.BL.DAL.PersistenceServices</Name>
       <Project>{946c96bf-a7bd-46c1-879c-c80e3223334b}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -153,7 +164,8 @@
       <Name>2Gis.Erm.BL.TaskService</Name>
       <Project>{be701360-d551-40b4-bd60-5f70cf4de575}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -188,7 +200,8 @@
       <Name>2Gis.Erm.Platform.API.Core</Name>
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -250,7 +263,8 @@
       <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
       <Project>{5ca902e2-894d-48ab-9f1f-4b80d3e69a27}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -285,7 +299,8 @@
       <Name>2Gis.Erm.Platform.DI</Name>
       <Project>{bac5e6ca-9f56-4557-a0fe-88e96d27e047}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -293,7 +308,8 @@
       <Name>2Gis.Erm.Platform.TaskService</Name>
       <Project>{49d0d1c2-49a4-4063-bd9c-ac36be6c36dd}</Project>
       <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
+      <DoNotHarvest>
+      </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
@@ -313,6 +329,15 @@
       <DoNotHarvest>
       </DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+      <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">

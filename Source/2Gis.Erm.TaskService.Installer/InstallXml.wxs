@@ -138,6 +138,7 @@
       <File Id="_2Gis.Erm.TaskService.exe.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe.config" />
 
       <!-- configs -->
+      <File Id="Environments.config" Name="Environments.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\Environments.config" />
       <File Id="log4net.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\log4net.config" />
       <File Id="quartz.config" Name="quartz.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\$(var.QuartzConfigFileName)" />
 

@@ -110,14 +110,8 @@
 */
 Ext.LocalizedResources =
 {
-<#+
-		foreach(var pair in extractedResources)
-		{
-#>
-	<#= pair.Key #> : '<#= pair.Value.Replace('\'', '"') #>',
-<#+ 
-		}
-#>
+	<#= string.Join("," + Environment.NewLine,  
+					extractedResources.Select(r => string.Format("{0} : '{1}'", r.Key, r.Value.Replace('\'', '"')))) #>
 }
 <#+
 	}
