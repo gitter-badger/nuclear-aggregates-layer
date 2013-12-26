@@ -3885,7 +3885,6 @@ FROM [Security].[vwUsersDescendants] AS [vwUsersDescendants]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwUserTerritoriesOrganizationUnits" EntityType="Self.vwUserTerritoriesOrganizationUnits" store:Type="Views" store:Schema="Security">
             <DefiningQuery>SELECT 
-[vwUserTerritoriesOrganizationUnits].[Id] AS [Id], 
 [vwUserTerritoriesOrganizationUnits].[UserId] AS [UserId], 
 [vwUserTerritoriesOrganizationUnits].[OrganizationUnitId] AS [OrganizationUnitId], 
 [vwUserTerritoriesOrganizationUnits].[TerritoryId] AS [TerritoryId]
