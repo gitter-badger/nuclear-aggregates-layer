@@ -655,9 +655,6 @@
     <Content Include="Scripts\Ext.LocalizedResources.cs.js">
       <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
     </Content>
-    <Content Include="Scripts\Ext.LocalizedResources.el.js">
-      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Ext.LocalizedResources.en.js">
       <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
     </Content>
@@ -1341,6 +1338,10 @@
     <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{b12c39b4-050b-476f-9c80-e5757226b926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>

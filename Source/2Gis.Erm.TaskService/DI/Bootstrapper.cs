@@ -5,7 +5,6 @@ using DoubleGis.Erm.BL.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests.OrderProcessingRequests;
 using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.DI.Config;

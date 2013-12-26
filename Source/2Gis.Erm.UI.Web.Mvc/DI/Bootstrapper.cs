@@ -12,7 +12,6 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BL.API.Operations.Generic.File;
 using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests.OrderProcessingRequests;
 using DoubleGis.Erm.BL.API.OrderValidation;
 using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BL.DAL.PersistenceServices.Reports;

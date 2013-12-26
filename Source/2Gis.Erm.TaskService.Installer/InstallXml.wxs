@@ -10,7 +10,7 @@
   <?ifdef PublishProfileName ?>
     <?include Variables.$(var.PublishProfileName).wxi ?>
     <?define QuartzConfigFileName = "quartz.$(var.PublishProfileName).config" ?>
-    <?define ProductLongName = "$(var.ManufacturerProjectName) $(var.PublishProfileName) Task Service" ?>
+    <?define ProductLongName = "$(var.ManufacturerProjectName) Task Service $(var.PublishProfileName)" ?>
     <?define ServiceName = "$(var.PublishProfileName)" ?>
   <?else ?>
     <?include Variables.wxi ?>

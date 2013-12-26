@@ -1,12 +1,16 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true" hostSpecific="true"#>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Configuration.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BL.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Resources.Client.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.API.Core.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Web.Mvc.dll" #>
 <#@ assembly Name="System.Core.dll" #>
 <#@ assembly Name="Microsoft.VisualStudio.TextTemplating.Modeling.12.0.dll" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="System" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Configuration" #>
 <#@ import namespace="System.Globalization" #>
@@ -15,25 +19,41 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ output extension=".log" #> 
 
-<#  List<ResourceAssemblyInfo> resAssemblies = new List<ResourceAssemblyInfo>();
-    resAssemblies.Add(new ResourceAssemblyInfo("2Gis.Erm.BL.Resources.Client", "Resources"));
+<#  
+	const string JsResourceFileNameTemplate = "Ext.LocalizedResources.{0}.js";
 
-    // Список локалей, для которых будут создаваться ресурсы.
-    CultureInfo[] cultures = LocalizationSettings.SupportedCultures;
+	// Список локалей, для которых будут создаваться ресурсы.
+    var targetCultures = 
+		LocalizationSettings
+			.NeutralFallbackCultures
+			.Except(LocalizationSettings.FallbackOnlySupportedCultures);
 
     EnvDTE.ProjectItem templateItem = Project.DTE.Solution.FindProjectItem(Host.TemplateFile);
-    // Скрипты берем из папки, в которой лежит текущий темплейт.
-    EnvDTE.ProjectItem jsFolderItem = (templateItem.Collection.Parent as EnvDTE.ProjectItem);
-    foreach(CultureInfo culture in cultures)
-    {
-        JsResourcesBuildHelper builder = new JsResourcesBuildHelper(resAssemblies);
-        builder.ProcessResourceManagers(culture);
-        BuildJsResourceFile(builder);
-        String outputFileName = String.Format(JsResourcesBuildHelper.JsResourceFileNameFormat,
-            culture.TwoLetterISOLanguageName);
+	string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
 
-        String outputFileFullName = SaveOutput(outputFileName);
-        EnvDTE.ProjectItem addedItem = templateItem.ProjectItems.AddFromFile(outputFileFullName);
+	var targetResourceEntryHostTypes = new []{ 
+											typeof(DoubleGis.Erm.BL.Resources.Client.Properties.Resources), 
+											typeof(DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI) 
+										};
+	
+	var resourcesResolver = new ResourcesResolver(targetResourceEntryHostTypes, targetCultures);
+
+    foreach(var culture in targetCultures)
+    {
+        string report;
+		var extractedResources = 
+			resourcesResolver
+				.ExtractResources(culture, out report)
+				.OrderBy(pair => pair.Key);
+
+        BuildJsResourceFile(extractedResources, targetResourceEntryHostTypes, report);
+
+        var outputFileName = string.Format(JsResourceFileNameTemplate, culture.TwoLetterISOLanguageName);
+		var outputFileFullPath = System.IO.Path.Combine(templateDirectory, outputFileName);
+        
+		SaveScript(outputFileFullPath);
+
+        EnvDTE.ProjectItem addedItem = templateItem.ProjectItems.AddFromFile(outputFileFullPath);
         // Build action - content.
         addedItem.Properties.Item("BuildAction").Value = 2;
   }
@@ -57,70 +77,48 @@
         }
     }
 
-  private String SaveOutput(string outputFileName)
-  {
-      string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
-      string outputFilePath = System.IO.Path.Combine(templateDirectory, outputFileName);
+	private void SaveScript(string outputFileFullPath)
+	{
+		if (!Project.DTE.SourceControl.IsItemCheckedOut(outputFileFullPath))
+		{
+			Project.DTE.SourceControl.CheckOutItem(outputFileFullPath);
+		}
 
-	  Project.DTE.SourceControl.CheckOutItem(outputFilePath);
-      System.IO.File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString(), System.Text.Encoding.UTF8); 
-
-      this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
-      return outputFilePath;
-  }
-#>
-<#+
-private void BuildJsResourceFile(JsResourcesBuildHelper helper)
-{
-#>
-// Файл создан : <#= DateTime.Now.ToString(CultureInfo.CurrentCulture) #>
-// Использованы ресурсы из файлов:
-<#+
-    foreach(var a in helper.AssemblyInfos)
-    {
-#>
-// <#= String.Join(", ", a.ResXFiles) #> (сборка <#= a.AssemblyName #>)
-<#+
-	}
-#>
-// Создано строковых констант : <#= helper.ProcessedResourceStrings.Count #>
-<#+
-    foreach(String notFoundKey in helper.NotFoundKeys)
-    {
-#>
-// [!!] Ресурс с ключом "<#= notFoundKey#>" не найден.
-<#+
+		var currentOutput = this.GenerationEnvironment.ToString();
+		System.IO.File.WriteAllText(outputFileFullPath, currentOutput, System.Text.Encoding.UTF8); 
+		this.GenerationEnvironment = new StringBuilder();
 	}
 
-    foreach(String notFoundKey in helper.InvalidCultureKeys)
-    {
+	private void BuildJsResourceFile(
+		IEnumerable<KeyValuePair<string, string>> extractedResources, 
+		IEnumerable<Type> targetResourceEntryHostTypes,
+		string report)
+	{
 #>
-// [!] Ресурс с ключом "<#= notFoundKey#>" не найден для данной локали, использовано значение из другой культуры.
-<#+          
-    }
-
-    foreach(KeyValuePair<String, String> pair in helper.ProcessedResourceStrings)
-    {
-        if(pair.Value.IndexOf('\'') >= 0)
-        {
-#>
-// [!] В строке с ключом "<#= pair.Key #>" символ(ы) ' заменен(ы) на "
+// File updated : <#= DateTime.Now.ToString(CultureInfo.CurrentCulture) #>
+// Processed resource entry host types:
 <#+
-        }
-    }
+		foreach(var targetResourceEntryHostType in targetResourceEntryHostTypes)
+		{
 #>
+// <#= targetResourceEntryHostType.FullName #>
+<#+
+		}
+#>
+/* 
+<#= report #>
+*/
 Ext.LocalizedResources =
 {
 <#+
-    Int32 countRem = helper.ProcessedResourceStrings.Count;
-    foreach(KeyValuePair<String, String> pair in helper.ProcessedResourceStrings)
-    {
-        countRem--;
+		foreach(var pair in extractedResources)
+		{
 #>
-    <#= pair.Key #> : '<#= pair.Value.Replace('\'', '"') #>'<#= countRem > 0 ? "," : ""#>
-<#+          
-    }
+	<#= pair.Key #> : '<#= pair.Value.Replace('\'', '"') #>',
+<#+ 
+		}
 #>
-}<#+
 }
+<#+
+	}
 #>
