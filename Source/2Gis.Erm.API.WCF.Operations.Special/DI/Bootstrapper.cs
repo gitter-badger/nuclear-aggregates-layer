@@ -7,6 +7,7 @@ using DoubleGis.Erm.API.WCF.Operations.Special.Config;
 using DoubleGis.Erm.BL.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Generic.Get;
 using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BL.DAL.PersistenceServices;
 using DoubleGis.Erm.BL.DI.Config;
 using DoubleGis.Erm.BL.DI.Config.MassProcessing;
 using DoubleGis.Erm.BL.Operations.Concrete.Users;
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
 {
     internal static class Bootstrapper
     {
-        private readonly static Type[] EagerLoading = { typeof(IGetDomainEntityDtoService) };
+        private readonly static Type[] EagerLoading = { typeof(IGetDomainEntityDtoService), typeof(IUserPersistenceService) };
         
         public static IUnityContainer ConfigureUnity(IFinancialOperationsAppSettings settings, ILoggerContextManager loggerContextManager)
         {

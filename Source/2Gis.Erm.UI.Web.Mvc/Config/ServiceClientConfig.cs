@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 
 using DoubleGis.Erm.BL.API.MoDi.Remote.AccountingSystem;
 using DoubleGis.Erm.BL.API.MoDi.Remote.PrintRegional;
@@ -25,7 +26,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
             var orderValidationServiceSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
             var moDiServiceSettings = container.Resolve<IAPIMoDiServiceSettings>();
 
-            var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None);
+            var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None)
+                                             .Timeouts(TimeSpan.FromHours(1), TimeSpan.FromHours(1))
+                                             .MaxReceivedMessageSize(10000000);
+
             var basicHttpBinding = BindingConfig.BasicHttp.UseTransportSecurity(HttpClientCredentialType.None).MaxReceivedMessageSize(20000000);
 
 

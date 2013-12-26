@@ -124,6 +124,10 @@
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BL.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DAL.PersistenceServices\2Gis.Erm.BL.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BL.DAL.PersistenceServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations.Special\2Gis.Erm.BL.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BL.WCF.Operations.Special</Name>

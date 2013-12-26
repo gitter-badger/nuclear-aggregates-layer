@@ -19,7 +19,7 @@
     <StartArguments>console</StartArguments>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <SccProjectName>%24/ERM/Main/CompositionRoots/Source/2Gis.Erm.TaskService</SccProjectName>
+    <SccProjectName>%24/ERM.Composition/Release/2.0-BreakingBad/CompositionRoots/Source/2Gis.Erm.TaskService</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
     <SccAuxPath>http://uk-tfs02:8080/tfs/defaultcollection</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
@@ -145,6 +145,10 @@
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.OrderValidation\2Gis.Erm.BL.OrderValidation.csproj">
       <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
       <Name>2Gis.Erm.BL.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DAL.PersistenceServices\2Gis.Erm.BL.DAL.PersistenceServices.csproj">
+      <Project>{946c96bf-a7bd-46c1-879c-c80e3223334b}</Project>
+      <Name>2Gis.Erm.BL.DAL.PersistenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
