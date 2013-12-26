@@ -4,9 +4,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
-
-using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
@@ -34,9 +31,9 @@ namespace DoubleGis.Erm.Migrator
                 }
                 catch (OptionException e)
                 {
-                    System.Console.WriteLine("FluentMigrator.Console:");
-                    System.Console.WriteLine(e.Message);
-                    System.Console.WriteLine("Try 'migrate --help' for more information.");
+                    Console.WriteLine("FluentMigrator.Console:");
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Try 'migrate --help' for more information.");
                     return;
                 }
 
@@ -46,15 +43,14 @@ namespace DoubleGis.Erm.Migrator
                     return;
                 }
 
-                if (string.IsNullOrEmpty(_arguments.ErmOnlyConnectionString) &&
-                    string.IsNullOrEmpty(_arguments.ApplicationRoot) &&
-                    string.IsNullOrEmpty(_arguments.ConnectionStringConfigPath) &&
+                if (string.IsNullOrEmpty(_arguments.TargetEnvironment) &&
                     !_arguments.ListMigrations)
                 {
                     DisplayHelp(optionSet);
                     Environment.ExitCode = 1;
                     return;
                 }
+
                 // FIXME {all, 29.10.2013}: нужно реализовать поддержку подгрузки миграций из нескольких сборок, т.к. компоненты ERM теперь разрабатываются независимо, то и каких-то общих миграций быть не может  
                 if (_arguments.TargetAssembly == null)
                 {
@@ -63,100 +59,32 @@ namespace DoubleGis.Erm.Migrator
 
                     _arguments.TargetAssembly = Path.Combine(currentPath, "2Gis.Erm.BL.DB.Migrations.dll");
                 }
-
-                string remoteHost = null;
-                if (_arguments.ErmOnlyConnectionString != null)
-                {
-                    _calculatedArguments.ConnectionStrings = new ConnectionStringSettingsCollection
-                        {
-                            new ConnectionStringSettings("Erm", _arguments.ErmOnlyConnectionString)
-                        };
-                    _calculatedArguments.UseCrmConnection = false;
-                }
-                else if (_arguments.ApplicationRoot != null)
-                {
-                    _arguments.ApplicationRoot = Path.GetFullPath(_arguments.ApplicationRoot);
-
-                    var uri = new Uri(_arguments.ApplicationRoot);
-                    if (uri.Host.Length > 0)
-                    {
-                        remoteHost = uri.Host;
-                    }
-
-                    if (!Directory.Exists(_arguments.ApplicationRoot))
-                    {
-                        Console.WriteLine("Can't access directory {0}", _arguments.ApplicationRoot);
-                        Environment.ExitCode = 1;
-                        return;
-                    }
-
-                    _arguments.TargetAssembly = Path.Combine(_arguments.ApplicationRoot, "bin", "2Gis.Erm.BL.DB.Migrations.dll");
-                    _arguments.ConnectionStringConfigPath = Path.Combine(_arguments.ApplicationRoot, "Web.config");
-                }
                 
                 _arguments.TargetAssembly = Path.GetFullPath(_arguments.TargetAssembly);
                 if (!File.Exists(_arguments.TargetAssembly))
                 {
-                    System.Console.WriteLine("Can't access file {0}", _arguments.TargetAssembly);
+                    Console.WriteLine("Can't access file {0}", _arguments.TargetAssembly);
                     Environment.ExitCode = 1;
                     return;
                 }
 
-                string targetEnvironmentName = null;
-                bool? useCrmConnection = null;
-                if (_arguments.ConnectionStringConfigPath != null)
-                {
-                    _arguments.ConnectionStringConfigPath = Path.GetFullPath(_arguments.ConnectionStringConfigPath);
-                    if (!File.Exists(_arguments.ConnectionStringConfigPath))
-                    {
-                        System.Console.WriteLine("Can't access file {0}", _arguments.ConnectionStringConfigPath);
-                        Environment.ExitCode = 1;
-                        return;
-                    }
-
-                    var configuration = ConfigurationLoader.LoadFromFile(_arguments.ConnectionStringConfigPath);
-                    targetEnvironmentName = configuration.AppSettings.Settings["TargetEnvironmentName"].Value; 
-                    useCrmConnection = configuration.AppSettings.Settings["EnableReplication"].Value.ToLower() == "true";
-                    _calculatedArguments.ConnectionStrings = configuration.ConnectionStrings.ConnectionStrings;
-                }
-
-                targetEnvironmentName = _arguments.TargetEnvironment
-                                        ?? targetEnvironmentName
-                                        ?? ErmEnvironmentsSettingsAspect.DefaultEnvironmentName;
-
                 var environmentsSettings = ErmEnvironmentsSettingsLoader.Load(
                         ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFullPath,
-                        targetEnvironmentName,
+                        _arguments.TargetEnvironment,
                         "Migrator");
 
-                if (!useCrmConnection.HasValue)
+                _calculatedArguments.ConnectionStrings = _calculatedArguments.ConnectionStrings ?? new ConnectionStringSettingsCollection();
+                foreach (var pair in environmentsSettings.ConnectionStrings)
                 {
-                    useCrmConnection = environmentsSettings.ConnectionStrings.ContainsKey(ConnectionStringName.CrmConnection);
+                    _calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
                 }
 
-                _arguments.TargetEnvironment = targetEnvironmentName;
-                _calculatedArguments.UseCrmConnection = useCrmConnection.Value;
-
-                environmentsSettings.ConnectionStrings.Aggregate(
-                    _calculatedArguments.ConnectionStrings ?? new ConnectionStringSettingsCollection(),
-                    (collection, pair) => 
-                    { 
-                        collection.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
-                        return collection;
-                    });
-
-                // Если утилита вызвана для удаленного хоста, надо проапдейтить строки подключения к БД (в них обычно указаны локальные адреса).
-                if (remoteHost != null)
-                {
-                    _calculatedArguments.ConnectionStrings = UpdateConnectionStrings(_calculatedArguments.ConnectionStrings, remoteHost);
-                }
-
-                Execute(System.Console.Out, _arguments, _calculatedArguments);
+                Execute(Console.Out, _arguments, _calculatedArguments);
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("!! An error has occurred.  The error is:");
-                System.Console.WriteLine(ex.ToString());
+                Console.WriteLine("!! An error has occurred.  The error is:");
+                Console.WriteLine(ex.ToString());
                 
                 Environment.ExitCode = 1;
             }
@@ -171,10 +99,10 @@ namespace DoubleGis.Erm.Migrator
 
         private static void OutputHeader()
         {
-            System.Console.WriteLine("2GIS (R) DB Migration Console Utility ver. {0}",
+            Console.WriteLine("2GIS (R) DB Migration Console Utility ver. {0}",
                 typeof(MigrationConsole).Assembly.GetName().Version);
-            System.Console.WriteLine("Copyright (C) 2GIS. All rights reserved.");
-            System.Console.WriteLine();
+            Console.WriteLine("Copyright (C) 2GIS. All rights reserved.");
+            Console.WriteLine();
         }
 
         private static OptionSet GetConsoleOptionSet(MigrationConsoleArguments arguments)
@@ -182,29 +110,14 @@ namespace DoubleGis.Erm.Migrator
             return new OptionSet
                 {
                     {
-                        "root=",
-                        "REQUIRED. The ERM application root directory.",
-                        v => { arguments.ApplicationRoot = v; }
-                    },
-                    {
                         "environment=|env=|e=",
                         "Optional. Target ERM environment",
                         v => { arguments.TargetEnvironment = v; }
                     },
                     {
-                        "ermonly=",
-                        "The ERM connection string.",
-                        v => { arguments.ErmOnlyConnectionString = v; }
-                    },
-                    {
                         "assembly=|a=|target=",
                         "The assembly containing the migrations you want to execute.",
                         v => { arguments.TargetAssembly = v; }
-                    },
-                    {
-                        "connectionStringConfigPath=|configPath=|config=",
-                        "The path of the .config file where the connection strings are stored.",
-                        v => { arguments.ConnectionStringConfigPath = v; }
                     },
                     {
                         "namespace=|ns=",
@@ -252,13 +165,8 @@ namespace DoubleGis.Erm.Migrator
                     {
                         "output|out",
                         "Output SQL statements.",
-                        v => { arguments.OutputSQL = true; }
+                        v => { arguments.OutputSql = true; }
                     },
-                    //{
-                    //    "timeout=",
-                    //    "Overrides the default SqlCommand timeout of 30 seconds.",
-                    //    v => { Timeout = int.Parse(v); }
-                    //},
                     {
                         "help|h|?",
                         "Display this help.",
@@ -270,30 +178,25 @@ namespace DoubleGis.Erm.Migrator
         private static void DisplayHelp(OptionSet p)
         {
             const string Hr = "-------------------------------------------------------------------------------";
-            System.Console.WriteLine(Hr);
-            System.Console.WriteLine("Example:");
-            System.Console.WriteLine("  migrate -a bin\\debug\\MyMigrations.dll -config=..\\web.config -c=Erm -u");
-            System.Console.WriteLine(Hr);
-            System.Console.WriteLine("Example:");
-            System.Console.WriteLine("  migrate -root=\"\\\\uk-erm-test\\c$\\inetpub\\wwwroot\\Erm99\" -u");
-            System.Console.WriteLine(" DoubleGis.Databases.Erm.Migrations.Impl.dll is assumed to be in \\bin\\ subfolder of root folder");
-            System.Console.WriteLine(" Web.config is assumed to be in root folder");
-            System.Console.WriteLine(Hr);
-            System.Console.WriteLine("Example:");
-            System.Console.WriteLine("  migrate -ermonly=\"Data Source=.;Initial Catalog=Erm;Integrated Security=True;Application Name=ErmWeb\" -u");
-            System.Console.WriteLine(" Only ERM DB migrations are applied.");
-            System.Console.WriteLine(" DoubleGis.Databases.Erm.Migrations.Impl.dll is assumed to be in current folder.");
-            System.Console.WriteLine(Hr);
-            System.Console.WriteLine("Either 'root' either 'ermonly' either both 'a' and 'config' parameters should be specifed");
-            System.Console.WriteLine("Options:");
-            p.WriteOptionDescriptions(System.Console.Out);
+            Console.WriteLine(Hr);
+            Console.WriteLine("Example:");
+            Console.WriteLine("  migrate -a bin\\debug\\MyMigrations.dll -config=..\\web.config -c=Erm -u");
+            Console.WriteLine(Hr);
+            Console.WriteLine("Example:");
+            Console.WriteLine("  migrate -root=\"\\\\uk-erm-test\\c$\\inetpub\\wwwroot\\Erm99\" -u");
+            Console.WriteLine(" DoubleGis.Databases.Erm.Migrations.Impl.dll is assumed to be in \\bin\\ subfolder of root folder");
+            Console.WriteLine(" Web.config is assumed to be in root folder");
+            Console.WriteLine(Hr);
+            Console.WriteLine("Either 'root' either both 'a' and 'config' parameters should be specifed");
+            Console.WriteLine("Options:");
+            p.WriteOptionDescriptions(Console.Out);
         }
 
         private static void Execute(TextWriter output, MigrationConsoleArguments args, MigrationConsoleCalculatedArguments calculatedArguments)
         {
-            var dbConnectionRequired = args.ErmOnlyConnectionString != null || args.ListAppliedMigrations || args.Direction != MigrationDirection.None;
+            var connectionRequired = args.ListAppliedMigrations || args.Direction != MigrationDirection.None;
 
-            if (!dbConnectionRequired && !args.ListMigrations)
+            if (!connectionRequired && !args.ListMigrations)
             {
                 output.WriteLine("The actions to perform aren't specifed.");
                 return;
@@ -306,12 +209,12 @@ namespace DoubleGis.Erm.Migrator
                 OutputMigrations(output, a, args.Namespace);
             }
 
-            if (!dbConnectionRequired || calculatedArguments.ConnectionStrings == null)
+            if (!connectionRequired || calculatedArguments.ConnectionStrings == null)
             {
                 return;
             }
 
-            var connectionStringsKnower = new ConnectionStringsKnower(calculatedArguments.ConnectionStrings, calculatedArguments.UseCrmConnection);
+            var connectionStringsKnower = new ConnectionStringsKnower(calculatedArguments.ConnectionStrings);
 
             if (args.ListAppliedMigrations)
             {
@@ -319,11 +222,11 @@ namespace DoubleGis.Erm.Migrator
                 return;
             }
 
-            var contextManager = new MigrationContextManager(connectionStringsKnower.GetConnectionString(), output, args.OutputSQL);
+            var contextManager = new MigrationContextManager(connectionStringsKnower, output, args.OutputSql);
             var appliedVersionsManager = new SmoAppliedVersionsManager(contextManager);
 
             var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(a, args.Namespace);
-            using (var runner = new MigrationRunner(output, args.OutputSQL, connectionStringsKnower, appliedVersionsManager, calculatedArguments.UseCrmConnection))
+            using (var runner = new MigrationRunner(output, args.OutputSql, connectionStringsKnower, appliedVersionsManager))
             {
                 switch (args.Direction)
                 {
@@ -355,7 +258,7 @@ namespace DoubleGis.Erm.Migrator
 
         private static void ListAppliedMigrations(MigrationConsoleArguments args, ConnectionStringsKnower connectionStringsKnower, Assembly a, TextWriter output)
         {
-            var contextManager = new MigrationContextManager(connectionStringsKnower.GetConnectionString(), output);
+            var contextManager = new MigrationContextManager(connectionStringsKnower, output);
 
             var appliedVersionsManager = new SmoAppliedVersionsManager(contextManager);
             var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(a, args.Namespace);
@@ -364,10 +267,9 @@ namespace DoubleGis.Erm.Migrator
             if (args.ListMigrations)
             {
                 output.WriteLine();
-                var pendingMigrations = GetPendingMigrations(appliedVersionsManager, migrationDescriptorsProvider).Select(m => m.Version);
+                var pendingMigrations = GetPendingMigrations(appliedVersionsManager, migrationDescriptorsProvider).Select(m => m.Version).ToArray();
 
                 output.WriteLine("Pending migrations: {0}", pendingMigrations.Any() ? string.Join(", ", pendingMigrations) : "None");
-
                 output.WriteLine();
             }
         }
@@ -446,22 +348,6 @@ namespace DoubleGis.Erm.Migrator
             output.WriteLine();
         }
 
-        private static ConnectionStringSettingsCollection UpdateConnectionStrings(ConnectionStringSettingsCollection connStrings, string hostName)
-        {
-            var result = new ConnectionStringSettingsCollection();
-            
-            var newDataSource = string.Format("Data Source={0}", hostName);
-
-            for (var i = 0; i < connStrings.Count; i++)
-            {
-                var processedConnectionString = Regex.Replace(connStrings[i].ConnectionString, "Data Source=\\.", newDataSource, RegexOptions.IgnoreCase);
-
-                result.Add(new ConnectionStringSettings(connStrings[i].Name, processedConnectionString, connStrings[i].ProviderName));
-            }
-
-            return result;
-        }
-
         public class MigrationConsoleArguments
         {
             public MigrationConsoleArguments()
@@ -472,10 +358,8 @@ namespace DoubleGis.Erm.Migrator
             public string Namespace { get; set; }
             public string TargetAssembly { get; set; }
 
-            public string ErmOnlyConnectionString { get; set; }
             public int Timeout { get; set; }
             public bool ShowHelp { get; set; }
-            public string ConnectionStringConfigPath { get; set; }
 
             /// <summary>
             /// Отобразить миграции, найденные в сборке.
@@ -490,19 +374,17 @@ namespace DoubleGis.Erm.Migrator
             /// <summary>
             /// Вывод SQL кода.
             /// </summary>
-            public bool OutputSQL { get; set; }
+            public bool OutputSql { get; set; }
 
             public MigrationDirection Direction { get; set; }
 
             public long TargetMigrationVersion { get; set; }
-            public string ApplicationRoot { get; set; }
             public string TargetEnvironment { get; set; }
         }
 
         public class MigrationConsoleCalculatedArguments
         {
             public ConnectionStringSettingsCollection ConnectionStrings { get; set; }
-            public bool UseCrmConnection { get; set; }
         }
     }
 }

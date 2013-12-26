@@ -141,6 +141,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.htm" />
     <None Include="App.config" />
     <Content Include="log4net.config" />
     <None Include="2Gis.UI.WPF.Shell.pfx" />

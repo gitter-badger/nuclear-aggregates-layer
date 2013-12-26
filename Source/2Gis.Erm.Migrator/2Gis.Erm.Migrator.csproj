@@ -18,7 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <StartArguments>-root="..\..\..\2Gis.Erm.UI.Web.Mvc" -u</StartArguments>
+    <StartArguments>-environment=Dev -update</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -88,11 +88,14 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="ConfigurationLoader.cs" />
     <Compile Include="MigratorConsole.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
+      <Project>{29068fb9-201b-409d-9a63-a7e06ac9dfef}</Project>
+      <Name>2Gis.Erm.BL.DB.Migrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
