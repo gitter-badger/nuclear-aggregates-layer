@@ -1,96 +1,139 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.Common;
-using System.Text.RegularExpressions;
-
-using DoubleGis.Erm.Platform.Migration.Runner;
 
 namespace DoubleGis.Erm.Platform.Migration.Base
 {
     public class ConnectionStringsKnower
     {
-        private const string EnvironmentNumRegexTemplate = @"^[a-zA-Z]+(?<EnvironmentNumber>\d+)?$";
-        private const string DefaultConnectionStringKey = "Erm";
+        //private const string EnvironmentNumRegexTemplate = @"^[a-zA-Z]+(?<EnvironmentNumber>\d+)?$";
         private readonly ConnectionStringSettingsCollection _connectionStrings;
-        private readonly bool _useCrmConnection;
 
-        public ConnectionStringsKnower(ConnectionStringSettingsCollection connectionStrings, bool useCrmConnection)
+        public ConnectionStringsKnower(ConnectionStringSettingsCollection connectionStrings)
         {
             if (connectionStrings == null)
             {
                 throw new ArgumentNullException("connectionStrings");
             }
 
-            if (connectionStrings[DefaultConnectionStringKey] == null)
-            {
-                throw new ArgumentException("Connection strings collection doesn't contain " + DefaultConnectionStringKey + " key");
-            }
-
             _connectionStrings = connectionStrings;
-            _useCrmConnection = useCrmConnection;
         }
 
-        public static string GetEnvironmentSuffix(string connectionString)
-        {
-            var connectionStringBuilder = new DbConnectionStringBuilder
-            {
-                ConnectionString = connectionString
-            };
+        //public static string GetEnvironmentSuffix(string connectionString)
+        //{
+        //    var connectionStringBuilder = new DbConnectionStringBuilder
+        //    {
+        //        ConnectionString = connectionString
+        //    };
 
-            var regex = new Regex(EnvironmentNumRegexTemplate);
-            var match = regex.Match((string)connectionStringBuilder["initial catalog"]);
-            if (match.Success)
-            {
-                // имя БД корректное, проверим есть ли номер environment'a в имени БД
-                var group = match.Groups["EnvironmentNumber"];
-                return group.Value; // если нет группы EnvironmentNumber - то вернет String.Empty
-            }
+        //    var regex = new Regex(EnvironmentNumRegexTemplate);
+        //    var match = regex.Match((string)connectionStringBuilder["initial catalog"]);
+        //    if (match.Success)
+        //    {
+        //        // имя БД корректное, проверим есть ли номер environment'a в имени БД
+        //        var group = match.Groups["EnvironmentNumber"];
+        //        return group.Value; // если нет группы EnvironmentNumber - то вернет String.Empty
+        //    }
 
-            return string.Empty;
-        }
+        //    return string.Empty;
+        //}
 
-        public string GetConnectionString(ErmConnectionStringKey key = ErmConnectionStringKey.Default)
-        {
-            // Если запрашивается подключение к базе crm, то изготовим его с помощью 
-            // такой то матери, порции костылей и строки подключения к erm.
-            var connectionStringKeyForRequest = key == ErmConnectionStringKey.Crm
-                                                    ? ErmConnectionStringKey.Default
-                                                    : key;
-
-            var connectionStringBuilder = new DbConnectionStringBuilder
-                {
-                    ConnectionString = GetConnectionStringInternal(connectionStringKeyForRequest)
-                };
-
-            if (key == ErmConnectionStringKey.Crm)
-            {
-                // Для подключения к Crm используем номер среды, использованный в строке подключения БД Erm
-                // А для машин разработчиков используем несуществующий номер окружения.
-                var currentEnvironmentSuffix = _useCrmConnection 
-                    ? GetEnvironmentSuffix(GetConnectionStringInternal(ErmConnectionStringKey.Erm)) 
-                    : "99";
-
-                connectionStringBuilder["initial catalog"] = EnvironmentUtil.GetMsCrmDatabaseName(currentEnvironmentSuffix);
-            }
-
-            return connectionStringBuilder.ConnectionString;
-        }
-
-        private string GetConnectionStringInternal(ErmConnectionStringKey key)
+        public bool TryGetDatabaseName(ErmConnectionStringKey key, out string databaseName)
         {
             switch (key)
             {
-                case ErmConnectionStringKey.Logging:
-                    return _connectionStrings["ErmLogging"].ConnectionString;
                 case ErmConnectionStringKey.Erm:
-                    return _connectionStrings["Erm"].ConnectionString;
-                case ErmConnectionStringKey.Crm:
-                    return null;
-                case ErmConnectionStringKey.CrmWebService:
-                    return _connectionStrings["CrmConnection"].ConnectionString;
+                case ErmConnectionStringKey.Logging:
+                    {
+                        string connectionString;
+                        if (!TryGetConnectionStringInternal(key.ToString(), out connectionString))
+                        {
+                            throw new ArgumentException(string.Format("Cannot find connection string {0}", key));
+                        }
+
+                        var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+                        databaseName = (string)connectionStringBuilder["Initial Catalog"];
+                        return true;
+                    }
+
+                case ErmConnectionStringKey.CrmConnection:
+                case ErmConnectionStringKey.CrmDatabase:
+                    {
+                        string connectionString;
+                        if (!TryGetConnectionStringInternal("CrmConnection", out connectionString))
+                        {
+                            databaseName = null;
+                            return false;
+                        }
+
+                        var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+                        var organizationUrl = (string)connectionStringBuilder["server"];
+                        var uriBuilder = new UriBuilder(organizationUrl);
+                        var organizationName = uriBuilder.Path.Trim('/');
+                        databaseName = organizationName + "_MSCRM";
+                        return true;
+                    }
+
+                default:
+                    throw new ArgumentException("key");
+            }
+        }
+
+        public bool TryGetConnectionString(ErmConnectionStringKey key, out string connectionString)
+        {
+            switch (key)
+            {
+                case ErmConnectionStringKey.Erm:
+                    {
+                        return TryGetConnectionStringInternal("Erm", out connectionString);
+                    }
+
+                case ErmConnectionStringKey.Logging:
+                    {
+                        return TryGetConnectionStringInternal("ErmLogging", out connectionString);
+                    }
+
+                case ErmConnectionStringKey.CrmConnection:
+                    {
+                        return TryGetConnectionStringInternal("CrmConnection", out connectionString);
+                    }
+
+                case ErmConnectionStringKey.CrmDatabase:
+                    {
+                        string crmDatabaseName;
+                        if (!TryGetDatabaseName(key, out crmDatabaseName))
+                        {
+                            connectionString = null;
+                            return false;
+                        }
+
+                        if (!TryGetConnectionStringInternal("Erm", out connectionString))
+                        {
+                            connectionString = null;
+                            return false;
+                        }
+
+                        var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+                        connectionStringBuilder["initial catalog"] = crmDatabaseName;
+                        return true;
+                    }
             }
 
-            return null;
+            connectionString = null;
+            return false;
+        }
+
+        private bool TryGetConnectionStringInternal(string connectionStringName, out string connectionString)
+        {
+            var connectionStringSettings = _connectionStrings[connectionStringName];
+            if (connectionStringSettings == null)
+            {
+                connectionString = null;
+                return false;
+            }
+
+            connectionString = connectionStringSettings.ConnectionString;
+            return true;
         }
     }
 }

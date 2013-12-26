@@ -19,16 +19,14 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
         private readonly bool _isCaptureMode;
         private readonly ConnectionStringsKnower _connectionStringsKnower;
         private readonly SmoAppliedVersionsManager _appliedVersionsManager;
-        private readonly bool _useCrmConnection;
         private readonly IMigrationsProvider _migrationsProvider;
 
-        public MigrationRunner(TextWriter output, bool isCaptureMode, ConnectionStringsKnower connectionStringsKnower, SmoAppliedVersionsManager appliedVersionsManager, bool useCrmConnection)
+        public MigrationRunner(TextWriter output, bool isCaptureMode, ConnectionStringsKnower connectionStringsKnower, SmoAppliedVersionsManager appliedVersionsManager)
         {
             _output = output;
             _isCaptureMode = isCaptureMode;
             _connectionStringsKnower = connectionStringsKnower;
             _appliedVersionsManager = appliedVersionsManager;
-            _useCrmConnection = useCrmConnection;
             _migrationsProvider = new AssemblyMigrationsProvider();
         }
         
@@ -62,38 +60,50 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
                 try
                 {
                     // Если нет подключения к базе Crm (например, на машинах разработчиков), то отмечаем миграцию как примененную, но не применяем её %|
-                    if (!_useCrmConnection && migration is INonDefaultDatabaseMigration
-                        && ((migration as INonDefaultDatabaseMigration).ConnectionStringKey == ErmConnectionStringKey.Crm ||
-                            (migration as INonDefaultDatabaseMigration).ConnectionStringKey == ErmConnectionStringKey.CrmWebService))
+                    //if (migration is INonDefaultDatabaseMigration
+                    //    && ((migration as INonDefaultDatabaseMigration).ConnectionStringKey == ErmConnectionStringKey.CrmDatabase ||
+                    //        (migration as INonDefaultDatabaseMigration).ConnectionStringKey == ErmConnectionStringKey.CrmWebService))
+                    //{
+                    //}
+                    //else 
+
+                    var databaseMigration = migration as IContextedMigration<IMigrationContext>;
+                    if (databaseMigration != null)
                     {
-                    }
-                    else if (migration is IContextedMigration<IMigrationContext>)
-                    {
-                        var databaseMigration = migration as IContextedMigration<IMigrationContext>;
-                        var contextManager = GetContextManager(databaseMigration);
-                        using (var databaseContext = contextManager.GetContext())
+                        var contextManager = new MigrationContextManager(_connectionStringsKnower, _output, _isCaptureMode);
+                        var nonDefaultDatabaseMigration = migration as INonDefaultDatabaseMigration;
+                        var key = nonDefaultDatabaseMigration != null ? nonDefaultDatabaseMigration.ConnectionStringKey : ErmConnectionStringKey.Erm;
+
+                        using (var databaseContext = contextManager.GetContext(key))
                         {
-                            databaseMigration.Apply(databaseContext);
-
-                            if (_isCaptureMode)
+                            if (databaseContext != null)
                             {
-                                _output.WriteLine("SQL to execute: ");
-                                var capturedSql = databaseContext.Connection.CapturedSql.Text;
+                                databaseMigration.Apply(databaseContext);
 
-                                foreach (var s in capturedSql)
+                                if (_isCaptureMode)
                                 {
-                                    _output.WriteLine(s);
-                                    _output.WriteLine("GO");
-                                    _output.WriteLine();
+                                    _output.WriteLine("SQL to execute: ");
+                                    var capturedSql = databaseContext.Connection.CapturedSql.Text;
+
+                                    foreach (var s in capturedSql)
+                                    {
+                                        _output.WriteLine(s);
+                                        _output.WriteLine("GO");
+                                        _output.WriteLine();
+                                    }
                                 }
                             }
                         }
                     }
-                    else if (migration is IContextedMigration<ICrmMigrationContext>)
+
+                    var crmMigration = migration as IContextedMigration<ICrmMigrationContext>;
+                    if (crmMigration != null)
                     {
-                        var crmMigration = migration as IContextedMigration<ICrmMigrationContext>;
-                        var crmContext = GetCrmContext();
-                        crmMigration.Apply(crmContext);
+                        ICrmMigrationContext crmMigrationContext;
+                        if (TryGetCrmContext(out crmMigrationContext))
+                        {
+                            crmMigration.Apply(crmMigrationContext);
+                        }
                     }
 
                     _appliedVersionsManager.SaveVersionInfo(m.Version);
@@ -125,20 +135,32 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
 
                 try
                 {
-                    if (migration is IContextedMigration<IMigrationContext>)
+                    var databaseMigration = migration as IContextedMigration<IMigrationContext>;
+                    if (databaseMigration != null)
                     {
-                        var databaseMigration = migration as IContextedMigration<IMigrationContext>;
-                        var contextManager = GetContextManager(databaseMigration);
-                        using (var databaseContext = contextManager.GetContext())
+                        var contextManager = new MigrationContextManager(_connectionStringsKnower, _output, _isCaptureMode);
+                        var nonDefaultDatabaseMigration = migration as INonDefaultDatabaseMigration;
+                        var key = nonDefaultDatabaseMigration != null ? nonDefaultDatabaseMigration.ConnectionStringKey : ErmConnectionStringKey.Erm;
+
+                        using (var databaseContext = contextManager.GetContext(key))
                         {
+                            if (databaseContext == null)
+                            {
+                                return;
+                            }
+
                             databaseMigration.Revert(databaseContext);
                         }
                     }
-                    else if (migration is IContextedMigration<ICrmMigrationContext>)
+
+                    var crmMigration = migration as IContextedMigration<ICrmMigrationContext>;
+                    if (crmMigration != null)
                     {
-                        var crmMigration = migration as IContextedMigration<ICrmMigrationContext>;
-                        var crmContext = GetCrmContext();
-                        crmMigration.Revert(crmContext);
+                        ICrmMigrationContext crmMigrationContext;
+                        if (TryGetCrmContext(out crmMigrationContext))
+                        {
+                            crmMigration.Revert(crmMigrationContext);
+                        }
                     }
 
                     Log(string.Format("Reverted: {0} ({1})", m.Version, m.Type.Name));
@@ -168,34 +190,21 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
             Console.WriteLine(message);
         }
 
-        private MigrationContextManager GetContextManager(IContextedMigration<IMigrationContext> migration)
+        private bool TryGetCrmContext(out ICrmMigrationContext crmMigrationContext)
         {
-            if (migration is INonDefaultDatabaseMigration)
+            string connectionString;
+            if (!_connectionStringsKnower.TryGetConnectionString(ErmConnectionStringKey.CrmConnection, out connectionString))
             {
-                var connectionStringKey = (migration as INonDefaultDatabaseMigration).ConnectionStringKey;
-                return GetContextManager(connectionStringKey);
+                crmMigrationContext = null;
+                return false;
             }
-
-            return GetContextManager();
-        }
-
-        private MigrationContextManager GetContextManager(ErmConnectionStringKey connectionStringKey = ErmConnectionStringKey.Default)
-        {
-            return new MigrationContextManager(_connectionStringsKnower.GetConnectionString(connectionStringKey), _output, _isCaptureMode);
-        }
-
-        private ICrmMigrationContext GetCrmContext()
-        {
-            var connectionString = _connectionStringsKnower.GetConnectionString(ErmConnectionStringKey.CrmWebService);
-            var ermConnectionString = _connectionStringsKnower.GetConnectionString(ErmConnectionStringKey.Erm);
 
             var crmConnection = CrmConnection.Parse(connectionString);
             crmConnection.Timeout = 10 * 60 * 1000;
             var crmDataContext = new CrmDataContext(null, () => new OrganizationService(null, crmConnection));
 
-            var migrationOptions = new MigrationOptions(ConnectionStringsKnower.GetEnvironmentSuffix(ermConnectionString));
-
-            return new CrmMigrationContext(crmDataContext, migrationOptions);
+            crmMigrationContext = new CrmMigrationContext(crmDataContext);
+            return true;
         }
     }
 }

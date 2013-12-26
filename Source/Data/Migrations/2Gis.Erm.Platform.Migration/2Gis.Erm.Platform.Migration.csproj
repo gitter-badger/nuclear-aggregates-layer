@@ -90,7 +90,6 @@
     <Compile Include="Base\IMigrationContext.cs" />
     <Compile Include="Base\INonDefaultDatabaseMigration.cs" />
     <Compile Include="Base\MigrationKnownException.cs" />
-    <Compile Include="Base\MigrationOptions.cs" />
     <Compile Include="CRM\CrmMigrationContext.cs" />
     <Compile Include="CRM\ICrmMigrationContext.cs" />
     <Compile Include="Runner\IMigrationContextProvider.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Base\TransactedMigration.cs" />
     <Compile Include="Base\VersionTableMetaData.cs" />
     <Compile Include="Extensions\SmoExtensions.cs" />
-    <Compile Include="Runner\EnvironmentUtil.cs" />
     <Compile Include="Runner\MigrationRunResult.cs" />
     <Compile Include="Sql\InsertDataExpressionExtension.cs" />
     <Compile Include="Sql\InsertionDataDefinition.cs" />

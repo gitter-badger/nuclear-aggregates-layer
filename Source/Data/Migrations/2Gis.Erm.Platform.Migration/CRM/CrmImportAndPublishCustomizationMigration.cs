@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.Migration.CRM
     {
         public ErmConnectionStringKey ConnectionStringKey
         {
-            get { return ErmConnectionStringKey.CrmWebService; }
+            get { return ErmConnectionStringKey.CrmConnection; }
         }
 
         public void Revert(ICrmMigrationContext context)

@@ -13,13 +13,15 @@ namespace DoubleGis.Erm.Platform.Migration.Base
 
         private Database _database;
         private ServerConnection _connection;
-        private MigrationOptions _options;
 
-        public DatabaseMigrationContext(string connectionString, TextWriter output, bool isCaptureMode = false)
+        public DatabaseMigrationContext(string connectionString, string crmDatabaseName, string loggingDatabaseName, string ermDatabaseName, TextWriter output, bool isCaptureMode = false)
         {
             _connectionString = connectionString;
             _isCaptureMode = isCaptureMode;
             Output = output;
+            CrmDatabaseName = crmDatabaseName;
+            LoggingDatabaseName = loggingDatabaseName;
+            ErmDatabaseName = ermDatabaseName;
         }
 
         public Database Database
@@ -40,16 +42,11 @@ namespace DoubleGis.Erm.Platform.Migration.Base
             }
         }
 
-        public MigrationOptions Options
-        {
-            get
-            {
-                EnsureInitialized();
-                return _options;
-            }
-        }
-
         public TextWriter Output { get; private set; }
+
+        public string ErmDatabaseName { get; private set; }
+        public string LoggingDatabaseName { get; private set; }
+        public string CrmDatabaseName { get; private set; }
 
         public void Dispose()
         {
@@ -78,8 +75,6 @@ namespace DoubleGis.Erm.Platform.Migration.Base
 
                 _database = server.Databases[server.ConnectionContext.SqlConnectionObject.Database];
                 _connection = server.ConnectionContext;
-
-                _options = new MigrationOptions(ConnectionStringsKnower.GetEnvironmentSuffix(_connectionString));
             }
         }
     }

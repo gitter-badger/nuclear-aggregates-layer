@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
         {
             _appliedVersionsInfo = new AppliedVersionsInfo();
 
-            using (var context = _contextManager.GetContext())
+            using (var context = _contextManager.GetContext(ErmConnectionStringKey.Erm))
             {
                 var versionTable = context.Database.GetTable(_versionTableMetaData.TableName);
 
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
                 version,
                 DateTimeOffset.UtcNow.ToString("yyyy-MM-dd hh:mm:ss"));
 
-            using (var context = _contextManager.GetContext())
+            using (var context = _contextManager.GetContext(ErmConnectionStringKey.Erm))
             {
                 context.Connection.ExecuteNonQuery(sqlCommand);
             }
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
         {
             var sqlCommand = string.Format("DELETE FROM {0} WHERE [{1}] = {2};\nGO\n", _versionTableMetaData.TableName, _versionTableMetaData.ColumnName, version);
 
-            using (var context = _contextManager.GetContext())
+            using (var context = _contextManager.GetContext(ErmConnectionStringKey.Erm))
             {
                 context.Connection.ExecuteNonQuery(sqlCommand);
             }

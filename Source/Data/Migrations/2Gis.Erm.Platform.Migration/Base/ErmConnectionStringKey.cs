@@ -1,12 +1,14 @@
 ﻿
 namespace DoubleGis.Erm.Platform.Migration.Base
 {
+    // TODO: replace this enum with ConnectionStringName enum
     public enum ErmConnectionStringKey
     {
-        Crm,
-        CrmWebService,
-        Erm, 
+        None,
+
+        Erm,
         Logging,
-        Default = Erm
+        CrmConnection,
+        CrmDatabase,
     }
 }

@@ -13,7 +13,10 @@ namespace DoubleGis.Erm.Platform.Migration.Base
     {
         Database Database { get; }
         ServerConnection Connection { get; }
-        MigrationOptions Options { get; }
         TextWriter Output { get; }
+
+        string ErmDatabaseName { get; }
+        string LoggingDatabaseName { get; }
+        string CrmDatabaseName { get;  }
     }
 }
