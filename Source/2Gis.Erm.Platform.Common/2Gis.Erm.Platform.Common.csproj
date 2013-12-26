@@ -163,9 +163,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
-      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    <ProjectReference Include="..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

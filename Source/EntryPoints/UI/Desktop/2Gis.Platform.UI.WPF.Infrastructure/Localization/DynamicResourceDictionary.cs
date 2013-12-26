@@ -96,7 +96,7 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
         {
             // TODO {all, 27.11.2013}: если будет переработана схема хранения использования/информации на кэширующую и т.п. - нужно будет отказаться от проверок на уникальность ресурсов в данном типе - тогда ими должны будут заниматься только на этапе конфигурирования приложения
             var configurator = (IDynamicPropertiesContainerConfigurator)_dynamicViewModelPropertiesContainer;
-            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(targetCultureInfo);
+            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(true, targetCultureInfo);
 
             string report;
             if (availableResources.TryGetDuplicatedResourceEntry(out report))
@@ -114,7 +114,7 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
 
         private void UpdateResourceEntriesMap(CultureInfo targetCultureInfo)
         {
-            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(targetCultureInfo);
+            var availableResources = _resourceManagerHostTypes.EvaluateAvailableResources(true, targetCultureInfo);
             var entriesContainer = (IDynamicPropertiesContainer)_dynamicViewModelPropertiesContainer;
             foreach (var entryInfo in availableResources)
             {

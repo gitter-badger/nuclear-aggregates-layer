@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Common.Logging
 {
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging
 
         public sealed override string ToString()
         {
-            return Value ?? BLResources.ValueNotFound;
+            return Value ?? ResPlatform.ValueNotFound;
         }
     }
 }

@@ -446,10 +446,6 @@
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj">
-      <Project>{ce5ccb90-9a57-4863-9355-4fcd672d3220}</Project>
-      <Name>2Gis.Erm.BL.Resources.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
@@ -457,6 +453,10 @@
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{B12C39B4-050B-476F-9C80-E5757226B926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>

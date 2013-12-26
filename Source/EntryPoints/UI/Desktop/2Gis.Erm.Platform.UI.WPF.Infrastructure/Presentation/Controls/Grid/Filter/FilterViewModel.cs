@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
 
         public FilterViewModel(ITitleProviderFactory titleProviderFactory)
         {
-            _filterTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.SearchRecords));
+            _filterTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.SearchRecords));
         }
         
         public event Action<string> ApplingFilter;

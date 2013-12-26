@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Common.Ftp
 {
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Common.Ftp
             {
                 if (response.StatusCode != FtpStatusCode.ClosingData)
                 {
-                    throw new Exception(string.Format(BLResources.AnErrorOccuredWhileUpdatingFileOnFtp, ftpFolder));
+                    throw new Exception(string.Format(ResPlatform.AnErrorOccuredWhileUpdatingFileOnFtp, ftpFolder));
                 }
             }
         }

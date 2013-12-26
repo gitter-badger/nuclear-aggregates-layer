@@ -12,19 +12,19 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 {
     public static class ResourceUtils
     {
-        public static bool TryResolveResourceManager(Type resourceEntryHostType, out ResourceManager resourceManager)
+        public static bool TryResolveResourceManager(this Type resourceEntryHostType, out ResourceManager resourceManager)
         {
-            resourceManager = null;
-
-            const string ResoureManagerPropertyName = "ResourceManager";
-            var resourceManagerProperty = resourceEntryHostType.GetProperty(ResoureManagerPropertyName, BindingFlags.Public | BindingFlags.Static);
-            if (resourceManagerProperty == null)
+            if (TryResolveResourceManagerUsingCtor(resourceEntryHostType, out resourceManager))
             {
-                return false;
+                return true;
             }
 
-            resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null);
-            return resourceManager != null;
+            if (TryResolveResourceManagerUsingReflection(resourceEntryHostType, out resourceManager))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public static ResourceManager AsResourceManager(this Type resourceEntryHostType)
@@ -38,7 +38,10 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
             return resourceManager;
         }
 
-        public static IReadOnlyDictionary<string, ResourceEntriesRegistry> EvaluateAvailableResources(this IEnumerable<Type> resourseManagerHostTypes, params CultureInfo[] targetCultures)
+        public static IReadOnlyDictionary<string, ResourceEntriesRegistry> EvaluateAvailableResources(
+            this IEnumerable<Type> resourseManagerHostTypes,
+            bool useFallbackBehavior,
+            params CultureInfo[] targetCultures)
         {
             var keys2EntriesMap = new Dictionary<string, ResourceEntriesRegistry>();
 
@@ -48,7 +51,13 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 
                 foreach (var targetCulture in targetCultures)
                 {
-                    foreach (var entry in resourceManager.GetResourceSet(targetCulture, true, true).Cast<DictionaryEntry>())
+                    var cultureSpecificResourceSet = resourceManager.GetResourceSet(targetCulture, true, useFallbackBehavior);
+                    if (cultureSpecificResourceSet == null)
+                    {
+                        continue;
+                    }
+
+                    foreach (var entry in cultureSpecificResourceSet.Cast<DictionaryEntry>())
                     {
                         var entryKey = (string)entry.Key;
                         ResourceEntriesRegistry entriesRegistry;
@@ -78,6 +87,36 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 
             report = sb.Length > 0 ? sb.ToString() : null;
             return report != null;
+        }
+
+        private static bool TryResolveResourceManagerUsingCtor(Type resourceEntryHostType, out ResourceManager resourceManager)
+        {
+            resourceManager = null;
+
+            try
+            {
+                resourceManager = new ResourceManager(resourceEntryHostType);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private static bool TryResolveResourceManagerUsingReflection(Type resourceEntryHostType, out ResourceManager resourceManager)
+        {
+            resourceManager = null;
+
+            const string ResoureManagerPropertyName = "ResourceManager";
+            var resourceManagerProperty = resourceEntryHostType.GetProperty(ResoureManagerPropertyName, BindingFlags.Public | BindingFlags.Static);
+            if (resourceManagerProperty == null)
+            {
+                return false;
+            }
+
+            resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null);
+            return resourceManager != null;
         }
     }
 }

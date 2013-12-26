@@ -101,8 +101,7 @@
     <Compile Include="DI\UnityPerWebRequestLifetimeManager.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
-    <Compile Include="ResourceHandling\JsResourcesBuildHelper.cs" />
-    <Compile Include="ResourceHandling\ResourceAssemblyInfo.cs" />
+    <Compile Include="ResourceHandling\ResourcesResolver.cs" />
     <Compile Include="Security\IDefaultUserContextConfigurator.cs" />
     <Compile Include="Security\IdentityWebExtensions.cs" />
     <Compile Include="Security\WebDefaultUserContextConfigurator.cs" />

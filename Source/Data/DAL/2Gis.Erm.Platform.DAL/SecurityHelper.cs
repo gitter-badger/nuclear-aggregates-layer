@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
         private static string CreateErrorMessage(string userAccount, string accessType, string entityName)
         {
-            return string.Format(BLResources.AccessDeniedUserActionEntityTemplate,
+            return string.Format(ResPlatform.AccessDeniedUserActionEntityTemplate,
                                  Environment.NewLine,
                                  userAccount,
                                  accessType,

@@ -100,4 +100,16 @@
 	<data name="AnErrorOccuredWhileUpdatingFileOnFtp" xml:space="preserve">
 		<value>Při nahrávání souboru na FTP=[{0}] došlo k chybě</value>
 	</data>
+	<data name="ValueNotFound" xml:space="preserve">
+		<value>Nebyla nalezena hodnota.</value>
+	</data>
+	<data name="PrintFormFieldNotFilled" xml:space="preserve">
+		<value>[NEVYPLNĚNO]</value>
+	</data>
+	<data name="StringContainsControlCharacters" xml:space="preserve">
+		<value>Строка содержит управляющие символы</value>
+	</data>
+	<data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
+		<value>Přístup odepřen.{0}Uživatel:{1}.{0}Akce:{2}.{0}Entita:{3}{0}</value>
+	</data>
 </root>

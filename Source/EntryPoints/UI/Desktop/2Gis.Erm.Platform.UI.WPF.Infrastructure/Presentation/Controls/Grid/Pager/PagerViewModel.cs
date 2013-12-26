@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
@@ -21,12 +22,12 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
             _totalPagesCount = 0;
             _currentPageNumber = 0;
 
-            _beforePageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.BeforePageText));
-            _afterPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.AfterPageText));
-            _firstPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.FirstPageText));
-            _lastPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.LastPageText));
-            _nextPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.NextPageText));
-            _prevPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BL.Resources.Client.Properties.Resources.PrevPageText));
+            _beforePageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.BeforePageText));
+            _afterPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.AfterPageText));
+            _firstPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.FirstPageText));
+            _lastPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.LastPageText));
+            _nextPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.NextPageText));
+            _prevPageText = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.PrevPageText));
         }
 
         public bool Enabled

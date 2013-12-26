@@ -11,7 +11,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 {
@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
             object value;
             if (!TryGetValueByPath(pathToDataField, data, out value))
             {
-                SetOpenXmlElementValue(sdtCell, BLResources.PrintFormFieldNotFilled);
+                SetOpenXmlElementValue(sdtCell, ResPlatform.PrintFormFieldNotFilled);
                 return;
             }
 

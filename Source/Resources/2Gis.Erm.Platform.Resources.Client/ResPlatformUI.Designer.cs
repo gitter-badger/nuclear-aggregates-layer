@@ -59,5 +59,77 @@ namespace DoubleGis.Erm.Platform.Resources.Client {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to из {0}.
+        /// </summary>
+        public static string AfterPageText {
+            get {
+                return ResourceManager.GetString("AfterPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Страница.
+        /// </summary>
+        public static string BeforePageText {
+            get {
+                return ResourceManager.GetString("BeforePageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Первая страница.
+        /// </summary>
+        public static string FirstPageText {
+            get {
+                return ResourceManager.GetString("FirstPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Последняя страница.
+        /// </summary>
+        public static string LastPageText {
+            get {
+                return ResourceManager.GetString("LastPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщение {0} не удалось корректно обработать.
+        /// </summary>
+        public static string MessageNotProcessedCorrectly {
+            get {
+                return ResourceManager.GetString("MessageNotProcessedCorrectly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Следующая страница.
+        /// </summary>
+        public static string NextPageText {
+            get {
+                return ResourceManager.GetString("NextPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Предыдущая страница.
+        /// </summary>
+        public static string PrevPageText {
+            get {
+                return ResourceManager.GetString("PrevPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск в записях.
+        /// </summary>
+        public static string SearchRecords {
+            get {
+                return ResourceManager.GetString("SearchRecords", resourceCulture);
+            }
+        }
     }
 }

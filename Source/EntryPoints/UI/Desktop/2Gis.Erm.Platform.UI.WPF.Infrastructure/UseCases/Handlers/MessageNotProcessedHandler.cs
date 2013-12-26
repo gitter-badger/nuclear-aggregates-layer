@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BL.Resources.Client.Properties;
-using DoubleGis.Erm.Platform.Common.Logging;
+﻿using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Notifications;
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers
                 new NotificationMessage(
                     new INotification[]
                         {
-                            new SystemNotification(message.Id, NotificationLevel.Error, string.Format(Resources.MessageNotProcessedCorrectly, message.GetType().Name))
+                            new SystemNotification(message.Id, NotificationLevel.Error, string.Format(ResPlatformUI.MessageNotProcessedCorrectly, message.GetType().Name))
                         }));
             
             return null;

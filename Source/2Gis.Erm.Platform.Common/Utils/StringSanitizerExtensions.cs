@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Resources.Server;
 
-namespace DoubleGis.Erm.Common.Utils
+namespace DoubleGis.Erm.Platform.Common.Utils
 {
-    // FIXME {d.ivanov, 26.11.2013}: ляжет в 2Gis.Erm.Platform.Common\Utils\StringSanitizerExtensions.cs
     public static class StringSanitizerExtensions
     {
         private const char NonBreakingSpace = (char)160;
@@ -27,7 +26,7 @@ namespace DoubleGis.Erm.Common.Utils
 
             if (value.Any(ForbiddenCharacter))
             {
-                throw new Exception(BLResources.StringContainsControlCharacters);
+                throw new Exception(ResPlatform.StringContainsControlCharacters);
             }
 
             return value.Replace(NonBreakingSpace, Space)

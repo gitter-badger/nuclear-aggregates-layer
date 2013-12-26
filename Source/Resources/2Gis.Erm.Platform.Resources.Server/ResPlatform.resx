@@ -101,4 +101,20 @@
 		<value>Произошла ошибка при аплоаде файла на FTP=[{0}]</value>
 		<comment></comment>
 	</data>
+	<data name="ValueNotFound" xml:space="preserve">
+		<value>Значение не найдено.</value>
+		<comment></comment>
+	</data>
+	<data name="PrintFormFieldNotFilled" xml:space="preserve">
+		<value>[НЕ ЗАПОЛНЕНО]</value>
+		<comment></comment>
+	</data>
+	<data name="StringContainsControlCharacters" xml:space="preserve">
+		<value>Строка содержит управляющие символы</value>
+		<comment></comment>
+	</data>
+	<data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
+		<value>Доступ запрещен.{0}Пользователь:{1}.{0}Действие:{2}.{0}Сущность:{3}{0}</value>
+		<comment></comment>
+	</data>
 </root>

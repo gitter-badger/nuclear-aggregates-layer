@@ -59,5 +59,50 @@ namespace DoubleGis.Erm.Platform.Resources.Server {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Доступ запрещен.{0}Пользователь:{1}.{0}Действие:{2}.{0}Сущность:{3}{0}.
+        /// </summary>
+        public static string AccessDeniedUserActionEntityTemplate {
+            get {
+                return ResourceManager.GetString("AccessDeniedUserActionEntityTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка при аплоаде файла на FTP=[{0}].
+        /// </summary>
+        public static string AnErrorOccuredWhileUpdatingFileOnFtp {
+            get {
+                return ResourceManager.GetString("AnErrorOccuredWhileUpdatingFileOnFtp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [НЕ ЗАПОЛНЕНО].
+        /// </summary>
+        public static string PrintFormFieldNotFilled {
+            get {
+                return ResourceManager.GetString("PrintFormFieldNotFilled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Строка содержит управляющие символы.
+        /// </summary>
+        public static string StringContainsControlCharacters {
+            get {
+                return ResourceManager.GetString("StringContainsControlCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значение не найдено..
+        /// </summary>
+        public static string ValueNotFound {
+            get {
+                return ResourceManager.GetString("ValueNotFound", resourceCulture);
+            }
+        }
     }
 }
