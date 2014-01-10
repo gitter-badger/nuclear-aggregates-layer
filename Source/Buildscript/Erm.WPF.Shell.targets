@@ -1,23 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Target Name="AfterBuild" Label="Копируем подключаемые модули в папку Modules">
-    <ItemGroup>
-      <ErmWpfClientModuleFiles Include="..\..\..\BL\Source\EntryPoints\UI\Desktop\2Gis.Erm.BL.UI.WPF.Client\bin\$(Configuration)\**\*.*" />
-    </ItemGroup>
-    <Copy
-      SourceFiles="@(ErmWpfClientModuleFiles)"
-      DestinationFolder="bin\$(Configuration)\Modules\2Gis.Erm.BL.UI.WPF.Client\%(RecursiveDir)"
-    />
-  </Target>
+  <Target Name="BeforeBuild" Label="Копируем модуль 2Gis.Erm.BL.UI.WPF.Client в папку Modules и добавляем в ClickOnce manifest">
+    
+    <Exec Command="(robocopy &quot;..\..\..\BL\Source\EntryPoints\UI\Desktop\2Gis.Erm.BL.UI.WPF.Client\bin\$(Configuration)&quot; &quot;bin\$(Configuration)\Modules\2Gis.Erm.BL.UI.WPF.Client&quot; /MIR) ^&amp; IF %ERRORLEVEL% LEQ 4 EXIT 0" />
 
-  <Target Name="ClickOnceAddModules" BeforeTargets="GenerateApplicationManifest" Label="Добавляем в ClickOnce информацию о подключаемых модулях">
     <ItemGroup>
-      <ErmWpfClientModuleFiles Include="..\..\..\BL\Source\EntryPoints\UI\Desktop\2Gis.Erm.BL.UI.WPF.Client\bin\$(Configuration)\**\*.*" />
+      <ErmWpfClientModuleFiles Include="bin\$(Configuration)\Modules\2Gis.Erm.BL.UI.WPF.Client\**\*" />
+      <_DeploymentManifestFiles Include="@(ErmWpfClientModuleFiles)">
+        <TargetPath>Modules\2Gis.Erm.BL.UI.WPF.Client\%(ErmWpfClientModuleFiles.RecursiveDir)%(ErmWpfClientModuleFiles.Filename)%(ErmWpfClientModuleFiles.Extension)</TargetPath>
+        <DependencyType>Install</DependencyType>
+      </_DeploymentManifestFiles>
     </ItemGroup>
-    <CreateItem Include="@(ErmWpfClientModuleFiles)" AdditionalMetadata="TargetPath=Modules\2Gis.Erm.BL.UI.WPF.Client\%(RecursiveDir)%(Filename)%(Extension);DependencyType=Install;">
-      <Output ItemName="_DeploymentManifestFiles" TaskParameter="Include" />
-    </CreateItem>
+
   </Target>
 
 </Project>
