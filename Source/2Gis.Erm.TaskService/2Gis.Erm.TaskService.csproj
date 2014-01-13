@@ -19,7 +19,7 @@
     <StartArguments>console</StartArguments>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <SccProjectName>%24/ERM.Composition/Release/2.0-BreakingBad/CompositionRoots/Source/2Gis.Erm.TaskService</SccProjectName>
+    <SccProjectName>%24/ERM.Composition/Main/CompositionRoots/Source/2Gis.Erm.TaskService</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
     <SccAuxPath>http://uk-tfs02:8080/tfs/defaultcollection</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
