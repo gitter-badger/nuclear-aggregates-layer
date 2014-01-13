@@ -26,6 +26,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
         private readonly Func<Type, IEnumerable<Type>, Type>[] _nonCoupledOperationConflictResolvers;
         private readonly List<Type> _operationsImplementations = new List<Type>();
         private readonly IDictionary<Type, IOperationIdentity> _baseOperations2IdentitiesMap = new Dictionary<Type, IOperationIdentity>();
+        private readonly List<IOperationIdentity> _declaredOperationIdentities = new List<IOperationIdentity>();
 
         public OperationsServicesMassProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeManagerFactoryMethod, string mappingScope)
             : this(container,
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
         public Type[] GetAssignableTypes()
         {
-            return new[] { OperationIndicators.Operation };
+            return new[] { OperationIndicators.Operation, OperationIndicators.OperationIdentity };
         }
 
         #region Implementation of ITypeRegistrationsMassProcessor
@@ -75,6 +76,12 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
             foreach (var type in types)
             {
+                if (!type.IsInterface && !type.IsAbstract && OperationIndicators.OperationIdentity.IsAssignableFrom(type))
+                {
+                    _declaredOperationIdentities.Add((IOperationIdentity)Activator.CreateInstance(type));
+                    continue;
+                }
+
                 if (type.IsClass && !type.IsAbstract)
                 {
                     _operationsImplementations.Add(type);
@@ -455,7 +462,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                 
                 .RegisterType<IOperationApplicabilityByMetadataResolver, OperationApplicabilityByMetadataResolver>(Lifetime.Singleton)
                 .RegisterType<IOperationIdentityRegistry, OperationIdentityRegistry>(Lifetime.Singleton,
-                                                                                     new InjectionConstructor(_baseOperations2IdentitiesMap.Values));
+                                                                                     new InjectionConstructor(_declaredOperationIdentities));
         }
 
         private void ResolveConflictsForEntitySpecificOperations(Dictionary<Type, Dictionary<EntitySet, HashSet<Type>>> entitySpecificOperationsMap)

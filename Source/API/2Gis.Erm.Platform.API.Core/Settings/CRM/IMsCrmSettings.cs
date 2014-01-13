@@ -9,7 +9,6 @@
 
         string CrmHost { get; }
         string CrmOrganizationName { get; }
-
-        string GetCrmConnectionStringForOrganization(string organizationName);
+        string CrmRuntimeConnectionString { get; }
     }
 }

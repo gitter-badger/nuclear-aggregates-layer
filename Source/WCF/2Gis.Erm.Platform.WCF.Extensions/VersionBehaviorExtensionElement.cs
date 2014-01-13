@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.WCF.Extensions
         protected override object CreateBehavior()
         {
             // Если в конфиге данной настройки нет, то и в сообщение ничего добавлено не будет.
-            var adaptation = ConfigurationManager.AppSettings["BusinessLogicAdaptation"];
+            var adaptation = ConfigurationManager.AppSettings["BusinessModel"];
             return new VersionBehavior(adaptation);
         }
     }

@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             }
 
             var data = JsonConvert.SerializeObject(originalObject);
-            return JsonConvert.DeserializeObject<TObject>(data);
+            return (TObject) JsonConvert.DeserializeObject(data, originalObject.GetType());
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Model.Metadata.Messages
+﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Messages
 {
     public static class MessageCodes
     {

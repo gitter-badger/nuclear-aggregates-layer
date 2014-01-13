@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         private readonly StringSetting _basicLanguage = ConfigFileSetting.String.Required("BasicLanguage");
         private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
-        private readonly EnumSetting<BusinessModel> _businessModel =  ConfigFileSetting.Enum.Optional("BusinessModel", BusinessModel.Russia);
+        private readonly EnumSetting<BusinessModel> _businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel");
         private readonly BoolSetting _enableCaching = ConfigFileSetting.Bool.Required("EnableCaching");
         private readonly BoolSetting _enableNotifications = ConfigFileSetting.Bool.Required("EnableNotifications");
         private readonly DecimalSetting _minDebtAmount = ConfigFileSetting.Decimal.Required("MinDebtAmount");

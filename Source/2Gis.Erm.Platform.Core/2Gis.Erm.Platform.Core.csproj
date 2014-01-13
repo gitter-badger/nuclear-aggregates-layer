@@ -73,6 +73,8 @@
     <Compile Include="Metadata\OperationApplicabilityByMetadataResolver.cs" />
     <Compile Include="Metadata\OperationsMetadataProvider.cs" />
     <Compile Include="Metadata\ServiceAvailabilityProvider.cs" />
+    <Compile Include="Notifications\NullEmployeeEmailResolver.cs" />
+    <Compile Include="Notifications\NullNotificationSender.cs" />
     <Compile Include="Operations\Logging\ChangesType.cs" />
     <Compile Include="Operations\Logging\ControlFlowMarkerManager.cs" />
     <Compile Include="Operations\Logging\EntityChangesContext.cs" />

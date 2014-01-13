@@ -7,8 +7,8 @@
     {
     }
 
-    public interface IDomainEntityDto<TEntity> : IDomainEntityDto 
-        where TEntity : IEntityKey
+    public interface IDomainEntityDto<TEntity> : IDomainEntityDto
+        where TEntity : class, IEntity, IEntityKey
     {
     }
 }

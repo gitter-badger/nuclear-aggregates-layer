@@ -1,8 +1,7 @@
-﻿using DoubleGis.Erm.Core.Services.Notifications;
+﻿using DoubleGis.Erm.Platform.API.Core.Notifications;
 
-namespace DoubleGis.Erm.BL.Services.Notifications
+namespace DoubleGis.Erm.Platform.Core.Notifications
 {
-    // 2+: \Platform\Source\2Gis.Erm.Platform.Core\Notifications\NullNotificationSender.cs
     public class NullNotificationSender : INotificationSender
     {
         public void PostMessage(NotificationAddress[] to, string subject, string body)

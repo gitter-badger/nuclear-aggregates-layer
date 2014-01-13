@@ -12,12 +12,12 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 
         private readonly BoolSetting _enableReplication = ConfigFileSetting.Bool.Required("EnableReplication");
         private readonly StringSetting _crmHost = ConfigFileSetting.String.Optional("CrmHost", "");
-        private bool _crmInited;
-        private string _crmOrganizationName;
+        private readonly Lazy<string> _crmOrganizationName;
 
         public MsCRMSettingsAspect(ConnectionStringsSettingsAspect connectionStringsSettings)
         {
             _connectionStringsSettings = connectionStringsSettings;
+            _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
         }
         
         public bool EnableReplication 
@@ -29,13 +29,15 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
         {
             get
             {
-                if (!_crmInited)
-                {
-                    _crmInited = true;
-                    InitCrmSettings();
-                }
+                return _crmOrganizationName.Value;
+            }
+        }
 
-                return _crmOrganizationName;
+        public string CrmRuntimeConnectionString 
+        {
+            get
+            {
+                return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection);
             }
         }
 
@@ -44,28 +46,12 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
             get { return _crmHost.Value; }
         }
 
-        // протестировать
-        public string GetCrmConnectionStringForOrganization(string organizationName)
+        private string ExtractOrganizationName()
         {
-            string connectionString = _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection);
-            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
-
-            var server = (string)connectionStringBuilder["server"];
-            var uriBuilder = new UriBuilder(server) { Path = string.Concat("/", organizationName) };
-            connectionStringBuilder["server"] = uriBuilder.Uri.ToString();
-
-            return connectionStringBuilder.ConnectionString;
-        }
-
-        private void InitCrmSettings()
-        {
-            string connectionString = _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection);
-            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
-
+            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = CrmRuntimeConnectionString };
             var server = (string)connectionStringBuilder["server"];
             var uriBuilder = new UriBuilder(server);
-
-            _crmOrganizationName = uriBuilder.Path.Trim('/');
+            return uriBuilder.Path.Trim('/');
         }
     }
 }

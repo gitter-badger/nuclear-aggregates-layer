@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 
-namespace DoubleGis.Erm.Model.Metadata.Messages
+namespace DoubleGis.Erm.Platform.Model.Metadata.Messages
 {
     public static class MessageCodesToTemplatesMapper
     {

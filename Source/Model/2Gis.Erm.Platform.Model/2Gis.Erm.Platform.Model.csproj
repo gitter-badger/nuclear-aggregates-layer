@@ -120,6 +120,7 @@
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="ContainedTypesAttribute.cs" />
+    <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoUtils.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />

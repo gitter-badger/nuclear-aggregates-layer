@@ -15,5 +15,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         CardRelation = EntityName.CardRelation,
         FirmAddressService = EntityName.FirmAddressService,
         Territory = EntityName.Territory,
+        DepCard = EntityName.DepCard
     }
 }

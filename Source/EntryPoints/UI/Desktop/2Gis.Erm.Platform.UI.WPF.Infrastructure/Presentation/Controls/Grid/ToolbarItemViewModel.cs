@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Common.Metadata.Old.Dto;
+﻿using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid
 {

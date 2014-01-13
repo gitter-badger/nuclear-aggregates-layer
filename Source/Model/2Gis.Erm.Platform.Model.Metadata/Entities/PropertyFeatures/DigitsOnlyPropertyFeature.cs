@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures

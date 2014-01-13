@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Text;
 
 namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
@@ -7,14 +7,14 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 	{
 		private static readonly string[] Hunds =
 		{
-			"", "сто ", "двести ", "триста ", "четыреста ",
-			"пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот "
+			"", "СЃС‚Рѕ ", "РґРІРµСЃС‚Рё ", "С‚СЂРёСЃС‚Р° ", "С‡РµС‚С‹СЂРµСЃС‚Р° ",
+			"РїСЏС‚СЊСЃРѕС‚ ", "С€РµСЃС‚СЊСЃРѕС‚ ", "СЃРµРјСЊСЃРѕС‚ ", "РІРѕСЃРµРјСЊСЃРѕС‚ ", "РґРµРІСЏС‚СЊСЃРѕС‚ "
 		};
 
 		private static readonly string[] Tens =
 		{
-			"", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
-			"шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто "
+			"", "РґРµСЃСЏС‚СЊ ", "РґРІР°РґС†Р°С‚СЊ ", "С‚СЂРёРґС†Р°С‚СЊ ", "СЃРѕСЂРѕРє ", "РїСЏС‚СЊРґРµСЃСЏС‚ ",
+			"С€РµСЃС‚СЊРґРµСЃСЏС‚ ", "СЃРµРјСЊРґРµСЃСЏС‚ ", "РІРѕСЃРµРјСЊРґРµСЃСЏС‚ ", "РґРµРІСЏРЅРѕСЃС‚Рѕ "
 		};
 
 		public string Format(object data)
@@ -40,30 +40,30 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
             var resultBuilder = new StringBuilder();
 
             if (0 == n) resultBuilder.Append("0 ");
-            resultBuilder.Append(n%1000 != 0 ? ToWords(n, true, "рубль", "рубля", "рублей") : "рублей");
+            resultBuilder.Append(n%1000 != 0 ? ToWords(n, true, "СЂСѓР±Р»СЊ", "СЂСѓР±Р»СЏ", "СЂСѓР±Р»РµР№") : "СЂСѓР±Р»РµР№");
 
             n /= 1000;
 
-            resultBuilder.Insert(0, ToWords(n, false, "тысяча", "тысячи", "тысяч"));
+            resultBuilder.Insert(0, ToWords(n, false, "С‚С‹СЃСЏС‡Р°", "С‚С‹СЃСЏС‡Рё", "С‚С‹СЃСЏС‡"));
             n /= 1000;
 
-            resultBuilder.Insert(0, ToWords(n, true, "миллион", "миллиона", "миллионов"));
+            resultBuilder.Insert(0, ToWords(n, true, "РјРёР»Р»РёРѕРЅ", "РјРёР»Р»РёРѕРЅР°", "РјРёР»Р»РёРѕРЅРѕРІ"));
             n /= 1000;
 
-            resultBuilder.Insert(0, ToWords(n, true, "миллиард", "миллиарда", "миллиардов"));
+            resultBuilder.Insert(0, ToWords(n, true, "РјРёР»Р»РёР°СЂРґ", "РјРёР»Р»РёР°СЂРґР°", "РјРёР»Р»РёР°СЂРґРѕРІ"));
             n /= 1000;
 
-            resultBuilder.Insert(0, ToWords(n, true, "триллион", "триллиона", "триллионов"));
+            resultBuilder.Insert(0, ToWords(n, true, "С‚СЂРёР»Р»РёРѕРЅ", "С‚СЂРёР»Р»РёРѕРЅР°", "С‚СЂРёР»Р»РёРѕРЅРѕРІ"));
             n /= 1000;
 
-            resultBuilder.Insert(0, ToWords(n, true, "триллиард", "триллиарда", "триллиардов"));
-            if (minus) resultBuilder.Insert(0, "минус ");
+            resultBuilder.Insert(0, ToWords(n, true, "С‚СЂРёР»Р»РёР°СЂРґ", "С‚СЂРёР»Р»РёР°СЂРґР°", "С‚СЂРёР»Р»РёР°СЂРґРѕРІ"));
+            if (minus) resultBuilder.Insert(0, "РјРёРЅСѓСЃ ");
 
             if (resultBuilder[resultBuilder.Length - 1] != ' ')
                 resultBuilder.Append(' ');
 
             resultBuilder.Append(remainder.ToString("00 "));
-            resultBuilder.Append(Case(remainder, "копейка", "копейки", "копеек"));
+            resultBuilder.Append(Case(remainder, "РєРѕРїРµР№РєР°", "РєРѕРїРµР№РєРё", "РєРѕРїРµРµРє"));
 
             return resultBuilder.ToString();
         }
@@ -72,19 +72,19 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
         {
             string[] frac20 =
             {
-                "", "один ", "два ", "три ", "четыре ", "пять ", "шесть ",
-                "семь ", "восемь ", "девять ", "десять ", "одиннадцать ",
-                "двенадцать ", "тринадцать ", "четырнадцать ", "пятнадцать ",
-                "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать "
+                "", "РѕРґРёРЅ ", "РґРІР° ", "С‚СЂРё ", "С‡РµС‚С‹СЂРµ ", "РїСЏС‚СЊ ", "С€РµСЃС‚СЊ ",
+                "СЃРµРјСЊ ", "РІРѕСЃРµРјСЊ ", "РґРµРІСЏС‚СЊ ", "РґРµСЃСЏС‚СЊ ", "РѕРґРёРЅРЅР°РґС†Р°С‚СЊ ",
+                "РґРІРµРЅР°РґС†Р°С‚СЊ ", "С‚СЂРёРЅР°РґС†Р°С‚СЊ ", "С‡РµС‚С‹СЂРЅР°РґС†Р°С‚СЊ ", "РїСЏС‚РЅР°РґС†Р°С‚СЊ ",
+                "С€РµСЃС‚РЅР°РґС†Р°С‚СЊ ", "СЃРµРјРЅР°РґС†Р°С‚СЊ ", "РІРѕСЃРµРјРЅР°РґС†Р°С‚СЊ ", "РґРµРІСЏС‚РЅР°РґС†Р°С‚СЊ "
             };
 
             var num = val % 1000;
             if (0 == num) return "";
-            if (num < 0) throw new ArgumentOutOfRangeException("val", "Параметр не может быть отрицательным");
+            if (num < 0) throw new ArgumentOutOfRangeException("val", "РџР°СЂР°РјРµС‚СЂ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј");
             if (!male)
             {
-                frac20[1] = "одна ";
-                frac20[2] = "две ";
+                frac20[1] = "РѕРґРЅР° ";
+                frac20[2] = "РґРІРµ ";
             }
 
             var resultBuilder = new StringBuilder(Hunds[num / 100]);

@@ -12,35 +12,17 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public OperationIdentityRegistry(IEnumerable<IOperationIdentity> identities)
         {
-            var nonUniqueIdentities = new Dictionary<int, List<Type>>();
-            var identitiesMap = new Dictionary<int, IOperationIdentity>();
-
-            foreach (var identity in identities)
-            {
-                var identityType = identity.GetType();
-                List<Type> duplicatesList;
-                if (!nonUniqueIdentities.TryGetValue(identity.Id, out duplicatesList))
-                {
-                    duplicatesList = new List<Type>{ identityType };
-                    nonUniqueIdentities.Add(identity.Id, duplicatesList);
-                    identitiesMap.Add(identity.Id, identity);
-                    continue;
-                }
-
-                duplicatesList.Add(identityType);
-            }
-
+            var nonUniqueIdentities = identities.GroupBy(x => x.Id).Where(x => x.Skip(1).Any()).ToArray();
             if (nonUniqueIdentities.Any())
             {
                 var sb = new StringBuilder("Operation identity id have to be unique constraint is violated. Violations: ");
                 nonUniqueIdentities.Aggregate(sb,
                                               (builder, pair) =>
-                                              builder.AppendLine("Descriptor id=" + pair.Key + ". " + string.Join(";", pair.Value.Select(t => t.Name))));
-                
+                                              builder.AppendLine("Descriptor id=" + pair.Key + ". " + string.Join(";", pair.Select(t => t.GetType().Name))));
                 throw new InvalidOperationException(sb.ToString());
             }
 
-            _identitiesMap = identitiesMap;
+            _identitiesMap = identities.ToDictionary(x => x.Id);
         }
         
         TOperationIdentity IOperationIdentityRegistry.GetIdentity<TOperationIdentity>()

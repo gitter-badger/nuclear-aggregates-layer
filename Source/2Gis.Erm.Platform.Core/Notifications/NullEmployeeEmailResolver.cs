@@ -1,8 +1,7 @@
-﻿using DoubleGis.Erm.Core.Services.Notifications;
+﻿using DoubleGis.Erm.Platform.API.Core.Notifications;
 
-namespace DoubleGis.Erm.BL.Services.Notifications
+namespace DoubleGis.Erm.Platform.Core.Notifications
 {
-    // 2+: \Platform\Source\2Gis.Erm.Platform.Core\Notifications\NullEmployeeEmailResolver.cs
     public class NullEmployeeEmailResolver : IEmployeeEmailResolver
     {
         public bool TryResolveEmail(long employeeUserCode, out string email)
