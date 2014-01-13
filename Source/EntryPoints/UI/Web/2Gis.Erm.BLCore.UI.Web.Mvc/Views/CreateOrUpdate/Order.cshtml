@@ -1,0 +1,292 @@
+﻿@using System.Globalization
+@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
+@using Settings
+
+@model OrderViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+ }
+
+@section CardScripts
+{
+    <link rel="stylesheet" type="text/css" href="/Content/order.css?@SolutionInfo.ProductVersion.Build" />
+    
+    <script src="/Scripts/Ext.DoubleGis.UI.Order.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.Order.CheckManager.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <style type="text/css">
+        DIV.Tab TABLE TD
+        {
+            padding-bottom: 0 !important;
+        }
+        DIV.Tab TABLE
+        {
+            width: auto !important;
+        }
+        div.display-wrapper
+        {
+            padding-top: 3px !important;
+            padding-bottom: 3px !important;
+        }
+        div.label-wrapper
+        {
+            width: 130px !important;
+        }
+        .discount-wrapper .ReadOnly
+        {
+            height: auto !important;
+        }
+    </style>    
+}
+
+@section CardBody
+{
+    <div style="display: none">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.IsTerminated)
+        @Html.HiddenFor(m => m.BudgetType)
+        @Html.HiddenFor(m => m.WorkflowStepId)
+        @Html.HiddenFor(m => m.PreviousWorkflowStepId)
+        @Html.HiddenFor(m => m.AvailableSteps)
+        @Html.HiddenFor(m => m.ClientId)
+        @Html.HiddenFor(m => m.DealCurrencyId)
+        @Html.HiddenFor(m => m.HasAnyOrderPosition)
+        @Html.HiddenFor(m => m.MakeReadOnly)
+        @Html.HiddenFor(m => m.HasDestOrganizationUnitPublishedPrice)
+        @Html.HiddenFor(m => m.IsWorkflowLocked)
+        @Html.HiddenFor(m => m.CurrenctUserCode)
+        @Html.HiddenFor(m => m.HasOrderBranchOfficeOrganizationUnitSelection)
+        @Html.HiddenFor(m => m.HasOrderCreationExtended)
+        @Html.HiddenFor(m => m.CanEditOrderType)
+        @Html.CheckBoxFor(m => m.EditRegionalNumber)
+        @Html.CheckBoxFor(m => m.ShowRegionalAttributes)
+        @Html.CheckBoxFor(m => m.CanSwitchToAccount)
+        @Html.HiddenFor(m => m.HasOrderDocumentsDebtChecking)
+        @Html.HiddenFor(m => m.AccountId)
+        @Html.HiddenFor(m => m.IsActive)
+        @Html.HiddenFor(m => m.PlatformId)
+        @Html.HiddenFor(m => m.VatPlan)
+        @Html.HiddenFor(m => m.OrderValidationServiceUrl)
+    </div>
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <br />
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OrderNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Platform, FieldFlex.twins, new Dictionary<string, object> { {"disabled", "disabled"} })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
+                                                                            {
+                                                                                EntityName = EntityName.Deal, 
+                                                                                ReadOnly = true, 
+                                                                            })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
+                                                                                   {
+                                                                                       EntityName = EntityName.LegalPerson, 
+                                                                                       SearchFormFilterInfo = "ClientId={ClientId}", 
+                                                                                       ExtendedInfo = "ClientId={ClientId}", 
+                                                                                   })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
+                                                                            {
+                                                                                EntityName = EntityName.Firm, 
+                                                                                ReadOnly = Model.HasAnyOrderPosition, 
+                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}"
+                                                                            })
+            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}&singlePrimaryBranchOffice=true", ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Bargain, ReadOnly = true})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" })
+            @Html.TemplateField(m => m.OrderType, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        @Html.SectionHead("placementGroup", BLResources.TitlePlacement)
+        <div class="row-wrapper">
+            <div class="display-wrapper field-wrapper twins" id="ReleaseCountPlan-wrapper">
+                <div class="label-wrapper">
+                    <span>
+                        @BLResources.TitleReleasesCount
+                    </span>
+                </div>
+                <div class="input-wrapper">
+                    <table cellpadding="0" cellspacing="0" width="100%;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30px;">
+                                    @Html.LabelFor(m => m.ReleaseCountPlan)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.ReleaseCountPlan, new Dictionary<string, object> { { "class", "inputfields" } })
+                                    @Html.ValidationMessageFor(m => m.ReleaseCountPlan, null, new Dictionary<string, object> { { "class", "error" } })
+                                </td>
+                                <td width="10px;">
+                                </td>
+                                <td style="width: 30px;">
+                                    @Html.LabelFor(m => m.ReleaseCountFact)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.ReleaseCountFact, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" }})
+                                </td>
+                                <td width="10px;">
+                                </td>
+                                <td style="width: 85px;">
+                                    <span>
+                                        @BLResources.TitleReleasesPlan</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.BeginReleaseNumber, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" }})
+                                    @Html.ValidationMessageFor(m => m.BeginReleaseNumber, null, new Dictionary<string, object> { { "class", "error" } })
+                                </td>
+                                <td style="width: 10px; text-align: center;">
+                                    -
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.EndReleaseNumberPlan, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.EndReleaseNumberPlan, null, new Dictionary<string, object> { { "class", "error" } })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @Html.TemplateField(m => m.EndReleaseNumberFact, FieldFlex.twins, new Dictionary<string, object>{ { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+        </div>
+        <div class="row-wrapper">
+            <div class="display-wrapper field-wrapper twins" id="BeginDistributionDate-wrapper">
+                <div class="label-wrapper">
+                    <span>
+                        @BLResources.TitlePlacementPeriod</span>
+                </div>
+                <div class="input-wrapper">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DateFor(m => m.BeginDistributionDate, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound })
+                                </td>
+                                <td width="10px;">
+                                    -
+                                </td>
+                                <td>
+                                    @Html.DateFor(m => m.EndDistributionDatePlan, new DateTimeSettings { ReadOnly = true, ShiftOffset = false, PeriodType = PeriodType.MonthlyUpperBound })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @Html.ValidationMessageFor(m => m.BeginDistributionDate, null, new Dictionary<string, object> { { "class", "error" } })
+                    @Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
+                </div>
+            </div>
+            @Html.TemplateField(m => m.EndDistributionDateFact, FieldFlex.twins, new DateTimeSettings {ReadOnly = true, ShiftOffset = false})
+        </div>
+        @Html.SectionHead("discountGroup", BLResources.TitleDiscount)
+        <div class="discount-wrapper">
+            <div id="discountBlock">
+                <div class="row-wrapper">
+                    <div class="display-wrapper field-wrapper twins" id="DiscountPercentChecked-wrapper">
+                        <div class="label-wrapper">
+                            <span>
+                                @BLResources.DiscountValue
+                            </span>
+                        </div>
+                        <div class="input-wrapper">
+                            <table cellpadding="0" cellspacing="0" width="100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 15px;">
+                                            @Html.RadioButtonFor(m => m.DiscountPercentChecked, true, new Dictionary<string, object> { { "id", "DiscountPercentChecked" }, { "class", "rad" } })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.DiscountPercent, new Dictionary<string, object> { { "class", "inputfields" }})
+                                            @Html.ValidationMessageFor(m => m.DiscountPercent, null, new Dictionary<string, object> { { "class", "error" } })
+                                        </td>
+                                        <td style="width: 15px; text-align: center;">
+                                            <span>%</span>
+                                        </td>
+                                        <td style="width: 10px;">
+                                        </td>
+                                        <td style="width: 15px;">
+                                            @Html.RadioButtonFor(m => m.DiscountPercentChecked, false, new Dictionary<string, object> { { "id", "DiscountSumChecked" }, { "class", "rad" } })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.DiscountSum, new Dictionary<string, object> { { "class", "inputfields" } })
+                                            @Html.ValidationMessageFor(m => m.DiscountSum, null, new Dictionary<string, object> { { "class", "error" } })
+                                        </td>
+                                        <td style="width: 30px; text-align: center;">
+                                            <span>@ViewData.GetErmBaseCurrencySymbol()</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @Html.TemplateField(m => m.DiscountReason, FieldFlex.twins, null, EnumResources.ResourceManager)
+                </div>
+                <div class="row-wrapper">
+                    @Html.TemplateField(m => m.DiscountComment, FieldFlex.lone)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Tab" id="FinancesTerminationTab" title="@BLResources.AdditionalTabTitle">
+        @Html.SectionHead("finances", BLResources.TitleFinances)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PayablePrice, FieldFlex.twins, new Dictionary<string, object> { {"class", "inputfields readonly"}, {"readonly", "readonly"}})
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true,})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+            @Html.TemplateField(m => m.AmountToWithdraw, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PayableFact, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+            @Html.TemplateField(m => m.AmountWithdrawn, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
+        </div>
+        @Html.SectionHead("сancellation", BLResources.TitleCancellation)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.TerminationReason, FieldFlex.lone, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "disabled", "disabled" } }, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "3" }, { "readonly", "readonly" }, { "class", "readonly" } })
+        </div>
+        @Html.SectionHead("control", BLResources.TitleControl)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}"})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone)
+        </div>
+    </div>
+    <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
+        @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
+        @if (Model.IsCurated && Model.IsSecurityRoot)
+        {
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+            @Html.TemplateField(m => m.SignupDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false})
+        </div>
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true})
+            @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.RegionalNumber, FieldFlex.lone)
+        </div>
+    </div>
+}

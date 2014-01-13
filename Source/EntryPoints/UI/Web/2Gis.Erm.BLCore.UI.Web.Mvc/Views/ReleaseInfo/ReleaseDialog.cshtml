@@ -1,0 +1,88 @@
+﻿@using Platform.Model.Metadata.Enums
+
+@model ReleaseDialogViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.PeriodAssembling }
+@section TopBarTitle { @BLResources.PeriodAssembling }
+@section TopBarMessage { @BLResources.SpecifyAssemblyPeriodAndOrganizationUnit }
+
+@section PageContent
+{
+    <style type="text/css">
+        td.itemCaption
+        {
+            vertical-align: top;
+            padding-top: 5px;
+        }
+        td.itemValue
+        {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+
+            Ext.each(Ext.CardLookupSettings, function (item, i)
+            {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+            {
+                alert("@BLResources.AssemblyOperationSuccess");
+                window.close();
+                return;
+            } else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            // show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+            else
+            {
+                Ext.get("Notifications").removeClass("Notifications");
+            }
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
+                {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
+                    {
+                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                    });
+                    EntityForm.submit();
+                }
+            });
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <div class="Tab">
+        <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+            @Model.Message
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsBeta, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
+        </div>
+    </div>
+    }
+}

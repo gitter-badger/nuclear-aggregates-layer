@@ -1,0 +1,67 @@
+﻿
+@model AdvertisementElementTemplateViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+<style type="text/css">
+    DIV.label-wrapper
+    {
+        width: 160px;
+    }
+</style>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+<div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+    <div class="row-wrapper">
+        @Html.EditableId(m => m.Id)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.Name, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.RestrictionType, FieldFlex.lone, null, EnumResources.ResourceManager)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.FileSizeRestriction, FieldFlex.twins)
+        @Html.TemplateField(m => m.FileNameLengthRestriction, FieldFlex.twins)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.ImageDimensionRestriction, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.TextLengthRestriction, FieldFlex.twins)
+        @Html.TemplateField(m => m.TextLineBreaksCountRestriction, FieldFlex.twins)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.MaxSymbolsInWord, FieldFlex.twins)
+        @Html.TemplateField(m => m.FormattedText, FieldFlex.twins)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.IsRequired, FieldFlex.twins)
+        @Html.TemplateField(m => m.IsAdvertisementLink, FieldFlex.twins)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.NeedsValidation, FieldFlex.lone)
+    </div>
+    @Html.SectionHead("supportedFilesHeader", @BLResources.AllowedFileExtensions)
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.IsPngSupported, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.IsGifSupported, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.IsBmpSupported, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.IsChmSupported, FieldFlex.lone)
+    </div>
+</div>
+}

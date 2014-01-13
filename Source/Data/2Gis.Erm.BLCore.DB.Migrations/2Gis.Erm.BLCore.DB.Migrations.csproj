@@ -1,0 +1,1038 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29068FB9-201B-409D-9A63-A7E06AC9DFEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.DB.Migrations</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.DB.Migrations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo">
+      <HintPath>..\..\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc">
+      <HintPath>..\..\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo">
+      <HintPath>..\..\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Smo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum">
+      <HintPath>..\..\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="0.13 - Stonehenge and earlier\2012.03.30 rev 1284 - Create migration table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.03.30 rev 1286 - Inn, Kpp, PassportX constraint.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.05 rev 1417 - Add suppport  AccountDetails replication.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.06 rev 1412 - Add CloseBargainOperationalPeriod functional permission.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.06 rev 1416 - Added Bargains.ClosedOn column.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.06 rev. 1422 - Updated ReplicateBargains sp.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.10 rev. 1484 - Create CheckUserParentnessRecursion fn.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.11 rev. 1493 - Add AdvertisementElementTemplate.IsAdvertisementLink column.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.12 rev. 1554 - alter Department.ParentId to nullable.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.12 rev. 1567 - Add Users.IsServiceUser column.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.13 rev. 1597 - update TimeZoneId for OrganizationUnits table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.16 rev. 1650 - Create SendMassEmail privilege.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.16 rev. 1653 - Ensure owning user replication.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.17 rev. 1717 - Renaming platforms.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.19 rev. 1773 - Create ChangeFirmClient privilege.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.04.20 rev. 1818 - Create TimeZones dictionary table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.03 rev 2121 - Add functional privelege Leave client with no firms.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.03 rev 2173 - Update ConvertUtcToTimeZone scalar function.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.09 rev. 2217 - Create Notifications Infrastructure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.14 rev 2275 - Set size of LegalPersons.PaymentEssentialElements column to 512.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.15 rev. 2307 - add CityPhoneZone table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.16 rev. 2327 - AlterReplicationSPsForOwningBusinessUnitUpdate.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.16 rev. 2328 - FirmAddresses table remove Name and WorkingTimeComment columns.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.17 rev. 2368 - alter ReplicateFirmAddress stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.28 rev 2459 - Order documents presence.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.28 rev. 2464 - Add functional privelege PrereleaseOrderValidationExecution.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.29 rev 2460 - Init CRM dg_order.dg_documentsdebt column.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.30 rev 2490 - Update Contact.Salutation in Erm.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.30 rev 2491 - Update Contact.Salutation in CRM.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.05.31 rev 2505 - Add AdvertisementElementTemplates.MaxSymbolsInWord.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.07 rev. 2549 - Adding AmountIsNotNegativeConstraint in AccountDetail.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.09 rev. 2580 - Adding SignupDate to ReplicateOrder - Again.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.13 rev. 2611 - Alter ImportFirmsPromissing stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.14 rev. 2630 - Alter ALL ReplicationSPs For Correct ModifiedBy.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.18 rev. 2704 - Delete unused replication procedures.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.20 rev. 2791 - Add column to CardRelations table, delete columns from FirmContacts table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.22 rev. 2811 - Delete columns from FirmContacts table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.26 rev. 2875 - Alter firm promising stored procedures.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.27 rev. 2887 - Added Operations table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.28 rev. 2911 - Adding Validation Groups tables.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.28 rev. 2927 - Altering Validation Groups tables for colums rearranging.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.06.29 rev. 2936 - Filling Validation Groups tables.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.02 rev. 2946 - Updates for Validation Groups tables schema and data.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.10 rev. 3055 - Add unique constraint to CardsFirmContact table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.18 rev. 3213 - Add EditOrderType functional privelege.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.24 rev. 3219 - Add ImportFirmFromXml stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.24 rev. 3233 - Added dg_order.dg_release_count %28fact and plan%29 columns.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.24 rev. 3234 - Init dg_order.dg_release_count %28fact and plan%29 columns in CRM.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.25 rev. 3249 - Add constraints to CardRelations table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.26 rev. 3255 - Delete DgppId from FirmContacts table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.26 rev. 3258 - Alter unique undex as primary key in CardRelations and CardFirmContacts tables.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.07.26 rev. 3259 - Update deal-related entities in CRM.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.01 rev. 3278- Add ChangeFirmTerritory functional privelege.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.02 rev. 3251 - Alter ImportFirmFromXml stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.03 rev. 3311 - Create DepCards table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.06 rev. 3308 - Alter ImportFirmFromXml stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.09 rev. 3394 - Delete temporary firm.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.10 rev. 3415 - Alter territories assingning.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.14 rev. 3448 - Alter BranchOfficeOrganizationUnitFiles table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.15 rev. 3514 - Adding ErmLaunchDate and InfoRussiaLaunchDate colums to OrganizationUnit.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.17 rev. 3534 - Alter UpdateFirmAddressBuildings sp.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.17 rev. 3541 - Adding ADPositionsValidation group.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.18 rev. 3553 - AlterCreateExportSessionLegalPersonExport.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.22 rev. 3619 - Optimize import firm territories.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.27 rev. 3557 - Add functional privelege MergeLegalPersonsExecution.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.29 rev. 3694 - delete unneeded relations.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.31 rev. 3697 - AlterCreateExportSession stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.08.31 rev. 3760 - Set DgppId as NotNull on Firm, FirmAddress and Categoty.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.03 rev. 3812 - UserProfiles filling with data.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.04 rev. 3800 - Update privileges table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.06 rev. 3863 - alter CreateExportSession stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.06 rev. 3877 - alter CreateExportSession stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.11 rev. 3904 - Create ActionsHistoryDetails PropertyName Index.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.12 rev. 3914 - Alter ReplicateOrganizationUnit stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.12 rev. 3929 - Add dg_order.dg_terminationcomment column.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.12 rev. 3930 - Alter ReplicateOrder stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.12 rev. 3934 - Delete IsActive and IsDeleted from Platforms table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.13 rev. 3939 - alter ImportFirmFromXml stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.28 rev. 4172 - alter ImportFirmFromXml and create ImportDepCardsFromXml stored procedures.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.10 - rev. 4605 - Add Withdrawal button to CRM.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.10 rev. 4604 - Add FranchiseeWithdrawalExport functional privilege.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.19 rev. 4084 - Optimize order validation rules.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.13 rev. 3960 - Adding Online platform with DgppId = 4.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.11 rev. 4503 - After sale service customization.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.11 rev. 4933 - After sale service ERM update.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.17 rev. 4000 - Remove Extension Entities.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.21 rev. 4109 - Create ReplicateUser stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.25 rev. 4131- alter CreateExportSession stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.25 rev. 4141- alter CreateExportSession stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.27 rev. 4167 - Add Integration user to ERM.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.27 rev. 4168 - Alter Integration user in CRM.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.28 rev. 4170- alter ImportFirmFromXml stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.28 rev. 4193 - drop IsActive and IsDeleted columns from Files table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.09.28 rev. 4199 - drop IsAllowedToWhiteList column from Positions table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.01 rev. 4221- Add document debt info into Bargains.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.01 rev. 4222 - Add dg_documentscomment and dg_documentsdebt into dg_bargain.xml.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.01 rev. 4223 - Alter ReplicateBargain stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.02 rev. 4247 - drop UserPrivileges table.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.02 rev. 4261 - drop unneeded security columns.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.02 rev. 4264 - Fix bug in ReplicateDeal stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.04 rev. 4312- Changing URLs for group operations.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.05 rev. 4352 - Changing Operations.FileId.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.10 rev. 4355 - Add CouponPeriodValidationGroup.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.10 rev. 4432 - fixed display name for dg_terminationcomment.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.16 rev. 4456 -Recalc timezones.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.17 rev. 4587 - fix ReplicateUserTerritory stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.17 rev. 4589 - fix ImportCards stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.17 rev. 4592 - fix stored procedure for reports.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.24 rev. 4594 - fix import stored procedure.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.24 rev. 4595 - fix territories.cs" />
+    <Compile Include="0.13 - Stonehenge and earlier\2012.10.25 rev. 4596 - alter import cards SP.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.17 rev. 4598 - Delete PrivilegeType column.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.19 rev. 4602 - Delete OwnerCode column from Operations table .cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.19 rev. 4603 - Delete OwnerCode column from Files table .cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.19 rev. 4606 - Delete OwnerCode column from MessageType table .cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.11 rev. 4631 - After sale service button added to sitemap.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.29 rev. 4935 - Added columns to Shared.Operations.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.25 rev. 4816 - Drop Security.vwUsersDepartments view.cs" />
+    <Compile Include="0.14 - Montmartre\2012.10.31 rev. 4855 - Delete Security.EntityPrivilegeDepths table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.01 rev. 4873 - Delete Security.vwUserFunctionalPrivileges.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.01 rev. 4874 - Delete IsDeleted column from UserTerritories and UserOrganizationUnits tables.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.02 rev. 4882 - Delete Security.EntityAccessRights table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.02 rev. 4884 - Delete FunctionalLocalResourceName column from Privileges table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.02 rev. 4885 - Alter vwUserTerritoriesOrganizationUnits view.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.08 rev. 4996 - Drop ReplicateUserTerritory sp.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.08 rev. 5006 - Delete RoleMapping table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.13 rev. 5055 - Restore UserTerritories replication.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.13 rev. 5073 - make UserTerritoriesOrganizationUnits not securable.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.14 rev. 5079 - Syncronizing indexes for ActionsHistory and ActionsHistoryDetails.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.14 rev. 5092 - Alter vwUserTerritoriesOrganizationUnits view.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.19 rev. 5154 - Removing unused release-related columns.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.19 rev. 5160 - Configure ChangeFirmTerritory privilege.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.19 rev. 5188 - Alter ImportFirmPromising sp.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.15 rev. 5098 - Add AdditionalFirmServices table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.20 rev. 5191 - Alter CardRelations table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.21 rev. 5224 - Remove zeroes from HasDocumentsDebt column.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.21 rev. 5225 - Remove zeroes from HasDocumentsDebt in CRM.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.22 rev. 5195 - add unique index to Territories table.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.22 rev. 5268 - After sale service operation log path changed.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.22 rev. 5256 - Change LastQualifyDate to Non Null.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="0.14 - Montmartre\2012.11.23 rev. 5281 - After sale service purposes changed.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.29 rev. 5397 Remove IsDeleted column from Territories.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.29 rev. 5376 - Drop unneeded DgppId column.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.14 rev 5061 - Spin-off LegalPersonProfiles.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.15 rev 5063 - Add DeleteLegalPersonProfile functional privelege.cs" />
+    <Compile Include="0.14 - Montmartre\2012.11.30 rev. 5410 - Add security entities to security.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5555 - Add user profiles and firmaddresses to security.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.05 rev. 5481 alter ReplicateTerritory.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.05 rev. 5487 exportTo1CButton.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5549 altering BusinessDirectory.vwTerritories.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.07 rev. 5569 - add order validation rule.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.07 rev. 5584 - alter GetTemporaryTerritories.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.14 rev. 5753 - create GetNonExportedOrdersCount sp.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.19 rev. 5869 - reprocess local messages.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5607 - Add user profiles to security.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.11 rev. 5646 - add warranty end date order validation rule.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.11 rev. 5658 - add territory index.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.12 rev. 5679 - add bargain end date order validation rule.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.14 rev. 5736 - alter CreateExportSession.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.12.18 rev. 5894 - update Notification tables foreignkeys.cs" />
+    <Compile Include="0.15 - HangzhouBay\2013.01.14 rev. 6303 - altering CreateExportSession sp.cs" />
+    <Compile Include="0.15 - HangzhouBay\2013.01.15 rev. 6319 - altering CreateExportSession sp v2.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.17 rev. 6411 - Add IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategory validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.18 rev. 6415 - Add order validation rules.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.24 rev. 6509 - Insert rules into OrderValidationRuleGroupDetails.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.17 rev. 6374 - Alter procedure CreateExportSession.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.16 rev. 6353 - Alter table OrderPositionAdvertisement.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.05 rev. 5484 - Add LimitRecalculation functional privelege.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.14 rev 5752 - Add columns to Positions and PricePositions.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.14 rev. 5765 - add advertisement amount validation group.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.17 rev 5834 - Add sponsored link validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.17 rev. 5833 - Add advertisement text formating validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.22 rev. 6452 - reprocess local messages.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.20 rev. 5905 - Add Themes tables.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.21 rev. 5933 - make PaymentEssentialElements nvarchar%28512%29 .cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.21 rev. 5928 - Add additional firm service to security.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.13 rev. 5724 - make OperationTypes.IsDeleted not nullable.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.11 rev. 5648 - Set DgppId as NotNull on Platform.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.06 rev. 5534 - Add LimitPerionChanging functional privelege.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.17 rev. 5823 - drop column TextInDgppFormat.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.20 rev. 5883 - add IX_FirmContacts_SortingPosition_CardId index.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.13 rev. 5705 - make merge window bigger.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.22 rev. 5952 - Add entity priveleges for Themes.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.22 rev. 5980 - Rename BannerFileId column.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.24 rev. 6003 - AfterSaleServiceChanged.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.27 rev. 6044 - alter createExportSession.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.27 rev. 6006 - AfterSaleService changed app.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.27 rev. 6047 - Add AreThereAnyAdvertisementsInAdvantageousPurchasesRubric validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.27 rev. 6058 - Add IsThereAdvantageousPurchasesRubric validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.27 rev. 6060 - Add AdvertisementForCategoryAmount validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.28 rev. 6084 - Add CategoriesForFirmAmount validatio rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.28 rev. 6090 - Add is export supports PositionCategory.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.28 rev. 6105 - Add IsPositionSupportedByExport validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2012.12.28 rev. 6111 - Set IsSupportedByExport for PositionCategories.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.09 rev. 6163 - make merge window resizable.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.09 rev. 6177 - make limit 8001 not active.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.10 rev. 6205 - Delete DgppId and Code columns.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.10 rev. 6206 - delete double denied positions.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.10 rev. 6213 - limits search grid configuration.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.10 rev. 6221 - limits search grid configuration v2.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.11 rev. 6244 - Delete CreateDate from CurremcyRates table.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6449 - Add Int32IdsTableType.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6465 - Add ReplicateFirms SP.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6467 - Add ReplicateFirmAddresses SP.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6469 - Add ReplicateContacts SP.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6470 - Alter FirmsForPostIntegrationActivities.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.22 rev. 6474 - Alter ExportOrdersAfterImportCards SP.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.22 rev. 6550 - Remove newlines in formatted texts.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.16 rev. 6317 - Add AdvertisementAmount validation rule.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.16 rev. 6372 - Add IsLocatedOnTheMap column to FirmAddresses.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.16 rev. 6397 - Alter ImportCards SP.cs" />
+    <Compile Include="0.16 - BroadPeak\2013.01.17 rev. 6398 - Add IsAdvertisementLinkedWithEmptyAddress validation rule.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.24 rev. 6534 - Make ThemeOrganizationUnit deletable.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.25 rev. 6542 - Make ThemeCategory deletable.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.30 rev. 6642 - alter customizations.xml for Appointment, Letter, PhoneCall, Fax.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.30 rev. 6611 - Alter procedure CreateExportSession v2.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.30 rev. 6666 - Add email column to BranchOfficeOrganizationUnits table.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.31 rev. 6698 - Alter SiteMap.xml.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.31 rev. 6701 - Add Message Type.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.23 rev. 6485 - Alter ImportCards SP.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.23 rev. 6488 - Add ReplicateObjectsAfterImportCards SP.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6712 - Make ThemeOrganizationUnit deactivable.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
+      <LogicalName>Migration6766CreateCleanupERM</LogicalName>
+      <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.06 rev. 6798 - Alter SiteMap.xml.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.06 rev. 6803 - Alter procedure ImportCardsFromXml.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.06 rev. 6808 - Set IsLocatedOnTheMap = 1 for dgpp adresses.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.01.30 rev. 6652 - Categories Decomposition.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6806 - Alter Import Cards.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.07 rev. 6820 - Alter Import firms.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.08 rev. 6875 - TurnOff export validations.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.08 rev. 6869 - Alter ISV.config.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.08 rev. 6904 - Alter ISV.config again.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.15 rev. 7076 - Turn off theme order validations.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.11 rev. 6896 - Alter ImportFirms and UpdateBuildings.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.08 rev. 6916 - Bug 3236 fix.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6965 - Alter Client and Contact column lengths.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6964 - Alter Client and Contact entities.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6977 - Alter ImportCards.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6979 - Set Territories to firms.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6988 - Alter ReplicateFirms.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6991 - Alter ReplicateFirmAddresses.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6993 - Alter ReplicateContacts.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 6987 - Task 3426 fix .cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.13 rev. 7029 - add assign privelege to LegalPersonProfile.cs" />
+    <Compile Include="0.18\2012.02.21 rev. 7545 - Alter table Shared_Operations.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.25 rev. 7266 - Alter stored procedures for DB cleanup.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.25 rev. 7262 - Add index to CRM Workflow log .cs" />
+    <Compile Include="0.18\2013.05.16 rev. 8787 - create table BusinessOperations.cs" />
+    <Compile Include="0.18\2013.07.11 rev. 10107 - Set some PlatformIds.cs" />
+    <Compile Include="1.2\2013.10.28 rev. 13174 - Add OrderProcessingRequest permissions.cs" />
+    <Compile Include="1.2\2013.10.24 rev. 13071 - Alter ReplicateEvetything.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13032 - Replicate OrderProcessingRequest SP.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13026 - Create OrderProcessingRequest entity with relationships.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13019 - Create OrderProcessingRequest entity.cs" />
+    <Compile Include="0.18\2013.07.25 rev. 10476 - Alter OrderPosition entity.cs" />
+    <Compile Include="0.18\2013.04.03 rev. 8098 - Turn on some order validation rules.cs" />
+    <Compile Include="0.18\2013.03.14 rev. 7700 - delete Reports from CRM.cs" />
+    <Compile Include="0.18\2013.02.25 rev. 7294 - Alter ImportCards.cs" />
+    <Compile Include="0.18\2013.02.25 rev. 7283 - Add deleting privelege for additional firm service.cs" />
+    <Compile Include="0.18\2013.02.13 rev. 7022 - Alter procedure CreateExportSession.cs" />
+    <Compile Include="0.18\2013.02.13 rev. 7015 - Alter table FirmAddressService.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.12 rev. 7064 - Alter ImportCards and UpdateBuildings.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.26 rev. 7233 - Turn oт export order validations.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.18 rev. 7087 - Refresh Local Message States.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.15 rev. 7101 - Alter ImportCards.cs" />
+    <Compile Include="0.18\2013.03.06 rev. 7525 - alter mass replicate SPs.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.20 rev. 7088 - Alter ReplicateObjects .cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.20 rev. 7089 - Alter ReplicateObjects .cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.20 rev. 7090 - Set IsLocatedOnTheMap = 1 for dgpp .cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.20 rev. 7091 - Alter Replicate Address.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.19 rev. 7146 - Mark firms to replicate.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.18 rev. 7154 - Repair of activities%27 cancellation in CRM.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.02.18 rev. 7157 - Activities forms customization.cs" />
+    <Compile Include="0.17 - Gasherbrum\2013.03.4 rev. 7460 - Turn off SelfAds validation.cs" />
+    <Compile Include="0.18\2013.02.21 rev. 7194 - Task 3273.cs" />
+    <Compile Include="0.18\2013.02.27 rev. 7340 - Alter table ThemeTemplates.cs" />
+    <Compile Include="0.18\2013.02.27 rev. 7357 - Alter table ThemeTemplates.cs" />
+    <Compile Include="0.18\2013.02.28 rev. 7395 - Alter ImportCards v2.cs" />
+    <Compile Include="0.18\2013.03.04 rev. 7463 - drop OwnerCode columns.cs" />
+    <Compile Include="0.18\2013.03.04 rev. 7464 - drop OwnerCode column.cs" />
+    <Compile Include="0.18\2013.03.04 rev. 7565 - alter integration sps.cs" />
+    <Compile Include="0.18\2013.03.05 rev. 7566 - alter views.cs" />
+    <Compile Include="0.18\2013.03.06 rev. 7523 - Alter ImportCards v3.cs" />
+    <Compile Include="0.18\2013.03.11 rev. 7572 - alter export orders.cs" />
+    <Compile Include="0.18\2013.03.12 rev. 7593 - turn on CategoriesForFirm order validation rule.cs" />
+    <Compile Include="0.18\2013.03.12 rev. 7635 - set files inactive to inactive orders.cs" />
+    <Compile Include="0.18\2013.03.13 rev. 7664 - turn off SameAdvertisementOVR.cs" />
+    <Compile Include="0.18\2013.03.13 rev. 7670 - Task 3747.cs" />
+    <Compile Include="0.18\2013.03.14 rev. 7679 - set replication bunch to 200.cs" />
+    <Compile Include="0.18\2013.03.14 rev. 7696 - Alter ImportFirmsFromXml.cs" />
+    <Compile Include="0.18\2013.03.14 rev. 7716 - Alter ImportFirmsFromXml.cs" />
+    <Compile Include="0.18\2013.03.14 rev. 7718 - Turn on SelfAds validation.cs" />
+    <Compile Include="0.18\2013.03.18 rev. 7720 - Altert update buildings.cs" />
+    <Compile Include="0.18\2013.03.18 rev. 7725 - Alter sps.cs" />
+    <Compile Include="0.18\2013.03.19 rev. 7835 - add project table.cs" />
+    <Compile Include="0.18\2013.03.25 rev. 7895 - set column LastName nullable.cs" />
+    <Compile Include="0.18\2013.03.25 rev. 7901 - add CascadeLegalPersonAssign fp.cs" />
+    <Compile Include="0.18\2013.03.21 rev. 7799 - Remove restricted symbols from AdvertisementElements.cs" />
+    <Compile Include="1.01 - Praha\2013.09.16 rev. 11934 - Add new fields for Praha.cs" />
+    <Compile Include="1.01 - Praha\2013.09.26 rev. 12176 - Add new fields for Praha - 2.cs" />
+    <Compile Include="1.01 - Praha\2013.09.26 rev. 12190 - Add new fields for Praha - 3.cs" />
+    <Compile Include="1.01 - Praha\2013.10.04 rev. 12420 - Change length ReferenceItem.Name.cs" />
+    <Compile Include="1.0\2013.03.18 rev. 7778 - turn 32 bit Ids to 64 bit.cs" />
+    <Compile Include="1.0\2013.03.18 rev. 7828 - turn off autoincrement.cs" />
+    <Compile Include="1.0\2013.03.22 rev. 7833 - drop and create again views.cs" />
+    <Compile Include="1.0\2013.03.22 rev. 7830 - turn CreatedBy, ModifiedBy, OwnerCode to 64 bit.cs" />
+    <Compile Include="1.0\2013.03.22 rev. 7831 - turn single columns to 64 bit.cs" />
+    <Compile Include="1.0\2013.03.22 rev. 7832 - alter stored procedure parameters.cs" />
+    <Compile Include="0.18\2013.03.20 rev. 7829 - Turn on AssocDenied validation.cs" />
+    <Compile Include="0.18\2013.03.25 rev. 7899 - Set Dgppid to null in some order positions.cs" />
+    <Compile Include="0.18\2013.03.25 rev. 7920 - Set default Date for PhoneCall and Fax.cs" />
+    <Compile Include="0.18\2013.03.28 rev. 7977 - Alter Deal name length.cs" />
+    <Compile Include="0.18\2013.03.29 rev. 8009 - Delete out-of-date printtemplates.cs" />
+    <Compile Include="0.18\2013.05.31 rev. 9081 - Alter AdvertisementElementTemplates.cs" />
+    <Compile Include="0.18\2013.05.31 rev. 9083 - Alter AdvertisementElement.cs.cs" />
+    <Compile Include="0.18\2013.05.31 rev. 9086 - Add AdvElementVerification functional privilege.cs" />
+    <Compile Include="0.18\2013.04.08 rev. 8145 - Bug 3907 fix.cs" />
+    <Compile Include="0.18\2013.04.09 rev. 8211 - Replace nbsp with space.cs" />
+    <Compile Include="0.18\2013.04.03 rev. 8117 - Alter ISV.config.cs" />
+    <Compile Include="0.18\2013.04.08 rev. 8163 - Add table ReleasesWithdrawalsPositions.cs" />
+    <Compile Include="0.18\2013.04.09 rev. 8119 - reexport themes.cs" />
+    <Compile Include="0.18\2013.04.15 rev. 8322 - Add validation rule.cs" />
+    <Compile Include="0.18\2013.04.17 rev. 8416 - Fix log cleanup.cs" />
+    <Compile Include="0.18\2013.04.29 rev. 8541 - Remove rule 45.cs" />
+    <Compile Include="0.18\2013.04.29 rev. 8621 - Alter ImportFirmsFromXml.cs" />
+    <Compile Include="0.18\2013.04.30 rev. 8635 - Alter DepartmentDelete.cs" />
+    <Compile Include="0.18\2013.04.30 rev. 8636 - Alter DepartmentUpdate.cs" />
+    <Compile Include="0.18\2013.04.99 rev. 8461 - Remove symbol with code 30.cs" />
+    <Compile Include="0.18\2013.05.06 rev. 8683 - Alter ReplicateEntitiesToCrm.cs" />
+    <Compile Include="0.18\2013.05.15 rev. 8736 - Alter table Positions.cs" />
+    <Compile Include="0.18\2013.05.15 rev. 8753 - add PositionAdministration privelege.cs" />
+    <Compile Include="0.18\2013.05.15 rev. 8797 - Alter CardRelations.cs" />
+    <Compile Include="0.18\2013.05.22 rev. 8784 - Alter ReplicateEntitiesToCrm.cs" />
+    <Compile Include="0.18\2013.05.17 rev. 8801 - create table ExportBusinessOperations.cs" />
+    <Compile Include="0.18\2013.05.17 rev. 8806 - create table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.05.22 rev. 8874 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.05.24 rev. 8983 - replace tables BusinessOperations.cs" />
+    <Compile Include="0.18\2013.05.27 rev. 8984 - rename columns of BusinessOperationsServices.cs" />
+    <Compile Include="0.18\2013.05.27 rev. 9001 - refill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.05.27 rev. 8997 - clear tables.cs" />
+    <Compile Include="0.18\2013.05.31 rev. 9089 - insert intol table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.03 rev. 9115 - clear tables.cs" />
+    <Compile Include="0.18\2013.06.03 rev. 9124 - insert into table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.05.30 rev. 8991 - Delete Advertisement duplicates.cs.cs" />
+    <Compile Include="0.18\2013.05.30 rev. 9041 - Clear OrderValidationResults table.cs" />
+    <Compile Include="0.18\2013.06.05 rev. 9125 - change beer fas comment to alchohol.cs" />
+    <Compile Include="0.18\2013.06.05 rev. 9140 - drop one create seven.cs" />
+    <Compile Include="0.18\2013.06.11 rev. 9342 - refill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.12 rev. 9345 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.12 rev. 9356 - modify and drop stored procedures and tables.cs" />
+    <Compile Include="0.18\2013.06.12 rev. 9358 - create table for address sync.cs" />
+    <Compile Include="0.18\2013.06.12 rev. 9360 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.12 rev. 9361 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.14 rev. 9389 - create table for export failed entities.cs" />
+    <Compile Include="0.18\2013.06.14 rev. 9433 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.06.14 rev. 9442 - remove success columns.cs" />
+    <Compile Include="0.18\2013.06.15 rev. 9458 - move unexported entity ids.cs" />
+    <Compile Include="0.18\2013.06.04 rev. 9093 - Set FirmId not null at Advertisement table.cs" />
+    <Compile Include="0.18\2013.06.04 rev. 9094 - Add columns to AdvertisementTemplate and AdvertisementElementTemplate.cs" />
+    <Compile Include="0.18\2013.06.05 rev. 9095 - Create dummy advertisements.cs" />
+    <Compile Include="0.18\2013.06.06 rev. 9096 - Create publish and unpublish privelegies.cs" />
+    <Compile Include="1.0\2013.09.27 rev. 12218 - Drop index IX_OrderPositionAdvertisement_AdvertisementId.cs" />
+    <Compile Include="1.0\2013.09.27 rev. 12187 - Alter ISV.config.cs" />
+    <Compile Include="1.0\2013.04.10 rev. 8192 - ERM Activities implementation.cs" />
+    <Compile Include="1.0\2013.04.18 rev. 8195 - Add Activities permissions.cs" />
+    <Compile Include="1.0\2013.04.30 rev. 8639 - drop some SPs.cs" />
+    <Compile Include="1.0\2013.05.15 rev. 8756 - alter some replicate SPs.cs" />
+    <Compile Include="1.0\2013.05.16 rev. 8762 - drop ClientId from Limit.cs" />
+    <Compile Include="1.0\2013.05.16 rev. 8782 - activities persistence refactoring.cs" />
+    <Compile Include="1.0\2013.05.16 rev. 8791 - alter Projects and ReleasesWithdrawalsPositions for bigint audit columnt.cs" />
+    <Compile Include="1.0\2013.05.22 rev. 8895 - DealId deletion in activities.cs" />
+    <Compile Include="1.0\2013.05.22 rev. 8891 - alter ActionHistory for bigint EntityId column.cs" />
+    <Compile Include="1.0\2013.05.22 rev. 8897 - Add columns to LegalPerson.cs" />
+    <Compile Include="1.0\2013.05.23 rev. 8931 - Alter ReplicateLimit.cs" />
+    <Compile Include="1.0\2013.06.05 rev. 9159 - Alter some stored procedures.cs" />
+    <Compile Include="1.0\2013.06.05 rev. 9211 - Alter stored procedure ImportCardsFromXml.cs" />
+    <Compile Include="1.0\2013.06.06 rev. 9239 - Add columns to LegalPerson.cs" />
+    <Compile Include="1.0\2013.06.18 rev. 9502 - Add columns to Order and LegalPersonProfile.cs" />
+    <Compile Include="0.18\2013.06.10 rev. 9165 - Alter projects table.cs" />
+    <Compile Include="0.18\2013.06.24 rev. 9743 - Add index.cs" />
+    <Compile Include="0.18\2013.06.27 rev. 9816 - Add HotClient task type.cs" />
+    <Compile Include="0.18\2013.06.27 rev. 9860 - Add HotClientRequest table.cs" />
+    <Compile Include="0.18\2013.06.27 rev. 9861 - Insert new record  to BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.07.01 rev. 9862 - Add ExportToMsCrm_HotClients table.cs" />
+    <Compile Include="0.18\2013.06.24 rev. 9338 - Add new validation rule.cs" />
+    <Compile Include="0.18\2013.07.01 rev. 9934 - fill table BusinessOperationServices.cs" />
+    <Compile Include="0.18\2013.07.03 rev. 10023 - Turn on validation rule.cs" />
+    <Compile Include="1.0\2013.06.24 rev. 9644 - alterr most SPs.cs" />
+    <Compile Include="1.0\2013.06.25 rev. 9752 - alter DepartmentInsert SP.cs" />
+    <Compile Include="1.0\2013.06.26 rev. 9794 - alterr most SP ImportCardsFromXml.cs" />
+    <Compile Include="1.0\2013.06.26 rev. 9817 - Alter Integration.ExportSessionDetails.cs" />
+    <Compile Include="1.0\2013.08.14 rev. 11152 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.07.22 rev. 10469 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.07.05 rev. 9805 - alter ImportCardsFromXml because of merge from 0.18.cs" />
+    <Compile Include="1.0\2013.07.09 rev. 10132 - minor change in ImportCardsFromXml.cs" />
+    <Compile Include="1.0\2013.07.19 rev. 10455 - Change OperationName to XIdentity.cs" />
+    <Compile Include="1.0\2013.07.24 rev. 10573 - Remove Identity from AccountRepository.cs" />
+    <Compile Include="1.0\2013.07.24 rev. 10605 - Remove Identity from LegalPersonRepository.cs" />
+    <Compile Include="1.0\2013.07.24 rev. 10617 - Remove Identity from ClientRepository.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10654 - Remove Identity from AdvertisementRepository and Files.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10663 - Remove Identity from Orders, OrderPositions, OrderPositionAdvertisements, Deals, OrderFile, OrderValidationResults.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10682 - Remove Identity from BargainRepository.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10675 - Remove Identity from OrderReleaseTotals, Bills.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10691- Remove Identity from PriceRepository.cs" />
+    <Compile Include="1.0\2013.07.25 rev. 10700 - Remove Identity from ReleaseRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10699 - Set 2Gis head department ParentId to NULL.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10718 - Remove Identity from FirmRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10725 - Remove Identity from RoleRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10724 - Remove Identity from LocalMessageRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10727 - Remove Identity from UserRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10728 - Remove Identity from ActionLogger.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10726 - Remove Identity from ThemeRepository.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10732 - Remove Identity from New Export.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10739 - Drop tables ExportSessionDetails, ExportSessions.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10734 - Remove Identity from AdditionalFirmServicesService, AfterSaleService, CategoryService.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10738 - Remove Identity from JournalMakeRegionalAdsDocsProperties, NoteService, NotificationsSender, NotificationsProcessor.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10740 - Remove Identity from ActivityAggregate.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10743 - Remove Identity from Operations, PrintFormTemplates, Projects services.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10741 - Remove Identity from FunctionalPrivilegeDepths, UserEntities.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10754 - Drop tables XmlSchemas.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10750 - Remove Identity from CurrencyRates, NotificationEmailsAttachments, NotificationEmailsCc.cs" />
+    <Compile Include="1.0\2013.07.26 rev. 10765 - Remove Identity from PositionChildren.cs" />
+    <Compile Include="1.0\2013.07.29 rev. 10809 - Remove Identity from Withdrawal related tables.cs" />
+    <Compile Include="1.0\2013.07.29 rev. 10749 - Merge Id and DgppId %28Territories%29.cs" />
+    <Compile Include="1.0\2013.07.30 rev. 10758 - Alter GetTemporaryTerritories, UpdateBuildings.cs" />
+    <Compile Include="1.0\2013.07.31 rev. 10841 - Alter Orders.cs" />
+    <Compile Include="0.18\2013.07.03 rev. 10210 - rename column IsValidate to NeedsApproval.cs" />
+    <Compile Include="0.18\2013.07.08 rev. 10062 - add column CategoryRate into table OrderPositions.cs" />
+    <Compile Include="0.18\2013.07.10 rev. 10100 - calculate CategoryRate column value.cs" />
+    <Compile Include="0.18\2013.07.25 rev. 10623 - Alter ReplicateOrderPosition.cs" />
+    <Compile Include="0.18\2013.07.09 rev. 10148 - Add functional privelege.cs" />
+    <Compile Include="0.18\2013.07.09 rev. 10245 - Add operation service.cs" />
+    <Compile Include="0.18\2013.07.15 rev. 10299 - add button to CRM.cs" />
+    <Compile Include="0.18\2013.07.15 rev. 10302 - Add operation service.cs" />
+    <Compile Include="0.18\2013.07.15 rev. 10305 - Remove operation service.cs" />
+    <Compile Include="0.18\2013.07.23 rev. 10530 - Update AccountDetail OwnerCode.cs" />
+    <Compile Include="0.18\2013.07.29 rev. 10786 - Delete ShowFlampLink column.cs" />
+    <Compile Include="0.18\2013.07.19 rev. 10437 - Update ModifiedOn at some CRM Firms.cs" />
+    <Compile Include="0.18\2013.07.25 rev. 10528 - Update Order.AmountWithdrawn for archived orders.cs" />
+    <Compile Include="0.18\2013.07.25 rev. 10677 - Alter ImportCards.cs" />
+    <Compile Include="0.18\2013.07.26 rev. 10723 - Insert OperationIntegrationService.cs" />
+    <Compile Include="0.18\2013.07.26 rev. 10742 - Insert OperationIntegrationService.cs" />
+    <Compile Include="0.18\2013.08.05 rev. 10901 - Modify data in CategoryRate column of OrderPositions.cs" />
+    <Compile Include="0.18\2013.08.05 rev. 10937 - Set some PlatformIds.cs" />
+    <Compile Include="0.18\2013.08.05 rev. 10945 - Alter ImportCards.cs" />
+    <Compile Include="0.18\2013.07.11 rev. 10230 - create table for LP.cs" />
+    <Compile Include="0.18\2013.07.16 rev. 10348 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.08.05 rev. 10942 - Alter GetWorkingTime.cs" />
+    <Compile Include="1.0\2013.08.14 rev. 11219 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.08.15 rev. 11238 - Alter ExportFailedEntities table.cs" />
+    <Compile Include="0.18\2013.08.09 rev. 11054 - turn off AdvertisementTextFormattingOrderValidationRule.cs" />
+    <Compile Include="0.18\2013.08.09 rev. 11058 - Alter AdvertisementElements.cs" />
+    <Compile Include="0.18\2013.08.09 rev. 11076 - change hotclientrequest descriptor.cs" />
+    <Compile Include="0.18\2013.08.09 rev. 11089 - convert time in export entities to utc.cs" />
+    <Compile Include="0.18\2013.08.09 rev. 11175 - turn on ContactDoesntContainSponsoredLinkOrderValidationRule.cs" />
+    <Compile Include="0.18\2013.08.13 rev. 11179 - Alter import buildings.cs" />
+    <Compile Include="0.18\2013.08.15 rev. 11240 - Modify data in CategoryRate column of OrderPositions.cs" />
+    <Compile Include="0.18\2013.08.13 rev. 11272 - Alter import firms.cs" />
+    <Compile Include="1.0\2013.08.19 rev. 11308 - Alter Advertisements Templates table.cs" />
+    <Compile Include="1.0\2013.08.21 rev. 11309 - Alter import buildings.cs" />
+    <Compile Include="1.0\2013.08.21 rev. 11310 - Alter import firms.cs" />
+    <Compile Include="0.18\2013.08.19 rev. 11295 - Alter ReferencePoint length.cs" />
+    <Compile Include="0.18\2013.08.21 rev. 11348 - Modify data in CategoryRate column of OrderPositions.cs" />
+    <Compile Include="1.0\2013.08.26 rev. 11462 - Unpublish advertisement templates with no elements.cs" />
+    <Compile Include="1.0\2013.08.26 rev. 11449 - Add index.cs" />
+    <Compile Include="1.0\2013.08.27 rev. 11512 - Alter import cards.cs" />
+    <Compile Include="1.0\2013.08.27 rev. 11484 - Add indexes.cs" />
+    <Compile Include="1.0\2013.08.29 rev. 11569 - Add indexes.cs" />
+    <Compile Include="1.0\2013.09.02 rev. 11644 - turn on ThemeOrderValidationRules.cs" />
+    <Compile Include="1.0\2013.09.02 rev. 11656 - Replace CreateOrUpdateIdentity to CreateIdentity in PerformedBusinessOperations.cs" />
+    <Compile Include="1.1\2013.08.20 rev. 11709 - Update Release status model.cs" />
+    <Compile Include="1.0\2013.09.04 rev. 11735 - Removing ServiceParameter and adding Parent to operations.cs" />
+    <Compile Include="1.0\2013.09.05 rev. 11739 - Remove Identity from HotClientRequest.cs" />
+    <Compile Include="1.0\2013.09.09 rev. 11786 - Merge Id and DgppId %28FirmAddress%29%281%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11813 - Merge Id and DgppId %28Firm%29%281%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11824 - Merge Id and DgppId %28Category%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11825 - Alter import cards.cs" />
+    <Compile Include="1.0\2013.09.10 rev. 11806 - Add Activities permissions to roles.cs" />
+    <Compile Include="1.0\2013.09.10 rev. 11811 - Fill table BusinessOperationServices for Assign and Merge operation.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11787 - Merge Id and DgppId %28FirmAddress%29%282%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11785 -Remove Identity from FirmAddress.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11788 - Merge Id and DgppId %28FirmAddress%29%283%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11789 - Merge Id and DgppId %28FirmAddress%29%284%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11790 - Merge Id and DgppId %28FirmAddress%29%285%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11791 - Merge Id and DgppId %28FirmAddress%29%286%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11792 - Merge Id and DgppId %28FirmAddress%29%287%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11793 - Merge Id and DgppId %28FirmAddress%29%288%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11794 - Merge Id and DgppId %28FirmAddress%29%289%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11795 - Merge Id and DgppId %28FirmAddress%29%2810%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11812 -Remove Identity from Firms.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11814 - Merge Id and DgppId %28Firm%29%282%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11815 - Merge Id and DgppId %28Firm%29%283%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11816 - Merge Id and DgppId %28Firm%29%284%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11818 - Merge Id and DgppId %28Firm%29%285%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11819 - Merge Id and DgppId %28Firm%29%286%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11820 - Merge Id and DgppId %28Firm%29%287%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11821 - Merge Id and DgppId %28Firm%29%288%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11822 - Merge Id and DgppId %28Firm%29%289%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11823 - Merge Id and DgppId %28Firm%29%2810%29.cs" />
+    <Compile Include="1.0\2013.09.11 rev. 11817 - Fixup BuisnessOperationServices for ImportCardsFromServiceBus.cs" />
+    <Compile Include="1.0\2013.09.13 rev. 11902 - Rename Code To Id in CardRelations.cs" />
+    <Compile Include="1.0\2013.09.18 rev. 11981 - ERM-1630.cs" />
+    <Compile Include="1.0\2013.09.18 rev. 11970 - ERM-1525.cs" />
+    <Compile Include="1.0\2013.09.17 rev. 11948 - ERM-1525.cs" />
+    <Compile Include="1.0\2013.09.16 rev. 11928 - Stored procedures for UniCode.cs" />
+    <Compile Include="1.0\2013.09.18 rev. 11987 - Drop OwnerCode from Themes and ThemeTemplates.cs" />
+    <Compile Include="1.0\2013.09.19 rev. 12014 - Rename Code to Id in CityPhoneZone.cs" />
+    <Compile Include="1.0\2013.09.20 rev. 12036 - Add Delete%28Contact%29 operation for ExportFlowFinancialDataClient.cs" />
+    <Compile Include="1.0\2013.09.23 rev. 12062 - Remove Assign, CreateOrUpdate, Update %28LegalPerson%29 operation for ExportFlowFinancialDataClient.cs" />
+    <Compile Include="1.0\2013.09.23 rev. 12066 - Add Merge%28Client%29 operation for ExportFlowFinancialDataClient.cs" />
+    <Compile Include="1.0\2013.09.24 rev. 12072 - Remove firm contacts duplicates.cs" />
+    <Compile Include="1.0\2013.09.24 rev. 12098 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.09.25 rev. 12116 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.09.25 rev. 12121 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.09.26 rev. 12172 - Fixup BusinessOperationServices for MergeLegalPerson.cs" />
+    <Compile Include="1.0\2013.09.26 rev. 12182 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.09.27 rev. 12222 - Fixup BusinessOperationServices for ChangeClient.cs" />
+    <Compile Include="1.0\2013.09.27 rev. 12225 - Alter ISV.config.cs" />
+    <Compile Include="1.0\2013.09.28 rev. 12251 - ERM-1626.cs" />
+    <Compile Include="1.0\2013.09.30 rev. 12242 - ERM-1780.cs" />
+    <Compile Include="1.0\2013.09.30 rev. 12232 - ERM-1787.cs" />
+    <Compile Include="1.0\2013.09.30 rev. 12271 - Alter ISV.config.cs" />
+    <Compile Include="1.0\2013.09.30 rev. 12283 - fill table BusinessOperationServices.cs" />
+    <Compile Include="1.0\2013.10.02 rev. 12287 - deactivate deleted bargains for rejected orders.cs" />
+    <Compile Include="1.0\2013.10.03 rev. 12392 - ERM-1843.cs" />
+    <Compile Include="1.0\2013.10.02 rev. 12338 - update contacts sorting position.cs" />
+    <Compile Include="1.0\2013.10.04 rev. 12415 - add timestamp to Bargain.cs" />
+    <Compile Include="1.2\2013.10.09 rev. 12515 - set VatRate not nullable.cs" />
+    <Compile Include="1.2\2013.10.16 rev. 12814 - Drop OwnerCode from Shared.LocalMessages.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13016 - create table OrderProcessingRequests.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13031 - Add IsActive and IsDeleted columns into OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.10.23 rev. 13034 - Fix nullable OrderProcessingRequests fields.cs" />
+    <Compile Include="1.2\2013.10.25 rev. 13109 - Support Account operations for flowFincncialData.LegalEntity.cs" />
+    <Compile Include="1.2\2013.10.25 rev. 13126 - Remove RequestId and LegalPersonId from OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.10.25 rev. 13135 - Add foreign keys for OrderProcessingRequest.cs" />
+    <Compile Include="2.0\2013.11.26 rev. 13864 - change BusinessOperationsServices for SetAsDefaultTheme operation.cs" />
+    <Compile Include="2.0\2013.11.28 rev. 13938 - performance tuning for view [Security].[vwUserTerritoriesOrganizationUnits] .cs" />
+    <Compile Include="2.0\2013.10.17 rev. 12842 - drop Integration.GetNonExportedOrdersCount SP.cs" />
+    <Compile Include="1.2\2013.10.28 rev. 13162 - Add ReleaseCountPlan columns into OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.10.28 rev. 13170 - Show OrderProcessingRequest In Ms Crm interface.cs" />
+    <Compile Include="1.2\2013.11.06 rev. 13360 - ERM-2263.cs" />
+    <Compile Include="1.2\2013.11.06 rev. 13412 - Create ShowIndexUsages SP.cs" />
+    <Compile Include="1.2\2013.10.29 rev. 13187 - Add OrderProcessingRequest Assign permission.cs" />
+    <Compile Include="1.2\2013.12.16 rev. 14214 - Create DeleteBuilding SP.cs" />
+    <Compile Include="1.3\2013.12.16 rev. 14366 - Clean BusinessOperationServices from 0.18 Records.cs" />
+    <Compile Include="1.3\2013.12.16 rev. 14362 - Update ImportCardsFromXml.cs" />
+    <Compile Include="1.3\2013.11.05 rev. 13350 - Add IsAdvertisingAgency column into clients table .cs" />
+    <Compile Include="1.3\2013.11.05 rev. 13351 - Add IsAdvertisingAgency column into Ms CRM .cs" />
+    <Compile Include="1.3\2013.11.12 rev. 13384 - Add Functional Privilege .cs" />
+    <Compile Include="1.3\2013.11.15 rev. 13385 - Alter client replication .cs" />
+    <Compile Include="1.2\2013.11.06 rev. 13400 - manage BusinessOperationServices.cs" />
+    <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="1.2\2013.11.07 rev. 13433 - manage BusinessOperationServices.cs" />
+    <Compile Include="1.2\2013.11.07 rev. 13461 - clean AdvertisementElements.cs" />
+    <Compile Include="1.2\2013.11.08 rev. 13485 - fix nullable OrderProcessingRequests fields.cs" />
+    <Compile Include="1.2\2013.11.08 rev. 13479 - clean AdvertisementElements 2.cs" />
+    <Compile Include="1.2\2013.11.08 rev. 13503 - fix ReleaseCountPlan field type OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.11.11 rev. 13525 - Add LegalPersonId field type OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.11.11 rev. 13526 - Add LegalPerson fk type OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.11.13 rev. 13593 - alter isv config.cs" />
+    <Compile Include="1.2\2013.11.13 rev. 13601 - alter isv config.cs" />
+    <Compile Include="1.2\2013.11.08 rev. 13478 - drop foreign keys for processed busisness operations.cs" />
+    <Compile Include="1.3\2013.11.15 rev. 13639 - Add Functional Priveleges.cs" />
+    <Compile Include="1.3\2013.11.14 rev. 13600 - Add and fill TerritoryId column to FirmAddresses.cs" />
+    <Compile Include="1.3\2013.11.14 rev. 13603 - Alter ImportFirmFromXml.cs" />
+    <Compile Include="1.2\2013.11.15 rev. 13634 - Update privileges for OrderProcessingRequest.cs" />
+    <Compile Include="1.2\2013.11.15 rev. 13644 - Update  OrderProcessingRequest MS CRM properties.cs" />
+    <Compile Include="1.2\2013.11.16 rev. 13657 - Remigrate 13634.cs" />
+    <Compile Include="1.2\2013.11.18 rev. 13666 - clean AdvertisementElements 3.cs" />
+    <Compile Include="1.2\2013.11.18 rev. 13681 - fix OwnerCode For LegalPersonProfile.cs" />
+    <Compile Include="2.0\2013.11.13 rev. 13592 - Update Withdrawal status model.cs" />
+    <Compile Include="1.2\2013.11.26 rev. 13878 - disable IsThereAdvantageousPurchasesRubricOrderValidationRule.cs" />
+    <Compile Include="1.2\2013.11.18 rev. 13740 - disable RegionalApiAdvertisementsOrderValidationRule.cs" />
+    <Compile Include="1.2\2013.11.18 rev. 13743 - enable RegionalApiAdvertisementsOrderValidationRule.cs" />
+    <Compile Include="1.3\2013.11.21 rev. 13789 - Turn off 46 OrderValidationRule.cs" />
+    <Compile Include="1.3\2013.11.25 rev. 13798 - new way to update firm territories.cs" />
+    <Compile Include="1.3\2013.11.25 rev. 13827 - Add RequestType column into OrderProcessingRequests.cs" />
+    <Compile Include="1.3\2013.11.25 rev. 13825 - Alter GetTemporaryTerritories.cs" />
+    <Compile Include="1.3\2013.11.26 rev. 13837 - Add OrderProcessingRequestMessages.cs" />
+    <Compile Include="1.3\2013.11.29 rev. 13962 - Grant permission to Director role.cs" />
+    <Compile Include="1.3\2013.11.25 rev. 13883 - Rename Code to Id in Integration.DepCards, update ImportDepCardsFromXml.cs" />
+    <Compile Include="1.3\2013.12.02 rev. 14033 - Add GroupId to OrderProcessingRequestMessages.cs" />
+    <Compile Include="1.3\2013.12.04 rev. 13431 - fix BusinessOperationServices migration fail.cs" />
+    <Compile Include="1.3\2013.12.09 rev. 14145 - add CopyOrderOperation to  BusinessOperationServices.cs" />
+    <Compile Include="1.3\2013.12.10 rev. 14279 - ExportFlowOrdersOrder for FirmAddresses.cs" />
+    <Compile Include="1.3\2013.12.11 rev. 14282 - Сustomize Ms Crm Account%28Client%29.cs" />
+    <Compile Include="1.3\2013.12.11 rev. 14288 - Set default values to dg_isadverticingagency.cs" />
+    <Compile Include="1.3\2013.12.12 rev. 14286 - Alter GetFirmTerritories.cs" />
+    <Compile Include="1.3\2013.12.13 rev. 14338 - Update BusinessOperationServices.cs" />
+    <Compile Include="1.3\2013.12.16 rev. 14488 - Add BizAccount DealReason to Ms Crm.cs" />
+    <Compile Include="1.3\2013.12.13 rev. 14416 - Update BusinessOperationServices.cs" />
+    <Compile Include="1.3\2013.12.20 rev. 14500 - Remove record from BusinessOperationServices.cs" />
+    <Compile Include="2.0\2014.01.10 rev. 14776 - set TerritoryId to null in FirmAddresses.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
+    <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
+    <Compile Include="1.2\2013.10.08 rev. 12469 - Add RegionalApiOVR.cs" />
+    <Compile Include="1.2\2013.10.08 rev. 12464 - Add new MessageType.cs" />
+    <Compile Include="1.2\2013.10.09 rev. 12479 - create view vwSecurityAccelerator.cs" />
+    <Compile Include="1.0\2013.10.04 rev. 12443 - add IsClosed column into BranchOffice.cs" />
+    <Compile Include="1.0\2013.10.08 rev. 12528 - add OrderSignupDateMoreThanBranchOfficeClosedDateRule.cs" />
+    <Compile Include="1.0\2013.10.14 rev. 12701 - alter ImportFirmPromising.cs" />
+    <Compile Include="1.0\2013.10.14. rev. 12727 - alter ReplicateEnitiesToCrm.cs" />
+    <Compile Include="1.0\2013.10.15 rev. 12781 - update AdvertisementElementsStatus.cs" />
+    <Compile Include="1.0\2013.10.16 rev. 12809 - revert 12443 and 12528.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
+    <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
+    <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />
+    <Compile Include="Shared\ReplicationHelper.cs" />
+    <Compile Include="Shared\CisConfigurationTableNames.cs" />
+    <Compile Include="Shared\CrmTableNames.cs" />
+    <Compile Include="Shared\EntityCopyHelper.cs" />
+    <Compile Include="Shared\ErmStoredProcedures.cs" />
+    <Compile Include="Shared\ErmTableUtils.cs" />
+    <Compile Include="Shared\ErmTableNames.cs" />
+    <Compile Include="Shared\ErmSchemas.cs" />
+    <Compile Include="Shared\InsertedColumnDefinition.cs" />
+    <Compile Include="Shared\PermissionsHelper.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2013.07.30 rev. 10680 - data for July 2013.xml" />
+    <EmbeddedResource Include="Resources\2013.07.30 rev. 10680 - data for June 2013.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
+      <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
+      <Name>2Gis.Erm.Platform.Migration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration\2Gis.Erm.Platform.Migration.csproj">
+      <Project>{6EE01928-8E79-4882-9410-9A6C5E266C1F}</Project>
+      <Name>2Gis.Erm.Platform.Migration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="0.15 - HangzhouBay\2012.11.22 rev. 5260 Add ProcessingTime column into LocalMessages.cs" />
+    <Compile Include="0.15 - HangzhouBay\2012.11.30 rev. 5419 alter impotFim and updateBuilding SPs.cs" />
+    <Compile Include="0.18\2013.06.14 rev. 9337 - Alter AdvertisementElements.cs" />
+    <None Include="Resources\DoubleGis.Erm.SqlClr.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.14 - Montmartre\2012.10.11 rev. 4631 - isvconfig.xml">
+      <DependentUpon>2012.10.11 rev. 4631 - After sale service button added to sitemap.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.05.28 rev 2459 - Billing.ReplicateOrder template.sql">
+      <DependentUpon>2012.05.28 rev 2459 - Order documents presence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.07.24 rev. 3233 - Billing.ReplicateOrder template.sql">
+      <DependentUpon>2012.07.24 rev. 3233 - Added dg_order.dg_release_count %28fact and plan%29 columns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.08.18 rev. 3553 - AlterCreateExportSessionLegalPersonExport.sql">
+      <DependentUpon>2012.08.18 rev. 3553 - AlterCreateExportSessionLegalPersonExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.14 - Montmartre\2012.10.10 - rev. 4605 - customizations.xml">
+      <DependentUpon>2012.10.10 - rev. 4605 - Add Withdrawal button to CRM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6798 - Alter SiteMap.xml">
+      <DependentUpon>2013.02.06 rev. 6798 - Alter SiteMap.xml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.09.12 rev. 3929 added dg_order.dg_terminationcomment column.xml">
+      <DependentUpon>2012.09.12 rev. 3929 - Add dg_order.dg_terminationcomment column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.09.17 rev. 4000 - Billing.ReplicateDeal template.sql">
+      <LogicalName>Migration4000ReplicateDealTemplate</LogicalName>
+      <DependentUpon>2012.09.17 rev. 4000 - Remove Extension Entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.09.17 rev. 4000 - Billing.ReplicateOrder template.sql">
+      <LogicalName>Migration4000ReplicateOrderTemplate</LogicalName>
+      <DependentUpon>2012.09.17 rev. 4000 - Remove Extension Entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.10.01 rev. 4223 added dg_documentscomment and dg_documentsdebt into dg_bargain.xml">
+      <DependentUpon>2012.10.01 rev. 4223 - Alter ReplicateBargain stored procedure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.10.02 rev. 4264 - ReplicateDeal stored procedure.sql">
+      <DependentUpon>2012.10.02 rev. 4264 - Fix bug in ReplicateDeal stored procedure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.10.04 rev. 4312- isvconfig.xml">
+      <DependentUpon>2012.10.04 rev. 4312- Changing URLs for group operations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.13 - Stonehenge and earlier\2012.10.10 rev. 4432 - customizations.xml">
+      <DependentUpon>2012.10.10 rev. 4432 - fixed display name for dg_terminationcomment.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.14 - Montmartre\2012.10.11 rev. 4503 - phonecall customization.xml">
+      <SubType>Designer</SubType>
+      <DependentUpon>2012.10.11 rev. 4503 - After sale service customization.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.14 - Montmartre\2012.11.22 rev. 5268 - isvconfig.xml">
+      <DependentUpon>2012.11.22 rev. 5268 - After sale service operation log path changed.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.14 - Montmartre\2012.11.23 rev. 5281 - phonecall.xml">
+      <DependentUpon>2012.11.23 rev. 5281 - After sale service purposes changed.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.15 - HangzhouBay\2012.12.05 rev. 5487 exportTo1CButton - customizations.xml">
+      <DependentUpon>2012.12.05 rev. 5487 exportTo1CButton.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.16 - BroadPeak\2012.12.13 rev. 5705 make merge window bigger - customizations.xml">
+      <DependentUpon>2012.12.13 rev. 5705 - make merge window bigger.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.16 - BroadPeak\2012.12.24 rev. 6003 - AfterSaleServiceChanged customizations.xml">
+      <DependentUpon>2012.12.24 rev. 6003 - AfterSaleServiceChanged.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6642.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.16 - BroadPeak\2012.12.27 rev. 6006 - AfterSaleServiceChanged app custo.xml">
+      <DependentUpon>2012.12.27 rev. 6006 - AfterSaleService changed app.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.16 - BroadPeak\2013.01.09 rev. 6163 make merge window resizable - customizations.xml">
+      <DependentUpon>2013.01.09 rev. 6163 - make merge window resizable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.16 - BroadPeak\2013.01.10 rev. 6213 - limits search grid configuration - customizations.xml">
+      <DependentUpon>2013.01.10 rev. 6213 - limits search grid configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.16 - BroadPeak\2013.01.10 rev. 6221 - limits search grid configuration v2 - customizations.xml">
+      <DependentUpon>2013.01.10 rev. 6221 - limits search grid configuration v2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6698.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6718.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6869.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6904.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration6964.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.18 rev. 7154 - ISV config.xml">
+      <DependentUpon>2013.02.18 rev. 7154 - Repair of activities%27 cancellation in CRM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.18 rev. 7157 - Activities forms customization.xml">
+      <DependentUpon>2013.02.18 rev. 7157 - Activities forms customization.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupMSCRM SP_C6815.sql">
+      <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
+      <LogicalName>Migration6766CreateCleanupMSCRM</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - AddReplicateInfo.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - ReplicateFirmAddresses.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - ReplicateFirms.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - ReplicateTerritories.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - ReplicateEntitiesToCrm.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - Alter Integration SPs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.02.13 rev. 7055 - Alter Export Orders.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.25 rev. 7266 - CleanupERM SP.sql">
+      <DependentUpon>2013.02.25 rev. 7266 - Alter stored procedures for DB cleanup.cs</DependentUpon>
+      <LogicalName>Migration7266CleanupERM</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.25 rev. 7266 - CleanupMSCRM SP.sql">
+      <DependentUpon>2013.02.25 rev. 7266 - Alter stored procedures for DB cleanup.cs</DependentUpon>
+      <LogicalName>Migration7266CleanupMSCRM</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration7920.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.03.04 rev. 7465 - alter integration sps.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.03.05 rev. 7466 - alter views.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.05.15 rev. 8756 - alter some replicate sps.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration8145.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration8117.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2013.05.06 rev. 8683 - ReplicateEntitiesToCrm.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\CalculateClientPromising.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\CheckUserParentnessRecursion.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\CleanupERM.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\CleanupERMLogging.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\CreateExportSession.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\GetNonExportedOrdersCount.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\GetTemporaryTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ImportCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ImportDepCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ImportFirmFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ImportFirmPromising.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateAccount.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateAccountDetail.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateBargain.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateBranchOffice.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateBranchOfficeOrganizationUnit.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateCategory.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateClient.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateContact.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateContacts.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateCurrency.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateDeal.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateEntitiesToCrm.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateEverything.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateFirm.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateFirmAddress.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateFirmAddresses.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateFirms.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateLegalPerson.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateLimit.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateOperationType.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateOrder.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateOrderPosition.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateOrganizationUnit.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicatePosition.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateTerritory.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateUser.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\ReplicateUserTerritory.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\StoredProcedure\UpdateBuildings.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\TableType\CardsTableType.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\TableType\ContactDTOsTableType.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\TableType\Int64IdsTableType.sql" />
+    <EmbeddedResource Include="Resources\2013.06.24 rev. 9644\TableType\OrganizationUnitsTableType.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\2013.06.26 rev. 9794\StoredProcedure\ImportCardsFromXml.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\2013.07.05 rev. 9805\StoredProcedure\ImportCardsFromXml.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\2013.07.09 rev. 10132\StoredProcedure\ImportCardsFromXml.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\2013.11.25 rev. 13833\ImportDepCardsFromXml.sql" />
+    <None Include="Resources\Migration14488.xml" />
+    <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
+    <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
+    <None Include="Resources\Migration14282.xml" />
+    <None Include="Resources\2013.11.14 rev. 13600\ImportFirmFromXml.sql" />
+    <None Include="Resources\Migration13351.xml" />
+    <Content Include="Resources\2013.11.12 rev. 13530\customizations.xml" />
+    <None Include="Resources\Migration13644.xml" />
+    <EmbeddedResource Include="Resources\2013.11.13 rev. 13601\customizations.xml" />
+    <None Include="Resources\Migration13170.xml" />
+    <EmbeddedResource Include="Resources\2013.10.24 rev. 13071\StoredProcedure\ReplicateOrderProcessingRequest.sql" />
+    <None Include="Resources\2013.10.23 rev. 13032 - Replicate OrderProcessingRequest SP.sql" />
+    <None Include="Resources\Migration13026.xml" />
+    <None Include="Resources\Migration13019.xml" />
+    <EmbeddedResource Include="Resources\2013.10.14 rev. 12727 - ReplicateEntitiesToCrm.sql" />
+    <EmbeddedResource Include="Resources\2013.12.16 rev. 14214\DeleteBuildings.sql" />
+    <EmbeddedResource Include="Resources\2013.09.27 rev. 12271\customizations.xml" />
+    <EmbeddedResource Include="Resources\2013.09.27 rev. 12225\customizations.xml" />
+    <EmbeddedResource Include="Resources\2013.09.27 rev. 12187\customizations.xml" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\CleanupERM.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\CleanupERMLogging.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\CleanupMSCRM.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\GetTemporaryTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ImportCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ImportFirmFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ReplicateEntitiesToCrm.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ReplicateEverything.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ReplicateUser.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\ReplicateUserTerritory.sql" />
+    <EmbeddedResource Include="Resources\2013.09.16 rev. 11928\StoredProcedure\UpdateBuildings.sql" />
+    <EmbeddedResource Include="Resources\2013.03.04 rev. 7565\StoredProcedure\GetTemporaryTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.03.04 rev. 7565\StoredProcedure\ImportCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.03.04 rev. 7565\StoredProcedure\ImportFirmFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.03.18 rev. 7725\StoredProcedure\GetTemporaryTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.03.18 rev. 7725\StoredProcedure\ImportCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.03.18 rev. 7725\StoredProcedure\ImportFirmFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.03.18 rev. 7725\StoredProcedure\ReplicateFirmAddresses.sql" />
+    <EmbeddedResource Include="Resources\2013.03.18 rev. 7725\StoredProcedure\ReplicateTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.06.05 rev. 9159\StoredProcedure\GetTemporaryTerritories.sql" />
+    <EmbeddedResource Include="Resources\2013.06.05 rev. 9159\StoredProcedure\ImportCardsFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.06.05 rev. 9159\StoredProcedure\ImportFirmFromXml.sql" />
+    <EmbeddedResource Include="Resources\2013.10.24 rev. 13071\StoredProcedure\ReplicateEverything.sql" />
+    <Content Include="Resources\2013.07.25 rev. 10476 - Alter OrderPosition entity.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\2013.07.25 rev. 10623 - Alter ReplicateOrderPosition stored procedure.sql">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Resources\2013.08.21 rev. 11348 - september 2013.xml" />
+    <EmbeddedResource Include="Resources\2013.08.15 rev. 11240 - august 2013.xml" />
+    <EmbeddedResource Include="Resources\2013.07.30 rev. 10680 - manual data.xml" />
+    <EmbeddedResource Include="Resources\2013.07.30 rev. 10680 - high priority data.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.18\2013.07.15 rev. 10299 - add button to CRM - ISV config.xml">
+      <DependentUpon>2013.07.15 rev. 10299 - add button to CRM.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="0.18\2013.06.27 rev. 9816 - Add HotClient task type - customizations.xml">
+      <DependentUpon>2013.06.27 rev. 9816 - Add HotClient task type.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

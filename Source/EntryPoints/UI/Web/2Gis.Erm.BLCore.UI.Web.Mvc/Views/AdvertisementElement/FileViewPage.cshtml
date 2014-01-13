@@ -1,0 +1,30 @@
+﻿@using Platform.Model.Entities.Enums
+
+@model AdvertisementElementViewModel
+           
+<div class="row-wrapper">
+    @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+    <div id="FileName-wrapper" class="display-wrapper field-wrapper lone">
+        <div class="label-wrapper">
+        </div>
+        <div class="input-wrapper">
+            <table>
+                <tr>
+                    <td>@BLResources.AcceptableFileExtensions:</td>
+                    <td><span style="font-weight: bold">@(Model.TemplateFileExtensionRestriction ?? BLResources.NotSet)</span></td>
+                </tr>
+                <tr>
+                    <td>@BLResources.AcceptableFileDimensions:</td>
+                    <td><span style="font-weight: bold">@(Model.TemplateImageDimensionRestriction ?? BLResources.NotSet)</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Image)
+    {
+        <div id="UploadedFile-wrapper" class="display-wrapper field-wrapper lone">
+            <div class="label-wrapper">@Html.Label(BLResources.UploadedImage):</div>
+            <div class="input-wrapper"><img alt="@BLResources.UploadedImage" id = "UploadedImage" src="/Content/images/default/blank-image.gif?@SolutionInfo.ProductVersion.Build"/></div>
+        </div>
+    }
+</div>

@@ -1,0 +1,49 @@
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
+{
+    public class GetLockDetailDtoService : GetDomainEntityDtoServiceBase<LockDetail>
+    {
+        private readonly ISecureFinder _finder;
+
+        public GetLockDetailDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
+        {
+            _finder = finder;
+        }
+
+        protected override IDomainEntityDto<LockDetail> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        {
+            return new LockDetailDomainEntityDto();
+        }
+
+        protected override IDomainEntityDto<LockDetail> GetDto(long entityId)
+        {
+            var dto = _finder.Find<LockDetail>(x => x.Id == entityId)
+                             .Select(entity => new LockDetailDomainEntityDto
+                                 {
+                                     Id = entity.Id,
+                                     Amount = entity.Amount,
+                                     PriceRef = new EntityReference { Id = entity.PriceId },
+                                     Description = entity.Description,
+                                     LockRef = new EntityReference { Id = entity.LockId },
+                                     OwnerRef = new EntityReference { Id = entity.OwnerCode },
+                                     CreatedByRef = new EntityReference { Id = entity.CreatedBy },
+                                     CreatedOn = entity.CreatedOn,
+                                     IsActive = entity.IsActive,
+                                     IsDeleted = entity.IsDeleted,
+                                     ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
+                                     ModifiedOn = entity.ModifiedOn,
+                                     Timestamp = entity.Timestamp
+                                 })
+                             .Single();
+            return dto;
+        }
+    }
+}

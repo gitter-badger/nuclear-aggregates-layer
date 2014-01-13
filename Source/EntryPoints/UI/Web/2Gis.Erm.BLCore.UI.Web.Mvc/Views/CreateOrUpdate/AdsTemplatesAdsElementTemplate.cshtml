@@ -1,0 +1,28 @@
+﻿
+@model AdsTemplatesAdsElementTemplateViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+<div style="display: none">
+    @Html.HiddenFor(m => m.Id)
+</div>
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ExportCode, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
+        </div>
+    </div>   
+}

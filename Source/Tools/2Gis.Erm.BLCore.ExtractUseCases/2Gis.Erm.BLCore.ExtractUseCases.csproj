@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B3A9CE08-023B-4829-9B39-33DCBAFE352B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.ExtractUseCases</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.ExtractUseCases</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <StartArguments>autosln</StartArguments>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Roslyn.Compilers, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services.CSharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Roslyn.Services.CSharp.1.2.20906.2\lib\net45\Roslyn.Services.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Utilities, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Generated\UseCases\UseCase.cs" />
+    <Compile Include="Generated\UseCases\UseCaseList.cs" />
+    <Compile Include="Generated\UseCases\UseCaseNode.cs" />
+    <Compile Include="Processors\ExtractUseCases\ExtractUseCasesKey.cs" />
+    <Compile Include="Processors\ExtractUseCases\ExtractUseCasesProcessingResults.cs" />
+    <Compile Include="Processors\ExtractUseCases\ExtractUseCasesProcessor.cs" />
+    <Compile Include="Processors\ExtractUseCases\ProcessingErrors.cs" />
+    <Compile Include="Processors\FindAllEntities\EntitiesProcessingResults.cs" />
+    <Compile Include="Processors\FindAllEntities\EntitiesProcessingResultsKey.cs" />
+    <Compile Include="Processors\FindAllEntities\EntitiesProcessor.cs" />
+    <Compile Include="Processors\FindAllEntities\EntityDescriptor.cs" />
+    <Compile Include="Processors\FindAllRequests\RequestTypeDescriptor.cs" />
+    <Compile Include="Processors\FindAllSubRequestCalls\ResumedUsecasesProcessor.cs" />
+    <Compile Include="Processors\FindEditableEntityControllers\EntityControllerDescriptor.cs" />
+    <Compile Include="Processors\FindEditableEntityControllers\EntityControllerProcessingResults.cs" />
+    <Compile Include="Processors\FindEditableEntityControllers\EntityControllerProcessingResultsKey.cs" />
+    <Compile Include="Processors\FindEditableEntityControllers\EntityControllersProcessor.cs" />
+    <Compile Include="Processors\FindPublicServiceUseCases\InvocationsProcessor.cs" />
+    <Compile Include="Processors\GenerateUseCases\GenerateUseCasesProcessor.cs" />
+    <Compile Include="Utils\Workarounds.cs" />
+    <Compile Include="UseCases\UseCase.cs" />
+    <Compile Include="UseCases\UseCaseNode.cs" />
+    <Compile Include="Processors\FindAllHandlers\HandlerDescriptor.cs" />
+    <Compile Include="Processors\FindAllHandlers\RequestHandlerKey.cs" />
+    <Compile Include="Processors\FindAllHandlers\RequestHandlerProcessingResults.cs" />
+    <Compile Include="Processors\FindAllRequests\RequestDescriptor.cs" />
+    <Compile Include="Processors\FindAllRequests\RequestsProcessingResults.cs" />
+    <Compile Include="Processors\FindAllRequests\RequestsProcessingResultsKey.cs" />
+    <Compile Include="Processors\FindAllSubRequestCalls\ExplicitSubRequestsProcessor.cs" />
+    <Compile Include="Processors\FindAllSubRequestCalls\SubRequestsProcessingResultKey.cs" />
+    <Compile Include="Processors\FindAllSubRequestCalls\SubRequestDescriptor.cs" />
+    <Compile Include="Processors\FindAllSubRequestCalls\SubRequestsProcessingResult.cs" />
+    <Compile Include="Processors\FindPublicServiceUseCases\UseCaseEndpointDescriptor.cs" />
+    <Compile Include="Processors\FindPublicServiceUseCases\UseCaseProcessingResults.cs" />
+    <Compile Include="Processors\FindPublicServiceUseCases\UseCaseProcessingResultsKey.cs" />
+    <Compile Include="Processors\IProcessor.cs" />
+    <Compile Include="Processors\AbstractProcessor.cs" />
+    <EmbeddedResource Include="Processors\SourceSamples\HandlerWithSubRequests.cs" />
+    <EmbeddedResource Include="Processors\SourceSamples\StartUseCaseEndpoint.cs" />
+    <Compile Include="Processors\FindAllRequests\RequestsProcessor.cs" />
+    <EmbeddedResource Include="Processors\SourceSamples\UseCaseListDeclaration.cs" />
+    <Compile Include="Utils\ExecutionTraceUtils.cs" />
+    <Compile Include="Utils\SemanticUtils.cs" />
+    <Compile Include="Utils\TypeUtils.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Processors\FindAllHandlers\RequestHandlersProcessor.cs" />
+    <Compile Include="Processors\FindPublicServiceUseCases\UseCaseStartEndpointProcessor.cs" />
+    <EmbeddedResource Include="Processors\SourceSamples\SimpleHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{f4fb1c82-f644-45c6-a351-8b9a994ee3dd}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BLCore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-c651-46e9-ad0d-2c273152566b}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05a884da-8f0b-41cd-be78-85fd04acc782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj">
+      <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
+      <Name>2Gis.Erm.BLCore.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
+      <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

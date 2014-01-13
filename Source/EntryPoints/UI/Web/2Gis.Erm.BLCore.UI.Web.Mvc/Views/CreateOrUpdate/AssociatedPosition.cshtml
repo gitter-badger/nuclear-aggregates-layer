@@ -1,0 +1,28 @@
+﻿
+@model AssociatedPositionViewModel
+           
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+<div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+    @if (Model != null)
+    {
+        @Html.HiddenFor(m => m.Id)
+    }
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.PricePosition, SearchFormFilterInfo = "IsDeleted=false", ReadOnly = true })
+        @Html.TemplateField(m => m.AssociatedPositionsGroup, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AssociatedPositionsGroup, SearchFormFilterInfo = "IsDeleted=false", ReadOnly = true })
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false"})
+        @Html.TemplateField(m => m.ObjectBindingType, FieldFlex.twins, null, EnumResources.ResourceManager)
+    </div>
+</div>
+}

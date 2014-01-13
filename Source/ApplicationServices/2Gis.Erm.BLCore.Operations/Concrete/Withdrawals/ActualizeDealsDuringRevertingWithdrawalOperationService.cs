@@ -1,0 +1,61 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.Aggregates.Deals.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
+using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
+{
+    public sealed class ActualizeDealsDuringRevertingWithdrawalOperationService : IActualizeDealsDuringRevertingWithdrawalOperationService
+    {
+        private readonly IDealReadModel _dealReadModel;
+        private readonly IDealActualizeDealProfitIndicatorsAggregateService _dealActualizeDealProfitIndicatorsAggregateService;
+        private readonly IDealChangeStageAggregateService _dealChangeStageAggregateService;
+        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICommonLog _logger;
+
+        public ActualizeDealsDuringRevertingWithdrawalOperationService(
+            IDealReadModel dealReadModel,
+            IDealActualizeDealProfitIndicatorsAggregateService dealActualizeDealProfitIndicatorsAggregateService,
+            IDealChangeStageAggregateService dealChangeStageAggregateService,
+            IOperationScopeFactory scopeFactory, 
+            ICommonLog logger)
+        {
+            _dealReadModel = dealReadModel;
+            _dealActualizeDealProfitIndicatorsAggregateService = dealActualizeDealProfitIndicatorsAggregateService;
+            _dealChangeStageAggregateService = dealChangeStageAggregateService;
+            _scopeFactory = scopeFactory;
+            _logger = logger;
+        }
+
+        public void Actualize(IEnumerable<long> dealIds)
+        {
+            _logger.InfoEx("Starting actualizing deals during reverting withdrawal process");
+
+            using (var scope = _scopeFactory.CreateNonCoupled<ActualizeDealsDuringRevertingWithdrawalIdentity>())
+            {
+                var dealInfos = _dealReadModel.GetInfoForWithdrawal(dealIds);
+                _dealActualizeDealProfitIndicatorsAggregateService.Actualize(dealInfos.Select(i => i.ActualizeProfitInfo));
+
+                _dealChangeStageAggregateService.ChangeStage(
+                    dealInfos
+                        .Where(i => i.ActualizeProfitInfo.Deal.DealStage != (int)DealStage.OrderApprovedForRelease && !i.HasInactiveLocks)
+                        .Select(i => new DealChangeStageDto
+                            {
+                                Deal = i.ActualizeProfitInfo.Deal,
+                                NextStage = DealStage.OrderApprovedForRelease
+                            }));
+
+                scope.Complete();
+            }
+
+            _logger.InfoEx("Finished actualizing deals during reverting withdrawal process");
+        }
+    }
+}

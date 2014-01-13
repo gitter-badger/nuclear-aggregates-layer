@@ -1,0 +1,11 @@
+using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
+{
+    public interface IAccountWithdrawalStartAggregateService : IAggregatePartRepository<WithdrawalInfo>
+    {
+        WithdrawalInfo Start(long organizationUnitId, TimePeriod period);
+    }
+}

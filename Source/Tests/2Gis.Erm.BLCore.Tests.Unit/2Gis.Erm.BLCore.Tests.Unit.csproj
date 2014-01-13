@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5429CE24-14C7-4727-AF42-9D6D2177047A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.Tests.Unit</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.Tests.Unit</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications, Version=0.5.17.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4, Version=0.5.17.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1312.1622, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="BL\Client\ClientObtainerSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Client\ClientVewModelSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Client\ClientViewModelCustomizationServiceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Client\CyprusClientVewModelSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Client\CzechClientVewModelSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Client\GetClientDomainDtoServiceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\CostCalculationService\CostCalculatorSpecs.cs" />
+    <Compile Include="BL\CostCalculationService\OrderPositionCostCalculationOperationServiceSpecs.cs" />
+    <Compile Include="BL\CreateAfterSaleServiceActivitiesHandlerSpecs.cs" />
+    <Compile Include="BL\Export\CreateHotClientHandlerSpecs.cs" />
+    <Compile Include="BL\Export\HotClientRequestOperationsExporterSpecs.cs" />
+    <Compile Include="BL\Export\OperationsExportServiceSpecs.cs" />
+    <Compile Include="BL\FirmWorkingTimeLocalizerSpecs.cs" />
+    <Compile Include="BL\GenerateOrderNumberHandlerSpecs.cs" />
+    <Compile Include="BL\Import\FakeAccountRepository.cs" />
+    <Compile Include="BL\Import\ImportFlowFinancialData1CHandlerSpecs.cs" />
+    <Compile Include="BL\OrderPositionAdvertisementValidation\AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderPositionAdvertisementValidation\CorrectAddressOrderPositionAdvertisementValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderPositionAdvertisementValidation\IsTemplatePublishedOrderPositionAdvertisementValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderPositionAdvertisementValidation\RequiredAdvertisementOrderPositionAdvertisementValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderValidations\AdvertisementTextFormattingOrderValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderValidations\AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderValidations\IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderValidations\RegionalApiAdvertisementsOrderValidationRuleSpecs.cs" />
+    <Compile Include="BL\OrderValidations\SelfAdvertisementOrderValidationRuleSpecs.cs" />
+    <Compile Include="BL\ReleaseNumberUtilsSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\BasicOrderProlongationOperationLogicSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\FakeSecureFinder.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\FakeUserRepository.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\OrderProcessingOwnerSelectionServiceSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\OrderProcessingRequestNotificationFormatterSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\OrderProlongationRequestOperationServiceSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\ProcessOrderProlongationRequestMassOperationSpecs.cs" />
+    <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\ProcessOrderProlongationRequestSingleOperationSpecs.cs" />
+    <Compile Include="BL\Services\Operations\Orders\CopyOrderOperationServiceSpecs.cs" />
+    <Compile Include="BL\Services\Operations\ProcessOrderCreationRequestSingleOperationSpecs.cs" />
+    <Compile Include="BL\Services\Operations\ProcessOrderProlongationRequestMassOperationSpecs.cs" />
+    <Compile Include="BL\Services\OrderProcessingRequestTests\CancelOrderProcessingRequestOperationServiceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Services\OrderProcessingRequestTests\OrderProcessingRequestServiceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BL\Services\OrderProcessingRequestTests\ReadOrderRequestMessagesServiceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\AccountRepositorySpecs.cs" />
+    <Compile Include="Model\ConcurrentPeriodCounterSpecs.cs" />
+    <Compile Include="Model\LegalPersonRepositorySpecs.cs" />
+    <Compile Include="Model\UserRepositoryTests\UserRepositorySpecs.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AttachFileHandler.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj">
+      <Project>{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
+      <Project>{A92719FF-B1FD-459B-88DE-F0B2CE23903E}</Project>
+      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Tests\2Gis.Erm.Platform.Tests.Unit\2Gis.Erm.Platform.Tests.Unit.csproj">
+      <Project>{D81E23F5-2902-4D99-9B3C-24D6F6069D97}</Project>
+      <Name>2Gis.Erm.Platform.Tests.Unit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BLCore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\2Gis.Erm.BLCore.Operations.Special.csproj">
+      <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
+      <Name>2Gis.Erm.BLCore.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj">
+      <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
+      <Name>2Gis.Erm.BLCore.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

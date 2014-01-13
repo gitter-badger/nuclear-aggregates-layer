@@ -1,0 +1,65 @@
+﻿
+@model PrintFormTemplateViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <style type="text/css">
+        div.label-wrapper
+        {
+            width: 150px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        window.InitPage = function ()
+        {
+            this.on("afterbuild", function ()
+            {
+                var u = new Ext.ux.AsyncFileUpload(
+                    {
+                        applyTo: 'FileId',
+                        uploadUrl: '/Upload/PrintFormTemplate',
+                        downloadUrl: Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/PrintFormTemplate/{0}',
+                        listeners: {
+                            fileuploadbegin: function ()
+                            {
+                                this.Items.Toolbar.disable();
+                            },
+                            fileuploadcomplete: function ()
+                            {
+                                this.Items.Toolbar.enable();
+                            },
+                            scope: this
+                        },
+                        fileInfo:
+                            {
+                                fileId: '@Model.FileId',
+                                fileName: '@Model.FileName',
+                                contentType: '@Model.FileContentType',
+                                fileSize: '@Model.FileContentLength'
+                            }
+                    });
+            }, this);
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.BranchOfficeOrganizationUnitId)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.TemplateCode, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+        </div>
+    </div>
+}

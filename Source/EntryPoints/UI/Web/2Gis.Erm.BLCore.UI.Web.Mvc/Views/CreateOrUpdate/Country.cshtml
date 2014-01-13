@@ -1,0 +1,27 @@
+﻿
+@model CountryViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.twins)
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, SearchFormFilterInfo = "IsDeleted=false"})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsoCode, FieldFlex.twins)
+        </div>
+    </div>
+}

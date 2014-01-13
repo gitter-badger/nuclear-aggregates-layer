@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\..\..))</SolutionDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ExtensionTasksPath>$([System.IO.Path]::GetFullPath('$(SolutionDir)\packages\MSBuild.Extension.Pack.1.2.0\lib\net40\'))</ExtensionTasksPath>
+  </PropertyGroup>
+  <Import Project="$(ExtensionTasksPath)MSBuild.ExtensionPack.tasks" />
+
+  <!-- PowerShell - В Dynamics CRM заменяем в sitemap и isv.config файлах ссылки на Erm -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.UpdateCustomizationXml" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <CrmSdkPath Required="true" ParameterType="System.String" />
+      <CrmConnectionString Required="true" ParameterType="System.String" />
+      <ErmWebAppUrl Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        $log.LogMessage("Start Task UpdateCustomizationXml")
+
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.crm.sdk.dll')
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.crm.sdktypeproxy.dll')
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.xrm.client.dll')
+
+        function ExportXml($CrmDataContext){
+
+	        $ExportXmlResponse = [Microsoft.Crm.SdkTypeProxy.ExportXmlResponse]$null
+	
+	        $CrmDataContext.UsingService({
+		        param([Microsoft.Xrm.Client.Services.IOrganizationService]$service)
+		
+		        $ExportXmlRequest = New-Object Microsoft.Crm.SdkTypeProxy.ExportXmlRequest
+		        $ExportXmlRequest.ParameterXml =
+		        "<importexportxml>
+	                <entities></entities>
+	                    <nodes>
+	                        <node>sitemap</node>
+	                        <node>isvconfig</node>
+	                    </nodes>
+	                <securityroles></securityroles>
+	                <settings></settings>
+	                <workflows></workflows>
+	            </importexportxml>"
+		
+		        $script:ExportXmlResponse = $service.Execute($ExportXmlRequest)
+	        })
+	
+	        $ExportXmlResponse.ExportXml
+        }
+
+        function ImportXml($CrmDataContext, $Xml){
+	        $CrmDataContext.UsingService({
+		        param([Microsoft.Xrm.Client.Services.IOrganizationService]$service)
+		
+		        $ImportAllXmlRequest = New-Object Microsoft.Crm.SdkTypeProxy.ImportAllXmlRequest
+		        $ImportAllXmlRequest.CustomizationXml = $Xml
+		        $service.Execute($ImportAllXmlRequest)
+		
+		        $PublishAllXmlRequest = New-Object Microsoft.Crm.SdkTypeProxy.PublishAllXmlRequest
+		        $service.Execute($PublishAllXmlRequest)
+	        })
+        }
+
+        $CrmConnection = [Microsoft.Xrm.Client.CrmConnection]::Parse($CrmConnectionString)
+        $CrmConnection.Timeout = [System.Threading.Timeout]::Infinite
+        $CrmDataContext = New-Object Microsoft.Xrm.Client.Data.Services.CrmDataContext($null, { return New-Object Microsoft.Xrm.Client.Services.OrganizationService($null, $CrmConnection) })
+
+        $Xml = . ExportXml -CrmDataContext $CrmDataContext
+
+        $ReplaceText = $ErmWebAppUrl.TrimEnd('/') + '/'
+        $ProcessedXml = $Xml -replace '(http|https)://.*?/', $ReplaceText
+
+        ImportXml -CrmDataContext $CrmDataContext -Xml $ProcessedXml
+
+        $log.LogMessage("End Task UpdateCustomizationXml")
+      }
+      catch{
+        $log.LogError("Error in powershell build task: " + $error[0])
+      }
+
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - В Dynamics CRM отменяем регистрацию dll с плагинами -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.UnregisterPluginAssembly" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <CrmSdkPath Required="true" ParameterType="System.String" />
+      <CrmConnectionString Required="true" ParameterType="System.String" />
+      <CrmProjectOutputDir Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task UnregisterPluginAssembly")
+        
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.crm.sdk.dll')
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.crm.sdktypeproxy.dll')
+        Add-Type -Path (Join-Path $CrmSdkPath 'microsoft.xrm.client.dll')
+
+        $CrmConnection = [Microsoft.Xrm.Client.CrmConnection]::Parse($CrmConnectionString)
+        $CrmConnection.Timeout = [System.Threading.Timeout]::Infinite
+        $CrmDataContext = New-Object Microsoft.Xrm.Client.Data.Services.CrmDataContext($null, { return New-Object Microsoft.Xrm.Client.Services.OrganizationService($null, $CrmConnection) })
+
+        $PathToPluginAssembly = Join-Path $CrmProjectOutputDir '2Gis.Erm.MsCRM.dll'
+        $AssemblyName = [System.Reflection.AssemblyName]::GetAssemblyName($PathToPluginAssembly)
+
+        $PluginAssembly = $CrmDataContext.GetEntities([Microsoft.Crm.SdkTypeProxy.EntityName]::pluginassembly.ToString()) | where { $_["name"].Value -eq  $AssemblyName.Name } | select -First 1
+        if ($PluginAssembly -eq $null){
+	        return
+        }
+
+        $CrmDataContext.UsingService(
+        {
+	        param($service)
+	
+	        $UnregisterSolutionRequest = New-Object Microsoft.Crm.SdkTypeProxy.UnregisterSolutionRequest
+	        $UnregisterSolutionRequest.PluginAssemblyId = $PluginAssembly.Id
+
+	        $service.Execute($UnregisterSolutionRequest)
+        })
+        
+        $log.LogMessage("End Task UnregisterPluginAssembly")
+      }
+      catch{
+        $log.LogError("Error in powershell build task: " + $error[0])
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - В Dynamics CRM регистрируем dll с плагинами -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.RegisterPluginAssembly" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <CrmSdkPath Required="true" ParameterType="System.String" />
+      <CrmConnectionString Required="true" ParameterType="System.String" />
+      <CrmProjectOutputDir Required="true" ParameterType="System.String" />
+      <ErmWebAppUrl Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        $log.LogMessage("Start Task CreateRemoteWebsite")
+        
+        $PathToPluginRegistrationXml = Join-Path $CrmProjectOutputDir 'PluginRegistration.xml'
+
+        $PathToPluginRegistrationExe = (Join-Path $CrmSdkPath 'PluginRegistration.exe')
+        $PluginRegistrationExe = [System.Reflection.Assembly]::LoadFrom($PathToPluginRegistrationExe)
+
+        function ParseCrmConnectionString($CrmConnectionString){
+
+	        $ConnectionStringBuilder = New-Object System.Data.Common.DbConnectionStringBuilder
+	        $ConnectionStringBuilder.set_ConnectionString($CrmConnectionString)
+	
+	        $OrganizationUrl = $ConnectionStringBuilder["server"]
+	        $UriBuilder = New-Object System.UriBuilder($OrganizationUrl)
+	        $DynamicsCrmServer = $UriBuilder.Scheme + "://" + $UriBuilder.Host;
+	        $OrganizationName = $UriBuilder.Path.Trim('/');
+	
+	        $UserNameArray =  $ConnectionStringBuilder["user id"].Split("\");
+	
+	        @{
+		        DynamicsCrmServer = $DynamicsCrmServer
+		        OrganizationName = $OrganizationName
+		        Port = $UriBuilder.Port
+		        UserDomain = $UserNameArray[0]
+		        UserName = $UserNameArray[1]
+		        Password = $ConnectionStringBuilder["password"]
+	        }
+        }
+
+        function GetOrganization($Parsed){
+	        $CrmConnection = New-Object PluginRegistrationTool.CrmConnection("Unknown", $Parsed.DynamicsCrmServer, $Parsed.Port, $Parsed.UserDomain, $Parsed.UserName, $Parsed.Password)
+	        $CrmConnection.RetrieveOrganizations()
+
+	        $Organization = $CrmConnection.Organizations | where { $_.OrganizationUniqueName -eq $Parsed.OrganizationName } | select -First 1
+	        if ($Organization -eq $null){
+		        throw "Не найдена организация '{0}'" -f $Parsed.OrganizationName
+	        }
+	        $Organization.CrmServiceUrl = $Parsed.DynamicsCrmServer + "/MSCrmServices/2007/CrmService.asmx"
+	
+	        $MessagesDict = New-Object "System.Collections.Generic.Dictionary``2[System.Guid, PluginRegistrationTool.CrmMessage]"
+	        $Messages = [PluginRegistrationTool.OrganizationHelper]::LoadMessages($Organization)
+	        foreach($Message in $Messages){
+		        $MessagesDict.Add($Message.MessageId, $Message)
+	        }
+
+	        $CrmEntityDictionay = New-Object "PluginRegistrationTool.CrmEntityDictionary``1[PluginRegistrationTool.CrmMessage]"($MessagesDict)
+	        [PluginRegistrationTool.OrganizationHelper]::OpenConnection($Organization, $CrmEntityDictionay)
+
+	        $Organization
+        }
+
+        function ReplaceErmWebAppUrl($PathToPluginRegistrationXml, $ErmWebAppUrl){
+	        [xml]$PluginRegistrationXml = Get-Content -Path $PathToPluginRegistrationXml -Encoding UTF8
+	
+	        foreach($Step in $PluginRegistrationXml.SelectNodes('//Step')){
+		        if ($Step.PluginTypeName -like '*UpdateAndReplicateOpportunityToErmPlugin'){ $Step.CustomConfiguration = $ErmWebAppUrl }
+		        if ($Step.PluginTypeName -like '*AfterSalePhonecallStateChangedPlugin'){ $Step.CustomConfiguration = $ErmWebAppUrl }
+	        }
+	
+	        $PluginRegistrationXml.Save($PathToPluginRegistrationXml)
+        }
+
+        ReplaceErmWebAppUrl -PathToPluginRegistrationXml $PathToPluginRegistrationXml -ErmWebAppUrl $ErmWebAppUrl
+
+        $Parsed = ParseCrmConnectionString -CrmConnectionString $CrmConnectionString
+        $Organization = GetOrganization -Parsed $Parsed
+
+        $CrmPluginAssemblies = [PluginRegistrationTool.ImportExport]::GetAssemblyNodes($Organization, $PathToPluginRegistrationXml, $true)
+
+        $AssemblyPathsDict = New-Object "System.Collections.Generic.Dictionary``2[System.Guid, System.String]"
+        foreach($CrmPluginAssembly in $CrmPluginAssemblies){
+
+	        $CrmPluginAssemblyPath = Join-Path $CrmProjectOutputDir $CrmPluginAssembly.ServerFileName
+	        if ( -not (Test-Path $CrmPluginAssemblyPath)){
+		        throw "Не найден путь '{0}'" -f $CrmPluginAssemblyPath
+	        }
+	
+	        $AssemblyName = [System.Reflection.AssemblyName]::GetAssemblyName($CrmPluginAssemblyPath)
+	
+	        # Name
+	        $CrmPluginAssembly.AssemblyName = $AssemblyName.Name
+	
+	        # Culture
+	        if (-not [string]::IsNullOrEmpty($AssemblyName.CultureName)){
+		        $CrmPluginAssembly.Culture = $AssemblyName.CultureName
+	        }
+	        else{
+		        $CrmPluginAssembly.Culture = "neutral"
+	        }
+	
+	        # PublicKeyToken
+	        $StringBuilder = New-Object System.Text.StringBuilder
+	        foreach($Byte in $AssemblyName.GetPublicKeyToken()){
+		        $Dummy = $StringBuilder.Append($Byte.ToString("x"))
+	        }
+	        $CrmPluginAssembly.PublicKeyToken = $StringBuilder.ToString()
+	
+	        # Version
+	        $CrmPluginAssembly.Version = $AssemblyName.Version.ToString()
+	
+	        $AssemblyPathsDict.Add($CrmPluginAssembly.AssemblyId, $CrmPluginAssemblyPath)
+        }
+
+        [PluginRegistrationTool.ImportExport]::ImportSolution($Organization, $CrmPluginAssemblies, $null, $AssemblyPathsDict)
+        
+        $log.LogMessage("End Task CreateRemoteWebsite")
+      }
+      catch{
+        $log.LogError("Error in powershell build task: " + $error[0])
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Создать web site на удалённом web сервере -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.CreateRemoteWebsite" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <ComputerName Required="true" ParameterType="System.String" />
+      <WebsiteName Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task CreateRemoteWebsite")
+        $log.LogMessage("ComputerName='{0}', WebsiteName='{1}'", $ComputerName, $WebsiteName)
+        
+        $returnValue = Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+          param($websiteName)
+          Import-Module WebAdministration
+
+          function CreateLocalWebSite($websiteName){
+            # проверяем существование сайта
+            $website = Get-WebSite | where { $_.Name -eq $websiteName }
+            if($website -ne $null){
+                "Website already exists"
+                return
+            }
+
+            # создаём папку для сайта
+            $websitePhysicalPath = "$env:systemdrive\inetpub\$websiteName"
+            
+            $websitePhysicalPathExists = (Test-Path $websitePhysicalPath -PathType Container)
+            if ($websitePhysicalPathExists){
+              "Remove directory " + $websitePhysicalPath
+              Remove-Item -path $websitePhysicalPath -Recurse            
+            }
+            "Create directory " + $websitePhysicalPath
+            New-Item -type directory -path $websitePhysicalPath
+
+            # todo: создавать ErmAppPool
+        
+            "Create website " + $websiteName
+            $website = New-Website -Name $websiteName -HostHeader $websiteName -ApplicationPool "ErmAppPool" -PhysicalPath $websitePhysicalPath
+        
+            # добавляем https к созданному сайту
+            "Add https binding to website " + $websiteName
+            New-WebBinding -Name $websiteName -Protocol https -HostHeader $websiteName
+
+            # добавляем аутентификацию Windows
+            "Add Windows Authentication to website " + $websiteName
+            Set-WebConfigurationProperty -filter "/system.WebServer/security/authentication/windowsAuthentication" -name "enabled" -value "true" -location $websiteName
+          }
+          
+          try{
+            #Requires -Version 3.0
+            $ErrorActionPreference = 'Stop'
+            Set-StrictMode -Version Latest
+
+            "REMOTE USER: " + [Security.Principal.WindowsIdentity]::GetCurrent().Name
+            CreateLocalWebSite $websiteName
+          }
+          catch{
+            "REMOTE ERROR: " + $error[0]
+          }
+        } -Args $WebsiteName
+        
+        $returnValue = ($returnValue -join [System.Environment]::NewLine)
+        
+        if ($returnValue.IndexOf("REMOTE ERROR: ", [System.StringComparison]::OrdinalIgnoreCase) -ge 0){
+          $log.LogError($returnValue)
+        }
+        else{
+          $log.LogMessage("Return Value: " + $returnValue)
+        }
+        
+        $log.LogMessage("End Task CreateRemoteWebsite")
+      }
+      catch{
+        $log.LogError("Error in powershell build task: " + $error[0])
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+  
+  <!-- PowerShell - Запуск скрипта на удалённой машине -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.RemoteScriptBlock" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <ComputerName Required="true" ParameterType="System.String" />
+      <ScriptBlock Required="true" ParameterType="System.String" />
+      <Username Required="true" ParameterType="System.String" />
+      <Password Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task RunRemoteCommand")
+        $log.LogMessage($ScriptBlock)
+
+        if ($Username -ne "[EMPTY]"){
+          # используем CredSSP чтобы работали миграции, (гуглим second hop problem)
+          $securedPassword = ConvertTo-SecureString $Password -AsPlainText -Force
+          $credential = New-Object System.Management.Automation.PSCredential ($Username, $securedPassword)
+          $session = New-PSSession -ComputerName $ComputerName -Credential $credential -Authentication CredSSP
+        }
+        else{
+          # используем обычную remote session
+          $session = New-PSSession -ComputerName $ComputerName
+        }
+        
+        $returnValue = Invoke-Command -Session $session -ScriptBlock {
+        param($scriptBlock)
+        
+          try{
+            "REMOTE USER: " + [Security.Principal.WindowsIdentity]::GetCurrent().Name
+            
+            $ExecutionContext.InvokeCommand.NewScriptBlock($scriptBlock).Invoke()
+
+            # сравниваем exit code
+            if ($LastExitCode -ne 0) {
+              throw "Command failed with exit code $LastExitCode."
+            }
+          }
+          catch{
+            "REMOTE ERROR: " + $error[0]
+          }
+        } -Args $ScriptBlock
+        
+        $returnValue = ($returnValue -join [System.Environment]::NewLine)
+        
+        if ($returnValue.IndexOf("REMOTE ERROR: ", [System.StringComparison]::OrdinalIgnoreCase) -ge 0){
+          $log.LogError($returnValue)
+        }
+        else{
+          $log.LogMessage("Return Value: " + $returnValue)
+        }
+        
+        $log.LogMessage("End Task RunRemoteCommand")
+      }
+      catch{
+        $log.LogError("Error in powershell build task: " + $error[0])
+      }
+      finally{
+        if ($session){
+          Remove-PSSession $session
+        }
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Проверяем доступность Uri -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.GetUri" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <Uri Required="true" ParameterType="System.String" />
+      <Username Required="true" ParameterType="System.String" />
+      <Password Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task GetUri")
+        
+        $securedPassword = ConvertTo-SecureString $Password -AsPlainText -Force
+        $credential = New-Object System.Management.Automation.PSCredential ($Username, $securedPassword)
+        
+        $request = Invoke-WebRequest -Uri $Uri -Credential $credential
+        $log.LogMessage("SUCCESSFULLY GET URL '{0}' USING USER '{1}' : {2}", $Uri, $Username, $request.Content);
+        
+        $log.LogMessage("End Task GetUri")
+      }
+      catch{
+        $log.LogError("ERROR GET URL '{0}' USING USER '{1}': {2}", $Uri, $Username, $error[0]);
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Взять DeployIisAppPath из PublishProfile -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.GetDeployIisAppPath" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <PublishProfilePath Required="true" ParameterType="System.String" />
+      <DeployIisAppPath Output="True" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task GetDeployIisAppPath")
+        
+        $publishProfileXml = [xml](Get-Content -Path $PublishProfilePath)
+
+        $DeployIisAppPath = $publishProfileXml.Project.PropertyGroup.DeployIisAppPath
+        if ([string]::IsNullOrEmpty($DeployIisAppPath)){
+          $log.LogError("ERROR In Task GetDeployIisAppPath: Can't find DeployIisAppPath node in file '{0}'", $PublishProfilePath);
+        }
+
+        $log.LogMessage("Success In Task GetDeployIisAppPath: {0}", $DeployIisAppPath);
+        
+        $log.LogMessage("End Task GetDeployIisAppPath")
+      }
+      catch{
+        $log.LogError("ERROR In Task GetDeployIisAppPath: {0}", $error[0]);
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Deploy .rpt project and update datasources -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.DeployRpt" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <ErmWebAppProjectLocation Required="true" ParameterType="System.String" />
+      <PublishProfileName Required="true" ParameterType="System.String" />
+      <ReportsProjectLocation Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        
+        $log.LogMessage("Start Task DeployRpt")
+
+        # читаем connection string из web.config
+        function Get-ConnectionStringBuilder($Path, $Name){
+	        [xml]$Config = Get-Content -Encoding UTF8 -Path $Path
+	        $XPath = 'configuration/connectionStrings/add[@name="{0}"]' -f $Name;
+	        $XmlNode = $Config.SelectSingleNode($XPath)
+	        if ($XmlNode -eq $null){
+	            throw "Could not find connection string $Name in file $Path."
+	        }
+
+	        $Builder = New-Object System.Data.Common.DbConnectionStringBuilder
+	        $Builder.set_ConnectionString($XmlNode.connectionString)
+	
+	        $Builder
+        }
+        
+        # создаём особый connection string, без безопасности и всего остального
+        function Get-RdsConnectionStringBuilder($Path, $Name){
+          $Builder = Get-ConnectionStringBuilder -Path $Path -Name $Name
+          $NewBuilder = New-Object System.Data.Common.DbConnectionStringBuilder
+          $NewBuilder["Data Source"] = $Builder["Data Source"]
+          $NewBuilder["Initial Catalog"] = $Builder["Initial Catalog"]
+          
+          $NewBuilder
+        }
+        
+        # заменяем connection string в .rds файле
+        function Set-RdsConnectionString($RdsPath, $ConnectionString){
+          $Exists = Test-Path $RdsPath
+          if (-not $Exists){
+            return $null
+          }
+        
+          $File = Get-Item $RdsPath
+          $File.IsReadOnly = $false
+          
+          [xml]$Rds = Get-Content -Encoding UTF8 -Path $RdsPath
+          $Rds.RptDataSource.ConnectionProperties.ConnectString = $ConnectionString
+          
+          $Rds.Save($RdsPath)
+        }
+
+        # препроцессинг rds файлов
+        function Process-Rds($ReportsProjectLocation, $ConfigPath){
+          $ErmBuilder = Get-RdsConnectionStringBuilder -Path $ConfigPath -Name "Erm"
+          Set-RdsConnectionString -RdsPath ($ReportsProjectLocation + "\Erm.rds") -ConnectionString $ErmBuilder.ConnectionString
+
+          # заменяем datasource для ErmReports.rds
+          $ErmReportsBuilder = Get-RdsConnectionStringBuilder -Path $ConfigPath -Name "ErmReports"
+          Set-RdsConnectionString -RdsPath ($ReportsProjectLocation + "\ErmReports.rds") -ConnectionString $ErmReportsBuilder.ConnectionString
+
+          # заменяем datasource для MoDi.rds
+          [xml]$WebConfig = Get-Content -Encoding UTF8 -Path $ConfigPath
+          $MoDiConnectionString = $WebConfig.SelectSingleNode('configuration/system.serviceModel/client/endpoint[contains(@address, "Reports.svc") or contains(@address, "MoneyDistributionService.svc")]')
+        if (-not $MoDiConnectionString){
+	          throw "Could not find service connection for MoDi in file $ConfigPath."
+          }
+          Set-RdsConnectionString -RdsPath ($ReportsProjectLocation + "\MoDi.rds") -ConnectionString $MoDiConnectionString.address          
+        }
+        
+        # процессинг rdl файлов
+        function Process-Rdl($ReportsProjectLocation, $ConfigPath){
+          $CrmBuilder = Get-ConnectionStringBuilder -Path $ConfigPath -Name "CrmConnection"
+	        $DynamicsCrmUri = $CrmBuilder["Server"]
+	        $UriBuilder = New-Object System.UriBuilder($DynamicsCrmUri)
+	        $DataBaseName = $UriBuilder.Path.Trim('/') + "_MSCRM"
+
+          $RdlFiles = Get-ChildItem -Path $ReportsProjectLocation "*.rdl" -Recurse
+          foreach($RdlFile in $RdlFiles){
+	          $RdlFile.IsReadOnly = $false
+	          $Rdl = Get-Content -Path $RdlFile.FullName -Encoding UTF8
+	          $Rdl = $Rdl -replace "\bDoubleGis[0-9]*_MSCRM\b", $DatabaseName
+	          Set-Content -Path $RdlFile.FullName -Value $Rdl -Encoding UTF8
+          }
+        }
+
+        $WebConfigPath = $ErmWebAppProjectLocation + "\" + "Web." + $PublishProfileName + ".config"
+
+        Process-Rds -ReportsProjectLocation $ReportsProjectLocation -ConfigPath $WebConfigPath
+        Process-Rdl -ReportsProjectLocation $ReportsProjectLocation -ConfigPath $WebConfigPath
+
+        # в VS2012 не работает publish .rpt проектов (http://connect.microsoft.com/VisualStudio/feedback/details/790687/devenv-deploy-crashed-for-ssrs-project)
+        # поэтому используем powershell для publish, когда пофиксят баг в студии, то можно будет заменить на команду 
+        # devenv "1.rpt" /deploy $PublishProfileName
+        
+        # Step 2 - deploy rpt
+        $ScriptDirectory = Get-Location
+        $RptProjectPath = $ScriptDirectory | Join-Path -ChildPath "..\ErmReports\ErmReports.rptproj"
+        $FileExists = Test-Path $RptProjectPath
+        if ($FileExists){
+          & $ScriptDirectory\Deploy-SSRSProject.ps1 -Path $RptProjectPath -Configuration $PublishProfileName
+        }
+        else{
+          $log.LogMessage("Cannot find file: {0}", $RptProjectPath);  
+        }
+        
+        $log.LogMessage("Success In Task DeployRpt: {0}", $RptProjectPath);
+        
+        $log.LogMessage("End Task DeployRpt")
+      }
+      catch{
+        $log.LogError("ERROR In Task DeployRpt: {0}", $error[0]);
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Update stored procedures -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.UpdateStoredProcedures" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <ErmWebAppProjectLocation Required="true" ParameterType="System.String" />
+      <PublishProfileName Required="true" ParameterType="System.String" />
+      <SourceConnectionStringName Required="true" ParameterType="System.String" />
+      <TargetConnectionStringName Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        Set-ExecutionPolicy RemoteSigned
+        
+        $log.LogMessage("Start Task UpdateStoredProcedures")
+        
+        # load SMO
+        Import-Module “sqlps” -DisableNameChecking
+
+        function Get-ConnectionStringBuilder($Path, $Name){
+	        [xml]$Config = Get-Content -Encoding UTF8 -Path $Path
+	        $XPath = 'configuration/connectionStrings/add[@name="{0}"]' -f $Name;
+	        $XmlNode = $Config.SelectSingleNode($XPath)
+	        if ($XmlNode -eq $null){
+	            throw "Could not find connection string $Name in file $Path."
+	        }
+
+	        $Builder = New-Object System.Data.Common.DbConnectionStringBuilder
+	        $Builder.set_ConnectionString($XmlNode.connectionString)
+	
+	        $Builder
+        }
+
+        $WebConfigPath = $ErmWebAppProjectLocation + "\" + "Web." + $PublishProfileName + ".config"
+
+        $SourceBuilder = Get-ConnectionStringBuilder -Path $WebConfigPath -Name $SourceConnectionStringName
+        if ($SourceConnectionStringName -eq "CrmConnection"){
+	         $DynamicsCrmUri = $SourceBuilder["Server"]
+	         $UriBuilder = New-Object System.UriBuilder($DynamicsCrmUri)
+	         $DataBaseName = $UriBuilder.Path.Trim('/') + "_MSCRM"
+        }
+        else{
+	        $DataBaseName = $SourceBuilder["Initial Catalog"]
+        }
+
+
+        $TargetBuilder = Get-ConnectionStringBuilder -Path $WebConfigPath -Name $TargetConnectionStringName
+
+        $SqlConnection = New-Object System.Data.SqlClient.SqlConnection($TargetBuilder.ConnectionString)
+        $ServerConnection = New-Object Microsoft.SqlServer.Management.Common.ServerConnection($SqlConnection)
+        $Server = New-Object Microsoft.SqlServer.Management.Smo.Server($ServerConnection)
+
+        $Database = $Server.Databases[$TargetBuilder["Initial Catalog"]];
+        foreach($StoredProcedure in $Database.StoredProcedures){
+	        if ($StoredProcedure.Schema -eq "sys"){
+		        continue
+	        }
+	
+	        if ($SourceConnectionStringName -eq "CrmConnection"){
+		        $Regex = "\bDoubleGis[0-9]*_MSCRM\b"
+	        }
+	        else{
+		        $Regex = "\b$SourceConnectionStringName[0-9]*\b"
+	        }
+	
+	        $NewTextBody = $StoredProcedure.TextBody -replace $Regex, $DataBaseName
+	
+	        if ($NewTextBody -eq $StoredProcedure.TextBody){
+		        continue
+	        }
+	
+	        $StoredProcedure.TextBody = $NewTextBody
+	        $StoredProcedure.Alter()
+	
+          $log.LogMessage("Updated {0}", $StoredProcedure.Name);
+        }
+
+        $log.LogMessage("Success In Task UpdateStoredProcedures");
+        $log.LogMessage("End Task UpdateStoredProcedures")
+      }
+      catch{
+        $log.LogError("ERROR In Task UpdateStoredProcedures: {0}", $error[0]);
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- PowerShell - Update assembly info -->
+  <UsingTask TaskName="DoubleGis.Erm.Build.Tasks.UpdateAssemblyInfo" TaskFactory="PowershellTaskFactory" AssemblyFile="$(ExtensionTasksPath)MSBuild.ExtensionPack.TaskFactory.PowerShell.dll">
+    <ParameterGroup>
+      <AssemblyInfo Required="true" ParameterType="System.String" />
+      <First Required="true" ParameterType="System.Int32" />
+      <Second Required="true" ParameterType="System.Int32" />
+      <Third Required="true" ParameterType="System.Int32" />
+      <Fourth Required="true" ParameterType="System.Int32" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      try{
+        #Requires -Version 3.0
+        $ErrorActionPreference = 'Stop'
+        Set-StrictMode -Version Latest
+        Set-ExecutionPolicy RemoteSigned
+        
+        $log.LogMessage("Start Task UpdateAssemblyInfo")
+        
+        $File = Get-Item $AssemblyInfo
+        $File.IsReadOnly = $false
+
+        $Content = Get-Content -Encoding UTF8 -Path $AssemblyInfo
+
+        # update assemblies version (have 3 numbers, but probably should have 2 numbers)
+        $Content = $Content -replace '(AssemblyVersion|AssemblyVersionAttribute)\("([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)?"\)' , ('$1("{0}.{1}.{2}.0")' -f $First, $Second, $Third)
+
+        # update satellites version (have 3 numbers, but probably should have 2 numbers)
+        $Content = $Content -replace '(SatelliteContractVersion|SatelliteContractVersionAttribute)\("([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)?"\)' , ('$1("{0}.{1}.{2}.0")' -f $First, $Second, $Third)
+
+        # update assemblies file version (have 4 numbers)
+        $Content = $Content -replace '(AssemblyFileVersion|AssemblyFileVersionAttribute)\("([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)?"\)' , ('$1("{0}.{1}.{2}.{3}")' -f $First, $Second, $Third, $Fourth)
+
+        # update product version (have only 3 numbers)
+        $Content = $Content -replace '(AssemblyInformationalVersion|AssemblyInformationalVersionAttribute)\("([0-9]+)\.([0-9]+)\.([0-9]+)?"\)' , ('$1("{0}.{1}.{2}")' -f $First, $Second, $Third)
+
+        Set-Content -Path $AssemblyInfo -Value $Content -Encoding UTF8
+        
+        $log.LogMessage("Success In Task UpdateAssemblyInfo");
+      }
+      catch{
+        $log.LogError("ERROR In Task UpdateAssemblyInfo: {0}", $error[0]);
+      }
+      ]]>
+    </Task>
+  </UsingTask>
+
+</Project>

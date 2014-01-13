@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="PersonTypes">
+    <xs:annotation>
+      <xs:documentation>Типы ролей контактов</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Employee"/>
+      <xs:enumeration value="InfluenceDecisions"/>
+      <xs:enumeration value="MakingDecisions"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FinancialDataClient">
+    <xs:sequence>
+      <xs:element name="Firms" minOccurs="1"  maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Информация о фирмах клиента</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Firm" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="Code" type="xs:long" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Стабильный идентификатор фирмы</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LegalEntities" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Информация о юр. лицах клиента</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LegalEntity" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="Code" type="xs:long" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Идентификатор юр. лица</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Contacts" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Информация о контактах клиента</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Contact" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="ContactName" type="xs:string" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Полное имя контакта</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="ContactEmail" type="xs:string" use="optional">
+                  <xs:annotation>
+                    <xs:documentation>Рабочий e-mail контакта</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="PersonType" type="PersonTypes" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Роль контакта</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+                  <xs:annotation>
+                    <xs:documentation>
+                      Признак активности контакта.
+                      Если атрибут пришел со значением true, то считаем, что контакт неактивен.
+                      (IsHidden = !IsActive || IsFired - признак уволенности контакта)
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+                  <xs:annotation>
+                    <xs:documentation>
+                      Признак удаленности контакта.
+                      Если атрибут пришел со значением true, то считаем, что контакт удален.
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Название клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DefaultFirmCode" type="xs:long" use="optional">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор основной фирмы клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Логин (из AD) куратора клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак активности клиента.
+          Если атрибут пришел со значением true, то считаем, что клиент неактивен.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак удаленности клиента.
+          Если атрибут пришел со значением true, то считаем, что клиент удален.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute> 
+  </xs:complexType>
+  
+  <xs:element name="Client" type="FinancialDataClient">
+    <xs:annotation>
+      <xs:documentation>Поток передачи клиентов</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

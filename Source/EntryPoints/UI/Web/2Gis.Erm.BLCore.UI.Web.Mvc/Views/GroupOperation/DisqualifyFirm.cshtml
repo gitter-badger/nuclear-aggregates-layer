@@ -1,0 +1,109 @@
+﻿@using Platform.Common.Utils
+@model Models.GroupOperation.GroupOperationViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.Disqualify }
+@section TopBarTitle { @BLResources.DisqualifyFirm }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Firm');
+        Ext.DoubleGis.UI.Firm.DisqualifyProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            constructor: function (config)
+            {
+                Ext.apply(config, {
+                    listeners: {
+                    }
+                });
+                Ext.DoubleGis.UI.Firm.DisqualifyProcessor.superclass.constructor.call(this, config);
+            },
+            IsUserSettingsValid: function ()
+            {
+                return true;
+            },
+            CreateParamsForControllerCall: function (entityId)
+            {
+                return { entityId: entityId };
+            }
+        });
+        Ext.onReady(function ()
+        {
+            var ids;
+            if (window.dialogArguments) {
+                ids = window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments;
+            } else {
+                var queryParameters = Ext.urlDecode(window.location.search.substring(1));
+                ids = queryParameters.CrmIds.split(',');
+            }
+
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+            };
+            var disqualifyProcessor = new Ext.DoubleGis.UI.Firm.DisqualifyProcessor(config);
+            if (!disqualifyProcessor.CheckProcessingPossibility())
+            {
+                return;
+            }
+
+            disqualifyProcessor.Process();
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col width="26" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 24px;" id="Notifications"> @Model.Message </div>
+                </td>
+            </tr>
+            <tr height="40px">
+            <td colspan="2">
+                @BLResources.DisqualifyQuestion
+            </td>
+            </tr>
+            <tr style="display:none;">
+                <td colspan="2">
+                    @Html.HiddenFor(m => m.EntityTypeName)
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="2" style="padding-left: 10px;">
+                    <div id="pbDiv">
+                        <div id="pbInner">
+                        </div>
+                    </div>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

@@ -1,0 +1,117 @@
+﻿@using Platform.Model.Metadata.Enums
+
+@model LocalMessageExportViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { Выгрузить сообщение }
+@section TopBarTitle { Выгрузить сообщение }
+@section TopBarMessage { Выгрузить сообщение }
+
+@section PageContent
+{
+    <script src="/Scripts/Tooltip.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.onReady(function() {
+
+            Ext.each(Ext.CardLookupSettings, function(item) {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+            // show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() != "") {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            var depList = window.Ext.getDom("ViewConfig_DependencyList");
+            if (depList.value) {
+                this.DependencyHandler = new window.Ext.DoubleGis.DependencyHandler();
+                this.DependencyHandler.register(window.Ext.decode(depList.value), window.EntityForm);
+            }
+
+            var orgUnitLookup = Ext.getCmp("OrganizationUnit");
+            var dropDown = Ext.getDom("IntegrationType");
+
+            if (dropDown.value == "AccountDetailsTo1C" || dropDown.value == "LegalPersonsTo1C") {
+                orgUnitLookup.extendedInfo = "filterByMovedToErm=true";
+            } else {
+                orgUnitLookup.extendedInfo = "";
+            }
+
+            Ext.get("Cancel").on("click", function() { window.close(); });
+            Ext.get("OK").on("click", function() {
+                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function(node) {
+                        node.value = window.Ext.getCmp(node.id).getValue()
+                            ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern)
+                            : "";
+                    });
+                    Ext.getDom("Notifications").style.display = "none";
+                    window.EntityForm.submit();
+                }
+            });
+
+            Ext.get("IntegrationType").on("change", function() {
+                var orgUnitLookup = Ext.getCmp("OrganizationUnit");
+                var dropDown = Ext.getDom("IntegrationType");
+
+                if (dropDown.value == "AccountDetailsTo1C" || dropDown.value == "LegalPersonsTo1C" || dropDown.value == "AccountDetailsToServiceBus") {
+                    orgUnitLookup.extendedInfo = "filterByMovedToErm=true";
+                } else {
+                    orgUnitLookup.extendedInfo = "";
+                }
+            });
+
+            //Запрещаем выбрать поздравления и уведомления об оплате. Это временное требование. Убрать, когда нужно будет
+            var sendingTypes = document.getElementById('MailSendingType').getElementsByTagName('option');
+            sendingTypes[1].disabled = true;
+            sendingTypes[2].disabled = true;
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="Tab">
+            @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+            <div style="display: none; height: 26px;" id="Notifications" class="Notifications" onmouseover=" AddTooltip(Ext.getDom('Notifications') ? Ext.getDom('Notifications').innerHTML : ''); " onmouseout=" RemoveTooltip(); ">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.IntegrationType, FieldFlex.lone, null, LocalMessageController.IntegrationTypeExportResourceManager)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.MailSendingType, FieldFlex.lone, null, EnumResources.ResourceManager)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings
+                    {
+                        ShiftOffset = false,
+                        PeriodType = PeriodType.MonthlyLowerBound,
+                        MinDate = new DateTime(2010, 12, 1),
+                        MaxDate = DateTime.UtcNow.AddMonths(1).AddDays(-1 * (DateTime.UtcNow.Day - 1))
+                    })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.PeriodStartFor1C, FieldFlex.lone, new DateTimeSettings
+                    {
+                        ShiftOffset = false,
+                        MinDate = new DateTime(2010, 12, 1),
+                        MaxDate = DateTime.Today
+                    })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.IncludeRegionalAdvertisement, FieldFlex.lone)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.CreateCsvFile, FieldFlex.lone)
+            </div>
+        </div>
+    }
+}

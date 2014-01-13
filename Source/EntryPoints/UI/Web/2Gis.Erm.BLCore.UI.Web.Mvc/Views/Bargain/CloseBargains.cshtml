@@ -1,0 +1,73 @@
+﻿
+@model CloseBargainsViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CloseBargains_DialogTitle }
+@section TopBarTitle { @BLResources.CloseBargains_DialogTitle }
+@section TopBarMessage { @BLResources.CloseBargains_DialogTitle }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            //Show error messages
+            if (Ext.getDom("HasOpCompleted").value == "1")
+            {
+                Ext.get("OK").disable();
+                document.getElementById("Cancel").value = Ext.LocalizedResources.Close;
+            }
+
+            //write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm))
+                {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    window.Ext.each(window.Ext.query("input.x-calendar"), function (node)
+                    {
+                        var cmp = window.Ext.getCmp(node.id);
+                        node.value = cmp.getValue() ? cmp.getValue().format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                    }, this);
+                    window.EntityForm.submit();
+                    window.Ext.each(window.Ext.query("input.x-calendar"), function (node)
+                    {
+                        var cmp = window.Ext.getCmp(node.id);
+                        cmp.setValue(cmp.getValue());
+                    }, this);
+
+                }
+            });
+        });
+    </script>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        @Html.Hidden("HasOpCompleted", Model.HasCompleted ? "1" : "")
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false})
+        </div>
+        <table cellspacing="5" width="100%" height="100%">
+            <colgroup>
+                <col />
+                <col />
+            </colgroup>
+            <tbody>
+                <tr>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 15px;" id="Notifications">
+                            @Model.Message
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}

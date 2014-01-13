@@ -1,0 +1,93 @@
+﻿
+@model LocalMessageImportFromFileViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.LoadLocalMessageFromFileDialogTitle }
+@section TopBarTitle { @BLResources.LoadLocalMessageFromFileDialogTitle }
+@section TopBarMessage { @BLResources.LoadLocalMessageFromFileDialogTitle }
+
+@section PageContent
+{
+    <script type="text/javascript">
+
+        Ext.onReady(function ()
+        {
+
+            Ext.each(Ext.CardLookupSettings, function (item)
+            {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+            {
+                window.close();
+                return;
+            }
+            else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            var depList = window.Ext.getDom("ViewConfig_DependencyList");
+            if (depList.value)
+            {
+                this.DependencyHandler = new window.Ext.DoubleGis.DependencyHandler();
+                this.DependencyHandler.register(window.Ext.decode(depList.value), window.EntityForm);
+            }
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm))
+                {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
+                    {
+                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                    });
+                    window.EntityForm.submit();
+                }
+            });
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "enctype", "multipart/form-data" } }))
+    {
+        <div class="Tab">
+            @Html.HiddenFor(m=>m.ViewConfig.DependencyList)
+            <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.IntegrationType, FieldFlex.lone, null, LocalMessageController.IntegrationTypeImportResourceManager)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit })
+            </div>
+            <div class="row-wrapper">
+                <div class="display-wrapper field-wrapper">
+                    <div class="label-wrapper">
+                        <label for="file1">Файл</label>:
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="file" id="file1" name="file" class="inputfields" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    @* TODO : переделать на использование OperationController. *@
+        @if(Model != null && Model.MessageErrors != null && Model.MessageErrors.Length > 0)
+        {
+            using (Html.BeginForm("GetValidationResults", "LocalMessage", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" } }))
+            {
+               <input type="hidden" name="errors" value="@Model.MessageErrors" />
+               <input type="submit" name="button" value="Ошибки" />
+            }
+        }
+}

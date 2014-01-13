@@ -1,0 +1,114 @@
+﻿@using Platform.Model.Metadata.Enums
+
+@model PriceViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        window.InitPage = function ()
+        {
+            window.Card.on("beforebuild", function (cardObject)
+            {
+
+                this.Publish = function ()
+                {
+                    if (Ext.getDom("IsPublished").checked)
+                    {
+                        alert('@BLResources.PriceIsAlreadyPublished');
+                        return;
+                    }
+                    var params = "dialogWidth:" + 500 + "px; dialogHeight:" + 150 + "px; status:yes; scroll:no;resizable:no;";
+                    var url = '/Price/Publish';
+                    var arguments = {
+                        priceId: Ext.getDom("Id").value,
+                        organizationUnitId: Ext.getDom("OrganizationUnitId").value,
+                        beginDate: formatDate(Ext.getDom("BeginDate").value),
+                        publishDate: formatDate(Ext.getDom("PublishDate").value)
+                    };
+
+                    this.Items.Toolbar.disable();
+                    window.showModalDialog(url, arguments, params);
+                    this.refresh(true);
+                };
+
+                this.Unpublish = function ()
+                {
+                    if (!Ext.getDom("IsPublished").checked)
+                    {
+                        alert('@BLResources.CantUnpublishPriceWhenUnpublished');
+                        return;
+                    }
+                    var params = "dialogWidth:" + 500 + "px; dialogHeight:" + 150 + "px; status:yes; scroll:no;resizable:no;";
+                    var url = '/Price/Unpublish';
+                    var arguments = {
+                        priceId: Ext.getDom("Id").value
+                    };
+
+                    this.Items.Toolbar.disable();
+                    window.showModalDialog(url, arguments, params);
+                    window.Card.isDirty = false;
+                    this.refresh(true);
+                };
+
+                this.Copy = function ()
+                {
+                    var params = "dialogWidth:" + 500 + "px; dialogHeight:" + 250 + "px; status:yes; scroll:no;resizable:no;";
+                    var url = '/Price/Copy';
+                    var arguments = {
+                        priceId: Ext.getDom("Id").value
+                    };
+
+                    var disabledItems = [];
+                    this.Items.Toolbar.items.items.forEach(function (x) { if (x.disabled) { disabledItems.push(x); } });
+                    
+                    this.Items.Toolbar.disable();
+                    var nextAction = window.showModalDialog(url, arguments, params);
+                    this.Items.Toolbar.enable();
+
+                    // Включились все кнопки, поэтому деактивируем ранее деактивированные.
+                    disabledItems.forEach(function (x) { x.disable(); });
+
+                    if (nextAction == "Close")
+                    {
+                        window.opener.Entity.refresh();
+                        window.close();
+                    }
+                    if (nextAction == "Reload")
+                    { this.refresh(true); }
+                };
+            });
+
+            function formatDate(dateUnformatted)
+            {
+                return dateUnformatted.substring(3, 5) + '.' + dateUnformatted.substring(0, 2) + '.' + dateUnformatted.substring(6);
+            }
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.CurrencyId)
+            @Html.HiddenFor(m => m.Name)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CreateDate, FieldFlex.twins, new DateTimeSettings{ReadOnly = true})
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, SearchFormFilterInfo = "IsDeleted=false&&IsActive=true"})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PublishDate, FieldFlex.twins, new DateTimeSettings { MinDate = DateTime.Now, ShiftOffset = false})
+            @Html.TemplateField(m => m.IsPublished, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BeginDate, FieldFlex.twins, new DateTimeSettings{MinDate = DateTime.Now.AddDays(1), ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
+        </div>
+    </div>
+}

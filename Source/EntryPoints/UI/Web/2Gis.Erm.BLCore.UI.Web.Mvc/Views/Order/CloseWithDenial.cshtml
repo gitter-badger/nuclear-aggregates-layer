@@ -1,0 +1,104 @@
+﻿
+@model CloseOrderWithDenialViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @ErmConfigLocalization.ControlCloseWithDenial }
+@section TopBarTitle { @ErmConfigLocalization.ControlCloseWithDenial }
+@section TopBarMessage { @Model.Confirmation }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            var depList = window.Ext.getDom("ViewConfig_DependencyList");
+            if (depList.value)
+            {
+                this.DependencyHandler = new window.Ext.DoubleGis.DependencyHandler();
+                this.DependencyHandler.register(window.Ext.decode(depList.value), window.EntityForm);
+            }
+            depList.value = null;
+
+            if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+
+            if (Ext.getDom("CanClose").checked)
+            {
+                Ext.get("OK").on("click", function ()
+                {
+                    if (Ext.DoubleGis.FormValidator.validate(window.EntityForm))
+                    {
+                        submitForm();
+                    }
+                });
+            }
+            else
+            {
+                Ext.getDom("Cancel").value = Ext.getDom("OK").value;
+                Ext.get("OK").hide();
+            }
+        });
+
+        var submitForm = function ()
+        {
+            Ext.getDom("OK").disabled = "disabled";
+            Ext.getDom("Cancel").disabled = "disabled";
+            window.Ext.get("Notifications").removeClass("Notifications");
+            Ext.getDom("Reason").disabled = true;
+            Ext.get("Reason").addClass("readonly");
+
+            var callLink = "/Order/CloseWithDenial";
+
+            window.Ext.Ajax.request({
+                timeout: 1200000,
+                url: callLink,
+                params:
+                {
+                    orderId: Ext.getDom("OrderId").value,
+                    reason: window.Ext.getDom("Reason").value
+                },
+                method: 'POST',
+                success: function ()
+                {
+                    window.returnValue = true;
+                    window.close();
+                },
+                failure: fail
+            });
+        };
+
+        var fail = function (xmlHttpRequest)
+        {
+            window.Ext.getDom("Notifications").innerHTML = xmlHttpRequest.responseText;
+            window.Ext.get("Notifications").addClass("Notifications");
+            Ext.getDom("Notifications").style.display = "block";
+
+            window.Ext.getDom("OK").disabled = false;
+            window.Ext.getDom("Cancel").disabled = false;
+
+            window.Ext.getDom("Reason").disabled = false;
+            window.Ext.get("Reason").removeClass("readonly");
+        };
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <div class="Tab">
+        <div style="display: none; height: 20px;" id="Notifications" class="Notifications">@Model.Message</div>
+        @Html.HiddenFor(m => m.OrderId)
+        @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+        <div style="display: none;">@Html.CheckBoxFor(m => m.CanClose)</div>
+
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Reason, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>
+
+    </div>
+    }
+}

@@ -1,0 +1,140 @@
+﻿@* 2+: BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.Web.Mvc.Global\Views\CreateOrUpdate\Client.cshtml *@
+
+@model ClientViewModel
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        window.InitPage = function () {
+            window.Card.on("beforebuild", function () {
+                if (Ext.getDom("Id").value != 0) {
+                    // change owner
+                    this.ChangeOwner = function () {
+                        var params = "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
+                        var sUrl = "/GroupOperation/Assign/Client";
+                        var result = window.showModalDialog(sUrl, [Ext.getDom("Id").value], params);
+                        if (result === true) {
+                            this.refresh(true);
+                        }
+                    };
+
+                    // change territory
+                    this.ChangeTerritory = function () {
+                        var params = "dialogWidth:450px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ";
+                        var sUrl = "/GroupOperation/ChangeTerritory/Client";
+                        var result = window.showModalDialog(sUrl, [Ext.getDom("Id").value], params);
+                        if (result === true) {
+                            this.refresh(true);
+                        }
+                    };
+
+                    // qualify
+                    this.Qualify = function () {
+                        var params = "dialogWidth:650px; dialogHeight:300px; status:yes; scroll:no; resizable:no; ";
+                        var sUrl = "/GroupOperation/Qualify/Client/";
+                        var result = window.showModalDialog(sUrl, [Ext.getDom("Id").value], params);
+                        if (result === true) {
+                            this.refresh(true);
+                        }
+                    };
+
+                    // disqualify
+                    this.Disqualify = function () {
+                        var params = "dialogWidth:650px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ";
+                        var sUrl = "/GroupOperation/Disqualify/Client";
+                        var result = window.showModalDialog(sUrl, [Ext.getDom("Id").value], params);
+                        if (result === true) {
+                            this.refresh(true);
+                        }
+                    };
+                    this.Merge = function () {
+                        var params = "dialogWidth:" + 800 + "px; dialogHeight:" + 600 + "px; status:yes; scroll:yes;resizable:yes;";
+                        var url = '/Client/Merge?masterId={0}';
+                        window.showModalDialog(String.format(url, Ext.getDom("Id").value), null, params);
+                        this.refresh(true);
+                    };
+                }
+            });
+
+            window.Card.on("afterbuild", function (card) {
+                if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
+                    this.Items.TabPanel.add(
+                        {
+                            xtype: "actionshistorytab",
+                            pCardInfo:
+                            {
+                                pTypeName: this.Settings.EntityName,
+                                pId: window.Ext.getDom("ViewConfig_Id").value
+                            }
+                        });
+                }
+            });
+        };
+    </script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ReplicationCode)
+    @Html.HiddenFor(m => m.CanEditIsAdvertisingAgency)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainPhoneNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Fax, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdditionalPhoneNumber1, FieldFlex.twins)
+            @Html.TemplateField(m => m.Email, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdditionalPhoneNumber2, FieldFlex.twins)
+            @Html.TemplateField(m => m.Website, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsAdvertisingAgency, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+        </div>
+        @Html.SectionHead("SectionHead2", BLResources.AdditionalTabTitle)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.InformationSource, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PromisingScore, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
+            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, SearchFormFilterInfo = "ClientId={Id}" })
+        </div>
+    </div>
+    <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
+        @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
+        @if (Model.IsCurated && Model.IsSecurityRoot)
+        {
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+                @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) })
+            </div>
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+    </div>
+}

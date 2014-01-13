@@ -1,0 +1,53 @@
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
+{
+    public class GetThemeTemplateDtoService : GetDomainEntityDtoServiceBase<ThemeTemplate>
+    {
+        private readonly IFinder _finder;
+
+        public GetThemeTemplateDtoService(IUserContext userContext, IFinder finder) : base(userContext)
+        {
+            _finder = finder;
+        }
+
+        protected override IDomainEntityDto<ThemeTemplate> GetDto(long entityId)
+        {
+            var dto =
+                _finder.Find<ThemeTemplate>(x => x.Id == entityId)
+                       .Select(entity => new ThemeTemplateDomainEntityDto
+                           {
+                               Id = entity.Id,
+                               FileId = entity.FileId,
+                               TemplateCode = entity.TemplateCode,
+                               IsSkyScraper = entity.IsSkyScraper,
+                               IsTemplateUsedInThemes = entity.Themes.Any(y => y.IsActive && !y.IsDeleted),
+                               FileContentType = entity.File.ContentType,
+                               FileName = entity.File.FileName,
+                               FileContentLength = entity.File.ContentLength,
+                               CreatedByRef = new EntityReference { Id = entity.CreatedBy },
+                               CreatedOn = entity.CreatedOn,
+                               IsActive = entity.IsActive,
+                               IsDeleted = entity.IsDeleted,
+                               ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
+                               ModifiedOn = entity.ModifiedOn,
+                               Timestamp = entity.Timestamp
+                           })
+                       .Single();
+
+            return dto;
+        }
+
+        protected override IDomainEntityDto<ThemeTemplate> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        {
+            return new ThemeTemplateDomainEntityDto();
+        }
+    }
+}

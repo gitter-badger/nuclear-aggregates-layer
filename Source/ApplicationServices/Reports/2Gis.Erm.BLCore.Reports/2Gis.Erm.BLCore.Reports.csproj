@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.Reports</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.Reports</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=3.0.0.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EPPlus.3.0.0.2\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="IReport.cs" />
+    <Compile Include="LegalPersonPayments\LegalPersonPayments.cs" />
+    <Compile Include="ProtectedDictionary.cs" />
+    <Compile Include="ReportBase.cs" />
+    <Compile Include="PlanningReport\PlanningReport.cs" />
+    <Compile Include="SpreadsheetReportBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LegalPersonPayments\Категории_и_распределение.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Служебная.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Полная_ДЗ.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Поступления_по_ДЗ.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Рассрочки.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Оплаты_по_ДЗ_до_01_12.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Продление.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Гарантированные_отгрузки.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_Текущие.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LegalPersonPayments\Лист_Оплаты_прироста.sql" />
+    <EmbeddedResource Include="LegalPersonPayments\Лист_Распреление_оплат.sql" />
+    <EmbeddedResource Include="LegalPersonPayments\Лист_Результаты_по_МПП.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PlanningReport\Расчет_групп_МПП.sql" />
+    <EmbeddedResource Include="PlanningReport\Лист_ДЗ_накопленная_с_01_12.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

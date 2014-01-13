@@ -1,0 +1,48 @@
+﻿@model ThemeViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.Theme.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    <div style="display: none">
+        @Html.HiddenFor(m => m.FileName)
+        @Html.HiddenFor(m => m.FileContentType)
+        @Html.HiddenFor(m => m.FileContentLength)
+        @Html.HiddenFor(m => m.IdentityServiceUrl)
+        @Html.HiddenFor(m => m.OrganizationUnitCount)
+    </div>
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.twins, new Dictionary<string, object> {{"class", "inputfields"}})
+            @Html.TemplateField(m => m.ThemeTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityName.ThemeTemplate })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BeginDistribution, FieldFlex.twins, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber})
+            @Html.TemplateField(m => m.EndDistribution, FieldFlex.twins, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyUpperBound, DisplayStyle = DisplayStyle.WithoutDayNumber})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsDefault, FieldFlex.lone, new Dictionary<string, object> { {"disabled", "disabled"} })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+        </div>
+        <div id="UploadedFile-wrapper" class="display-wrapper field-wrapper lone">
+            <div class="row-wrapper">
+                <img alt="@BLResources.UploadedImage" id = "UploadedImage" src="/Content/images/default/blank-image.gif?@SolutionInfo.ProductVersion.Build"/>
+            </div>
+        </div>
+    </div>
+}

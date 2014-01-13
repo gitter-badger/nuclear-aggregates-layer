@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedEnumComboBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedComboBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedTextBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedLookup.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedDatePicker.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Infrastructure;component/Presentation/Controls/NamedCheckBox.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <system:Int32 x:Key="BindingDelay">500</system:Int32>
+</ResourceDictionary>

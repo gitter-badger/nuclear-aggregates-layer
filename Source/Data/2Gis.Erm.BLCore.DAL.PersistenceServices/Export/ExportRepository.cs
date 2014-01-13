@@ -1,0 +1,45 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
+{
+    public sealed class ExportRepository<TEntity> : IExportRepository<TEntity> where TEntity : class, IEntity, IEntityKey
+    {
+        private readonly IFinder _finder;
+        private readonly IOperationContextParser _operationContextParser;
+        private readonly QueryRuleContainer<TEntity> _metadata;
+
+        public ExportRepository(IFinder finder, IExportMetadataProvider metadataProvider, IOperationContextParser operationContextParser)
+        {
+            _finder = finder;
+            _operationContextParser = operationContextParser;
+            _metadata = metadataProvider.GetMetadata<TEntity>();
+        }
+
+        public IQueryBuilder<TEntity> GetBuilderForFailedObjects(IEnumerable<ExportFailedEntity> failedEntities)
+        {
+            return new FailedQueueQueryBuilder<TEntity>(_finder, failedEntities);
+        }
+
+        public IQueryBuilder<TEntity> GetBuilderForOperations(IEnumerable<PerformedBusinessOperation> operations)
+        {
+            return new OperationsQueryBuilder<TEntity>(_finder, operations, _metadata, _operationContextParser);
+        }
+
+        // FIXME {a.rechkalov, 16.08.2013}: Почему тут не использовать ISelectSpecification?
+        // DONE {d.ivanov, 17.09.2013}: Если и была причина, то сейчас её уже не вижу/не помню.
+        public IEnumerable<TDto> GetEntityDtos<TDto>(IQueryBuilder<TEntity> queryBuilder,
+                                                     ISelectSpecification<TEntity, TDto> selectSpecification,
+                                                     params IFindSpecification<TEntity>[] filterSpecifications)
+        {
+            var query = queryBuilder.Create(filterSpecifications);
+            return query.Select(selectSpecification.Selector).ToArray();
+        }
+    }
+}

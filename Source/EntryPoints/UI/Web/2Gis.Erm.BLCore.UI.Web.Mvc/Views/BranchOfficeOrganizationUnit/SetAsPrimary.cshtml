@@ -1,0 +1,68 @@
+﻿@model SetBranchOfficeOrganizationUnitStatusViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ConfirmYourAction }
+@section TopBarTitle { @BLResources.SetAsPrimary }
+@section TopBarMessage { @BLResources.SetAsPrimaryLegend }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+            {
+                window.close();
+                return;
+            }
+            else if (Ext.getDom("Notifications").innerHTML.trim() != "" && Ext.getDom("Notifications").innerHTML.trim() != "OK")
+            {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+
+            // write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", submitForm);
+
+        });
+
+        var submitForm = function ()
+        {
+            Ext.getDom("OK").disabled = "disabled";
+            Ext.getDom("Cancel").disabled = "disabled";
+            window.Ext.get("Notifications").removeClass("Notifications");
+
+            if (window.dialogArguments && window.dialogArguments.length)
+            {
+                Ext.getDom("Id").value = window.dialogArguments[0];
+                window.EntityForm.submit();
+            }
+        };
+    </script>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col width="26" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 24px;" id="Notifications">
+                        @Model.Message</div>
+                </td>
+            </tr>
+            <tr style="display: none">
+                <td>
+                    @Html.HiddenFor(m=>m.Id)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

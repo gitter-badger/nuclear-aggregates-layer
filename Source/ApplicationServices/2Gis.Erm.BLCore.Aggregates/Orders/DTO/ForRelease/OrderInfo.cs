@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease
+{
+    public sealed class OrderInfo
+    {
+        public long Id { get; set; }
+        public long DestOrganizationUnitId { get; set; }
+        public string Number { get; set; }
+        public long CuratorId { get; set; }
+        public long? ApproverId { get; set; }
+        public long? StableFirmId { get; set; }
+        public int Status { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime BeginDistributionDate { get; set; }
+        public DateTime EndDistributionDate { get; set; }
+        public IEnumerable<OrderPositionInfo> Positions { get; set; }
+        public IEnumerable<OrderPositionInfo> CompositePositions { get; set; }
+    }
+}

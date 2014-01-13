@@ -1,0 +1,83 @@
+﻿
+@model NoteViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <style type="text/css">
+        DIV.row-wrapper TABLE TD
+        {
+            padding-left: 5px;
+        }
+        TD.span-wrapper
+        {
+            padding-left: 10px !important;
+            padding-right: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.InitPage = function ()
+        {
+            this.on("afterbuild", function () {
+                var u = new Ext.ux.AsyncFileUpload(
+                    {
+                        applyTo: 'FileId',
+                        uploadUrl: '/Upload/Note',
+                        downloadUrl: Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/Note/{0}',
+                        listeners: {
+                            fileuploadbegin: function ()
+                            {
+                                this.Items.Toolbar.disable();
+                            },
+                            fileuploadcomplete: function ()
+                            {
+                                this.Items.Toolbar.enable();
+                            },
+                            fileuploadsuccess: function () {
+                                if (Ext.getDom('FileExists').value.toLowerCase() == "true") {
+                                    this.refresh();
+                                }
+                            },
+                            scope: this
+                        },
+                        fileInfo:
+                            {
+                                fileId: '@Model.FileId',
+                                fileName: '@Model.FileName',
+                                contentType: '@Model.FileContentType',
+                                fileSize: '@Model.FileContentLength'
+                            }
+                    });
+            }, this);
+
+            this.on('afterpost', function () {
+                Ext.getDom('FileExists').value = Ext.getDom('FileId').value > 0;
+            }, this);
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.Note">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.ParentId)
+            @Html.HiddenFor(m => m.ParentTypeName)
+            @Html.Hidden("FileExists", Model.FileId > 0)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Title, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Text, FieldFlex.lone, new Dictionary<string, object>{{"rows", 5}})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+        </div>
+    </div>
+}
