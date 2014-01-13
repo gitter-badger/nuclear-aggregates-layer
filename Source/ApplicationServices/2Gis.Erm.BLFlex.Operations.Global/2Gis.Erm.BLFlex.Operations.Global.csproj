@@ -62,15 +62,16 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Cyprus\Concrete\Old\AccountDetails\CyprusValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\CyprusCalculateReleaseWithdrawalsHandler.cs" />
+    <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditClientHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonProfileHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusMergeLegalPersonsHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusValidatePaymentRequisitesIsUniqueHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\Number\CyprusGenerateOrderNumberHandler.cs" />
-    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderWithGuarateeHandler.cs" />
@@ -89,9 +90,10 @@
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusTaskObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditOrderPositionHandler.cs" />
     <Compile Include="Czech\Concrete\Old\AccountDetails\CzechValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Clients\CzechCheckClientActivitiesHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\CzechCalculateReleaseWithdrawalsHandler.cs" />
-    <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonProfileHandler.cs" />
+    <Compile Include="Czech\Generic\Modify\Old\CzechEditClientHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechMergeLegalPersonsHandler.cs" />
@@ -118,30 +120,11 @@
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechPhonecallObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechTaskObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditOrderPositionHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CyprusPrintOrderAdditionalAgreementHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CyprusPrintOrderTerminationNoticeHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechActivateLegalPersonService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechAppointmentObtainer.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechCheckClientActivitiesHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechEditLegalPersonProfileHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGenerateOrderNumberHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetAppointmentDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetLegalPersonDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetLegalPersonProfileDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetOrderDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetPhonecallDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechGetTaskDtoService.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechLegalPersonObtainer.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPhonecallObtainer.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPrintLetterOfGuaranteeHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPrintOrderAdditionalAgreementHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPrintOrderHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPrintOrderTerminationNoticeHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechPrintOrderWithGuarateeHandler.cs" />
-    <Compile Include="DuplicatesFromOperations\CzechTaskObtainer.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />
+    <Compile Include="Russia\Generic\Modify\Old\EditClientHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonProfileHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
@@ -172,41 +155,41 @@
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
-      <Name>2Gis.Erm.BL.API.Common</Name>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
-      <Name>2Gis.Erm.BL.API.MoDi</Name>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
-      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
-      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
-      <Name>2Gis.Erm.BL.Common</Name>
+      <Name>2Gis.Erm.BLCore.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>

@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 
-using DoubleGis.Erm.BL.Aggregates.Orders;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Compression;

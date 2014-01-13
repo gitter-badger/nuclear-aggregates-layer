@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Remote.Disqualify;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.Operations.Concrete.Old.Clients;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -14,20 +15,16 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Microsoft.Xrm.Client;
-using Microsoft.Xrm.Client.Data.Services;
-using Microsoft.Xrm.Client.Services;
-
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients
 {
     public sealed class CheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IRussiaAdapted
     {
-        private readonly IMsCrmSettings _crmSettings;
+        private readonly IMsCrmSettings _msCrmSettings;
         private readonly IFinder _finder;
 
-        public CheckClientActivitiesHandler(IMsCrmSettings crmSettings, IFinder finder)
+        public CheckClientActivitiesHandler(IMsCrmSettings msCrmSettings, IFinder finder)
         {
-            _crmSettings = crmSettings;
+            _msCrmSettings = msCrmSettings;
             _finder = finder;
         }
 
@@ -36,15 +33,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-            if (_crmSettings.EnableReplication)
+            if (_msCrmSettings.EnableReplication)
             {
                 var clientReplicationCode = _finder.Find(Specs.Find.ById<Client>(request.ClientId)).Select(x => x.ReplicationCode).Single();
 
                 try
                 {
-                    var crmConnection = new CrmConnection("CrmConnection");
-                    var crmDataContext = new CrmDataContext(null, () => new OrganizationService(null, crmConnection));
-
+                    var crmDataContext = _msCrmSettings.CreateDataContext();
                     if (ActivityHelper.HasAnyOpenedActivities(crmDataContext, clientReplicationCode))
                     {
                         throw new NotificationException(BLResources.NeedToCloseAllActivities);

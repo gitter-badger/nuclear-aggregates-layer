@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Operations.Generic.Get;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;

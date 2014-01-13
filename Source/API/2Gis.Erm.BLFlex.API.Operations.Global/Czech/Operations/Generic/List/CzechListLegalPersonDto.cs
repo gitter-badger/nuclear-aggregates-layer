@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Generic.List;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

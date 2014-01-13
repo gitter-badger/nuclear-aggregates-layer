@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Orders;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.OrderPositions;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.Discounts;
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify.Old;
-using DoubleGis.Erm.BL.API.OrderValidation;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -19,6 +20,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 {
@@ -291,7 +294,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationResultsResetter.SetGroupAsInvalid(orderId, BL.API.OrderValidation.OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
         }
     }
 }

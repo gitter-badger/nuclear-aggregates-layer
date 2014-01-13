@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Users;
-using DoubleGis.Erm.BL.API.Operations.Generic.List.DTO;
-using DoubleGis.Erm.BL.API.Operations.Metadata;
-using DoubleGis.Erm.BL.Operations.Generic.List.Infrastructure;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List.DTO;
+using DoubleGis.Erm.BLCore.API.Operations.Metadata;
+using DoubleGis.Erm.BLCore.Operations.Generic.List.Infrastructure;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;

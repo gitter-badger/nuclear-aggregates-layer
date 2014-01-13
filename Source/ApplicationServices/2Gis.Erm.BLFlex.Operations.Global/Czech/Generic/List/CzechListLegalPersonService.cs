@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Metadata;
-using DoubleGis.Erm.BL.Operations.Generic.List.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Metadata;
+using DoubleGis.Erm.BLCore.Operations.Generic.List.Infrastructure;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;

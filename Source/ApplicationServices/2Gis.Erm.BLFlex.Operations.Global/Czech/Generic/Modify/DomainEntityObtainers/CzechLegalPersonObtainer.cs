@@ -1,6 +1,6 @@
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;

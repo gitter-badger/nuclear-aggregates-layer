@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting

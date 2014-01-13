@@ -393,18 +393,6 @@
   <data name="PositionBindingObjectTypeAddressFirstLevelCategoryMultiple" xml:space="preserve">
     <value>Rubrika 1. úrovně adresy (mn.)</value>
   </data>
-  <data name="ReleaseInfoStatusInProgress" xml:space="preserve">
-    <value>IN PROGRESS</value>
-  </data>
-  <data name="ReleaseInfoStatusSuccess" xml:space="preserve">
-    <value>SUCCESS</value>
-  </data>
-  <data name="ReleaseInfoStatusError" xml:space="preserve">
-    <value>ERROR</value>
-  </data>
-  <data name="ReleaseInfoStatusReverted" xml:space="preserve">
-    <value>CANCELLED</value>
-  </data>
   <data name="ReleaseInfoOperationTypeBeta" xml:space="preserve">
     <value>Technická</value>
   </data>
@@ -783,17 +771,14 @@
   <data name="SalesReportTypeToProlongation" xml:space="preserve">
     <value>K prolongaci</value>
   </data>
-  <data name="WithdrawalInfoStatusError" xml:space="preserve">
-    <value>ERROR</value>
+  <data name="WithdrawalStatusError" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="WithdrawalInfoStatusInProgress" xml:space="preserve">
-    <value>IN PROGRESS</value>
+  <data name="WithdrawalStatusReverted" xml:space="preserve">
+    <value>Reverted</value>
   </data>
-  <data name="WithdrawalInfoStatusReverted" xml:space="preserve">
-    <value>CANCELLED</value>
-  </data>
-  <data name="WithdrawalInfoStatusSuccess" xml:space="preserve">
-    <value>SUCCESS</value>
+  <data name="WithdrawalStatusSuccess" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="ActionTypeActivate" xml:space="preserve">
     <value>Aktivace</value>
@@ -1476,9 +1461,6 @@
   <data name="PlatformsExtendedOnline" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value />
-  </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Šek</value>
   </data>
@@ -1722,6 +1704,24 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Dohoda o zrušení smlouvy pro pr. osobu</value>
   </data>
+  <data name="ReleaseStatusSuccess" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ReleaseStatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ReleaseStatusReverted" xml:space="preserve">
+    <value>Reverted</value>
+  </data>
+  <data name="ReleaseStatusReverting" xml:space="preserve">
+    <value>Reverting</value>
+  </data>
+  <data name="ReleaseStatusInProgressInternalProcessingStarted" xml:space="preserve">
+    <value>InProgress Internal Processing Started</value>
+  </data>
+  <data name="ReleaseStatusInProgressWaitingExternalProcessing" xml:space="preserve">
+    <value>InProgress Waiting External Processing</value>
+  </data>
   <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
     <value>Бланк заказа без НДС со скидкой</value>
   </data>
@@ -1749,6 +1749,12 @@
   <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
     <value>Не определено</value>
   </data>
+  <data name="WithdrawalStatusReverting" xml:space="preserve">
+    <value>Reverting</value>
+  </data>
+  <data name="WithdrawalStatusWithdrawing" xml:space="preserve">
+    <value>Withdrawing</value>
+  </data>
   <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
     <value>Заявка на создание заказа</value>
   </data>
@@ -1760,5 +1766,32 @@
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
     <value>Управление рекламными агентствами</value>
+  </data>
+  <data name="ReasonForNewDealBizaccount" xml:space="preserve">
+    <value>Личный кабинет</value>
+  </data>
+  <data name="RequestMessageTypeDebug" xml:space="preserve">
+    <value>Техническое</value>
+  </data>
+  <data name="RequestMessageTypeError" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="RequestMessageTypeInfo" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="RequestMessageTypeWarning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate" xml:space="preserve">
+    <value>Проверка соответсвия шаблона РМ шаблону, указанному в номенклатурной позиции </value>
+  </data>
+  <data name="AdvertisementValidationRuleCorrectAddress" xml:space="preserve">
+    <value>Проверка корректности адреса</value>
+  </data>
+  <data name="AdvertisementValidationRuleIsTemplatePublished" xml:space="preserve">
+    <value>Проверка опубликованности шаблона РМ</value>
+  </data>
+  <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
+    <value>Проверка наличия обязательных РМ</value>
   </data>
 </root>

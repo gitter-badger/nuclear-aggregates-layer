@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Metadata;
-using DoubleGis.Erm.BL.Operations.Generic.List.Infrastructure;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.API.Operations.Metadata;
+using DoubleGis.Erm.BLCore.Operations.Generic.List.Infrastructure;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;

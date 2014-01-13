@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -393,18 +393,6 @@
   <data name="PositionBindingObjectTypeAddressFirstLevelCategoryMultiple" xml:space="preserve">
     <value>Рубрика 1-го уровня адреса (мн)</value>
   </data>
-  <data name="ReleaseInfoStatusInProgress" xml:space="preserve">
-    <value>IN PROGRESS</value>
-  </data>
-  <data name="ReleaseInfoStatusSuccess" xml:space="preserve">
-    <value>SUCCESS</value>
-  </data>
-  <data name="ReleaseInfoStatusError" xml:space="preserve">
-    <value>ERROR</value>
-  </data>
-  <data name="ReleaseInfoStatusReverted" xml:space="preserve">
-    <value>CANCELLED</value>
-  </data>
   <data name="ReleaseInfoOperationTypeBeta" xml:space="preserve">
     <value>Техническая</value>
   </data>
@@ -500,9 +488,6 @@
   </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
     <value>Выгрузка сверок</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersWithAdsToExport" xml:space="preserve">
-    <value>Выгрузка активных заказов</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
@@ -792,17 +777,14 @@
   <data name="SalesReportTypeToProlongation" xml:space="preserve">
     <value>К продлению</value>
   </data>
-  <data name="WithdrawalInfoStatusError" xml:space="preserve">
-    <value>ERROR</value>
+  <data name="WithdrawalStatusError" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="WithdrawalInfoStatusInProgress" xml:space="preserve">
-    <value>IN PROGRESS</value>
+  <data name="WithdrawalStatusReverted" xml:space="preserve">
+    <value>Reverted</value>
   </data>
-  <data name="WithdrawalInfoStatusReverted" xml:space="preserve">
-    <value>CANCELLED</value>
-  </data>
-  <data name="WithdrawalInfoStatusSuccess" xml:space="preserve">
-    <value>SUCCESS</value>
+  <data name="WithdrawalStatusSuccess" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="ActionTypeActivate" xml:space="preserve">
     <value>Активация</value>
@@ -1485,9 +1467,6 @@
   <data name="PlatformsExtendedOnline" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value />
-  </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Чек</value>
   </data>
@@ -1731,6 +1710,24 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Соглашение о расторжении договора для юр. лица</value>
   </data>
+  <data name="ReleaseStatusSuccess" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ReleaseStatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ReleaseStatusReverted" xml:space="preserve">
+    <value>Reverted</value>
+  </data>
+  <data name="ReleaseStatusReverting" xml:space="preserve">
+    <value>Reverting</value>
+  </data>
+  <data name="ReleaseStatusInProgressInternalProcessingStarted" xml:space="preserve">
+    <value>InProgress Internal Processing Started</value>
+  </data>
+  <data name="ReleaseStatusInProgressWaitingExternalProcessing" xml:space="preserve">
+    <value>InProgress Waiting External Processing</value>
+  </data>
   <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
     <value>Бланк заказа без НДС со скидкой</value>
   </data>
@@ -1758,6 +1755,12 @@
   <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
     <value>Не определено</value>
   </data>
+  <data name="WithdrawalStatusReverting" xml:space="preserve">
+    <value>Reverting</value>
+  </data>
+  <data name="WithdrawalStatusWithdrawing" xml:space="preserve">
+    <value>Withdrawing</value>
+  </data>
   <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
     <value>Заявка на создание заказа</value>
   </data>
@@ -1769,5 +1772,32 @@
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
     <value>Управление рекламными агентствами</value>
+  </data>
+  <data name="ReasonForNewDealBizaccount" xml:space="preserve">
+    <value>Личный кабинет</value>
+  </data>
+  <data name="RequestMessageTypeDebug" xml:space="preserve">
+    <value>Техническое</value>
+  </data>
+  <data name="RequestMessageTypeError" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="RequestMessageTypeInfo" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="RequestMessageTypeWarning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate" xml:space="preserve">
+    <value>Проверка соответсвия шаблона РМ шаблону, указанному в номенклатурной позиции </value>
+  </data>
+  <data name="AdvertisementValidationRuleCorrectAddress" xml:space="preserve">
+    <value>Проверка корректности адреса</value>
+  </data>
+  <data name="AdvertisementValidationRuleIsTemplatePublished" xml:space="preserve">
+    <value>Проверка опубликованности шаблона РМ</value>
+  </data>
+  <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
+    <value>Проверка наличия обязательных РМ</value>
   </data>
 </root>

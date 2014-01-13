@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <WebGreaseLibPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\RazorGenerator.Mvc.2.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebActivatorEx.2.0.4\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="Areas\AreaRegistrations.cs" />
+    <Compile Include="Areas\Cyprus\AreaRegistrator.cs" />
+    <Compile Include="Areas\Cyprus\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Cyprus\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Cyprus\EnumCustomization\IntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Czech\AreaRegistrator.cs" />
+    <Compile Include="Areas\Czech\Controllers\ContactController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Czech\Controllers\LegalPersonController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Czech\EnumCustomization\IntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\AreaRegistrator.cs" />
+    <Compile Include="Areas\Russia\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Russia\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Russia\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\LegalPerson\Merge.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Merge.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\LegalPerson\MergeLegalPersonsGetData.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MergeLegalPersonsGetData.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\CyprusAccountViewModel.cs" />
+    <Compile Include="Models\CyprusActivityBaseViewModelAbstract.cs" />
+    <Compile Include="Models\CyprusAppointmentViewModel.cs" />
+    <Compile Include="Models\CyprusBargainTypeViewModel.cs" />
+    <Compile Include="Models\CyprusBargainViewModel.cs" />
+    <Compile Include="Models\CyprusBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\CyprusBranchOfficeViewModel.cs" />
+    <Compile Include="Models\CyprusChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\CyprusClientViewModel.cs" />
+    <Compile Include="Models\CyprusContactViewModel.cs" />
+    <Compile Include="Models\CyprusFirmViewModel.cs" />
+    <Compile Include="Models\CyprusLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\CyprusLegalPersonViewModel.cs" />
+    <Compile Include="Models\CyprusOrderViewModel.cs" />
+    <Compile Include="Models\CyprusPhonecallViewModel.cs" />
+    <Compile Include="Models\CyprusTaskViewModel.cs" />
+    <Compile Include="Models\CzechAccountViewModel.cs" />
+    <Compile Include="Models\CzechActivityBaseViewModelAbstract.cs" />
+    <Compile Include="Models\CzechAppointmentViewModel.cs" />
+    <Compile Include="Models\CzechBargainTypeViewModel.cs" />
+    <Compile Include="Models\CzechBargainViewModel.cs" />
+    <Compile Include="Models\CzechBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\CzechBranchOfficeViewModel.cs" />
+    <Compile Include="Models\CzechChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\CzechClientViewModel.cs" />
+    <Compile Include="Models\CzechContactViewModel.cs" />
+    <Compile Include="Models\CzechFirmViewModel.cs" />
+    <Compile Include="Models\CzechLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\CzechLegalPersonViewModel.cs" />
+    <Compile Include="Models\CzechOrderViewModel.cs" />
+    <Compile Include="Models\CzechPhonecallViewModel.cs" />
+    <Compile Include="Models\CzechTaskViewModel.cs" />
+    <Compile Include="Models\LegalPersonViewModel.cs" />
+    <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="Services\Cards\CyprusActivityViewModelCustomizationServiceHelper.cs" />
+    <Compile Include="Services\Cards\CyprusAppointmentViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusFirmViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusOrderViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusPhonecallViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusTaskViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechAccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechActivityViewModelCustomizationServiceHelper.cs" />
+    <Compile Include="Services\Cards\CzechAppointmentViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechFirmViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechOrderViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechPhonecallViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CzechTaskViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Views\CreateOrUpdate\Contact.generated.cs">
+      <SubType>Code</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusAccount.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusAccount.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusAppointment.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusAppointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusBargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusBargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusBranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusBranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusBranchOfficeOrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusBranchOfficeOrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusContact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusContact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusFirm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusFirm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusLegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusLegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusLegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusLegalPersonProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusOrder.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusOrder.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusPhonecall.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusPhonecall.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusTask.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusTask.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechAccount.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechAccount.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechAppointment.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechAppointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechBargain.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechBargain.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechBargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechBargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechBranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechBranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechBranchOfficeOrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechBranchOfficeOrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechContact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechContact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechFirm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechFirm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechLegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechLegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechLegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechLegalPersonProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechOrder.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechOrder.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechPhonecall.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechPhonecall.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CzechTask.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CzechTask.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\LegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <None Include="App.Config" />
+    <None Include="Areas\Web.config" />
+    <None Include="Views\CreateOrUpdate\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusAccount.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusAccount.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusAppointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusAppointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusBargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusBargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusBranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusBranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusBranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusBranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusContact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusContact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusFirm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusFirm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusLegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusLegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusLegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusLegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusOrder.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusOrder.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusPhonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusPhonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusTask.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusTask.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechAccount.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechAccount.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechAppointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechAppointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechBargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechBargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechBargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechBargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechBranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechBranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechBranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechBranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechContact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechContact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechFirm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechFirm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechLegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechLegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechLegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechLegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechOrder.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechOrder.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechPhonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechPhonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CzechTask.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CzechTask.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\MergeLegalPersonsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeLegalPersonsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{b558aefd-8c80-4f81-98bc-dd3abe3e519e}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Russia\EnumCustomization\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

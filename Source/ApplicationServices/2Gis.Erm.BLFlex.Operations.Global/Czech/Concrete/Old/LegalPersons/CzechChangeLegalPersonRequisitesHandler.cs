@@ -1,9 +1,9 @@
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.LegalPersons;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;

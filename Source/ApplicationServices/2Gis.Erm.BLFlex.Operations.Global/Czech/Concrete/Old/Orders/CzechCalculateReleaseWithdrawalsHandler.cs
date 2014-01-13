@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Orders;
-using DoubleGis.Erm.BL.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BL.Aggregates.Withdrawals;
-using DoubleGis.Erm.BL.API.Common.Enums;
-using DoubleGis.Erm.BL.API.MoDi.Remote.WithdrawalInfo;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.OrderPositions;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;

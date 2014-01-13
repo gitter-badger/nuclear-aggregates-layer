@@ -1,11 +1,11 @@
-﻿using DoubleGis.Erm.BL.Aggregates.Common.Crosscutting;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-namespace DoubleGis.Erm.Unit.Tests.Model
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.Model
 {
     public class InnServiceSpecs
     {
