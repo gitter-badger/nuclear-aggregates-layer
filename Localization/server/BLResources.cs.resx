@@ -935,9 +935,6 @@ Název banky {7}
 	<data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
     <value>Měna '{0}', která má být odstraněna, je propojena s kurzem ke dni '{1}', měnu není možné odstranit.</value>
   </data>
-	<data name="BargainNumberTemplate" xml:space="preserve">
-    <value>S_{0}-{1}-{2}</value>
-  </data>
 	<data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
     <value>Chybí povolení. U firmy není možné provést změnu území</value>
   </data>

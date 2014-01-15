@@ -6,9 +6,9 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Enumeration;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.EnumCustomization
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Cyprus
 {
-    public sealed class IntegrationTypeExportEnumCustomization : EnumCustomizationBase<IntegrationTypeExport>, ICzechAdapted
+    public sealed class CyprusIntegrationTypeExportEnumCustomization : EnumCustomizationBase<IntegrationTypeExport>, ICyprusAdapted
     {
         private readonly IntegrationTypeExport[] _integrationTypes1C = 
             {

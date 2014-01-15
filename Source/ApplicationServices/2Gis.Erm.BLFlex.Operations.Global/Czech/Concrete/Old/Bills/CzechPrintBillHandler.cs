@@ -82,6 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                    .Select(x => new
                                        {
                                            x.Bill,
+                                           BillNumberDigits = GetBillDigitsOnly(x.Bill.BillNumber),
                                            OrderVatRate = (x.Order.VatRate == default(decimal)) ? (decimal?)null : x.Order.VatRate,
                                            x.Order,
                                            PaymentMethod =
@@ -110,6 +111,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                     TemplateCode = GetTemplateCode(billInfo.LegalPersonType)
                 },
                                                       Context);
+        }
+
+        private static string GetBillDigitsOnly(string billNumber)
+        {
+            return string.Join(null, billNumber.Where(char.IsDigit));
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType)

@@ -935,9 +935,6 @@ SWIFT {5}
 	<data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
     <value>У удалаемой валюты '{0}' есть связаный курс на дату '{1}', удаление валюты невозможно.</value>
   </data>
-	<data name="BargainNumberTemplate" xml:space="preserve">
-    <value>Д_{0}-{1}-{2}</value>
-  </data>
 	<data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
     <value>Отсутствует разрешение. Смена территории у фирмы не доступна</value>
   </data>

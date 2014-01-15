@@ -125,7 +125,8 @@
     <Compile Include="Areas\Cyprus\AreaRegistrator.cs" />
     <Compile Include="Areas\Cyprus\Controllers\ContactController.cs" />
     <Compile Include="Areas\Cyprus\Controllers\LegalPersonController.cs" />
-    <Compile Include="Areas\Cyprus\EnumCustomization\IntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeImportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -138,7 +139,8 @@
     <Compile Include="Areas\Czech\Controllers\LegalPersonController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\Czech\EnumCustomization\IntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -219,6 +221,22 @@
     <Compile Include="Services\Cards\CzechPhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CzechTaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaOrderFileKindEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Contact.generated.cs">
       <SubType>Code</SubType>
       <AutoGen>True</AutoGen>
@@ -234,6 +252,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CyprusAppointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CyprusBargain.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CyprusBargain.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\CyprusBargainType.generated.cs">
       <AutoGen>True</AutoGen>
@@ -378,6 +401,10 @@
     <None Include="Views\CreateOrUpdate\CyprusAppointment.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CyprusAppointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CyprusBargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CyprusBargain.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\CyprusBargainType.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -563,7 +590,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Russia\EnumCustomization\" />
+    <Folder Include="Areas\Cyprus\EnumCustomization\" />
+    <Folder Include="Areas\Czech\EnumCustomization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
