@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.BL.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BL.DI.Config;
+using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.DI.Config;
 
 namespace DoubleGis.Erm.API.WCF.Operations.Special
 {

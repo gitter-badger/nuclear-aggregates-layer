@@ -1,5 +1,5 @@
-using DoubleGis.Erm.BL.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Generic.Deactivate;
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;

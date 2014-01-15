@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Clients;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;

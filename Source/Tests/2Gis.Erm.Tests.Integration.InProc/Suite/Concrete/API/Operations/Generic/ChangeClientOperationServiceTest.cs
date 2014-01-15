@@ -1,7 +1,7 @@
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Generic.ChangeClient;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

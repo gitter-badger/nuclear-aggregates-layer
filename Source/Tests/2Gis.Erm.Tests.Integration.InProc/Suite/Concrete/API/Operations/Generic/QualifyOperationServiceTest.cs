@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BL.API.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

@@ -340,7 +340,8 @@ window.InitPage = function () {
                         params: { orderId: this.form.Id.value },
                         scope: this,
                         success: function (xhr) {
-                            Ext.MessageBox.confirm(Ext.LocalizedResources.AreYouSureWantToDeleteBargain, xhr.responseText, function (btn) {
+                            var message = Ext.decode(xhr.responseText);
+                            Ext.MessageBox.confirm(Ext.LocalizedResources.AreYouSureWantToDeleteBargain, message, function (btn) {
                                 if (btn == 'yes') {
                                     this.Request({
                                         method: 'POST',

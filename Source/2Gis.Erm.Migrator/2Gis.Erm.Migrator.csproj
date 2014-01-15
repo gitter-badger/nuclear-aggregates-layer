@@ -92,8 +92,12 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DB.Migrations\2Gis.Erm.BLCore.DB.Migrations.csproj">
       <Project>{29068fb9-201b-409d-9a63-a7e06ac9dfef}</Project>
+      <Name>2Gis.Erm.BLCore.DB.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
+      <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

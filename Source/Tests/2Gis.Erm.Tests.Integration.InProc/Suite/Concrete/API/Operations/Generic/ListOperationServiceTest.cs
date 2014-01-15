@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.BL.API.Operations.Generic.List;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.BDD;

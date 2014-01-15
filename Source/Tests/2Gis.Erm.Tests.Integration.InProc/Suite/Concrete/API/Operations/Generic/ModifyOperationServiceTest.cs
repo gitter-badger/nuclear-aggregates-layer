@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BL.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Generic.Get;
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
+﻿using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;

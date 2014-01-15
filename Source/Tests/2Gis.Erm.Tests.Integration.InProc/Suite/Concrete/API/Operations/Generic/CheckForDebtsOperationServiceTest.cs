@@ -1,6 +1,6 @@
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Generic.CheckForDebts;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;

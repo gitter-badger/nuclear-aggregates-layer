@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Deals;
-using DoubleGis.Erm.BL.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BL.API.Common.Enums;
+using DoubleGis.Erm.BLCore.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;

@@ -1,4 +1,4 @@
 ﻿<%@ ServiceHost Language="C#" 
                 Debug="true" 
-                Service="DoubleGis.Erm.BL.WCF.Operations.Special.FinancialOperations.OrderProcessingRequestsApplicationService" 
+                Service="DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations.OrderProcessingRequestsApplicationService" 
                 Factory="DoubleGis.Erm.API.WCF.Operations.Special.UnityServiceHostFactory" %>

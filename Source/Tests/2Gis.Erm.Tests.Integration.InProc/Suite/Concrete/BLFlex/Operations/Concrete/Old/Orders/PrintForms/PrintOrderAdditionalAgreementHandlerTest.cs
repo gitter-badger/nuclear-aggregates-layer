@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;

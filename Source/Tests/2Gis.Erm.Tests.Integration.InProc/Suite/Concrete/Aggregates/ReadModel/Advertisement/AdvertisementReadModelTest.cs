@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Advertisements;
-using DoubleGis.Erm.BL.Aggregates.Orders.DTO.ForRelease;
+using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;

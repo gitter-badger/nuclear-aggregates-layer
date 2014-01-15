@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

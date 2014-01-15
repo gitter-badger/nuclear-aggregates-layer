@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Themes;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Themes;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;

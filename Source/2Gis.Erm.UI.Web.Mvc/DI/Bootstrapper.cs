@@ -3,37 +3,47 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BL.API.Common.Crosscutting;
-using DoubleGis.Erm.BL.API.Common.Metadata.Old;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Bargains;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Orders.OrderProcessing;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
-using DoubleGis.Erm.BL.API.Operations.Generic.File;
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BL.API.OrderValidation;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.DAL.PersistenceServices.Reports;
-using DoubleGis.Erm.BL.DI.Config;
-using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Concrete.Old.Bargains;
-using DoubleGis.Erm.BL.Operations.Concrete.Old.Journal.Concrete;
-using DoubleGis.Erm.BL.Operations.Concrete.Old.Journal.Infrastructure;
-using DoubleGis.Erm.BL.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BL.Operations.Concrete.Orders.Processing;
-using DoubleGis.Erm.BL.Operations.Concrete.Simplified;
-using DoubleGis.Erm.BL.Operations.Concrete.Users;
-using DoubleGis.Erm.BL.Operations.Crosscutting;
-using DoubleGis.Erm.BL.Operations.Generic.Modify.UsingHandler;
-using DoubleGis.Erm.BL.Operations.Services.OrderProcessingRequest;
-using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.BL.OrderValidation;
-using DoubleGis.Erm.BL.OrderValidation.Configuration;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BL.Web.Mvc.DI;
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
+using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Concrete;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
+using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
+using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
@@ -68,20 +78,12 @@ using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Security;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
-using DoubleGis.Erm.Platform.Web.Mvc.DI;
-using DoubleGis.Erm.Platform.Web.Mvc.DI.MassProcessing;
-using DoubleGis.Erm.Platform.Web.Mvc.Security;
-using DoubleGis.Erm.Platform.Web.Mvc.Services.Enums;
-using DoubleGis.Erm.Platform.Web.Mvc.Settings;
 using DoubleGis.Erm.UI.Web.Mvc.Config;
-using DoubleGis.Erm.UI.Web.Mvc.Controllers;
-using DoubleGis.Erm.UI.Web.Mvc.Logging;
-using DoubleGis.Erm.UI.Web.Mvc.MetaData;
-using DoubleGis.Erm.UI.Web.Mvc.Models;
-using DoubleGis.Erm.UI.Web.Mvc.Security;
-using DoubleGis.Erm.UI.Web.Mvc.Services;
-using DoubleGis.Erm.UI.Web.Mvc.Utils;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -224,6 +226,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                             .RegisterMsCRMSettings(settings)
                             .RegisterInstance<IAppSettings>(settings)
                             .RegisterInstance<IGlobalizationSettings>(settings)
+                            .RegisterInstance<IGetUserInfoFromAdSettings>(settings)
                             .RegisterInstance<IWebAppSettings>(settings);
             }
 
@@ -243,7 +246,17 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer CreateDatabasebSyncChecker(this IUnityContainer container, IAppSettings appSettings)
         {
-            return container.RegisterType<IMigrationDescriptorsProvider, AssemblyMigrationDescriptorsProvider>(CustomLifetime.PerRequest, new InjectionConstructor("2Gis.Erm.BL.DB.Migrations"))
+            return container.RegisterType<IMigrationDescriptorsProvider, AssemblyMigrationDescriptorsProvider>(
+                CustomLifetime.PerRequest,
+                new InjectionConstructor(
+                    new object[]
+                    { 
+                        new []
+                        {   
+                            "2Gis.Erm.BLCore.DB.Migrations", 
+                            "2Gis.Erm.BL.DB.Migrations",
+                        }
+                    }))
                 .RegisterType<IAppliedVersionsReader, AdoNetAppliedVersionsReader>(CustomLifetime.PerRequest, new InjectionConstructor(appSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
                 .RegisterType<IDatabaseSyncChecker, DatabaseSyncChecker>(CustomLifetime.PerRequest);
         }
@@ -304,6 +317,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceFunctionalAccess, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceSharings, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
+                .RegisterTypeWithDependencies<IGetUserInfoService, GetUserInfoFromAdService>(Lifetime.PerScope, mappingScope)
                 .RegisterType<IDefaultUserContextConfigurator, WebDefaultUserContextConfigurator>(CustomLifetime.PerRequest, 
                         new InjectionConstructor(typeof(IUserContext),
                                                  typeof(ICommonLog)))

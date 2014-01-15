@@ -253,33 +253,33 @@
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
-      <Name>2Gis.Erm.BL.API.MoDi</Name>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
-      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
-      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Releasing\2Gis.Erm.BL.API.Releasing.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
       <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
-      <Name>2Gis.Erm.BL.API.Releasing</Name>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -317,9 +317,9 @@
       <Project>{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2}</Project>
       <Name>2Gis.Erm.Platform.DI.WCF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

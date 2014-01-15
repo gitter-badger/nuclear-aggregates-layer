@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Model.Ent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Core", "..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj", "{05A884DA-8F0B-41CD-BE78-85FD04ACC782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj", "{97992802-C651-46E9-AD0D-2C273152566B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Operations", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj", "{97992802-C651-46E9-AD0D-2C273152566B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.MsCRM.Plugins", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.MsCRM.Plugins\2Gis.Erm.BL.MsCRM.Plugins.csproj", "{A0E38C1C-B01F-4CD2-84F7-722830385BA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.MsCRM.Plugins", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MsCRM.Plugins\2Gis.Erm.BLCore.MsCRM.Plugins.csproj", "{A0E38C1C-B01F-4CD2-84F7-722830385BA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DI.Interception", "..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Interception\2Gis.Erm.Platform.DI.Interception.csproj", "{035E4AA9-9547-4B1C-B105-902ECAD7E53F}"
 EndProject
@@ -23,17 +23,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DI.Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DAL", "..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj", "{63CF3872-B242-45BF-9B90-A724FD1C96D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Aggregates", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj", "{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Aggregates", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj", "{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.UI.Web.Silverlight", "..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Silverlight\2Gis.Erm.BL.UI.Web.Silverlight.csproj", "{95623B29-3F92-491C-B735-6F42255A00AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Silverlight", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Silverlight\2Gis.Erm.BLCore.UI.Web.Silverlight.csproj", "{95623B29-3F92-491C-B735-6F42255A00AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.UI.Web.Silverlight.Resources", "..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Silverlight.Resources\2Gis.Erm.BL.UI.Web.Silverlight.Resources.csproj", "{40A6D43C-94D7-4719-BDB1-76B0C6065F6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Silverlight.Resources", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources.csproj", "{40A6D43C-94D7-4719-BDB1-76B0C6065F6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DAL.EntityFramework", "..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj", "{1DAF0763-543A-49D3-93D2-04F43A79D538}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DAL.AdoNet", "..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj", "{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DI", "..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj", "{2C631161-68AF-49E3-9924-B2894E8FD63B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.DI", "..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj", "{2C631161-68AF-49E3-9924-B2894E8FD63B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI", "DI", "{2B27C591-851F-4895-88E4-822D5C21291B}"
 EndProject
@@ -63,11 +63,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DI.WCF", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.WCF.Infrastructure", "..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj", "{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.OrderValidation", "..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj", "{650EA07F-6725-46E5-B996-B5882E4FCD33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.OrderValidation", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj", "{650EA07F-6725-46E5-B996-B5882E4FCD33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Resources.Client", "..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj", "{CE5CCB90-9A57-4863-9355-4FCD672D3220}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Resources.Client", "..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj", "{CE5CCB90-9A57-4863-9355-4FCD672D3220}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Resources.Server", "..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj", "{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Resources.Server", "..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj", "{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.API.ServiceBusBroker", "..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj", "{A92719FF-B1FD-459B-88DE-F0B2CE23903E}"
 EndProject
@@ -78,11 +78,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Platform.UI.WPF.Shell"
 		{07E4256F-EB26-42B1-9B67-626ED1C156BF} = {07E4256F-EB26-42B1-9B67-626ED1C156BF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.UI.WPF.Client", "..\..\BL\Source\EntryPoints\UI\Desktop\2Gis.Erm.BL.UI.WPF.Client\2Gis.Erm.BL.UI.WPF.Client.csproj", "{07E4256F-EB26-42B1-9B67-626ED1C156BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.WPF.Client", "..\..\BLCore\Source\EntryPoints\UI\Desktop\2Gis.Erm.BLCore.UI.WPF.Client\2Gis.Erm.BLCore.UI.WPF.Client.csproj", "{07E4256F-EB26-42B1-9B67-626ED1C156BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.API.GeoMaster", "..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj", "{B0425CB3-C6A3-4C79-BBC3-07BF53826A21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.Operations", "..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.Operations", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.WCF.Extensions", "..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj", "{F09E7148-2F47-4BCA-BF3C-410CDA8018A4}"
 EndProject
@@ -90,7 +90,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Platform.UI.WPF.Resour
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C1DBEEC1-6B0D-4190-BF8D-DE7900654075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.UI.Metadata", "..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj", "{F662D986-079C-469C-8A01-0D2CD1092EAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Metadata", "..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj", "{F662D986-079C-469C-8A01-0D2CD1092EAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.UI.WPF.Infrastructure", "..\..\Platform\Source\EntryPoints\UI\Desktop\2Gis.Erm.Platform.UI.WPF.Infrastructure\2Gis.Erm.Platform.UI.WPF.Infrastructure.csproj", "{6F93125E-9962-41A7-ACF7-56D0F31610A4}"
 EndProject
@@ -98,17 +98,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{206E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E0B086E9-70F7-4FB1-B895-1D341440A893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.MoDi", "..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj", "{A0C25240-0C68-4434-94C0-F35B0806FE5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.MoDi", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj", "{A0C25240-0C68-4434-94C0-F35B0806FE5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{80C2E9F7-E151-4B92-AAA3-741EA7431AB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.ExtractUseCases", "..\..\BL\Source\Tools\2Gis.Erm.BL.ExtractUseCases\2Gis.Erm.BL.ExtractUseCases.csproj", "{B3A9CE08-023B-4829-9B39-33DCBAFE352B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.ExtractUseCases", "..\..\BLCore\Source\Tools\2Gis.Erm.BLCore.ExtractUseCases\2Gis.Erm.BLCore.ExtractUseCases.csproj", "{B3A9CE08-023B-4829-9B39-33DCBAFE352B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{2DCD024B-93A5-4D7D-9573-EAB8D93340EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports", "..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj", "{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Reports", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj", "{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports.UI", "..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports.UI\2Gis.Erm.BL.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Reports.UI", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports.UI\2Gis.Erm.BLCore.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.API.Metadata", "..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj", "{D62C3159-8538-4398-9E7F-5BD2B48A6C20}"
 EndProject
@@ -118,7 +118,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Migration.Core", "..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj", "{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DB.Migrations", "..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj", "{29068FB9-201B-409D-9A63-A7E06AC9DFEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.DB.Migrations", "..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DB.Migrations\2Gis.Erm.BLCore.DB.Migrations.csproj", "{29068FB9-201B-409D-9A63-A7E06AC9DFEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Migration", "..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration\2Gis.Erm.Platform.Migration.csproj", "{6EE01928-8E79-4882-9410-9A6C5E266C1F}"
 EndProject
@@ -133,7 +133,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{47D66D
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.Releasing", "..\..\BL\Source\API\2Gis.Erm.BL.API.Releasing\2Gis.Erm.BL.API.Releasing.csproj", "{7BA9237F-5018-4C37-A783-98CB2FFD1387}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.Releasing", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj", "{7BA9237F-5018-4C37-A783-98CB2FFD1387}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{292DE840-2D53-4325-98EA-68CFD28BA404}"
 EndProject
@@ -190,13 +190,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform Items", "Platform 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BL Items", "BL Items", "{D3167AFD-F64D-4902-A9A2-91A34D1C000B}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\BL\Source\2Gis.Erm.PublicKey.snk = ..\..\BL\Source\2Gis.Erm.PublicKey.snk
-		..\..\BL\Source\2GIS.ERM.VS2012.zreproj = ..\..\BL\Source\2GIS.ERM.VS2012.zreproj
-		..\..\BL\Source\AssemblyInfo.Common.cs = ..\..\BL\Source\AssemblyInfo.Common.cs
-		..\..\BL\Source\AssemblyInfo.InternalsVisibleTo.cs = ..\..\BL\Source\AssemblyInfo.InternalsVisibleTo.cs
-		..\..\BL\Source\AssemblyInfo.Version.cs = ..\..\BL\Source\AssemblyInfo.Version.cs
-		..\..\BL\Source\Buildscript\Erm.Desktop.targets = ..\..\BL\Source\Buildscript\Erm.Desktop.targets
-		..\..\BL\Source\Buildscript\Erm.Web.targets = ..\..\BL\Source\Buildscript\Erm.Web.targets
+		..\..\BLCore\Source\2Gis.Erm.PublicKey.snk = ..\..\BLCore\Source\2Gis.Erm.PublicKey.snk
+		..\..\BLCore\Source\AssemblyInfo.Common.cs = ..\..\BLCore\Source\AssemblyInfo.Common.cs
+		..\..\BLCore\Source\AssemblyInfo.InternalsVisibleTo.cs = ..\..\BLCore\Source\AssemblyInfo.InternalsVisibleTo.cs
+		..\..\BLCore\Source\AssemblyInfo.Version.cs = ..\..\BLCore\Source\AssemblyInfo.Version.cs
+		..\..\BLCore\Source\Buildscript\Erm.Desktop.targets = ..\..\BLCore\Source\Buildscript\Erm.Desktop.targets
+		..\..\BLCore\Source\Buildscript\Erm.Web.targets = ..\..\BLCore\Source\Buildscript\Erm.Web.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLFlex Items", "BLFlex Items", "{61F2E7DB-DED3-41E5-B347-DAB633B4E3BB}"
@@ -218,27 +217,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.TaskService", "2Gi
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "2Gis.Erm.TaskService.Installer", "2Gis.Erm.TaskService.Installer\2Gis.Erm.TaskService.Installer.wixproj", "{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.TaskService", "..\..\BL\Source\EntryPoints\TaskService\2Gis.Erm.BL.TaskService\2Gis.Erm.BL.TaskService.csproj", "{BE701360-D551-40B4-BD60-5F70CF4DE575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.TaskService", "..\..\BLCore\Source\EntryPoints\TaskService\2Gis.Erm.BLCore.TaskService\2Gis.Erm.BLCore.TaskService.csproj", "{BE701360-D551-40B4-BD60-5F70CF4DE575}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.MoDi", "2Gis.Erm.API.WCF.MoDi\2Gis.Erm.API.WCF.MoDi.csproj", "{62E68D3E-1DBF-4759-A330-F412D62FBEDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.WCF.MoDi", "..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.MoDi\2Gis.Erm.BL.WCF.MoDi.csproj", "{C4D82876-700C-466A-8116-501E60E7AE89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.WCF.MoDi", "..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.MoDi\2Gis.Erm.BLCore.WCF.MoDi.csproj", "{C4D82876-700C-466A-8116-501E60E7AE89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.Operations", "2Gis.Erm.API.WCF.Operations\2Gis.Erm.API.WCF.Operations.csproj", "{ACAA20F3-B75C-49C4-B32B-E636BDC8046C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.WCF.Operations", "..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations\2Gis.Erm.BL.WCF.Operations.csproj", "{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.WCF.Operations", "..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations\2Gis.Erm.BLCore.WCF.Operations.csproj", "{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DI", "..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj", "{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.OrderValidation", "2Gis.Erm.API.WCF.OrderValidation\2Gis.Erm.API.WCF.OrderValidation.csproj", "{64AB3544-1115-4529-8236-A7F43C219E3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.WCF.OrderValidation", "..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.OrderValidation\2Gis.Erm.BL.WCF.OrderValidation.csproj", "{CD836A6E-9C36-4A1E-A01B-68FA17362F88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.WCF.OrderValidation", "..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.OrderValidation\2Gis.Erm.BLCore.WCF.OrderValidation.csproj", "{CD836A6E-9C36-4A1E-A01B-68FA17362F88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.Releasing", "2Gis.Erm.API.WCF.Releasing\2Gis.Erm.API.WCF.Releasing.csproj", "{B9227BD9-9CFC-4306-9FBE-5E1DA7040A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.WCF.Releasing", "..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Releasing\2Gis.Erm.BL.WCF.Releasing.csproj", "{B1285BD0-C821-4321-9698-CF95A0079B23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.WCF.Releasing", "..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Releasing\2Gis.Erm.BLCore.WCF.Releasing.csproj", "{B1285BD0-C821-4321-9698-CF95A0079B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.Common", "..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj", "{3B5F5E41-B438-435E-91B5-005B2A88237C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.Common", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj", "{3B5F5E41-B438-435E-91B5-005B2A88237C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.Metadata", "2Gis.Erm.API.WCF.Metadata\2Gis.Erm.API.WCF.Metadata.csproj", "{DBFBC197-F708-411B-A62B-AFEEE2DBCC48}"
 EndProject
@@ -250,13 +249,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.UI.Metada
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.UI.Web.Mvc", "2Gis.Erm.UI.Web.Mvc\2Gis.Erm.UI.Web.Mvc.csproj", "{88EBB4F9-9A20-42C7-9D50-5B350AFDBAD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Web.Mvc", "..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.Web.Mvc\2Gis.Erm.Platform.Web.Mvc.csproj", "{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.UI.Web.Mvc", "..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj", "{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Web.Mvc", "..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.Web.Mvc\2Gis.Erm.BL.Web.Mvc.csproj", "{D99ED849-3585-45F0-A596-0118D0A70C28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Mvc", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj", "{D99ED849-3585-45F0-A596-0118D0A70C28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.WCF.Operations.Special", "..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations.Special\2Gis.Erm.BL.WCF.Operations.Special.csproj", "{363E4551-2404-46CD-A4A2-7712AC137729}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.WCF.Operations.Special", "..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj", "{363E4551-2404-46CD-A4A2-7712AC137729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.API.Operations.Special", "..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj", "{DD4D387B-5ED9-482D-A704-D664EE16E9EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.Operations.Special", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj", "{DD4D387B-5ED9-482D-A704-D664EE16E9EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.Operations.Special", "2Gis.Erm.API.WCF.Operations.Special\2Gis.Erm.API.WCF.Operations.Special.csproj", "{FE6BD7B0-6129-4315-975F-876D79595776}"
 EndProject
@@ -276,9 +275,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.Operations.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.Aggregates.Global", "..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj", "{5FC26F81-5100-43B5-B55B-E470308338D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DAL.PersistenceServices", "..\..\BL\Source\Data\2Gis.Erm.BL.DAL.PersistenceServices\2Gis.Erm.BL.DAL.PersistenceServices.csproj", "{946C96BF-A7BD-46C1-879C-C80E3223334B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.DAL.PersistenceServices", "..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj", "{946C96BF-A7BD-46C1-879C-C80E3223334B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Common", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Common\2Gis.Erm.BL.Common.csproj", "{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Common", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj", "{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.DAL.PersistenceServices", "..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj", "{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}"
 EndProject
@@ -286,19 +285,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI", "DI", "{D7CBC8DF-401E-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.DI", "..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj", "{B87F1E7F-F375-452D-9055-2E9AB60254C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.Web.Mvc.Global", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.Web.Mvc.Global\2Gis.Erm.BLFlex.Web.Mvc.Global.csproj", "{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Web.Mvc.Global", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj", "{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.OrderValidation", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.OrderValidation\2Gis.Erm.BL.OrderValidation.csproj", "{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.OrderValidation", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj", "{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Special", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj", "{13700FDC-7D78-4105-B382-1B824BB608D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Operations.Special", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\2Gis.Erm.BLCore.Operations.Special.csproj", "{13700FDC-7D78-4105-B382-1B824BB608D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Releasing", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Releasing\2Gis.Erm.BL.Releasing.csproj", "{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Releasing", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj", "{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.MoDi", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.MoDi\2Gis.Erm.BL.MoDi.csproj", "{46FF1F04-9E90-4858-8263-9ED38A0BDD69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.MoDi", "..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MoDi\2Gis.Erm.BLCore.MoDi.csproj", "{46FF1F04-9E90-4858-8263-9ED38A0BDD69}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A5E1C8F3-C249-42B2-AB10-D722E8427667}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Tests.Unit", "..\..\BL\Source\Tests\2Gis.Erm.BL.Tests.Unit\2Gis.Erm.BL.Tests.Unit.csproj", "{5429CE24-14C7-4727-AF42-9D6D2177047A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Tests.Unit", "..\..\BLCore\Source\Tests\2Gis.Erm.BLCore.Tests.Unit\2Gis.Erm.BLCore.Tests.Unit.csproj", "{5429CE24-14C7-4727-AF42-9D6D2177047A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A1E56A4B-DE8D-4CB1-B5DF-EE3FB43F7D33}"
 EndProject
@@ -332,9 +331,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Resources
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Resources.Client", "..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj", "{B12C39B4-050B-476F-9C80-E5757226B926}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLCore", "BLCore", "{9F30A0D2-4AC7-4126-873D-884DA05833DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLCore items", "BLCore items", "{371FF197-E6F2-4003-9B6C-DEB6F31F0205}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\BLCore\Source\2Gis.Erm.PublicKey.snk = ..\..\BLCore\Source\2Gis.Erm.PublicKey.snk
+		..\..\BLCore\Source\AssemblyInfo.Common.cs = ..\..\BLCore\Source\AssemblyInfo.Common.cs
+		..\..\BLCore\Source\AssemblyInfo.InternalsVisibleTo.cs = ..\..\BLCore\Source\AssemblyInfo.InternalsVisibleTo.cs
+		..\..\BLCore\Source\AssemblyInfo.Version.cs = ..\..\BLCore\Source\AssemblyInfo.Version.cs
+		..\..\BLCore\Source\Buildscript\Erm.Desktop.targets = ..\..\BLCore\Source\Buildscript\Erm.Desktop.targets
+		..\..\BLCore\Source\Buildscript\Erm.Web.targets = ..\..\BLCore\Source\Buildscript\Erm.Web.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8194822E-E5E3-4E96-A025-E69B89FCD02A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Metadata", "..\..\BLFlex\Source\EntryPoints\UI\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj", "{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{9FF44272-1640-4DDD-885F-AAA2D1DD8B6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DB.Migrations", "..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj", "{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 88
+		SccNumberOfProjects = 90
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -342,350 +361,358 @@ Global
 		SccProjectTopLevelParentUniqueName1 = 2GIS.ERM.VS2012.sln
 		SccProjectName1 = 2Gis.Erm.TaskService.Installer
 		SccLocalPath1 = 2Gis.Erm.TaskService.Installer
-		SccProjectUniqueName2 = ..\\..\\BL\\Source\\Resources\\2Gis.Erm.BL.Resources.Server\\2Gis.Erm.BL.Resources.Server.csproj
+		SccProjectUniqueName2 = ..\\..\\BLCore\\Source\\Resources\\2Gis.Erm.BLCore.Resources.Server\\2Gis.Erm.BLCore.Resources.Server.csproj
 		SccProjectTopLevelParentUniqueName2 = 2GIS.ERM.VS2012.sln
-		SccProjectName2 = ../../BL/Source/Resources/2Gis.Erm.BL.Resources.Server
-		SccLocalPath2 = ..\\..\\BL\\Source\\Resources\\2Gis.Erm.BL.Resources.Server
-		SccProjectUniqueName3 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Common\\2Gis.Erm.Platform.Common.csproj
+		SccProjectName2 = ../../BLCore/Source/Resources/2Gis.Erm.BLCore.Resources.Server
+		SccLocalPath2 = ..\\..\\BLCore\\Source\\Resources\\2Gis.Erm.BLCore.Resources.Server
+		SccProjectUniqueName3 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Server\\2Gis.Erm.Platform.Resources.Server.csproj
 		SccProjectTopLevelParentUniqueName3 = 2GIS.ERM.VS2012.sln
-		SccProjectName3 = ../../Platform/Source/2Gis.Erm.Platform.Common
-		SccLocalPath3 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Common
-		SccProjectUniqueName4 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model\\2Gis.Erm.Platform.Model.csproj
+		SccProjectName3 = ../../Platform/Source/Resources/2Gis.Erm.Platform.Resources.Server
+		SccLocalPath3 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Server
+		SccProjectUniqueName4 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Common\\2Gis.Erm.Platform.Common.csproj
 		SccProjectTopLevelParentUniqueName4 = 2GIS.ERM.VS2012.sln
-		SccProjectName4 = ../../Platform/Source/Model/2Gis.Erm.Platform.Model
-		SccLocalPath4 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model
-		SccProjectUniqueName5 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Security\\2Gis.Erm.Platform.API.Security.csproj
+		SccProjectName4 = ../../Platform/Source/2Gis.Erm.Platform.Common
+		SccLocalPath4 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Common
+		SccProjectUniqueName5 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model\\2Gis.Erm.Platform.Model.csproj
 		SccProjectTopLevelParentUniqueName5 = 2GIS.ERM.VS2012.sln
-		SccProjectName5 = ../../Platform/Source/API/2Gis.Erm.Platform.API.Security
-		SccLocalPath5 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Security
-		SccProjectUniqueName6 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model.Metadata\\2Gis.Erm.Platform.Model.Metadata.csproj
+		SccProjectName5 = ../../Platform/Source/Model/2Gis.Erm.Platform.Model
+		SccLocalPath5 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model
+		SccProjectUniqueName6 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Security\\2Gis.Erm.Platform.API.Security.csproj
 		SccProjectTopLevelParentUniqueName6 = 2GIS.ERM.VS2012.sln
-		SccProjectName6 = ../../Platform/Source/Model/2Gis.Erm.Platform.Model.Metadata
-		SccLocalPath6 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model.Metadata
-		SccProjectUniqueName7 = ..\\..\\Platform\\Source\\ApplicationServices\\2Gis.Erm.Platform.Aggregates\\2Gis.Erm.Platform.Aggregates.csproj
+		SccProjectName6 = ../../Platform/Source/API/2Gis.Erm.Platform.API.Security
+		SccLocalPath6 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Security
+		SccProjectUniqueName7 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model.Metadata\\2Gis.Erm.Platform.Model.Metadata.csproj
 		SccProjectTopLevelParentUniqueName7 = 2GIS.ERM.VS2012.sln
-		SccProjectName7 = ../../Platform/Source/ApplicationServices/2Gis.Erm.Platform.Aggregates
-		SccLocalPath7 = ..\\..\\Platform\\Source\\ApplicationServices\\2Gis.Erm.Platform.Aggregates
+		SccProjectName7 = ../../Platform/Source/Model/2Gis.Erm.Platform.Model.Metadata
+		SccLocalPath7 = ..\\..\\Platform\\Source\\Model\\2Gis.Erm.Platform.Model.Metadata
 		SccProjectUniqueName8 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Core\\2Gis.Erm.Platform.API.Core.csproj
 		SccProjectTopLevelParentUniqueName8 = 2GIS.ERM.VS2012.sln
 		SccProjectName8 = ../../Platform/Source/API/2Gis.Erm.Platform.API.Core
 		SccLocalPath8 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Core
-		SccProjectUniqueName9 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Common\\2Gis.Erm.Platform.DI.Common.csproj
+		SccProjectUniqueName9 = ..\\..\\Platform\\Source\\EntryPoints\\TaskService\\2Gis.Erm.Platform.TaskService\\2Gis.Erm.Platform.TaskService.csproj
 		SccProjectTopLevelParentUniqueName9 = 2GIS.ERM.VS2012.sln
-		SccProjectName9 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.Common
-		SccLocalPath9 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Common
-		SccProjectUniqueName10 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure\\2Gis.Platform.UI.WPF.Infrastructure.csproj
+		SccProjectName9 = ../../Platform/Source/EntryPoints/TaskService/2Gis.Erm.Platform.TaskService
+		SccLocalPath9 = ..\\..\\Platform\\Source\\EntryPoints\\TaskService\\2Gis.Erm.Platform.TaskService
+		SccProjectUniqueName10 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Common\\2Gis.Erm.BLCore.API.Common.csproj
 		SccProjectTopLevelParentUniqueName10 = 2GIS.ERM.VS2012.sln
-		SccProjectName10 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Infrastructure
-		SccLocalPath10 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure
-		SccProjectUniqueName11 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources\\2Gis.Platform.UI.WPF.Resources.csproj
+		SccProjectName10 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Common
+		SccLocalPath10 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Common
+		SccProjectUniqueName11 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Metadata\\2Gis.Erm.Platform.API.Metadata.csproj
 		SccProjectTopLevelParentUniqueName11 = 2GIS.ERM.VS2012.sln
-		SccProjectName11 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Resources
-		SccLocalPath11 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources
-		SccProjectUniqueName12 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Metadata\\2Gis.Erm.Platform.API.Metadata.csproj
+		SccProjectName11 = ../../Platform/Source/API/2Gis.Erm.Platform.API.Metadata
+		SccLocalPath11 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Metadata
+		SccProjectUniqueName12 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.AdoNet\\2Gis.Erm.Platform.DAL.AdoNet.csproj
 		SccProjectTopLevelParentUniqueName12 = 2GIS.ERM.VS2012.sln
-		SccProjectName12 = ../../Platform/Source/API/2Gis.Erm.Platform.API.Metadata
-		SccLocalPath12 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.Metadata
-		SccProjectUniqueName13 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.AdoNet\\2Gis.Erm.Platform.DAL.AdoNet.csproj
+		SccProjectName12 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.AdoNet
+		SccLocalPath12 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.AdoNet
+		SccProjectUniqueName13 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL\\2Gis.Erm.Platform.DAL.csproj
 		SccProjectTopLevelParentUniqueName13 = 2GIS.ERM.VS2012.sln
-		SccProjectName13 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.AdoNet
-		SccLocalPath13 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.AdoNet
-		SccProjectUniqueName14 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL\\2Gis.Erm.Platform.DAL.csproj
+		SccProjectName13 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL
+		SccLocalPath13 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL
+		SccProjectUniqueName14 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Infrastructure\\2Gis.Erm.Platform.WCF.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName14 = 2GIS.ERM.VS2012.sln
-		SccProjectName14 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL
-		SccLocalPath14 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL
-		SccProjectUniqueName15 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.PersistenceServices\\2Gis.Erm.Platform.DAL.PersistenceServices.csproj
+		SccProjectName14 = ../../Platform/Source/WCF/2Gis.Erm.Platform.WCF.Infrastructure
+		SccLocalPath14 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Infrastructure
+		SccProjectUniqueName15 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports\\2Gis.Erm.BLCore.Reports.csproj
 		SccProjectTopLevelParentUniqueName15 = 2GIS.ERM.VS2012.sln
-		SccProjectName15 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.PersistenceServices
-		SccLocalPath15 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.PersistenceServices
-		SccProjectUniqueName16 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Infrastructure\\2Gis.Erm.Platform.WCF.Infrastructure.csproj
+		SccProjectName15 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BLCore.Reports
+		SccLocalPath15 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports
+		SccProjectUniqueName16 = ..\\..\\BLCore\\Source\\Data\\2Gis.Erm.BLCore.DAL.PersistenceServices\\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj
 		SccProjectTopLevelParentUniqueName16 = 2GIS.ERM.VS2012.sln
-		SccProjectName16 = ../../Platform/Source/WCF/2Gis.Erm.Platform.WCF.Infrastructure
-		SccLocalPath16 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Infrastructure
-		SccProjectUniqueName17 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Core\\2Gis.Erm.Platform.Core.csproj
+		SccProjectName16 = ../../BLCore/Source/Data/2Gis.Erm.BLCore.DAL.PersistenceServices
+		SccLocalPath16 = ..\\..\\BLCore\\Source\\Data\\2Gis.Erm.BLCore.DAL.PersistenceServices
+		SccProjectUniqueName17 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Operations\\2Gis.Erm.BLCore.API.Operations.csproj
 		SccProjectTopLevelParentUniqueName17 = 2GIS.ERM.VS2012.sln
-		SccProjectName17 = ../../Platform/Source/2Gis.Erm.Platform.Core
-		SccLocalPath17 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Core
-		SccProjectUniqueName18 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.EntityFramework\\2Gis.Erm.Platform.DAL.EntityFramework.csproj
+		SccProjectName17 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Operations
+		SccLocalPath17 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Operations
+		SccProjectUniqueName18 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Operations.Special\\2Gis.Erm.BLCore.API.Operations.Special.csproj
 		SccProjectTopLevelParentUniqueName18 = 2GIS.ERM.VS2012.sln
-		SccProjectName18 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.EntityFramework
-		SccLocalPath18 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.EntityFramework
-		SccProjectUniqueName19 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI\\2Gis.Erm.Platform.DI.csproj
+		SccProjectName18 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Operations.Special
+		SccLocalPath18 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Operations.Special
+		SccProjectUniqueName19 = ..\\..\\BLCore\\Source\\EntryPoints\\TaskService\\2Gis.Erm.BLCore.TaskService\\2Gis.Erm.BLCore.TaskService.csproj
 		SccProjectTopLevelParentUniqueName19 = 2GIS.ERM.VS2012.sln
-		SccProjectName19 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI
-		SccLocalPath19 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI
-		SccProjectUniqueName20 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.Platform.UI.Metadata\\2Gis.Erm.Platform.UI.Metadata.csproj
+		SccProjectName19 = ../../BLCore/Source/EntryPoints/TaskService/2Gis.Erm.BLCore.TaskService
+		SccLocalPath19 = ..\\..\\BLCore\\Source\\EntryPoints\\TaskService\\2Gis.Erm.BLCore.TaskService
+		SccProjectUniqueName20 = ..\\..\\Platform\\Source\\Data\\EF\\2Gis.Erm.Platform.Model.EntityFramework\\2Gis.Erm.Platform.Model.EntityFramework.csproj
 		SccProjectTopLevelParentUniqueName20 = 2GIS.ERM.VS2012.sln
-		SccProjectName20 = ../../Platform/Source/EntryPoints/UI/Common/2Gis.Erm.Platform.UI.Metadata
-		SccLocalPath20 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.Platform.UI.Metadata
-		SccProjectUniqueName21 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Common\\2Gis.Erm.BL.API.Common.csproj
+		SccProjectName20 = ../../Platform/Source/Data/EF/2Gis.Erm.Platform.Model.EntityFramework
+		SccLocalPath20 = ..\\..\\Platform\\Source\\Data\\EF\\2Gis.Erm.Platform.Model.EntityFramework
+		SccProjectUniqueName21 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.EntityFramework\\2Gis.Erm.Platform.DAL.EntityFramework.csproj
 		SccProjectTopLevelParentUniqueName21 = 2GIS.ERM.VS2012.sln
-		SccProjectName21 = ../../BL/Source/API/2Gis.Erm.BL.API.Common
-		SccLocalPath21 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Common
-		SccProjectUniqueName22 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Operations.Special\\2Gis.Erm.BL.API.Operations.Special.csproj
+		SccProjectName21 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.EntityFramework
+		SccLocalPath21 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.EntityFramework
+		SccProjectUniqueName22 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.PersistenceServices\\2Gis.Erm.Platform.DAL.PersistenceServices.csproj
 		SccProjectTopLevelParentUniqueName22 = 2GIS.ERM.VS2012.sln
-		SccProjectName22 = ../../BL/Source/API/2Gis.Erm.BL.API.Operations.Special
-		SccLocalPath22 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Operations.Special
-		SccProjectUniqueName23 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.OrderValidation\\2Gis.Erm.BL.API.OrderValidation.csproj
+		SccProjectName22 = ../../Platform/Source/Data/DAL/2Gis.Erm.Platform.DAL.PersistenceServices
+		SccLocalPath22 = ..\\..\\Platform\\Source\\Data\\DAL\\2Gis.Erm.Platform.DAL.PersistenceServices
+		SccProjectUniqueName23 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Core\\2Gis.Erm.Platform.Core.csproj
 		SccProjectTopLevelParentUniqueName23 = 2GIS.ERM.VS2012.sln
-		SccProjectName23 = ../../BL/Source/API/2Gis.Erm.BL.API.OrderValidation
-		SccLocalPath23 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.OrderValidation
-		SccProjectUniqueName24 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Releasing\\2Gis.Erm.BL.API.Releasing.csproj
+		SccProjectName23 = ../../Platform/Source/2Gis.Erm.Platform.Core
+		SccLocalPath23 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Core
+		SccProjectUniqueName24 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Common\\2Gis.Erm.Platform.DI.Common.csproj
 		SccProjectTopLevelParentUniqueName24 = 2GIS.ERM.VS2012.sln
-		SccProjectName24 = ../../BL/Source/API/2Gis.Erm.BL.API.Releasing
-		SccLocalPath24 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Releasing
-		SccProjectUniqueName25 = ..\\..\\Platform\\Source\\Data\\EF\\2Gis.Erm.Platform.Model.EntityFramework\\2Gis.Erm.Platform.Model.EntityFramework.csproj
+		SccProjectName24 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.Common
+		SccLocalPath24 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Common
+		SccProjectUniqueName25 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI\\2Gis.Erm.Platform.DI.csproj
 		SccProjectTopLevelParentUniqueName25 = 2GIS.ERM.VS2012.sln
-		SccProjectName25 = ../../Platform/Source/Data/EF/2Gis.Erm.Platform.Model.EntityFramework
-		SccLocalPath25 = ..\\..\\Platform\\Source\\Data\\EF\\2Gis.Erm.Platform.Model.EntityFramework
-		SccProjectUniqueName26 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports\\2Gis.Erm.BL.Reports.csproj
+		SccProjectName25 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI
+		SccLocalPath25 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI
+		SccProjectUniqueName26 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.OrderValidation\\2Gis.Erm.BLCore.API.OrderValidation.csproj
 		SccProjectTopLevelParentUniqueName26 = 2GIS.ERM.VS2012.sln
-		SccProjectName26 = ../../BL/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports
-		SccLocalPath26 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports
-		SccProjectUniqueName27 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DAL.PersistenceServices\\2Gis.Erm.BL.DAL.PersistenceServices.csproj
+		SccProjectName26 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.OrderValidation
+		SccLocalPath26 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.OrderValidation
+		SccProjectUniqueName27 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Common\\2Gis.Erm.BLCore.Common.csproj
 		SccProjectTopLevelParentUniqueName27 = 2GIS.ERM.VS2012.sln
-		SccProjectName27 = ../../BL/Source/Data/2Gis.Erm.BL.DAL.PersistenceServices
-		SccLocalPath27 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DAL.PersistenceServices
-		SccProjectUniqueName28 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Operations\\2Gis.Erm.BL.API.Operations.csproj
+		SccProjectName27 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Common
+		SccLocalPath27 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Common
+		SccProjectUniqueName28 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.MoDi\\2Gis.Erm.BLCore.API.MoDi.csproj
 		SccProjectTopLevelParentUniqueName28 = 2GIS.ERM.VS2012.sln
-		SccProjectName28 = ../../BL/Source/API/2Gis.Erm.BL.API.Operations
-		SccLocalPath28 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.Operations
-		SccProjectUniqueName29 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Common\\2Gis.Erm.BL.Common.csproj
+		SccProjectName28 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.MoDi
+		SccLocalPath28 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.MoDi
+		SccProjectUniqueName29 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.ServiceBusBroker\\2Gis.Erm.Platform.API.ServiceBusBroker.csproj
 		SccProjectTopLevelParentUniqueName29 = 2GIS.ERM.VS2012.sln
-		SccProjectName29 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Common
-		SccLocalPath29 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Common
-		SccProjectUniqueName30 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.MoDi\\2Gis.Erm.BL.API.MoDi.csproj
+		SccProjectName29 = ../../Platform/Source/API/2Gis.Erm.Platform.API.ServiceBusBroker
+		SccLocalPath29 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.ServiceBusBroker
+		SccProjectUniqueName30 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.GeoMaster\\2Gis.Erm.Platform.API.GeoMaster.csproj
 		SccProjectTopLevelParentUniqueName30 = 2GIS.ERM.VS2012.sln
-		SccProjectName30 = ../../BL/Source/API/2Gis.Erm.BL.API.MoDi
-		SccLocalPath30 = ..\\..\\BL\\Source\\API\\2Gis.Erm.BL.API.MoDi
-		SccProjectUniqueName31 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.ServiceBusBroker\\2Gis.Erm.Platform.API.ServiceBusBroker.csproj
+		SccProjectName30 = ../../Platform/Source/API/2Gis.Erm.Platform.API.GeoMaster
+		SccLocalPath30 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.GeoMaster
+		SccProjectUniqueName31 = ..\\..\\Platform\\Source\\ApplicationServices\\2Gis.Erm.Platform.Aggregates\\2Gis.Erm.Platform.Aggregates.csproj
 		SccProjectTopLevelParentUniqueName31 = 2GIS.ERM.VS2012.sln
-		SccProjectName31 = ../../Platform/Source/API/2Gis.Erm.Platform.API.ServiceBusBroker
-		SccLocalPath31 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.ServiceBusBroker
-		SccProjectUniqueName32 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.GeoMaster\\2Gis.Erm.Platform.API.GeoMaster.csproj
+		SccProjectName31 = ../../Platform/Source/ApplicationServices/2Gis.Erm.Platform.Aggregates
+		SccLocalPath31 = ..\\..\\Platform\\Source\\ApplicationServices\\2Gis.Erm.Platform.Aggregates
+		SccProjectUniqueName32 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Releasing\\2Gis.Erm.BLCore.API.Releasing.csproj
 		SccProjectTopLevelParentUniqueName32 = 2GIS.ERM.VS2012.sln
-		SccProjectName32 = ../../Platform/Source/API/2Gis.Erm.Platform.API.GeoMaster
-		SccLocalPath32 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.GeoMaster
-		SccProjectUniqueName33 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Aggregates\\2Gis.Erm.BL.Aggregates.csproj
+		SccProjectName32 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Releasing
+		SccLocalPath32 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Releasing
+		SccProjectUniqueName33 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Aggregates\\2Gis.Erm.BLCore.Aggregates.csproj
 		SccProjectTopLevelParentUniqueName33 = 2GIS.ERM.VS2012.sln
-		SccProjectName33 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Aggregates
-		SccLocalPath33 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Aggregates
-		SccProjectUniqueName34 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations\\2Gis.Erm.BL.Operations.csproj
+		SccProjectName33 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Aggregates
+		SccLocalPath33 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Aggregates
+		SccProjectUniqueName34 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Operations\\2Gis.Erm.BLCore.Operations.csproj
 		SccProjectTopLevelParentUniqueName34 = 2GIS.ERM.VS2012.sln
-		SccProjectName34 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations
-		SccLocalPath34 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations
-		SccProjectUniqueName35 = ..\\..\\BL\\Source\\DI\\2Gis.Erm.BL.DI\\2Gis.Erm.BL.DI.csproj
+		SccProjectName34 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Operations
+		SccLocalPath34 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Operations
+		SccProjectUniqueName35 = ..\\..\\BLCore\\Source\\DI\\2Gis.Erm.BLCore.DI\\2Gis.Erm.BLCore.DI.csproj
 		SccProjectTopLevelParentUniqueName35 = 2GIS.ERM.VS2012.sln
-		SccProjectName35 = ../../BL/Source/DI/2Gis.Erm.BL.DI
-		SccLocalPath35 = ..\\..\\BL\\Source\\DI\\2Gis.Erm.BL.DI
-		SccProjectUniqueName36 = ..\\..\\BL\\Source\\Resources\\2Gis.Erm.BL.Resources.Client\\2Gis.Erm.BL.Resources.Client.csproj
+		SccProjectName35 = ../../BLCore/Source/DI/2Gis.Erm.BLCore.DI
+		SccLocalPath35 = ..\\..\\BLCore\\Source\\DI\\2Gis.Erm.BLCore.DI
+		SccProjectUniqueName36 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.OrderValidation\\2Gis.Erm.BLCore.OrderValidation.csproj
 		SccProjectTopLevelParentUniqueName36 = 2GIS.ERM.VS2012.sln
-		SccProjectName36 = ../../BL/Source/Resources/2Gis.Erm.BL.Resources.Client
-		SccLocalPath36 = ..\\..\\BL\\Source\\Resources\\2Gis.Erm.BL.Resources.Client
-		SccProjectUniqueName37 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BL.UI.Metadata\\2Gis.Erm.BL.UI.Metadata.csproj
+		SccProjectName36 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.OrderValidation
+		SccLocalPath36 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.OrderValidation
+		SccProjectUniqueName37 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Operations.Special\\2Gis.Erm.BLCore.Operations.Special.csproj
 		SccProjectTopLevelParentUniqueName37 = 2GIS.ERM.VS2012.sln
-		SccProjectName37 = ../../BL/Source/EntryPoints/UI/Common/2Gis.Erm.BL.UI.Metadata
-		SccLocalPath37 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BL.UI.Metadata
-		SccProjectUniqueName38 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure\\2Gis.Erm.Platform.UI.WPF.Infrastructure.csproj
+		SccProjectName37 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Operations.Special
+		SccLocalPath37 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Operations.Special
+		SccProjectUniqueName38 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Aggregates.Global\\2Gis.Erm.BLFlex.Aggregates.Global.csproj
 		SccProjectTopLevelParentUniqueName38 = 2GIS.ERM.VS2012.sln
-		SccProjectName38 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Erm.Platform.UI.WPF.Infrastructure
-		SccLocalPath38 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure
-		SccProjectUniqueName39 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.BL.UI.WPF.Client\\2Gis.Erm.BL.UI.WPF.Client.csproj
+		SccProjectName38 = ../../BLFlex/Source/ApplicationServices/2Gis.Erm.BLFlex.Aggregates.Global
+		SccLocalPath38 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Aggregates.Global
+		SccProjectUniqueName39 = ..\\..\\BLFlex\\Source\\DI\\2Gis.Erm.BLFlex.DI\\2Gis.Erm.BLFlex.DI.csproj
 		SccProjectTopLevelParentUniqueName39 = 2GIS.ERM.VS2012.sln
-		SccProjectName39 = ../../BL/Source/EntryPoints/UI/Desktop/2Gis.Erm.BL.UI.WPF.Client
-		SccLocalPath39 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.BL.UI.WPF.Client
-		SccProjectUniqueName40 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell\\2Gis.Platform.UI.WPF.Shell.csproj
+		SccProjectName39 = ../../BLFlex/Source/DI/2Gis.Erm.BLFlex.DI
+		SccLocalPath39 = ..\\..\\BLFlex\\Source\\DI\\2Gis.Erm.BLFlex.DI
+		SccProjectUniqueName40 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Security\\2Gis.Erm.Platform.Security.csproj
 		SccProjectTopLevelParentUniqueName40 = 2GIS.ERM.VS2012.sln
-		SccProjectName40 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell
-		SccLocalPath40 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell
-		SccProjectUniqueName41 = 2Gis.Erm.UI.Desktop.WPF\\2Gis.Erm.UI.Desktop.WPF.csproj
+		SccProjectName40 = ../../Platform/Source/2Gis.Erm.Platform.Security
+		SccLocalPath40 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Security
+		SccProjectUniqueName41 = 2Gis.Erm.TaskService\\2Gis.Erm.TaskService.csproj
 		SccProjectTopLevelParentUniqueName41 = 2GIS.ERM.VS2012.sln
-		SccProjectName41 = 2Gis.Erm.UI.Desktop.WPF
-		SccLocalPath41 = 2Gis.Erm.UI.Desktop.WPF
-		SccProjectUniqueName42 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Aggregates.Global\\2Gis.Erm.BLFlex.Aggregates.Global.csproj
+		SccProjectName41 = 2Gis.Erm.TaskService
+		SccLocalPath41 = 2Gis.Erm.TaskService
+		SccProjectUniqueName42 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Interception\\2Gis.Erm.Platform.DI.Interception.csproj
 		SccProjectTopLevelParentUniqueName42 = 2GIS.ERM.VS2012.sln
-		SccProjectName42 = ../../BLFlex/Source/ApplicationServices/2Gis.Erm.BLFlex.Aggregates.Global
-		SccLocalPath42 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Aggregates.Global
-		SccProjectUniqueName43 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Operations.Global\\2Gis.Erm.BLFlex.API.Operations.Global.csproj
+		SccProjectName42 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.Interception
+		SccLocalPath42 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Interception
+		SccProjectUniqueName43 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.Platform.UI.Metadata\\2Gis.Erm.Platform.UI.Metadata.csproj
 		SccProjectTopLevelParentUniqueName43 = 2GIS.ERM.VS2012.sln
-		SccProjectName43 = ../../BLFlex/Source/API/2Gis.Erm.BLFlex.API.Operations.Global
-		SccLocalPath43 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Operations.Global
-		SccProjectUniqueName44 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Operations.Global\\2Gis.Erm.BLFlex.Operations.Global.csproj
+		SccProjectName43 = ../../Platform/Source/EntryPoints/UI/Common/2Gis.Erm.Platform.UI.Metadata
+		SccLocalPath43 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.Platform.UI.Metadata
+		SccProjectUniqueName44 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BLCore.UI.Metadata\\2Gis.Erm.BLCore.UI.Metadata.csproj
 		SccProjectTopLevelParentUniqueName44 = 2GIS.ERM.VS2012.sln
-		SccProjectName44 = ../../BLFlex/Source/ApplicationServices/2Gis.Erm.BLFlex.Operations.Global
-		SccLocalPath44 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Operations.Global
-		SccProjectUniqueName45 = ..\\..\\BLFlex\\Source\\Tests\\2Gis.Erm.BLFlex.Tests.Unit\\2Gis.Erm.BLFlex.Tests.Unit.csproj
+		SccProjectName44 = ../../BLCore/Source/EntryPoints/UI/Common/2Gis.Erm.BLCore.UI.Metadata
+		SccLocalPath44 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BLCore.UI.Metadata
+		SccProjectUniqueName45 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration.Core\\2Gis.Erm.Platform.Migration.Core.csproj
 		SccProjectTopLevelParentUniqueName45 = 2GIS.ERM.VS2012.sln
-		SccProjectName45 = ../../BLFlex/Source/Tests/2Gis.Erm.BLFlex.Tests.Unit
-		SccLocalPath45 = ..\\..\\BLFlex\\Source\\Tests\\2Gis.Erm.BLFlex.Tests.Unit
-		SccProjectUniqueName46 = ..\\..\\Platform\\Source\\Tests\\2Gis.Erm.Platform.Tests.Unit\\2Gis.Erm.Platform.Tests.Unit.csproj
+		SccProjectName45 = ../../Platform/Source/Data/Migrations/2Gis.Erm.Platform.Migration.Core
+		SccLocalPath45 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration.Core
+		SccProjectUniqueName46 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration\\2Gis.Erm.Platform.Migration.csproj
 		SccProjectTopLevelParentUniqueName46 = 2GIS.ERM.VS2012.sln
-		SccProjectName46 = ../../Platform/Source/Tests/2Gis.Erm.Platform.Tests.Unit
-		SccLocalPath46 = ..\\..\\Platform\\Source\\Tests\\2Gis.Erm.Platform.Tests.Unit
-		SccProjectUniqueName47 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations.Special\\2Gis.Erm.BL.Operations.Special.csproj
+		SccProjectName46 = ../../Platform/Source/Data/Migrations/2Gis.Erm.Platform.Migration
+		SccLocalPath46 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration
+		SccProjectUniqueName47 = ..\\..\\BLCore\\Source\\Data\\2Gis.Erm.BLCore.DB.Migrations\\2Gis.Erm.BLCore.DB.Migrations.csproj
 		SccProjectTopLevelParentUniqueName47 = 2GIS.ERM.VS2012.sln
-		SccProjectName47 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations.Special
-		SccLocalPath47 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations.Special
-		SccProjectUniqueName48 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.OrderValidation\\2Gis.Erm.BL.OrderValidation.csproj
+		SccProjectName47 = ../../BLCore/Source/Data/2Gis.Erm.BLCore.DB.Migrations
+		SccLocalPath47 = ..\\..\\BLCore\\Source\\Data\\2Gis.Erm.BLCore.DB.Migrations
+		SccProjectUniqueName48 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources\\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources.csproj
 		SccProjectTopLevelParentUniqueName48 = 2GIS.ERM.VS2012.sln
-		SccProjectName48 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.OrderValidation
-		SccLocalPath48 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.OrderValidation
-		SccProjectUniqueName49 = ..\\..\\BL\\Source\\Tests\\2Gis.Erm.BL.Tests.Unit\\2Gis.Erm.BL.Tests.Unit.csproj
+		SccProjectName48 = ../../BLCore/Source/EntryPoints/UI/Web/2Gis.Erm.BLCore.UI.Web.Silverlight.Resources
+		SccLocalPath48 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources
+		SccProjectUniqueName49 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Silverlight\\2Gis.Erm.BLCore.UI.Web.Silverlight.csproj
 		SccProjectTopLevelParentUniqueName49 = 2GIS.ERM.VS2012.sln
-		SccProjectName49 = ../../BL/Source/Tests/2Gis.Erm.BL.Tests.Unit
-		SccLocalPath49 = ..\\..\\BL\\Source\\Tests\\2Gis.Erm.BL.Tests.Unit
-		SccProjectUniqueName50 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.MoDi\\2Gis.Erm.BL.MoDi.csproj
+		SccProjectName49 = ../../BLCore/Source/EntryPoints/UI/Web/2Gis.Erm.BLCore.UI.Web.Silverlight
+		SccLocalPath49 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Silverlight
+		SccProjectUniqueName50 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.MsCRM.Plugins\\2Gis.Erm.BLCore.MsCRM.Plugins.csproj
 		SccProjectTopLevelParentUniqueName50 = 2GIS.ERM.VS2012.sln
-		SccProjectName50 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.MoDi
-		SccLocalPath50 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.MoDi
-		SccProjectUniqueName51 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Releasing\\2Gis.Erm.BL.Releasing.csproj
+		SccProjectName50 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.MsCRM.Plugins
+		SccLocalPath50 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.MsCRM.Plugins
+		SccProjectUniqueName51 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.WCF\\2Gis.Erm.Platform.DI.WCF.csproj
 		SccProjectTopLevelParentUniqueName51 = 2GIS.ERM.VS2012.sln
-		SccProjectName51 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Releasing
-		SccLocalPath51 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Releasing
-		SccProjectUniqueName52 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Interception\\2Gis.Erm.Platform.DI.Interception.csproj
+		SccProjectName51 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.WCF
+		SccLocalPath51 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.WCF
+		SccProjectUniqueName52 = ..\\..\\BLCore\\Source\\Resources\\2Gis.Erm.BLCore.Resources.Client\\2Gis.Erm.BLCore.Resources.Client.csproj
 		SccProjectTopLevelParentUniqueName52 = 2GIS.ERM.VS2012.sln
-		SccProjectName52 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.Interception
-		SccLocalPath52 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.Interception
-		SccProjectUniqueName53 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.Platform.Web.Mvc\\2Gis.Erm.Platform.Web.Mvc.csproj
+		SccProjectName52 = ../../BLCore/Source/Resources/2Gis.Erm.BLCore.Resources.Client
+		SccLocalPath52 = ..\\..\\BLCore\\Source\\Resources\\2Gis.Erm.BLCore.Resources.Client
+		SccProjectUniqueName53 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Extensions\\2Gis.Erm.Platform.WCF.Extensions.csproj
 		SccProjectTopLevelParentUniqueName53 = 2GIS.ERM.VS2012.sln
-		SccProjectName53 = ../../Platform/Source/EntryPoints/UI/Web/2Gis.Erm.Platform.Web.Mvc
-		SccLocalPath53 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.Platform.Web.Mvc
-		SccProjectUniqueName54 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration.Core\\2Gis.Erm.Platform.Migration.Core.csproj
+		SccProjectName53 = ../../Platform/Source/WCF/2Gis.Erm.Platform.WCF.Extensions
+		SccLocalPath53 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Extensions
+		SccProjectUniqueName54 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Client\\2Gis.Erm.Platform.Resources.Client.csproj
 		SccProjectTopLevelParentUniqueName54 = 2GIS.ERM.VS2012.sln
-		SccProjectName54 = ../../Platform/Source/Data/Migrations/2Gis.Erm.Platform.Migration.Core
-		SccLocalPath54 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration.Core
-		SccProjectUniqueName55 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration\\2Gis.Erm.Platform.Migration.csproj
+		SccProjectName54 = ../../Platform/Source/Resources/2Gis.Erm.Platform.Resources.Client
+		SccLocalPath54 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Client
+		SccProjectUniqueName55 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure\\2Gis.Platform.UI.WPF.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName55 = 2GIS.ERM.VS2012.sln
-		SccProjectName55 = ../../Platform/Source/Data/Migrations/2Gis.Erm.Platform.Migration
-		SccLocalPath55 = ..\\..\\Platform\\Source\\Data\\Migrations\\2Gis.Erm.Platform.Migration
-		SccProjectUniqueName56 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DB.Migrations\\2Gis.Erm.BL.DB.Migrations.csproj
+		SccProjectName55 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Infrastructure
+		SccLocalPath55 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure
+		SccProjectUniqueName56 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure\\2Gis.Erm.Platform.UI.WPF.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName56 = 2GIS.ERM.VS2012.sln
-		SccProjectName56 = ../../BL/Source/Data/2Gis.Erm.BL.DB.Migrations
-		SccLocalPath56 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DB.Migrations
-		SccProjectUniqueName57 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.Web.Mvc\\2Gis.Erm.BL.Web.Mvc.csproj
+		SccProjectName56 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Erm.Platform.UI.WPF.Infrastructure
+		SccLocalPath56 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure
+		SccProjectUniqueName57 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.BLCore.UI.WPF.Client\\2Gis.Erm.BLCore.UI.WPF.Client.csproj
 		SccProjectTopLevelParentUniqueName57 = 2GIS.ERM.VS2012.sln
-		SccProjectName57 = ../../BL/Source/EntryPoints/UI/Web/2Gis.Erm.BL.Web.Mvc
-		SccLocalPath57 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.Web.Mvc
-		SccProjectUniqueName58 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLFlex.Web.Mvc.Global\\2Gis.Erm.BLFlex.Web.Mvc.Global.csproj
+		SccProjectName57 = ../../BLCore/Source/EntryPoints/UI/Desktop/2Gis.Erm.BLCore.UI.WPF.Client
+		SccLocalPath57 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.BLCore.UI.WPF.Client
+		SccProjectUniqueName58 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Operations.Global\\2Gis.Erm.BLFlex.API.Operations.Global.csproj
 		SccProjectTopLevelParentUniqueName58 = 2GIS.ERM.VS2012.sln
-		SccProjectName58 = ../../BLFlex/Source/EntryPoints/UI/Web/2Gis.Erm.BLFlex.Web.Mvc.Global
-		SccLocalPath58 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLFlex.Web.Mvc.Global
-		SccProjectUniqueName59 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Operations.Special\\2Gis.Erm.BL.WCF.Operations.Special.csproj
+		SccProjectName58 = ../../BLFlex/Source/API/2Gis.Erm.BLFlex.API.Operations.Global
+		SccLocalPath58 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Operations.Global
+		SccProjectUniqueName59 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Operations.Global\\2Gis.Erm.BLFlex.Operations.Global.csproj
 		SccProjectTopLevelParentUniqueName59 = 2GIS.ERM.VS2012.sln
-		SccProjectName59 = ../../BL/Source/EntryPoints/ServiceBackend/2Gis.Erm.BL.WCF.Operations.Special
-		SccLocalPath59 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Operations.Special
-		SccProjectUniqueName60 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Operations\\2Gis.Erm.BL.WCF.Operations.csproj
+		SccProjectName59 = ../../BLFlex/Source/ApplicationServices/2Gis.Erm.BLFlex.Operations.Global
+		SccLocalPath59 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.Operations.Global
+		SccProjectUniqueName60 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Releasing\\2Gis.Erm.BLCore.Releasing.csproj
 		SccProjectTopLevelParentUniqueName60 = 2GIS.ERM.VS2012.sln
-		SccProjectName60 = ../../BL/Source/EntryPoints/ServiceBackend/2Gis.Erm.BL.WCF.Operations
-		SccLocalPath60 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Operations
-		SccProjectUniqueName61 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.WCF\\2Gis.Erm.Platform.DI.WCF.csproj
+		SccProjectName60 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Releasing
+		SccLocalPath60 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Releasing
+		SccProjectUniqueName61 = ..\\..\\BLCore\\Source\\Tools\\2Gis.Erm.BLCore.ExtractUseCases\\2Gis.Erm.BLCore.ExtractUseCases.csproj
 		SccProjectTopLevelParentUniqueName61 = 2GIS.ERM.VS2012.sln
-		SccProjectName61 = ../../Platform/Source/DI/2Gis.Erm.Platform.DI.WCF
-		SccLocalPath61 = ..\\..\\Platform\\Source\\DI\\2Gis.Erm.Platform.DI.WCF
-		SccProjectUniqueName62 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Extensions\\2Gis.Erm.Platform.WCF.Extensions.csproj
+		SccProjectName61 = ../../BLCore/Source/Tools/2Gis.Erm.BLCore.ExtractUseCases
+		SccLocalPath61 = ..\\..\\BLCore\\Source\\Tools\\2Gis.Erm.BLCore.ExtractUseCases
+		SccProjectUniqueName62 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports.UI\\2Gis.Erm.BLCore.Reports.UI.csproj
 		SccProjectTopLevelParentUniqueName62 = 2GIS.ERM.VS2012.sln
-		SccProjectName62 = ../../Platform/Source/WCF/2Gis.Erm.Platform.WCF.Extensions
-		SccLocalPath62 = ..\\..\\Platform\\Source\\WCF\\2Gis.Erm.Platform.WCF.Extensions
-		SccProjectUniqueName63 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Security\\2Gis.Erm.Platform.Security.csproj
+		SccProjectName62 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BLCore.Reports.UI
+		SccLocalPath62 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports.UI
+		SccProjectUniqueName63 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources\\2Gis.Platform.UI.WPF.Resources.csproj
 		SccProjectTopLevelParentUniqueName63 = 2GIS.ERM.VS2012.sln
-		SccProjectName63 = ../../Platform/Source/2Gis.Erm.Platform.Security
-		SccLocalPath63 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Security
-		SccProjectUniqueName64 = ..\\..\\BLFlex\\Source\\DI\\2Gis.Erm.BLFlex.DI\\2Gis.Erm.BLFlex.DI.csproj
+		SccProjectName63 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Resources
+		SccLocalPath63 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources
+		SccProjectUniqueName64 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell\\2Gis.Platform.UI.WPF.Shell.csproj
 		SccProjectTopLevelParentUniqueName64 = 2GIS.ERM.VS2012.sln
-		SccProjectName64 = ../../BLFlex/Source/DI/2Gis.Erm.BLFlex.DI
-		SccLocalPath64 = ..\\..\\BLFlex\\Source\\DI\\2Gis.Erm.BLFlex.DI
-		SccProjectUniqueName65 = 2Gis.Erm.API.WCF.Operations\\2Gis.Erm.API.WCF.Operations.csproj
+		SccProjectName64 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell
+		SccLocalPath64 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell
+		SccProjectUniqueName65 = ..\\..\\Platform\\Source\\Tests\\2Gis.Erm.Platform.Tests.Unit\\2Gis.Erm.Platform.Tests.Unit.csproj
 		SccProjectTopLevelParentUniqueName65 = 2GIS.ERM.VS2012.sln
-		SccProjectName65 = 2Gis.Erm.API.WCF.Operations
-		SccLocalPath65 = 2Gis.Erm.API.WCF.Operations
-		SccProjectUniqueName66 = 2Gis.Erm.API.WCF.Operations.Special\\2Gis.Erm.API.WCF.Operations.Special.csproj
+		SccProjectName65 = ../../Platform/Source/Tests/2Gis.Erm.Platform.Tests.Unit
+		SccLocalPath65 = ..\\..\\Platform\\Source\\Tests\\2Gis.Erm.Platform.Tests.Unit
+		SccProjectUniqueName66 = 2Gis.Erm.Migrator\\2Gis.Erm.Migrator.csproj
 		SccProjectTopLevelParentUniqueName66 = 2GIS.ERM.VS2012.sln
-		SccProjectName66 = 2Gis.Erm.API.WCF.Operations.Special
-		SccLocalPath66 = 2Gis.Erm.API.WCF.Operations.Special
-		SccProjectUniqueName67 = 2Gis.Erm.UI.Web.Mvc\\2Gis.Erm.UI.Web.Mvc.csproj
+		SccProjectName66 = 2Gis.Erm.Migrator
+		SccLocalPath66 = 2Gis.Erm.Migrator
+		SccProjectUniqueName67 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.MoDi\\2Gis.Erm.BLCore.MoDi.csproj
 		SccProjectTopLevelParentUniqueName67 = 2GIS.ERM.VS2012.sln
-		SccProjectName67 = 2Gis.Erm.UI.Web.Mvc
-		SccLocalPath67 = 2Gis.Erm.UI.Web.Mvc
-		SccProjectUniqueName68 = ..\\..\\Platform\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.Platform.WCF.Metadata\\2Gis.Erm.Platform.WCF.Metadata.csproj
+		SccProjectName67 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.MoDi
+		SccLocalPath67 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.MoDi
+		SccProjectUniqueName68 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.MoDi\\2Gis.Erm.BLCore.WCF.MoDi.csproj
 		SccProjectTopLevelParentUniqueName68 = 2GIS.ERM.VS2012.sln
-		SccProjectName68 = ../../Platform/Source/EntryPoints/ServiceBackend/2Gis.Erm.Platform.WCF.Metadata
-		SccLocalPath68 = ..\\..\\Platform\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.Platform.WCF.Metadata
-		SccProjectUniqueName69 = 2Gis.Erm.API.WCF.Metadata\\2Gis.Erm.API.WCF.Metadata.csproj
+		SccProjectName68 = ../../BLCore/Source/EntryPoints/ServiceBackend/2Gis.Erm.BLCore.WCF.MoDi
+		SccLocalPath68 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.MoDi
+		SccProjectUniqueName69 = 2Gis.Erm.API.WCF.MoDi\\2Gis.Erm.API.WCF.MoDi.csproj
 		SccProjectTopLevelParentUniqueName69 = 2GIS.ERM.VS2012.sln
-		SccProjectName69 = 2Gis.Erm.API.WCF.Metadata
-		SccLocalPath69 = 2Gis.Erm.API.WCF.Metadata
-		SccProjectUniqueName70 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Releasing\\2Gis.Erm.BL.WCF.Releasing.csproj
+		SccProjectName69 = 2Gis.Erm.API.WCF.MoDi
+		SccLocalPath69 = 2Gis.Erm.API.WCF.MoDi
+		SccProjectUniqueName70 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Operations\\2Gis.Erm.BLCore.WCF.Operations.csproj
 		SccProjectTopLevelParentUniqueName70 = 2GIS.ERM.VS2012.sln
-		SccProjectName70 = ../../BL/Source/EntryPoints/ServiceBackend/2Gis.Erm.BL.WCF.Releasing
-		SccLocalPath70 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.Releasing
-		SccProjectUniqueName71 = 2Gis.Erm.API.WCF.Releasing\\2Gis.Erm.API.WCF.Releasing.csproj
+		SccProjectName70 = ../../BLCore/Source/EntryPoints/ServiceBackend/2Gis.Erm.BLCore.WCF.Operations
+		SccLocalPath70 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Operations
+		SccProjectUniqueName71 = 2Gis.Erm.API.WCF.Operations\\2Gis.Erm.API.WCF.Operations.csproj
 		SccProjectTopLevelParentUniqueName71 = 2GIS.ERM.VS2012.sln
-		SccProjectName71 = 2Gis.Erm.API.WCF.Releasing
-		SccLocalPath71 = 2Gis.Erm.API.WCF.Releasing
-		SccProjectUniqueName72 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.OrderValidation\\2Gis.Erm.BL.WCF.OrderValidation.csproj
+		SccProjectName71 = 2Gis.Erm.API.WCF.Operations
+		SccLocalPath71 = 2Gis.Erm.API.WCF.Operations
+		SccProjectUniqueName72 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.OrderValidation\\2Gis.Erm.BLCore.WCF.OrderValidation.csproj
 		SccProjectTopLevelParentUniqueName72 = 2GIS.ERM.VS2012.sln
-		SccProjectName72 = ../../BL/Source/EntryPoints/ServiceBackend/2Gis.Erm.BL.WCF.OrderValidation
-		SccLocalPath72 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.OrderValidation
+		SccProjectName72 = ../../BLCore/Source/EntryPoints/ServiceBackend/2Gis.Erm.BLCore.WCF.OrderValidation
+		SccLocalPath72 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.OrderValidation
 		SccProjectUniqueName73 = 2Gis.Erm.API.WCF.OrderValidation\\2Gis.Erm.API.WCF.OrderValidation.csproj
 		SccProjectTopLevelParentUniqueName73 = 2GIS.ERM.VS2012.sln
 		SccProjectName73 = 2Gis.Erm.API.WCF.OrderValidation
 		SccLocalPath73 = 2Gis.Erm.API.WCF.OrderValidation
-		SccProjectUniqueName74 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.MoDi\\2Gis.Erm.BL.WCF.MoDi.csproj
+		SccProjectUniqueName74 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Releasing\\2Gis.Erm.BLCore.WCF.Releasing.csproj
 		SccProjectTopLevelParentUniqueName74 = 2GIS.ERM.VS2012.sln
-		SccProjectName74 = ../../BL/Source/EntryPoints/ServiceBackend/2Gis.Erm.BL.WCF.MoDi
-		SccLocalPath74 = ..\\..\\BL\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BL.WCF.MoDi
-		SccProjectUniqueName75 = 2Gis.Erm.API.WCF.MoDi\\2Gis.Erm.API.WCF.MoDi.csproj
+		SccProjectName74 = ../../BLCore/Source/EntryPoints/ServiceBackend/2Gis.Erm.BLCore.WCF.Releasing
+		SccLocalPath74 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Releasing
+		SccProjectUniqueName75 = 2Gis.Erm.API.WCF.Releasing\\2Gis.Erm.API.WCF.Releasing.csproj
 		SccProjectTopLevelParentUniqueName75 = 2GIS.ERM.VS2012.sln
-		SccProjectName75 = 2Gis.Erm.API.WCF.MoDi
-		SccLocalPath75 = 2Gis.Erm.API.WCF.MoDi
-		SccProjectUniqueName76 = ..\\..\\Platform\\Source\\EntryPoints\\TaskService\\2Gis.Erm.Platform.TaskService\\2Gis.Erm.Platform.TaskService.csproj
+		SccProjectName75 = 2Gis.Erm.API.WCF.Releasing
+		SccLocalPath75 = 2Gis.Erm.API.WCF.Releasing
+		SccProjectUniqueName76 = ..\\..\\Platform\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.Platform.WCF.Metadata\\2Gis.Erm.Platform.WCF.Metadata.csproj
 		SccProjectTopLevelParentUniqueName76 = 2GIS.ERM.VS2012.sln
-		SccProjectName76 = ../../Platform/Source/EntryPoints/TaskService/2Gis.Erm.Platform.TaskService
-		SccLocalPath76 = ..\\..\\Platform\\Source\\EntryPoints\\TaskService\\2Gis.Erm.Platform.TaskService
-		SccProjectUniqueName77 = ..\\..\\BL\\Source\\EntryPoints\\TaskService\\2Gis.Erm.BL.TaskService\\2Gis.Erm.BL.TaskService.csproj
+		SccProjectName76 = ../../Platform/Source/EntryPoints/ServiceBackend/2Gis.Erm.Platform.WCF.Metadata
+		SccLocalPath76 = ..\\..\\Platform\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.Platform.WCF.Metadata
+		SccProjectUniqueName77 = 2Gis.Erm.API.WCF.Metadata\\2Gis.Erm.API.WCF.Metadata.csproj
 		SccProjectTopLevelParentUniqueName77 = 2GIS.ERM.VS2012.sln
-		SccProjectName77 = ../../BL/Source/EntryPoints/TaskService/2Gis.Erm.BL.TaskService
-		SccLocalPath77 = ..\\..\\BL\\Source\\EntryPoints\\TaskService\\2Gis.Erm.BL.TaskService
-		SccProjectUniqueName78 = 2Gis.Erm.TaskService\\2Gis.Erm.TaskService.csproj
+		SccProjectName77 = 2Gis.Erm.API.WCF.Metadata
+		SccLocalPath77 = 2Gis.Erm.API.WCF.Metadata
+		SccProjectUniqueName78 = 2Gis.Erm.UI.Web.Mvc\\2Gis.Erm.UI.Web.Mvc.csproj
 		SccProjectTopLevelParentUniqueName78 = 2GIS.ERM.VS2012.sln
-		SccProjectName78 = 2Gis.Erm.TaskService
-		SccLocalPath78 = 2Gis.Erm.TaskService
-		SccProjectUniqueName79 = 2Gis.Erm.Migrator\\2Gis.Erm.Migrator.csproj
+		SccProjectName78 = 2Gis.Erm.UI.Web.Mvc
+		SccLocalPath78 = 2Gis.Erm.UI.Web.Mvc
+		SccProjectUniqueName79 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Operations.Special\\2Gis.Erm.BLCore.WCF.Operations.Special.csproj
 		SccProjectTopLevelParentUniqueName79 = 2GIS.ERM.VS2012.sln
-		SccProjectName79 = 2Gis.Erm.Migrator
-		SccLocalPath79 = 2Gis.Erm.Migrator
-		SccProjectUniqueName80 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI\\2Gis.Erm.BL.Reports.UI.csproj
+		SccProjectName79 = ../../BLCore/Source/EntryPoints/ServiceBackend/2Gis.Erm.BLCore.WCF.Operations.Special
+		SccLocalPath79 = ..\\..\\BLCore\\Source\\EntryPoints\\ServiceBackend\\2Gis.Erm.BLCore.WCF.Operations.Special
+		SccProjectUniqueName80 = 2Gis.Erm.API.WCF.Operations.Special\\2Gis.Erm.API.WCF.Operations.Special.csproj
 		SccProjectTopLevelParentUniqueName80 = 2GIS.ERM.VS2012.sln
-		SccProjectName80 = ../../BL/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports.UI
-		SccLocalPath80 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI
-		SccProjectUniqueName81 = ..\\..\\BL\\Source\\Tools\\2Gis.Erm.BL.ExtractUseCases\\2Gis.Erm.BL.ExtractUseCases.csproj
+		SccProjectName80 = 2Gis.Erm.API.WCF.Operations.Special
+		SccLocalPath80 = 2Gis.Erm.API.WCF.Operations.Special
+		SccProjectUniqueName81 = ..\\..\\BLCore\\Source\\Tests\\2Gis.Erm.BLCore.Tests.Unit\\2Gis.Erm.BLCore.Tests.Unit.csproj
 		SccProjectTopLevelParentUniqueName81 = 2GIS.ERM.VS2012.sln
-		SccProjectName81 = ../../BL/Source/Tools/2Gis.Erm.BL.ExtractUseCases
-		SccLocalPath81 = ..\\..\\BL\\Source\\Tools\\2Gis.Erm.BL.ExtractUseCases
-		SccProjectUniqueName82 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.UI.Web.Silverlight.Resources\\2Gis.Erm.BL.UI.Web.Silverlight.Resources.csproj
+		SccProjectName81 = ../../BLCore/Source/Tests/2Gis.Erm.BLCore.Tests.Unit
+		SccLocalPath81 = ..\\..\\BLCore\\Source\\Tests\\2Gis.Erm.BLCore.Tests.Unit
+		SccProjectUniqueName82 = ..\\..\\BLFlex\\Source\\Tests\\2Gis.Erm.BLFlex.Tests.Unit\\2Gis.Erm.BLFlex.Tests.Unit.csproj
 		SccProjectTopLevelParentUniqueName82 = 2GIS.ERM.VS2012.sln
-		SccProjectName82 = ../../BL/Source/EntryPoints/UI/Web/2Gis.Erm.BL.UI.Web.Silverlight.Resources
-		SccLocalPath82 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.UI.Web.Silverlight.Resources
-		SccProjectUniqueName83 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.UI.Web.Silverlight\\2Gis.Erm.BL.UI.Web.Silverlight.csproj
+		SccProjectName82 = ../../BLFlex/Source/Tests/2Gis.Erm.BLFlex.Tests.Unit
+		SccLocalPath82 = ..\\..\\BLFlex\\Source\\Tests\\2Gis.Erm.BLFlex.Tests.Unit
+		SccProjectUniqueName83 = 2Gis.Erm.UI.Desktop.WPF\\2Gis.Erm.UI.Desktop.WPF.csproj
 		SccProjectTopLevelParentUniqueName83 = 2GIS.ERM.VS2012.sln
-		SccProjectName83 = ../../BL/Source/EntryPoints/UI/Web/2Gis.Erm.BL.UI.Web.Silverlight
-		SccLocalPath83 = ..\\..\\BL\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BL.UI.Web.Silverlight
-		SccProjectUniqueName84 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.MsCRM.Plugins\\2Gis.Erm.BL.MsCRM.Plugins.csproj
+		SccProjectName83 = 2Gis.Erm.UI.Desktop.WPF
+		SccLocalPath83 = 2Gis.Erm.UI.Desktop.WPF
+		SccProjectUniqueName84 = Tests\\2Gis.Erm.Tests.Integration.InProc\\2Gis.Erm.Tests.Integration.InProc.csproj
 		SccProjectTopLevelParentUniqueName84 = 2GIS.ERM.VS2012.sln
-		SccProjectName84 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.MsCRM.Plugins
-		SccLocalPath84 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.MsCRM.Plugins
-		SccProjectUniqueName85 = Tests\\2Gis.Erm.Tests.Integration.InProc\\2Gis.Erm.Tests.Integration.InProc.csproj
+		SccProjectName84 = Tests/2Gis.Erm.Tests.Integration.InProc
+		SccLocalPath84 = Tests\\2Gis.Erm.Tests.Integration.InProc
+		SccProjectUniqueName85 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.Platform.UI.Web.Mvc\\2Gis.Erm.Platform.UI.Web.Mvc.csproj
 		SccProjectTopLevelParentUniqueName85 = 2GIS.ERM.VS2012.sln
-		SccProjectName85 = Tests/2Gis.Erm.Tests.Integration.InProc
-		SccLocalPath85 = Tests\\2Gis.Erm.Tests.Integration.InProc
-		SccProjectUniqueName86 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Server\\2Gis.Erm.Platform.Resources.Server.csproj
+		SccProjectName85 = ../../Platform/Source/EntryPoints/UI/Web/2Gis.Erm.Platform.UI.Web.Mvc
+		SccLocalPath85 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.Platform.UI.Web.Mvc
+		SccProjectUniqueName86 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Mvc\\2Gis.Erm.BLCore.UI.Web.Mvc.csproj
 		SccProjectTopLevelParentUniqueName86 = 2GIS.ERM.VS2012.sln
-		SccProjectName86 = ../../Platform/Source/Resources/2Gis.Erm.Platform.Resources.Server
-		SccLocalPath86 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Server
-		SccProjectUniqueName87 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Client\\2Gis.Erm.Platform.Resources.Client.csproj
+		SccProjectName86 = ../../BLCore/Source/EntryPoints/UI/Web/2Gis.Erm.BLCore.UI.Web.Mvc
+		SccLocalPath86 = ..\\..\\BLCore\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLCore.UI.Web.Mvc
+		SccProjectUniqueName87 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj
 		SccProjectTopLevelParentUniqueName87 = 2GIS.ERM.VS2012.sln
-		SccProjectName87 = ../../Platform/Source/Resources/2Gis.Erm.Platform.Resources.Client
-		SccLocalPath87 = ..\\..\\Platform\\Source\\Resources\\2Gis.Erm.Platform.Resources.Client
+		SccProjectName87 = ../../BLFlex/Source/EntryPoints/UI/Web/2Gis.Erm.BLFlex.UI.Web.Mvc.Global
+		SccLocalPath87 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Web\\2Gis.Erm.BLFlex.UI.Web.Mvc.Global
+		SccProjectUniqueName88 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BLFlex.UI.Metadata\\2Gis.Erm.BLFlex.UI.Metadata.csproj
+		SccProjectTopLevelParentUniqueName88 = 2GIS.ERM.VS2012.sln
+		SccProjectName88 = ../../BLFlex/Source/EntryPoints/UI/Common/2Gis.Erm.BLFlex.UI.Metadata
+		SccLocalPath88 = ..\\..\\BLFlex\\Source\\EntryPoints\\UI\\Common\\2Gis.Erm.BLFlex.UI.Metadata
+		SccProjectUniqueName89 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DB.Migrations\\2Gis.Erm.BL.DB.Migrations.csproj
+		SccProjectTopLevelParentUniqueName89 = 2GIS.ERM.VS2012.sln
+		SccProjectName89 = ../../BL/Source/Data/2Gis.Erm.BL.DB.Migrations
+		SccLocalPath89 = ..\\..\\BL\\Source\\Data\\2Gis.Erm.BL.DB.Migrations
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1564,6 +1591,26 @@ Global
 		{B12C39B4-050B-476F-9C80-E5757226B926}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B12C39B4-050B-476F-9C80-E5757226B926}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B12C39B4-050B-476F-9C80-E5757226B926}.Release|x64.ActiveCfg = Release|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}.Release|x64.ActiveCfg = Release|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1590,24 +1637,24 @@ Global
 		{5BF05584-00A3-4A29-8ABF-8F1D81289C24} = {2FA8D8F1-B99D-4EE0-B162-C81C23E98858}
 		{7302569D-6E30-458A-B5BB-88EF95F8813E} = {2FA8D8F1-B99D-4EE0-B162-C81C23E98858}
 		{C8628647-04BE-4D7B-98A9-87ADBCC25D9D} = {2FA8D8F1-B99D-4EE0-B162-C81C23E98858}
-		{180A8824-C95C-49D9-A622-4D2F8A75BBDF} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{395D2251-C5DF-4A82-8EDA-997B39440B61} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{2B27C591-851F-4895-88E4-822D5C21291B} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{BF15FB1A-8859-4BC4-9BAF-083D37AF2DB5} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{B49DBDFC-D7DB-41A7-B473-1509F7013571} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{80C2E9F7-E151-4B92-AAA3-741EA7431AB9} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{F90FA8E8-EFFB-48F8-A342-E2A791959047} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{D3167AFD-F64D-4902-A9A2-91A34D1C000B} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
-		{A5E1C8F3-C249-42B2-AB10-D722E8427667} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
+		{180A8824-C95C-49D9-A622-4D2F8A75BBDF} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{395D2251-C5DF-4A82-8EDA-997B39440B61} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{2B27C591-851F-4895-88E4-822D5C21291B} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{BF15FB1A-8859-4BC4-9BAF-083D37AF2DB5} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{B49DBDFC-D7DB-41A7-B473-1509F7013571} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{80C2E9F7-E151-4B92-AAA3-741EA7431AB9} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{F90FA8E8-EFFB-48F8-A342-E2A791959047} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{A5E1C8F3-C249-42B2-AB10-D722E8427667} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
+		{371FF197-E6F2-4003-9B6C-DEB6F31F0205} = {9F30A0D2-4AC7-4126-873D-884DA05833DB}
 		{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{A0E38C1C-B01F-4CD2-84F7-722830385BA9} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{2DCD024B-93A5-4D7D-9573-EAB8D93340EB} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
-		{97992802-C651-46E9-AD0D-2C273152566B} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{133C0A52-2556-4B09-A046-1BEDA9AA3AE4} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{1DE6FFCD-A1E7-4670-83C7-67F52B129B58} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{13700FDC-7D78-4105-B382-1B824BB608D1} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{46FF1F04-9E90-4858-8263-9ED38A0BDD69} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
+		{97992802-C651-46E9-AD0D-2C273152566B} = {180A8824-C95C-49D9-A622-4D2F8A75BBDF}
 		{6B8617E4-F688-45ED-A874-6692806DBF71} = {ECC0E059-302A-41C0-9496-ADBF21AB6C31}
 		{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2} = {ECC0E059-302A-41C0-9496-ADBF21AB6C31}
 		{035E4AA9-9547-4B1C-B105-902ECAD7E53F} = {ECC0E059-302A-41C0-9496-ADBF21AB6C31}
@@ -1677,6 +1724,8 @@ Global
 		{081096DB-ADC1-4008-BF6D-38E361BCB6E0} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{C90C735D-3BC1-4009-A1B3-480979CF2D8E} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{DD1E0892-54CD-4D10-9E9A-02DB3532C898} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
+		{D3167AFD-F64D-4902-A9A2-91A34D1C000B} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
+		{9FF44272-1640-4DDD-885F-AAA2D1DD8B6E} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{7FC50A2A-5D69-4FE4-BDC4-DFFAC1DB9FF0} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{61F2E7DB-DED3-41E5-B347-DAB633B4E3BB} = {1E9D99B4-C2B4-446E-A714-AED54C251747}
 		{C885CBC2-B3A0-47CF-AA3C-F22122FD1EDE} = {1E9D99B4-C2B4-446E-A714-AED54C251747}
@@ -1694,6 +1743,7 @@ Global
 		{5FC26F81-5100-43B5-B55B-E470308338D2} = {46CEBE23-C116-43B2-8C31-C4EFDE48C6F4}
 		{7E9F6503-D5C7-4FD1-8043-CB381EF8887C} = {E0093632-F2A7-4720-8F4C-1E35DF8FE5C9}
 		{60D0D089-7A06-4B9F-A162-3EEBF516311D} = {7E9F6503-D5C7-4FD1-8043-CB381EF8887C}
+		{8194822E-E5E3-4E96-A025-E69B89FCD02A} = {7E9F6503-D5C7-4FD1-8043-CB381EF8887C}
 		{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD} = {60D0D089-7A06-4B9F-A162-3EEBF516311D}
 		{B87F1E7F-F375-452D-9055-2E9AB60254C9} = {D7CBC8DF-401E-494E-BAEE-774395B7E3D4}
 		{5429CE24-14C7-4727-AF42-9D6D2177047A} = {A5E1C8F3-C249-42B2-AB10-D722E8427667}
@@ -1702,6 +1752,8 @@ Global
 		{10122143-5187-44B7-99EA-C91F739CF3F1} = {05376913-A829-470A-9B6C-DA573920851E}
 		{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82} = {B2DAC0D3-F7B3-40AA-843F-86FEE4C6FD95}
 		{B12C39B4-050B-476F-9C80-E5757226B926} = {B2DAC0D3-F7B3-40AA-843F-86FEE4C6FD95}
+		{0AF90CF6-4337-4C75-B9E8-485F924F2FA2} = {8194822E-E5E3-4E96-A025-E69B89FCD02A}
+		{53A13F6F-53A4-4EDC-8284-51ACCF00B51C} = {9FF44272-1640-4DDD-885F-AAA2D1DD8B6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35

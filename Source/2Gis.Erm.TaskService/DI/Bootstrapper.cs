@@ -1,23 +1,21 @@
 ﻿using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.BL.API.Common.Crosscutting.AD;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Integration.Settings;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.MsCRM;
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BL.API.OrderValidation;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.DI.Config;
-using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Concrete.Simplified;
-using DoubleGis.Erm.BL.Operations.Concrete.Users;
-using DoubleGis.Erm.BL.Operations.Crosscutting.AD;
-using DoubleGis.Erm.BL.Operations.Services.Operations.OrderProcessingRequest;
-using DoubleGis.Erm.BL.Operations.Services.OrderProcessingRequest;
-using DoubleGis.Erm.BL.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.BL.OrderValidation;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.TaskService.Settings;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
+using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.TaskService.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -167,6 +165,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(Lifetime.PerScope, MappingScope)
 
                 // services
+                // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICrmTaskFactory, CrmTaskFactory>(Lifetime.PerScope, MappingScope)
 

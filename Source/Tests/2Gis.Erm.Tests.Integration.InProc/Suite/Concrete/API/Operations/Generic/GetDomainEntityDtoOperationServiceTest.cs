@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Generic.Get;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;

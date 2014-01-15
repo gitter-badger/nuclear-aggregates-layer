@@ -1,5 +1,5 @@
-using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Generic.Disqualify;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

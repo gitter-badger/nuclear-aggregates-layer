@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified.Dictionary.Countries;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Countries;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;

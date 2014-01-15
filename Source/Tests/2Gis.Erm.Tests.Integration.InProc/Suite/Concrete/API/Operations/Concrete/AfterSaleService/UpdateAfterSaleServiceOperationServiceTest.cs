@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Aggregates.Deals;
-using DoubleGis.Erm.BL.API.Common.Enums;
-using DoubleGis.Erm.BL.API.Operations.Concrete.AfterSaleService;
+using DoubleGis.Erm.BLCore.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.AfterSaleService;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;

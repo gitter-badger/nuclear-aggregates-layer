@@ -1,10 +1,10 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true" hostSpecific="true"#>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Configuration.dll" #>
-<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BL.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BLCore.Resources.Client.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Resources.Client.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.API.Core.dll" #>
-<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Web.Mvc.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.UI.Web.Mvc.dll" #>
 <#@ assembly Name="System.Core.dll" #>
 <#@ assembly Name="Microsoft.VisualStudio.TextTemplating.Modeling.12.0.dll" #>
 <#@ import namespace="System.Reflection" #>
@@ -15,7 +15,7 @@
 <#@ import namespace="System.Configuration" #>
 <#@ import namespace="System.Globalization" #>
 <#@ import namespace="DoubleGis.Erm.Platform.API.Core.Settings" #>
-<#@ import namespace="DoubleGis.Erm.Platform.Web.Mvc.ResourceHandling" #>
+<#@ import namespace="DoubleGis.Erm.Platform.UI.Web.Mvc.ResourceHandling" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ output extension=".log" #> 
 
@@ -23,16 +23,13 @@
 	const string JsResourceFileNameTemplate = "Ext.LocalizedResources.{0}.js";
 
 	// Список локалей, для которых будут создаваться ресурсы.
-    var targetCultures = 
-		LocalizationSettings
-			.NeutralFallbackCultures
-			.Except(LocalizationSettings.FallbackOnlySupportedCultures);
+    var targetCultures = LocalizationSettings.NeutralFallbackCultures;
 
     EnvDTE.ProjectItem templateItem = Project.DTE.Solution.FindProjectItem(Host.TemplateFile);
 	string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
 
 	var targetResourceEntryHostTypes = new []{ 
-											typeof(DoubleGis.Erm.BL.Resources.Client.Properties.Resources), 
+											typeof(DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources), 
 											typeof(DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI) 
 										};
 	

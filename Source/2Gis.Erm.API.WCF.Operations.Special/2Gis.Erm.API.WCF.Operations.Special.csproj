@@ -96,45 +96,45 @@
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
-      <Name>2Gis.Erm.BL.API.MoDi</Name>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations.Special\2Gis.Erm.BL.API.Operations.Special.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
-      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
-      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\2Gis.Erm.BLCore.Operations.Special.csproj">
       <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
-      <Name>2Gis.Erm.BL.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.Operations.Special</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DAL.PersistenceServices\2Gis.Erm.BL.DAL.PersistenceServices.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
-      <Name>2Gis.Erm.BL.DAL.PersistenceServices</Name>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations.Special\2Gis.Erm.BL.WCF.Operations.Special.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
-      <Name>2Gis.Erm.BL.WCF.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Operations\2Gis.Erm.BL.WCF.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations\2Gis.Erm.BLCore.WCF.Operations.csproj">
       <Project>{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}</Project>
-      <Name>2Gis.Erm.BL.WCF.Operations</Name>
+      <Name>2Gis.Erm.BLCore.WCF.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -180,13 +180,13 @@
       <Project>{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2}</Project>
       <Name>2Gis.Erm.Platform.DI.WCF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj">
       <Project>{f09e7148-2f47-4bca-bf3c-410cda8018a4}</Project>
@@ -225,13 +225,16 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Edu.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Int.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Load.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia2.pubxml" />

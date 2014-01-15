@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Prices;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

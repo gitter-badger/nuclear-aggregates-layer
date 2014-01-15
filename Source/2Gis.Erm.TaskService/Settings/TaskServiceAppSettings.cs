@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.TaskService.Settings;
+using DoubleGis.Erm.BLCore.TaskService.Settings;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;

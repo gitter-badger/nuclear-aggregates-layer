@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.API.Releasing.Releases;
-using DoubleGis.Erm.BL.WCF.Releasing.Settings;
+using DoubleGis.Erm.BLCore.API.Releasing.Releases;
+using DoubleGis.Erm.BLCore.WCF.Releasing.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;

@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BL.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BL.API.Operations.Generic.Get;
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;

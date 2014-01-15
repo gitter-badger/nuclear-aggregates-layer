@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

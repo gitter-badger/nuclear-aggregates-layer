@@ -2,10 +2,11 @@
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.MoDi.Settings;
-using DoubleGis.Erm.BL.API.MoDi.Settings;
-using DoubleGis.Erm.BL.DI.Config;
-using DoubleGis.Erm.BL.Operations.Concrete.Users;
-using DoubleGis.Erm.BL.WCF.MoDi;
+using DoubleGis.Erm.BLCore.API.MoDi.Settings;
+using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.WCF.MoDi;
+using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Settings;
@@ -66,6 +67,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         {
             container.ConfigureAppSettings(settings)
                      .ConfigureLogging(loggerContextManager)
+                     .ConfigureGlobal(settings)
                      .CreateSecuritySpecific(settings)
                      .CreateErmSpecific()
                      .ConfigureCacheAdapter(settings)

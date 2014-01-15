@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Special.OrderProcessingRequests;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 

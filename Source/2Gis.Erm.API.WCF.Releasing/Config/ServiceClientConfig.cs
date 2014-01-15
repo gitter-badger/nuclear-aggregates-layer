@@ -1,6 +1,6 @@
 ﻿using System.ServiceModel;
 
-using DoubleGis.Erm.BL.API.OrderValidation.Remote;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;

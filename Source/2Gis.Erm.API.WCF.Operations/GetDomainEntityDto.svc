@@ -1,4 +1,4 @@
 ﻿<%@ ServiceHost Language="C#" 
                 Debug="true" 
-                Service="DoubleGis.Erm.BL.WCF.Operations.GetDomainEntityDtoApplicationService" 
+                Service="DoubleGis.Erm.BLCore.WCF.Operations.GetDomainEntityDtoApplicationService" 
                 Factory="DoubleGis.Erm.WCF.BasicOperations.UnityServiceHostFactory" %>

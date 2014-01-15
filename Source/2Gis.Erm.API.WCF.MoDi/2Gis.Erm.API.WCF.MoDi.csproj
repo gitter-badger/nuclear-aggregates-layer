@@ -46,6 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -92,6 +96,15 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="..\..\..\BLFlex\Templates\Отчет по выручке.dotx">
+      <Link>Templates\Отчет по выручке.dotx</Link>
+    </Content>
+    <Content Include="..\..\..\BLFlex\Templates\Региональный бланк заказа без НДС.dotx">
+      <Link>Templates\Региональный бланк заказа без НДС.dotx</Link>
+    </Content>
+    <Content Include="..\..\..\BLFlex\Templates\Региональный бланк заказа с НДС.dotx">
+      <Link>Templates\Региональный бланк заказа с НДС.dotx</Link>
+    </Content>
     <None Include="..\Environments.config">
       <Link>Environments.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -137,13 +150,7 @@
     <None Include="Web.Edu.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Web.Edu.Czech.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.Expl.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Int.Czech.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Int.Russia.config">
@@ -231,21 +238,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.MoDi\2Gis.Erm.BL.WCF.MoDi.csproj">
+    <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
+      <Project>{b87f1e7f-f375-452d-9055-2e9ab60254c9}</Project>
+      <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.MoDi\2Gis.Erm.BLCore.WCF.MoDi.csproj">
       <Project>{c4d82876-700c-466a-8116-501e60e7ae89}</Project>
-      <Name>2Gis.Erm.BL.WCF.MoDi</Name>
+      <Name>2Gis.Erm.BLCore.WCF.MoDi</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.MoDi\2Gis.Erm.BL.API.MoDi.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
-      <Name>2Gis.Erm.BL.API.MoDi</Name>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
@@ -267,9 +278,9 @@
       <Project>{9772e28e-c4c2-4c99-b98d-b2267de0ccd2}</Project>
       <Name>2Gis.Erm.Platform.DI.WCF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2c631161-68af-49e3-9924-b2894e8fd63b}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

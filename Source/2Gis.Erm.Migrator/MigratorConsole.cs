@@ -18,6 +18,12 @@ namespace DoubleGis.Erm.Migrator
         private readonly MigrationConsoleArguments _arguments = new MigrationConsoleArguments();
         private readonly MigrationConsoleCalculatedArguments _calculatedArguments = new MigrationConsoleCalculatedArguments();
 
+        private readonly string[] defaultMigrationAssemblies =
+            {
+                "2Gis.Erm.BLCore.DB.Migrations.dll",
+                "2Gis.Erm.BL.DB.Migrations.dll",
+            };
+
         public MigrationConsole(params string[] args)
         {
             OutputHeader();
@@ -52,18 +58,25 @@ namespace DoubleGis.Erm.Migrator
                 }
 
                 // FIXME {all, 29.10.2013}: нужно реализовать поддержку подгрузки миграций из нескольких сборок, т.к. компоненты ERM теперь разрабатываются независимо, то и каких-то общих миграций быть не может  
-                if (_arguments.TargetAssembly == null)
+                // DONE {all, 14.01.2014}: реализована
+                if (_arguments.TargetAssemblies == null)
                 {
                     var currentPathUri = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
                     var currentPath = new Uri(currentPathUri).LocalPath;
 
-                    _arguments.TargetAssembly = Path.Combine(currentPath, "2Gis.Erm.BL.DB.Migrations.dll");
+                    _arguments.TargetAssemblies = defaultMigrationAssemblies.Select(x => Path.Combine(currentPath, x)).ToArray();
                 }
-                
-                _arguments.TargetAssembly = Path.GetFullPath(_arguments.TargetAssembly);
-                if (!File.Exists(_arguments.TargetAssembly))
+
+                _arguments.TargetAssemblies = _arguments.TargetAssemblies.Select(Path.GetFullPath).ToArray();
+
+                var missingAssemblies = _arguments.TargetAssemblies.Where(x => !File.Exists(x)).ToArray();
+                foreach (var missingAssembly in missingAssemblies)
                 {
-                    Console.WriteLine("Can't access file {0}", _arguments.TargetAssembly);
+                    Console.WriteLine("Can't access file {0}", missingAssembly);
+                }
+
+                if (missingAssemblies.Any())
+                {
                     Environment.ExitCode = 1;
                     return;
                 }
@@ -85,7 +98,7 @@ namespace DoubleGis.Erm.Migrator
             {
                 Console.WriteLine("!! An error has occurred.  The error is:");
                 Console.WriteLine(ex.ToString());
-                
+
                 Environment.ExitCode = 1;
             }
         }
@@ -117,7 +130,7 @@ namespace DoubleGis.Erm.Migrator
                     {
                         "assembly=|a=|target=",
                         "The assembly containing the migrations you want to execute.",
-                        v => { arguments.TargetAssembly = v; }
+                        v => { arguments.TargetAssemblies = v.Split('|'); }
                     },
                     {
                         "namespace=|ns=",
@@ -202,11 +215,11 @@ namespace DoubleGis.Erm.Migrator
                 return;
             }
 
-            var a = Assembly.LoadFrom(args.TargetAssembly);
+            var migrationAssemblies = args.TargetAssemblies.Select(Assembly.LoadFrom).ToArray();
 
             if (args.ListMigrations)
             {
-                OutputMigrations(output, a, args.Namespace);
+                OutputMigrations(output, migrationAssemblies, args.Namespace);
             }
 
             if (!connectionRequired || calculatedArguments.ConnectionStrings == null)
@@ -218,14 +231,15 @@ namespace DoubleGis.Erm.Migrator
 
             if (args.ListAppliedMigrations)
             {
-                ListAppliedMigrations(args, connectionStringsKnower, a, output);
+                ListAppliedMigrations(args, connectionStringsKnower, migrationAssemblies, output);
                 return;
             }
 
             var contextManager = new MigrationContextManager(connectionStringsKnower, output, args.OutputSql);
             var appliedVersionsManager = new SmoAppliedVersionsManager(contextManager);
 
-            var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(a, args.Namespace);
+
+            var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(migrationAssemblies, args.Namespace, true);
             using (var runner = new MigrationRunner(output, args.OutputSql, connectionStringsKnower, appliedVersionsManager))
             {
                 switch (args.Direction)
@@ -256,12 +270,16 @@ namespace DoubleGis.Erm.Migrator
             }
         }
 
-        private static void ListAppliedMigrations(MigrationConsoleArguments args, ConnectionStringsKnower connectionStringsKnower, Assembly a, TextWriter output)
+        private static void ListAppliedMigrations(
+            MigrationConsoleArguments args,
+            ConnectionStringsKnower connectionStringsKnower,
+            IEnumerable<Assembly> migrationAssemblies,
+            TextWriter output)
         {
             var contextManager = new MigrationContextManager(connectionStringsKnower, output);
 
             var appliedVersionsManager = new SmoAppliedVersionsManager(contextManager);
-            var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(a, args.Namespace);
+            var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(migrationAssemblies, args.Namespace, true);
 
             OutputAppliedMigrations(output, appliedVersionsManager);
             if (args.ListMigrations)
@@ -314,35 +332,39 @@ namespace DoubleGis.Erm.Migrator
             output.WriteLine();
         }
 
-        private static void OutputMigrations(TextWriter output, Assembly a, string @namespace)
+        private static void OutputMigrations(TextWriter output, IEnumerable<Assembly> migrationAssemblies, string @namespace)
         {
             output.WriteLine();
-            var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(a, @namespace);
-            var migrationsProvider = new AssemblyMigrationsProvider();
 
-            output.WriteLine("Migrations in assembly {0} :", a.Location);
-            if (migrationDescriptorsProvider.MigrationDescriptors.Count > 0)
+            foreach (var migrationAssembly in migrationAssemblies)
             {
-                output.WriteLine("========================================================");
-                output.WriteLine(" Version               Description");
-                output.WriteLine("========================================================");
+                var migrationDescriptorsProvider = new AssemblyMigrationDescriptorsProvider(new [] { migrationAssembly }, @namespace, true);
+                var migrationsProvider = new AssemblyMigrationsProvider();
 
-                foreach (var descriptor in migrationDescriptorsProvider.MigrationDescriptors)
+                output.WriteLine("Migrations in assembly {0} :", migrationAssembly.Location);
+                if (migrationDescriptorsProvider.MigrationDescriptors.Count > 0)
                 {
-                    var databaseName = string.Empty;
-                    var implementation = migrationsProvider.GetMigrationImplementation(descriptor);
-                    if (implementation is INonDefaultDatabaseMigration)
-                    {
-                        databaseName = string.Format("[DB:{0}]  ", (implementation as INonDefaultDatabaseMigration).ConnectionStringKey);
-                    }
+                    output.WriteLine("========================================================");
+                    output.WriteLine(" Version               Description");
+                    output.WriteLine("========================================================");
 
-                    output.WriteLine("  {0}    {2}{1}", descriptor.Version, descriptor.Description, databaseName);
+                    foreach (var descriptor in migrationDescriptorsProvider.MigrationDescriptors)
+                    {
+                        var databaseName = string.Empty;
+                        var implementation = migrationsProvider.GetMigrationImplementation(descriptor);
+                        if (implementation is INonDefaultDatabaseMigration)
+                        {
+                            databaseName = string.Format("[DB:{0}]  ", (implementation as INonDefaultDatabaseMigration).ConnectionStringKey);
+                        }
+
+                        output.WriteLine("  {0}    {2}{1}", descriptor.Version, descriptor.Description, databaseName);
+                    }
                 }
-            }
-            else
-            {
-                output.WriteLine();
-                output.WriteLine("No migrations found");
+                else
+                {
+                    output.WriteLine();
+                    output.WriteLine("No migrations found");
+                }
             }
 
             output.WriteLine();
@@ -356,7 +378,7 @@ namespace DoubleGis.Erm.Migrator
             }
 
             public string Namespace { get; set; }
-            public string TargetAssembly { get; set; }
+            public string[] TargetAssemblies { get; set; }
 
             public int Timeout { get; set; }
             public bool ShowHelp { get; set; }

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Mime;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.LocalMessages;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

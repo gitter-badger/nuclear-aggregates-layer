@@ -72,6 +72,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Obsolete\ErmService.svc" />
     <Content Include="Release.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -91,10 +92,15 @@
       <DependentUpon>log4net.config</DependentUpon>
     </None>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Edu.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Expl.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Int.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Load.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Cyprus.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Russia2.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -115,13 +121,27 @@
     <None Include="Properties\PublishProfiles\Test.12.pubxml" />
     <None Include="Properties\PublishProfiles\Test.13.pubxml" />
     <None Include="Properties\PublishProfiles\Test.14.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.16.pubxml" />
     <None Include="Properties\PublishProfiles\Test.15.pubxml" />
     <None Include="Properties\PublishProfiles\Test.17.pubxml" />
     <None Include="Properties\PublishProfiles\Test.18.pubxml" />
     <None Include="Properties\PublishProfiles\Test.19.pubxml" />
     <None Include="Properties\PublishProfiles\Test.20.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.23.pubxml" />
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
     <None Include="Properties\PublishProfiles\Test.22.pubxml" />
+    <None Include="Web.Edu.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Expl.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Int.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Czech.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Edu.Cyprus.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -227,21 +247,21 @@
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Common\2Gis.Erm.BL.API.Common.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
-      <Name>2Gis.Erm.BL.API.Common</Name>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Releasing\2Gis.Erm.BL.Releasing.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
       <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
-      <Name>2Gis.Erm.BL.Releasing</Name>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\ServiceBackend\2Gis.Erm.BL.WCF.Releasing\2Gis.Erm.BL.WCF.Releasing.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Releasing\2Gis.Erm.BLCore.WCF.Releasing.csproj">
       <Project>{b1285bd0-c821-4321-9698-cf95a0079b23}</Project>
-      <Name>2Gis.Erm.BL.WCF.Releasing</Name>
+      <Name>2Gis.Erm.BLCore.WCF.Releasing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -255,13 +275,13 @@
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
@@ -283,13 +303,13 @@
       <Project>{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2}</Project>
       <Name>2Gis.Erm.Platform.DI.WCF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
       <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
@@ -307,13 +327,13 @@
       <Project>{d62c3159-8538-4398-9e7f-5bd2b48a6c20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.OrderValidation\2Gis.Erm.BL.API.OrderValidation.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
-      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Releasing\2Gis.Erm.BL.API.Releasing.csproj">
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
       <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
-      <Name>2Gis.Erm.BL.API.Releasing</Name>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>

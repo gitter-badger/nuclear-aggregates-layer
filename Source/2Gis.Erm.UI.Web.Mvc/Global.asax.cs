@@ -7,20 +7,20 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using DoubleGis.Erm.BL.Web.Mvc.Logging;
-using DoubleGis.Erm.BL.Web.Mvc.DI;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Validators;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Platform.Web.Mvc.Security;
-using DoubleGis.Erm.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.UI.Web.Mvc.Controllers;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
 using DoubleGis.Erm.UI.Web.Mvc.DI;
-using DoubleGis.Erm.UI.Web.Mvc.Logging;
-using DoubleGis.Erm.UI.Web.Mvc.Settings;
-using DoubleGis.Erm.UI.Web.Mvc.Validators;
 
 using Microsoft.Practices.Unity;
 

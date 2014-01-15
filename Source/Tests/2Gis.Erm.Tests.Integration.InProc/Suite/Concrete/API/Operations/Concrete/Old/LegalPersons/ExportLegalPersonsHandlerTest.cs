@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Integration.OneC;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;

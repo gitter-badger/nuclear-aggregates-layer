@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.WCF.OrderValidation.Settings;
+﻿using DoubleGis.Erm.BLCore.WCF.OrderValidation.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;

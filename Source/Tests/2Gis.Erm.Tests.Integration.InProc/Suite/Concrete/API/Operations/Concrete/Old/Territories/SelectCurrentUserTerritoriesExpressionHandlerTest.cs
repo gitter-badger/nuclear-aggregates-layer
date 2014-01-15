@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Territories;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 

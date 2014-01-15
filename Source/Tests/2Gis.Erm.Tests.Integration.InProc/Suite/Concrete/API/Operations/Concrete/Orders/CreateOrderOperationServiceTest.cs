@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.BL.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BL.API.Common.Enums;
-using DoubleGis.Erm.BL.API.Operations.Generic.Modify;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;

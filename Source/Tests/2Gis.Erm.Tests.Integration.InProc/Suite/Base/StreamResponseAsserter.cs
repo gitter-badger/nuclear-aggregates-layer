@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.Common;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;

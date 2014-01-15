@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Old.AdvertisementTemplates;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AdvertisementTemplates;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

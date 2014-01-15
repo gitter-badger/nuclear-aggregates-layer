@@ -5,33 +5,34 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.ServiceModel.Description;
 
-using DoubleGis.Erm.BL.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BL.API.Common.Crosscutting;
-using DoubleGis.Erm.BL.API.Common.Metadata.Old;
-using DoubleGis.Erm.BL.API.Operations.Concrete.Orders.OrderProcessing;
-using DoubleGis.Erm.BL.API.Operations.Generic.Assign;
-using DoubleGis.Erm.BL.API.Operations.Generic.Deactivate;
-using DoubleGis.Erm.BL.API.Operations.Generic.Disqualify;
-using DoubleGis.Erm.BL.API.Operations.Generic.File;
-using DoubleGis.Erm.BL.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BL.API.Operations.Remote;
-using DoubleGis.Erm.BL.API.OrderValidation;
-using DoubleGis.Erm.BL.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BL.DI.Config;
-using DoubleGis.Erm.BL.DI.Config.MassProcessing;
-using DoubleGis.Erm.BL.Operations.Concrete.Orders.Processing;
-using DoubleGis.Erm.BL.Operations.Concrete.Users;
-using DoubleGis.Erm.BL.Operations.Crosscutting;
-using DoubleGis.Erm.BL.Operations.Generic.Assign;
-using DoubleGis.Erm.BL.Operations.Generic.Deactivate;
-using DoubleGis.Erm.BL.Operations.Generic.Disqualify;
-using DoubleGis.Erm.BL.Operations.Generic.Qualify;
-using DoubleGis.Erm.BL.OrderValidation;
-using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BL.WCF.Operations;
-using DoubleGis.Erm.BL.WCF.Operations.Settings;
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.API.Operations.Remote;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
+using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
+using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
+using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.WCF.Operations;
+using DoubleGis.Erm.BLCore.WCF.Operations.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List;
+using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -69,13 +70,13 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
     internal static class Bootstrapper
     {
+        private static readonly Type[] EagerLoading = { typeof(ListOrderService), typeof(ActionsLogger) }; 
         public static IUnityContainer ConfigureUnity(
             IBasicOperationsSettings settings,
             ILoggerContextManager loggerContextManager)
         {
             // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
             //                              -> Здесь мы явно загружаем сборку 2Gis.Erm.Services, чтобы обеспечить корректный resolve типа DoubleGis.Erm.Services.ActionsLogging.ActionsLogger
-            var actionLoggerType = typeof(ActionsLogger);
 
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -101,7 +102,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
             container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
                      .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
-                     .ConfigureInterception(actionLoggerType)
+                     .ConfigureInterception()
                      .ConfigureServiceClient();
 
             return container;
@@ -112,7 +113,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             return CustomLifetime.PerOperationContext;
         }
 
-        private static IUnityContainer ConfigureInterception(this IUnityContainer container, Type actionLoggerType)
+        private static IUnityContainer ConfigureInterception(this IUnityContainer container)
         {
             var interception = container.AddNewExtension<Interception>()
                                         .Configure<Interception>();
