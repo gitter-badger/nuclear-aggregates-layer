@@ -5,7 +5,7 @@
     /// </summary>
     public enum OperatesOnTheBasisType
     {
-        Underfined = 0,
+        Undefined = 0,
 
         /// <summary>
         /// Устав

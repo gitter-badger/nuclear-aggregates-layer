@@ -12,28 +12,32 @@ namespace DoubleGis.Erm.Platform.Migration.Core
     {
         private readonly string _namespace;
         private readonly bool _loadNestedNamespaces;
-        private readonly Assembly _assembly;
+        private readonly List<Assembly> _assemblies = new List<Assembly>();
 
 // Используется в DI контейнере.
 // ReSharper disable UnusedMember.Global
-        public AssemblyMigrationDescriptorsProvider(string assemblyName)
+        public AssemblyMigrationDescriptorsProvider(IEnumerable<string> assemblyNames)
 // ReSharper restore UnusedMember.Global
-            : this(assemblyName, null)
+            : this(assemblyNames, null, true)
         {
         }
 
-        public AssemblyMigrationDescriptorsProvider(string assemblyName, string @namespace, bool loadNestedNamespaces = true)
+        public AssemblyMigrationDescriptorsProvider(IEnumerable<string> assemblyNames, string @namespace, bool loadNestedNamespaces)
         {
-            _assembly = Assembly.Load(assemblyName);
+            foreach (var assemblyName in assemblyNames)
+            {
+                _assemblies.Add(Assembly.Load(assemblyName));
+            }
+            
             _namespace = @namespace;
             _loadNestedNamespaces = loadNestedNamespaces;
 
             Initialize();
         }
 
-        public AssemblyMigrationDescriptorsProvider(Assembly assembly, string @namespace, bool loadNestedNamespaces = true)
+        public AssemblyMigrationDescriptorsProvider(IEnumerable<Assembly> assemblies, string @namespace, bool loadNestedNamespaces)
         {
-            _assembly = assembly;
+            _assemblies.AddRange(assemblies);
             _namespace = @namespace;
             _loadNestedNamespaces = loadNestedNamespaces;
 
@@ -41,6 +45,44 @@ namespace DoubleGis.Erm.Platform.Migration.Core
         }
 
         public List<MigrationDescriptor> MigrationDescriptors { get; private set; }
+
+        private void Initialize()
+        {
+            MigrationDescriptors = new List<MigrationDescriptor>();
+
+            IEnumerable<MigrationDescriptor> migrationList = FindMigrations();
+
+            foreach (var migrationMetadata in migrationList)
+            {
+                if (MigrationDescriptors.FirstOrDefault(x => x.Version == migrationMetadata.Version) != null)
+                {
+                    throw new Exception(string.Format("Duplicate migration version {0}.", migrationMetadata.Version));
+                }
+
+                MigrationDescriptors.Add(migrationMetadata);
+            }
+
+            MigrationDescriptors.Sort((x, y) => x.Version.CompareTo(y.Version));
+        }
+
+        private IEnumerable<MigrationDescriptor> FindMigrations()
+        {
+            var matchedTypes = _assemblies.SelectMany(x => x.ExportedTypes.Where(TypeIsMigration));
+
+            if (!string.IsNullOrEmpty(_namespace))
+            {
+                Func<Type, bool> shouldInclude = t => t.Namespace == _namespace;
+                if (_loadNestedNamespaces)
+                {
+                    var matchNested = _namespace + ".";
+                    shouldInclude = t => t.Namespace == _namespace || (t.Namespace != null && t.Namespace.StartsWith(matchNested));
+                }
+
+                matchedTypes = matchedTypes.Where(shouldInclude);
+            }
+
+            return matchedTypes.Select(GetDescriptorForMigration);
+        }
 
         private static bool TypeIsMigration(Type type)
         {
@@ -61,44 +103,6 @@ namespace DoubleGis.Erm.Platform.Migration.Core
                 Description = migrationDescription,
                 Author = migrationAuthor,
             };
-        }
-
-        private IEnumerable<MigrationDescriptor> FindMigrations()
-        {
-            IEnumerable<Type> matchedTypes = _assembly.ExportedTypes.Where(TypeIsMigration);
-
-            if (!string.IsNullOrEmpty(_namespace))
-            {
-                Func<Type, bool> shouldInclude = t => t.Namespace == _namespace;
-                if (_loadNestedNamespaces)
-                {
-                    string matchNested = _namespace + ".";
-                    shouldInclude = t => t.Namespace == _namespace || t.Namespace.StartsWith(matchNested);
-                }
-
-                matchedTypes = matchedTypes.Where(shouldInclude);
-            }
-
-            return matchedTypes.Select(GetDescriptorForMigration);
-        }
-
-        private void Initialize()
-        {
-            MigrationDescriptors = new List<MigrationDescriptor>();
-
-            IEnumerable<MigrationDescriptor> migrationList = FindMigrations();
-
-            foreach (var migrationMetadata in migrationList)
-            {
-                if (MigrationDescriptors.FirstOrDefault(x => x.Version == migrationMetadata.Version) != null)
-                {
-                    throw new Exception(string.Format("Duplicate migration version {0}.", migrationMetadata.Version));
-                }
-
-                MigrationDescriptors.Add(migrationMetadata);
-            }
-
-            MigrationDescriptors.Sort((x, y) => x.Version.CompareTo(y.Version));
         }
     }
 }

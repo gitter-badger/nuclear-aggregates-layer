@@ -13,8 +13,6 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehavior
 {
     public sealed class ErmServiceBehavior : IServiceBehavior
     {
-        private const string CostCalculationServiceContractName = "CostCalculationApplicationService";
-
         private readonly IInstanceProviderFactory _instanceProviderFactory;
         private readonly IDispatchMessageInspectorFactory _messageInspectorFactory;
         private readonly IErrorHandlerFactory _errorHandlerFactory;

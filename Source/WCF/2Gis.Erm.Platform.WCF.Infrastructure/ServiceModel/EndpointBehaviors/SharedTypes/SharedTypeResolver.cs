@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
 
@@ -23,11 +24,15 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehavio
             // resolve types by type if namespace starts with DoubleGis
             if (type.Namespace != null && type.Namespace.StartsWith("DoubleGis"))
             {
-                var soapName = _typeNameConveter.ConvertToSoapName(type);
+                var dataContractAttribute = (DataContractAttribute)type.GetCustomAttributes(typeof(DataContractAttribute), false).SingleOrDefault();
+                if (dataContractAttribute != null && string.IsNullOrEmpty(dataContractAttribute.Namespace))
+                {
+                    var soapName = _typeNameConveter.ConvertToSoapName(type);
 
-                typeName = _xmlDictionary.Add(soapName.Item1);
-                typeNamespace = _xmlDictionary.Add(soapName.Item2);
-                return true;
+                    typeName = _xmlDictionary.Add(soapName.Item1);
+                    typeNamespace = _xmlDictionary.Add(soapName.Item2);
+                    return true;
+                }
             }
 
             return knownTypeResolver.TryResolveType(type, declaredType, knownTypeResolver, out typeName, out typeNamespace);

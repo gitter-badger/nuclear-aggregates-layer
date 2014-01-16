@@ -10,6 +10,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Bill = EntityName.Bill, //
         OrderFile = EntityName.OrderFile, 
         FileWithContent = EntityName.FileWithContent,
-        OrderReleaseTotal = EntityName.OrderReleaseTotal
+        OrderReleaseTotal = EntityName.OrderReleaseTotal,
+        Bargain = EntityName.Bargain 
     } 
 }

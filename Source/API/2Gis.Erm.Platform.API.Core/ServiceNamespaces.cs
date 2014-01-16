@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.Platform.API.Core
             public const string List201303 = "http://2gis.ru/erm/api/basicoperations/list/2013/03";
             public const string DownloadBinary201307 = "http://2gis.ru/erm/api/basicoperations/downloadbinary/2013/07";
             public const string UploadBinary201307 = "http://2gis.ru/erm/api/basicoperations/uploadbinary/2013/07";
-            public const string Release201308 = "http://2gis.ru/erm/api/basicoperations/release/2013/08";
             public const string MsCrm201309 = "http://2gis.ru/erm/api/basicoperations/mscrm/2013/09";
         }
 
@@ -89,6 +88,13 @@ namespace DoubleGis.Erm.Platform.API.Core
         public static class FinancialOperations
         {
             public const string FinancialOperations201310 = "http://2gis.ru/erm/api/financialoperations/2013/10";
+        }
+
+        public static class Releasing
+        {
+            public const string Release201308 = "http://2gis.ru/erm/api/releasing/release/2013/08";
+            [Obsolete("Exists for Export team backward compatibility. Needs to removal")]
+            public const string BackwardCompatibility201308 = "http://2gis.ru/erm/api/releasing/backwardcompatibility/2014/01";
         }
     }
 }
