@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
                                   PositionInNominative = entity.PositionInNominative,
                                   PositionInGenitive = entity.PositionInGenitive,
                                   OperatesOnTheBasisInGenitive = entity.OperatesOnTheBasisInGenitive == null
-                                                                     ? OperatesOnTheBasisType.Underfined
+                                                                     ? OperatesOnTheBasisType.Undefined
                                                                      : (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive,
                                   CertificateDate = entity.CertificateDate,
                                   CertificateNumber = entity.CertificateNumber,

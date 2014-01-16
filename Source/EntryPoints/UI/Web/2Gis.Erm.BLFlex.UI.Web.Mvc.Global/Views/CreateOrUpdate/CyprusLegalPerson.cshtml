@@ -20,7 +20,7 @@
 
                     ChangeLegalPersonRequisites: function() {
                         var params = "dialogWidth:" + 700 + "px; dialogHeight:" + 330 + "px; status:yes; scroll:no;resizable:no;";
-                        var url = '/Cyprus/LegalPerson/CyprusChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
+                        var url = '/Cyprus/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
                             var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;

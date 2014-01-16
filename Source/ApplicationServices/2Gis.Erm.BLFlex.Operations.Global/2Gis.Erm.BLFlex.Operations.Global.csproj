@@ -119,6 +119,7 @@
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechLegalPersonObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechPhonecallObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechTaskObtainer.cs" />
+    <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonProfileHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditOrderPositionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />

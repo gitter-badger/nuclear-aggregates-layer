@@ -43,9 +43,9 @@
 					<Field Name="CurrencyName" NameLocaleResourceId="Currency" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Country.Currency.Name" Width="50" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="Currency" ReferenceFieldName="CurrencyId" />
 					<Field Name="CreateDate" Expression="it.CreatedOn" Width="120" Hidden="false" Filtered="false" FieldType="DateTime" ExtTypeName="Date" DotNetTypeName="System.DateTime" />
 					<Field Name="IsDeleted" Expression="it.IsDeleted" Width="200" Hidden="true" Filtered="false" FieldType="Boolean" ExtTypeName="Boolean" DotNetTypeName="System.Boolean" />
-					<Field Name="OwnerCode" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
-					<Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
-					<Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Name" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Name" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
 				</Fields>
 			</DataList>
 			<!--Мои лицевые счета с отрицательным балансом-->
@@ -124,8 +124,9 @@
 					<Field Name="ActualEnd" NameLocaleResourceId="DFieldActualEnd" Expression="it.ActualEnd" Width="130" Hidden="false" Filtered="false" FieldType="DateTime" ExtTypeName="Date" DotNetTypeName="System.DateTime" />
 					<Field Name="AfterSaleServiceType" Expression="it.AfterSaleServiceType" Width="100" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="String" />
 					<Field Name="Priority" Expression="it.Priority" Width="100" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="String" />
-					<Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="String" />
-				</Fields>
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
+        </Fields>
 			</DataList>
 			<!--Активные действия-->
 			<DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActiveActivities" HideInCardRelatedGrid="" DefaultFilter="!IsDeleted&amp;&amp;IsActive &amp;&amp; Status=1" />
@@ -1402,8 +1403,9 @@
 					<Field Name="ClientId" NameLocaleResourceId="DFieldClientId" Expression="it.ClientId" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="LegalName" Expression="it.LegalName" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="ClientName" NameLocaleResourceId="Client" Expression="it.Client.Name" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
-					<Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
-					<Field Name="CreatedOn" Expression="it.CreatedOn" Width="200" Hidden="false" Filtered="false" FieldType="DateTime" ExtTypeName="Date" DotNetTypeName="System.DateTime" />
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
+          <Field Name="CreatedOn" Expression="it.CreatedOn" Width="200" Hidden="false" Filtered="false" FieldType="DateTime" ExtTypeName="Date" DotNetTypeName="System.DateTime" />
 					<Field Name="ShortName" NameLocaleResourceId="DFieldShortName" Expression="it.ShortName" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="LegalAddress" Expression="it.LegalAddress" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="Inn" Expression="it.Inn" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />

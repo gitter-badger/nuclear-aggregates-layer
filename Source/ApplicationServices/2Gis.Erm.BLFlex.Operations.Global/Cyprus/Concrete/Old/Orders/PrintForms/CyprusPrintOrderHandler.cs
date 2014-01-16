@@ -498,7 +498,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                     {
                         switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
                         {
-                            case OperatesOnTheBasisType.Underfined:
+                            case OperatesOnTheBasisType.Undefined:
                                 operatesOnTheBasisInGenitive = string.Empty;
                                 break;
                             case OperatesOnTheBasisType.Warranty:
@@ -530,7 +530,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         {
                             switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
                             {
-                                case OperatesOnTheBasisType.Underfined:
+                                case OperatesOnTheBasisType.Undefined:
                                     operatesOnTheBasisInGenitive =
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
                                     break;

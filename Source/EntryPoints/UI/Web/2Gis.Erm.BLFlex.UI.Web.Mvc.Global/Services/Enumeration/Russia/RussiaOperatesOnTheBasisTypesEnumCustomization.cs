@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Russia
         {
             return new[]
         {
-                    OperatesOnTheBasisType.Underfined,
+                    OperatesOnTheBasisType.Undefined,
                     OperatesOnTheBasisType.Charter,
                     OperatesOnTheBasisType.Certificate,
                     OperatesOnTheBasisType.Warranty,

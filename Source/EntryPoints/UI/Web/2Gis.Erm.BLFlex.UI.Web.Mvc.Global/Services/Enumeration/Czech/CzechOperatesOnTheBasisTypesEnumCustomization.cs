@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
         {
             return new[]
                 {
-                    OperatesOnTheBasisType.Underfined,
+                    OperatesOnTheBasisType.Undefined,
                     OperatesOnTheBasisType.Warranty,
                     OperatesOnTheBasisType.None
                 };

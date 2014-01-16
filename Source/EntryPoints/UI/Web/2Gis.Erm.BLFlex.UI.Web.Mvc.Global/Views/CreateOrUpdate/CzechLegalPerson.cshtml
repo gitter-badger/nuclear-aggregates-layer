@@ -19,7 +19,7 @@
 
                     ChangeLegalPersonRequisites: function() {
                         var params = "dialogWidth:" + 700 + "px; dialogHeight:" + 330 + "px; status:yes; scroll:no;resizable:no;";
-                        var url = '/Czech/LegalPerson/CzechChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
+                        var url = '/Czech/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
                             var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;

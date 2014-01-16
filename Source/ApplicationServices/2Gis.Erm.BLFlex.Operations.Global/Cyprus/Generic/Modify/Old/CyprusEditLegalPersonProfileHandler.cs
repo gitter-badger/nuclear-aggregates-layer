@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                             throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive));
                         }
 
-                        if (request.Entity.OperatesOnTheBasisInGenitive == (int)OperatesOnTheBasisType.Underfined)
+                        if (request.Entity.OperatesOnTheBasisInGenitive == (int)OperatesOnTheBasisType.Undefined)
                         {
                             throw new NotificationException(string.Format(BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson));
                         }
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                             throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive));
                         }
 
-                        if (request.Entity.OperatesOnTheBasisInGenitive == (int)OperatesOnTheBasisType.Underfined)
+                        if (request.Entity.OperatesOnTheBasisInGenitive == (int)OperatesOnTheBasisType.Undefined)
                         {
                             throw new NotificationException(string.Format(BLResources.ThisDocumentIsNotAllowedForThatTypeOfLegalPerson));
                         }
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                 {
                     switch ((OperatesOnTheBasisType)request.Entity.OperatesOnTheBasisInGenitive)
                     {
-                        case OperatesOnTheBasisType.Underfined:
+                        case OperatesOnTheBasisType.Undefined:
                         case OperatesOnTheBasisType.FoundingBargain:
                         case OperatesOnTheBasisType.Charter:
                             break;

@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             {
                 switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
                 {
-                    case OperatesOnTheBasisType.Underfined:
+                    case OperatesOnTheBasisType.Undefined:
                         operatesOnTheBasisInGenitive = string.Empty;
                         break;
                     case OperatesOnTheBasisType.Charter:
