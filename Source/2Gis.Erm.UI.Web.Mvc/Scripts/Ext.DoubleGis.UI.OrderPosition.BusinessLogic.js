@@ -422,8 +422,14 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         return Number(number.toFixed(this.Settings.DecimalDigits));
     },
     
+    toFixedWithoutRounding: function (figure, decimals) {
+        if (!decimals) decimals = 2;
+        var d = Math.pow(10, decimals);
+        return (parseInt(figure * d) / d).toFixed(decimals);
+    },
+
     roundDiscountPercent: function (number) {
-        return Number(number.toFixed(this.Settings.DiscountPercentDecimalDigits));
+        return Number(this.toFixedWithoutRounding(number, this.Settings.DiscountPercentDecimalDigits));
     },
 
     formatLocalized: function (number)

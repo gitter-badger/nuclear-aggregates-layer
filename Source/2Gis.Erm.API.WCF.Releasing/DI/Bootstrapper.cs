@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
 
             return container.RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                             .RegisterType<IFtpService, FtpService>(Lifetime.Singleton)
-                            .RegisterType<IPublishOrdersForReleaseToFileStorage, PublishOrdersForReleaseToFtp>(Lifetime.Singleton)
+                            .RegisterType<IPublishOrdersForReleaseToFileStorage, PublishOrdersForFinalReleaseToFtp>(Lifetime.Singleton)
                             .RegisterType<IOrdersWithAdvertisementMaterialsSerializerFactory, OrdersWithAdvertisementMaterialsXmlSerializerFactory>(Lifetime.Singleton)
                             .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, FileStorageEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory())
                             .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory());

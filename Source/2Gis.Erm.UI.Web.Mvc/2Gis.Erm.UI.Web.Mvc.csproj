@@ -760,6 +760,8 @@
     <Content Include="Scripts\DataList\Order.DataList.js" />
     <Content Include="Scripts\DataList\ReleaseInfo.DataList.js" />
     <Content Include="Scripts\Silverlight.js" />
+    <Content Include="Scripts\tinymce\langs\cs.js" />
+    <Content Include="Scripts\tinymce\langs\el.js" />
     <Content Include="Scripts\tinymce\langs\en.js" />
     <Content Include="Scripts\tinymce\langs\ru.js" />
     <Content Include="Scripts\tinymce\license.txt" />
@@ -767,6 +769,8 @@
     <Content Include="Scripts\tinymce\plugins\advhr\editor_plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advhr\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\advhr\js\rule.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advhr\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advhr\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advhr\rule.htm" />
@@ -776,12 +780,16 @@
     <Content Include="Scripts\tinymce\plugins\advimage\image.htm" />
     <Content Include="Scripts\tinymce\plugins\advimage\img\sample.gif" />
     <Content Include="Scripts\tinymce\plugins\advimage\js\image.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advimage\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advimage\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\css\advlink.css" />
     <Content Include="Scripts\tinymce\plugins\advlink\editor_plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\js\advlink.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\advlink\link.htm" />
@@ -819,6 +827,8 @@
     <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-wink.gif" />
     <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-yell.gif" />
     <Content Include="Scripts\tinymce\plugins\emotions\js\emotions.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\emotions\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\emotions\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\example\dialog.htm" />
@@ -835,6 +845,8 @@
     <Content Include="Scripts\tinymce\plugins\fullpage\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\fullpage\fullpage.htm" />
     <Content Include="Scripts\tinymce\plugins\fullpage\js\fullpage.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\fullpage\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\fullpage\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\fullscreen\editor_plugin.js" />
@@ -866,6 +878,8 @@
     <Content Include="Scripts\tinymce\plugins\media\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\media\js\embed.js" />
     <Content Include="Scripts\tinymce\plugins\media\js\media.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\media\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\media\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\media\media.htm" />
@@ -880,6 +894,8 @@
     <Content Include="Scripts\tinymce\plugins\paste\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\paste\js\pastetext.js" />
     <Content Include="Scripts\tinymce\plugins\paste\js\pasteword.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\paste\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\paste\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\paste\pastetext.htm" />
@@ -897,6 +913,8 @@
     <Content Include="Scripts\tinymce\plugins\searchreplace\editor_plugin.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\js\searchreplace.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\searchreplace.htm" />
@@ -908,6 +926,8 @@
     <Content Include="Scripts\tinymce\plugins\style\editor_plugin.js" />
     <Content Include="Scripts\tinymce\plugins\style\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\style\js\props.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\style\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\style\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\style\props.htm" />
@@ -924,6 +944,8 @@
     <Content Include="Scripts\tinymce\plugins\table\js\merge_cells.js" />
     <Content Include="Scripts\tinymce\plugins\table\js\row.js" />
     <Content Include="Scripts\tinymce\plugins\table\js\table.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\table\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\table\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\table\merge_cells.htm" />
@@ -934,6 +956,8 @@
     <Content Include="Scripts\tinymce\plugins\template\editor_plugin.js" />
     <Content Include="Scripts\tinymce\plugins\template\editor_plugin_src.js" />
     <Content Include="Scripts\tinymce\plugins\template\js\template.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\template\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\template\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\template\template.htm" />
@@ -961,6 +985,8 @@
     <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\del.js" />
     <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\element_common.js" />
     <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\ins.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\el_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\themes\advanced\about.htm" />
@@ -987,9 +1013,13 @@
     <Content Include="Scripts\tinymce\themes\advanced\js\image.js" />
     <Content Include="Scripts\tinymce\themes\advanced\js\link.js" />
     <Content Include="Scripts\tinymce\themes\advanced\js\source_editor.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\el.js" />
     <Content Include="Scripts\tinymce\themes\advanced\langs\en.js" />
-    <Content Include="Scripts\tinymce\themes\advanced\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\themes\advanced\langs\ru.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\cs.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\en_dlg.js" />
     <Content Include="Scripts\tinymce\themes\advanced\langs\ru_dlg.js" />
     <Content Include="Scripts\tinymce\themes\advanced\link.htm" />
     <Content Include="Scripts\tinymce\themes\advanced\shortcuts.htm" />
@@ -1017,8 +1047,10 @@
     <Content Include="Scripts\tinymce\themes\simple\editor_template.js" />
     <Content Include="Scripts\tinymce\themes\simple\editor_template_src.js" />
     <Content Include="Scripts\tinymce\themes\simple\img\icons.gif" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\el.js" />
     <Content Include="Scripts\tinymce\themes\simple\langs\en.js" />
     <Content Include="Scripts\tinymce\themes\simple\langs\ru.js" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\cs.js" />
     <Content Include="Scripts\tinymce\themes\simple\skins\default\content.css" />
     <Content Include="Scripts\tinymce\themes\simple\skins\default\ui.css" />
     <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\content.css" />
@@ -1225,6 +1257,10 @@
     <Content Include="Scripts\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
+      <Project>{f2833a2e-0e6f-4a3e-b8d3-35b7165085a1}</Project>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5fc26f81-5100-43b5-b55b-e470308338d2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>

@@ -8,18 +8,19 @@
                 iframe = document.createElement('iframe');
                 iframe.id = "hiddenDownloader";
                 iframe.style.visibility = 'hidden';
+                
 
                 var iframeEl = new Ext.Element(iframe);
                 iframeEl.on("load", function () {
-                    var title = iframe.contentWindow.document.title;
-                    if (title != "") {
-                        alert(title);
+                    var message = iframe.contentWindow.document.body.innerText;
+                    if (message != "") {
+                        alert(message);
                     }
                 });
                 document.body.appendChild(iframe);
             }
+            
             iframe.src = url;
-
             this.Items.Toolbar.enable();
         };
         this.DownloadResults = function () {
