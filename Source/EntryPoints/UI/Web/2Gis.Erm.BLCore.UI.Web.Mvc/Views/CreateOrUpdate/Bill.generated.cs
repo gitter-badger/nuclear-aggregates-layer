@@ -146,28 +146,6 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 76 "..\..\Views\CreateOrUpdate\Bill.cshtml"
-   Write(Html.HiddenFor(m => m.Owner));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 77 "..\..\Views\CreateOrUpdate\Bill.cshtml"
-   Write(Html.HiddenFor(m => m.OrderId));
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
@@ -177,7 +155,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 79 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 77 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.BillNumber, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
@@ -188,7 +166,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 80 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 78 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.BillDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -203,7 +181,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 83 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 81 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.BeginDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false}));
 
             
@@ -214,7 +192,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 84 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 82 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.PaymentDatePlan, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -229,7 +207,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 87 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 85 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.EndDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -240,7 +218,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 88 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 86 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
@@ -255,7 +233,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 91 "..\..\Views\CreateOrUpdate\Bill.cshtml"
+            #line 89 "..\..\Views\CreateOrUpdate\Bill.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
 
             

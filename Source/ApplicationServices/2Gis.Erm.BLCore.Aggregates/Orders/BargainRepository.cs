@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -30,7 +29,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         private readonly IRepository<BargainFile> _bargainFileGenericRepository;
         private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IUserContext _userContext;
-        private readonly IBargainPersistenceService _bargainPersistenceService;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IFileContentFinder _fileContentFinder;
@@ -41,7 +39,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             IRepository<BargainFile> bargainFileGenericRepository, 
             IRepository<FileWithContent> fileRepository, 
             IUserContext userContext, 
-            IBargainPersistenceService bargainPersistenceService, 
             IIdentityProvider identityProvider, 
             IFileContentFinder fileContentFinder, 
             IOperationScopeFactory scopeFactory)
@@ -49,7 +46,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             _bargainGenericRepository = genericBargainRepository;
             _fileRepository = fileRepository;
             _userContext = userContext;
-            _bargainPersistenceService = bargainPersistenceService;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
             _fileContentFinder = fileContentFinder;
@@ -57,24 +53,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             _bargainFileGenericRepository = bargainFileGenericRepository;
         }
 
-        public long GenerateNextBargainUniqueNumber()
-        {
-            return _bargainPersistenceService.GenerateNextBargainUniqueNumber();
-        }
-
-        public Bargain Find(long id)
-        {
-            return _finder.Find(Specs.Find.ById<Bargain>(id)).SingleOrDefault();
-        }
-
         public IEnumerable<Bargain> FindBySpecification(IFindSpecification<Bargain> spec)
         {
             return _finder.Find(spec);
-        }
-
-        public IQueryable<TOutput> FindBySpecification<TOutput>(ISelectSpecification<Bargain, TOutput> selectSpecification, IFindSpecification<Bargain> spec)
-        {
-            return _finder.Find<Bargain, TOutput>(selectSpecification, spec);
         }
 
         public void CloseBargains(IEnumerable<Bargain> bargains, DateTime closeDate)
@@ -86,27 +67,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                     bargain.ClosedOn = closeDate;
                     _bargainGenericRepository.Update(bargain);
                     scope.Updated<Bargain>(bargain.Id);
-                }
-
-                _bargainGenericRepository.Save();
-                scope.Complete();
-            }
-        }
-
-        public void CreateOrUpdate(Bargain entity)
-        {
-            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(entity))
-            {
-                if (entity.IsNew())
-                {
-                    _identityProvider.SetFor(entity);
-                    _bargainGenericRepository.Add(entity);
-                    scope.Added<Bargain>(entity.Id);
-                }
-                else
-                {
-                    _bargainGenericRepository.Update(entity);
-                    scope.Updated<Bargain>(entity.Id);
                 }
 
                 _bargainGenericRepository.Save();
@@ -141,7 +101,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             {
                 _bargainGenericRepository.Update(bargain);
                 var cnt = _bargainGenericRepository.Save();
-                scope.Complete();
+
+                scope.Updated<Bargain>(bargain.Id)
+                     .Complete();
+
                 return cnt;
             }
         }

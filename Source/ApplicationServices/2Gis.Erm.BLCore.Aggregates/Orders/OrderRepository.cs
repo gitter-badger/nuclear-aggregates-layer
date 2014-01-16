@@ -1318,7 +1318,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 .Select(x => new
                     {
                         IsOrderActive = x.WorkflowStepId == (int)OrderState.OnRegistration,
-                        BillBeginDistributionDate = bill.BeginDistributionDate,
                         SignupDate = x.SignupDate,
                     })
                 .Single();
@@ -1332,13 +1331,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                                 .AddDays(1)
                                 .AddSeconds(-1);
 
-            var endOfCheckPeriod = orderInfo.BillBeginDistributionDate.AddMonths(-1).GetEndPeriodOfThisMonth();
-
+            var endOfCheckPeriod = bill.BeginDistributionDate.AddMonths(-1).GetEndPeriodOfThisMonth();
             if (orderInfo.SignupDate > bill.PaymentDatePlan && endOfPaymentDatePlan <= endOfCheckPeriod)
             {
                 throw new NotificationException(BLResources.BillPaymentDatePlanMustBeInCorrectPeriod);
             }
-
 
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(bill))
             {

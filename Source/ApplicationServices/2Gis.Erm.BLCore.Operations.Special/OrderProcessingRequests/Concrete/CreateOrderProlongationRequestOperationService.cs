@@ -8,6 +8,7 @@ using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -20,6 +21,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
     {
         private const int MinReleaseCountPlan = 4;
         private const int MaxReleaseCountPlan = 12;
+
+        private static readonly OrderState[] InvalidOrderStates = { OrderState.OnRegistration, OrderState.Rejected };
 
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
         private readonly ISecureFinder _secureFinder;
@@ -44,6 +47,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             if (orderToProlongate == null)
             {
                 throw new EntityNotFoundException(typeof(Order), orderId);
+            }
+
+            var orderState = (OrderState)orderToProlongate.WorkflowStepId;
+            if (InvalidOrderStates.Contains(orderState))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CantCreateProlongationRequestInvalidOrderState,
+                                                               orderState.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
             }
 
             // Значение ReleaseCountPlan должно быть >= 4 и <=12.

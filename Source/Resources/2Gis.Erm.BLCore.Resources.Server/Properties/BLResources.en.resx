@@ -653,9 +653,6 @@ Bank Name {7}
 	<data name="OrderValidationFailed" xml:space="preserve">
     <value>Failed to complete the check</value>
   </data>
-	<data name="ClientSecurityExceptionFormatString" xml:space="preserve">
-    <value>Client {0}: {1}. {2}</value>
-  </data>
 	<data name="ResultOfCheck" xml:space="preserve">
     <value>Verification results</value>
   </data>
@@ -934,9 +931,6 @@ Bank Name {7}
   </data>
 	<data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
     <value>The currency '{0}' cannot be deleted since it has linked exchange rate as of the date '{1}'.</value>
-  </data>
-	<data name="BargainNumberTemplate" xml:space="preserve">
-    <value>AGR_{0}-{1}-{2}</value>
   </data>
 	<data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
     <value>No permit. Change of territory is not available for the company.</value>
@@ -5378,4 +5372,10 @@ Penezni ustav:  {5}</value>
 	<data name="SalutationToMale2" xml:space="preserve">
 		<value>NOT_USED</value>
 	</data>
+  <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
+    <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
+  </data>
+  <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
+    <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
+  </data>
 </root>

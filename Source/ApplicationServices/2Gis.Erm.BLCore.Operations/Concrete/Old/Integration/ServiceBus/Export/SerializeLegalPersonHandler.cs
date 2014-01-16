@@ -639,7 +639,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     // FIXME {all, 25.10.2013}: явно используется локаль ru-RU
                     switch ((OperatesOnTheBasisType)OperatesOnTheBasisInGenitive)
                     {
-                        case OperatesOnTheBasisType.Underfined:
+                        case OperatesOnTheBasisType.Undefined:
                             return OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, RussianCultureInfo);
 
                         case OperatesOnTheBasisType.Charter:

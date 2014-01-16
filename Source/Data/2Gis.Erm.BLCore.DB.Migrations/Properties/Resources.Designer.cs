@@ -711,6 +711,27 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   12.12.2013, a.tukaev: fix ERM-2651 
+        ///--   14.01.2014, a.tukaev: ...и его откат
+        ///ALTER PROCEDURE [Shared].[GetFirmTerritories](
+        ///	@FirmIds Shared.Int64IdsTableType READONLY,
+        ///	@RegionalTerritoryLocalName nvarchar(255)
+        ///)
+        ///AS
+        ///BEGIN
+        ///	-- определяем первый активный адрес для фирмы, чтобы далее обновить у нее территорию 
+        ///	-- сначала смотрим только активные адреса
+        ///        DECLARE @FirmTerritoriesInfo TABLE(SortingPosition int NOT NULL, FirmId bigint NOT NULL, TerritoryId bigint NULL)
+        ///         [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration14997 {
+            get {
+                return ResourceManager.GetString("Migration14997", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;

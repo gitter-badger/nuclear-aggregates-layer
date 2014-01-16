@@ -653,9 +653,6 @@ SWIFT {5}
 	<data name="OrderValidationFailed" xml:space="preserve">
     <value>Не удалось выполнить проверку</value>
   </data>
-	<data name="ClientSecurityExceptionFormatString" xml:space="preserve">
-    <value>Клиент {0}: {1}. {2}</value>
-  </data>
 	<data name="ResultOfCheck" xml:space="preserve">
     <value>Результат проверки</value>
   </data>
@@ -934,9 +931,6 @@ SWIFT {5}
   </data>
 	<data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
     <value>У удалаемой валюты '{0}' есть связаный курс на дату '{1}', удаление валюты невозможно.</value>
-  </data>
-	<data name="BargainNumberTemplate" xml:space="preserve">
-    <value>Д_{0}-{1}-{2}</value>
   </data>
 	<data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
     <value>Отсутствует разрешение. Смена территории у фирмы не доступна</value>
@@ -4937,7 +4931,7 @@ SWIFT {5}
   </data>
 	<data name="HotClientDescriptionTemplate" xml:space="preserve">
     <value>Телефон: {0}
-	Контакт: {1}</value>
+Контакт: {1}</value>
   </data>
 	<data name="ImportHotClientRequiredAttributeNotFound" xml:space="preserve">
     <value>Не найден обязательный атрибут {0}</value>
@@ -5380,4 +5374,10 @@ Penezni ustav:  {5}</value>
 	<data name="FormatErrorMessage" xml:space="preserve">
 		<value>Значение '{0}' не применимо к полю {1}</value>
 	</data>
+  <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
+    <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
+  </data>
+  <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
+    <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
+  </data>
 </root>

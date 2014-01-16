@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
                     {
                         entityViewModel.DisabledDocuments = new[]
                             {
-                                (int)OperatesOnTheBasisType.Underfined,
+                                (int)OperatesOnTheBasisType.Undefined,
                                 (int)OperatesOnTheBasisType.Certificate
                             };
                         break;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
                     {
                         entityViewModel.DisabledDocuments = new[]
                             {
-                                (int)OperatesOnTheBasisType.Underfined,
+                                (int)OperatesOnTheBasisType.Undefined,
                                 (int)OperatesOnTheBasisType.Charter,
                                 (int)OperatesOnTheBasisType.Bargain,
                                 (int)OperatesOnTheBasisType.FoundingBargain

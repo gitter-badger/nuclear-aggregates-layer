@@ -18,12 +18,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
         private readonly IFinishReleaseOperationService _finishReleaseOperationService;
         private readonly ICommonLog _logger;
 
-        public ReleaseApplicationService(
-            IStartReleaseOperationService startReleaseOperationService,
-            IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
-            IFinishReleaseOperationService finishReleaseOperationService,
-            IUserContext userContext,
-            ICommonLog logger)
+        public ReleaseApplicationService(IStartReleaseOperationService startReleaseOperationService,
+                                         IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
+                                         IFinishReleaseOperationService finishReleaseOperationService,
+                                         IUserContext userContext,
+                                         ICommonLog logger)
         {
             _startReleaseOperationService = startReleaseOperationService;
             _attachExternalReleaseProcessingMessagesOperationService = attachExternalReleaseProcessingMessagesOperationService;
@@ -43,14 +42,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex, 
-                    "Can't start release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
-                    organizationUnitDgppId,
-                    period,
-                    isBeta,
-                    canIgnoreBlockingErrors);
-                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message));
+                _logger.ErrorFormatEx(ex,
+                                      "Can't start release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
+                                      organizationUnitDgppId,
+                                      period,
+                                      isBeta,
+                                      canIgnoreBlockingErrors);
+                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message), new FaultReason(ex.Message));
             }
         }
 
@@ -62,12 +60,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex,
-                    "Can't attach external release processing messages. Release id: {0}",
-                    releaseId);
+                _logger.ErrorFormatEx(ex,
+                                      "Can't attach external release processing messages. Release id: {0}",
+                                      releaseId);
 
-                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message));
+                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message), new FaultReason(ex.Message));
             }
         }
 
@@ -79,12 +76,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex,
-                    "Can't finish release properly with succeeded result. Release id: {0}",
-                    releaseId);
+                _logger.ErrorFormatEx(ex,
+                                      "Can't finish release properly with succeeded result. Release id: {0}",
+                                      releaseId);
 
-                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message));
+                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message), new FaultReason(ex.Message));
             }
         }
 
@@ -96,12 +92,11 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex,
-                    "Can't finish release properly with failed result. Release id: {0}",
-                    releaseId);
+                _logger.ErrorFormatEx(ex,
+                                      "Can't finish release properly with failed result. Release id: {0}",
+                                      releaseId);
 
-                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message));
+                throw new FaultException<ReleasingErrorDescription>(new ReleasingErrorDescription(ex.Message), new FaultReason(ex.Message));
             }
         }
     }

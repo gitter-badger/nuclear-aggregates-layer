@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
@@ -103,6 +104,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder
                         .Find(OrderSpecs.Orders.Find.CompletelyReleasedByOrganizationUnit(sourceOrganizationUnitId))
                         .ToArray();
+        }
+
+        public CreateBargainInfo GetBargainInfoForCreate(long orderId)
+        {
+            return _finder
+                        .Find<Order, CreateBargainInfo>(OrderSpecs.Bargains.Select.CreateBargainInfoSelector, Specs.Find.ById<Order>(orderId))
+                        .Single();
+        }
+
+        public bool TryGetExistingBargain(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderSignupDate, out Bargain existingBargain)
+        {
+            existingBargain = _finder
+                                    .Find(OrderSpecs.Bargains.Find.Actual(legalPersonId, branchOfficeOrganizationUnitId, orderSignupDate))
+                                    .FirstOrDefault();
+
+            return existingBargain != null;
         }
     }
 }

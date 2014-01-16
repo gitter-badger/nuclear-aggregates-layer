@@ -246,24 +246,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             return true;
         }
 
-        private bool CanExecuteWithdrawing(WithdrawalInfo withdrawal, out string report)
+        private static bool CanExecuteWithdrawing(WithdrawalInfo withdrawal, out string report)
         {
             report = null;
 
-            if (withdrawal == null)
+            if (withdrawal == null || withdrawal.Status == (int)WithdrawalStatus.Error || withdrawal.Status == (int)WithdrawalStatus.Reverted)
             {
-                report = "Previous withdrawal not found";
-                return false;
+                return true;
             }
 
-            if (withdrawal.Status != (int)WithdrawalStatus.Error
-                && withdrawal.Status != (int)WithdrawalStatus.Reverted)
-            {
-                report = "Forbidden previous withdrawal status " + (WithdrawalStatus)withdrawal.Status;
-                return false;
-            }
-
-            return true;
+            report = "Forbidden previous withdrawal status " + (WithdrawalStatus)withdrawal.Status;
+            return false;
         }
     }
 }

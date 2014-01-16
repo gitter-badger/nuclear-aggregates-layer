@@ -81,12 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ProcessAccountsWithDebts, _userContext.Identity.Code);
                 if (!hasProcessAccountsWithDebtsPermissionGranted)
                 {
-                    var clientName = _clientRepository.GetClientName(entityId);
-                    throw new SecurityException(string.Format(BLResources.ClientSecurityExceptionFormatString,
-                                                              clientName,
-                                                              BLResources.OperationNotAllowed,
-                                                              ex.Message),
-                                                ex);
+                    throw new SecurityException(string.Format("{0}. {1}", BLResources.OperationNotAllowed, ex.Message), ex); 
                 }
 
                 return new AssignResult 

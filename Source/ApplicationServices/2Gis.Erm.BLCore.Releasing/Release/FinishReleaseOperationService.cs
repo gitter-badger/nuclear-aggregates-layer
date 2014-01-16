@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.ServiceModel.Security;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
@@ -32,17 +33,16 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
 
-        public FinishReleaseOperationService(
-            IOrderReadModel orderReadModel,
-            IReleaseReadModel releaseReadModel,
-            IAccountReadModel accountReadModel,
-            IReleaseChangeStatusAggregateService releaseChangeStatusAggregateService,
-            IAccountBulkCreateLocksAggregateService accountBulkCreateLocksAggregateService,
-            IAccountBulkCloseLimitsAggregateService accountBulkCloseLimitsAggregateService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext,
-            IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+        public FinishReleaseOperationService(IOrderReadModel orderReadModel,
+                                             IReleaseReadModel releaseReadModel,
+                                             IAccountReadModel accountReadModel,
+                                             IReleaseChangeStatusAggregateService releaseChangeStatusAggregateService,
+                                             IAccountBulkCreateLocksAggregateService accountBulkCreateLocksAggregateService,
+                                             IAccountBulkCloseLimitsAggregateService accountBulkCloseLimitsAggregateService,
+                                             ISecurityServiceFunctionalAccess functionalAccessService,
+                                             IUserContext userContext,
+                                             IOperationScopeFactory scopeFactory,
+                                             ICommonLog logger)
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;
@@ -62,7 +62,10 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormatEx("Finishing release with id {0} ou:{1} period: {2} and success state", releaseId, releaseInfo.OrganizationUnitName, releaseInfo.Period);
+                _logger.InfoFormatEx("Finishing release with id {0} ou:{1} period: {2} and success state",
+                                     releaseId,
+                                     releaseInfo.OrganizationUnitName,
+                                     releaseInfo.Period);
                 if (releaseInfo.Release.IsBeta)
                 {
                     _logger.InfoEx("Release type is beta, so no actions required in ERM accounts (locks, limits and etc.) state");
@@ -95,17 +98,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var releaseInfo = ResolveRelease(releaseId);
 
-                _logger.InfoFormatEx(
-                    "Finishing release with id {0} ou:{1} period: {2} and failed state, because errors detected in the release process on the external side", 
-                    releaseId, 
-                    releaseInfo.OrganizationUnitName, 
-                    releaseInfo.Period);
-                _releaseChangeStatusAggregateService.Finished(releaseInfo.Release, ReleaseStatus.Error, "Can't completly finish release. Errors detected in the release process on the external side");
-                _logger.InfoFormatEx(
-                    "Finished release with id {0} ou:{1} period: {2} and failed state, because errors detected in the release process on the external side", 
-                    releaseId, 
-                    releaseInfo.OrganizationUnitName, 
-                    releaseInfo.Period);
+                _logger.InfoFormatEx("Finishing release with id {0} ou:{1} period: {2} and failed state, " +
+                                     "because errors detected in the release process on the external side",
+                                     releaseId,
+                                     releaseInfo.OrganizationUnitName,
+                                     releaseInfo.Period);
+                _releaseChangeStatusAggregateService.Finished(releaseInfo.Release,
+                                                              ReleaseStatus.Error,
+                                                              "Can't completly finish release. Errors detected in the release process on the external side");
+                _logger.InfoFormatEx("Finished release with id {0} ou:{1} period: {2} and failed state, " +
+                                     "because errors detected in the release process on the external side",
+                                     releaseId,
+                                     releaseInfo.OrganizationUnitName,
+                                     releaseInfo.Period);
 
                 scope.Complete();
             }
@@ -113,10 +118,10 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         private ReleaseInfoDto ResolveRelease(long releaseId)
         {
-            // TODO {all, 04.11.2013}: проверить атуентифицируется ли экспорт при управлении сборкой в ERM и есть ли у него нужные права, если есть, то активировать проверку
+            // Текущая реализация определения identity текущего пользователя установит в IUserContext.Identity учетку пула приложений IIS, если безопасность выключена для endpoint
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ReleaseAccess, _userContext.Identity.Code))
             {
-                //throw new InvalidOperationException("User doesn't have sufficient privileges for finishing release");
+                throw new SecurityAccessDeniedException("User doesn't have sufficient privileges for finishing release");
             }
 
             var release = _releaseReadModel.GetReleaseInfo(releaseId);
@@ -124,28 +129,28 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 var msg = "Can't find release entry for specified release id " + releaseId;
                 _logger.ErrorEx(msg);
-                throw new InvalidOperationException(msg);
+                throw new ArgumentException(msg);
             }
 
-            var releaseInfo =
-                new ReleaseInfoDto
-                    {
-                        Release = release,
-                        OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(release.OrganizationUnitId),
-                        Period = new TimePeriod(release.PeriodStartDate, release.PeriodEndDate)
-                    };
+            var releaseInfo = new ReleaseInfoDto
+                {
+                    Release = release,
+                    OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(release.OrganizationUnitId),
+                    Period = new TimePeriod(release.PeriodStartDate, release.PeriodEndDate)
+                };
 
             var currentReleaseStatus = (ReleaseStatus)release.Status;
             if (currentReleaseStatus != ReleaseStatus.InProgressWaitingExternalProcessing)
             {
-                var msg = string.Format("Can't finish release with id {0} and status {1} ou:{2} period: {3}. To execute finish, release have to be in status: {4}", 
-                    releaseId,
-                    currentReleaseStatus.ToString(),
-                    releaseInfo.OrganizationUnitName,
-                    releaseInfo.Period,
-                    ReleaseStatus.InProgressWaitingExternalProcessing.ToString());
-                _logger.ErrorEx(msg);
-                throw new InvalidOperationException(msg);
+                var message = string.Format("Can't finish release with id {0} and status {1} ou:{2} period: {3}. " +
+                                            "To execute finish, release have to be in status: {4}",
+                                            releaseId,
+                                            currentReleaseStatus,
+                                            releaseInfo.OrganizationUnitName,
+                                            releaseInfo.Period,
+                                            ReleaseStatus.InProgressWaitingExternalProcessing);
+                _logger.ErrorEx(message);
+                throw new InvalidOperationException(message);
             }
 
             return releaseInfo;

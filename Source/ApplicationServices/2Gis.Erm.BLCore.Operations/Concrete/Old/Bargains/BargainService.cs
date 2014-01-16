@@ -4,68 +4,31 @@ using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Bargain;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains
 {
-    // FIXME {all, 21.10.2013}: фактически набор OperationServices зачем-то слепленных в один интерфейс
+    // FIXME {all, 21.10.2013}: фактически набор OperationServices зачем-то слепленных в один интерфейс - распилить, SRP и т.п.
     public sealed class BargainService : IBargainService
     {
-        private static readonly ISelectSpecification<Order, OrderBatchClass> BatchSelector =
-            new SelectSpecification<Order, OrderBatchClass>(x => new OrderBatchClass
-                {
-                    Order = x,
-                    LegalPersonId = x.LegalPersonId,
-                    BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                    OrderSignupDate = x.SignupDate,
-                    BargainTypeId = x.BranchOfficeOrganizationUnit.BranchOffice.BargainTypeId,
-                    DestinationSyncCode1C = x.DestOrganizationUnit.SyncCode1C,
-                    SourceSyncCode1C = x.SourceOrganizationUnit.SyncCode1C,
-                });
-
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IBargainRepository _bargainRepository;
-        private readonly IOrderRepository _orderRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserContext _userContext;
-        private readonly IFinder _finder;
-        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IOrderCreateBargainAggregateService _orderCreateBargainAggregateService;
 
-        // FIXME {all, 06.08.2013}: почему то в слое operation services используется finder 
         public BargainService(
+            IOrderReadModel orderReadModel,
             IBargainRepository bargainRepository,
-            IOrderRepository orderRepository,
-            IUnitOfWork unitOfWork,
-            IUserContext userContext,
-            IFinder finder,
-            IOperationScopeFactory scopeFactory)
+            IOrderCreateBargainAggregateService orderCreateBargainAggregateService)
         {
+            _orderReadModel = orderReadModel;
             _bargainRepository = bargainRepository;
-            _orderRepository = orderRepository;
-            _unitOfWork = unitOfWork;
-            _userContext = userContext;
-            _finder = finder;
-            _scopeFactory = scopeFactory;
-        }
-
-        public long GenerateNextBargainUniqueNumber()
-        {
-            return _bargainRepository.GenerateNextBargainUniqueNumber();
-        }
-
-        public Bargain GetById(long id)
-        {
-            return _bargainRepository.Find(id);
+            _orderCreateBargainAggregateService = orderCreateBargainAggregateService;
         }
 
         public GetOrderBargainResult GetBargain(long? branchOfficeOrganizationUnitId, long? legalPersonId, DateTime orderSignupDate)
@@ -107,53 +70,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var batch = _finder.Find<Order, OrderBatchClass>(BatchSelector, Specs.Find.ById<Order>(orderId))
-                                   .Single();
-
-                if (!batch.LegalPersonId.HasValue)
+                var createBargainInfo = _orderReadModel.GetBargainInfoForCreate(orderId);
+                if (!createBargainInfo.LegalPersonId.HasValue)
                 {
                     throw new NotificationException(BLResources.LegalPersonNotFound);
                 }
 
-                if (!batch.BranchOfficeOrganizationUnitId.HasValue)
+                if (!createBargainInfo.BranchOfficeOrganizationUnitId.HasValue)
                 {
                     throw new NotificationException(BLResources.BranchOfficeOrganizationUnitNotFound);
                 }
 
-                var existingBargain = _bargainRepository.FindBySpecification(OrderSpecs.Bargains.Find.Actual(batch.LegalPersonId,
-                                                                                                            batch.BranchOfficeOrganizationUnitId,
-                                                                                                            batch.OrderSignupDate))
-                                                        .FirstOrDefault();
-
-                if (existingBargain != null)
+                Bargain existingBargain;
+                if (_orderReadModel.TryGetExistingBargain(
+                                        createBargainInfo.LegalPersonId.Value, 
+                                        createBargainInfo.BranchOfficeOrganizationUnitId.Value, 
+                                        createBargainInfo.OrderSignupDate, 
+                                        out existingBargain))
                 {
                     // Если для данных юр. лица клиента и юр. лица исполнителя существует договор,
                     // незакрытый на момент подписания заказа, то возвращаем его.
                     return new EntityIdAndNumber(existingBargain.Id, existingBargain.Number);
                 }
 
-                var bargain = new Bargain
-                    {
-                        CustomerLegalPersonId = (long)batch.LegalPersonId,
-                        ExecutorBranchOfficeId = batch.BranchOfficeOrganizationUnitId.Value,
-                        BargainTypeId = batch.BargainTypeId.Value,
-                        SignedOn = DateTime.UtcNow.Date,
-                        OwnerCode = _userContext.Identity.Code,
-                        HasDocumentsDebt = (byte)DocumentsDebt.Absent,
-                        IsActive = true,
-                    };
-
-                using (var operationScope = _scopeFactory.CreateNonCoupled<BindToOrderIdentity>())
-                {
-                    AddBargain(batch, bargain, GenerateNextBargainUniqueNumber());
-
-                    operationScope.Added<Bargain>(bargain.Id)
-                                  .Updated<Order>(batch.Order.Id)
-                                  .Complete();
-                }
-
+                // FIXME {all, 14.01.2014}: при рефакторинге BargainService и выделение CreateBargainForOrder в самостоятельный operation service нужно избавиться/зарефакторить BindToOrderIdentity (см. aggregate сервис)
+                // - логировать нужно createidentity договора, BindToOrderIdentity либо вообще удалить, переименовать в AppendBargain, AttachBargain, BindBargain и т.п. (заиспользовав тот же id операции)
+                var createdBargain = _orderCreateBargainAggregateService.Create(createBargainInfo);
+                
                 transaction.Complete();
-                return new EntityIdAndNumber(bargain.Id, bargain.Number);
+                return new EntityIdAndNumber(createdBargain.Id, createdBargain.Number);
             }
         }
 
@@ -172,39 +117,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains
             _bargainRepository.CloseBargains(bargains.Where(x => x.SignedOn <= closeDate), closeDate);
 
             return response;
-        }
-
-        private void AddBargain(OrderBatchClass batch, Bargain bargain, long? reservedNumberDigit)
-        {
-            var order = batch.Order;
-
-            if (reservedNumberDigit == null)
-            {
-                throw new InvalidOperationException(EnumResources.FailedToGetNumberForBargain);
-            }
-
-            bargain.Number = string.Format(BLResources.BargainNumberTemplate, batch.SourceSyncCode1C, batch.DestinationSyncCode1C, reservedNumberDigit.Value);
-
-            using (var scope = _unitOfWork.CreateScope())
-            {
-                var bargainRepository = scope.CreateRepository<IBargainRepository>();
-                bargainRepository.CreateOrUpdate(bargain);
-                scope.Complete();
-            }
-
-            order.BargainId = bargain.Id;
-            _orderRepository.Update(order);
-        }
-
-        private sealed class OrderBatchClass
-        {
-            public long? LegalPersonId { get; set; }
-            public long? BranchOfficeOrganizationUnitId { get; set; }
-            public long? BargainTypeId { get; set; }
-            public DateTime OrderSignupDate { get; set; }
-            public Order Order { get; set; }
-            public string DestinationSyncCode1C { get; set; }
-            public string SourceSyncCode1C { get; set; }
         }
     }
 }

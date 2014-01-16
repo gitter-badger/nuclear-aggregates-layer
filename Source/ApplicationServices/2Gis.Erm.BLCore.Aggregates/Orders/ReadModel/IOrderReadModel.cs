@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
@@ -16,5 +17,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
+        CreateBargainInfo GetBargainInfoForCreate(long orderId);
+        bool TryGetExistingBargain(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderSignupDate, out Bargain existingBargain);
     }
 }

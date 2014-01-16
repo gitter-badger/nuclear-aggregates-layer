@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
             {
                 switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
                 {
-                    case OperatesOnTheBasisType.Underfined:
+                    case OperatesOnTheBasisType.Undefined:
                     case OperatesOnTheBasisType.None:
                         operatesOnTheBasisInGenitive = string.Empty;
                         break;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
@@ -16,16 +15,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                                           IUploadFileAggregateRepository<BargainFile>
     {
         int Delete(Bargain entity);
-        Bargain Find(long entityId);
         BargainUsageDto GetBargainUsage(long entityId);
         int Update(Bargain bargain);
         IEnumerable<Bargain> FindBySpecification(IFindSpecification<Bargain> spec);
+
         void CloseBargains(IEnumerable<Bargain> bargains, DateTime closeDate);
-
-        IQueryable<TOutput> FindBySpecification<TOutput>(ISelectSpecification<Bargain, TOutput> selectSpecification, IFindSpecification<Bargain> spec);
-
-        long GenerateNextBargainUniqueNumber();
-        void CreateOrUpdate(Bargain bargain);
         void CreateOrUpdate(BargainFile entity);
     }
 }

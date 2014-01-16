@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
-    public sealed class PublishOrdersForReleaseToFtp : IPublishOrdersForReleaseToFileStorage
+    public sealed class PublishOrdersForFinalReleaseToFtp : IPublishOrdersForReleaseToFileStorage
     {
         private const string OrdersXmlFileNameTemplate = "orders_{0}_{1}.xml{2}";
         private const string OrdersXmlFileNameDateFormat = "ddMMyyy";
@@ -21,24 +21,22 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IFtpService _ftpService;
         private readonly ICommonLog _logger;
 
-        public PublishOrdersForReleaseToFtp(
-            IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings, 
-            IFtpService ftpService, 
-            ICommonLog logger)
+        public PublishOrdersForFinalReleaseToFtp(IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings,
+                                                 IFtpService ftpService,
+                                                 ICommonLog logger)
         {
             _ftpExportIntegrationModeSettings = ftpExportIntegrationModeSettings;
             _ftpService = ftpService;
             _logger = logger;
         }
 
-        public void Publish(long organizationUnitId, int organizationUnitDgppId, TimePeriod period, bool isBeta, Stream ordersStream)
+        public void Publish(long organizationUnitId, int organizationUnitDgppId, TimePeriod period, Stream ordersStream)
         {
-            _logger.InfoFormatEx(
-                "Starting publish orders with advertisement materials to FTP. Used ftp {0}. Release detail: organization unit id {1}, period {2}, {3} release",
-                _ftpExportIntegrationModeSettings.FtpExportSite,
-                organizationUnitId,
-                period,
-                isBeta ? "beta" : "final");
+            _logger.InfoFormatEx("Starting publish orders with advertisement materials to FTP. Used ftp {0}. " +
+                                 "Release detail: organization unit id {1}, period {2}, final release",
+                                 _ftpExportIntegrationModeSettings.FtpExportSite,
+                                 organizationUnitId,
+                                 period);
 
             var xmlExportFileName = string.Format(OrdersXmlFileNameTemplate,
                                                   period.Start.ToString(OrdersXmlFileNameDateFormat),
@@ -69,12 +67,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                        zipOutputStream);
             }
 
-            _logger.InfoFormatEx(
-                "Finished publishing orders with advertisement materials to FTP. Used ftp {0}. Release detail: organization unit id {1}, period {2}, {3} release",
-                _ftpExportIntegrationModeSettings.FtpExportSite,
-                organizationUnitId,
-                period,
-                isBeta ? "beta" : "final");
+            _logger.InfoFormatEx("Finished publishing orders with advertisement materials to FTP. Used ftp {0}. " +
+                                 "Release detail: organization unit id {1}, period {2}, final release",
+                                 _ftpExportIntegrationModeSettings.FtpExportSite,
+                                 organizationUnitId,
+                                 period);
         }
     }
 }

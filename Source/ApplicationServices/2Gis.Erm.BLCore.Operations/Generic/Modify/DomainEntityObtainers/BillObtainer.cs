@@ -35,6 +35,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                 bill.BillDate = dto.BillDate;
                 bill.BeginDistributionDate = dto.BeginDistributionDate;
                 bill.EndDistributionDate = dto.EndDistributionDate;
+                bill.PayablePlan = dto.PayablePlan;
+                bill.OwnerCode = dto.OwnerRef.Id.Value;
             }
             else
             {
@@ -42,10 +44,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             }
 
             bill.PaymentDatePlan = dto.PaymentDatePlan;
-            bill.PayablePlan = dto.PayablePlan;
             bill.Comment = dto.Comment;
-            bill.OwnerCode = dto.OwnerRef.Id.Value;
-            
+
             return bill;
         }
     }

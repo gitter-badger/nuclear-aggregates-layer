@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 #if !SILVERLIGHT
 
 [assembly: SuppressIldasm]
-[assembly: NeutralResourcesLanguage("ru", UltimateResourceFallbackLocation.Satellite)]
+[assembly: NeutralResourcesLanguage("en", UltimateResourceFallbackLocation.Satellite)]
 
 #endif
 

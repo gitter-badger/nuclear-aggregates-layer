@@ -71,7 +71,7 @@
     <Compile Include="Release\Old\PrepareValidationReportHandler.cs" />
     <Compile Include="Release\OrdersWithAdvertisementMaterialsXmlSerializer.cs" />
     <Compile Include="Release\OrdersWithAdvertisementMaterialsXmlSerializerFactory.cs" />
-    <Compile Include="Release\PublishOrdersForReleaseToFtp.cs" />
+    <Compile Include="Release\PublishOrdersForFinalReleaseToFtp.cs" />
     <Compile Include="Release\ReleaseInfoDto.cs" />
     <Compile Include="Release\RevertReleaseOperationService.cs" />
     <Compile Include="Release\ServiceBusEnsureOrderExportedStrategy.cs" />

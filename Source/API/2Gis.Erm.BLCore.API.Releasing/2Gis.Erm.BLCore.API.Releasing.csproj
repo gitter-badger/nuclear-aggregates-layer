@@ -64,6 +64,10 @@
     <Compile Include="Releases\ReleaseProcessingMessage.cs" />
     <Compile Include="Releases\ReleaseStartingResult.cs" />
     <Compile Include="Remote\Release\IReleaseApplicationService.cs" />
+    <Compile Include="Remote\Release\Obsolete\FinishExport.cs" />
+    <Compile Include="Remote\Release\Obsolete\IErmService.cs" />
+    <Compile Include="Remote\Release\Obsolete\RequestResponse.cs" />
+    <Compile Include="Remote\Release\Obsolete\StartExport.cs" />
     <Compile Include="Remote\Release\ReleasingErrorDescription.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.API.Core;
 namespace DoubleGis.Erm.BLCore.API.Releasing.Releases
 {
     [StableContract]
-    [DataContract(Namespace = ServiceNamespaces.BasicOperations.Release201308)]
+    [DataContract(Namespace = ServiceNamespaces.Releasing.Release201308)]
     public sealed class ExternalReleaseProcessingMessage
     {
         [DataMember]

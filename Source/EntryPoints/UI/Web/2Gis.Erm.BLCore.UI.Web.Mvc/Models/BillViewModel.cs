@@ -27,8 +27,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 
         public string Comment { get; set; }
 
-        public long OrderId { get; set; }
-
         [Dependency(DependencyType.ReadOnly, "PaymentDatePlan", "this.value && this.value.toLowerCase()=='false'")]
         public bool IsOrderActive { get; set; }
 
@@ -48,8 +46,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
             Comment = modelDto.Comment;
             IsOrderActive = modelDto.IsOrderActive;
             Timestamp = modelDto.Timestamp;
-            OrderId = modelDto.OrderId;
-            Owner = LookupField.FromReference(modelDto.OwnerRef);
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
@@ -66,8 +62,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
                     Comment = Comment,
                     IsOrderActive = IsOrderActive,
                     OwnerRef = Owner.ToReference(),
-                    Timestamp = Timestamp,
-                    OrderId = OrderId
+                    Timestamp = Timestamp
                 };
         }
    }

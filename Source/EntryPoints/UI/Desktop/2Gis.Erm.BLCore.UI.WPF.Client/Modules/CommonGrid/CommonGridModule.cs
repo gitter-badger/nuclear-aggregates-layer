@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids;
-using DoubleGis.Erm.BLCore.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
@@ -35,6 +35,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.CommonGrid
             
         public void Configure()
         {
+            // FIXME {all, 14.01.2014}: UIConfigurationMetadata сейчас в проекте BLFlex => иметь reference в BLCore на BLFlex вроде бы не правильно - нужно подумать и распилить уже правильно
             _container.RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                 // TODO {all, 06.08.2013}: подумать как более корректно получать доступ к IGlobalizationSettings
                       .RegisterType<IGlobalizationSettings>(Lifetime.Singleton, new InjectionFactory((container, type, arg3) => container.Resolve<ICommonSettings>()))

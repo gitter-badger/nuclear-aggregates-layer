@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.ServiceModel.Security;
 using System.Transactions;
 
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -23,37 +26,42 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class StartReleaseOperationService : IStartReleaseOperationService
     {
+        private readonly IIntegrationSettings _integrationSettings;
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IReleaseStartAggregateService _releaseStartAggregateService;
         private readonly IReleaseChangeStatusAggregateService _releaseChangeStatusAggregateService;
         private readonly IReleaseAttachProcessingMessagesAggregateService _releaseAttachProcessingMessagesAggregateService;
         private readonly IValidateOrdersForReleaseOperationService _validateOrdersForReleaseOperationService;
         private readonly IEnsureOrdersForReleaseCompletelyExportedOperationService _ensureOrdersForReleaseCompletelyExportedOperationService;
+        private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _logger;
 
-        public StartReleaseOperationService(
-            IReleaseReadModel releaseReadModel,
-            IReleaseStartAggregateService releaseStartAggregateService,
-            IReleaseChangeStatusAggregateService releaseChangeStatusAggregateService,
-            IReleaseAttachProcessingMessagesAggregateService releaseAttachProcessingMessagesAggregateService,
-            IValidateOrdersForReleaseOperationService validateOrdersForReleaseOperationService,
-            IEnsureOrdersForReleaseCompletelyExportedOperationService ensureOrdersForReleaseCompletelyExportedOperationService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext,
-            IOperationScopeFactory scopeFactory,
-            IUseCaseTuner useCaseTuner,
-            ICommonLog logger)
+        public StartReleaseOperationService(IIntegrationSettings integrationSettings,
+                                            IReleaseReadModel releaseReadModel,
+                                            IReleaseStartAggregateService releaseStartAggregateService,
+                                            IReleaseChangeStatusAggregateService releaseChangeStatusAggregateService,
+                                            IReleaseAttachProcessingMessagesAggregateService releaseAttachProcessingMessagesAggregateService,
+                                            IValidateOrdersForReleaseOperationService validateOrdersForReleaseOperationService,
+                                            IEnsureOrdersForReleaseCompletelyExportedOperationService ensureOrdersForReleaseCompletelyExportedOperationService,
+                                            IAggregateServiceIsolator aggregateServiceIsolator,
+                                            ISecurityServiceFunctionalAccess functionalAccessService,
+                                            IUserContext userContext,
+                                            IOperationScopeFactory scopeFactory,
+                                            IUseCaseTuner useCaseTuner,
+                                            ICommonLog logger)
         {
+            _integrationSettings = integrationSettings;
             _releaseReadModel = releaseReadModel;
             _releaseStartAggregateService = releaseStartAggregateService;
             _releaseChangeStatusAggregateService = releaseChangeStatusAggregateService;
             _releaseAttachProcessingMessagesAggregateService = releaseAttachProcessingMessagesAggregateService;
             _validateOrdersForReleaseOperationService = validateOrdersForReleaseOperationService;
             _ensureOrdersForReleaseCompletelyExportedOperationService = ensureOrdersForReleaseCompletelyExportedOperationService;
+            _aggregateServiceIsolator = aggregateServiceIsolator;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
@@ -63,73 +71,87 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         public ReleaseStartingResult Start(int organizationUnitDgppId, TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors)
         {
+            if (!_integrationSettings.EnableIntegration)
+            {
+                throw new InvalidOperationException("Interaction with service bus is disabled in Erm config settings. Release cannot be started");
+            }
+
+            // Текущая реализация определения identity текущего пользователя установит в IUserContext.Identity учетку пула приложений IIS, если безопасность выключена для endpoint
+            if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ReleaseAccess, _userContext.Identity.Code))
+            {
+                throw new SecurityAccessDeniedException("User doesn't have sufficient privileges for starting release");
+            }
+
             _useCaseTuner.AlterDuration<StartReleaseOperationService>();
 
             ReleaseInfo acquiredRelease = null;
 
             try
             {
+                long? previousReleaseId;
                 string report;
-                if (!TryAcquireTargetRelease(organizationUnitDgppId, period, isBeta, canIgnoreBlockingErrors, out acquiredRelease, out report))
+                var targetReleaseAcquired = TryAcquireTargetRelease(organizationUnitDgppId,
+                                                                    period,
+                                                                    isBeta,
+                                                                    canIgnoreBlockingErrors,
+                                                                    out acquiredRelease,
+                                                                    out previousReleaseId,
+                                                                    out report);
+                if (!targetReleaseAcquired)
                 {
-                    _logger.ErrorFormatEx(
-                        "Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}. Error: {4}",
-                                     organizationUnitDgppId,
-                                     period,
-                                     isBeta,
-                                     canIgnoreBlockingErrors,
-                                     report);
+                    _logger.ErrorFormatEx("Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                                          "Can ignore blocking errors: {3}. Error: {4}",
+                                          organizationUnitDgppId,
+                                          period,
+                                          isBeta,
+                                          canIgnoreBlockingErrors,
+                                          report);
 
-                    return new ReleaseStartingResult { Succeed = false, ProcessingMessages = new ReleaseProcessingMessage[0] };
+                    return new ReleaseStartingResult
+                        {
+                            Succeed = false,
+                            ReleaseId = previousReleaseId.HasValue ? previousReleaseId.Value : 0L,
+                            ProcessingMessages = new ReleaseProcessingMessage[0]
+                        };
                 }
 
                 return ExecuteInternalErmReleaseProcessing(acquiredRelease, organizationUnitDgppId, canIgnoreBlockingErrors);
             }
             catch (Exception ex)
             {
-                var msg = string.Format("Releasing aborted. Unexpected exception was caught. Release details: for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
-                                                 organizationUnitDgppId,
-                                                 period,
-                                                 isBeta,
-                                                 canIgnoreBlockingErrors);
+                var msg = string.Format("Releasing aborted. Unexpected exception was caught. " +
+                                        "Release details: for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                                        "Can ignore blocking errors: {3}",
+                                        organizationUnitDgppId,
+                                        period,
+                                        isBeta,
+                                        canIgnoreBlockingErrors);
                 _logger.ErrorEx(ex, msg);
 
                 if (acquiredRelease != null)
                 {
-                    using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-                    {
-                        _releaseChangeStatusAggregateService.ChangeStatus(acquiredRelease, ReleaseStatus.Error, msg);
-                        transaction.Complete();
-                    }
+                    _aggregateServiceIsolator.TransactedExecute<IReleaseChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
+                                                                         service => service.Finished(acquiredRelease, ReleaseStatus.Error, msg));
                 }
 
                 throw;
             }
         }
 
-        private bool TryAcquireTargetRelease(
-            int organizationUnitDgppId, 
-            TimePeriod period, 
-            bool isBeta, 
-            bool canIgnoreBlockingErrors,
-            out ReleaseInfo acquiredRelease, 
-            out string report)
+        private bool TryAcquireTargetRelease(int organizationUnitDgppId,
+                                             TimePeriod period,
+                                             bool isBeta,
+                                             bool canIgnoreBlockingErrors,
+                                             out ReleaseInfo acquiredRelease,
+                                             out long? previuosReleaseId,
+                                             out string report)
         {
             acquiredRelease = null;
 
-            // TODO {all, 04.11.2013}: проверить атуентифицируется ли экспорт при управлении сборкой в ERM и есть ли у него нужные права, если есть, то активировать проверку
-            if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ReleaseAccess, _userContext.Identity.Code))
-            {
-                report = string.Empty;
-                return true;
-                //report = "User doesn't have sufficient privileges for starting release";
-                //return false;
-            }
-
             using (var scope = _scopeFactory.CreateNonCoupled<StartReleaseIdentity>())
             {
-                _logger.InfoFormatEx(
-                                     "Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
+                _logger.InfoFormatEx("Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                                     "Can ignore blocking errors: {3}",
                                      organizationUnitDgppId,
                                      period,
                                      isBeta,
@@ -138,44 +160,45 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 var organizationUnitId = _releaseReadModel.GetOrganizationUnitId(organizationUnitDgppId);
                 if (organizationUnitId == 0)
                 {
-                    report =
-                        string.Format(
-                                      "Can't continue release. Organization unit with stable (DGPP) id {0} not found. Release detail: {1} is beta {2}. Can ignore blocking errors: {3}",
-                                      organizationUnitDgppId,
-                                      period,
-                                      isBeta,
-                                      canIgnoreBlockingErrors);
+                    previuosReleaseId = null;
+                    report = string.Format("Can't continue release. Organization unit with stable (DGPP) id {0} not found. " +
+                                           "Release detail: {1} is beta {2}. Can ignore blocking errors: {3}",
+                                           organizationUnitDgppId,
+                                           period,
+                                           isBeta,
+                                           canIgnoreBlockingErrors);
                     _logger.ErrorEx(report);
                     return false;
                 }
 
                 if (!IsValidReleaseStartArgs(period, isBeta, canIgnoreBlockingErrors, out report))
                 {
-                    report =
-                        string.Format(
-                                      "Can't start releasing for organization unit with id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}. Error description: {4}",
-                                      organizationUnitId,
-                                      period,
-                                      isBeta,
-                                      canIgnoreBlockingErrors,
-                                      report);
+                    previuosReleaseId = null;
+                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                                           "Can ignore blocking errors: {3}. Error description: {4}",
+                                           organizationUnitId,
+                                           period,
+                                           isBeta,
+                                           canIgnoreBlockingErrors,
+                                           report);
 
                     _logger.ErrorEx(report);
                     return false;
                 }
 
                 var previousRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
+                previuosReleaseId = previousRelease.Id;
+
                 bool usingPreviouslyNotFinishedReleasing;
                 if (!CanStartReleasing(previousRelease, out usingPreviouslyNotFinishedReleasing, out report))
                 {
-                    report =
-                        string.Format(
-                                      "Can't start releasing for organization unit with id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}. Error description: {4}",
-                                      organizationUnitId,
-                                      period,
-                                      isBeta,
-                                      canIgnoreBlockingErrors,
-                                      report);
+                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                                           "Can ignore blocking errors: {3}. Error description: {4}",
+                                           organizationUnitId,
+                                           period,
+                                           isBeta,
+                                           canIgnoreBlockingErrors,
+                                           report);
 
                     _logger.ErrorEx(report);
 
@@ -185,27 +208,26 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 if (!usingPreviouslyNotFinishedReleasing)
                 {
                     _logger.InfoFormatEx("Starting release for for organization unit with id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
-                                          organizationUnitId,
-                                          period,
-                                          isBeta,
-                                          canIgnoreBlockingErrors);
+                                         organizationUnitId,
+                                         period,
+                                         isBeta,
+                                         canIgnoreBlockingErrors);
 
                     acquiredRelease = _releaseStartAggregateService.Start(organizationUnitId,
-                                                        period,
-                                                        isBeta,
-                                                        ReleaseStatus.InProgressInternalProcessingStarted);
+                                                                          period,
+                                                                          isBeta,
+                                                                          ReleaseStatus.InProgressInternalProcessingStarted);
                 }
                 else
                 {
-                    var msg =
-                        string.Format(
-                                      "Using previously started release with id {0} for organization unit with id {1} by period {2}, that was not finished properly. Probably errors was detected on the external releasing side (Export and etc)",
-                                      previousRelease.Id,
-                                      organizationUnitId,
-                                      period);
+                    var msg = string.Format("Using previously started release with id {0} for organization unit with id {1} by period {2}, " +
+                                            "that was not finished properly. Probably errors was detected on the external releasing side (Export and etc)",
+                                            previousRelease.Id,
+                                            organizationUnitId,
+                                            period);
 
                     _logger.InfoEx(msg);
-                    
+
                     _releaseChangeStatusAggregateService.ChangeStatus(previousRelease, ReleaseStatus.InProgressInternalProcessingStarted, msg);
 
                     acquiredRelease = previousRelease;
@@ -233,14 +255,15 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 // TODO {i.maslennikov, 01.11.2013}: подумать нет ли необходимости сверять timestamp сохраненного acquiredRelease и полученного через lastrelease
                 // смысл такой - нужно убедиться что после того как создали новую запись о сборке, переоткрыли старую, из конкурирующей транзакции не захватили ту же пессимистичную блокировку (ту же запись о сборке)
                 var targetRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId, releasingPeriod);
-                if (targetRelease == null 
-                    || targetRelease.Id != acquiredRelease.Id 
-                    || (ReleaseStatus)targetRelease.Status != ReleaseStatus.InProgressInternalProcessingStarted)
+                if (targetRelease == null ||
+                    targetRelease.Id != acquiredRelease.Id ||
+                    (ReleaseStatus)targetRelease.Status != ReleaseStatus.InProgressInternalProcessingStarted)
                 {
-                    var msg = string.Format("Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. Possible reason for errors - concurrent release\reverting process and invalid release status processing",
-                                         acquiredRelease.Id,
-                                         acquiredRelease.OrganizationUnitId,
-                                         releasingPeriod);
+                    var msg = string.Format("Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. " +
+                                            "Possible reason for errors - concurrent release\reverting process and invalid release status processing",
+                                            acquiredRelease.Id,
+                                            acquiredRelease.OrganizationUnitId,
+                                            releasingPeriod);
 
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = new[] { new ReleaseProcessingMessage { IsBlocking = true, Message = msg } };
@@ -253,46 +276,47 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releasingResult.ProcessingMessages = validationMessages;
 
                 bool hasBlockingErrors = validationMessages.Any(item => item.IsBlocking);
-                _logger.InfoFormatEx(
-                    "Release with id {0} for organization unit with id {1} by period {2}. After orders validation has blocking errors: {3} and can ingnore blocking errors: {4}",
-                    targetRelease.Id,
-                    targetRelease.OrganizationUnitId,
-                    releasingPeriod,
-                    hasBlockingErrors,
-                    canIgnoreBlockingErrors);
+                _logger.InfoFormatEx("Release with id {0} for organization unit with id {1} by period {2}. " +
+                                     "After orders validation has blocking errors: {3} and can ingnore blocking errors: {4}",
+                                     targetRelease.Id,
+                                     targetRelease.OrganizationUnitId,
+                                     releasingPeriod,
+                                     hasBlockingErrors,
+                                     canIgnoreBlockingErrors);
 
                 if (hasBlockingErrors && !canIgnoreBlockingErrors)
                 {
-                    var msg = string.Format(
-                                "Aborting release with id {0} for organization unit with id {1} by period {2}. Has blocking errors that can't be ignored.",
-                                targetRelease.Id,
-                                targetRelease.OrganizationUnitId,
-                                releasingPeriod);
+                    var msg = string.Format("Aborting release with id {0} for organization unit with id {1} by period {2}. " +
+                                            "Has blocking errors that can't be ignored.",
+                                            targetRelease.Id,
+                                            targetRelease.OrganizationUnitId,
+                                            releasingPeriod);
 
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
                     _releaseAttachProcessingMessagesAggregateService.SaveInternalMessages(targetRelease, validationMessages);
-                    _releaseChangeStatusAggregateService.ChangeStatus(targetRelease, ReleaseStatus.Error, msg);
+                    _releaseChangeStatusAggregateService.Finished(targetRelease, ReleaseStatus.Error, msg);
 
                     transaction.Complete();
                     return releasingResult;
                 }
 
                 if (!_ensureOrdersForReleaseCompletelyExportedOperationService.IsExported(targetRelease.Id,
-                                                                                 targetRelease.OrganizationUnitId,
-                                                                                 organizationUnitDgppId,
-                                                                                 releasingPeriod,
-                                                                                 targetRelease.IsBeta))
+                                                                                          targetRelease.OrganizationUnitId,
+                                                                                          organizationUnitDgppId,
+                                                                                          releasingPeriod,
+                                                                                          targetRelease.IsBeta))
                 {
-                    var msg = string.Format("Releasing aborted. Ensure process detected that not all required orders for release are properly exported. Release details: id {0} for organization unit with id {1} by period {2}",
+                    var msg = string.Format("Releasing aborted. Ensure process detected that not all required orders for release are properly exported. " +
+                                            "Release details: id {0} for organization unit with id {1} by period {2}",
                                             targetRelease.Id,
                                             targetRelease.OrganizationUnitId,
                                             releasingPeriod);
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
-                    _releaseChangeStatusAggregateService.ChangeStatus(targetRelease, ReleaseStatus.Error, msg);
+                    _releaseChangeStatusAggregateService.Finished(targetRelease, ReleaseStatus.Error, msg);
 
                     transaction.Complete();
                     return releasingResult;
@@ -301,11 +325,12 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releasingResult.Succeed = true;
                 _releaseChangeStatusAggregateService.ChangeStatus(targetRelease, ReleaseStatus.InProgressWaitingExternalProcessing, string.Empty);
 
-                _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. Waiting for external release processing",
-                                   targetRelease.Id,
-                                   targetRelease.OrganizationUnitId,
-                                   releasingPeriod,
-                                   targetRelease.IsBeta);
+                _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
+                                     "Waiting for external release processing",
+                                     targetRelease.Id,
+                                     targetRelease.OrganizationUnitId,
+                                     releasingPeriod,
+                                     targetRelease.IsBeta);
 
                 transaction.Complete();
             }
@@ -313,7 +338,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return releasingResult;
         }
 
-        private bool IsValidReleaseStartArgs(TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors, out string report)
+        private static bool IsValidReleaseStartArgs(TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors, out string report)
         {
             report = null;
 
@@ -345,7 +370,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return true;
         }
 
-        private bool CanStartReleasing(ReleaseInfo previousRelease, out bool usingPreviouslyNotFinishedReleasing, out string report)
+        private static bool CanStartReleasing(ReleaseInfo previousRelease, out bool usingPreviouslyNotFinishedReleasing, out string report)
         {
             report = string.Empty;
             usingPreviouslyNotFinishedReleasing = false;
@@ -365,11 +390,12 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     {
                         return true;
                     }
-                    
-                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. Can't start new release without reverting previous final and successful release",
-                                               previousRelease.Id,
-                                               previousRelease.OrganizationUnitId,
-                                               previousReleasePeriod);
+
+                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
+                                           "Can't start new release without reverting previous final and successful release",
+                                           previousRelease.Id,
+                                           previousRelease.OrganizationUnitId,
+                                           previousReleasePeriod);
 
                     return false;
                 }
@@ -385,16 +411,17 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
             }
 
-            report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, so new releasing can't be started",
-                                               previousRelease.Id,
-                                               previousRelease.OrganizationUnitId,
-                                               previousReleasePeriod,
-                                               previousReleaseStatus);
+            report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
+                                   "so new releasing can't be started",
+                                   previousRelease.Id,
+                                   previousRelease.OrganizationUnitId,
+                                   previousReleasePeriod,
+                                   previousReleaseStatus);
 
             return false;
         }
 
-        private ReleaseProcessingMessage[] AddNewBlockingMessage(ReleaseProcessingMessage[] processingMessages, string newMessage)
+        private static ReleaseProcessingMessage[] AddNewBlockingMessage(ReleaseProcessingMessage[] processingMessages, string newMessage)
         {
             var extendedMessages = new ReleaseProcessingMessage[processingMessages.Length + 1];
             extendedMessages[0] = new ReleaseProcessingMessage { IsBlocking = true, Message = newMessage };

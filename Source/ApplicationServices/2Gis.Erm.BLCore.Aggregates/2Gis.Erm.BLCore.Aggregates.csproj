@@ -129,6 +129,8 @@
     <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
     <Compile Include="Clients\IClientRepository.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
+    <Compile Include="Common\Crosscutting\AggregateServiceIsolator.cs" />
+    <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
     <Compile Include="Common\Generics\IDownloadFileAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
@@ -190,11 +192,15 @@
     <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderCreateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\OrderCreateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Orders\OrderValidationRepository.cs" />

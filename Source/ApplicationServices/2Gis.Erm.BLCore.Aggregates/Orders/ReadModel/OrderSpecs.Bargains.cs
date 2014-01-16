@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -34,6 +36,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                      && bargain.CustomerLegalPersonId == legalPersonId
                                                                      && bargain.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId &&
                                                                      bargain.IsActive && !bargain.IsDeleted);
+                }
+            }
+
+            public static class Select
+            {
+                public static ISelectSpecification<Order, CreateBargainInfo> CreateBargainInfoSelector
+                {
+                    get
+                    {
+                        return new SelectSpecification<Order, CreateBargainInfo>(x => new CreateBargainInfo
+                            {
+                                Order = x,
+                                LegalPersonId = x.LegalPersonId,
+                                BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                                OrderSignupDate = x.SignupDate,
+                                BargainTypeId = x.BranchOfficeOrganizationUnit.BranchOffice.BargainTypeId,
+                                DestinationSyncCode1C = x.DestOrganizationUnit.SyncCode1C,
+                                SourceSyncCode1C = x.SourceOrganizationUnit.SyncCode1C,
+                            });
+                    }
                 }
             }
         }

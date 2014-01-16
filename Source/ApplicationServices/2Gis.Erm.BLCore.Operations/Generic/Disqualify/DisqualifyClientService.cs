@@ -8,12 +8,15 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
@@ -23,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly IUserContext _userContext;
         private readonly IClientRepository _clientRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IPublicService _publicService;
         private readonly ICommonLog _logger;
@@ -34,19 +37,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             ISecurityServiceFunctionalAccess functionalAccessService, 
             IOperationScopeFactory scopeFactory,
             IPublicService publicService, 
-            ICommonLog logger)
+            ICommonLog logger, 
+            ISecurityServiceEntityAccess securityServiceEntityAccess)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
-            _scopeFactory = scopeFactory;
             _publicService = publicService;
             _logger = logger;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         public virtual DisqualifyResult Disqualify(long entityId, bool bypassValidation)
         {
+            var client = _clientRepository.GetClient(entityId);
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityName.Client,
+                                                              _userContext.Identity.Code,
+                                                              client.Id,
+                                                              client.OwnerCode,
+                                                              null))
+            {
+                throw new NotificationException(string.Format(BLResources.ClientDisqualificationIsDeniedForTheUser, client.Name));
+            }
+
             try
             {
                 // проверки активностей клиента в MSCRM (фактически выполняет только чтение), 

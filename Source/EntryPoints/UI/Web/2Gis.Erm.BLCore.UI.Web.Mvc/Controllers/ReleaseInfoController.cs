@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             var response = (StreamResponse)_publicService.Handle(new DownloadReleaseInfoResultsRequest { ReleaseInfoId = id });
             if (response.Stream == null)
             {
-                return HttpNotFound(string.Format(BLResources.ReleaseValidationResultsNotFound, id));
+                return Content(string.Format(BLResources.ReleaseValidationResultsNotFound, id));
             }
 
             return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));

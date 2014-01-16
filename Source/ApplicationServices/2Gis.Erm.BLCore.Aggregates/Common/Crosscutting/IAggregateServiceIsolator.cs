@@ -1,0 +1,19 @@
+﻿using System;
+using System.Transactions;
+
+using DoubleGis.Erm.Platform.Model.Aggregates;
+
+namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
+{
+    public interface IAggregateServiceIsolator
+    {
+        void Execute<TAggregateService>(Action<TAggregateService> action) 
+            where TAggregateService : class, IAggregateRepository;
+        TResult Execute<TAggregateService, TResult>(Func<TAggregateService, TResult> func) 
+            where TAggregateService : class, IAggregateRepository;
+        void TransactedExecute<TAggregateService>(TransactionScopeOption transactionScopeOption, Action<TAggregateService> action) 
+            where TAggregateService : class, IAggregateRepository;
+        TResult TransactedExecute<TAggregateService, TResult>(TransactionScopeOption transactionScopeOption, Func<TAggregateService, TResult> func) 
+            where TAggregateService : class, IAggregateRepository;
+    }
+}

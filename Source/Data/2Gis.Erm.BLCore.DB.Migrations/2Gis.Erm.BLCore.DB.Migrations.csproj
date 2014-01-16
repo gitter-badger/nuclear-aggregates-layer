@@ -627,7 +627,6 @@
     <Compile Include="1.3\2013.11.12 rev. 13384 - Add Functional Privilege .cs" />
     <Compile Include="1.3\2013.11.15 rev. 13385 - Alter client replication .cs" />
     <Compile Include="1.2\2013.11.06 rev. 13400 - manage BusinessOperationServices.cs" />
-    <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
     <Compile Include="1.2\2013.11.07 rev. 13433 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.11.07 rev. 13461 - clean AdvertisementElements.cs" />
     <Compile Include="1.2\2013.11.08 rev. 13485 - fix nullable OrderProcessingRequests fields.cs" />
@@ -668,6 +667,8 @@
     <Compile Include="1.3\2013.12.16 rev. 14488 - Add BizAccount DealReason to Ms Crm.cs" />
     <Compile Include="1.3\2013.12.13 rev. 14416 - Update BusinessOperationServices.cs" />
     <Compile Include="1.3\2013.12.20 rev. 14500 - Remove record from BusinessOperationServices.cs" />
+    <Compile Include="2.0\2014.01.15 rev. 15072 - Increase Release messages persistence columns.cs" />
+    <Compile Include="2.0\2014.01.14 rev. 14997 - Alter GetFirmTerritories.cs" />
     <Compile Include="2.0\2014.01.10 rev. 14776 - set TerritoryId to null in FirmAddresses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
@@ -963,6 +964,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\2013.11.25 rev. 13833\ImportDepCardsFromXml.sql" />
+    <Content Include="Resources\2014.01.14 rev. 14997\GetFirmTerritories.sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />

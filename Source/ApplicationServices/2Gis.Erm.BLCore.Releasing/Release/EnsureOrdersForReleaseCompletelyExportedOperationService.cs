@@ -22,12 +22,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly ICommonLog _logger;
 
-        public EnsureOrdersForReleaseCompletelyExportedOperationService(
-            IEnsureOrderExportedStrategyContainer ensureOrderExportedStrategyContainer,
-            IOperationScopeFactory scopeFactory,
-            IIntegrationSettings integrationSettings,
-            IClientProxyFactory clientProxyFactory,
-            ICommonLog logger)
+        public EnsureOrdersForReleaseCompletelyExportedOperationService(IEnsureOrderExportedStrategyContainer ensureOrderExportedStrategyContainer,
+                                                                        IOperationScopeFactory scopeFactory,
+                                                                        IIntegrationSettings integrationSettings,
+                                                                        IClientProxyFactory clientProxyFactory,
+                                                                        ICommonLog logger)
         {
             _ensureOrderExportedStrategyContainer = ensureOrderExportedStrategyContainer;
             _scopeFactory = scopeFactory;
@@ -36,36 +35,38 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _logger = logger;
         }
 
-        public bool IsExported(
-            long releaseId, 
-            long organizationUnitId, 
-            int organizationUnitDgppId, 
-            TimePeriod period, 
-            bool isBeta)
+        public bool IsExported(long releaseId, long organizationUnitId, int organizationUnitDgppId, TimePeriod period, bool isBeta)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<EnsureOrdersForReleaseCompletelyExportedIdentity>())
             {
-                _logger.InfoFormatEx("Starting ensure process that all orders for release are exported. Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
+                _logger.InfoFormatEx("Starting ensure process that all orders for release are exported. " +
+                                     "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
                                      period,
                                      isBeta ? "beta" : "final");
 
-                var allRequiredOrdersExported = _ensureOrderExportedStrategyContainer.Strategies.All(s => s.IsExported(releaseId, organizationUnitId, organizationUnitDgppId, period, isBeta));
+                var allRequiredOrdersExported = _ensureOrderExportedStrategyContainer.Strategies.All(s => s.IsExported(releaseId,
+                                                                                                                       organizationUnitId,
+                                                                                                                       organizationUnitDgppId,
+                                                                                                                       period,
+                                                                                                                       isBeta));
                 if (!allRequiredOrdersExported)
                 {
-                    _logger.InfoFormatEx("Ensure process that all orders for release are exported finished. Not all required orders are exported. Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
-                                     releaseId,
-                                     organizationUnitId,
-                                     period,
-                                     isBeta ? "beta" : "final");
+                    _logger.InfoFormatEx("Ensure process that all orders for release are exported finished. Not all required orders are exported. " +
+                                         "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
+                                         releaseId,
+                                         organizationUnitId,
+                                         period,
+                                         isBeta ? "beta" : "final");
 
                     scope.Complete();
 
                     return false;
                 }
 
-                _logger.InfoFormatEx("Ensured that all orders for release are exported. Trying notify external listeners about that fact. Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
+                _logger.InfoFormatEx("Ensured that all orders for release are exported. Trying notify external listeners about that fact. " +
+                                     "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
                                      period,
@@ -73,7 +74,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 NotifyListenersThatAllOrdersForReleaseAreExported(releaseId, organizationUnitDgppId, period);
 
-                _logger.InfoFormatEx("Ensured that all orders for release are exported. Notification for external listeners was sended. Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
+                _logger.InfoFormatEx("Ensured that all orders for release are exported. Notification for external listeners was sended. " +
+                                     "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
                                      period,
@@ -81,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 scope.Complete();
             }
-            
+
             return true;
         }
 
@@ -91,18 +93,18 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var brokerApiSenderProxy = _clientProxyFactory.GetClientProxy<IBrokerApiSender>("NetTcpBinding_IBrokerApiSender");
 
             brokerApiSenderProxy.Execute(brokerApiSender =>
-            {
-                brokerApiSender.BeginSending(_integrationSettings.IntegrationApplicationName, OrdersFlowName);
+                {
+                    brokerApiSender.BeginSending(_integrationSettings.IntegrationApplicationName, OrdersFlowName);
 
-                var syncMessage = CreateSyncronizationMessage(releaseInfoId, organizationUnitDgppId, period);
-                brokerApiSender.SendDataObject(syncMessage.ToString());
+                    var syncMessage = CreateSyncronizationMessage(releaseInfoId, organizationUnitDgppId, period);
+                    brokerApiSender.SendDataObject(syncMessage.ToString());
 
-                brokerApiSender.Commit();
-                brokerApiSender.EndSending();
-            });
+                    brokerApiSender.Commit();
+                    brokerApiSender.EndSending();
+                });
         }
 
-        private XElement CreateSyncronizationMessage(long releaseInfoId, int organizationUnitDgppId, TimePeriod period)
+        private static XElement CreateSyncronizationMessage(long releaseInfoId, int organizationUnitDgppId, TimePeriod period)
         {
             return new XElement("ReleaseStartedEvent",
                                 new XAttribute("ReleaseInfoCode", releaseInfoId),

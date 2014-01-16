@@ -1916,15 +1916,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Д_{0}-{1}-{2}.
-        /// </summary>
-        public static string BargainNumberTemplate {
-            get {
-                return ResourceManager.GetString("BargainNumberTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Барнаул.
         /// </summary>
         public static string BarnaulDepartmentName {
@@ -2979,6 +2970,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно создать заявку на продление заказа в статусе [{0}].
+        /// </summary>
+        public static string CantCreateProlongationRequestInvalidOrderState {
+            get {
+                return ResourceManager.GetString("CantCreateProlongationRequestInvalidOrderState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Нельзя деактивировать группу основных позиций в деактивированном прайс-листе.
         /// </summary>
         public static string CantDeactivateAssociatedPositionsGroupWhenPriceIsDeactivated {
@@ -3951,20 +3951,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Недостаточно прав для возвращения клиента [{0}] в резерв.
+        /// </summary>
+        public static string ClientDisqualificationIsDeniedForTheUser {
+            get {
+                return ResourceManager.GetString("ClientDisqualificationIsDeniedForTheUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to У фирмы бланка заказа [{0}] отсутствует клиент.
         /// </summary>
         public static string ClientOfFirmOrderMissingTemplate {
             get {
                 return ResourceManager.GetString("ClientOfFirmOrderMissingTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Клиент {0}: {1}. {2}.
-        /// </summary>
-        public static string ClientSecurityExceptionFormatString {
-            get {
-                return ResourceManager.GetString("ClientSecurityExceptionFormatString", resourceCulture);
             }
         }
         
@@ -7329,7 +7329,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Телефон: {0}
-        ///	Контакт: {1}.
+        ///Контакт: {1}.
         /// </summary>
         public static string HotClientDescriptionTemplate {
             get {

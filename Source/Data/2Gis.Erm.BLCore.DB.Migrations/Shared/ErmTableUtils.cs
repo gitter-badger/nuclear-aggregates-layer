@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Extensions;
@@ -164,6 +165,35 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             context.Connection.ExecuteNonQuery(string.Format("UPDATE {0} SET {1} = {2}", new SchemaQualifiedObjectName(table.Schema, table.Name), columnName, columnValue));
             table.SetNonNullableColumns(columnName);
             table.Alter();
+        }
+
+        public static IMigrationContext ChangeColumnDataType(
+            this IMigrationContext migrationContext, 
+            SchemaQualifiedObjectName targetTable, 
+            string targetColumnName, 
+            DataType targetDatatype)
+        {
+            var table = migrationContext.Database.GetTable(targetTable);
+            if (table == null)
+            {
+                throw new InvalidOperationException("Can't find target table " + targetTable);
+            }
+
+            var column = table.Columns[targetColumnName];
+            if (column == null)
+            {
+                throw new InvalidOperationException("Can't find target column " + targetColumnName);
+            }
+
+            if (column.DataType.SqlDataType == targetDatatype.SqlDataType)
+            {   // do nothing
+                return migrationContext;
+            }
+
+            column.DataType = targetDatatype;
+            column.Alter();
+
+            return migrationContext;
         }
 
         private static void CreateOwnerCodeColumn(this Table table)

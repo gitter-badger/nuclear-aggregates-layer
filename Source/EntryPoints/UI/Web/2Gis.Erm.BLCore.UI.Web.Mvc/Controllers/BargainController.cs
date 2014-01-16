@@ -45,8 +45,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [HttpPost]
         public JsonNetResult CreateBargainForOrder(long orderId)
         {
-            // FIXME {a.rechkalov, 22.05.2013}: Контроллер ничего не должен знать ни о транзакциях, не о бизнес-операциях, это отвественность слоя бизнес-логики. Если точка входа WCF-сервис, код ниже будет продублирован
-            // DONE {d.ivanov, 22.05.2013}
             var bargainInfo = _bargainService.CreateBargainForOrder(orderId);
             return new JsonNetResult(new { BargainId = bargainInfo.Id, BargainNumber = bargainInfo.Number });
         }

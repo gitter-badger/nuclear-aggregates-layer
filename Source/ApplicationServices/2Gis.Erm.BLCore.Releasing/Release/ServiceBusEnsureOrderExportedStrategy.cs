@@ -23,12 +23,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IExportRepository<Order> _exportRepository;
         private readonly ICommonLog _logger;
 
-        public ServiceBusEnsureOrderExportedStrategy(
-            IIntegrationSettings integrationSettings,
-            IOrderReadModel orderReadModel,
-            IExportableOperationsPersistenceService<Order, ExportFlowOrdersOrder> exportableOperationsPersistenceService,
-            IExportRepository<Order> exportRepository,
-            ICommonLog logger)
+        public ServiceBusEnsureOrderExportedStrategy(IIntegrationSettings integrationSettings,
+                                                     IOrderReadModel orderReadModel,
+                                                     IExportableOperationsPersistenceService<Order, ExportFlowOrdersOrder> exportableOperationsPersistenceService,
+                                                     IExportRepository<Order> exportRepository,
+                                                     ICommonLog logger)
         {
             _integrationSettings = integrationSettings;
             _orderReadModel = orderReadModel;
@@ -41,21 +40,22 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             if (!_integrationSettings.EnableIntegration)
             {
-                throw new NotificationException("Interaction with service bus is disabled in Erm config settings. Can't start ensure process that all orders are exported.");
+                throw new NotificationException("Interaction with service bus is disabled in Erm config settings. " +
+                                                "Can't start ensure process that all orders are exported.");
             }
 
-            _logger.InfoFormatEx("Starting ensure process that all orders are exported already to servicebus. Release detail: id {0}, organization unit id {1}, period {2}, {3} release",
+            _logger.InfoFormatEx("Starting ensure process that all orders are exported already to servicebus. " +
+                                 "Release detail: id {0}, organization unit id {1}, period {2}, {3} release",
                                  releaseId,
                                  organizationUnitId,
                                  period,
                                  isBeta ? "beta" : "final");
-
             if (isBeta)
             {
                 _logger.InfoFormatEx("Release type is beta, so check process is skipped. Release detail: id {0}, organization unit id {1}, period {2}",
-                                 releaseId,
-                                 organizationUnitId,
-                                 period);
+                                     releaseId,
+                                     organizationUnitId,
+                                     period);
                 return true;
             }
 
@@ -68,27 +68,29 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 if (attempsCount == MaxAttempsCount)
                 {
-                    _logger.FatalFormatEx(
-                        "Aborted ensure process that all orders are exported already to servicebus. Max attempts count achieved {0}. Release detail: id {1}, organization unit id {2}, period {3}, final release",
-                        MaxAttempsCount,
-                        releaseId,
-                        organizationUnitId,
-                        period);
+                    _logger.FatalFormatEx("Aborted ensure process that all orders are exported already to servicebus. " +
+                                          "Max attempts count achieved {0}. Release detail: id {1}, organization unit id {2}, period {3}, final release",
+                                          MaxAttempsCount,
+                                          releaseId,
+                                          organizationUnitId,
+                                          period);
 
                     return false;
                 }
 
-                _logger.WarnFormatEx(
-                    "Ensure process that all orders are exported already to servicebus. Waiting orders async export activity completed (Running by 2GIS ERM Asynchronous Processing Service). Release id: {0}. Current attempt number: {1}. Periodic check interval in sec: {2}",
-                    releaseId,
-                    attempsCount,
-                    WaitTimeoutSec);
+                _logger.WarnFormatEx("Ensure process that all orders are exported already to servicebus. " +
+                                     "Waiting orders async export activity completed (Running by 2GIS ERM Asynchronous Processing Service). " +
+                                     "Release id: {0}. Current attempt number: {1}. Periodic check interval in sec: {2}",
+                                     releaseId,
+                                     attempsCount,
+                                     WaitTimeoutSec);
 
                 Thread.Sleep(WaitTimeoutSec * 1000);
                 ++attempsCount;
             }
 
-            _logger.InfoFormatEx("Finished ensure process. Ensured that all orders are exported already to servicebus. Release detail: id {0}, organization unit id {1}, period {2}, final release",
+            _logger.InfoFormatEx("Finished ensure process. Ensured that all orders are exported already to servicebus. " +
+                                 "Release detail: id {0}, organization unit id {1}, period {2}, final release",
                                  releaseId,
                                  organizationUnitId,
                                  period);
@@ -100,9 +102,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             bool isExported;
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                isExported = 
-                    AllOrdersAreSuccessfullyExported(organizationUnitId, period) 
-                    && AllOperationsAreProcessed(organizationUnitId, period);
+                isExported = AllOrdersAreSuccessfullyExported(organizationUnitId, period) && AllOperationsAreProcessed(organizationUnitId, period);
                 transaction.Complete();
             }
 

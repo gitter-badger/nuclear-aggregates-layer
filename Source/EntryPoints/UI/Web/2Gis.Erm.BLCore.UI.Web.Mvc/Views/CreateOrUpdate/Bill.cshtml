@@ -73,8 +73,6 @@
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         @Html.HiddenFor(m => m.Id)
         @Html.HiddenFor(m => m.IsOrderActive)
-        @Html.HiddenFor(m => m.Owner)
-        @Html.HiddenFor(m => m.OrderId)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.BillNumber, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
             @Html.TemplateField(m => m.BillDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
