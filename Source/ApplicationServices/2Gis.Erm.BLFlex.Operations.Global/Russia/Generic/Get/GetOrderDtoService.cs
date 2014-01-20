@@ -209,8 +209,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             {
                 EntityReference firmRef;
                 EntityReference legalPersonRef;
-                EntityReference destOrganizationUnitId;
-                if (TryGetReferences(parentEntityName, parentEntityId.Value, out firmRef, out legalPersonRef, out destOrganizationUnitId))
+                EntityReference destOrganizationUnitRef;
+                if (TryGetReferences(parentEntityName, parentEntityId.Value, out firmRef, out legalPersonRef, out destOrganizationUnitRef))
                 {
                     resultDto.ClientRef = null;
                     resultDto.FirmRef = firmRef;
@@ -219,7 +219,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
                 if (resultDto.DestOrganizationUnitRef == null)
                 {
-                    resultDto.DestOrganizationUnitRef = destOrganizationUnitId;
+                    resultDto.DestOrganizationUnitRef = destOrganizationUnitRef;
             }
             }
 
@@ -230,25 +230,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                       long entityId,
                                       out EntityReference firmRef,
                                       out EntityReference legalPersonRef,
-                                      out EntityReference destOrganizationUnitId)
+                                      out EntityReference destOrganizationUnitRef)
         {
             switch (entityName)
             {
                 case EntityName.Client:
-                    return GeLegalPersonReferenceByClient(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                    return GeLegalPersonReferenceByClient(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
                 case EntityName.Firm:
-                    return GeLegalPersonReferenceByFirm(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                    return GeLegalPersonReferenceByFirm(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
                 case EntityName.LegalPerson:
-                    return GeLegalPersonReferenceByLegalPerson(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                    return GeLegalPersonReferenceByLegalPerson(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
                 default:
-                    return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                    return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
             }
         }
 
         private bool GeLegalPersonReferenceByLegalPerson(long legalPersonId,
                                                          out EntityReference firmRef,
                                                          out EntityReference legalPersonRef,
-                                                         out EntityReference destOrganizationUnitId)
+                                                         out EntityReference destOrganizationUnitRef)
         {
             var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                               .Select(person => new
@@ -267,12 +267,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
             if (data == null)
             {
-                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
             }
 
             firmRef = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
             legalPersonRef = new EntityReference(data.LegalPerson.Id, data.LegalPerson.LegalName);
-            destOrganizationUnitId = firmRef != null
+            destOrganizationUnitRef = firmRef != null
                                          ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUnitName)
                                          : null;
             return true;
@@ -305,7 +305,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         private bool GeLegalPersonReferenceByClient(long clientId,
                                                     out EntityReference firmRef,
                                                     out EntityReference legalPersonRef,
-                                                    out EntityReference destOrganizationUnitId)
+                                                    out EntityReference destOrganizationUnitRef)
         {
             var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                               .Select(client => new
@@ -324,12 +324,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
             if (data == null)
             {
-                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitId);
+                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
             }
 
             firmRef = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
             legalPersonRef = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
-            destOrganizationUnitId = firmRef != null ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUNitName) : null;
+            destOrganizationUnitRef = firmRef != null ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUNitName) : null;
             return true;
         }
 
