@@ -15529,15 +15529,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Списание выполнено успешно.
-        /// </summary>
-        public static string WithdrawOperationSuccess {
-            get {
-                return ResourceManager.GetString("WithdrawOperationSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Состояние.
         /// </summary>
         public static string Workflow {

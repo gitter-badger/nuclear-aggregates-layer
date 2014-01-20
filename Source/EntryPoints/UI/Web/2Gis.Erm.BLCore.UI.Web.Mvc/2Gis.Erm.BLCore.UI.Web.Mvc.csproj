@@ -1837,6 +1837,10 @@
       <Project>{b558aefd-8c80-4f81-98bc-dd3abe3e519e}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
+      <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>

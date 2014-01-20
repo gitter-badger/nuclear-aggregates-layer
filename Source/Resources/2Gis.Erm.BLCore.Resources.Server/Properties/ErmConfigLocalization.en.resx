@@ -1723,7 +1723,7 @@
     <value>Отменить опубликование</value>
   </data>
   <data name="DListOrdersWithDummyValues" xml:space="preserve">
-    <value>Заказы с заглушками</value>
+    <value>Orders with parked pages</value>
   </data>
   <data name="DFieldOrderType" xml:space="preserve">
     <value>Тип заказа</value>
@@ -1787,6 +1787,5 @@
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Заявка от ЛК</value>
-    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
 </root>

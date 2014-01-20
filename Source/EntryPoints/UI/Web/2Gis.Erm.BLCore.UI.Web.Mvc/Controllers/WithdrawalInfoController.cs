@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -79,17 +81,24 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             {
                 return View(viewModel);
             }
+
             try
             {
-                _withdrawalOperationService.Withdraw(
-                    viewModel.OrganizationUnit.Key.Value, 
-                    new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
-                viewModel.Message = BLResources.OK;
+                var processingResult = 
+                    _withdrawalOperationService.Withdraw(
+                            viewModel.OrganizationUnit.Key.Value, 
+                            new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
+
+                viewModel.Message = processingResult.Succeded
+                                        ? "Withdrawal successfully finished"
+                                        : processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
+                viewModel.IsSuccess = processingResult.Succeded;
             }
             catch (Exception ex)
             {
                 ModelUtils.OnException(this, Logger, viewModel, ex);
             }
+
             return View(viewModel);
         }
 
@@ -115,16 +124,22 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                _revertWithdrawalOperationService.Revert(
-                    viewModel.OrganizationUnit.Key.Value,
-                    new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
-                    viewModel.Comment);
-                viewModel.Message = BLResources.OK;
+                var processingResult = 
+                    _revertWithdrawalOperationService.Revert(
+                            viewModel.OrganizationUnit.Key.Value,
+                            new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                            viewModel.Comment);
+
+                viewModel.Message = processingResult.Succeded
+                                        ? "Withdrawal successfully reverted"
+                                        : processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
+                viewModel.IsSuccess = processingResult.Succeded;
             }
             catch (Exception ex)
             {
                 ModelUtils.OnException(this, Logger, viewModel, ex);
             }
+
             return View(viewModel);
         }
 

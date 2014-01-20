@@ -39,10 +39,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
         {
             var sourceStatus = (WithdrawalStatus)withdrawal.Status;
             if (sourceStatus != WithdrawalStatus.Withdrawing
-                || (targetStatus != WithdrawalStatus.Error 
-                    && targetStatus != WithdrawalStatus.Success))
+                || (targetStatus != WithdrawalStatus.Error && targetStatus != WithdrawalStatus.Success))
             {
-                throw new ArgumentException("Check specified source and target withdrawal statuses");
+                throw new ArgumentException(string.Format("Check specified source and target withdrawal statuses. Source: {0}. Target: {1}", sourceStatus, targetStatus));
             }
 
             withdrawal.Status = (short)targetStatus;

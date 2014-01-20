@@ -25,69 +25,72 @@
         }
     </style>
     <script type="text/javascript">
-        Ext.onReady(function ()
+    Ext.onReady(function ()
+    {
+        Ext.each(Ext.CardLookupSettings, function (item, i)
         {
+            new window.Ext.ux.LookupField(item);
+        }, this);
 
-            Ext.each(Ext.CardLookupSettings, function (item, i)
-            {
-                new window.Ext.ux.LookupField(item);
-            }, this);
+        var isSuccess = '@Model.IsSuccess';
+        if (isSuccess == 'True') {
+            alert(Ext.getDom("Notifications").innerHTML.trim());
+            window.close();
+            return;
+        } else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+        {
+            Ext.getDom("Notifications").style.display = "block";
+        }
 
-            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
-            {
-                window.close();
-                return;
-            } else if (Ext.getDom("Notifications").innerHTML.trim() != "")
-            {
-                Ext.getDom("Notifications").style.display = "block";
-            }
+        // show error messages
+        if (Ext.getDom("Notifications").innerHTML.trim() != "")
+        {
+            Ext.get("Notifications").addClass("Notifications");
+        }
+        else
+        {
+            Ext.get("Notifications").removeClass("Notifications");
+        }
 
-            // show error messages
-            if (Ext.getDom("Notifications").innerHTML.trim() != "")
-            {
-                Ext.get("Notifications").addClass("Notifications");
-            }
-            else
-            {
-                Ext.get("Notifications").removeClass("Notifications");
-            }
-
-            Ext.get("Cancel").on("click", function ()
-            {
-                window.close();
-            });
-
-            Ext.get("OK").on("click", function ()
-            {
-                Ext.get("Notifications").removeClass("Notifications");
-                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
-                {
-                    Ext.getDom("OK").disabled = "disabled";
-                    Ext.getDom("Cancel").disabled = "disabled";
-                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
-                    {
-                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
-                    });
-                    EntityForm.submit();
-                }
-            });
+        Ext.get("Cancel").on("click", function ()
+        {
+            window.close();
         });
+
+        Ext.get("OK").on("click", function ()
+        {
+            Ext.get("Notifications").removeClass("Notifications");
+            if (Ext.DoubleGis.FormValidator.validate(EntityForm))
+            {
+                Ext.getDom("OK").disabled = "disabled";
+                Ext.getDom("Cancel").disabled = "disabled";
+                window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
+                {
+                    node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                });
+                EntityForm.submit();
+            }
+        });
+    });
     </script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
-       <div class="Tab">
-        <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
-            @Model.Message
+        <div style="display: none">
+            @Html.HiddenFor(m => m.IsSuccess)
         </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
-        </div>
+        <div class="Tab">
+            <div style="display: none; height: 30px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+            </div>
        </div>
     }
 }

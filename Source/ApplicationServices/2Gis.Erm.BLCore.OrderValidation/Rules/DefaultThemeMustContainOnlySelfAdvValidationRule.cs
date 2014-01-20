@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                          .Select(theme => theme.Name)
                          .SingleOrDefault();
 
-            return GenerateDescription(EntityName.OrganizationUnit, name, themeId.Value);
+            return GenerateDescription(EntityName.Theme, name, themeId.Value);
         }
 
         private Expression<Func<Order, bool>> GetFilterByThemeUsagePredicate(long? themeId)

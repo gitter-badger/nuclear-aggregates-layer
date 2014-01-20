@@ -56,6 +56,10 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _logger = logger;
         }
 
+        // TODO {d.ivanov, 17.01.2014}: Текущая реализация Succeeded предполагает, что в случае ошибки статус сборки не будет изменен на Error.
+        //                              Тем самым, ответственность за вызов операции Failed лежит сейчас на вызывающей стороне.
+        //                              Лучше бы выставлять статус Error явно, если были исключительные ситуации
+        // COMMENT {d.ivanov, 17.01.2014}: Из-за наличия возможности "подхватить" выполняющуюся сборку, процесс сборки в целом нарушен не будет
         public void Succeeded(long releaseId)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<FinishReleaseIdentity>())
@@ -86,12 +90,16 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 _releaseChangeStatusAggregateService.Finished(releaseInfo.Release, ReleaseStatus.Success, string.Empty);
-                _logger.InfoFormatEx("Finished release with id {0} and success state");
+                _logger.InfoFormatEx("Finished release with id {0} and success state", releaseId);
 
                 scope.Complete();
             }
         }
 
+        // TODO {d.ivanov, 17.01.2014}: Текущая реализация Failed предполагает, что в случае ошибки статус сборки не будет изменен на Error.
+        //                              То есть, по этому контракту мы заставляем вызывающую сторону вызвать Failed еще раз в надежде на успех
+        //                              Лучше бы выставлять статус Error явно, если были исключительные ситуации
+        // COMMENT {d.ivanov, 17.01.2014}: Из-за наличия возможности "подхватить" выполняющуюся сборку, процесс сборки в целом нарушен не будет
         public void Failed(long releaseId)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<FinishReleaseIdentity>())

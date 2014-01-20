@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
+using DoubleGis.Erm.BLCore.Releasing.Release;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 
@@ -138,14 +139,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                _revertReleaseOperationService.Revert(
-                    viewModel.OrganizationUnit.Key.Value, 
-                    new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()), 
-                    viewModel.Comment);
+                _revertReleaseOperationService.Revert(viewModel.OrganizationUnit.Key.Value,
+                                                      new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
+                                                                     viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                                                      viewModel.Comment);
 
                 viewModel.Message = BLResources.OK;
             }
-            catch (NotificationException ex)
+            catch (ReleaseRevertingFailedException ex)
             {
                 viewModel.SetWarning(ex.Message);
             }

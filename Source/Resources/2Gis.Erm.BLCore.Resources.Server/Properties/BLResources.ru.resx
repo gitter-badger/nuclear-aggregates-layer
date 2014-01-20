@@ -2002,9 +2002,6 @@ SWIFT {5}
 	<data name="CantDeleteObjectLinkedWithActiveOrders" xml:space="preserve">
     <value>Нельзя удалить объект, с которым связаны активные заказы</value>
   </data>
-	<data name="WithdrawOperationSuccess" xml:space="preserve">
-    <value>Списание выполнено успешно</value>
-  </data>
 	<data name="CantCreateProfileForUnspecifiedUser" xml:space="preserve">
     <value>Создать профиль пользователя можно только указав конкретного пользователя</value>
   </data>
@@ -5374,10 +5371,10 @@ Penezni ustav:  {5}</value>
 	<data name="FormatErrorMessage" xml:space="preserve">
 		<value>Значение '{0}' не применимо к полю {1}</value>
 	</data>
-  <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
+	<data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
     <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
   </data>
-  <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
+	<data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
     <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
   </data>
 </root>

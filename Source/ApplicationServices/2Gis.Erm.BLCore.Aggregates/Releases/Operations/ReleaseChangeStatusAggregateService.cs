@@ -19,31 +19,65 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
             _scopeFactory = scopeFactory;
         }
 
-        public void ChangeStatus(ReleaseInfo release, ReleaseStatus targetStatus, string changesDescription)
+        public void InProgressInternalProcessingStarted(ReleaseInfo release, string changesDescription)
         {
-            release.Status = (short)targetStatus;
             release.Comment = changesDescription;
+            ChangeStatus(release, ReleaseStatus.InProgressWaitingExternalProcessing, ReleaseStatus.InProgressInternalProcessingStarted);
+        }
 
-            ChangeStatus(release);
+        public void InProgressWaitingExternalProcessing(ReleaseInfo release)
+        {
+            ChangeStatus(release, ReleaseStatus.InProgressInternalProcessingStarted, ReleaseStatus.InProgressWaitingExternalProcessing);
         }
 
         public void Finished(ReleaseInfo release, ReleaseStatus targetStatus, string changesDescription)
         {
             var sourceStatus = (ReleaseStatus)release.Status;
-            if (sourceStatus != ReleaseStatus.InProgressWaitingExternalProcessing 
-                || (targetStatus != ReleaseStatus.Error && targetStatus != ReleaseStatus.Success))
+            if ((targetStatus != ReleaseStatus.Error && targetStatus != ReleaseStatus.Success) ||
+                (sourceStatus != ReleaseStatus.InProgressInternalProcessingStarted && sourceStatus != ReleaseStatus.InProgressWaitingExternalProcessing))
             {
-                throw new ArgumentException("Check specified source and target release statuses");
+                throw new ArgumentException(string.Format("Check specified source and target release statuses. Source: {0}. Target: {1}", sourceStatus, targetStatus));
             }
 
             release.Status = (short)targetStatus;
             release.Comment = changesDescription;
             release.FinishDate = DateTime.UtcNow;
 
-            ChangeStatus(release);
+            UpdateRelease(release);
         }
 
-        private void ChangeStatus(ReleaseInfo release)
+        public void Reverting(ReleaseInfo release, string changesDescription)
+        {
+            release.Comment = changesDescription;
+            ChangeStatus(release, ReleaseStatus.Success, ReleaseStatus.Reverting);
+        }
+
+        public void Reverted(ReleaseInfo release)
+        {
+            ChangeStatus(release, ReleaseStatus.Reverting, ReleaseStatus.Reverted);
+        }
+
+        public void SetPreviousStatus(ReleaseInfo release, ReleaseStatus previousStatus, string changesDescription)
+        {
+            release.Status = (short)previousStatus;
+            release.Comment = changesDescription;
+
+            UpdateRelease(release);
+        }
+
+        private void ChangeStatus(ReleaseInfo release, ReleaseStatus validSourceStatus, ReleaseStatus targetStatus)
+        {
+            var sourceStatus = (ReleaseStatus)release.Status;
+            if (sourceStatus != validSourceStatus)
+            {
+                throw new ArgumentException(string.Format("{0} status can be set if release in {1} status only. Current source status: {2}", targetStatus, validSourceStatus, sourceStatus));
+            }
+
+            release.Status = (short)targetStatus;
+            UpdateRelease(release);
+        }
+
+        private void UpdateRelease(ReleaseInfo release)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, ReleaseInfo>())
             {

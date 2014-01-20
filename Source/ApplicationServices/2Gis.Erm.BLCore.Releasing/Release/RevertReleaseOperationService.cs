@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿using System;
+using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
@@ -28,20 +29,21 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IAccountBulkDeleteLocksAggregateService _accountBulkDeleteLocksAggregateService;
         private readonly IAccountBulkReopenLimitsAggregateService _accountBulkReopenLimitsAggregateService;
         private readonly IReleaseChangeStatusAggregateService _changeReleaseStatusAggregateService;
+        private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
 
-        public RevertReleaseOperationService(
-            IAccountReadModel accountReadModel,
-            IReleaseReadModel releaseReadModel,
-            ICheckOperationPeriodService operationPeriodChecker,
-            IAccountBulkDeleteLocksAggregateService accountBulkDeleteLocksAggregateService,
-            IAccountBulkReopenLimitsAggregateService accountBulkReopenLimitsAggregateService,
-            IReleaseChangeStatusAggregateService changeReleaseStatusAggregateService,
-            IUseCaseTuner useCaseTuner,
-            IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+        public RevertReleaseOperationService(IAccountReadModel accountReadModel,
+                                             IReleaseReadModel releaseReadModel,
+                                             ICheckOperationPeriodService operationPeriodChecker,
+                                             IAccountBulkDeleteLocksAggregateService accountBulkDeleteLocksAggregateService,
+                                             IAccountBulkReopenLimitsAggregateService accountBulkReopenLimitsAggregateService,
+                                             IReleaseChangeStatusAggregateService changeReleaseStatusAggregateService,
+                                             IAggregateServiceIsolator aggregateServiceIsolator,
+                                             IUseCaseTuner useCaseTuner,
+                                             IOperationScopeFactory scopeFactory,
+                                             ICommonLog logger)
         {
             _accountReadModel = accountReadModel;
             _releaseReadModel = releaseReadModel;
@@ -49,6 +51,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _accountBulkDeleteLocksAggregateService = accountBulkDeleteLocksAggregateService;
             _accountBulkReopenLimitsAggregateService = accountBulkReopenLimitsAggregateService;
             _changeReleaseStatusAggregateService = changeReleaseStatusAggregateService;
+            _aggregateServiceIsolator = aggregateServiceIsolator;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
             _logger = logger;
@@ -62,16 +65,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 var releaseInfo = ResolveRelease(organizationUnitId, period);
                 if (_accountReadModel.HasInactiveLocksForDestinationOrganizationUnit(organizationUnitId, period))
                 {
-                    var msg = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit, period.Start, period.End, releaseInfo.OrganizationUnitName);
+                    var msg = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit,
+                                            period.Start,
+                                            period.End,
+                                            releaseInfo.OrganizationUnitName);
                     _logger.ErrorEx(msg);
                     throw new NotificationException(msg);
                 }
 
-                var targetStatus = (ReleaseStatus)releaseInfo.Release.Status;
+                var previousStatus = (ReleaseStatus)releaseInfo.Release.Status;
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                 {
-                    _changeReleaseStatusAggregateService.ChangeStatus(releaseInfo.Release, ReleaseStatus.Reverting, comment);
+                    _changeReleaseStatusAggregateService.Reverting(releaseInfo.Release, comment);
                     transaction.Complete();
                 }
 
@@ -88,17 +94,28 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     var deletedLockInfos = _accountReadModel.GetActiveLocksForDestinationOrganizationUnitByPeriod(organizationUnitId, period);
                     _accountBulkDeleteLocksAggregateService.Delete(deletedLockInfos);
                     _logger.InfoFormatEx("Locks deleted for organization units {0} and period {1}", releaseInfo.OrganizationUnitName, period);
-                    
-                    targetStatus = ReleaseStatus.Reverted;
+
+                    _changeReleaseStatusAggregateService.Reverted(releaseInfo.Release);
+                    _logger.InfoFormatEx("Reverting release for organization unit with id {0} and by period {1} finished successfully",
+                                         organizationUnitId,
+                                         period);
                 }
-                finally
+                catch (Exception ex)
                 {
-                    _logger.InfoFormatEx("Reverting release finished. Release for organization unit with id {0} and by period {1} has {2} status after operation", organizationUnitId, period, targetStatus);
-                    using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
-                    {
-                        _changeReleaseStatusAggregateService.ChangeStatus(releaseInfo.Release, targetStatus, comment);
-                        transaction.Complete();
-                    }
+                    _logger.ErrorFormatEx(ex, "Reverting release for organization unit with id {0} and by period {1} failed. Setting previous release state: {2}",
+                                          organizationUnitId,
+                                          period,
+                                          previousStatus);
+
+                    _aggregateServiceIsolator.TransactedExecute<IReleaseChangeStatusAggregateService>(
+                        TransactionScopeOption.RequiresNew,
+                        service => service.SetPreviousStatus(releaseInfo.Release, previousStatus, comment));
+                    
+                    _logger.ErrorFormatEx("Reverting release for organization unit with id {0} and by period {1} failed. Setting previous release state",
+                                         organizationUnitId,
+                                         period);
+
+                    throw new ReleaseRevertingFailedException(ex.Message, ex);
                 }
 
                 scope.Complete();
@@ -129,7 +146,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 };
         }
 
-        private bool CanBeReverted(ReleaseInfo release, out string report)
+        private static bool CanBeReverted(ReleaseInfo release, out string report)
         {
             report = null;
 

@@ -73,6 +73,7 @@
     <Compile Include="Release\OrdersWithAdvertisementMaterialsXmlSerializerFactory.cs" />
     <Compile Include="Release\PublishOrdersForFinalReleaseToFtp.cs" />
     <Compile Include="Release\ReleaseInfoDto.cs" />
+    <Compile Include="Release\ReleaseRevertingFailedException.cs" />
     <Compile Include="Release\RevertReleaseOperationService.cs" />
     <Compile Include="Release\ServiceBusEnsureOrderExportedStrategy.cs" />
     <Compile Include="Release\StartReleaseOperationService.cs" />

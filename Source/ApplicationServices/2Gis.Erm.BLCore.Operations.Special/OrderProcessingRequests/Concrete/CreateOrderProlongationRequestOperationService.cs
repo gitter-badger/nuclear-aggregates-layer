@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         private const int MinReleaseCountPlan = 4;
         private const int MaxReleaseCountPlan = 12;
 
-        private static readonly OrderState[] InvalidOrderStates = { OrderState.OnRegistration, OrderState.Rejected };
+        private static readonly OrderState[] InvalidOrderStates = { OrderState.OnRegistration, OrderState.Rejected, OrderState.OnApproval };
 
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
         private readonly ISecureFinder _secureFinder;

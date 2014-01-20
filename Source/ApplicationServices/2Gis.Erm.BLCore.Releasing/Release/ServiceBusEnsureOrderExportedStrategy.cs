@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private bool AllOperationsAreProcessed(long organizationUnitId, TimePeriod period)
         {
             var selectSpecification = new SelectSpecification<Order, long>(order => order.Id);
-            var oneYearOperationsInterval = DateTime.Now.AddYears(-1);
+            var oneYearOperationsInterval = DateTime.UtcNow.AddYears(-1);
             var operations = _exportableOperationsPersistenceService.GetPendingOperations(oneYearOperationsInterval, int.MaxValue);
             var query = _exportRepository.GetBuilderForOperations(operations);
             var orders = _exportRepository.GetEntityDtos(query,

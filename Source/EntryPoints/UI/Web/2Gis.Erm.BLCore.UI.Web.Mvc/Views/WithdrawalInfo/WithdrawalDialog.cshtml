@@ -27,15 +27,14 @@
     <script type="text/javascript">
         Ext.onReady(function ()
         {
-
             Ext.each(Ext.CardLookupSettings, function (item, i)
             {
                 new window.Ext.ux.LookupField(item);
             }, this);
-
-            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
-            {
-                alert("@BLResources.WithdrawOperationSuccess");
+            
+            var isSuccess = '@Model.IsSuccess';
+            if (isSuccess == 'True') {
+                alert(Ext.getDom("Notifications").innerHTML.trim());
                 window.close();
                 return;
             } else if (Ext.getDom("Notifications").innerHTML.trim() != "")
@@ -70,18 +69,20 @@
         });
     </script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
-    {
-        @Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
+{
+        <div style="display: none">
+            @Html.HiddenFor(m => m.IsSuccess)
+        </div>
         <div class="Tab">
-        <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
-            @Model.Message
+            <div style="display: none; height: 30px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
+            </div>
         </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
-        </div>
-    </div>
     }
 }

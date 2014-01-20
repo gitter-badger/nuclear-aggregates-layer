@@ -130,97 +130,76 @@ WriteLiteral(">\r\n        td.itemCaption\r\n        {\r\n            vertical-a
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-        Ext.onReady(function ()
-        {
-
-            Ext.each(Ext.CardLookupSettings, function (item, i)
-            {
-                new window.Ext.ux.LookupField(item);
-            }, this);
-
-            if (Ext.getDom(""Notifications"").innerHTML.trim() == ""OK"")
-            {
-                alert(""");
+WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n            Ext.each(Ext.CardLooku" +
+"pSettings, function (item, i)\r\n            {\r\n                new window.Ext.ux." +
+"LookupField(item);\r\n            }, this);\r\n            \r\n            var isSucce" +
+"ss = \'");
 
             
-            #line 38 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-                  Write(BLResources.WithdrawOperationSuccess);
+            #line 35 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+                        Write(Model.IsSuccess);
 
             
             #line default
             #line hidden
-WriteLiteral(@""");
-                window.close();
-                return;
-            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
-                Ext.getDom(""Notifications"").style.display = ""block"";
-            }
-
-            // show error messages
-            if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
-                Ext.get(""Notifications"").addClass(""Notifications"");
-            }
-            else
-            {
-                Ext.get(""Notifications"").removeClass(""Notifications"");
-            }
-
-            Ext.get(""Cancel"").on(""click"", function () { window.close(); });
-            Ext.get(""OK"").on(""click"", function ()
-            {
-                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
-                {
-                    Ext.getDom(""OK"").disabled = ""disabled"";
-                    Ext.getDom(""Cancel"").disabled = ""disabled"";
-                    window.Ext.each(window.Ext.query(""input.x-calendar"", window.EntityForm), function (node)
-                    {
-                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : """";
-                    });
-                    EntityForm.submit();
-                }
-            });
-        });
-    </script>
-");
+WriteLiteral("\';\r\n            if (isSuccess == \'True\') {\r\n                alert(Ext.getDom(\"Not" +
+"ifications\").innerHTML.trim());\r\n                window.close();\r\n              " +
+"  return;\r\n            } else if (Ext.getDom(\"Notifications\").innerHTML.trim() !" +
+"= \"\")\r\n            {\r\n                Ext.getDom(\"Notifications\").style.display " +
+"= \"block\";\r\n            }\r\n\r\n            // show error messages\r\n            if " +
+"(Ext.getDom(\"Notifications\").innerHTML.trim() != \"\")\r\n            {\r\n           " +
+"     Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n            }\r\n       " +
+"     else\r\n            {\r\n                Ext.get(\"Notifications\").removeClass(\"" +
+"Notifications\");\r\n            }\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", fun" +
+"ction () { window.close(); });\r\n            Ext.get(\"OK\").on(\"click\", function (" +
+")\r\n            {\r\n                if (Ext.DoubleGis.FormValidator.validate(Entit" +
+"yForm))\r\n                {\r\n                    Ext.getDom(\"OK\").disabled = \"dis" +
+"abled\";\r\n                    Ext.getDom(\"Cancel\").disabled = \"disabled\";\r\n      " +
+"              window.Ext.each(window.Ext.query(\"input.x-calendar\", window.Entity" +
+"Form), function (node)\r\n                    {\r\n                        node.valu" +
+"e = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id)." +
+"getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePatter" +
+"n) : \"\";\r\n                    });\r\n                    EntityForm.submit();\r\n   " +
+"             }\r\n            });\r\n        });\r\n    </script>\r\n");
 
             
-            #line 72 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 72 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
-    {
-        
-            
-            #line default
-            #line hidden
-            
-            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-   Write(Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
-
-            
-            #line default
-            #line hidden
-            
-            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-                                                                                   
+{
 
             
             #line default
             #line hidden
 WriteLiteral("        <div");
 
+WriteLiteral(" style=\"display: none\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+       Write(Html.HiddenFor(m => m.IsSuccess));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n");
+
+WriteLiteral("        <div");
+
 WriteLiteral(" class=\"Tab\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
-WriteLiteral(" style=\"display: none; height: 15px;\"");
+WriteLiteral(" style=\"display: none; height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
@@ -228,49 +207,49 @@ WriteLiteral(" class=\"Notifications\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 77 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-       Write(Model.Message);
+            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+           Write(Model.Message);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
+WriteLiteral("\r\n            </div>\r\n            <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 80 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"}));
+            #line 81 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+           Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"}));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
+WriteLiteral("\r\n            </div>\r\n            <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 83 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-       Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound}));
+            #line 84 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+           Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound}));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
+WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 86 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 87 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             

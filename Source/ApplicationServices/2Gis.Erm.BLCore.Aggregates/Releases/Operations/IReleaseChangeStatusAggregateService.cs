@@ -6,7 +6,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
 {
     public interface IReleaseChangeStatusAggregateService : IAggregatePartRepository<ReleaseInfo>
     {
-        void ChangeStatus(ReleaseInfo release, ReleaseStatus targetStatus, string changesDescription);
-        void Finished(ReleaseInfo release,  ReleaseStatus targetStatus, string changesDescription);
+        void InProgressInternalProcessingStarted(ReleaseInfo release, string changesDescription);
+        void InProgressWaitingExternalProcessing(ReleaseInfo release);
+        void Finished(ReleaseInfo release, ReleaseStatus targetStatus, string changesDescription); 
+        void Reverting(ReleaseInfo release, string changesDescription);
+        void Reverted(ReleaseInfo release);
+        void SetPreviousStatus(ReleaseInfo release, ReleaseStatus previousStatus, string changesDescription);
     }
 }

@@ -107,6 +107,7 @@
     <Compile Include="Concrete\Withdrawals\IActualizeOrdersDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Generic\List\DTO\ListOrderProcessingRequestDto.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />

@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IActualizeDealsDuringRevertingWithdrawalOperationService _actualizeDealsDuringRevertingWithdrawalOperationService;
         private readonly IAccountWithdrawalChangeStatusAggregateService _withdrawalChangeStatusAggregateService;
         private readonly ICheckOperationPeriodService _checkOperationPeriodService;
+        private readonly IAggregateServiceIsolator _aggregateServiceIsolator;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -43,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             IActualizeDealsDuringRevertingWithdrawalOperationService actualizeDealsDuringRevertingWithdrawalOperationService,
             IAccountWithdrawalChangeStatusAggregateService withdrawalChangeStatusAggregateService,
             ICheckOperationPeriodService checkOperationPeriodService,
+            IAggregateServiceIsolator aggregateServiceIsolator,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IUseCaseTuner useCaseTuner,
@@ -55,6 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _actualizeDealsDuringRevertingWithdrawalOperationService = actualizeDealsDuringRevertingWithdrawalOperationService;
             _withdrawalChangeStatusAggregateService = withdrawalChangeStatusAggregateService;
             _checkOperationPeriodService = checkOperationPeriodService;
+            _aggregateServiceIsolator = aggregateServiceIsolator;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
@@ -62,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _logger = logger;
         }
 
-        public void Revert(long organizationUnitId, TimePeriod period, string comment)
+        public WithdrawalProcessingResult Revert(long organizationUnitId, TimePeriod period, string comment)
         {
             _useCaseTuner.AlterDuration<RevertWithdrawalOperationService>();
 
@@ -73,13 +76,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 string report;
                 if (!TryAcquireTargetWithdrawal(organizationUnitId, period, comment, out acquiredWithdrawal, out report))
                 {
-                    _logger.ErrorFormatEx(
+                    var msg = string.Format(
                         "Can't acquire withdrawal for organization unit id {0} by period {1}. Error: {2}",
                         organizationUnitId,
                         period,
                         report);
 
-                    return;
+                    _logger.ErrorFormatEx(msg);
+                    return WithdrawalProcessingResult.Error(msg);
                 }
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
@@ -99,12 +103,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         _logger.ErrorEx(msg);
 
                         transaction.Complete();
-                        return;
+                        return WithdrawalProcessingResult.Error(msg);
                     }
 
-                    ExecuteRevertWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period);
+                    var result = ExecuteRevertWithdrawalProcessing(acquiredWithdrawal, organizationUnitId, period);
 
                     transaction.Complete();
+
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -118,18 +124,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 if (acquiredWithdrawal != null)
                 {
-                    using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-                    {
-                        _withdrawalChangeStatusAggregateService.ChangeStatus(acquiredWithdrawal, WithdrawalStatus.Error, msg);
-                        transaction.Complete();
-                    }
+                    _aggregateServiceIsolator.TransactedExecute<IAccountWithdrawalChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
+                                                                        service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
                 }
 
-                throw;
+                return WithdrawalProcessingResult.Error(msg);
             }
         }
 
-        private void ExecuteRevertWithdrawalProcessing(WithdrawalInfo acquiredWithdrawal, long organizationUnitId, TimePeriod period)
+        private WithdrawalProcessingResult ExecuteRevertWithdrawalProcessing(WithdrawalInfo acquiredWithdrawal, long organizationUnitId, TimePeriod period)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
             {
@@ -180,6 +183,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 scope.Complete();
             }
+
+            return WithdrawalProcessingResult.Succeeded;
         }
 
         private bool TryAcquireTargetWithdrawal(

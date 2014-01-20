@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
     public interface IWithdrawalOperationService : IOperation<WithdrawalIdentity>
     {
-        void Withdraw(long organizationUnitId, TimePeriod period);
+        WithdrawalProcessingResult Withdraw(long organizationUnitId, TimePeriod period);
     }
 }

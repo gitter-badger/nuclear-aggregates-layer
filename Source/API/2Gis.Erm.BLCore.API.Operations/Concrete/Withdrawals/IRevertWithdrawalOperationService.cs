@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals
 {
     public interface IRevertWithdrawalOperationService : IOperation<RevertWithdrawalIdentity>
     {
-        void Revert(long organizationUnitId, TimePeriod period, string comment);
+        WithdrawalProcessingResult Revert(long organizationUnitId, TimePeriod period, string comment);
     }
 }

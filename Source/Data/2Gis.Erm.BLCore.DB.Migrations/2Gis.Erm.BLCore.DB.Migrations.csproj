@@ -667,6 +667,7 @@
     <Compile Include="1.3\2013.12.16 rev. 14488 - Add BizAccount DealReason to Ms Crm.cs" />
     <Compile Include="1.3\2013.12.13 rev. 14416 - Update BusinessOperationServices.cs" />
     <Compile Include="1.3\2013.12.20 rev. 14500 - Remove record from BusinessOperationServices.cs" />
+    <Compile Include="2.0\2014.01.15 rev. 15115 - Increase Withdrawal messages persistence columns.cs" />
     <Compile Include="2.0\2014.01.15 rev. 15072 - Increase Release messages persistence columns.cs" />
     <Compile Include="2.0\2014.01.14 rev. 14997 - Alter GetFirmTerritories.cs" />
     <Compile Include="2.0\2014.01.10 rev. 14776 - set TerritoryId to null in FirmAddresses.cs" />
