@@ -31,10 +31,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 var queueElement = queue.Dequeue();
 
                 var operation = CreateOperationInstance(queueElement.Item1, queueElement.Item2);
-                if (operation == null)
-                {
-                    continue;
-                }
 
                 _repository.Add(operation);
 
@@ -49,20 +45,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
         private PerformedBusinessOperation CreateOperationInstance(OperationScopeNode scopesHierarchy, long? parentOperationId)
         {
-            string operationChangesDescription;
-            if (!TrySerializeOperationChanges(scopesHierarchy, out operationChangesDescription))
-        {
-                return null;
-            }
-
             var operation = new PerformedBusinessOperation
-            {
-                Operation = scopesHierarchy.Scope.OperationIdentity.OperationIdentity.Id,
-                Descriptor = EntityNameUtils.EvaluateEntitiesHash(scopesHierarchy.Scope.OperationIdentity.Entities),
-                Context = operationChangesDescription,
-                Date = DateTime.UtcNow,
+                {
+                    Operation = scopesHierarchy.Scope.OperationIdentity.OperationIdentity.Id,
+                    Descriptor = EntityNameUtils.EvaluateEntitiesHash(scopesHierarchy.Scope.OperationIdentity.Entities),
+                    Context = SerializeOperationChanges(scopesHierarchy),
+                    Date = DateTime.UtcNow,
                     Parent = parentOperationId
-            };
+                };
 
             _identityProvider.SetFor(operation);
 
@@ -70,28 +60,25 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         }
 
         // FIXME {all, 24.09.2013}: в 1.1 нужно добавить поддержку логирования самого факта операции, т.е. когда scope есть, но изменения никакие не задекларированы, т.о. контекст пустой
-        private bool TrySerializeOperationChanges(OperationScopeNode declaredChanges, out string operationChangesDescription)
+        // DONE {i.maslennikov, 17.01.2014}: Готово
+        private string SerializeOperationChanges(OperationScopeNode declaredChanges)
         {
             var context = new XElement("context");
 
-            var changed = SerializeOperationChanges(context, declaredChanges.ScopeChanges.AddedChanges, ChangesType.Added);
-            var updated = SerializeOperationChanges(context, declaredChanges.ScopeChanges.UpdatedChanges, ChangesType.Updated);
-            var deleted = SerializeOperationChanges(context, declaredChanges.ScopeChanges.DeletedChanges, ChangesType.Deleted);
+            SerializeOperationChanges(context, declaredChanges.ScopeChanges.AddedChanges, ChangesType.Added);
+            SerializeOperationChanges(context, declaredChanges.ScopeChanges.UpdatedChanges, ChangesType.Updated);
+            SerializeOperationChanges(context, declaredChanges.ScopeChanges.DeletedChanges, ChangesType.Deleted);
 
-            operationChangesDescription = context.ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-
-            return changed || updated || deleted;
+            return context.ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
         }
 
-        private static bool SerializeOperationChanges(XContainer context, IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> changes, ChangesType changesType)
+        private static void SerializeOperationChanges(XContainer context, IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> changes, ChangesType changesType)
         {
-            var changesExist = false;
             foreach (var change in changes)
             {
                 var changedEntityName = (int)change.Key.AsEntityName();
                 foreach (var id in change.Value)
                 {
-                    changesExist = true;
                     var entity = new XElement("entity",
                                               new XAttribute("change", (int)changesType),
                                               new XAttribute("type", changedEntityName), // Строковое представление было бы более читаемым, но не устойчивым к рефакторингу
@@ -99,8 +86,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     context.Add(entity);
                 }
             }
-
-            return changesExist;
         }
     }
 }
