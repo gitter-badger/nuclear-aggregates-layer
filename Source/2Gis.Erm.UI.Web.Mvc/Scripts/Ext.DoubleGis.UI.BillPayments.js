@@ -93,7 +93,8 @@ Ext.DoubleGis.UI.BillPaymentsControl = Ext.extend(Ext.util.Observable, {
                     format: Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern,
                     editor: new window.Ext.form.DateField(
                             {
-                                format: Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern
+                                format: Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern,
+                                editable: false
                             })
                 },
                 {

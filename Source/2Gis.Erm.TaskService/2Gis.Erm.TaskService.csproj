@@ -114,6 +114,10 @@
     <Compile Include="Settings\TaskServiceAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
       <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
       <Name>2Gis.Erm.BLFlex.DI</Name>
@@ -245,7 +249,7 @@
     <None Include="App.Edu.Cyprus.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Edu.Czech.config" >
+    <None Include="App.Edu.Czech.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Expl.Cyprus.config">
@@ -254,10 +258,10 @@
     <None Include="App.Int.Cyprus.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Int.Czech.config" >
+    <None Include="App.Int.Czech.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Load.Russia.config" >
+    <None Include="App.Load.Russia.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Production.Cyprus.config">
@@ -272,10 +276,10 @@
     <None Include="App.Int.Russia.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Production.Czech.config" >
+    <None Include="App.Production.Czech.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Production.Russia2.config" >
+    <None Include="App.Production.Russia2.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Test.01.config">
@@ -347,7 +351,7 @@
     <None Include="App.Test.22.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.Test.23.config" >
+    <None Include="App.Test.23.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="job_scheduling_data_2_0.xsd">

@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 
+using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
@@ -15,14 +16,17 @@ namespace DoubleGis.Erm.TaskService.Config
             var provider = new ServiceClientSettingsProvider();
 
             var identityServiceSettings = container.Resolve<IAPIIdentityServiceSettings>();
+            var withdrawalInfoSvcSettings = container.Resolve<IAPIMoDiServiceSettings>();
 
             var wsHttpBinding = BindingConfig.WsHttp.UseTransportSecurity(HttpClientCredentialType.None);
 
             provider
 
                 // identity service
-                .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap");
+                .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap")
 
+                // modi
+                .AddEndpoint<IWithdrawalInfoApplicationService>(wsHttpBinding, withdrawalInfoSvcSettings.BaseUrl, "WithdrawalInfo.svc");
 
             return container.RegisterInstance<IServiceClientSettingsProvider>(provider);
         }

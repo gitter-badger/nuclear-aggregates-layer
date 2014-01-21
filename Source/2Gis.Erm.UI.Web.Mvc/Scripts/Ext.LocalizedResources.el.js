@@ -1,4 +1,4 @@
-﻿// File updated : 13.01.2014 17:47:35
+﻿// File updated : 20.01.2014 15:08:22
 // Processed resource entry host types:
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -157,7 +157,7 @@ Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Re
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+Notes value for requested culture, fallback resource entry value used: Notes
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+Title value for requested culture, fallback resource entry value used: Title
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+Total value for requested culture, fallback resource entry value used: Total for payment
-Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+DummyValueWillBeApplied value for requested culture, fallback resource entry value used: Вместо рекламного материала будет применена заглушка.
+Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+DummyValueWillBeApplied value for requested culture, fallback resource entry value used: A parked page will be applied instead of an advertising material.
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+Address value for requested culture, fallback resource entry value used: Address
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+Continue value for requested culture, fallback resource entry value used: Continue
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+DecreaseFontSizeTitle value for requested culture, fallback resource entry value used: Decrease size
@@ -376,7 +376,7 @@ DisabledDaysText : 'This date cannot be selected',
 DiscountResetWarning : 'Information on discounts will be deleted for all order items! Continue?',
 DisplayMsg : 'Records from {0} up to {1} are displayed, total of {2}',
 DummyValue : 'Заглушка',
-DummyValueWillBeApplied : 'Вместо рекламного материала будет применена заглушка.',
+DummyValueWillBeApplied : 'A parked page will be applied instead of an advertising material.',
 EmptyMsg : 'No data to display',
 EndDistributionDate : 'End of placement',
 Error : 'Error',
