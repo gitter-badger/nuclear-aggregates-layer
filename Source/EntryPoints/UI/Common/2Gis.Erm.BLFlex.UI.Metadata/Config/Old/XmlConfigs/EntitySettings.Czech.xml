@@ -2102,6 +2102,7 @@
           <Field Name="PlatformName" NameLocaleResourceId="Platform" Expression="it.Platform.Name" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
           <Field Name="CategoryName" NameLocaleResourceId="DFieldPositionCategoryName" Expression="it.PositionCategory.Name" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
           <Field Name="ExportCode" Expression="it.ExportCode" Width="100" Hidden="false" Filtered="true" FieldType="BigInt" ExtTypeName="Int" DotNetTypeName="System.Int64" />
+          <Field Name="RestrictChildPositionPlatforms" Expression="it.RestrictChildPositionPlatforms" Width="100" Hidden="true" Filtered="false" FieldType="Boolean" ExtTypeName="Boolean" DotNetTypeName="System.Boolean" />
         </Fields>
       </DataList>
       <DataList BasedOn="DListPositions" NameLocaleResourceId="DListPositionInactive" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=false">

@@ -84,10 +84,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             // ≈сли есть права и нет сборки в насто€щий момент 
             entityViewModel.HasOrderDocumentsDebtChecking &= !entityViewModel.IsWorkflowLocked;
 
-            //  арточка только на чтение если не "на регистрациии"
-            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration;
+            var isClosedWithDenial = !entityViewModel.IsActive;
 
-            if (!entityViewModel.IsActive)
+            //  арточка только на чтение если не "на регистрациии" или закрыта отказом
+            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
+
+            if (isClosedWithDenial)
             {
                 entityViewModel.MessageType = MessageType.Warning;
                 entityViewModel.Message = BLResources.WarningOrderIsRejected;
