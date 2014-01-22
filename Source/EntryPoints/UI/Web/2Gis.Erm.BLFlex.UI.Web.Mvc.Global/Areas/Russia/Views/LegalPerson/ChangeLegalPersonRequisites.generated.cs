@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.LegalPerson
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Russia/Views/LegalPerson/ChangeLegalPersonRequisites.cshtml")]
-    public partial class ChangeLegalPersonRequisites : System.Web.Mvc.WebViewPage<BLCore.UI.Web.Mvc.Models.ChangeLegalPersonRequisitesViewModel>
+    public partial class ChangeLegalPersonRequisites : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.ChangeLegalPersonRequisitesViewModel>
     {
         public ChangeLegalPersonRequisites()
         {

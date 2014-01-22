@@ -553,6 +553,10 @@
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

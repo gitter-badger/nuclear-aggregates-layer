@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;

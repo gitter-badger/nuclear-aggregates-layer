@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

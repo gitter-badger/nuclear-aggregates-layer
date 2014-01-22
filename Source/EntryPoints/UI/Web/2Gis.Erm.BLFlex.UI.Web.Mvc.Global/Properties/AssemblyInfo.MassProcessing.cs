@@ -3,9 +3,11 @@
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 [assembly: ContainedTypes(
-    typeof(IController), 
-    typeof(IUIService), 
+    typeof(IController),
+    typeof(IUIService),
     typeof(IEnumAdaptationService),
-    typeof(IEntityUIService))]
+    typeof(IEntityUIService),
+    typeof(IViewModel))]
