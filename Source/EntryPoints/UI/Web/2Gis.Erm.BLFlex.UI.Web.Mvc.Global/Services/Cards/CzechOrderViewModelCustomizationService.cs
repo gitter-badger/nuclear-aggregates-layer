@@ -87,7 +87,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             var isClosedWithDenial = !entityViewModel.IsActive;
 
             // Карточка только на чтение если не "на регистрациии" или закрыта отказом
-            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
+            var readOnlyInitially = entityViewModel.ViewConfig.ReadOnly;
+            entityViewModel.ViewConfig.ReadOnly = readOnlyInitially || entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
 
             if (isClosedWithDenial)
             {

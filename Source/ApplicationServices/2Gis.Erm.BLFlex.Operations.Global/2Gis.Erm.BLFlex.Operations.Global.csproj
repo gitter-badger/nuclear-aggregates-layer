@@ -65,6 +65,7 @@
     <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\CyprusCalculateReleaseWithdrawalsHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditClientHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonProfileHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
