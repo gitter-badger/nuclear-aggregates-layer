@@ -90,16 +90,15 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 long? previousReleaseId;
                 string report;
-                var targetReleaseAcquired = TryAcquireTargetRelease(organizationUnitDgppId,
+                if (!TryAcquireTargetRelease(organizationUnitDgppId,
                                                                     period,
                                                                     isBeta,
                                                                     canIgnoreBlockingErrors,
                                                                     out acquiredRelease,
                                                                     out previousReleaseId,
-                                                                    out report);
-                if (!targetReleaseAcquired)
+                                                                    out report))
                 {
-                    _logger.ErrorFormatEx("Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                    _logger.ErrorFormatEx("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
                                           "Can ignore blocking errors: {3}. Error: {4}",
                                           organizationUnitDgppId,
                                           period,

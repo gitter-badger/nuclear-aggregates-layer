@@ -62,6 +62,7 @@
     <Compile Include="Releases\Old\DownloadReleaseInfoResultsRequest.cs" />
     <Compile Include="Releases\Old\PrepareValidationReportRequest.cs" />
     <Compile Include="Releases\ReleaseProcessingMessage.cs" />
+    <Compile Include="Releases\ReleaseRevertingResult.cs" />
     <Compile Include="Releases\ReleaseStartingResult.cs" />
     <Compile Include="Remote\Release\IReleaseApplicationService.cs" />
     <Compile Include="Remote\Release\Obsolete\FinishExport.cs" />
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

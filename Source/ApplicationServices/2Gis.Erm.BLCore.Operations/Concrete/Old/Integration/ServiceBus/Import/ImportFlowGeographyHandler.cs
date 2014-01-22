@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Import
@@ -178,7 +179,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
                 }
             }
 
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 _firmRepository.ImportTerritoryFromServiceBus(territoryDtos);
                 _firmRepository.ImportBuildingFromServiceBus(buildingDtos, regionalTerritoryLocaleSpecificWord);

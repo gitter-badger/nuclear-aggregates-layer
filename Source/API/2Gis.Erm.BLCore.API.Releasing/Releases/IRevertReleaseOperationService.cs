@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Releasing.Releases
 {
     public interface IRevertReleaseOperationService : IOperation<RevertReleaseIdentity>
     {
-        void Revert(long organizationUnitId, TimePeriod period, string comment);
+        ReleaseRevertingResult Revert(long organizationUnitId, TimePeriod period, string comment);
     }
 }

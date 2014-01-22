@@ -859,7 +859,7 @@
     <value>Can't get listing view for entities of type "{0}"</value>
   </data>
   <data name="DummyValue" xml:space="preserve">
-    <value>Заглушка</value>
+    <value>Parked page</value>
   </data>
   <data name="DummyValueWillBeApplied" xml:space="preserve">
     <value>A parked page will be applied instead of an advertising material.</value>

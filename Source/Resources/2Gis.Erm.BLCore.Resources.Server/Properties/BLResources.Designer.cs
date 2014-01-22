@@ -1538,15 +1538,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сборка выполнена успешно.
-        /// </summary>
-        public static string AssemblyOperationSuccess {
-            get {
-                return ResourceManager.GetString("AssemblyOperationSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Сборка.
         /// </summary>
         public static string AssemblyPath {

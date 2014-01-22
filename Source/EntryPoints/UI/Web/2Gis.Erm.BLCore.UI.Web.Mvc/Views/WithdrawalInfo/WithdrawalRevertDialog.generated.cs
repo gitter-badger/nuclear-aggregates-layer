@@ -194,23 +194,6 @@ WriteLiteral(@"';
             #line hidden
 WriteLiteral("        <div");
 
-WriteLiteral(" style=\"display: none\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 79 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-       Write(Html.HiddenFor(m => m.IsSuccess));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n");
-
-WriteLiteral("        <div");
-
 WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(">\r\n            <div");
@@ -226,7 +209,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 83 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 80 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Model.Message);
 
             
@@ -241,7 +224,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 86 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 83 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"}));
 
             
@@ -256,7 +239,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 89 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 86 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound}));
 
             
@@ -271,7 +254,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 92 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 89 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -280,7 +263,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n       </div>\r\n");
 
             
-            #line 95 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 92 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     }
 
             

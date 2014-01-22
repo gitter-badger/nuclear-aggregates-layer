@@ -34,48 +34,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             _exportFailedRepository = exportFailedRepository;
         }
 
+        public IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate)
+        {
+            var batchOfOperationsToProcess = GetBatchOfOperationsToProcessQuery(ignoreOperationsPrecedingDate);
+            return batchOfOperationsToProcess.ToArray();
+        }
+
         public IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate,
                                                                             int maxOperationCount)
         {
-            var integrationEntityName = typeof(TProcessedOperationEntity).AsEntityName();
+            var batchOfOperationsToProcess = GetBatchOfOperationsToProcessQuery(ignoreOperationsPrecedingDate);
+            return batchOfOperationsToProcess.OrderBy(operation => operation.Date).Take(maxOperationCount).ToArray();
+        }
 
-            // FIXME {d.ivanov, 23.08.2013}: Полностью перейти от IntegrationService к EntityName
-            // comment {a.rechkalov, 2013-11-11}: Нужно в таблице Shared.BusinessOperationServices в колонке Service проставить значения EntityName (например, ExportFlowOrdersOrder вместо "5")
-            var integrationService = integrationEntityName.AsIntegrationService();
-
-            var performedBusinessOperations = _finder.FindAll<PerformedBusinessOperation>();
-            var processedBusinessOperations = _finder.FindAll<TProcessedOperationEntity>();
-            var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
-
-            // Сложный запрос, который находит отражение в элементарном LEFT JOIN после трансляции в SQL
-            var notExportedOperations = performedBusinessOperations
-                .GroupJoin(processedBusinessOperations,
-                           performedOperation => performedOperation.Id,
-                           processedOperation => processedOperation.Id,
-                           (performedOperation, processedOperations) => new { performedOperation, processedOperations })
-                .SelectMany(pair => pair.processedOperations.DefaultIfEmpty(),
-                            (pair, processedOperation) => new { pair, processedOperation })
-                .Where(pair => pair.processedOperation == null)
-                .Select(pair => pair.pair.performedOperation);
-
-            var notExportedOperationsThatMustBeProcessed = notExportedOperations
-                .Join(operationTypesToProcess,
-                      operation => new { operation.Descriptor, operation.Operation },
-                      service => new { service.Descriptor, service.Operation },
-                      (operation, service) => operation);
-
-            var batchOfOperationsToProcess = notExportedOperationsThatMustBeProcessed
-                .Where(operation => operation.Date > ignoreOperationsPrecedingDate)
-                .OrderBy(operation => operation.Date)
-                .Take(maxOperationCount);
-
-            return batchOfOperationsToProcess
-                .ToArray();
+        public IEnumerable<ExportFailedEntity> GetFailedEntities()
+        {
+            return GetFailedEntitiesQuery().ToArray();
         }
 
         public IEnumerable<ExportFailedEntity> GetFailedEntities(int maxEntitiesCount, int skipCount)
         {
-            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName)
+            return GetFailedEntitiesQuery()
                 .OrderBy(entity => entity.Id)
                 .Skip(skipCount)
                 .Take(maxEntitiesCount)
@@ -150,7 +129,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         {
             var lastMessageId = _finder.FindAll<TProcessedOperationEntity>()
                                        .OrderByDescending(selectSortFieldSpecification.Selector)
-                                       .Select(order => order.Id)
+                                       .Select(x => x.Id)
                                        .Take(1);
 
             var lastDate = _finder.Find<PerformedBusinessOperation>(operation => lastMessageId.Contains(operation.Id))
@@ -158,6 +137,43 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                                   .FirstOrDefault();
 
             return lastDate == default(DateTime) ? DateTime.MinValue : lastDate;
+        }
+
+        private IQueryable<PerformedBusinessOperation> GetBatchOfOperationsToProcessQuery(DateTime ignoreOperationsPrecedingDate)
+        {
+            var integrationEntityName = typeof(TProcessedOperationEntity).AsEntityName();
+
+            // FIXME {d.ivanov, 23.08.2013}: Полностью перейти от IntegrationService к EntityName
+            // comment {a.rechkalov, 2013-11-11}: Нужно в таблице Shared.BusinessOperationServices в колонке Service проставить значения EntityName (например, ExportFlowOrdersOrder вместо "5")
+            var integrationService = integrationEntityName.AsIntegrationService();
+
+            var performedBusinessOperations = _finder.FindAll<PerformedBusinessOperation>();
+            var processedBusinessOperations = _finder.FindAll<TProcessedOperationEntity>();
+            var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
+
+            // Сложный запрос, который находит отражение в элементарном LEFT JOIN после трансляции в SQL
+            var notExportedOperations = performedBusinessOperations
+                .GroupJoin(processedBusinessOperations,
+                           performedOperation => performedOperation.Id,
+                           processedOperation => processedOperation.Id,
+                           (performedOperation, processedOperations) => new { performedOperation, processedOperations })
+                .SelectMany(pair => pair.processedOperations.DefaultIfEmpty(),
+                            (pair, processedOperation) => new { pair, processedOperation })
+                .Where(pair => pair.processedOperation == null)
+                .Select(pair => pair.pair.performedOperation);
+
+            var notExportedOperationsThatMustBeProcessed = notExportedOperations
+                .Join(operationTypesToProcess,
+                      operation => new { operation.Descriptor, operation.Operation },
+                      service => new { service.Descriptor, service.Operation },
+                      (operation, service) => operation);
+
+            return notExportedOperationsThatMustBeProcessed.Where(operation => operation.Date > ignoreOperationsPrecedingDate);
+        }
+
+        private IQueryable<ExportFailedEntity> GetFailedEntitiesQuery()
+        {
+            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName);
         }
     }
 }

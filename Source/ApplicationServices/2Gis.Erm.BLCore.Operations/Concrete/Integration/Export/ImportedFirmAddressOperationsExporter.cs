@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             var groupedIds = _operationContextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor);
             var entities = groupedIds.Keys.SelectMany(x => x.Entities).Distinct().ToArray();
 
-            if (!entities.Contains(FirmEntityName) || entities.Count() > 1)
+            if (entities.Any() && !entities.Contains(FirmEntityName) || entities.Count() > 1)
             {
                 throw new InvalidOperationException("Invalid operation context for operation with identity = ImportCardsFromServiceBusIdentity");
             }

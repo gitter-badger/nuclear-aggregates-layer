@@ -55,48 +55,62 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var dto = new AdvertisementDomainEntityDto();
+
             switch (parentEntityName)
             {
                 case EntityName.Firm:
+                {
+                    dto.FirmRef = new EntityReference
+                        {
+                            Id = parentEntityId.Value,
+                            Name = _finder.Find<Firm>(x => x.Id == parentEntityId).Select(x => x.Name).SingleOrDefault()
+                        };
+
+                    break;
+                }
+
+                case EntityName.OrderPosition:
+                {
+                    long firmId;
+                    if (!string.IsNullOrEmpty(extendedInfo) &&
+                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
                     {
                         dto.FirmRef = new EntityReference
                             {
-                                Id = parentEntityId.Value, 
-                                Name = _finder.Find<Firm>(x => x.Id == parentEntityId).Select(x => x.Name).SingleOrDefault()
+                                Id = firmId,
+                                Name = _finder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                            };
+                    }
+
+                    long advertisementTemplateId;
+                    if (!string.IsNullOrEmpty(extendedInfo) &&
+                        long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
+                    {
+                        dto.AdvertisementTemplateRef = new EntityReference
+                            {
+                                Id = advertisementTemplateId,
+                                Name = _finder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
                             };
                     }
 
                     break;
-            }
-
-            switch (parentEntityName)
-            {
-                case EntityName.OrderPosition:
+                }
+                    
+                case EntityName.None:
+                {
+                    long firmId;
+                    if (!string.IsNullOrEmpty(extendedInfo) &&
+                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)", RegexOptions.IgnoreCase).Groups[1].Value, out firmId))
                     {
-                        long firmId;
-                        if (!string.IsNullOrEmpty(extendedInfo) &&
-                            long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
-                        {
-                            dto.FirmRef = new EntityReference
-                                {
-                                    Id = firmId,
-                                    Name = _finder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
-                                };
-                        }
-
-                        long advertisementTemplateId;
-                        if (!string.IsNullOrEmpty(extendedInfo) &&
-                            long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
-                        {
-                            dto.AdvertisementTemplateRef = new EntityReference
-                                {
-                                    Id = advertisementTemplateId,
-                                    Name = _finder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
-                                };
-                        }
+                        dto.FirmRef = new EntityReference
+                            {
+                                Id = firmId,
+                                Name = _finder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                            };
                     }
 
                     break;
+                }
             }
 
             return dto;

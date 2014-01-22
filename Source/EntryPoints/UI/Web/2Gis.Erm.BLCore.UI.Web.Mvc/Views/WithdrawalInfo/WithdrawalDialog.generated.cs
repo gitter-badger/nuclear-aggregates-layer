@@ -178,23 +178,6 @@ WriteLiteral("\';\r\n            if (isSuccess == \'True\') {\r\n               
             #line hidden
 WriteLiteral("        <div");
 
-WriteLiteral(" style=\"display: none\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
-       Write(Html.HiddenFor(m => m.IsSuccess));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n");
-
-WriteLiteral("        <div");
-
 WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(">\r\n            <div");
@@ -210,7 +193,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 75 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Model.Message);
 
             
@@ -225,7 +208,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 81 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"}));
 
             
@@ -240,7 +223,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 84 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 81 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound}));
 
             
@@ -249,7 +232,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 87 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
+            #line 84 "..\..\Views\WithdrawalInfo\WithdrawalDialog.cshtml"
     }
 
             

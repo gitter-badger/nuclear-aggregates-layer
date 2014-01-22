@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -93,15 +95,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                var releaseDescriptor = 
+                var releaseStartingResult = 
                     _startSimplifiedReleaseOperationService.Start(
                             viewModel.OrganizationUnit.Key.Value,
                             new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
                             viewModel.IsBeta);
 
-                _finishReleaseOperationService.Succeeded(releaseDescriptor.ReleaseId);
-
-                viewModel.Message = BLResources.OK;
+                if (releaseStartingResult.Succeed)
+                {
+                    _finishReleaseOperationService.Succeeded(releaseStartingResult.ReleaseId);
+                    viewModel.Message = "Simplified release finished successfully";
+                    viewModel.IsSuccess = true;
+                }
+                else
+                {
+                    viewModel.Message = releaseStartingResult.ProcessingMessages.Aggregate(new StringBuilder("Can't start release"), (builder, message) => builder.AppendLine(message.Message)).ToString();
+                    viewModel.IsSuccess = false;
+                }
             }
             catch (NotificationException ex)
             {
@@ -139,16 +149,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                _revertReleaseOperationService.Revert(viewModel.OrganizationUnit.Key.Value,
-                                                      new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
-                                                                     viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
-                                                      viewModel.Comment);
+                var processingResult = 
+                    _revertReleaseOperationService.Revert(viewModel.OrganizationUnit.Key.Value,
+                                                          new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(),
+                                                                         viewModel.PeriodStart.GetEndPeriodOfThisMonth()),
+                                                          viewModel.Comment);
 
-                viewModel.Message = BLResources.OK;
-            }
-            catch (ReleaseRevertingFailedException ex)
-            {
-                viewModel.SetWarning(ex.Message);
+                viewModel.Message = processingResult.Succeded
+                                        ? "Release successfully reverted"
+                                        : processingResult.ProcessingMessages.Aggregate(new StringBuilder(), (builder, message) => builder.AppendLine(message.Text)).ToString();
+                viewModel.IsSuccess = processingResult.Succeded;
             }
             catch (Exception ex)
             {

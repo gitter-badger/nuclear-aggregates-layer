@@ -9,7 +9,9 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
     public interface IExportableOperationsPersistenceService : ISimplifiedPersistenceService
     {
+        IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate);
         IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate, int maxOperationCount);
+        IEnumerable<ExportFailedEntity> GetFailedEntities();
         IEnumerable<ExportFailedEntity> GetFailedEntities(int maxEntitiesCount, int skipCount);
         void InsertToFailureQueue(IEnumerable<IExportableEntityDto> failedObjects);
         void RemoveFromFailureQueue(IEnumerable<IExportableEntityDto> exportedObjects);

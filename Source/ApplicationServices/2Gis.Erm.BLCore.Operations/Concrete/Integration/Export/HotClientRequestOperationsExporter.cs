@@ -35,8 +35,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             var failedEntitesBuffer = new List<IExportableEntityDto>();
             foreach (var operation in operations)
             {
-                var id = _operationContextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor).Single();
-                var hotClientRequestId = id.Value.Single();
+                var operationIdentityToIds = _operationContextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor);
+                if (operationIdentityToIds.Count != 1)
+                {
+                    failedEntites = Enumerable.Empty<IExportableEntityDto>();
+                    return;
+                }
+
+                var hotClientRequestId = operationIdentityToIds.First().Value.Single();
                 try
                 {
                     var response = (CreateHotClientResponse)_publicService.Handle(new CreateHotClientRequest { Id = hotClientRequestId });

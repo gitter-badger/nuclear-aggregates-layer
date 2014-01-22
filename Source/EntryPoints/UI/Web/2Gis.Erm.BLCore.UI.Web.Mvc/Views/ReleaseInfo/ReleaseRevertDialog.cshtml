@@ -1,6 +1,4 @@
-﻿@using Platform.Model.Metadata.Enums
-
-@model ReleaseRevertDialogViewModel
+﻿@model ReleaseRevertDialogViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -33,8 +31,9 @@
                 new window.Ext.ux.LookupField(item);
             }, this);
 
-            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
-            {
+            var isSuccess = '@Model.IsSuccess';
+            if (isSuccess == 'True') {
+                alert(Ext.getDom("Notifications").innerHTML.trim());
                 window.close();
                 return;
             } else if (Ext.getDom("Notifications").innerHTML.trim() != "")

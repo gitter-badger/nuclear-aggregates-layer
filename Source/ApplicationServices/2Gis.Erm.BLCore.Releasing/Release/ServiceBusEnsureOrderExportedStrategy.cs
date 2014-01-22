@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         private bool AllOrdersAreSuccessfullyExported(long organizationUnitId, TimePeriod period)
         {
-            var failedOrders = _exportableOperationsPersistenceService.GetFailedEntities(int.MaxValue, 0).Select(entity => entity.EntityId);
+            var failedOrders = _exportableOperationsPersistenceService.GetFailedEntities().Select(entity => entity.EntityId);
             var anyFailedOrder = _orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any(order => failedOrders.Contains(order.Id));
             return !anyFailedOrder;
         }
@@ -119,8 +119,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private bool AllOperationsAreProcessed(long organizationUnitId, TimePeriod period)
         {
             var selectSpecification = new SelectSpecification<Order, long>(order => order.Id);
-            var oneYearOperationsInterval = DateTime.UtcNow.AddYears(-1);
-            var operations = _exportableOperationsPersistenceService.GetPendingOperations(oneYearOperationsInterval, int.MaxValue);
+            var oneMonthOperationsInterval = DateTime.UtcNow.AddMonths(-1);
+            var operations = _exportableOperationsPersistenceService.GetPendingOperations(oneMonthOperationsInterval);
             var query = _exportRepository.GetBuilderForOperations(operations);
             var orders = _exportRepository.GetEntityDtos(query,
                                                          selectSpecification,

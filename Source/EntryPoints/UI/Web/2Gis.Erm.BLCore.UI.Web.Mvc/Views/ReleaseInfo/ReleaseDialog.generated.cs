@@ -38,12 +38,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
-    #line 1 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
-    using Platform.Model.Metadata.Enums;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/ReleaseInfo/ReleaseDialog.cshtml")]
     public partial class ReleaseDialog : System.Web.Mvc.WebViewPage<ReleaseDialogViewModel>
@@ -53,10 +47,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 3 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -70,7 +62,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 7 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
             Write(BLResources.PeriodAssembling);
 
             
@@ -85,7 +77,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 8 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
                   Write(BLResources.PeriodAssembling);
 
             
@@ -100,7 +92,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 9 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
                     Write(BLResources.SpecifyAssemblyPeriodAndOrganizationUnit);
 
             
@@ -124,70 +116,45 @@ WriteLiteral(">\r\n        td.itemCaption\r\n        {\r\n            vertical-a
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-        Ext.onReady(function ()
-        {
-
-            Ext.each(Ext.CardLookupSettings, function (item, i)
-            {
-                new window.Ext.ux.LookupField(item);
-            }, this);
-
-            if (Ext.getDom(""Notifications"").innerHTML.trim() == ""OK"")
-            {
-                alert(""");
+WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n\r\n            Ext.each(Ext.CardLoo" +
+"kupSettings, function (item, i)\r\n            {\r\n                new window.Ext.u" +
+"x.LookupField(item);\r\n            }, this);\r\n\r\n            var isSuccess = \'");
 
             
-            #line 37 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
-                  Write(BLResources.AssemblyOperationSuccess);
+            #line 33 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+                        Write(Model.IsSuccess);
 
             
             #line default
             #line hidden
-WriteLiteral(@""");
-                window.close();
-                return;
-            } else if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
-                Ext.getDom(""Notifications"").style.display = ""block"";
-            }
-
-            // show error messages
-            if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
-            {
-                Ext.get(""Notifications"").addClass(""Notifications"");
-            }
-            else
-            {
-                Ext.get(""Notifications"").removeClass(""Notifications"");
-            }
-
-            Ext.get(""Cancel"").on(""click"", function () { window.close(); });
-            Ext.get(""OK"").on(""click"", function ()
-            {
-                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
-                {
-                    Ext.getDom(""OK"").disabled = ""disabled"";
-                    Ext.getDom(""Cancel"").disabled = ""disabled"";
-                    window.Ext.each(window.Ext.query(""input.x-calendar"", window.EntityForm), function (node)
-                    {
-                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : """";
-                    });
-                    EntityForm.submit();
-                }
-            });
-        });
-    </script>
-");
+WriteLiteral("\';\r\n            if (isSuccess == \'True\') {\r\n                alert(Ext.getDom(\"Not" +
+"ifications\").innerHTML.trim());\r\n                window.close();\r\n              " +
+"  return;\r\n            } else if (Ext.getDom(\"Notifications\").innerHTML.trim() !" +
+"= \"\")\r\n            {\r\n                Ext.getDom(\"Notifications\").style.display " +
+"= \"block\";\r\n            }\r\n\r\n            // show error messages\r\n            if " +
+"(Ext.getDom(\"Notifications\").innerHTML.trim() != \"\")\r\n            {\r\n           " +
+"     Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n            }\r\n       " +
+"     else\r\n            {\r\n                Ext.get(\"Notifications\").removeClass(\"" +
+"Notifications\");\r\n            }\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", fun" +
+"ction () { window.close(); });\r\n            Ext.get(\"OK\").on(\"click\", function (" +
+")\r\n            {\r\n                if (Ext.DoubleGis.FormValidator.validate(Entit" +
+"yForm))\r\n                {\r\n                    Ext.getDom(\"OK\").disabled = \"dis" +
+"abled\";\r\n                    Ext.getDom(\"Cancel\").disabled = \"disabled\";\r\n      " +
+"              window.Ext.each(window.Ext.query(\"input.x-calendar\", window.Entity" +
+"Form), function (node)\r\n                    {\r\n                        node.valu" +
+"e = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id)." +
+"getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePatter" +
+"n) : \"\";\r\n                    });\r\n                    EntityForm.submit();\r\n   " +
+"             }\r\n            });\r\n        });\r\n    </script>\r\n");
 
             
-            #line 71 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 69 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 71 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 69 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -211,7 +178,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 75 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 73 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
        Write(Model.Message);
 
             
@@ -226,7 +193,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 78 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 76 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit}));
 
             
@@ -241,7 +208,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 81 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 79 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.IsBeta, FieldFlex.lone));
 
             
@@ -256,7 +223,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 84 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 82 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber }));
 
             
@@ -265,7 +232,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 87 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
+            #line 85 "..\..\Views\ReleaseInfo\ReleaseDialog.cshtml"
     }
 
             

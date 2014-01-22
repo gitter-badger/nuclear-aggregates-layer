@@ -70,9 +70,6 @@
     </script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
 {
-        <div style="display: none">
-            @Html.HiddenFor(m => m.IsSuccess)
-        </div>
         <div class="Tab">
             <div style="display: none; height: 30px;" id="Notifications" class="Notifications">
                 @Model.Message

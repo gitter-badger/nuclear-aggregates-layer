@@ -39,7 +39,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.List
                                      PlatformName = x.Platform.Name,
                                      IsComposite = x.IsComposite,
                                      CategoryName = x.PositionCategory.Name,
-                                     ExportCode = x.ExportCode
+                                     ExportCode = x.ExportCode,
+                                     RestrictChildPositionPlatforms = x.RestrictChildPositionPlatforms
                                  });
         }
     }

@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -57,93 +56,159 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _logger = logger;
         }
 
-        public void Revert(long organizationUnitId, TimePeriod period, string comment)
+        public ReleaseRevertingResult Revert(long organizationUnitId, TimePeriod period, string comment)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<RevertReleaseIdentity>())
+            _logger.InfoFormatEx("Attempting to revert release for organization unit with id {0} and by period {1}", organizationUnitId, period);
+            
+            _useCaseTuner.AlterDuration<RevertReleaseOperationService>();
+
+            ReleaseInfo acquiredRelease = null;
+
+            try
             {
-                _logger.InfoFormatEx("Attempting to revert release for organization unit with id {0} and by period {1}", organizationUnitId, period);
-                var releaseInfo = ResolveRelease(organizationUnitId, period);
-                if (_accountReadModel.HasInactiveLocksForDestinationOrganizationUnit(organizationUnitId, period))
+                string report;
+                AcquiredReleaseDescriptor acquiredReleaseDescriptor;
+                if (!TryAcquireTargetRelease(organizationUnitId,
+                                            period,
+                                            comment,
+                                            out acquiredRelease,
+                                            out acquiredReleaseDescriptor,
+                                            out report))
                 {
-                    var msg = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit,
-                                            period.Start,
-                                            period.End,
-                                            releaseInfo.OrganizationUnitName);
+                    var msg = string.Format("Reverting release failed. "+
+                                            "Can't acquire release for organization unit with id {0} by period {1}. Details: {2}",
+                                            organizationUnitId,
+                                            period,
+                                            report);
                     _logger.ErrorEx(msg);
-                    throw new NotificationException(msg);
+                    return ReleaseRevertingResult.Error(msg);
                 }
 
-                var previousStatus = (ReleaseStatus)releaseInfo.Release.Status;
-
-                using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
-                    _changeReleaseStatusAggregateService.Reverting(releaseInfo.Release, comment);
+                    var targetRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId, period);
+                    if (targetRelease == null ||
+                        targetRelease.Id != acquiredRelease.Id ||
+                        (ReleaseStatus)targetRelease.Status != ReleaseStatus.Reverting)
+                    {
+                        var msg = string.Format("Release reverting. Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. " +
+                                                "Possible reason for errors - concurrent release\reverting process and invalid release status processing",
+                                                acquiredRelease.Id,
+                                                acquiredRelease.OrganizationUnitId,
+                                                period);
+                        _logger.ErrorEx(msg);
+                        return ReleaseRevertingResult.Error(msg);
+                    }
+
+                    var result = ExecuteRevertReleaseProcessing(acquiredRelease, organizationUnitId, period, acquiredReleaseDescriptor);
+                    
                     transaction.Complete();
+
+                    return result;
                 }
+            }
+            catch (Exception ex)
+            {
+                var msg = string.Format("Reverting release for organization unit with id {0} and by period {1} failed.",
+                                        organizationUnitId,
+                                        period);
+                _logger.ErrorEx(ex, msg);
 
-                try
+                if (acquiredRelease != null)
                 {
-                    _useCaseTuner.AlterDuration<RevertReleaseOperationService>();
-
-                    _logger.InfoFormatEx("Reopening limits for organization units {0} and period {1}", releaseInfo.OrganizationUnitName, period);
-                    var reopenLimits = _accountReadModel.GetClosedLimits(organizationUnitId, period);
-                    _accountBulkReopenLimitsAggregateService.Reopen(reopenLimits);
-                    _logger.InfoFormatEx("Limits reopened for organization units {0} and period {1}", releaseInfo.OrganizationUnitName, period);
-
-                    _logger.InfoFormatEx("Deleting locks for organization units {0} and period {1}", releaseInfo.OrganizationUnitName, period);
-                    var deletedLockInfos = _accountReadModel.GetActiveLocksForDestinationOrganizationUnitByPeriod(organizationUnitId, period);
-                    _accountBulkDeleteLocksAggregateService.Delete(deletedLockInfos);
-                    _logger.InfoFormatEx("Locks deleted for organization units {0} and period {1}", releaseInfo.OrganizationUnitName, period);
-
-                    _changeReleaseStatusAggregateService.Reverted(releaseInfo.Release);
-                    _logger.InfoFormatEx("Reverting release for organization unit with id {0} and by period {1} finished successfully",
-                                         organizationUnitId,
-                                         period);
-                }
-                catch (Exception ex)
-                {
-                    _logger.ErrorFormatEx(ex, "Reverting release for organization unit with id {0} and by period {1} failed. Setting previous release state: {2}",
+                    _logger.ErrorFormatEx("Reverting release with id {0} failed. Organization unit: {1}. {2}. Restoring release status to success value",
+                                          acquiredRelease.Id,
                                           organizationUnitId,
-                                          period,
-                                          previousStatus);
+                                          period);
 
                     _aggregateServiceIsolator.TransactedExecute<IReleaseChangeStatusAggregateService>(
                         TransactionScopeOption.RequiresNew,
-                        service => service.SetPreviousStatus(releaseInfo.Release, previousStatus, comment));
-                    
-                    _logger.ErrorFormatEx("Reverting release for organization unit with id {0} and by period {1} failed. Setting previous release state",
-                                         organizationUnitId,
-                                         period);
+                        service => service.SetPreviousStatus(acquiredRelease, ReleaseStatus.Success, "Restored status, after reverting attempt failed"));
 
-                    throw new ReleaseRevertingFailedException(ex.Message, ex);
+                    _logger.ErrorFormatEx("Reverting release with id {0} failed. Organization unit: {1}. {2}. Release status restored to success value",
+                                          acquiredRelease.Id,
+                                          organizationUnitId,
+                                          period);
                 }
 
-                scope.Complete();
+                return ReleaseRevertingResult.Error(msg);
             }
         }
 
-        private ReleaseInfoDto ResolveRelease(long organizationUnitId, TimePeriod period)
+        private bool TryAcquireTargetRelease(
+            long organizationUnitId,
+            TimePeriod period,
+            string comment,
+            out ReleaseInfo acquiredRelease,
+            out AcquiredReleaseDescriptor acquiredReleaseDescriptor,
+            out string report)
         {
-            string report;
+            acquiredRelease = null;
+            acquiredReleaseDescriptor = new AcquiredReleaseDescriptor();
+
             if (!_operationPeriodChecker.IsOperationPeriodValid(period, out report))
             {
                 _logger.ErrorEx(report);
-                throw new NotificationException(report);
+                return false;
             }
 
-            var release = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-            if (!CanBeReverted(release, out report))
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                _logger.ErrorEx(report);
-                throw new NotificationException(report);
+                var release = _releaseReadModel.GetLastRelease(organizationUnitId, period);
+                if (!CanBeReverted(release, out report))
+                {
+                    _logger.ErrorEx(report);
+                    return false;
+                }
+
+                acquiredReleaseDescriptor.OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(release.OrganizationUnitId);
+                if (_accountReadModel.HasInactiveLocksForDestinationOrganizationUnit(organizationUnitId, period))
+                {
+                    report = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit,
+                                            period.Start,
+                                            period.End,
+                                            acquiredReleaseDescriptor.OrganizationUnitName);
+                    _logger.ErrorEx(report);
+                    return false;
+                }
+
+                _changeReleaseStatusAggregateService.Reverting(release, comment);
+                acquiredRelease = release;
+
+                transaction.Complete();
             }
 
-            return new ReleaseInfoDto
-                {
-                    Release = release,
-                    OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(release.OrganizationUnitId),
-                    Period = new TimePeriod(release.PeriodStartDate, release.PeriodEndDate)
-                };
+            _logger.InfoFormatEx(
+                    "Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
+                    organizationUnitId,
+                    period,
+                    acquiredRelease.Id);
+
+            return true;
+        }
+
+        private ReleaseRevertingResult ExecuteRevertReleaseProcessing(ReleaseInfo acquiredRelease, long organizationUnitId, TimePeriod period, AcquiredReleaseDescriptor acquiredReleaseDescriptor)
+        {
+            using (var scope = _scopeFactory.CreateNonCoupled<RevertReleaseIdentity>())
+            {
+                _logger.InfoFormatEx("Reopening limits for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                var reopenLimits = _accountReadModel.GetClosedLimits(organizationUnitId, period);
+                _accountBulkReopenLimitsAggregateService.Reopen(reopenLimits);
+                _logger.InfoFormatEx("Limits reopened for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+
+                _logger.InfoFormatEx("Deleting locks for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+                var deletedLockInfos = _accountReadModel.GetActiveLocksForDestinationOrganizationUnitByPeriod(organizationUnitId, period);
+                _accountBulkDeleteLocksAggregateService.Delete(deletedLockInfos);
+                _logger.InfoFormatEx("Locks deleted for organization units {0} and period {1}", acquiredReleaseDescriptor.OrganizationUnitName, period);
+
+                _changeReleaseStatusAggregateService.Reverted(acquiredRelease);
+                _logger.InfoFormatEx("Reverting release for organization unit with id {0} and by period {1} finished successfully",
+                                     organizationUnitId,
+                                     period);
+                scope.Complete();
+            }
+
+            return ReleaseRevertingResult.Succeeded;
         }
 
         private static bool CanBeReverted(ReleaseInfo release, out string report)
@@ -198,6 +263,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
 
             return canBeReverted;
+        }
+
+        private class AcquiredReleaseDescriptor
+        {
+            public string OrganizationUnitName { get; set; }
         }
     }
 }

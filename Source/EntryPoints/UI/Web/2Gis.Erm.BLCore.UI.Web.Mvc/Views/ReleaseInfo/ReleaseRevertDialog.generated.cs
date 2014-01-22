@@ -38,12 +38,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
-    #line 1 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
-    using Platform.Model.Metadata.Enums;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/ReleaseInfo/ReleaseRevertDialog.cshtml")]
     public partial class ReleaseRevertDialog : System.Web.Mvc.WebViewPage<ReleaseRevertDialogViewModel>
@@ -53,10 +47,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 3 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -70,7 +62,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 7 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
             Write(BLResources.RevertAssembly);
 
             
@@ -85,7 +77,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 8 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
                   Write(BLResources.RevertAssembly);
 
             
@@ -100,7 +92,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 9 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
                     Write(BLResources.SpecifyAssemblyPeriodAndOrganizationUnit);
 
             
@@ -126,36 +118,45 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n\r\n            Ext.each(Ext.CardLoo" +
 "kupSettings, function (item, i)\r\n            {\r\n                new window.Ext.u" +
-"x.LookupField(item);\r\n            }, this);\r\n\r\n            if (Ext.getDom(\"Notif" +
-"ications\").innerHTML.trim() == \"OK\")\r\n            {\r\n                window.clos" +
-"e();\r\n                return;\r\n            } else if (Ext.getDom(\"Notifications\"" +
-").innerHTML.trim() != \"\")\r\n            {\r\n                Ext.getDom(\"Notificati" +
-"ons\").style.display = \"block\";\r\n            }\r\n\r\n            // show error messa" +
-"ges\r\n            if (Ext.getDom(\"Notifications\").innerHTML.trim() != \"\")\r\n      " +
-"      {\r\n                Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n  " +
-"          }\r\n            else\r\n            {\r\n                Ext.get(\"Notificat" +
-"ions\").removeClass(\"Notifications\");\r\n            }\r\n\r\n            Ext.get(\"Canc" +
-"el\").on(\"click\", function ()\r\n            {\r\n                window.close();\r\n  " +
-"          });\r\n\r\n            Ext.get(\"OK\").on(\"click\", function ()\r\n            " +
-"{\r\n                Ext.get(\"Notifications\").removeClass(\"Notifications\");\r\n     " +
-"           if (Ext.DoubleGis.FormValidator.validate(EntityForm))\r\n              " +
-"  {\r\n                    Ext.getDom(\"OK\").disabled = \"disabled\";\r\n              " +
-"      Ext.getDom(\"Cancel\").disabled = \"disabled\";\r\n                    window.Ex" +
-"t.each(window.Ext.query(\"input.x-calendar\", window.EntityForm), function (node)\r" +
-"\n                    {\r\n                        node.value = window.Ext.getCmp(n" +
-"ode.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext." +
-"CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : \"\";\r\n             " +
-"       });\r\n                    EntityForm.submit();\r\n                }\r\n       " +
-"     });\r\n        });\r\n    </script>\r\n");
+"x.LookupField(item);\r\n            }, this);\r\n\r\n            var isSuccess = \'");
 
             
-            #line 76 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 34 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+                        Write(Model.IsSuccess);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\';\r\n            if (isSuccess == \'True\') {\r\n                alert(Ext.getDom(\"Not" +
+"ifications\").innerHTML.trim());\r\n                window.close();\r\n              " +
+"  return;\r\n            } else if (Ext.getDom(\"Notifications\").innerHTML.trim() !" +
+"= \"\")\r\n            {\r\n                Ext.getDom(\"Notifications\").style.display " +
+"= \"block\";\r\n            }\r\n\r\n            // show error messages\r\n            if " +
+"(Ext.getDom(\"Notifications\").innerHTML.trim() != \"\")\r\n            {\r\n           " +
+"     Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n            }\r\n       " +
+"     else\r\n            {\r\n                Ext.get(\"Notifications\").removeClass(\"" +
+"Notifications\");\r\n            }\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", fun" +
+"ction ()\r\n            {\r\n                window.close();\r\n            });\r\n\r\n   " +
+"         Ext.get(\"OK\").on(\"click\", function ()\r\n            {\r\n                E" +
+"xt.get(\"Notifications\").removeClass(\"Notifications\");\r\n                if (Ext.D" +
+"oubleGis.FormValidator.validate(EntityForm))\r\n                {\r\n               " +
+"     Ext.getDom(\"OK\").disabled = \"disabled\";\r\n                    Ext.getDom(\"Ca" +
+"ncel\").disabled = \"disabled\";\r\n                    window.Ext.each(window.Ext.qu" +
+"ery(\"input.x-calendar\", window.EntityForm), function (node)\r\n                   " +
+" {\r\n                        node.value = window.Ext.getCmp(node.id).getValue() ?" +
+" new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTime" +
+"FormatInfo.PhpInvariantDateTimePattern) : \"\";\r\n                    });\r\n        " +
+"            EntityForm.submit();\r\n                }\r\n            });\r\n        })" +
+";\r\n    </script>\r\n");
+
+            
+            #line 75 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 75 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -179,7 +180,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 80 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 79 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
        Write(Model.Message);
 
             
@@ -194,7 +195,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 83 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 82 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
        Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings {EntityName = EntityName.OrganizationUnit}));
 
             
@@ -209,7 +210,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 86 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 85 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
        Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings {ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound}));
 
             
@@ -224,7 +225,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 89 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 88 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -233,7 +234,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 92 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
+            #line 91 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
     }
 
             

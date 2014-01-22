@@ -2628,9 +2628,6 @@ SWIFT {5}
 	<data name="NameLocaleResourceId" xml:space="preserve">
     <value>Отображаемое имя</value>
   <comment></comment></data>
-	<data name="AssemblyOperationSuccess" xml:space="preserve">
-    <value>Сборка выполнена успешно</value>
-  <comment></comment></data>
 	<data name="AlreadyExistsPricePositionWithSamePositionNotification" xml:space="preserve">
     <value>Активация невозможна, т.к. уже есть позиция прайс-листа с такой же номенклатурной позицией.</value>
   <comment></comment></data>
