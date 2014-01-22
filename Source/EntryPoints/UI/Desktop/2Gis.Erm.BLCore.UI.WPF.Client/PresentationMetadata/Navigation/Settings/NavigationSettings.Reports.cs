@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views.Contextual;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;

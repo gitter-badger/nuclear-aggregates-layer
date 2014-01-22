@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card.OrderPosition;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Custom.OrderPosition;
 using DoubleGis.Erm.Platform.Model.Aggregates;

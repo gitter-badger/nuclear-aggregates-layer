@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using Microsoft.Practices.Unity;
 
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
             _overridedMvcSingleRegisteredDependencies = new Dictionary<Type, Func<IUnityContainer, object>> 
                                                             {
                                                                 { typeof(IControllerActivator), c => c.Resolve<IControllerActivator>() },
-                                                                { typeof(IControllerFactory), c => new GenericContollerFactory(_globalizationSettings) },
+                                                                { typeof(IControllerFactory), c => new GenericContollerFactory(_globalizationSettings, c.Resolve<IViewModelTypesRegistry>()) },
                                                                 { typeof(ModelMetadataProvider), c => c.Resolve<ModelMetadataProvider>() },
                                                             };
 

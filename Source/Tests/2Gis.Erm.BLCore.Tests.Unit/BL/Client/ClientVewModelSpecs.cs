@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;

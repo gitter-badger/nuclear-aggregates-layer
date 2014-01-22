@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List.DTO;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;

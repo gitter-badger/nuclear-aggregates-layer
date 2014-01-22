@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             mapper.FromDto(dto, useCase, cardViewModel);
             if (!useCase.State.TryMoveNext(documentViewModel))
             {
-                throw new InvalidOperationException(BLCore.Resources.Client.Properties.Resources.ErrorDetectedWhenChangingUseCaseState);
+                throw new InvalidOperationException(ResPlatformUI.ErrorDetectedWhenChangingUseCaseState);
             }
 
             _documentManager.Add(documentViewModel);

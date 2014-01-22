@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Threading;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -22,13 +22,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData
                 typeof(IViewModel)
             };
         private readonly IUserContextProvider _userContextProvider;
+        private readonly IEnumerable<ResourceManager> _resourceManagers;
 
         private readonly ConcurrentDictionary<Type, TypePropertiesMetadata> _typePropertiesMetadataMap =
             new ConcurrentDictionary<Type, TypePropertiesMetadata>();
 
-        public LocalizedMetaDataProvider(IUserContextProvider userContextProvider)
+        public LocalizedMetaDataProvider(IUserContextProvider userContextProvider, IEnumerable<ResourceManager> resourceManagers)
         {
             _userContextProvider = userContextProvider;
+            _resourceManagers = resourceManagers;
         }
 
         private CultureInfo GetTargetCulture()
@@ -95,12 +97,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData
 
             // Пытаемся получить ресурс основываясь на названии свойства и названии модели 
             // (т.е. тут вступают в силу соглашения по именованию ресурсов)
-            var metadataResourceManager = MetadataResources.ResourceManager;
-            var keysEnumerator = EnumerateCandidateKeysForProperty(targetType, targetTypePropertyName);
+            var keys = EnumerateCandidateKeysForProperty(targetType, targetTypePropertyName);
 
-            while (keysEnumerator.MoveNext())
+            foreach (var key in keys)
             {
-                var localizedPropertyNameCandidate = metadataResourceManager.GetString(keysEnumerator.Current, targetCulture);
+                var localizedPropertyNameCandidate = _resourceManagers.Select(m => m.GetString(key, targetCulture)).FirstOrDefault(l => l != null);
                 if (!string.IsNullOrEmpty(localizedPropertyNameCandidate))
                 {
                     localizedMetadata = localizedPropertyNameCandidate;
@@ -146,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData
 
         private static Type EntityViewModelBaseType = typeof(EntityViewModelBase);
 
-        private static IEnumerator<string> EnumerateCandidateKeysForProperty(Type targetType, string targetTypePropertyName)
+        private static IEnumerable<string> EnumerateCandidateKeysForProperty(Type targetType, string targetTypePropertyName)
         {
             yield return targetType.Name + "_" + targetTypePropertyName;
 

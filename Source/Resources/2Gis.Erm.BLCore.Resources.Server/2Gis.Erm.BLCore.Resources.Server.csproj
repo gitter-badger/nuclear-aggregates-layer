@@ -58,11 +58,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\ErmConfigLocalization.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErmConfigLocalization.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\MetadataResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,9 +73,6 @@
     <EmbeddedResource Include="Properties\EnumResources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ErmConfigLocalization.cs.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\MetadataResources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -93,9 +85,6 @@
     <EmbeddedResource Include="Properties\MetadataResources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ErmConfigLocalization.ru.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\EnumResources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -105,9 +94,6 @@
     <EmbeddedResource Include="Properties\MetadataResources.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ErmConfigLocalization.en.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\EnumResources.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -115,11 +101,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>MetadataResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ErmConfigLocalization.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErmConfigLocalization.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\EnumResources.resx">
       <SubType>Designer</SubType>

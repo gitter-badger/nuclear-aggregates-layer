@@ -4041,6 +4041,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CloseWithDenial {
+            get {
+                return ResourceManager.GetString("CloseWithDenial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка при вызове сервиса..
         /// </summary>
         public static string CommunicationError {

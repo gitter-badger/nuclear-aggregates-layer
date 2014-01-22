@@ -5368,4 +5368,7 @@ Penezni ustav:  {5}</value>
 	<data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
     <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
   </data>
+  <data name="CloseWithDenial" xml:space="preserve">
+    <value>Close as rejected</value>
+  </data>
 </root>

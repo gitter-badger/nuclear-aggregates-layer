@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -79,13 +78,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
             if (input.MethodBase.Name == "Merge")
             {
-                var viewModel = input.Arguments[0] as ClientViewModel;
-                if (viewModel == null)
+                var viewModel = input.Arguments[0];
+                if (viewModel == null || !viewModel.GetType().Name.Contains("ClientViewModel"))
                 {
                     return new IEntityKey[] { };
                 }
 
-                var id = viewModel.AppendedClient;
+                var id = (long)viewModel.GetPropertyValue("AppendedClient");
                 entityNames = _entityProvider.GetDependentEntityNames(EntityName.Client);
 
                 return entityNames.SelectMany(en => _entityProvider.GetDependentEntities(EntityName.Client, en, id, true)).ToArray();

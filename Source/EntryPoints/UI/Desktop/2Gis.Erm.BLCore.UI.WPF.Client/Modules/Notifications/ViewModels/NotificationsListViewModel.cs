@@ -5,6 +5,7 @@ using System.Timers;
 using System.Windows.Input;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
@@ -46,9 +47,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Notifications.ViewModels
             ActivateNotificationSourceCommand = new DelegateCommand<INotification>(ProvideFeedbackToSource);
             _documentsStateInfo.ActiveDocumentChanged += OnActiveDocumentChanged;
 
-            _contextualNotificationsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLCore.Resources.Client.Properties.Resources.NotificationsContextualTitle));
-            _systemNotificationsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLCore.Resources.Client.Properties.Resources.NotificationsSystemTitle));
-            _notificationDescriptionTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLCore.Resources.Client.Properties.Resources.NotificationsDescriptionTitle));
+            _contextualNotificationsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.NotificationsContextualTitle));
+            _systemNotificationsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.NotificationsSystemTitle));
+            _notificationDescriptionTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.NotificationsDescriptionTitle));
 
             _cleanupTimer = new Timer{ AutoReset = false, Enabled = false, Interval = CleanupIntervalMs };
             _cleanupTimer.Elapsed += NotificationsCleanup;

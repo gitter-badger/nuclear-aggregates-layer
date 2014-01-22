@@ -567,6 +567,10 @@
       <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
       <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -599,6 +603,10 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{B12C39B4-050B-476F-9C80-E5757226B926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
@@ -618,10 +626,6 @@
     <ProjectReference Include="..\..\..\..\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
       <Name>2Gis.Erm.BLCore.DI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
-      <Project>{ce5ccb90-9a57-4863-9355-4fcd672d3220}</Project>
-      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>

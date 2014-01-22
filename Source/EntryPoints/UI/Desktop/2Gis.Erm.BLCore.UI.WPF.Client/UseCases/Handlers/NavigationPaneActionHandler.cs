@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -99,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 
             if (!useCase.State.TryMoveNext(contextualDocument))
             {
-                throw new InvalidOperationException(BLCore.Resources.Client.Properties.Resources.ErrorDetectedWhenChangingUseCaseState);
+                throw new InvalidOperationException(ResPlatformUI.ErrorDetectedWhenChangingUseCaseState);
             }
 
             contextualDocument.Context = resolvedContext;

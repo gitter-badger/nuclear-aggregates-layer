@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
 
             if (!useCase.State.TryMoveNext(operationManagerViewModel))
             {
-                throw new InvalidOperationException(BLCore.Resources.Client.Properties.Resources.ErrorDetectedWhenChangingUseCaseState);
+                throw new InvalidOperationException(ResPlatformUI.ErrorDetectedWhenChangingUseCaseState);
             }
 
             var documents = useCase.State.NodesSnapshot.Select(x => x.Context).OfType<IDocument>();

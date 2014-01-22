@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Resources.Client;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Filter;
@@ -95,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
             _listSelectorViewModel = listSelectorViewModel;
 
             _cantGetListingMessageFormat =
-                titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLCore.Resources.Client.Properties.Resources.ListingCantGetResultForEntityList));
+                titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ResPlatformUI.ListingCantGetResultForEntityList));
 
             if (_pagerViewModel.Enabled)
             {

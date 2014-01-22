@@ -10,11 +10,13 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public class GenericContollerFactory : DefaultControllerFactory
     {
+        private readonly IViewModelTypesRegistry _viewModelTypesRegistry;
         private const string CreateOrUpdateControllerName = "CreateOrUpdate";
         private const string CrmCreateOrUpdateControllerName = "CrmCreateOrUpdate";
         private const string EntityTypeNameParameterName = "entityTypeName";
@@ -25,8 +27,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         private readonly Type _adaptationMarkerType;
 
-        public GenericContollerFactory(IGlobalizationSettings globalizationSettings)
+        public GenericContollerFactory(IGlobalizationSettings globalizationSettings, IViewModelTypesRegistry viewModelTypesRegistry)
         {
+            _viewModelTypesRegistry = viewModelTypesRegistry;
             _adaptationMarkerType = BusinessModelMapping.GetMarkerInterfaceForAdaptation(globalizationSettings.BusinessModel);
         }
 
@@ -82,11 +85,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             {
                 var genericViewModelType = typeof(EntityViewModelBase<>).MakeGenericType(entityType);
 
-                var viewModelTypes = AppDomain.CurrentDomain.GetAssemblies()
-                                              .Where(x => !x.IsDynamic)
-                                              .SelectMany(x => x.GetExportedTypes())
-                                              .Where(x => genericViewModelType.IsAssignableFrom(x) && x.Name.EndsWith(entityType.Name + "ViewModel"))
-                                              .ToArray();
+                var viewModelTypes = _viewModelTypesRegistry.DeclaredViewModelTypes
+                                                           .Where(x => genericViewModelType.IsAssignableFrom(x) &&
+                                                                       x.Name.EndsWith(entityType.Name + "ViewModel"))
+                                                           .ToArray();
 
                 if (viewModelTypes.Any(x => typeof(IAdapted).IsAssignableFrom(x)))
                 {
