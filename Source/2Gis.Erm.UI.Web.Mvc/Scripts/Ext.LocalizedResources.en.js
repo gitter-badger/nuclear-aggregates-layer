@@ -1,4 +1,4 @@
-﻿// File updated : 20.01.2014 15:08:22
+﻿// File updated : 21.01.2014 16:27:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -99,7 +99,7 @@ DisabledDatesText : 'This date cannot be selected',
 DisabledDaysText : 'This date cannot be selected',
 DiscountResetWarning : 'Information on discounts will be deleted for all order items! Continue?',
 DisplayMsg : 'Records from {0} up to {1} are displayed, total of {2}',
-DummyValue : 'Заглушка',
+DummyValue : 'Parked page',
 DummyValueWillBeApplied : 'A parked page will be applied instead of an advertising material.',
 EmptyMsg : 'No data to display',
 EndDistributionDate : 'End of placement',

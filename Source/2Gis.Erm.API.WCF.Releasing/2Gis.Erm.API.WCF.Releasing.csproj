@@ -169,6 +169,9 @@
     <None Include="Web.Production.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.Production.Russia2.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

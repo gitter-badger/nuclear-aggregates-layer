@@ -1,4 +1,4 @@
-﻿// File updated : 20.01.2014 15:08:22
+﻿// File updated : 21.01.2014 16:27:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -200,7 +200,7 @@ Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Re
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+MessageType value for requested culture, fallback resource entry value used: Тип сообщения
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+MessageText value for requested culture, fallback resource entry value used: Текст сообщения
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+LimitStatusChangeIsNotSupportedAsTheGroupOperation value for requested culture, fallback resource entry value used: Change status operation cannot be performed for a group. Please change limit status one by one.
-Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+DummyValue value for requested culture, fallback resource entry value used: Заглушка
+Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+DummyValue value for requested culture, fallback resource entry value used: Parked page
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+LinkFieldInvalidWebsiteMessage value for requested culture, fallback resource entry value used: Entered value is not a correct url address
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+GridViewSortDescText value for requested culture, fallback resource entry value used: Sort descending
 Can't resolve resource entry DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources+PaymentDatePlan value for requested culture, fallback resource entry value used: Payment date, before
@@ -375,7 +375,7 @@ DisabledDatesText : 'This date cannot be selected',
 DisabledDaysText : 'This date cannot be selected',
 DiscountResetWarning : 'Information on discounts will be deleted for all order items! Continue?',
 DisplayMsg : 'Records from {0} up to {1} are displayed, total of {2}',
-DummyValue : 'Заглушка',
+DummyValue : 'Parked page',
 DummyValueWillBeApplied : 'A parked page will be applied instead of an advertising material.',
 EmptyMsg : 'No data to display',
 EndDistributionDate : 'End of placement',
