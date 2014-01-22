@@ -1314,6 +1314,14 @@
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120b29-e708-4cb7-b582-a52043beaec0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj">
+      <Project>{3033cfd9-fcdc-41f5-8448-8555336acd4a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -1381,10 +1389,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
-      <Project>{ce5ccb90-9a57-4863-9355-4fcd672d3220}</Project>
-      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>

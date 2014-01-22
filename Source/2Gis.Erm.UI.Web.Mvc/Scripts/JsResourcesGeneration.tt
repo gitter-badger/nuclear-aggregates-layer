@@ -1,7 +1,7 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true" hostSpecific="true"#>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Configuration.dll" #>
-<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BLCore.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BL.Resources.Client.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Resources.Client.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.API.Core.dll" #>
 <#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.UI.Web.Mvc.dll" #>
@@ -29,7 +29,7 @@
 	string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
 
 	var targetResourceEntryHostTypes = new []{ 
-											typeof(DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources), 
+											typeof(DoubleGis.Erm.BL.Resources.Client.Properties.Resources), 
 											typeof(DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI) 
 										};
 	
