@@ -121,4 +121,19 @@
 	<data name="MessageNotProcessedCorrectly" xml:space="preserve">
 		<value>Failed to correctly process message {0}</value>
 	</data>
+  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
+    <value>Error encountered during changing of the session state</value>
+  </data>
+  <data name="NotificationsContextualTitle" xml:space="preserve">
+    <value>Context</value>
+  </data>
+  <data name="NotificationsDescriptionTitle" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="NotificationsSystemTitle" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
+    <value>Can't get listing view for entities of type "{0}"</value>
+  </data>
 </root>

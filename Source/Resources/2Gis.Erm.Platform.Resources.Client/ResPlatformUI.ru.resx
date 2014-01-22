@@ -121,4 +121,19 @@
 	<data name="MessageNotProcessedCorrectly" xml:space="preserve">
 		<value>Сообщение {0} не удалось корректно обработать</value>
 	</data>
+  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
+    <value>Обнаружена ошибка при попытке изменить состояние сеанса</value>
+  <comment></comment></data>
+  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
+    <value>Не удалось получить представление списка сущностей типа "{0}"</value>
+  <comment></comment></data>
+  <data name="NotificationsContextualTitle" xml:space="preserve">
+    <value>Контекстные</value>
+  <comment></comment></data>
+  <data name="NotificationsDescriptionTitle" xml:space="preserve">
+    <value>Описание</value>
+  <comment></comment></data>
+  <data name="NotificationsSystemTitle" xml:space="preserve">
+    <value>Системные</value>
+  <comment></comment></data>
 </root>

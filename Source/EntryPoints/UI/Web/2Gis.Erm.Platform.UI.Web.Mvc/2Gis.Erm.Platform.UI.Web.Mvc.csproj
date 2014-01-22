@@ -121,12 +121,14 @@
     <Compile Include="Utils\SilverlightControlSettings.cs" />
     <Compile Include="Utils\SilverlightHtmlExtensions.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\IViewModelTypesRegistry.cs" />
     <Compile Include="ViewModels\MessageType.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\ValidationMessage.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.Server.cs" />
+    <Compile Include="ViewModels\ViewModelTypesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

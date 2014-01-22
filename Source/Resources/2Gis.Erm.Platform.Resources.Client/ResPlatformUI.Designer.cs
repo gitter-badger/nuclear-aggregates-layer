@@ -79,6 +79,15 @@ namespace DoubleGis.Erm.Platform.Resources.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Обнаружена ошибка при попытке изменить состояние сеанса.
+        /// </summary>
+        public static string ErrorDetectedWhenChangingUseCaseState {
+            get {
+                return ResourceManager.GetString("ErrorDetectedWhenChangingUseCaseState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Первая страница.
         /// </summary>
         public static string FirstPageText {
@@ -97,6 +106,15 @@ namespace DoubleGis.Erm.Platform.Resources.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не удалось получить представление списка сущностей типа &quot;{0}&quot;.
+        /// </summary>
+        public static string ListingCantGetResultForEntityList {
+            get {
+                return ResourceManager.GetString("ListingCantGetResultForEntityList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сообщение {0} не удалось корректно обработать.
         /// </summary>
         public static string MessageNotProcessedCorrectly {
@@ -111,6 +129,33 @@ namespace DoubleGis.Erm.Platform.Resources.Client {
         public static string NextPageText {
             get {
                 return ResourceManager.GetString("NextPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Контекстные.
+        /// </summary>
+        public static string NotificationsContextualTitle {
+            get {
+                return ResourceManager.GetString("NotificationsContextualTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание.
+        /// </summary>
+        public static string NotificationsDescriptionTitle {
+            get {
+                return ResourceManager.GetString("NotificationsDescriptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Системные.
+        /// </summary>
+        public static string NotificationsSystemTitle {
+            get {
+                return ResourceManager.GetString("NotificationsSystemTitle", resourceCulture);
             }
         }
         

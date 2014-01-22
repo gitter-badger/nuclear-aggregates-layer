@@ -121,4 +121,19 @@
 	<data name="MessageNotProcessedCorrectly" xml:space="preserve">
 		<value>Nebylo možné správně zpracovat zprávu {0}</value>
 	</data>
+  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
+    <value>Nebylo možné zobrazit náhled seznamu entit typu „{0}“</value>
+  </data>
+  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
+    <value>Během pokusu o změnu stavu relace došlo k chybě</value>
+  </data>
+  <data name="NotificationsContextualTitle" xml:space="preserve">
+    <value>Kontextové</value>
+  </data>
+  <data name="NotificationsDescriptionTitle" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="NotificationsSystemTitle" xml:space="preserve">
+    <value>Systémové</value>
+  </data>
 </root>
