@@ -1,0 +1,32 @@
+﻿
+@model Models.CategoryViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @if (Model != null)
+    {
+        @Html.HiddenFor(m => m.Id)
+    }
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ParentCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Category, ShowReadOnlyCard = true, ReadOnly = true, SearchFormFilterInfo = "Level>{Level}" })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Level, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", 5}})
+        </div>
+    </div>
+}

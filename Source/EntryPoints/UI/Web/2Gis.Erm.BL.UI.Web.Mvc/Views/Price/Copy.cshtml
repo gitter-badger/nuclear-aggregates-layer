@@ -1,0 +1,159 @@
+﻿
+@model Models.CopyPriceViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CopyPrice }
+@section TopBarTitle { @BLResources.CopyPrice }
+@section TopBarMessage { @BLResources.CopyPrice }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        var setVisualFeatures = function ()
+        {
+            var divRows = window.Ext.query("div.field-wrapper");
+            var i;
+            for (i = 0; i < divRows.length; i++)
+            {
+                window.Ext.fly(divRows[i]).addClassOnOver("field-wrapper-over");
+            }
+
+            var inputs = window.Ext.query(".inputfields");
+            for (i = 0; i < inputs.length; i++)
+            {
+                window.Ext.fly(inputs[i]).addClassOnFocus("inputfields-selected");
+            }
+        };
+
+        var SubmitForm = function ()
+        {
+            if (Ext.getDom("CopyNewPrice").checked)
+            {
+                var params = "dialogWidth:" + 500 + "px; dialogHeight:" + 250 + "px; status:yes; scroll:no;resizable:no;";
+                var url = '/Price/CopyNew';
+                var arguments = {
+                    sourcePriceId: window.dialogArguments.priceId
+                };
+
+                var nextAction = window.showModalDialog(url, arguments, params);
+
+                if (nextAction != "Cancel")
+                {
+                    window.returnValue = "Close";
+                    window.close();
+                }
+            }
+            else
+            {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm, null))
+                {
+
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    EntityForm.submit();
+                }
+            }
+        };
+
+        Ext.onReady(function ()
+        {
+            window.Ext.each(window.Ext.CardLookupSettings, function (item)
+            {
+                var l = new window.Ext.ux.LookupField(item);
+            }, this);
+            setVisualFeatures();
+
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK") { window.returnValue = "Reload"; window.close(); return; }
+
+            else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+
+            Ext.getDom("SourcePriceId").value = window.dialogArguments.priceId;
+
+            //write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", SubmitForm);
+
+            Ext.get(EntityForm.CopyNewPrice[0]).on("click", radioClick);
+            Ext.get(EntityForm.CopyNewPrice[1]).on("click", radioClick);
+            if (Ext.getDom("CopyNewPrice").checked)
+            {
+                Ext.getCmp("TargetPrice").disable();
+            }
+        });
+
+        var radioClick = function ()
+        {
+            if (Ext.getDom("CopyNewPrice").checked)
+            {
+                Ext.getCmp("TargetPrice").disable();
+            }
+            else
+            {
+                Ext.getCmp("TargetPrice").enable();
+            };
+
+        };
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    @Html.HiddenFor(m => m.SourcePriceId)
+    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 15px;" id="Notifications">
+                        @Model.Message
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    @Html.RadioButtonFor(m => m.CopyNewPrice, true, new Dictionary<string, object> { { "id", "CopyNewPriceYes" } })
+                </td>
+                <td valign="top">
+                    <label style="font-weight: bold">
+                        @BLResources.CopyPriceCreateNew
+                    </label>
+                    <br />
+                    <div style="color: #444444; padding-top: 5px">
+                        <label>
+                            @BLResources.CopyPriceCreateNewLegend</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    @Html.RadioButtonFor(m => m.CopyNewPrice, false, new Dictionary<string, object> { { "id", "CopyNewPriceNo" } })
+                </td>
+                <td valign="top">
+                    <label style="font-weight: bold">
+                        @BLResources.CopyPricetReplaceExisting
+                    </label>
+                    <br />
+                    <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                        <label>
+                            @BLResources.CopyPricetReplaceExistingLegend</label>
+                    </div>
+                    @Html.LookupFor(k => k.TargetPrice, new LookupSettings { EntityName = EntityName.Price, SearchFormFilterInfo = "IsDeleted=false&&Id!={SourcePriceId}" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

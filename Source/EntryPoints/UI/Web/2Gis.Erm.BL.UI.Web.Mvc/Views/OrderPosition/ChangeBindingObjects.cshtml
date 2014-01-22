@@ -1,0 +1,129 @@
+﻿@using BLCore.UI.Web.Mvc.Settings
+@using BLCore.UI.Web.Mvc.UserProfiles
+@using Platform.UI.Web.Mvc.Security
+
+
+@model Models.OrderPositionViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <base target="_self" />
+
+        <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
+        <meta id="meta_Revision" name="meta_Revision" content="@SolutionInfo.ProductVersion.Build" />
+    
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+        
+        @if (HttpContext.Current.IsDebuggingEnabled)
+        {
+        <script src="/Scripts/ext-base-debug.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        }
+        else
+        {
+        <script src="/Scripts/ext-base.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        }
+
+        <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
+            Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
+            Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
+            Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
+            Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
+            Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+        </script>
+        
+        <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-extend.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-ux-treegrid.css?@SolutionInfo.ProductVersion.Build" />
+        
+        <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/Card.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/order-position.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@SolutionInfo.ProductVersion.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@SolutionInfo.ProductVersion.Build" />
+        
+        <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Common.ErrorHandler.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LookupField.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LinkField.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.Calendar.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LookupFieldOwner.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.MvcFormValidator.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.DependencyHandler.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.UI.DialogWindow.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        
+        <script src="/Scripts/Ext.ux.TreeGridSorter.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridColumnResizer.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridNodeUI.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridLoader.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridColumns.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGrid.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.FitToParent.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        
+        <script src="/Scripts/DoubleGis.UI.Card.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.BindingObject.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    
+        <style type="text/css">
+            .display-wrapper .captionRadioDiv { padding-top: 0px; }
+            div.label-wrapper { width: 140px; }
+            div.Tab { padding: 0px; }
+        </style>
+        
+        <title>@BLResources.BindingObjectChange</title>
+    </head>
+    <body>
+        <table width="100%" height="100%" border="0" cellspacing="0">
+            <tr>
+                <td id="PageContentCell">
+                    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_self" } }))
+                    {
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.HiddenFor(m => m.OrderId)
+                        @Html.HiddenFor(m => m.OrderFirmId)
+                        @Html.HiddenFor(m => m.OrganizationUnitId)
+                        @Html.HiddenFor(m => m.IsLocked)
+                        @Html.HiddenFor(m => m.DiscountSum)
+                        @Html.HiddenFor(m => m.IsComposite)
+
+                        @Html.HiddenFor(m => m.DiscountPercent)
+                        @Html.HiddenFor(m => m.AdvertisementsJson)
+                        @Html.HiddenFor(m => m.PricePosition)
+                        @Html.HiddenFor(m => m.PricePerUnit)
+                        @Html.HiddenFor(m => m.PricePerUnitWithVat)
+                        @Html.HiddenFor(m => m.Amount)
+                        @Html.HiddenFor(m => m.ShipmentPlan)
+                        @Html.HiddenFor(m => m.PayablePrice)
+                        @Html.HiddenFor(m => m.PayablePlan)
+                        @Html.HiddenFor(m => m.CalculateDiscountViaPercent)
+                        @Html.HiddenFor(m => m.DiscountSum)
+                        @Html.HiddenFor(m => m.Comment)
+                        <table style="height: 100%; table-layout: fixed">
+                            <tr>
+                                <td>
+                                    <div id='linkingObjectContainer' style="height: 100%; margin: 0px 5px 5px 5px; overflow: hidden; width: 100%;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    }   
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="right" width="100%" class="ms-crm-Dialog-Footer">
+                    <input class="CrmButton" type="button" id="OK" value="@BLResources.OK" />
+                    <input class="CrmButton" type="button" id="Cancel" value="@BLResources.Cancel" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

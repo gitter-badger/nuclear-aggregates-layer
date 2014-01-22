@@ -1,0 +1,71 @@
+﻿
+@model Models.BargainFileViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <style type="text/css">
+        div.label-wrapper { width: 150px !important; }
+    </style>
+    <script type="text/javascript">
+        window.InitPage = function() {
+            this.on("afterbuild", function() {
+                var u = new Ext.ux.AsyncFileUpload(
+                    {
+                        applyTo: 'FileId',
+                        uploadUrl: '/Upload/BargainFile',
+                        downloadUrl: Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/BargainFile/{0}',
+                        listeners: {
+                            fileuploadbegin: function() {
+                                this.Items.Toolbar.disable();
+                            },
+                            fileuploadcomplete: function() {
+                                this.Items.Toolbar.enable();
+                            },
+                            fileuploadsuccess: function() {
+                                if (Ext.getDom('FileExists').value.toLowerCase() == 'true') {
+                                    this.refresh();
+                                }
+                            },
+                            scope: this
+                        },
+                        fileInfo:
+                        {
+                            fileId: '@Model.FileId',
+                            fileName: '@Model.FileName',
+                            contentType: '@Model.FileContentType',
+                            fileSize: '@Model.FileContentLength'
+                        }
+                    });
+            }, this);
+            
+            this.on('afterpost', function () {
+                Ext.getDom('FileExists').value = Ext.getDom('FileId').value > 0;
+            }, this);
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.BargainId)
+            @Html.Hidden("FileExists", Model.FileId > 0)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileKind, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>
+    </div>
+}

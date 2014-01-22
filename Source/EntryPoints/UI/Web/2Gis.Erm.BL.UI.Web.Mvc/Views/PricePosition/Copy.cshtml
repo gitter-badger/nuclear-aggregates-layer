@@ -1,0 +1,66 @@
+﻿
+@model Models.CopyPricePositionModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CopyPricePosition }
+@section TopBarTitle { @BLResources.CopyPricePosition }
+@section TopBarMessage { @BLResources.SpecifyPositionForNewPricePosition }
+
+@section PageContent
+{
+    <style type="text/css">
+        td.itemCaption
+        {
+            vertical-align: top;
+            padding-top: 5px;
+        }
+
+        td.itemValue
+        {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK") {
+                window.close();
+                return;
+            } else if (Ext.getDom("Notifications").innerHTML.trim() != "") {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+            //write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function() { window.close(); });
+            Ext.get("OK").on("click", function() {
+                if (!Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
+                    return;
+                }
+
+                Ext.getDom("OK").disabled = "disabled";
+                Ext.getDom("Cancel").disabled = "disabled";
+
+                EntityForm.submit();
+            });
+
+
+            window.Ext.each(window.Ext.CardLookupSettings, function(item) {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div id="Notifications">
+            @Model.Message
+        </div>
+        @Html.HiddenFor(m => m.PriceId)
+        @Html.HiddenFor(m => m.SourcePricePositionId)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Position, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false&&IsActive=true" })
+        </div>
+    }
+}

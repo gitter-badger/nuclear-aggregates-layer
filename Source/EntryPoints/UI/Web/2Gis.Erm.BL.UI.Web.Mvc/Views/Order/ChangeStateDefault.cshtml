@@ -1,0 +1,55 @@
+﻿@model Models.ChangeOrderStateDefaultViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { }
+@section TopBarTitle { }
+@section TopBarMessage {}
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+
+            var processResult = function ()
+            {
+                return {};
+            };
+
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+            {
+                window.returnValue = processResult();
+                window.close();
+                return;
+            }
+            else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                Ext.getDom("OK").disabled = "disabled";
+                Ext.getDom("Cancel").disabled = "disabled";
+                window.EntityForm.submit();
+            });
+        });
+    </script>
+    @using (Html.BeginForm("ChangeStateDefault", null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <div class="Tab">
+        @Html.HiddenFor(m => m.OrderId)
+        <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+            @Model.Message
+        </div>
+        <div class="row-wrapper">
+            @BLResources.SureWantToChangeOrderState
+        </div>
+    </div>
+    }
+}

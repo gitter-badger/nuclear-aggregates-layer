@@ -1,0 +1,29 @@
+﻿
+@model Models.PositionCategoryViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ExportCode, FieldFlex.lone, new Dictionary<string, object> {{"class", "inputfields"}})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsSupportedByExport, FieldFlex.lone)
+        </div>
+    </div>
+}

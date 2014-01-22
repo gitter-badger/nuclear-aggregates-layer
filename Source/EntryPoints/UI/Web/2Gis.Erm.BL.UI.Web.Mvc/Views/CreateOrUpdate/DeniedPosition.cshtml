@@ -1,0 +1,28 @@
+﻿
+@model Models.DeniedPositionViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.PriceId)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false", ReadOnly = true })
+            @Html.TemplateField(m => m.PositionDenied, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false"})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ObjectBindingType, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+    </div>
+}

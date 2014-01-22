@@ -1,0 +1,208 @@
+﻿
+@model Models.CloseDealViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.DealClosing }
+@section TopBarTitle { @BLResources.PickCloseDealReason }
+@section TopBarMessage { @BLResources.PickCloseDealReason }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            if (!window.dialogArguments.length)
+            {
+                window.Ext.MessageBox.show({
+                    title: '',
+                    // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                    // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                    msg: '@BLResources.NeedToSelectOneItem',
+                    buttons: window.Ext.MessageBox.OK,
+                    fn: function () { window.close(); },
+                    width: 300,
+                    icon: window.Ext.MessageBox.ERROR
+                });
+                return;
+            }
+            else
+            {
+                window.Ext.getDom("TopBarMessage").innerHTML = String.format(window.Ext.getDom("TopBarMessage").innerHTML, window.dialogArguments.length);
+            }
+
+            Ext.each(Ext.CardLookupSettings, function (item, i)
+            {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+            // write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", submitForm);
+
+            Ext.get("CloseReason").on("change", function ()
+            {
+                // "other" reasons
+                if (event.srcElement.value == "Reason5" || event.srcElement.value == "Reason10")
+                {
+                    Ext.get("CloseReasonOther").removeClass("readonly");
+                    Ext.getDom("CloseReasonOther").disabled = false;
+                }
+                else
+                {
+                    Ext.get("CloseReasonOther").addClass("readonly");
+                    Ext.getDom("CloseReasonOther").disabled = true;
+                    Ext.getDom("CloseReasonOther").value = "";
+                }
+            });
+        });
+
+        var submitForm = function ()
+        {
+            var closeReason = Ext.getDom("CloseReason");
+            if (closeReason.value == "")
+            {
+                alert("@BLResources.MustPickCloseReason");
+                closeReason.focus();
+                return;
+            }
+
+            // "other" reasons
+            if ((closeReason.value == "Reason5" || closeReason.value == "Reason10") && Ext.getDom("CloseReasonOther").value == "")
+            {
+                alert('@BLResources.DealMustPickOtherReason');
+                Ext.getDom("CloseReasonOther").focus();
+                return;
+            }
+
+            Ext.getDom("OK").disabled = true;
+            Ext.getDom("Cancel").disabled = true;
+
+            Ext.getDom("CloseReason").disabled = true;
+            Ext.get("CloseReasonOther").addClass("readonly");
+            Ext.getDom("CloseReasonOther").disabled = true;
+            Ext.get("Comment").addClass("readonly");
+            Ext.getDom("Comment").disabled = true;
+
+            window.Ext.get("Notifications").removeClass("Notifications");
+
+            if (window.dialogArguments && window.dialogArguments.length)
+            {
+                var arr = window.dialogArguments;
+                processItem(arr, 0);
+            }
+            else
+            {
+                window.Ext.MessageBox.show({
+                    title: '',
+                    msg: '@BLResources.NeedToSelectOneOrMoreItems',
+                    buttons: window.Ext.MessageBox.OK,
+                    fn: function () { window.close(); },
+                    width: 300,
+                    icon: window.Ext.MessageBox.ERROR
+                });
+                return;
+            }
+        };
+
+        var processItem = function (items, index)
+        {
+            if (index == items.length)
+            {
+                window.returnValue = true;
+                window.close();
+                return;
+            }
+
+            var callLink = String.format("/Deal/Close?id={0}", items[index]);
+
+            window.Ext.Ajax.request({
+                timeout: 1200000,
+                url: callLink,
+                params:
+                {
+                    closeReason: window.Ext.getDom("CloseReason").value,
+                    closeReasonOther: window.Ext.getDom("CloseReasonOther").value,
+                    comment: window.Ext.getDom("Comment").value
+                },
+                method: 'POST',
+                success: function ()
+                {
+                    processItem(items, index + 1);
+                },
+                failure: fail
+            });
+        };
+
+        var fail = function (xmlHttpRequest)
+        {
+            window.Ext.getDom("Notifications").innerHTML = xmlHttpRequest.responseText;
+            window.Ext.get("Notifications").addClass("Notifications");
+            window.Ext.getDom("OK").disabled = false;
+            window.Ext.getDom("Cancel").disabled = false;
+
+            window.Ext.getDom("CloseReason").disabled = false;
+            window.Ext.get("CloseReasonOther").removeClass("readonly");
+            window.Ext.getDom("CloseReasonOther").disabled = false;
+            window.Ext.get("Comment").removeClass("readonly");
+            window.Ext.getDom("Comment").disabled = false;
+        };
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    @Html.HiddenFor(m => m.Id)
+    <table cellspacing="5" cellpadding="5" width="100%">
+        <colgroup>
+            <col width="100%" />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <div style="height: 24px;" id="Notifications">
+                        @Model.Message</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.CloseReason):
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DropDownListFor(m => m.CloseReason, EnumResources.ResourceManager, new Dictionary<string, object> { { "class", "inputfields" } })
+                </td>
+            </tr>
+            <tr style="height: 10px">
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.CloseReasonOther):
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextBoxFor(m => m.CloseReasonOther, new Dictionary<string, object> { { "class", "readonly inputfields" }, {"disabled", "disabled"}, {"style", "width:100%"} } )
+                </td>
+            </tr>
+            <tr style="height: 10px">
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Comment):
+                </td>
+            </tr>
+            <tr style="height: 150px">
+                <td>
+                    @Html.TextAreaFor(m => m.Comment, new Dictionary<string, object> { {"class", "inputfields"}, {"rows", "10"} } )
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

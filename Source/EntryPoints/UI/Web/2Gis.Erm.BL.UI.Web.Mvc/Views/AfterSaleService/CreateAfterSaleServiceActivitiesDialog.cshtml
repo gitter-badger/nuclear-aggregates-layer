@@ -1,0 +1,90 @@
+﻿@using System.Globalization
+@using Platform.Model.Metadata.Enums
+
+@model Models.AfterSaleServiceCreateDialogModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.AfterSaleServiceActivitiesCreate }
+@section TopBarTitle { @BLResources.AfterSaleServiceActivitiesCreate }
+@section TopBarMessage { @BLResources.SpecifyMonthAndOrganizationUnit }
+
+@section PageContent
+{
+    <style type="text/css">
+        td.itemCaption
+        {
+            vertical-align: top;
+            padding-top: 5px;
+        }
+        td.itemValue
+        {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+
+            Ext.each(Ext.CardLookupSettings, function (item, i)
+            {
+                new window.Ext.ux.LookupField(item);
+            }, this);
+
+            // show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.getDom("Notifications").style.display = "block";
+                Ext.get("Notifications").addClass("Notifications");
+                Ext.getDom("OK").style.display = "none";
+                Ext.getDom("Cancel").value = Ext.LocalizedResources.Close;
+            }
+            else
+            {
+                Ext.get("Notifications").removeClass("Notifications");
+            }
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
+                {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
+                    {
+                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                    });
+
+                    // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                    // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                    Ext.getDom("Notifications").innerHTML = '@BLResources.AfterSalesServiceOperationStartedMessage';
+                    Ext.get("Notifications").addClass("Notifications");
+                    Ext.getDom("Notifications").style.display = "block";
+                    EntityForm.submit();
+                }
+            });
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="Tab">
+            <div class="row-wrapper">
+                @Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
+                @Html.HiddenFor(m => m.UserId)
+            </div>
+            
+            <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId + "&filterMovedToErm=true" })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Month, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
+            </div>
+        </div>
+    }
+}

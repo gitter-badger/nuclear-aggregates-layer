@@ -1,0 +1,356 @@
+﻿@model Models.AdvertisementElementPreviewModel
+
+<!DOCTYPE html>
+<html>
+<!--font: 1.1em sans-serif Arial; -->
+<head>
+    <title>@BLResources.PreviewAdvertisement</title>
+    <style type="text/css">
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
+        {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li
+        {
+            list-style: none;
+        }
+        
+        body
+        {
+            background: #fff;
+            color: #222;
+            font: 13px Arial, sans-serif;
+        }
+        
+        /* Links */
+        
+        a
+        {
+            color: #0070c0;
+        }
+        
+        a:hover
+        {
+            color: #579a23;
+            text-decoration: none;
+        }
+        
+        .pseudo
+        {
+            cursor: pointer;
+            color: #21201e;
+            border-bottom: 1px dotted #90a7b9;
+        }
+        
+        .pseudo, .link-natural
+        {
+            text-decoration: none;
+        }
+        
+        .link-text
+        {
+            border-bottom-style: solid;
+        }
+        
+        .pseudo .link-text
+        {
+            border-bottom-style: dotted;
+            border-bottom-color: #90A7B9;
+        }
+        
+        .pseudo:hover, .link-natural:hover
+        {
+            color: #004baf;
+        }
+        
+        a:hover .link-text, .link-natural, .pseudo:hover
+        {
+            border-bottom-color: transparent;
+        }
+        
+        .link-text
+        {
+            border-bottom-width: 1px;
+        }
+        
+        .link-natural .link-text
+        {
+            vertical-align: 1px;
+        }
+        
+        .dg-firm-bullet
+        {
+            background: url('/Content/images/Erm/Preview/Online/dg_sprite.png?@SolutionInfo.ProductVersion.Build') no-repeat;
+            background-position: 0 -258px;
+            position: absolute;
+            left: -12px;
+            top: 6px;
+            height: 6px;
+            width: 6px;
+        }
+        
+        .link-natural .link-text span, .dg-link-natural .dg-link-text span
+        {
+            vertical-align: -1px;
+        }
+        
+        .moz .link-natural .link-text span, .moz .dg-link-natural .dg-link-text span
+        {
+            vertical-align: -2px;
+        }
+        
+        .dg-firm
+        {
+            position: relative;
+            margin: 0 10px 20px 15px;
+            line-height: 1.35;
+        }
+        
+        .dg-firm-expanded
+        {
+            border-color: #c6d2db transparent #c6d2db #8499AA;
+            border-style: solid;
+            border-width: 1px 2px 1px 10px;
+            margin: -7px -10px 6px -15px;
+            padding: 6px 20px;
+        }
+        
+        .dg-firm-expanded .dg-firm-bullet
+        {
+            left: 8px;
+            top: 12px;
+        }
+        
+        .dg-firm-expanded .dg-firm-fas
+        {
+            margin-bottom: -3px;
+        }
+        
+        .dg-firm-head
+        {
+            cursor: pointer;
+        }
+        
+        .dg-firm-head:hover .pseudo .link-text
+        {
+            border-bottom-color: transparent;
+            color: #004baf;
+        }
+        
+        .dg-firm-title
+        {
+            cursor: pointer;
+        }
+        
+        .dg-firm-single .dg-firm-title .pseudo, .dg-firm-single .dg-firm-title .pseudo:hover, .dg-firm-single .dg-firm-title .link-text, .dg-firm-single .dg-firm-title .link-text:hover
+        {
+            border-bottom-color: transparent;
+            color: #343434 !important;
+            cursor: default;
+        }
+        
+        .dg-firm-title
+        {
+            margin: 0 0 3px;
+            word-wrap: break-word;
+        }
+        
+        .dg-firm-title, .dg-result-title, .dg-result-title a
+        {
+            color: #343434;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 19px;
+            vertical-align: 1px;
+        }
+        
+        h2, .dg-result-title
+        {
+            line-height: 22px;
+            color: #222;
+            font-size: 17px;
+        }
+        
+        .dg-firm-micro-comment
+        {
+            background: #fff8e7 url('/Content/images/Erm/Preview/Online/micro-comment-arrow.png?@SolutionInfo.ProductVersion.Build') no-repeat 0 0;
+            font-size: 13px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            padding: 5px 10px 7px;
+            margin: 0 -17px 0 -10px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .dg-firm-box
+        {
+            margin: 0 0 8px;
+        }
+        
+        .dg-firm-box .pseudo
+        {
+            color: #0070c0;
+            border-bottom: 1px dotted;
+            cursor: pointer;
+        }
+        
+        .dg-firm-box a:hover .pseudo, .dg-firm-box .pseudo:hover
+        {
+            color: #004baf;
+            border-bottom: 0;
+        }
+        
+        .dg-firm-row
+        {
+            margin: 0;
+            padding-right: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .dg-firm-ads-text
+        {
+            font-size: 13px;
+        }
+        
+        .dg-firm-fas
+        {
+            color: #888;
+            font-size: 11px;
+            margin-top: 3px;
+            line-height: 13px;
+        }
+        
+        .dg-firm-expanded .dg-firm-fas
+        {
+            margin-bottom: -3px;
+        }
+        
+        .dg-firm-ads .link-row
+        {
+            line-height: normal;
+            text-align: right;
+        }
+        
+        .result-view-more
+        {
+            text-align: right;
+        }
+        
+        .catalogue-item
+        {
+            padding-top: 1px;
+            padding-bottom: 5px;
+            line-height: 15px;
+            background: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .catalog-wrap
+        {
+            margin-right: 10px;
+            width: 340px;
+        }
+        
+        .dg-sidebar-content
+        {
+            padding: 0 0 0 10px;
+            width: 360px;
+            height: 100% !important;
+            position: relative;
+        }
+        
+        div.dg-firm-address
+        {
+            color: #70747a;
+            font-size: 13px;
+            margin: 0 0 1px;
+        }
+        
+        li.dg-firm-address a
+        {
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="dg-sidebar-content">
+        <div class="dgcontent">
+            <div class="catalog-wrap">
+                <div class="firm-list catalogue-item">
+                    <div class="results-list">
+                        <!--свернутая карточка-->
+                        <div class="dg-firm" id="cat-firm_id-141265770892498">
+                            <div class="dg-firm-bullet">
+                            </div>
+                            <div class="dg-firm-head">
+                                <h2 class="dg-firm-title dg-result-title">
+                                    <a href="javascript:void(0)" class="pseudo link-natural"><span class="link-text"><span>
+                                        @Model.OrgName</span></span></a>
+                                </h2>
+                                <div class="dg-firm-address">
+                                    <span style="">
+                                        @Model.Address</span> <span class="dg-firm-distance" style="display: none;">wtf?
+                                        </span>
+                                </div>
+                            </div>
+                            <!--микрокомментарий-->
+                            @if (Model.Microcomment != null)
+                               { 
+                            <div class="dg-firm-micro-comment">
+                                <div>
+                                    @Model.Microcomment</div>
+                                <div class="dg-firm-fas">
+                                    @Model.MicrocommentWarning
+                                </div>
+                            </div>
+                            } 
+                        </div>
+                        <!--развернутая карточка-->
+                        <div class="dg-firm dg-firm-expanded" id="cat-firm_id-141265770848362">
+                            <div class="dg-firm-bullet">
+                            </div>
+                            <div class="dg-firm-head">
+                                <h2 class="dg-firm-title dg-result-title">
+                                    <a href="javascript:void(0)" class="pseudo link-natural"><span class="link-text"><span>
+                                        @Model.OrgName
+                                    </span></span></a>
+                                </h2>
+                            </div>
+                        <div style="">
+                            <div class="dg-firm-popup">
+                                <!-- ADS BLOCK -->
+                                <ul class="dg-firm-box">
+                                    <li class="dg-firm-row">
+                                        <div class="dg-firm-ads" title="узнать больше">
+                                            <div class="dg-firm-ads-text">
+                                                @Html.Raw(Model.AdComment)
+                                            </div>
+                                            <div class="dg-firm-fas">
+                                                @Model.AdCommentWarning
+                                            </div>
+                                            <div class="link-row">
+                                                <span class="pseudo result-view-more">@BLResources.PreviewMore </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

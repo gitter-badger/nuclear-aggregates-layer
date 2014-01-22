@@ -1,0 +1,58 @@
+﻿
+@model Models.OrderProcessingRequestViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.ux.RequestMessagesTab.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    @* Эти ссылки для отображения окошечка с ошибками актуализаци. Вероятно, этот функционал уйдет. *@
+    <link rel="stylesheet" type="text/css" href="/Content/order.css?@SolutionInfo.ProductVersion.Build" />
+    <script src="/Scripts/Ext.DoubleGis.UI.Order.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    
+    <script src="/Scripts/Ext.DoubleGis.UI.OrderProcessingRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @{ var readonlyTextbox = new Dictionary<string, object> { { "readonly", "readonly" } }; }
+    @{ var readonlyCombobox = new Dictionary<string, object> { { "disabled", "disabled" } }; }
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.DueDate)
+    @Html.HiddenFor(m => m.LegalPersonProfile)
+    @Html.HiddenFor(m => m.RequestType)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Title, FieldFlex.lone, readonlyTextbox)
+        </div>
+        <div class="row-wrapper" >
+            @Html.TemplateField(m => m.State, FieldFlex.lone, readonlyCombobox, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ReleaseCountPlan, FieldFlex.lone, readonlyTextbox)
+        </div> 
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = true })
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true })
+        </div> 
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BaseOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
+            @Html.TemplateField(m => m.RenewedOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.DueDateString, FieldFlex.twins, readonlyTextbox)
+            @Html.TemplateField(m => m.BeginDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", 12 }, { "readonly", "readonly" } })
+        </div>
+    </div>
+}
+

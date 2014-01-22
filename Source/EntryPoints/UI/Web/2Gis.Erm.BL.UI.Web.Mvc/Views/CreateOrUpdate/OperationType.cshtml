@@ -1,0 +1,46 @@
+﻿
+@model Models.OperationTypeViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.twins)
+            <div class="display-wrapper field-wrapper twins" id="IsPlus-wrapper">
+                <div class="label-wrapper">
+                    @Html.LabelFor(m => m.IsPlus)
+                </div>
+                <div class="input-wrapper">
+                    @Html.DropDownListFor(m => m.IsPlus,
+                                          new[]
+                                            {
+                                                new SelectListItem { Text = BLResources.Withdrawal, Value = bool.FalseString },
+                                                new SelectListItem { Text = BLResources.Charge, Value = bool.TrueString }
+                                            }, 
+                                          new Dictionary<string, object> { { "class", "inputfields" } })
+                </div>
+            </div>
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+        </div>
+    </div>
+    <div class="Tab" style="width: 100%; height: 100%;" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsInSyncWith1C, FieldFlex.twins)
+            @Html.TemplateField(m => m.SyncCode1C, FieldFlex.twins)
+        </div>
+    </div>
+}

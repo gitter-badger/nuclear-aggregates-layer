@@ -1,0 +1,124 @@
+﻿
+@model Models.OrganizationUnitViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        window.InitPage = function() {
+            Ext.apply(this, {
+                createUri: function(args) {
+                    var s = '';
+                    for (var name in args)
+                        s += name + '=' + encodeURIComponent(args[name]);
+                    return '?' + s;
+                },
+                foo: function() {
+                    if (this.form.Id.value == 0)
+                        return;
+
+                    var cnt = Ext.getCmp('ContentTab_holder');
+                    var tp = Ext.getCmp('TabWrapper');
+                    tp.anchor = "100%, 60%";
+                    delete tp.anchorSpec;
+                    cnt.add(new Ext.Panel({
+                        id: 'positionFrame_holder',
+                        anchor: '100%, 40%',
+                        html: '<iframe id="positionFrame_frame"></iframe>'
+                    }));
+                    cnt.doLayout();
+                    var mask = new window.Ext.LoadMask(window.Ext.get("positionFrame_holder"));
+                    mask.show();
+                    var iframe = Ext.get('positionFrame_frame');
+
+
+                    var frameUrl = String.format('{0}/{1}/{2}',
+                        '/Grid/View/UserOrganizationUnit/null',
+                        this.form.Id.value,
+                        this.ReadOnly ? 'Inactive' : 'Active');
+                    var requestParametrs = { extendedInfo: 'orgUnitId=' + this.form.Id.value, singleDataView: 'DListUsersInOrganizationUnit' };
+                    iframe.dom.src = Ext.urlAppend(frameUrl, Ext.urlEncode(requestParametrs));
+
+                    iframe.on('load', function(evt, el) {
+                        el.height = Ext.get(el.parentElement).getComputedHeight();
+                        el.width = Ext.get(el.parentElement).getComputedWidth();
+                        el.style.height = "100%";
+                        el.style.width = "100%";
+                        el.contentWindow.Ext.onReady(function() {
+                            el.contentWindow.IsBottomOrderPositionDataList = true;
+                        });
+                        this.hide();
+                    }, mask);
+                    cnt.doLayout();
+                },
+                ManageCategories: function() {
+
+                    var organizationUnitId = Ext.getDom("Id").value;
+                    if (organizationUnitId == 0) {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: Ext.LocalizedResources.CardIsNewAlert,
+                            buttons: Ext.MessageBox.OK,
+                            icon: Ext.MessageBox.ERROR
+                        });
+                        return;
+                    }
+
+                    var url = '/CategoryGroupsMembership/Manage?organizationUnitId={0}';
+
+                    var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3},scroll=no",
+                        window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight,
+                        window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
+
+                    window.open(String.format(url, organizationUnitId), "_blank", params);
+                }
+            });
+
+            this.on("afterbuild", this.foo, this);
+            this.on("formbind", this.foo, this);
+        }
+
+    </script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    @Html.HiddenFor(m => m.CanEditFirstEmitDate)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Country, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Country})
+            @Html.TemplateField(m => m.FirstEmitDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ErmLaunchDate, FieldFlex.twins)
+            @Html.TemplateField(m => m.InfoRussiaLaunchDate, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Code, FieldFlex.twins)
+            @Html.TemplateField(m => m.ElectronicMedia, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.TimeZone, FieldFlex.lone, new LookupSettings { EntityName = EntityName.TimeZone})
+        </div>
+    </div>
+    <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
+        @Html.SectionHead("section", @BLResources.TitleDgppIntegration)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.DgppId, FieldFlex.lone)
+        </div>
+        @Html.SectionHead("section", @BLResources.Title1CIntegration)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.SyncCode1C, FieldFlex.lone)
+        </div>
+    </div>
+}
