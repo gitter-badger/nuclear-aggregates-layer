@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Qds.Etl</RootNamespace>
+    <AssemblyName>2Gis.Erm.Qds.Etl</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extract\EF\DocsStorageChangesTrackerState.cs" />
+    <Compile Include="Extract\EF\EntityLink.cs" />
+    <Compile Include="Extract\EF\ChangesReferencesBuilder.cs" />
+    <Compile Include="Extract\EF\ErmExtractor.cs" />
+    <Compile Include="Extract\EF\EntityLinksDataSource.cs" />
+    <Compile Include="Extract\EF\ErmData.cs" />
+    <Compile Include="Extract\EF\IChangeDescriptor.cs" />
+    <Compile Include="Extract\EF\IChangesCollector.cs" />
+    <Compile Include="Extract\EF\IChangesTrackerState.cs" />
+    <Compile Include="Extract\EF\IEntityLinkBuilder.cs" />
+    <Compile Include="Extract\EF\IEntityLinkFilter.cs" />
+    <Compile Include="Extract\EF\ITrackState.cs" />
+    <Compile Include="Extract\EF\OperationsLogChangesCollector.cs" />
+    <Compile Include="Extract\EF\PboChangeDescriptor.cs" />
+    <Compile Include="Extract\EF\PboEntityLinkBuilder.cs" />
+    <Compile Include="Extract\EF\RecordIdState.cs" />
+    <Compile Include="Extract\EF\RelationsMetaEntityLinkFilter.cs" />
+    <Compile Include="Extract\EF\TypedEntitySet.cs" />
+    <Compile Include="Flow\EtlFlow.cs" />
+    <Compile Include="Extract\IExtractor.cs" />
+    <Compile Include="Extract\IDataSource.cs" />
+    <Compile Include="Extract\EF\IReferencesBuilder.cs" />
+    <Compile Include="Extract\EF\IReferencesConsumer.cs" />
+    <Compile Include="Flow\IEtlFlow.cs" />
+    <Compile Include="Publish\DocsPublisher.cs" />
+    <Compile Include="Transform\Docs\ClientGridDoc.cs" />
+    <Compile Include="Transform\Docs\ClientGridDocQdsComponent.cs" />
+    <Compile Include="Transform\Docs\ClientGridDocMapper.cs" />
+    <Compile Include="Transform\Docs\DocsSelector.cs" />
+    <Compile Include="Transform\Docs\EnumResourcesEnumLocalizer.cs" />
+    <Compile Include="Transform\Docs\RelationalDocsFinder.cs" />
+    <Compile Include="Transform\Docs\FieldsEqualsDocsQueryBuilder.cs" />
+    <Compile Include="Transform\Docs\IDocMapper.cs" />
+    <Compile Include="Transform\Docs\IEnumLocalizer.cs" />
+    <Compile Include="Transform\Docs\IRelationalDocsFinder.cs" />
+    <Compile Include="Transform\Docs\IQdsComponent.cs" />
+    <Compile Include="Transform\Docs\TerritoryDoc.cs" />
+    <Compile Include="Transform\Docs\TerritoryDocMapper.cs" />
+    <Compile Include="Transform\Docs\TerritoryDocQdsComponent.cs" />
+    <Compile Include="Transform\Docs\UserDoc.cs" />
+    <Compile Include="Transform\Docs\UserDocQdsComponent.cs" />
+    <Compile Include="Transform\Docs\UserDocMapper.cs" />
+    <Compile Include="Transform\EF\DictionaryDocModifiersRegistry.cs" />
+    <Compile Include="Transform\EF\IDocRelation.cs" />
+    <Compile Include="Transform\EF\Link.cs" />
+    <Compile Include="Transform\EF\DocRelation.cs" />
+    <Compile Include="Transform\EF\TransformRelations.cs" />
+    <Compile Include="Transform\EF\DocsSource.cs" />
+    <Compile Include="Transform\EF\ErmEntitiesDenormalizer.cs" />
+    <Compile Include="Transform\EF\ITransformRelations.cs" />
+    <Compile Include="Transform\EF\IDocsSelector.cs" />
+    <Compile Include="Transform\EF\IDocsMetaData.cs" />
+    <Compile Include="Transform\EF\ErmDocsMetaData.cs" />
+    <Compile Include="Transform\EF\IDocModifiersRegistry.cs" />
+    <Compile Include="Transform\ITransformation.cs" />
+    <Compile Include="Extract\IData.cs" />
+    <Compile Include="Extract\IDataConsumer.cs" />
+    <Compile Include="Publish\IPublisher.cs" />
+    <Compile Include="Transform\ITransformedData.cs" />
+    <Compile Include="Transform\ITransformedDataConsumer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transform\EF\DenormalizerTransformation.cs" />
+    <Compile Include="Transform\EF\DenormalizedTransformedData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="2Gis.Erm.PublicKey.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
