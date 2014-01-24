@@ -888,12 +888,13 @@ window.InitPage = function () {
             var discountReason = Ext.get('DiscountReason');
             var discountComment = Ext.get('DiscountComment');
             var discountPercent = parseFloat(Ext.fly('DiscountPercent').getValue());
+            var disabled = window.Ext.getDom("ViewConfig_ReadOnly").checked;
 
             if (discountPercent == 0 || isNaN(discountPercent)) {
                 discountReason.dom.disabled = true;
                 discountComment.addClass('readonly');
             }
-            else if (discountPercent > 0) {
+            else if (discountPercent > 0 && !disabled) {
                 discountReason.dom.disabled = false;
                 discountComment.removeClass('readonly');
             }

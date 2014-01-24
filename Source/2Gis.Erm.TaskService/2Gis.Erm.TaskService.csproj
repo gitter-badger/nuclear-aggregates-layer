@@ -118,6 +118,10 @@
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BLCore.API.MoDi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
       <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
       <Name>2Gis.Erm.BLFlex.DI</Name>
