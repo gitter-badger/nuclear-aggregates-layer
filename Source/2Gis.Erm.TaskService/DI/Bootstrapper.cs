@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.TaskService.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
@@ -55,6 +56,11 @@ namespace DoubleGis.Erm.TaskService.DI
     {
         public static IUnityContainer ConfigureUnity(ITaskServiceAppSettings settings)
         {
+            var requiredTypes = new[]
+                {
+                    typeof(TaskObtainer) // чтобы в домен загрузилась сборка 2Gis.Erm.BLFlex.Operations.Global
+                };
+
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
             
