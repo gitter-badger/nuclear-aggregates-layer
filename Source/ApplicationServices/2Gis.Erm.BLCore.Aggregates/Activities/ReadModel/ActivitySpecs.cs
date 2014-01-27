@@ -49,10 +49,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                                              .Where(y => y.PropertyId == DealIdIdentity.Instance.Id)
                                              .Select(y => y.NumericValue)
                                              .FirstOrDefault(),
-                            Status = (ActivityStatus)x.ActivityPropertyInstances
-                                                      .Where(y => y.PropertyId == StatusIdentity.Instance.Id)
-                                                      .Select(y => y.NumericValue)
-                                                      .FirstOrDefault(),
+                            Status = (ActivityStatus)(int)x.ActivityPropertyInstances
+                                                           .Where(y => y.PropertyId == StatusIdentity.Instance.Id)
+                                                           .Select(y => y.NumericValue)
+                                                           .FirstOrDefault(),
                         });
                 }
 
