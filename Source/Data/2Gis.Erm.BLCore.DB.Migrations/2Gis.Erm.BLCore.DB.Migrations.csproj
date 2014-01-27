@@ -671,7 +671,6 @@
     <Compile Include="2.0\2014.01.15 rev. 15072 - Increase Release messages persistence columns.cs" />
     <Compile Include="2.0\2014.01.14 rev. 14997 - Alter GetFirmTerritories.cs" />
     <Compile Include="2.0\2014.01.10 rev. 14776 - set TerritoryId to null in FirmAddresses.cs" />
-    <Compile Include="2.1\2014.01.26 rev. 15459 - create EAV tables for dictionary and business entities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
