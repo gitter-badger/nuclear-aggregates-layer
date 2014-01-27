@@ -228,14 +228,6 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public T ExecuteInConnection<T>(Func<DbConnection, T> func)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                return func.Invoke(connection);
-            }
-        }
-
         private static T Cast<T>(object value)
         {
             if (IsNullable(typeof(T)))

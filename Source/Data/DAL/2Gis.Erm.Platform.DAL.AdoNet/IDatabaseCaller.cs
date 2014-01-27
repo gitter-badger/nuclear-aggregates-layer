@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 
 namespace DoubleGis.Erm.Platform.DAL.AdoNet
 {
@@ -18,8 +17,6 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
         // Для хранимок, которые возвращают массив результатов
         IEnumerable<T> ExecuteProcedureWithSelectListOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
         IEnumerable<T> ExecuteProcedureWithPreeneratedIdsAndSelectListOf<T>(string procedureName, int? commandTimeout, IEnumerable<long> pregeneratedIds, params Tuple<string, object>[] inputParameters);
-
-        T ExecuteInConnection<T>(Func<DbConnection, T> func);
 
         Tuple<string, object>[] ExecuteProcedureWithOutputParameter(string procedureName, Tuple<string, object>[] inputParameters, Tuple<string, Type>[] outputParameterName);
         void ExecuteProcedure(string procedureName, params Tuple<string, object>[] inputParameters);
