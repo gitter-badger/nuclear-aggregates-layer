@@ -5,6 +5,9 @@
     <Content Condition="Exists($(VersionFilePath))" Include="$(VersionFilePath)">
       <Link>$([System.IO.Path]::GetFileName($(VersionFilePath)))</Link>
     </Content>
+    <Content Condition="Exists($(BranchFilePath))" Include="$(BranchFilePath)">
+      <Link>$([System.IO.Path]::GetFileName($(BranchFilePath)))</Link>
+    </Content>
   </ItemGroup>
 
   <Target Name="AddExtraItemsToSourceManifest" AfterTargets="AddContentPathToSourceManifest" Label="Включаем анонимную и Windows аутентификацию">
