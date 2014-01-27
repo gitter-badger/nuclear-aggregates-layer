@@ -63,11 +63,13 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="IReport.cs" />
+    <Compile Include="IReportsSqlConnectionWrapper.cs" />
     <Compile Include="LegalPersonPayments\LegalPersonPayments.cs" />
     <Compile Include="ProtectedDictionary.cs" />
     <Compile Include="ReportBase.cs" />
     <Compile Include="PlanningReport\PlanningReport.cs" />
     <Compile Include="SpreadsheetReportBase.cs" />
+    <Compile Include="ReportsSqlConnectionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LegalPersonPayments\Категории_и_распределение.sql" />

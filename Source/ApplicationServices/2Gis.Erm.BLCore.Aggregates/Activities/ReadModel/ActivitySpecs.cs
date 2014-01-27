@@ -50,9 +50,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                                              .Select(y => y.NumericValue)
                                              .FirstOrDefault(),
                             Status = (ActivityStatus)(int)x.ActivityPropertyInstances
-                                                           .Where(y => y.PropertyId == StatusIdentity.Instance.Id)
-                                                           .Select(y => y.NumericValue)
-                                                           .FirstOrDefault(),
+                                                      .Where(y => y.PropertyId == StatusIdentity.Instance.Id)
+                                                      .Select(y => y.NumericValue)
+                                                      .FirstOrDefault(),
                         });
                 }
 

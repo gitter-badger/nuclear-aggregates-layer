@@ -79,13 +79,11 @@
     <Compile Include="Export\ExportMetadata.Order.cs" />
     <Compile Include="BargainPersistenceService.cs" />
     <Compile Include="Export\QueryBuider\OperationsQueryBuilder.cs" />
-    <Compile Include="Reports\PlanningReportPersistenceService.cs" />
     <Compile Include="FirmPersistenceService.cs" />
     <Compile Include="IBargainPersistenceService.cs" />
     <Compile Include="IClientPersistenceService.cs" />
     <Compile Include="IFirmPersistenceService.cs" />
     <Compile Include="IOrderPersistenceService.cs" />
-    <Compile Include="Reports\IPlanningReportPersistenceService.cs" />
     <Compile Include="IReplicationPersistenceService.cs" />
     <Compile Include="Reports\IReportPersistenceService.cs" />
     <Compile Include="IUserPersistenceService.cs" />
@@ -122,10 +120,6 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
-      <Project>{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}</Project>
-      <Name>2Gis.Erm.BLCore.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>

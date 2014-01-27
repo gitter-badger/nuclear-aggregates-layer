@@ -2,22 +2,22 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
+using DoubleGis.Erm.BLCore.Reports;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Reports
 {
     public sealed class PlanningReportHandler : RequestHandler<PlanningReportRequest, PlanningReportResponse>
     {
-        private readonly IPlanningReportPersistenceService _planningReportPersistenceService;
+        private readonly IReportsSqlConnectionWrapper _reportsSqlConnectionWrapper;
 
-        public PlanningReportHandler(IPlanningReportPersistenceService planningReportPersistenceService)
+        public PlanningReportHandler(IReportsSqlConnectionWrapper reportsSqlConnectionWrapper)
         {
-            _planningReportPersistenceService = planningReportPersistenceService;
+            _reportsSqlConnectionWrapper = reportsSqlConnectionWrapper;
         }
 
         protected override PlanningReportResponse Handle(PlanningReportRequest request)
         {
-            var stream = _planningReportPersistenceService.GetPlanningReportStream(request.OrganizationUnitId, request.PlanningMonth, request.IsAdvertisingAgency);
+            var stream = _reportsSqlConnectionWrapper.GetPlanningReportStream(request.OrganizationUnitId, request.PlanningMonth, request.IsAdvertisingAgency);
 
             return new PlanningReportResponse { OutputStream = stream, ContentType = MediaTypeNames.Application.Octet };
         }

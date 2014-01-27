@@ -9,5 +9,6 @@
         public const string Integration = "Integration";
         public const string Shared = "Shared";
         public const string BusinessDirectory = "BusinessDirectory";
+        public const string DynamicStorage = "DynamicStorage";
     }
 }
