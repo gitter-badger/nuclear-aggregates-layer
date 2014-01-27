@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
@@ -52,15 +54,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
     internal static class Bootstrapper
     {
+        // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
+        private static readonly Type[] EagerLoading = { typeof(ActionsLogger), typeof(LegalPersonObtainer) };
+
         public static IUnityContainer ConfigureUnity(ITestAPIInProcOperationsSettings settings)
         {
-            // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-            var requiredTypes = new []
-                {
-                    typeof(ActionsLogger),
-                    typeof(LegalPersonObtainer)
-                };
-
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 

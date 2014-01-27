@@ -33,6 +33,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
+using DoubleGis.Erm.BLCore.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
@@ -275,6 +276,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
+
+                .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(settings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
 
                 .RegisterTypeWithDependencies<IJournalMakeRegionalAdsDocsService, JournalMakeRegionalAdsDocsService>(Mapping.SimplifiedModelConsumerScope, CustomLifetime.PerRequest)
                 .RegisterType<IValidateFileService, ValidateFileService>(CustomLifetime.PerRequest)

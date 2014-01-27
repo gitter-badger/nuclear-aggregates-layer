@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
@@ -54,13 +55,10 @@ namespace DoubleGis.Erm.TaskService.DI
 {
     internal static class Bootstrapper
     {
+        private static readonly Type[] EagerLoading = { typeof(TaskObtainer) }; // чтобы в домен загрузилась сборка 2Gis.Erm.BLFlex.Operations.Global
+
         public static IUnityContainer ConfigureUnity(ITaskServiceAppSettings settings)
         {
-            var requiredTypes = new[]
-                {
-                    typeof(TaskObtainer) // чтобы в домен загрузилась сборка 2Gis.Erm.BLFlex.Operations.Global
-                };
-
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
             

@@ -1262,6 +1262,10 @@
       <Project>{f2833a2e-0e6f-4a3e-b8d3-35b7165085a1}</Project>
       <Name>2Gis.Erm.BLCore.Releasing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
+      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
+      <Name>2Gis.Erm.BLCore.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5fc26f81-5100-43b5-b55b-e470308338d2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
