@@ -640,6 +640,8 @@
     <Content Include="Content\slider.css" />
     <Content Include="Content\Spinner.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\Cyprus\DataList\LegalPerson.DataList.js" />
+    <Content Include="Scripts\Czech\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.CzechOrder.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.CzechActivityBase.js" />
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.CyprusOrder.js" />

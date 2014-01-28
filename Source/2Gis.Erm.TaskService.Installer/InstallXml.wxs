@@ -53,12 +53,23 @@
     <!-- directories -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="$(var.PlatformProgramFilesFolder)">
-        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)" />
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)">
+          <Directory Id="DIR_x86" Name="x86" />
+          <Directory Id="DIR_x64" Name="x64" />
+        </Directory>
       </Directory>
     </Directory>
 
     <!-- third party components -->
     <ComponentGroup Id="ThirdPartyComponents">
+
+      <Component Id="x86_7z.dll" Directory="DIR_x86" Guid="*">
+        <File Id="x86_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip9.22\x86\7z.dll" />
+      </Component>
+
+      <Component Id="x64_7z.dll" Directory="DIR_x64" Guid="*">
+        <File Id="x64_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip9.22\x64\7z.dll" />
+      </Component>
 
       <Component Id="SevenZipSharp.dll" Directory="INSTALLFOLDER" Guid="*">
         <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />

@@ -152,8 +152,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\CheckLimitLockedByReleaseHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\CreateLimitHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\PrintLimitsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\RecalculateLimitHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\SetLimitStatusHandlerTest.cs" />

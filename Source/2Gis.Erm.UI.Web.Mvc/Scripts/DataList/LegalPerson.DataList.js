@@ -13,7 +13,7 @@ window.InitPage = function () {
         Ext.apply(this, {
             Merge: function () {
                 var params = "dialogWidth:" + 700 + "px; dialogHeight:" + 350 + "px; status:yes; scroll:yes;resizable:yes;";
-                var url = '/LegalPerson/Merge?masterId={0}&subordinateId={1}';
+                var url = '/Russia/LegalPerson/Merge?masterId={0}&subordinateId={1}';
                 var selectedItems = this.Items.Grid.getSelectionModel().selections.items;
 
                 if (!selectedItems.length || selectedItems.length == 0 || selectedItems.length > 2) {
