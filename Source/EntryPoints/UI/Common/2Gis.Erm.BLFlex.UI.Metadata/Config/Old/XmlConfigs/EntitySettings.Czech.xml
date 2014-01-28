@@ -1593,9 +1593,9 @@
           <Script FileName="DataList/LegalPersonProfile.DataList.js" />
         </Scripts>
         <ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Create" Icon="Create.gif" />
-          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="606" />
-          <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeProfileMain" ControlType="TextImageButton" LockOnInactive="false" Action="scope.MakeMain" Icon="Merge.gif" />
+          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.Create" Icon="Create.gif" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" DisableOnEmpty="true" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="606" />
+          <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeProfileMain" DisableOnEmpty="true" ControlType="TextImageButton" LockOnInactive="true" Action="scope.MakeMain" Icon="Merge.gif" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Expression="it.Id" Width="0" Hidden="true" Filtered="false" FieldType="Int" ExtTypeName="String" DotNetTypeName="System.String" />
