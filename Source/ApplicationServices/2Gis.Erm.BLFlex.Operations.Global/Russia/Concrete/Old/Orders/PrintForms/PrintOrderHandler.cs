@@ -117,8 +117,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         private TemplateCode GetTemplateCode(PrintOrderRequest request)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new { order.SourceOrganizationUnitId, WithDiscount = order.DiscountSum > 0 })
-                .Single();
+                                   .Select(order => new
+                                       {
+                                           order.SourceOrganizationUnitId,
+                                           WithDiscount = order.DiscountSum.HasValue && order.DiscountSum > 0
+                                       })
+                                   .Single();
 
             var templateCode = GetLocalTemplateCode(orderInfo.SourceOrganizationUnitId, orderInfo.WithDiscount);
             return templateCode;
