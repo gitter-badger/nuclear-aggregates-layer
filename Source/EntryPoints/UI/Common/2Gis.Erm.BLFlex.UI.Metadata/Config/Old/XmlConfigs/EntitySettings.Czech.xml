@@ -1370,7 +1370,7 @@
     <DataLists>
       <DataList NameLocaleResourceId="DListLegalPersons" DefaultSortField="LegalName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="LegalName" Icon="en_ico_16_Default.gif" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true">
         <Scripts>
-          <Script FileName="DataList/LegalPerson.DataList.js" />
+          <Script FileName="Czech/DataList/LegalPerson.DataList.js" />
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
@@ -1427,9 +1427,9 @@
         <ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
-        <ToolbarItem ParentName="Actions" Name="ApproveLimit" NameLocaleResourceId="ControlApproveLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.ApproveLimit" />
-        <ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RejectLimit" />
-        <ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.OpenLimit" />
+        <ToolbarItem ParentName="Actions" Name="ApproveLimit" NameLocaleResourceId="ControlApproveLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.ApproveLimit" />
+        <ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.RejectLimit" />
+        <ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.OpenLimit" />
         <ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
       </ToolbarItems>
     </Card>
