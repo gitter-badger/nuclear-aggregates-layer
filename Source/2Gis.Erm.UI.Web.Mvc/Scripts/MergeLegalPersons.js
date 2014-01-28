@@ -19,7 +19,7 @@ Ext.ux.MergeLegalPersonsUtility = Ext.extend(Object,
                     if (Ext.getCmp("LegalPerson1").getValue() && Ext.getCmp("LegalPerson2").getValue()) {
                         Ext.Ajax.request(
                             {
-                                url: "/LegalPerson/MergeLegalPersonsGetData",
+                                url: "/Russia/LegalPerson/MergeLegalPersonsGetData",
                                 scope: this,
                                 params: { masterId: Ext.getCmp("LegalPerson1").getValue().id, subordinateId: Ext.getCmp("LegalPerson2").getValue().id },
                                 success: this.getLegalPersonsDataSuccess,

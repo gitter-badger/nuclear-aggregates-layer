@@ -265,6 +265,7 @@
     <None Include="Properties\PublishProfiles\Production.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia2.pubxml" />
     <None Include="Properties\PublishProfiles\Test.16.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.201.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
     <None Include="Web.Edu.Cyprus.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -373,6 +374,9 @@
     <None Include="Web.Test.20.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Test.201.config">
+      <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.21.config">
       <DependentUpon>Web.config</DependentUpon>

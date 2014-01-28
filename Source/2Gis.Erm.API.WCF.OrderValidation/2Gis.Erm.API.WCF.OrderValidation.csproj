@@ -238,6 +238,7 @@
     <None Include="Properties\PublishProfiles\Test.18.pubxml" />
     <None Include="Properties\PublishProfiles\Test.19.pubxml" />
     <None Include="Properties\PublishProfiles\Test.20.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.201.pubxml" />
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
     <None Include="Web.Build.Russia.config">
@@ -345,6 +346,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.20.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.201.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.21.config">
