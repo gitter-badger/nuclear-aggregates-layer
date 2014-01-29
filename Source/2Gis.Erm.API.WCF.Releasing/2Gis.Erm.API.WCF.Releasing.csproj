@@ -245,6 +245,9 @@
     <None Include="Web.Test.22.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+	<None Include="Web.Test.23.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Common.cs">
