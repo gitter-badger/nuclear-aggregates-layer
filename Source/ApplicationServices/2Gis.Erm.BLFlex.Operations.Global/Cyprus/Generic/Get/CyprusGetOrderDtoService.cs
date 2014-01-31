@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -36,16 +37,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
         private readonly IFirmRepository _firmRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;
+        private readonly IAppSettings _appSettings;
 
         public CyprusGetOrderDtoService(IUserContext userContext,
-                                       ISecureFinder finder,
-                                       ISecurityServiceFunctionalAccess functionalAccessService,
-                                       ISecurityServiceEntityAccess entityAccessService,
-                                       IOrderRepository orderRepository,
-                                       IDealRepository dealRepository,
-                                       IBranchOfficeRepository branchOfficeRepository,
-                                       IFirmRepository firmRepository,
-                                       IUserRepository userRepository)
+                                        ISecureFinder finder,
+                                        ISecurityServiceFunctionalAccess functionalAccessService,
+                                        ISecurityServiceEntityAccess entityAccessService,
+                                        IOrderRepository orderRepository,
+                                        IDealRepository dealRepository,
+                                        IBranchOfficeRepository branchOfficeRepository,
+                                        IFirmRepository firmRepository,
+                                        IUserRepository userRepository,
+                                        IAppSettings appSettings)
             : base(userContext)
         {
             _finder = finder;
@@ -57,6 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
             _branchOfficeRepository = branchOfficeRepository;
             _firmRepository = firmRepository;
             _userRepository = userRepository;
+            _appSettings = appSettings;
         }
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
@@ -168,8 +172,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
             // То же делается на клиентской стороне при асинхронных пересчетах при изменении этих полей
             if (dto.DiscountSum.HasValue && dto.DiscountPercent.HasValue)
             {
-                dto.DiscountSum = Math.Round(dto.DiscountSum.Value, 2, MidpointRounding.ToEven);
+                dto.DiscountSum = Round(dto.DiscountSum.Value);
             }
+
+            dto.PayablePlan = Round(dto.PayablePlan);
+            dto.PayableFact = Round(dto.PayableFact);
+            dto.PayablePrice = Round(dto.PayablePrice);
+            dto.VatPlan = Round(dto.VatPlan);
+            dto.AmountWithdrawn = Round(dto.AmountWithdrawn);
+            dto.AmountToWithdraw = Round(dto.AmountToWithdraw);
 
             return dto;
         }
@@ -468,6 +479,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
             orderDto.DealRef = new EntityReference { Id = dealInfo.Id, Name = dealInfo.Name };
 
             orderDto.DealCurrencyId = dealInfo.CurrencyId;
+        }
+
+        private decimal Round(decimal value)
+        {
+            // если внезапно за значимыми знаками стоят не 0, то округлять не будем
+            var x = value * (int)Math.Pow(10, _appSettings.SignificantDigitsNumber);
+            if ((x - (int)x) != 0)
+            {
+                return value;
+            }
+
+            return Math.Round(value, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
         }
     }
 }

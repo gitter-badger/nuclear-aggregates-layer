@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         {
             return container
                     .RegisterType<ICheckInnService, RussiaCheckInnService>(Lifetime.Singleton)
-                    .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"));
+                    .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
+                    .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}-счёт"));
         }
     }
 }
