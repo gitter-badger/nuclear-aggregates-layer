@@ -54,5 +54,28 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
             return entity;
         }
+
+        public static bool SameVersionAs(this IStateTrackingEntity entity1, IStateTrackingEntity entity2)
+        {
+            if (entity1.Timestamp == null || entity2.Timestamp == null)
+            {
+                return false;
+            }
+
+            if (entity1.Timestamp.Length != entity2.Timestamp.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < entity1.Timestamp.Length; i++)
+            {
+                if (entity1.Timestamp[i] != entity2.Timestamp[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
