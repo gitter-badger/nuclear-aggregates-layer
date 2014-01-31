@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -40,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
             var ordersForReleasesByOtherOrganizationUnits =
                 _finder.Find(OrderSpecs.Orders.Find.AllForReleaseByPeriodExceptOrganizationUnit(releasingOrganizationUnitId, period)
+                               && Specs.Find.ActiveAndNotDeleted<Order>()
                                && OrderSpecs.Orders.Find.HasLegalPerson())
                        .Select(o => new
                            {
@@ -70,6 +72,41 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                     .Where(Specs.Find.ActiveAndNotDeleted<Limit>()
                             && AccountSpecs.Limits.Find.ApprovedForPeriod(period))
                     .ToArray();
+        }
+
+        public bool TryGetLimitLockingRelease(Limit limit, out string name)
+        {
+            name = null;
+
+            var checkingPeriod = new TimePeriod(limit.StartPeriodDate, limit.EndPeriodDate);
+            // Собираем все потенциально блокирующие сборки по данному лимиту
+            var releaseInfos = 
+                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(
+                                    checkingPeriod,
+                                    ReleaseStatus.InProgressInternalProcessingStarted, 
+                                    ReleaseStatus.InProgressWaitingExternalProcessing, 
+                                    ReleaseStatus.Success));
+           
+            var checkingOrders = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
+                                              && OrderSpecs.Orders.Find.ByPeriod(checkingPeriod)
+                                              && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination, OrderState.Archive)
+                                              && OrderSpecs.Orders.Find.ByAccount(limit.AccountId));
+
+            var blockingReleases = 
+                    checkingOrders
+                        .Join(releaseInfos,
+                              order => order.DestOrganizationUnitId,
+                              relInfo => relInfo.OrganizationUnitId,
+                              (order, relInfo) => new { relInfo.Id, relInfo.Status, relInfo.IsBeta, relInfo.StartDate, relInfo.OrganizationUnit.Name })
+                        .OrderByDescending(x => x.StartDate)
+                        .FirstOrDefault();
+            if (blockingReleases == null)
+            {
+                return false;
+            }
+            
+            name = blockingReleases.Name;
+            return true;
         }
 
         public IEnumerable<Limit> GetHungLimitsByOrganizationUnitForDate(long organizationUnitId, DateTime limitStart)
@@ -229,7 +266,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
-            return _finder.Find(AccountSpecs.Accounts.ForLegalPersons(legalPersonId, branchOfficeOrganizationUnitId))
+            return _finder.Find(AccountSpecs.Accounts.Find.ForLegalPersons(legalPersonId, branchOfficeOrganizationUnitId))
                           .FirstOrDefault();
         }
 

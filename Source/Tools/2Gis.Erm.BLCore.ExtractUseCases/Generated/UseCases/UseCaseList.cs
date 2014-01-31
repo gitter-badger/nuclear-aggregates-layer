@@ -133,13 +133,13 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                                 }
                         }
                     }
-                },
+                }
             };
         }
 
         private static IEnumerable<UseCase> GetUseCases()
         {
-            return new UseCase[]
+            return new[]
             {
                 new UseCase
                 {
@@ -676,15 +676,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(EditLimitHandler),
-                        Request = typeof(EditRequest<Limit>),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CheckLimitLockedByReleaseHandler),
-            Request = typeof(CheckLimitLockedByReleaseRequest)
-        }
-    }
+                        Request = typeof(EditRequest<Limit>)
                     }
                 },
                 new UseCase
@@ -774,7 +766,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(EditPlatformHandler),
-                        Request = typeof(EditRequest<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>)
+                        Request = typeof(EditRequest<Platform.Model.Entities.Erm.Platform>)
                     }
                 },
                 new UseCase
@@ -848,29 +840,11 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 new UseCase
                 {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CheckLimitLockedByReleaseHandler),
-                        Request = typeof(CheckLimitLockedByReleaseRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(SetLimitStatusHandler),
-                        Request = typeof(SetLimitStatusRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CheckLimitLockedByReleaseHandler),
-            Request = typeof(CheckLimitLockedByReleaseRequest)
-        }
-    }
+                        Request = typeof(SetLimitStatusRequest)
                     }
                 },
                 new UseCase
@@ -1219,16 +1193,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             }
         }
     }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.LimitController\GetViewModel",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateLimitHandler),
-                        Request = typeof(CreateLimitRequest)
                     }
                 },
                 new UseCase
@@ -1925,15 +1889,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(SetLimitStatusHandler),
-                        Request = typeof(SetLimitStatusRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CheckLimitLockedByReleaseHandler),
-            Request = typeof(CheckLimitLockedByReleaseRequest)
-        }
-    }
+                        Request = typeof(SetLimitStatusRequest)
                     }
                 },
                 new UseCase
@@ -2211,7 +2167,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                         ContainingClass = typeof(SetLegalPersonProfileForOrderHandler),
                         Request = typeof(ChangeOrderLegalPersonProfileRequest)
                     }
-                },
+                }
             };
         }
     }

@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
@@ -86,10 +87,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
-                    var targetRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId, period);
-                    if (targetRelease == null ||
-                        targetRelease.Id != acquiredRelease.Id ||
-                        (ReleaseStatus)targetRelease.Status != ReleaseStatus.Reverting)
+                    if (!LockSuccessfullyAcquired(acquiredRelease))
                     {
                         var msg = string.Format("Release reverting. Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. " +
                                                 "Possible reason for errors - concurrent release\reverting process and invalid release status processing",
@@ -133,6 +131,18 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 return ReleaseRevertingResult.Error(msg);
             }
+        }
+
+        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
+        {
+            var lockedRelease = 
+                    _releaseReadModel.GetLastRelease(
+                                            acquiredRelease.OrganizationUnitId, 
+                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+            return  lockedRelease != null
+                    && lockedRelease.Id == acquiredRelease.Id
+                    && (ReleaseStatus)lockedRelease.Status == ReleaseStatus.Reverting 
+                    && acquiredRelease.SameVersionAs(lockedRelease);
         }
 
         private bool TryAcquireTargetRelease(

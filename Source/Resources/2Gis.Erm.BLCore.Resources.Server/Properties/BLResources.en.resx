@@ -652,7 +652,7 @@ Bank Name {7}
 	<data name="OrderValidationFailed" xml:space="preserve">
     <value>Failed to complete the check</value>
   </data>
-  <data name="ClientSecurityExceptionFormatString" xml:space="preserve">
+	<data name="ClientSecurityExceptionFormatString" xml:space="preserve">
     <value>Client {0}: {1}. {2}</value>
   </data>
 	<data name="ResultOfCheck" xml:space="preserve">
@@ -1868,7 +1868,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
 	<data name="FilterExpression" xml:space="preserve">
     <value>Filter expression</value>
   </data>
-	<data name="LimitEditBlocedByRelease" xml:space="preserve">
+	<data name="LimitEditBlockedByRelease" xml:space="preserve">
     <value>Work with limits is blocked by build for the company division: {0}</value>
   </data>
 	<data name="ContributionTypeNotSpecifiedForOrgUnitWithId" xml:space="preserve">
@@ -2003,7 +2003,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
 	<data name="CantDeleteObjectLinkedWithActiveOrders" xml:space="preserve">
     <value>Cannot delete an object to which active orders are linked</value>
   </data>
-  <data name="WithdrawOperationSuccess" xml:space="preserve">
+	<data name="WithdrawOperationSuccess" xml:space="preserve">
     <value>The writing-off has been made successfully</value>
   </data>
 	<data name="CantCreateProfileForUnspecifiedUser" xml:space="preserve">
@@ -2215,7 +2215,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.</value>
   </data>
 	<data name="InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions" xml:space="preserve">
-    <value>The price-list item #{0} contains more than one group of accompanying items, which is not supported by the system.</value>
+    <value>The price-list item {0} contains more than one group of accompanying items, which is not supported by the system.</value>
   </data>
 	<data name="StringLengthLocalizedAttribute_ValidationErrorIncludingMinimum" xml:space="preserve">
     <value>Field {0} should be a string of minimum length {2} and maximum length {1}</value>
@@ -2873,7 +2873,7 @@ The operation has been executed: {4}.</value>
     <value>It is impossible to hide the company division to which active users are linked.</value>
   </data>
 	<data name="OrderStateFromOnApprovalToRejectedBodyTemplate" xml:space="preserve">
-    <value>The order No. {0} is rejected by the controller {1}. Reason for rejection: {2}.</value>
+    <value>The order No. {0} is rejected by the user {1}. Reason for rejection: {2}.</value>
   </data>
 	<data name="Firm_PleaseUseQualifyOperstion" xml:space="preserve">
     <value>The company '{0}' is in the reserve, use the operation "Take from reserve"</value>
@@ -4812,9 +4812,6 @@ The operation has been executed: {4}.</value>
   </data>
 	<data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Элемент справочника не содержит названия ни на базовом, ни на резервном языке</value>
-  </data>
-	<data name="BillNumberFormat" xml:space="preserve">
-    <value>{0}-bill</value>
   </data>
 	<data name="PreviewIsNotSupported" xml:space="preserve">
     <value>This AM type does not support preview</value>

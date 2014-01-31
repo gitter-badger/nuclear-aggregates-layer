@@ -652,7 +652,7 @@ Název banky {7}
 	<data name="OrderValidationFailed" xml:space="preserve">
     <value>Nebylo možné provést kontrolu</value>
   </data>
-  <data name="ClientSecurityExceptionFormatString" xml:space="preserve">
+	<data name="ClientSecurityExceptionFormatString" xml:space="preserve">
     <value>Klient {0}: {1}. {2}</value>
   </data>
 	<data name="ResultOfCheck" xml:space="preserve">
@@ -1869,7 +1869,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
 	<data name="FilterExpression" xml:space="preserve">
     <value>Výraz filtrování</value>
   </data>
-	<data name="LimitEditBlocedByRelease" xml:space="preserve">
+	<data name="LimitEditBlockedByRelease" xml:space="preserve">
     <value>Práce s limity byla zablokována sestavením pro oddělení organizace: {0}</value>
   </data>
 	<data name="ContributionTypeNotSpecifiedForOrgUnitWithId" xml:space="preserve">
@@ -2213,7 +2213,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Ve slově '{0}' byl překročen maximální počet symbolů: {1} z možných {2}.</value>
   </data>
 	<data name="InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions" xml:space="preserve">
-    <value>Ceníková položka #{0} obsahuje více než jednu skupinu průvodních položek - nepodporováno systémem.</value>
+    <value>Ceníková položka {0} obsahuje více než jednu skupinu průvodních položek - nepodporováno systémem.</value>
   </data>
 	<data name="StringLengthLocalizedAttribute_ValidationErrorIncludingMinimum" xml:space="preserve">
     <value>Řádek pole „{0}“ musí mít minimální délku {2} a maximální délku {1}</value>
@@ -2868,7 +2868,7 @@ Operace provedena: {4}.</value>
     <value>Není možné skrýt oddělení organizace, se kterým jsou propojeni aktivní uživatelé.</value>
   </data>
 	<data name="OrderStateFromOnApprovalToRejectedBodyTemplate" xml:space="preserve">
-    <value>Objednávka č. {0} byla zamítnuta kontrolorem {1}. Důvod zamítnutí: {2}.</value>
+    <value>Objednávka č. {0} byla zamítnuta uživatelem {1}. Důvod zamítnutí: {2}.</value>
   </data>
 	<data name="Firm_PleaseUseQualifyOperstion" xml:space="preserve">
     <value>Firma '{0}' je v rezervě, použijte operaci „Vzít z rezervy“</value>
@@ -4807,9 +4807,6 @@ Operace provedena: {4}.</value>
   </data>
 	<data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Prvek adresáře neobsahuje název ani v hlavním ani v rezervním jazyce</value>
-  </data>
-	<data name="BillNumberFormat" xml:space="preserve">
-    <value>{0}</value>
   </data>
 	<data name="PreviewIsNotSupported" xml:space="preserve">
     <value>Náhled pro tento typ RM není podporován</value>

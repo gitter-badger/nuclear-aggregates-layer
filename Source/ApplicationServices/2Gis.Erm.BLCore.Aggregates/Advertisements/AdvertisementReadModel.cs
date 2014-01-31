@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
@@ -16,6 +17,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             _finder = finder;
         }
 
+        [Obsolete]
+        // FIXME {all, 30.01.2014}: поддержка legacy рекламных материлов в "старом формате" (из ДГПП), подробнее см. тип OldFormatAdvertisementMaterialDetector
         public void Convert(OrderPositionInfo orderPositionInfo)
         {
             const int PriorityExportCode = 1;

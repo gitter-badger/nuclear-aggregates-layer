@@ -181,7 +181,7 @@
             var config = {
                 Entities: ids, // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
-                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                CloseButtonText: '@Html.Resource(() => BLResources.Close)', // локализованная надпись для кнопки закрыть
                 NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
                 ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
                 ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции

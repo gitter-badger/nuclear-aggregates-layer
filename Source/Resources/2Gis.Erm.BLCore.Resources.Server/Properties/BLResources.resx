@@ -1867,7 +1867,7 @@ SWIFT {5}
 	<data name="FilterExpression" xml:space="preserve">
     <value>Выражение фильтрации</value>
   <comment></comment></data>
-	<data name="LimitEditBlocedByRelease" xml:space="preserve">
+	<data name="LimitEditBlockedByRelease" xml:space="preserve">
     <value>Работа с лимитами заблокирована сборкой по отделению организации: {0}</value>
   <comment></comment></data>
 	<data name="ContributionTypeNotSpecifiedForOrgUnitWithId" xml:space="preserve">
@@ -2211,7 +2211,7 @@ SWIFT {5}
     <value>В слове '{0}' превышено максимально допустимое количество символов: {1} из {2} возможных.</value>
   <comment></comment></data>
 	<data name="InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions" xml:space="preserve">
-    <value>В Позиции прайс-листа #{0} содержится более одной группы сопутствующих позиций, что не поддерживается системой.</value>
+    <value>В Позиции прайс-листа {0} содержится более одной группы сопутствующих позиций, что не поддерживается системой.</value>
   <comment></comment></data>
 	<data name="StringLengthLocalizedAttribute_ValidationErrorIncludingMinimum" xml:space="preserve">
     <value>Поле {0} должно быть строкой минимальной длины {2} и максимальной длины {1}</value>
@@ -2866,7 +2866,7 @@ SWIFT {5}
     <value>Невозможно скрыть отделение организации, с которым связаны активные пользователи.</value>
   <comment></comment></data>
 	<data name="OrderStateFromOnApprovalToRejectedBodyTemplate" xml:space="preserve">
-    <value>Заказ № {0} отклонён проверяющим {1}. Причина отклонения: {2}.</value>
+    <value>Заказ № {0} отклонён пользователем {1}. Причина отклонения: {2}.</value>
   <comment></comment></data>
 	<data name="Firm_PleaseUseQualifyOperstion" xml:space="preserve">
     <value>Фирма '{0}' находится в резерве, воспользуйтесь операцией "Взять из резерва"</value>
@@ -4805,9 +4805,6 @@ SWIFT {5}
   <comment></comment></data>
 	<data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Элемент справочника не содержит названия ни на базовом, ни на резервном языке</value>
-  <comment></comment></data>
-	<data name="BillNumberFormat" xml:space="preserve">
-    <value>{0}-счёт</value>
   <comment></comment></data>
 	<data name="PreviewIsNotSupported" xml:space="preserve">
     <value>Предпросмотр для данного типа РМ не поддерживается</value>

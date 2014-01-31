@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
+using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,14 +16,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetLimitDtoService : GetDomainEntityDtoServiceBase<Limit>
     {
+        private readonly IAccountRepository _accountRepository;
         private readonly ISecureFinder _finder;
-        private readonly IPublicService _publicService;
 
-        public GetLimitDtoService(IUserContext userContext, ISecureFinder finder, IPublicService publicService) 
+        public GetLimitDtoService(
+            IAccountRepository accountRepository,
+            IUserContext userContext,
+            ISecureFinder finder)
             : base(userContext)
         {
+            _accountRepository = accountRepository;
             _finder = finder;
-            _publicService = publicService;
         }
 
         protected override IDomainEntityDto<Limit> GetDto(long entityId)
@@ -33,12 +37,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                           Id = entity.Id,
                                           AccountRef = new EntityReference { Id = entity.AccountId, Name = null },
                                           Amount = entity.Amount,
-                                          LegalPersonRef = new EntityReference()
+                                          LegalPersonRef = new EntityReference
                                               {
                                                   Id = entity.Account.LegalPersonId,
                                                   Name = entity.Account.LegalPerson.LegalName
                                               },
-                                          BranchOfficeRef = new EntityReference()
+                                          BranchOfficeRef = new EntityReference
                                               {
                                                   Id = entity.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
                                                   Name = entity.Account.BranchOfficeOrganizationUnit.BranchOffice.Name
@@ -74,23 +78,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 if (parentEntityName == EntityName.Account && parentEntityId.HasValue)
                 {
                     var accountId = parentEntityId.Value;
-                    var createLimitResponse = (CreateLimitResponse)_publicService.Handle(new CreateLimitRequest { AccountId = accountId });
+                    var nextMonthDate = DateTime.UtcNow.Date.AddMonths(1);
+                    var periodStart = nextMonthDate.GetFirstDateOfMonth();
+                    var periodEnd = nextMonthDate.GetEndPeriodOfThisMonth();
+
+                    var limit = _accountRepository.InitializeLimitForAccount(accountId, periodStart, periodEnd);
                     dto = new LimitDomainEntityDto
                     {
                         AccountRef = new EntityReference { Id = accountId },
-                        Amount = createLimitResponse.Amount,
-                        LegalPersonRef = new EntityReference()
+                        Amount = limit.Amount,
+                        LegalPersonRef = new EntityReference
                             {
-                                Id = createLimitResponse.LegalPersonId,
-                                Name = createLimitResponse.LegalPersonName
+                                Id = limit.LegalPersonId,
+                                Name = limit.LegalPersonName
                             },
-                        BranchOfficeRef = new EntityReference()
+                        BranchOfficeRef = new EntityReference
                             {
-                                Id = createLimitResponse.BranchOfficeId,
-                                Name = createLimitResponse.BranchOfficeName
+                                Id = limit.BranchOfficeId,
+                                Name = limit.BranchOfficeName
                             },
-                        Status = createLimitResponse.Status,
-                        StartPeriodDate = createLimitResponse.StartPeriodDate,
+                        Status = LimitStatus.Opened,
+                        StartPeriodDate = periodStart,
                         InspectorRef = new EntityReference()
                     };
                 }

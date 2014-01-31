@@ -10,6 +10,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 {
     public interface IAccountReadModel : IAggregateReadModel<Account>
     {
+        bool TryGetLimitLockingRelease(Limit limit, out string name);
         IEnumerable<Limit> GetLimitsForRelease(long releasingOrganizationUnitId, TimePeriod period);
         IEnumerable<Limit> GetHungLimitsByOrganizationUnitForDate(long organizationUnitId, DateTime limitStart);
         IEnumerable<Limit> GetClosedLimits(long organizationUnitId, TimePeriod period);

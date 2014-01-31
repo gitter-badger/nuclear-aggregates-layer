@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -20,6 +21,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Relea
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class FinishReleaseOperationService : IFinishReleaseOperationService
     {
         private readonly IOrderReadModel _orderReadModel;
@@ -31,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _logger;
 
         public FinishReleaseOperationService(IOrderReadModel orderReadModel,
@@ -42,6 +45,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                              ISecurityServiceFunctionalAccess functionalAccessService,
                                              IUserContext userContext,
                                              IOperationScopeFactory scopeFactory,
+                                             IUseCaseTuner useCaseTuner,
                                              ICommonLog logger)
         {
             _orderReadModel = orderReadModel;
@@ -53,6 +57,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
+            _useCaseTuner = useCaseTuner;
             _logger = logger;
         }
 
@@ -62,6 +67,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         // COMMENT {d.ivanov, 17.01.2014}: Из-за наличия возможности "подхватить" выполняющуюся сборку, процесс сборки в целом нарушен не будет
         public void Succeeded(long releaseId)
         {
+            _useCaseTuner.AlterDuration<FinishReleaseOperationService>();
+
             using (var scope = _scopeFactory.CreateNonCoupled<FinishReleaseIdentity>())
             {
                 var releaseInfo = ResolveRelease(releaseId);

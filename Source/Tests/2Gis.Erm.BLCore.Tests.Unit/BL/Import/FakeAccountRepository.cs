@@ -393,11 +393,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public bool TryGetLimitLockingRelease(Limit limit, out string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public Limit GetLimitByReplicationCode(Guid replicationCode)
         {
             throw new NotImplementedException();

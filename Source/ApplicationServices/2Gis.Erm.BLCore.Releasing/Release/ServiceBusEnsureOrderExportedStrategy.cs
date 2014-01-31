@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             // Если есть невыгруженные изменения, нужно дождаться, чтобы выполнилась задача экспорта заказов
             const int WaitTimeoutSec = 5;
-            const int MaxAttempsCount = 5;
+            const int MaxAttempsCount = 10;
             int attempsCount = 1;
 
             while (!IsRequiredOrdersAreExported(organizationUnitId, period))

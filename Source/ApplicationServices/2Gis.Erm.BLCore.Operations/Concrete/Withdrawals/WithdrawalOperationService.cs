@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
@@ -90,10 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
-                    var targetWithdrawal = _accountReadModel.GetLastWithdrawal(acquiredWithdrawal.OrganizationUnitId, period);
-                    if (targetWithdrawal == null
-                        || targetWithdrawal.Id != acquiredWithdrawal.Id
-                        || (WithdrawalStatus)targetWithdrawal.Status != WithdrawalStatus.Withdrawing)
+                    if (!LockSuccessfullyAcquired(acquiredWithdrawal))
                     {
                         var msg =
                             string.Format(
@@ -131,6 +129,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 return WithdrawalProcessingResult.Error(msg);
             }
+        }
+
+        private bool LockSuccessfullyAcquired(WithdrawalInfo acquiredWithdrawal)
+        {
+            var lockedWithdrawal =
+                    _accountReadModel.GetLastWithdrawal(
+                                            acquiredWithdrawal.OrganizationUnitId,
+                                            new TimePeriod(acquiredWithdrawal.PeriodStartDate, acquiredWithdrawal.PeriodEndDate));
+            return lockedWithdrawal != null
+                    && lockedWithdrawal.Id == acquiredWithdrawal.Id
+                    && (WithdrawalStatus)lockedWithdrawal.Status == WithdrawalStatus.Withdrawing
+                    && acquiredWithdrawal.SameVersionAs(lockedWithdrawal);
         }
 
         private WithdrawalProcessingResult ExecuteWithdrawalProcessing(WithdrawalInfo acquiredWithdrawal, long organizationUnitId, TimePeriod period)

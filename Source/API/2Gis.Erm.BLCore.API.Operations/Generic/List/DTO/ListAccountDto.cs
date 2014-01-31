@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List.DTO
         public string ClientName { get; set; }
         public string Inn { get; set; }
         public string CurrencyName { get; set; }
+        public long OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }
         public decimal AccountDetailBalance { get; set; }
         public DateTime CreateDate { get; set; }

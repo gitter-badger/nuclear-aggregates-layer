@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(ValidateOrdersRequest request, OrderValidationPredicate p)
         {
             var finalReleaseInfos =
-                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatus(new TimePeriod(request.Period.Start, request.Period.End), ReleaseStatus.Success));
+                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(request.Period.Start, request.Period.End), ReleaseStatus.Success));
 
             var overridenPredicate = new OrderValidationPredicate(
                 p.GeneralPart,

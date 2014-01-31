@@ -188,8 +188,6 @@
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainRequest.cs" />
     <Compile Include="Concrete\Old\LegalPersons\MergeLegalPersons.cs" />
     <Compile Include="Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\CheckLimitLockedByReleaseRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\CreateLimit.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsRequest.cs" />
     <Compile Include="Concrete\Old\Limits\RecalculateLimitRequest.cs" />
     <Compile Include="Concrete\Old\Limits\SetLimitStatusRequest.cs" />

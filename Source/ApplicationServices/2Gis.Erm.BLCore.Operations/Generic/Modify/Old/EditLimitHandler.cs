@@ -1,7 +1,7 @@
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
+using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -20,19 +20,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 {
     public sealed class EditLimitHandler : RequestHandler<EditRequest<Limit>, EmptyResponse>
     {
-        private readonly ISubRequestProcessor _subRequestProcessor;
+        private readonly IAccountReadModel _accountReadModel;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly IUserContext _userContext;
         private readonly IActionLogger _actionLogger;
         private readonly IAccountRepository _accountRepository;
 
-        public EditLimitHandler(ISubRequestProcessor subRequestProcessor,
-            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess, 
-            IUserContext userContext,
+        public EditLimitHandler(
+            IAccountReadModel accountReadModel,
+            IAccountRepository accountRepository,
             IActionLogger actionLogger,
-            IAccountRepository accountRepository)
+            IUserContext userContext,
+            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess)
         {
-            _subRequestProcessor = subRequestProcessor;
+            _accountReadModel = accountReadModel;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
             _userContext = userContext;
             _actionLogger = actionLogger;
@@ -41,48 +42,55 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 
         protected override EmptyResponse Handle(EditRequest<Limit> request)
         {
-            var modifiedLimitObject = request.Entity;
-
-            if (modifiedLimitObject.Amount <= 0)
+            var limit = request.Entity;
+            if (limit.Amount <= 0)
             {
                 throw new NotificationException(BLResources.WrongLimitAmount);
             }
 
-            // Ћимит предоставл€етс€ на один мес€ц, пожтому смысл имеет только дата начала.
-            modifiedLimitObject.EndPeriodDate = modifiedLimitObject.StartPeriodDate.GetEndPeriodOfThisMonth();
-
-            // ≈сли лимит мен€ть нельз€, кинет исключение
-            _subRequestProcessor.HandleSubRequest(new CheckLimitLockedByReleaseRequest { Entity = modifiedLimitObject }, Context);
-
-            // ѕоскольку у лимита могли сменить период, следует убедитьс€, что он не конфликтует с уже существующими.
-            var isLimitExists = _accountRepository.IsLimitExists(modifiedLimitObject.AccountId, modifiedLimitObject.StartPeriodDate, modifiedLimitObject.EndPeriodDate, modifiedLimitObject.Id);
-            if (isLimitExists)
-            {
-                throw new NotificationException(BLResources.CreatingLimitImpossibleBecauseAnotherLimitExists);
-            }
+            // Ћимит предоставл€етс€ на один мес€ц, поэтому смысл имеет только дата начала.
+            limit.EndPeriodDate = limit.StartPeriodDate.GetEndPeriodOfThisMonth();
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var originalLimitObject = _accountRepository.GetLimitById(modifiedLimitObject.Id);
-                
-                // —мена периода дл€ уже существующего лимита возможна только при налчии спец. разрешени€.
-                if (originalLimitObject != null && (PeriodChanged(originalLimitObject, modifiedLimitObject) && !FunctionalPrivelegeGranted()))
+                // ≈сли лимит мен€ть нельз€, кинет исключение
+                string name;
+                if (_accountReadModel.TryGetLimitLockingRelease(limit, out name))
                 {
+                    throw new NotificationException(string.Format(BLResources.LimitEditBlockedByRelease, name));
+                }
+
+                if (!limit.IsActive)
+                {
+                    throw new NotificationException(BLResources.EntityIsInactive);
+                }
+
+                // ѕоскольку у лимита могли сменить период, следует убедитьс€, что он не конфликтует с уже существующими.
+                var isConflictingLimitExists = _accountRepository.IsLimitExists(limit.AccountId, limit.StartPeriodDate, limit.EndPeriodDate, limit.Id);
+                if (isConflictingLimitExists)
+                {
+                    throw new NotificationException(BLResources.CreatingLimitImpossibleBecauseAnotherLimitExists);
+                }
+
+                var originalLimitObject = _accountRepository.GetLimitById(limit.Id);
+                if (originalLimitObject != null && PeriodChanged(originalLimitObject, limit) && !FunctionalPrivelegeGranted())
+                {
+                    // —мена периода дл€ уже существующего лимита возможна только при налчии спец. разрешени€.
                     throw new NotificationException("Ќедостаточно прав дл€ смены периода лимита");
                 }
 
-                if (modifiedLimitObject.IsNew())
+                if (limit.IsNew())
                 {
-                    _accountRepository.Create(modifiedLimitObject);
+                    _accountRepository.Create(limit);
                 }
                 else
                 {
-                    _accountRepository.Update(modifiedLimitObject);
+                    _accountRepository.Update(limit);
                 }
 
                 if (originalLimitObject != null)
                 {
-                    _actionLogger.LogChanges(originalLimitObject, modifiedLimitObject);
+                    _actionLogger.LogChanges(originalLimitObject, limit);
                 }
 
                 transaction.Complete();

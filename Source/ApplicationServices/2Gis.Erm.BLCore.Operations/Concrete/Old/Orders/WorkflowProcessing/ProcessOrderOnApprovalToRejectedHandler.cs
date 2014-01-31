@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings;
-using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly IAppSettings _appSettings;
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealRepository _dealRepository;
-        private readonly ISecurityServiceUserIdentifier _securityService;
+        private readonly IUserContext _userContext;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly ICommonLog _logger;
@@ -29,17 +29,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         public ProcessOrderOnApprovalToRejectedHandler(
             IAppSettings appSettings,
             IDealReadModel dealReadModel,
+            IOrderRepository orderRepository,
             IDealRepository dealRepository,
-            ISecurityServiceUserIdentifier securityService,
+            IUserContext userContext,
             INotificationSender notificationSender,
             IEmployeeEmailResolver employeeEmailResolver,
-            ICommonLog logger,
-            IOrderRepository orderRepository)
+            ICommonLog logger)
         {
             _appSettings = appSettings;
             _dealReadModel = dealReadModel;
             _dealRepository = dealRepository;
-            _securityService = securityService;
+            _userContext = userContext;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
             _logger = logger;
@@ -49,7 +49,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         protected override EmptyResponse Handle(ProcessOrderOnApprovalToRejectedRequest request)
         {
             var order = request.Order;
-
             if (order == null)
             {
                 throw new ArgumentException("Order must be supplied");
@@ -58,8 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             /* У заказа есть связный документ "Сделка". 
              * Выгрузить / изменить к текущему, значение атрибута "Предполагаемый доход" в документ "Сделка". 
              * Атрибут "Заказ.К оплате (план)" в атрибут "Сделка.Предполагаемый доход". 
-             * Нужно уменьшить значение атрибута "Предполагаемый доход" в документ "Сделка" на размер значения атрибута "Заказ.К оплате (план)".
-             */
+             * Нужно уменьшить значение атрибута "Предполагаемый доход" в документ "Сделка" на размер значения атрибута "Заказ.К оплате (план)". */
             if (order.DealId.HasValue)
             {
                 var deal = _dealReadModel.GetDeal(order.DealId.Value);
@@ -79,27 +77,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
                 return;
             }
 
-            string inspector = null;
-            if (order.InspectorCode.HasValue)
-            {
-                inspector = _securityService.GetUserInfo(order.InspectorCode.Value).DisplayName;
-            }
-            
             string orderOwnerEmail;
-            if (_employeeEmailResolver.TryResolveEmail(order.OwnerCode, out orderOwnerEmail) && !string.IsNullOrEmpty(orderOwnerEmail))
-            {
-                // ищем последнее примечание к заказу за прошедшие сутки
-                var note = _orderRepository.GetLastNoteForOrder(order.Id, DateTime.UtcNow.AddDays(-1));
-                var comment = note != null ? note.Text : BLResources.NotSpecified;
-
-                _notificationSender.PostMessage(new[] { new NotificationAddress(orderOwnerEmail) },
-                    string.Format(BLResources.OrderStateFromOnApprovalToRejectedSubjectTemplate, order.Number),
-                    string.Format(BLResources.OrderStateFromOnApprovalToRejectedBodyTemplate, order.Number, inspector ?? BLResources.NotDefined, comment));
-            }
-            else
+            if (!_employeeEmailResolver.TryResolveEmail(order.OwnerCode, out orderOwnerEmail) || string.IsNullOrEmpty(orderOwnerEmail))
             {
                 _logger.ErrorEx("Can't send notification about - order rejection. Can't get to_address email. Order id: " + order.Id + ". Owner code: " + order.OwnerCode);
+                return;
             }
+
+            // ищем последнее примечание к заказу за прошедшие сутки
+            var note = _orderRepository.GetLastNoteForOrder(order.Id, DateTime.UtcNow.AddDays(-1));
+            var comment = note != null ? note.Text : BLResources.NotSpecified;
+
+            _notificationSender.PostMessage(new[] { new NotificationAddress(orderOwnerEmail) },
+                string.Format(BLResources.OrderStateFromOnApprovalToRejectedSubjectTemplate, order.Number),
+                string.Format(BLResources.OrderStateFromOnApprovalToRejectedBodyTemplate, order.Number, _userContext.Identity.DisplayName ?? BLResources.NotDefined, comment));
         }
     }
 }

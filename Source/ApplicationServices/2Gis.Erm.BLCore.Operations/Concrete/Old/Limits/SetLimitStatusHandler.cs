@@ -5,6 +5,7 @@ using System.ServiceModel.Security;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -24,9 +25,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
     public sealed class SetLimitStatusHandler : RequestHandler<SetLimitStatusRequest, Response>
     {
         private readonly ISecurityServiceFunctionalAccess _securityService;
-        private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IActionLogger _actionLogger;
         private readonly IAccountRepository _accountRepository;
+        private readonly IAccountReadModel _accountReadModel;
         private readonly IUserContext _userContext;
 
         private readonly IDictionary<LimitStatus, LimitStatus[]> _allowedTransitions = new Dictionary<LimitStatus, LimitStatus[]>
@@ -37,16 +38,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
             };
 
         public SetLimitStatusHandler(
-            IUserContext userContext,
+            IAccountReadModel accountReadModel,
             IAccountRepository accountRepository,
-            ISubRequestProcessor subRequestProcessor,
             IActionLogger actionLogger,
+            IUserContext userContext,
             ISecurityServiceFunctionalAccess securityService)
         {
+            _accountReadModel = accountReadModel;
             _userContext = userContext;
             _securityService = securityService;
             _accountRepository = accountRepository;
-            _subRequestProcessor = subRequestProcessor;
             _actionLogger = actionLogger;
         }
 
@@ -64,8 +65,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                 using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
                     var limit = GetLimit(request);
+                    if (limit == null)
+                    {
+                        throw new NotificationException(BLResources.EntityNotFound);
+                    }
+
                     CheckTransition((LimitStatus)limit.Status, request.Status);
-                    _subRequestProcessor.HandleSubRequest(new CheckLimitLockedByReleaseRequest { Entity = limit }, Context);
+
+                    string name;
+                    if (_accountReadModel.TryGetLimitLockingRelease(limit, out name))
+                    {
+                        throw new NotificationException(string.Format(BLResources.LimitEditBlockedByRelease, name));
+                    }
+
+                    if (!limit.IsActive)
+                    {
+                        throw new NotificationException(BLResources.EntityIsInactive);
+                    }
 
                     var originalLimitObject = CompareObjectsHelper.CreateObjectDeepClone(limit);
 

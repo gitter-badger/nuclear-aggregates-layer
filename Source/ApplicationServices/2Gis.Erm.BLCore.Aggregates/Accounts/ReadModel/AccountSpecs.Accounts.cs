@@ -25,14 +25,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                                x.LegalPersonId == legalPersonId &&
                                                                x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId);
                 }
-            }
 
-            public static FindSpecification<Account> ForLegalPersons(long legalPersonId, long branchOfficeOrganizationUnitId)
-            {
-                return new FindSpecification<Account>(x => x.IsActive
-                                                           && !x.IsDeleted
-                                                           && x.LegalPersonId == legalPersonId
-                                                           && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId);
+                public static FindSpecification<Account> ForLegalPersons(long legalPersonId, long branchOfficeOrganizationUnitId)
+                {
+                    return new FindSpecification<Account>(x => x.IsActive
+                                                               && !x.IsDeleted
+                                                               && x.LegalPersonId == legalPersonId
+                                                               && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId);
+                }
             }
         }
     }

@@ -193,7 +193,9 @@
     <Compile Include="Orders\IBargainRepository.cs" />
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderCreateBargainAggregateService.cs" />

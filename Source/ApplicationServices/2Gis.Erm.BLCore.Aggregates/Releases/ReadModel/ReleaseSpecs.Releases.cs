@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -23,14 +24,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                     return new FindSpecification<ReleaseInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
                 }
 
-                public static FindSpecification<ReleaseInfo> FinalForPeriodWithStatus(TimePeriod period, ReleaseStatus status)
+                public static FindSpecification<ReleaseInfo> FinalForPeriodWithStatuses(TimePeriod period, params ReleaseStatus[] statuses)
                 {
-                    return new FindSpecification<ReleaseInfo>(x => x.IsActive
+                    return new FindSpecification<ReleaseInfo>(x => x.IsActive 
                                                                    && !x.IsDeleted
-                                                                   && x.PeriodStartDate == period.Start
+                                                                   && x.PeriodStartDate == period.Start 
                                                                    && x.PeriodEndDate == period.End
                                                                    && !x.IsBeta
-                                                                   && x.Status == (int)status);
+                                                                   && statuses.Cast<int>().Contains(x.Status));
                 }
 
                 public static FindSpecification<ReleaseInfo> FinalInProgress(long organizationUnitId, TimePeriod period)

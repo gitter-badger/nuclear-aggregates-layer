@@ -78,7 +78,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.List
                         x.ClosedForAscertainment,
                         x.LastQualifyTime,
                         x.LastDisqualifyTime,
-                        OrganizationUnitName = x.OrganizationUnit.Name
+                        OrganizationUnitId = x.OrganizationUnit.Id,
+                        OrganizationUnitName = x.OrganizationUnit.Name,
                     })
                 .AsEnumerable()
                 .Select(x =>
@@ -97,7 +98,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.List
                                 ClosedForAscertainment = x.ClosedForAscertainment,
                                 LastQualifyTime = x.LastQualifyTime,
                                 LastDisqualifyTime = x.LastDisqualifyTime,
-                                OrganizationUnitName = x.OrganizationUnitName
+                                OrganizationUnitId = x.OrganizationUnitId,
+                                OrganizationUnitName = x.OrganizationUnitName,
                             });
         }
     }

@@ -1296,7 +1296,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         public IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId)
         {
-            return _finder.Find(OrderSpecs.Orders.Find.ActiveOrdersForLegalPerson(legalPersonId)).ToArray();
+            return 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<Order>() 
+                                && OrderSpecs.Orders.Find.ForLegalPerson(legalPersonId))
+                    .ToArray();
         }
 
         public Order GetOrderByBill(long billId)

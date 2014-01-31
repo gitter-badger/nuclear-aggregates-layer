@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
@@ -91,12 +92,12 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 long? previousReleaseId;
                 string report;
                 if (!TryAcquireTargetRelease(organizationUnitDgppId,
-                                                                    period,
-                                                                    isBeta,
-                                                                    canIgnoreBlockingErrors,
-                                                                    out acquiredRelease,
-                                                                    out previousReleaseId,
-                                                                    out report))
+                                            period,
+                                            isBeta,
+                                            canIgnoreBlockingErrors,
+                                            out acquiredRelease,
+                                            out previousReleaseId,
+                                            out report))
                 {
                     _logger.ErrorFormatEx("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
                                           "Can ignore blocking errors: {3}. Error: {4}",
@@ -136,6 +137,23 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 throw;
             }
+        }
+
+        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
+        {
+            // Проверяем, что pessimistic lock успешно захвачена,
+            // для этого нужно убедиться, что после того как 
+            // создали новую запись о сборке, или переоткрыли старую, 
+            // из конкурирующей транзакции не захватили ту же пессимистичную блокировку (запись о сборке по тому же городу, за тот же период, в частном случае ту же запись о сборке)
+            // т.к. есть режим подхвата сборки InProgressWaitingExternalProcessing, то доп. нужно проверить версию записи о сборке
+            var lockedRelease =
+                    _releaseReadModel.GetLastRelease(
+                                            acquiredRelease.OrganizationUnitId,
+                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+            return lockedRelease != null
+                    && lockedRelease.Id == acquiredRelease.Id
+                    && (ReleaseStatus)lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                    && acquiredRelease.SameVersionAs(lockedRelease);
         }
 
         private bool TryAcquireTargetRelease(int organizationUnitDgppId,
@@ -248,12 +266,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                // TODO {i.maslennikov, 01.11.2013}: подумать нет ли необходимости сверять timestamp сохраненного acquiredRelease и полученного через lastrelease
-                // смысл такой - нужно убедиться что после того как создали новую запись о сборке, переоткрыли старую, из конкурирующей транзакции не захватили ту же пессимистичную блокировку (ту же запись о сборке)
-                var targetRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId, releasingPeriod);
-                if (targetRelease == null ||
-                    targetRelease.Id != acquiredRelease.Id ||
-                    (ReleaseStatus)targetRelease.Status != ReleaseStatus.InProgressInternalProcessingStarted)
+                if (!LockSuccessfullyAcquired(acquiredRelease))
                 {
                     var msg = string.Format("Acquired release with id {0} for organization unit with id {1} by period {2} has processing status violations. " +
                                             "Possible reason for errors - concurrent release\reverting process and invalid release status processing",
@@ -267,14 +280,14 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return releasingResult;
                 }
 
-                var validationMessages = _validateOrdersForReleaseOperationService.Validate(targetRelease.OrganizationUnitId, releasingPeriod, targetRelease.IsBeta).ToArray();
+                var validationMessages = _validateOrdersForReleaseOperationService.Validate(acquiredRelease.OrganizationUnitId, releasingPeriod, acquiredRelease.IsBeta).ToArray();
                 releasingResult.ProcessingMessages = validationMessages;
 
                 bool hasBlockingErrors = validationMessages.Any(item => item.IsBlocking);
                 _logger.InfoFormatEx("Release with id {0} for organization unit with id {1} by period {2}. " +
                                      "After orders validation has blocking errors: {3} and can ingnore blocking errors: {4}",
-                                     targetRelease.Id,
-                                     targetRelease.OrganizationUnitId,
+                                     acquiredRelease.Id,
+                                     acquiredRelease.OrganizationUnitId,
                                      releasingPeriod,
                                      hasBlockingErrors,
                                      canIgnoreBlockingErrors);
@@ -283,49 +296,49 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 {
                     var msg = string.Format("Aborting release with id {0} for organization unit with id {1} by period {2}. " +
                                             "Has blocking errors that can't be ignored.",
-                                            targetRelease.Id,
-                                            targetRelease.OrganizationUnitId,
+                                            acquiredRelease.Id,
+                                            acquiredRelease.OrganizationUnitId,
                                             releasingPeriod);
 
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
-                    _releaseAttachProcessingMessagesAggregateService.SaveInternalMessages(targetRelease, validationMessages);
-                    _releaseChangeStatusAggregateService.Finished(targetRelease, ReleaseStatus.Error, msg);
+                    _releaseAttachProcessingMessagesAggregateService.SaveInternalMessages(acquiredRelease, validationMessages);
+                    _releaseChangeStatusAggregateService.Finished(acquiredRelease, ReleaseStatus.Error, msg);
 
                     transaction.Complete();
                     return releasingResult;
                 }
 
-                if (!_ensureOrdersForReleaseCompletelyExportedOperationService.IsExported(targetRelease.Id,
-                                                                                          targetRelease.OrganizationUnitId,
+                if (!_ensureOrdersForReleaseCompletelyExportedOperationService.IsExported(acquiredRelease.Id,
+                                                                                          acquiredRelease.OrganizationUnitId,
                                                                                           organizationUnitDgppId,
                                                                                           releasingPeriod,
-                                                                                          targetRelease.IsBeta))
+                                                                                          acquiredRelease.IsBeta))
                 {
                     var msg = string.Format("Releasing aborted. Ensure process detected that not all required orders for release are properly exported. " +
                                             "Release details: id {0} for organization unit with id {1} by period {2}",
-                                            targetRelease.Id,
-                                            targetRelease.OrganizationUnitId,
+                                            acquiredRelease.Id,
+                                            acquiredRelease.OrganizationUnitId,
                                             releasingPeriod);
                     _logger.ErrorEx(msg);
                     releasingResult.ProcessingMessages = AddNewBlockingMessage(releasingResult.ProcessingMessages, msg);
 
-                    _releaseChangeStatusAggregateService.Finished(targetRelease, ReleaseStatus.Error, msg);
+                    _releaseChangeStatusAggregateService.Finished(acquiredRelease, ReleaseStatus.Error, msg);
 
                     transaction.Complete();
                     return releasingResult;
                 }
 
                 releasingResult.Succeed = true;
-                _releaseChangeStatusAggregateService.InProgressWaitingExternalProcessing(targetRelease);
+                _releaseChangeStatusAggregateService.InProgressWaitingExternalProcessing(acquiredRelease);
 
                 _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
                                      "Waiting for external release processing",
-                                     targetRelease.Id,
-                                     targetRelease.OrganizationUnitId,
+                                     acquiredRelease.Id,
+                                     acquiredRelease.OrganizationUnitId,
                                      releasingPeriod,
-                                     targetRelease.IsBeta);
+                                     acquiredRelease.IsBeta);
 
                 transaction.Complete();
             }

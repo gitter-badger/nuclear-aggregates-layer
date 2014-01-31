@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
@@ -629,22 +628,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                .SingleOrDefault();
         }
 
-        public IEnumerable<Limit> GetReleaseLimitInfo(long organizationUnitId, TimePeriod period)
-        {
-            return (from order in _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
-                    from account in order.BranchOfficeOrganizationUnit.Accounts
-                        .Where(a => a.IsActive
-                                    && !a.IsDeleted
-                                    && a.LegalPersonId == order.LegalPersonId)
-                    from limit in account.Limits
-                    where limit.IsActive
-                        && !limit.IsDeleted
-                        && limit.Status == (int)LimitStatus.Approved
-                        && limit.StartPeriodDate == period.Start
-                        && limit.EndPeriodDate == period.End
-                    select limit).ToArray();
-        }
-
         public AccountDetail[] GetAccountDetailsForImportFrom1COperation(string branchOfficeOrganizationUnit1CCode, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
             var operationTypeIds = _finder.Find<OperationType>(x => x.IsActive && x.IsDeleted == false && x.IsInSyncWith1C).Select(x => x.Id).ToArray();
@@ -752,40 +735,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 .SelectMany(account => account.Limits)
                 .Where(limit => !limit.IsDeleted)
                 .Any(limit => limit.StartPeriodDate == periodStartDate && limit.EndPeriodDate == periodEndDate && limit.Id != excludeLimitId);
-        }
-
-        public bool TryGetLimitLockingRelease(Limit limit, out string name)
-        {
-            // Собираем все потенциально блокирующие сборки по данному лимиту
-            var releaseInfos = _finder.Find<ReleaseInfo>(info => info.PeriodStartDate == limit.StartPeriodDate &&
-                info.PeriodEndDate == limit.EndPeriodDate &&
-                !info.IsBeta &&
-                (info.Status == (short)ReleaseStatus.InProgressInternalProcessingStarted
-                || info.Status == (short)ReleaseStatus.InProgressWaitingExternalProcessing
-                || info.Status == (short)ReleaseStatus.Success));
-
-            var releaseInfo = _finder.Find(Specs.Find.ById<Account>(limit.AccountId))
-                .SelectMany(account => account.BranchOfficeOrganizationUnit.Orders
-                                            .Where(order => !order.IsDeleted && order.IsActive &&
-                                                            order.LegalPersonId == account.LegalPersonId &&
-                                                            order.BeginDistributionDate <= limit.StartPeriodDate &&
-                                                            order.EndDistributionDateFact >= limit.EndPeriodDate &&
-                                                            (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)))
-                .Join(releaseInfos,
-                      order => order.DestOrganizationUnitId,
-                      relInfo => relInfo.OrganizationUnitId,
-                      (order, relInfo) => new { relInfo.Id, relInfo.Status, relInfo.IsBeta, relInfo.StartDate, relInfo.OrganizationUnit.Name })
-                .OrderByDescending(x => x.StartDate)
-                .FirstOrDefault();
-
-            if (releaseInfo != null)
-            {
-                name = releaseInfo.Name;
-                return true;
-            }
-
-            name = null;
-            return false;
         }
 
         public IEnumerable<AccountFor1CExportDto> GetAccountsForExortTo1C(long organizationUnitId)

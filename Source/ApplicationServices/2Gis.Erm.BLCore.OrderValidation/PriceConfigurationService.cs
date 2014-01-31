@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
@@ -56,10 +57,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 {
                     if (principalPositions.Count > 0)
                     {
+                        var pricePositionDescriptionTemplate = string.Format("<{0}:{1}:{2}>", EntityName.PricePosition, pricePosition.PositionName, pricePosition.Id);
                         messages.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Warning,
-                                MessageText = string.Format(BLResources.InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions, pricePosition.Id)
+                                MessageText = string.Format(BLResources.InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions, pricePositionDescriptionTemplate)
                             });
                         break;
                     }

@@ -150,8 +150,6 @@
     <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationHandler.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\CheckLimitLockedByReleaseHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\CreateLimitHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
     <Compile Include="Concrete\Old\Limits\RecalculateLimitHandler.cs" />
     <Compile Include="Concrete\Old\Limits\SetLimitStatusHandler.cs" />

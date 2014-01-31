@@ -14,6 +14,7 @@ using System.Web.Routing;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -80,6 +81,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                     helper.ViewDataContainer,
                     helper.RouteCollection
                 });
+        }
+
+        public static IHtmlString Resource<TKey>(this HtmlHelper helper, Expression<Func<TKey>> resourceEntryExpression)
+        {
+            var resourceEntryKey = ResourceEntryKey.Create(resourceEntryExpression);
+            var resourceManager = resourceEntryKey.ResourceHostType.AsResourceManager();
+            return helper.Raw(resourceManager.GetString(resourceEntryKey.ResourceEntryName));
         }
 
         public static MvcHtmlString TemplateGenericField(this HtmlHelper helper, Expression e, object optional)

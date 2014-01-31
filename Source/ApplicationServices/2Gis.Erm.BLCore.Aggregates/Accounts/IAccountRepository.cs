@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         OperationTypeDto GetOperationTypeDto(long entityId);
         GetLockDetailDto GetLockDetail(long entityId); 
         Limit FindLimit(long entityId);
-        IEnumerable<Limit> GetReleaseLimitInfo(long organizationUnitId, TimePeriod period);
         
         bool IsActiveLocksExists(long orderId);
         bool IsNonDeletedLocksExists(long orderId);
@@ -77,8 +76,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         bool IsLimitExists(long accountId, DateTime periodStartDate, DateTime periodEndDate, long excludeLimitId);
         LimitDto InitializeLimitForAccount(long accountId, DateTime periodStartDate, DateTime periodEndDate);
         Limit GetLimitById(long id);
-
-        bool TryGetLimitLockingRelease(Limit limit, out string name);
         Limit GetLimitByReplicationCode(Guid replicationCode);
         IEnumerable<AccountRepository.AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd);
         IReadOnlyCollection<OperationType> GetOperationsInSyncWith1C();

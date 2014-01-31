@@ -284,7 +284,7 @@ WriteLiteral("\', // тип операции - Qualify, Assign, ChangeTerritory\
 
             
             #line 184 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                             Write(BLResources.Close);
+                             Write(Html.Resource(() => BLResources.Close));
 
             
             #line default

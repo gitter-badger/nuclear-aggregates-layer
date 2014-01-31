@@ -28,13 +28,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
     public sealed class PricePositionDto
     {
         public long Id { get; set; }
-
         public long PositionId { get; set; }
-
+        public string PositionName { get; set; }
         public long PriceId { get; set; }
-
         public IEnumerable<IEnumerable<RelatedItemDto>> Groups { get; set; }
-
         public IEnumerable<RelatedItemDto> DeniedPositions { get; set; }
 
         public sealed class RelatedItemDto
@@ -667,6 +664,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 {
                     Id = x.Id,
                     PositionId = x.PositionId,
+                    PositionName = x.Position.Name,
                     PriceId = x.PriceId,
                     Groups = x.AssociatedPositionsGroups
                              .Where(y => y.IsActive && !y.IsDeleted)

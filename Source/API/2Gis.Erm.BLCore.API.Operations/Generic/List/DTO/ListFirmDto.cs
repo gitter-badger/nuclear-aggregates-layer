@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List.DTO
         public bool ClosedForAscertainment { get; set; }
         public DateTime? LastQualifyTime { get; set; }
         public DateTime? LastDisqualifyTime { get; set; }
+        public long OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }
     }
 }

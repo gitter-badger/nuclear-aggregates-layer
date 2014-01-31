@@ -3,6 +3,7 @@ using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -17,11 +18,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IOrderRepository _orderRepository;
+        private readonly IEvaluateBillNumberService _evaluateBillNumberService;
 
-        public CreateBillsHandler(ISubRequestProcessor subRequestProcessor, IOrderRepository orderRepository)
+        public CreateBillsHandler(
+            ISubRequestProcessor subRequestProcessor, 
+            IOrderRepository orderRepository, 
+            IEvaluateBillNumberService evaluateBillNumberService)
         {
             _subRequestProcessor = subRequestProcessor;
             _orderRepository = orderRepository;
+            _evaluateBillNumberService = evaluateBillNumberService;
         }
 
         protected override EmptyResponse Handle(CreateBillsRequest request)
@@ -53,7 +59,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     var bill = CreateBill(request.CreateBillInfos[0], request, orderInfo);
 
                     bill.BillDate = orderInfo.CreatedOn;
-                    bill.BillNumber = string.Format(BLResources.BillNumberFormat, orderInfo.Number);
+                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                    bill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number);
 
                     bill.PayablePlan = orderInfo.PayablePlan;
                     bill.VatPlan = orderInfo.VatPlan;
@@ -72,7 +79,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                         var bill = CreateBill(createBillInfo, request, orderInfo);
 
                         bill.BillDate = orderInfo.CreatedOn;
-                        bill.BillNumber = string.Format(BLResources.BillNumberFormat, orderInfo.Number + '/' + (i + 1));
+                        // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                        bill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number, i + 1);
 
                         bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, 2, MidpointRounding.ToEven);
                         billsPayablePlanSum += bill.PayablePlan;
@@ -89,7 +97,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     var lastBill = CreateBill(lastCreateBillInfo, request, orderInfo);
 
                     lastBill.BillDate = orderInfo.CreatedOn;
-                    lastBill.BillNumber = string.Format(BLResources.BillNumberFormat, orderInfo.Number + '/' + request.CreateBillInfos.Length);
+                    // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
+                    lastBill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number, request.CreateBillInfos.Length);
 
                     lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, 2, MidpointRounding.ToEven);
                     lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, 2, MidpointRounding.ToEven);
