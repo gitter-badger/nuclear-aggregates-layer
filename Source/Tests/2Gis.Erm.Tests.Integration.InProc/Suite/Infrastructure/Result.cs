@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public static OrdinaryTestResult Then(this OrdinaryTestResult halfFinishedResult, Func<bool> predicate)
         {
+            if (!halfFinishedResult.Succeeded)
+            {
+                return halfFinishedResult;
+            }
+
             return predicate() ? OrdinaryTestResult.As.Succeeded : OrdinaryTestResult.As.Failed;
         }
 
@@ -34,6 +39,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public static OrdinaryTestResult Then(this OrdinaryTestResult halfFinishedResult, Action evaluator)
         {
+            if (!halfFinishedResult.Succeeded)
+            {
+                return halfFinishedResult;
+            }
+
             try
             {
                 evaluator();
