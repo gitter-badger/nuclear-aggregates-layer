@@ -103,5 +103,22 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
                 return ResourceManager.GetString("Migration15518", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
+        ///--   10.09.2013, y.baranihin: dgppid-&gt;id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///ALTER PROCEDURE [Integ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration15632 {
+            get {
+                return ResourceManager.GetString("Migration15632", resourceCulture);
+            }
+        }
     }
 }
