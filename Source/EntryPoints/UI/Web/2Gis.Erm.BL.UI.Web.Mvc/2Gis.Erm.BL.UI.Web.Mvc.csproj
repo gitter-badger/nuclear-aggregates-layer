@@ -114,7 +114,6 @@
     <Compile Include="Controllers\BranchOfficeOrganizationUnitController.cs" />
     <Compile Include="Controllers\CategoryGroupsMembershipController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\LegalPersonProfileController.cs" />
     <Compile Include="Controllers\LimitController.cs" />
@@ -164,7 +163,6 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
-    <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
     <Compile Include="Models\CopyNewPriceViewModel.cs" />
     <Compile Include="Models\CopyPricePositionModel.cs" />
@@ -459,11 +457,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Client.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Contact.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Contact.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\ContributionType.generated.cs">
       <AutoGen>True</AutoGen>
@@ -978,10 +971,6 @@
     <None Include="Views\CreateOrUpdate\Client.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Client.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Contact.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Contact.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\ContributionType.cshtml">
       <Generator>RazorGenerator</Generator>
