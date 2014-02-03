@@ -21,14 +21,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public void Unhandled(Type testType, Exception exception)
         {
-            string description = string.Format("{0}", exception.Message);
+            string description = string.Format("{0}", exception.Message + exception.StackTrace).Replace(Environment.NewLine, string.Empty);
             Console.WriteLine(@"##teamcity[testFailed name='{0}' message='Unhandled. Exception caught {1}' details='{2}']", ResolveTestId(testType), exception.GetType().Name, description);
             FinishTest(testType);
         }
 
         public void Asserted(Type testType, ITestResult testResult)
         {
-            string description = string.Format("{0}", testResult.Asserted.Message);
+            string description = string.Format("{0}", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report);
             Console.WriteLine(@"##teamcity[testFailed type='comparisonFailure' name='{0}' message='Asserted. ' details='{1}' expected='Succeeded' actual='Failed']", ResolveTestId(testType), description);
             FinishTest(testType);
         }

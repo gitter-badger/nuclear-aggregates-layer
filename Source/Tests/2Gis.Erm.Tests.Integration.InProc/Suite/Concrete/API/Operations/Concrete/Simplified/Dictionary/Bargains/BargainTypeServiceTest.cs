@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             var newBargainType = new BargainType
                 {
+                    Id = 7000000,
                     Name = "Test",
                     SyncCode1C = "000007",
                     VatRate = 7
