@@ -43,7 +43,8 @@
           <Field Name="IsDeleted" Expression="it.IsDeleted" Width="200" Hidden="true" Filtered="false" FieldType="Boolean" ExtTypeName="Boolean" DotNetTypeName="System.Boolean" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
           <Field Name="OwnerName" NameLocaleResourceId="Owner" Expression="it.OwnerCode" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
-          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Name" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OrganizationUnitId" NameLocaleResourceId="OrganizationUnitId" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Id" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Expression="it.BranchOfficeOrganizationUnit.OrganizationUnit.Name" Width="200" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
         </Fields>
       </DataList>
       <!--Мои лицевые счета с отрицательным балансом-->
