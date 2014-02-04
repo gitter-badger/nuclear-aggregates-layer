@@ -786,7 +786,7 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp("Client").on("change", this.onClientChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
-            Ext.getCmp('LegalPerson').on("change", function () { this.updateBargain(true); }, this);
+            Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
             Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.updateBargain(true); }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
 
@@ -953,6 +953,31 @@ window.InitPage = function () {
                 destinationOrganizationUnitLookup.forceGetData();
                 destinationOrganizationUnitLookup.searchFormFilterInfo = oldValue;
             } 
+        },
+
+        onLegalPersonChanged: function (cmp) {
+            var legalPersonLookup = Ext.getCmp('LegalPerson');
+            var legalPersonId = legalPersonLookup.item ? legalPersonLookup.item.id : null;
+
+            if (legalPersonId != null) {
+                this.Request({
+                    method: 'POST',
+                    url: '/Cyprus/LegalPerson/GetPaymentMethod',
+                    params: {
+                        legalPersonId: legalPersonId
+                    },
+                    success: function (xhr) {
+                        var paymentMethodResponse = Ext.decode(xhr.responseText);
+                        if (paymentMethodResponse) {
+                            var paymentMethodComboBox = Ext.get('PaymentMethod');
+                            paymentMethodComboBox.setValue(paymentMethodResponse.PaymentMethod);
+                        }
+                    },
+                    scope: this
+                });
+            }
+
+            this.updateBargain(true);
         },
         
         // Обновление Отделения организации юр лица исполнителя/Валюты
