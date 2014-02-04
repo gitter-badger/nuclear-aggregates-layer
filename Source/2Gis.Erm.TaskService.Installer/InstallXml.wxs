@@ -7,20 +7,19 @@
   <?define ManufacturerProjectName = "$(var.Manufacturer) ERM" ?>
   <?define PackageDescription = "Сервис выполнения задач по расписанию системы ERM" ?>
 
+  <!-- $(var.ProductVersion) set externally by CI server -->
+  
   <?ifdef PublishProfileName ?>
     <?include Variables.$(var.PublishProfileName).wxi ?>
     <?define QuartzConfigFileName = "quartz.$(var.PublishProfileName).config" ?>
-    <?define ProductLongName = "$(var.ManufacturerProjectName) Task Service $(var.PublishProfileName)" ?>
-    <?define ServiceName = "$(var.PublishProfileName)" ?>
+    <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.PublishProfileName)) ($(var.ProductVersion))" ?>
+    <?define ServiceName = "$(var.PublishProfileName)_$(var.ProductVersion)" ?>
   <?else ?>
     <?include Variables.wxi ?>
     <?define QuartzConfigFileName = "quartz.config" ?>
-    <?define ProductLongName = "$(var.ManufacturerProjectName) Task Service" ?>
-    <?define ServiceName = "ErmTaskService" ?>
+    <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service (Dev) ($(var.ProductVersion))" ?>
+    <?define ServiceName = "Dev" ?>
   <?endif ?>
-
-  <!-- product version set externally by CI server, this is ProductVersion preprocessor variable -->
-  <?define ProductLongNameWithVersion = "$(var.ProductLongName) $(var.ProductVersion)" ?>
 
   <!-- detect platform -->
   <?if $(var.Platform) = x64 ?>
@@ -34,7 +33,7 @@
 		Manufacturer="$(var.Manufacturer)"
 		Language="1049"
     Codepage="1251"
-		Name="$(var.ProductLongName)"
+		Name="$(var.ProductLongNameWithVersion)"
 		Version="$(var.ProductVersion)"
 		UpgradeCode="$(var.UpgradeCode)">
 
@@ -142,7 +141,7 @@
     </ComponentGroup>
 
     <!-- NT service -->
-    <Component Id="_2Gis.Erm.TaskService.exe" Directory="INSTALLFOLDER" Guid="5104486C-4E8D-4024-BE81-5EACA325B42D">
+    <Component Id="_2Gis.Erm.TaskService.exe" Directory="INSTALLFOLDER" Guid="*">
 
       <File Id="_2Gis.Erm.TaskService.exe" KeyPath="yes" Vital="yes" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe" />
       <File Id="_2Gis.Erm.TaskService.pdb" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.pdb" />
@@ -154,7 +153,7 @@
       <File Id="quartz.config" Name="quartz.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\$(var.QuartzConfigFileName)" />
 
       <ServiceInstall
-				Id="ServiceInstaller"
+				Id="Service1"
 				Type="ownProcess"
 				Account="NT AUTHORITY\NetworkService"
 				Vital="yes"
@@ -168,7 +167,7 @@
 			/>
 
       <ServiceControl
-				Id="StartService"
+				Id="Service1"
         Name="$(var.ServiceName)"
         
 				Stop="both"
