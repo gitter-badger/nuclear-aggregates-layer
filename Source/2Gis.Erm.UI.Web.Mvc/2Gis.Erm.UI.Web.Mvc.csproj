@@ -651,6 +651,7 @@
     <Content Include="Scripts\DataList\Contact.DataList.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementElement.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.OrderProcessingRequest.js" />
+    <None Include="Properties\PublishProfiles\Test.101.pubxml" />
     <None Include="Properties\PublishProfiles\Test.201.pubxml" />
     <None Include="Scripts\JsResourcesGeneration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1081,6 +1082,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.101.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.201.config">

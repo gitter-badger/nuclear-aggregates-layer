@@ -105,6 +105,7 @@
     <None Include="Properties\PublishProfiles\Test.04.pubxml" />
     <None Include="Properties\PublishProfiles\Test.05.pubxml" />
     <None Include="Properties\PublishProfiles\Test.07.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.101.pubxml" />
     <None Include="Properties\PublishProfiles\Test.12.pubxml" />
     <None Include="Properties\PublishProfiles\Test.14.pubxml" />
     <None Include="Properties\PublishProfiles\Test.15.pubxml" />
@@ -171,6 +172,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.07.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.101.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.12.config">

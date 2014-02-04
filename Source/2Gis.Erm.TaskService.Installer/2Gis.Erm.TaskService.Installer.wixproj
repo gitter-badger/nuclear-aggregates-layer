@@ -214,6 +214,24 @@
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+      <Project>{53b07ccc-9824-480f-833c-39a2f9a3314b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+      <Project>{03a5edfb-6e8b-4f9f-8cd9-986f18fd6b9b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Name>2Gis.Erm.Platform.Common</Name>
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
@@ -513,6 +531,9 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.201.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.101.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.wxi" />
