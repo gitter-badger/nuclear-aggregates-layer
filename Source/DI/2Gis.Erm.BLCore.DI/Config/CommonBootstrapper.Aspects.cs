@@ -2,11 +2,9 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
-using DoubleGis.Erm.BLCore.Operations.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -84,7 +82,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         public static IUnityContainer ConfigureMetadata(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
         {
             return container
-                .RegisterType<IQuerySettingsProvider, QuerySettingsProvider>(entryPointSpecificLifetimeManagerFactory())
                 .RegisterType<IExportMetadataProvider, ExportMetadataProvider>(Lifetime.Singleton);
         }
 

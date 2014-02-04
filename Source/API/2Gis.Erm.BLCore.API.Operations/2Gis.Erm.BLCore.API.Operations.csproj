@@ -47,10 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dynamic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=68293a411f0cabcc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -108,7 +104,18 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
-    <Compile Include="Generic\List\DTO\ListOrderProcessingRequestDto.cs" />
+    <Compile Include="Generic\List\DynamicListResult.cs" />
+    <Compile Include="Generic\List\DynamicListRow.cs" />
+    <Compile Include="Generic\List\DynamicPropertyValue.cs" />
+    <Compile Include="Generic\List\EntityDtoListResult.cs" />
+    <Compile Include="Generic\List\EntityListResult.cs" />
+    <Compile Include="Generic\List\IListEntityService.cs" />
+    <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
+    <Compile Include="Generic\List\IListGenericEntityService.cs" />
+    <Compile Include="Generic\List\IListItemEntityDto.cs" />
+    <Compile Include="Generic\List\ListResult.cs" />
+    <Compile Include="Generic\List\ListResultType.cs" />
+    <Compile Include="Generic\List\SearchListModel.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -323,62 +330,6 @@
     <Compile Include="Generic\File\UploadFileParams.cs" />
     <Compile Include="Generic\File\UploadFileResult.cs" />
     <Compile Include="Generic\Get\IGetDomainEntityDtoService.cs" />
-    <Compile Include="Generic\List\DTO\ListAccountDetailDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAccountDto.cs" />
-    <Compile Include="Generic\List\DTO\ListActivityDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAdditionalFirmServiceDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAdvertisementDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAdvertisementElementDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAdvertisementElementTemplateDto.cs" />
-    <Compile Include="Generic\List\DTO\ListAdvertisementTemplateDto.cs" />
-    <Compile Include="Generic\List\DTO\ListBargainDto.cs" />
-    <Compile Include="Generic\List\DTO\ListBargainFileDto.cs" />
-    <Compile Include="Generic\List\DTO\ListBillDto.cs" />
-    <Compile Include="Generic\List\DTO\ListCategoryDto.cs" />
-    <Compile Include="Generic\List\DTO\ListCategoryFirmAddressDto.cs" />
-    <Compile Include="Generic\List\DTO\ListClientDto.cs" />
-    <Compile Include="Generic\List\DTO\ListContactDto.cs" />
-    <Compile Include="Generic\List\DTO\ListCurrencyRateDto.cs" />
-    <Compile Include="Generic\List\DTO\ListDealDto.cs" />
-    <Compile Include="Generic\List\DTO\ListFirmAddressDto.cs" />
-    <Compile Include="Generic\List\DTO\ListFirmContactDto.cs" />
-    <Compile Include="Generic\List\DTO\ListFirmDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLegalPersonDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLegalPersonProfileDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLimitDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLocalMessageDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLockDetailDto.cs" />
-    <Compile Include="Generic\List\DTO\ListLockDto.cs" />
-    <Compile Include="Generic\List\DTO\ListOperationDto.cs" />
-    <Compile Include="Generic\List\DTO\ListOperationTypeDto.cs" />
-    <Compile Include="Generic\List\DTO\ListOrderDto.cs" />
-    <Compile Include="Generic\List\DTO\ListOrderFileDto.cs" />
-    <Compile Include="Generic\List\DTO\ListOrganizationUnitDto.cs" />
-    <Compile Include="Generic\List\DTO\ListPositionDto.cs" />
-    <Compile Include="Generic\List\DTO\ListPriceDto.cs" />
-    <Compile Include="Generic\List\DTO\ListPricePositionDto.cs" />
-    <Compile Include="Generic\List\DTO\ListPrintFormTemplateDto.cs" />
-    <Compile Include="Generic\List\DTO\ListRegionalAdvertisingSharingDto.cs" />
-    <Compile Include="Generic\List\DTO\ListReleaseInfoDto.cs" />
-    <Compile Include="Generic\List\DTO\ListTerritoryDto.cs" />
-    <Compile Include="Generic\List\DTO\ListThemeDto.cs" />
-    <Compile Include="Generic\List\DTO\ListThemeTemplateDto.cs" />
-    <Compile Include="Generic\List\DTO\ListUserDto.cs" />
-    <Compile Include="Generic\List\DTO\ListUserRoleDto.cs" />
-    <Compile Include="Generic\List\DTO\ListWithdrawalInfoDto.cs" />
-    <Compile Include="Generic\List\DynamicListHelper.cs" />
-    <Compile Include="Generic\List\DynamicListResult.cs" />
-    <Compile Include="Generic\List\DynamicListRow.cs" />
-    <Compile Include="Generic\List\DynamicPropertyValue.cs" />
-    <Compile Include="Generic\List\EntityDtoListResult.cs" />
-    <Compile Include="Generic\List\EntityListResult.cs" />
-    <Compile Include="Generic\List\IListEntityService.cs" />
-    <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
-    <Compile Include="Generic\List\IListGenericEntityService.cs" />
-    <Compile Include="Generic\List\IListItemEntityDto.cs" />
-    <Compile Include="Generic\List\ListResult.cs" />
-    <Compile Include="Generic\List\ListResultType.cs" />
-    <Compile Include="Generic\List\SearchListModel.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\IBusinessModelEntityObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ISimplifiedModelEntityObtainer.cs" />
     <Compile Include="Generic\Modify\IModifyBusinessModelEntityService.cs" />
@@ -391,7 +342,6 @@
     <Compile Include="Concrete\Themes\ISetDefaultOperation.cs" />
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
-    <Compile Include="Metadata\IQuerySettingsProvider.cs" />
     <Compile Include="Metadata\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Remote\ActionsHistory\ActionsHistoryOperationErrorDescription.cs" />
@@ -434,9 +384,6 @@
     <Compile Include="Remote\Delete\IDeleteApplicationRestService.cs" />
     <Compile Include="Remote\Delete\IDeleteApplicationService.cs" />
     <Compile Include="Remote\INotifiyProgressSettings.cs" />
-    <Compile Include="Remote\List\IListApplicationRestService.cs" />
-    <Compile Include="Remote\List\IListApplicationService.cs" />
-    <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
     <Compile Include="Remote\MsCrm\IMsCrm2ErmApplicationService.cs" />
     <Compile Include="Remote\MsCrm\MsCrm2ErmErrorDescription.cs" />
     <Compile Include="Remote\MsCrm\MsCrmDealStage.cs" />
@@ -472,12 +419,7 @@
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dynamic Expressions.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -52,7 +52,6 @@
     <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\UISpecific\IUIConfigFeature.cs" />
     <Compile Include="Config\DataLists\BasedOnDataListFeature.cs" />
-    <Compile Include="Config\DataLists\Configuration\DataLists.cs" />
     <Compile Include="Config\DataLists\DataFieldExpressionFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeatureAspect.cs" />
@@ -77,11 +76,8 @@
     <Compile Include="Config\Grids\GridStructure.cs" />
     <Compile Include="Config\Grids\GridStructureIdentity.cs" />
     <Compile Include="Config\Grids\GridStructuresBuilder.cs" />
-    <Compile Include="Config\Grids\GridStructuresProvider.cs" />
     <Compile Include="Config\Grids\IGridStructureIdentity.cs" />
     <Compile Include="Config\Grids\IGridStructuresProvider.cs" />
-    <Compile Include="Config\Grids\Settings\GridStructures.cs" />
-    <Compile Include="Config\Grids\Settings\GridStructures.Order.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
     <Compile Include="Operations\ClientOperationIdentityIds.cs" />
@@ -126,6 +122,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Config\DataLists\Configuration\" />
+    <Folder Include="Config\Grids\Settings\" />
     <Folder Include="Config\Old\XmlConfigs\" />
     <Folder Include="Operations\Specific\" />
   </ItemGroup>

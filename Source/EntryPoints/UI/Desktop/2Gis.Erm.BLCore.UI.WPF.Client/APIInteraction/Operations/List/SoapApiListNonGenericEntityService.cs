@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
