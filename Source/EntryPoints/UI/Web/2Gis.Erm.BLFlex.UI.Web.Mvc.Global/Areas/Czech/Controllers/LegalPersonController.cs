@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -23,6 +24,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
 {
@@ -108,6 +110,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
                 ModelUtils.OnException(this, Logger, model, ex);
             }
             return View(model);
+        }
+
+        public JsonNetResult GetPaymentMethod(long legalPersonId)
+        {
+            // TODO {y.baranihin, 20.01.2014}: использовать ReadModel, когда она появится
+            return
+                new JsonNetResult(
+                    new
+                    {
+                        PaymentMethod =
+                    _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
+                           .Select(x => (PaymentMethod?)x.PaymentMethod)
+                           .SingleOrDefault()
+                    });
         }
 
         private static LegalPersonChangeRequisitesAccess GetMaxAccess(int[] accesses)
