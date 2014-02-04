@@ -36,8 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dynamic">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +57,79 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="List\DTO\ListAccountDetailDto.cs" />
+    <Compile Include="List\DTO\ListAccountDto.cs" />
+    <Compile Include="List\DTO\ListActivityDto.cs" />
+    <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementElementTemplateDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementTemplateDto.cs" />
+    <Compile Include="List\DTO\ListBargainDto.cs" />
+    <Compile Include="List\DTO\ListBargainFileDto.cs" />
+    <Compile Include="List\DTO\ListBillDto.cs" />
+    <Compile Include="List\DTO\ListCategoryDto.cs" />
+    <Compile Include="List\DTO\ListCategoryFirmAddressDto.cs" />
+    <Compile Include="List\DTO\ListClientDto.cs" />
+    <Compile Include="List\DTO\ListContactDto.cs" />
+    <Compile Include="List\DTO\ListCurrencyRateDto.cs" />
+    <Compile Include="List\DTO\ListDealDto.cs" />
+    <Compile Include="List\DTO\ListFirmAddressDto.cs" />
+    <Compile Include="List\DTO\ListFirmContactDto.cs" />
+    <Compile Include="List\DTO\ListFirmDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonProfileDto.cs" />
+    <Compile Include="List\DTO\ListLimitDto.cs" />
+    <Compile Include="List\DTO\ListLocalMessageDto.cs" />
+    <Compile Include="List\DTO\ListLockDetailDto.cs" />
+    <Compile Include="List\DTO\ListLockDto.cs" />
+    <Compile Include="List\DTO\ListOperationDto.cs" />
+    <Compile Include="List\DTO\ListOperationTypeDto.cs" />
+    <Compile Include="List\DTO\ListOrderDto.cs" />
+    <Compile Include="List\DTO\ListOrderFileDto.cs" />
+    <Compile Include="List\DTO\ListOrderProcessingRequestDto.cs" />
+    <Compile Include="List\DTO\ListOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListPositionDto.cs" />
+    <Compile Include="List\DTO\ListPriceDto.cs" />
+    <Compile Include="List\DTO\ListPricePositionDto.cs" />
+    <Compile Include="List\DTO\ListPrintFormTemplateDto.cs" />
+    <Compile Include="List\DTO\ListRegionalAdvertisingSharingDto.cs" />
+    <Compile Include="List\DTO\ListReleaseInfoDto.cs" />
+    <Compile Include="List\DTO\ListTerritoryDto.cs" />
+    <Compile Include="List\DTO\ListThemeDto.cs" />
+    <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
+    <Compile Include="List\DTO\ListUserDto.cs" />
+    <Compile Include="List\DTO\ListUserRoleDto.cs" />
+    <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
+    <Compile Include="List\DynamicListHelper.cs" />
+    <Compile Include="List\Metadata\IQuerySettingsProvider.cs" />
+    <Compile Include="Remote\List\IListApplicationRestService.cs" />
+    <Compile Include="Remote\List\IListApplicationService.cs" />
+    <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dynamic Expressions.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
