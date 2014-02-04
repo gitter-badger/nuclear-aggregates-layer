@@ -34,6 +34,7 @@ using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -197,7 +198,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory);
+                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
                 
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
 
