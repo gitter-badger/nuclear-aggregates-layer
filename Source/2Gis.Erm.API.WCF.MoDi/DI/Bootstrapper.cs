@@ -1,8 +1,10 @@
-﻿using System.IdentityModel.Policy;
+﻿using System;
+using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.MoDi.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
+using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.WCF.MoDi;
@@ -33,6 +35,8 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
 {
     internal static class Bootstrapper
     {
+        private static readonly Type[] EagerLoading = { typeof(IUserPersistenceService) };
+
         public static IUnityContainer ConfigureUnity(IMoDiAppSettings settings, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
