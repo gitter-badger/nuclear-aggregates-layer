@@ -3,142 +3,134 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
+using FluentAssertions;
+
+using OrderEntity = DoubleGis.Erm.Platform.Model.Entities.Erm.Order;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Account
 {
     public class AccountReadModelTest : IIntegrationTest
     {
         private readonly IAccountReadModel _accountReadModel;
-        private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider; 
+        private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider;
+        private readonly IAppropriateEntityProvider<OrderEntity> _orderProvider;
+        private readonly IAppropriateEntityProvider<Lock> _lockProvider;
+        private readonly IAppropriateEntityProvider<Limit> _limitProvider;
+        private readonly IAppropriateEntityProvider<WithdrawalInfo> _withdrawalInfoProvider;
 
-        public AccountReadModelTest(IAccountReadModel accountReadModel, IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider)
+        public AccountReadModelTest(IAccountReadModel accountReadModel, 
+            IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider,
+            IAppropriateEntityProvider<OrderEntity> orderProvider,
+            IAppropriateEntityProvider<Lock> lockProvider, 
+            IAppropriateEntityProvider<Limit> limitProvider,
+            IAppropriateEntityProvider<WithdrawalInfo> withdrawalInfoProvider)
         {
             _accountReadModel = accountReadModel;
             _organizationUnitProvider = organizationUnitProvider;
+            _orderProvider = orderProvider;
+            _lockProvider = lockProvider;
+            _limitProvider = limitProvider;
+            _withdrawalInfoProvider = withdrawalInfoProvider;
         }
 
         public ITestResult Execute()
         {
-            var date = DateTime.Now.AddMonths(-1);
-            var timePeriod = new TimePeriod(date.GetFirstDateOfMonth(), date.GetLastDateOfMonth());
-            var dateForHungLImits = DateTime.UtcNow.AddMonths(-2);
+            var activeLock = _lockProvider.Get(Specs.Find.ActiveAndNotDeleted<Lock>());
+            var activeLockOrder = _orderProvider.Get(Specs.Find.ById<OrderEntity>(activeLock.OrderId));
+            var activeLockTimePeriod = new TimePeriod(activeLock.PeriodStartDate, activeLock.PeriodEndDate);
 
-            var orgUnitWithActiveLocks = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                       new FindSpecification<OrganizationUnit>(
-                                                                           x => x.OrdersByDestination.Any(y => y.Locks.Any(z =>
-                                                                                                                           z.IsActive && !z.IsDeleted &&
-                                                                                                                           z.PeriodStartDate == timePeriod.Start &&
-                                                                                                                           z.PeriodEndDate == timePeriod.End))));
+            var dateForHungLimits = DateTime.UtcNow.AddMonths(-2);
+            var orgUnitWithHungLimits = GetOrgUnitWithHungLimits(dateForHungLimits);
 
-            var orgUnitWithClosedLimits = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                        new FindSpecification<OrganizationUnit>(ou => ou.OrdersByDestination.Any(
-                                                                            o =>
-                                                                            o.BranchOfficeOrganizationUnit.Accounts.Any(
-                                                                                a =>
-                                                                                a.IsActive && !a.IsDeleted && a.LegalPersonId == o.LegalPersonId &&
-                                                                                a.Limits.Any(
-                                                                                    l =>
-                                                                                    !l.IsActive && !l.IsDeleted && l.StartPeriodDate == timePeriod.Start &&
-                                                                                    l.EndPeriodDate == timePeriod.End)))));
-            
+            var closedLimit = _limitProvider.Get(Specs.Find.InactiveEntities<Limit>());
+            var orgUnitWithClosedLimit = GetOrgUnitWithClosedLimit(closedLimit);
+            var closedLimitTimePeriod = new TimePeriod(closedLimit.StartPeriodDate, closedLimit.EndPeriodDate);
 
+            var limitForRelease = GetLimitForRelease();
+            var limitForReleaseTimePeriod = new TimePeriod(limitForRelease.StartPeriodDate, limitForRelease.EndPeriodDate);
+            var orderWithLimitsForRelease = GetOrderWithLimitsForRelease(limitForRelease);
 
-            var orgUnitWithHungLimits = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                      new FindSpecification<OrganizationUnit>(
-                                                                          ou =>
-                                                                          ou.BranchOfficeOrganizationUnits.Any(
-                                                                              boou =>
-                                                                              boou.Accounts.Any(
-                                                                                  a =>
-                                                                                  a.Limits.Any(
-                                                                                      l => l.IsActive && !l.IsDeleted && l.StartPeriodDate <= dateForHungLImits)))));
+            var withdrawal = _withdrawalInfoProvider.Get(Specs.Find.ActiveAndNotDeleted<WithdrawalInfo>());
+            var withdrawalTimePeriod = new TimePeriod(withdrawal.PeriodStartDate, withdrawal.PeriodEndDate);
+            var orgUnitWithWithdrawal = GetOrgUnitWithWithdrawal(withdrawal);
 
-            var orgUnitForRevertWithdrawal = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                           new FindSpecification<OrganizationUnit>(
-                                                                               ou =>
-                                                                               ou.OrdersBySource.Any(
-                                                                                   o =>
-                                                                                   o.Locks.Any(
-                                                                                       l =>
-                                                                                       !l.IsDeleted && l.PeriodStartDate == timePeriod.Start ||
-                                                                                       l.PeriodEndDate == timePeriod.End))));
-
-            var orgUnitForWithdrawal = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                     new FindSpecification<OrganizationUnit>(
-                                                                         ou =>
-                                                                         ou.OrdersBySource.Any(
-                                                                             o =>
-                                                                             o.Locks.Any(
-                                                                                 l =>
-                                                                                 l.IsActive && !l.IsDeleted && l.PeriodStartDate == timePeriod.Start ||
-                                                                                 l.PeriodEndDate == timePeriod.End))));
-
-            var orgUnitWithAnyWithdrawals = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                          new FindSpecification<OrganizationUnit>(
-                                                                              ou =>
-                                                                              ou.WithdrawalInfos.Any(
-                                                                                  wi =>
-                                                                                  wi.IsActive && !wi.IsDeleted && wi.PeriodStartDate == timePeriod.Start &&
-                                                                                  wi.PeriodEndDate == timePeriod.End)));
-
-            var orgUnitWithLimitsForRelease = _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
-                                                                            new FindSpecification<OrganizationUnit>(
-                                                                                ou =>
-                                                                                ou.OrdersByDestination.Any(
-                                                                                    o =>
-                                                                                    o.BeginDistributionDate <= timePeriod.Start &&
-                                                                                    o.BeginDistributionDate >= timePeriod.End &&
-                                                                                    (o.WorkflowStepId == (int)OrderState.Approved ||
-                                                                                     o.WorkflowStepId == (int)OrderState.OnTermination) &&
-                                                                                    o.LegalPersonId != null && o.IsActive && !o.IsDeleted
-                                                                                    && o.Account.Limits.Any(l => l.IsActive && !l.IsDeleted))));
-
-            if (new object[]
-                {
-                    orgUnitWithActiveLocks,
-                    orgUnitWithClosedLimits,
-                    orgUnitWithHungLimits,
-                    orgUnitForRevertWithdrawal,
-                    orgUnitWithAnyWithdrawals,
-                    orgUnitWithLimitsForRelease
-                }.Any(x => x == null))
+            try
             {
-                return OrdinaryTestResult.As.NotExecuted;
+                _accountReadModel
+                    .GetActiveLocksForDestinationOrganizationUnitByPeriod(activeLockOrder.DestOrganizationUnitId, activeLockTimePeriod)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel
+                    .GetInfoForRevertWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel
+                    .GetInfoForWithdrawal(activeLockOrder.SourceOrganizationUnitId, activeLockTimePeriod)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel.GetHungLimitsByOrganizationUnitForDate(orgUnitWithHungLimits.Id, dateForHungLimits)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel.GetClosedLimits(orgUnitWithClosedLimit.Id, closedLimitTimePeriod)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel.GetLimitsForRelease(orderWithLimitsForRelease.DestOrganizationUnitId, limitForReleaseTimePeriod)
+                    .Should().NotBeEmpty();
+
+                _accountReadModel.GetLastWithdrawal(orgUnitWithWithdrawal.Id, withdrawalTimePeriod)
+                    .Should().NotBeNull();
+
+                return OrdinaryTestResult.As.Succeeded;
             }
+            catch (Exception ex)
+            {
+                return OrdinaryTestResult.As.Asserted(ex);
+            }
+        }
 
-            var activeLocksForDestinationOrganizationUnitByPeriod =
-                _accountReadModel.GetActiveLocksForDestinationOrganizationUnitByPeriod(orgUnitWithActiveLocks.Id, timePeriod);
+        private Limit GetLimitForRelease()
+        {
+            return _limitProvider.Get(Specs.Find.ActiveAndNotDeleted<Limit>() 
+                && new FindSpecification<Limit>(x => x.Status == (int)LimitStatus.Approved
+                    && x.Account.Orders
+                        .Any(o => (o.WorkflowStepId == (int)OrderState.Approved || o.WorkflowStepId == (int)OrderState.OnTermination)
+                            && o.IsActive && !o.IsDeleted && o.LegalPersonId != null)));
+        }
 
-            var closedLimits = _accountReadModel.GetClosedLimits(orgUnitWithClosedLimits.Id, timePeriod);
+        private OrderEntity GetOrderWithLimitsForRelease(Limit limitForRelease)
+        {
+            return _orderProvider.Get(Specs.Find.ActiveAndNotDeleted<OrderEntity>()
+                && new FindSpecification<OrderEntity>(o => o.Account.Limits.Any(l => l.Id == limitForRelease.Id)));
+        }
 
-            var hungLimitsByOrganizationUnitForDate = _accountReadModel.GetHungLimitsByOrganizationUnitForDate(orgUnitWithHungLimits.Id, dateForHungLImits);
+        private OrganizationUnit GetOrgUnitWithWithdrawal(WithdrawalInfo withdrawal)
+        {
+            return _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>()
+                && new FindSpecification<OrganizationUnit>(ou => ou.WithdrawalInfos.Any(w => w.Id == withdrawal.Id)));
+        }
 
-            var infoForRevertWithdrawal = _accountReadModel.GetInfoForRevertWithdrawal(orgUnitForRevertWithdrawal.Id, timePeriod);
+        private OrganizationUnit GetOrgUnitWithClosedLimit(Limit closedLimit)
+        {
+            return _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>()
+                 && new FindSpecification<OrganizationUnit>(ou => ou.OrdersByDestination
+                    .Any(o => o.BranchOfficeOrganizationUnit.Accounts
+                        .Any(a => a.IsActive && !a.IsDeleted && a.LegalPersonId == o.LegalPersonId 
+                            && a.Limits.Any(l => l.Id == closedLimit.Id)))));
+        }
 
-            var infoForWithdrawal = _accountReadModel.GetInfoForWithdrawal(orgUnitForWithdrawal.Id, timePeriod);
-
-            var lastWithdrawal = _accountReadModel.GetLastWithdrawal(orgUnitWithAnyWithdrawals.Id, timePeriod);
-
-            var limitsForRelease = _accountReadModel.GetLimitsForRelease(orgUnitWithLimitsForRelease.Id, timePeriod);
-
-            return new object[]
-                {
-                    activeLocksForDestinationOrganizationUnitByPeriod,
-                    closedLimits,
-                    hungLimitsByOrganizationUnitForDate,
-                    infoForRevertWithdrawal,
-                    infoForWithdrawal,
-                    lastWithdrawal,
-                    limitsForRelease
-                }.Any(x => x == null)
-                       ? OrdinaryTestResult.As.Failed
-                       : OrdinaryTestResult.As.Succeeded;
+        private OrganizationUnit GetOrgUnitWithHungLimits(DateTime dateForHungLimits)
+        {
+            return _organizationUnitProvider.Get(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>()
+                && new FindSpecification<OrganizationUnit>(ou => ou.BranchOfficeOrganizationUnits
+                        .Any(boou => boou.Accounts
+                            .Any(a => a.Limits
+                                .Any(l => l.IsActive && !l.IsDeleted && l.StartPeriodDate <= dateForHungLimits)))));
         }
     }
 }
