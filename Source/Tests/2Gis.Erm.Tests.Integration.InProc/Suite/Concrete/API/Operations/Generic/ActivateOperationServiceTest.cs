@@ -9,24 +9,24 @@ using FluentAssertions;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
-    public sealed class ActivateOperationServiceTest : UseModelEntityTestBase<LegalPerson>
+    public sealed class ActivateOperationServiceTest : UseModelEntityTestBase<BranchOfficeOrganizationUnit>
     {
-        private readonly IActivateGenericEntityService<LegalPerson> _activateGenericEntityService;
+        private readonly IActivateGenericEntityService<BranchOfficeOrganizationUnit> _activateGenericEntityService;
         
         public ActivateOperationServiceTest(
-            IActivateGenericEntityService<LegalPerson> activateGenericEntityService,
-            IAppropriateEntityProvider<LegalPerson> appropriateEntityProvider)
+            IActivateGenericEntityService<BranchOfficeOrganizationUnit> activateGenericEntityService,
+            IAppropriateEntityProvider<BranchOfficeOrganizationUnit> appropriateEntityProvider)
             : base(appropriateEntityProvider)
         {
             _activateGenericEntityService = activateGenericEntityService;
         }
 
-        protected override FindSpecification<LegalPerson> ModelEntitySpec
+        protected override FindSpecification<BranchOfficeOrganizationUnit> ModelEntitySpec
         {
-            get { return Specs.Find.InactiveEntities<LegalPerson>(); }
+            get { return Specs.Find.InactiveEntities<BranchOfficeOrganizationUnit>(); }
         }
 
-        protected override OrdinaryTestResult ExecuteWithModel(LegalPerson modelEntity)
+        protected override OrdinaryTestResult ExecuteWithModel(BranchOfficeOrganizationUnit modelEntity)
         {
             return Result
                     .When(_activateGenericEntityService.Activate(modelEntity.Id))
