@@ -13,8 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    // 2+: BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.Web.Mvc.Global\Models\ClientViewModel.cs
-    public sealed class ClientViewModel : EntityViewModelBase<Client>, IRussiaAdapted
+    public sealed class ClientViewModel : EntityViewModelBase<Client>
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }

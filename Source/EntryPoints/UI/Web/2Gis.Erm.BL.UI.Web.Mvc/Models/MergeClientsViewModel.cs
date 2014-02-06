@@ -3,7 +3,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public sealed class MergeClientsViewModel : ViewModel
     {

@@ -1,0 +1,1791 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="NavAreaBilling" xml:space="preserve">
+    <value>Sistema de contabilidad</value>
+  </data>
+  <data name="NavAreaHistory" xml:space="preserve">
+    <value>Historial / Planes</value>
+  </data>
+  <data name="NavAreaCalendar" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="NavAreaWorkspace" xml:space="preserve">
+    <value>Área de trabajo</value>
+  </data>
+  <data name="NavAreaSales" xml:space="preserve">
+    <value>Ventas</value>
+  </data>
+  <data name="NavAreaFinances" xml:space="preserve">
+    <value>Finanzas</value>
+  </data>
+  <data name="NavAreaBusinessDirectory" xml:space="preserve">
+    <value>Base de empresas</value>
+  </data>
+  <data name="NavGroupSecurity" xml:space="preserve">
+    <value>Seguridad</value>
+  </data>
+  <data name="NavAreaSettings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="NavGroupAccounts" xml:space="preserve">
+    <value>Cuentas personales</value>
+  </data>
+  <data name="NavGroupDepartments" xml:space="preserve">
+    <value>Sucursales</value>
+  </data>
+  <data name="NavGroupFirm" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="NavGroupLegalPersons" xml:space="preserve">
+    <value>Personas jurídicas</value>
+  </data>
+  <data name="NavGroupOrders" xml:space="preserve">
+    <value>Órdenes</value>
+  </data>
+  <data name="NavGroupServices" xml:space="preserve">
+    <value>Servicio</value>
+  </data>
+  <data name="NavGroupReports" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="NavGroupUsers" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="NavGroupRoles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="CrdRelAccountDetails" xml:space="preserve">
+    <value>Operaciones</value>
+  </data>
+  <data name="CrdRelAccounts" xml:space="preserve">
+    <value>Cuentas personales</value>
+  </data>
+  <data name="CrdRelLimits" xml:space="preserve">
+    <value>Límites</value>
+  </data>
+  <data name="CrdRelBOOU" xml:space="preserve">
+    <value>Personas jurídicas de las sucursales de la entidad</value>
+  </data>
+  <data name="CrdRelCountry" xml:space="preserve">
+    <value>Países</value>
+  </data>
+  <data name="CrdRelCurrency" xml:space="preserve">
+    <value>Moneda</value>
+  </data>
+  <data name="CrdRelCurrencyRate" xml:space="preserve">
+    <value>Tipo de cambio</value>
+  </data>
+  <data name="CrdRelLockDetails" xml:space="preserve">
+    <value>Historial de utilización</value>
+  </data>
+  <data name="CrdRelLocks" xml:space="preserve">
+    <value>Bloqueos</value>
+  </data>
+  <data name="CrdRelOUBO" xml:space="preserve">
+    <value>Personas jurídicas de las sucursales de la entidad</value>
+  </data>
+  <data name="CrdRelPricePosition" xml:space="preserve">
+    <value>Posiciones de la lista de precios</value>
+  </data>
+  <data name="ControlClose" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="ControlCreate" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="ControlDelete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="ControlEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ControlRefresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="ControlSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="ControlSaveAndClose" xml:space="preserve">
+    <value>Guardar y cerrar</value>
+  </data>
+  <data name="ControlSplitter" xml:space="preserve">
+    <value>Separador</value>
+  </data>
+  <data name="ControlSetDefaultTheme" xml:space="preserve">
+    <value>Instalar predeterminado</value>
+  </data>
+  <data name="ControlUnSetDefaultTheme" xml:space="preserve">
+    <value>Quitar el valor predeterminado</value>
+  </data>
+  <data name="ControlManageCategories" xml:space="preserve">
+    <value>Administración de categorías</value>
+  </data>
+  <data name="ControlViewCategoryGroups" xml:space="preserve">
+    <value>Establecer coeficientes</value>
+  </data>
+  <data name="ControlCheckOrdersReadinessForRelease" xml:space="preserve">
+    <value>Verificar las órdenes para la compilación</value>
+  </data>
+  <data name="ControlAssign" xml:space="preserve">
+    <value>Cambiar de supervisor</value>
+  </data>
+  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
+    <value>Preparar los documentos regionales para publicar</value>
+  </data>
+  <data name="ControlChangeClient" xml:space="preserve">
+    <value>Cambiar de cliente</value>
+  </data>
+  <data name="ControlCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ControlComplete" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="ControlRevert" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="ControlCreateTask" xml:space="preserve">
+    <value>Crear Tarea</value>
+  </data>
+  <data name="ControlCreatePhonecall" xml:space="preserve">
+    <value>Crear Llamada</value>
+  </data>
+  <data name="ControlCreateAppointment" xml:space="preserve">
+    <value>Crear Reunión</value>
+  </data>
+  <data name="EnNavigationArea" xml:space="preserve">
+    <value>Secciones</value>
+  </data>
+  <data name="EnAccountDetails" xml:space="preserve">
+    <value>Historial de operaciones</value>
+  </data>
+  <data name="EnAccounts" xml:space="preserve">
+    <value>Cuenta personal</value>
+  </data>
+  <data name="EnMLimits" xml:space="preserve">
+    <value>Límites</value>
+  </data>
+  <data name="EnBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Persona jurídica de la entidad / Sucursal de la entidad</value>
+  </data>
+  <data name="EnBranchOffices" xml:space="preserve">
+    <value>Persona jurídica de la entidad</value>
+  </data>
+  <data name="EnCountries" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="EnCurrencies" xml:space="preserve">
+    <value>Moneda</value>
+  </data>
+  <data name="EnCurrencyRates" xml:space="preserve">
+    <value>Tipo de cambio</value>
+  </data>
+  <data name="EnDepartment" xml:space="preserve">
+    <value>Sucursal</value>
+  </data>
+  <data name="EnFirms" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="EnLegalPersons" xml:space="preserve">
+    <value>Persona jurídica</value>
+  </data>
+  <data name="EnMLegalPersons" xml:space="preserve">
+    <value>Personas jurídicas</value>
+  </data>
+  <data name="EnLockDetails" xml:space="preserve">
+    <value>Historial de bloqueos</value>
+  </data>
+  <data name="EnLocks" xml:space="preserve">
+    <value>Bloqueo</value>
+  </data>
+  <data name="EnOperationTypes" xml:space="preserve">
+    <value>Tipo de operación</value>
+  </data>
+  <data name="EnOrderPositions" xml:space="preserve">
+    <value>Posición de la orden</value>
+  </data>
+  <data name="EnMOrderPositions" xml:space="preserve">
+    <value>Posiciones de la orden</value>
+  </data>
+  <data name="EnOrders" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="EnMOrders" xml:space="preserve">
+    <value>Órdenes</value>
+  </data>
+  <data name="EnOrganizationUnitBranchOffices" xml:space="preserve">
+    <value>Sucursal de la entidad: persona jurídica</value>
+  </data>
+  <data name="EnMOrganizationUnitBranchOffices" xml:space="preserve">
+    <value>Sucursal de la entidad: personas jurídicas de la entidad  </value>
+  </data>
+  <data name="EnOrganizationUnits" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="EnMOrganizationUnits" xml:space="preserve">
+    <value>Sucursales de la entidad</value>
+  </data>
+  <data name="EnPositions" xml:space="preserve">
+    <value>Posición</value>
+  </data>
+  <data name="EnMPositions" xml:space="preserve">
+    <value>Posiciones</value>
+  </data>
+  <data name="EnPricePositions" xml:space="preserve">
+    <value>Posiciones de la lista de precios</value>
+  </data>
+  <data name="EnMPricePositions" xml:space="preserve">
+    <value>Posiciones de la lista de precios</value>
+  </data>
+  <data name="EnPrices" xml:space="preserve">
+    <value>Lista de precios</value>
+  </data>
+  <data name="EnMPrices" xml:space="preserve">
+    <value>Listas de precios</value>
+  </data>
+  <data name="EnUser" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="EnMUser" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="EnRole" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="EnMRole" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="EnOperation" xml:space="preserve">
+    <value>Operación</value>
+  </data>
+  <data name="EnActivity" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="EnAppointment" xml:space="preserve">
+    <value>Reunión</value>
+  </data>
+  <data name="EnPhonecall" xml:space="preserve">
+    <value>Llamada</value>
+  </data>
+  <data name="EnTask" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="DListAccountDetails" xml:space="preserve">
+    <value>Historial de operaciones</value>
+  </data>
+  <data name="DListAccounts" xml:space="preserve">
+    <value>Cuenta personal</value>
+  </data>
+  <data name="DListLimits" xml:space="preserve">
+    <value>Límites Activos</value>
+  </data>
+  <data name="DListBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Personas jurídicas de las sucursales de la entidad</value>
+  </data>
+  <data name="DListCountries" xml:space="preserve">
+    <value>Países</value>
+  </data>
+  <data name="DListCurrencies" xml:space="preserve">
+    <value>Monedas</value>
+  </data>
+  <data name="DListCurrencyRates" xml:space="preserve">
+    <value>Tipo de cambio</value>
+  </data>
+  <data name="DListDepartment" xml:space="preserve">
+    <value>Sucursales activas</value>
+  </data>
+  <data name="DListActiveFirms" xml:space="preserve">
+    <value>Empresas activas</value>
+  </data>
+  <data name="DListLegalPersons" xml:space="preserve">
+    <value>Personas jurídicas del cliente</value>
+  </data>
+  <data name="DListActiveLockDetails" xml:space="preserve">
+    <value>Usos activos</value>
+  </data>
+  <data name="DListNotActiveLockDetails" xml:space="preserve">
+    <value>Usos inactivos</value>
+  </data>
+  <data name="DListActiveLocks" xml:space="preserve">
+    <value>Bloqueos activos</value>
+  </data>
+  <data name="DListNotActiveLocks" xml:space="preserve">
+    <value>Bloqueos usados</value>
+  </data>
+  <data name="DListOperationTypes" xml:space="preserve">
+    <value>Tipos de operaciones</value>
+  </data>
+  <data name="DListOrderPositions" xml:space="preserve">
+    <value>Posiciones publicitarias</value>
+  </data>
+  <data name="DListOrders" xml:space="preserve">
+    <value>Órdenes</value>
+  </data>
+  <data name="DListPositions" xml:space="preserve">
+    <value>Posiciones</value>
+  </data>
+  <data name="DListPricePositions" xml:space="preserve">
+    <value>Posiciones en la lista de precios</value>
+  </data>
+  <data name="DListPrices" xml:space="preserve">
+    <value>Lista de precios</value>
+  </data>
+  <data name="DListUserAccount" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="DListLocalMessageActive" xml:space="preserve">
+    <value>No procesados</value>
+  </data>
+  <data name="DListLocalMessageProcessed" xml:space="preserve">
+    <value>Procesados</value>
+  </data>
+  <data name="DListLocalMessageFailed" xml:space="preserve">
+    <value>Con errores</value>
+  </data>
+  <data name="DListLocalMessageOutbox" xml:space="preserve">
+    <value>Salientes</value>
+  </data>
+  <data name="DListOperations" xml:space="preserve">
+    <value>Todas las operaciones</value>
+  </data>
+  <data name="DListOperationsAfterSaleService" xml:space="preserve">
+    <value>Operación de formación del servicio postventa</value>
+  </data>
+  <data name="DListThemeCategory" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
+  <data name="DFieldBranchOfficeOrganizationUnitName" xml:space="preserve">
+    <value>Persona jurídica de la sucursal de la entidad</value>
+  </data>
+  <data name="DFieldEndTime" xml:space="preserve">
+    <value>Hora de desconexión</value>
+  </data>
+  <data name="DFieldFirmId" xml:space="preserve">
+    <value>Identificador de empresa</value>
+  </data>
+  <data name="DFieldId" xml:space="preserve">
+    <value>Identificador</value>
+  </data>
+  <data name="DFieldErmLaunched" xml:space="preserve">
+    <value>Traspasado a ERM</value>
+  </data>
+  <data name="DFieldIsoCode" xml:space="preserve">
+    <value>Código ISO</value>
+  </data>
+  <data name="DFieldName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="DFieldOrder" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="DFieldOrderId" xml:space="preserve">
+    <value>Identificador de la Orden</value>
+  </data>
+  <data name="DFieldParentId" xml:space="preserve">
+    <value>Código de origen</value>
+  </data>
+  <data name="DFieldPositionId" xml:space="preserve">
+    <value>Código de posición</value>
+  </data>
+  <data name="DFieldPriceId" xml:space="preserve">
+    <value>Código de la lista de precios</value>
+  </data>
+  <data name="DFieldBranchOfficeId" xml:space="preserve">
+    <value>Código de la Persona Jurídica de la Entidad</value>
+  </data>
+  <data name="CrdRelInformation" xml:space="preserve">
+    <value>Datos</value>
+  </data>
+  <data name="CrdRelInformationHeader" xml:space="preserve">
+    <value>Datos</value>
+  </data>
+  <data name="CrdRelThemeOrganizationUnit" xml:space="preserve">
+    <value>Sucursales de la entidad</value>
+  </data>
+  <data name="CrdRelThemeCategory" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
+  <data name="DFieldUniqueId" xml:space="preserve">
+    <value>Identificador único</value>
+  </data>
+  <data name="EnCategories" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="EnCategoryGroups" xml:space="preserve">
+    <value>Grupos de categorías</value>
+  </data>
+  <data name="CrdRelCategory" xml:space="preserve">
+    <value>Subcategorías</value>
+  </data>
+  <data name="CrdRelCategoryOU" xml:space="preserve">
+    <value>Ciudades</value>
+  </data>
+  <data name="DListCategoryOrganizationUnits" xml:space="preserve">
+    <value>Sucursales de la entidad</value>
+  </data>
+  <data name="DFieldCategoryGroupName" xml:space="preserve">
+    <value>Nombre de categoría</value>
+  </data>
+  <data name="DFieldIsHidden" xml:space="preserve">
+    <value>Oculto hasta validar</value>
+  </data>
+  <data name="EnFirmAddresses" xml:space="preserve">
+    <value>Direcciones de empresas</value>
+  </data>
+  <data name="CrdRelFirmAddresses" xml:space="preserve">
+    <value>Direcciones</value>
+  </data>
+  <data name="DFieldContactType" xml:space="preserve">
+    <value>Tipo de contacto</value>
+  </data>
+  <data name="DFieldOperation" xml:space="preserve">
+    <value>Operación</value>
+  </data>
+  <data name="DListFirmAddresses" xml:space="preserve">
+    <value>Direcciones de empresas</value>
+  </data>
+  <data name="DListFirmContacts" xml:space="preserve">
+    <value>Contactos de empresas</value>
+  </data>
+  <data name="CrdRelFirmContacts" xml:space="preserve">
+    <value>Datos de contacto</value>
+  </data>
+  <data name="EnFirmContacts" xml:space="preserve">
+    <value>Contactos de empresas</value>
+  </data>
+  <data name="CrdRelCategoryFirmAddresses" xml:space="preserve">
+    <value>Direcciones</value>
+  </data>
+  <data name="CrdRelFirmAddressCategories" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
+  <data name="DListFirmAddressCategories" xml:space="preserve">
+    <value>Direcciones de empresa - categorías</value>
+  </data>
+  <data name="DListCategoryFirmAddresses" xml:space="preserve">
+    <value>Categorías - direcciones de empresas</value>
+  </data>
+  <data name="DFieldLockDate" xml:space="preserve">
+    <value>Fecha de bloqueo</value>
+  </data>
+  <data name="ControlShare" xml:space="preserve">
+    <value>Acceso común</value>
+  </data>
+  <data name="DListUserRole" xml:space="preserve">
+    <value>Roles del usuario</value>
+  </data>
+  <data name="CrdRelUserRole" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="EnUserRole" xml:space="preserve">
+    <value>Rol del usuario</value>
+  </data>
+  <data name="DListRolePrivilege" xml:space="preserve">
+    <value>Privilegio del rol</value>
+  </data>
+  <data name="DListThemeActive" xml:space="preserve">
+    <value>Selecciones temáticas</value>
+  </data>
+  <data name="DListThemeTemplateActive" xml:space="preserve">
+    <value>Plantillas de selecciones temáticas</value>
+  </data>
+  <data name="EnRolePrivilege" xml:space="preserve">
+    <value>Privilegio del rol</value>
+  </data>
+  <data name="DFieldEntityType" xml:space="preserve">
+    <value>Tipo de esencia</value>
+  </data>
+  <data name="DFieldReplicationCode" xml:space="preserve">
+    <value>Código de replicación</value>
+  </data>
+  <data name="DListUserTerritory" xml:space="preserve">
+    <value>Territorio</value>
+  </data>
+  <data name="EnUserTerritory" xml:space="preserve">
+    <value>Territorio</value>
+  </data>
+  <data name="CrdRelUserTerritory" xml:space="preserve">
+    <value>Territorios</value>
+  </data>
+  <data name="CrdRelUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursales de la entidad</value>
+  </data>
+  <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="EnUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="ControlSaveAndOpen" xml:space="preserve">
+    <value>Guardar y crear</value>
+  </data>
+  <data name="CrdRelRoleEntityPrivilege" xml:space="preserve">
+    <value>Privilegios esenciales</value>
+  </data>
+  <data name="CrdRelRoleFunctionalPrivilege" xml:space="preserve">
+    <value>Privilegios funcionales</value>
+  </data>
+  <data name="DFieldFirstEmitDate" xml:space="preserve">
+    <value>Fecha de primer lanzamiento</value>
+  </data>
+  <data name="CrdRelAssociatedPositionsGroup" xml:space="preserve">
+    <value>Grupos de posiciones principales</value>
+  </data>
+  <data name="DListAssociatedPositionsGroup" xml:space="preserve">
+    <value>Grupos de posiciones principales</value>
+  </data>
+  <data name="EnAssociatedPositionsGroup" xml:space="preserve">
+    <value>Grupo de posiciones principales</value>
+  </data>
+  <data name="CrdRelAssociatedPosition" xml:space="preserve">
+    <value>Posiciones principales</value>
+  </data>
+  <data name="DListAssociatedPosition" xml:space="preserve">
+    <value>Posiciones principales</value>
+  </data>
+  <data name="EnAssociatedPosition" xml:space="preserve">
+    <value>Posición principal</value>
+  </data>
+  <data name="CrdRelDeniedPosition" xml:space="preserve">
+    <value>Posiciones bloqueadas</value>
+  </data>
+  <data name="EnDeniedPosition" xml:space="preserve">
+    <value>Posición bloqueada</value>
+  </data>
+  <data name="EnMDeniedPosition" xml:space="preserve">
+    <value>Posiciones bloqueadas</value>
+  </data>
+  <data name="DFieldVatRate" xml:space="preserve">
+    <value>IVA</value>
+  </data>
+  <data name="EnBargainType" xml:space="preserve">
+    <value>Tipo de acuerdo</value>
+  </data>
+  <data name="DListActiveBargainTypes" xml:space="preserve">
+    <value>Tipos de acuerdos</value>
+  </data>
+  <data name="EnBargainTypes" xml:space="preserve">
+    <value>Tipos de acuerdos</value>
+  </data>
+  <data name="DListDeniedPosition" xml:space="preserve">
+    <value>Posiciones bloqueadas</value>
+  </data>
+  <data name="EnContributionTypes" xml:space="preserve">
+    <value>Formas de colaboración</value>
+  </data>
+  <data name="DListActiveContributionType" xml:space="preserve">
+    <value>Formas de colaboración</value>
+  </data>
+  <data name="DListPlatform" xml:space="preserve">
+    <value>Plataforma</value>
+  </data>
+  <data name="DListPositionCategory" xml:space="preserve">
+    <value>Categoría del elemento de nomenclatura</value>
+  </data>
+  <data name="EnMPlatform" xml:space="preserve">
+    <value>Plataformas</value>
+  </data>
+  <data name="EnMPositionCategory" xml:space="preserve">
+    <value>Categorías del elemento de nomenclatura</value>
+  </data>
+  <data name="EnPlatform" xml:space="preserve">
+    <value>Plataforma</value>
+  </data>
+  <data name="EnPositionCategory" xml:space="preserve">
+    <value>Categoría del elemento de nomenclatura</value>
+  </data>
+  <data name="DListOrganizationUnitActive" xml:space="preserve">
+    <value>Sucursales activas de la entidad</value>
+  </data>
+  <data name="DListBranchOfficeActive" xml:space="preserve">
+    <value>Personas jurídicas activas de la entidad</value>
+  </data>
+  <data name="DListBranchOfficeInactive" xml:space="preserve">
+    <value>Personas jurídicas inactivas de la entidad</value>
+  </data>
+  <data name="DFieldIsComposite" xml:space="preserve">
+    <value>Complejo</value>
+  </data>
+  <data name="DFieldPositionCategoryName" xml:space="preserve">
+    <value>Categorías de la posición</value>
+  </data>
+  <data name="DListPositionChildren" xml:space="preserve">
+    <value>Elementos</value>
+  </data>
+  <data name="EnPositionChildren" xml:space="preserve">
+    <value>Elemento</value>
+  </data>
+  <data name="CrdRelChildrenPositions" xml:space="preserve">
+    <value>Elementos</value>
+  </data>
+  <data name="DFieldMasterId" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="DListAdvertisementTemplate" xml:space="preserve">
+    <value>Plantilla de material publicitario</value>
+  </data>
+  <data name="DListAdvertisementElementTemplate" xml:space="preserve">
+    <value>Elemento de la plantilla del material publicitario</value>
+  </data>
+  <data name="EnAdvertisementTemplate" xml:space="preserve">
+    <value>Plantilla de material publicitario</value>
+  </data>
+  <data name="EnAdvertisementElementTemplate" xml:space="preserve">
+    <value>Elemento de la plantilla del material publicitario</value>
+  </data>
+  <data name="EnMAdvertisementTemplate" xml:space="preserve">
+    <value>Plantillas de material publicitario</value>
+  </data>
+  <data name="EnTheme" xml:space="preserve">
+    <value>Selección temática</value>
+  </data>
+  <data name="EnThemeTemplate" xml:space="preserve">
+    <value>Plantilla de selección temática</value>
+  </data>
+  <data name="DListPricesInactive" xml:space="preserve">
+    <value>Listas de precios inactivas</value>
+  </data>
+  <data name="ControlActivate" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="ControlDeactivate" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="DFieldAdvertisementId" xml:space="preserve">
+    <value>Material publicitario</value>
+  </data>
+  <data name="DFieldFirmAddressId" xml:space="preserve">
+    <value>Enlace con el objeto</value>
+  </data>
+  <data name="DFieldPositionType" xml:space="preserve">
+    <value>Tipo de posiciones</value>
+  </data>
+  <data name="DListInactiveRoles" xml:space="preserve">
+    <value>Roles pasivos</value>
+  </data>
+  <data name="DListRole" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="DListInactiveDepartment" xml:space="preserve">
+    <value>Sucursales inactivas</value>
+  </data>
+  <data name="DListInactiveUser" xml:space="preserve">
+    <value>Usuarios inactivos</value>
+  </data>
+  <data name="DListUser" xml:space="preserve">
+    <value>Usuarios activos</value>
+  </data>
+  <data name="DListActiveAdvertisement" xml:space="preserve">
+    <value>Materiales publicitarios activos</value>
+  </data>
+  <data name="DListAdvertisementElement" xml:space="preserve">
+    <value>Elementos del material publicitario</value>
+  </data>
+  <data name="DListInactiveAdvertisement" xml:space="preserve">
+    <value>Materiales publicitarios eliminados</value>
+  </data>
+  <data name="EnAdvertisement" xml:space="preserve">
+    <value>Material publicitario</value>
+  </data>
+  <data name="EnAdvertisementElement" xml:space="preserve">
+    <value>Elemento del material publicitario</value>
+  </data>
+  <data name="CrdRelBills" xml:space="preserve">
+    <value>Facturas</value>
+  </data>
+  <data name="DListBill" xml:space="preserve">
+    <value>Facturas</value>
+  </data>
+  <data name="EnBill" xml:space="preserve">
+    <value>Factura</value>
+  </data>
+  <data name="DListOrganizationUnitInactive" xml:space="preserve">
+    <value>Sucursales inactivas de la entidad</value>
+  </data>
+  <data name="DFieldAdvertisementElementTemplateName" xml:space="preserve">
+    <value>Elemento de la plantilla del material publicitario</value>
+  </data>
+  <data name="DFieldAdvertisementElementRequired" xml:space="preserve">
+    <value>Obligatorio a rellenar</value>
+  </data>
+  <data name="DListOrderPositionNomenclatures" xml:space="preserve">
+    <value>Posiciones de la orden para el directorio de posiciones</value>
+  </data>
+  <data name="DListLegalPersonsInactive" xml:space="preserve">
+    <value>Personas jurídicas ocultas del cliente</value>
+  </data>
+  <data name="EnLegalPerson" xml:space="preserve">
+    <value>Persona jurídica del cliente</value>
+  </data>
+  <data name="EnLocalMessage" xml:space="preserve">
+    <value>Mensaje de cola local</value>
+  </data>
+  <data name="EnMessageType" xml:space="preserve">
+    <value>Tipo de mensaje de cola local</value>
+  </data>
+  <data name="EnClient" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="EnMClients" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="DListPositionInactive" xml:space="preserve">
+    <value>Posiciones inactivas</value>
+  </data>
+  <data name="CrdRelFirmAdvertisements" xml:space="preserve">
+    <value>Materiales publicitarios</value>
+  </data>
+  <data name="EnTerritory" xml:space="preserve">
+    <value>Territorio de ventas</value>
+  </data>
+  <data name="DListTerritory" xml:space="preserve">
+    <value>Territorios</value>
+  </data>
+  <data name="DListTerritoryActive" xml:space="preserve">
+    <value>Territorios activos</value>
+  </data>
+  <data name="DListTerritoryInactive" xml:space="preserve">
+    <value>Territorios inactivos</value>
+  </data>
+  <data name="DFieldAmountWithdrawn" xml:space="preserve">
+    <value>Amortización</value>
+  </data>
+  <data name="DFieldModifiedOn" xml:space="preserve">
+    <value>Fecha de último modificación</value>
+  </data>
+  <data name="DFieldNumber" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="DFieldWorkflowStep" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="DListBranchOfficeOrganizationUnitInactive" xml:space="preserve">
+    <value>Personas jurídicas inactivas de las sucursales de la entidad</value>
+  </data>
+  <data name="DListCurrenciesInactive" xml:space="preserve">
+    <value>Monedas inactivas</value>
+  </data>
+  <data name="DListPricePositionsInactive" xml:space="preserve">
+    <value>Posiciones inactivas de la lista de precios</value>
+  </data>
+  <data name="DListAssociatedPositionInactive" xml:space="preserve">
+    <value>Posiciones principales inactivas</value>
+  </data>
+  <data name="DListAssociatedPositionsGroupInactive" xml:space="preserve">
+    <value>Grupos inactivos de posiciones principales</value>
+  </data>
+  <data name="DListDeniedPositionInactive" xml:space="preserve">
+    <value>Posiciones bloqueadas inactivas</value>
+  </data>
+  <data name="CrdRelPrintFormTemplates" xml:space="preserve">
+    <value>Plantillas de documentos para publicar</value>
+  </data>
+  <data name="DListPrintFormTemplates" xml:space="preserve">
+    <value>Plantillas de documentos para publicar</value>
+  </data>
+  <data name="EnPrintFormTemplate" xml:space="preserve">
+    <value>Plantilla de documentos para publicar</value>
+  </data>
+  <data name="DListActiveOperationTypes" xml:space="preserve">
+    <value>Tipos activos de operaciones</value>
+  </data>
+  <data name="DListInactiveOperationTypes" xml:space="preserve">
+    <value>Tipos inactivos de operaciones</value>
+  </data>
+  <data name="DListActiveBargains" xml:space="preserve">
+    <value>Acuerdos activos</value>
+  </data>
+  <data name="DListInactiveBargains" xml:space="preserve">
+    <value>Acuerdos inactivos</value>
+  </data>
+  <data name="EnMBargains" xml:space="preserve">
+    <value>Acuerdos</value>
+  </data>
+  <data name="ControlActions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="CrdRelOrders" xml:space="preserve">
+    <value>Órdenes</value>
+  </data>
+  <data name="DFieldAmountCharged" xml:space="preserve">
+    <value>Devengo</value>
+  </data>
+  <data name="ControlChangeDealClient" xml:space="preserve">
+    <value>Cambio de cliente en la transacción</value>
+  </data>
+  <data name="ControlChangeBindingObjects" xml:space="preserve">
+    <value>Cambiar el enlace con los objetos</value>
+  </data>
+  <data name="ControlCloseDeal" xml:space="preserve">
+    <value>Cerrar la Transacción</value>
+  </data>
+  <data name="ControlReopenDeal" xml:space="preserve">
+    <value>Volver a abrir la Transacción</value>
+  </data>
+  <data name="ControlPrintActions" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="ControlPrintBargainAction" xml:space="preserve">
+    <value>Acuerdo</value>
+  </data>
+  <data name="ControlPrintOrderAction" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="ControlPrintActionsAdditional" xml:space="preserve">
+    <value>Adicionales</value>
+  </data>
+  <data name="ControlChangeClientOwner" xml:space="preserve">
+    <value>Cambiar de supervisor</value>
+  </data>
+  <data name="ControlChangeTerritory" xml:space="preserve">
+    <value>Cambiar de territorio</value>
+  </data>
+  <data name="ControlQualify" xml:space="preserve">
+    <value>Tomar de la reserva</value>
+  </data>
+  <data name="ControlDisqualify" xml:space="preserve">
+    <value>Devolver a la reserva</value>
+  </data>
+  <data name="DFieldOrganizationName" xml:space="preserve">
+    <value>Nombre de organización</value>
+  </data>
+  <data name="CrdRelDeals" xml:space="preserve">
+    <value>Transacciones</value>
+  </data>
+  <data name="DFieldTitleV2" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="ControlApproveLimit" xml:space="preserve">
+    <value>Aprobar</value>
+  </data>
+  <data name="ControlOpenLimit" xml:space="preserve">
+    <value>Retirar</value>
+  </data>
+  <data name="ControlRecalculateLimit" xml:space="preserve">
+    <value>Volver a calcular</value>
+  </data>
+  <data name="ControlRejectLimit" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+  <data name="CrdRelFirms" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="CrdRelLegalPersons" xml:space="preserve">
+    <value>Personas jurídicas</value>
+  </data>
+  <data name="DListLimitsInactive" xml:space="preserve">
+    <value>Límites Usados</value>
+  </data>
+  <data name="EnLimit" xml:space="preserve">
+    <value>Límite</value>
+  </data>
+  <data name="DListActiveDeals" xml:space="preserve">
+    <value>Transacciones activas</value>
+  </data>
+  <data name="ControlCreateBargain" xml:space="preserve">
+    <value>Crear acuerdo</value>
+  </data>
+  <data name="DListBargains" xml:space="preserve">
+    <value>Acuerdos</value>
+  </data>
+  <data name="ControlRemoveBargain" xml:space="preserve">
+    <value>Eliminar acuerdo</value>
+  </data>
+  <data name="DListAdvertisementTemplateDeleted" xml:space="preserve">
+    <value>Plantillas eliminadas de material publicitario</value>
+  </data>
+  <data name="DFieldRestrictionType" xml:space="preserve">
+    <value>Tipo de limitación</value>
+  </data>
+  <data name="DListAdvertisementElementTemplateDeleted" xml:space="preserve">
+    <value>Elementos eliminados de plantillas de material publicitario</value>
+  </data>
+  <data name="ControlChangeDeal" xml:space="preserve">
+    <value>Cambiar de transacción</value>
+  </data>
+  <data name="ControlAppend" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="CrdRelBargains" xml:space="preserve">
+    <value>Acuerdos</value>
+  </data>
+  <data name="CrdRelActions" xml:space="preserve">
+    <value>Historial / Planes</value>
+  </data>
+  <data name="CrdRelErmActions" xml:space="preserve">
+    <value>Historial / Planes</value>
+  </data>
+  <data name="EnCategoryOrganizationUnit" xml:space="preserve">
+    <value>Categoría de la sucursal de la entidad</value>
+  </data>
+  <data name="EnDeal" xml:space="preserve">
+    <value>Transacción</value>
+  </data>
+  <data name="EnFirmContact" xml:space="preserve">
+    <value>Contacto de empresa</value>
+  </data>
+  <data name="EnFirmAddress" xml:space="preserve">
+    <value>Dirección de la empresa</value>
+  </data>
+  <data name="CrdRelActivityHistory" xml:space="preserve">
+    <value>Historial</value>
+  </data>
+  <data name="DListAdsTemplatesAdsElementTemplate" xml:space="preserve">
+    <value>Elementos activos de la plantilla de material publicitario</value>
+  </data>
+  <data name="ControlChangeOwner" xml:space="preserve">
+    <value>Cambiar de supervisor</value>
+  </data>
+  <data name="ControlChangeLegalPersonClient" xml:space="preserve">
+    <value>Cambiar de cliente</value>
+  </data>
+  <data name="ControlCheckOrder" xml:space="preserve">
+    <value>Verificar la orden</value>
+  </data>
+  <data name="ControlPrintBillAction" xml:space="preserve">
+    <value>Factura</value>
+  </data>
+  <data name="ControlPrintBillsAction" xml:space="preserve">
+    <value>Facturas</value>
+  </data>
+  <data name="ControlSwitchToAccount" xml:space="preserve">
+    <value>Ir a la cuenta personal</value>
+  </data>
+  <data name="EnMDeal" xml:space="preserve">
+    <value>Transacciones</value>
+  </data>
+  <data name="CrdRelOrderFiles" xml:space="preserve">
+    <value>Archivos para la orden</value>
+  </data>
+  <data name="DListOrderFiles" xml:space="preserve">
+    <value>Archivos para la orden</value>
+  </data>
+  <data name="EnOrderFile" xml:space="preserve">
+    <value>Archivo para la orden</value>
+  </data>
+  <data name="CrdRelBargainFiles" xml:space="preserve">
+    <value>Archivos para el acuerdo</value>
+  </data>
+  <data name="DListBargainFiles" xml:space="preserve">
+    <value>Archivos para el acuerdo</value>
+  </data>
+  <data name="EnBargainFile" xml:space="preserve">
+    <value>Archivo para el acuerdo</value>
+  </data>
+  <data name="DListReleaseInfo" xml:space="preserve">
+    <value>Compilaciones</value>
+  </data>
+  <data name="EnReleaseInfo" xml:space="preserve">
+    <value>Compilación</value>
+  </data>
+  <data name="DFieldReleaseStartDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="ControlChangeFirmClient" xml:space="preserve">
+    <value>Cambiar de cliente</value>
+  </data>
+  <data name="EnContact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="EnMContact" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="DListContacts" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="NavGroupErmAdministration" xml:space="preserve">
+    <value>Administración</value>
+  </data>
+  <data name="NavGroupSecurityAdministration" xml:space="preserve">
+    <value>Seguridad</value>
+  </data>
+  <data name="NavGroupCatalogueManagement" xml:space="preserve">
+    <value>Administración del catálogo</value>
+  </data>
+  <data name="NavGroupMessageQueueManagement" xml:space="preserve">
+    <value>Administración de cola de mensajes</value>
+  </data>
+  <data name="ControlAssignWhiteListedAd" xml:space="preserve">
+    <value>Designar el material publicitario en la lista blanca</value>
+  </data>
+  <data name="DFieldFullName" xml:space="preserve">
+    <value>Nombre completo</value>
+  </data>
+  <data name="CrdRelContacts" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="EnNote" xml:space="preserve">
+    <value>Observación</value>
+  </data>
+  <data name="EnNotes" xml:space="preserve">
+    <value>Observaciones</value>
+  </data>
+  <data name="DListLocalMessageAll" xml:space="preserve">
+    <value>Todos los mensajes</value>
+  </data>
+  <data name="ControlPrintTermNoticeAction" xml:space="preserve">
+    <value>Notificación de anulación</value>
+  </data>
+  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
+    <value>Notificación de anulación regional</value>
+  </data>
+  <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
+    <value>Acuerdo adicional</value>
+  </data>
+  <data name="DListDeal" xml:space="preserve">
+    <value>Transacciones</value>
+  </data>
+  <data name="DListInactiveDeals" xml:space="preserve">
+    <value>Transacciones cerradas</value>
+  </data>
+  <data name="DListClients" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="DListMyClients" xml:space="preserve">
+    <value>Mis clientes</value>
+  </data>
+  <data name="ControlChangeLPRequisites" xml:space="preserve">
+    <value>Cambiar requisitos</value>
+  </data>
+  <data name="ControlExecRelease" xml:space="preserve">
+    <value>Compilación</value>
+  </data>
+  <data name="ControlRevertRelease" xml:space="preserve">
+    <value>Cancelar compilación</value>
+  </data>
+  <data name="ControlCloseBargains" xml:space="preserve">
+    <value>Cerrar acuerdos</value>
+  </data>
+  <data name="ControlExport" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
+    <value>Descarga de amortizaciones</value>
+  </data>
+  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Descargar las amortizaciones al canal</value>
+  </data>
+  <data name="ControlImportFromFile" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
+  <data name="ControlProcessMessage" xml:space="preserve">
+    <value>Enviar para procesar</value>
+  </data>
+  <data name="ControlSaveAs" xml:space="preserve">
+    <value>Guardar como</value>
+  </data>
+  <data name="ControlDeleteAll" xml:space="preserve">
+    <value>Eliminar todo</value>
+  </data>
+  <data name="ControlCopyPrice" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="ControlCopyPricePosition" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="ControlPublishPrice" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="ControlUnpublishPrice" xml:space="preserve">
+    <value>Cancelar publicación</value>
+  </data>
+  <data name="DFieldAccount" xml:space="preserve">
+    <value>Nombre del dominio</value>
+  </data>
+  <data name="DFieldDisplayName" xml:space="preserve">
+    <value>Nombre a mostrar</value>
+  </data>
+  <data name="DFieldShortName" xml:space="preserve">
+    <value>Nombre corto</value>
+  </data>
+  <data name="CrdRelCategories" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
+  <data name="ControlDownloadResults" xml:space="preserve">
+    <value>Informe de errores</value>
+  </data>
+  <data name="DListActiveCategories" xml:space="preserve">
+    <value>Categorías activas</value>
+  </data>
+  <data name="DListActiveCategoryGroups" xml:space="preserve">
+    <value>Grupos activos de categorías</value>
+  </data>
+  <data name="DListAllCategoryGroups" xml:space="preserve">
+    <value>Todos los grupos de categorías</value>
+  </data>
+  <data name="DListActiveCategoryFirmAddresses" xml:space="preserve">
+    <value>Categorías activas</value>
+  </data>
+  <data name="DListActiveContacts" xml:space="preserve">
+    <value>Contactos activos</value>
+  </data>
+  <data name="DListActiveFirmAddresses" xml:space="preserve">
+    <value>Direcciones activas</value>
+  </data>
+  <data name="DListActiveOrders" xml:space="preserve">
+    <value>Órdenes activas</value>
+  </data>
+  <data name="DListAllOrders" xml:space="preserve">
+    <value>Todas las órdenes</value>
+  </data>
+  <data name="DListInactiveCategories" xml:space="preserve">
+    <value>Categorías ocultas</value>
+  </data>
+  <data name="DListInactiveCategoryFirmAddresses" xml:space="preserve">
+    <value>Categorías ocultas</value>
+  </data>
+  <data name="DListInactiveContacts" xml:space="preserve">
+    <value>Contactos ocultos</value>
+  </data>
+  <data name="DListInactiveFirmAddresses" xml:space="preserve">
+    <value>Direcciones ocultas</value>
+  </data>
+  <data name="DListInactiveFirms" xml:space="preserve">
+    <value>Empresas ocultas</value>
+  </data>
+  <data name="DListInactiveOrders" xml:space="preserve">
+    <value>Órdenes Archivadas</value>
+  </data>
+  <data name="DListInactiveBargainTypes" xml:space="preserve">
+    <value>Tipos inactivos de acuerdos</value>
+  </data>
+  <data name="DListInactiveContributionType" xml:space="preserve">
+    <value>Formas ocultas de colaboración</value>
+  </data>
+  <data name="ControlSetAsPrimary" xml:space="preserve">
+    <value>Convertir en principal</value>
+  </data>
+  <data name="ControlSetAsPrimaryForRegSales" xml:space="preserve">
+    <value>Convertir en principal en ventas de la publicidad regional</value>
+  </data>
+  <data name="DFieldCustomerLegalPersonLegalName" xml:space="preserve">
+    <value>Persona jurídica del cliente</value>
+  </data>
+  <data name="ControlCloseWithDenial" xml:space="preserve">
+    <value>Cerrar por ser rechazado</value>
+  </data>
+  <data name="DFieldPriceName" xml:space="preserve">
+    <value>Lista de precios</value>
+  </data>
+  <data name="DListRejectedOrders" xml:space="preserve">
+    <value>Órdenes cerradas por ser rechazadas</value>
+  </data>
+  <data name="ControlCopyOrder" xml:space="preserve">
+    <value>Crear una copia de la orden...</value>
+  </data>
+  <data name="ControlMerge" xml:space="preserve">
+    <value>Fusión</value>
+  </data>
+  <data name="ControlExecWithdrawing" xml:space="preserve">
+    <value>Amortización</value>
+  </data>
+  <data name="ControlRevertWithdrawing" xml:space="preserve">
+    <value>Cancelar amortización </value>
+  </data>
+  <data name="EnWithdrawalInfo" xml:space="preserve">
+    <value>Operación de amortización</value>
+  </data>
+  <data name="DListWithdrawalInfo" xml:space="preserve">
+    <value>Operación de amortización</value>
+  </data>
+  <data name="ControlPrintRegionalOrderAction" xml:space="preserve">
+    <value>Orden regional</value>
+  </data>
+  <data name="ControlAddFirmAddress" xml:space="preserve">
+    <value>Agregar dirección</value>
+  </data>
+  <data name="DFieldOrderNumbers" xml:space="preserve">
+    <value>Órdenes</value>
+  </data>
+  <data name="DFieldSourceBranchOfficeOrgUnitName" xml:space="preserve">
+    <value>Persona jurídica del contratante</value>
+  </data>
+  <data name="DFieldTotalAmount" xml:space="preserve">
+    <value>Importe total de todas las órdenes</value>
+  </data>
+  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
+    <value>Cambio de la publicidad regional</value>
+  </data>
+  <data name="DListAllUsers" xml:space="preserve">
+    <value>Todos los usuarios</value>
+  </data>
+  <data name="EnMUserProfile" xml:space="preserve">
+    <value>Perfiles de usuarios</value>
+  </data>
+  <data name="EnUserProfile" xml:space="preserve">
+    <value>Perfil del usuario</value>
+  </data>
+  <data name="DListTimeZones" xml:space="preserve">
+    <value>Husos horarios</value>
+  </data>
+  <data name="EnMTimeZone" xml:space="preserve">
+    <value>Husos horarios</value>
+  </data>
+  <data name="EnTimeZone" xml:space="preserve">
+    <value>Huso horario</value>
+  </data>
+  <data name="ControlPrepareJointBillsAction" xml:space="preserve">
+    <value>Factura única</value>
+  </data>
+  <data name="EnAdsTemplatesAdsElementTemplate" xml:space="preserve">
+    <value>Enlace del elemento de la plantilla del material publicitario con la plantilla de material publicitario</value>
+  </data>
+  <data name="DListOrganizationUnitActiveMovedToErm" xml:space="preserve">
+    <value>Sucursales de entidades activas trasladadas a ERM</value>
+  </data>
+  <data name="DListOrganizationUnitActiveMovedToIR" xml:space="preserve">
+    <value>Sucursales de entidades activas trasladadas a InfoRussia</value>
+  </data>
+  <data name="ControlPreviewAdvertisement" xml:space="preserve">
+    <value>Vista previa </value>
+  </data>
+  <data name="DListFiredContacts" xml:space="preserve">
+    <value>Contactos despedidos</value>
+  </data>
+  <data name="DListUserWithRole" xml:space="preserve">
+    <value>Usuarios con roles</value>
+  </data>
+  <data name="ExcludeFromOrganizationUnit" xml:space="preserve">
+    <value>Excluir de la sucursal</value>
+  </data>
+  <data name="DListAccountDetailsWithDeletedOperations" xml:space="preserve">
+    <value>Historial de operaciones (incluidas operaciones eliminadas)</value>
+  </data>
+  <data name="ControlPrintReferenceAction" xml:space="preserve">
+    <value>Información de referencia</value>
+  </data>
+  <data name="DFieldSelectedToWhiteList" xml:space="preserve">
+    <value>Seleccionado para la lista blanca</value>
+  </data>
+  <data name="EnLegalPersonProfile" xml:space="preserve">
+    <value>Perfil de persona jurídica del cliente</value>
+  </data>
+  <data name="DListLegalPersonProfiles" xml:space="preserve">
+    <value>Perfiles de persona jurídica</value>
+  </data>
+  <data name="DFieldIsMainProfile" xml:space="preserve">
+    <value>Perfil principal</value>
+  </data>
+  <data name="ControlMakeProfileMain" xml:space="preserve">
+    <value>Convertir el perfil en principal</value>
+  </data>
+  <data name="DStartTime" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="EnMOperation" xml:space="preserve">
+    <value>Operaciones</value>
+  </data>
+  <data name="AdditionalFirmServices" xml:space="preserve">
+    <value>Servicios adicionales</value>
+  </data>
+  <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
+    <value>Certificado de garantía (cambio del material publicitario)</value>
+  </data>
+  <data name="ControlDetachFirm" xml:space="preserve">
+    <value>Desenlazar al cliente</value>
+  </data>
+  <data name="DFileName" xml:space="preserve">
+    <value>Nombre de archivo</value>
+  </data>
+  <data name="DFieldActivityType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="DFieldScheduledEnd" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="DFieldActualEnd" xml:space="preserve">
+    <value>Fecha real de finalización</value>
+  </data>
+  <data name="DListAllActivities" xml:space="preserve">
+    <value>Todos los planes</value>
+  </data>
+  <data name="DListMyActivities" xml:space="preserve">
+    <value>Mis planes</value>
+  </data>
+  <data name="DListReleaseInfoBeta" xml:space="preserve">
+    <value>Compilaciones técnicas</value>
+  </data>
+  <data name="DListReleaseInfoFailed" xml:space="preserve">
+    <value>Compilaciones sin éxito</value>
+  </data>
+  <data name="DListReleaseInfoFinal" xml:space="preserve">
+    <value>Compilaciones finales</value>
+  </data>
+  <data name="DListReleaseInfoInProgress" xml:space="preserve">
+    <value>Compilaciones pendientes</value>
+  </data>
+  <data name="DListReleaseInfoSuccessed" xml:space="preserve">
+    <value>Compilaciones exitosas</value>
+  </data>
+  <data name="DFieldCategoryIsPrimary" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="DCategoryGroup" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="DListUsersInOrganizationUnit" xml:space="preserve">
+    <value>Usuarios en la sucursal de la entidad</value>
+  </data>
+  <data name="EnProjects" xml:space="preserve">
+    <value>Proyecto</value>
+  </data>
+  <data name="DListProjects" xml:space="preserve">
+    <value>Proyectos</value>
+  </data>
+  <data name="EnMProjects" xml:space="preserve">
+    <value>Proyectos</value>
+  </data>
+  <data name="DListAccountsAtMyBranch" xml:space="preserve">
+    <value>Todas las cuentas personales de la sucursal</value>
+  </data>
+  <data name="DListAccountsWithNegativeBalanceForSubordinates" xml:space="preserve">
+    <value>Cuentas personales de mis subordinados con un balance negativo</value>
+  </data>
+  <data name="DListActiveFirmsAtMyBranch" xml:space="preserve">
+    <value>Todas las empresas activas de la sucursal</value>
+  </data>
+  <data name="DListClientsAtMyBranch" xml:space="preserve">
+    <value>Todos los clientes de la sucursal</value>
+  </data>
+  <data name="DListClientsForSubordinates" xml:space="preserve">
+    <value>Clientes de mis subordinados</value>
+  </data>
+  <data name="DListClientsOnMyTerritory" xml:space="preserve">
+    <value>Clientes en mi territorio</value>
+  </data>
+  <data name="DListClientsWithBarter" xml:space="preserve">
+    <value>Clientes que tienen órdenes de tipo Trueque</value>
+  </data>
+  <data name="DListClientsWithBarterForSubordinates" xml:space="preserve">
+    <value>Clientes de mis subordinados que tienen órdenes de tipo Trueque</value>
+  </data>
+  <data name="DListClientsWithDebtForSubordinates" xml:space="preserve">
+    <value>Clientes de mis subordinados con débitos</value>
+  </data>
+  <data name="DListClientsWithoutMakeDecisionContactsForSubordinates" xml:space="preserve">
+    <value>Clientes de mis subordinados sin Decisión Maker</value>
+  </data>
+  <data name="DListClientsWithSeveralOpenDealsForSubordinates" xml:space="preserve">
+    <value>Clientes de mis subordinados con varias transacciones abiertas</value>
+  </data>
+  <data name="DListDealsAtBranch" xml:space="preserve">
+    <value>Todas las transacciones de la sucursal</value>
+  </data>
+  <data name="DListDealsForSubordinates" xml:space="preserve">
+    <value>Transacciones de mis subordinados</value>
+  </data>
+  <data name="DListFirmsAtMyBranch" xml:space="preserve">
+    <value>Todas las empresas de la sucursal</value>
+  </data>
+  <data name="DListFirmsForSubordinates" xml:space="preserve">
+    <value>Empresas de mis subordinados</value>
+  </data>
+  <data name="DListFirmsWithSelfAds" xml:space="preserve">
+    <value>Empresas con órdenes de tipo Autopromoción</value>
+  </data>
+  <data name="DListMyAccountsWithNegativeBalance" xml:space="preserve">
+    <value>Mis cuentas nominales con un balance negativo</value>
+  </data>
+  <data name="DListMyBargains" xml:space="preserve">
+    <value>Mis acuerdos</value>
+  </data>
+  <data name="DListMyBarterDeals" xml:space="preserve">
+    <value>Mis transacciones de trueque</value>
+  </data>
+  <data name="DListMyClientsCreatedToday" xml:space="preserve">
+    <value>Mis clientes creados hoy</value>
+  </data>
+  <data name="DListMyClientsWithDebt" xml:space="preserve">
+    <value>Mis clientes con débitos</value>
+  </data>
+  <data name="DListMyClientsWithoutDeals" xml:space="preserve">
+    <value>Mis clientes sin transacción</value>
+  </data>
+  <data name="DListMyClientsWithoutMakeDecisionContacts" xml:space="preserve">
+    <value>Mis clientes sin Decisión Maker</value>
+  </data>
+  <data name="DListMyContacts" xml:space="preserve">
+    <value>Mis contactos</value>
+  </data>
+  <data name="DListMyDeals" xml:space="preserve">
+    <value>Mis transacciones</value>
+  </data>
+  <data name="DListMyFirms" xml:space="preserve">
+    <value>Mis empresas</value>
+  </data>
+  <data name="DListMyInactiveDeals" xml:space="preserve">
+    <value>Mis transacciones cerradas</value>
+  </data>
+  <data name="DListMyRegionalClients" xml:space="preserve">
+    <value>Mis clientes regionales</value>
+  </data>
+  <data name="DListMyWarmClients" xml:space="preserve">
+    <value>Mis clientes interesados</value>
+  </data>
+  <data name="DListRegionalClientsForSubordinates" xml:space="preserve">
+    <value>Clientes regionales de mis subordinados</value>
+  </data>
+  <data name="DListReservedClientsOnMyTerritory" xml:space="preserve">
+    <value>Clientes en la reserva de mi territorio</value>
+  </data>
+  <data name="DListReservedFirmsOnMyTerritories" xml:space="preserve">
+    <value>Empresas en la reserva de mi territorio</value>
+  </data>
+  <data name="DListWarmClientsForSubordinates" xml:space="preserve">
+    <value>Clientes interesados de mis subordinados</value>
+  </data>
+  <data name="DListApprovedByMeLimits" xml:space="preserve">
+    <value>Límites aprobados por mí</value>
+  </data>
+  <data name="DListLegalPersonsAtMyBranch" xml:space="preserve">
+    <value>Todas las personas jurídicas de la sucursal</value>
+  </data>
+  <data name="DListLegalPersonsForSubordinates" xml:space="preserve">
+    <value>Personas jurídicas de mis subordinados</value>
+  </data>
+  <data name="DListLegalPersonsWithDebtAtMyBranch" xml:space="preserve">
+    <value>Personas jurídicas de la sucursal con débitos</value>
+  </data>
+  <data name="DListLegalPersonsWithDebtForSubordinates" xml:space="preserve">
+    <value>Personas jurídicas de mis subordinados con débitos</value>
+  </data>
+  <data name="DListLegalPersonsWithMyOrders" xml:space="preserve">
+    <value>Personas jurídicas de las que no soy supervisor pero que tienen mis órdenes</value>
+  </data>
+  <data name="DListLegalPersonsWithRegionalOrders" xml:space="preserve">
+    <value>Personas jurídicas con las órdenes regionales</value>
+  </data>
+  <data name="DListLimitsAtMyBranch" xml:space="preserve">
+    <value>Límites de la sucursal</value>
+  </data>
+  <data name="DListLimitsForApprove" xml:space="preserve">
+    <value>Límites que requieren mi aprobación</value>
+  </data>
+  <data name="DListLimitsForSubordinates" xml:space="preserve">
+    <value>Límites de mis subordinados</value>
+  </data>
+  <data name="DListMyActiveOrders" xml:space="preserve">
+    <value>Todas mis órdenes activas</value>
+  </data>
+  <data name="DListMyApprovedLimits" xml:space="preserve">
+    <value>Mis límites aprobados</value>
+  </data>
+  <data name="DListMyLegalPersons" xml:space="preserve">
+    <value>Mis personas jurídicas</value>
+  </data>
+  <data name="DListMyLegalPersonsWithDebt" xml:space="preserve">
+    <value>Mis personas jurídicas con débitos</value>
+  </data>
+  <data name="DListMyOpenedLimits" xml:space="preserve">
+    <value>Mis límites abiertos</value>
+  </data>
+  <data name="DListMyOrdersOnApproval" xml:space="preserve">
+    <value>Mis órdenes con estado En trámite de confirmación</value>
+  </data>
+  <data name="DListMyOrdersOnTermination" xml:space="preserve">
+    <value>Mis órdenes con estado En trámite de anulación</value>
+  </data>
+  <data name="DListMyOrdersWithDocumentsDebt" xml:space="preserve">
+    <value>Mis órdenes que no tienen documentos firmados</value>
+  </data>
+  <data name="DListMyRegionalOrders" xml:space="preserve">
+    <value>Mis órdenes regionales</value>
+  </data>
+  <data name="DListMyRejectedLimits" xml:space="preserve">
+    <value>Mis límites rechazados</value>
+  </data>
+  <data name="DListMyTerminatedOrders" xml:space="preserve">
+    <value>Mis órdenes inactivas (cerradas por ser rechazadas)</value>
+  </data>
+  <data name="DListOrdersForSubordinates" xml:space="preserve">
+    <value>Todas las órdenes de mis subordinados</value>
+  </data>
+  <data name="DListRejectedByMeLimits" xml:space="preserve">
+    <value>Límites rechazados por mí</value>
+  </data>
+  <data name="DListRejectedOrdersForSubordinates" xml:space="preserve">
+    <value>Órdenes rechazadas de mis subordinados</value>
+  </data>
+  <data name="DListTerminatedOrdersForSubordinates" xml:space="preserve">
+    <value>Órdenes inactivas (cerradas por ser rechazadas) de mis subordinados</value>
+  </data>
+  <data name="DListMyBarterOrders" xml:space="preserve">
+    <value>Todas mis órdenes de tipo Trueque</value>
+  </data>
+  <data name="DListMySelfAdsOrders" xml:space="preserve">
+    <value>Todas mis órdenes de tipo Autopromoción</value>
+  </data>
+  <data name="DListMyNewOrders" xml:space="preserve">
+    <value>Mis nuevas órdenes</value>
+  </data>
+  <data name="DListNewOrdersForSubordinates" xml:space="preserve">
+    <value>Nuevas órdenes de mis subordinados</value>
+  </data>
+  <data name="DListOrdersToProlongate" xml:space="preserve">
+    <value>Órdenes que necesitan prórroga</value>
+  </data>
+  <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
+    <value>Órdenes de mis subordinados que necesitan prórroga</value>
+  </data>
+  <data name="DListMyOrdersToNextEdition" xml:space="preserve">
+    <value>Mis órdenes para el próximo lanzamiento</value>
+  </data>
+  <data name="DListOrdersOnApprovalForMe" xml:space="preserve">
+    <value>Órdenes que requieren mi aprobación</value>
+  </data>
+  <data name="DListOrdersToNextEditionForSubordinates" xml:space="preserve">
+    <value>Órdenes de mis subordinados para el próximo lanzamiento</value>
+  </data>
+  <data name="DListRejectedByMeOrders" xml:space="preserve">
+    <value>Todas las órdenes rechazadas por mí</value>
+  </data>
+  <data name="DListNewFirmsOnMyTerritories" xml:space="preserve">
+    <value>Nuevas empresas de mi territorio</value>
+  </data>
+  <data name="DListActivitiesForSubordinates" xml:space="preserve">
+    <value>Planes de mis subordinados</value>
+  </data>
+  <data name="DListActivitiesInProgressForSubordinates" xml:space="preserve">
+    <value>Planes previstos de mis subordinados</value>
+  </data>
+  <data name="DListCompletedActivitiesForSubordinates" xml:space="preserve">
+    <value>Planes finalizados de mis subordinados</value>
+  </data>
+  <data name="DListMyActivitiesInProgress" xml:space="preserve">
+    <value>Mis planes</value>
+  </data>
+  <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
+    <value>Mis planes para hoy</value>
+  </data>
+  <data name="DListMyCompletedActivities" xml:space="preserve">
+    <value>Mis planes finalizados</value>
+  </data>
+  <data name="DListActiveActivities" xml:space="preserve">
+    <value>Planes abiertos</value>
+  </data>
+  <data name="DListInactiveActivities" xml:space="preserve">
+    <value>Planes finalizados</value>
+  </data>
+  <data name="DListClientsWithOnly1Appointment" xml:space="preserve">
+    <value>Clientes que se reunieron una sola vez</value>
+  </data>
+  <data name="DListAccountsWithHostedOrdersForSubordinates" xml:space="preserve">
+    <value>Cuentas personales de mis clientes con las órdenes colocadas</value>
+  </data>
+  <data name="DListMyAccountsWithHostedOrders" xml:space="preserve">
+    <value>Mis cuentas personales con las órdenes colocadas</value>
+  </data>
+  <data name="DListApprovedOrdersWithoutAdvertisement" xml:space="preserve">
+    <value>Órdenes en estado Aprobado que no tienen el material publicitario adjunto</value>
+  </data>
+  <data name="DListNonTechnicalTerminatedOrders" xml:space="preserve">
+    <value>Lista de anulaciones reales</value>
+  </data>
+  <data name="DListOrdersWithDocumentsDebtForNextMonth" xml:space="preserve">
+    <value>Órdenes de compra sin firmar en el lanzamiento actual</value>
+  </data>
+  <data name="DListTechnicalTerminatedOrders" xml:space="preserve">
+    <value>Lista de anulaciones técnicas</value>
+  </data>
+  <data name="DListTerminatedOrdersForNextMonthEdition" xml:space="preserve">
+    <value>Órdenes para el lanzamiento el próximo mes cerradas por ser rechazadas</value>
+  </data>
+  <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
+    <value>Órdenes rechazadas por mí que están en estado En trámite de formalización</value>
+  </data>
+  <data name="DListActivitiesForWarmClients" xml:space="preserve">
+    <value>Tareas con clientes interesados</value>
+  </data>
+  <data name="DListOverdueActivitiesForWarmClients" xml:space="preserve">
+    <value>Tareas atrasadas con clientes interesados</value>
+  </data>
+  <data name="DListClientsWithWarmClientTask" xml:space="preserve">
+    <value>Clientes para los que hay tareas de tipo Cliente interesado</value>
+  </data>
+  <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
+    <value>Clientes para los que hay tareas atrasadas de tipo Cliente interesado</value>
+  </data>
+  <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="ControlUnpublishAdvertisementTemplate" xml:space="preserve">
+    <value>Cancelar publicación</value>
+  </data>
+  <data name="DListOrdersWithDummyValues" xml:space="preserve">
+    <value>Órdenes con páginas en construcción</value>
+  </data>
+  <data name="DFieldOrderType" xml:space="preserve">
+    <value>Tipo de la orden</value>
+  </data>
+  <data name="DFieldCurator" xml:space="preserve">
+    <value>Supervisor</value>
+  </data>
+  <data name="DFieldInspector" xml:space="preserve">
+    <value>Verificador</value>
+  </data>
+  <data name="ControlPrintTermNoticeWithoutReasonAction" xml:space="preserve">
+    <value>Notificación de anulación de la orden sin indicar motivos</value>
+  </data>
+  <data name="DFieldIsPublished" xml:space="preserve">
+    <value>Publicado</value>
+  </data>
+  <data name="ControlPrintTermBargainNoticeAction" xml:space="preserve">
+    <value>Notificación de anulación del acuerdo indicando motivos</value>
+  </data>
+  <data name="ControlPrintTermBargainNoticeWithoutReasonAction" xml:space="preserve">
+    <value>Notificación de anulación del acuerdo sin indicar motivos</value>
+  </data>
+  <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
+    <value>Acuerdo de anulación del acuerdo</value>
+  </data>
+  <data name="ControlPrintSwornStatementAction" xml:space="preserve">
+    <value>Declaración del contratante bajo juramento</value>
+  </data>
+  <data name="NavOrderProcessingRequest" xml:space="preserve">
+    <value>Peticiones de la oficina personal del anunciante</value>
+  </data>
+  <data name="ControlCreateOrder" xml:space="preserve">
+    <value>Crear orden</value>
+  </data>
+  <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
+    <value>Cancelar petición</value>
+  </data>
+  <data name="EnOrderProcessingRequest" xml:space="preserve">
+    <value>Petición de la oficina personal del anunciante</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
+    <value>Orden a prorrogar</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
+    <value>Orden creada</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="DListOrderProcessingRequest" xml:space="preserve">
+    <value>Todas las peticiones</value>
+  </data>
+  <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
+    <value>Petición de la oficina personal del anunciante</value>
+  </data>
+</root>

@@ -103,6 +103,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="Attributes\RutValidationAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdditionalFirmServiceController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
@@ -127,9 +128,7 @@
     <Compile Include="Controllers\PricePositionController.cs" />
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Models\AccountDetailViewModel.cs" />
-    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\ActivateDealViewModel.cs" />
-    <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
     <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -139,21 +138,15 @@
     <Compile Include="Models\AdvertisementViewModel.cs" />
     <Compile Include="Models\AfterSaleServiceCreateDialogModel.cs" />
     <Compile Include="Models\AllClientsDebtReportViewModel.cs" />
-    <Compile Include="Models\AppointmentViewModel.cs" />
     <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
     <Compile Include="Models\AssociatedPositionViewModel.cs" />
     <Compile Include="Models\BargainFileViewModel.cs" />
-    <Compile Include="Models\BargainTypeViewModel.cs" />
-    <Compile Include="Models\BargainViewModel.cs" />
     <Compile Include="Models\BillViewModel.cs" />
-    <Compile Include="Models\BranchOfficeOrganizationUnitViewModel.cs" />
-    <Compile Include="Models\BranchOfficeViewModel.cs" />
     <Compile Include="Models\CategoryGroupMembershipViewModel.cs" />
     <Compile Include="Models\CategoryGroupViewModel.cs" />
     <Compile Include="Models\CategoryOrganizationUnitViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ChangeDealClientViewModel.cs" />
-    <Compile Include="Models\ChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\ChangeOrderDealViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
@@ -180,9 +173,7 @@
     <Compile Include="Models\ExportAccountTo1CViewModel.cs" />
     <Compile Include="Models\FirmAddressViewModel.cs" />
     <Compile Include="Models\FirmContactViewModel.cs" />
-    <Compile Include="Models\FirmViewModel.cs" />
     <Compile Include="Models\GetOrdersWithDummyAdvertisementDialogModel.cs" />
-    <Compile Include="Models\LegalPersonProfileViewModel.cs" />
     <Compile Include="Models\LimitViewModel.cs" />
     <Compile Include="Models\LockDetailViewModel.cs" />
     <Compile Include="Models\LockViewModel.cs" />
@@ -193,9 +184,7 @@
     <Compile Include="Models\OrderFileViewModel.cs" />
     <Compile Include="Models\OrderPositionViewModel.cs" />
     <Compile Include="Models\OrderProcessingRequestViewModel.cs" />
-    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\OrganizationUnitViewModel.cs" />
-    <Compile Include="Models\PhonecallViewModel.cs" />
     <Compile Include="Models\PlatformViewModel.cs" />
     <Compile Include="Models\PositionCategoryViewModel.cs" />
     <Compile Include="Models\PositionChildrenViewModel.cs" />
@@ -212,38 +201,28 @@
     <Compile Include="Models\PublishPriceViewModel.cs" />
     <Compile Include="Models\SetBranchOfficeOrganizationUnitStatusViewModel.cs" />
     <Compile Include="Models\SetLimitStatusViewModel.cs" />
-    <Compile Include="Models\TaskViewModel.cs" />
     <Compile Include="Models\TerritoryViewModel.cs" />
     <Compile Include="Models\ThemeTemplateViewModel.cs" />
     <Compile Include="Models\ThemeViewModel.cs" />
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
-    <Compile Include="Services\Cards\AccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CategoryViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\DealViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\FirmContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\FirmViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\OrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
@@ -358,11 +337,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Account.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Account.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\AccountDetail.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -398,11 +372,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdvertisementTemplate.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Appointment.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Appointment.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\AssociatedPosition.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -413,35 +382,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssociatedPositionsGroup.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Bargain.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Bargain.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\BargainFile.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BargainFile.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\BargainType.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BargainType.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Bill.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bill.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\BranchOffice.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BranchOffice.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\BranchOfficeOrganizationUnit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Category.generated.cs">
       <AutoGen>True</AutoGen>
@@ -493,11 +442,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Department.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Firm.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Firm.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\FirmAddress.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -507,11 +451,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FirmContact.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\LegalPersonProfile.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Limit.generated.cs">
       <AutoGen>True</AutoGen>
@@ -538,11 +477,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OperationType.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Order.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Order.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\OrderFile.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -562,11 +496,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OrganizationUnit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Phonecall.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Platform.generated.cs">
       <AutoGen>True</AutoGen>
@@ -607,11 +536,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Project.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Task.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Task.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Territory.generated.cs">
       <AutoGen>True</AutoGen>
@@ -801,6 +725,10 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\LegalPerson\" />
@@ -892,10 +820,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Account.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Account.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\AccountDetail.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AccountDetail.generated.cs</LastGenOutput>
@@ -924,10 +848,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AdvertisementTemplate.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\AssociatedPosition.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AssociatedPosition.generated.cs</LastGenOutput>
@@ -936,29 +856,13 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AssociatedPositionsGroup.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Bargain.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\BargainFile.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainFile.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\BargainType.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Bill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bill.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\BranchOffice.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\BranchOfficeOrganizationUnit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Category.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1000,10 +904,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Department.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Firm.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Firm.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\FirmAddress.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
@@ -1011,10 +911,6 @@
     <None Include="Views\CreateOrUpdate\FirmContact.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FirmContact.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\LegalPersonProfile.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Limit.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1036,10 +932,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OperationType.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Order.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Order.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\OrderFile.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OrderFile.generated.cs</LastGenOutput>
@@ -1055,10 +947,6 @@
     <None Include="Views\CreateOrUpdate\OrganizationUnit.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OrganizationUnit.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Platform.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1091,10 +979,6 @@
     <None Include="Views\CreateOrUpdate\Project.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Project.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Territory.cshtml">
       <Generator>RazorGenerator</Generator>
