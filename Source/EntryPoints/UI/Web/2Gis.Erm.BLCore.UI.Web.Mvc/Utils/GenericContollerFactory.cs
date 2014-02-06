@@ -16,7 +16,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public class GenericContollerFactory : DefaultControllerFactory
     {
-        private readonly IViewModelTypesRegistry _viewModelTypesRegistry;
         private const string CreateOrUpdateControllerName = "CreateOrUpdate";
         private const string CrmCreateOrUpdateControllerName = "CrmCreateOrUpdate";
         private const string EntityTypeNameParameterName = "entityTypeName";
@@ -26,11 +25,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         private static readonly Lazy<IDictionary<Type, Type>> CrmCreateOrUpdateContollerConcreteTypes = new Lazy<IDictionary<Type, Type>>(() => new Dictionary<Type, Type>());
 
         private readonly Type _adaptationMarkerType;
+        private readonly IViewModelTypesRegistry _viewModelTypesRegistry;
 
         public GenericContollerFactory(IGlobalizationSettings globalizationSettings, IViewModelTypesRegistry viewModelTypesRegistry)
         {
+            _adaptationMarkerType = globalizationSettings.BusinessModel.AsAdapted();
             _viewModelTypesRegistry = viewModelTypesRegistry;
-            _adaptationMarkerType = BusinessModelMapping.GetMarkerInterfaceForAdaptation(globalizationSettings.BusinessModel);
         }
 
         protected override Type GetControllerType(RequestContext requestContext, string controllerName)
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                         Type controllerType;
                         if (!CreateOrUpdateContollerConcreteTypes.Value.TryGetValue(entityType, out controllerType))
                         {
-                            controllerType = typeof(CreateOrUpdateController<,>).MakeGenericType(new[] { entityType, entityViewModelType });
+                            controllerType = typeof(CreateOrUpdateController<,,>).MakeGenericType(new[] { entityType, entityViewModelType, _adaptationMarkerType });
                             CreateOrUpdateContollerConcreteTypes.Value.Add(entityType, controllerType);
                         }
 

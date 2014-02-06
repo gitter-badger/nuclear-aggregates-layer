@@ -131,6 +131,10 @@
     <Compile Include="CommonService\MessageHelper.cs" />
     <Compile Include="Common\Crosscutting\AggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
+    <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
+    <Compile Include="Common\Generics\ICreateAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
+    <Compile Include="Common\Specs\BusinessEntitySpecs.cs" />
     <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
     <Compile Include="Common\Generics\IDownloadFileAggregateRepository.cs" />
     <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
@@ -158,6 +162,8 @@
     <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
     <Compile Include="Deals\ReadModel\IDealReadModel.cs" />
     <Compile Include="Deals\ReleaseNumberUtils.cs" />
+    <Compile Include="Dynamic\DynamicBusinessEntityService.cs" />
+    <Compile Include="Dynamic\IDynamicBusinessEntityService.cs" />
     <Compile Include="Firms\DTO\CardForErm\ImportCategoryFirmAddressDto.cs" />
     <Compile Include="Firms\DTO\CardForErm\ImportDepCardDto.cs" />
     <Compile Include="Firms\DTO\CardForErm\ImportFirmAddressDto.cs" />
@@ -173,6 +179,8 @@
     <Compile Include="LegalPersons\DTO\LegalPersonDTOs.cs" />
     <Compile Include="LegalPersons\ILegalPersonRepository.cs" />
     <Compile Include="LegalPersons\LegalPersonRepository.cs" />
+    <Compile Include="LegalPersons\ReadModel\ILegalPersonReadModel.cs" />
+    <Compile Include="LegalPersons\ReadModel\LegalPersonReadModel.cs" />
     <Compile Include="LegalPersons\ReadModel\LegalPersonSpecs.Profiles.cs" />
     <Compile Include="LegalPersons\ReadModel\LegalPersonSpecs.LegalPersons.cs" />
     <Compile Include="LocalMessages\DTO\LocalMessageDto.cs" />
@@ -264,6 +272,12 @@
     <Compile Include="Roles\IRoleRepository.cs" />
     <Compile Include="Roles\RoleRepository.cs" />
     <Compile Include="Roles\RoleSpecifications.cs" />
+    <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
+    <Compile Include="SimplifiedModel\DictionaryEntity\DynamicDictionaryEntityService.cs" />
+    <Compile Include="SimplifiedModel\DictionaryEntity\IDynamicDictionaryEntityService.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\BankReadModel.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\DictionaryEntitySpecs.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\IBankReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderProcessingRequest\OrderProcessingRequestMessageSpecifications.cs" />
     <Compile Include="SimplifiedModel\Project\ProjectSpecifications.cs" />
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />

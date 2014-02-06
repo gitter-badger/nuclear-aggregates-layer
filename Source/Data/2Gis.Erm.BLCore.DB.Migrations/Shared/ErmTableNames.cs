@@ -268,5 +268,13 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName CityPhoneZone = new SchemaQualifiedObjectName(ErmSchemas.Integration, "CityPhoneZone");
 
         public static readonly SchemaQualifiedObjectName DepCards = new SchemaQualifiedObjectName(ErmSchemas.Integration, "DepCards");
+
+        public static readonly SchemaQualifiedObjectName DictionaryEntityInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "DictionaryEntityInstances");
+
+        public static readonly SchemaQualifiedObjectName DictionaryEntityPropertyInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "DictionaryEntityPropertyInstances");
+
+        public static readonly SchemaQualifiedObjectName BusinessEntityInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "BusinessEntityInstances");
+
+        public static readonly SchemaQualifiedObjectName BusinessEntityPropertyInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "BusinessEntityPropertyInstances");
     }
 }

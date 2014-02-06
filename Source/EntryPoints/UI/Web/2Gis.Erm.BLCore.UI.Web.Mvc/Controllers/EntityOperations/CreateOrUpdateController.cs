@@ -32,9 +32,10 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
-    public sealed class CreateOrUpdateController<TEntity, TModel> : ControllerBase
+    public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
         where TEntity : class, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
+        where TAdapted : IAdapted
     {
         private readonly IUIConfigurationService _uiConfigurationService;
         private readonly IUIServicesManager _uiServicesManager;
@@ -54,12 +55,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         ISecurityServiceEntityAccess entityAccessService,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
@@ -88,14 +88,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         private static string GetViewName(TModel model, string entityTypeName)
         {
-            if (model is ICyprusAdapted)
+            if (model is TAdapted)
             {
-                return string.Format("Cyprus{0}", entityTypeName);
-            }
-
-            if (model is ICzechAdapted)
-            {
-                return string.Format("Czech{0}", entityTypeName);
+                return string.Format("{0}/{1}", typeof(TAdapted).AsBusinessModel(), entityTypeName);
             }
 
             return entityTypeName;

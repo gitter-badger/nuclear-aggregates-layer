@@ -35,9 +35,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         CheckForDublicatesResultDto CheckIfExistsPassportDuplicate(long legalPersonId, string passportSeries, string passportNumber);
         string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes);
         LegalPerson FindLegalPerson(long entityId);
-        LegalPersonProfile FindLegalPersonProfile(long entityId);
         void SetProfileAsMain(long profileId);
+
+        // FIXME {d.ivanov, 03.02.2014}: Метод не учитывает дополнения LegalPersonWithProfile. Перенести в ILegalPersonReadModel + учесть разные бизнес-модели
+        [Obsolete("Перенести в ILegalPersonReadModel + учесть разные бизнес-модели")]
         LegalPersonWithProfiles GetLegalPersonWithProfiles(long legalPersonId);
+        
         LegalPerson FindLegalPersonByProfile(long profileId);
         LegalPerson FindLegalPerson(string syncCodeWith1C, string inn, string kpp);
         IEnumerable<LegalPerson> FindLegalPersonsByInnAndKpp(string inn, string kpp);

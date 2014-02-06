@@ -158,6 +158,14 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             }
         }
 
+        public static void CreateIndex(this Table table, string indexColumnName)
+        {
+            var indexTitle = string.Format("IX_{0}_{1}", table.Name, indexColumnName);
+            var index = new Index(table, indexTitle) { IndexKeyType = IndexKeyType.None };
+            index.IndexedColumns.Add(new IndexedColumn(index, indexColumnName));
+            index.Create();
+        }
+
         public static void InsertAndSetNonNullableColumn(this Table table, IMigrationContext context, InsertedColumnDefinition columnDefinition, string columnName, string columnValue)
         {
             var columnsToInsert = new[] { columnDefinition };
@@ -167,11 +175,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             table.Alter();
         }
 
-        public static IMigrationContext ChangeColumnDataType(
-            this IMigrationContext migrationContext, 
-            SchemaQualifiedObjectName targetTable, 
-            string targetColumnName, 
-            DataType targetDatatype)
+        public static IMigrationContext ChangeColumnDataType(this IMigrationContext migrationContext,
+                                                             SchemaQualifiedObjectName targetTable,
+                                                             string targetColumnName,
+                                                             DataType targetDatatype)
         {
             var table = migrationContext.Database.GetTable(targetTable);
             if (table == null)
@@ -186,7 +193,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             }
 
             if (column.DataType.SqlDataType == targetDatatype.SqlDataType)
-            {   // do nothing
+            {
+                // do nothing
                 return migrationContext;
             }
 

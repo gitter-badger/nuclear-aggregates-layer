@@ -14,20 +14,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
     public sealed class UnityDependencyResolver : IDependencyResolver
     {
         private readonly IUnityContainer _container;
-        
+
         private readonly IReadOnlyDictionary<Type, Func<IUnityContainer, object>> _overridedMvcSingleRegisteredDependencies;
         private readonly IReadOnlyDictionary<Type, Func<IUnityContainer, IEnumerable<object>>> _overridedMvcMultipleRegisteredDependencies;
-        private readonly IGlobalizationSettings _globalizationSettings;
 
         public UnityDependencyResolver(IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
-            _globalizationSettings = globalizationSettings;
             _container = container;
 
             _overridedMvcSingleRegisteredDependencies = new Dictionary<Type, Func<IUnityContainer, object>> 
                                                             {
                                                                 { typeof(IControllerActivator), c => c.Resolve<IControllerActivator>() },
-                                                                { typeof(IControllerFactory), c => new GenericContollerFactory(_globalizationSettings, c.Resolve<IViewModelTypesRegistry>()) },
+                                                                { typeof(IControllerFactory), c => new GenericContollerFactory(globalizationSettings, c.Resolve<IViewModelTypesRegistry>()) },
                                                                 { typeof(ModelMetadataProvider), c => c.Resolve<ModelMetadataProvider>() },
                                                             };
 

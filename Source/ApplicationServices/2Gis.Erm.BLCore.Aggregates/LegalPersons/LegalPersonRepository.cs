@@ -311,11 +311,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             _legalPersonProfileGenericRepository.Save();
         }
 
-        public LegalPersonProfile FindLegalPersonProfile(long entityId)
-        {
-            return _finder.Find<LegalPersonProfile>(l => l.Id == entityId).SingleOrDefault();
-        }
-
         public int Delete(LegalPersonProfile legalPersonProfile)
         {
             legalPersonProfile.IsActive = false;
@@ -344,6 +339,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             }
         }
 
+        [Obsolete("Перенести в ILegalPersonReadModel + учесть разные бизнес-модели")]
         public LegalPersonWithProfiles GetLegalPersonWithProfiles(long legalPersonId)
         {
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))

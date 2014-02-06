@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
+﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -14,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
     {
         [Tags("BL")]
         [Tags("CzechClientViewModel")]
-        [Subject(typeof(CzechClientViewModel))]
+        [Subject(typeof(ClientViewModel))]
         public abstract class LoadDomainEntityDtoContext
         {
             private Establish context = () =>
@@ -37,18 +38,18 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                 };
             };
 
-            protected static CzechClientViewModel ViewModel { get; set; }
+            protected static ClientViewModel ViewModel { get; set; }
             protected static ClientDomainEntityDto ClientDto { get; private set; }
         }
 
         [Tags("BL")]
         [Tags("CzechClientViewModel")]
-        [Subject(typeof(CzechClientViewModel))]
+        [Subject(typeof(ClientViewModel))]
         public abstract class TransformToDomainEntityDtoContext
         {
             private Establish context = () =>
                 {
-                    ViewModel = new CzechClientViewModel
+                    ViewModel = new ClientViewModel
                         {
                             Id = 0,
                             MainFirm = new LookupField
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                         };
                 };
 
-            protected static CzechClientViewModel ViewModel { get; private set; }
+            protected static ClientViewModel ViewModel { get; private set; }
             protected static ClientDomainEntityDto ClientDto { get; set; }
         }
 
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
         {
             private Establish context = () =>
             {
-                ViewModel = new CzechClientViewModel();
+                ViewModel = new ClientViewModel();
                 ClientDto.IsAdvertisingAgency = true;
             };
 
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
         {
             private Establish context = () =>
             {
-                ViewModel = new CzechClientViewModel();
+                ViewModel = new ClientViewModel();
                 ClientDto.IsAdvertisingAgency = false;
             };
 

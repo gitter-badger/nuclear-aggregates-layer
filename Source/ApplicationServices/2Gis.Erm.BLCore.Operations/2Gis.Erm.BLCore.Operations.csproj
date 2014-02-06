@@ -399,6 +399,7 @@
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyBankService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />

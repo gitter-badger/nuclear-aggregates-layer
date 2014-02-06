@@ -1,9 +1,7 @@
 ﻿using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -24,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
     {
         [Tags("BL")]
         [Tags("ClientViewModelCustomizationService")]
-        [Subject(typeof(ClientViewModelCustomizationService))]
+        [Subject(typeof(RussiaClientViewModelCustomizationService))]
         public abstract class MockContext
         {
             private Establish context = () =>
@@ -39,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
             protected static IUserContext UserContext { get; set; }
             protected static ClientViewModel ViewModel { get; set; }
             protected static ISecurityServiceFunctionalAccess FunctionalAccessService { get; set; }
-            protected static ClientViewModelCustomizationService ViewModelCustomizationService { get; set; }
+            protected static RussiaClientViewModelCustomizationService ViewModelCustomizationService { get; set; }
         }
 
         private class When_user_has_AdvertisementAgencyManagement_functional_privilege : MockContext
@@ -50,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                     functionalAccessServicetMock.Setup(x => x.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, 1))
                                                 .Returns(true);
                     FunctionalAccessService = functionalAccessServicetMock.Object;
-                    ViewModelCustomizationService = new ClientViewModelCustomizationService(FunctionalAccessService, UserContext);
+                    ViewModelCustomizationService = new RussiaClientViewModelCustomizationService(FunctionalAccessService, UserContext);
                 };
 
             private Because of =
@@ -68,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                     functionalAccessServicetMock.Setup(x => x.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, 1))
                                                 .Returns(false);
                     FunctionalAccessService = functionalAccessServicetMock.Object;
-                    ViewModelCustomizationService = new ClientViewModelCustomizationService(FunctionalAccessService, UserContext);
+                    ViewModelCustomizationService = new RussiaClientViewModelCustomizationService(FunctionalAccessService, UserContext);
                 };
 
             private Because of =

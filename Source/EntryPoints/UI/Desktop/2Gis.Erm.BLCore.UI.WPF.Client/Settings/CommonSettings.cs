@@ -1,6 +1,7 @@
 using System.Configuration;
 
 using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 

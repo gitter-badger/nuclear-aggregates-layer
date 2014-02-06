@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             resolvedParameter = null;
 
-            if (ModelIndicators.IsReadModel(constructorParameter.ParameterType))
+            if (ModelIndicators.IsAggregateReadModel(constructorParameter.ParameterType))
             {
                 if (!constructorParameter.ParameterType.IsInterface)
                 {

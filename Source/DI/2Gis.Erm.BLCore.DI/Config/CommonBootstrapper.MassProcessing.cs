@@ -23,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return IsErmAssembly(checkingAssembly.GetName());
         }
 
-        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun, BusinessModel adaptation)
+        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun, Type adaptationMarkerType)
         {
-            var exportedTypesMap = GetExportedTypesMap(assemblies, adaptation);
+            var exportedTypesMap = GetExportedTypesMap(assemblies, adaptationMarkerType);
 
             foreach (var massProcessor in massProcessors)
             {
@@ -42,39 +42,32 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun)
+        public static void PerfomTypesMassProcessings(IMassProcessor[] massProcessors, bool firstRun, Type adaptationMarkerType)
         {
-            PerfomTypesMassProcessings(assemblies, massProcessors, firstRun, BusinessModel.Russia);
+            PerfomTypesMassProcessings(AppDomain.CurrentDomain.GetAssemblies(), massProcessors, firstRun, adaptationMarkerType);
         }
 
-        public static void PerfomTypesMassProcessings(IMassProcessor[] massProcessors, bool firstRun, BusinessModel adaptation)
+        private static Dictionary<Type, Type[]> GetExportedTypesMap(IEnumerable<Assembly> assemblies, Type adaptationMarkerType)
         {
-            PerfomTypesMassProcessings(AppDomain.CurrentDomain.GetAssemblies(), massProcessors, firstRun, adaptation);
-        }
-
-        private static Dictionary<Type, Type[]> GetExportedTypesMap(IEnumerable<Assembly> assemblies, BusinessModel adaptation)
-        {
-            var adaptationMarkerType = BusinessModelMapping.GetMarkerInterfaceForAdaptation(adaptation);
-
             try
             {
-                var exportedTypesMap = assemblies.Select(x => new
-                {
-                    Assembly = x,
-                    ContainsTypes = ((ContainedTypesAttribute[])x.GetCustomAttributes(typeof(ContainedTypesAttribute), false)).SelectMany(y => y.Types),
-                })
-                .Where(x => x.ContainsTypes.Any())
-                .SelectMany(x => x.ContainsTypes.Select(y => new
-                {
-                    AssignableType = y,
-                    Types = x.Assembly.GetExportedTypes()
-                        .Where(z => y != z && y.IsAssignableFrom(z))
-
-                        // фильтруем неадаптированные типы
-                        .Where(z => !(typeof(IAdapted).IsAssignableFrom(z) && !adaptationMarkerType.IsAssignableFrom(z))),
-                }))
-                .GroupBy(x => x.AssignableType, x => x.Types)
-                .ToDictionary(x => x.Key, x => x.SelectMany(y => y).ToArray());
+                var exportedTypesMap = assemblies
+                    .Select(x => new
+                        {
+                            Assembly = x,
+                            ContainsTypes = ((ContainedTypesAttribute[])x.GetCustomAttributes(typeof(ContainedTypesAttribute), false)).SelectMany(y => y.Types),
+                        })
+                    .Where(x => x.ContainsTypes.Any())
+                    .SelectMany(x => x.ContainsTypes.Select(y => new
+                        {
+                            AssignableType = y,
+                            Types = x.Assembly.GetExportedTypes()
+                                     .Where(z => y != z && y.IsAssignableFrom(z))
+                                     // фильтруем неадаптированные типы
+                                     .Where(z => !(typeof(IAdapted).IsAssignableFrom(z) && !adaptationMarkerType.IsAssignableFrom(z))),
+                        }))
+                    .GroupBy(x => x.AssignableType, x => x.Types)
+                    .ToDictionary(x => x.Key, x => x.SelectMany(y => y).ToArray());
 
                 return exportedTypesMap;
             }
