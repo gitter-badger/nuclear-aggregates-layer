@@ -23,17 +23,19 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
         private static readonly Type DataBaseCallerType = typeof(IDatabaseCaller);
         private static readonly Type SimplifiedPersistenceServiceType = typeof(ISimplifiedPersistenceService);
 
-        private readonly HashSet<Type> _simplifiedModelConsumers = new HashSet<Type>();
         private readonly HashSet<Type> _aggregateRepositories = new HashSet<Type>();
-        private readonly HashSet<Type> _readModels = new HashSet<Type>();
+        private readonly HashSet<Type> _aggregateReadModels = new HashSet<Type>();
+        private readonly HashSet<Type> _simplifiedModelConsumers = new HashSet<Type>();
+        private readonly HashSet<Type> _simplifiedModelConsumerReadModels = new HashSet<Type>();
 
         public Type[] GetAssignableTypes()
         {
             return new[]
                 {
                     ModelIndicators.Aggregates.Repository,
-                    ModelIndicators.Aggregates.SimplifiedModelConsumer, 
-                    ModelIndicators.Aggregates.ReadModel
+                    ModelIndicators.Aggregates.ReadModel,
+                    ModelIndicators.Simplified.SimplifiedModelConsumer,
+                    ModelIndicators.Simplified.SimplifiedModelConsumerReadModel
                 };
         }
 
@@ -46,20 +48,25 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
             foreach (var type in types.Where(ShouldBeProcessed))
             {
-                if (ModelIndicators.IsAggregateRepository(type))
+                if (type.IsAggregateRepository())
                 {
                     _aggregateRepositories.Add(type);
                 }
 
-                if (ModelIndicators.IsReadModel(type))
+                if (type.IsAggregateReadModel())
                 {
-                    _readModels.Add(type);
+                    _aggregateReadModels.Add(type);
                 }
 
-                if (ModelIndicators.IsSimplifiedModelConsumer(type))
+                if (type.IsSimplifiedModelConsumer())
                 {
                     _simplifiedModelConsumers.Add(type);
-                }          
+                }
+
+                if (type.IsSimplifiedModelConsumerReadModel())
+                {
+                    _simplifiedModelConsumerReadModels.Add(type);
+                }
             }
         }
         
@@ -71,7 +78,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                 return;
             }
 
-            foreach (var readModel in _readModels)
+            foreach (var readModel in _aggregateReadModels)
             {
                 AggregateReadModels.Validator.Validate(readModel);   
             }
@@ -84,6 +91,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             foreach (var simplifiedModelConsumer in _simplifiedModelConsumers)
             {
                 SimplifiedModelConsumers.Validator.Validate(simplifiedModelConsumer);
+            }
+
+            foreach (var readModel in _simplifiedModelConsumerReadModels)
+            {
+                SimplifiedModelConsumerReadModels.Validator.Validate(readModel);
             } 
         }
 
@@ -382,6 +394,39 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
         }
 
+        private class SimplifiedModelConsumerReadModels
+        {
+            private static readonly Lazy<SimplifiedModelConsumerReadModels> SingletonValidator =
+                new Lazy<SimplifiedModelConsumerReadModels>(() => new SimplifiedModelConsumerReadModels());
+
+            private SimplifiedModelConsumerReadModels()
+            {
+            }
+
+            public static SimplifiedModelConsumerReadModels Validator
+            {
+                get { return SingletonValidator.Value; }
+            }
+
+            public void Validate(Type checkingType)
+            {
+                ImplementationIsReadOnly(checkingType);
+            }
+
+            private void ImplementationIsReadOnly(Type checkingType)
+            {
+                var invalidEntitiesReport = CheckSequenceAndInvalidElementsReport(UpdateableEntities(checkingType),
+                                                                                  e => false);
+                if (!string.IsNullOrEmpty(invalidEntitiesReport))
+                {
+                    throw new InvalidOperationException(string.Format("Concrete implementation {0} of read model has ability to update entities. " +
+                                                                      "Invalid entities: {1}",
+                                                                      checkingType,
+                                                                      invalidEntitiesReport));
+                }
+            }
+        }
+        
         private class SimplifiedModelConsumers
         {
             private static readonly Lazy<SimplifiedModelConsumers> SingletonValidator = new Lazy<SimplifiedModelConsumers>(() => new SimplifiedModelConsumers());

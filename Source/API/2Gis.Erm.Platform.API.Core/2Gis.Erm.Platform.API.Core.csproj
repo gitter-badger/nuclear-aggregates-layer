@@ -57,8 +57,8 @@
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\ErmCommunicationException.cs" />
-    <Compile Include="Globalization\BusinessModel.cs" />
     <Compile Include="Globalization\BusinessModelMapping.cs" />
+    <Compile Include="Globalization\IChileAdapted.cs" />
     <Compile Include="Globalization\ICzechAdapted.cs" />
     <Compile Include="Globalization\IRussiaAdapted.cs" />
     <Compile Include="Globalization\ICyprusAdapted.cs" />

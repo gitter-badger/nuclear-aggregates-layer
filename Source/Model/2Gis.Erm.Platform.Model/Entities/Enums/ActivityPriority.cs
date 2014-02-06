@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Entities.Erm.Enums
+﻿namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
     public enum ActivityPriority
     {

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.ReleaseInfo, typeof(ReleaseInfo) },
             { EntityName.LocalMessage, typeof(LocalMessage) },
             { EntityName.PrintFormTemplate, typeof(PrintFormTemplate) },
-            { EntityName.TimeZone, typeof(Platform.Model.Entities.Security.TimeZone) },
+            { EntityName.TimeZone, typeof(Security.TimeZone) },
             { EntityName.UserTerritoriesOrganizationUnits, typeof(UserTerritoriesOrganizationUnits) },
             { EntityName.File, typeof(File) },
             { EntityName.OrderReleaseTotal, typeof(OrderReleaseTotal) },
@@ -76,6 +76,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.Operation, typeof(Operation) },
             { EntityName.MessageType, typeof(MessageType) },
             { EntityName.LegalPersonProfile, typeof(LegalPersonProfile) },
+            { EntityName.LegalPersonProfilePart, typeof(LegalPersonProfilePart) },
             { EntityName.AdditionalFirmService, typeof(AdditionalFirmService) },
             { EntityName.Theme, typeof(Theme) },
             { EntityName.ThemeCategory, typeof(ThemeCategory) },
@@ -135,6 +136,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.ExportFlowFinancialDataClient, typeof(ExportFlowFinancialDataClient) },
             { EntityName.ExportFailedEntity, typeof(ExportFailedEntity) },
             { EntityName.UserEntity, typeof(UserEntity) },
+            { EntityName.Bank, typeof(Bank) },
+
+            // Dynamic Storage
+            { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
+            { EntityName.DictionaryEntityPropertyInstance, typeof(DictionaryEntityPropertyInstance) },
+            { EntityName.BusinessEntityInstance, typeof(BusinessEntityInstance) },
+            { EntityName.BusinessEntityPropertyInstance, typeof(BusinessEntityPropertyInstance) },
         };
 
         private static readonly Dictionary<Type, EntityName> ReverseTypeMap = TypeMap.ToDictionary(x => x.Value, x => x.Key);

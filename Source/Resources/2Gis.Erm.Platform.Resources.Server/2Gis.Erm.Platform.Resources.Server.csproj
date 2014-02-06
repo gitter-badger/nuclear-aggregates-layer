@@ -60,6 +60,7 @@
   <ItemGroup>
     <EmbeddedResource Include="ResPlatform.cs.resx" />
     <EmbeddedResource Include="ResPlatform.en.resx" />
+    <EmbeddedResource Include="ResPlatform.es-CL.resx" />
     <EmbeddedResource Include="ResPlatform.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResPlatform.Designer.cs</LastGenOutput>

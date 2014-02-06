@@ -103,6 +103,42 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstance.cs">
+      <Link>Entities\Erm\BusinessEntityInstance.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\BusinessEntityInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstance.cs">
+      <Link>Entities\Erm\BusinessEntityPropertyInstance.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCardDomainEntityDto.cs">
+      <Link>Entities\DTOs\DepCardDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityInstance.cs">
+      <Link>Entities\Erm\DictionaryEntityInstance.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\DictionaryEntityInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstance.cs">
+      <Link>Entities\Erm\DictionaryEntityPropertyInstance.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
       <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
       <DependentUpon>ErmPOCO.tt</DependentUpon>
@@ -119,13 +155,32 @@
       <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessModel.cs" />
     <Compile Include="ContainedTypesAttribute.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoUtils.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
+    <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
+    <Compile Include="Entities\Enums\AccountType.cs" />
+    <Compile Include="Entities\Enums\BankAccountType.cs" />
+    <Compile Include="Entities\Enums\EntityPartType.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
+    <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\LegalPersonProfilePart.cs" />
+    <Compile Include="Entities\Erm\Partial\ActivityInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\ActivityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\BusinessEntityInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\BusinessEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\DictionaryEntityInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\DictionaryEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\LegalPersonProfile.cs" />
+    <Compile Include="Entities\Interfaces\IDynamicEntityInstance.cs" />
+    <Compile Include="Entities\Interfaces\IDynamicEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Interfaces\IEntityPart.cs" />
+    <Compile Include="Entities\Interfaces\INonActivityDynamicEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFlowCardsForErmIdentity.cs" />
@@ -151,6 +206,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeOrdersDuringWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
+    <Compile Include="ModelIndicators.Simplified.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Entities\DTOs\AppointmentDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoRegistry.cs" />
@@ -1145,11 +1201,11 @@
     <Compile Include="Entities\EntityTypeMap.cs" />
     <Compile Include="Entities\EntityUtils.cs" />
     <Compile Include="Entities\Erm\Appointment.cs" />
-    <Compile Include="Entities\Erm\Enums\ActivityPriority.cs" />
-    <Compile Include="Entities\Erm\Enums\ActivityPurpose.cs" />
-    <Compile Include="Entities\Erm\Enums\ActivityStatus.cs" />
-    <Compile Include="Entities\Erm\Enums\ActivityTaskType.cs" />
-    <Compile Include="Entities\Erm\Enums\ActivityType.cs" />
+    <Compile Include="Entities\Enums\ActivityPriority.cs" />
+    <Compile Include="Entities\Enums\ActivityPurpose.cs" />
+    <Compile Include="Entities\Enums\ActivityStatus.cs" />
+    <Compile Include="Entities\Enums\ActivityTaskType.cs" />
+    <Compile Include="Entities\Enums\ActivityType.cs" />
     <Compile Include="Entities\Erm\Partial\Building.cs" />
     <Compile Include="Entities\Erm\Partial\CardRelation.cs" />
     <Compile Include="Entities\Erm\Partial\CityPhoneZone.cs" />
@@ -1261,6 +1317,7 @@
     <Compile Include="Aggregates\IAggregateRootRepository.cs" />
     <Compile Include="Aggregates\IUnknownAggregatePartRepository.cs" />
     <Compile Include="Simplified\ISimplifiedModelConsumer.cs" />
+    <Compile Include="Simplified\ISimplifiedModelConsumerReadModel.cs" />
     <Compile Include="Simplified\SimplifiedEntities.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkActivateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkCreateIdentity.cs" />
@@ -1346,7 +1403,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Entities\Erm\Enums\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

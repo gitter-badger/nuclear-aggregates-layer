@@ -1,9 +1,9 @@
-﻿using DoubleGis.Erm.Platform.API.Core.Globalization;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
+﻿using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Model;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings
 {

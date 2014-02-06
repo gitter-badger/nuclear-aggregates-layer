@@ -6,6 +6,7 @@
         BankTransaction = 1,
         CashPayment = 2,
         CreditCardPayment = 3,
-        BankChequePayment = 4
+        BankChequePayment = 4,
+        DebitCard = 5,
     }
 }

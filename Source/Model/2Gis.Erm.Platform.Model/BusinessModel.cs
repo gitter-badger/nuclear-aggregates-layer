@@ -1,10 +1,11 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Globalization
+﻿namespace DoubleGis.Erm.Platform.Model
 {
     public enum BusinessModel
     {
         NotSetted,
         Russia,
         Cyprus,
-        Czech
+        Czech,
+        Chile,
     }
 }

@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
     {
         public override int Id
         {
-            get { return 3; }
+            get { return PropertyIdentityIds.ScheduledEndPropertyId; }
         }
 
         public override string Description

@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Globalization
+﻿using DoubleGis.Erm.Platform.Model;
+
+namespace DoubleGis.Erm.Platform.API.Core.Globalization
 {
     public interface IGlobalizationSettings
     {

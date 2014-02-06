@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Entities.Erm.Enums
+﻿namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
     /// <summary>
     /// Synchronized with phonecall.dg_purpose picklist.

@@ -1136,7 +1136,7 @@
           <Property Name="PeriodEndDate" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
           <Property Name="IsBeta" Type="bit" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="FileId" Type="bigint" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -1190,7 +1190,7 @@
           <Property Name="OrderId" Type="bigint" />
           <Property Name="IsBlocking" Type="bit" Nullable="false" />
           <Property Name="RuleCode" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ThemeCategories">
           <Key>
@@ -1267,7 +1267,7 @@
           <Property Name="PeriodStartDate" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="PeriodEndDate" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -1444,6 +1444,58 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessEntityInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="EntityId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="BusinessEntityPropertyInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="EntityInstanceId" Type="bigint" Nullable="false" />
+          <Property Name="PropertyId" Type="int" Nullable="false" />
+          <Property Name="TextValue" Type="nvarchar(max)" />
+          <Property Name="NumericValue" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="DateTimeValue" Type="datetime2" Precision="2" />
+        </EntityType>
+        <EntityType Name="DictionaryEntityInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="EntityId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DictionaryEntityPropertyInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="EntityInstanceId" Type="bigint" Nullable="false" />
+          <Property Name="PropertyId" Type="int" Nullable="false" />
+          <Property Name="TextValue" Type="nvarchar(max)" />
+          <Property Name="NumericValue" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="DateTimeValue" Type="datetime2" Precision="2" />
         </EntityType>
         <EntityType Name="AdditionalFirmServices">
           <Key>
@@ -1824,6 +1876,7 @@
         <EntityType Name="PerformedBusinessOperations">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
@@ -1833,7 +1886,7 @@
           <Property Name="Parent" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm05.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwSecurityAccelerator">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1845,7 +1898,7 @@ warning 6002: The table/view 'Erm05.Security.vwSecurityAccelerator' does not hav
           <Property Name="DepartmentRightBorder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm05.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUsersDescendants">
           <Key>
             <PropertyRef Name="Id" />
@@ -1856,11 +1909,11 @@ warning 6002: The table/view 'Erm05.Security.vwUsersDescendants' does not have a
           <Property Name="Level" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm05.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUserTerritoriesOrganizationUnits">
           <Key>
-            <PropertyRef Name="OrganizationUnitId" />
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="OrganizationUnitId" />
           </Key>
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
@@ -2250,6 +2303,18 @@ warning 6002: The table/view 'Erm05.Security.vwUserTerritoriesOrganizationUnits'
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BusinessEntityPropertyInstances_BusinessEntityInstances">
+          <End Role="BusinessEntityInstances" Type="Self.BusinessEntityInstances" Multiplicity="1" />
+          <End Role="BusinessEntityPropertyInstances" Type="Self.BusinessEntityPropertyInstances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessEntityInstances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessEntityPropertyInstances">
+              <PropertyRef Name="EntityInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Categories_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Categories1" Type="Self.Categories" Multiplicity="*" />
@@ -2487,6 +2552,18 @@ warning 6002: The table/view 'Erm05.Security.vwUserTerritoriesOrganizationUnits'
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="DestOrganizationUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances">
+          <End Role="DictionaryEntityInstances" Type="Self.DictionaryEntityInstances" Multiplicity="1" />
+          <End Role="DictionaryEntityPropertyInstances" Type="Self.DictionaryEntityPropertyInstances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DictionaryEntityInstances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DictionaryEntityPropertyInstances">
+              <PropertyRef Name="EntityInstanceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3833,6 +3910,10 @@ warning 6002: The table/view 'Erm05.Security.vwUserTerritoriesOrganizationUnits'
           <EntitySet Name="FirmContacts" EntityType="Self.FirmContacts" Schema="BusinessDirectory" store:Type="Tables" />
           <EntitySet Name="Firms" EntityType="Self.Firms" Schema="BusinessDirectory" store:Type="Tables" />
           <EntitySet Name="Territories" EntityType="Self.Territories" Schema="BusinessDirectory" store:Type="Tables" />
+          <EntitySet Name="BusinessEntityInstances" EntityType="Self.BusinessEntityInstances" Schema="DynamicStorage" store:Type="Tables" />
+          <EntitySet Name="BusinessEntityPropertyInstances" EntityType="Self.BusinessEntityPropertyInstances" Schema="DynamicStorage" store:Type="Tables" />
+          <EntitySet Name="DictionaryEntityInstances" EntityType="Self.DictionaryEntityInstances" Schema="DynamicStorage" store:Type="Tables" />
+          <EntitySet Name="DictionaryEntityPropertyInstances" EntityType="Self.DictionaryEntityPropertyInstances" Schema="DynamicStorage" store:Type="Tables" />
           <EntitySet Name="AdditionalFirmServices" EntityType="Self.AdditionalFirmServices" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="CardRelations" EntityType="Self.CardRelations" Schema="Integration" store:Type="Tables" />
@@ -4018,6 +4099,10 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
             <End Role="Territories" EntitySet="Territories" />
             <End Role="Buildings" EntitySet="Buildings" />
           </AssociationSet>
+          <AssociationSet Name="FK_BusinessEntityPropertyInstances_BusinessEntityInstances" Association="Self.FK_BusinessEntityPropertyInstances_BusinessEntityInstances">
+            <End Role="BusinessEntityInstances" EntitySet="BusinessEntityInstances" />
+            <End Role="BusinessEntityPropertyInstances" EntitySet="BusinessEntityPropertyInstances" />
+          </AssociationSet>
           <AssociationSet Name="FK_Categories_Categories" Association="Self.FK_Categories_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Categories1" EntitySet="Categories" />
@@ -4097,6 +4182,10 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <AssociationSet Name="FK_DestOrgUnitOrder" Association="Self.FK_DestOrgUnitOrder">
             <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" Association="Self.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances">
+            <End Role="DictionaryEntityInstances" EntitySet="DictionaryEntityInstances" />
+            <End Role="DictionaryEntityPropertyInstances" EntitySet="DictionaryEntityPropertyInstances" />
           </AssociationSet>
           <AssociationSet Name="FK_FirmAddresses_Buildings" Association="Self.FK_FirmAddresses_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
@@ -5032,7 +5121,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Parameter Name="ID" Mode="In" Type="Int64" />
           </FunctionImport>
         <FunctionImport Name="UpdateBuildings">
-          <Parameter Name="buildingsXml" Mode="In" Type="String" />
+            <Parameter Name="buildingsXml" Mode="In" Type="String" />
             <Parameter Name="RegionalTerritoryLocalName" Mode="In" Type="String" />
           </FunctionImport>
         <EntitySet Name="NotificationAddresses" EntityType="ErmModel.NotificationAddresses" />
@@ -5311,6 +5400,18 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <AssociationSet Name="FK_OrderProcessingRequestMessages_OrderProcessingRequests" Association="ErmModel.FK_OrderProcessingRequestMessages_OrderProcessingRequests">
             <End Role="OrderProcessingRequest" EntitySet="OrderProcessingRequests" />
             <End Role="OrderProcessingRequestMessage" EntitySet="OrderProcessingRequestMessages" />
+          </AssociationSet>
+          <EntitySet Name="BusinessEntityInstances" EntityType="ErmModel.BusinessEntityInstance" />
+          <EntitySet Name="BusinessEntityPropertyInstances" EntityType="ErmModel.BusinessEntityPropertyInstance" />
+          <EntitySet Name="DictionaryEntityInstances" EntityType="ErmModel.DictionaryEntityInstance" />
+          <EntitySet Name="DictionaryEntityPropertyInstances" EntityType="ErmModel.DictionaryEntityPropertyInstance" />
+          <AssociationSet Name="FK_BusinessEntityPropertyInstances_BusinessEntityInstances" Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances">
+            <End Role="BusinessEntityInstance" EntitySet="BusinessEntityInstances" />
+            <End Role="BusinessEntityPropertyInstance" EntitySet="BusinessEntityPropertyInstances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances">
+            <End Role="DictionaryEntityInstance" EntitySet="DictionaryEntityInstances" />
+            <End Role="DictionaryEntityPropertyInstance" EntitySet="DictionaryEntityPropertyInstances" />
           </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -6698,7 +6799,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="DateTime" Name="PeriodEndDate" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="OrganizationUnitId" Nullable="false" />
         <Property Type="Boolean" Name="IsBeta" Nullable="false" />
-        <Property Type="String" Name="Comment" MaxLength="200" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Type="Int16" Name="Status" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
@@ -7544,7 +7645,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Int64" Name="OrderId" Nullable="true" />
         <Property Type="Boolean" Name="IsBlocking" Nullable="false" />
         <Property Type="String" Name="RuleCode" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        <Property Type="String" Name="Message" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="ReleaseInfo" Relationship="ErmModel.FK_ReleaseValidationResults_ReleaseInfos" FromRole="ReleaseValidationResult" ToRole="ReleaseInfo" />
         <NavigationProperty Name="Order" Relationship="ErmModel.FK_ReleaseValidationResults_Orders" FromRole="ReleaseValidationResult" ToRole="Order" />
       </EntityType>
@@ -7823,7 +7924,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="DateTime" Name="PeriodStartDate" Nullable="false" Precision="2" />
         <Property Type="DateTime" Name="PeriodEndDate" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="OrganizationUnitId" Nullable="false" />
-        <Property Type="String" Name="Comment" MaxLength="200" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Type="Int16" Name="Status" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
@@ -9235,6 +9336,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
       <EntityType Name="PerformedBusinessOperation">
         <Key>
           <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int32" Name="Operation" Nullable="false" />
@@ -9352,6 +9454,86 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
             </Principal>
             <Dependent Role="OrderProcessingRequestMessage">
               <PropertyRef Name="OrderRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BusinessEntityInstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="OwnerCode" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntityId" Type="Int64" />
+          <NavigationProperty Name="BusinessEntityPropertyInstances" Relationship="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" FromRole="BusinessEntityInstance" ToRole="BusinessEntityPropertyInstance" />
+        </EntityType>
+        <EntityType Name="BusinessEntityPropertyInstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="EntityInstanceId" Type="Int64" Nullable="false" />
+          <Property Name="PropertyId" Type="Int32" Nullable="false" />
+          <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumericValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="DateTimeValue" Type="DateTime" Precision="2" />
+          <NavigationProperty Name="BusinessEntityInstance" Relationship="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" FromRole="BusinessEntityPropertyInstance" ToRole="BusinessEntityInstance" />
+        </EntityType>
+        <EntityType Name="DictionaryEntityInstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="OwnerCode" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="EntityId" Type="Int64" />
+          <NavigationProperty Name="DictionaryEntityPropertyInstances" Relationship="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" FromRole="DictionaryEntityInstance" ToRole="DictionaryEntityPropertyInstance" />
+        </EntityType>
+        <EntityType Name="DictionaryEntityPropertyInstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="EntityInstanceId" Type="Int64" Nullable="false" />
+          <Property Name="PropertyId" Type="Int32" Nullable="false" />
+          <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumericValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="DateTimeValue" Type="DateTime" Precision="2" />
+          <NavigationProperty Name="DictionaryEntityInstance" Relationship="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" FromRole="DictionaryEntityPropertyInstance" ToRole="DictionaryEntityInstance" />
+        </EntityType>
+        <Association Name="FK_BusinessEntityPropertyInstances_BusinessEntityInstances">
+          <End Type="ErmModel.BusinessEntityInstance" Role="BusinessEntityInstance" Multiplicity="1" />
+          <End Type="ErmModel.BusinessEntityPropertyInstance" Role="BusinessEntityPropertyInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessEntityInstance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessEntityPropertyInstance">
+              <PropertyRef Name="EntityInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances">
+          <End Type="ErmModel.DictionaryEntityInstance" Role="DictionaryEntityInstance" Multiplicity="1" />
+          <End Type="ErmModel.DictionaryEntityPropertyInstance" Role="DictionaryEntityPropertyInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DictionaryEntityInstance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DictionaryEntityPropertyInstance">
+              <PropertyRef Name="EntityInstanceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11346,7 +11528,63 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-      </EntityContainerMapping>
+          <EntitySetMapping Name="BusinessEntityInstances">
+            <EntityTypeMapping TypeName="ErmModel.BusinessEntityInstance">
+              <MappingFragment StoreEntitySet="BusinessEntityInstances">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessEntityPropertyInstances">
+            <EntityTypeMapping TypeName="ErmModel.BusinessEntityPropertyInstance">
+              <MappingFragment StoreEntitySet="BusinessEntityPropertyInstances">
+                <ScalarProperty Name="DateTimeValue" ColumnName="DateTimeValue" />
+                <ScalarProperty Name="NumericValue" ColumnName="NumericValue" />
+                <ScalarProperty Name="TextValue" ColumnName="TextValue" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="EntityInstanceId" ColumnName="EntityInstanceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DictionaryEntityInstances">
+            <EntityTypeMapping TypeName="ErmModel.DictionaryEntityInstance">
+              <MappingFragment StoreEntitySet="DictionaryEntityInstances">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DictionaryEntityPropertyInstances">
+            <EntityTypeMapping TypeName="ErmModel.DictionaryEntityPropertyInstance">
+              <MappingFragment StoreEntitySet="DictionaryEntityPropertyInstances">
+                <ScalarProperty Name="DateTimeValue" ColumnName="DateTimeValue" />
+                <ScalarProperty Name="NumericValue" ColumnName="NumericValue" />
+                <ScalarProperty Name="TextValue" ColumnName="TextValue" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="EntityInstanceId" ColumnName="EntityInstanceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
     </Mapping>
   </edmx:Mappings>
 </edmx:Runtime>

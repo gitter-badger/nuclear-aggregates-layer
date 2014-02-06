@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities.Erm.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm

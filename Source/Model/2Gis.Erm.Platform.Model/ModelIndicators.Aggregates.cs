@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.Platform.Model
 {
@@ -17,7 +16,6 @@ namespace DoubleGis.Erm.Platform.Model
             public static readonly Type RepositoryRoot = typeof(IAggregateRootRepository<>);
             public static readonly Type UnknownAggregatePart = typeof(IUnknownAggregatePartRepository);
             public static readonly Type RepositoryPart = typeof(IAggregatePartRepository<>);
-            public static readonly Type SimplifiedModelConsumer = typeof(ISimplifiedModelConsumer);
 
             internal static IEnumerable<Type> ExtractArgsForIndicator(Type checkingType, Type checkingIndicator)
             {
@@ -85,7 +83,6 @@ namespace DoubleGis.Erm.Platform.Model
                         RepositoryRoot,
                         UnknownAggregatePart,
                         RepositoryPart,
-                        SimplifiedModelConsumer
                     };
 
                 /// <summary>
@@ -107,14 +104,6 @@ namespace DoubleGis.Erm.Platform.Model
                         ReadModel,
                         ReadModelGeneric
                     };
-
-                /// <summary>
-                /// Все маркерные интерфейсы для слоя агрегатов - simplified model
-                /// </summary>
-                public static readonly Type[] SimplifiedModel =
-                    {
-                        SimplifiedModelConsumer
-                    };
             }
         }
 
@@ -128,7 +117,7 @@ namespace DoubleGis.Erm.Platform.Model
             return Aggregates.UnknownAggregatePart.IsAssignableFrom(checkingType);
         }
 
-        public static bool IsReadModel(this Type checkingType)
+        public static bool IsAggregateReadModel(this Type checkingType)
         {
             return Aggregates.ReadModel.IsAssignableFrom(checkingType);
         }
@@ -151,11 +140,6 @@ namespace DoubleGis.Erm.Platform.Model
         public static Type AggregateForRepositoryPart(this Type checkingType)
         {
             return Aggregates.ExtractArgsForIndicator(checkingType, Aggregates.RepositoryPart).SingleOrDefault();
-        }
-
-        public static bool IsSimplifiedModelConsumer(this Type checkingType)
-        {
-            return Aggregates.SimplifiedModelConsumer.IsAssignableFrom(checkingType);
         }
     }
 }

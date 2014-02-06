@@ -72,6 +72,7 @@
         Operation = 217,
         MessageType = 218,
         LegalPersonProfile = 219,
+        LegalPersonProfilePart = 258,
         AdditionalFirmService = 220,
         Theme = 221,
         ThemeTemplate = 222,
@@ -129,6 +130,7 @@
         NotificationEmailCc = 303,
         NotificationEmailTo = 304,
         NotificationEmailAttachment = 305,
+        Bank = 310,
 
         // Ambivalent
         FileWithContent = 400,
@@ -142,6 +144,12 @@
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,
-        OrderProcessingRequestMessage = 551
+        OrderProcessingRequestMessage = 551,
+
+        // Dynamic Storage
+        DictionaryEntityInstance = 560,
+        DictionaryEntityPropertyInstance = 561,
+        BusinessEntityInstance = 570,
+        BusinessEntityPropertyInstance = 571,
     }
 }

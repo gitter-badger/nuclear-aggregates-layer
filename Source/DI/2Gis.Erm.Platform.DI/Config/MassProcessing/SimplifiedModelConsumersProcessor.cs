@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
@@ -13,8 +14,6 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {
     public class SimplifiedModelConsumersProcessor : IMassProcessor
     {
-        private static readonly Type SimplifiedModelConsumerType = typeof(ISimplifiedModelConsumer);
-
         private readonly IUnityContainer _container;
         private readonly List<Type> _simplifiedModelConsumersTypes = new List<Type>();
 
@@ -25,8 +24,8 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
         public Type[] GetAssignableTypes()
         {
-            return new[] { SimplifiedModelConsumerType };
-            }
+            return ModelIndicators.Simplified.Group.All;
+        }
 
         public void ProcessTypes(IEnumerable<Type> types, bool firstRun)
         {
@@ -49,8 +48,10 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             foreach (var consumerImplementation in _simplifiedModelConsumersTypes)
             {
                 var consumerInterfaces = consumerImplementation.GetInterfaces()
-                    .Where(i => SimplifiedModelConsumerType != i && SimplifiedModelConsumerType.IsAssignableFrom(i))
-                    .ToArray();
+                                                               .Where(i => (i.IsSimplifiedModelConsumer() || i.IsSimplifiedModelConsumerReadModel()) &&
+                                                                           i != ModelIndicators.Simplified.SimplifiedModelConsumer &&
+                                                                           i != ModelIndicators.Simplified.SimplifiedModelConsumerReadModel)
+                                                               .ToArray();
 
                 if (consumerInterfaces.Length == 0)
                 {
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                 Lifetime.PerResolve,
                                 new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
                     }
-                        
+
                     // closed generic
                     _container.RegisterType(
                         consumerInterface,
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             if (type.IsInterface || type.IsAbstract)
             {
                 return false;
-        }
+            }
 
             return true;
         }

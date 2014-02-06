@@ -1,28 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.Platform.Model;
 
 namespace DoubleGis.Erm.Platform.API.Core.Globalization
 {
     public static class BusinessModelMapping
     {
-        private static readonly Dictionary<BusinessModel, Type> Mapping 
-            = new Dictionary<BusinessModel, Type>(4);
+        private static readonly Dictionary<BusinessModel, Type> Mappings =
+            new Dictionary<BusinessModel, Type>
+                {
+                    { BusinessModel.Russia, typeof(IRussiaAdapted) },
+                    { BusinessModel.Cyprus, typeof(ICyprusAdapted) },
+                    { BusinessModel.Czech, typeof(ICzechAdapted) },
+                    { BusinessModel.Chile, typeof(IChileAdapted) }
+                };
 
-        static BusinessModelMapping()
+        public static BusinessModel AsBusinessModel(this Type adapted)
         {
-            Mapping.Add(BusinessModel.Russia, typeof(IRussiaAdapted));
-            Mapping.Add(BusinessModel.Cyprus, typeof(ICyprusAdapted));
-            Mapping.Add(BusinessModel.Czech, typeof(ICzechAdapted));
-        }
-
-        public static Type GetMarkerInterfaceForAdaptation(BusinessModel adaptationToken)
-        {
-            if (adaptationToken == BusinessModel.NotSetted)
+            // Можно подумать об использовании BiDictionary
+            // http://stackoverflow.com/questions/268321/bidirectional-1-to-1-dictionary-in-c-sharp
+            var mapping = Mappings.SingleOrDefault(x => x.Value == adapted);
+            if (mapping.Equals(default(KeyValuePair<BusinessModel, Type>)))
             {
-                throw new ArgumentException("BusinessLogicAdaptation is set wrong");
+                throw new NotSupportedException("Business model mapping not supported");
             }
 
-            return Mapping[adaptationToken];
+            return mapping.Key;
+        }
+
+        public static Type AsAdapted(this BusinessModel businessModel)
+        {
+            var mapping = Mappings[businessModel];
+            if (mapping == null)
+            {
+                throw new NotSupportedException("Business model mapping not supported");
+            }
+
+            return mapping;
         }
     }
 }

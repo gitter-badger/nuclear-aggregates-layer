@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="127">
+      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="88">
         <edmx:EntityTypeShape EntityType="ErmModel.CurrencyRate" Width="1.5" PointX="3" PointY="80.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.MessageType" Width="1.5" PointX="8.25" PointY="101.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPositionsGroup" Width="1.5" PointX="18" PointY="77.125" IsExpanded="true" />
@@ -264,7 +264,13 @@
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_SourceOrganizationUnits" />
         <edmx:EntityTypeShape EntityType="ErmModel.OrderProcessingRequestMessage" Width="2.5" PointX="34" PointY="73.75" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequestMessages_OrderProcessingRequests" />
-      </edmx:Diagram>
+        <edmx:EntityTypeShape EntityType="ErmModel.BusinessEntityInstance" Width="1.5" PointX="15.375" PointY="6" />
+        <edmx:EntityTypeShape EntityType="ErmModel.BusinessEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="6.375" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityInstance" Width="1.5" PointX="15.375" PointY="1" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="1.375" />
+        <edmx:AssociationConnector Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" />
+        <edmx:AssociationConnector Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" />
+        </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

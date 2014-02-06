@@ -15,13 +15,22 @@
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
-using DoubleGis.Erm.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Model.Entities.Enums;
-using DoubleGis.Erm.Model.Entities.Erm;
-using DoubleGis.Erm.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.Model.DTOs.DomainEntity
+namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
+    [DataContract]
+    public partial class DepCardDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.DepCard>
+    {
+    	[DataMember]
+        public long Id { get; set; }
+    	[DataMember]
+        public bool IsHiddenOrArchived { get; set; }
+    }
 }
 
 // ReSharper enable RedundantUsingDirective

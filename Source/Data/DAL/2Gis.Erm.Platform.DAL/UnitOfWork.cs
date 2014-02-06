@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
         object IAggregatesLayerRuntimeFactory.CreateReadModel(Type aggregateReadModelType)
         {
-            if (!ModelIndicators.IsReadModel(aggregateReadModelType))
+            if (!ModelIndicators.IsAggregateReadModel(aggregateReadModelType))
             {
                 throw new ArgumentException("Type specified as aggregate read model have to implement interace " + ModelIndicators.Aggregates.ReadModel);
             }

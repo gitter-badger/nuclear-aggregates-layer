@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Bargain = EntityName.Bargain, //
         Order = EntityName.Order, //
         Limit = EntityName.Limit, //
-        LegalPersonProfile = EntityName.LegalPersonProfile
+        LegalPersonProfile = EntityName.LegalPersonProfile,
+        LegalPersonProfilePart = EntityName.LegalPersonProfilePart
     }
 }

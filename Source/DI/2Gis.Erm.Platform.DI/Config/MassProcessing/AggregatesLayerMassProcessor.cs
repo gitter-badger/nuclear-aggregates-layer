@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
             foreach (var type in types.Where(ShouldBeProcessed))
             {
-                if (type.IsReadModel())
+                if (type.IsAggregateReadModel())
                 {
                     _readModelTypes.Add(type);
                 }
@@ -173,7 +173,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             {
                 var implementedInterfacesWithoutMarkers =
                     readModel.GetInterfaces()
-                                  .Where(t => t.IsReadModel()
+                                  .Where(t => t.IsAggregateReadModel()
                                             && !ModelIndicators.Aggregates.Group.ReadOnly.Contains(t.IsGenericType ? t.GetGenericTypeDefinition() : t))
                                   .Distinct()
                                   .ToArray();
