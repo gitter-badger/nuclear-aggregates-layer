@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Base
             var modelEntity = _appropriateEntityProvider.Get(ModelEntitySpec);
             if (modelEntity == null)
             {
-                return OrdinaryTestResult.As.Failed.WithReport("Can't find appropriate model entity " + typeof(TEntity).Name);
+                return OrdinaryTestResult.As.Ignored.WithReport("Can't find appropriate model entity " + typeof(TEntity).Name);
             }
 
             return ExecuteWithModel(modelEntity);

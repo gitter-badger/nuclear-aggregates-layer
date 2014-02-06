@@ -30,7 +30,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             get
             {
                 var reserveUserCode = _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
-                return Specs.Find.ActiveAndNotDeleted<Firm>() && Specs.Find.Owned<Firm>(reserveUserCode);
+                return Specs.Find.ActiveAndNotDeleted<Firm>() 
+                    && Specs.Find.Owned<Firm>(reserveUserCode) 
+                    && new FindSpecification<Firm>(x => x.ClientId == null);
             }
         }
 

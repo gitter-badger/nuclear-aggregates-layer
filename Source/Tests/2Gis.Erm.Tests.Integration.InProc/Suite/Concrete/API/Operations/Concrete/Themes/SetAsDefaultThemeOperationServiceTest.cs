@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Themes;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Themes;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
@@ -21,7 +23,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override FindSpecification<Theme> ModelEntitySpec
         {
-            get { return Specs.Find.ActiveAndNotDeleted<Theme>() && new FindSpecification<Theme>(x => !x.IsDefault); }
+            get 
+            {
+                // TODO {all, 06.02.2014}: логика установки тематики по-умолчанию довольно сложная, 
+                // далеко не всегда это можно сделать без дополнительных приседаний в тематиках. 
+                // Стоит подумать, как можно переписать тест
+                return Specs.Find.ActiveAndNotDeleted<Theme>() 
+                    && new FindSpecification<Theme>(x => !x.IsDefault 
+                        && x.ThemeOrganizationUnits.Any()
+                        && x.ThemeOrganizationUnits
+                        .All(tou => tou.OrganizationUnit.ThemeOrganizationUnits.All(t => !t.Theme.IsDefault))); 
+            }
         }
 
         protected override OrdinaryTestResult ExecuteWithModel(Theme modelEntity)

@@ -1,9 +1,10 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Platforms;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+
+using FluentAssertions;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Simplified.Dictionary.Platforms
 {
@@ -22,13 +23,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             modelEntity.MinPlacementPeriodEnum = (int)PositionPlatformMinPlacementPeriod.FourMonths;
             _platformService.CreateOrUpdate(modelEntity);
 
-            try
-            {
-                _platformService.Delete(modelEntity);
-            }
-            catch (NotificationException)
-            {
-            }
+            _platformService.GetPlatform(modelEntity.Id)
+                .Should().NotBeNull();
+
+            _platformService.GetPlatformWithPositions(modelEntity.Id)
+                .Should().NotBeNull();
+
+            _platformService.IsPlatformLinked(modelEntity.Id);
+
+            var newPlatform = new Platform.Model.Entities.Erm.Platform
+                {
+                    Id = 7777777,
+                    DgppId = 8888888,
+                    Name = "testName"
+                };
+            _platformService.CreateOrUpdate(newPlatform);
+            _platformService.Delete(newPlatform);
 
             return OrdinaryTestResult.As.Succeeded;
         }

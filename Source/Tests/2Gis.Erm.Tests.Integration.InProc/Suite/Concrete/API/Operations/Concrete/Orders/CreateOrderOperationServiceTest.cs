@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         private readonly IAppropriateEntityProvider<LegalPerson> _legalPersonAppropriateEntityProvider;
         private readonly IAppropriateEntityProvider<BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitAppropriateEntityProvider;
         private readonly IAppropriateEntityProvider<Firm> _firmAppropriateEntityProvider;
+        private readonly IAppropriateEntityProvider<Bargain> _bargainAppropriateEntityProvider;
         private readonly IModifyBusinessModelEntityService<Order> _modifyEntityService;
 
         public CreateOrderOperationServiceTest(IAppropriateEntityProvider<Currency> currencyAppropriateEntityProvider,
@@ -30,6 +31,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                                                IAppropriateEntityProvider<LegalPerson> legalPersonAppropriateEntityProvider,
                                                IAppropriateEntityProvider<BranchOfficeOrganizationUnit> branchOfficeOrganizationUnitAppropriateEntityProvider,
                                                IAppropriateEntityProvider<Firm> firmAppropriateEntityProvider,
+                                               IAppropriateEntityProvider<Bargain> bargainAppropriateEntityProvider,
                                                IModifyBusinessModelEntityService<Order> modifyEntityService)
         {
             _currencyAppropriateEntityProvider = currencyAppropriateEntityProvider;
@@ -37,6 +39,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             _legalPersonAppropriateEntityProvider = legalPersonAppropriateEntityProvider;
             _branchOfficeOrganizationUnitAppropriateEntityProvider = branchOfficeOrganizationUnitAppropriateEntityProvider;
             _firmAppropriateEntityProvider = firmAppropriateEntityProvider;
+            _bargainAppropriateEntityProvider = bargainAppropriateEntityProvider;
             _modifyEntityService = modifyEntityService;
         }
 
@@ -47,6 +50,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             var legalPerson = _legalPersonAppropriateEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<LegalPerson>());
             var branchOfficeOrganizationUnit = _branchOfficeOrganizationUnitAppropriateEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>());
             var firm = _firmAppropriateEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Firm>() && FirmSpecs.Firms.Find.ByOrganizationUnit(organizationUnit.Id));
+            var bargain = _bargainAppropriateEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Bargain>());
             
             var domainEntityDto = new OrderDomainEntityDto
                 {
@@ -59,6 +63,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                     PlatformRef = new EntityReference((long)PlatformEnum.Desktop, PlatformEnum.Desktop.ToString()),
                     InspectorRef = new EntityReference(firm.OwnerCode),
                     OwnerRef = new EntityReference(firm.OwnerCode),
+                    BargainRef = new EntityReference(bargain.Id),
                     BeginDistributionDate = DateTime.Now.GetNextMonthFirstDate(),
                     WorkflowStepId = OrderState.OnRegistration,
                     BudgetType = OrderBudgetType.Sell,
