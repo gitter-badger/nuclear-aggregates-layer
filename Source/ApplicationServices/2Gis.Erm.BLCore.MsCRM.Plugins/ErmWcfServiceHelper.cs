@@ -63,8 +63,8 @@ namespace DoubleGis.Erm.BLCore.MsCRM.Plugins
                 AllowCookies = false
             };
 
-            // todo: remove this then implement security
-            wsHttpBinding.Security.Mode = SecurityMode.None;
+            wsHttpBinding.Security.Mode = SecurityMode.Transport;
+            wsHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
 
             return wsHttpBinding;
         }
