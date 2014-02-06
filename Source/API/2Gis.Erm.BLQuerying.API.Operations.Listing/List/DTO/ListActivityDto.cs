@@ -1,8 +1,8 @@
 using System;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Erm.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
