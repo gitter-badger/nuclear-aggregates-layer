@@ -250,6 +250,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="App.Edu.Chile.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="App.Edu.Cyprus.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
@@ -266,6 +269,9 @@
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Load.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Chile.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Production.Cyprus.config">
@@ -364,6 +370,12 @@
     <None Include="App.Test.101.config">
         <DependentUpon>App.config</DependentUpon>
     </None>
+    <None Include="App.Test.301.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.302.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -375,6 +387,10 @@
     </None>
     <None Include="packages.config" />
     <None Include="quartz.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Edu.Chile.config">
+      <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Edu.Cyprus.config">
@@ -406,6 +422,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Production.Russia.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Production.Chile.config">
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -528,6 +548,14 @@
     <None Include="quartz.Test.101.config">
         <DependentUpon>quartz.config</DependentUpon>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.301.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.302.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <PropertyGroup>

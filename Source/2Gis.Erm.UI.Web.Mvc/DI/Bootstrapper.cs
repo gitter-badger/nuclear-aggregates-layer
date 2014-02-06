@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
@@ -13,11 +14,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -26,6 +24,8 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Concrete;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
@@ -76,6 +76,7 @@ using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
@@ -203,7 +204,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerRequest, Mapping.Erm)
                      .RegisterTypeWithDependencies<IOrderValidationSettings, OrderValidationSettings>(CustomLifetime.PerRequest, Mapping.Erm);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }
@@ -336,7 +337,14 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
-            return container.RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+            return container
+                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, BankPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
+
+                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
 
         private static IUnityContainer ConfigureMvcMetadataProvider(this IUnityContainer container)

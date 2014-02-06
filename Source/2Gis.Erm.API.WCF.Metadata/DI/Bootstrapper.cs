@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .RegisterType<IServiceAvailabilityProvider, ServiceAvailabilityProvider>(Lifetime.PerResolve)
                 .RegisterType<IClientCompatibilityProvider, ClientCompatibilityProvider>(Lifetime.PerResolve);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }

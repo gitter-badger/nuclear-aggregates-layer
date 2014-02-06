@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }

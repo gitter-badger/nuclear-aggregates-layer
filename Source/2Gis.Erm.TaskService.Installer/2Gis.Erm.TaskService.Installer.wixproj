@@ -422,6 +422,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Variables.Edu.Chile.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Edu.Cyprus.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
@@ -441,6 +444,9 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Load.Russia.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Production.Chile.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Production.Cyprus.wxi">
@@ -534,6 +540,12 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.101.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.301.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.302.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.wxi" />

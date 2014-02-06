@@ -3,17 +3,17 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Erm.Enums;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Activity
 {
-    public class ActivityReadModelTest : IIntegrationTest 
+    public class ActivityReadModelTest : IIntegrationTest
     {
         private readonly IActivityReadModel _activityReadModel;
-        private readonly IAppropriateEntityProvider<ActivityInstance> _activityInstanceProvider; 
+        private readonly IAppropriateEntityProvider<ActivityInstance> _activityInstanceProvider;
 
         public ActivityReadModelTest(IActivityReadModel activityReadModel, IAppropriateEntityProvider<ActivityInstance> activityInstanceProvider)
         {

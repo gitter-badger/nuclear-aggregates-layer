@@ -27,12 +27,6 @@
             lookup.on("afterselect", this.onFirmChanged, this);
             lookup.supressMatchesErrors = true;
 
-            lookup = Ext.getCmp("Deal");
-            if (lookup) {
-                lookup.on("beforequery", this.onBeforeDealSelected, this);
-                lookup.on("afterselect", this.onDealChanged, this);
-                lookup.supressMatchesErrors = true;
-            }
             lookup = Ext.getCmp("Contact");
             lookup.on("beforequery", this.onBeforeContactSelected, this);
             lookup.on("afterselect", this.onContactChanged, this);
@@ -81,7 +75,7 @@
             if (!Ext.fly("Id").getValue() || Ext.fly("Id").getValue() == 0) {
                 this.autoCompleteRelatedItems();
             }
-
+            
             {
                 var actualEndTimeComboBox = new Ext.ux.TimeComboBox({
                     id: "ActualEndTime",
@@ -104,9 +98,6 @@
             // Логика для заполнения незаполненных полей "В отношении" для новой сущности.
             if (Ext.fly("ClientId").getValue()) {
                 this.onClientChanged();
-            }
-            else if (Ext.fly("DealId") && Ext.fly("DealId").getValue()) {
-                this.onDealChanged();
             }
             else if (Ext.fly("FirmId").getValue()) {
                 this.onFirmChanged();
@@ -133,33 +124,9 @@
             this.recalculateEndDate();
         },
         purposeChanged: function() {
-            var assComboOptions = Ext.fly("AfterSaleServiceType").dom.options;
-            if (assComboOptions) {
-                var selectedPurpose = Ext.fly("Purpose").getValue();
-                var needToChangeSelected = false;
-
-                if (selectedPurpose == "Service" || selectedPurpose == "Prolongation") {
-                    for (var i = 0; i < assComboOptions.length; i++) {
-
-                        // Для "Допродажа" должно отображаться ППС4, для "Сервис" -- ППС1-3.
-                        assComboOptions[i].disabled = selectedPurpose == "Prolongation" ? i < 4 : i > 3 || i == 0;
-                        if (assComboOptions[i].selected == true && assComboOptions[i].disabled) {
-                            needToChangeSelected = true;
-                        }
-                    }
-
-                    if (needToChangeSelected) {
-                        assComboOptions[selectedPurpose == "Prolongation" ? 4 : 1].selected = true;
-                    }
-                } else {
-                    assComboOptions[0].disabled = false;
-                    assComboOptions[0].selected = true;
-                }
-            }
-
-                this.autocompleteHeader();
-                var purposeCombobox = Ext.get("Purpose").dom;
-                this.PurposeBeforeChanged = purposeCombobox.options[purposeCombobox.selectedIndex].text;
+            this.autocompleteHeader();
+            var purposeCombobox = Ext.get("Purpose").dom;
+            this.PurposeBeforeChanged = purposeCombobox.options[purposeCombobox.selectedIndex].text;
         },
         autocompleteHeader: function() {
             if (!Ext.fly("ClientName").getValue()) {
@@ -319,24 +286,9 @@
                     Ext.getCmp("Contact").forceGetData();
                 }
 
-                var dealCmp = Ext.getCmp("Deal");
-                if (dealCmp && this.invoker !== "Deal") {
-                    dealCmp.forceGetData();
-                }
-
                 delete(this.suppressClientUpdate);
                 delete(this.invoker);
             } 
-        },
-        onDealChanged: function () {
-            if (!this.suppressClientUpdate && !Ext.fly("ClientId").getValue() && Ext.fly("DealId").getValue()) {
-                // Заполнить поле "Клиент" если оно ещё не заполнено
-                this.invoker = "Deal";
-                var clientCmp = Ext.getCmp("Client");
-                clientCmp.searchFormFilterInfo = "Deals.Any(Id == {DealId})";
-                clientCmp.forceGetData();
-                clientCmp.searchFormFilterInfo = "";
-            }
         },
         onContactChanged: function () {
             if (!this.suppressClientUpdate && !Ext.fly("ClientId").getValue() && Ext.fly("ContactId").getValue()) {
@@ -360,9 +312,6 @@
         },
         onBeforeFirmSelected: function () {
             Ext.getCmp("Firm").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";
-        },
-        onBeforeDealSelected: function () {
-            Ext.getCmp("Deal").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";
         },
         onBeforeContactSelected: function () {
             Ext.getCmp("Contact").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";

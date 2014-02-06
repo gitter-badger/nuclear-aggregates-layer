@@ -215,6 +215,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
+    <None Include="App.Edu.Chile.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="App.Edu.Cyprus.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
@@ -222,6 +225,9 @@
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Int.Cyprus.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Production.Chile.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="App.Production.Cyprus.config">

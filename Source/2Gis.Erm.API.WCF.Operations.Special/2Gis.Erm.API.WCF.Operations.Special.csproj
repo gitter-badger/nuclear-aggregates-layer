@@ -227,6 +227,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Edu.Chile.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
@@ -236,6 +237,7 @@
     <None Include="Properties\PublishProfiles\Int.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Int.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Load.Russia.pubxml" />
+    <None Include="Properties\PublishProfiles\Production.Chile.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Czech.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Cyprus.pubxml" />
     <None Include="Properties\PublishProfiles\Production.Russia.pubxml" />
@@ -264,6 +266,11 @@
     <None Include="Properties\PublishProfiles\Test.201.pubxml" />
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.301.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.302.pubxml" />
+    <None Include="Web.Edu.Chile.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Edu.Cyprus.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -289,6 +296,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Load.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.Chile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Production.Cyprus.config">
@@ -376,6 +386,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Test.23.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.301.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Test.302.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>

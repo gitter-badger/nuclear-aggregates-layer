@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterJobs()
                 .ConfigureQuartz();
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }

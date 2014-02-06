@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
 
             container.RegisterInstance<IMoneyDistributionSettings>(new MoneyDistributionSettings());
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }
