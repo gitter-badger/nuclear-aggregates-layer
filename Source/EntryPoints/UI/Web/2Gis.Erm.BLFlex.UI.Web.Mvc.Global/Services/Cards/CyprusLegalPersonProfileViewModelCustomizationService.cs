@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

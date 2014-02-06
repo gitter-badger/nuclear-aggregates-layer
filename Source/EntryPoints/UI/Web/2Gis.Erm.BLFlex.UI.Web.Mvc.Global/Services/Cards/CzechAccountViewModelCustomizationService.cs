@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (CzechAccountViewModel)viewModel;
+            var entityViewModel = (MultiCultureAccountViewModel)viewModel;
 
             if (entityViewModel.IsNew)
             {

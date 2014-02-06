@@ -47,6 +47,9 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Chile\Crosscutting\ChileRutService.cs" />
+    <Compile Include="Chile\Orders\DTO\ChileOrderGridViewDto.cs" />
+    <Compile Include="Chile\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Orders\DTO\CyprusOrderGridViewDto.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />

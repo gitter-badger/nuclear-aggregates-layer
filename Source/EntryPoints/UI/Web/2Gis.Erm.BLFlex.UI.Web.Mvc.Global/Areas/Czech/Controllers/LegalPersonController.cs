@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;

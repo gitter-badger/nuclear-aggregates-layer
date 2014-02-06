@@ -61,10 +61,15 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Cyprus\Concrete\Old\AccountDetails\CyprusValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Bills\ChilePrintBillHandler.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
+    <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
+    <Compile Include="Chile\Generic\List\ChileListClientService.cs" />
+    <Compile Include="Chile\Generic\List\ChileListOrderService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\AccountDetails\MultiCultureValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />
-    <Compile Include="Cyprus\Concrete\Old\Orders\CyprusCalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditClientHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonProfileHandler.cs" />
@@ -77,12 +82,12 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
-    <Compile Include="Cyprus\Generic\Get\CyprusGetAppointmentDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
     <Compile Include="Cyprus\Generic\Get\CyprusGetLegalPersonDtoService.cs" />
     <Compile Include="Cyprus\Generic\Get\CyprusGetLegalPersonProfileDtoService.cs" />
-    <Compile Include="Cyprus\Generic\Get\CyprusGetOrderDtoService.cs" />
-    <Compile Include="Cyprus\Generic\Get\CyprusGetPhonecallDtoService.cs" />
-    <Compile Include="Cyprus\Generic\Get\CyprusGetTaskDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetOrderDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetPhonecallDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetTaskDtoService.cs" />
     <Compile Include="Cyprus\Generic\List\CyprusListLegalPersonService.cs" />
     <Compile Include="Cyprus\Generic\List\CyprusListOrderService.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusAppointmentObtainer.cs" />
@@ -90,10 +95,9 @@
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusPhoneCallObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusTaskObtainer.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditOrderPositionHandler.cs" />
-    <Compile Include="Czech\Concrete\Old\AccountDetails\CzechValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Clients\CzechCheckClientActivitiesHandler.cs" />
-    <Compile Include="Czech\Concrete\Old\Orders\CzechCalculateReleaseWithdrawalsHandler.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditClientHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
@@ -106,12 +110,8 @@
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Czech\Generic\Activate\CzechActivateLegalPersonService.cs" />
-    <Compile Include="Czech\Generic\Get\CzechGetAppointmentDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonProfileDtoService.cs" />
-    <Compile Include="Czech\Generic\Get\CzechGetOrderDtoService.cs" />
-    <Compile Include="Czech\Generic\Get\CzechGetPhonecallDtoService.cs" />
-    <Compile Include="Czech\Generic\Get\CzechGetTaskDtoService.cs" />
     <Compile Include="Czech\Generic\List\CzechListClientService.cs" />
     <Compile Include="Czech\Generic\List\CzechListLegalPersonProfileService.cs" />
     <Compile Include="Czech\Generic\List\CzechListLegalPersonService.cs" />

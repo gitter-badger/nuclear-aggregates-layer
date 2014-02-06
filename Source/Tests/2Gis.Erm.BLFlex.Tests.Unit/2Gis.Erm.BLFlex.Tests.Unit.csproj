@@ -66,6 +66,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="BL\GenerateOrderNumberHandlerSpecs.cs" />
+    <Compile Include="Model\RutServiceSpecs.cs" />
     <Compile Include="Model\InnServiceSpecs.cs" />
   </ItemGroup>
   <ItemGroup>

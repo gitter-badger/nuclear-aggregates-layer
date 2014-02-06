@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
