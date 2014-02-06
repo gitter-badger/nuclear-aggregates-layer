@@ -197,6 +197,7 @@
     <Compile Include="Suite\Infrastructure\BDD\BDDIntegrationTestBase.cs" />
     <Compile Include="Suite\Infrastructure\BDD\BDDOrdinaryTestArgs.cs" />
     <Compile Include="Suite\Infrastructure\BDD\BDDTestRunConfig.cs" />
+    <Compile Include="Suite\Infrastructure\TestResultStatus.cs" />
     <Compile Include="Suite\Infrastructure\Result.cs" />
     <Compile Include="Suite\Infrastructure\TestFactory.cs" />
     <Compile Include="Suite\Infrastructure\TestResultsSet.cs" />

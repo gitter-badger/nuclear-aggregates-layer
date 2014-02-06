@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
             return Result
                 .When(() => _changeEntityTerritoryService.ChangeTerritory(targetFirm.Id, targetTerritory.Id))
-                .Then(result => result.Succeeded.Should().BeTrue());
+                .Then(result => result.Status.Should().Be(TestResultStatus.Succeeded));
         }
     }
 }

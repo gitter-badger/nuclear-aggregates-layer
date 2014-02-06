@@ -23,5 +23,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         public void Succeeded(Type testType, ITestResult testResult)
         {
         }
+
+        public void Ignored(Type testType, ITestResult testResult)
+        {
+        }
     }
 }

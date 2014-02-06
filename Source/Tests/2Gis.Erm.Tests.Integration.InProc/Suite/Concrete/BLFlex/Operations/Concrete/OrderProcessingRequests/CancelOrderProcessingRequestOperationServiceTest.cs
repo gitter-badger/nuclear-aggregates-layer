@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
 
         protected override OrdinaryTestResult ExecuteWithModel(OrderProcessingRequest modelEntity)
         {
-            return Result.When(() => _cancelOrderProcessingRequestOperationService.CancelRequest(modelEntity.Id)).Then(r => r.Succeeded.Should().BeTrue());
+            return Result.When(() => _cancelOrderProcessingRequestOperationService.CancelRequest(modelEntity.Id)).Then(r => r.Status.Should().Be(TestResultStatus.Succeeded));
         }
     }
 }

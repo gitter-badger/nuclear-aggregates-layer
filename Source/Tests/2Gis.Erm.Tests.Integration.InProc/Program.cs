@@ -62,6 +62,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
                     .AppendLine("\tAll=" + testResults.TotalCount)
                     .AppendLine("\tSucceeded=" + testResults.Succeeded.Count)
                     .AppendLine("\tFailed=" + testResults.Failed.Count)
+                    .AppendLine("\tIgnored=" + testResults.Ignored.Count)
                     .AppendLine("\tUnhandled=" + testResults.Unhandled.Count)
                     .AppendLine("\tUnresolved=" + testResults.Unresolved.Count)
                     .AppendLine("Passed: " + (testResults.Passed ? "YES" : "NO"));
@@ -73,6 +74,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
                 {
                     sb.AppendLine("\tFailed:");
                     testResults.Failed.Aggregate(sb, (builder, pair) => builder.AppendLine("\t  " + pair.Key.GetType().Name));
+                }
+
+                if (testResults.Ignored.Any())
+                {
+                    sb.AppendLine("\tIgnored:");
+                    testResults.Ignored.Aggregate(sb, (builder, pair) => builder.AppendLine("\t  " + pair.Key.GetType().Name));
                 }
 
                 if (testResults.Unhandled.Any())

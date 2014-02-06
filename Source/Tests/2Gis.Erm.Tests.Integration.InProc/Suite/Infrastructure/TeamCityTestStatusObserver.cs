@@ -38,6 +38,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             FinishTest(testType);
         }
 
+        public void Ignored(Type testType, ITestResult testResult)
+        {
+            string description = string.Format("{0}", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report);
+            Console.WriteLine(@"##teamcity[testIgnored name='{0}' details='{1}']", ResolveTestId(testType), description);
+        }
+
         private void FinishTest(Type testType)
         {
             Console.WriteLine(@"##teamcity[testFinished name='{0}']", ResolveTestId(testType));

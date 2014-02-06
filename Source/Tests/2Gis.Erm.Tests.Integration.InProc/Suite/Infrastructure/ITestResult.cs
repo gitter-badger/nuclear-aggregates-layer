@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         string Report { get; }
         Exception Asserted { get; }
         Exception Unhandled { get; }
-        bool Succeeded { get; }
+        TestResultStatus Status { get; }
     }
 }

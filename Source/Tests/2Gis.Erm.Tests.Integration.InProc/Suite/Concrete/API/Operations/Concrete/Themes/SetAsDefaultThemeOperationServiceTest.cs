@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         protected override OrdinaryTestResult ExecuteWithModel(Theme modelEntity)
         {
             return Result.When(() => _setAsDefaultThemeOperationService.SetAsDefault(modelEntity.Id, true))
-                         .Then(result => result.Succeeded.Should().BeTrue());
+                         .Then(result => result.Status.Should().Be(TestResultStatus.Succeeded));
         }
     }
 }

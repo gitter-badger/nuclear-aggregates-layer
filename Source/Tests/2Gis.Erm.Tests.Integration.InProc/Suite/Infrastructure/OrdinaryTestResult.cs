@@ -22,6 +22,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                 }
             }
 
+            public static OrdinaryTestResult Ignored
+            {
+                get
+                {
+                    return new OrdinaryTestResult().AsIgnored();
+                }
+            }
+
             public static OrdinaryTestResult Asserted(Exception assertionException)
             {
                 return new OrdinaryTestResult().AsFailed().AsAsserted(assertionException);
@@ -34,7 +42,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
             public static OrdinaryTestResult NotExecuted
             {
-                get { return Failed.WithReport("Test has not been executed"); }
+                get { return Ignored.WithReport("Test has not been executed"); }
             }
 
         }
@@ -43,33 +51,39 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         {
         }
 
-        public bool Succeeded { get; private set; }
+        public TestResultStatus Status { get; private set; }
         public string Report { get; private set; }
         public Exception Asserted { get; private set; }
         public Exception Unhandled { get; private set; }
 
         public OrdinaryTestResult AsSucceeded()
         {
-            Succeeded = true;
+            Status = TestResultStatus.Succeeded;
             return this;
         }
 
         public OrdinaryTestResult AsFailed()
         {
-            Succeeded = false;
+            Status = TestResultStatus.Failed;
+            return this;
+        }
+
+        public OrdinaryTestResult AsIgnored()
+        {
+            Status = TestResultStatus.Ignored;
             return this;
         }
 
         public OrdinaryTestResult AsAsserted(Exception assertionException)
         {
-            Succeeded = false;
+            Status = TestResultStatus.Failed;
             Asserted = assertionException;
             return this;
         }
 
         public OrdinaryTestResult AsUnhandled(Exception unhandledException)
         {
-            Succeeded = false;
+            Status = TestResultStatus.Failed;
             Unhandled = unhandledException;
             return this;
         }
@@ -88,7 +102,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public override string ToString()
         {
-            return Succeeded ? "Succeeded" : "Failed";
+            return Status.ToString();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         protected override OrdinaryTestResult ExecuteWithModel(Deal modelEntity)
         {
             return Result.When(() => _updateAfterSaleServiceOperationService.Update(modelEntity.ReplicationCode, _dateTime, AfterSaleServiceType.ASS1))
-                         .Then(result => result.Succeeded.Should().BeTrue());
+                         .Then(result => result.Status.Should().Be(TestResultStatus.Succeeded));
         }
     }
 }

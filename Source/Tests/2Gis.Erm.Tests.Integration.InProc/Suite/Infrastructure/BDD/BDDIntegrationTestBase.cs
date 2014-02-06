@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.BDD
                 try
                 {
                     var result = When(testRun.Args);
-                    if (!result.Succeeded)
+                    if (result.Status != TestResultStatus.Succeeded)
                     {
                         compositeResult.Add(
                             OrdinaryTestResult.As.Failed
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.BDD
 
         protected virtual void Then(TTestArgs args, TTestResult result)
         {
-            result.Succeeded.ShouldBeEquivalentTo(true);
+            result.Status.Should().Be(TestResultStatus.Succeeded);
         }
     }
 }

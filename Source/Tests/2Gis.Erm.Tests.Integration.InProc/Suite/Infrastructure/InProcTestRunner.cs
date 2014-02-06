@@ -26,6 +26,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
         {
             var succeeded  = new Dictionary<IIntegrationTest, ITestResult>();
             var failed  = new Dictionary<IIntegrationTest, ITestResult>();
+            var ignored = new Dictionary<IIntegrationTest, ITestResult>();
             var unhandled = new Dictionary<IIntegrationTest, Exception>();
             var unresolved = new Dictionary<Type, Exception>();
 
@@ -58,17 +59,30 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
                         transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default);
                         var result = testScope.Test.Execute();
-                        if (!result.Succeeded)
-                        {
-                            _testStatusObserver.Asserted(integrationTestType, result);
-                            failed.Add(testScope.Test, result);
-                            _logger.InfoFormatEx("Failed {0} with result {1}", testDescription, result);
-                            continue;
-                        }
 
-                        _testStatusObserver.Succeeded(integrationTestType, result);
-                        succeeded.Add(testScope.Test, result);
-                        _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                        switch (result.Status)
+                        {
+                            case TestResultStatus.Failed:
+                                _testStatusObserver.Asserted(integrationTestType, result);
+                                failed.Add(testScope.Test, result);
+                                _logger.InfoFormatEx("Failed {0} with result {1}", testDescription, result);
+                                break;
+
+                            case TestResultStatus.Succeeded:
+                                _testStatusObserver.Succeeded(integrationTestType, result);
+                                succeeded.Add(testScope.Test, result);
+                                _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                                break;
+
+                            case TestResultStatus.Ignored:
+                                _testStatusObserver.Ignored(integrationTestType, result);
+                                ignored.Add(testScope.Test, result);
+                                _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                                break;
+
+                            default:
+                                throw new Exception("Unknown test result status");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -96,6 +110,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                 {
                     Succeeded = succeeded,
                     Failed = failed,
+                    Ignored = ignored,
                     Unhandled = unhandled,
                     Unresolved = unresolved
                 };

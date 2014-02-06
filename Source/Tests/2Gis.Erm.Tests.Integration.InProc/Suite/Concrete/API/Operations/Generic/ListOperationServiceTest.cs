@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
         protected override void Then(ListingContext args, OrdinaryTestResult result)
         {
-            result.Succeeded.Should().Be(true);
+            result.Status.Should().Be(TestResultStatus.Succeeded);
         }
     }
 }

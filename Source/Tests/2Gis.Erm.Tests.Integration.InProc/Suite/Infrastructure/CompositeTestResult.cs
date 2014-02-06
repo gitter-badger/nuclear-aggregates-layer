@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             { 
                 return new AggregateException(
                     _results
-                        .Where(result => !result.Succeeded && result.Asserted != null)
+                        .Where(result => result.Status != TestResultStatus.Succeeded && result.Asserted != null)
                         .Select(result => result.Asserted));
             }
         }
@@ -40,14 +40,19 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             {
                 return new AggregateException(
                     _results
-                        .Where(result => !result.Succeeded && result.Unhandled != null)
+                        .Where(result => result.Status != TestResultStatus.Succeeded && result.Unhandled != null)
                         .Select(result => result.Unhandled));
             }
         }
 
-        public bool Succeeded
+        public TestResultStatus Status
         {
-            get { return _results.All(result => result.Succeeded); }
+            get 
+            { 
+                return _results.All(result => result.Status == TestResultStatus.Succeeded) 
+                    ? TestResultStatus.Succeeded
+                    : TestResultStatus.Failed;
+            }
         }
 
         public IEnumerable<ITestResult> Results
