@@ -177,6 +177,9 @@
     <None Include="Web.Expl.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.Load.Russia.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Int.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
