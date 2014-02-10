@@ -27,8 +27,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                                      .Select(x => new
                                          {
                                              ClientName = x.Client.Name,
-                                             FirmName = x.Client.Name,
-                                             ContactName = x.Client.Name
+                                             FirmName = x.Firm.Name,
+                                             ContactName = x.Contact.FullName
                                          })
                                      .Single();
             activity.ClientName = activityInfo.ClientName;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -188,40 +188,6 @@
   </data>
 	<data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>Objednávka {0} neobsahuje ani jednu uvedenou položku objednávky</value>
-  </data>
-	<data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}
-Průkaz totožnosti: řada {1} č. {2},
-Vydán: {3}
-Registrace: {4}</value>
-  </data>
-	<data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}
-DIČ: {1}
-Sídlo: {2}
-Platební údaje: {3}</value>
-  </data>
-	<data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
-    <value>{0}
-DIČ: {1} Kód důvodu registrace organizace k platbě daní: {2}
-Sídlo: {3}
-Platební údaje: {4}</value>
-  </data>
-	<data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}
-Průkaz totožnosti č. {2},
-Vydán: {3}
-Místo bydliště: {4}</value>
-  </data>
-	<data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}
-T.I.C.: {1}    V.A.T. Reg. č. {2}
-Sídlo: {3}
-IBAN {4}
-SWIFT {5}
-Číslo účtu {6}
-Název banky {7}
-{8}</value>
   </data>
 	<data name="InputValidationInvalidEmail" xml:space="preserve">
     <value>Hodnota pole „{0}“ není správnou e-mailovou adresou</value>
@@ -612,9 +578,6 @@ Název banky {7}
   </data>
 	<data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Oddělení organizace {0} již u pr. osoby {1} existuje</value>
-  </data>
-	<data name="SalutationToMale" xml:space="preserve">
-    <value>Vážený</value>
   </data>
 	<data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Je zakázáno měnit vázané objekty blokované objednávky.</value>
@@ -2939,12 +2902,6 @@ Operace provedena: {4}.</value>
 	<data name="BindingObjectChange" xml:space="preserve">
     <value>Změna vázaných objektů</value>
   </data>
-	<data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
-    <value>{0}, dále jen „zhotovitel“ zastoupený {1} {2} jednajícím na základě {3}, na jedné straně, a {4}, dále jen „objednatel“ zastoupený {5} {6} jednajícím na základě {7}, na straně druhé, uzavřeli tuto objednávku o následujícím:</value>
-  </data>
-	<data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
-    <value>{0}, dále jen „zhotovitel“ zastoupený {1} {2} jednajícím na základě {3}, na jedné straně, a občan(ka) {4}, dále jen „objednatel“ {5}, na straně druhé, uzavřeli tuto objednávku o následujícím:</value>
-  </data>
 	<data name="CantDeativatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Není možné deaktivovat položku ze zveřejněného ceníku</value>
   </data>
@@ -3013,10 +2970,6 @@ Operace provedena: {4}.</value>
   </data>
 	<data name="OrdersCheckOrderPositionContainsDeletedFirmAddress" xml:space="preserve">
     <value>V objednávce {0} má položka objednávky na {1} vazbu na adresu firmy s příznakem „Skrytá navždy“</value>
-  </data>
-	<data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
-    <value>Celková sleva: {0} - {1} ({2}).
-</value>
   </data>
 	<data name="LegalPersonList" xml:space="preserve">
     <value>Zobrazit seznam všech pr. osob klienta</value>
@@ -3197,9 +3150,6 @@ Operace provedena: {4}.</value>
   </data>
 	<data name="GroupOperationConfirm" xml:space="preserve">
     <value>Potvrďte provedení operace</value>
-  </data>
-	<data name="SalutationToFemale" xml:space="preserve">
-    <value>Vážená</value>
   </data>
 	<data name="QualifyCouldntAssignUser" xml:space="preserve">
     <value>Nemáte oprávnění pro přidělení firmy (klienta) tomuto pracovníkovi</value>
@@ -4478,36 +4428,6 @@ Operace provedena: {4}.</value>
 	<data name="InvalidFirmRubricUsage" xml:space="preserve">
     <value>Firmě {0} byla přidána rubrika {1}, nebyl ji však prodán bezplatný banner (krátký komentář)</value>
   </data>
-	<data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
-    <value>Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
-  </data>
-	<data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Média: „{0}“ (verze pro PC a mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}.
-2. Internetový portál maps.2gis.ru.
-3. Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
-  </data>
-	<data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Média: „{0}“ (mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
-  </data>
-	<data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
-    <value>Internetové stránky na adrese maps.2gis.ru</value>
-  </data>
-	<data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Média: „{0}“ (verze pro PC). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
-  </data>
-	<data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>7.</value>
-  </data>
-	<data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
-8.</value>
-  </data>
-	<data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
-  </data>
-	<data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Právnická osoba typu '{0}' uvedená v profilu nemůže jednat na základě {1}</value>
-  </data>
 	<data name="ApprovalDateMustBeSpecified" xml:space="preserve">
     <value>U objednávky ve stavu {0} musí být povinně uvedeno datum schválení.</value>
   </data>
@@ -4760,15 +4680,6 @@ Operace provedena: {4}.</value>
 	<data name="DisplayErrorsList" xml:space="preserve">
     <value>Zobrazit seznam chyb...</value>
   </data>
-	<data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
-  </data>
-	<data name="OrderTotalAmountIsZero" xml:space="preserve">
-    <value>Celková hodnota objednávky je nulová, není možné vytisknout</value>
-  </data>
-	<data name="ContributionTypeIsNotSet" xml:space="preserve">
-    <value>Oddělení organizace s ID [{0}] nemá určenou formu spolupráce</value>
-  </data>
 	<data name="MoDiUnknownError" xml:space="preserve">
     <value>Neznámá chyba v servisu rozdělení peněz</value>
   </data>
@@ -4965,12 +4876,6 @@ Kontakt: {1}</value>
 	<data name="AllowedFileExtensions" xml:space="preserve">
     <value>Možné přípony souborů</value>
   </data>
-	<data name="SalutationToFemale2" xml:space="preserve">
-    <value>Vážená paní</value>
-  </data>
-	<data name="SalutationToMale2" xml:space="preserve">
-    <value>Vážený pane</value>
-  </data>
 	<data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
     <value>Obnovitelná pr. osoba {0} je již aktivní</value>
   </data>
@@ -5012,30 +4917,6 @@ Kontakt: {1}</value>
   </data>
 	<data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>Existuje skrytá fyz. osoba s uvedenou řadou a číslem průkazu totožnosti</value>
-  </data>
-	<data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
-  </data>
-	<data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
-  </data>
-	<data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
-  </data>
-	<data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IC: {0}         DIC: {1}  
-Misto podnikani: {2}
-Cislo uctu: {3}/{4}
-Penezni ustav: {5}</value>
-    <comment>используется в печатной форме заказа в Праге</comment>
-  </data>
-	<data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IC: {0}       	DIC: {1}
-Sidlo:  {2}
-Zapsana  {6}
-Cislo uctu:  {3}/{4}
-Penezni ustav:  {5}</value>
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
 	<data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
     <value>místem podnikání</value>
@@ -5112,12 +4993,6 @@ Penezni ustav:  {5}</value>
 	<data name="BillsMissing" xml:space="preserve">
     <value>Je třeba vystavit alespoň jednu fakturu</value>
   </data>
-	<data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
-    <value>Jmeno a prijmeni:</value>
-  </data>
-	<data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
-    <value>Nazev pravnicke osoby:</value>
-  </data>
 	<data name="RegionalApiError" xml:space="preserve">
     <value>В позиции {0} оформлена реклама API, хотя у фирмы нет адреса в проекте города размещения заказа</value>
   </data>
@@ -5168,20 +5043,6 @@ Penezni ustav:  {5}</value>
   </data>
 	<data name="GeneralMessage" xml:space="preserve">
     <value>{0}</value>
-  </data>
-	<data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8.</value>
-  </data>
-	<data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7.</value>
-  </data>
-	<data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-9.</value>
-  </data>
-	<data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-8.</value>
   </data>
 	<data name="StringContainsControlCharacters" xml:space="preserve">
     <value>Строка содержит управляющие символы</value>

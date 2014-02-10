@@ -247,7 +247,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     if (y.IsComposite)
                     {
                         var platformCostsGroups = platformCosts
-                            .GroupBy(z => new { z.From, z.To, z.NewTo })
+                            .GroupBy(z => new { z.From, z.To, z.NewTo, DefinedInSalesSchema = z.DiscountCost != decimal.Zero })
                             .Select(z => new PlatformCost
                         {
                             PositionId = y.PositionId,

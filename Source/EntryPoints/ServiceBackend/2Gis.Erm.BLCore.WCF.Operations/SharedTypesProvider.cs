@@ -5,6 +5,7 @@ using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -60,7 +61,8 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                            .Where(x => CoreAssemblyNameMarkers.Any(y => x.Name.ToUpper().Contains(y.ToUpper())))
                            .Select(Assembly.Load)
                            .SelectMany(x => x.ExportedTypes)
-                           .Where(x => (x.IsEnum ||
+                           .Where(x => !x.GetCustomAttributes<StableContractAttribute>().Any() &&
+                                        (x.IsEnum ||
                                         typeof(IEntity).IsAssignableFrom(x) ||
                                         typeof(IDomainEntityDto).IsAssignableFrom(x) ||
                                         typeof(IOperationSpecificEntityDto).IsAssignableFrom(x) ||
