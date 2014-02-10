@@ -233,6 +233,10 @@
       <Project>{a012ac28-ebeb-4d9a-963a-7ceb72f54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>

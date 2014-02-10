@@ -11,7 +11,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class CyprusViewModelCustomizationService : IGenericViewModelCustomizationService<Account>, ICyprusAdapted
+    public class CyprusAccountViewModelCustomizationService : IGenericViewModelCustomizationService<Account>, ICyprusAdapted
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

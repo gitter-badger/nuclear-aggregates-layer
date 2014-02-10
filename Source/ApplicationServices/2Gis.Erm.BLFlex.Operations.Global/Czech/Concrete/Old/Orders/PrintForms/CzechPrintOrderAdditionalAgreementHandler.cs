@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -14,6 +13,10 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
+using EnumResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.EnumResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
@@ -37,17 +40,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             if (!orderInfoValidation.IsTerminated)
             {
-                throw new NotificationException(BLResources.OrderShouldBeTerminated);
+                throw new NotificationException(BLCoreResources.OrderShouldBeTerminated);
             }
 
             if (orderInfoValidation.WorkflowStep != OrderState.OnTermination && orderInfoValidation.WorkflowStep != OrderState.Archive)
             {
-                throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
+                throw new NotificationException(BLCoreResources.OrderShouldBeTerminatedOrArchive);
             }
 
             if (orderInfoValidation.RejectionDate == null)
             {
-                throw new NotificationException(BLResources.OrderRejectDateFieldIsNotFilled);
+                throw new NotificationException(BLCoreResources.OrderRejectDateFieldIsNotFilled);
             }
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
@@ -72,7 +75,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     orderInfo.Order,
                     RelatedBargainInfo = (orderInfo.Bargain != null)
                                              ? string.Format(
-                                                 BLResources.RelatedToBargainInfoTemplate,
+                                                 BLCoreResources.RelatedToBargainInfoTemplate,
                                                  orderInfo.Bargain.Number,
                                                  PrintFormFieldsFormatHelper.FormatLongDate(orderInfo.Bargain.CreatedOn))
                                              : null,
@@ -95,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                             CurrencyIsoCode = printData.CurrencyISOCode,
                             BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
                             TemplateCode = GetTemplateCode(printData.LegalPersonType, request.PrintType),
-                            FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, printData.Order.Number),
+                            FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, printData.Order.Number),
                             PrintData = printData
                         },
                     Context);
@@ -115,7 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
+                BLFlexResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
                 ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString());
         }

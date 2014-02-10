@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             entityViewModel.BusinessModelArea = BusinessModel.Czech.ToString();
             entityViewModel.AvailableSalutations = new Dictionary<string, string[]>
                 {
-                    { "Male", new[] { string.Empty, BLResources.SalutationToMale, BLResources.SalutationToMale2 } }, 
-                    { "Female", new[] { string.Empty, BLResources.SalutationToFemale, BLResources.SalutationToFemale2 } },
+                    { "Male", new[] { string.Empty, Resources.SalutationToMaleCzech, Resources.SalutationToMaleCzech2 } }, 
+                    { "Female", new[] { string.Empty, Resources.SalutationToFemaleCzech, Resources.SalutationToFemaleCzech2 } },
                 };
         }
     }

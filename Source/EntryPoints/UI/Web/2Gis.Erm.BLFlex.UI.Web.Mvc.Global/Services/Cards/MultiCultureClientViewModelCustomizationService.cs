@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class MultiCultureClientViewModelCustomizationService : IGenericViewModelCustomizationService<Client>, ICyprusAdapted, ICzechAdapted, IRussiaAdapted
+    public class MultiCultureClientViewModelCustomizationService : IGenericViewModelCustomizationService<Client>, ICyprusAdapted, ICzechAdapted, IChileAdapted
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

@@ -85,10 +85,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [Dependency(DependencyType.Transfer, "ClientReplicationCode", "(this.item && this.item.data)?this.item.data.ReplicationCode:undefined;")]
         public LookupField Client { get; set; }
 
-        public Guid? ClientReplicationCode { get; set; }
-
-        public string ClientName { get; set; }
-
         public override byte[] Timestamp { get; set; }
 
         [RequiredLocalized]
@@ -142,7 +138,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
             Client = LookupField.FromReference(modelDto.ClientRef);
 
-            ClientReplicationCode = modelDto.ClientReplicationCode;
             IsFired = modelDto.IsFired;
             BirthDate = modelDto.BirthDate;
             Timestamp = modelDto.Timestamp;
@@ -176,7 +171,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     AccountRole = AccountRole,
 
                     ClientRef = Client.ToReference(),
-                    ClientReplicationCode = ClientReplicationCode.Value,
 
                     IsFired = IsFired,
                     BirthDate = BirthDate,

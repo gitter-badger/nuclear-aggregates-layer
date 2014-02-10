@@ -228,7 +228,7 @@
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CyprusLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CyprusViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CyprusAccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CzechAccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CzechLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CzechLegalPersonViewModelCustomizationService.cs" />
@@ -370,6 +370,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Czech\Order.generated.cs">
       <DependentUpon>Order.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -396,6 +401,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Cyprus\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Task.generated.cs">
       <DependentUpon>Task.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -658,6 +668,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Client.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Russia\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Czech\Order.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Order.generated.cs</LastGenOutput>
@@ -679,6 +693,10 @@
       <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Cyprus\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Task.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
@@ -830,7 +848,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MergeLegalPersonsGetData.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Russia\Task.cshtml" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>

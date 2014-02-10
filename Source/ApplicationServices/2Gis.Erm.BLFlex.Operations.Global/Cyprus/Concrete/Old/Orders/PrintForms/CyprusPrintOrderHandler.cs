@@ -15,7 +15,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -28,19 +27,24 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
+using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
+using EnumResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.EnumResources;
+using MetadataResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.MetadataResources;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.PrintForms
 {
     public sealed class CyprusPrintOrderHandler : RequestHandler<PrintOrderRequest, StreamResponse>, ICyprusAdapted
     {
         private static readonly Dictionary<int, string> FirmAddressContactTypePlural = new Dictionary<int, string>
         {
-            { (int)FirmAddressContactType.Phone, BLResources.Phones },
-            { (int)FirmAddressContactType.Fax, BLResources.Faxes },
-            { (int)FirmAddressContactType.Email, BLResources.Emails },
-            { (int)FirmAddressContactType.Website, BLResources.WebSites },
-            { (int)FirmAddressContactType.Icq, BLResources.Icqs },
-            { (int)FirmAddressContactType.Skype, BLResources.Skypes },
-            { (int)FirmAddressContactType.Other, BLResources.Others }, // other means "jabber"
+            { (int)FirmAddressContactType.Phone, BLCoreResources.Phones },
+            { (int)FirmAddressContactType.Fax, BLCoreResources.Faxes },
+            { (int)FirmAddressContactType.Email, BLCoreResources.Emails },
+            { (int)FirmAddressContactType.Website, BLCoreResources.WebSites },
+            { (int)FirmAddressContactType.Icq, BLCoreResources.Icqs },
+            { (int)FirmAddressContactType.Skype, BLCoreResources.Skypes },
+            { (int)FirmAddressContactType.Other, BLCoreResources.Others }, // other means "jabber"
         };
 
         private readonly IFinder _finder;
@@ -80,7 +84,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (request.PrintRegionalVersion)
@@ -110,7 +114,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             var response = clientProxy.Execute(service => service.PrintRegionalOrder(orderId));
             if (response.Items.Length == 0)
             {
-                throw new NotificationException(BLResources.OrderTotalAmountIsZero);
+                throw new NotificationException(BLFlexResources.OrderTotalAmountIsZero);
             }
 
             var streamResponse = new StreamResponse();
@@ -320,7 +324,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         x.Bargain,
                         RelatedBargainInfo =
                             x.Bargain != null
-                                ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn))
+                                ? string.Format(BLCoreResources.RelatedToBargainInfoTemplate, x.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn))
                                 : null,
                         x.LegalPerson,
                         x.Profile,
@@ -386,7 +390,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             var stringBuilder = new StringBuilder();
 
             // address number
-            stringBuilder.Append(BLResources.AddressNumber).Append(addressNumber).AppendLine(":");
+            stringBuilder.Append(BLCoreResources.AddressNumber).Append(addressNumber).AppendLine(":");
             stringBuilder.AppendLine(address.Address);
 
             // Contacts
@@ -437,7 +441,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             var decimalMoneyWordsFormatter = _formatterFactory.Create(typeof(decimal), FormatType.MoneyWords, currencyIsoCode);
             var discountSumMoneyWords = decimalMoneyWordsFormatter.Format(discountSum);
 
-            return string.Format(CultureInfo.CurrentCulture, BLResources.PrintOrderHandler_DiscountInfo, discountPercentNumber, discountSumMoney, discountSumMoneyWords);
+            return string.Format(CultureInfo.CurrentCulture, BLFlexResources.PrintOrderHandler_DiscountInfo, discountPercentNumber, discountSumMoney, discountSumMoneyWords);
         }
 
         private ContributionTypeEnum GetContributionType(long organizationUnitId)
@@ -451,7 +455,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             if (contributionType == null)
             {
                 throw new NotificationException(
-                    string.Format(CultureInfo.CurrentCulture, BLResources.ContributionTypeIsNotSet, organizationUnitId));
+                    string.Format(CultureInfo.CurrentCulture, BLFlexResources.ContributionTypeIsNotSet, organizationUnitId));
             }
 
             return (ContributionTypeEnum)contributionType.Value;
@@ -461,7 +465,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
         {
             if (terminatedOrder == null)
             {
-                return BLResources.PrintOrderHandler_TechnicalTerminationParagraph1;
+                return BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph1;
             }
 
             // order.BeginDistributionDate
@@ -480,7 +484,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLResources.PrintOrderHandler_TechnicalTerminationParagraph2,
+                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph2,
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,
@@ -503,7 +507,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                 break;
                             case OperatesOnTheBasisType.Warranty:
                                 operatesOnTheBasisInGenitive = string.Format(
-                                    BLResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson,
+                                    BLCoreResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson,
                                     ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                     profile.WarrantyNumber,
                                     PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
@@ -515,7 +519,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_BeginContractParagraph1,
+                        BLFlexResources.PrintOrderHandler_BeginContractParagraph1,
                         branchOfficeOrganizationUnit.ShortLegalName,
                         branchOfficeOrganizationUnit.PositionInGenitive,
                         branchOfficeOrganizationUnit.ChiefNameInGenitive,
@@ -536,33 +540,33 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                     break;
                                 case OperatesOnTheBasisType.Charter:
                                     operatesOnTheBasisInGenitive = string.Format(
-                                        BLResources.OperatesOnBasisOfCharterTemplate,
+                                        BLCoreResources.OperatesOnBasisOfCharterTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 case OperatesOnTheBasisType.Certificate:
                                     operatesOnTheBasisInGenitive = string.Format(
-                                        BLResources.OperatesOnBasisOfCertificateTemplate,
+                                        BLCoreResources.OperatesOnBasisOfCertificateTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.CertificateNumber,
                                         PrintFormFieldsFormatHelper.FormatShortDate(profile.CertificateDate));
                                     break;
                                 case OperatesOnTheBasisType.Warranty:
                                     operatesOnTheBasisInGenitive = string.Format(
-                                        BLResources.OperatesOnBasisOfWarantyTemplate,
+                                        BLCoreResources.OperatesOnBasisOfWarantyTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.WarrantyNumber,
                                         PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.Bargain:
                                     operatesOnTheBasisInGenitive = string.Format(
-                                        BLResources.OperatesOnBasisOfBargainTemplate,
+                                        BLCoreResources.OperatesOnBasisOfBargainTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.BargainNumber,
                                         PrintFormFieldsFormatHelper.FormatShortDate(profile.BargainBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.FoundingBargain:
                                     operatesOnTheBasisInGenitive = string.Format(
-                                        BLResources.OperatesOnBasisOfFoundingBargainTemplate,
+                                        BLCoreResources.OperatesOnBasisOfFoundingBargainTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 default:
@@ -572,7 +576,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
                         return string.Format(
                             CultureInfo.CurrentCulture,
-                            BLResources.PrintOrderHandler_BeginContractParagraph2,
+                            BLFlexResources.PrintOrderHandler_BeginContractParagraph2,
                             branchOfficeOrganizationUnit.ShortLegalName,
                             branchOfficeOrganizationUnit.PositionInGenitive,
                                          branchOfficeOrganizationUnit.ChiefNameInGenitive,
@@ -595,7 +599,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 case LegalPersonType.NaturalPerson:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.CyprusPrintOrderHandler_ClientRequisitesParagraph1,
+                        BLFlexResources.CyprusPrintOrderHandler_ClientRequisitesParagraph1,
                         legalPerson.LegalName,
                         legalPerson.PassportSeries,
                         legalPerson.PassportNumber,
@@ -605,7 +609,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 case LegalPersonType.LegalPerson:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.CyprusPrintOrderHandler_ClientRequisitesParagraph2,
+                        BLFlexResources.CyprusPrintOrderHandler_ClientRequisitesParagraph2,
                         legalPerson.LegalName,
                         legalPerson.Inn,
                         legalPerson.VAT,
@@ -627,7 +631,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 case PlatformEnum.Independent:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_ElectronicMedaiParagraphIndependent,
+                        BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphIndependent,
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
@@ -635,7 +639,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 case PlatformEnum.Desktop:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_ElectronicMedaiParagraphPC,
+                        BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphPC,
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
@@ -645,7 +649,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 case PlatformEnum.Mobile:
                     return string.Format(
                        CultureInfo.CurrentCulture,
-                       BLResources.PrintOrderHandler_ElectronicMedaiParagraphMobile,
+                       BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphMobile,
                        electronivMedia,
                        registrationCertificate,
                        order.BeginReleaseNumber,
@@ -653,9 +657,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                        PrintFormFieldsFormatHelper.FormatLongDate(order.BeginDistributionDate),
                        PrintFormFieldsFormatHelper.FormatLongDate(order.EndDistributionDatePlan));
                 case PlatformEnum.Api:
-                    return BLResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
+                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
                 case PlatformEnum.Online:
-                    return BLResources.PrintOrderHandler_ElectronicMedaiParagraphOnline;
+                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphOnline;
                 default:
                     throw new ArgumentOutOfRangeException("platform");
             }
@@ -679,13 +683,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
             private static string GenerateMessage(LegalPersonType legalPerson)
             {
-                return string.Format(BLResources.CannotPrintOrderForLegalPerson,
+                return string.Format(BLFlexResources.CannotPrintOrderForLegalPerson,
                                      legalPerson.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
             }
 
             private static string GenerateMessage(LegalPersonType legalPerson, OperatesOnTheBasisType operatesOnTheBasis)
             {
-                return string.Format(BLResources.CannotPrintOrderForLegalPersonMainDocument,
+                return string.Format(BLFlexResources.CannotPrintOrderForLegalPersonMainDocument,
                                      legalPerson.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                      operatesOnTheBasis.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture).ToLower());
             }

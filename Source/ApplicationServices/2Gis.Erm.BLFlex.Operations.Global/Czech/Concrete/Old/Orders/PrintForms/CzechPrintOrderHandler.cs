@@ -15,7 +15,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -29,6 +28,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
+using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
+using EnumResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.EnumResources;
+using MetadataResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.MetadataResources;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
     public sealed class CzechPrintOrderHandler : RequestHandler<PrintOrderRequest, StreamResponse>, ICzechAdapted
@@ -37,13 +41,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         private static readonly Dictionary<int, string> FirmAddressContactTypePlural = new Dictionary<int, string>
             {
-                { (int)FirmAddressContactType.Phone, BLResources.Phones },
-                { (int)FirmAddressContactType.Fax, BLResources.Faxes },
-                { (int)FirmAddressContactType.Email, BLResources.Emails },
-                { (int)FirmAddressContactType.Website, BLResources.WebSites },
-                { (int)FirmAddressContactType.Icq, BLResources.Icqs },
-                { (int)FirmAddressContactType.Skype, BLResources.Skypes },
-                { (int)FirmAddressContactType.Other, BLResources.Others }, // other means "jabber"
+                { (int)FirmAddressContactType.Phone, BLCoreResources.Phones },
+                { (int)FirmAddressContactType.Fax, BLCoreResources.Faxes },
+                { (int)FirmAddressContactType.Email, BLCoreResources.Emails },
+                { (int)FirmAddressContactType.Website, BLCoreResources.WebSites },
+                { (int)FirmAddressContactType.Icq, BLCoreResources.Icqs },
+                { (int)FirmAddressContactType.Skype, BLCoreResources.Skypes },
+                { (int)FirmAddressContactType.Other, BLCoreResources.Others }, // other means "jabber"
             };
 
         private readonly IFinder _finder;
@@ -86,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             if (request.PrintRegionalVersion)
@@ -116,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             var response = clientProxy.Execute(service => service.PrintRegionalOrder(orderId));
             if (response.Items.Length == 0)
             {
-                throw new NotificationException(BLResources.OrderTotalAmountIsZero);
+                throw new NotificationException(BLFlexResources.OrderTotalAmountIsZero);
             }
 
             var streamResponse = new StreamResponse();
@@ -339,7 +343,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     orderInfo.Bargain,
                     RelatedBargainInfo =
                         orderInfo.Bargain != null
-                            ? string.Format(BLResources.RelatedToBargainInfoTemplate,
+                            ? string.Format(BLCoreResources.RelatedToBargainInfoTemplate,
                                             orderInfo.Bargain.Number,
                                             PrintFormFieldsFormatHelper.FormatLongDate(orderInfo.Bargain.CreatedOn))
                             : null,
@@ -391,7 +395,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             var addressBuilder = new StringBuilder();
 
             // address number
-            addressBuilder.Append(BLResources.AddressNumber).Append(index).AppendLine(":");
+            addressBuilder.Append(BLCoreResources.AddressNumber).Append(index).AppendLine(":");
             var address = firmAddressDto.Address + ((firmAddressDto.ReferencePoint == null) ? string.Empty : " — " + firmAddressDto.ReferencePoint);
             addressBuilder.AppendLine(address);
 
@@ -423,11 +427,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     break;
 
                 case true:
-                    flampLink = BLResources.PrintOrderHandler_ShowFlampLinkModeFlampPublished;
+                    flampLink = BLCoreResources.PrintOrderHandler_ShowFlampLinkModeFlampPublished;
                     break;
 
                 case false:
-                    flampLink = BLResources.PrintOrderHandler_ShowFlampLinkModeFlampNotPublished;
+                    flampLink = BLCoreResources.PrintOrderHandler_ShowFlampLinkModeFlampNotPublished;
                     break;
 
                 default:
@@ -456,7 +460,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             if (contributionType == null)
             {
                 throw new NotificationException(
-                    string.Format(CultureInfo.CurrentCulture, BLResources.ContributionTypeIsNotSet, organizationUnitId));
+                    string.Format(CultureInfo.CurrentCulture, BLFlexResources.ContributionTypeIsNotSet, organizationUnitId));
             }
 
             return (ContributionTypeEnum)contributionType.Value;
@@ -466,7 +470,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         {
             if (terminatedOrder == null)
             {
-                return BLResources.PrintOrderHandler_TechnicalTerminationParagraph1;
+                return BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph1;
             }
 
             // order.BeginDistributionDate
@@ -485,7 +489,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLResources.PrintOrderHandler_TechnicalTerminationParagraph2,
+                BLFlexResources.PrintOrderHandler_TechnicalTerminationParagraph2,
                 beginDistributionDate,
                 terminatedOrderNumber,
                 terminatedOrderSignupDate,
@@ -495,22 +499,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         private static string GetPersonPrefix(LegalPersonType legalPersonType)
         {
             return legalPersonType == LegalPersonType.Businessman
-                ? BLResources.CzechPrintOrderHandler_PersonPrefixBusinessman
-                : BLResources.CzechPrintOrderHandler_PersonPrefixLegalPerson;
+                ? BLFlexResources.CzechPrintOrderHandler_PersonPrefixBusinessman
+                : BLFlexResources.CzechPrintOrderHandler_PersonPrefixLegalPerson;
         }
 
         private static string GetClientLegalNamePrefixTemplate(LegalPersonType legalPersonType)
         {
             return legalPersonType == LegalPersonType.Businessman
-                ? BLResources.CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman
-                : BLResources.CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson;
+                ? BLFlexResources.CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman
+                : BLFlexResources.CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson;
         }
 
         private static string GetRequisitesTemplate(LegalPersonType legalPersonType)
         {
             return legalPersonType == LegalPersonType.Businessman
-                ? BLResources.CzechPrintOrderHandler_ClientRequisitesBusinessman
-                : BLResources.CzechPrintOrderHandler_ClientRequisitesLegalPerson;
+                ? BLFlexResources.CzechPrintOrderHandler_ClientRequisitesBusinessman
+                : BLFlexResources.CzechPrintOrderHandler_ClientRequisitesLegalPerson;
         }
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)
@@ -527,7 +531,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
             return string.Format(
                 CultureInfo.CurrentCulture,
-                BLResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
+                BLFlexResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
                 ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString());
         }
@@ -550,7 +554,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 case PlatformEnum.Independent:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_ElectronicMedaiParagraphIndependent,
+                        BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphIndependent,
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
@@ -558,7 +562,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 case PlatformEnum.Desktop:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_ElectronicMedaiParagraphPC,
+                        BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphPC,
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
@@ -568,7 +572,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 case PlatformEnum.Mobile:
                     return string.Format(
                         CultureInfo.CurrentCulture,
-                        BLResources.PrintOrderHandler_ElectronicMedaiParagraphMobile,
+                        BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphMobile,
                         electronivMedia,
                         registrationCertificate,
                         order.BeginReleaseNumber,
@@ -576,9 +580,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                         PrintFormFieldsFormatHelper.FormatLongDate(order.BeginDistributionDate),
                         PrintFormFieldsFormatHelper.FormatLongDate(order.EndDistributionDatePlan));
                 case PlatformEnum.Api:
-                    return BLResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
+                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
                 case PlatformEnum.Online:
-                    return BLResources.PrintOrderHandler_ElectronicMedaiParagraphOnline;
+                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphOnline;
                 default:
                     throw new ArgumentOutOfRangeException("platform");
             }
