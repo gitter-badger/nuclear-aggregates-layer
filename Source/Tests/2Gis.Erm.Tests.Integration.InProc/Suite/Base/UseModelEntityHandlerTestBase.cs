@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Base
             TRequest request;
             if (!TryCreateRequest(modelEntity, out request))
             {
-                return OrdinaryTestResult.As.Failed.WithReport("Can't create request");
+                return OrdinaryTestResult.As.Ignored.WithReport("Can't create request");
             }
 
             var response = _publicService.Handle(request);
