@@ -29,6 +29,14 @@
             var salutationDom = Ext.getDom("Salutation");
             salutationDom.length = 0;
 
+            if (!genderSalutations || genderSalutations.length == 0) {
+                return;
+            }
+            
+            if (!selectedValue) {
+                selectedValue = genderSalutations[1]; // значение по умолчанию во всех культурах
+            }
+
             for (var i = 0; i < genderSalutations.length; i++) {
                 var salutation = genderSalutations[i];
                 var isSelected = selectedValue && salutation == selectedValue;
