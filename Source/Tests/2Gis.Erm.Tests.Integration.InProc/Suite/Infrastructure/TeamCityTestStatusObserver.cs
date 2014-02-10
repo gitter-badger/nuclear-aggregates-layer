@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 {
@@ -9,27 +11,39 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public void Started(Type testType)
         {
-            SendToTeamCity(string.Format(@"testStarted name='{0}'", ResolveTestId(testType)));
+            Console.WriteLine(new TeamCityMessage("testStarted")
+                .WithProperty("name", ResolveTestId(testType)));
         }
 
         public void Unresolved(Type testType, Exception exception)
         {
-            string description = string.Format("{0}", exception.Message);
-            SendToTeamCity(string.Format(@"testFailed name='{0}' message='Unresolved. Can't create test instance' details='{1}'", ResolveTestId(testType), description));
+            Console.WriteLine(new TeamCityMessage("testFailed")
+                .WithProperty("name", ResolveTestId(testType))
+                .WithProperty("message", "Unresolved. Can not create test instance")
+                .WithProperty("details", exception.Message));
+
             FinishTest(testType);
         }
 
         public void Unhandled(Type testType, Exception exception)
         {
-            string description = string.Format("{0}", exception.Message + exception.StackTrace);
-            SendToTeamCity(string.Format(@"testFailed name='{0}' message='Unhandled. Exception caught {1}' details='{2}'", ResolveTestId(testType), exception.GetType().Name, description));
+            Console.WriteLine(new TeamCityMessage("testFailed")
+                .WithProperty("name", ResolveTestId(testType))
+                .WithProperty("message", "Unhandled. Exception caught " + exception.GetType().Name)
+                .WithProperty("details", exception.Message + exception.StackTrace));
+
             FinishTest(testType);
         }
 
         public void Asserted(Type testType, ITestResult testResult)
         {
-            string description = string.Format("{0}", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report);
-            SendToTeamCity(string.Format(@"testFailed type='comparisonFailure' name='{0}' message='Asserted. ' details='{1}' expected='Succeeded' actual='Failed'", ResolveTestId(testType), description));
+            Console.WriteLine(new TeamCityMessage("testFailed")
+                .WithProperty("name", ResolveTestId(testType))
+                .WithProperty("message", "Asserted. ")
+                .WithProperty("details", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report)
+                .WithProperty("expected", "Succeeded")
+                .WithProperty("actual", "Failed"));
+
             FinishTest(testType);
         }
 
@@ -40,13 +54,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         public void Ignored(Type testType, ITestResult testResult)
         {
-            string description = string.Format("{0}", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report);
-            SendToTeamCity(string.Format(@"testIgnored name='{0}' details='{1}'", ResolveTestId(testType), description));
+            Console.WriteLine(new TeamCityMessage("testIgnored")
+                .WithProperty("name", ResolveTestId(testType))
+                .WithProperty("details", testResult.Asserted != null ? testResult.Asserted.Message : testResult.Report));
         }
 
         private static void FinishTest(Type testType)
-        {
-            SendToTeamCity(string.Format(@"testFinished name='{0}'", ResolveTestId(testType)));
+        {   
+            Console.WriteLine(new TeamCityMessage("testFinished")
+                .WithProperty("name", ResolveTestId(testType)));
         }
 
         private static string ResolveTestId(Type testType)
@@ -54,10 +70,29 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             return testType.Name;
         }
 
-        // TeamCity не распознает сообщения с переносами строк
-        private static void SendToTeamCity(string message)
+        private class TeamCityMessage
         {
-            Console.WriteLine(string.Format("##teamcity[{0}]", message).Replace(Environment.NewLine, " "));
+            private readonly Dictionary<string, string> _properties = new Dictionary<string, string>();
+
+            public TeamCityMessage(string header)
+            {
+                Header = header;
+            }
+
+            public string Header { get; private set;  }
+
+            public TeamCityMessage WithProperty(string name, string value)
+            {
+                _properties.Add(name, value.Replace('\'', '_').Replace(Environment.NewLine, " "));
+                return this;
+            }
+
+            public override string ToString()
+            {
+                var properies = string.Join(" ", _properties.Select(x => string.Format("{0}='{1}'", x.Key, x.Value)));
+
+                return string.Format("##teamcity[{0} {1}]", Header, properies);
+            }
         }
     }
 }
