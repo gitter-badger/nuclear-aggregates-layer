@@ -55,6 +55,11 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Properties\BLResources.ru.Designer.cs">
+      <DependentUpon>BLResources.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\BLResources.es-CL.Designer.cs">
       <DependentUpon>BLResources.es-CL.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -77,6 +82,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\BLResources.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BLResources.ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.es-CL.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BLResources.es-CL.Designer.cs</LastGenOutput>
