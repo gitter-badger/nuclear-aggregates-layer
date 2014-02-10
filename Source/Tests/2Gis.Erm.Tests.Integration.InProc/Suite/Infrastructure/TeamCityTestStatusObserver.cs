@@ -72,6 +72,16 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
         private class TeamCityMessage
         {
+            private const int MaxPropertyValueLength = 1000;
+
+            private static readonly Func<string, string>[] PropertyValueNormalizers =
+                {
+                    x => x ?? string.Empty,
+                    x => x.Replace('\'', '_'),
+                    x => x.Replace(Environment.NewLine, " "),
+                    x => x.Length > MaxPropertyValueLength ? x.Substring(0, MaxPropertyValueLength) + "..." : x
+                };
+
             private readonly Dictionary<string, string> _properties = new Dictionary<string, string>();
 
             public TeamCityMessage(string header)
@@ -83,7 +93,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 
             public TeamCityMessage WithProperty(string name, string value)
             {
-                _properties.Add(name, value.Replace('\'', '_').Replace(Environment.NewLine, " "));
+                value = PropertyValueNormalizers.Aggregate(value, (current, normalizer) => normalizer(current));
+
+                _properties.Add(name, value);
+
                 return this;
             }
 
