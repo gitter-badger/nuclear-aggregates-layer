@@ -314,6 +314,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
+      <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
+      <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
       <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
@@ -389,6 +393,14 @@
     <ProjectReference Include="..\..\..\..\BLFlex\Source\EntryPoints\UI\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj">
       <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
       <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>

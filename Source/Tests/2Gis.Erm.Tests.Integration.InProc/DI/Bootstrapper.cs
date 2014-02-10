@@ -6,6 +6,8 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -14,12 +16,16 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
+using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
@@ -56,7 +62,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
     internal static class Bootstrapper
     {
         // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-        private static readonly Type[] EagerLoading = { typeof(ActionsLogger), typeof(LegalPersonObtainer) };
+        private static readonly Type[] EagerLoading =
+            {
+                typeof(ActionsLogger), 
+                typeof(LegalPersonObtainer),
+                typeof(CancelOrderProcessingRequestOperationService)
+            };
 
         public static IUnityContainer ConfigureUnity(ITestAPIInProcOperationsSettings settings)
         {
@@ -114,7 +125,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
-                .CondifureTestInfrastructure(settings);
+                .ConfigureTestInfrastructure(settings)
+                .ConfigureListing();
 
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
@@ -166,12 +178,19 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(EntryPointSpecificLifetimeManagerFactory())
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, NullValidateFileService>(EntryPointSpecificLifetimeManagerFactory())
+                     .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                      // notification sender
+                     .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
+                     .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
+                     .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .ConfigureNotificationsSender(settings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
+
+            // Действительно, почему бы для InProc-тестов не регистрировать ApplicationService?
+            container.RegisterTypeWithDependencies<IRequestStateApplicationService, RequestStateApplicationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope);
 
             return container;
         }
@@ -194,7 +213,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);
         }
 
-        private static IUnityContainer CondifureTestInfrastructure(this IUnityContainer container, IAppSettings settings)
+        private static IUnityContainer ConfigureTestInfrastructure(this IUnityContainer container, IAppSettings settings)
         {
             if (settings.TargetEnvironment == AppTargetEnvironment.Test)
             {
@@ -221,6 +240,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+        }
+        
+        private static IUnityContainer ConfigureListing(this IUnityContainer container)
+        {
+            return container
+                .RegisterType<IQuerySettingsProvider, QuerySettingsProvider>(EntryPointSpecificLifetimeManagerFactory());
         }
     }
 }

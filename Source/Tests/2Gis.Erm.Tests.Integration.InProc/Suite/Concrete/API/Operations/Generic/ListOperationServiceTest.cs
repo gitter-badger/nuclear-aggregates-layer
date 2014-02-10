@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.BDD;
 
@@ -17,11 +18,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             public SearchListModel SearchModel { get; set; }
         }
 
-        private readonly IListGenericEntityService<Client> _clientListingGenericEntityService;
+        private readonly IListEntityService _clientListingGenericEntityService;
 
-        public ListOperationServiceTest(IListGenericEntityService<Client> clientListingGenericEntityService)
+        public ListOperationServiceTest(IOperationServicesManager operationServicesManager)
         {
-            _clientListingGenericEntityService = clientListingGenericEntityService;
+            _clientListingGenericEntityService = operationServicesManager.GetListEntityService(EntityName.AccountDetail);
         }
 
         protected override IEnumerable<BDDTestRunConfig<ListingContext, OrdinaryTestResult>> Given()
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
                     Args = new ListingContext
                         {
-                            GivenDescription = "Listing of clients, skip 0, take 40, with asc sorting by Id",
+                            GivenDescription = "Listing of accountDetails, skip 0, take 40, with asc sorting by Id",
                             SearchModel = new SearchListModel { Start = 0, Limit = 40, Sort = "Id", Dir = "ASC" }
                         }
                 } };
