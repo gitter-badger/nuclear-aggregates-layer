@@ -101,4 +101,40 @@
   <data name="RutFormatError" xml:space="preserve">
     <value>Поле {0} должно иметь формат xx.xxx.xxx-x</value>
   </data>
+  <data name="SalutationToMaleRussia" xml:space="preserve">
+    <value>Уважаемый</value>
+    <comment>Приветствие специфично для бизнес-модели России. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToFemaleRussia" xml:space="preserve">
+    <value>Уважаемая</value>
+    <comment>Приветствие специфично для бизнес-модели России. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationCyprus" xml:space="preserve">
+    <value>Dear</value>
+    <comment>Приветствие специфично для бизнес-модели Кипра. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToMaleCzech" xml:space="preserve">
+    <value>Vážený</value>
+    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToFemaleCzech" xml:space="preserve">
+    <value>Vážená</value>
+    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToFemaleCzech2" xml:space="preserve">
+    <value>Vážená paní</value>
+    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToMaleCzech2" xml:space="preserve">
+    <value>Vážený pane</value>
+    <comment>Приветствие специфично для бизнес-модели Чехии. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToMaleChile" xml:space="preserve">
+    <value>Estimado</value>
+    <comment>Приветствие специфично для бизнес-модели Чили. Не должно переводиться на другие языки.</comment>
+  </data>
+  <data name="SalutationToFemaleChile" xml:space="preserve">
+    <value>Estimada</value>
+    <comment>Приветствие специфично для бизнес-модели Чили. Не должно переводиться на другие языки.</comment>
+  </data>
 </root>

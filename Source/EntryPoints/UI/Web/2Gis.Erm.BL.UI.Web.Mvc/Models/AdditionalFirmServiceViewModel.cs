@@ -8,6 +8,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public class AdditionalFirmServiceViewModel : EntityViewModelBase<AdditionalFirmService>
     {
+        private bool _isNew;
+
         public string ServiceCode { get; set; }
 
         public string Description { get; set; }
@@ -17,6 +19,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
+        public override bool IsNew
+        {
+            get { return _isNew; }
+        }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var dto = (AdditionalFirmServiceDomainEntityDto)domainEntityDto;
@@ -24,6 +31,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             IsManaged = dto.IsManaged;
             ServiceCode = dto.ServiceCode;
             Description = dto.Description;
+
+            _isNew = Id == 0;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

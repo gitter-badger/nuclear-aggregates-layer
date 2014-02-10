@@ -402,11 +402,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CategoryGroup.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Client.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Client.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\ContributionType.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -871,10 +866,6 @@
     <None Include="Views\CreateOrUpdate\CategoryGroup.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CategoryGroup.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Client.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Client.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\ContributionType.cshtml">
       <Generator>RazorGenerator</Generator>

@@ -68,5 +68,86 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
                 return ResourceManager.GetString("RutFormatError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dear.
+        /// </summary>
+        public static string SalutationCyprus {
+            get {
+                return ResourceManager.GetString("SalutationCyprus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estimada.
+        /// </summary>
+        public static string SalutationToFemaleChile {
+            get {
+                return ResourceManager.GetString("SalutationToFemaleChile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vážená.
+        /// </summary>
+        public static string SalutationToFemaleCzech {
+            get {
+                return ResourceManager.GetString("SalutationToFemaleCzech", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vážená paní.
+        /// </summary>
+        public static string SalutationToFemaleCzech2 {
+            get {
+                return ResourceManager.GetString("SalutationToFemaleCzech2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Уважаемая.
+        /// </summary>
+        public static string SalutationToFemaleRussia {
+            get {
+                return ResourceManager.GetString("SalutationToFemaleRussia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estimado.
+        /// </summary>
+        public static string SalutationToMaleChile {
+            get {
+                return ResourceManager.GetString("SalutationToMaleChile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vážený.
+        /// </summary>
+        public static string SalutationToMaleCzech {
+            get {
+                return ResourceManager.GetString("SalutationToMaleCzech", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vážený pane.
+        /// </summary>
+        public static string SalutationToMaleCzech2 {
+            get {
+                return ResourceManager.GetString("SalutationToMaleCzech2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Уважаемый.
+        /// </summary>
+        public static string SalutationToMaleRussia {
+            get {
+                return ResourceManager.GetString("SalutationToMaleRussia", resourceCulture);
+            }
+        }
     }
 }
