@@ -5,10 +5,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -56,12 +54,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
             var query = FinderBaseProvider.GetFinderBase(_entityName).FindAll<TEntity>();
             var querySettings = _querySettingsProvider.GetQuerySettings(_entityName, searchListModel);
-            if (searchListModel.HasExtendedProperty("ForSubordinates"))
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
             {
                 query = GetDescendantQuery(query);
             }
 
-            var data = GetListData(query, querySettings, new ListFilterManager(searchListModel), out count).ToArray();
+            var data = GetListData(query, querySettings, out count).ToArray();
 
             return new EntityDtoListResult<TEntity, TEntityListDto>
                 {
@@ -73,7 +73,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
         protected abstract IEnumerable<TEntityListDto> GetListData(IQueryable<TEntity> query,
                                                                    QuerySettings querySettings,
-                                                                   ListFilterManager filterManager,
                                                                    out int count);
 
         private IQueryable<TEntity> GetDescendantQuery(IQueryable query)

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -26,13 +24,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IEnumerable<ListCategoryDto> GetListData(IQueryable<Category> query,
                                                                     QuerySettings querySettings,
-                                                                    ListFilterManager filterManager,
                                                                     out int count)
         {
             // Фильтр рубрик, которые можно добавить в тематику (рубрики есть во всех подразделениях тематики)
-            if (filterManager.ParentEntityName == EntityName.Theme)
+            if (querySettings.ParentEntityName == EntityName.Theme)
             {
-                var themeId = filterManager.ParentEntityId;
+                var themeId = querySettings.ParentEntityId;
                 var finder = FinderBaseProvider.GetFinderBase(EntityName.Theme);
                 var unitCount = finder.FindAll<OrganizationUnit>()
                                   .Count(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
@@ -58,7 +55,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                               .Select(group => group.Key);
             }
 
-            var firmIdFilter = filterManager.CreateForExtendedProperty<Category, long>(
+            var firmIdFilter = querySettings.CreateForExtendedProperty<Category, long>(
                 "firmId",
                 firmId => x => x.CategoryFirmAddresses
                                 .Any(y => !y.IsDeleted && y.IsActive &&
@@ -80,7 +77,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                 .SelectMany(child => child.CategoryFirmAddresses)
                                 .Any(link => !link.IsDeleted && link.IsActive && link.FirmAddress.FirmId == firmId)));
             */
-            var firmAddressIdFilter = filterManager.CreateForExtendedProperty<Category, long>(
+            var firmAddressIdFilter = querySettings.CreateForExtendedProperty<Category, long>(
                 "firmAddressId",
                 firmAddressId => x => x.CategoryFirmAddresses.Any(y => !y.IsDeleted && y.IsActive && y.FirmAddressId == firmAddressId) ||
                                                        (from childCategory2 in x.ChildCategories
@@ -90,10 +87,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                         from categoryFirmAddress in childCategory1.CategoryFirmAddresses
                                                         select categoryFirmAddress).Any(y => !y.IsDeleted && y.IsActive && y.FirmAddressId == firmAddressId));
 
-            var isActiveFilter = filterManager.CreateForExtendedProperty<Category, bool>(
+            var isActiveFilter = querySettings.CreateForExtendedProperty<Category, bool>(
                 "IsActive", isActive => item => item.IsActive == isActive);
 
-            var organizationUnitIdFilter = filterManager.CreateForExtendedProperty<Category, long>(
+            var minLevelFilter = querySettings.CreateForExtendedProperty<Category, int>(
+                "minLevel", minLevel => x => x.Level > minLevel);
+
+            var levelFilter = querySettings.CreateForExtendedProperty<Category, int>(
+                "Level", level => x => x.Level == level);
+
+            var organizationUnitIdFilter = querySettings.CreateForExtendedProperty<Category, long>(
                 "OrganizationUnitId",
                 organizationUnitId => x => x.CategoryOrganizationUnits
                                             .Any(y => y.IsActive && !y.IsDeleted && y.OrganizationUnitId == organizationUnitId) ||
@@ -113,6 +116,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .ApplyFilter(firmAddressIdFilter)
                 .ApplyFilter(isActiveFilter)
                 .ApplyFilter(organizationUnitIdFilter)
+                .ApplyFilter(minLevelFilter)
+                .ApplyFilter(levelFilter)
                 .ApplyQuerySettings(querySettings, out count)
                 .Select(x => new ListCategoryDto
                 {

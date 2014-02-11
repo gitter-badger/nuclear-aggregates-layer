@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
         }
 
         public ListResult Execute(EntityName entityName,
-                                  string whereExp,
                                   int start,
                                   string filterInput,
                                   string extendedInfo,
@@ -42,24 +41,21 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   int limit,
                                   string dir,
                                   string sort,
-                                  string parentId,
-                                  string parentType)
+                                  long? parentId,
+                                  EntityName parentType)
         {
-            long parentIdInt;
-            long.TryParse(parentId, out parentIdInt);
             try
             {
-                return ExecuteInternal(entityName, whereExp, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentIdInt, parentType);
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Error has occured in {0}. Entity type: {1}", GetType().Name, entityName);
+                _logger.ErrorFormatEx(ex, "Error has occurred in {0}. Entity type: {1}", GetType().Name, entityName);
                 throw new FaultException<ListOperationErrorDescription>(new ListOperationErrorDescription(entityName, ex.Message));
             }
         }
 
         public ListResult Execute(string entityNameArg,
-                                  string whereExp,
                                   int start,
                                   string filterInput,
                                   string extendedInfo,
@@ -67,20 +63,42 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                   int limit,
                                   string dir,
                                   string sort,
-                                  string parentId,
-                                  string parentType)
+                                  string parentIdArg,
+                                  string parentTypeArg)
         {
-            long parentIdInt;
-            long.TryParse(parentId, out parentIdInt);
             var entityName = EntityName.None;
+
             try
             {
                 if (!Enum.TryParse(entityNameArg, out entityName))
                 {
-                    throw new ArgumentException("Entity Name cannot be parsed");
+                    throw new ArgumentException("Entity name cannot be parsed");
                 }
 
-                return ExecuteInternal(entityName, whereExp, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentIdInt, parentType);
+                var parentType = EntityName.None;
+                if (!string.IsNullOrEmpty(parentTypeArg) && !Enum.TryParse(parentTypeArg, out parentType))
+                {
+                    throw new ArgumentException("Parent entity type cannot be parsed");
+                }
+
+                long? parentId;
+                if (string.IsNullOrEmpty(parentIdArg) || string.Equals(parentIdArg, "null", StringComparison.OrdinalIgnoreCase))
+                {
+                    parentId = null;
+                }
+                else
+                {
+                    long parentIdParsed;
+                    if (!long.TryParse(parentIdArg, out parentIdParsed))
+                    {
+                        throw new ArgumentException("Parent Id cannot be parsed");
+                    }
+
+                    parentId = parentIdParsed;
+                }
+                
+
+                return ExecuteInternal(entityName, start, filterInput, extendedInfo, nameLocaleResourceId, limit, dir, sort, parentId, parentType);
             }
             catch (Exception ex)
             {
@@ -90,7 +108,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
         }
 
         private ListResult ExecuteInternal(EntityName entityName,
-                                           string whereExp,
                                            int start,
                                            string filterInput,
                                            string extendedInfo,
@@ -98,8 +115,8 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                                            int limit,
                                            string dir,
                                            string sort,
-                                           long pId,
-                                           string parentType)
+                                           long? parentId,
+                                           EntityName parentType)
         {
             // TODO {all, 18.09.2013}: обеспечить управление настройками usecase (duration и т.п.) на основе метаданных, неявно для operation services
             // Пока информации о длительности usecase, иногда, применяется в точке входа WCF (Web и т.д.)
@@ -113,7 +130,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 
             var searchListModel = new SearchListModel
                 {
-                    WhereExp = whereExp,
                     Start = start,
                     FilterInput = filterInput,
                     ExtendedInfo = extendedInfo,
@@ -121,8 +137,8 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                     Limit = limit,
                     Dir = dir,
                     Sort = sort,
-                    PId = pId,
-                    PType = parentType
+                    ParentEntityId = parentId,
+                    ParentEntityName = parentType
                 };
 
             var listService = _operationServicesManager.GetListEntityService(entityName);

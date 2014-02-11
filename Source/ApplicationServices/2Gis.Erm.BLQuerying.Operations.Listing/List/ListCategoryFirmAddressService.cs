@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -30,14 +28,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _finder = finder;
         }
 
-        protected override IEnumerable<ListCategoryFirmAddressDto> GetListData(IQueryable<CategoryFirmAddress> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListCategoryFirmAddressDto> GetListData(IQueryable<CategoryFirmAddress> query, QuerySettings querySettings, out int count)
         {
             var defaultCategoryRate = string.Format(UserContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
             long? categoryRateOrganizationUnitId = null;
 
-            if (filterManager.ParentEntityName == EntityName.Firm)
+            if (querySettings.ParentEntityName == EntityName.Firm)
             {
-                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<Firm>(filterManager.ParentEntityId))
+                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<Firm>(querySettings.ParentEntityId.Value))
                                                         .Select(firm => firm.OrganizationUnitId)
                                                         .Single();
 
@@ -48,14 +46,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                 x.Category.IsActive &&
                                                 x.IsActive && !x.IsDeleted && x.FirmAddress.IsActive &&
                                                 !x.FirmAddress.IsDeleted && !x.FirmAddress.ClosedForAscertainment &&
-                                                x.FirmAddress.FirmId == filterManager.ParentEntityId;
+                                                x.FirmAddress.FirmId == querySettings.ParentEntityId.Value;
                 }
                 else
                 {
                     firmFilterExpression = x => x.Category.IsActive &&
                                                 !x.IsActive &&
                                                 x.FirmAddress.IsActive &&
-                                                x.FirmAddress.FirmId == filterManager.ParentEntityId;
+                                                x.FirmAddress.FirmId == querySettings.ParentEntityId.Value;
                 }
 
                 // Для фирмы агрегируем по рубрикам адресов
@@ -82,9 +80,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     .ToArray();
             }
 
-            if (filterManager.ParentEntityName == EntityName.FirmAddress)
+            if (querySettings.ParentEntityName == EntityName.FirmAddress)
             {
-                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(filterManager.ParentEntityId))
+                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(querySettings.ParentEntityId.Value))
                                                         .Select(address => address.Firm.OrganizationUnitId)
                                                         .Single();
             }

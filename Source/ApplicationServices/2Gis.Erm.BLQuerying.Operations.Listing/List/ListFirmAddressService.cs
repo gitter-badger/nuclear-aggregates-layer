@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -23,10 +21,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
         }
 
-        protected override IEnumerable<ListFirmAddressDto> GetListData(IQueryable<FirmAddress> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListFirmAddressDto> GetListData(IQueryable<FirmAddress> query, QuerySettings querySettings, out int count)
         {
+            var firmFilter = querySettings.CreateForExtendedProperty<FirmAddress, long>(
+                "FirmId", firmId => x => x.FirmId == firmId);
+
             return query
                 .Where(x => !x.Firm.IsDeleted)
+                .ApplyFilter(firmFilter)
                 .ApplyQuerySettings(querySettings, out count)
                 .Select(x => new ListFirmAddressDto
                 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -32,9 +30,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userIdentifierService = userIdentifierService;
         }
 
-        protected override IEnumerable<ListLimitDto> GetListData(IQueryable<Limit> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListLimitDto> GetListData(IQueryable<Limit> query, QuerySettings querySettings, out int count)
         {
-            var nextMonthForStartPeriodDateFilter = filterManager.CreateForExtendedProperty<Limit, bool>(
+            var nextMonthForStartPeriodDateFilter = querySettings.CreateForExtendedProperty<Limit, bool>(
                 "useNextMonthForStartPeriodDate",
                 useNextMonth =>
                 {

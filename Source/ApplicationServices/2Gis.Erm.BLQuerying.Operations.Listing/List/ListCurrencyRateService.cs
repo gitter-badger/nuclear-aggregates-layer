@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -24,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
         }
 
-        protected override IEnumerable<ListCurrencyRateDto> GetListData(IQueryable<CurrencyRate> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListCurrencyRateDto> GetListData(IQueryable<CurrencyRate> query, QuerySettings querySettings, out int count)
         {
             var utcNow = DateTime.UtcNow;
             return query

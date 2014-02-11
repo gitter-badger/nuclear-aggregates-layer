@@ -53,7 +53,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="List\Infrastructure\ListEntityDtoServiceBase.cs" />
-    <Compile Include="List\Infrastructure\ListFilterManager.cs" />
+    <Compile Include="List\Infrastructure\QueryableExtensions2.cs" />
     <Compile Include="List\Infrastructure\ListGenericEntityService.cs" />
     <Compile Include="List\ListAccountDetailService.cs" />
     <Compile Include="List\ListAccountService.cs" />
@@ -95,6 +95,7 @@
     <Compile Include="List\ListThemeTemplateService.cs" />
     <Compile Include="List\ListUserOrganizationUnitService.cs" />
     <Compile Include="List\ListUserRoleService.cs" />
+    <Compile Include="List\ListDepartmentService.cs" />
     <Compile Include="List\ListUserService.cs" />
     <Compile Include="List\ListWithdrawalInfoService.cs" />
     <Compile Include="List\Metadata\QuerySettingsProvider.cs" />
@@ -144,6 +145,10 @@
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,14 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -47,7 +45,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = finderBase.FindAll<BranchOfficeOrganizationUnit>();
 
             var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
-            var data = GetListData(query, querySettings, new ListFilterManager(searchListModel), out count);
+            var data = GetListData(query, querySettings, out count);
 
             return new DynamicListResult
             {
@@ -57,9 +55,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             };
         }
 
-        private IEnumerable<DynamicListRow> GetListData(IQueryable<BranchOfficeOrganizationUnit> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        private IEnumerable<DynamicListRow> GetListData(IQueryable<BranchOfficeOrganizationUnit> query, QuerySettings querySettings, out int count)
         {
-            var filter = filterManager.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
+            var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                 "userId", 
                 "restrictByFP",
                 ExtendedPropertyUnionType.Or,
@@ -86,7 +84,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (filter == null)
             {
-                filter = filterManager.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
+                filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                     "sourceOrganizationUnitId", 
                     "restrictByFP",
                     ExtendedPropertyUnionType.Or,
@@ -101,17 +99,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                     .HasFunctionalPrivilegeGranted(
                                         FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection,
                                         _userContext.Identity.Code);
+
                                 if (!hasPrivilege)
                                 {
                                     return filterExpression;
                                 }
-                            }
-                            else
-                            {
-                                return filterExpression;
+                                return null;
                             }
 
-                            return null;
+                            return filterExpression;
                         });
             }
 

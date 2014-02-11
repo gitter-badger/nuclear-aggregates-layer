@@ -1,5 +1,4 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata

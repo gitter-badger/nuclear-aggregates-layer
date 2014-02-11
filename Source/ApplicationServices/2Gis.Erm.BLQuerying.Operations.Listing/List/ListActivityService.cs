@@ -11,7 +11,6 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -35,7 +34,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IEnumerable<ListActivityDto> GetListData(IQueryable<ActivityInstance> query,
                                                                     QuerySettings querySettings,
-                                                                    ListFilterManager filterManager,
                                                                     out int count)
         {
             var query2 = query.Select(x => new
@@ -67,7 +65,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var beginDay = DateTime.Today;
             var endDay = beginDay.AddDays(1).AddMilliseconds(-1);
 
-            var forTodayFilter = CreateForTodayFilter(query2, filterManager, x => (x.ScheduledStart >= beginDay && x.ScheduledStart <= endDay) || (x.ScheduledEnd >= beginDay && x.ScheduledEnd <= endDay));
+            var forTodayFilter = CreateForTodayFilter(query2, querySettings, x => (x.ScheduledStart >= beginDay && x.ScheduledStart <= endDay) || (x.ScheduledEnd >= beginDay && x.ScheduledEnd <= endDay));
 
             var result = query2
                 .ApplyFilter(forTodayFilter)
@@ -93,9 +91,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return result;
         }
 
-        private static Expression<Func<T, bool>> CreateForTodayFilter<T>(IQueryable<T> query, ListFilterManager filterManager, Expression<Func<T, bool>> expression)
+        private static Expression<Func<T, bool>> CreateForTodayFilter<T>(IQueryable<T> query, QuerySettings querySettings, Expression<Func<T, bool>> expression)
         {
-            return filterManager.CreateForExtendedProperty<T, bool>("ForToday",
+            return querySettings.CreateForExtendedProperty<T, bool>("ForToday",
                 forToday =>
                 {
                     if (!forToday)
