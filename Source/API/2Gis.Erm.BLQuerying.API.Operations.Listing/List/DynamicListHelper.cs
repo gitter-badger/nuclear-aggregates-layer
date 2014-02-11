@@ -7,12 +7,13 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 
 using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List
 {
+    using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+
     public static class DynamicListHelper
     {
         public static IEnumerable<DynamicListRow> ToDynamicList(this IQueryable sourceQuery, IEnumerable<QueryField> fields)

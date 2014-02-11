@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -23,12 +21,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
         }
 
-        protected override IEnumerable<ListAdvertisementDto> GetListData(IQueryable<Advertisement> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListAdvertisementDto> GetListData(IQueryable<Advertisement> query, QuerySettings querySettings, out int count)
         {
-            var firmIdFilter = filterManager.CreateForExtendedProperty<Advertisement, long>(
+            var firmIdFilter = querySettings.CreateForExtendedProperty<Advertisement, long>(
                 "firmId", firmId => x => x.FirmId == firmId);
 
-            var isAllowedToWhiteListFilter = filterManager.CreateForExtendedProperty<Advertisement, bool>(
+            var isAllowedToWhiteListFilter = querySettings.CreateForExtendedProperty<Advertisement, bool>(
                 "isAllowedToWhiteList", isAllowedToWhiteList => x => x.AdvertisementTemplate.IsAllowedToWhiteList == isAllowedToWhiteList);
 
             var data = query

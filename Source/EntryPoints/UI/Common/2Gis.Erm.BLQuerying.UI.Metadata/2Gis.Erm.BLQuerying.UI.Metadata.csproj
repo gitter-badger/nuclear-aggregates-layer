@@ -97,6 +97,10 @@
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

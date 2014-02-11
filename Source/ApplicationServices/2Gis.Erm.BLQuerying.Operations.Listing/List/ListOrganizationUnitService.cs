@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -12,7 +11,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -34,17 +32,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _functionalAccessService = functionalAccessService;
         }
 
-        protected override IEnumerable<ListOrganizationUnitDto> GetListData(IQueryable<OrganizationUnit> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListOrganizationUnitDto> GetListData(IQueryable<OrganizationUnit> query, QuerySettings querySettings, out int count)
         {
-             var currencyFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, long>(
+            var currencyFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "currencyId", currencyId => x => x.Country.CurrencyId == currencyId);
 
-             var orgUnitFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, long?>(
+            var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long?>(
                  "userId", userId => x => x.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));
+
+            var firmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long?>(
+                 "FirmId", firmId => x => x.Firms.Any(y => y.Id == firmId));
 
              var currentIdentity = _userContext.Identity;
 
-            var restrictByUserFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+             var restrictByUserFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "restrictByUser",
                 restrictByUser =>
                     {
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 orgUnitFilter = restrictByUserFilter;
             }
 
-            var franchiseesFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+            var franchiseesFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "restrictByFranchisees",
                 restrictByFranchisees =>
                     {
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         return null;
                     });
 
-            var projectsFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+            var projectsFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "restrictByProjects",
                 restrictByProjects =>
                     {
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         return null;
                     });
 
-            var branchesMovedToErmFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+            var branchesMovedToErmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "filterByBranchesMovedToErm",
                 filterByBranchesMovedToErm => x => x.IsActive && !x.IsDeleted &&
                                                    x.ErmLaunchDate != null &&
@@ -104,12 +105,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                     .FirstOrDefault(y => y.IsPrimary)
                                                     .BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
 
-            var movedToErmFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+            var movedToErmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "filterByMovedToErm",
                 filterByMovedToErm => x => x.IsActive && !x.IsDeleted &&
                                            x.ErmLaunchDate != null);
 
-            var singlePrimaryBranchOfficeFilter = filterManager.CreateForExtendedProperty<OrganizationUnit, bool>(
+            var singlePrimaryBranchOfficeFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "singlePrimaryBranchOffice",
                 singlePrimaryBranchOffice => x => x.IsActive && !x.IsDeleted && 
                     x.BranchOfficeOrganizationUnits.Count(y => y.IsPrimary && y.BranchOffice.IsActive && !y.BranchOffice.IsDeleted) == 1);
@@ -118,6 +119,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                  .Where(x => !x.IsDeleted)
                  .ApplyFilter(currencyFilter)
                  .ApplyFilter(orgUnitFilter)
+                 .ApplyFilter(firmFilter)
                  .ApplyFilter(franchiseesFilter)
                  .ApplyFilter(projectsFilter)
                  .ApplyFilter(branchesMovedToErmFilter)

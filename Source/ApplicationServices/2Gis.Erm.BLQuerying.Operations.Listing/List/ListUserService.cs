@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -36,9 +34,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userContext = userContext;
         }
 
-        protected override IEnumerable<ListUserDto> GetListData(IQueryable<User> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListUserDto> GetListData(IQueryable<User> query, QuerySettings querySettings, out int count)
         {
-            var hideReserveUserFilter = filterManager.CreateForExtendedProperty<User, bool>(
+            var hideReserveUserFilter = querySettings.CreateForExtendedProperty<User, bool>(
                 "hideReserveUser",
                 hideReserveUser =>
                     {
@@ -53,20 +51,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 hideServiceUsersFilter = x => !x.IsServiceUser;
             }
 
-            var roleFilter = filterManager.CreateForExtendedProperty<User, long>(
+            var roleFilter = querySettings.CreateForExtendedProperty<User, long>(
                 "roleId", roleId => x => x.UserRoles.Any(ur => ur.RoleId == roleId));
 
-            var userOrgUnitFilter = filterManager.CreateForExtendedProperty<User, long>(
+            var userOrgUnitFilter = querySettings.CreateForExtendedProperty<User, long>(
                 "userIdForOrgUnit",
                 userIdForOrgUnit => x => x.UserOrganizationUnits
                                             .Any(y => y.OrganizationUnitDto.UserOrganizationUnits
                                                                         .Any(z => z.UserId == userIdForOrgUnit)));
 
-            var privilegyFilter = filterManager.CreateForExtendedProperty<User, long>(
+            var privilegyFilter = querySettings.CreateForExtendedProperty<User, long>(
                 "privilege", privilegeId => x => x.UserRoles.Select(y => y.Role).SelectMany(y => y.RolePrivileges).Distinct().Any(y => y.Privilege.Operation == privilegeId));
 
+            var excludeIdFilter = querySettings.CreateForExtendedProperty<User, long>(
+                "excludeId",
+                excludeId => x => x.Id != excludeId);
+
             // Означает, что список должен содержать только самого пользователя и его подчинённых
-            var subordinatesFilter = filterManager.CreateForExtendedProperty<User, long>("subordinatesOf", userId => x => x.Id == userId);
+            var subordinatesFilter = querySettings.CreateForExtendedProperty<User, long>("subordinatesOf", userId => x => x.Id == userId);
             if (subordinatesFilter != null)
             {
                 subordinatesFilter = GetSubordinatesFilter(query, subordinatesFilter);
@@ -78,6 +80,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .ApplyFilter(roleFilter)
                 .ApplyFilter(userOrgUnitFilter)
                 .ApplyFilter(privilegyFilter)
+                .ApplyFilter(excludeIdFilter)
                 .ApplyFilter(subordinatesFilter)
                 .ApplyQuerySettings(querySettings, out count)
                 .Select(x =>

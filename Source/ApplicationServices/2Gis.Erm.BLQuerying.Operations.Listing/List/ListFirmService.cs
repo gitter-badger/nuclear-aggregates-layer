@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -29,9 +27,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userIdentifierService = userIdentifierService;
         }
 
-        protected override IEnumerable<ListFirmDto> GetListData(IQueryable<Firm> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListFirmDto> GetListData(IQueryable<Firm> query, QuerySettings querySettings, out int count)
         {
-            var createdInCurrentMonthFilter = filterManager.CreateForExtendedProperty<Firm, bool>(
+            var createdInCurrentMonthFilter = querySettings.CreateForExtendedProperty<Firm, bool>(
                 "CreatedInCurrentMonth",
                 createdInCurrentMonth =>
                     {
@@ -49,10 +47,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         return x => x.CreatedOn >= currentMonthFirstDate && x.CreatedOn <= currentMonthLastDate;
                     });
 
-            var organizationUnitFilter = filterManager.CreateForExtendedProperty<Firm, long>(
+            var organizationUnitFilter = querySettings.CreateForExtendedProperty<Firm, long>(
                 "organizationUnitId", organizationUnitId => x => x.OrganizationUnitId == organizationUnitId);
 
-            var clientFilter = filterManager.CreateForExtendedProperty<Firm, long>(
+            var clientFilter = querySettings.CreateForExtendedProperty<Firm, long>(
                 "clientId", clientId => x => x.ClientId == clientId);
 
             return query

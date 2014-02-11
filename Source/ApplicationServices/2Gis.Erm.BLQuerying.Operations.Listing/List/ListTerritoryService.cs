@@ -2,13 +2,11 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -30,9 +28,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _publicService = publicService;
         }
 
-        protected override IEnumerable<ListTerritoryDto> GetListData(IQueryable<Territory> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListTerritoryDto> GetListData(IQueryable<Territory> query, QuerySettings querySettings, out int count)
         {
-            var restrictToCurrentUserFilter = filterManager
+            var restrictToCurrentUserFilter = querySettings
                 .CreateByParentEntity<Territory>(EntityName.User,
                                                  () =>
                                                      {
@@ -41,19 +39,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                          return x => currentUserTerritories.TerritoryIds.Contains(x.Id);
                                                      });
 
-            var restrictToOrganizationUnit = filterManager.CreateForExtendedProperty<Territory, long?>("restrictToOrganizationUnit",
+            var restrictToOrganizationUnit = querySettings.CreateForExtendedProperty<Territory, long>("restrictToOrganizationUnit",
                 organizationUnit =>
                     {
-                        var territories = default(IEnumerable<long>);
-                        if (organizationUnit.HasValue)
-                        {
-                            var request = new SelectOrganizationUnitTerritoriesRequest { OrganizationUnitId = organizationUnit.Value };
-                            territories = ((SelectOrganizationUnitTerritoriesResponse)_publicService.Handle(request)).TerritoryIds;
-                        }
+                        var request = new SelectOrganizationUnitTerritoriesRequest { OrganizationUnitId = organizationUnit };
+                        var territories = ((SelectOrganizationUnitTerritoriesResponse)this._publicService.Handle(request)).TerritoryIds;
 
-                        return x => organizationUnit.HasValue && territories.Contains(x.Id);
-                    }, 
-                    x => false);
+                        return x => territories.Contains(x.Id);
+                    });
 
             return query
                 .ApplyFilter(restrictToCurrentUserFilter)

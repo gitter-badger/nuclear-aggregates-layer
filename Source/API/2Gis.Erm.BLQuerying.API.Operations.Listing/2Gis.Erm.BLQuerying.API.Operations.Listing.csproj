@@ -98,11 +98,15 @@
     <Compile Include="List\DTO\ListTerritoryDto.cs" />
     <Compile Include="List\DTO\ListThemeDto.cs" />
     <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
+    <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListUserDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
     <Compile Include="List\DynamicListHelper.cs" />
     <Compile Include="List\Metadata\IQuerySettingsProvider.cs" />
+    <Compile Include="List\Metadata\QueryableExtensions.cs" />
+    <Compile Include="List\Metadata\QueryField.cs" />
+    <Compile Include="List\Metadata\QuerySettings.cs" />
     <Compile Include="Remote\List\IListApplicationRestService.cs" />
     <Compile Include="Remote\List\IListApplicationService.cs" />
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />

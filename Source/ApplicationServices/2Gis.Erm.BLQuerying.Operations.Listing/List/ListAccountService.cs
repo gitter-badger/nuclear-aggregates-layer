@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -33,10 +31,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IEnumerable<ListAccountDto> GetListData(
             IQueryable<Account> query,
             QuerySettings querySettings,
-            ListFilterManager filterManager,
             out int count)
         {
-            var withHostedOrdersFilter = filterManager.CreateForExtendedProperty<Account, bool>(
+            var withHostedOrdersFilter = querySettings.CreateForExtendedProperty<Account, bool>(
                 "WithHostedOrders",
                 withHostedOrders =>
                     {

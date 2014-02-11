@@ -1,11 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -34,13 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
 
-            var filterManager = new ListFilterManager(searchListModel);
-
-            var orgUnitFilter = filterManager.CreateForExtendedProperty<UserOrganizationUnit, long>(
-                "orgUnitId", orgUnitId => (x => x.OrganizationUnitId == orgUnitId));
-
-            var dynamicList = query.ApplyFilter(orgUnitFilter)
-                                   .Select(x => new
+            var dynamicList = query.Select(x => new
                                        {
                                            x.Id,
                                            x.UserId,

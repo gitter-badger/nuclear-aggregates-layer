@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -24,9 +22,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
         }
 
-        protected override IEnumerable<ListOperationTypeDto> GetListData(IQueryable<OperationType> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListOperationTypeDto> GetListData(IQueryable<OperationType> query, QuerySettings querySettings, out int count)
         {
-            var syncCodeFilter = filterManager.CreateForExtendedProperty<OperationType, string>("excludeSyncCode", code => x => x.SyncCode1C != code);
+            var syncCodeFilter = querySettings.CreateForExtendedProperty<OperationType, string>("excludeSyncCode", code => x => x.SyncCode1C != code);
 
 
             return query.ApplyFilter(syncCodeFilter)

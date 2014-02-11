@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -23,14 +21,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
         }
 
-        protected override IEnumerable<ListPositionDto> GetListData(IQueryable<Position> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ListPositionDto> GetListData(IQueryable<Position> query, QuerySettings querySettings, out int count)
         {
-            var supportedByExportFilter = filterManager.CreateForExtendedProperty<Position, bool>(
+            var supportedByExportFilter = querySettings.CreateForExtendedProperty<Position, bool>(
                 "isSupportedByExport",
                 isSupportedByExport => x => x.PositionCategory.IsSupportedByExport == isSupportedByExport);
 
+            var compositeFilter = querySettings.CreateForExtendedProperty<Position, bool>(
+                "composite",
+                composite => x => x.IsComposite == composite);
+
             return
-                query.ApplyFilter(supportedByExportFilter)
+                query
+                     .ApplyFilter(supportedByExportFilter)
+                     .ApplyFilter(compositeFilter)
                      .ApplyQuerySettings(querySettings, out count)
                      .Select(x =>
                              new ListPositionDto

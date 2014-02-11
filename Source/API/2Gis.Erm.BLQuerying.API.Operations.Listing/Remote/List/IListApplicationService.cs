@@ -12,7 +12,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
         [OperationContract]
         [FaultContract(typeof(ListOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.List201303)]
         ListResult Execute(EntityName entityName,
-                           string whereExp,
                            int start,
                            string filterInput,
                            string extendedInfo,
@@ -20,7 +19,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            int limit,
                            string dir,
                            string sort,
-                           string parentId,
-                           string parentType);
+                           long? parentId,
+                           EntityName parentType);
     }
 }
