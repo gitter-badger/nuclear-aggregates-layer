@@ -223,7 +223,6 @@ Ext.DoubleGis.Global.Helpers = {
                     disabledExpression: leaf.DisabledExpression,
                     expanded: true,
                     requestUrl: leaf.RequestUrl,
-                    filterExp: leaf.FilterExpression,
                     extendedInfo: leaf.ExtendedInfo,
                     appendableEntity: leaf.AppendableEntity,
                     disabled: eval(leaf.DisabledExpression),

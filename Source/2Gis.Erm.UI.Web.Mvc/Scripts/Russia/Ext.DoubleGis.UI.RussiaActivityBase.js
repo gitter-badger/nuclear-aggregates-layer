@@ -23,18 +23,15 @@
 
             Ext.getCmp("Client").on("change", this.onClientChanged, this);
             var lookup = Ext.getCmp("Firm");
-            lookup.on("beforequery", this.onBeforeFirmSelected, this);
             lookup.on("afterselect", this.onFirmChanged, this);
             lookup.supressMatchesErrors = true;
 
             lookup = Ext.getCmp("Deal");
             if (lookup) {
-                lookup.on("beforequery", this.onBeforeDealSelected, this);
                 lookup.on("afterselect", this.onDealChanged, this);
                 lookup.supressMatchesErrors = true;
             }
             lookup = Ext.getCmp("Contact");
-            lookup.on("beforequery", this.onBeforeContactSelected, this);
             lookup.on("afterselect", this.onContactChanged, this);
             lookup.supressMatchesErrors = true;
 
@@ -333,9 +330,9 @@
                 // Заполнить поле "Клиент" если оно ещё не заполнено
                 this.invoker = "Deal";
                 var clientCmp = Ext.getCmp("Client");
-                clientCmp.searchFormFilterInfo = "Deals.Any(Id == {DealId})";
-                clientCmp.forceGetData();
-                clientCmp.searchFormFilterInfo = "";
+                clientCmp.forceGetData({
+                    extendedInfo: "DealId={DealId}"
+                });
             }
         },
         onContactChanged: function () {
@@ -343,9 +340,9 @@
                 // Заполнить поле "Клиент" если оно ещё не заполнено
                 this.invoker = "Contact";
                 var clientCmp = Ext.getCmp("Client");
-                clientCmp.searchFormFilterInfo = "Contacts.Any(Id == {ContactId})";
-                clientCmp.forceGetData();
-                clientCmp.searchFormFilterInfo = "";
+                clientCmp.forceGetData({
+                    extendedInfo: "ContactId={ContactId}"
+                });
             }
         },
         onFirmChanged: function () {
@@ -353,19 +350,10 @@
                 // Заполнить поле "Клиент" если оно ещё не заполнено
                 this.invoker = "Firm";
                 var clientCmp = Ext.getCmp("Client");
-                clientCmp.searchFormFilterInfo = "Firms.Any(Id == {FirmId})";
-                clientCmp.forceGetData();
-                clientCmp.searchFormFilterInfo = "";
+                clientCmp.forceGetData({
+                    extendedInfo: "FirmId={FirmId}"
+                });
             }
-        },
-        onBeforeFirmSelected: function () {
-            Ext.getCmp("Firm").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";
-        },
-        onBeforeDealSelected: function () {
-            Ext.getCmp("Deal").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";
-        },
-        onBeforeContactSelected: function () {
-            Ext.getCmp("Contact").searchFormFilterInfo = Ext.fly("ClientId").getValue() ? "ClientId={ClientId}" : "";
         },
         CancelActivity: function() {
             this.changeState("Cancelled");

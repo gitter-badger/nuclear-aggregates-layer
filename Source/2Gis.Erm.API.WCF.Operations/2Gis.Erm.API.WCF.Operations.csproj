@@ -175,7 +175,7 @@
       <Name>2Gis.Erm.BLQuerying.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLQuerying.WCF.Operations.Listing\2Gis.Erm.BLQuerying.WCF.Operations.Listing.csproj">
-      <Project>{E6C3D53F-231B-483A-B7B6-BDFF284AD763}</Project>
+      <Project>{e6c3d53f-231b-483a-b7b6-bdff284ad763}</Project>
       <Name>2Gis.Erm.BLQuerying.WCF.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

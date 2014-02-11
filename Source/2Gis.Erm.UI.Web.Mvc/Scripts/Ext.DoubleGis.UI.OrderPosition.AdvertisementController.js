@@ -987,10 +987,8 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         else
             categoryLevel = 3;
 
-        var filterExpr = "filterInfo=" + encodeURIComponent("IsActive=true&&IsDeleted=false&&Level=" + categoryLevel);
-        var extendedInfoExpr = "extendedInfo=" + encodeURIComponent("OrganizationUnitId=" + this.localData.organizationUnitId.toString());
-
-        var url = "/Grid/Search/Category?" + filterExpr + '&' + extendedInfoExpr;
+        var extendedInfoExpr = "extendedInfo=" + encodeURIComponent(("OrganizationUnitId=" + this.localData.organizationUnitId.toString()) + "&" + ("Level=" + categoryLevel));
+        var url = "/Grid/Search/Category?" + extendedInfoExpr;
 
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         return result ? result.items[0].data : null;

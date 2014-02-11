@@ -7,7 +7,6 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
 
         this.viewSettings = config.viewSettings;
         this.entityModel = config.entityModel;
-        this.filterInfo = config.filterInfo;
         this.extendedInfo = config.extendedInfo;
         this.initColumnSet();
         this.initStore();
@@ -126,7 +125,6 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
                 url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName
             }),
             baseParams: new Object({
-                whereExp: window.Ext.DoubleGis.Global.Helpers.BuildDataListFilter(this, this.filterInfo, null),
                 nameLocaleResourceId: this.viewSettings.NameLocaleResourceId,
                 extendedInfo: this.extendedInfo,
                 filterInput: "",
@@ -304,7 +302,6 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         this.fromList.store.reload();
     },
     searchRecords: function(el, value) {
-        this.fromList.store.setBaseParam("whereExp", this.filterInfo);
         this.fromList.store.setBaseParam("filterInput", value);
         this.fromList.store.setBaseParam("extendedInfo", this.extendedInfo);
         this.fromList.store.reload();

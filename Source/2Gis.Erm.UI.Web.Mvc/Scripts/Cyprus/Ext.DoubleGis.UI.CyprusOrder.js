@@ -41,10 +41,9 @@
 
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         if (clientId) {
-            var oldValue = legalPersonLookup.searchFormFilterInfo;
-            legalPersonLookup.searchFormFilterInfo = "ClientId == {ClientId}";
-            legalPersonLookup.forceGetData();
-            legalPersonLookup.searchFormFilterInfo = oldValue;
+            legalPersonLookup.forceGetData({
+                limit: 1
+            });
         } else {
             legalPersonLookup.clearValue();
         }
@@ -58,20 +57,18 @@
 
         var clientLookup = Ext.getCmp('Client');
         if (firmId) {
-            oldValue = clientLookup.searchFormFilterInfo;
-            clientLookup.searchFormFilterInfo = "Firms.Any(Id == {FirmId})";
-            clientLookup.forceGetData();
-            clientLookup.searchFormFilterInfo = oldValue;
+            clientLookup.forceGetData({
+                extendedInfo: "FirmId={FirmId}"
+            });
         } else {
             clientLookup.clearValue();
         }
 
         var destinationOrganizationUnitLookup = Ext.getCmp('DestinationOrganizationUnit');
         if (firmId && !destinationOrganizationUnitLookup.item) {
-            oldValue = destinationOrganizationUnitLookup.searchFormFilterInfo;
-            destinationOrganizationUnitLookup.searchFormFilterInfo = "Firms.Any(Id == {FirmId})";
-            destinationOrganizationUnitLookup.forceGetData();
-            destinationOrganizationUnitLookup.searchFormFilterInfo = oldValue;
+            destinationOrganizationUnitLookup.forceGetData({
+                extendedInfo: "FirmId={FirmId}"
+            });
         }
     },
 

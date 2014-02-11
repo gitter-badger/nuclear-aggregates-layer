@@ -806,34 +806,12 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
 
         if (!window.Ext.getDom(n.id + "_holder")) {
             this.Mask.show();
-            var filterExpr = null;
-            var extendedInfo = null;
+
             var reg;
             var filters;
             var val;
             var i;
-            if (n.attributes.filterExp) {
-                filters = n.attributes.filterExp.match(/\{\w{1,}\}/g);
-                if (filters) {
-                    filterExpr = n.attributes.filterExp;
-                    for (i = 0; i < filters.length; i++) {
-                        reg = new RegExp(filters[i], "g");
-                        val = window.Ext.get(filters[i].substring(1, filters[i].length - 1)).getValue();
-                        filterExpr = filterExpr.replace(reg, val);
-                    }
-                }
-            }
-            if (n.attributes.extendedInfo) {
-                filters = n.attributes.extendedInfo.match(/\{\w{1,}\}/g);
-                if (filters) {
-                    extendedInfo = n.attributes.extendedInfo;
-                    for (i = 0; i < filters.length; i++) {
-                        reg = new RegExp(filters[i], "g");
-                        val = window.Ext.get(filters[i].substring(1, filters[i].length - 1)).getValue();
-                        extendedInfo = extendedInfo.replace(reg, val);
-                    }
-                }
-            }
+
             var requestUrl = n.attributes.requestUrl;
             if (n.attributes.requestUrl) {
                 filters = n.attributes.requestUrl.match(/\{\w{1,}\}/g);
@@ -907,7 +885,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 var parentEntityState = window.Ext.getDom("ViewConfig_ReadOnly").checked ? 'Inactive' : 'Active';
 
                 var frameUrl;
-                var queryStringParams = { filterInfo: filterExpr };
 
                 // Determine that related view is grid or not
                 if (!requestUrl || requestUrl.indexOf("Grid") < 0)
@@ -931,9 +908,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                         parentEntityId,
                         parentEntityState,
                         appendedEntityType);
-                    queryStringParams.extendedInfo = extendedInfo;
                 }
-                frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode(queryStringParams));
                 frame.setAttribute("src", frameUrl);
             }
         }

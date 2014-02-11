@@ -1,7 +1,6 @@
 ﻿Ext.ns("Ext.DoubleGis.UI");
 Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     Items: {},
-    QueryParams: {},
     Utils: {},
     //конструктор объекта. В качестве параметра принимает все настройки листа и карточки.
     constructor: function (model)
@@ -67,10 +66,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             var decodedQueryString = window.Ext.urlDecode(window.location.search.substring(1));
             this.init(new Object(
                         {
-                            filterInfo: decodedQueryString.filterInfo,
                             defaultDataView: decodedQueryString.defaultDataView,
                             singleDataView: decodedQueryString.singleDataView,
-                            extendedInfo: decodedQueryString.extendedInfo,
                             appendedEntity: appendedEntityType,
                             parentId: parentEntityId,
                             parentType: parentEntityType,
@@ -104,9 +101,6 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 model.modelSettings.DataViews = [currentDataView];
         }
 
-        
-        this.FilterInfo = model.filterInfo;
-        this.extendedInfo = model.extendedInfo;
         this.AppendedEntity = model.appendedEntity;
         this.ParentId = model.parentId;
         this.ParentState = model.parentState;
@@ -172,7 +166,6 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             return;
         }
         
-        this.QueryParams.filterExpression = null;
         var columns = [new Object({ id: "Image", width: 26, menuDisabled: true, renderer: { fn: window.Ext.DoubleGis.Global.Helpers.GridColumnHelper.RenderDefaultIcon, scope: this.currentSettings } })];
         var rdrFields = [];
 
@@ -220,7 +213,6 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         }
         
         this.currentSettings = currentView;
-        this.QueryParams.filterExpression = null;
         var columns = [new Object(
             {
                 id: "Image",
@@ -280,10 +272,9 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 }
             }),
             baseParams: {
-                whereExp: window.Ext.DoubleGis.Global.Helpers.BuildDataListFilter(this, this.FilterInfo, null),
                 start: 0,
                 filterInput: "",
-                extendedInfo: this.extendedInfo,
+                extendedInfo: "filterToParent=true",
                 nameLocaleResourceId: this.currentSettings.NameLocaleResourceId,
                 limit: this.currentSettings.RowsPerPage,
                 dir: this.currentSettings.DefaultSortDirection == 0 ? "ASC" : "DESC",
@@ -461,12 +452,16 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     Create: function (settings)
     {
         var sUrl;
-        var queryString;
+        var queryString = "";
         var params;
+
         if (!window.Ext.isNullOrDefault(this.AppendedEntity))
         {
             params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
-            queryString = '?pId=' + this.ParentId + '&pType=' + this.ParentType;
+
+            if (this.ParentType && this.ParentId) {
+                queryString = '?pId=' + this.ParentId + '&pType=' + this.ParentType;
+            }
             sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(this.AppendedEntity, queryString);
             window.open(sUrl, "_blank", params);
             return;
@@ -506,7 +501,10 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         }
         
         params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
-        queryString = '?pId=' + this.ParentId + '&pType=' + this.ParentType;
+        if (this.ParentType && this.ParentId) {
+            queryString = '?pId=' + this.ParentId + '&pType=' + this.ParentType;
+        }
+
         sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(overridenEntityName ? overridenEntityName : this.EntityName, queryString);
         window.open(sUrl, "_blank", params);
     },
@@ -542,7 +540,11 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         }
         
         var val = this.Items.Grid.getSelectionModel().selections.items[0].data.Id;
-        var queryString = "?pId=" + this.ParentId + "&pType=" + this.ParentType;
+
+        var queryString = "";
+        if (this.ParentType && this.ParentId) {
+            queryString = "?pId=" + this.ParentId + "&pType=" + this.ParentType;
+        }
         
         if (this.currentSettings.ReadOnly) {
             queryString += '&ReadOnly=' + this.currentSettings.ReadOnly;
