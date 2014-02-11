@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
+﻿<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:simpleType name="PlatformType">
     <xs:restriction base="xs:int">
       <xs:enumeration value="1"/>
@@ -9,12 +7,57 @@
       <xs:enumeration value="4"/>
     </xs:restriction>
   </xs:simpleType>
-
+  <xs:simpleType name="OrderType">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="0">
+        <xs:annotation>
+          <xs:documentation>None</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Продажи (по умолчанию)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>Самореклама</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>Обмен ТРУ (товары, реклама, услуги)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>Рекламный бартер</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="5">
+        <xs:annotation>
+          <xs:documentation>Товарный бартер</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="6">
+        <xs:annotation>
+          <xs:documentation>Бартер на услуги</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="7">
+        <xs:annotation>
+          <xs:documentation>Социальная реклама</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="DebitsInfo">
     <xs:sequence>
       <xs:element name="ClientDebits">
         <xs:annotation>
-          <xs:documentation>Объект передачи клиентских (местных, исходящих) списаний</xs:documentation>
+          <xs:documentation>
+            Объект передачи клиентских (местных, исходящих) списаний
+          </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
@@ -35,7 +78,7 @@
     </xs:sequence>
     <xs:attribute name="OrganizationUnitCode" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>Код 1С отделения организации</xs:documentation>
+        <xs:documentation>Код отделения организации</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="StartDate" type="xs:dateTime" use="required">
@@ -48,8 +91,12 @@
         <xs:documentation>Дата окончания периода выгрузки</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="ClientDebitTotalAmount" type="xs:float" use="required">
+      <xs:annotation>
+        <xs:documentation>Общая сумма клиентских списаний</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
-
   <xs:complexType name="Debit">
     <xs:annotation>
       <xs:documentation>Объект передачи списания</xs:documentation>
@@ -59,7 +106,7 @@
         <xs:complexType>
           <xs:attribute name="PlatformCode" type="PlatformType" use="required">
             <xs:annotation>
-              <xs:documentation>Стабильный идентификатор платформы</xs:documentation>
+              <xs:documentation>Платформа</xs:documentation>
             </xs:annotation>
           </xs:attribute>
           <xs:attribute name="Amount" type="xs:float" use="required">
@@ -82,7 +129,14 @@
     </xs:attribute>
     <xs:attribute name="ProfileCode" type="xs:long" use="required">
       <xs:annotation>
-        <xs:documentation>Стабильный идентификатор профиля юридического лица клиента</xs:documentation>
+        <xs:documentation>
+          Стабильный идентификатор профиля юридического лица клиента
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OrderType" type="OrderType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="OrderNumber" type="xs:string" use="required">
@@ -111,11 +165,9 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-
   <xs:element name="DebitsInfo" type="DebitsInfo">
     <xs:annotation>
       <xs:documentation>Объект передачи списаний за период</xs:documentation>
     </xs:annotation>
   </xs:element>
-
 </xs:schema>

@@ -30,6 +30,12 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
         [DataMember]
         public DateTime EndDate { get; set; }
 
+        /// <summary>
+        /// Сумма клиентских списаний (r)
+        /// </summary>
+        [DataMember]
+        public decimal ClientDebitTotalAmount { get; set; }
+
         [DataMember]
         public DebitDto[] Debits { get; set; }
 
@@ -40,6 +46,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => OrganizationUnitCode, OrganizationUnitCode),
                     this.ToXAttribute(() => StartDate, StartDate),
                     this.ToXAttribute(() => EndDate, EndDate),
+                    this.ToXAttribute(() => ClientDebitTotalAmount, ClientDebitTotalAmount),
                     new XElement("ClientDebits", Debits.Where(x => x.Type == DebitDto.DebitType.Client).Select(x => x.ToXElement())),
                     new XElement("RegionalDebits", Debits.Where(x => x.Type == DebitDto.DebitType.Regional).Select(x => x.ToXElement()))
                 };
