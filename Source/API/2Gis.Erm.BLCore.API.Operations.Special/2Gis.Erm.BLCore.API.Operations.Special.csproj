@@ -55,10 +55,12 @@
     <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
     <Compile Include="CostCalculation\BizAccountEmptyCostResult.cs" />
     <Compile Include="CostCalculation\CalcPositionInfo.cs" />
+    <Compile Include="CostCalculation\CalcPositionRequest.cs" />
     <Compile Include="CostCalculation\CostCalculationWcfResultType.cs" />
     <Compile Include="CostCalculation\ICalculateOrderCostService.cs" />
     <Compile Include="CostCalculation\ICalculateOrderPositionCostService.cs" />
     <Compile Include="CostCalculation\ICostCalculationResult.cs" />
+    <Compile Include="CostCalculation\ICostCalculator.cs" />
     <Compile Include="CostCalculation\PositionIsNotRepresentedException.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />
     <Compile Include="OrderProcessingRequests\CompletedOrderRequestStateDescription.cs" />

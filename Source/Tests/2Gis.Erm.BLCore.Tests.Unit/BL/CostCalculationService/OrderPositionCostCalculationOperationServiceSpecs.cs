@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -99,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                     CalculateOrderCostService = new OrderPositionCostCalculationOperationService(
                         Mock.Of<IOrderRepository>(),
                         FinderMock.Object,
-                        Mock.Of<IAppSettings>(),
+                        Mock.Of<ICostCalculator>(),
                         Mock.Of<IClientProxyFactory>(),
                         FirmRepositoryMock.Object,
                         Mock.Of<IOperationScopeFactory>(),

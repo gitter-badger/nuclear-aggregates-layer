@@ -14,7 +14,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -29,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         private const decimal DefaultVatRate = 18M;
 
         private readonly IFinder _finder;
-        private readonly IAppSettings _appSettings;
+        private readonly ICostCalculator _costCalculator;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderRepository _orderRepository;
         private readonly IFirmRepository _firmRepository;
@@ -39,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         public OrderPositionCostCalculationOperationService(
             IOrderRepository orderRepository,
             IFinder finder,
-            IAppSettings appSettings,
+            ICostCalculator costCalculator,
             IClientProxyFactory clientProxyFactory,
             IFirmRepository firmRepository,
             IOperationScopeFactory scopeFactory,
@@ -47,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         {
             _orderRepository = orderRepository;
             _finder = finder;
-            _appSettings = appSettings;
+            _costCalculator = costCalculator;
             _clientProxyFactory = clientProxyFactory;
             _firmRepository = firmRepository;
             _scopeFactory = scopeFactory;
@@ -177,9 +176,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                   positionInfos[i].DiscountInfo.CalculateDiscountViaPercent);
                 }
 
-                var calculator = new CostCalculator(_appSettings.SignificantDigitsNumber);
-
-                var result = calculator.GetTotalResult(positionCalcs);
+                var result = _costCalculator.GetTotalResult(positionCalcs);
                 scope.Complete();
                 return result;
             }
@@ -287,9 +284,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                 }
             }
 
-            var calculator = new CostCalculator(_appSettings.SignificantDigitsNumber);
-
-            return calculator.Calculate(new CalcPositionRequest
+            return _costCalculator.Calculate(new CalcPositionRequest
             {
                 Amount = amount,
                 CalculateDiscountViaPercent = calculateDiscountViaPercent,
@@ -377,14 +372,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             bool calculateDiscountViaPercent,
             IList<CalcPositionRequest> positionInfos)
         {
-            var calculator = new CostCalculator(_appSettings.SignificantDigitsNumber);
-
             // сначала запустим расчет без учета скидок, получим итоговую PayablePrice и актуализируем скидки
-            var subPositionCalcs = positionInfos.Select(calculator.Calculate).ToList();
+            var subPositionCalcs = positionInfos.Select(_costCalculator.Calculate).ToList();
 
             // теперь уточним значения скидки
             var totalPayablePrice = subPositionCalcs.Sum(x => x.PayablePriceWithVat);
-            var actualDiscount = calculator.CalculateDiscount(totalPayablePrice, discountSum, discountPercent, calculateDiscountViaPercent);
+            var actualDiscount = _costCalculator.CalculateDiscount(totalPayablePrice, discountSum, discountPercent, calculateDiscountViaPercent);
 
             // Пересчитаем показатели с учетом уточненных скидок. Позиции считаем со скидкой в процентах
             var totalDiscountSum = 0M;
@@ -394,8 +387,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                 var request = positionInfos[i];
                 request.CalculateDiscountViaPercent = true;
                 request.DiscountPercent = actualDiscount.Percent;
-                var response =
-                    calculator.Calculate(request);
+                var response = _costCalculator.Calculate(request);
                 subPositionCalcs.Add(response);
 
                 totalDiscountSum += response.DiscountSum;
@@ -405,10 +397,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             var lastRequest = positionInfos.Last();
             lastRequest.CalculateDiscountViaPercent = false;
             lastRequest.DiscountSum = actualDiscount.Sum - totalDiscountSum;
-            subPositionCalcs.Add(calculator.Calculate(lastRequest));
+            subPositionCalcs.Add(_costCalculator.Calculate(lastRequest));
 
             // Все позиции расчитаны. Теперь можно получить суммы для заказа или пакета.
-            return calculator.GetTotalResult(subPositionCalcs);
+            return _costCalculator.GetTotalResult(subPositionCalcs);
         }
     }
 }
