@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -10,7 +9,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Old.Reports
 {
-    public class PlanningReportHandlerTest : UseModelEntityHandlerTestBase<OrganizationUnit, PlanningReportRequest, StreamResponse>
+    public class PlanningReportHandlerTest : UseModelEntityHandlerTestBase<OrganizationUnit, PlanningReportRequest, PlanningReportResponse>
     {
         public PlanningReportHandlerTest(IPublicService publicService, IAppropriateEntityProvider<OrganizationUnit> appropriateEntityProvider)
             : base(publicService, appropriateEntityProvider)

@@ -181,6 +181,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\FakeReportsSqlConnectionWrapper.cs" />
     <Compile Include="Suite\Infrastructure\ICompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\ITestFactory.cs" />
     <Compile Include="Suite\Infrastructure\ITestRunner.cs" />
@@ -314,6 +315,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
+      <Project>{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}</Project>
+      <Name>2Gis.Erm.BLCore.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>

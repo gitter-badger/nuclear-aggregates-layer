@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
@@ -54,6 +55,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
 using Microsoft.Practices.Unity;
 
@@ -178,6 +180,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(EntryPointSpecificLifetimeManagerFactory())
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, NullValidateFileService>(EntryPointSpecificLifetimeManagerFactory())
+
+                     .RegisterType<IReportsSqlConnectionWrapper, FakeReportsSqlConnectionWrapper>(Lifetime.Singleton)
+
                      .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
