@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reflection;
 
+using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
@@ -176,6 +178,8 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
+
+                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Mapping.Erm, Lifetime.PerScope)
 
                 .ConfigureNotificationsSender(appSettings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
         }

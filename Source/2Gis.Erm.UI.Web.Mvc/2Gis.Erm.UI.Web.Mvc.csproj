@@ -1086,6 +1086,7 @@
     <None Include="..\Environments.config">
       <Link>Environments.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Build.Russia.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1348,6 +1349,10 @@
     <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
