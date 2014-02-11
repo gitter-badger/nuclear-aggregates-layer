@@ -6,11 +6,11 @@ using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         private readonly IFirmRepository _firmRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;
-        private readonly IAppSettings _appSettings;
+        private readonly ICostCalculator _costCalculator;
 
         public GetOrderDtoService(IUserContext userContext,
                                   ISecureFinder finder,
@@ -47,8 +47,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                   IDealRepository dealRepository,
                                   IBranchOfficeRepository branchOfficeRepository,
                                   IFirmRepository firmRepository,
-                                  IUserRepository userRepository,
-                                  IAppSettings appSettings)
+                                  IUserRepository userRepository,                                  
+                                  ICostCalculator costCalculator)
             : base(userContext)
         {
             _finder = finder;
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             _branchOfficeRepository = branchOfficeRepository;
             _firmRepository = firmRepository;
             _userRepository = userRepository;
-            _appSettings = appSettings;
+            _costCalculator = costCalculator;
         }
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
@@ -170,19 +170,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 dto.ShowRegionalAttributes = !isBranchToBranch;
             }
 
-            // В представление отдаем значение скидки, округленный до 2-х знаков
+            // В представление отдаем значение скидки, округленный до 2-х знаков, но для старых заказов оставляем значение неизменным
             // То же делается на клиентской стороне при асинхронных пересчетах при изменении этих полей
             if (dto.DiscountSum.HasValue && dto.DiscountPercent.HasValue)
             {
-                dto.DiscountSum = Round(dto.DiscountSum.Value);
+                dto.DiscountSum = _costCalculator.RoundValueToSignificantDigits(dto.DiscountSum.Value);
             }
 
-            dto.PayablePlan = Round(dto.PayablePlan);
-            dto.PayableFact = Round(dto.PayableFact);
-            dto.PayablePrice = Round(dto.PayablePrice);
-            dto.VatPlan = Round(dto.VatPlan);
-            dto.AmountWithdrawn = Round(dto.AmountWithdrawn);
-            dto.AmountToWithdraw = Round(dto.AmountToWithdraw);
+            dto.PayablePlan = _costCalculator.RoundValueToSignificantDigits(dto.PayablePlan);
+            dto.PayableFact = _costCalculator.RoundValueToSignificantDigits(dto.PayableFact);
+            dto.PayablePrice = _costCalculator.RoundValueToSignificantDigits(dto.PayablePrice);
+            dto.VatPlan = _costCalculator.RoundValueToSignificantDigits(dto.VatPlan);
+            dto.AmountWithdrawn = _costCalculator.RoundValueToSignificantDigits(dto.AmountWithdrawn);
+            dto.AmountToWithdraw = _costCalculator.RoundValueToSignificantDigits(dto.AmountToWithdraw);
 
             return dto;
         }
@@ -484,18 +484,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
                 dto.OwnerRef = new EntityReference(ownerId);
             }
-        }
-
-        private decimal Round(decimal value)
-        {
-            // если внезапно за значимыми знаками стоят не 0, то округлять не будем
-            var x = value * (int)Math.Pow(10, _appSettings.SignificantDigitsNumber); 
-            if((x-(int)x)!=0)
-            {
-                return value;
-            }
-
-            return Math.Round(value, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
         }
     }
 }
