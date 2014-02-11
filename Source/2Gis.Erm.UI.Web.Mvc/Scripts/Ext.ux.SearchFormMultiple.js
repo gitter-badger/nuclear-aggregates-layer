@@ -6,11 +6,9 @@ Ext.ux.SearchFormMultiple = Ext.extend(Ext.Panel, {
         config = config || {};
         this.addEvents("beforebuild", "afterbuild", "beforerefresh");
         this.extendedInfo = config.extendedInfo;
-        this.filterInfo = config.filterInfo;
         this.entityModel = config.searchFormSettings;
         this.currentSettings = config.searchFormSettings.DataViews[0];
         this.currentSettings.ReadOnly = this.currentSettings.ReadOnly || config.readOnly;
-        this.queryParams = {};
         this.existingItem = config.existingItem;
 
         Ext.apply(config, {
@@ -61,7 +59,6 @@ Ext.ux.SearchFormMultiple = Ext.extend(Ext.Panel, {
                             showCreateButton: this.currentSettings.ReadOnly,
                             viewSettings: this.currentSettings,
                             entityModel: this.entityModel,
-                            filterInfo: this.filterInfo,
                             extendedInfo: this.extendedInfo,
                             cls: 'gridPane'
                         })]

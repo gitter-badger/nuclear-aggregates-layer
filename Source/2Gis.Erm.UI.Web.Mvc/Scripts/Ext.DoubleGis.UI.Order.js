@@ -126,7 +126,7 @@ window.InitPage = function () {
                         mask.show();
                         var iframe = Ext.get('positionFrame_frame');
 
-                        iframe.dom.src = '/Grid/View/OrderPosition/Order/{0}/{1}/?filterInfo=OrderId%3D{0}'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
+                        iframe.dom.src = '/Grid/View/OrderPosition/Order/{0}/{1}'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
                         iframe.on('load', function (evt, el) {
                             el.height = Ext.get(el.parentElement).getComputedHeight();
                             el.width = Ext.get(el.parentElement).getComputedWidth();

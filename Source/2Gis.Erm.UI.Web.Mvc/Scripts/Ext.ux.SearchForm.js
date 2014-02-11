@@ -7,11 +7,9 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
 
         this.addEvents("beforebuild", "afterbuild", "beforecreate", "beforeedit", "beforerefresh");
         this.extendedInfo = config.extendedInfo;
-        this.filterInfo = config.filterInfo;
         this.entityModel = config.searchFormSettings;
         this.currentSettings = config.searchFormSettings.DataViews[0];
         this.currentSettings.ReadOnly = this.currentSettings.ReadOnly || config.readOnly;
-        this.queryParams = {};
         this.existingItem = config.existingItem;
 
         this.initColumnSet();
@@ -197,7 +195,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                 url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName
             }),
             baseParams: new Object({
-                whereExp: window.Ext.DoubleGis.Global.Helpers.BuildDataListFilter(this, this.filterInfo, null),
                 nameLocaleResourceId: this.currentSettings.NameLocaleResourceId,
                 extendedInfo: this.extendedInfo,
                 filterInput: "",
@@ -403,7 +400,6 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
     },
     searchRecords: function (el, value)
     {
-        this.grid.store.setBaseParam("whereExp", this.filterInfo);
         this.grid.store.setBaseParam("filterInput", value);
         this.grid.store.setBaseParam("extendedInfo", this.extendedInfo);
         this.grid.getBottomToolbar().changePage(1);

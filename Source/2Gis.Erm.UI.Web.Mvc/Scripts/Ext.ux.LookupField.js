@@ -1,13 +1,11 @@
 ﻿Ext.namespace('Ext.ux');
 Ext.ux.LookupField = Ext.extend(Ext.Component, {
-    //#region Private properties
     btnDis: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/btn_dis_lookup.gif"),
     btnOff: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/btn_off_lookup.gif"),
     btnOn: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/btn_on_lookup.gif"),
     btnResolving: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/btn_lookup_resolving.gif"),
     emptyText: Ext.LocalizedResources.LookupEmptyValue,
 
-    searchFormFilterInfo: "",
     extendedInfo: "",
     showReadOnlyCard: false,
     entityName: "",
@@ -18,17 +16,17 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     isValid: true,
     errorMessage: true,
     tabIndex: -1,
-    //#endregion
-    //#region Public properties
     readOnly: false,
     supressMatchesErrors: false,
-    //#endregion
-    //#region Widget Overloads
+    parentEntityName: "None",
+    parentIdPattern: "",
+
     initComponent: function ()
     {
         window.Ext.ux.LookupField.superclass.initComponent.call(this);
         this.addEvents("afterselect", "beforequery", "afterquery", "beforechange", "change", "contentkeyup", "contentkeypress");
     },
+
     onRender: function ()
     {
         this.entityIcon = window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(String.format("en_ico_16_{0}.gif", this.entityName));
@@ -127,8 +125,6 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         this.wrapper.remove();
         this.thumbEl.remove();
     },
-    //#endregion
-    // #region private methods
     deserialize: function ()
     {
         var value;
@@ -162,7 +158,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.el.dom.value = "";
         }
     },
-    getDataFromServer: function (filter)
+    getDataFromServer: function (config)
     {
         if (this.fireEvent("beforequery", this) === false)
         {
@@ -173,33 +169,38 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         
         var queryStringParams = {
             start: 0,
+            filterInput: null,
+            extendedInfo: null,
+            nameLocaleResourceId: null,
             limit: 5,
-            sort: 'Id',
             dir: 'DESC',
-            filterInput: filter
+            sort: 'Id',
+            pType: this.parentEntityName,
+            pId: this.parentIdPattern
         };
 
-        var filterExpr = this.prepareFilterExpression(this.searchFormFilterInfo);
-        if (filterExpr != "")
-        {
-            queryStringParams.whereExp = filterExpr;
+        Ext.apply(queryStringParams, config);
+
+        if (queryStringParams.extendedInfo) {
+            queryStringParams.extendedInfo = this.prepareFilterExpression(queryStringParams.extendedInfo);
         }
+
         if (this.extendedInfo)
         {
-            filterExpr = this.prepareFilterExpression(this.extendedInfo);
-            if (filterExpr != "")
-            {
-                queryStringParams.extendedInfo = filterExpr;
-            }
+            queryStringParams.extendedInfo += '&' + this.prepareFilterExpression(this.extendedInfo);
         }
-        
+
+        if (queryStringParams.pId) {
+            queryStringParams.pId = window.Ext.getDom(queryStringParams.pId).value;
+        }
+
         var url = Ext.urlAppend(Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityName, Ext.urlEncode(queryStringParams));
         window.Ext.Ajax.request({
             timeout: 1200000,
             url: url,
             scope: this,
-            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, filter); },
-            failure: function (xhr) { this.getDataFromServerFailure(xhr, filter); }
+            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, queryStringParams.filterInput); },
+            failure: function (xhr) { this.getDataFromServerFailure(xhr, queryStringParams.filterInput); }
         });
     },
     getDataFromServerSuccess: function (jsonResponse, filter)
@@ -393,25 +394,23 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         this.filter.dom.value = "";
 
-        var filterExpr;
-        filterExpr = this.prepareFilterExpression(this.searchFormFilterInfo);
-        if (filterExpr != "")
-        {
-            filterExpr = "&filterInfo=" + encodeURIComponent(filterExpr);
-        }
-
         var parentExp = "";
-        if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName"))
-        {
+        if (this.parentEntityName !== "None" || this.parentIdPattern !== "") {
+
+            var parentId = window.Ext.getDom(this.parentIdPattern).value;
+            if (parentId) {
+                parentExp = String.format("&pType={0}&pId={1}", this.parentEntityName, parentId);
+            }
+        } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
             if (pid && ptype)
             {
-                parentExp = String.format("&pId={0}&pType={1}", pid, ptype);
+                parentExp = String.format("&pType={0}&pId={1}", ptype, pid);
             }
         }
 
-        var url = this.searchUrl + "?search=" + (filter ? encodeURIComponent(filter) : "") + filterExpr + parentExp;
+        var url = this.searchUrl + "?search=" + (filter ? encodeURIComponent(filter) : "") + parentExp;
         
         if (this.showReadOnlyCard) {
             url += "&ReadOnly=" + this.showReadOnlyCard;
@@ -419,7 +418,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         
         if (this.extendedInfo)
         {
-            filterExpr = this.prepareFilterExpression(this.extendedInfo);
+            var filterExpr = this.prepareFilterExpression(this.extendedInfo);
             if (filterExpr != "")
             {
                 url += "&extendedInfo=" + encodeURIComponent(filterExpr);
@@ -442,7 +441,6 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         this.fireEvent("afterquery", this);
         this.fireEvent("afterselect", this);
     },
-    //#region private handlers
     imageItemError: function ()
     {
         this.entityIcon = window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath("en_ico_16_Default.gif");
@@ -503,7 +501,9 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         if (res)
         {
             this.clearValue();
-            this.getDataFromServer(res);
+            this.getDataFromServer({
+                filterInput: res
+            });
             this.filter.dom.value = "";
         }
         else
@@ -515,17 +515,14 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             }
         }
     },
-    forceGetData: function () {
+    forceGetData: function (config) {
         this.clearValue();
-        this.getDataFromServer("");
+        this.getDataFromServer(config);
         this.filter.dom.value = "";
     },
 
     setBtnOff: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOff; } },
     setBtnOn: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOn; } },
-    //#endregion
-    // #endregion
-    // #region public methods
     clearValue: function ()
     {
         this.setValue(undefined);
@@ -673,7 +670,5 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
 
     }
-    //#endregion
-
 });
 Ext.reg('lookupfield', Ext.ux.LookupField);

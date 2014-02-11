@@ -421,33 +421,22 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         outerDiv.appendChild(hiddenField);
 
         var extendedInfo = 'IsActive=true';
-        var filter = '';
+        if (this.controller.localData.firmId) {
+            extendedInfo += '&FirmId=' + this.controller.localData.firmId;
+        }
 
         switch (entityName) {
             case 'Advertisement':
                 {
-                    if (this.controller.localData.firmId) {
-                        filter = 'FirmId=' + this.controller.localData.firmId;
-                        extendedInfo += '&FirmId=' + this.controller.localData.firmId; //To be passed to Advertisement form thru Search form.
-                    }
-                    if (filter != '') {
-                        filter += '&&';
-                    }
-                    filter += 'AdvertisementTemplateId=' + this.position.AdvertisementTemplateId;
-                    extendedInfo += '&AdvertisementTemplateId=' + this.position.AdvertisementTemplateId; //To be passed to Advertisement form thru Search form.
+                    extendedInfo += '&AdvertisementTemplateId=' + this.position.AdvertisementTemplateId;
                 }
                 break;
             case 'FirmAddress':
                 {
-                    if (this.controller.localData.firmId) {
-                        filter = 'FirmId=' + this.controller.localData.firmId;
-                    }
                 }
                 break;
             case 'Category':
                 {
-                    extendedInfo += '&FirmId=' + this.controller.localData.firmId;
-
                     var desiredLevel;
                     if (this.type == this.linkingObjectTypes.AddressFirstLevelCategorySingle) {
                         desiredLevel = 1;
@@ -456,10 +445,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                         desiredLevel = 3;
                     }
 
-                    if (filter != '') {
-                        filter += '&&';
-                    }
-                    filter += 'Level=' + desiredLevel;
+                    extendedInfo += '&Level=' + desiredLevel;
 
                     if (this.type == this.linkingObjectTypes.AddressCategorySingle || this.type == this.linkingObjectTypes.AddressFirstLevelCategorySingle) {
                         if (advertisement && advertisement.FirmAddressId) {
@@ -484,7 +470,6 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             crmRoot: "../../..",
             entityName: entityName,
             entityIcon: "en_ico_16_Default.gif",
-            searchFormFilterInfo: filter,
             extendedInfo: extendedInfo,
             item: settingsItem
         };
