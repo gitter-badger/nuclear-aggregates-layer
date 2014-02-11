@@ -49,8 +49,6 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="CostCalculation\CalcPositionRequest.cs" />
-    <Compile Include="CostCalculation\CostCalculator.cs" />
     <Compile Include="CostCalculation\OrderCostCalculationOperationService.cs" />
     <Compile Include="CostCalculation\OrderPositionCostCalculationOperationService.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\BasicOrderProlongationOperationLogic.cs" />

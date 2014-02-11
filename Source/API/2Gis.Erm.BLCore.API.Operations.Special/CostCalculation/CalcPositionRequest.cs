@@ -1,6 +1,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 
-namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
+namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
 {
     /// <summary>
     /// Данные необходимые для расчета стоимости простой позиции + идентификатор этой позиции

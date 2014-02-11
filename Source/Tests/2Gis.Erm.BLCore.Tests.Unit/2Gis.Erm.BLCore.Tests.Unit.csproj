@@ -116,7 +116,6 @@
     <Compile Include="BL\Client\GetClientDomainDtoServiceSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BL\CostCalculationService\CostCalculatorSpecs.cs" />
     <Compile Include="BL\CostCalculationService\OrderPositionCostCalculationOperationServiceSpecs.cs" />
     <Compile Include="BL\CreateAfterSaleServiceActivitiesHandlerSpecs.cs" />
     <Compile Include="BL\Export\CreateHotClientHandlerSpecs.cs" />
