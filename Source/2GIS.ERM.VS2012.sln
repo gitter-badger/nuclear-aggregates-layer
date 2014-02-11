@@ -400,9 +400,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLQuerying.DI", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.Resources.Server", "..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj", "{CB20D7AE-1EAA-4A35-A667-C9BF86712896}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationServices", "ApplicationServices", "{EC09A5A4-AC6C-40FC-9016-28923E155C55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E652E39A-CF32-4A9B-ADFF-01CEA4403747}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Tests.Unit", "..\..\BL\Source\Tests\2Gis.Erm.BL.Tests.Unit\2Gis.Erm.BL.Tests.Unit.csproj", "{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Special", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj", "{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 100
+		SccNumberOfProjects = 102
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -802,6 +810,14 @@ Global
 		SccProjectTopLevelParentUniqueName99 = 2GIS.ERM.VS2012.sln
 		SccProjectName99 = ../../BLFlex/Source/Resources/2Gis.Erm.BLFlex.Resources.Server
 		SccLocalPath99 = ..\\..\\BLFlex\\Source\\Resources\\2Gis.Erm.BLFlex.Resources.Server
+		SccProjectUniqueName100 = ..\\..\\BL\\Source\\Tests\\2Gis.Erm.BL.Tests.Unit\\2Gis.Erm.BL.Tests.Unit.csproj
+		SccProjectTopLevelParentUniqueName100 = 2GIS.ERM.VS2012.sln
+		SccProjectName100 = ../../BL/Source/Tests/2Gis.Erm.BL.Tests.Unit
+		SccLocalPath100 = ..\\..\\BL\\Source\\Tests\\2Gis.Erm.BL.Tests.Unit
+		SccProjectUniqueName101 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations.Special\\2Gis.Erm.BL.Operations.Special.csproj
+		SccProjectTopLevelParentUniqueName101 = 2GIS.ERM.VS2012.sln
+		SccProjectName101 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations.Special
+		SccLocalPath101 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations.Special
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1800,6 +1816,26 @@ Global
 		{CB20D7AE-1EAA-4A35-A667-C9BF86712896}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CB20D7AE-1EAA-4A35-A667-C9BF86712896}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CB20D7AE-1EAA-4A35-A667-C9BF86712896}.Release|x64.ActiveCfg = Release|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF}.Release|x64.ActiveCfg = Release|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1916,6 +1952,8 @@ Global
 		{9FF44272-1640-4DDD-885F-AAA2D1DD8B6E} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{25A56032-E542-44EC-AC64-23B8D072EBEF} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{C98BE597-532D-433E-BFAD-06B038B8FFE0} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
+		{EC09A5A4-AC6C-40FC-9016-28923E155C55} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
+		{E652E39A-CF32-4A9B-ADFF-01CEA4403747} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{7FC50A2A-5D69-4FE4-BDC4-DFFAC1DB9FF0} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{859F62DA-F88C-47CC-AE8E-3EB4378D992D} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{3941AFFC-BF7F-437C-942E-3D32A2567A00} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
@@ -1969,5 +2007,7 @@ Global
 		{E6C3D53F-231B-483A-B7B6-BDFF284AD763} = {D8D2B6B6-8CFA-4A1B-868C-BE82089ED548}
 		{8008D300-37A0-44BB-863E-7CE97DC7B305} = {EF7482F1-6531-4DDB-8042-2BB80A402F24}
 		{8C7E352B-1450-4C92-9F53-EABEB51E1F79} = {8008D300-37A0-44BB-863E-7CE97DC7B305}
+		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B} = {EC09A5A4-AC6C-40FC-9016-28923E155C55}
+		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
 	EndGlobalSection
 EndGlobal

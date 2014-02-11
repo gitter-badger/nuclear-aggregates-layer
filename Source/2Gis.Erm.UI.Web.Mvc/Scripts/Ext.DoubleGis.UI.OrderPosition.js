@@ -98,6 +98,9 @@ window.InitPage = function ()
             DiscountPercentOuter: window.Ext.get('discountPercentOuter')
         }, {
             PricePosition: pricePositionLookup
+        },
+        {
+            DecimalDigits: window.Ext.get('MoneySignificantDigitsNumber').getValue()
         });
 
         this.BusinessLogic.registerToolbar(this.Items.Toolbar);

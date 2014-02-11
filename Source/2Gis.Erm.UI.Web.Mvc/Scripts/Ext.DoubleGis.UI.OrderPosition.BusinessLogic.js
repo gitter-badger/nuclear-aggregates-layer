@@ -11,7 +11,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
     },
 
     Settings: {
-        DecimalDigits: 2,
+        DecimalDigits: null,
         DiscountPercentDecimalDigits: 4,
         DiscountRecalcDelay: 1000
     },
@@ -192,7 +192,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         });
     },
 
-    registerDomElements: function (hiddens, textFields, radios, divs, lookups)
+    registerDomElements: function (hiddens, textFields, radios, divs, lookups, settings)
     {
         var self = this;
 
@@ -213,6 +213,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         this.UI.Divs.DiscountPercentOuter = divs.DiscountPercentOuter;
         this.UI.Divs.DiscountSumOuter = divs.DiscountSumOuter;
         this.UI.Lookups.PricePosition = lookups.PricePosition;
+        this.Settings.DecimalDigits = settings.DecimalDigits;
 
         for (var item in this.UI.Texts)
         {
