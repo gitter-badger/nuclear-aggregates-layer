@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 
         public EntityProperty TargetProperty { get; set; }
 
-        public string SearchFormFilterInfo { get; set; }
         public bool ShowReadOnlyCard { get; set; }
         public bool Disabled { get; set; }
         public bool ReadOnly { get; set; }
@@ -43,12 +42,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
         public LookupPropertyFeature WithShowReadOnlyCard()
         {
             ShowReadOnlyCard = true;
-            return this;
-        }
-
-        public LookupPropertyFeature WithSearchFormFilterInfo(string filterInfo)
-        {
-            SearchFormFilterInfo = filterInfo;
             return this;
         }
 

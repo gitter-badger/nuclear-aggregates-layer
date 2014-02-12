@@ -23,14 +23,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 new ReadOnlyPropertyFeature(),
-                                                LookupPropertyFeature.Create(EntityName.Position)
-                                                                     .WithSearchFormFilterInfo("IsDeleted=false"),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
                     EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionDeniedRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
-                                                LookupPropertyFeature.Create(EntityName.Position)
-                                                                     .WithSearchFormFilterInfo("IsDeleted=false"),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
                     EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.ObjectBindingType)

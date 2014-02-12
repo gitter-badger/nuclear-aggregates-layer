@@ -25,8 +25,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       LookupPropertyFeature.Create(EntityName.Category)
-                                                           .WithReadOnly()
-                                                           .WithSearchFormFilterInfo("Level>{Level}"),
+                                                           .WithReadOnly(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ParentCategoryName)),
 
                     EntityProperty.Create<CategoryDomainEntityDto>(dto => dto.Comment)

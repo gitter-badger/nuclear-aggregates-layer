@@ -23,8 +23,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 
                     EntityProperty.Create<CountryDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Currency)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false"),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 

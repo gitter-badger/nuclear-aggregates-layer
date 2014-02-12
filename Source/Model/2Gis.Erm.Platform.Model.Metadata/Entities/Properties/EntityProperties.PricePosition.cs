@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       LookupPropertyFeature.Create(EntityName.Position)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false && IsActive=true")
                                                            .WithExtendedInfo("isSupportedByExport=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
@@ -32,14 +31,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Currency)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false && IsActive=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
                     EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.PriceRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Price)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false && IsActive=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PriceList)),
 
                     EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.AmountSpecificationMode)

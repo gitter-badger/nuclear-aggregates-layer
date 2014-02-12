@@ -38,9 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<UserDomainEntityDto>(dto => dto.ParentRef)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
-                    DisplayNameLocalizedFeature.Create(() => MetadataResources.ParentUser),
-                    LookupPropertyFeature.Create(EntityName.User)
-                                         .WithSearchFormFilterInfo("Id!={Id}")),
+                    DisplayNameLocalizedFeature.Create(() => MetadataResources.ParentUser)),
 
                     EntityProperty.Create<UserDomainEntityDto>(dto => dto.IsServiceUser)
                                   .WithFeatures(

@@ -101,12 +101,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
             set { _dataViewJson.DisableEdit = value; }
         }
 
-        public string DefaultFilter
-        {
-            get { return _dataViewJson.DefaultFilter; }
-            set { _dataViewJson.DefaultFilter = value; }
-        }
-
         public string ExtendedInfo
         {
             get { return _dataViewJson.ExtendedInfo; }
