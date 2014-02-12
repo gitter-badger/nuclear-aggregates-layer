@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Users;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -136,15 +135,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
 
             var currentIdentity = _userContext.Identity;
 
-            var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long?>(
+            var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "restrictForMergeId",
                 clientId =>
                 {
-                    if (!clientId.HasValue)
-                    {
-                        return c => true;
-                    }
-
                     var privelegDepth = GetMaxAccess(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, currentIdentity.Code));
                     switch (privelegDepth)
                     {

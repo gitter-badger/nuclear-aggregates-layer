@@ -149,15 +149,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 
             var currentIdentity = _userContext.Identity;
 
-            var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long?>(
+            var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "restrictForMergeId",
                 clientId =>
                 {
-                    if (!clientId.HasValue)
-                    {
-                        return c => true;
-                    }
-
                     var privelegDepth = GetMaxAccess(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, currentIdentity.Code));
                     switch (privelegDepth)
                     {
