@@ -394,36 +394,43 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         this.filter.dom.value = "";
 
-        var parentExp = "";
+        var queryString = "";
+        if (filter) {
+            queryString += (queryString ? "&" : "?") + "search=" + encodeURIComponent(filter);
+        }
+
         if (this.parentEntityName !== "None" || this.parentIdPattern !== "") {
 
             var parentId = window.Ext.getDom(this.parentIdPattern).value;
             if (parentId) {
-                parentExp = String.format("&pType={0}&pId={1}", this.parentEntityName, parentId);
+                queryString += (queryString ? "&" : "?") + "pType=" + this.parentEntityName;
+                queryString += (queryString ? "&" : "?") + "pId=" + parentId;
             }
         } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
             if (pid && ptype)
             {
-                parentExp = String.format("&pType={0}&pId={1}", ptype, pid);
+                queryString += (queryString ? "&" : "?") + "pType=" + ptype;
+                queryString += (queryString ? "&" : "?") + "pId=" + pid;
             }
         }
 
-        var url = this.searchUrl + "?search=" + (filter ? encodeURIComponent(filter) : "") + parentExp;
-        
         if (this.showReadOnlyCard) {
-            url += "&ReadOnly=" + this.showReadOnlyCard;
+            queryString += (queryString ? "&" : "?") + "ReadOnly=" + this.showReadOnlyCard;
         }
         
         if (this.extendedInfo)
         {
             var filterExpr = this.prepareFilterExpression(this.extendedInfo);
-            if (filterExpr != "")
+            if (filterExpr)
             {
-                url += "&extendedInfo=" + encodeURIComponent(filterExpr);
+                queryString += (queryString ? "&" : "?") + "extendedInfo=" + encodeURIComponent(filterExpr);
             }
         }
+
+        var url = this.searchUrl + queryString;
+
         var result = window.showModalDialog(url, this.item ? { items: [this.item]} : null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         this.filter.dom.style.display == "none" ? this.content.focus() : this.filter.focus();
         if (result)
