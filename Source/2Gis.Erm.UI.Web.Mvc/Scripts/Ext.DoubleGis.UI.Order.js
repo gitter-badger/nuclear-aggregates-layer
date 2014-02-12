@@ -665,6 +665,11 @@ window.InitPage = function () {
                     }
 
                 },
+                toFixedWithoutRounding: function (figure, decimals) {
+                    if (!decimals) decimals = 2;
+                    var d = Math.pow(10, decimals);
+                    return (parseInt(figure * d) / d).toFixed(decimals);
+                },
                 discountRecalc: function () {
                     var discountPercent = Ext.get('DiscountPercent');
                     var discountSum = Ext.get('DiscountSum');
@@ -694,7 +699,8 @@ window.InitPage = function () {
 
                         var newDiscountInfo = window.Ext.decode(newDiscountInfoResponse.conn.responseText);
                         if (newDiscountInfo) {
-                            var newDiscountPercent = Number.formatToLocal(newDiscountInfo.CorrectedDiscountPercent.toFixed(this.Settings.DecimalDigits));
+                            var discountPercentDecimalDigits = 4;
+                            var newDiscountPercent = Number.formatToLocal(this.toFixedWithoutRounding(newDiscountInfo.CorrectedDiscountPercent, discountPercentDecimalDigits));
                             var newDiscountSum = Number.formatToLocal(newDiscountInfo.CorrectedDiscountSum.toFixed(this.Settings.DecimalDigits));
                             discountPercent.setValue(newDiscountPercent);
                             discountSum.setValue(newDiscountSum);
