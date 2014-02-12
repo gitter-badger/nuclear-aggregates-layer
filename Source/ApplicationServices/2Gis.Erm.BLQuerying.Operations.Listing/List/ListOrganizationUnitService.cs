@@ -37,10 +37,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var currencyFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "currencyId", currencyId => x => x.Country.CurrencyId == currencyId);
 
-            var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long?>(
+            var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "userId", userId => x => x.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));
 
-            var firmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long?>(
+            var firmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "FirmId", firmId => x => x.Firms.Any(y => y.Id == firmId));
 
              var currentIdentity = _userContext.Identity;

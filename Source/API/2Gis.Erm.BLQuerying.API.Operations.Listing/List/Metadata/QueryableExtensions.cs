@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
     // TODO: перенести в отдельный файл после мёрджа
     public static class DynamicQueryableExtensions
     {
+        // TODO: Заменить на пару Filtered\SortedPaged
         public static IQueryable<T> ApplyQuerySettings<T>(this IQueryable<T> query, QuerySettings querySettings, out int total)
         {
             return (IQueryable<T>)ApplyQuerySettings((IQueryable)query, querySettings, out total);
@@ -35,10 +36,19 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             }
 
             var newQuery = query.Filtered(querySettings);
-            total = System.Linq.Dynamic.DynamicQueryable.Count(newQuery);
-            newQuery = newQuery.SortedPaged(querySettings);
+            newQuery = newQuery.SortedPaged(querySettings, out total);
 
             return newQuery;
+        }
+
+        public static IQueryable<T> Filtered<T>(this IQueryable<T> query, QuerySettings querySettings)
+        {
+            return (IQueryable<T>)Filtered((IQueryable)query, querySettings);
+        }
+
+        public static IQueryable<T> SortedPaged<T>(this IQueryable<T> query, QuerySettings querySettings, out int total)
+        {
+            return (IQueryable<T>)SortedPaged((IQueryable)query, querySettings, out total);
         }
 
         private static IQueryable Filtered(this IQueryable query, QuerySettings querySettings)
@@ -63,8 +73,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             return newQuery;
         }
 
-        private static IQueryable SortedPaged(this IQueryable query, QuerySettings querySettings)
+        private static IQueryable SortedPaged(this IQueryable query, QuerySettings querySettings, out int total)
         {
+            total = System.Linq.Dynamic.DynamicQueryable.Count(query);
+
             var newQuery = query;
 
             // sort by id by default

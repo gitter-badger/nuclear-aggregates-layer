@@ -24,13 +24,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IEnumerable<ListAdvertisementDto> GetListData(IQueryable<Advertisement> query, QuerySettings querySettings, out int count)
         {
             var firmIdFilter = querySettings.CreateForExtendedProperty<Advertisement, long>(
-                "firmId", firmId => x => x.FirmId == firmId);
+                "FirmId", firmId => x => x.FirmId == firmId);
+
+            var advertisementTemplateIdFilter = querySettings.CreateForExtendedProperty<Advertisement, long>(
+                "AdvertisementTemplateId", advertisementTemplateId => x => x.AdvertisementTemplateId == advertisementTemplateId);
 
             var isAllowedToWhiteListFilter = querySettings.CreateForExtendedProperty<Advertisement, bool>(
                 "isAllowedToWhiteList", isAllowedToWhiteList => x => x.AdvertisementTemplate.IsAllowedToWhiteList == isAllowedToWhiteList);
 
             var data = query
                 .ApplyFilter(firmIdFilter)
+                .ApplyFilter(advertisementTemplateIdFilter)
                 .ApplyFilter(isAllowedToWhiteListFilter)
                 .ApplyQuerySettings(querySettings, out count)
                 .Select(x =>

@@ -60,6 +60,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return query
                     .Where(x => !x.Category.IsDeleted && !x.FirmAddress.IsDeleted && !x.IsDeleted)
                     .ApplyFilter(firmFilterExpression)
+                    .Filtered(querySettings)
                     .GroupBy(x => x.Category)
                     .Select(x => new ListCategoryFirmAddressDto
                         {
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             IsPrimary = x.Any(y => y.IsPrimary),
                             IsActive = x.Any(y => y.IsActive)
                         })
-                    .ApplyQuerySettings(querySettings, out count)
+                    .SortedPaged(querySettings, out count)
                     .ToArray();
             }
 
