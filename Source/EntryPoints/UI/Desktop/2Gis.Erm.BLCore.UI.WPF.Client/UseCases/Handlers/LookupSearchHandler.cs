@@ -72,13 +72,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 result = _listService.List(settings.LookupEntity,
                                                new SearchListModel 
                                                {
-                                                   PType = settings.LookupEntity.ToString(),
+                                                   ParentEntityName = settings.LookupEntity,
                                                    FilterInput = message.SearchText,
                                                    ExtendedInfo = PrepareExtendedInfo(settings.ExtendedInfo, propertiesContainer),
                                                    Dir = "DESC",
                                                    Start = 0,
                                                    Limit = 5,
-                                                   WhereExp = settings.SearchFormFilterInfo
                                                });
 
             }

@@ -254,8 +254,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("name:\"{0}\", ", name);
             sb.AppendFormat("applyTo:\"{0}\", ", name);
             sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);
-            sb.AppendFormat("searchFormFilterInfo:\"{0}\", ", lookupSettings.SearchFormFilterInfo);
-            sb.AppendFormat("extendedInfo:\"{0}\"", lookupSettings.ExtendedInfo);
+            sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
+            sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName);
+            sb.AppendFormat("parentIdPattern:\"{0}\"", lookupSettings.ParentIdPattern);
             if (lookupSettings.Plugins != null && lookupSettings.Plugins.Any())
                 sb.AppendFormat(",plugins:[{0}] ", String.Join(",", lookupSettings.Plugins));
             sb.Append("});</script>");

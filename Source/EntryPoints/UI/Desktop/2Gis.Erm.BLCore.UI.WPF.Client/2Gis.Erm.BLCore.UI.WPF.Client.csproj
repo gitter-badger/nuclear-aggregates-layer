@@ -568,7 +568,7 @@
       <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
-      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\EntryPoints\UI\Common\2Gis.Erm.BLQuerying.UI.Metadata\2Gis.Erm.BLQuerying.UI.Metadata.csproj">
