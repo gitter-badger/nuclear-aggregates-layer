@@ -68,16 +68,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public bool IsRated { get; set; }
 
-        public string PricePositionSearchFormFilter
-        {
-            get
-            {
-                string filter = string.Format("PriceId={0}", PriceId);
-
-                return filter;
-            }
-        }
-
         [Dependency(DependencyType.Disable, "CalculateDiscountViaPercentTrue", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.Disable, "CalculateDiscountViaPercentFalse", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "Comment", "this.value && this.value.toLowerCase()=='true'")]

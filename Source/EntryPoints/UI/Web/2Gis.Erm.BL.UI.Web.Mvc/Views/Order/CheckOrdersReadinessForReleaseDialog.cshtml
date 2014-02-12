@@ -146,7 +146,7 @@
             @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, SearchFormFilterInfo = "IsDeleted=false&&IsActive=true" })
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User})

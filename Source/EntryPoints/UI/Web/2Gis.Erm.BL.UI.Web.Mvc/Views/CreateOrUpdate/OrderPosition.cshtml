@@ -46,6 +46,7 @@
         @Html.HiddenFor(m => m.Id)
         @Html.HiddenFor(m => m.OrderId)
         @Html.HiddenFor(m => m.OrderFirmId)
+        @Html.HiddenFor(m => m.PriceId)
         @Html.HiddenFor(m => m.OrganizationUnitId)
         @Html.HiddenFor(m => m.IsLocked)
         @Html.HiddenFor(m => m.IsComposite)
@@ -57,7 +58,7 @@
             <tr style="height: 250px">
                 <td style="padding-right: 10px">
                     <div class="row-wrapper">
-                        @Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, SearchFormFilterInfo = Model.PricePositionSearchFormFilter })
+                        @Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" })
                     </div>
                     <div class="row-wrapper">
                         @Html.TemplateField(m => m.PricePerUnit, FieldFlex.lone, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "true" }, { "maxlength", "18" } })

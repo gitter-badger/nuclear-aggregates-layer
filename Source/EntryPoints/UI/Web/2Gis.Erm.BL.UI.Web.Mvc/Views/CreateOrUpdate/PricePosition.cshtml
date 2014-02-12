@@ -52,10 +52,10 @@
             @Html.HiddenFor(m => m.IsRatePricePositionAvailable)
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Price, SearchFormFilterInfo = "IsDeleted=false && IsActive=true"})
+            @Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Price })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false && IsActive=true", ExtendedInfo = "isSupportedByExport=true"})
+            @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Position, ExtendedInfo = "isSupportedByExport=true"})
             <div class="display-wrapper field-wrapper twins" id="Amount-wrapper">
                 <div class="label-wrapper" id="Amount-caption">
                     @Html.LabelFor(m => m.AmountSpecificationMode)<span class="req">*</span>:
@@ -79,7 +79,7 @@
 
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Cost, FieldFlex.twins)
-            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Currency, SearchFormFilterInfo = "IsDeleted=false && IsActive=true", ReadOnly = true})
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Currency, ReadOnly = true})
         </div>
         
         <div class="row-wrapper">

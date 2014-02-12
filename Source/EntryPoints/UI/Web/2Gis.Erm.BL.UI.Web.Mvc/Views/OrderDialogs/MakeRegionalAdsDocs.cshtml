@@ -73,7 +73,6 @@
                 @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.lone, new LookupSettings
                                                                                              {
                                                                                                  EntityName = EntityName.OrganizationUnit,
-                                                                                                 SearchFormFilterInfo = "IsDeleted=false&&IsActive=true",
                                                                                                  ExtendedInfo = "userId=" + Model.UserId
                                                                                              })
             </div>
