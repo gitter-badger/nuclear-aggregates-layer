@@ -420,10 +420,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         outerDiv.appendChild(hiddenField);
 
-        var extendedInfo = 'IsActive=true';
-        if (this.controller.localData.firmId) {
-            extendedInfo += '&FirmId=' + this.controller.localData.firmId;
-        }
+        var extendedInfo = 'FirmId=' + this.controller.localData.firmId;
 
         switch (entityName) {
             case 'Advertisement':
