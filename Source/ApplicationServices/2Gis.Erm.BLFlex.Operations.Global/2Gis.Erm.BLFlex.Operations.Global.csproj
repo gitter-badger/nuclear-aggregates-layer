@@ -65,7 +65,6 @@
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
     <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
-    <Compile Include="Chile\Generic\List\ChileListClientService.cs" />
     <Compile Include="Chile\Generic\List\ChileListOrderService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\AccountDetails\MultiCultureValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
@@ -112,7 +111,6 @@
     <Compile Include="Czech\Generic\Activate\CzechActivateLegalPersonService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonProfileDtoService.cs" />
-    <Compile Include="Czech\Generic\List\CzechListClientService.cs" />
     <Compile Include="Czech\Generic\List\CzechListLegalPersonProfileService.cs" />
     <Compile Include="Czech\Generic\List\CzechListLegalPersonService.cs" />
     <Compile Include="Czech\Generic\List\CzechListOrderService.cs" />

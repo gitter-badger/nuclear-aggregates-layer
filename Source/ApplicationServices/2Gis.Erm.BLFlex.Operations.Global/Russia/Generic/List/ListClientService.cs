@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -19,7 +18,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
-    public class ListClientService : ListEntityDtoServiceBase<Client, ListClientDto>, IRussiaAdapted, ICyprusAdapted
+    // TODO {m.pashuk, 12.02.2014}: можно перенести в BLQuering
+    public class ListClientService : ListEntityDtoServiceBase<Client, ListClientDto>
     {
         private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;
