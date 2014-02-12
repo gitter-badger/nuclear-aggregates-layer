@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -14,16 +15,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
     public static class QueryableExtensions2
     {
-        public static bool TryGetExtendedProperty<T>(this QuerySettings querySettings, string name, out T value)
+        public static bool TryGetExtendedProperty<TParam>(this QuerySettings querySettings, string name, out TParam value)
+            where TParam : IConvertible
         {
+            var key = name.ToLowerInvariant();
+
             string nonParsedValue;
-            if (!querySettings.ExtendedInfoMap.TryGetValue(name, out nonParsedValue))
+            if (!querySettings.ExtendedInfoMap.TryGetValue(key, out nonParsedValue))
             {
-                value = default(T);
+                value = default(TParam);
                 return false;
             }
 
-            value = (T)Convert.ChangeType(nonParsedValue, typeof(T));
+            value = (TParam)Convert.ChangeType(nonParsedValue, typeof(TParam), CultureInfo.InvariantCulture);
             return true;
         }
 
@@ -31,6 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             this QuerySettings querySettings,
             string parameterName,
             Func<TParam, Expression<Func<TEntity, bool>>> action)
+            where TParam : IConvertible
         {
             TParam param;
             if (!TryGetExtendedProperty(querySettings, parameterName, out param))
@@ -49,6 +54,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             string parameterName2,
             ExtendedPropertyUnionType extendedPropertyUnionType,
             Func<TParam1, TParam2, Expression<Func<TEntity, bool>>> action)
+            where TParam1 : IConvertible
+            where TParam2 : IConvertible
         {
             TParam1 param1;
             var hasParam1 = querySettings.TryGetExtendedProperty(parameterName1, out param1);
