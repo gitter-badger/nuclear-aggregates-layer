@@ -62,7 +62,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<OrderDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.LegalPerson)
-                                                           .WithSearchFormFilterInfo("ClientId={ClientRef.Id}")
                                                            .WithExtendedInfo("ClientId={ClientRef.Id}")
                                                            .OverrideValueAttribute<LegalPersonDomainEntityDto>(x => x.LegalName),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),

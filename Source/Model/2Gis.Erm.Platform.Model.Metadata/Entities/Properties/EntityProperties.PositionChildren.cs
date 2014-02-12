@@ -25,8 +25,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 
                     EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.ChildPositionRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Position)
-                                                           .WithSearchFormFilterInfo("IsComposite=false"),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ChildPosition)),
 

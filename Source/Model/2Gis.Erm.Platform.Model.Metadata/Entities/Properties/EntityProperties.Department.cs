@@ -23,8 +23,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<DepartmentDomainEntityDto>(dto => dto.ParentRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.Department)
-                                                           .WithShowReadOnlyCard()
-                                                           .WithSearchFormFilterInfo("IsDeleted=false&&({Id}!=Id)"),
+                                                           .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ParentDepartment)),
 
                     EntityProperty.Create<DepartmentDomainEntityDto>(dto => dto.CreatedByRef)

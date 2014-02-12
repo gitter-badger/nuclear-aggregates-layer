@@ -24,8 +24,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 
                     EntityProperty.Create<AssociatedPositionsGroupDomainEntityDto>(dto => dto.PricePositionRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.PricePosition)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false"),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PricePosition)),

@@ -72,8 +72,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 
                     EntityProperty.Create<ClientDomainEntityDto>(dto => dto.MainFirmRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Firm)
-                                                           .WithSearchFormFilterInfo("ClientId={Id}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.MainFirm)),
 
                     EntityProperty.Create<ClientDomainEntityDto>(dto => dto.TerritoryRef)

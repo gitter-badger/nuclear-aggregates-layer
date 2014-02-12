@@ -47,10 +47,6 @@
       <HintPath>..\..\..\CompositionRoots\Source\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dynamic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=68293a411f0cabcc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -119,9 +115,6 @@
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\EnumerableExtensions.cs" />
     <Compile Include="Utils\Data\ExpressionUtils.cs" />
-    <Compile Include="Utils\Data\QueryableExtensions.cs" />
-    <Compile Include="Utils\Data\QueryField.cs" />
-    <Compile Include="Utils\Data\QuerySettings.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
     <Compile Include="Ftp\IFtpService.cs" />
@@ -177,7 +170,6 @@
       <Link>x86\7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dynamic Expressions.html" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

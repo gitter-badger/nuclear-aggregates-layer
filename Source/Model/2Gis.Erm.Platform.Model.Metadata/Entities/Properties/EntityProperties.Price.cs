@@ -50,8 +50,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<PriceDomainEntityDto>(dto => dto.OrganizationUnitRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.OrganizationUnit)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false&&IsActive=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrganizationUnit)),
 
                     EntityProperty.Create<PriceDomainEntityDto>(dto => dto.IsPublished)

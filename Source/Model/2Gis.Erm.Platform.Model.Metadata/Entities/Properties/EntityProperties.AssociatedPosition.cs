@@ -15,15 +15,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                 {
                     EntityProperty.Create<AssociatedPositionDomainEntityDto>(dto => dto.AssociatedPositionsGroupRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.AssociatedPositionsGroup)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.AssociatedPositionsGroupName)),
 
                     EntityProperty.Create<AssociatedPositionDomainEntityDto>(dto => dto.PositionRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Position)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
                     new EntityProperty("PositionName", typeof(string)) 
@@ -34,8 +30,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                     EntityProperty.Create<AssociatedPositionDomainEntityDto>(dto => dto.PricePositionRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.PricePosition)
-                                                           .WithSearchFormFilterInfo("IsDeleted=false"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PricePosition)),
 
                     EntityProperty.Create<AssociatedPositionDomainEntityDto>(dto => dto.ObjectBindingType)
