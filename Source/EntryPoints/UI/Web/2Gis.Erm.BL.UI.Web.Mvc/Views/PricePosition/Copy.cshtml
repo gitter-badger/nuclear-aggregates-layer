@@ -60,7 +60,7 @@
         @Html.HiddenFor(m => m.PriceId)
         @Html.HiddenFor(m => m.SourcePricePositionId)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Position, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position, SearchFormFilterInfo = "IsDeleted=false&&IsActive=true" })
+            @Html.TemplateField(m => m.Position, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position })
         </div>
     }
 }

@@ -36,10 +36,10 @@
 
 
                     var frameUrl = String.format('{0}/{1}/{2}',
-                        '/Grid/View/UserOrganizationUnit/null',
+                        '/Grid/View/UserOrganizationUnit/OrganizationUnit',
                         this.form.Id.value,
                         this.ReadOnly ? 'Inactive' : 'Active');
-                    var requestParametrs = { extendedInfo: 'orgUnitId=' + this.form.Id.value, singleDataView: 'DListUsersInOrganizationUnit' };
+                    var requestParametrs = { singleDataView: 'DListUsersInOrganizationUnit' };
                     iframe.dom.src = Ext.urlAppend(frameUrl, Ext.urlEncode(requestParametrs));
 
                     iframe.on('load', function(evt, el) {

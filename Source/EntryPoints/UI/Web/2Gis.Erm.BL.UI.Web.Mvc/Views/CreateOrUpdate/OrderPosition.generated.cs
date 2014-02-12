@@ -328,7 +328,7 @@ WriteLiteral("        ");
 
             
             #line 49 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-   Write(Html.HiddenFor(m => m.OrganizationUnitId));
+   Write(Html.HiddenFor(m => m.PriceId));
 
             
             #line default
@@ -339,7 +339,7 @@ WriteLiteral("        ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-   Write(Html.HiddenFor(m => m.IsLocked));
+   Write(Html.HiddenFor(m => m.OrganizationUnitId));
 
             
             #line default
@@ -350,7 +350,7 @@ WriteLiteral("        ");
 
             
             #line 51 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-   Write(Html.HiddenFor(m => m.IsComposite));
+   Write(Html.HiddenFor(m => m.IsLocked));
 
             
             #line default
@@ -361,7 +361,7 @@ WriteLiteral("        ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-   Write(Html.HiddenFor(m => m.DiscountSum));
+   Write(Html.HiddenFor(m => m.IsComposite));
 
             
             #line default
@@ -372,7 +372,7 @@ WriteLiteral("        ");
 
             
             #line 53 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-   Write(Html.HiddenFor(m => m.DiscountPercent));
+   Write(Html.HiddenFor(m => m.DiscountSum));
 
             
             #line default
@@ -383,6 +383,17 @@ WriteLiteral("        ");
 
             
             #line 54 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
+   Write(Html.HiddenFor(m => m.DiscountPercent));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 55 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
    Write(Html.HiddenFor(m => m.AdvertisementsJson));
 
             
@@ -421,7 +432,7 @@ WriteLiteral("                        ");
 
             
             #line 60 "..\..\Views\CreateOrUpdate\OrderPosition.cshtml"
-                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, SearchFormFilterInfo = Model.PricePositionSearchFormFilter }));
+                   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.lone, new LookupSettings { ShowReadOnlyCard = true, EntityName = EntityName.PricePosition, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Price, ParentIdPattern = "PriceId" }));
 
             
             #line default

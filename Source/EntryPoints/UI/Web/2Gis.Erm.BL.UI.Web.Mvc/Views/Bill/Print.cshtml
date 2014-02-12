@@ -82,7 +82,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, SearchFormFilterInfo = "LegalPersonId={ViewConfig_Id} && IsActive=true && IsDeleted=false"})
+                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" })
                                     </td>
                                 </tr>
                             </tbody>
@@ -100,9 +100,7 @@
             </tbody>
         </table>
         @Html.HiddenFor(m => m.OrderId)
-
-        @Html.Hidden("ViewConfig_Id", Model.LegalPersonId)
-        @Html.Hidden("ViewConfig_EntityName", EntityName.LegalPerson.ToString())
+        @Html.HiddenFor(m => m.LegalPersonId)
     }
 }
 

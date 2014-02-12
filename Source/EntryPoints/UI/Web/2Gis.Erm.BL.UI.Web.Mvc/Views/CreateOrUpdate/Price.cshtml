@@ -96,7 +96,7 @@
         }
         <div class="row-wrapper">
             @Html.TemplateField(m => m.CreateDate, FieldFlex.twins, new DateTimeSettings{ReadOnly = true})
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, SearchFormFilterInfo = "IsDeleted=false&&IsActive=true"})
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.PublishDate, FieldFlex.twins, new DateTimeSettings { MinDate = DateTime.Now, ShiftOffset = false})
