@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -32,7 +30,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
         protected override IEnumerable<ListLegalPersonProfileDto> GetListData(
             IQueryable<LegalPersonProfile> query, 
             QuerySettings querySettings,
-            ListFilterManager filterManager, 
             out int count)
         {
             return query

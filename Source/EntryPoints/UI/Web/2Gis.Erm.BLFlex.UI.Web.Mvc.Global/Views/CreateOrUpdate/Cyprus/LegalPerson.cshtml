@@ -56,7 +56,7 @@
             });
 
             Ext.apply(this, {
-                
+
                 buildProfilesList: function () {
                     if (this.form.Id.value != 0) {
                         var cnt = Ext.getCmp('ContentTab_holder');
@@ -74,7 +74,7 @@
                         mask.show();
                         var iframe = Ext.get('profileFrame_frame');
 
-                        iframe.dom.src = '/Grid/View/LegalPersonProfile/LegalPerson/{0}/{1}/?filterInfo=LegalPersonId%3D{0}'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
+                        iframe.dom.src = '/Grid/View/LegalPersonProfile/LegalPerson/{0}/{1}'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
                         iframe.on('load', function (evt, el) {
                             el.height = Ext.get(el.parentElement).getComputedHeight();
                             el.width = Ext.get(el.parentElement).getComputedWidth();
@@ -86,11 +86,11 @@
                             this.hide();
                         }, mask);
                         cnt.doLayout();
-                        
+
                     }
                 }
             });
-            
+
             this.on("afterbuild", this.buildProfilesList, this);
             this.on("afterrelatedlistready", function(card, details) {
                 var dataListName = details.dataList.currentSettings.Name;
@@ -107,11 +107,10 @@
         };
     </script>
     <style type="text/css">
-        div.label-wrapper
-        {
+        div.label-wrapper {
             width: 150px !important;
         }
-    </style>    
+    </style>
 }
 
 @section CardBody
@@ -146,7 +145,7 @@
             @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", 3}})
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } })
         </div>
     </div>
 }

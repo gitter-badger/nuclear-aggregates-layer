@@ -1,5 +1,4 @@
-﻿
-@model Models.Russia.PhonecallViewModel
+﻿@model Models.Russia.PhonecallViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -10,8 +9,7 @@
     <script src="/Scripts/Ext.ux.TimeComboBox.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Russia/Ext.DoubleGis.UI.RussiaActivityBase.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <style type="text/css">
-        div.label-wrapper
-        {
+        div.label-wrapper {
             width: 180px !important;
         }
     </style>
@@ -27,11 +25,11 @@
         @{
             var disabledFieldHtmlAttributes = new Dictionary<string, object> { { "class", "readonly inputfields" }, { "disabled", "true" } };
         }
-    
+
         @Html.SectionHead("planHeader", BLResources.TitlePlan)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Type, FieldFlex.twins, disabledFieldHtmlAttributes, EnumResources.ResourceManager)
-            </div>
+        </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Header, FieldFlex.lone)
         </div>
@@ -50,13 +48,11 @@
                                     @Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false })
                                     @Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } })
                                 </td>
-                                <td style="width: 5px">
-                                </td>
+                                <td style="width: 5px"></td>
                                 <td style="width: 60px">
-                                    @Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}})
+                                    @Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } })
                                 </td>
-                                <td style="width: auto">
-                                </td>
+                                <td style="width: auto"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -78,13 +74,11 @@
                                     @Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false })
                                     @Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } })
                                 </td>
-                                <td style="width: 5px">
-                                </td>
+                                <td style="width: 5px"></td>
                                 <td style="width: 60px">
-                                    @Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}})
+                                    @Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } })
                                 </td>
-                                <td style="width: auto">
-                                </td>
+                                <td style="width: auto"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -106,13 +100,11 @@
                                     @Html.DateFor(m => m.ActualEnd, new DateTimeSettings { ShiftOffset = false })
                                     @Html.ValidationMessageFor(m => m.ActualEnd, null, new Dictionary<string, object> { { "class", "error" } })
                                 </td>
-                                <td style="width: 5px">
-                                </td>
+                                <td style="width: 5px"></td>
                                 <td style="width: 60px">
-                                    @Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}})
+                                    @Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } })
                                 </td>
-                                <td style="width: auto">
-                                </td>
+                                <td style="width: auto"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,11 +131,11 @@
         @Html.SectionHead("planHeader", BLResources.TitleRegarding)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client })
-            @Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal })
+            @Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact })
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm })
+            @Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })
         </div>
     </div>
 }

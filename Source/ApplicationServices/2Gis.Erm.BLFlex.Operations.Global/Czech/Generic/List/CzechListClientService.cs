@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Users;
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -13,7 +13,6 @@ using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -47,21 +46,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
         protected override IEnumerable<CzechListClientDto> GetListData(
             IQueryable<Client> query,
             QuerySettings querySettings,
-            ListFilterManager filterManager,
             out int count)
         {
             IEnumerable<CzechListClientDto> clients;
-            if (TryGetClientsRestrictedByUser(query, querySettings, filterManager, out clients, out count))
+            if (TryGetClientsRestrictedByUser(query, querySettings, out clients, out count))
             {
                 return clients;
             }
 
-            if (TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, filterManager, out clients, out count))
+            if (TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, out clients, out count))
             {
                 return clients;
             }
 
-            var with1AppointmentFilter = filterManager.CreateForExtendedProperty<Client, bool>(
+            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "With1Appointment",
                 with1Appointment =>
                 {
@@ -76,13 +74,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                                     && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
                 });
 
-            var warmClientTaskFilter = filterManager.CreateForExtendedProperty<Client, bool>(
+            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "WarmClientTask",
                 warmClientTask => client =>
                     client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
                                                                                                   && property.NumericValue == (int)ActivityTaskType.WarmClient)));
 
-            var outdatedActivityFilter = filterManager.CreateForExtendedProperty<Client, bool>(
+            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "Outdated",
                 outdated =>
                 {
@@ -107,17 +105,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
         private bool TryGetClientsRestrictedByUser(
             IQueryable<Client> query,
             QuerySettings querySettings,
-            ListFilterManager filterManager,
             out IEnumerable<CzechListClientDto> clients,
             out int count)
         {
             clients = null;
             count = 0;
 
-            var currentIdentity = _userContext.Identity;
-
-            var userFilter = filterManager.CreateForExtendedProperty<Client, long>(
-                "userId", userId => x => x.OwnerCode == userId, x => x.OwnerCode == currentIdentity.Code);
+            var userFilter = querySettings.CreateForExtendedProperty<Client, long>(
+                "userId", userId => x => x.OwnerCode == userId);
             if (userFilter != null)
             {
                 clients = SelectClients(query
@@ -133,7 +128,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
         private bool TryGetClientsRestrictedByMergeClientPrivilege(
             IQueryable<Client> query,
             QuerySettings querySettings,
-            ListFilterManager filterManager,
             out IEnumerable<CzechListClientDto> clients,
             out int count)
         {
@@ -142,7 +136,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
 
             var currentIdentity = _userContext.Identity;
 
-            var restrictForMergeIdFilter = filterManager.CreateForExtendedProperty<Client, long?>(
+            var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long?>(
                 "restrictForMergeId",
                 clientId =>
                 {

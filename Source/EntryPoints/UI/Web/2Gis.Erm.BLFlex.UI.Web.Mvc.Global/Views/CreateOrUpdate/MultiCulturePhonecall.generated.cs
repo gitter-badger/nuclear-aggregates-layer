@@ -99,8 +99,8 @@ WriteLiteral("></script>\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteLiteral(">\r\n        div.label-wrapper\r\n        {\r\n            width: 180px !important;\r\n  " +
-"      }\r\n    </style>\r\n");
+WriteLiteral(">\r\n        div.label-wrapper {\r\n            width: 180px !important;\r\n        }\r\n" +
+"    </style>\r\n");
 
 });
 
@@ -114,14 +114,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 598), Tuple.Create("\"", 634)
+WriteAttribute("title", Tuple.Create(" title=\"", 589), Tuple.Create("\"", 625)
             
-            #line 22 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 606), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 21 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+, Tuple.Create(Tuple.Create("", 597), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 606), false)
+, 597), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -133,7 +133,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 25 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 24 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.HiddenFor(m => m.Id));
 
             
@@ -142,25 +142,25 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n");
 
             
-            #line 27 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 27 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
           
             var disabledFieldHtmlAttributes = new Dictionary<string, object> { { "class", "readonly inputfields" }, { "disabled", "true" } };
         
             
             #line default
             #line hidden
-WriteLiteral("\r\n    \r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 31 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -175,13 +175,13 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Type, FieldFlex.twins, disabledFieldHtmlAttributes, EnumResources.ResourceManager));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </div>\r\n        <div");
+WriteLiteral("\r\n        </div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -190,7 +190,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Header, FieldFlex.lone));
 
             
@@ -215,7 +215,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 42 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 41 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledStart));
 
             
@@ -241,7 +241,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -252,7 +252,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -262,7 +262,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -271,8 +271,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 56 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 54 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -281,9 +281,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -302,7 +302,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 70 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 67 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledEnd));
 
             
@@ -328,7 +328,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 78 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 75 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -339,7 +339,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 79 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 76 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -349,7 +349,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -358,8 +358,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 84 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 80 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -368,9 +368,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -389,7 +389,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 98 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 93 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                    Write(Html.LabelFor(m => m.ActualEnd));
 
             
@@ -415,7 +415,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 106 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 101 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.DateFor(m => m.ActualEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -426,7 +426,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 107 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 102 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ActualEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -436,7 +436,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -445,8 +445,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 112 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 106 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -455,9 +455,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -466,7 +466,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 123 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 116 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Duration, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -481,7 +481,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 126 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 119 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -492,7 +492,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 127 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 120 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Status, FieldFlex.twins, disabledFieldHtmlAttributes, EnumResources.ResourceManager));
 
             
@@ -503,7 +503,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 129 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 122 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePurpose));
 
             
@@ -518,7 +518,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 131 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 124 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Purpose, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -533,7 +533,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 134 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 127 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -544,7 +544,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 136 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 129 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitleRegarding));
 
             
@@ -559,7 +559,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 138 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 131 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }));
 
             
@@ -570,8 +570,8 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 139 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm }));
+            #line 132 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -585,8 +585,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 142 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
-       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact }));
+            #line 135 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -598,7 +598,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 147 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
+            #line 140 "..\..\Views\CreateOrUpdate\MultiCulturePhonecall.cshtml"
 Write(RenderBody());
 
             

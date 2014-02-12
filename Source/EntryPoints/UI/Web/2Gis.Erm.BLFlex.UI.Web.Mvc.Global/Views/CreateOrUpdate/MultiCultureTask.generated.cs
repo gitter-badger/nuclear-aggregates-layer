@@ -99,8 +99,8 @@ WriteLiteral("></script>\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteLiteral(">\r\n        div.label-wrapper\r\n        {\r\n            width: 180px !important;\r\n  " +
-"      }\r\n    </style>\r\n");
+WriteLiteral(">\r\n        div.label-wrapper {\r\n            width: 180px !important;\r\n        }\r\n" +
+"    </style>\r\n");
 
 });
 
@@ -114,14 +114,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 593), Tuple.Create("\"", 629)
+WriteAttribute("title", Tuple.Create(" title=\"", 584), Tuple.Create("\"", 620)
             
-            #line 22 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-, Tuple.Create(Tuple.Create("", 601), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 21 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+, Tuple.Create(Tuple.Create("", 592), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 601), false)
+, 592), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -133,7 +133,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 25 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 24 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.HiddenFor(m => m.Id));
 
             
@@ -142,25 +142,25 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n\r\n");
 
             
-            #line 28 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
           
             var readonlyFieldHtmlAttributes = new Dictionary<string, object> { { "class", "readonly inputfields" }, { "readonly", "readonly" } };
         
             
             #line default
             #line hidden
-WriteLiteral("\r\n    \r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 31 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -175,7 +175,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Type, FieldFlex.twins, readonlyFieldHtmlAttributes, EnumResources.ResourceManager));
 
             
@@ -186,7 +186,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.TaskType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -201,7 +201,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 38 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Header, FieldFlex.lone));
 
             
@@ -226,7 +226,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 44 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledStart));
 
             
@@ -252,7 +252,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -263,7 +263,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -273,7 +273,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -282,8 +282,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 58 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 56 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -292,9 +292,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -313,7 +313,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 72 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 69 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledEnd));
 
             
@@ -339,7 +339,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 80 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 77 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -350,7 +350,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 81 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 78 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -360,7 +360,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -369,8 +369,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 86 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 82 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -379,9 +379,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -400,7 +400,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 100 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 95 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                    Write(Html.LabelFor(m => m.ActualEnd));
 
             
@@ -426,7 +426,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 108 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 103 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.DateFor(m => m.ActualEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -437,7 +437,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 109 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 104 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ActualEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -447,7 +447,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -456,8 +456,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 114 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 108 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -466,9 +466,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -477,7 +477,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 125 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 118 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Duration, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -492,7 +492,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 128 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 121 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -503,7 +503,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 129 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 122 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Status, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -518,7 +518,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 132 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 125 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -529,7 +529,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 134 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 127 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitleRegarding));
 
             
@@ -544,7 +544,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 136 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 129 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }));
 
             
@@ -555,8 +555,8 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 137 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm }));
+            #line 130 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -570,8 +570,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 140 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
-       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact }));
+            #line 133 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -583,7 +583,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 145 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
+            #line 138 "..\..\Views\CreateOrUpdate\MultiCultureTask.cshtml"
 Write(RenderBody());
 
             

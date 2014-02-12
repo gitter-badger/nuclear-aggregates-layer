@@ -583,9 +583,9 @@ WriteLiteral("            ");
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                                    {
                                                                                        EntityName = EntityName.LegalPerson,
-                                                                                       SearchFormFilterInfo = "ClientId={ClientId}",
-                                                                                       // Нужен для прокидывания клиента в карточку создания ЮЛ из лукапа.
-                                                                                       ExtendedInfo = "ClientId={ClientId}"
+                                                                                       ExtendedInfo = "filterToParent=true",
+                                                                                       ParentEntityName = EntityName.Client,
+                                                                                       ParentIdPattern = "ClientId",
                                                                                    }));
 
             
@@ -605,7 +605,6 @@ WriteLiteral("            ");
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
-                                                                                SearchFormFilterInfo = "clientId!=null",
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}"
                                                                             }));
 
@@ -617,7 +616,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 102 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 101 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
@@ -632,7 +631,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 105 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 104 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "userId={CurrenctUserCode}", ShowReadOnlyCard = true }));
 
             
@@ -643,7 +642,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 106 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 105 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Bargain, ReadOnly = true }));
 
             
@@ -658,7 +657,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 109 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 108 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
 
             
@@ -669,7 +668,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 110 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 109 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.OrderType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -680,7 +679,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 112 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 111 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("placementGroup", BLResources.TitlePlacement));
 
             
@@ -705,7 +704,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 117 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 116 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                    Write(BLResources.TitleReleasesCount);
 
             
@@ -733,7 +732,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 125 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 124 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.LabelFor(m => m.ReleaseCountPlan));
 
             
@@ -744,7 +743,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                                    ");
 
             
-            #line 128 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 127 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.TextBoxFor(m => m.ReleaseCountPlan, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -755,7 +754,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 129 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 128 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ReleaseCountPlan, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -774,7 +773,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 133 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 132 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.LabelFor(m => m.ReleaseCountFact));
 
             
@@ -785,7 +784,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                                    ");
 
             
-            #line 136 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 135 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.TextBoxFor(m => m.ReleaseCountFact, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -804,7 +803,7 @@ WriteLiteral(">\r\n                                    <span>\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 141 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 140 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                    Write(BLResources.TitleReleasesPlan);
 
             
@@ -816,7 +815,7 @@ WriteLiteral("\r\n                                    </span>\r\n               
 WriteLiteral("                                    ");
 
             
-            #line 145 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 144 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.TextBoxFor(m => m.BeginReleaseNumber, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -827,7 +826,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 146 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 145 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.ValidationMessageFor(m => m.BeginReleaseNumber, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -843,7 +842,7 @@ WriteLiteral(">\r\n                                    -\r\n                    
 WriteLiteral("                                    ");
 
             
-            #line 152 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 151 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.TextBoxFor(m => m.EndReleaseNumberPlan, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -854,7 +853,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 153 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 152 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.ValidationMessageFor(m => m.EndReleaseNumberPlan, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -867,7 +866,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("            ");
 
             
-            #line 160 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 159 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.EndReleaseNumberFact, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -892,7 +891,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 166 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 165 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                    Write(BLResources.TitlePlacementPeriod);
 
             
@@ -908,7 +907,7 @@ WriteLiteral(">\r\n                    <table>\r\n                        <tbody
 WriteLiteral("                                    ");
 
             
-            #line 174 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 173 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.DateFor(m => m.BeginDistributionDate, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound }));
 
             
@@ -924,7 +923,7 @@ WriteLiteral(">\r\n                                    -\r\n                    
 WriteLiteral("                                    ");
 
             
-            #line 180 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 179 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                Write(Html.DateFor(m => m.EndDistributionDatePlan, new DateTimeSettings { ReadOnly = true, ShiftOffset = false, PeriodType = PeriodType.MonthlyUpperBound }));
 
             
@@ -936,7 +935,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 WriteLiteral("                    ");
 
             
-            #line 185 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 184 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                Write(Html.ValidationMessageFor(m => m.BeginDistributionDate, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -947,7 +946,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 186 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 185 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                Write(Html.Hidden("now", DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)));
 
             
@@ -958,7 +957,7 @@ WriteLiteral("\r\n                </div>\r\n            </div>\r\n");
 WriteLiteral("            ");
 
             
-            #line 189 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 188 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.EndDistributionDateFact, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -969,7 +968,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 191 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 190 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("discountGroup", BLResources.TitleDiscount));
 
             
@@ -1002,7 +1001,7 @@ WriteLiteral(">\r\n                            <span>\r\n");
 WriteLiteral("                                ");
 
             
-            #line 198 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 197 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                            Write(BLResources.DiscountValue);
 
             
@@ -1031,7 +1030,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 206 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 205 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.RadioButtonFor(m => m.DiscountPercentChecked, true, new Dictionary<string, object> { { "id", "DiscountPercentChecked" }, { "class", "rad" } }));
 
             
@@ -1043,7 +1042,7 @@ WriteLiteral("\r\n                                        </td>\r\n             
 WriteLiteral("                                            ");
 
             
-            #line 209 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 208 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.TextBoxFor(m => m.DiscountPercent, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -1054,7 +1053,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 210 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 209 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.ValidationMessageFor(m => m.DiscountPercent, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -1079,7 +1078,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 217 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 216 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.RadioButtonFor(m => m.DiscountPercentChecked, false, new Dictionary<string, object> { { "id", "DiscountSumChecked" }, { "class", "rad" } }));
 
             
@@ -1091,7 +1090,7 @@ WriteLiteral("\r\n                                        </td>\r\n             
 WriteLiteral("                                            ");
 
             
-            #line 220 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 219 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.TextBoxFor(m => m.DiscountSum, new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -1102,7 +1101,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                            ");
 
             
-            #line 221 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 220 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                        Write(Html.ValidationMessageFor(m => m.DiscountSum, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -1116,7 +1115,7 @@ WriteLiteral(" style=\"width: 30px; text-align: center;\"");
 WriteLiteral(">\r\n                                            <span>");
 
             
-            #line 224 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 223 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                                              Write(ViewData.GetErmBaseCurrencySymbol());
 
             
@@ -1129,7 +1128,7 @@ WriteLiteral("</span>\r\n                                        </td>\r\n      
 WriteLiteral("                    ");
 
             
-            #line 231 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 230 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                Write(Html.TemplateField(m => m.DiscountReason, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -1144,7 +1143,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 234 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 233 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
                Write(Html.TemplateField(m => m.DiscountComment, FieldFlex.lone));
 
             
@@ -1157,14 +1156,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14511), Tuple.Create("\"", 14550)
+WriteAttribute("title", Tuple.Create(" title=\"", 14344), Tuple.Create("\"", 14383)
             
-            #line 239 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 14519), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+            #line 238 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+, Tuple.Create(Tuple.Create("", 14352), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14519), false)
+, 14352), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1172,7 +1171,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 240 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 239 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("finances", BLResources.TitleFinances));
 
             
@@ -1187,7 +1186,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 242 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 241 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.PayablePrice, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1198,7 +1197,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 243 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 242 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true, }));
 
             
@@ -1213,7 +1212,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 246 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 245 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1224,7 +1223,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 247 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 246 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.AmountToWithdraw, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1239,7 +1238,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 250 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 249 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.PayableFact, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1250,7 +1249,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 251 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 250 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.AmountWithdrawn, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } }));
 
             
@@ -1265,7 +1264,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 254 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 253 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.PaymentMethod, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -1276,7 +1275,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 256 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 255 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("сancellation", BLResources.TitleCancellation));
 
             
@@ -1291,7 +1290,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 258 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 257 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.TerminationReason, FieldFlex.lone, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
@@ -1306,7 +1305,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 261 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 260 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "3" }, { "readonly", "readonly" }, { "class", "readonly" } }));
 
             
@@ -1317,7 +1316,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 263 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 262 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("control", BLResources.TitleControl));
 
             
@@ -1332,7 +1331,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 265 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 264 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
 
             
@@ -1344,14 +1343,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 16946), Tuple.Create("\"", 16989)
+WriteAttribute("title", Tuple.Create(" title=\"", 16779), Tuple.Create("\"", 16822)
             
-            #line 268 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 16954), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+            #line 267 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+, Tuple.Create(Tuple.Create("", 16787), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 16954), false)
+, 16787), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1359,7 +1358,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 269 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 268 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
    Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 
             
@@ -1368,13 +1367,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 270 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 269 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 270 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 269 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
          if (Model.IsCurated && Model.IsSecurityRoot)
         {
 
@@ -1390,7 +1389,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 273 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 272 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
            Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
@@ -1401,7 +1400,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                ");
 
             
-            #line 274 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 273 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
            Write(Html.TemplateField(m => m.SignupDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -1410,7 +1409,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n");
 
             
-            #line 276 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 275 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
         }
 
             
@@ -1425,7 +1424,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 278 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 277 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
 
             
@@ -1436,7 +1435,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 279 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 278 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -1451,7 +1450,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 282 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 281 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
 
             
@@ -1462,7 +1461,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 283 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 282 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -1475,7 +1474,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 288 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
+            #line 287 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
 Write(RenderBody());
 
             
