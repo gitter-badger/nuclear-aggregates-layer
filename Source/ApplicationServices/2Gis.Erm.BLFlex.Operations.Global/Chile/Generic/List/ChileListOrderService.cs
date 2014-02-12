@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -64,11 +63,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             _finder = finder;
         }
 
-        protected override IEnumerable<ChileListOrderDto> GetListData(IQueryable<Order> query, QuerySettings querySettings, ListFilterManager filterManager, out int count)
+        protected override IEnumerable<ChileListOrderDto> GetListData(IQueryable<Order> query, QuerySettings querySettings, out int count)
         {
             var selectExpression = OrderSpecifications.Select.OrdersForCzechGridView().Selector;
 
-            var dummyAdvertisementsFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var dummyAdvertisementsFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "WithDummyValues",
                 withDummyValues =>
                 {
@@ -92,7 +91,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                             .Any(y => y.OrderPositionAdvertisements.Any(z => dummyAdvertisementIds.Contains(z.AdvertisementId)));
                 });
 
-            var useCurrentMonthForEndDistributionDateFactFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var useCurrentMonthForEndDistributionDateFactFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "useCurrentMonthForEndDistributionDateFact",
                 useCurrentMonth =>
                 {
@@ -109,7 +108,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                     return x => x.EndDistributionDateFact == currentMonth;
                 });
 
-            var forNextEditionFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var forNextEditionFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "ForNextEdition",
                 forNextEdition =>
                 {
@@ -128,7 +127,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                         x => x.EndDistributionDateFact >= currentMonthLastDate && x.BeginDistributionDate <= currentMonthFirstDate;
                 });
 
-            var forNextMonthEditionFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var forNextMonthEditionFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "ForNextMonthEdition",
                 forNextMontEdition =>
                 {
@@ -146,7 +145,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                     return x => x.EndDistributionDateFact >= nextMonthLastDate && x.BeginDistributionDate <= nextMonthFirstDate;
                 });
 
-            var withoutAdvertisementFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var withoutAdvertisementFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "WithoutAdvertisement",
                 withoutAdvertisement =>
                 {
@@ -181,7 +180,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                                     .Any(y => y.RequiredPositionFails.Any(z => z.OpaIsEmpty || z.AdvertisementIsRequired));
                 });
 
-            var rejectedByMeFilter = filterManager.CreateForExtendedProperty<Order, bool>(
+            var rejectedByMeFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "RejectedByMe",
                 rejectedByMe =>
                 {
@@ -202,11 +201,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                     return x => loqQuery.Contains(x.Id);
                 });
 
-            switch (filterManager.ParentEntityName)
+            switch (querySettings.ParentEntityName)
             {
                 case EntityName.Client:
                     return query
-                        .Where(x => x.Firm.ClientId == filterManager.ParentEntityId || x.LegalPerson.ClientId == filterManager.ParentEntityId)
+                        .Where(x => x.Firm.ClientId == querySettings.ParentEntityId || x.LegalPerson.ClientId == querySettings.ParentEntityId)
                         .ApplyFilter(forNextEditionFilter)
                         .ApplyFilter(forNextMonthEditionFilter)
                         .ApplyFilter(withoutAdvertisementFilter)
@@ -220,7 +219,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                         .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
                 case EntityName.LegalPerson:
                     return query
-                        .Where(x => x.LegalPersonId == filterManager.ParentEntityId)
+                        .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
                         .ApplyFilter(forNextEditionFilter)
                         .ApplyFilter(forNextMonthEditionFilter)
                         .ApplyFilter(withoutAdvertisementFilter)
@@ -234,7 +233,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                         .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
                 case EntityName.Account:
                     return query
-                        .Where(x => x.AccountId == filterManager.ParentEntityId)
+                        .Where(x => x.AccountId == querySettings.ParentEntityId)
                         .ApplyFilter(forNextEditionFilter)
                         .ApplyFilter(forNextMonthEditionFilter)
                         .ApplyFilter(withoutAdvertisementFilter)
@@ -248,7 +247,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                         .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
                 case EntityName.Firm:
                     return query
-                        .Where(x => x.FirmId == filterManager.ParentEntityId)
+                        .Where(x => x.FirmId == querySettings.ParentEntityId)
                         .ApplyFilter(forNextEditionFilter)
                         .ApplyFilter(forNextMonthEditionFilter)
                         .ApplyFilter(withoutAdvertisementFilter)

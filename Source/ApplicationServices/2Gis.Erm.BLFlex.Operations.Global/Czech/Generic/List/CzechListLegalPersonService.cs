@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -33,10 +31,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
         protected override IEnumerable<CzechListLegalPersonDto> GetListData(
             IQueryable<LegalPerson> query,
             QuerySettings querySettings,
-            ListFilterManager filterManager,
             out int count)
         {
-            var restrictForMergeFilter = filterManager.CreateForExtendedProperty<LegalPerson, long>(
+            var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
                 "restrictForMergeId",
                 restrictForMergeId =>
                 {

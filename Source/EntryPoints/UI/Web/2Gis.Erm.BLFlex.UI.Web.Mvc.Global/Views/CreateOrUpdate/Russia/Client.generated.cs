@@ -342,7 +342,7 @@ WriteLiteral("            ");
 
             
             #line 51 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, SearchFormFilterInfo = "ClientId={Id}" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" }));
 
             
             #line default
@@ -353,14 +353,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2560), Tuple.Create("\"", 2603)
+WriteAttribute("title", Tuple.Create(" title=\"", 2620), Tuple.Create("\"", 2663)
             
             #line 54 "..\..\Views\CreateOrUpdate\Russia\Client.cshtml"
-, Tuple.Create(Tuple.Create("", 2568), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2628), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2568), false)
+, 2628), false)
 );
 
 WriteLiteral(">\r\n");

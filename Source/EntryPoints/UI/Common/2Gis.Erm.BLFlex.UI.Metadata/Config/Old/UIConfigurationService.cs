@@ -695,7 +695,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         IsCrmView = y.IsCrmView,
                         RequestUrl = y.RequestUrl,
                         FilterExpression = y.FilterExpression,
-                        ExtendedInfo = y.ExtendedInfo,
                         AppendableEntity = y.AppendableEntity,
                     }).ToArray(),
                 }).ToArray(),
@@ -914,12 +913,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 if (filterExpression != null)
                 {
                     cardRelatedItemsJson.FilterExpression = filterExpression.Value;
-                }
-
-                var extendedInfo = relatedItemEl.Attribute("ExtendedInfo");
-                if (extendedInfo != null)
-                {
-                    cardRelatedItemsJson.ExtendedInfo = extendedInfo.Value;
                 }
 
                 var appendableEntity = relatedItemEl.Attribute("AppendableEntity");

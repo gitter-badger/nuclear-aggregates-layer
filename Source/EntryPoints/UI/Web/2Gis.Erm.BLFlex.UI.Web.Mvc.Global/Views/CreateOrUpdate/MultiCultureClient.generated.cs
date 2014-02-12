@@ -331,7 +331,7 @@ WriteLiteral("            ");
 
             
             #line 48 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, SearchFormFilterInfo = "ClientId={Id}" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" }));
 
             
             #line default
@@ -353,14 +353,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2370), Tuple.Create("\"", 2413)
+WriteAttribute("title", Tuple.Create(" title=\"", 2430), Tuple.Create("\"", 2473)
             
             #line 52 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-, Tuple.Create(Tuple.Create("", 2378), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2438), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2378), false)
+, 2438), false)
 );
 
 WriteLiteral(">\r\n");

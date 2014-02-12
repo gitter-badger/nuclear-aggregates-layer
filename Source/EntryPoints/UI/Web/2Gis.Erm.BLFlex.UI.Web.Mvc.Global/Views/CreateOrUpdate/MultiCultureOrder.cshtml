@@ -86,9 +86,9 @@
             @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                                    {
                                                                                        EntityName = EntityName.LegalPerson,
-                                                                                       SearchFormFilterInfo = "ClientId={ClientId}",
-                                                                                       // Нужен для прокидывания клиента в карточку создания ЮЛ из лукапа.
-                                                                                       ExtendedInfo = "ClientId={ClientId}"
+                                                                                       ExtendedInfo = "filterToParent=true",
+                                                                                       ParentEntityName = EntityName.Client,
+                                                                                       ParentIdPattern = "ClientId",
                                                                                    })
         </div>
         <div class="row-wrapper">
@@ -96,7 +96,6 @@
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
-                                                                                SearchFormFilterInfo = "clientId!=null",
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}"
                                                                             })
             @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" })

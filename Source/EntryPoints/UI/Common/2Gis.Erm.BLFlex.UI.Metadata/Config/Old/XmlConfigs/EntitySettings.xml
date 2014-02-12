@@ -15,7 +15,7 @@
 					<RelatedItem Name="AccountDetails" NameLocaleResourceId="CrdRelAccountDetails" RequestUrl="/Grid/View/AccountDetail" FilterExpression="AccountId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Locks" NameLocaleResourceId="CrdRelLocks" RequestUrl="/Grid/View/Lock" FilterExpression="AccountId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" FilterExpression="AccountId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
-					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
+					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" FilterExpression="AccountId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
@@ -811,7 +811,7 @@
 					<RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" RequestUrl="/Grid/View/Contact" FilterExpression="ClientId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Deal" NameLocaleResourceId="CrdRelDeals" RequestUrl="/Grid/View/Deal" FilterExpression="ClientId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" RequestUrl="/Grid/View/LegalPerson" FilterExpression="ClientId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
-					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
+					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" FilterExpression="LegalPerson.ClientId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" FilterExpression="IsActive=true&amp;&amp;IsDeleted=false&amp;&amp;Account.LegalPerson.Client.Id={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" FilterExpression="it.LegalPerson.ClientId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" FilterExpression="ClientId={Id}"/>-->
@@ -1214,7 +1214,8 @@
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Expression="it.Id" Width="100" Hidden="true" Filtered="false" FieldType="Int" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="Name" NameLocaleResourceId="ContactDepartmentName" Expression="it.Name" Width="300" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
-					<Field Name="ParentName" NameLocaleResourceId="ParentDepartment" Expression="it.Parent.Name" Width="300" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="ParentId" Expression="it.ParentId" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+					<Field Name="ParentName" NameLocaleResourceId="ParentDepartment" Expression="it.Parent.Name" Width="300" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="Department" ReferenceFieldName="ParentId" />
 				</Fields>
 			</DataList>
 			<DataList NameLocaleResourceId="DListInactiveDepartment" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Department.gif" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=false">
@@ -1224,7 +1225,8 @@
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Expression="it.Id" Width="100" Hidden="true" Filtered="false" FieldType="Int" ExtTypeName="String" DotNetTypeName="System.String" />
 					<Field Name="Name" NameLocaleResourceId="ContactDepartmentName" Expression="it.Name" Width="300" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
-					<Field Name="ParentName" NameLocaleResourceId="ParentDepartment" Expression="it.Parent.Name" Width="300" Hidden="false" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="ParentId" Expression="it.ParentId" Width="0" Hidden="true" Filtered="false" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+					<Field Name="ParentName" NameLocaleResourceId="ParentDepartment" Expression="it.Parent.Name" Width="300" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" ReferenceEntityName="Department" ReferenceFieldName="ParentId" />
 				</Fields>
 			</DataList>
 		</DataLists>
@@ -1262,9 +1264,9 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
 					<RelatedItem Name="FirmAddresses" NameLocaleResourceId="CrdRelFirmAddresses" RequestUrl="/Grid/View/FirmAddress" FilterExpression="FirmId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
-					<RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
+					<RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" FilterExpression="FirmAddress.FirmId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" FilterExpression="FirmId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
-					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
+					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" FilterExpression="FirmId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 					<RelatedItem Name="AdditionalFirmServices" NameLocaleResourceId="AdditionalFirmServices" RequestUrl="/Edit/AdditionalFirmServices" FilterExpression="FirmId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
@@ -1382,7 +1384,7 @@
 					<RelatedItem Name="Account" NameLocaleResourceId="CrdRelAccounts" Icon="en_ico_16_Account.gif" RequestUrl="/Grid/View/Account" FilterExpression="LegalPersonId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" FilterExpression="Account.LegalPersonId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" FilterExpression="CustomerLegalPersonId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
-					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
+					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" FilterExpression="LegalPersonId={Id}" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>

@@ -47,10 +47,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 4 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 3 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
   
     Layout = "../../Shared/_CardLayout.cshtml";
 
@@ -63,30 +61,30 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 134), Tuple.Create("\"", 206)
-, Tuple.Create(Tuple.Create("", 140), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 140), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 132), Tuple.Create("\"", 204)
+, Tuple.Create(Tuple.Create("", 138), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 138), true)
             
-            #line 10 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 172), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 9 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+, Tuple.Create(Tuple.Create("", 170), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 172), false)
+, 170), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 253), Tuple.Create("\"", 348)
-, Tuple.Create(Tuple.Create("", 259), Tuple.Create("/Scripts/Russia/Ext.DoubleGis.UI.RussiaActivityBase.js?", 259), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 251), Tuple.Create("\"", 346)
+, Tuple.Create(Tuple.Create("", 257), Tuple.Create("/Scripts/Russia/Ext.DoubleGis.UI.RussiaActivityBase.js?", 257), true)
             
-            #line 11 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 314), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 10 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+, Tuple.Create(Tuple.Create("", 312), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 314), false)
+, 312), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -95,8 +93,8 @@ WriteLiteral("></script>\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteLiteral(">\r\n        div.label-wrapper\r\n        {\r\n            width: 180px !important;\r\n  " +
-"      }\r\n    </style>\r\n");
+WriteLiteral(">\r\n        div.label-wrapper {\r\n            width: 180px !important;\r\n        }\r\n" +
+"    </style>\r\n");
 
 });
 
@@ -110,14 +108,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 574), Tuple.Create("\"", 610)
+WriteAttribute("title", Tuple.Create(" title=\"", 563), Tuple.Create("\"", 599)
             
-            #line 22 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 582), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 20 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+, Tuple.Create(Tuple.Create("", 571), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 582), false)
+, 571), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -129,7 +127,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 25 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.HiddenFor(m => m.Id));
 
             
@@ -138,25 +136,25 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n\r\n");
 
             
-            #line 28 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
           
             var readonlyFieldHtmlAttributes = new Dictionary<string, object> { { "class", "readonly inputfields" }, { "readonly", "readonly" } };
         
             
             #line default
             #line hidden
-WriteLiteral("\r\n    \r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -171,7 +169,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Type, FieldFlex.twins, readonlyFieldHtmlAttributes, EnumResources.ResourceManager));
 
             
@@ -182,7 +180,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.TaskType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -197,7 +195,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 38 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 36 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Header, FieldFlex.lone));
 
             
@@ -222,7 +220,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 44 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 42 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledStart));
 
             
@@ -248,7 +246,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -259,7 +257,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -269,7 +267,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -278,8 +276,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 58 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 55 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledStartTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -288,9 +286,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -309,7 +307,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 72 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 68 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                    Write(Html.LabelFor(m => m.ScheduledEnd));
 
             
@@ -335,7 +333,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 80 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 76 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -346,7 +344,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 81 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 77 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -356,7 +354,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -365,8 +363,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 86 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 81 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+                               Write(Html.TextBoxFor(m => m.ScheduledEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -375,9 +373,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -396,7 +394,7 @@ WriteLiteral(">\r\n                    <span>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 100 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 94 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                    Write(Html.LabelFor(m => m.ActualEnd));
 
             
@@ -422,7 +420,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 108 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 102 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.DateFor(m => m.ActualEnd, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -433,7 +431,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 109 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 103 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
                                Write(Html.ValidationMessageFor(m => m.ActualEnd, null, new Dictionary<string, object> { { "class", "error" } }));
 
             
@@ -443,7 +441,7 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: 5px\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                                <td");
+WriteLiteral("></td>\r\n                                <td");
 
 WriteLiteral(" style=\"width: 60px\"");
 
@@ -452,8 +450,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 114 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object>{{ "class", "timepicker inputfields"}}));
+            #line 107 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+                               Write(Html.TextBoxFor(m => m.ActualEndTime, new Dictionary<string, object> { { "class", "timepicker inputfields" } }));
 
             
             #line default
@@ -462,9 +460,9 @@ WriteLiteral("\r\n                                </td>\r\n                     
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteLiteral(">\r\n                                </td>\r\n                            </tr>\r\n    " +
-"                    </tbody>\r\n                    </table>\r\n                </di" +
-"v>\r\n            </div>\r\n        </div>\r\n        <div");
+WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
+"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
+"div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -473,7 +471,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 125 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 117 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Duration, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -488,7 +486,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 128 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 120 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -499,7 +497,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 129 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 121 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Status, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -514,7 +512,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 132 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 124 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -525,7 +523,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 134 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 126 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitleRegarding));
 
             
@@ -540,7 +538,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 136 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+            #line 128 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }));
 
             
@@ -551,8 +549,8 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 137 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-       Write(Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal }));
+            #line 129 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+       Write(Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -566,8 +564,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 140 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact }));
+            #line 132 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+       Write(Html.TemplateField(m => m.Contact, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -577,8 +575,8 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 141 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm }));
+            #line 133 "..\..\Views\CreateOrUpdate\Russia\Task.cshtml"
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
