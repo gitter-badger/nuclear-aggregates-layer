@@ -21,7 +21,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
         {
             var listAppServiceProxy = _clientProxyFactory.GetClientProxy<IListApplicationService, WSHttpBinding>();
             return listAppServiceProxy.Execute(x => x.Execute(typeof(TEntity).AsEntityName(),
-                                                               searchListModel.WhereExp,
                                                                searchListModel.Start,
                                                                searchListModel.FilterInput,
                                                                searchListModel.ExtendedInfo,
@@ -29,8 +28,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                                                                searchListModel.Limit,
                                                                searchListModel.Dir,
                                                                searchListModel.Sort,
-                                                               searchListModel.PId.ToString(),
-                                                               searchListModel.PType));
+                                                               searchListModel.ParentEntityId,
+                                                               searchListModel.ParentEntityName));
         }
     }
 }

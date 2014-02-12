@@ -52,7 +52,7 @@
             @Html.TemplateField(m => m.Department, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Department})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User, SearchFormFilterInfo = "Id!={Id}" })
+            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "excludeId={Id}" })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsServiceUser, FieldFlex.lone)

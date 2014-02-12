@@ -54,8 +54,6 @@
     <script type="text/javascript">
         var SearchRecords = function ()
         {
-            Entity.QueryParams.filterExpression = Ext.DoubleGis.Global.Helpers.BuildDataListFilter(Entity, Entity.FilterInfo, this.getValue());
-            Entity.Items.Store.setBaseParam("whereExp", Entity.QueryParams.filterExpression);
             Entity.Items.Store.setBaseParam("filterInput", this.getValue());
             Entity.Items.Grid.getBottomToolbar().changePage(1);
         };

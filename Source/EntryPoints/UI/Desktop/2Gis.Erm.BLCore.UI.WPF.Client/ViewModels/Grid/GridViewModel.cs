@@ -393,7 +393,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
                 Sort = targetSorting.Column,
                 Start = start,
                 Limit = limit,
-                WhereExp = CurrentView.DefaultFilter,
                 ExtendedInfo = CurrentView.ExtendedInfo,
                 Dir = GetDirectionString(targetSorting.Direction),
                 FilterInput = filterInput
