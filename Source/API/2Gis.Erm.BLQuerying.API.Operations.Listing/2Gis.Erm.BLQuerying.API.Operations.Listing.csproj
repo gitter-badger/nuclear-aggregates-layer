@@ -74,6 +74,7 @@
     <Compile Include="List\DTO\ListContactDto.cs" />
     <Compile Include="List\DTO\ListCurrencyRateDto.cs" />
     <Compile Include="List\DTO\ListDealDto.cs" />
+    <Compile Include="List\DTO\ListDeniedPositionDto.cs" />
     <Compile Include="List\DTO\ListFirmAddressDto.cs" />
     <Compile Include="List\DTO\ListFirmContactDto.cs" />
     <Compile Include="List\DTO\ListFirmDto.cs" />

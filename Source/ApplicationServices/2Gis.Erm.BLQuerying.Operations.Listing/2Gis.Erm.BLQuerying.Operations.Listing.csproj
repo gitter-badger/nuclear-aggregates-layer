@@ -69,9 +69,11 @@
     <Compile Include="List\ListBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="List\ListCategoryFirmAddressService.cs" />
     <Compile Include="List\ListCategoryService.cs" />
+    <Compile Include="List\ListClientService.cs" />
     <Compile Include="List\ListContactService.cs" />
     <Compile Include="List\ListCurrencyRateService.cs" />
     <Compile Include="List\ListDealService.cs" />
+    <Compile Include="List\ListDeniedPositionService.cs" />
     <Compile Include="List\ListFirmAddressService.cs" />
     <Compile Include="List\ListFirmContactService.cs" />
     <Compile Include="List\ListFirmService.cs" />
