@@ -143,15 +143,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
                 _userContext = userContext;
             }
 
-            public string GetFilterToParentPredicate(EntityName entityName, EntityName parentEntityName, long parentId)
+            public string GetFilterToParentPredicate(EntityName entityName, EntityName parentEntityName, long parentEntityId)
             {
-                var filterExpression = GetFilterPredicateFromEntitySettings(entityName, parentEntityName, parentId);
+                var filterExpression = GetFilterPredicateFromEntitySettings(entityName, parentEntityName, parentEntityId);
                 if (filterExpression != null)
                 {
                     return filterExpression;
                 }
 
-                filterExpression = GetFilterExpressionFromRelationalMap(entityName, parentEntityName, parentId);
+                filterExpression = GetFilterExpressionFromRelationalMap(entityName, parentEntityName, parentEntityId);
                 if (filterExpression != null)
                 {
                     return filterExpression;
@@ -160,7 +160,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
                 throw new Exception(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", parentEntityName, entityName));
             }
 
-            private static string GetFilterExpressionFromRelationalMap(EntityName entityName, EntityName parentEntityName, long parentId)
+            private static string GetFilterExpressionFromRelationalMap(EntityName entityName, EntityName parentEntityName, long parentEntityId)
             {
                 string filterExpression;
                 if (!RelationalMap.TryGetValue(Tuple.Create(parentEntityName, entityName), out filterExpression))
@@ -168,11 +168,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
                     return null;
                 }
 
-                filterExpression = string.Format(filterExpression, parentId);
+                filterExpression = string.Format(filterExpression, parentEntityId);
                 return filterExpression;
             }
 
-            private string GetFilterPredicateFromEntitySettings(EntityName entityName, EntityName parentEntityName, long parentId)
+            private string GetFilterPredicateFromEntitySettings(EntityName entityName, EntityName parentEntityName, long parentEntityId)
             {
                 var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
                 var cardSettings = _uiConfigurationService.GetCardSettings(parentEntityName, userCultureInfo);
@@ -183,7 +183,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
                     return null;
                 }
 
-                filterExpression = filterExpression.Replace("{Id}", parentId.ToString(CultureInfo.InvariantCulture));
+                filterExpression = filterExpression.Replace("{parentEntityId}", parentEntityId.ToString(CultureInfo.InvariantCulture));
                 return filterExpression;
             }
         }

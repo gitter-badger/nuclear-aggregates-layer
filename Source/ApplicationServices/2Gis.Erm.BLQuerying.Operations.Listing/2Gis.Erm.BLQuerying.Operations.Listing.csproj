@@ -72,6 +72,7 @@
     <Compile Include="List\ListContactService.cs" />
     <Compile Include="List\ListCurrencyRateService.cs" />
     <Compile Include="List\ListDealService.cs" />
+    <Compile Include="List\ListDeniedPositionService.cs" />
     <Compile Include="List\ListFirmAddressService.cs" />
     <Compile Include="List\ListFirmContactService.cs" />
     <Compile Include="List\ListFirmService.cs" />
