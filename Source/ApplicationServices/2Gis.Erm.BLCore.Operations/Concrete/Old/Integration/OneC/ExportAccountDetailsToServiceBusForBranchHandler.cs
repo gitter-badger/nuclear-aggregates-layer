@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     OrganizationUnitCode = organizationUnitSyncCode1C,
                     StartDate = period.Start,
                     EndDate = period.End,
-                    ClientDebitTotalAmount = debits.Sum(x => x.Amount),
+                    ClientDebitTotalAmount = debits.Where(x => x.Type == DebitDto.DebitType.Client).Sum(x => x.Amount),
                     Debits = debits
                 };
         }
