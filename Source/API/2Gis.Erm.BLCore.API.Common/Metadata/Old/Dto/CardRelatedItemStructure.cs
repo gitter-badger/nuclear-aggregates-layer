@@ -11,6 +11,7 @@
         public bool IsCrmView { get; set; }
         public string RequestUrl { get; set; }
         public string FilterExpression { get; set; }
+        public string ExtendedInfo { get; set; }
         public string AppendableEntity { get; set; }
     }
 }
