@@ -543,11 +543,12 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
         var queryString = "";
         if (this.ParentType && this.ParentId) {
-            queryString = "?pId=" + this.ParentId + "&pType=" + this.ParentType;
+            queryString += (queryString ? "&" : "?") + "pType=" + this.ParentType;
+            queryString += (queryString ? "&" : "?") + "pId=" + this.ParentId;
         }
         
         if (this.currentSettings.ReadOnly) {
-            queryString += '&ReadOnly=' + this.currentSettings.ReadOnly;
+            queryString += (queryString ? "&" : "?") + "ReadOnly=" + this.currentSettings.ReadOnly;
         }
 
         var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(overridenEntityName ? overridenEntityName : this.EntityName, val, queryString);
