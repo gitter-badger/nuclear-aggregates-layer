@@ -812,6 +812,18 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             var val;
             var i;
 
+            var extendedInfo = n.attributes.extendedInfo;
+            if (extendedInfo) {
+                filters = extendedInfo.match(/\{\w{1,}\}/g);
+                if (filters) {
+                    for (i = 0; i < filters.length; i++) {
+                        reg = new RegExp(filters[i], "g");
+                        val = window.Ext.get(filters[i].substring(1, filters[i].length - 1)).getValue();
+                        extendedInfo = extendedInfo.replace(reg, val);
+                    }
+                }
+            }
+
             var requestUrl = n.attributes.requestUrl;
             if (n.attributes.requestUrl) {
                 filters = n.attributes.requestUrl.match(/\{\w{1,}\}/g);
@@ -909,6 +921,11 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                         parentEntityState,
                         appendedEntityType);
                 }
+
+                if (extendedInfo) {
+                    frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
+                }
+
                 frame.setAttribute("src", frameUrl);
             }
         }

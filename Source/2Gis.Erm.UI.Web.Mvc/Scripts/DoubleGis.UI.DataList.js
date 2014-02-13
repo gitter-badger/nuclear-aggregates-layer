@@ -68,6 +68,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                         {
                             defaultDataView: decodedQueryString.defaultDataView,
                             singleDataView: decodedQueryString.singleDataView,
+                            extendedInfo: decodedQueryString.extendedInfo,
                             appendedEntity: appendedEntityType,
                             parentId: parentEntityId,
                             parentType: parentEntityType,
@@ -101,6 +102,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 model.modelSettings.DataViews = [currentDataView];
         }
 
+        this.extendedInfo = model.extendedInfo;
         this.AppendedEntity = model.appendedEntity;
         this.ParentId = model.parentId;
         this.ParentState = model.parentState;
@@ -274,7 +276,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             baseParams: {
                 start: 0,
                 filterInput: "",
-                extendedInfo: "filterToParent=true",
+                extendedInfo: this.extendedInfo,
                 nameLocaleResourceId: this.currentSettings.NameLocaleResourceId,
                 limit: this.currentSettings.RowsPerPage,
                 dir: this.currentSettings.DefaultSortDirection == 0 ? "ASC" : "DESC",
