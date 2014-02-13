@@ -73,7 +73,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                     {
                         typeof(LegalPersonProfilePart), new IEntityPropertyIdentity[]
                             {
-                                EntityPartTypeIdentity.Instance,
                                 AccountTypeIdentity.Instance,
                                 BankIdIdentity.Instance,
                                 RutIdentity.Instance,
@@ -86,9 +85,15 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
 
         public static IEnumerable<IEntityPropertyIdentity> GetPropertyIdentities<T>() where T : IEntity
         {
-            return ActivityPropertiesMapping[typeof(T)] ??
-                   DictionaryEntityPropertiesMapping[typeof(T)] ??
-                   BusinessEntityPropertiesMapping[typeof(T)];
+            return GetPropertyIdentities<T>(ActivityPropertiesMapping) ??
+                   GetPropertyIdentities<T>(DictionaryEntityPropertiesMapping) ??
+                   GetPropertyIdentities<T>(BusinessEntityPropertiesMapping);
+        }
+
+        private static IEnumerable<IEntityPropertyIdentity> GetPropertyIdentities<T>(IReadOnlyDictionary<Type, IEnumerable<IEntityPropertyIdentity>> mapping)
+        {
+            IEnumerable<IEntityPropertyIdentity> identities;
+            return mapping.TryGetValue(typeof(T), out identities) ? identities : null;
         }
     }
 }
