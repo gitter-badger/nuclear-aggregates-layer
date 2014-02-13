@@ -127,28 +127,28 @@ WriteLiteral("\';\r\n                            window.Ext.MessageBox.show({\r\
 ".Ext.LoadMask(window.Ext.get(\"profileFrame_holder\"));\r\n                        m" +
 "ask.show();\r\n                        var iframe = Ext.get(\'profileFrame_frame\');" +
 "\r\n\r\n                        iframe.dom.src = \'/Grid/View/LegalPersonProfile/Lega" +
-"lPerson/{0}/{1}/?filterInfo=LegalPersonId%3D{0}\'.replace(/\\{0\\}/g, this.form.Id." +
-"value).replace(/\\{1\\}/g, this.ReadOnly ? \'Inactive\' : \'Active\');\r\n              " +
-"          iframe.on(\'load\', function (evt, el) {\r\n                            el" +
-".height = Ext.get(el.parentElement).getComputedHeight();\r\n                      " +
-"      el.width = Ext.get(el.parentElement).getComputedWidth();\r\n                " +
-"            el.style.height = \"100%\";\r\n                            el.style.widt" +
-"h = \"100%\";\r\n                            el.contentWindow.Ext.onReady(function (" +
-") {\r\n                                el.contentWindow.IsBottomOrderPositionDataL" +
-"ist = true;\r\n                            });\r\n                            this.h" +
-"ide();\r\n                        }, mask);\r\n                        cnt.doLayout(" +
-");\r\n                        \r\n                    }\r\n                }\r\n        " +
-"    });\r\n            \r\n            this.on(\"afterbuild\", this.buildProfilesList," +
-" this);\r\n            this.on(\"afterrelatedlistready\", function(card, details) {\r" +
-"\n                var dataListName = details.dataList.currentSettings.Name;\r\n\r\n  " +
-"              if (dataListName === \'LegalPersonProfile\') {\r\n                    " +
-"var dataListWindow = details.dataList.ContentContainer.container.dom.document.pa" +
-"rentWindow;\r\n                    if (dataListWindow.IsBottomOrderPositionDataLis" +
-"t) {\r\n                        dataListWindow.Ext.getDom(\'Toolbar\').style.display" +
-" = \'none\';\r\n                        details.dataList.Items.Grid.getBottomToolbar" +
-"().hide();\r\n                        details.dataList.ContentContainer.doLayout()" +
-";\r\n                    }\r\n                }\r\n            }, this);\r\n        };\r\n" +
-"    </script>\r\n    <style");
+"lPerson/{0}/{1}?extendedInfo=filterToParent%3Dtrue\'.replace(/\\{0\\}/g, this.form." +
+"Id.value).replace(/\\{1\\}/g, this.ReadOnly ? \'Inactive\' : \'Active\');\r\n           " +
+"             iframe.on(\'load\', function (evt, el) {\r\n                           " +
+" el.height = Ext.get(el.parentElement).getComputedHeight();\r\n                   " +
+"         el.width = Ext.get(el.parentElement).getComputedWidth();\r\n             " +
+"               el.style.height = \"100%\";\r\n                            el.style.w" +
+"idth = \"100%\";\r\n                            el.contentWindow.Ext.onReady(functio" +
+"n () {\r\n                                el.contentWindow.IsBottomOrderPositionDa" +
+"taList = true;\r\n                            });\r\n                            thi" +
+"s.hide();\r\n                        }, mask);\r\n                        cnt.doLayo" +
+"ut();\r\n                        \r\n                    }\r\n                }\r\n     " +
+"       });\r\n            \r\n            this.on(\"afterbuild\", this.buildProfilesLi" +
+"st, this);\r\n            this.on(\"afterrelatedlistready\", function(card, details)" +
+" {\r\n                var dataListName = details.dataList.currentSettings.Name;\r\n\r" +
+"\n                if (dataListName === \'LegalPersonProfile\') {\r\n                 " +
+"   var dataListWindow = details.dataList.ContentContainer.container.dom.document" +
+".parentWindow;\r\n                    if (dataListWindow.IsBottomOrderPositionData" +
+"List) {\r\n                        dataListWindow.Ext.getDom(\'Toolbar\').style.disp" +
+"lay = \'none\';\r\n                        details.dataList.Items.Grid.getBottomTool" +
+"bar().hide();\r\n                        details.dataList.ContentContainer.doLayou" +
+"t();\r\n                    }\r\n                }\r\n            }, this);\r\n        }" +
+";\r\n    </script>\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
@@ -211,14 +211,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 5873), Tuple.Create("\"", 5909)
+WriteAttribute("title", Tuple.Create(" title=\"", 5876), Tuple.Create("\"", 5912)
             
             #line 123 "..\..\Views\CreateOrUpdate\Czech\LegalPerson.cshtml"
-, Tuple.Create(Tuple.Create("", 5881), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 5884), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 5881), false)
+, 5884), false)
 );
 
 WriteLiteral(">\r\n        <div");
