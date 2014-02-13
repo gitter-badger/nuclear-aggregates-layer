@@ -123,13 +123,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             clients = null;
             count = 0;
 
+            var currentUserFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+                "filterToCurrentUser",
+                filterToCurrentUser =>
+                    {
+                        var currentUserId = _userContext.Identity.Code;
+                        return x => x.OwnerCode == currentUserId;
+                    });
+
             var userFilter = querySettings.CreateForExtendedProperty<Client, long>(
-                "userId", userId => x => x.OwnerCode == userId);
-            if (userFilter != null)
+                "userId",
+                userId => x => x.OwnerCode == userId);
+
+            if (userFilter != null || currentUserFilter != null)
             {
                 clients = this.SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .ApplyFilter(userFilter)
+                                    .ApplyFilter(currentUserFilter)
                                     .ApplyQuerySettings(querySettings, out count));
                 return true;
             }
