@@ -143,7 +143,6 @@
     <Compile Include="Russia\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetPhonecallDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetTaskDtoService.cs" />
-    <Compile Include="Russia\Generic\List\ListClientService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonProfileService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonService.cs" />
     <Compile Include="Russia\Generic\List\ListOrderService.cs" />
