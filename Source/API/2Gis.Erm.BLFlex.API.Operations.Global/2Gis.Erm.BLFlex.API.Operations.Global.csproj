@@ -53,13 +53,11 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonDto.cs" />
-    <Compile Include="Chile\Operations\Generic\List\ChileListClientDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListOrderDto.cs" />
     <Compile Include="Cyprus\Operations\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesRequest.cs" />
     <Compile Include="Cyprus\Operations\Generic\List\CyprusListLegalPersonDto.cs" />
     <Compile Include="Cyprus\Operations\Generic\List\CyprusListOrderDto.cs" />
     <Compile Include="Czech\Operations\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesRequest.cs" />
-    <Compile Include="Czech\Operations\Generic\List\CzechListClientDto.cs" />
     <Compile Include="Czech\Operations\Generic\List\CzechListLegalPersonDto.cs" />
     <Compile Include="Czech\Operations\Generic\List\CzechListLegalPersonProfileDto.cs" />
     <Compile Include="Czech\Operations\Generic\List\CzechListOrderDto.cs" />
