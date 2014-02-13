@@ -79,36 +79,36 @@ WriteLiteral(">\r\n        window.InitPage = function() {\r\n            Ext.app
 "                }));\r\n                    cnt.doLayout();\r\n                    v" +
 "ar mask = new window.Ext.LoadMask(window.Ext.get(\"positionFrame_holder\"));\r\n    " +
 "                mask.show();\r\n                    var iframe = Ext.get(\'position" +
-"Frame_frame\');\r\n\r\n\r\n                    var frameUrl = String.format(\'{0}/{1}/{2" +
-"}\',\r\n                        \'/Grid/View/UserOrganizationUnit/OrganizationUnit\'," +
-"\r\n                        this.form.Id.value,\r\n                        this.Read" +
-"Only ? \'Inactive\' : \'Active\');\r\n                    var requestParametrs = { sin" +
-"gleDataView: \'DListUsersInOrganizationUnit\' };\r\n                    iframe.dom.s" +
-"rc = Ext.urlAppend(frameUrl, Ext.urlEncode(requestParametrs));\r\n\r\n              " +
-"      iframe.on(\'load\', function(evt, el) {\r\n                        el.height =" +
-" Ext.get(el.parentElement).getComputedHeight();\r\n                        el.widt" +
-"h = Ext.get(el.parentElement).getComputedWidth();\r\n                        el.st" +
-"yle.height = \"100%\";\r\n                        el.style.width = \"100%\";\r\n        " +
-"                el.contentWindow.Ext.onReady(function() {\r\n                     " +
-"       el.contentWindow.IsBottomOrderPositionDataList = true;\r\n                 " +
-"       });\r\n                        this.hide();\r\n                    }, mask);\r" +
-"\n                    cnt.doLayout();\r\n                },\r\n                Manage" +
-"Categories: function() {\r\n\r\n                    var organizationUnitId = Ext.get" +
-"Dom(\"Id\").value;\r\n                    if (organizationUnitId == 0) {\r\n          " +
-"              Ext.MessageBox.show({\r\n                            title: \'\',\r\n   " +
-"                         msg: Ext.LocalizedResources.CardIsNewAlert,\r\n          " +
-"                  buttons: Ext.MessageBox.OK,\r\n                            icon:" +
-" Ext.MessageBox.ERROR\r\n                        });\r\n                        retu" +
-"rn;\r\n                    }\r\n\r\n                    var url = \'/CategoryGroupsMemb" +
-"ership/Manage?organizationUnitId={0}\';\r\n\r\n                    var params = Strin" +
-"g.format(\"width={0},height={1},status=no,resizable=yes,top={2},left={3},scroll=n" +
-"o\",\r\n                        window.Ext.DoubleGis.Global.UISettings.ActualCardWi" +
-"dth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight,\r\n                 " +
-"       window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.Double" +
-"Gis.Global.UISettings.ScreenCenterLeft);\r\n\r\n                    window.open(Stri" +
-"ng.format(url, organizationUnitId), \"_blank\", params);\r\n                }\r\n     " +
-"       });\r\n\r\n            this.on(\"afterbuild\", this.foo, this);\r\n            th" +
-"is.on(\"formbind\", this.foo, this);\r\n        }\r\n\r\n    </script>\r\n");
+"Frame_frame\');\r\n\r\n\r\n                    var frameUrl = String.format(\'/Grid/View" +
+"/UserOrganizationUnit/OrganizationUnit/{0}/{1}?extendedInfo=filterToParent%3Dtru" +
+"e\',\r\n                        this.form.Id.value,\r\n                        this.R" +
+"eadOnly ? \'Inactive\' : \'Active\');\r\n                    var requestParametrs = { " +
+"singleDataView: \'DListUsersInOrganizationUnit\' };\r\n                    iframe.do" +
+"m.src = Ext.urlAppend(frameUrl, Ext.urlEncode(requestParametrs));\r\n\r\n           " +
+"         iframe.on(\'load\', function(evt, el) {\r\n                        el.heigh" +
+"t = Ext.get(el.parentElement).getComputedHeight();\r\n                        el.w" +
+"idth = Ext.get(el.parentElement).getComputedWidth();\r\n                        el" +
+".style.height = \"100%\";\r\n                        el.style.width = \"100%\";\r\n     " +
+"                   el.contentWindow.Ext.onReady(function() {\r\n                  " +
+"          el.contentWindow.IsBottomOrderPositionDataList = true;\r\n              " +
+"          });\r\n                        this.hide();\r\n                    }, mask" +
+");\r\n                    cnt.doLayout();\r\n                },\r\n                Man" +
+"ageCategories: function() {\r\n\r\n                    var organizationUnitId = Ext." +
+"getDom(\"Id\").value;\r\n                    if (organizationUnitId == 0) {\r\n       " +
+"                 Ext.MessageBox.show({\r\n                            title: \'\',\r\n" +
+"                            msg: Ext.LocalizedResources.CardIsNewAlert,\r\n       " +
+"                     buttons: Ext.MessageBox.OK,\r\n                            ic" +
+"on: Ext.MessageBox.ERROR\r\n                        });\r\n                        r" +
+"eturn;\r\n                    }\r\n\r\n                    var url = \'/CategoryGroupsM" +
+"embership/Manage?organizationUnitId={0}\';\r\n\r\n                    var params = St" +
+"ring.format(\"width={0},height={1},status=no,resizable=yes,top={2},left={3},scrol" +
+"l=no\",\r\n                        window.Ext.DoubleGis.Global.UISettings.ActualCar" +
+"dWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight,\r\n              " +
+"          window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.Dou" +
+"bleGis.Global.UISettings.ScreenCenterLeft);\r\n\r\n                    window.open(S" +
+"tring.format(url, organizationUnitId), \"_blank\", params);\r\n                }\r\n  " +
+"          });\r\n\r\n            this.on(\"afterbuild\", this.foo, this);\r\n           " +
+" this.on(\"formbind\", this.foo, this);\r\n        }\r\n\r\n    </script>\r\n");
 
 });
 
@@ -121,7 +121,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 89 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 88 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
 Write(Html.HiddenFor(m => m.IdentityServiceUrl));
 
             
@@ -132,7 +132,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 90 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 89 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
 Write(Html.HiddenFor(m => m.CanEditFirstEmitDate));
 
             
@@ -144,14 +144,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3822), Tuple.Create("\"", 3858)
+WriteAttribute("title", Tuple.Create(" title=\"", 3825), Tuple.Create("\"", 3861)
             
-            #line 91 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
-, Tuple.Create(Tuple.Create("", 3830), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 90 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+, Tuple.Create(Tuple.Create("", 3833), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 3830), false)
+, 3833), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -163,7 +163,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 93 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 92 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.EditableId(m => m.Id));
 
             
@@ -178,7 +178,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 96 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 95 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.twins));
 
             
@@ -193,7 +193,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 99 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 98 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.Country, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Country}));
 
             
@@ -204,7 +204,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 100 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 99 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.FirstEmitDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false}));
 
             
@@ -219,7 +219,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 103 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 102 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.ErmLaunchDate, FieldFlex.twins));
 
             
@@ -230,7 +230,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 104 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 103 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.InfoRussiaLaunchDate, FieldFlex.twins));
 
             
@@ -245,7 +245,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 107 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 106 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.Code, FieldFlex.twins));
 
             
@@ -256,7 +256,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 108 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 107 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.ElectronicMedia, FieldFlex.twins));
 
             
@@ -271,7 +271,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 111 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 110 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.TimeZone, FieldFlex.lone, new LookupSettings { EntityName = EntityName.TimeZone}));
 
             
@@ -283,14 +283,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 4969), Tuple.Create("\"", 5008)
+WriteAttribute("title", Tuple.Create(" title=\"", 4972), Tuple.Create("\"", 5011)
             
-            #line 114 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
-, Tuple.Create(Tuple.Create("", 4977), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+            #line 113 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+, Tuple.Create(Tuple.Create("", 4980), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 4977), false)
+, 4980), false)
 );
 
 WriteLiteral(">\r\n");
@@ -298,7 +298,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 115 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 114 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
    Write(Html.SectionHead("section", @BLResources.TitleDgppIntegration));
 
             
@@ -313,7 +313,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 117 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 116 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.DgppId, FieldFlex.lone));
 
             
@@ -324,7 +324,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 119 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 118 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
    Write(Html.SectionHead("section", @BLResources.Title1CIntegration));
 
             
@@ -339,7 +339,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 121 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
+            #line 120 "..\..\Views\CreateOrUpdate\OrganizationUnit.cshtml"
        Write(Html.TemplateField(m => m.SyncCode1C, FieldFlex.lone));
 
             
