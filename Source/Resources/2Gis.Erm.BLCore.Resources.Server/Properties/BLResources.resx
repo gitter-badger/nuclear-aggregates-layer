@@ -3708,7 +3708,7 @@
     <value>Не удалось выполнить проверку основных/запрещённых позиций, поскольку не указана фирма.</value>
   </data>
 	<data name="AcceptableFileDimensions" xml:space="preserve">
-    <value>Допустимые размеры файлов (пиксели)</value>
+    <value></value>
   </data>
 	<data name="CloseBargains_DialogTitle" xml:space="preserve">
     <value>Закрытие договоров</value>

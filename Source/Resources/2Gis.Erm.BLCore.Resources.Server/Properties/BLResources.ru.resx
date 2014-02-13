@@ -5227,4 +5227,7 @@
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Закрыть отказом</value>
   </data>
+  <data name="AcceptableFileDimensions" xml:space="preserve">
+    <value>Допустимые размеры файлов (пиксели)</value>
+  </data>
 </root>

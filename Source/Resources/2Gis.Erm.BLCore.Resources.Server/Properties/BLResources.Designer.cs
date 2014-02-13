@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Допустимые размеры файлов (пиксели).
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string AcceptableFileDimensions {
             get {
