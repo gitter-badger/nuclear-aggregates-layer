@@ -94,7 +94,7 @@
                 }
 
                 if (Ext.getDom("rdoAssignToMe").checked) {
-                    this.ClientCodeLookup.extendedInfo = "userId=0";
+                    this.ClientCodeLookup.extendedInfo = "filterToCurrentUser=true";
                     this.UserCodeLookup.disable();
                 } else if (Ext.getDom("rdoAssignToUser").checked) {
                     if (this.UserCodeLookup.getValue())
@@ -238,7 +238,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "userId=0" })
+                                        @Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" })
                                     </td>
                                 </tr>
                             </tbody>

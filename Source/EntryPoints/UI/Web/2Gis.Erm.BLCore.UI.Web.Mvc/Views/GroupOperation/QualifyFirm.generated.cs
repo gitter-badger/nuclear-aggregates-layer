@@ -13,13 +13,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.Platform.Common;
     using DoubleGis.Erm.Platform.Model.Entities;
+    using DoubleGis.Erm.Platform.Model.Entities.Enums;
+    using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     #line 1 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
@@ -194,19 +210,20 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Firm\');\r\n        
 "\n                } else if (Ext.getDom(\"rdoOther\").checked) {\r\n                 " +
 "   this.ClientCodeLookup.enable();\r\n                }\r\n\r\n                if (Ext" +
 ".getDom(\"rdoAssignToMe\").checked) {\r\n                    this.ClientCodeLookup.e" +
-"xtendedInfo = \"userId=0\";\r\n                    this.UserCodeLookup.disable();\r\n " +
-"               } else if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n            " +
-"        if (this.UserCodeLookup.getValue())\r\n                        this.Client" +
-"CodeLookup.extendedInfo = \"userId=\" + this.UserCodeLookup.getValue().id;\r\n      " +
-"              else\r\n                        this.ClientCodeLookup.extendedInfo =" +
-" \"\";\r\n\r\n                    this.UserCodeLookup.enable();\r\n                }\r\n  " +
-"          },\r\n            IsUserSettingsValid: function() {\r\n                // " +
-"warning if client to set\r\n                if (Ext.getDom(\"rdoOther\").checked) {\r" +
-"\n                    if (Ext.getDom(\"ClientCode\").value == \"\") {\r\n              " +
-"          Ext.MessageBox.show({\r\n                            title: \'\',\r\n       " +
-"                     // TODO {all, 18.12.2013}: возможно некоректное отображение" +
-" диакритики\r\n                            // TODO {all, 18.12.2013}: ресурс можно" +
-" перенести в ClientResourceStorage\r\n                            msg: \'");
+"xtendedInfo = \"filterToCurrentUser=true\";\r\n                    this.UserCodeLook" +
+"up.disable();\r\n                } else if (Ext.getDom(\"rdoAssignToUser\").checked)" +
+" {\r\n                    if (this.UserCodeLookup.getValue())\r\n                   " +
+"     this.ClientCodeLookup.extendedInfo = \"userId=\" + this.UserCodeLookup.getVal" +
+"ue().id;\r\n                    else\r\n                        this.ClientCodeLooku" +
+"p.extendedInfo = \"\";\r\n\r\n                    this.UserCodeLookup.enable();\r\n     " +
+"           }\r\n            },\r\n            IsUserSettingsValid: function() {\r\n   " +
+"             // warning if client to set\r\n                if (Ext.getDom(\"rdoOth" +
+"er\").checked) {\r\n                    if (Ext.getDom(\"ClientCode\").value == \"\") {" +
+"\r\n                        Ext.MessageBox.show({\r\n                            tit" +
+"le: \'\',\r\n                            // TODO {all, 18.12.2013}: возможно некорек" +
+"тное отображение диакритики\r\n                            // TODO {all, 18.12.201" +
+"3}: ресурс можно перенести в ClientResourceStorage\r\n                            " +
+"msg: \'");
 
             
             #line 116 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
@@ -509,7 +526,7 @@ WriteLiteral("                                        ");
 
             
             #line 241 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "userId=0" }));
+                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" }));
 
             
             #line default

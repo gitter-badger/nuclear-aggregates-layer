@@ -5222,4 +5222,7 @@ The operation has been executed: {4}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Close as rejected</value>
   </data>
+  <data name="AcceptableFileDimensions" xml:space="preserve">
+    <value>Permitted file sizes (pixels)</value>
+  </data>
 </root>

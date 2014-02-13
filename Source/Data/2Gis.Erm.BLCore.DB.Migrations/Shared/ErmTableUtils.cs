@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.Platform.Migration.Base;
@@ -158,11 +160,22 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             }
         }
 
-        public static void CreateIndex(this Table table, string indexColumnName)
+        public static void CreateIndex(this Table table, string indexColumnName, params string[] indexColumnNames)
         {
-            var indexTitle = string.Format("IX_{0}_{1}", table.Name, indexColumnName);
-            var index = new Index(table, indexTitle) { IndexKeyType = IndexKeyType.None };
+            var indexTitle = new StringBuilder(string.Format("IX_{0}_{1}", table.Name, indexColumnName));
+            foreach (var columnName in indexColumnNames)
+            {
+                indexTitle.AppendFormat("_{0}", columnName);
+            }
+
+            var index = new Index(table, indexTitle.ToString()) { IndexKeyType = IndexKeyType.None };
+            
             index.IndexedColumns.Add(new IndexedColumn(index, indexColumnName));
+            foreach (var columnName in indexColumnNames)
+            {
+                index.IndexedColumns.Add(new IndexedColumn(index, columnName));
+            }
+            
             index.Create();
         }
 
