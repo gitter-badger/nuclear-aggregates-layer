@@ -35,8 +35,7 @@
                     var iframe = Ext.get('positionFrame_frame');
 
 
-                    var frameUrl = String.format('{0}/{1}/{2}',
-                        '/Grid/View/UserOrganizationUnit/OrganizationUnit',
+                    var frameUrl = String.format('/Grid/View/UserOrganizationUnit/OrganizationUnit/{0}/{1}?extendedInfo=filterToParent%3Dtrue',
                         this.form.Id.value,
                         this.ReadOnly ? 'Inactive' : 'Active');
                     var requestParametrs = { singleDataView: 'DListUsersInOrganizationUnit' };
