@@ -117,7 +117,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.Test.22.config">
+    <None Include="App.OlapMigrations.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="packages.config" />
