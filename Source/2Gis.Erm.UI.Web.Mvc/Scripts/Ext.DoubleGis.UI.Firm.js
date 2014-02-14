@@ -48,7 +48,7 @@
         {
             var self = this;
 
-            var url = "/Grid/Search/Advertisement/Firm/" + Ext.getDom('Id').value + "?extendedInfo='" + encodeURIComponent("firmId=" + Ext.getDom('Id').value + "&isAllowedToWhiteList=true");
+            var url = "/Grid/Search/Advertisement/Firm/" + Ext.getDom('Id').value + "?extendedInfo=" + encodeURIComponent("firmId=" + Ext.getDom('Id').value + "&isAllowedToWhiteList=true");
             var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
             if (result && result.items.length && result.items.length == 1)
             {
