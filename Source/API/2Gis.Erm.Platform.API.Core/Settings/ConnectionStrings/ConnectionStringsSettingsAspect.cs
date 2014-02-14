@@ -9,15 +9,15 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
     {
         private readonly IReadOnlyDictionary<ConnectionStringName, string> _connectionStringsMap;
 
-        public ConnectionStringsSettingsAspect(IDictionary<ConnectionStringName, string> globalConnectionStrings)
+        public ConnectionStringsSettingsAspect()
         {
-            var specifiedConnectionStringsMap = 
+            var specifiedConnectionStringsMap =
                 ConfigurationManager
                     .ConnectionStrings
                         .Cast<ConnectionStringSettings>()
                         .ToDictionary(connection => connection.Name);
 
-            var availableConnectionStringsMap = new Dictionary<ConnectionStringName, string>(globalConnectionStrings);
+            var availableConnectionStringsMap = new Dictionary<ConnectionStringName, string>();
             foreach (var connectionStringAlias in Enum.GetValues(typeof(ConnectionStringName)).Cast<ConnectionStringName>().Where(x => x != ConnectionStringName.None))
             {
                 var connectionStringName = connectionStringAlias.ToDefaultConnectionStringName();

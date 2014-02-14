@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model;
 
@@ -25,7 +24,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         private readonly StringSetting _reserveUserAccount = ConfigFileSetting.String.Required("ReserveUserAccount");
         private readonly IntSetting _significantDigitsNumber = ConfigFileSetting.Int.Required("SignificantDigitsNumber");
         private readonly IntSetting _warmClientDaysCount = ConfigFileSetting.Int.Optional("WarmClientDaysCount", WarmClientDaysCountDefault);
-        
+
         private readonly EnumSetting<AppTargetEnvironment> _targetEnvironment = ConfigFileSetting.Enum.Required<AppTargetEnvironment>("TargetEnvironment");
         private readonly StringSetting _targetEnvironmentName = ConfigFileSetting.String.Required("TargetEnvironmentName");
         private readonly StringSetting _entryPointName = ConfigFileSetting.String.Required("EntryPointName");
@@ -37,13 +36,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         protected CommonConfigFileAppSettings()
         {
-            var ermEnvironmentSettings = ErmEnvironmentsSettingsLoader.Load(ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFullPath,
-                                                                            _targetEnvironmentName.Value,
-                                                                            _entryPointName.Value);
-
-            _connectionStrings = new ConnectionStringsSettingsAspect(ermEnvironmentSettings.ConnectionStrings);
+            _connectionStrings = new ConnectionStringsSettingsAspect();
             MsCRMSettings = new MsCRMSettingsAspect(_connectionStrings);
-            APIServicesSettings = new APIServicesSettingsAspect(ermEnvironmentSettings.AvailableServices);
+            APIServicesSettings = new APIServicesSettingsAspect();
         }
 
         public string ReserveUserAccount
@@ -64,7 +59,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         public int WarmClientDaysCount
         {
             get { return _warmClientDaysCount.Value; }
-            }
+        }
 
         public int SignificantDigitsNumber
         {
@@ -83,7 +78,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
                 return _orderRequestProcessingHoursAmount.Value;
             }
         }
-        
+
         public AppTargetEnvironment TargetEnvironment
         {
             get { return _targetEnvironment.Value; }
@@ -109,7 +104,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
             get { return _businessModel.Value; }
         }
 
-        public ConnectionStringsSettingsAspect ConnectionStrings 
+        public ConnectionStringsSettingsAspect ConnectionStrings
         {
             get { return _connectionStrings; }
         }
