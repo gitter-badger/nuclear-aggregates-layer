@@ -63,12 +63,13 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
                                              new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord));
         }
 
-        public void UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord)
+        public void UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication)
         {
             _databaseCaller.ExecuteProcedure("Integration.UpdateBuildings",
                                              timeout,
                                              new Tuple<string, object>("buildingsXml", buildingsXml),
-                                             new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord));
+                                             new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord),
+                                             new Tuple<string, object>("EnableReplication", enableReplication));
         }
 
         public void DeleteBuildings(string codesXml, int timeout)

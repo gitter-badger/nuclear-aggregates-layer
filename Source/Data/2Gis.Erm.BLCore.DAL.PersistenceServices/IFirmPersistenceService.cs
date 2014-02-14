@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
         void ReplicateObjectsAfterImportCards(int timeout);
         IEnumerable<long> ImportCardsFromXml(string cardsXml, long modifiedBy, long ownerCode, int timeout, int pregeneratedIdsAmount, string regionalTerritoryLocaleSpecificWord);
         void ImportFirmFromXml(string firmXml, long modifiedBy, long ownerCode, int timeout, bool enableReplication, string regionalTerritoryLocaleSpecificWord);
-        void UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord);
+        void UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication);
         void DeleteBuildings(string codesXml, int timeout);
     }
 }
