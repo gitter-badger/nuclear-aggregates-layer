@@ -112,41 +112,9 @@
     </None>
     <Content Include="packagePositions.config" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\Edu.Czech.pubxml" />
-    <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
-    <None Include="Properties\PublishProfiles\Expl.Russia.pubxml" />
-    <None Include="Properties\PublishProfiles\Int.Czech.pubxml" />
-    <None Include="Properties\PublishProfiles\Int.Russia.pubxml" />
-    <None Include="Properties\PublishProfiles\Load.Russia.pubxml" />
-    <None Include="Properties\PublishProfiles\Production.Czech.pubxml" />
-    <None Include="Properties\PublishProfiles\Production.Russia.pubxml" />
-    <None Include="Properties\PublishProfiles\Production.Russia2.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.01.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.02.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.03.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.04.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.05.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.06.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.07.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.08.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.09.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.10.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.101.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.11.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.12.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.13.pubxml" />
     <Content Include="Web.config" />
     <Content Include="salesSchemas.config" />
-    <None Include="Properties\PublishProfiles\Test.14.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.15.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.16.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.17.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.18.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.19.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.20.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.201.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.21.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.23.pubxml" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
