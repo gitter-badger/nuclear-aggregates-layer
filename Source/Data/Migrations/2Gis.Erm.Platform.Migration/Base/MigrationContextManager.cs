@@ -31,6 +31,12 @@ namespace DoubleGis.Erm.Platform.Migration.Base
                 throw new ArgumentException("Connection string not found");
             }
 
+            // молча не применяем миграции
+            if (string.IsNullOrEmpty(connectionString) && key == ErmConnectionStringKey.CrmDatabase)
+            {
+                return null;
+            }
+
             string crmDatabaseName;
             if (!_connectionStringsKnower.TryGetDatabaseName(ErmConnectionStringKey.CrmConnection, out crmDatabaseName))
             {

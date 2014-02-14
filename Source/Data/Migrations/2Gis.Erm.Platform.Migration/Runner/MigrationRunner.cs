@@ -193,7 +193,7 @@ namespace DoubleGis.Erm.Platform.Migration.Runner
         private bool TryGetCrmContext(out ICrmMigrationContext crmMigrationContext)
         {
             string connectionString;
-            if (!_connectionStringsKnower.TryGetConnectionString(ErmConnectionStringKey.CrmConnection, out connectionString))
+            if (!_connectionStringsKnower.TryGetConnectionString(ErmConnectionStringKey.CrmConnection, out connectionString) || string.IsNullOrEmpty(connectionString))
             {
                 crmMigrationContext = null;
                 return false;
