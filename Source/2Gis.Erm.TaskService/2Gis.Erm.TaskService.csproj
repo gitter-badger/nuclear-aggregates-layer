@@ -415,13 +415,21 @@
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="quartz.Test.101.config">
+        <DependentUpon>quartz.config</DependentUpon>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.102.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="quartz.Test.201.config">
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="quartz.Test.101.config">
-        <DependentUpon>quartz.config</DependentUpon>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="quartz.Test.202.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.301.config">
       <DependentUpon>quartz.config</DependentUpon>
