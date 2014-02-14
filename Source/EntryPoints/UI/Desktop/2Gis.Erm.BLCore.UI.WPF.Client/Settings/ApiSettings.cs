@@ -3,7 +3,6 @@ using System.IO;
 
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
-using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 
@@ -18,15 +17,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Settings
         
         public ApiSettings(string configFileFullPath) : base(configFileFullPath)
         {
-            var getModuleFolderFullPath = Path.GetDirectoryName(configFileFullPath);
-
-            var ermEnvironmentSettings = 
-                ErmEnvironmentsSettingsLoader.Load(
-                    Path.Combine(getModuleFolderFullPath, ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFileName),
-                    TargetEnvironmentName,
-                    EntryPointName);
-
-            _APIServicesSettings = new APIServicesSettingsAspect(ermEnvironmentSettings.AvailableServices);
+            _APIServicesSettings = new APIServicesSettingsAspect();
         }
 
         public AppTargetEnvironment TargetEnvironment
