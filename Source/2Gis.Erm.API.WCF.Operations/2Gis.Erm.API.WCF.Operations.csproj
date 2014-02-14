@@ -259,10 +259,6 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="..\Environments.config">
-      <Link>Environments.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="log4net.Release.config">
       <DependentUpon>log4net.config</DependentUpon>
     </None>
@@ -282,36 +278,8 @@
     <None Include="Properties\PublishProfiles\Test.16.pubxml" />
     <None Include="Properties\PublishProfiles\Test.201.pubxml" />
     <None Include="Properties\PublishProfiles\Test.23.pubxml" />
-    <None Include="Properties\PublishProfiles\Test.301.pubxml" />
+	<None Include="Properties\PublishProfiles\Test.301.pubxml" />
     <None Include="Properties\PublishProfiles\Test.302.pubxml" />
-    <None Include="Web.Edu.Chile.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Edu.Cyprus.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Edu.Czech.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Expl.Cyprus.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Int.Cyprus.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Load.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Int.Czech.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Production.Chile.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Production.Cyprus.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\PublishProfiles\Edu.Russia.pubxml" />
     <None Include="Properties\PublishProfiles\Test.01.pubxml" />
     <None Include="Properties\PublishProfiles\Test.02.pubxml" />
@@ -330,92 +298,6 @@
     <None Include="Properties\PublishProfiles\Test.19.pubxml" />
     <None Include="Properties\PublishProfiles\Test.20.pubxml" />
     <None Include="Properties\PublishProfiles\Test.21.pubxml" />
-    <None Include="Web.Edu.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Production.Czech.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.Production.Russia2.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.01.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.02.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.03.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.04.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.05.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.06.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.07.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.08.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.09.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.10.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.101.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.11.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.12.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.14.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.15.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.16.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.17.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.18.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.19.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.20.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.Test.201.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.21.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.23.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.301.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.302.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Expl.Russia.pubxml" />
@@ -424,22 +306,6 @@
     <None Include="Properties\PublishProfiles\Test.13.pubxml" />
     <None Include="Properties\PublishProfiles\Test.14.pubxml" />
     <None Include="Properties\PublishProfiles\Test.15.pubxml" />
-    <None Include="Web.Expl.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Int.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Production.Russia.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Test.13.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

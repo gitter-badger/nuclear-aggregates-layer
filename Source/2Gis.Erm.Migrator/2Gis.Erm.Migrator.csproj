@@ -114,12 +114,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Environments.config">
-      <Link>Environments.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="App.Test.22.config">
+      <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
