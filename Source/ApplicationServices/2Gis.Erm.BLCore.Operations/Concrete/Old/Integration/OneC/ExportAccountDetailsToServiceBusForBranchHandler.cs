@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var blockingErrors = EvaluateAllBlockingErrors(accountDetailDtos, validateLegalPersonsResponse.BlockingErrors);
 
             var debitInfoDto = ConvertToDebitInfoDto(organizationUnitSyncCode1C, period, accountDetailDtos);
-            var debitsStream = CreateDebitsStream(debitInfoDto.ToXElement(), modiResponse.File.Stream);
+            var debitsStream = CreateDebitsStream(debitInfoDto.ToXElement(), modiResponse.File != null ? modiResponse.File.Stream : null);
 
             var response = ConstructResponse(modiResponse.ProcessedWithoutErrors,
                                              modiResponse.NonBlockingErrorsAmount,
