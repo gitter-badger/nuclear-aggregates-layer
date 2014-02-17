@@ -104,37 +104,37 @@
   </data>
   <data name="BranchOfficeAddlRut" xml:space="preserve">
     <value>RUT</value>
-    <comment>// FIXME {all, 24.01.2014}: Нужно исправить механизм локализации названий полей, чтобы стало возможным использовать ресурник "Rut"</comment>
+    <comment>// FIXME {all, 24.01.2014}: Нужно исправить механизм локализации названий полей, чтобы стало возможным использовать ресурник &quot;Rut&quot;</comment>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>RUT представителя</value>
+    <value>RUT of the representative</value>
     <comment>RUT = Rol Único Tributario = National Identification Number in Chile</comment>
   </data>
   <data name="RepresentativeName" xml:space="preserve">
-    <value>Представитель</value>
+    <value>Representative</value>
   </data>
   <data name="RepresentativePosition" xml:space="preserve">
-    <value>Должность представителя</value>
+    <value>Position of the representative</value>
   </data>
   <data name="ActivityType" xml:space="preserve">
-    <value>Вид деятельности</value>
+    <value>Business area</value>
   </data>
   <data name="Commune" xml:space="preserve">
-    <value>Коммуна</value>
+    <value>Commune</value>
   </data>
   <data name="DocumentBeginDate" xml:space="preserve">
-    <value>Дата выдачи</value>
+    <value>Issue date</value>
   </data>
   <data name="OperatesOnTheBasis" xml:space="preserve">
-    <value>Действует на основании</value>
+    <value>Acting on the basis of</value>
   </data>
   <data name="DocumentProvider" xml:space="preserve">
-    <value>Кем выдано</value>
+    <value>Issuer</value>
   </data>
   <data name="BankAccountType" xml:space="preserve">
-    <value>Тип счета</value>
+    <value>Account type</value>
   </data>
   <data name="Bank" xml:space="preserve">
-    <value>Название банка</value>
+    <value>Bank name</value>
   </data>
 </root>
