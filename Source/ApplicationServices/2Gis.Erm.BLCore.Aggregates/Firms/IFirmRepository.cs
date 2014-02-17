@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         ImportFirmsResultDto ImportFirmFromServiceBus(ImportFirmServiceBusDto dto, long userId, long reserveUserId, int pregeneratedIdsAmount, string regionalTerritoryLocaleSpecificWord);
         void ImportTerritoryFromServiceBus(IEnumerable<TerritoryServiceBusDto> territoryDtos);
-        void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord);
+        void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord, bool enableReplication);
         void ImportCityPhoneZonesFromServiceBus(IEnumerable<CityPhoneZone> cityPhoneZones);
         long[] GetAdvertisementIds(long firmId);
 
