@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Migration.Base
                 case ErmConnectionStringKey.CrmDatabase:
                     {
                         string connectionString;
-                        if (!TryGetConnectionStringInternal("CrmConnection", out connectionString))
+                        if (!TryGetConnectionStringInternal("CrmConnection", out connectionString) || string.IsNullOrEmpty(connectionString))
                         {
                             databaseName = null;
                             return false;

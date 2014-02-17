@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
     {
         private readonly IReadOnlyDictionary<Type, IAPIServiceSettings> _availableServicesMap;
 
-        public APIServicesSettingsAspect(IDictionary<Type, IAPIServiceSettings> globalServicesSettings)
+        public APIServicesSettingsAspect()
         {
             var supportedServices = new List<IAPIServiceSettingsInitializer>
                 {
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.APIServices
                     new APIFinancialOperationsServiceSettings()
                 };
 
-            var availableServices = new Dictionary<Type, IAPIServiceSettings>(globalServicesSettings);
+            var availableServices = new Dictionary<Type, IAPIServiceSettings>();
             foreach (var ermServiceConfig in ErmServiceDescriptionsConfiguration.ErmServices)
             {
                 for (int i = 0; i < supportedServices.Count; i++)
