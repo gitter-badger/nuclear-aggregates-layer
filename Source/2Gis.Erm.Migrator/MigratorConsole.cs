@@ -4,7 +4,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Migration.Runner;
@@ -16,7 +17,6 @@ namespace DoubleGis.Erm.Migrator
     public class MigrationConsole
     {
         private readonly MigrationConsoleArguments _arguments = new MigrationConsoleArguments();
-        private readonly MigrationConsoleCalculatedArguments _calculatedArguments = new MigrationConsoleCalculatedArguments();
 
         private readonly string[] defaultMigrationAssemblies =
             {
@@ -49,14 +49,6 @@ namespace DoubleGis.Erm.Migrator
                     return;
                 }
 
-                if (string.IsNullOrEmpty(_arguments.TargetEnvironment) &&
-                    !_arguments.ListMigrations)
-                {
-                    DisplayHelp(optionSet);
-                    Environment.ExitCode = 1;
-                    return;
-                }
-
                 // FIXME {all, 29.10.2013}: нужно реализовать поддержку подгрузки миграций из нескольких сборок, т.к. компоненты ERM теперь разрабатываются независимо, то и каких-то общих миграций быть не может  
                 // DONE {all, 14.01.2014}: реализована
                 if (_arguments.TargetAssemblies == null)
@@ -81,18 +73,15 @@ namespace DoubleGis.Erm.Migrator
                     return;
                 }
 
-                var environmentsSettings = ErmEnvironmentsSettingsLoader.Load(
-                        ErmEnvironmentsSettingsLoader.DefaultEnvironmentsConfigFullPath,
-                        _arguments.TargetEnvironment,
-                        "Migrator");
+                var calculatedArguments = new MigrationConsoleCalculatedArguments();
+                var connectionStringsAspect = new ConnectionStringsSettingsAspect();
 
-                _calculatedArguments.ConnectionStrings = _calculatedArguments.ConnectionStrings ?? new ConnectionStringSettingsCollection();
-                foreach (var pair in environmentsSettings.ConnectionStrings)
+                foreach (var pair in connectionStringsAspect.AllConnections)
                 {
-                    _calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
+                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
                 }
 
-                Execute(Console.Out, _arguments, _calculatedArguments);
+                Execute(Console.Out, _arguments, calculatedArguments);
             }
             catch (Exception ex)
             {
@@ -122,11 +111,6 @@ namespace DoubleGis.Erm.Migrator
         {
             return new OptionSet
                 {
-                    {
-                        "environment=|env=|e=",
-                        "Optional. Target ERM environment",
-                        v => { arguments.TargetEnvironment = v; }
-                    },
                     {
                         "assembly=|a=|target=",
                         "The assembly containing the migrations you want to execute.",
@@ -401,12 +385,16 @@ namespace DoubleGis.Erm.Migrator
             public MigrationDirection Direction { get; set; }
 
             public long TargetMigrationVersion { get; set; }
-            public string TargetEnvironment { get; set; }
         }
 
         public class MigrationConsoleCalculatedArguments
         {
-            public ConnectionStringSettingsCollection ConnectionStrings { get; set; }
+            private readonly ConnectionStringSettingsCollection _connectionStrings = new ConnectionStringSettingsCollection();
+
+            public ConnectionStringSettingsCollection ConnectionStrings
+            {
+                get { return _connectionStrings; }
+            }
         }
     }
 }

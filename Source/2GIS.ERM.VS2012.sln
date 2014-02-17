@@ -408,6 +408,41 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Tests.Unit", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Special", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj", "{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environments", "{F2ED535E-1B74-4369-9ED9-DAC51321C3D6}"
+	ProjectSection(SolutionItems) = preProject
+		Environments\Erm.Edu.Chile.config = Environments\Erm.Edu.Chile.config
+		Environments\Erm.Edu.Cyprus.config = Environments\Erm.Edu.Cyprus.config
+		Environments\Erm.Edu.Czech.config = Environments\Erm.Edu.Czech.config
+		Environments\Erm.Edu.Russia.config = Environments\Erm.Edu.Russia.config
+		Environments\Erm.Expl.Cyprus.config = Environments\Erm.Expl.Cyprus.config
+		Environments\Erm.Expl.Russia.config = Environments\Erm.Expl.Russia.config
+		Environments\Erm.Int.Chile.config = Environments\Erm.Int.Chile.config
+		Environments\Erm.Int.Cyprus.config = Environments\Erm.Int.Cyprus.config
+		Environments\Erm.Int.Czech.config = Environments\Erm.Int.Czech.config
+		Environments\Erm.Int.Russia.config = Environments\Erm.Int.Russia.config
+		Environments\Erm.Load.Russia.config = Environments\Erm.Load.Russia.config
+		Environments\Erm.Production.Chile.config = Environments\Erm.Production.Chile.config
+		Environments\Erm.Production.Cyprus.config = Environments\Erm.Production.Cyprus.config
+		Environments\Erm.Production.Czech.config = Environments\Erm.Production.Czech.config
+		Environments\Erm.Production.Russia.config = Environments\Erm.Production.Russia.config
+		Environments\Erm.Production.Russia2.config = Environments\Erm.Production.Russia2.config
+		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
+	ProjectSection(SolutionItems) = preProject
+		Environments\Templates\Erm.Test.Chile.config = Environments\Templates\Erm.Test.Chile.config
+		Environments\Templates\Erm.Test.Cyprus.config = Environments\Templates\Erm.Test.Cyprus.config
+		Environments\Templates\Erm.Test.Czech.config = Environments\Templates\Erm.Test.Czech.config
+		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
+		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8A7FE04B-1B23-412D-AC87-D297824303A3}"
+	ProjectSection(SolutionItems) = preProject
+		Environments\Common\Erm.Release.config = Environments\Common\Erm.Release.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 102
@@ -1948,6 +1983,7 @@ Global
 		{081096DB-ADC1-4008-BF6D-38E361BCB6E0} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{C90C735D-3BC1-4009-A1B3-480979CF2D8E} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{DD1E0892-54CD-4D10-9E9A-02DB3532C898} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
+		{F2ED535E-1B74-4369-9ED9-DAC51321C3D6} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{D3167AFD-F64D-4902-A9A2-91A34D1C000B} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{9FF44272-1640-4DDD-885F-AAA2D1DD8B6E} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{25A56032-E542-44EC-AC64-23B8D072EBEF} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
@@ -2009,5 +2045,7 @@ Global
 		{8C7E352B-1450-4C92-9F53-EABEB51E1F79} = {8008D300-37A0-44BB-863E-7CE97DC7B305}
 		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B} = {EC09A5A4-AC6C-40FC-9016-28923E155C55}
 		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
+		{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817} = {F2ED535E-1B74-4369-9ED9-DAC51321C3D6}
+		{8A7FE04B-1B23-412D-AC87-D297824303A3} = {F2ED535E-1B74-4369-9ED9-DAC51321C3D6}
 	EndGlobalSection
 EndGlobal

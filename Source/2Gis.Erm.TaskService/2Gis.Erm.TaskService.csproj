@@ -247,138 +247,8 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Environments.config">
-      <Link>Environments.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="App.Edu.Chile.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Edu.Cyprus.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Edu.Czech.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Expl.Cyprus.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Int.Cyprus.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Int.Czech.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Load.Russia.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Production.Chile.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Production.Cyprus.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Edu.Russia.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Expl.Russia.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Int.Russia.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Production.Czech.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Production.Russia2.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.01.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Production.Russia.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.02.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.03.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.04.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.05.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.06.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.07.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.08.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.09.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.10.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.11.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.12.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.13.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.14.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.15.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.16.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.17.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.18.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.19.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.20.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.21.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.22.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.23.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.201.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.101.config">
-        <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.301.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.Test.302.config">
-      <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
@@ -545,13 +415,21 @@
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="quartz.Test.101.config">
+        <DependentUpon>quartz.config</DependentUpon>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="quartz.Test.102.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="quartz.Test.201.config">
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="quartz.Test.101.config">
-        <DependentUpon>quartz.config</DependentUpon>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="quartz.Test.202.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.301.config">
       <DependentUpon>quartz.config</DependentUpon>
