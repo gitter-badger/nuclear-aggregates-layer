@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Common.Xml
                                                                     Func<TProperty> getPropertyDelegate)
         {
             string name = ExtractPropertyName(propertyExpression);
-            return CreateXAttribute(name, getPropertyDelegate());
+            return CreateXAttribute(host, name, getPropertyDelegate());
         }
 
         public static XAttribute ToXAttribute<TPropertyHost, TProperty>(this TPropertyHost host,
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Common.Xml
                                                                    Func<TPropertyHost, TProperty> getPropertyDelegate)
         {
             string name = ExtractPropertyName(propertyExpression);
-            return CreateXAttribute(name, getPropertyDelegate(host));
+            return CreateXAttribute(host, name, getPropertyDelegate(host));
         }
 
         public static XElement ToXElement<TPropertyHost, TProperty>(this TPropertyHost host,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Common.Xml
                                                                    TProperty propertyValue)
         {
             string name = ExtractPropertyName(propertyExpression);
-            return CreateXAttribute(name, propertyValue);
+            return CreateXAttribute(host, name, propertyValue);
         }
 
         public static XAttribute ToXAttribute<TPropertyHost, TProperty>(this TPropertyHost host,
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.Platform.Common.Xml
                                                            object propertyValue)
         {
             string name = ExtractPropertyName(propertyExpression);
-            return CreateXAttribute(name, propertyValue);
+            return CreateXAttribute(host, name, propertyValue);
         }
 
         public static XElement ToXElement<TPropertyHost, TProperty>(this TPropertyHost host,
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Platform.Common.Xml
                                                                    Expression<Func<TProperty>> propertyExpression)
         {
             string name = ExtractPropertyName(propertyExpression);
-            return CreateXAttribute(name, propertyExpression.Compile()());
+            return CreateXAttribute(host, name, propertyExpression.Compile()());
         }
 
         public static XElement Concat(this XElement first, XElement second)
@@ -129,11 +129,15 @@ namespace DoubleGis.Erm.Platform.Common.Xml
             return memberExpression.Member.Name;
         }
 
-        private static XAttribute CreateXAttribute<T>(string name, T value)
+        private static XAttribute CreateXAttribute<TPropertyHost, TProperty>(TPropertyHost host, string name, TProperty value)
         {
             if (value == null)
             {
-                throw new ArgumentNullException(name, string.Format("An attribute with name [{0}] has null value", name));
+                throw new ArgumentNullException(name,
+                                                string.Format("An object [{0} ({1})] has null value of an attribute [{2}]",
+                                                              host.GetType().Name,
+                                                              host,
+                                                              name));
             }
 
             return new XAttribute(name, value);
