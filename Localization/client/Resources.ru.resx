@@ -750,18 +750,6 @@
 	<data name="OrderIsCorrect" xml:space="preserve">
     <value>Заказ корректен</value>
   </data>
-	<data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
-    <value>Обнаружена ошибка при попытке изменить состояние сеанса</value>
-  </data>
-	<data name="NotificationsContextualTitle" xml:space="preserve">
-    <value>Контекстные</value>
-  </data>
-	<data name="NotificationsDescriptionTitle" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-	<data name="NotificationsSystemTitle" xml:space="preserve">
-    <value>Системные</value>
-  </data>
 	<data name="Task" xml:space="preserve">
     <value>Задача</value>
   </data>
@@ -854,9 +842,6 @@
   </data>
 	<data name="CategoryName" xml:space="preserve">
     <value>Название рубрики</value>
-  </data>
-	<data name="ListingCantGetResultForEntityList" xml:space="preserve">
-    <value>Не удалось получить представление списка сущностей типа "{0}"</value>
   </data>
 	<data name="DummyValue" xml:space="preserve">
     <value>Заглушка</value>

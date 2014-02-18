@@ -334,7 +334,7 @@
     <value>Company division - legal entity</value>
   </data>
   <data name="EnMOrganizationUnitBranchOffices" xml:space="preserve">
-    <value>Company division - company's legal entities  </value>
+    <value>Company division - company&apos;s legal entities  </value>
   </data>
   <data name="EnOrganizationUnits" xml:space="preserve">
     <value>Company division</value>
@@ -508,7 +508,7 @@
     <value>Price-list code</value>
   </data>
   <data name="DFieldBranchOfficeId" xml:space="preserve">
-    <value>Code of company's legal entity</value>
+    <value>Code of company&apos;s legal entity</value>
   </data>
   <data name="CrdRelInformation" xml:space="preserve">
     <value>Main Information</value>
@@ -1372,7 +1372,7 @@
     <value>Selected to white list</value>
   </data>
   <data name="EnLegalPersonProfile" xml:space="preserve">
-    <value>Profile of client's legal entity</value>
+    <value>Profile of client&apos;s legal entity</value>
   </data>
   <data name="DListLegalPersonProfiles" xml:space="preserve">
     <value>Legal entity profiles</value>
@@ -1465,10 +1465,10 @@
     <value>Clients in my area</value>
   </data>
   <data name="DListClientsWithBarter" xml:space="preserve">
-    <value>Clients that have orders of "Barter" type</value>
+    <value>Clients that have orders of &quot;Barter&quot; type</value>
   </data>
   <data name="DListClientsWithBarterForSubordinates" xml:space="preserve">
-    <value>Clients of my subordinates that have orders of "Barter" type</value>
+    <value>Clients of my subordinates that have orders of &quot;Barter&quot; type</value>
   </data>
   <data name="DListClientsWithDebtForSubordinates" xml:space="preserve">
     <value>Clients of my subordinates that have receivables</value>
@@ -1492,7 +1492,7 @@
     <value>Companies of my subordinates</value>
   </data>
   <data name="DListFirmsWithSelfAds" xml:space="preserve">
-    <value>Companies that have orders of "Self-promotion" type</value>
+    <value>Companies that have orders of &quot;Self-promotion&quot; type</value>
   </data>
   <data name="DListMyAccountsWithNegativeBalance" xml:space="preserve">
     <value>My personal accounts with negative balance</value>
@@ -1561,7 +1561,7 @@
     <value>Legal entities of my subordinates that have receivables</value>
   </data>
   <data name="DListLegalPersonsWithMyOrders" xml:space="preserve">
-    <value>Legal entities that received orders from me but for which I'm not an owner</value>
+    <value>Legal entities that received orders from me but for which I&apos;m not an owner</value>
   </data>
   <data name="DListLegalPersonsWithRegionalOrders" xml:space="preserve">
     <value>Legal entities with regional Orders</value>
@@ -1591,10 +1591,10 @@
     <value>My open-end limits</value>
   </data>
   <data name="DListMyOrdersOnApproval" xml:space="preserve">
-    <value>My orders with "For approval" status</value>
+    <value>My orders with &quot;For approval&quot; status</value>
   </data>
   <data name="DListMyOrdersOnTermination" xml:space="preserve">
-    <value>My orders with "Termination in progress" status</value>
+    <value>My orders with &quot;Termination in progress&quot; status</value>
   </data>
   <data name="DListMyOrdersWithDocumentsDebt" xml:space="preserve">
     <value>My orders that lack signed documents</value>
@@ -1615,13 +1615,13 @@
     <value>Limits rejected by me</value>
   </data>
   <data name="DListMyBarterOrders" xml:space="preserve">
-    <value>All of my orders with the "Barter" type</value>
+    <value>All of my orders with the &quot;Barter&quot; type</value>
   </data>
   <data name="DListMyNewOrders" xml:space="preserve">
     <value>My new orders</value>
   </data>
   <data name="DListMySelfAdsOrders" xml:space="preserve">
-    <value>All of my orders of the "Self-promotion" type</value>
+    <value>All of my orders of the &quot;Self-promotion&quot; type</value>
   </data>
   <data name="DListNewOrdersForSubordinates" xml:space="preserve">
     <value>New orders of my subordinates</value>
@@ -1687,7 +1687,7 @@
     <value>My personal accounts with Orders to be placed</value>
   </data>
   <data name="DListApprovedOrdersWithoutAdvertisement" xml:space="preserve">
-    <value>Orders with "Approved" status that lack attached AMs</value>
+    <value>Orders with &quot;Approved&quot; status that lack attached AMs</value>
   </data>
   <data name="DListNonTechnicalTerminatedOrders" xml:space="preserve">
     <value>The list of valid terminations</value>
@@ -1699,10 +1699,10 @@
     <value>List of technical terminations</value>
   </data>
   <data name="DListTerminatedOrdersForNextMonthEdition" xml:space="preserve">
-    <value>Orders in the next month's release closed due to refusal</value>
+    <value>Orders in the next month&apos;s release closed due to refusal</value>
   </data>
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
-    <value>Orders rejected by me that currently have "Preparation" status</value>
+    <value>Orders rejected by me that currently have &quot;Preparation&quot; status</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Tasks related to Warm Leads</value>
@@ -1711,81 +1711,81 @@
     <value>Expired tasks related to Warm Leads</value>
   </data>
   <data name="DListClientsWithWarmClientTask" xml:space="preserve">
-    <value>Clients for which there are "Warm Lead" tasks</value>
+    <value>Clients for which there are &quot;Warm Lead&quot; tasks</value>
   </data>
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
-    <value>Clients for which there are expired "Warm Lead" tasks</value>
+    <value>Clients for which there are expired &quot;Warm Lead&quot; tasks</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
-    <value>Опубликовать</value>
+    <value>Publish</value>
   </data>
   <data name="ControlUnpublishAdvertisementTemplate" xml:space="preserve">
-    <value>Отменить опубликование</value>
+    <value>Cancel publication</value>
   </data>
   <data name="DListOrdersWithDummyValues" xml:space="preserve">
     <value>Orders with parked pages</value>
   </data>
   <data name="DFieldOrderType" xml:space="preserve">
-    <value>Тип заказа</value>
+    <value>Type of order</value>
   </data>
   <data name="DFieldCurator" xml:space="preserve">
-    <value>Куратор</value>
+    <value>Owner</value>
   </data>
   <data name="DFieldInspector" xml:space="preserve">
-    <value>Проверяющий</value>
+    <value>Controller</value>
   </data>
   <data name="ControlPrintTermNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Форма расторжения заказа без указания причины</value>
+    <value>Form for order termination without specifying a reason</value>
   </data>
   <data name="DFieldIsPublished" xml:space="preserve">
-    <value>Опубликовано</value>
+    <value>Published</value>
   </data>
   <data name="ControlPrintTermBargainNoticeAction" xml:space="preserve">
-    <value>Расторжение договора с указанием причины</value>
+    <value>Terminating a contract with the reason specified</value>
   </data>
   <data name="ControlPrintTermBargainNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Расторжение договора без указания причины</value>
+    <value>Terminating a contract without a reason specified</value>
   </data>
   <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
-    <value>Соглашение о прекращении действия договора</value>
+    <value>Agreement on rescission of a contract</value>
   </data>
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
-    <value>Заявление заказчика под присягой</value>
+    <value>Customer&apos;s sworn statement</value>
   </data>
   <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
+    <value>Unload write-offs to bus</value>
   </data>
   <data name="DCategoryGroup" xml:space="preserve">
-    <value>Группа</value>
+    <value>Group</value>
   </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
-    <value>Заявки от ЛК</value>
+    <value>Requests from PA</value>
   </data>
   <data name="ControlCreateOrder" xml:space="preserve">
-    <value>Создать заказ</value>
+    <value>Created order</value>
   </data>
   <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
-    <value>Отменить заявку</value>
+    <value>Cancel request</value>
   </data>
   <data name="EnOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Request from PA</value>
   </data>
   <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
-    <value>Продляемый заказ</value>
+    <value>Extended order</value>
   </data>
   <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
-    <value>Созданный заказ</value>
+    <value>Created order</value>
   </data>
   <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
-    <value>Статус</value>
+    <value>Status</value>
   </data>
   <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
-    <value>Тема</value>
+    <value>Subject</value>
   </data>
   <data name="DListOrderProcessingRequest" xml:space="preserve">
-    <value>Все заявки</value>
+    <value>All requests</value>
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Request from PA</value>
   </data>
 </root>
