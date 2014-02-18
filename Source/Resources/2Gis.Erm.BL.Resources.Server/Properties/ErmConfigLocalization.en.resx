@@ -1717,75 +1717,81 @@
     <value>Clients for which there are expired "Warm Lead" tasks</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
-    <value>Опубликовать</value>
+    <value>Publish</value>
   </data>
   <data name="ControlUnpublishAdvertisementTemplate" xml:space="preserve">
-    <value>Отменить опубликование</value>
+    <value>Cancel publication</value>
   </data>
   <data name="DListOrdersWithDummyValues" xml:space="preserve">
     <value>Orders with parked pages</value>
   </data>
   <data name="DFieldOrderType" xml:space="preserve">
-    <value>Тип заказа</value>
+    <value>Type of order</value>
   </data>
   <data name="DFieldCurator" xml:space="preserve">
-    <value>Куратор</value>
+    <value>Owner</value>
   </data>
   <data name="DFieldInspector" xml:space="preserve">
-    <value>Проверяющий</value>
+    <value>Controller</value>
   </data>
   <data name="ControlPrintTermNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Форма расторжения заказа без указания причины</value>
+    <value>Form for order termination without specifying a reason</value>
   </data>
   <data name="DFieldIsPublished" xml:space="preserve">
-    <value>Опубликовано</value>
+    <value>Published</value>
   </data>
   <data name="ControlPrintTermBargainNoticeAction" xml:space="preserve">
-    <value>Расторжение договора с указанием причины</value>
+    <value>Terminating a contract with the reason specified</value>
   </data>
   <data name="ControlPrintTermBargainNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Расторжение договора без указания причины</value>
+    <value>Terminating a contract without a reason specified</value>
   </data>
   <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
-    <value>Соглашение о прекращении действия договора</value>
+    <value>Agreement on rescission of a contract</value>
   </data>
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
-    <value>Заявление заказчика под присягой</value>
+    <value>Customer's sworn statement</value>
   </data>
   <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
+    <value>Unload write-offs to bus</value>
   </data>
   <data name="DCategoryGroup" xml:space="preserve">
-    <value>Группа</value>
+    <value>Group</value>
   </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
-    <value>Заявки от ЛК</value>
+    <value>Requests from PA</value>
   </data>
   <data name="ControlCreateOrder" xml:space="preserve">
-    <value>Создать заказ</value>
+    <value>Created order</value>
   </data>
   <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
-    <value>Отменить заявку</value>
+    <value>Cancel request</value>
   </data>
   <data name="EnOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Request from PA</value>
   </data>
   <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
-    <value>Продляемый заказ</value>
+    <value>Extended order</value>
   </data>
   <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
-    <value>Созданный заказ</value>
+    <value>Created order</value>
   </data>
   <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
-    <value>Статус</value>
+    <value>Status</value>
   </data>
   <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
-    <value>Тема</value>
+    <value>Subject</value>
   </data>
   <data name="DListOrderProcessingRequest" xml:space="preserve">
-    <value>Все заявки</value>
+    <value>All requests</value>
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Request from PA</value>
+  </data>
+  <data name="DListFirmsLefkosia" xml:space="preserve">
+    <value>Companies in reserve on my territory (Lefkosia)</value>
+  </data>
+  <data name="DListFirmsLemesos" xml:space="preserve">
+    <value>Companies in reserve on my territory (Lemesos)</value>
   </data>
 </root>
