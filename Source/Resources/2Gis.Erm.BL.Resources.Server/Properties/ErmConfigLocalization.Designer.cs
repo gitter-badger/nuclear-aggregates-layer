@@ -2682,24 +2682,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DListFirmsLefkosia {
-            get {
-                return ResourceManager.GetString("DListFirmsLefkosia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string DListFirmsLemesos {
-            get {
-                return ResourceManager.GetString("DListFirmsLemesos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DListFirmsWithSelfAds {
             get {
                 return ResourceManager.GetString("DListFirmsWithSelfAds", resourceCulture);
@@ -3774,6 +3756,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListReservedClientsOnMyTerritory {
             get {
                 return ResourceManager.GetString("DListReservedClientsOnMyTerritory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListReservedFirmsLefkosia {
+            get {
+                return ResourceManager.GetString("DListReservedFirmsLefkosia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListReservedFirmsLemesos {
+            get {
+                return ResourceManager.GetString("DListReservedFirmsLemesos", resourceCulture);
             }
         }
         

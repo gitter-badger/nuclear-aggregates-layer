@@ -1788,10 +1788,10 @@
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Petición de la oficina personal del anunciante</value>
   </data>
-  <data name="DListFirmsLefkosia" xml:space="preserve">
+  <data name="DListReservedFirmsLefkosia" xml:space="preserve">
     <value>Фирмы в резерве по городу Никосия</value>
   </data>
-  <data name="DListFirmsLemesos" xml:space="preserve">
+  <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Фирмы в резерве по городу Лимассол</value>
   </data>
 </root>
