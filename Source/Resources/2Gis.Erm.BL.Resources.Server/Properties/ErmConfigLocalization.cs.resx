@@ -1789,4 +1789,10 @@
     <value>Požadavek z OP</value>
     <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
+  <data name="DListFirmsLefkosia" xml:space="preserve">
+    <value>Фирмы в резерве по городу Никосия</value>
+  </data>
+  <data name="DListFirmsLemesos" xml:space="preserve">
+    <value>Фирмы в резерве по городу Лимассол</value>
+  </data>
 </root>

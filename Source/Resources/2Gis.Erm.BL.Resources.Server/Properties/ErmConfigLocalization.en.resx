@@ -1788,4 +1788,10 @@
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Request from PA</value>
   </data>
+  <data name="DListFirmsLefkosia" xml:space="preserve">
+    <value>Companies in reserve on my territory (Lefkosia)</value>
+  </data>
+  <data name="DListFirmsLemesos" xml:space="preserve">
+    <value>Companies in reserve on my territory (Lemesos)</value>
+  </data>
 </root>
