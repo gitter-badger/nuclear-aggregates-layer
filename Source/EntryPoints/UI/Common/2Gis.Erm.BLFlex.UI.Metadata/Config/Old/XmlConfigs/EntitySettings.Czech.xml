@@ -873,8 +873,6 @@
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;LegalPersons.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;Orders.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;(OrderType=4||OrderType=5||OrderType=6)))" ExtendedInfo="ForSubordinates=true" />
       <!--Клиенты моих подчиненных без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithoutMakeDecisionContactsForSubordinates" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;!Contacts.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;IsFired=false&amp;&amp;AccountRole=200002)" ExtendedInfo="ForSubordinates=true" />
-      <!--Региональные клиенты моих подчиненных-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListRegionalClientsForSubordinates" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;LegalPersons.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;Orders.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;SourceOrganizationUnitId!=DestOrganizationUnitId))" ExtendedInfo="ForSubordinates=true" />
       <!-- Все клиенты по филиалу -->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsAtMyBranch" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;it.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(UserId = {systemuserid})" />
       <!--Клиенты моих подчиненных с дебиторской задолженностью-->
