@@ -425,7 +425,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Production.Cyprus.config = Environments\Erm.Production.Cyprus.config
 		Environments\Erm.Production.Czech.config = Environments\Erm.Production.Czech.config
 		Environments\Erm.Production.Russia.config = Environments\Erm.Production.Russia.config
-		Environments\Erm.Production.Russia2.config = Environments\Erm.Production.Russia2.config
 		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
 	EndProjectSection
 EndProject
