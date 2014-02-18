@@ -1301,9 +1301,9 @@
       <!--Фирмы с заказами с типом Самореклама-->
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsWithSelfAds" HideInCardRelatedGrid="*" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;Orders.Any(IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;OrderType=2)" />
       <!--Фирмы в резерве по городу Никосия-->
-      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsLefkosia" HideInCardRelatedGrid="*" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;OrganizationUnitId=133" />
+      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListReservedFirmsLefkosia" HideInCardRelatedGrid="*" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;ClosedForAscertainment=false&amp;&amp;(LastDisqualifyTime=null||((DateTime.Now.Month - LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - LastDisqualifyTime.Value.Year))&gt;2)&amp;&amp;OwnerCode={reserveuserid}&amp;&amp;OrganizationUnitId=133" />
       <!--Фирмы в резерве по городу Лимассол-->
-      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsLemesos" HideInCardRelatedGrid="*" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;OrganizationUnitId=122" />
+      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListReservedFirmsLemesos" HideInCardRelatedGrid="*" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true&amp;&amp;ClosedForAscertainment=false&amp;&amp;(LastDisqualifyTime=null||((DateTime.Now.Month - LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - LastDisqualifyTime.Value.Year))&gt;2)&amp;&amp;OwnerCode={reserveuserid}&amp;&amp;OrganizationUnitId=122" />
     </DataLists>
   </Entity>
   <Entity Name="FirmAddress">
