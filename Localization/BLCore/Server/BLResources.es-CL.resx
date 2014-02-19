@@ -955,7 +955,7 @@
     <value>No tiene suficientes permisos para cambiar de supervisor de la cuenta personal</value>
   </data>
   <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment" xml:space="preserve">
-    <value>-- Не переведено BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment --</value>
+    <value>Дата начала периода должна быть меньше даты окончания периода для платежа "{0}"</value>
   </data>
   <data name="PeriodValidationEndDateIsIncorrect" xml:space="preserve">
     <value>Se ha seleccionado incorrectamente la fecha de finalización del periodo</value>
@@ -967,7 +967,9 @@
     <value>{0} no indicado.</value>
   </data>
   <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
-    <value>-- Не переведено LocalMessageProcessingResultTemplate --</value>
+    <value>Обработано без ошибок:{0}
+Неблокирующих ошибок:{1}
+Блокирующих ошибок:{2}</value>
   </data>
   <data name="AdvertisementElements" xml:space="preserve">
     <value>Elementos del material publicitario</value>
@@ -2063,9 +2065,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
-  </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>-- Не переведено CsvSeparator --</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -4886,7 +4885,7 @@ Contacto: {1}</value>
     <value>La dirección no está enlazada con el mapa</value>
   </data>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
-    <value>-- Не переведено InvalidAddressIsPickedForPosition --</value>
+    <value>Выбран невалидный адрес для позиции: "{0}"</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>La persona jurídica del cliente con el RUT especificado ya existe</value>
@@ -5030,7 +5029,7 @@ Contacto: {1}</value>
     <value>Se debe especificar una plataforma en la orden</value>
   </data>
   <data name="OutdatedPositionDoesntHaveDummyAdvertisement" xml:space="preserve">
-    <value>-- Не переведено OutdatedPositionDoesntHaveDummyAdvertisement --</value>
+    <value>Для позиции {0} не указан валидный рекламный материал и отсутсвует заглушка</value>
   </data>
   <data name="NoDebitsForSpecifiedPeriod" xml:space="preserve">
     <value>No se han encontrado amortizaciones en el periodo {0:d} - {1:d}</value>
@@ -5039,7 +5038,7 @@ Contacto: {1}</value>
     <value>Se necesita un privilegio especial para modificar la propiedad de si un cliente es una agencia de publicidad</value>
   </data>
   <data name="GeneralMessage" xml:space="preserve">
-    <value>-- Не переведено GeneralMessage --</value>
+    <value>{0}</value>
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>La línea contiene los caracteres de control</value>
@@ -5048,151 +5047,156 @@ Contacto: {1}</value>
     <value>El campo {0} contiene los caracteres de control</value>
   </data>
   <data name="OrderProcessingRequestProcessedSuccessfully" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestProcessedSuccessfully --</value>
+    <value>Заявка от ЛК успешно обработана</value>
   </data>
   <data name="OrderProcessingRequestWasCancelled" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestWasCancelled --</value>
+    <value>Заявка была отменена</value>
   </data>
   <data name="CannotCancelCanceledOrderRequest" xml:space="preserve">
-    <value>-- Не переведено CannotCancelCanceledOrderRequest --</value>
+    <value>Нельзя отменить уже отмененную заявку</value>
   </data>
   <data name="CannotCancelCompletedOrderRequest" xml:space="preserve">
-    <value>-- Не переведено CannotCancelCompletedOrderRequest --</value>
+    <value>Нельзя отменить выполненную заявку</value>
   </data>
   <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>-- Не переведено ClientOfFirmOrderMissingTemplate --</value>
+    <value>У фирмы бланка заказа [{0}] отсутствует клиент</value>
   </data>
   <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
-    <value>-- Не переведено ProjectHasNoOrganizationUnit --</value>
+    <value>Проект {0} не связан с отделением организации</value>
   </data>
   <data name="CannotGetActualPriceListForOrganizationUnit" xml:space="preserve">
-    <value>-- Не переведено CannotGetActualPriceListForOrganizationUnit --</value>
+    <value>Для отделения организации с Id = {0} не удалось получить актуальный прайс-лист</value>
   </data>
   <data name="OrderCreationRequestNotProcessedClientNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestNotProcessedClientNotFound --</value>
+    <value>Заявка OrderProcessingRequest.Id = {0} не обработана, поскольку для фирмы из этой заявки не создан клиент.</value>
   </data>
   <data name="OrderCreationRequestNotProcessedBranchOrganizationUnitNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestNotProcessedBranchOrganizationUnitNotFound --</value>
+    <value>Не найдено основное юр. лицо для отделения организации OrganizationUnit.Id = {0}</value>
   </data>
   <data name="OrderCreationRequestInformationReserveUserNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationReserveUserNotFound --</value>
+    <value>Не удалось назначить куратором пользователя "Резерв"</value>
   </data>
   <data name="OrderCreationRequestInformationReserveUserFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationReserveUserFound --</value>
+    <value>Куратором заказа назначен пользователь "Резерв"</value>
   </data>
   <data name="OrderCreationRequestInformationOrganizationUnitDirectorNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationOrganizationUnitDirectorNotFound --</value>
+    <value>Не удалось назначить куратором директора подразделения "{0}"</value>
   </data>
   <data name="OrderCreationRequestInformationOrganizationUnitDirectorFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationOrganizationUnitDirectorFound --</value>
+    <value>Куратором заказа назначен директор подразделения "{0}"</value>
   </data>
   <data name="OrderCreationRequestInformationClientOwnerNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationClientOwnerNotFound --</value>
+    <value>Не удалось назначить куратором заказа куратора клиента "{0}"</value>
   </data>
   <data name="OrderCreationRequestInformationClientOwnerFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationClientOwnerFound --</value>
+    <value>Куратором заказа назначен куратор клиента "{0}"</value>
   </data>
   <data name="OrderCreationRequestInformationExistingAccountNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationExistingAccountNotFound --</value>
+    <value>Не удалось найти существующий лицевой счёт между заказчиком "{0}" и исполнителем "{1}"</value>
   </data>
   <data name="OrderCreationRequestInformationExistingAccountFound" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestInformationExistingAccountFound --</value>
+    <value>Использован существующий лицевой счёт между заказчиком "{0}" и исполнителем "{1}"</value>
   </data>
   <data name="MustBeExistingEntity" xml:space="preserve">
-    <value>-- Не переведено MustBeExistingEntity --</value>
+    <value>Сущность должна быть уже сохранена ранее</value>
   </data>
   <data name="MustBeNewEntity" xml:space="preserve">
-    <value>-- Не переведено MustBeNewEntity --</value>
+    <value>Сущность должна быть новой</value>
   </data>
   <data name="OrderCreationRequestFailed" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestFailed --</value>
+    <value>При создании заказа произошла ошибка, сообщения записаны в журнал</value>
   </data>
   <data name="OrderCreationRequestTypeMismatch" xml:space="preserve">
-    <value>-- Не переведено OrderCreationRequestTypeMismatch --</value>
+    <value>Чтобы создать заказ, нужна заявка на создание. Обрабатываемая заявка имеет тип: {0}</value>
   </data>
   <data name="OrderProlongationRequestTypeMismatch" xml:space="preserve">
-    <value>-- Не переведено OrderProlongationRequestTypeMismatch --</value>
+    <value>Чтобы продлить заказ, нужна заявка на продление. Обрабатываемая заявка имеет тип: {0}</value>
   </data>
   <data name="OrderProlongationRequestInformationBaseOrderOwnerFound" xml:space="preserve">
-    <value>-- Не переведено OrderProlongationRequestInformationBaseOrderOwnerFound --</value>
+    <value>Куратором заказа назначен куратор базового заказа "{0}"</value>
   </data>
   <data name="OrderProlongationRequestInformationBaseOrderOwnerNotFound" xml:space="preserve">
-    <value>-- Не переведено OrderProlongationRequestInformationBaseOrderOwnerNotFound --</value>
+    <value>Не удалось назначить куратором созданного заказа куратора базового заказа "{0}"</value>
   </data>
   <data name="ReleaseCountPlanValueErrorTemplate" xml:space="preserve">
-    <value>-- Не переведено ReleaseCountPlanValueErrorTemplate --</value>
+    <value>Значение ReleaseCountPlan должно быть &gt;= {0} и &lt;= {1}</value>
   </data>
   <data name="ValidOwnerForOrderProcessingRequestMissingErrorTemplate" xml:space="preserve">
-    <value>-- Не переведено ValidOwnerForOrderProcessingRequestMissingErrorTemplate --</value>
+    <value>Не найден пользователь, которому следует назначить заявку на создание заказа для Firm.Id {0}</value>
   </data>
   <data name="LegalPersonProfileMissing" xml:space="preserve">
-    <value>-- Не переведено LegalPersonProfileMissing --</value>
+    <value>Профиль юридического лица продляемого заказа не найден</value>
   </data>
   <data name="BeginDateMustNotBeInPast" xml:space="preserve">
-    <value>-- Не переведено BeginDateMustNotBeInPast --</value>
+    <value>Дата начала размещения заказа не должна быть в прошлом</value>
   </data>
   <data name="OrderProcessingRequestCreationResultEmailSubject" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestCreationResultEmailSubject --</value>
+    <value>В "Личном кабинете" по Вашему клиенту оформлена заявка на новый заказ</value>
   </data>
   <data name="OrderProcessingRequestProlongationResultEmailSubject" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestProlongationResultEmailSubject --</value>
+    <value>В "Личном кабинете" по Вашему клиенту оформлена заявка на продление</value>
   </data>
   <data name="OrderProcessingRequestCreationResultEmailHeader" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestCreationResultEmailHeader --</value>
+    <value>В "Личном кабинете" была оформлена заявка на создание нового заказа:</value>
   </data>
   <data name="OrderProcessingRequestProlongationResultEmailHeaderTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestProlongationResultEmailHeaderTemplate --</value>
+    <value>В "Личном кабинете" была оформлена заявка на продление заказа {0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestResultEmailDataTemplate --</value>
+    <value>Фирма: {0}.
+Юр. лицо: {1}.
+Начало размещения: {2}.
+Срок размещения: {3}.</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDescriptionTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestResultEmailDescriptionTemplate --</value>
+    <value>Подробности: 
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorMessagePrefixTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestResultEmailErrorMessagePrefixTemplate --</value>
+    <value>Блокирующая!</value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorsEnumerationTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestResultEmailErrorsEnumerationTemplate --</value>
+    <value>В ходе создания заказа возникли следующие ошибки:
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailRenewedOrderTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestResultEmailRenewedOrderTemplate --</value>
+    <value>Заявка была обработана и по ней создан заказ {0}</value>
   </data>
   <data name="OrderProcessingRequestCreationResultEmailFooter" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestCreationResultEmailFooter --</value>
+    <value>По данной заявке вам необходимо связаться с клиентом и оформить заказ.</value>
   </data>
   <data name="OutdatedPositionHasInvalidAdvertisement" xml:space="preserve">
-    <value>-- Не переведено OutdatedPositionHasInvalidAdvertisement --</value>
+    <value>Позиция {0} не может быть актуализирована т.к. содержит невалидный РМ</value>
   </data>
   <data name="AdvertisementAmountShortErrorMessage" xml:space="preserve">
-    <value>-- Не переведено AdvertisementAmountShortErrorMessage --</value>
+    <value>Позиция {0} должна присутствовать в сборке в количестве от {1} до {2}. Фактическое количество позиций в месяц {3} - {4}</value>
   </data>
   <data name="OrderProlongationRequestInformationDealExistingReused" xml:space="preserve">
-    <value>-- Не переведено OrderProlongationRequestInformationDealExistingReused --</value>
+    <value>Использована уже существующая сделка "{0}"</value>
   </data>
   <data name="OrderProlongationRequestInformationDealNewCreated" xml:space="preserve">
-    <value>-- Не переведено OrderProlongationRequestInformationDealNewCreated --</value>
+    <value>Создана новая сделка "{0}"</value>
   </data>
   <data name="AddressesNotBelongToFirm" xml:space="preserve">
-    <value>-- Не переведено AddressesNotBelongToFirm --</value>
+    <value>Следующие адреса: {0} не связаны с фирмой {1}</value>
   </data>
   <data name="EntityIsInactiveError" xml:space="preserve">
-    <value>-- Не переведено EntityIsInactiveError --</value>
+    <value>Сущность {0}.Id = {1} неактивна</value>
   </data>
   <data name="DestOrganizationUnitIsInactive" xml:space="preserve">
-    <value>-- Не переведено DestOrganizationUnitIsInactive --</value>
+    <value>Город назначения неактивен</value>
   </data>
   <data name="SourceOrganizationUnitIsInactive" xml:space="preserve">
-    <value>-- Не переведено SourceOrganizationUnitIsInactive --</value>
+    <value>Город-источник неактивен</value>
   </data>
   <data name="MessagesNotSendedBecauseNotificationIsDisabled" xml:space="preserve">
-    <value>-- Не переведено MessagesNotSendedBecauseNotificationIsDisabled --</value>
+    <value>E-mail оповещение не было отправлено, т.к. оповещения отключены в конфигурации системы</value>
   </data>
   <data name="OrderProcessingRequestSendNotificationErrorEmailMissingTemplate" xml:space="preserve">
-    <value>-- Не переведено OrderProcessingRequestSendNotificationErrorEmailMissingTemplate --</value>
+    <value>Не удалось отправить оповещение - не найден e-mail для пользователя [{0}]</value>
   </data>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>-- Не переведено CannotDeleteLegalPersonWithLinkedAccounts --</value>
+    <value>Нельзя удалить юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
   <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
     <value />
@@ -5207,12 +5211,12 @@ Contacto: {1}</value>
     <value>El valor '{0}' no es aplicable al campo {1}</value>
   </data>
   <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
-    <value>-- Не переведено ClientDisqualificationIsDeniedForTheUser --</value>
+    <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
   </data>
   <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
-    <value>-- Не переведено CantCreateProlongationRequestInvalidOrderState --</value>
+    <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
   </data>
   <data name="CloseWithDenial" xml:space="preserve">
-    <value>-- Не переведено CloseWithDenial --</value>
+    <value>Закрыть отказом</value>
   </data>
 </root>
