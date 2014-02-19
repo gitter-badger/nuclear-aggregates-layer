@@ -658,7 +658,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                               LegalPersonName = x.LegalPerson.LegalName,
                               OwnerCode = x.OwnerCode
                           })
-                          .Where(x => x.AccountDetails.Any())
                           .ToArray();
         }
 

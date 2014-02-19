@@ -158,7 +158,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
                 }
             }
 
-            _accountRepository.UpdateAccountBalance(operationsByAccount.Select(x => x.Key).Union(accountInfosById.Keys));
+            var accountIds = operationsByAccount.Select(x => x.Key).Union(accountInfosById.Values.SelectMany(x => x.AccountDetails).Select(x => x.AccountId));
+            _accountRepository.UpdateAccountBalance(accountIds);
         }
 
         private static void ValidateOperationDates(OperationsInfoDto operationsInfo)
