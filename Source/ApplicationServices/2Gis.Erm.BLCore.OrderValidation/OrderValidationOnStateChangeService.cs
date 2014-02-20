@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.OrderValidation.AssociatedAndDeniedPositions;
@@ -12,20 +13,20 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IOrderValidationService _orderValidationService;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public OrderValidationOnStateChangeService(ISubRequestProcessor subRequestProcessor, 
-            IOrderValidationService orderValidationService,
-            IOrderRepository orderRepository)
+        public OrderValidationOnStateChangeService(ISubRequestProcessor subRequestProcessor,
+                                                   IOrderValidationService orderValidationService,
+                                                   IOrderReadModel orderReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _orderValidationService = orderValidationService;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         public ValidateOrdersResult Validate(long orderId, OrderState newState, OrderValidationPredicate orderValidationPredicate, ValidateOrdersRequest validateOrdersRequest)
         {
-            var previousState = _orderRepository.GetOrderState(orderId);
+            var previousState = _orderReadModel.GetOrderState(orderId);
 
             ValidateOrdersResponse checkResponse = null;
 

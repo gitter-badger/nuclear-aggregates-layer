@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL
         {
             Establish context = () =>
             {
-                var orderRepositoryMock = new Mock<IOrderRepository>();
+                var orderRepositoryMock = new Mock<IOrderReadModel>();
                 orderRepositoryMock.Setup(x => x.GetOrderOrganizationUnitsSyncCodes(Moq.It.IsAny<long[]>()))
                                    .Returns((long[] orderIds) => orderIds.ToDictionary(i => i, i => i.ToString()));
 

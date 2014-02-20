@@ -1666,7 +1666,7 @@
     <value>Reklamovaný objekt není léčivem.</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка в шину списаний по лицевым счетам</value>
+    <value>Odeslání odpisů z osobních účtů do sběrnice</value>
   </data>
   <data name="OrderFileKindWarrantyScan" xml:space="preserve">
     <value>PLNÁ MOC</value>
@@ -1720,31 +1720,31 @@
     <value>InProgress Waiting External Processing</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+    <value>Objednávka bez DPH se slevou</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
+    <value>Objednávka bez DPH se slevou</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
+    <value>Objednávka bez DPH bez slevy</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
+    <value>Objednávka včetně DPH bez slevy</value>
   </data>
   <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">
-    <value>Отменено</value>
+    <value>Zrušeno</value>
   </data>
   <data name="OrderProcessingRequestStateCompleted" xml:space="preserve">
-    <value>Выполнено</value>
+    <value>Provedeno</value>
   </data>
   <data name="OrderProcessingRequestStateOpened" xml:space="preserve">
-    <value>Открыто</value>
+    <value>Otevřeno</value>
   </data>
   <data name="OrderProcessingRequestStatePending" xml:space="preserve">
-    <value>Ожидание</value>
+    <value>Čekání</value>
   </data>
   <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
-    <value>Не определено</value>
+    <value>Neurčeno</value>
   </data>
   <data name="WithdrawalStatusReverting" xml:space="preserve">
     <value>Reverting</value>
@@ -1753,45 +1753,54 @@
     <value>Withdrawing</value>
   </data>
   <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка на создание заказа</value>
+    <value>Požadavek na vytvoření objednávky</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов</value>
+    <value>Zpracování potenciálních zákazníků</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории</value>
+    <value>Zpracování potenciálních zákazníků 5. třídy</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
-    <value>Управление рекламными агентствами</value>
+    <value>Správa reklamních agentur</value>
   </data>
   <data name="ReasonForNewDealBizaccount" xml:space="preserve">
-    <value>Личный кабинет</value>
+    <value>Osobní profil</value>
   </data>
   <data name="RequestMessageTypeDebug" xml:space="preserve">
-    <value>Техническое</value>
+    <value>Technické</value>
   </data>
   <data name="RequestMessageTypeError" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Chyba</value>
   </data>
   <data name="RequestMessageTypeInfo" xml:space="preserve">
-    <value>Информация</value>
+    <value>Informace</value>
   </data>
   <data name="RequestMessageTypeWarning" xml:space="preserve">
-    <value>Предупреждение</value>
+    <value>Upozornění</value>
   </data>
   <data name="AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate" xml:space="preserve">
-    <value>Проверка соответсвия шаблона РМ шаблону, указанному в номенклатурной позиции </value>
+    <value>Kontrola shody šablony RM se šablonou uvedenou v nomenklaturní položce </value>
   </data>
   <data name="AdvertisementValidationRuleCorrectAddress" xml:space="preserve">
-    <value>Проверка корректности адреса</value>
+    <value>Kontrola správnosti adresy</value>
   </data>
   <data name="AdvertisementValidationRuleIsTemplatePublished" xml:space="preserve">
-    <value>Проверка опубликованности шаблона РМ</value>
+    <value>Kontrola zveřejnění šablony RM</value>
   </data>
   <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
-    <value>Проверка наличия обязательных РМ</value>
+    <value>Kontrola přítomnosti povinných RM</value>
   </data>
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Akce</value>
+  </data>
+  <data name="PricePositionRateTypeNone" xml:space="preserve">
+    <value>Не применять</value>
+  </data>
+  <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
+    <value>По самой дорогой рубрике</value>
+  </data>
+  <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
+    <value>По проданной рубрике</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
@@ -28,6 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IUserContext _userContext;
         private readonly ICommonLog _logger;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IAccountRepository _accountRepository;
         private readonly IReleaseReadModel _releaseRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -40,8 +42,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IReleaseReadModel releaseRepository,
-            ISecurityServiceFunctionalAccess functionalAccessService, 
-            IProjectService projectService, IUserRepository userRepository)
+            ISecurityServiceFunctionalAccess functionalAccessService,
+            IProjectService projectService,
+            IUserRepository userRepository,
+            IOrderReadModel orderReadModel)
         {
             _userContext = userContext;
             _logger = logger;
@@ -51,6 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _functionalAccessService = functionalAccessService;
             _projectService = projectService;
             _userRepository = userRepository;
+            _orderReadModel = orderReadModel;
         }
 
         public IOrderProcessingStrategy[] EvaluateProcessingStrategies(IUseCaseResumeContext<EditOrderRequest> resumeContext, IOperationScope operationScope)
@@ -67,36 +72,43 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var involvedStrategies = new List<IOrderProcessingStrategy>();
             if (order.IsNew())
             {
-                involvedStrategies.Add(new OrderCreationStrategy(_accountRepository, _userContext, _orderRepository, resumeContext, _projectService, operationScope, _userRepository));
+                involvedStrategies.Add(new OrderCreationStrategy(_userContext,
+                                                                 _orderRepository,
+                                                                 resumeContext,
+                                                                 _projectService,
+                                                                 operationScope,
+                                                                 _userRepository,
+                                                                 _orderReadModel,
+                                                                 _accountRepository));
                 return involvedStrategies.ToArray();
             }
 
             if (originalOrderState == OrderState.OnRegistration || originalOrderState == proposedOrderState)
             {
-                involvedStrategies.Add(new OrderEditingStrategy(
-                                           _logger,
-                                           _releaseRepository,
-                                           _accountRepository,
-                                           _functionalAccessService,
-                                           _userContext,
-                                           _orderRepository,
-                                           resumeContext,
-                                           _projectService,
-                                           operationScope,
-                                           _userRepository));
+                involvedStrategies.Add(new OrderEditingStrategy(_userContext,
+                                                                _orderRepository,
+                                                                resumeContext,
+                                                                _projectService,
+                                                                operationScope,
+                                                                _userRepository,
+                                                                _orderReadModel,
+                                                                _logger,
+                                                                _releaseRepository,
+                                                                _accountRepository,
+                                                                _functionalAccessService));
             }
 
             if (originalOrderState != proposedOrderState)
             {
-                involvedStrategies.Add(new OrderWorkflowProcessingStrategy(
-                                           _logger,
-                                           _releaseRepository,
-                                           _userContext,
-                                           _orderRepository,
-                                           resumeContext,
-                                           _projectService,
-                                           operationScope,
-                                           _userRepository));
+                involvedStrategies.Add(new OrderWorkflowProcessingStrategy(_userContext,
+                                                                           _orderRepository,
+                                                                           resumeContext,
+                                                                           _projectService,
+                                                                           operationScope,
+                                                                           _userRepository,
+                                                                           _orderReadModel,
+                                                                           _logger,
+                                                                           _releaseRepository));
             }
 
             return involvedStrategies.ToArray();

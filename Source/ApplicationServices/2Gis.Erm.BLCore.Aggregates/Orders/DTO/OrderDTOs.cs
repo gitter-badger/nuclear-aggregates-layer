@@ -36,8 +36,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.DTO
         public bool IsComposite { get; set; }
         public bool IsBudget { get; set; }
         public LinkingObjectsSchemaDto LinkingObjectsSchema { get; set; }
-        public decimal VatRatio { get; set; }
-        public decimal PricePerUnit { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

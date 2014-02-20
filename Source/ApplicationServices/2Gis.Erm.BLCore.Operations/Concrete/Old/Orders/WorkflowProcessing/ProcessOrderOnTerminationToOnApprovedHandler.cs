@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
@@ -18,15 +19,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IReleaseReadModel _releaseRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
         public ProcessOrderOnTerminationToOnApprovedHandler(
             ISubRequestProcessor subRequestProcessor, 
             IReleaseReadModel releaseRepository,
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository, 
+            IOrderReadModel orderReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _releaseRepository = releaseRepository;
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(ProcessOrderOnTerminationToOnApprovedRequest request)
@@ -50,8 +54,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             
             // Пересчетать значения фактических атрибутов
             var releaseCountFact = order.ReleaseCountPlan;
-            var releaseNumbersDto = _orderRepository.CalculateReleaseNumbers(order.DestOrganizationUnitId, order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
-            var distributionDatesDto = _orderRepository.CalculateDistributionDates(order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
+            var releaseNumbersDto = _orderReadModel.CalculateReleaseNumbers(order.DestOrganizationUnitId, order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
+            var distributionDatesDto = _orderReadModel.CalculateDistributionDates(order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
 
             order.ReleaseCountFact = releaseCountFact;
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;

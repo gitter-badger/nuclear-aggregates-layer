@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -13,22 +14,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 {
     public class OrderCostCalculationOperationService : ICalculateOrderCostService
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
 
-        public OrderCostCalculationOperationService(IOrderRepository orderRepository,
+        public OrderCostCalculationOperationService(IOrderReadModel orderReadModel,
                                                     IOperationScopeFactory scopeFactory,
                                                     ICalculateOrderPositionCostService calculateOrderPositionCostService)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _scopeFactory = scopeFactory;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
         }
 
         public CalculationResult CalculateOrderProlongation(long orderId)
         {
-            var orderInfo = _orderRepository.GetOrderForProlongationInfo(orderId);
+            var orderInfo = _orderReadModel.GetOrderForProlongationInfo(orderId);
 
             if (!orderInfo.Positions.Any())
             {
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             }
 
             long priceId;
-            if (!_orderRepository.TryGetActualPriceId(orderInfo.DestOrganizationUnitId, beginDistributionDate, out priceId))
+            if (!_orderReadModel.TryGetActualPriceId(orderInfo.DestOrganizationUnitId, beginDistributionDate, out priceId))
             {
                 throw new InvalidOperationException(string.Format(BLResources.CannotGetActualPriceListForOrganizationUnit, orderInfo.DestOrganizationUnitId));
             }
@@ -70,6 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                                             orderInfo.SourceOrganizationUnitId,
                                                                                             orderInfo.DestOrganizationUnitId,
                                                                                             orderInfo.FirmId,
+                                                                                            null,
                                                                                             positionInfos);
 
                 scope.Complete();

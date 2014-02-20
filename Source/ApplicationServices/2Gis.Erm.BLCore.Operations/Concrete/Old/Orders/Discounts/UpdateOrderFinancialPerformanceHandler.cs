@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -18,23 +19,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
     {
         private readonly IAppSettings _appSettings;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public UpdateOrderFinancialPerformanceHandler(
             IOrderRepository orderRepository, 
             IAppSettings appSettings, 
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory, IOrderReadModel orderReadModel)
         {
             _orderRepository = orderRepository;
             _appSettings = appSettings;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(UpdateOrderFinancialPerformanceRequest request)
         {
             var order = request.Order;
 
-            var orderPositions = _orderRepository.GetPositions(order.Id);
+            var orderPositions = _orderReadModel.GetPositions(order.Id);
 
             using (var operationScope = _scopeFactory.CreateNonCoupled<UpdateOrderFinancialPerfomanceIdentity>())
             {
@@ -73,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
 
             foreach (var orderPosition in orderPositions)
             {
-                var recalculatedData = _orderRepository.Recalculate(orderPosition.Amount, orderPosition.PricePerUnit, orderPosition.PricePerUnitWithVat, request.ReleaseCountFact, orderPosition.CalculateDiscountViaPercent, orderPosition.DiscountPercent, orderPosition.DiscountSum);
+                var recalculatedData = _orderReadModel.Recalculate(orderPosition.Amount, orderPosition.PricePerUnit, orderPosition.PricePerUnitWithVat, request.ReleaseCountFact, orderPosition.CalculateDiscountViaPercent, orderPosition.DiscountPercent, orderPosition.DiscountSum);
 
                 orderPosition.ShipmentPlan = recalculatedData.ShipmentPlan;
                 orderPosition.PayablePrice = recalculatedData.PayablePrice;
@@ -153,7 +156,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
                 var orderPosition = orderPositions[i];
 
                 // расчёт скидоки для позиции идт через процент скидки заказа, иначе скидка может в минус уйти
-                var recalculatedData = _orderRepository.Recalculate(orderPosition.Amount, orderPosition.PricePerUnit, orderPosition.PricePerUnitWithVat, request.ReleaseCountFact, true, order.DiscountPercent.Value, 0);
+                var recalculatedData = _orderReadModel.Recalculate(orderPosition.Amount, orderPosition.PricePerUnit, orderPosition.PricePerUnitWithVat, request.ReleaseCountFact, true, order.DiscountPercent.Value, 0);
                 orderPosition.ShipmentPlan = recalculatedData.ShipmentPlan;
                 orderPosition.PayablePrice = recalculatedData.PayablePrice;
                 orderPosition.PayablePlan = recalculatedData.PayablePlan;
@@ -176,7 +179,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
             var lastOrderPosition = orderPositions[orderPositions.Count - 1];
 
             // последнюю позицию надо рассчитать не в процентах, чтобы сохранить точность
-            var recalculatedDataForLastOrderPosition = _orderRepository.Recalculate(lastOrderPosition.Amount, lastOrderPosition.PricePerUnit, lastOrderPosition.PricePerUnitWithVat, request.ReleaseCountFact, false, order.DiscountPercent.Value, order.DiscountSum.Value - orderPositionsDiscountSum);
+            var recalculatedDataForLastOrderPosition = _orderReadModel.Recalculate(lastOrderPosition.Amount, lastOrderPosition.PricePerUnit, lastOrderPosition.PricePerUnitWithVat, request.ReleaseCountFact, false, order.DiscountPercent.Value, order.DiscountSum.Value - orderPositionsDiscountSum);
             lastOrderPosition.ShipmentPlan = recalculatedDataForLastOrderPosition.ShipmentPlan;
             lastOrderPosition.PayablePrice = recalculatedDataForLastOrderPosition.PayablePrice;
             lastOrderPosition.PayablePlan = recalculatedDataForLastOrderPosition.PayablePlan;

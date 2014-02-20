@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -13,15 +13,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     {
         private const string RelatedOrdersKey = "erm:bills-relatedorders-createbill.modelorder:{0}.user:{1}";
         private static readonly TimeSpan CachedRelatedOrdersExpiration = TimeSpan.FromSeconds(120);
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IUserContext _userContext;
         private readonly ICacheAdapter _cacheAdapter;
 
-        public GetRelatedOrdersForCreateBillHandler(IUserContext userContext, ICacheAdapter cacheAdapter, IOrderRepository orderRepository)
+        public GetRelatedOrdersForCreateBillHandler(IOrderReadModel orderReadModel, IUserContext userContext, ICacheAdapter cacheAdapter)
         {
+            _orderReadModel = orderReadModel;
             _userContext = userContext;
             _cacheAdapter = cacheAdapter;
-            _orderRepository = orderRepository;
         }
 
         protected override GetRelatedOrdersForCreateBillResponse Handle(GetRelatedOrdersForCreateBillRequest request)
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             }
             else
             {
-                relatedOrders = _orderRepository.GetRelatedOrdersToCreateBill(request.OrderId).ToArray();
+                relatedOrders = _orderReadModel.GetRelatedOrdersToCreateBill(request.OrderId).ToArray();
 
                 _cacheAdapter.Add(cacheKey, relatedOrders, CachedRelatedOrdersExpiration);
             }

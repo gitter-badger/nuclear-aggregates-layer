@@ -1,6 +1,7 @@
 ﻿using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -13,18 +14,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
     public sealed class SetLegalPersonProfileForOrderHandler : RequestHandler<ChangeOrderLegalPersonProfileRequest, EmptyResponse>
     {
         private readonly IOrderRepository _orderRepository;
-        
+        private readonly IOrderReadModel _orderReadModel;
+
         public SetLegalPersonProfileForOrderHandler(
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository, IOrderReadModel orderReadModel)
         {
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(ChangeOrderLegalPersonProfileRequest request)
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var order = _orderRepository.GetOrder(request.OrderId);
+                var order = _orderReadModel.GetOrder(request.OrderId);
                 if (order == null)
                 {
                     throw new NotificationException(BLResources.EntityNotFound);

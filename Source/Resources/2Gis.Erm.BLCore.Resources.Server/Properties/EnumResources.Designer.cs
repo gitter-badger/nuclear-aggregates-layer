@@ -4228,6 +4228,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PricePositionRateTypeBoundCategory {
+            get {
+                return ResourceManager.GetString("PricePositionRateTypeBoundCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PricePositionRateTypeMostExpensiveCategory {
+            get {
+                return ResourceManager.GetString("PricePositionRateTypeMostExpensiveCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PricePositionRateTypeNone {
+            get {
+                return ResourceManager.GetString("PricePositionRateTypeNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Обдуманный спрос.
         /// </summary>
         public static string ProductTypeConsideredDemand {

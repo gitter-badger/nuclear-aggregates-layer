@@ -3,6 +3,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Special.CostCalculation;
@@ -96,13 +98,14 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                     FirmRepositoryMock.Setup(x => x.GetFirm(Moq.It.IsAny<long>())).Returns(FakeFirm);
 
                     CalculateOrderCostService = new OrderPositionCostCalculationOperationService(
-                        Mock.Of<IOrderRepository>(),
                         FinderMock.Object,
                         Mock.Of<ICostCalculator>(),
                         Mock.Of<IClientProxyFactory>(),
+                        Mock.Of<IOrderReadModel>(),
                         FirmRepositoryMock.Object,
                         Mock.Of<IOperationScopeFactory>(),
-                        ProjectServiceMock.Object);
+                        ProjectServiceMock.Object,
+                        Mock.Of<IPriceReadModel>());
                 };
 
             protected static Mock<IFinder> FinderMock { get; private set; }
@@ -143,6 +146,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                         .CalculateOrderPositionCost(OrderType.SelfAds,
                                                     defaultReleaseCount,
                                                     null,
+                                                    null,
                                                     FakePositionId,
                                                     FakePriceId,
                                                     amount,
@@ -171,6 +175,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                     CalculationResult = CalculateOrderCostService
                         .CalculateOrderPositionCost(OrderType.SocialAds,
                                                     defaultReleaseCount,
+                                                    null,
                                                     null,
                                                     FakePositionId,
                                                     FakePriceId,
@@ -254,6 +259,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                                                                                                       beginDistributionDate,
                                                                                                       ProjectWithoutOrganizationUnitId,
                                                                                                       FakeFirm.Id,
+                                                                                                      null,
                                                                                                       null));
                 };
 

@@ -1575,32 +1575,32 @@
 	<data name="BusinessOperationTypeNone" xml:space="preserve">
     <value></value>
   </data>
-	<data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
-    <value>Публикация шаблона РМ</value>
+  <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
+    <value>Publication of AM template</value>
   </data>
-	<data name="FunctionalPrivilegeNameUnpublishAdvertisementTemplate" xml:space="preserve">
-    <value>Отмена публикации шаблона РМ</value>
+  <data name="FunctionalPrivilegeNameUnpublishAdvertisementTemplate" xml:space="preserve">
+    <value>Canceling publication of AM template</value>
   </data>
-	<data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value></value>
+  <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
+    <value />
   </data>
-	<data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
-    <value>Местная реклама в филиале</value>
+  <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
+    <value>Local advertising at a branch office</value>
   </data>
-	<data name="ESalesPointTypePairFilialFilial" xml:space="preserve">
-    <value>Исходящая реклама из филиала 1 в филиал 2</value>
+  <data name="ESalesPointTypePairFilialFilial" xml:space="preserve">
+    <value>Outgoing advertising from branch 1 to branch 2</value>
   </data>
-	<data name="ESalesPointTypePairFilialFranch" xml:space="preserve">
-    <value>Исходящая реклама из филиала во франчайзи</value>
+  <data name="ESalesPointTypePairFilialFranch" xml:space="preserve">
+    <value>Outgoing advertising from a branch to a franchisee</value>
   </data>
-	<data name="ESalesPointTypePairFranchSelf" xml:space="preserve">
-    <value>Местная реклама во франчайзи</value>
+  <data name="ESalesPointTypePairFranchSelf" xml:space="preserve">
+    <value>Local advertising at franchisee</value>
   </data>
-	<data name="ESalesPointTypePairFranchFranch" xml:space="preserve">
-    <value>Исходящая реклама из франчайзи 1 во франчайзи 2</value>
+  <data name="ESalesPointTypePairFranchFranch" xml:space="preserve">
+    <value>Outgoing advertising from franchisee 1 to franchisee 2</value>
   </data>
-	<data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
-    <value>Исходящая реклама из франчайзи в филиал</value>
+  <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
+    <value>Outgoing advertising from a franchisee to a branch</value>
   </data>
 	<data name="ESalesPointTypeNone" xml:space="preserve">
     <value></value>
@@ -1636,31 +1636,31 @@
     <value>Online</value>
   </data>
   <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
-    <value>Не выверен</value>
+    <value>Not verified</value>
   </data>
   <data name="AdvertisementElementStatusValid" xml:space="preserve">
-    <value>Выверен</value>
+    <value>Verified</value>
   </data>
   <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
-    <value>Отклонен</value>
+    <value>Rejected</value>
   </data>
   <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
-    <value>Отсутствует</value>
+    <value>Not available</value>
   </data>
   <data name="AdvertisementElementErrorLawError" xml:space="preserve">
-    <value>Юридическая</value>
+    <value>Legal</value>
   </data>
   <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
-    <value>Несоответствие требованиям</value>
+    <value>Non-compliance with requirements</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
-    <value>Выверка РМ</value>
+    <value>AM verification</value>
   </data>
   <data name="AdvertisementElementModel_ToEntity_AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Error</value>
   </data>
   <data name="AdvertisementElementStatusInvalidAfterEdit" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Error</value>
   </data>
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Edit an AM parked page</value>
@@ -1675,40 +1675,40 @@
     <value>The advertised item is not a pharmaceutical.</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка в шину списаний по лицевым счетам</value>
+    <value>Unload to bus account write-offs</value>
   </data>
   <data name="OrderFileKindWarrantyScan" xml:space="preserve">
-    <value>Доверенность</value>
+    <value>Power of Attorney</value>
   </data>
   <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
-    <value>Заявление заказчика под присягой</value>
+    <value>Customer&apos;s sworn statement</value>
   </data>
   <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
-    <value>Отсутствует</value>
+    <value>Not available</value>
   </data>
   <data name="TemplateCodeTerminationNoticeWithoutReasonBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении заказа без указания причины для ИП</value>
+    <value>Order termination notice without a reason specified for a SP</value>
   </data>
   <data name="TemplateCodeTerminationNoticeWithoutReasonLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении заказа без указания причины для юр. лица</value>
+    <value>Notification about order termination without cause for a legal entity</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBargainBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении договора с указанием причины для ИП</value>
+    <value>Order termination notice without a reason specified for a legal entity</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBargainLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении договора с указанием причины для юр. лица</value>
+    <value>Contract termination notice with the reason specified for an SP</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBargainWithoutReasonBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении договора без указания причины для ИП</value>
+    <value>Notification about order termination without cause for a SP</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBargainWithoutReasonLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении договора без указания причины для юр. лица</value>
+    <value>Contract termination notice with the reason specified for a legal entity</value>
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementBusinessman" xml:space="preserve">
-    <value>Соглашение о прекращении действия договора для ИП</value>
+    <value>Contract termination notice without a reason specified for an SP</value>
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
-    <value>Соглашение о прекращении действия договора для юр. лица</value>
+    <value>Contract termination notice without a reason specified for a legal entity</value>
   </data>
   <data name="ReleaseStatusSuccess" xml:space="preserve">
     <value>Success</value>
@@ -1729,31 +1729,31 @@
     <value>InProgress Waiting External Processing</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+    <value>Invoice without VAT and with discount</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
+    <value>Invoice with VAT and discount</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
+    <value>Invoice without VAT and discount</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
+    <value>Invoice with VAT and without discount</value>
   </data>
   <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">
-    <value>Отменено</value>
+    <value>Canceled</value>
   </data>
   <data name="OrderProcessingRequestStateCompleted" xml:space="preserve">
-    <value>Выполнено</value>
+    <value>Completed</value>
   </data>
   <data name="OrderProcessingRequestStateOpened" xml:space="preserve">
-    <value>Открыто</value>
+    <value>Open</value>
   </data>
   <data name="OrderProcessingRequestStatePending" xml:space="preserve">
-    <value>Ожидание</value>
+    <value>Waiting</value>
   </data>
   <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
-    <value>Не определено</value>
+    <value>Not defined</value>
   </data>
   <data name="WithdrawalStatusReverting" xml:space="preserve">
     <value>Reverting</value>
@@ -1762,45 +1762,54 @@
     <value>Withdrawing</value>
   </data>
   <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка на создание заказа</value>
+    <value>Order creation request</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов</value>
+    <value>Processing hot leads</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории</value>
+    <value>Processing hot leads of the category 5</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
-    <value>Управление рекламными агентствами</value>
+    <value>Managing advertising agencies</value>
   </data>
   <data name="ReasonForNewDealBizaccount" xml:space="preserve">
-    <value>Личный кабинет</value>
+    <value>Personal Area</value>
   </data>
   <data name="RequestMessageTypeDebug" xml:space="preserve">
-    <value>Техническое</value>
+    <value>Technical</value>
   </data>
   <data name="RequestMessageTypeError" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Error</value>
   </data>
   <data name="RequestMessageTypeInfo" xml:space="preserve">
-    <value>Информация</value>
+    <value>Information</value>
   </data>
   <data name="RequestMessageTypeWarning" xml:space="preserve">
-    <value>Предупреждение</value>
+    <value>Warning</value>
   </data>
   <data name="AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate" xml:space="preserve">
     <value>Verification of whether an AM template matches the template specified in the nomenclature</value>
   </data>
   <data name="AdvertisementValidationRuleCorrectAddress" xml:space="preserve">
-    <value>Проверка корректности адреса</value>
+    <value>Verification of address correctness</value>
   </data>
   <data name="AdvertisementValidationRuleIsTemplatePublished" xml:space="preserve">
     <value>Verification of whether an AM template is published</value>
   </data>
   <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
-    <value>Проверка наличия обязательных РМ</value>
+    <value>Verification of the required AM's presence</value>
   </data>
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Action</value>
+  </data>
+  <data name="PricePositionRateTypeNone" xml:space="preserve">
+    <value>Не применять</value>
+  </data>
+  <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
+    <value>По самой дорогой рубрике</value>
+  </data>
+  <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
+    <value>По проданной рубрике</value>
   </data>
 </root>

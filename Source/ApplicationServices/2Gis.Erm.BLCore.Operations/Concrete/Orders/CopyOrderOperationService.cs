@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Copy;
@@ -31,6 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         private readonly IPublicService _publicService;
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealActualizeDealProfitIndicatorsAggregateService _dealActualizeDealProfitIndicatorsAggregateService;
@@ -41,7 +43,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                          IOrderRepository orderRepository,
                                          IOperationScopeFactory scopeFactory,
                                          IDealActualizeDealProfitIndicatorsAggregateService dealActualizeDealProfitIndicatorsAggregateService,
-                                         IDealReadModel dealReadModel)
+                                         IDealReadModel dealReadModel,
+                                         IOrderReadModel orderReadModel)
         {
             _userContext = userContext;
             _publicService = publicService;
@@ -50,12 +53,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _scopeFactory = scopeFactory;
             _dealActualizeDealProfitIndicatorsAggregateService = dealActualizeDealProfitIndicatorsAggregateService;
             _dealReadModel = dealReadModel;
+            _orderReadModel = orderReadModel;
         }
 
         public CopyOrderResult CopyOrder(long orderId, bool isTechnicalTermination)
         {
             var orderIndex = _orderRepository.GenerateNextOrderUniqueNumber();
-            var orderToCopy = _orderRepository.GetOrder(orderId);
+            var orderToCopy = _orderReadModel.GetOrder(orderId);
             var beginDistributionDate = DateTime.UtcNow.GetNextMonthFirstDate();
             return CopyOrder(orderToCopy, orderIndex, isTechnicalTermination, beginDistributionDate, orderToCopy.ReleaseCountPlan, DiscountType.Default, orderToCopy.DealId);
         }
@@ -63,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         public CopyOrderResult CopyOrder(long orderId, DateTime beginDistibutionDate, short releaseCountPlan, DiscountType discountType, long newOrderDealId)
         {
             var orderIndex = _orderRepository.GenerateNextOrderUniqueNumber();
-            var orderToCopy = _orderRepository.GetOrder(orderId);
+            var orderToCopy = _orderReadModel.GetOrder(orderId);
             return CopyOrder(orderToCopy, orderIndex, false, beginDistibutionDate, releaseCountPlan, discountType, newOrderDealId);
         }
 
@@ -90,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                     }
                 }
 
-                var orderPositionDtos = _orderRepository.GetOrderPositionsWithAdvertisements(orderToCopy.Id);
+                var orderPositionDtos = _orderReadModel.GetOrderPositionsWithAdvertisements(orderToCopy.Id);
 
                 // FIXME {all, 11.12.2013}: реализация метода CreateCopiedOrder изменяет входной order. Нужно от этого избавиться, например запользовать внутри Omu.ValueInjecter
                 var orderToCopyId = orderToCopy.Id;
@@ -178,7 +182,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             // releases
             
 
-            var releaseNumbersDto = _orderRepository.CalculateReleaseNumbers(order.DestOrganizationUnitId,
+            var releaseNumbersDto = _orderReadModel.CalculateReleaseNumbers(order.DestOrganizationUnitId,
                                                                              rawBeginDistributionDate,
                                                                              order.ReleaseCountPlan,
                                                                              order.ReleaseCountFact);
@@ -186,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             order.EndReleaseNumberPlan = releaseNumbersDto.EndReleaseNumberPlan;
             order.EndReleaseNumberFact = releaseNumbersDto.EndReleaseNumberFact;
 
-            var distributionDatesDto = _orderRepository.CalculateDistributionDates(rawBeginDistributionDate, order.ReleaseCountPlan, order.ReleaseCountFact);
+            var distributionDatesDto = _orderReadModel.CalculateDistributionDates(rawBeginDistributionDate, order.ReleaseCountPlan, order.ReleaseCountFact);
             order.BeginDistributionDate = distributionDatesDto.BeginDistributionDate;
             order.EndDistributionDatePlan = distributionDatesDto.EndDistributionDatePlan;
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
@@ -194,7 +198,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private bool IsBranchToBranchOrder(Order order)
         {
-            return order.SourceOrganizationUnitId != order.DestOrganizationUnitId && !_orderRepository.IsBranchToBranchOrder(order);
+            return order.SourceOrganizationUnitId != order.DestOrganizationUnitId && !_orderReadModel.IsBranchToBranchOrder(order);
         }
 
         private string GenerateOrderNumber(Order order, long reservedNumber)

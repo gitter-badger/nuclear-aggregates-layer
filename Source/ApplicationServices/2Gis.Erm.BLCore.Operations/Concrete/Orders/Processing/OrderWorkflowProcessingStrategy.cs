@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
@@ -22,16 +23,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly ICommonLog _logger;
         private readonly IReleaseReadModel _releaseRepository;
 
-        public OrderWorkflowProcessingStrategy(
-            ICommonLog logger,
-            IReleaseReadModel releaseRepository,
-            IUserContext userContext,
-            IOrderRepository orderRepository,
-            IUseCaseResumeContext<EditOrderRequest> resumeContext,
-            IProjectService projectService, 
-            IOperationScope operationScope, 
-            IUserRepository userRepository)
-            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository)
+        public OrderWorkflowProcessingStrategy(IUserContext userContext,
+                                               IOrderRepository orderRepository,
+                                               IUseCaseResumeContext<EditOrderRequest> resumeContext,
+                                               IProjectService projectService,
+                                               IOperationScope operationScope,
+                                               IUserRepository userRepository,
+                                               IOrderReadModel orderReadModel,
+                                               ICommonLog logger,
+                                               IReleaseReadModel releaseRepository)
+            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _logger = logger;
             _releaseRepository = releaseRepository;

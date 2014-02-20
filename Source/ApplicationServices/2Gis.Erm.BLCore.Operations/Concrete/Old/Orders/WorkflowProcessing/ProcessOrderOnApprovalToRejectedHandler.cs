@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -24,17 +24,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly ICommonLog _logger;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public ProcessOrderOnApprovalToRejectedHandler(
-            IAppSettings appSettings,
-            IDealReadModel dealReadModel,
-            IOrderRepository orderRepository,
-            IDealRepository dealRepository,
-            IUserContext userContext,
-            INotificationSender notificationSender,
-            IEmployeeEmailResolver employeeEmailResolver,
-            ICommonLog logger)
+        public ProcessOrderOnApprovalToRejectedHandler(IAppSettings appSettings,
+                                                       IDealReadModel dealReadModel,
+                                                       IDealRepository dealRepository,
+                                                       IUserContext userContext,
+                                                       INotificationSender notificationSender,
+                                                       IEmployeeEmailResolver employeeEmailResolver,
+                                                       ICommonLog logger,
+                                                       IOrderReadModel orderReadModel)
         {
             _appSettings = appSettings;
             _dealReadModel = dealReadModel;
@@ -43,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
             _logger = logger;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(ProcessOrderOnApprovalToRejectedRequest request)
@@ -85,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             }
 
             // ищем последнее примечание к заказу за прошедшие сутки
-            var note = _orderRepository.GetLastNoteForOrder(order.Id, DateTime.UtcNow.AddDays(-1));
+            var note = _orderReadModel.GetLastNoteForOrder(order.Id, DateTime.UtcNow.AddDays(-1));
             var comment = note != null ? note.Text : BLResources.NotSpecified;
 
             _notificationSender.PostMessage(new[] { new NotificationAddress(orderOwnerEmail) },

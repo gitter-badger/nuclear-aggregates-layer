@@ -237,8 +237,8 @@
 	<data name="PaymentMethods" xml:space="preserve">
     <value>Payment method</value>
   </data>
-	<data name="Reviews" xml:space="preserve">
-    <value>Отзывы</value>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reviews</value>
   </data>
 	<data name="BargainEndDate" xml:space="preserve">
     <value>End date of contract validity</value>
@@ -969,7 +969,7 @@
 	<data name="MailSendingType" xml:space="preserve">
     <value>Mailout type</value>
   </data>
-	<data name="RatePricePosition" xml:space="preserve">
+	<data name="RateType" xml:space="preserve">
     <value>Apply coefficient</value>
   </data>
 	<data name="NameLat" xml:space="preserve">
@@ -984,8 +984,8 @@
 	<data name="IncludeRegionalAdvertisement" xml:space="preserve">
     <value>Include regional advertising</value>
   </data>
-	<data name="RestrictChildPositionPlatforms" xml:space="preserve">
-    <value>Платформа дочерних позиций равна платформе родительской</value>
+  <data name="RestrictChildPositionPlatforms" xml:space="preserve">
+    <value>The platform for the child items matches the platform for the parent item</value>
   </data>
 	<data name="Email" xml:space="preserve">
     <value>E-mail</value>
@@ -1095,11 +1095,11 @@
 	<data name="NameOfClient" xml:space="preserve">
     <value>Client name</value>
   </data>
-	<data name="NeedsValidation" xml:space="preserve">
-    <value>Требует выверки</value>
+  <data name="NeedsValidation" xml:space="preserve">
+    <value>Requires verification</value>
   </data>
-	<data name="DummyAdvertisement" xml:space="preserve">
-    <value>Рекламный материал по умолчанию</value>
+  <data name="DummyAdvertisement" xml:space="preserve">
+    <value>Default advertising material</value>
   </data>
 	<data name="FirmName" xml:space="preserve">
     <value>Company name</value>
@@ -1245,11 +1245,11 @@
 	<data name="ThemeViewModel_FileId" xml:space="preserve">
     <value>Banner</value>
   </data>
-	<data name="FullNameInGenitive" xml:space="preserve">
-    <value>Полное имя (род. падеж)</value>
+  <data name="FullNameInGenitive" xml:space="preserve">
+    <value>Full name (genitive)</value>
   </data>
-	<data name="FullNameInNominative" xml:space="preserve">
-    <value>Полное имя (им. падеж)</value>
+  <data name="FullNameInNominative" xml:space="preserve">
+    <value>Full name (nominative)</value>
   </data>
 	<data name="Dic" xml:space="preserve">
     <value>DIČ</value>
@@ -1257,8 +1257,8 @@
 	<data name="Ic" xml:space="preserve">
     <value>IČ</value>
   </data>
-	<data name="BankAddress" xml:space="preserve">
-    <value>Адрес банка</value>
+  <data name="BankAddress" xml:space="preserve">
+    <value>Bank address</value>
   </data>
 	<data name="IsPngSupported" xml:space="preserve">
     <value>PNG</value>
@@ -1272,42 +1272,41 @@
 	<data name="IsChmSupported" xml:space="preserve">
     <value>CHM</value>
   </data>
-	<data name="PositionDenied" xml:space="preserve">
-    <value>Запрещенная позиция</value>
+  <data name="PositionDenied" xml:space="preserve">
+    <value>Banned item</value>
   </data>
-	<data name="BankCode" xml:space="preserve">
-    <value>Код банка</value>
+  <data name="BankCode" xml:space="preserve">
+    <value>Bank code</value>
   </data>
-	<data name="Registered" xml:space="preserve">
-    <value>Зарегистрировано</value>
-    <comment>поле профиля юр. лица</comment>
+  <data name="Registered" xml:space="preserve">
+    <value>Registered</value>
   </data>
-	<data name="CreateCsvFile" xml:space="preserve">
-    <value>Выгрузить дополнительно файл в формате csv</value>
+  <data name="CreateCsvFile" xml:space="preserve">
+    <value>Export an additional .csv file</value>
   </data>
-	<data name="OrderProcessingRequest" xml:space="preserve">
-    <value>Заявка из ЛК</value>
+  <data name="OrderProcessingRequest" xml:space="preserve">
+    <value>Request from PA</value>
   </data>
-	<data name="DueDate" xml:space="preserve">
-    <value>Срок</value>
+  <data name="DueDate" xml:space="preserve">
+    <value>Time</value>
   </data>
-	<data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
-    <value>Продляемый заказ</value>
+  <data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
+    <value>Extended order</value>
   </data>
-	<data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
-    <value>Созданный заказ</value>
+  <data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
+    <value>Created order</value>
   </data>
-	<data name="OrderProcessingRequestState" xml:space="preserve">
-    <value>Статус заявки</value>
+  <data name="OrderProcessingRequestState" xml:space="preserve">
+    <value>Request status</value>
   </data>
-	<data name="OrderProcessingRequestTitle" xml:space="preserve">
-    <value>Тема</value>
+  <data name="OrderProcessingRequestTitle" xml:space="preserve">
+    <value>Subject</value>
   </data>
-	<data name="ReleaseCountPlan" xml:space="preserve">
-    <value>Количество выпусков размещения</value>
+  <data name="ReleaseCountPlan" xml:space="preserve">
+    <value>Number of placement issues</value>
   </data>
-	<data name="IsAdvertisingAgency" xml:space="preserve">
-    <value>Является рекламным агентством</value>
+  <data name="IsAdvertisingAgency" xml:space="preserve">
+    <value>Is an advertising agency</value>
   </data>
 	<data name="AdvertisementElementErrorDescription" xml:space="preserve">
 		<value>Error</value>

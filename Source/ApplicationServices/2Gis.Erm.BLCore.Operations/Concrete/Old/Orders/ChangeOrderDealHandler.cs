@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -23,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
@@ -32,7 +34,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             IUserContext userContext, 
             IOrderRepository orderRepository, 
             IDealReadModel dealReadModel, 
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory, 
+            IOrderReadModel orderReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
@@ -40,6 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             _orderRepository = orderRepository;
             _dealReadModel = dealReadModel;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(ChangeOrderDealRequest request)
@@ -63,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                     return Response.Empty;
                 }
 
-                var order = _orderRepository.GetOrder(request.OrderId);
+                var order = _orderReadModel.GetOrder(request.OrderId);
                 var oldDealId = order.DealId;
                 if (oldDealId == null || (oldDealId != newDealInfo.Id))
                 {

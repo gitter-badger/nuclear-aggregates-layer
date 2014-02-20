@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -27,21 +27,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
             };
 
         // Состояния заказа, в котором можно менять объекты привязки
-        private static readonly OrderState[] AllowedOrderStates = new[]
+        private static readonly OrderState[] AllowedOrderStates =
             {
                 OrderState.Approved,
             };
 
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public CheckIsBindingObjectChangeAllowedHandler(IOrderRepository orderRepository)
+        public CheckIsBindingObjectChangeAllowedHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override CheckIsBindingObjectChangeAllowedResponse Handle(CheckIsBindingObjectChangeAllowedRequest request)
         {
-            var info = _orderRepository.GetOrderPositionInfo(request.OrderPositionId);
+            var info = _orderReadModel.GetOrderPositionInfo(request.OrderPositionId);
             
             if(info == null)
                 return new CheckIsBindingObjectChangeAllowedResponse(BLResources.EntityNotFound);

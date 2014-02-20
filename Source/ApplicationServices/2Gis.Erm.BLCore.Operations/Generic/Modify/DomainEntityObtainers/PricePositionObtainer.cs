@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             pricePosition.Cost = dto.Cost;
             pricePosition.Amount = dto.Amount;
             pricePosition.AmountSpecificationMode = (int)dto.AmountSpecificationMode;
-            pricePosition.RatePricePositions = dto.RatePricePositions;
+            pricePosition.RateType = (int)dto.RateType;
             pricePosition.MinAdvertisementAmount = dto.MinAdvertisementAmount;
             pricePosition.MaxAdvertisementAmount = dto.MaxAdvertisementAmount;
             pricePosition.Timestamp = dto.Timestamp;

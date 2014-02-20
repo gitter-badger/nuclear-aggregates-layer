@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 
@@ -8,23 +8,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 {
     public sealed class CalculateOrderPositionPricesHandler : RequestHandler<CalculateOrderPositionPricesRequest, CalculateOrderPositionPricesResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public CalculateOrderPositionPricesHandler(IOrderRepository orderRepository)
+        public CalculateOrderPositionPricesHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override CalculateOrderPositionPricesResponse Handle(CalculateOrderPositionPricesRequest request)
         {
-            var order = _orderRepository.GetOrder(request.OrderId);
-            var priceCalculations = _orderRepository.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
+            var order = _orderReadModel.GetOrder(request.OrderId);
+
+            var priceCalculations = _orderReadModel.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
 
             var pricePerUnit = Math.Round(priceCalculations.PricePerUnit, 2, MidpointRounding.ToEven);
             var pricePerUnitWithVat = pricePerUnit * (decimal.One + priceCalculations.VatRatio);
             pricePerUnitWithVat = Math.Round(pricePerUnitWithVat, 2, MidpointRounding.ToEven);
 
-            var recalculatedResult = _orderRepository.Recalculate(
+            var recalculatedResult = _orderReadModel.Recalculate(
                 request.Amount,
                 priceCalculations.PricePerUnit,
                 pricePerUnitWithVat,

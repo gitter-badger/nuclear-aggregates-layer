@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -15,23 +16,23 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 {
     public sealed class CheckOrderBeginDistributionDateHandler : RequestHandler<CheckOrderBeginDistributionDateRequest, EmptyResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
 
         public CheckOrderBeginDistributionDateHandler(
-            IOrderRepository orderRepository,
-            ISecurityServiceFunctionalAccess functionalAccessService, 
-            IUserContext userContext)
+            ISecurityServiceFunctionalAccess functionalAccessService,
+            IUserContext userContext,
+            IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(CheckOrderBeginDistributionDateRequest request)
         {
-            var orderDistributionInfo = _orderRepository.GetOrderInfoToCheckOrderBeginDistributionDate(request.OrderId);
+            var orderDistributionInfo = _orderReadModel.GetOrderInfoToCheckOrderBeginDistributionDate(request.OrderId);
             
             if (orderDistributionInfo == null ||
                 orderDistributionInfo.BeginDistributionDate != request.BeginDistributionDate ||

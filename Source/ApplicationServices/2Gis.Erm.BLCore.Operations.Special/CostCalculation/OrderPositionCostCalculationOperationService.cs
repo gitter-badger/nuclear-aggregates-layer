@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -25,32 +23,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 {
     public class OrderPositionCostCalculationOperationService : ICalculateOrderPositionCostService
     {
-        private const decimal DefaultVatRate = 18M;
-
         private readonly IFinder _finder;
         private readonly ICostCalculator _costCalculator;
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IPriceReadModel _priceReadModel;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IProjectService _projectService;
 
         public OrderPositionCostCalculationOperationService(
-            IOrderRepository orderRepository,
             IFinder finder,
             ICostCalculator costCalculator,
             IClientProxyFactory clientProxyFactory,
+                                                            IOrderReadModel orderReadModel,
             IFirmRepository firmRepository,
             IOperationScopeFactory scopeFactory,
-            IProjectService projectService)
+                                                            IProjectService projectService,
+                                                            IPriceReadModel priceReadModel)
         {
-            _orderRepository = orderRepository;
             _finder = finder;
             _costCalculator = costCalculator;
             _clientProxyFactory = clientProxyFactory;
+            _orderReadModel = orderReadModel;
             _firmRepository = firmRepository;
             _scopeFactory = scopeFactory;
             _projectService = projectService;
+            _priceReadModel = priceReadModel;
         }
 
         /// <summary>
@@ -63,6 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceProjectCode,
             long destProjectCode,
             long? firmId,
+            long? categoryId,
             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             long? sourceOrganizationUnitId = null;
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             var destOrganizationUnitId = destProject.OrganizationUnitId.Value;
 
             long priceId;
-            if (!_orderRepository.TryGetActualPriceId(destOrganizationUnitId, beginDistributionDate, out priceId))
+            if (!_orderReadModel.TryGetActualPriceId(destOrganizationUnitId, beginDistributionDate, out priceId))
             {
                 throw new InvalidOperationException(string.Format(BLResources.CannotGetActualPriceListForOrganizationUnit, destOrganizationUnitId));
             }
@@ -97,6 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                sourceOrganizationUnitId,
                                                destOrganizationUnitId,
                                                firmId,
+                                               categoryId,
                                                positionInfos);
         }
 
@@ -105,6 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                             DateTime beginDistributionDate,
                                                                             long? sourceProjectCode,
                                                                             long firmId,
+                                                                            long? categoryId,
                                                                             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             var firm = _firmRepository.GetFirm(firmId);
@@ -128,7 +130,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             var destOrganizationUnitId = firm.OrganizationUnitId;
 
             long priceId;
-            if (!_orderRepository.TryGetActualPriceId(destOrganizationUnitId, beginDistributionDate, out priceId))
+            if (!_orderReadModel.TryGetActualPriceId(destOrganizationUnitId, beginDistributionDate, out priceId))
             {
                 throw new InvalidOperationException(string.Format(BLResources.CannotGetActualPriceListForOrganizationUnit, destOrganizationUnitId));
             }
@@ -139,6 +141,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                sourceOrganizationUnitId,
                                                destOrganizationUnitId,
                                                firmId,
+                                               categoryId,
                                                positionInfos);
         }
 
@@ -152,12 +155,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
+            long? categoryId,
             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<CalculateOrderCostIdentity>())
             {
                 bool showVat;
-                var vatRate = GetVatRate(sourceOrganizationUnitId, destOrganizationUnitId, out showVat);
+                var vatRate = _orderReadModel.GetVatRate(sourceOrganizationUnitId, destOrganizationUnitId, out showVat);
 
                 var positionCalcs = new CalculationResult[positionInfos.Count()];
 
@@ -166,6 +170,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                     positionCalcs[i] = CalculateOrderPositionCost(orderType,
                                                                   orderReleaseCount,
                                                                   firmId,
+                                                                  categoryId,
                                                                   positionInfos[i].PositionInfo.PositionId,
                                                                   priceId,
                                                                   positionInfos[i].PositionInfo.Amount,
@@ -192,6 +197,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
+            long? categoryId,
             CalcPositionWithDiscountInfo positionInfo)
         {
             // рассчитаем результат для коллекции из одной позиции
@@ -201,6 +207,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                      sourceOrganizationUnitId,
                                                      destOrganizationUnitId,
                                                      firmId,
+                                                     categoryId,
                                                      new List<CalcPositionWithDiscountInfo> { positionInfo });
 
             return result.PositionCalcs.Single();
@@ -213,6 +220,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             OrderType orderType,
             int orderReleaseCount,
             long? firmId,
+            long? categoryId,
             long positionId,
             long priceId,
             int amount,
@@ -229,8 +237,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                x =>
                                                new
                                                {
+                                                   x.Id,
                                                    x.Cost,
-                                                   x.RatePricePositions,
+                                                   x.RateType,
                                                    x.Position.IsComposite,
                                                })
                                            .SingleOrDefault();
@@ -245,11 +254,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 
             var nullCostOrder = orderType == OrderType.SelfAds || orderType == OrderType.SocialAds;
 
-            var currentRate = CategoryRate.Default;
-            if (pricePositionInfo.RatePricePositions && firmId.HasValue)
-            {
-                currentRate = GetCategoryRate(firmId.Value);
-            }
+            var categoryRate = firmId.HasValue ? _priceReadModel.GetCategoryRate(pricePositionInfo.Id, firmId.Value, categoryId) : 1m;
 
             if (pricePositionInfo.IsComposite)
             {
@@ -264,7 +269,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                     {
                         Amount = amount,
                         PriceCost = nullCostOrder ? decimal.Zero : x.Cost,
-                        Rate = currentRate,
+                        Rate = categoryRate,
                         PositionId = x.PositionId,
                         PriceId = priceId,
                         ReleaseCount = orderReleaseCount,
@@ -291,76 +296,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                 DiscountPercent = discountPercent,
                 DiscountSum = discountSum,
                 PriceCost = nullCostOrder ? decimal.Zero : pricePositionInfo.Cost,
-                Rate = currentRate,
+                Rate = categoryRate,
                 PositionId = positionId,
                 PriceId = priceId,
                 ReleaseCount = orderReleaseCount,
                 ShowVat = showVat,
                 VatRate = vatRate
             });
-        }
-
-        // TODO {y.baranihin, 18.11.2013}: вынести в read-model
-        private CategoryRate GetCategoryRate(long firmId)
-        {
-            var organizationUnitId =
-                _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
-
-            // Максимальный коэффициент по всем рубрикам этой фирмы в том отделении 2гис, где размещается заказ.
-            const decimal DefaultCategoryRate = 1M;
-            var categoryRates = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                                       .SelectMany(firm => firm.FirmAddresses)
-                                       .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
-                                       .SelectMany(address => address.CategoryFirmAddresses)
-                                       .Where(Specs.Find.Active<CategoryFirmAddress>())
-                                       .Select(addressCategory => addressCategory.Category)
-                                       .Where(Specs.Find.ActiveAndNotDeleted<Category>())
-                                       .SelectMany(category => category.CategoryOrganizationUnits)
-                                       .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                                       .Where(categoryOrganizationUnit => categoryOrganizationUnit.OrganizationUnitId == organizationUnitId)
-                                       .Select(
-                                           categoryOrganizationUnit =>
-                                           categoryOrganizationUnit.CategoryGroup != null
-                                               ? categoryOrganizationUnit.CategoryGroup.GroupRate
-                                               : DefaultCategoryRate)
-                                       .ToArray();
-
-            if (!categoryRates.Any())
-            {
-                throw new BusinessLogicException(BLResources.PricePositionCannotBeChoosedSinceThereIsNoFirmCategory);
-            }
-
-            return CategoryRate.Known(categoryRates.Max());
-        }
-
-        /// <summary>
-        /// Получаем значение процента НДС и информацию о том, отображается ли он в документах
-        /// </summary>
-        // TODO {y.baranihin, 18.11.2013}: вынести в read-model
-        private decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat)
-        {
-            var sourceVat = DefaultVatRate;
-            if (sourceOrganizationUnitId.HasValue)
-            {
-                sourceVat = _finder.Find<OrganizationUnit, decimal>(OrganizationUnitSpecs.Select.VatRate(),
-                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
-                                   .Single();
-            }
-
-            var destVat = _finder.Find<OrganizationUnit, decimal>(OrganizationUnitSpecs.Select.VatRate(),
-                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
-                                 .Single();
-
-            if (sourceVat == decimal.Zero)
-            {
-                // Город источник - франчайзи
-                showVat = false;
-                return destVat;
-            }
-
-            // Город источник - филиал
-            showVat = true;
-            return sourceVat;
         }
 
         /// <summary>

@@ -5230,4 +5230,10 @@
   <data name="CloseWithDenial" xml:space="preserve">
     <value />
   </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

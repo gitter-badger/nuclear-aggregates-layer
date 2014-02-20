@@ -969,7 +969,7 @@
 	<data name="MailSendingType" xml:space="preserve">
     <value>Typ rozesílání</value>
   </data>
-	<data name="RatePricePosition" xml:space="preserve">
+	<data name="RateType" xml:space="preserve">
     <value>Používat koeficient</value>
   </data>
 	<data name="NameLat" xml:space="preserve">
@@ -1278,36 +1278,35 @@
 	<data name="BankCode" xml:space="preserve">
     <value>Kód banky</value>
   </data>
-	<data name="Registered" xml:space="preserve">
+  <data name="Registered" xml:space="preserve">
     <value>Zaregistrováno</value>
-    <comment>поле профиля юр. лица</comment>
   </data>
-	<data name="CreateCsvFile" xml:space="preserve">
-    <value>Выгрузить дополнительно файл в формате csv</value>
+  <data name="CreateCsvFile" xml:space="preserve">
+    <value>Dodatečně odeslat soubor ve formátu csv</value>
   </data>
-	<data name="OrderProcessingRequest" xml:space="preserve">
-    <value>Заявка из ЛК</value>
+  <data name="OrderProcessingRequest" xml:space="preserve">
+    <value>Požadavek z OP</value>
   </data>
-	<data name="DueDate" xml:space="preserve">
-    <value>Срок</value>
+  <data name="DueDate" xml:space="preserve">
+    <value>Doba</value>
   </data>
-	<data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
-    <value>Продляемый заказ</value>
+  <data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
+    <value>Prodlužovaná objednávka</value>
   </data>
-	<data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
-    <value>Созданный заказ</value>
+  <data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
+    <value>Vytvořená objednávka</value>
   </data>
-	<data name="OrderProcessingRequestState" xml:space="preserve">
-    <value>Статус заявки</value>
+  <data name="OrderProcessingRequestState" xml:space="preserve">
+    <value>Stav požadavku</value>
   </data>
-	<data name="OrderProcessingRequestTitle" xml:space="preserve">
-    <value>Тема</value>
+  <data name="OrderProcessingRequestTitle" xml:space="preserve">
+    <value>Téma</value>
   </data>
-	<data name="ReleaseCountPlan" xml:space="preserve">
-    <value>Количество выпусков размещения</value>
+  <data name="ReleaseCountPlan" xml:space="preserve">
+    <value>Počet vydání zveřejnění</value>
   </data>
-	<data name="IsAdvertisingAgency" xml:space="preserve">
-    <value>Является рекламным агентством</value>
+  <data name="IsAdvertisingAgency" xml:space="preserve">
+    <value>Je reklamní agentura</value>
   </data>
 	<data name="AdvertisementElementErrorDescription" xml:space="preserve">
 		<value>Chyba</value>

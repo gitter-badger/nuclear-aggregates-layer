@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
@@ -20,17 +21,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         protected readonly IOperationScope OperationScope;
         private readonly IUserContext _userContext;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IProjectService _projectService;
         private readonly IUserRepository _userRepository;
         private readonly IUseCaseResumeContext<EditOrderRequest> _resumeContext;
 
         protected OrderProcessingStrategy(
-            IUserContext userContext, 
+            IUserContext userContext,
             IOrderRepository orderRepository,
             IUseCaseResumeContext<EditOrderRequest> resumeContext,
-            IProjectService projectService, 
-            IOperationScope operationScope, 
-            IUserRepository userRepository)
+            IProjectService projectService,
+            IOperationScope operationScope,
+            IUserRepository userRepository,
+            IOrderReadModel orderReadModel)
         {
             _userContext = userContext;
             _orderRepository = orderRepository;
@@ -38,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _projectService = projectService;
             OperationScope = operationScope;
             _userRepository = userRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected IOrderRepository OrderRepository
@@ -54,6 +58,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             {
                 return _resumeContext;
             }
+        }
+
+        protected IOrderReadModel OrderReadModel
+        {
+            get { return _orderReadModel; }
         }
 
         public void Validate(Order order)
@@ -106,8 +115,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         public void Process(Order order)
         {
-            OrderRepository.UpdateOrderDistributionDates(order);
-            OrderRepository.UpdateOrderReleaseNumbers(order);
+            OrderReadModel.UpdateOrderDistributionDates(order);
+            OrderReadModel.UpdateOrderReleaseNumbers(order);
 
             UpdateFinancialInformation(order);
             var reservedNumberDigit = ResumeContext.Request.ReservedNumberDigit;
