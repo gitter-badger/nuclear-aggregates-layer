@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public Nullable<int> MaxAdvertisementAmount { get; set; }
     	[DataMember]
-        public bool RatePricePositions { get; set; }
+        public PricePositionRateType RateType { get; set; }
     }
 }
 
