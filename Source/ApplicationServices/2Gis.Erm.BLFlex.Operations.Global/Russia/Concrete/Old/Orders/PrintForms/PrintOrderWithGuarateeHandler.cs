@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -16,30 +17,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
     public sealed class PrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, IRussiaAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public PrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderRepository orderRepository)
+        public PrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel)
         {
             _requestProcessor = requestProcessor;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override Response Handle(PrintOrderWithGuarateeRequest request)
         {
             var orderRequest = new PrintOrderRequest
-                {
-                    OrderId = request.OrderId,
-                    LegalPersonProfileId = request.LegalPersonProfileId,
-                    PrintRegionalVersion = request.PrintRegionalVersion
-                };
+            {
+                OrderId = request.OrderId,
+                LegalPersonProfileId = request.LegalPersonProfileId,
+                PrintRegionalVersion = request.PrintRegionalVersion
+            };
 
             var letterRequest = new PrintLetterOfGuaranteeRequest
-                {
-                    OrderId = request.OrderId,
-                    LegalPersonProfileId = request.LegalPersonProfileId
-                };
+            {
+                OrderId = request.OrderId,
+                LegalPersonProfileId = request.LegalPersonProfileId
+            };
 
-            var order = _orderRepository.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrder(request.OrderId);
             return new StreamResponse
             {
                 Stream = ProcessRequests(orderRequest, letterRequest).ZipStreamDictionary(),
