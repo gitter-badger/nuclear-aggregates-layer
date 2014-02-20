@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                                                                                                        orderInfo.SourceOrganizationUnitId,
                                                                                                        orderInfo.DestOrganizationUnitId,
                                                                                                        orderInfo.FirmId,
-                                                                                                       null,
+                                                                                                       request.CategoryId,
                                                                                                        positionInfo);
 
                         orderPosition.CategoryRate = calcResult.Rate;
@@ -194,10 +194,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     }
                     else
                     {
-                        var categories = request.AdvertisementsLinks.Where(x => x.CategoryId != null).Select(x => x.CategoryId.Value).Distinct().ToArray();
-                        var categoryId = categories.Length == 1 ? (long?)categories[0] : null;
-
-                        var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), categoryId);
+                        var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), request.CategoryId);
 
                         var calculateOrderPositionPricesResponse =
                             (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
