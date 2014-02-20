@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -32,43 +33,39 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         // Если Дата подписания > 20-го числа текущего месяца то "Дата оплаты, до" в первом (единственном) счёте устанавливать = Дате подписания БЗ.
         private static readonly Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator =
             (paymentNumber, signupDate, beginPeriod) =>
+            {
+                if (paymentNumber == 1)
                 {
-                    if (paymentNumber == 1)
-                    {
-                        var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
-                        return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
-                    }
+                    var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
+                    return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
+                }
 
-                    return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
-                };
+                return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
+            };
 
         private readonly IPublicService _publicService;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecureFinder _finder;
 
-        public BillController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService,
-            IOrderRepository orderRepository,
-            ILegalPersonRepository legalPersonRepository,
-            ISecureFinder finder,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+        public BillController(IMsCrmSettings msCrmSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
+                              IAPIOperationsServiceSettings operationsServiceSettings,
+                              IGetBaseCurrencyService getBaseCurrencyService,
+                              IPublicService publicService,
+                              IOrderReadModel orderReadModel,
+                              ILegalPersonRepository legalPersonRepository,
+                              ISecureFinder finder)
+            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _legalPersonRepository = legalPersonRepository;
             _finder = finder;
         }
+
+
 
         [UseDependencyFields]
         public ActionResult Create(long orderId)
@@ -200,7 +197,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             bool isChooseProfileNeeded = true;
             long? legalPersonProfile = null;
 
-            var order = _orderRepository.GetOrderByBill(billId);
+            var order = _orderReadModel.GetOrderByBill(billId);
             if (order != null && order.LegalPersonId.HasValue)
             {
                 var legalPersonWithProfiles =
@@ -221,7 +218,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public ActionResult Print(long id)
         {
-            var order = _orderRepository.GetOrderByBill(id);
+            var order = _orderReadModel.GetOrderByBill(id);
             if (order == null || !order.LegalPersonId.HasValue)
             {
                 throw new ArgumentException("LegalPersonId");

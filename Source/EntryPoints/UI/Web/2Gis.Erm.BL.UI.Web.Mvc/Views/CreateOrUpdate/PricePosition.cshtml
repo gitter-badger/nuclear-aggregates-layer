@@ -49,7 +49,7 @@
         {
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.IsPositionControlledByAmount)
-            @Html.HiddenFor(m => m.IsRatePricePositionAvailable)
+            @Html.HiddenFor(m => m.IsRateTypeAvailable)
         }
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Price })
@@ -88,7 +88,7 @@
         </div>
         
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.RatePricePosition, FieldFlex.lone)
+            @Html.TemplateField(m => m.RateType, FieldFlex.lone, null, EnumResources.ResourceManager)
         </div>
     </div>
 }
