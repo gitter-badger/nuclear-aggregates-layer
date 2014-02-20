@@ -906,4 +906,7 @@
   <data name="Task" xml:space="preserve">
     <value>Tarea</value>
   </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Номер счета</value>
+  </data>
 </root>

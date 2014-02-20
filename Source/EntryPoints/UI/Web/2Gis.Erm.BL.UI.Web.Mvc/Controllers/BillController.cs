@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Controllers;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
@@ -33,20 +34,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         // Если Дата подписания > 20-го числа текущего месяца то "Дата оплаты, до" в первом (единственном) счёте устанавливать = Дате подписания БЗ.
         private static readonly Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator =
             (paymentNumber, signupDate, beginPeriod) =>
-            {
-                if (paymentNumber == 1)
                 {
-                    var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
-                    return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
-                }
+                    if (paymentNumber == 1)
+                    {
+                        var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
+                        return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
+                    }
 
-                return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
-            };
+                    return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
+                };
 
         private readonly IPublicService _publicService;
         private readonly IOrderReadModel _orderReadModel;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecureFinder _finder;
+        private readonly IEvaluateBillViewsService _evaluateBillViewsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
@@ -56,6 +58,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IPublicService publicService,
                               IOrderReadModel orderReadModel,
                               ILegalPersonRepository legalPersonRepository,
+                              IEvaluateBillViewsService evaluateBillViewsService,
                               ISecureFinder finder)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
@@ -63,6 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderReadModel = orderReadModel;
             _legalPersonRepository = legalPersonRepository;
             _finder = finder;
+            _evaluateBillViewsService = evaluateBillViewsService;
         }
 
 
@@ -73,7 +77,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var response = (GetRelatedOrdersForCreateBillResponse)_publicService.Handle(new GetRelatedOrdersForCreateBillRequest { OrderId = orderId });
             var model = new CreateBillViewModel { OrderId = orderId };
             model.IsMassBillCreateAvailable = response.Orders != null && response.Orders.Length > 0;
-            return View(model);
+            return View(_evaluateBillViewsService.GetCreateView(), model);
         }
 
         public ActionResult DeleteAll()
@@ -224,7 +228,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 throw new ArgumentException("LegalPersonId");
             }
 
-            var printOrderModel = new PrintOrderViewModel()
+            var printOrderModel = new PrintOrderViewModel
             {
                 LegalPersonId = order.LegalPersonId.Value,
                 OrderId = id

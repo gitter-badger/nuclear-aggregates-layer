@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -905,5 +905,8 @@
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Messages for the request</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Payment number</value>
   </data>
 </root>

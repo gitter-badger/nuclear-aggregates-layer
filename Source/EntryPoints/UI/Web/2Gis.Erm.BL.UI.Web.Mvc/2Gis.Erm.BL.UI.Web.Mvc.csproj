@@ -141,7 +141,6 @@
     <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
     <Compile Include="Models\AssociatedPositionViewModel.cs" />
     <Compile Include="Models\BargainFileViewModel.cs" />
-    <Compile Include="Models\BillViewModel.cs" />
     <Compile Include="Models\CategoryGroupMembershipViewModel.cs" />
     <Compile Include="Models\CategoryGroupViewModel.cs" />
     <Compile Include="Models\CategoryOrganizationUnitViewModel.cs" />
@@ -225,6 +224,7 @@
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
+    <Compile Include="Services\Controllers\IEvaluateBillViewsService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
     <Compile Include="Services\Grid\BillViewService.cs" />
@@ -291,11 +291,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CloseBargains.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Bill\Create.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bill\DeleteAll.generated.cs">
       <AutoGen>True</AutoGen>
@@ -386,11 +381,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BargainFile.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Bill.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Bill.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Category.generated.cs">
       <AutoGen>True</AutoGen>
@@ -779,10 +769,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CloseBargains.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Bill\Create.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Create.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\Bill\DeleteAll.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DeleteAll.generated.cs</LastGenOutput>
@@ -854,10 +840,6 @@
     <None Include="Views\CreateOrUpdate\BargainFile.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainFile.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Bill.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Bill.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Category.cshtml">
       <Generator>RazorGenerator</Generator>
