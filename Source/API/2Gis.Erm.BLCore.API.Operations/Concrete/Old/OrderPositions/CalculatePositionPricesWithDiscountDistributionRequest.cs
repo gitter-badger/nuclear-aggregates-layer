@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions
     {
         public int[] Amounts { get; set; }
         public decimal[] Costs { get; set; }
-        public CategoryRate[] CategoryRates { get; set; }
+        public decimal[] CategoryRates { get; set; }
 
         public long OrderId { get; set; }
         public decimal DiscountPercent { get; set; }

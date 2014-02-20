@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -940,6 +941,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public void CreateOrUpdate(PricePosition pricePosition)
         {
+            var allowedBindingTypesForBoundCategoryRateType = new[]
+            {
+                PositionBindingObjectType.CategorySingle,
+                PositionBindingObjectType.AddressCategorySingle,
+                PositionBindingObjectType.AddressFirstLevelCategorySingle
+            };
+
+            if (pricePosition.RateType == (int)PricePositionRateType.BoundCategory)
+            {
+                var bindingObjectType = (PositionBindingObjectType)_finder.Find(Specs.Find.ById<Position>(pricePosition.PositionId)).Select(x => x.BindingObjectTypeEnum).Single();
+                if (!allowedBindingTypesForBoundCategoryRateType.Contains(bindingObjectType))
+                {
+                    throw new NotificationException(
+                        string.Format(BLResources.CannotUseRateTypeForBindingObjectType,
+                                      ((PricePositionRateType)pricePosition.RateType).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                      bindingObjectType.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
+                }
+            }
+
             if (pricePosition.Amount == null && pricePosition.AmountSpecificationMode == (int)PricePositionAmountSpecificationMode.FixedValue)
             {
                 throw new NotificationException(BLResources.CountMustBeSpecified);

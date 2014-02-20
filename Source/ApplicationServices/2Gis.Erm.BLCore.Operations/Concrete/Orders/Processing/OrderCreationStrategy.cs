@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
@@ -16,15 +17,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     {
         private readonly IAccountRepository _accountRepository;
 
-        public OrderCreationStrategy(
-            IAccountRepository accountRepository,
-            IUserContext userContext,
-            IOrderRepository orderRepository,
-            IUseCaseResumeContext<EditOrderRequest> resumeContext,
-            IProjectService projectService,
-            IOperationScope operationScope, 
-            IUserRepository userRepository)
-            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository)
+        public OrderCreationStrategy(IUserContext userContext,
+                                     IOrderRepository orderRepository,
+                                     IUseCaseResumeContext<EditOrderRequest> resumeContext,
+                                     IProjectService projectService,
+                                     IOperationScope operationScope,
+                                     IUserRepository userRepository,
+                                     IOrderReadModel orderReadModel,
+                                     IAccountRepository accountRepository)
+            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _accountRepository = accountRepository;
         }
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 return;
             }
 
-            var isOrganizationUnitsBothBranches = OrderRepository.IsOrganizationUnitsBothBranches(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            var isOrganizationUnitsBothBranches = OrderReadModel.IsOrganizationUnitsBothBranches(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
             if (isOrganizationUnitsBothBranches)
             {
                 return;

@@ -326,7 +326,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 .ToArray();
         }
 
-        public long? GetOrderFirmId(long orderId)
+        public long GetOrderFirmId(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
         }

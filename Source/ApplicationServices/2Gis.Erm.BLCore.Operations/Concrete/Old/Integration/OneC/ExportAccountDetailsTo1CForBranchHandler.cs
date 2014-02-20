@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
@@ -36,22 +36,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly ICommonLog _logger;
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public ExportAccountDetailsTo1CForBranchHandler(
-            IFinder finder,
-            ISubRequestProcessor subRequestProcessor,
-            ISecurityServiceUserIdentifier securityServiceUserIdentifier, 
-            ICommonLog logger,
-            IClientProxyFactory clientProxyFactory, 
-            IOrderRepository orderRepository)
+        public ExportAccountDetailsTo1CForBranchHandler(IFinder finder,
+                                                        ISubRequestProcessor subRequestProcessor,
+                                                        ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+                                                        ICommonLog logger,
+                                                        IClientProxyFactory clientProxyFactory,
+                                                        IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _logger = logger;
             _clientProxyFactory = clientProxyFactory;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         private enum ExportOrderType
@@ -151,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var orderIds = all.Select(x => x.OrderId).Distinct().ToArray();
 
-            var distributions = _orderRepository.GetOrderPlatformDistributions(orderIds, request.StartPeriodDate, request.EndPeriodDate);
+            var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, request.StartPeriodDate, request.EndPeriodDate);
 
             foreach (var accountDetailDto in all)
             {

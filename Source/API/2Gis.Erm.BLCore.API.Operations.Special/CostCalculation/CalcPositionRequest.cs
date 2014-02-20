@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
         /// <summary>
         /// Коэфициент группы рубрик, который применяется к данной позиции.
         /// </summary>
-        public CategoryRate Rate { get; set; }
+        public decimal Rate { get; set; }
 
         /// <summary>
         /// Количество экземпляров позици.

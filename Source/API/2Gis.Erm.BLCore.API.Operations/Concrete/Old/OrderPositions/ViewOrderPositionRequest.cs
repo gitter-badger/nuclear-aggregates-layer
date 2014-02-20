@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions
         public long? OrderPositionId { get; set; }
         public long OrderId { get; set; }
         public long PricePositionId { get; set; }
-
+        public long? CategoryId { get; set; }
         /// <summary>
         /// Неактивные и удаленные адреса не появляются при нормальном редактировании позиции заказа,
         /// но должны присутствовать в режиме смены объектов привязки.

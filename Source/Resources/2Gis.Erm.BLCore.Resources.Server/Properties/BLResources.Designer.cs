@@ -2808,6 +2808,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotUseRateTypeForBindingObjectType {
+            get {
+                return ResourceManager.GetString("CannotUseRateTypeForBindingObjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно выполнить проверку Заказа, поскольку у него не указана Фирма..
         /// </summary>
         public static string CannotValidateOrderWithoutFirm {
@@ -3569,6 +3578,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CategoryGroupInfoMessage {
             get {
                 return ResourceManager.GetString("CategoryGroupInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CategoryShouldBeSpecifiedForTheBoundCategoryRateType {
+            get {
+                return ResourceManager.GetString("CategoryShouldBeSpecifiedForTheBoundCategoryRateType", resourceCulture);
             }
         }
         

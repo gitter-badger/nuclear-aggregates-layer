@@ -5,8 +5,8 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -21,11 +21,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
     [UseCase(Duration = UseCaseDuration.VeryLong)]
     public sealed class ExportDataForAutoMailerHandler : RequestHandler<ExportDataForAutoMailerRequest, IntegrationResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public ExportDataForAutoMailerHandler(IOrderRepository orderRepository)
+        public ExportDataForAutoMailerHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         public static string ClearText(string input)
@@ -44,10 +44,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
                     SendingType = request.SendingType
                 };
 
-            data.Recipients = _orderRepository.GetRecipientsForAutoMailer(startPeriodDate, endPeriodDate, request.IncludeRegionalAdvertisement);
+            data.Recipients = _orderReadModel.GetRecipientsForAutoMailer(startPeriodDate, endPeriodDate, request.IncludeRegionalAdvertisement);
 
             var xmlString = data.ToXml().ToString();
-            var xmlSchemaSet = XmlValidator.CreateXmlSchemaSetForXsd(BLCore.Operations.Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup"));
+            var xmlSchemaSet = XmlValidator.CreateXmlSchemaSetForXsd(Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup"));
 
             string error;
             var isValidXml = XmlValidator.Validate(xmlString, xmlSchemaSet, out error);

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -18,18 +18,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 {
     public sealed class GetOrdersWithDummyAdvertisementHandler : RequestHandler<GetOrdersWithDummyAdvertisementRequest, GetOrdersWithDummyAdvertisementResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IReleaseReadModel _releaseReadModel;
 
-        public GetOrdersWithDummyAdvertisementHandler(
-            IOrderRepository orderRepository, 
-            ISecurityServiceUserIdentifier securityServiceUserIdentifier, 
-            IReleaseReadModel releaseReadModel)
+        public GetOrdersWithDummyAdvertisementHandler(IReleaseReadModel releaseReadModel,
+                                                      ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+                                                      IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
-            _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _releaseReadModel = releaseReadModel;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
+            _orderReadModel = orderReadModel;
         }
 
         protected override GetOrdersWithDummyAdvertisementResponse Handle(GetOrdersWithDummyAdvertisementRequest request)
@@ -40,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 ReportFileName = CreateReportFileName(request),
             };
 
-            var ordersWithDummyAdvertisement = _orderRepository.GetOrdersWithDummyAdvertisement(request.OrganizationUnitId, request.OwnerId, request.IncludeOwnerDescendants);
+            var ordersWithDummyAdvertisement = _orderReadModel.GetOrdersWithDummyAdvertisement(request.OrganizationUnitId, request.OwnerId, request.IncludeOwnerDescendants);
 
             if (!ordersWithDummyAdvertisement.Any())
             {

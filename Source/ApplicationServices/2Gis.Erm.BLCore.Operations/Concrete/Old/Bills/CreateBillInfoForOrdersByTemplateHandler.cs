@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -12,17 +12,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class CreateBillInfoForOrdersByTemplateHandler 
         : RequestHandler<CreateBillInfoForOrdersByTemplateRequest, CreateBillInfoForOrdersByTemplateResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public CreateBillInfoForOrdersByTemplateHandler(IOrderRepository orderRepository)
+        public CreateBillInfoForOrdersByTemplateHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override CreateBillInfoForOrdersByTemplateResponse Handle(CreateBillInfoForOrdersByTemplateRequest request)
         {
             // вытаскиваем данные сколько по каждому из заказов к оплате план
-            var ordersInfos = _orderRepository.GetPayablePlans(request.OrderIds).ToArray();
+            var ordersInfos = _orderReadModel.GetPayablePlans(request.OrderIds).ToArray();
 
             // опеределяем долю каждого платежа в шаблоне платежей от общей суммы
             var totalPayablePlan = request.CreateBillInfosTemplate.Sum(i => i.PayablePlan);

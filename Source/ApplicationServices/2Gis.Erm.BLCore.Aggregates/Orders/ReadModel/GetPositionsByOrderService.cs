@@ -7,16 +7,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
     [Obsolete]
     public class GetPositionsByOrderService : IGetPositionsByOrderService
     {
-        private IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public GetPositionsByOrderService(IOrderRepository orderRepository)
+        public GetPositionsByOrderService(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         public IEnumerable<long> GetPositionIds(long orderId)
         {
-            var orderInfo = _orderRepository.GetOrderForProlongationInfo(orderId);
+            var orderInfo = _orderReadModel.GetOrderForProlongationInfo(orderId);
             return orderInfo.Positions.Select(x => x.PositionId).ToArray();
         }
     }

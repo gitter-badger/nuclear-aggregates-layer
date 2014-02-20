@@ -1,6 +1,7 @@
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -14,16 +15,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class DeleteBillsHandler : RequestHandler<DeleteBillsRequest, EmptyResponse>
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
         public DeleteBillsHandler(
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository,
+            IOrderReadModel orderReadModel)
         {
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(DeleteBillsRequest request)
         {
-            var orderWithBills = _orderRepository.GetOrderWithBills(request.OrderId);
+            var orderWithBills = _orderReadModel.GetOrderWithBills(request.OrderId);
             var isOrderOnApproval = orderWithBills.Order != null && orderWithBills.Order.WorkflowStepId == (int)OrderState.OnRegistration;
 
             if (!isOrderOnApproval)

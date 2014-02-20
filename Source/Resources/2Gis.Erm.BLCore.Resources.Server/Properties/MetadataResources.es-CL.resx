@@ -969,7 +969,7 @@
   <data name="MailSendingType" xml:space="preserve">
     <value>Tipo de distribución</value>
   </data>
-  <data name="RatePricePosition" xml:space="preserve">
+  <data name="RateType" xml:space="preserve">
     <value>Aplicar coeficiente</value>
   </data>
   <data name="NameLat" xml:space="preserve">

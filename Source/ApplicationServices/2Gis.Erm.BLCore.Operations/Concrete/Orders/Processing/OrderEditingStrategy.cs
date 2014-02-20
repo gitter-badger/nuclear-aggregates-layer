@@ -4,6 +4,7 @@ using System.Text;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
@@ -43,18 +44,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
 
-        public OrderEditingStrategy(
-            ICommonLog logger,
-            IReleaseReadModel releaseRepository,
-            IAccountRepository accountRepository,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext,
-            IOrderRepository orderRepository,
-            IUseCaseResumeContext<EditOrderRequest> resumeContext,
-            IProjectService projectService,
-            IOperationScope operationScope, 
-            IUserRepository userRepository)
-            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository)
+        public OrderEditingStrategy(IUserContext userContext,
+                                    IOrderRepository orderRepository,
+                                    IUseCaseResumeContext<EditOrderRequest> resumeContext,
+                                    IProjectService projectService,
+                                    IOperationScope operationScope,
+                                    IUserRepository userRepository,
+                                    IOrderReadModel orderReadModel,
+                                    ICommonLog logger,
+                                    IReleaseReadModel releaseRepository,
+                                    IAccountRepository accountRepository,
+                                    ISecurityServiceFunctionalAccess functionalAccessService)
+            : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _logger = logger;
             _releaseRepository = releaseRepository;
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 }
             }
 
-            var orderStateValidationInfo = OrderRepository.GetOrderStateValidationInfo(order.Id);
+            var orderStateValidationInfo = OrderReadModel.GetOrderStateValidationInfo(order.Id);
             if (orderStateValidationInfo == null)
             {
                 return;
@@ -126,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         {
             if (!string.IsNullOrEmpty(order.Number))
             {
-                var isTheSameDirection = OrderRepository.IsOrderForOrganizationUnitsPairExist(order.Id,
+                var isTheSameDirection = OrderReadModel.IsOrderForOrganizationUnitsPairExist(order.Id,
                                                                                                order.SourceOrganizationUnitId,
                                                                                                order.DestOrganizationUnitId);
                 if (isTheSameDirection)
@@ -144,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 return;
             }
 
-            var isOrganizationUnitsBothBranches = OrderRepository.IsOrganizationUnitsBothBranches(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            var isOrganizationUnitsBothBranches = OrderReadModel.IsOrganizationUnitsBothBranches(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
             if (isOrganizationUnitsBothBranches)
             {
                 return;
@@ -191,7 +192,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             #region Logging
             _logger.InfoEx("Установка бюджетного типа заказа");
             #endregion
-            OrderRepository.DetermineOrderBudgetType(order);
+            OrderReadModel.DetermineOrderBudgetType(order);
             #region Logging
             _logger.DebugEx("Установка бюджетного типа заказа - завершено");
             #endregion
@@ -199,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void DetermineOrderPlatform(Order order)
         {
-            OrderRepository.DetermineOrderPlatform(order);
+            OrderReadModel.DetermineOrderPlatform(order);
         }
 
         protected override void CreateAccount(Order order)

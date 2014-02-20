@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -21,17 +22,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
     {
         private readonly IFinder _finder;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IPublicService _publicService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public DeleteOrderPositionService(IFinder finder, IOrderRepository orderRepository, IPublicService publicService, IUnitOfWork unitOfWork, IOperationScopeFactory scopeFactory)
+        public DeleteOrderPositionService(IFinder finder, IOrderRepository orderRepository, IPublicService publicService, IUnitOfWork unitOfWork, IOperationScopeFactory scopeFactory, IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _orderRepository = orderRepository;
             _publicService = publicService;
             _unitOfWork = unitOfWork;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -57,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 throw new ArgumentException(BLResources.CannotRemoveOrderPositionOfRegisteredOrder);
             }
 
-            var orderDiscounts = _orderRepository.GetOrderDiscounts(orderPositionInfo.Order.Id);
+            var orderDiscounts = _orderReadModel.GetOrderDiscounts(orderPositionInfo.Order.Id);
             using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, OrderPosition>())
             {
                 _orderRepository.Delete(orderPositionInfo.OrderPosition);
@@ -77,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 
 
                     // определим платформу заказа
-                    scopedOrderRepository.DetermineOrderPlatform(orderPositionInfo.Order);
+                    _orderReadModel.DetermineOrderPlatform(orderPositionInfo.Order);
                     scopedOrderRepository.UpdateOrderNumber(orderPositionInfo.Order);
 
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest

@@ -4,6 +4,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -18,15 +19,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
+
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
 
-        public CreateBillsHandler(
-            ISubRequestProcessor subRequestProcessor, 
-            IOrderRepository orderRepository, 
-            IEvaluateBillNumberService evaluateBillNumberService)
+        public CreateBillsHandler(ISubRequestProcessor subRequestProcessor,
+                                  IOrderRepository orderRepository,
+                                  IOrderReadModel orderReadModel,
+                                  IEvaluateBillNumberService evaluateBillNumberService)
         {
             _subRequestProcessor = subRequestProcessor;
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
         }
 
@@ -37,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 return Response.Empty;
             }
 
-            var orderInfo = _orderRepository.GetOrder(request.OrderId);
+            var orderInfo = _orderReadModel.GetOrder(request.OrderId);
 
             // do not insert calculations in LINQ, this cannot keep high precision
             var orderVatRatio = (orderInfo.PayablePlan != 0m) ? orderInfo.VatPlan / (orderInfo.PayablePlan - orderInfo.VatPlan) : 0m;

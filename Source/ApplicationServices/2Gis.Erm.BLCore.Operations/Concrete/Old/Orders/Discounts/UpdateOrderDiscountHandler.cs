@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -7,12 +7,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
 {
     public sealed class UpdateOrderDiscountHandler : RequestHandler<UpdateOrderDiscountRequest, EmptyResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IPublicService _publicService;
 
-        public UpdateOrderDiscountHandler(IOrderRepository orderRepository, IPublicService publicService)
+        public UpdateOrderDiscountHandler(IOrderReadModel orderReadModel, IPublicService publicService)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _publicService = publicService;
         }
 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
         {
             var order = request.Order;
 
-            var originalOrderInfo = _orderRepository.GetFinancialInformation(order.Id);
+            var originalOrderInfo = _orderReadModel.GetFinancialInformation(order.Id);
 
             // если скидка не поменялась и число выпусков такое же, то и пересчитывать нечего
             var discountNotChanged = originalOrderInfo.DiscountSum == order.DiscountSum;

@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
         protected override EmptyResponse Handle(EditRequest<PricePosition> request)
         {
             var pricePosition = request.Entity;
+
             if (pricePosition.MinAdvertisementAmount.HasValue && pricePosition.MinAdvertisementAmount < 0)
             {
                 throw new NotificationException(BLResources.MinAdvertisementAmountCantbeLessThanZero);

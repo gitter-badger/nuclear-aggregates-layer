@@ -22,14 +22,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         protected override EmptyResponse Handle(SetADPositionsValidationAsInvalidRequest request)
         {
             var firmId = _firmRepository.GetOrderFirmId(request.OrderId);
-            if (firmId.HasValue)
+
+            var firmNonArchivedOrderIds = _firmRepository.GetFirmNonArchivedOrderIds(firmId);
+            foreach (var orderId in firmNonArchivedOrderIds)
             {
-                var firmNonArchivedOrderIds = _firmRepository.GetFirmNonArchivedOrderIds(firmId.Value);
-                foreach (var orderId in firmNonArchivedOrderIds)
-                {
-                    _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.ADPositionsValidation);
-                }
+                _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.ADPositionsValidation);
             }
+
 
             return Response.Empty;
         }

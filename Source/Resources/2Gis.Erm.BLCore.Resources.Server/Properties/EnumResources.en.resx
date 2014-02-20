@@ -1803,4 +1803,13 @@
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="PricePositionRateTypeNone" xml:space="preserve">
+    <value>Не применять</value>
+  </data>
+  <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
+    <value>По самой дорогой рубрике</value>
+  </data>
+  <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
+    <value>По проданной рубрике</value>
+  </data>
 </root>

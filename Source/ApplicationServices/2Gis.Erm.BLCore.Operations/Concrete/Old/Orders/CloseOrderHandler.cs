@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Deals.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -26,6 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IDeleteGenericEntityService<Bargain> _deleteBargainService;
 
         public CloseOrderHandler(
@@ -34,7 +36,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             ISubRequestProcessor subRequestProcessor, 
             IOperationScopeFactory scopeFactory,
             IOrderRepository orderRepository,
-            IDeleteGenericEntityService<Bargain> deleteBargainService)
+            IDeleteGenericEntityService<Bargain> deleteBargainService, 
+            IOrderReadModel orderReadModel)
         {
             _dealReadModel = dealReadModel;
             _dealChangeStageAggregateService = dealChangeStageAggregateService;
@@ -42,11 +45,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             _scopeFactory = scopeFactory;
             _orderRepository = orderRepository;
             _deleteBargainService = deleteBargainService;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(CloseOrderRequest request)
         {
-            var order = _orderRepository.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrder(request.OrderId);
             if (order == null)
             {
                 throw new NotificationException(BLResources.EntityNotFound);
@@ -64,13 +68,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             
             using (var operationScope = _scopeFactory.CreateNonCoupled<CloseWithDenialIdentity>())
             {
-                var orderPositions = _orderRepository.GetPositions(request.OrderId);
+                var orderPositions = _orderReadModel.GetPositions(request.OrderId);
                 _orderRepository.CloseOrder(order, request.Reason);
 
                 // Деактивировать договор
                 if (order.BargainId.HasValue)
                 {
-                    var hasOtherOrders = _orderRepository.GetOrdersForBargain(order.BargainId.Value).Any(x => x.Id != order.Id);
+                    var hasOtherOrders = _orderReadModel.GetOrdersForBargain(order.BargainId.Value).Any(x => x.Id != order.Id);
                     if (!hasOtherOrders)
                     {
                         _deleteBargainService.Delete(order.BargainId.Value);
@@ -88,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 {   
                     // У заказа есть связанный документ "Сделка" + Единственный заказ по сделке - > Изменить этап сделки на "Согласование сроков принятия решения"
                     var hasOtherOrdersInDeal =
-                        _orderRepository.GetOrdersForDeal(order.DealId.Value).Any(x => x.Id != request.OrderId);
+                        _orderReadModel.GetOrdersForDeal(order.DealId.Value).Any(x => x.Id != request.OrderId);
                     if (!hasOtherOrdersInDeal)
                     {
                         var deal = _dealReadModel.GetDeal(order.DealId.Value);

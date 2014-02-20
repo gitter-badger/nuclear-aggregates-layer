@@ -231,6 +231,8 @@
     <Compile Include="Prices\PricePositionSpecifications.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\PriceSpecs.Prices.cs" />
+    <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
