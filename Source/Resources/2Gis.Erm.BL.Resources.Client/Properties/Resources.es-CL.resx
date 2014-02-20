@@ -907,6 +907,6 @@
     <value>Tarea</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Номер счета</value>
+    <value>Numero de factura</value>
   </data>
 </root>
