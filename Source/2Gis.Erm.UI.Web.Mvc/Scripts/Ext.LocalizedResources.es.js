@@ -1,4 +1,4 @@
-﻿// File updated : 03.02.2014 10:57:06
+﻿// File updated : 18.02.2014 16:50:42
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -18,7 +18,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+DatePickerPrevText value for requested culture, fallback resource entry value used: Previous month (Control+Left)
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+InsertOrderedListText value for requested culture, fallback resource entry value used: Start a numbered list.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+SymbolsLeft value for requested culture, fallback resource entry value used: Number of symbols remained: {0}
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCreation value for requested culture, fallback resource entry value used: Создание заказа
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCreation value for requested culture, fallback resource entry value used: Create order
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LimitStatusOpened value for requested culture, fallback resource entry value used: Opened
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+ListDoesNotSupportAppend value for requested culture, fallback resource entry value used: This list does not support adding elements.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+SourceEditTitle value for requested culture, fallback resource entry value used: Source code
@@ -32,7 +32,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Friday value for requested culture, fallback resource entry value used: Friday
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+InputValidationInvalidUrl value for requested culture, fallback resource entry value used: Value of the field "{0}" is not a correct url-address
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Tuesday value for requested culture, fallback resource entry value used: Tuesday
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCreationIsInProgress value for requested culture, fallback resource entry value used: Идёт создание заказа. Пожалуйста, подождите...
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCreationIsInProgress value for requested culture, fallback resource entry value used: Creating order... Please wait...
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+YouHaveToChooseLegalPersonToPrintOrder value for requested culture, fallback resource entry value used: Legal entity of the customer must be specified to create a PF
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Monday value for requested culture, fallback resource entry value used: Monday
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+UploadFileQuestion value for requested culture, fallback resource entry value used: Do you really want to upload the "{0}" file to the server?
@@ -41,7 +41,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LoadAdvertisementResults value for requested culture, fallback resource entry value used: Advertising materials
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+DatePickerNextText value for requested culture, fallback resource entry value used: Next month (Control+Right)
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Thursday value for requested culture, fallback resource entry value used: Thursday
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AddressIsNotLocatedOnTheMap value for requested culture, fallback resource entry value used: Адрес не привязан к карте
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AddressIsNotLocatedOnTheMap value for requested culture, fallback resource entry value used: Address is not linked to map
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Cancel value for requested culture, fallback resource entry value used: Cancel
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Create value for requested culture, fallback resource entry value used: Create
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderValidationFailed value for requested culture, fallback resource entry value used: Failed to check
@@ -89,7 +89,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+November value for requested culture, fallback resource entry value used: November
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Category value for requested culture, fallback resource entry value used: Category
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+ReleaseCountPlanRangeMessage value for requested culture, fallback resource entry value used: Planned number of issues should be within the range [1-12]
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementTextContainsControlCharacters value for requested culture, fallback resource entry value used: Текст содержит управляющие символы, удалить их перед сохранением?
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementTextContainsControlCharacters value for requested culture, fallback resource entry value used: The text contains control symbols. Delete them before saving?
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderUpgradeProducedTheFollowingWarnings value for requested culture, fallback resource entry value used: Order update will produce the following changes:
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+PayablePlan value for requested culture, fallback resource entry value used: Due for payment (planned)
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+HiddenItem value for requested culture, fallback resource entry value used: (hidden till clarification)
@@ -132,7 +132,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LimitStatusError value for requested culture, fallback resource entry value used: Error
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdditionalServicesService value for requested culture, fallback resource entry value used: Service
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MergeLegalPersonsSucceded value for requested culture, fallback resource entry value used: Merged successfully
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderIsCreated value for requested culture, fallback resource entry value used: Создан заказ {entity}
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderIsCreated value for requested culture, fallback resource entry value used: Order {entity} created
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+No value for requested culture, fallback resource entry value used: No
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OK value for requested culture, fallback resource entry value used: OK
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+RelatedOrdersNumber value for requested culture, fallback resource entry value used: No.
@@ -142,8 +142,8 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+BillMassCreateConfirmMessage value for requested culture, fallback resource entry value used: Attention! Payments will be created for the selected group of orders. Continue?
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+October value for requested culture, fallback resource entry value used: October
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdsCheckTooLongWord value for requested culture, fallback resource entry value used: Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabGroupTemplate value for requested culture, fallback resource entry value used: {group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10>0 && values.rs.length%10<5?"сообщения":"сообщений"]})
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementTextContainsHtmlTags value for requested culture, fallback resource entry value used: Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabGroupTemplate value for requested culture, fallback resource entry value used: {group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "message" : values.rs.length%10>0 && values.rs.length%10<5?"messages":"messages"]})
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementTextContainsHtmlTags value for requested culture, fallback resource entry value used: The text contains potentially dangerous elements (HTML tags) and cannot be saved.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+IncreaseFontSizeTitle value for requested culture, fallback resource entry value used: Increase size
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+May value for requested culture, fallback resource entry value used: May
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Yes value for requested culture, fallback resource entry value used: Yes
@@ -163,7 +163,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+RefreshText value for requested culture, fallback resource entry value used: Refresh the list
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+JustifyCenterText value for requested culture, fallback resource entry value used: Center text alignment.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCheck value for requested culture, fallback resource entry value used: Check of the order
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementWasNotSaved value for requested culture, fallback resource entry value used: Элемент РМ не был сохранён.
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+AdvertisementElementWasNotSaved value for requested culture, fallback resource entry value used: AM element was not saved.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderState value for requested culture, fallback resource entry value used: Order status
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+NeedToSelectOneItem value for requested culture, fallback resource entry value used: Select one record to perform this operation.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+ModifiedValue value for requested culture, fallback resource entry value used: Set value
@@ -192,17 +192,17 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCopyingCompleted value for requested culture, fallback resource entry value used: Copying completed
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Advertisements value for requested culture, fallback resource entry value used: Advertising materials
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+TextEditorLineBreaksOverflow value for requested culture, fallback resource entry value used: Number of lines exceeds permitted {0} lines per {1}.
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MessageType value for requested culture, fallback resource entry value used: Тип сообщения
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MessageText value for requested culture, fallback resource entry value used: Текст сообщения
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MessageType value for requested culture, fallback resource entry value used: Type of message
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MessageText value for requested culture, fallback resource entry value used: Text of the message
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LimitStatusChangeIsNotSupportedAsTheGroupOperation value for requested culture, fallback resource entry value used: Change status operation cannot be performed for a group. Please change limit status one by one.
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+DummyValue value for requested culture, fallback resource entry value used: Заглушка
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+DummyValue value for requested culture, fallback resource entry value used: Parked page
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LinkFieldInvalidWebsiteMessage value for requested culture, fallback resource entry value used: Entered value is not a correct url address
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+GridViewSortDescText value for requested culture, fallback resource entry value used: Sort descending
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+PaymentDatePlan value for requested culture, fallback resource entry value used: Payment date, before
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LegalPersonProfileIsAlreadyMain value for requested culture, fallback resource entry value used: This profile is already the main one
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderCopyingInProgress value for requested culture, fallback resource entry value used: Copying order. Please wait…
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+SomeOfTheClientsHaveDebtsAlert value for requested culture, fallback resource entry value used: Attention! You are trying to take a Client with a debt receivable!
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderProcessingRequestCancelled value for requested culture, fallback resource entry value used: Заявка отменена
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderProcessingRequestCancelled value for requested culture, fallback resource entry value used: Request canceled
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+BillCreationApprovalNeeded value for requested culture, fallback resource entry value used: Approval is required!
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+MonthlyLowerBoundText value for requested culture, fallback resource entry value used: The value should be the first date of month
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+CardIsDirtyAlert value for requested culture, fallback resource entry value used: This action cannot be performed until all changes are saved. Please save changes or refresh the card to continue.
@@ -244,8 +244,8 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+UnderlineTitle value for requested culture, fallback resource entry value used: Underlined (Ctrl+U)
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+SelectObjectsToProcess value for requested culture, fallback resource entry value used: Select messages to be processed
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+CloseCardConfirmation value for requested culture, fallback resource entry value used: Changes are not saved. To remain on the page and save changes, click "Cancel".
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabTitle value for requested culture, fallback resource entry value used: Сообщения по заявке
-Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabGroupRenderer value for requested culture, fallback resource entry value used: Выполнено: {0}    Дата: {1}
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabTitle value for requested culture, fallback resource entry value used: Messages for the request
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OrderRequestMessagesTabGroupRenderer value for requested culture, fallback resource entry value used: Completed: {0}    Date: {1}
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+JustifyLeftText value for requested culture, fallback resource entry value used: Left text alignment.
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+FileUploadText value for requested culture, fallback resource entry value used: Please wait until the file is uploaded to the server...
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+DatePickerToday value for requested culture, fallback resource entry value used: Today
@@ -302,12 +302,12 @@ AdditionalServicesDoNotDisplay : 'Do not display',
 AdditionalServicesService : 'Service',
 AdditionalServicesValueNotFound : 'Invalid value!',
 Address : 'Address',
-AddressIsNotLocatedOnTheMap : 'Адрес не привязан к карте',
+AddressIsNotLocatedOnTheMap : 'Address is not linked to map',
 AdsCheckTooLongWord : 'Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.',
 AdvertisementElements : 'Components of advertising material',
-AdvertisementElementTextContainsControlCharacters : 'Текст содержит управляющие символы, удалить их перед сохранением?',
-AdvertisementElementTextContainsHtmlTags : 'Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.',
-AdvertisementElementWasNotSaved : 'Элемент РМ не был сохранён.',
+AdvertisementElementTextContainsControlCharacters : 'The text contains control symbols. Delete them before saving?',
+AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
+AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
 AfterPageText : 'of {0}',
 Alert : 'Attention!',
@@ -375,7 +375,7 @@ DisabledDatesText : 'This date cannot be selected',
 DisabledDaysText : 'This date cannot be selected',
 DiscountResetWarning : 'Information on discounts will be deleted for all order items! Continue?',
 DisplayMsg : 'Records from {0} up to {1} are displayed, total of {2}',
-DummyValue : 'Заглушка',
+DummyValue : 'Parked page',
 DummyValueWillBeApplied : 'A parked page will be applied instead of an advertising material.',
 EmptyMsg : 'No data to display',
 EndDistributionDate : 'End of placement',
@@ -450,8 +450,8 @@ MergeClientsAlert : 'After merging, the main Client will remain in the system, w
 MergeLegalPersonsAlert : 'Attention! After merging, only the main legal entity of the Client will remain in the system, secondary legal entity of the Client will be hidden. The operation cannot be undone!',
 MergeLegalPersonsSucceded : 'Merged successfully',
 MessageNotProcessedCorrectly : 'Failed to correctly process message {0}',
-MessageText : 'Текст сообщения',
-MessageType : 'Тип сообщения',
+MessageText : 'Text of the message',
+MessageType : 'Type of message',
 MinDateText : 'Date in this field should be later than {0}',
 Modified : 'Modified',
 ModifiedValue : 'Set value',
@@ -487,16 +487,16 @@ OrderCopyingCompleted : 'Copying completed',
 OrderCopyingFailure : 'Failed to copy order',
 OrderCopyingInProgress : 'Copying order. Please wait…',
 OrderCopyingSuccess : 'Order copied. New order number is {entity}',
-OrderCreation : 'Создание заказа',
-OrderCreationIsInProgress : 'Идёт создание заказа. Пожалуйста, подождите...',
+OrderCreation : 'Create order',
+OrderCreationIsInProgress : 'Creating order... Please wait...',
 OrderIsCorrect : 'The order is correct',
-OrderIsCreated : 'Создан заказ {entity}',
+OrderIsCreated : 'Order {entity} created',
 OrderIsNotRelatedToAccount : 'The order is not referenced to any personal account ',
-OrderProcessingRequestCancelled : 'Заявка отменена',
+OrderProcessingRequestCancelled : 'Request canceled',
 OrderRepairFailed : 'Failed to correct items of the order',
-OrderRequestMessagesTabGroupRenderer : 'Выполнено: {0}    Дата: {1}',
-OrderRequestMessagesTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10>0 && values.rs.length%10<5?"сообщения":"сообщений"]})',
-OrderRequestMessagesTabTitle : 'Сообщения по заявке',
+OrderRequestMessagesTabGroupRenderer : 'Completed: {0}    Date: {1}',
+OrderRequestMessagesTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "message" : values.rs.length%10>0 && values.rs.length%10<5?"messages":"messages"]})',
+OrderRequestMessagesTabTitle : 'Messages for the request',
 OrderState : 'Order status',
 OrderUpgradeProducedTheFollowingWarnings : 'Order update will produce the following changes:',
 OrderValidationFailed : 'Failed to check',
