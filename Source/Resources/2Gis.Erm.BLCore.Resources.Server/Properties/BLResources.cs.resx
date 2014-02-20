@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -4211,9 +4211,6 @@ Operace provedena: {4}.</value>
 	<data name="WrongDtoType" xml:space="preserve">
     <value>Nesprávný typ Dto</value>
   </data>
-	<data name="CompositePositionLinkingObjectTypeMustBeFirm" xml:space="preserve">
-    <value>Není možné vytvořit komplexní položku s typem vázaného objektu, který neodpovídá firmě</value>
-  </data>
 	<data name="NeedToPickAtLeastOneLinkingObjectForCompositePosition" xml:space="preserve">
     <value>Je třeba vybrat alespoň jednu položku z balíčku</value>
   </data>
@@ -5228,5 +5225,8 @@ Kontakt: {1}</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
     <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
 </root>

@@ -4209,9 +4209,6 @@
 	<data name="WrongDtoType" xml:space="preserve">
     <value>Неправильный тип Dto</value>
   </data>
-	<data name="CompositePositionLinkingObjectTypeMustBeFirm" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от фирмы</value>
-  </data>
 	<data name="NeedToPickAtLeastOneLinkingObjectForCompositePosition" xml:space="preserve">
     <value>Необходимо выбрать хотя бы одну позицию из пакета</value>
   </data>
@@ -5234,6 +5231,9 @@
     <value></value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value></value>
   </data>
 </root>
