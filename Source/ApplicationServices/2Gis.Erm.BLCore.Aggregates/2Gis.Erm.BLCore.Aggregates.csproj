@@ -204,6 +204,7 @@
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IValidateBillsService.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderCreateBargainAggregateService.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="Prices\AssociatedPositionSpecifications.cs" />

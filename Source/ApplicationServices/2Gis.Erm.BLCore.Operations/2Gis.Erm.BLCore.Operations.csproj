@@ -415,7 +415,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainTypeObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BillObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
