@@ -220,7 +220,6 @@
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
-    <Compile Include="Orders\ReadModel\OrderSpecs.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="Prices\AssociatedPositionSpecifications.cs" />
