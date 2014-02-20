@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old
         {
             get
             {
-                var categories = AdvertisementsLinks.Where(x => x.CategoryId != null).Select(x => x.CategoryId.Value).Distinct().ToArray();
-                return categories.Length == 1 ? (long?)categories[0] : null;
+                var categories = AdvertisementsLinks.Select(x => x.CategoryId).Distinct().ToArray();
+                return categories.Length == 1 ? categories[0] : null;
             }
         }
     }
