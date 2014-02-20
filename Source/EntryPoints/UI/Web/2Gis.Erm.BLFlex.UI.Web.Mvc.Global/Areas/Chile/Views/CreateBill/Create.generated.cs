@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill.Chile
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Views.CreateBill
 {
     using System;
     using System.Collections.Generic;
@@ -28,13 +28,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill.Chile
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 1 "..\..\Views\Bill\Chile\Create.cshtml"
+    #line 1 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
     using BLCore.API.Operations.Concrete.Old.Bills;
     
     #line default
     #line hidden
     
-    #line 2 "..\..\Views\Bill\Chile\Create.cshtml"
+    #line 2 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
     using BLCore.UI.Web.Mvc.Settings;
     
     #line default
@@ -51,8 +51,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill.Chile
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Bill/Chile/Create.cshtml")]
-    public partial class Create : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.CreateBillViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Chile/Views/CreateBill/Create.cshtml")]
+    public partial class Create : System.Web.Mvc.WebViewPage<Models.Chile.ChileCreateBillViewModel>
     {
         public Create()
         {
@@ -60,9 +60,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill.Chile
         public override void Execute()
         {
             
-            #line 5 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 5 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
   
-    Layout = "../../Shared/_DialogLayout.cshtml";
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
 
             
             #line default
@@ -74,7 +74,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 9 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
             Write(BLResources.CreateBill);
 
             
@@ -89,7 +89,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 10 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                   Write(BLResources.CreateBill);
 
             
@@ -104,7 +104,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 11 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                     Write(BLResources.CreateBill);
 
             
@@ -124,43 +124,43 @@ WriteLiteral("  rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 411), Tuple.Create("\"", 472)
-, Tuple.Create(Tuple.Create("", 418), Tuple.Create("/Content/slider.css?", 418), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 420), Tuple.Create("\"", 481)
+, Tuple.Create(Tuple.Create("", 427), Tuple.Create("/Content/slider.css?", 427), true)
             
-            #line 15 "..\..\Views\Bill\Chile\Create.cshtml"
-, Tuple.Create(Tuple.Create("", 438), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 15 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 447), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 438), false)
+, 447), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 495), Tuple.Create("\"", 583)
-, Tuple.Create(Tuple.Create("", 501), Tuple.Create("/Scripts/Chile/Ext.DoubleGis.UI.BillPayments.js?", 501), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 504), Tuple.Create("\"", 592)
+, Tuple.Create(Tuple.Create("", 510), Tuple.Create("/Scripts/Chile/Ext.DoubleGis.UI.BillPayments.js?", 510), true)
             
-            #line 17 "..\..\Views\Bill\Chile\Create.cshtml"
-, Tuple.Create(Tuple.Create("", 549), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 17 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 558), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 549), false)
+, 558), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 630), Tuple.Create("\"", 703)
-, Tuple.Create(Tuple.Create("", 636), Tuple.Create("/Scripts/Ext.grid.CheckColumn.js?", 636), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 639), Tuple.Create("\"", 712)
+, Tuple.Create(Tuple.Create("", 645), Tuple.Create("/Scripts/Ext.grid.CheckColumn.js?", 645), true)
             
-            #line 18 "..\..\Views\Bill\Chile\Create.cshtml"
-, Tuple.Create(Tuple.Create("", 669), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 18 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 678), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 669), false)
+, 678), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -186,7 +186,7 @@ WriteLiteral(@">
                 Single: ");
 
             
-            #line 34 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 34 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.Single);
 
             
@@ -195,7 +195,7 @@ WriteLiteral(@">
 WriteLiteral(",\r\n                ByPlan: ");
 
             
-            #line 35 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 35 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.ByPlan);
 
             
@@ -204,7 +204,7 @@ WriteLiteral(",\r\n                ByPlan: ");
 WriteLiteral(",\r\n                Custom: ");
 
             
-            #line 36 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 36 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.Custom);
 
             
@@ -280,18 +280,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 155 "..\..\Views\Bill\Chile\Create.cshtml"
-   Write(Html.HiddenFor(m => m.IsMassBillCreateAvailable));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 156 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 155 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -306,7 +295,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 159 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 158 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
    Write(BLResources.BillPaymentType);
 
             
@@ -333,7 +322,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 171 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 170 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                        Write(Model.Message);
 
             
@@ -345,7 +334,7 @@ WriteLiteral("\r\n                        </div>\r\n                    </td>\r\
 WriteLiteral("                        ");
 
             
-            #line 177 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 176 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                    Write(Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.Single, new Dictionary<string, object> { { "id", "PaymentTypeSingle" } } ));
 
             
@@ -363,7 +352,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 181 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 180 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeSingle);
 
             
@@ -379,7 +368,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 185 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 184 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeSingleLegend);
 
             
@@ -391,7 +380,7 @@ WriteLiteral("\r\n                        </div>\r\n                    </td>\r\
 WriteLiteral("                        ");
 
             
-            #line 189 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 188 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                    Write(Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.ByPlan, new Dictionary<string, object> { { "id", "PaymentTypeByPlan" } } ));
 
             
@@ -409,7 +398,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 193 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 192 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeByPlan);
 
             
@@ -425,7 +414,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 197 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 196 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeByPlanLegend);
 
             
@@ -441,7 +430,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 205 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 204 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
    Write(MetadataResources.PaymentsAmount);
 
             
@@ -472,7 +461,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 211 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 210 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
    Write(BLResources.OrderSum);
 
             
@@ -481,7 +470,7 @@ WriteLiteral("        ");
 WriteLiteral(", ");
 
             
-            #line 211 "..\..\Views\Bill\Chile\Create.cshtml"
+            #line 210 "..\..\Areas\Chile\Views\CreateBill\Create.cshtml"
                           Write(ViewData.GetErmBaseCurrencySymbol());
 
             

@@ -75,10 +75,6 @@
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
-      <Project>{21120b29-e708-4cb7-b582-a52043beaec0}</Project>
-      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -102,10 +98,6 @@
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj">
-      <Project>{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}</Project>
-      <Name>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

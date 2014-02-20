@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Views.CreateBill
 {
     using System;
     using System.Collections.Generic;
@@ -28,13 +28,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 1 "..\..\Views\Bill\MulticultureCreate.cshtml"
+    #line 1 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
     using BLCore.API.Operations.Concrete.Old.Bills;
     
     #line default
     #line hidden
     
-    #line 2 "..\..\Views\Bill\MulticultureCreate.cshtml"
+    #line 2 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
     using BLCore.UI.Web.Mvc.Settings;
     
     #line default
@@ -51,18 +51,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.Bill
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Bill/MulticultureCreate.cshtml")]
-    public partial class MulticultureCreate : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.CreateBillViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/MultiCulture/Views/CreateBill/Create.cshtml")]
+    public partial class Create : System.Web.Mvc.WebViewPage<Models.MultiCultureCreateBillViewModel>
     {
-        public MulticultureCreate()
+        public Create()
         {
         }
         public override void Execute()
         {
             
-            #line 5 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 5 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
   
-    Layout = "../Shared/_DialogLayout.cshtml";
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
 
             
             #line default
@@ -74,7 +74,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 9 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
             Write(BLResources.CreateBill);
 
             
@@ -89,7 +89,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 10 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                   Write(BLResources.CreateBill);
 
             
@@ -104,7 +104,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 11 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                     Write(BLResources.CreateBill);
 
             
@@ -124,58 +124,58 @@ WriteLiteral("  rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 408), Tuple.Create("\"", 469)
-, Tuple.Create(Tuple.Create("", 415), Tuple.Create("/Content/slider.css?", 415), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 421), Tuple.Create("\"", 482)
+, Tuple.Create(Tuple.Create("", 428), Tuple.Create("/Content/slider.css?", 428), true)
             
-            #line 15 "..\..\Views\Bill\MulticultureCreate.cshtml"
-, Tuple.Create(Tuple.Create("", 435), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 15 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 448), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 435), false)
+, 448), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 492), Tuple.Create("\"", 574)
-, Tuple.Create(Tuple.Create("", 498), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BillPayments.js?", 498), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 505), Tuple.Create("\"", 587)
+, Tuple.Create(Tuple.Create("", 511), Tuple.Create("/Scripts/Ext.DoubleGis.UI.BillPayments.js?", 511), true)
             
-            #line 17 "..\..\Views\Bill\MulticultureCreate.cshtml"
-, Tuple.Create(Tuple.Create("", 540), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 17 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 553), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 540), false)
+, 553), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 621), Tuple.Create("\"", 694)
-, Tuple.Create(Tuple.Create("", 627), Tuple.Create("/Scripts/Ext.grid.CheckColumn.js?", 627), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 634), Tuple.Create("\"", 707)
+, Tuple.Create(Tuple.Create("", 640), Tuple.Create("/Scripts/Ext.grid.CheckColumn.js?", 640), true)
             
-            #line 18 "..\..\Views\Bill\MulticultureCreate.cshtml"
-, Tuple.Create(Tuple.Create("", 660), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 18 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 673), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 660), false)
+, 673), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 741), Tuple.Create("\"", 839)
-, Tuple.Create(Tuple.Create("", 747), Tuple.Create("/Scripts/Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js?", 747), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 754), Tuple.Create("\"", 852)
+, Tuple.Create(Tuple.Create("", 760), Tuple.Create("/Scripts/Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js?", 760), true)
             
-            #line 19 "..\..\Views\Bill\MulticultureCreate.cshtml"
-, Tuple.Create(Tuple.Create("", 805), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 19 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
+, Tuple.Create(Tuple.Create("", 818), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 805), false)
+, 818), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -204,7 +204,7 @@ WriteLiteral(@">
                 Single: ");
 
             
-            #line 38 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 38 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.Single);
 
             
@@ -213,7 +213,7 @@ WriteLiteral(@">
 WriteLiteral(",\r\n                ByPlan: ");
 
             
-            #line 39 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 39 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.ByPlan);
 
             
@@ -222,7 +222,7 @@ WriteLiteral(",\r\n                ByPlan: ");
 WriteLiteral(",\r\n                Custom: ");
 
             
-            #line 40 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 40 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                     Write((int)BillPaymentType.Custom);
 
             
@@ -337,7 +337,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 228 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 228 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
    Write(Html.HiddenFor(m => m.IsMassBillCreateAvailable));
 
             
@@ -348,7 +348,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 229 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 229 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -363,7 +363,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 232 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 232 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
    Write(BLResources.BillPaymentType);
 
             
@@ -390,7 +390,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 244 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 244 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                        Write(Model.Message);
 
             
@@ -402,7 +402,7 @@ WriteLiteral("\r\n                        </div>\r\n                    </td>\r\
 WriteLiteral("                        ");
 
             
-            #line 250 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 250 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                    Write(Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.Single, new Dictionary<string, object> { { "id", "PaymentTypeSingle" } } ));
 
             
@@ -420,7 +420,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 254 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 254 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeSingle);
 
             
@@ -436,7 +436,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 258 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 258 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeSingleLegend);
 
             
@@ -448,7 +448,7 @@ WriteLiteral("\r\n                        </div>\r\n                    </td>\r\
 WriteLiteral("                        ");
 
             
-            #line 262 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 262 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                    Write(Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.ByPlan, new Dictionary<string, object> { { "id", "PaymentTypeByPlan" } } ));
 
             
@@ -466,7 +466,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 266 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 266 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeByPlan);
 
             
@@ -482,7 +482,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 270 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 270 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                        Write(BLResources.BillPaymentTypeByPlanLegend);
 
             
@@ -498,7 +498,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 278 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 278 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
    Write(MetadataResources.PaymentsAmount);
 
             
@@ -529,7 +529,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 284 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 284 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
    Write(BLResources.OrderSum);
 
             
@@ -538,7 +538,7 @@ WriteLiteral("        ");
 WriteLiteral(", ");
 
             
-            #line 284 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 284 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
                           Write(ViewData.GetErmBaseCurrencySymbol());
 
             
@@ -567,7 +567,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 290 "..\..\Views\Bill\MulticultureCreate.cshtml"
+            #line 290 "..\..\Areas\MultiCulture\Views\CreateBill\Create.cshtml"
            Write(BLResources.MassCreateBillsOperationName);
 
             
@@ -583,15 +583,6 @@ WriteLiteral("/> \r\n    </div>\r\n");
 
 });
 
-WriteLiteral("\r\n");
-
-            
-            #line 297 "..\..\Views\Bill\MulticultureCreate.cshtml"
-Write(RenderBody());
-
-            
-            #line default
-            #line hidden
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿@using BLCore.API.Operations.Concrete.Old.Bills
 @using BLCore.UI.Web.Mvc.Settings
-@model BL.UI.Web.Mvc.Models.CreateBillViewModel
+@model Models.Chile.ChileCreateBillViewModel
 
 @{
-    Layout = "../Shared/_DialogLayout.cshtml";
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
 }
 
 @section Title { @BLResources.CreateBill }
@@ -14,9 +14,8 @@
 {
     <link  rel="stylesheet" type="text/css" href="/Content/slider.css?@SolutionInfo.ProductVersion.Build" />
     
-    <script src="/Scripts/Ext.DoubleGis.UI.BillPayments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Chile/Ext.DoubleGis.UI.BillPayments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.grid.CheckColumn.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
 
     <script type="text/javascript">
         Ext.namespace('Ext.DoubleGis.UI.Bill');
@@ -25,10 +24,7 @@
             OrderId: -1, // идентификатор заказа для которого созается счет на оплату
             BillPaymentControlElement: null,
             PaymentsAmountSliderElement: null,
-            OrderSumElement: null,
-            RelatedOrderControlElement: null,
-            RelatedOrderGridHeight: -1,
-            RelatedOrderGridWidth: -1
+            OrderSumElement: null
         },
         PaymentsControl: null,
         RelatedOrderControl: null,
@@ -49,12 +45,6 @@
                 orderSumElement: this.Config.OrderSumElement,
                 paymentTypes: this.PaymentTypes
             });
-
-            this.RelatedOrderControl = new Ext.DoubleGis.UI.RelatedOrdersSelectorControl({
-                RelatedOrderControlElement: this.Config.RelatedOrderControlElement,
-                GridHeight: this.Config.RelatedOrderGridHeight,
-                GridWidth: this.Config.RelatedOrderGridWidth
-            });
         },
         GetInitPaymentsInfo: function() {
             // По-умолчанию считаем, что счета создаются "одним платежом"
@@ -67,28 +57,6 @@
                 paymentType = this.PaymentTypes.ByPlan;
             }
             this.PaymentsControl.getInitPayments(paymentType);
-        },
-        GetRelatedOrdersForBillOrder: function () {
-            Ext.Ajax.request({
-                timeout: 1200000,
-                method: 'POST',
-                url: '/Bill/GetRelatedOrdersInfoForCreateBill',
-                params: { orderId: this.Config.OrderId},
-                success: function(xhr, options) {
-                    var relatedOrders = Ext.decode(xhr.responseText);
-                    this.RelatedOrderControl.SetRelatedOrders(relatedOrders);
-                },
-                failure: function(xhr, options) {
-                    Ext.MessageBox.show({
-                        title: '',
-                        msg: xhr.responseText,
-                        buttons: Ext.MessageBox.OK,
-                        width: 300,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                },
-                scope: this
-            });
         },
         OnRadioClick: function() {
             this.GetInitPaymentsInfo();
@@ -127,41 +95,7 @@
             }
         },
         OnBillCreateExecuteStage2: function () {
-            this.RelatedOrders = this.RelatedOrderControl.GetOrders();
-            if (this.RelatedOrders.length > 0) 
-            {
-                if (Ext.getDom("PaymentTypeByPlan").checked) {
-                    var orderSum = this.PaymentsControl.getOrderSum();
-                    if (orderSum == 0) {
-                        // заказ с нулевой суммой не может использоваться как шаблон для массового создания счетов на оплату, с использованием рассрочки
-                        Ext.MessageBox.show({
-                            title: '',
-                            msg: Ext.LocalizedResources.BillMassCreateOrderHasZeroPayablePlan,
-                            buttons: Ext.MessageBox.OK,
-                            width: 300,
-                            icon: Ext.MessageBox.INFO
-                        });
-                        return;
-                    }
-                }
-                
-                Ext.MessageBox.show({
-                    title: '',
-                    msg: Ext.LocalizedResources.BillMassCreateConfirmMessage,
-                    buttons: Ext.MessageBox.OKCANCEL,
-                    width: 300,
-                    icon: Ext.MessageBox.QUESTION,
-                    fn: function(btn) {
-                        if (btn == 'ok') {
-                            this.OnBillCreateExecuteFinal(this.Payments, this.RelatedOrders);
-                        }
-                    },
-                    scope: this
-                });
-            }
-            else {
                 this.OnBillCreateExecuteFinal(this.Payments, null);
-            }
         },
         OnBillCreateExecuteFinal: function (payments, orders) {
             window.Ext.Ajax.request({
@@ -199,10 +133,6 @@
             
             Ext.get("PaymentTypeSingle").on("click", this.OnRadioClick, this);
             Ext.get("PaymentTypeByPlan").on("click", this.OnRadioClick, this);
-            
-            if (Ext.getDom("IsMassBillCreateAvailable").value == 'True') {
-                this.GetRelatedOrdersForBillOrder();
-            }
 
             //write eventhandlers for buttons
             Ext.get("Cancel").on("click", function () { window.close(); });
@@ -214,10 +144,7 @@
                 OrderId: Ext.getDom("OrderId").value, // идентификатор заказа для которого созается счет на оплату
                 BillPaymentControlElement: 'billPaymentsControl',
                 PaymentsAmountSliderElement: 'paymentsAmountSlider',
-                OrderSumElement: 'orderSum', 
-                RelatedOrderControlElement: 'massCreateBillsControl',
-                RelatedOrderGridHeight: 110,
-                RelatedOrderGridWidth: 760
+                OrderSumElement: 'orderSum' 
             };
             var billConfigurator = new Ext.DoubleGis.UI.Bill.Configurator(config);
             billConfigurator.Configure();
@@ -225,7 +152,6 @@
     </script>
     
     <div style="display: none">
-        @Html.HiddenFor(m => m.IsMassBillCreateAvailable)
         @Html.HiddenFor(m => m.OrderId)
     </div>
     <div style="padding: 5px 0 0 10px">
@@ -284,14 +210,4 @@
         @BLResources.OrderSum, @ViewData.GetErmBaseCurrencySymbol()
         <span id="orderSum"></span>
     </span>
-    <div id="massBillsCreate" style="clear: both;">
-       <div style="padding-left: 10px">
-            <span style="font-weight: bold">
-                @BLResources.MassCreateBillsOperationName
-             </span>
-        </div>
-        <div id="massCreateBillsControl" style="margin: 10px"/> 
-    </div>
 }
-
-@RenderBody()
