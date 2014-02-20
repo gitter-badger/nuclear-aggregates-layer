@@ -105,14 +105,14 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
 
             var shipmentPlan = positionInfo.ReleaseCount * positionInfo.Amount;
 
-            var pricePerUnitWithVat = positionInfo.PriceCost * positionInfo.Rate.Value * (decimal.One + (positionInfo.VatRate / 100));
+            var pricePerUnitWithVat = positionInfo.PriceCost * positionInfo.Rate * (decimal.One + (positionInfo.VatRate / 100));
             pricePerUnitWithVat = Math.Round(pricePerUnitWithVat, SignificantDigitsNumber, MidpointRounding.ToEven);
 
             // Иногда (Франчайзи-Филиал) цена без НДС включает в себя НДС
             var pricePerUnitWithoutVat = pricePerUnitWithVat;
             if (positionInfo.ShowVat)
             {
-                pricePerUnitWithoutVat = positionInfo.PriceCost * positionInfo.Rate.Value;
+                pricePerUnitWithoutVat = positionInfo.PriceCost * positionInfo.Rate;
                 pricePerUnitWithoutVat = Math.Round(pricePerUnitWithoutVat, SignificantDigitsNumber, MidpointRounding.ToEven);
             }
 
@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
                 PayablePriceWithVat = payablePriceWithVat,
                 PricePerUnit = pricePerUnitWithoutVat,
                 PricePerUnitWithVat = pricePerUnitWithVat,
-                Rate = positionInfo.Rate.Value,
+                Rate = positionInfo.Rate,
                 Vat = vat
             };
         }

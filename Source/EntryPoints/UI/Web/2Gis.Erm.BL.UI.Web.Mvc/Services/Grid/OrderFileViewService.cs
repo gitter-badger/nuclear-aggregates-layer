@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
@@ -13,17 +13,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class OrderFileViewService : GenericEntityGridViewService<Order>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public OrderFileViewService(
-            IUIConfigurationService configurationService,
-            ISecurityServiceEntityAccessInternal entityAccessService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext, 
-            IOrderRepository orderRepository)
+        public OrderFileViewService(IUIConfigurationService configurationService,
+                                    ISecurityServiceEntityAccessInternal entityAccessService,
+                                    ISecurityServiceFunctionalAccess functionalAccessService,
+                                    IUserContext userContext,
+                                    IOrderReadModel orderReadModel)
             : base(configurationService, entityAccessService, functionalAccessService, userContext)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
@@ -33,7 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
         {
             if (parentEntityName == EntityName.Order && parentEntityId.HasValue)
             {
-                var order = _orderRepository.GetOrder(parentEntityId.Value);
+                var order = _orderReadModel.GetOrder(parentEntityId.Value);
                 if (!order.IsActive || order.IsDeleted || order.IsTerminated)
                 {
                     var createButtons =
@@ -50,3 +49,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
         }
     }
 }
+
+
+
