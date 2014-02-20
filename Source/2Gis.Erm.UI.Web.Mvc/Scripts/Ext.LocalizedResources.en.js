@@ -5,7 +5,7 @@
 /* 
 Processing resources report:
 	Target culture: en
-	Resource entries count: 276
+	Resource entries count: 277
 
 */
 Ext.LocalizedResources =
@@ -54,6 +54,7 @@ BeginDistributionDate : 'Start of placement',
 BillCreationApprovalNeeded : 'Approval is required!',
 BillMassCreateConfirmMessage : 'Attention! Payments will be created for the selected group of orders. Continue?',
 BillMassCreateOrderHasZeroPayablePlan : 'Bulk creation of deferred payments cannot be performed if one of the orders has zero amount for payment. The list of payments for bulk creation should not contain selected orders.',
+BillNumber : 'Номер счета',
 BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',

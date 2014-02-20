@@ -640,6 +640,8 @@
     <Content Include="Content\slider.css" />
     <Content Include="Content\Spinner.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.BillPayments.js" />
     <Content Include="Scripts\Cyprus\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Czech\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
@@ -650,6 +652,7 @@
     <Content Include="Scripts\DataList\Activity.DataList.js" />
     <Content Include="Scripts\DataList\Contact.DataList.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementElement.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Bill.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Contact.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Client.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.BranchOfficeOrganizationUnit.js" />

@@ -7,7 +7,7 @@
 /* 
 Processing resources report:
 	Target culture: ru
-	Resource entries count: 276
+	Resource entries count: 277
 
 */
 Ext.LocalizedResources =
@@ -56,6 +56,7 @@ BeginDistributionDate : 'Начало размещения',
 BillCreationApprovalNeeded : 'Требуется согласование!',
 BillMassCreateConfirmMessage : 'Внимание! Будут созданы счета на оплату для выбранной группы заказов. Продолжить?',
 BillMassCreateOrderHasZeroPayablePlan : 'Невозможно массовое создание счетов на оплату, с использованием рассрочки, используя заказ с нулевой суммой к оплате. Не должно быть выбранных заказов в списке для массового создания счетов на оплату.',
+BillNumber : 'Номер счета',
 BoldText : 'Применение полужирного начертания к выделенному тексту.',
 BoldTitle : 'Полужирный (Ctrl+B)',
 Cancel : 'Отмена',

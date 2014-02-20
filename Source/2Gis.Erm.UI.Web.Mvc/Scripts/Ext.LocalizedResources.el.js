@@ -5,7 +5,7 @@
 /* 
 Processing resources report:
 	Target culture: el
-	Resource entries count: 276
+	Resource entries count: 277
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+OpenText value for requested culture, fallback resource entry value used: Open
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+ValueCantBeEmpty value for requested culture, fallback resource entry value used: The value cannot be empty
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+LoadMask value for requested culture, fallback resource entry value used: Loading...
@@ -268,6 +268,7 @@ Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resour
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+Task value for requested culture, fallback resource entry value used: Task
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+GridViewColumns value for requested culture, fallback resource entry value used: Columns
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+TimeFormat value for requested culture, fallback resource entry value used: H:i:s
+Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+BillNumber value for requested culture, fallback resource entry value used: Номер счета
 Can't resolve resource entry DoubleGis.Erm.BL.Resources.Client.Properties.Resources+UnderlineText value for requested culture, fallback resource entry value used: Underline selected text.
 Can't resolve resource entry DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI+SearchRecords value for requested culture, fallback resource entry value used: Record search
 Can't resolve resource entry DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI+MessageNotProcessedCorrectly value for requested culture, fallback resource entry value used: Failed to correctly process message {0}
@@ -330,6 +331,7 @@ BeginDistributionDate : 'Start of placement',
 BillCreationApprovalNeeded : 'Approval is required!',
 BillMassCreateConfirmMessage : 'Attention! Payments will be created for the selected group of orders. Continue?',
 BillMassCreateOrderHasZeroPayablePlan : 'Bulk creation of deferred payments cannot be performed if one of the orders has zero amount for payment. The list of payments for bulk creation should not contain selected orders.',
+BillNumber : 'Номер счета',
 BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',

@@ -5,7 +5,7 @@
 /* 
 Processing resources report:
 	Target culture: cs
-	Resource entries count: 276
+	Resource entries count: 277
 
 */
 Ext.LocalizedResources =
@@ -54,6 +54,7 @@ BeginDistributionDate : 'Začátek zveřejnění',
 BillCreationApprovalNeeded : 'Je vyžadován souhlas!',
 BillMassCreateConfirmMessage : 'Pozor! Pro vybranou skupinu objednávek budou vytvořeny faktury. Pokračovat?',
 BillMassCreateOrderHasZeroPayablePlan : 'Není možné hromadně vystavit faktury se splátkami, jestliže pracujete s objednávkou, na které je částka k zaplacení rovna nule. V seznamu pro hromadné vystavení faktur nesmí být vybrané objednávky.',
+BillNumber : 'Номер счета',
 BoldText : 'Použití tučného písma na vybraný text.',
 BoldTitle : 'Tučné (Ctrl+B)',
 Cancel : 'Zrušit',
