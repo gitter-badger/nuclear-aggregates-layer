@@ -17,7 +17,7 @@
             },
             Create: function ()
             {
-                var url = "/Bill/Create/?orderId=" + this.ParentId;
+                var url = "/Chile/CreateBill/Create/?orderId=" + this.ParentId;
                 var params = "dialogWidth:780px; dialogHeight:430px; status:yes; scroll:no;resizable:no;";
                 window.showModalDialog(url, null, params);
                 this.refresh();
