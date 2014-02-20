@@ -107,7 +107,7 @@
 		<value>[NEVYPLNĚNO]</value>
 	</data>
 	<data name="StringContainsControlCharacters" xml:space="preserve">
-		<value>Строка содержит управляющие символы</value>
+		<value>Řádek obsahuje řídicí znaky</value>
 	</data>
 	<data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
 		<value>Přístup odepřen.{0}Uživatel:{1}.{0}Akce:{2}.{0}Entita:{3}{0}</value>
