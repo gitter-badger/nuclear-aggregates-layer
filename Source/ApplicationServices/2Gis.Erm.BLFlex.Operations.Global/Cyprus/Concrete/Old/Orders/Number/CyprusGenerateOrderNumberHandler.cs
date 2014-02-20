@@ -1,6 +1,6 @@
 ﻿using System;
-
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Number;
@@ -12,12 +12,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Numb
 {
     public sealed class CyprusGenerateOrderNumberHandler : RequestHandler<GenerateOrderNumberRequest, GenerateOrderNumberResponse>, ICyprusAdapted
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly OrderNumberGenerationStrategy[] _orderNumberGenerationStrategies;
 
-        public CyprusGenerateOrderNumberHandler(IOrderRepository orderRepository)
+        public CyprusGenerateOrderNumberHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
+
             _orderNumberGenerationStrategies = new OrderNumberGenerationStrategy[]
                 {
                     OrderNumberGenerationStrategies.Cyprus.ReadFromNewFormat,
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Numb
         protected override GenerateOrderNumberResponse Handle(GenerateOrderNumberRequest request)
         {
             var order = request.Order;
-            var syncCodes = _orderRepository.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
             if (request.IsRegionalNumber)
             {
                 throw new NotSupportedException("Regional orders not supported by business model");
@@ -56,3 +57,5 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Numb
         }
     }
 }
+
+

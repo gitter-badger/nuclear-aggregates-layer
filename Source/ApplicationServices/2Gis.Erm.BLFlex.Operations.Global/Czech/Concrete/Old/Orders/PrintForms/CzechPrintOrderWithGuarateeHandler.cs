@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -16,30 +16,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
     public sealed class CzechPrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, ICzechAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public CzechPrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderRepository orderRepository)
+        public CzechPrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel)
         {
             _requestProcessor = requestProcessor;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override Response Handle(PrintOrderWithGuarateeRequest request)
         {
             var orderRequest = new PrintOrderRequest
-                {
-                    OrderId = request.OrderId,
-                    LegalPersonProfileId = request.LegalPersonProfileId,
-                    PrintRegionalVersion = request.PrintRegionalVersion
-                };
+            {
+                OrderId = request.OrderId,
+                LegalPersonProfileId = request.LegalPersonProfileId,
+                PrintRegionalVersion = request.PrintRegionalVersion
+            };
 
-            var order = _orderRepository.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrder(request.OrderId);
             return new StreamResponse
-                {
-                    Stream = ProcessRequests(orderRequest).ZipStreamDictionary(),
-                    ContentType = MediaTypeNames.Application.Zip,
-                    FileName = string.Format("{0}.zip", order.Number),
-                };
+            {
+                Stream = ProcessRequests(orderRequest).ZipStreamDictionary(),
+                ContentType = MediaTypeNames.Application.Zip,
+                FileName = string.Format("{0}.zip", order.Number),
+            };
         }
 
         private Dictionary<string, Stream> ProcessRequests(params Request[] requests)

@@ -1,0 +1,1314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DocumentsDeliveryAddress" xml:space="preserve">
+    <value>Adresa pro doručování dokumentů</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="ReasonForOrderBeingClosed" xml:space="preserve">
+    <value>Důvod ukončení objednávky</value>
+  </data>
+  <data name="TargetPrice" xml:space="preserve">
+    <value>Ceník</value>
+  </data>
+  <data name="EstimatedProfit" xml:space="preserve">
+    <value>Očekávaný příjem</value>
+  </data>
+  <data name="RHasOrdersDebt" xml:space="preserve">
+    <value>Pohledávky z objednávky</value>
+  </data>
+  <data name="FileNameLengthRestriction" xml:space="preserve">
+    <value>Max. délka názvu souboru</value>
+  </data>
+  <data name="ContributionType" xml:space="preserve">
+    <value>Forma spolupráce</value>
+  </data>
+  <data name="MasterPosition" xml:space="preserve">
+    <value>Nadřazená položka</value>
+  </data>
+  <data name="Bargain" xml:space="preserve">
+    <value>Smlouva</value>
+  </data>
+  <data name="DiscountComment" xml:space="preserve">
+    <value>Komentář ke slevě</value>
+  </data>
+  <data name="CheckAccountBalance" xml:space="preserve">
+    <value>Zkontrolovat zůstatek na osobních účtech</value>
+  </data>
+  <data name="WithDocDebtBargain" xml:space="preserve">
+    <value>Podle smlouvy</value>
+  </data>
+  <data name="ShowInactiveClients" xml:space="preserve">
+    <value>Neaktivní klienti</value>
+  </data>
+  <data name="BeginReleaseNumber" xml:space="preserve">
+    <value>Vydání č. (začátek zveřejnění)</value>
+  </data>
+  <data name="BaseCurrency" xml:space="preserve">
+    <value>Hlavní měna</value>
+  </data>
+  <data name="InSyncWith1C" xml:space="preserve">
+    <value>Synchronizace s 1С</value>
+  </data>
+  <data name="HasDocumentsDebt" xml:space="preserve">
+    <value>Dostupnost dokumentů</value>
+  </data>
+  <data name="TextLineBreaksCountRestriction" xml:space="preserve">
+    <value>Max. počet řádků</value>
+  </data>
+  <data name="FileExtensionRestriction" xml:space="preserve">
+    <value>Možné přípony souborů</value>
+  </data>
+  <data name="CloseReasonOther" xml:space="preserve">
+    <value>Jiný důvod ukončení</value>
+  </data>
+  <data name="FileSizeRestriction" xml:space="preserve">
+    <value>Max. velikost souboru</value>
+  </data>
+  <data name="PublishEndDate" xml:space="preserve">
+    <value>Datum ukončení zveřejnění</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Částka</value>
+  </data>
+  <data name="PassportSeries" xml:space="preserve">
+    <value>Série dokladu totožnosti</value>
+  </data>
+  <data name="PriceCreateDate" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="IsServiceUser" xml:space="preserve">
+    <value>Služební</value>
+  </data>
+  <data name="RegionalNumber" xml:space="preserve">
+    <value>Regionální číslo objednávky</value>
+  </data>
+  <data name="DgppId" xml:space="preserve">
+    <value>Kód DGPP</value>
+  </data>
+  <data name="OrderType" xml:space="preserve">
+    <value>Typ objednávky</value>
+  </data>
+  <data name="ForCurrency" xml:space="preserve">
+    <value>Pro měnu</value>
+  </data>
+  <data name="BeginDistributionDate" xml:space="preserve">
+    <value>Začátek zveřejnění</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Jméno po otci</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="PeriodStart" xml:space="preserve">
+    <value>Období od</value>
+  </data>
+  <data name="PriceList" xml:space="preserve">
+    <value>Ceník</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Zúčtovací měsíc</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Jméno</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="PaymentMethods" xml:space="preserve">
+    <value>Způsoby úhrady</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Recenze</value>
+  </data>
+  <data name="BargainEndDate" xml:space="preserve">
+    <value>Datum ukončení platnosti smlouvy</value>
+  </data>
+  <data name="CompositePosition" xml:space="preserve">
+    <value>Komplexní</value>
+  </data>
+  <data name="IsDeleted" xml:space="preserve">
+    <value>Odstraněna</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>Země</value>
+  </data>
+  <data name="ParentUser" xml:space="preserve">
+    <value>Vedoucí</value>
+  </data>
+  <data name="Territory" xml:space="preserve">
+    <value>Území</value>
+  </data>
+  <data name="OwnerCode" xml:space="preserve">
+    <value>Vlastník</value>
+  </data>
+  <data name="LockId" xml:space="preserve">
+    <value>Kód blokování</value>
+  </data>
+  <data name="IsAdvertisementRequired" xml:space="preserve">
+    <value>RM jsou povinné</value>
+  </data>
+  <data name="MinPlacementPeriod" xml:space="preserve">
+    <value>Minimální doba zveřejnění</value>
+  </data>
+  <data name="TextLengthRestriction" xml:space="preserve">
+    <value>Max. počet symbolů</value>
+  </data>
+  <data name="ShowClientsWithFrustratedPlans" xml:space="preserve">
+    <value>Klienti s promeškanými plány</value>
+  </data>
+  <data name="CurrencyIsoCode" xml:space="preserve">
+    <value>ISO kód měny</value>
+  </data>
+  <data name="WithDocDebtOrder" xml:space="preserve">
+    <value>Podle objednávky</value>
+  </data>
+  <data name="StableId" xml:space="preserve">
+    <value>Stabilní identifikátor</value>
+  </data>
+  <data name="AssociatedPositionsGroupName" xml:space="preserve">
+    <value>Skupina hlavních položek</value>
+  </data>
+  <data name="PositionCategory" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="RCurrentUser" xml:space="preserve">
+    <value>Aktuální uživatel</value>
+  </data>
+  <data name="ChildPosition" xml:space="preserve">
+    <value>Podřízená položka</value>
+  </data>
+  <data name="WarrantyEndDate" xml:space="preserve">
+    <value>Datum ukončení platnosti plné moci</value>
+  </data>
+  <data name="CloseBargainsViewModel_CloseDate" xml:space="preserve">
+    <value>Datum ukončení smlouvy</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="RHasPaymentsDebt" xml:space="preserve">
+    <value>Pohledávky k zaplacení</value>
+  </data>
+  <data name="CalculationMethod" xml:space="preserve">
+    <value>Způsob výpočtu</value>
+  </data>
+  <data name="BranchOfficeName" xml:space="preserve">
+    <value>Pr. osoba organizace</value>
+  </data>
+  <data name="DealName" xml:space="preserve">
+    <value>Název obchodní transakce</value>
+  </data>
+  <data name="ConsiderOnApproval" xml:space="preserve">
+    <value>Schvaluje se</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>Přihlášení</value>
+  </data>
+  <data name="SignedOn" xml:space="preserve">
+    <value>Datum podepsání</value>
+  </data>
+  <data name="AdditionalEmail" xml:space="preserve">
+    <value>Dodatečný e-mail</value>
+  </data>
+  <data name="PlanReleaseCount" xml:space="preserve">
+    <value>plán.</value>
+  </data>
+  <data name="PositionInGenitive" xml:space="preserve">
+    <value>Funkce (druhý pád)</value>
+  </data>
+  <data name="FirmContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="ModifiedBy" xml:space="preserve">
+    <value>Změněno</value>
+  </data>
+  <data name="ModifiedOn" xml:space="preserve">
+    <value>Datum změny</value>
+  </data>
+  <data name="PayableFact" xml:space="preserve">
+    <value>K úhradě (skut.)</value>
+  </data>
+  <data name="PayablePlan" xml:space="preserve">
+    <value>K úhradě (plán.)</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Název reklamní položky</value>
+  </data>
+  <data name="PositionViewModel_Name" xml:space="preserve">
+    <value>Název reklamní položky</value>
+  </data>
+  <data name="IsTerminated" xml:space="preserve">
+    <value>Vypovězena</value>
+  </data>
+  <data name="PublishBeginDate" xml:space="preserve">
+    <value>Datum začátku zveřejnění</value>
+  </data>
+  <data name="EndFactReleaseDate" xml:space="preserve">
+    <value>Ukončení (skut.)</value>
+  </data>
+  <data name="AdvertisementTemplateName" xml:space="preserve">
+    <value>Šablona RM</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="PricePublishDate" xml:space="preserve">
+    <value>Datum zveřejnění</value>
+  </data>
+  <data name="PaymentEssentialElements" xml:space="preserve">
+    <value>Platební údaje</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Doba spuštění</value>
+  </data>
+  <data name="RegistrationCertificate" xml:space="preserve">
+    <value>Osvědčení o registraci</value>
+  </data>
+  <data name="Inspector" xml:space="preserve">
+    <value>Kontrolor</value>
+  </data>
+  <data name="ShipmentPlan" xml:space="preserve">
+    <value>K odeslání (plán.)</value>
+  </data>
+  <data name="IsPrimaryForRegionalSales" xml:space="preserve">
+    <value>Hlavní položky k prodeji regionální reklamy</value>
+  </data>
+  <data name="OperatesOnTheBasisInGenitive" xml:space="preserve">
+    <value>Jedná na základě (druhý pád)</value>
+  </data>
+  <data name="ReportDate" xml:space="preserve">
+    <value>Den výkazu</value>
+  </data>
+  <data name="BillDate" xml:space="preserve">
+    <value>Datum faktury (od)</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Číslo objednávky</value>
+  </data>
+  <data name="DestinationOrganizationUnit" xml:space="preserve">
+    <value>Cílové město</value>
+  </data>
+  <data name="PromisingScore" xml:space="preserve">
+    <value>Posouzení perspektivy</value>
+  </data>
+  <data name="LegalPersonId" xml:space="preserve">
+    <value>Kód pr. osoby klienta</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>Povinné</value>
+  </data>
+  <data name="CertificateNumber" xml:space="preserve">
+    <value>Číslo osvědčení</value>
+  </data>
+  <data name="LegalAddress" xml:space="preserve">
+    <value>Sídlo</value>
+  </data>
+  <data name="PositionInNominative" xml:space="preserve">
+    <value>Funkce (první pád)</value>
+  </data>
+  <data name="SignupDate" xml:space="preserve">
+    <value>Datum podepsání</value>
+  </data>
+  <data name="PostAddress" xml:space="preserve">
+    <value>Doručovací adresa</value>
+  </data>
+  <data name="UsnNotificationText" xml:space="preserve">
+    <value>Oznámení o použití zjednodušeného daňového systému</value>
+  </data>
+  <data name="AccountId" xml:space="preserve">
+    <value>Číslo osobního účtu</value>
+  </data>
+  <data name="FoundingBargainDate" xml:space="preserve">
+    <value>Datum vydání zakladatelské smlouvy</value>
+  </data>
+  <data name="MainFirm" xml:space="preserve">
+    <value>Hlavní firma</value>
+  </data>
+  <data name="ConsiderOnRegistration" xml:space="preserve">
+    <value>Vyřizuje se</value>
+  </data>
+  <data name="LegalPerson" xml:space="preserve">
+    <value>Pr. osoba objednatele</value>
+  </data>
+  <data name="InCityBranchesAmount" xml:space="preserve">
+    <value>Pobočky ve městě</value>
+  </data>
+  <data name="ProductType" xml:space="preserve">
+    <value>Zboží/služba</value>
+  </data>
+  <data name="RHasTerminationDebt" xml:space="preserve">
+    <value>Pohledávky z důvodu zrušení</value>
+  </data>
+  <data name="ObjectBindingType" xml:space="preserve">
+    <value>Registrovat vázaný objekt</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Datum ukončení</value>
+  </data>
+  <data name="OrganizationUnitId" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="OperationDescription" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="PassportIssuedBy" xml:space="preserve">
+    <value>Vydán</value>
+  </data>
+  <data name="BargainNumber" xml:space="preserve">
+    <value>Číslo smlouvy</value>
+  </data>
+  <data name="ActualProfit" xml:space="preserve">
+    <value>Skutečný příjem</value>
+  </data>
+  <data name="ElectronicMedia" xml:space="preserve">
+    <value>Elektronický HSP</value>
+  </data>
+  <data name="OrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="BeginReleaseDate" xml:space="preserve">
+    <value>Začátek zveřejnění</value>
+  </data>
+  <data name="ConsiderOrderStatuses" xml:space="preserve">
+    <value>Registrovat stavy objednávek</value>
+  </data>
+  <data name="DestOrganizationUnit" xml:space="preserve">
+    <value>Cílové město</value>
+  </data>
+  <data name="AmountToWithdraw" xml:space="preserve">
+    <value>K aktuálnímu odpisu</value>
+  </data>
+  <data name="IsAllowedToWhiteList" xml:space="preserve">
+    <value>RM může být vybrán do seznamu povolených</value>
+  </data>
+  <data name="ShortLegalName" xml:space="preserve">
+    <value>Zkrácený úřední název</value>
+  </data>
+  <data name="Inn" xml:space="preserve">
+    <value>DIČ</value>
+  </data>
+  <data name="Tic" xml:space="preserve">
+    <value>T.I.C.</value>
+  </data>
+  <data name="Kpp" xml:space="preserve">
+    <value>Kód důvodu registrace organizace k platbě daní</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
+  <data name="ActualAddress" xml:space="preserve">
+    <value>Skutečná adresa</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Správce</value>
+  </data>
+  <data name="PricePerUnitWithVat" xml:space="preserve">
+    <value>Cena za jednotku včetně DPH</value>
+  </data>
+  <data name="FirmBudgetType" xml:space="preserve">
+    <value>Rozpočet</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Nadpis</value>
+  </data>
+  <data name="RUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="Geolocation" xml:space="preserve">
+    <value>Geografická poloha</value>
+  </data>
+  <data name="CurrencySymbol" xml:space="preserve">
+    <value>Označení</value>
+  </data>
+  <data name="PeriodEnd" xml:space="preserve">
+    <value>Období do</value>
+  </data>
+  <data name="RecipientName" xml:space="preserve">
+    <value>Příjemce</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="EndFactReleaseNumber" xml:space="preserve">
+    <value>Poslední vydání (skut.)</value>
+  </data>
+  <data name="FormattedText" xml:space="preserve">
+    <value>Formátovaný text</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Osobní účet</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Počet</value>
+  </data>
+  <data name="IncludeOwnerDescendants" xml:space="preserve">
+    <value>Včetně podřízených</value>
+  </data>
+  <data name="BranchOfficeOrganizationUnitName" xml:space="preserve">
+    <value>Pr. osoba zhotovitele</value>
+  </data>
+  <data name="OperationStatus" xml:space="preserve">
+    <value>Stav provedení operace</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Způsob evidence</value>
+  </data>
+  <data name="RReportType" xml:space="preserve">
+    <value>Typ evidence</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="DocumentsDeliveryMethod" xml:space="preserve">
+    <value>Způsob doručování dokumentů</value>
+  </data>
+  <data name="IsBaseCurrency" xml:space="preserve">
+    <value>Hlavní</value>
+  </data>
+  <data name="RegistrationAddress" xml:space="preserve">
+    <value>Registrace</value>
+  </data>
+  <data name="OperationTypeKind" xml:space="preserve">
+    <value>Druh operace</value>
+  </data>
+  <data name="EndPlanReleaseNumber" xml:space="preserve">
+    <value>Vydání č. (ukončení zveřejnění)</value>
+  </data>
+  <data name="PlanningMonth" xml:space="preserve">
+    <value>Plánovaný měsíc</value>
+  </data>
+  <data name="BargainLegalPerson" xml:space="preserve">
+    <value>Právnická osoba klienta</value>
+  </data>
+  <data name="StaffAmount" xml:space="preserve">
+    <value>Počet zaměstnanců</value>
+  </data>
+  <data name="PostalAddress" xml:space="preserve">
+    <value>Doručovací adresa</value>
+  </data>
+  <data name="VatRate" xml:space="preserve">
+    <value>Sazba DPH</value>
+  </data>
+  <data name="IsCurrent" xml:space="preserve">
+    <value>Aktuální</value>
+  </data>
+  <data name="CountryIsoCode" xml:space="preserve">
+    <value>ISO kód země</value>
+  </data>
+  <data name="CloseDate" xml:space="preserve">
+    <value>Datum ukončení obchodní transakce</value>
+  </data>
+  <data name="StartReason" xml:space="preserve">
+    <value>Důvod zahájení obchodní transakce</value>
+  </data>
+  <data name="FirstEmitDate" xml:space="preserve">
+    <value>Datum prvního vydání</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Vytvořeno</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="ClosedOn" xml:space="preserve">
+    <value>Datum ukončení</value>
+  </data>
+  <data name="TemplateCode" xml:space="preserve">
+    <value>Typ šablony</value>
+  </data>
+  <data name="IsPrimary" xml:space="preserve">
+    <value>Hlavní</value>
+  </data>
+  <data name="RestrictionType" xml:space="preserve">
+    <value>Typ omezení</value>
+  </data>
+  <data name="EmailForAccountingDocuments" xml:space="preserve">
+    <value>E-mail pro účetní dokumenty</value>
+  </data>
+  <data name="WorkflowStepId" xml:space="preserve">
+    <value>Stav objednávky</value>
+  </data>
+  <data name="ReportMonth" xml:space="preserve">
+    <value>Zúčtovací měsíc</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Identifikátor objednávky</value>
+  </data>
+  <data name="CertificateDate" xml:space="preserve">
+    <value>Datum vydání osvědčení</value>
+  </data>
+  <data name="EndPlanReleaseDate" xml:space="preserve">
+    <value>Konec zveřejnění</value>
+  </data>
+  <data name="LegalName" xml:space="preserve">
+    <value>Úřední název</value>
+  </data>
+  <data name="DocumentsComment" xml:space="preserve">
+    <value>Komentář k dokumentům</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="CloseReason" xml:space="preserve">
+    <value>Důvod ukončení obchodní transakce</value>
+  </data>
+  <data name="RHasBargainDebt" xml:space="preserve">
+    <value>Pohledávky ze smlouvy</value>
+  </data>
+  <data name="PlacementPeriod" xml:space="preserve">
+    <value>Období zveřejnění</value>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Datum začátku</value>
+  </data>
+  <data name="ParentDepartment" xml:space="preserve">
+    <value>Hlavní pododdíl</value>
+  </data>
+  <data name="AccountsReportType" xml:space="preserve">
+    <value>Typ evidence</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>Platforma</value>
+  </data>
+  <data name="ExportLegalPersonsTo1CPeriodStart" xml:space="preserve">
+    <value>Za období od</value>
+  </data>
+  <data name="LegalPersonType" xml:space="preserve">
+    <value>Typ právnické osoby</value>
+  </data>
+  <data name="IsHidden" xml:space="preserve">
+    <value>Skrytý do vyjasnění</value>
+  </data>
+  <data name="PayablePrice" xml:space="preserve">
+    <value>K úhradě (ceník)</value>
+  </data>
+  <data name="SourceOrganizationUnit" xml:space="preserve">
+    <value>Výchozí město</value>
+  </data>
+  <data name="LockDetailCreateDate" xml:space="preserve">
+    <value>Datum využití</value>
+  </data>
+  <data name="Advertisements" xml:space="preserve">
+    <value>Reklamní materiály</value>
+  </data>
+  <data name="PaymentDatePlan" xml:space="preserve">
+    <value>Datum úhrady (plán.)</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Aktivní</value>
+  </data>
+  <data name="MarketType" xml:space="preserve">
+    <value>Trh</value>
+  </data>
+  <data name="OrganizationUnitName" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="ImageDimensionRestriction" xml:space="preserve">
+    <value>Rozměry obrázku v pix.</value>
+  </data>
+  <data name="ChiefNameInNominative" xml:space="preserve">
+    <value>Jméno, příjmení (první pád)</value>
+  </data>
+  <data name="PricePerUnit" xml:space="preserve">
+    <value>Cena za jednotku</value>
+  </data>
+  <data name="WorkingTime" xml:space="preserve">
+    <value>Otvírací doba</value>
+  </data>
+  <data name="FileKind" xml:space="preserve">
+    <value>Typ souboru</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Název souboru</value>
+  </data>
+  <data name="WarrantyNumber" xml:space="preserve">
+    <value>Číslo plné moci</value>
+  </data>
+  <data name="PriceIsPublished" xml:space="preserve">
+    <value>Zveřejněn?</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Pododdíl</value>
+  </data>
+  <data name="FinishTime" xml:space="preserve">
+    <value>Datum ukončení</value>
+  </data>
+  <data name="CancellationComment" xml:space="preserve">
+    <value>Komentáře k vypovězení</value>
+  </data>
+  <data name="PaymentsAmount" xml:space="preserve">
+    <value>Množství plateb</value>
+  </data>
+  <data name="ExportCode" xml:space="preserve">
+    <value>Kód exportu</value>
+  </data>
+  <data name="WarrantyBeginDate" xml:space="preserve">
+    <value>Datum vydání plné moci</value>
+  </data>
+  <data name="OutCityBranchesAmount" xml:space="preserve">
+    <value>Pobočky v jiných městech</value>
+  </data>
+  <data name="FactReleaseCount" xml:space="preserve">
+    <value>skut.</value>
+  </data>
+  <data name="DiscountReason" xml:space="preserve">
+    <value>Důvod pro slevu</value>
+  </data>
+  <data name="FasComment" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="PaymentReportType" xml:space="preserve">
+    <value>Typ odeslání</value>
+  </data>
+  <data name="IncludeReserve" xml:space="preserve">
+    <value>Zobrazit rezervu</value>
+  </data>
+  <data name="SyncCode1C" xml:space="preserve">
+    <value>Kód 1C</value>
+  </data>
+  <data name="BargainBeginDate" xml:space="preserve">
+    <value>Datum vydání smlouvy</value>
+  </data>
+  <data name="IsAdvertisementLink" xml:space="preserve">
+    <value>Reklamní odkaz</value>
+  </data>
+  <data name="AdvertisementTemplate" xml:space="preserve">
+    <value>Šablona reklamního materiálu</value>
+  </data>
+  <data name="CategoryLevel" xml:space="preserve">
+    <value>Úroveň rubriky</value>
+  </data>
+  <data name="DiscountPercent" xml:space="preserve">
+    <value>Sleva (%):</value>
+  </data>
+  <data name="ParentCategoryName" xml:space="preserve">
+    <value>Hlavní rubrika</value>
+  </data>
+  <data name="DealStage" xml:space="preserve">
+    <value>Fáze obchodní transakce</value>
+  </data>
+  <data name="TerminationReason" xml:space="preserve">
+    <value>Důvod předčasného vypovězení</value>
+  </data>
+  <data name="AmountWithdrawn" xml:space="preserve">
+    <value>Odepsáno</value>
+  </data>
+  <data name="PersonResponsibleForDocuments" xml:space="preserve">
+    <value>Osoba odpovědná za dokumenty</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="AdvertisementElementTemplateName" xml:space="preserve">
+    <value>Prvek šablony RM</value>
+  </data>
+  <data name="MaxSymbolsInWord" xml:space="preserve">
+    <value>Max. počet symbolů ve slově</value>
+  </data>
+  <data name="TimeZoneId" xml:space="preserve">
+    <value>Časové pásmo (www.askgeo.com)</value>
+  </data>
+  <data name="ContactPhone" xml:space="preserve">
+    <value>Kontaktní telefon</value>
+  </data>
+  <data name="Annotation" xml:space="preserve">
+    <value>Poznámka</value>
+  </data>
+  <data name="EntityName" xml:space="preserve">
+    <value>Název entity</value>
+  </data>
+  <data name="PassportNumber" xml:space="preserve">
+    <value>Číslo dokladu totožnosti</value>
+  </data>
+  <data name="BargainType" xml:space="preserve">
+    <value>Typ smlouvy</value>
+  </data>
+  <data name="FileId" xml:space="preserve">
+    <value>Načtený soubor</value>
+  </data>
+  <data name="BudgetType" xml:space="preserve">
+    <value>Klasifikace objednávky</value>
+  </data>
+  <data name="LegalPersonProfile" xml:space="preserve">
+    <value>Profil pr. osoby klienta</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Krátký název</value>
+  </data>
+  <data name="OperationTypeDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="WithDocDebtTermination" xml:space="preserve">
+    <value>Podle vypovězení</value>
+  </data>
+  <data name="ReplicationCode" xml:space="preserve">
+    <value>Kód</value>
+  </data>
+  <data name="EndDistributionDate" xml:space="preserve">
+    <value>Konec zveřejnění</value>
+  </data>
+  <data name="IsHiddenFemale" xml:space="preserve">
+    <value>Skrytá do vyjasnění</value>
+  </data>
+  <data name="PaymentMonth" xml:space="preserve">
+    <value>Zúčtovací měsíc</value>
+  </data>
+  <data name="PricePosition" xml:space="preserve">
+    <value>Ceníková položka</value>
+  </data>
+  <data name="UsingOtherMedia" xml:space="preserve">
+    <value>Kanál zveřejnění</value>
+  </data>
+  <data name="DiscountSum" xml:space="preserve">
+    <value>Sleva:</value>
+  </data>
+  <data name="AssignToMe" xml:space="preserve">
+    <value>Přiřadit sobě</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Název rubriky</value>
+  </data>
+  <data name="CategoryGroupName" xml:space="preserve">
+    <value>Název skupiny</value>
+  </data>
+  <data name="CategoryGroupRate" xml:space="preserve">
+    <value>Hodnota koeficientu násobení</value>
+  </data>
+  <data name="BindingObjectType" xml:space="preserve">
+    <value>Vázaný objekt</value>
+  </data>
+  <data name="ShowLimits" xml:space="preserve">
+    <value>Zobrazit limity</value>
+  </data>
+  <data name="IncludeReserveClients" xml:space="preserve">
+    <value>Registrovat rezervu</value>
+  </data>
+  <data name="OperationType" xml:space="preserve">
+    <value>Typ operace</value>
+  </data>
+  <data name="Firm" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Obchodní transakce</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kód</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Koeficient přepočtu</value>
+  </data>
+  <data name="ChiefNameInGenitive" xml:space="preserve">
+    <value>Úplné jméno (druhý pád)</value>
+  </data>
+  <data name="WithPaymentDebt" xml:space="preserve">
+    <value>Ve věci platby</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Číslo faktury</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Objednávka</value>
+  </data>
+  <data name="MaxAdvertisementAmount" xml:space="preserve">
+    <value>Maximální počet k vydání</value>
+  </data>
+  <data name="MinAdvertisementAmount" xml:space="preserve">
+    <value>Minimální počet k vydání</value>
+  </data>
+  <data name="IsPositionControlledByAmount" xml:space="preserve">
+    <value>Řídí se množstvím</value>
+  </data>
+  <data name="IsSupportedByExport" xml:space="preserve">
+    <value>Podporováno exportem</value>
+  </data>
+  <data name="IsControledByAmount" xml:space="preserve">
+    <value>Kontroluje se množstvím</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Důvod</value>
+  </data>
+  <data name="MailSendingType" xml:space="preserve">
+    <value>Typ rozesílání</value>
+  </data>
+  <data name="RatePricePosition" xml:space="preserve">
+    <value>Používat koeficient</value>
+  </data>
+  <data name="NameLat" xml:space="preserve">
+    <value>Název latinkou</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>Výchozí jazyk</value>
+  </data>
+  <data name="BranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Právnická osoba zhotovitele</value>
+  </data>
+  <data name="IncludeRegionalAdvertisement" xml:space="preserve">
+    <value>Zapínat regionální reklamu</value>
+  </data>
+  <data name="RestrictChildPositionPlatforms" xml:space="preserve">
+    <value>Platforma podřízených položek se rovná nadřazené platformě</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorita</value>
+  </data>
+  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Cíl</value>
+  </data>
+  <data name="AfterSaleServiceType" xml:space="preserve">
+    <value>Typ PPS</value>
+  </data>
+  <data name="TaskType" xml:space="preserve">
+    <value>Typ úkolu</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Délka</value>
+  </data>
+  <data name="AccountNumber" xml:space="preserve">
+    <value>Číslo účtu</value>
+  </data>
+  <data name="AdditionalPaymentElements" xml:space="preserve">
+    <value>Další platební údaje</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Název banky</value>
+  </data>
+  <data name="IBAN" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Způsob úhrady</value>
+  </data>
+  <data name="SWIFT" xml:space="preserve">
+    <value>SWIFT (BIC Code)</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>V.A.T. Reg. No</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Identifikační číslo karty</value>
+  </data>
+  <data name="ResidencyAddress" xml:space="preserve">
+    <value>Adresa bydliště</value>
+  </data>
+  <data name="ActualEnd" xml:space="preserve">
+    <value>Skutečné ukončení</value>
+  </data>
+  <data name="RegistrationCertificateDate" xml:space="preserve">
+    <value>Datum vydání osvědčení o registraci</value>
+  </data>
+  <data name="RegistrationCertificateNumber" xml:space="preserve">
+    <value>Číslo osvědčení o registraci</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="ScheduledStart" xml:space="preserve">
+    <value>Datum začátku</value>
+  </data>
+  <data name="ScheduledEnd" xml:space="preserve">
+    <value>Datum ukončení</value>
+  </data>
+  <data name="StartPeriodDate" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
+  <data name="InformationSource" xml:space="preserve">
+    <value>Zdroj</value>
+  </data>
+  <data name="LastDisqualifyTime" xml:space="preserve">
+    <value>Vrácen do rezervy</value>
+  </data>
+  <data name="LastQualifyTime" xml:space="preserve">
+    <value>Vzít z rezervy</value>
+  </data>
+  <data name="AdditionalPhoneNumber" xml:space="preserve">
+    <value>Dodatečný telefon</value>
+  </data>
+  <data name="AdditionalPhoneNumber1" xml:space="preserve">
+    <value>Dodatečný telefon 1</value>
+  </data>
+  <data name="AdditionalPhoneNumber2" xml:space="preserve">
+    <value>Dodatečný telefon 2</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Webová stránka</value>
+  </data>
+  <data name="WebsiteOrBlog" xml:space="preserve">
+    <value>Webová stránka (blog)</value>
+  </data>
+  <data name="MainPhoneNumber" xml:space="preserve">
+    <value>Hlavní telefon</value>
+  </data>
+  <data name="MainAddress" xml:space="preserve">
+    <value>Hlavní adresa</value>
+  </data>
+  <data name="NameOfClient" xml:space="preserve">
+    <value>Název klienta</value>
+  </data>
+  <data name="NeedsValidation" xml:space="preserve">
+    <value>Vyžaduje kontrolu</value>
+  </data>
+  <data name="DummyAdvertisement" xml:space="preserve">
+    <value>Výchozí reklamní materiál</value>
+  </data>
+  <data name="FirmName" xml:space="preserve">
+    <value>Název firmy</value>
+  </data>
+  <data name="Salutation" xml:space="preserve">
+    <value>Oslovení</value>
+  </data>
+  <data name="IsManaged" xml:space="preserve">
+    <value>Řízená</value>
+  </data>
+  <data name="ServiceCode" xml:space="preserve">
+    <value>Doplň. služba</value>
+  </data>
+  <data name="TransactionDate" xml:space="preserve">
+    <value>Datum uskutečnění</value>
+  </data>
+  <data name="PeriodStartDate" xml:space="preserve">
+    <value>Datum začátku období</value>
+  </data>
+  <data name="PeriodEndDate" xml:space="preserve">
+    <value>Datum ukončení období</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Období platnosti</value>
+  </data>
+  <data name="LimitCloseDate" xml:space="preserve">
+    <value>Datum ukončení limitu</value>
+  </data>
+  <data name="MobilePhoneNumber" xml:space="preserve">
+    <value>Mobilní telefon</value>
+  </data>
+  <data name="HomePhoneNumber" xml:space="preserve">
+    <value>Domácí telefon</value>
+  </data>
+  <data name="WorkAddress" xml:space="preserve">
+    <value>Adresa do práce</value>
+  </data>
+  <data name="HomeAddress" xml:space="preserve">
+    <value>Adresa domů</value>
+  </data>
+  <data name="IsFired" xml:space="preserve">
+    <value>Dal výpověď</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Datum narození</value>
+  </data>
+  <data name="FamilyStatus" xml:space="preserve">
+    <value>Rodinný stav</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Pohlaví</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Funkce</value>
+  </data>
+  <data name="Im" xml:space="preserve">
+    <value>IM (ICQ, GTalk, Skype...)</value>
+  </data>
+  <data name="WorkEmail" xml:space="preserve">
+    <value>Pracovní e-mail</value>
+  </data>
+  <data name="HomeEmail" xml:space="preserve">
+    <value>Osobní e-mail</value>
+  </data>
+  <data name="AccountRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="ContactDepartmentName" xml:space="preserve">
+    <value>Složka (oddělení)</value>
+  </data>
+  <data name="WorkPhoneNumber" xml:space="preserve">
+    <value>Pracovní telefon</value>
+  </data>
+  <data name="AccountDetailBalance" xml:space="preserve">
+    <value>Stav osobního účtu</value>
+  </data>
+  <data name="LockDetailBalance" xml:space="preserve">
+    <value>Stav osobního účtu (včetně zablokovaných částek)</value>
+  </data>
+  <data name="LegalPesonSyncCode1C" xml:space="preserve">
+    <value>Klíč pr. osoby pro 1C</value>
+  </data>
+  <data name="IntegrationType" xml:space="preserve">
+    <value>Typ zprávy</value>
+  </data>
+  <data name="MessageErrors" xml:space="preserve">
+    <value>Chyby</value>
+  </data>
+  <data name="ProcessDate" xml:space="preserve">
+    <value>Datum zpracování</value>
+  </data>
+  <data name="SenderSystem" xml:space="preserve">
+    <value>Systém - odesílatel</value>
+  </data>
+  <data name="ReceiverSystem" xml:space="preserve">
+    <value>Systém - příjemce</value>
+  </data>
+  <data name="ProcessResult" xml:space="preserve">
+    <value>Výsledek zpracování</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="CloseLockDate" xml:space="preserve">
+    <value>Datum ukončení blokování</value>
+  </data>
+  <data name="LockPlannedAmount" xml:space="preserve">
+    <value>Zablokovaná částka (plánovaná)</value>
+  </data>
+  <data name="LockBalance" xml:space="preserve">
+    <value>Spotřebovaná částka (aktuální)</value>
+  </data>
+  <data name="LockClosedBalance" xml:space="preserve">
+    <value>Spotřebovaná částka (skutečná)</value>
+  </data>
+  <data name="OperationOnAccount" xml:space="preserve">
+    <value>Operace na osobním účtu</value>
+  </data>
+  <data name="ErmLaunchDate" xml:space="preserve">
+    <value>Datum přechodu na ERM</value>
+  </data>
+  <data name="InfoRussiaLaunchDate" xml:space="preserve">
+    <value>Datum přechodu na IR</value>
+  </data>
+  <data name="IsBeta" xml:space="preserve">
+    <value>Technická</value>
+  </data>
+  <data name="IsSkyScraper" xml:space="preserve">
+    <value>Mrakodrap</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archiv</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Identifikátor ERM</value>
+  </data>
+  <data name="ThemeTemplate" xml:space="preserve">
+    <value>Šablona</value>
+  </data>
+  <data name="ThemeIsDefault" xml:space="preserve">
+    <value>Nastavena jako výchozí</value>
+  </data>
+  <data name="ThemeViewModel_FileId" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="FullNameInGenitive" xml:space="preserve">
+    <value>Úplné jméno (druhý pád)</value>
+  </data>
+  <data name="FullNameInNominative" xml:space="preserve">
+    <value>Jméno, příjmení (první pád)</value>
+  </data>
+  <data name="Dic" xml:space="preserve">
+    <value>DIČ</value>
+  </data>
+  <data name="Ic" xml:space="preserve">
+    <value>IČ</value>
+  </data>
+  <data name="BankAddress" xml:space="preserve">
+    <value>Adres banky</value>
+  </data>
+  <data name="IsPngSupported" xml:space="preserve">
+    <value>PNG</value>
+  </data>
+  <data name="IsGifSupported" xml:space="preserve">
+    <value>GIF</value>
+  </data>
+  <data name="IsBmpSupported" xml:space="preserve">
+    <value>BMP</value>
+  </data>
+  <data name="IsChmSupported" xml:space="preserve">
+    <value>CHM</value>
+  </data>
+  <data name="PositionDenied" xml:space="preserve">
+    <value>Zakázaná položka</value>
+  </data>
+  <data name="BankCode" xml:space="preserve">
+    <value>Kód banky</value>
+  </data>
+  <data name="Registered" xml:space="preserve">
+    <value>Zaregistrováno</value>
+  </data>
+  <data name="CreateCsvFile" xml:space="preserve">
+    <value>Dodatečně odeslat soubor ve formátu csv</value>
+  </data>
+  <data name="OrderProcessingRequest" xml:space="preserve">
+    <value>Požadavek z OP</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Doba</value>
+  </data>
+  <data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
+    <value>Prodlužovaná objednávka</value>
+  </data>
+  <data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
+    <value>Vytvořená objednávka</value>
+  </data>
+  <data name="OrderProcessingRequestState" xml:space="preserve">
+    <value>Stav požadavku</value>
+  </data>
+  <data name="OrderProcessingRequestTitle" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="ReleaseCountPlan" xml:space="preserve">
+    <value>Počet vydání zveřejnění</value>
+  </data>
+  <data name="IsAdvertisingAgency" xml:space="preserve">
+    <value>Je reklamní agentura</value>
+  </data>
+  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+</root>
