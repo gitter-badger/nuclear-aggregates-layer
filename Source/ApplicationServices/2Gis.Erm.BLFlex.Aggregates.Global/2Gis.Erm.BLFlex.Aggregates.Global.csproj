@@ -47,7 +47,9 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Chile\Bills\BillSpecifications.cs" />
     <Compile Include="Chile\Crosscutting\ChileRutService.cs" />
+    <Compile Include="Chile\Crosscutting\ChileValidateBillsService.cs" />
     <Compile Include="Chile\Orders\DTO\ChileOrderGridViewDto.cs" />
     <Compile Include="Chile\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Orders\OrderSpecifications.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Czech\Orders\OrderSpecifications.cs" />
     <Compile Include="Czech\Orders\DTO\CzechOrderGridViewDto.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
+    <Compile Include="Multiculture\Crosscutting\NullValidateBillsService.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Orders\DTO\OrderGridViewDto.cs" />
@@ -70,6 +73,10 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -81,6 +88,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

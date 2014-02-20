@@ -53,6 +53,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -66,6 +67,8 @@
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
     <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
     <Compile Include="Chile\Generic\List\ChileListOrderService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\BillObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBillObtainer.cs" />
     <Compile Include="MultiCulture\Concrete\Old\AccountDetails\MultiCultureValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />

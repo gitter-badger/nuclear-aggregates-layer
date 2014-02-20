@@ -122,8 +122,33 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Areas\AreaRegistrations.cs" />
+    <Compile Include="Areas\Chile\AreaRegistrator.cs" />
+    <Compile Include="Services\Controllers\EvaluateBillViewsService.cs" />
+    <Compile Include="Views\Bill\Chile\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Cyprus\AreaRegistrator.cs" />
     <Compile Include="Areas\Cyprus\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\MultiCulture\AreaRegistrator.cs" />
+    <Compile Include="Views\Bill\Cyprus\Create.generated.cs">
+      <DependentUpon>Create.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Bill\Czech\Create.generated.cs">
+      <DependentUpon>Create.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Bill\MulticultureCreate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MulticultureCreate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chile\ChileBillViewModel.cs" />
+    <Compile Include="Models\MultiCultureBillViewModel.cs" />
     <Compile Include="Models\Chile\ChileLegalPersonViewModel.cs" />
     <Compile Include="Models\Chile\ChileLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Chile\ChileBranchOfficeOrganizationUnitViewModel.cs" />
@@ -250,6 +275,31 @@
     <Compile Include="Services\Enumeration\Russia\RussiaDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Views\Bill\Russia\Create.generated.cs">
+      <DependentUpon>Create.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureBill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureBill.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\Account.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -269,6 +319,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\BranchOffice.generated.cs">
       <AutoGen>True</AutoGen>
@@ -295,11 +350,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Russia\Order.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Order.cshtml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Order.generated.cs" />
     <Compile Include="Views\CreateOrUpdate\Russia\Phonecall.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -571,7 +622,43 @@
       <DependentUpon>LegalPerson.cshtml</DependentUpon>
     </Compile>
     <None Include="App.Config" />
+    <None Include="Views\Bill\Chile\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Bill\Cyprus\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Bill\Czech\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Bill\MulticultureCreate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MulticultureCreate.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\Web.config" />
+    <None Include="Views\Bill\Russia\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureBill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureBill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Russia\Account.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
@@ -587,6 +674,10 @@
     <None Include="Views\CreateOrUpdate\Russia\BargainType.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Russia\BranchOffice.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -610,7 +701,7 @@
     </None>
     <None Include="Views\CreateOrUpdate\Russia\Order.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Order.generated.cs</LastGenOutput>
+      <LastGenOutput>Order.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Russia\Phonecall.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -916,8 +1007,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Chile\Controllers\" />
+    <Folder Include="Areas\Chile\Views\Bill\" />
     <Folder Include="Areas\Cyprus\EnumCustomization\" />
     <Folder Include="Areas\Czech\EnumCustomization\" />
+    <Folder Include="Areas\MultiCulture\Controllers\" />
+    <Folder Include="Areas\MultiCulture\Views\Bill\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

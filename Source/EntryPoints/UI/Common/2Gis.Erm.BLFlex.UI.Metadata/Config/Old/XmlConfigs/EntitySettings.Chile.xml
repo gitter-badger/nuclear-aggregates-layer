@@ -552,7 +552,7 @@
     <DataLists>
       <DataList NameLocaleResourceId="DListBill" DefaultSortField="PaymentDatePlan" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="BillNumber" Icon="en_ico_16_Default.gif" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true">
         <Scripts>
-          <Script FileName="DataList/Bill.DataList.js" />
+          <Script FileName="Chile/DataList/Bill.DataList.js" />
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextButton" LockOnInactive="true" Action="scope.Create" SecurityPrivelegeFlag="0" />
