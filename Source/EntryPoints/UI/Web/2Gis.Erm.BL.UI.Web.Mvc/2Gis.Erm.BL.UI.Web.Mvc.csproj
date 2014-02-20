@@ -160,7 +160,6 @@
     <Compile Include="Models\CopyPricePositionModel.cs" />
     <Compile Include="Models\CopyPriceViewModel.cs" />
     <Compile Include="Models\CountryViewModel.cs" />
-    <Compile Include="Models\CreateBillViewModel.cs" />
     <Compile Include="Models\CurrencyRateViewModel.cs" />
     <Compile Include="Models\CurrencyViewModel.cs" />
     <Compile Include="Models\DeactivateUserViewModel.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
-    <Compile Include="Services\Controllers\IEvaluateBillViewsService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
     <Compile Include="Services\Grid\BillViewService.cs" />

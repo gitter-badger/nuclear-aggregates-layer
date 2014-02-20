@@ -4,15 +4,12 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Controllers;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -48,7 +45,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IOrderReadModel _orderReadModel;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecureFinder _finder;
-        private readonly IEvaluateBillViewsService _evaluateBillViewsService;
 
         public BillController(IMsCrmSettings msCrmSettings,
                               IUserContext userContext,
@@ -58,7 +54,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IPublicService publicService,
                               IOrderReadModel orderReadModel,
                               ILegalPersonRepository legalPersonRepository,
-                              IEvaluateBillViewsService evaluateBillViewsService,
                               ISecureFinder finder)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
@@ -66,18 +61,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderReadModel = orderReadModel;
             _legalPersonRepository = legalPersonRepository;
             _finder = finder;
-            _evaluateBillViewsService = evaluateBillViewsService;
-        }
-
-
-
-        [UseDependencyFields]
-        public ActionResult Create(long orderId)
-        {
-            var response = (GetRelatedOrdersForCreateBillResponse)_publicService.Handle(new GetRelatedOrdersForCreateBillRequest { OrderId = orderId });
-            var model = new CreateBillViewModel { OrderId = orderId };
-            model.IsMassBillCreateAvailable = response.Orders != null && response.Orders.Length > 0;
-            return View(_evaluateBillViewsService.GetCreateView(), model);
         }
 
         public ActionResult DeleteAll()
