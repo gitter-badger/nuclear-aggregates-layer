@@ -243,12 +243,12 @@ Penezni ustav:  {5}</value>
 8.</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
-    <value>Введены повторяющиеся номера счетов: {0}</value>
+    <value>Se han duplicado los numeros de factura: {0}</value>
   </data>
   <data name="WrongBillNumbers" xml:space="preserve">
-    <value>Следующие номера не соответсвуют формату: {0}</value>
+    <value>Los siguientes numeros no corresponden al formato: {0}</value>
   </data>
   <data name="ExistingBillNumbers" xml:space="preserve">
-    <value>Счета со следующими номерами уже созданы: {0}</value>
+    <value>Ya se han creado las siguientes facturas: {0}</value>
   </data>
 </root>
