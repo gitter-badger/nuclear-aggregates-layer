@@ -13,7 +13,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -149,10 +148,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                         throw new NotificationException(BLResources.OrderOrganizationUnitDiffersFromPricesOne);
                     }
 
-                    var categories = request.AdvertisementsLinks.Where(x => x.CategoryId != null).Select(x => x.CategoryId.Value).Distinct().ToArray();
-                    var categoryId = categories.Length == 1 ? (long?)categories[0] : null;
-
-                    var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), categoryId);
+                    var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), request.CategoryId);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
