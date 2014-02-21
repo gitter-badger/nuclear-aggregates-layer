@@ -38,10 +38,18 @@ namespace DoubleGis.Erm.BLCore.DI.Config
     {
         public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IAppSettings appSettings)
         {
+            if (appSettings.TargetEnvironment == AppTargetEnvironment.Production)
+            {
+                container.RegisterType<IPendingChangesHandlingStrategy, NullPendingChangesHandlingStrategy>(Lifetime.Singleton);
+            }
+            else
+            {
+                container.RegisterType<IPendingChangesHandlingStrategy, ForcePendingChangesHandlingStrategy>(Lifetime.Singleton);
+            }
+
             return container
                         .RegisterType<IEFConnectionFactory, EFConnectionFactory>(Lifetime.Singleton)
                         .RegisterType<IDomainContextMetadataProvider, EFDomainContextMetadataProvider>(Lifetime.Singleton)
-                        .RegisterType<IPendingChangesHandlingStrategy, ForcePendingChangesHandlingStrategy>(Lifetime.Singleton)
                         .RegisterType<IReadDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())

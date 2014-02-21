@@ -122,6 +122,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                                                                                                                       null,
                                                                                                                       destProjectCode,
                                                                                                                       null,
+                                                                                                                      null,
                                                                                                                       positionsWithDiscounts);
                 return TransformResultForGenericClient(calculationResult);
             }

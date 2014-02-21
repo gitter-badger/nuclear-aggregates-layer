@@ -1106,7 +1106,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             _territorySecureRepository.Save();
         }
 
-        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord)
+        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord, bool enableReplication)
         {
             var filteredBuildingDtos = buildingDtos.Where(x => x.SaleTerritoryCode != null || x.IsDeleted);
 
@@ -1121,7 +1121,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             if (activeBuildingDtos.Any())
             {
                 var xml = SerializeBuildingDtos(activeBuildingDtos, "buildings", "building");
-            _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord);
+            _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication);
         }
 
             // Обработка удалённых зданий

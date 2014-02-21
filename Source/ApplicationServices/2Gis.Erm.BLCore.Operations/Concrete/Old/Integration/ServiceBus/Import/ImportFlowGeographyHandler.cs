@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
@@ -23,17 +24,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
         private readonly IFirmRepository _firmRepository;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
+        private readonly IMsCrmSettings _msCrmSettings;
 
         public ImportFlowGeographyHandler(
             ICommonLog logger,
             IFirmRepository firmRepository,
             IIntegrationSettings integrationSettings,
-            IClientProxyFactory clientProxyFactory)
+            IClientProxyFactory clientProxyFactory,
+            IMsCrmSettings msCrmSettings)
         {
             _logger = logger;
             _firmRepository = firmRepository;
             _integrationSettings = integrationSettings;
             _clientProxyFactory = clientProxyFactory;
+            _msCrmSettings = msCrmSettings;
         }
 
         protected override EmptyResponse Handle(ImportFlowGeographyRequest request)
@@ -182,7 +186,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
             using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 _firmRepository.ImportTerritoryFromServiceBus(territoryDtos);
-                _firmRepository.ImportBuildingFromServiceBus(buildingDtos, regionalTerritoryLocaleSpecificWord);
+                _firmRepository.ImportBuildingFromServiceBus(buildingDtos, regionalTerritoryLocaleSpecificWord, _msCrmSettings.EnableReplication);
                 transactionScope.Complete();
             }
         }
