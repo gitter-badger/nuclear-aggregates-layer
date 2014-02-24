@@ -26,7 +26,6 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 using DoubleGis.Erm.Platform.WCF.Metadata.Settings;
-
 using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.DI
