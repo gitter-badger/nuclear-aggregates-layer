@@ -33,44 +33,44 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
             container
                 .RegisterType<IQuerySettingsProvider, QuerySettingsProvider>(entryPointSpecificLifetimeManagerFactory());
 
-            container.RegisterType<IQuerySettingsProvider>(
-                entryPointSpecificLifetimeManagerFactory(),
-                new InjectionFactory(x =>
-                                     new QuerySettingsProviderSelector(
-                                         x.Resolve<QuerySettingsProvider>(),
-                                         x.Resolve<QdsQuerySettingsProvider>())));
-             container.ConfigureQdsListing(entryPointSpecificLifetimeManagerFactory);
+            //container.RegisterType<IQuerySettingsProvider>(
+            //    entryPointSpecificLifetimeManagerFactory(),
+            //    new InjectionFactory(x =>
+            //                         new QuerySettingsProviderSelector(
+            //                             x.Resolve<QuerySettingsProvider>(),
+            //                             x.Resolve<QdsQuerySettingsProvider>())));
+            // container.ConfigureQdsListing(entryPointSpecificLifetimeManagerFactory);
 
             return container;
         }
 
-        private static IUnityContainer ConfigureQdsListing(this IUnityContainer container, Func<LifetimeManager> lifetime)
-        {
-            // TODO: заменить на правильное
-            container
-                .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton);
+        //private static IUnityContainer ConfigureQdsListing(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        //{
+        //    // TODO: заменить на правильное
+        //    container
+        //        .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton);
 
-            container
-                .RegisterType<IEntityIndexer<User>, UserIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<User>, UserIndexer>(lifetime())
-                .RegisterType<IEntityIndexer<Client>, ClientIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<Client>, ClientIndexer>(lifetime())
+        //    container
+        //        .RegisterType<IEntityIndexer<User>, UserIndexer>(lifetime())
+        //        .RegisterType<IEntityIndexerIndirect<User>, UserIndexer>(lifetime())
+        //        .RegisterType<IEntityIndexer<Client>, ClientIndexer>(lifetime())
+        //        .RegisterType<IEntityIndexerIndirect<Client>, ClientIndexer>(lifetime())
 
-                .RegisterType<IDocumentIndexer<UserDoc>, UserIndexer>(lifetime())
-                .RegisterType<IDocumentIndexer<ClientGridDoc>, ClientIndexer>(lifetime())
-                .RegisterType<IRawDocumentIndexer, RawDocumentIndexer>(lifetime())
-                .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime());
+        //        .RegisterType<IDocumentIndexer<UserDoc>, UserIndexer>(lifetime())
+        //        .RegisterType<IDocumentIndexer<ClientGridDoc>, ClientIndexer>(lifetime())
+        //        .RegisterType<IRawDocumentIndexer, RawDocumentIndexer>(lifetime())
+        //        .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime());
 
-            container
-                .RegisterInstance<ISearchSettings>(new SearchSettings(), Lifetime.Singleton);
+        //    container
+        //        .RegisterInstance<ISearchSettings>(new SearchSettings(), Lifetime.Singleton);
 
-            container
-                .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
-                .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
-                .RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);
+        //    container
+        //        .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
+        //        .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
+        //        .RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);
 
-            return container;
-        }
+        //    return container;
+        //}
 
         public static Type ListServiceConflictResolver(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)
         {
@@ -79,10 +79,10 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 return null;
             }
 
-            if (entitySet.Entities.Contains(EntityName.Client))
-            {
-                return candidates.Single(x => x.Assembly == typeof(QdsListClientService).Assembly);
-            }
+            //if (entitySet.Entities.Contains(EntityName.Client))
+            //{
+            //    return candidates.Single(x => x.Assembly == typeof(QdsListClientService).Assembly);
+            //}
 
             return candidates.Single(x => x.Assembly == typeof(ListClientService).Assembly);
         }
