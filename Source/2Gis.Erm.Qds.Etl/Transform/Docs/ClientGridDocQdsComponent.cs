@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
@@ -49,9 +50,9 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 
         public IDocRelation[] IndirectDocRelations { get; private set; }
 
-        public IDocsSelector CreateDocSelector()
+        public IDocsUpdater CreateDocUpdater()
         {
-            return new DocsSelector<ClientGridDoc>(this, _relationalDocsFinder, new ClientGridDocMapper(_enumLocalizer, _relationalDocsFinder));
+            return new RelationalDocsUpdater<ClientGridDoc>(this, _relationalDocsFinder, new ClientGridDocMapper(_enumLocalizer, _relationalDocsFinder));
         }
 
         public IDocRelation PartsDocRelation { get; private set; }

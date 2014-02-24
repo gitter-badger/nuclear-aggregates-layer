@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.Qds.Etl.Flow
 
         public void Init()
         {
-            throw new NotImplementedException();
+            _transformation.Init();
         }
 
         public void Execute()

@@ -3,7 +3,6 @@ using System.ServiceProcess;
 
 namespace DoubleGis.Erm.Qds.IndexService
 {
-    // TODO Точка входа сервиса
     internal sealed partial class ErmNtService : ServiceBase
     {
         private readonly IIndexingProcess _indexingProcess;

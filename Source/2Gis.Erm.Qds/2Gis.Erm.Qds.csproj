@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocsStorageException.cs" />
+    <Compile Include="Docs\ClientGridDoc.cs" />
+    <Compile Include="Docs\DocumentAuthorization.cs" />
+    <Compile Include="Docs\IAuthDoc.cs" />
+    <Compile Include="Docs\TerritoryDoc.cs" />
+    <Compile Include="Docs\UserDoc.cs" />
     <Compile Include="IDoc.cs" />
     <Compile Include="IDocsQuery.cs" />
     <Compile Include="IDocsQueryBuilder.cs" />

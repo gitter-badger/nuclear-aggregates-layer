@@ -8,9 +8,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Core.Settings;
-using DoubleGis.Erm.Qds.API.Operations.Documents;
 using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Operations.Extensions;
 
 using Nest;
@@ -94,44 +94,48 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                 .Version(x.Timestamp, indirectly)
                 .Object(new UserDoc
                 {
+                    Id = x.Id,
                     Name = x.DisplayName,
-                    Tags = x.Permissions.SelectMany(y =>
+                    Auth = new DocumentAuthorization
                     {
-                        IEnumerable<string> tags;
-                        switch ((EntityPrivilegeDepthState)y.Mask)
-                        {
-                            case EntityPrivilegeDepthState.None:
-                                tags = null;
-                                break;
-                            case EntityPrivilegeDepthState.User:
-                                tags = new[] { EntityPrivilegeDepthState.User.ToString().ToLowerInvariant() + '/' + x.Id };
-                                break;
-                            case EntityPrivilegeDepthState.Department:
-                                tags = new[]
+                        Tags = x.Permissions.SelectMany(y =>
+                            {
+                                IEnumerable<string> tags;
+                                switch ((EntityPrivilegeDepthState)y.Mask)
+                                {
+                                    case EntityPrivilegeDepthState.None:
+                                        tags = null;
+                                        break;
+                                    case EntityPrivilegeDepthState.User:
+                                        tags = new[] { EntityPrivilegeDepthState.User.ToString().ToLowerInvariant() + '/' + x.Id };
+                                        break;
+                                    case EntityPrivilegeDepthState.Department:
+                                        tags = new[]
                                     {
                                         EntityPrivilegeDepthState.Department.ToString().ToLowerInvariant() + '/' +
                                         x.DepartmentId
                                     };
-                                break;
-                            case EntityPrivilegeDepthState.DepartmentAndChilds:
-                                {
-                                    var departmentWord = EntityPrivilegeDepthState.Department.ToString().ToLowerInvariant();
+                                        break;
+                                    case EntityPrivilegeDepthState.DepartmentAndChilds:
+                                        {
+                                            var departmentWord = EntityPrivilegeDepthState.Department.ToString().ToLowerInvariant();
 
-                                    tags = departments.Where(
-                                            z => z.LeftBorder >= x.LeftBorder && z.RightBorder <= x.RightBorder)
-                                            .Select(z => departmentWord + '/' + z.Id);
+                                            tags = departments.Where(
+                                                    z => z.LeftBorder >= x.LeftBorder && z.RightBorder <= x.RightBorder)
+                                                    .Select(z => departmentWord + '/' + z.Id);
+                                        }
+
+                                        break;
+                                    case EntityPrivilegeDepthState.Organization:
+                                        tags = new[] { EntityPrivilegeDepthState.Organization.ToString().ToLowerInvariant() };
+                                        break;
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
                                 }
 
-                                break;
-                            case EntityPrivilegeDepthState.Organization:
-                                tags = new[] { EntityPrivilegeDepthState.Organization.ToString().ToLowerInvariant() };
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-
-                        return tags;
-                    }),
+                                return tags;
+                            }),
+                    }
                 }));
 
             return indexDescriptors.Batch(_searchSettings.BatchSize).Select(batch =>

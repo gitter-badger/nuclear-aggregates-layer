@@ -2,6 +2,6 @@
 {
     public interface IDoc
     {
-        
+        long Id { get; set; }
     }
 }

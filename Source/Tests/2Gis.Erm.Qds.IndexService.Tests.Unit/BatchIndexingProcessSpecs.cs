@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Qds.IndexService.Tests.Unit
             It should_init_elt_flow = () => Flow.Verify(f => f.Init());
         }
 
-        // TODO В теории не надежный тест, возможны ложные срабатывания, стоит еще раз подумать о нем.
+        // TODO Тест иногда дает ложные срабатывания в NCrunch. Веротяно может падать и на билд сервере. Надо либо придумать как отрефакторить, либо удалить его.
         [Subject(typeof(BatchIndexingProcess))]
         class When_start_stop_scenario_executed : BatchIndexingProcessContext
         {
@@ -32,11 +32,11 @@ namespace DoubleGis.Erm.Qds.IndexService.Tests.Unit
             Because of = () =>
                 {
                     Target.Start();
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     Target.Stop();
                     TotalExecutions = ExecitedCount;
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 };
 
             It should_execute_etl_flow_continuously = () => Flow.Verify(f => f.Execute(), Times.AtLeast(2));

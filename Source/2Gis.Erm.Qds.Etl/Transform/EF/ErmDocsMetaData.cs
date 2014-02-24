@@ -4,14 +4,14 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
     public class ErmDocsMetaData : IDocsMetaData
     {
-        private readonly IDocModifiersRegistry _docModifiersRegistry;
+        private readonly IDocUpdatersRegistry _docUpdatersRegistry;
         private readonly ITransformRelations _transformRelations;
 
-        public ErmDocsMetaData(IDocModifiersRegistry docModifiersRegistry, ITransformRelations transformRelations)
+        public ErmDocsMetaData(IDocUpdatersRegistry docUpdatersRegistry, ITransformRelations transformRelations)
         {
-            if (docModifiersRegistry == null)
+            if (docUpdatersRegistry == null)
             {
-                throw new ArgumentNullException("docModifiersRegistry");
+                throw new ArgumentNullException("docUpdatersRegistry");
             }
 
             if (transformRelations == null)
@@ -19,11 +19,11 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
                 throw new ArgumentNullException("transformRelations");
             }
 
-            _docModifiersRegistry = docModifiersRegistry;
+            _docUpdatersRegistry = docUpdatersRegistry;
             _transformRelations = transformRelations;
         }
 
-        public IDocsSelector[] GetDocsSelectors(Type partType)
+        public IDocsUpdater[] GetDocsUpdaters(Type partType)
         {
             if (partType == null)
             {
@@ -32,11 +32,11 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 
             var docTypes = GetDocTypesByEntityType(partType);
 
-            var modifiers = new IDocsSelector[docTypes.Length];
+            var modifiers = new IDocsUpdater[docTypes.Length];
             for (int i = 0; i < docTypes.Length; i++)
             {
                 var docType = docTypes[i];
-                modifiers[i] = _docModifiersRegistry.GetModifier(docType);
+                modifiers[i] = _docUpdatersRegistry.GetUpdater(docType);
             }
 
             return modifiers;

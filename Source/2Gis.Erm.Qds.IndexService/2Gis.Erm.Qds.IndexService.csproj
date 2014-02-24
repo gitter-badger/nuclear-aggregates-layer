@@ -70,12 +70,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
+    <Reference Include="Nest, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.Signed.0.12.0.0\lib\NET4\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -94,6 +94,7 @@
     <Compile Include="BatchIndexingSettings.cs" />
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="DI\UnityQdsComponentsFactory.cs" />
     <Compile Include="ErmNtService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,39 +113,39 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
-      <Name>2Gis.Erm.BL.API.Common</Name>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
-      <Name>2Gis.Erm.BL.API.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
-      <Name>2Gis.Erm.BL.API.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
-      <Name>2Gis.Erm.BL.Common</Name>
+      <Name>2Gis.Erm.BLCore.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\2Gis.Erm.BLCore.Operations.Special.csproj">
       <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
-      <Name>2Gis.Erm.BL.Operations.Special</Name>
+      <Name>2Gis.Erm.BLCore.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj">
       <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
-      <Name>2Gis.Erm.BL.OrderValidation</Name>
+      <Name>2Gis.Erm.BLCore.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946c96bf-a7bd-46c1-879c-c80e3223334b}</Project>
-      <Name>2Gis.Erm.BL.DAL.PersistenceServices</Name>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -160,11 +161,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-c651-46e9-ad0d-2c273152566b}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
@@ -212,11 +213,15 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
       <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
       <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
+      <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
       <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
@@ -225,6 +230,10 @@
     <ProjectReference Include="..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
       <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
+      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
+      <Name>2Gis.Erm.Qds.API.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

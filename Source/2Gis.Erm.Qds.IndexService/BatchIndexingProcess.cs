@@ -13,7 +13,6 @@ namespace DoubleGis.Erm.Qds.IndexService
         private bool _executing;
         private Task _currentTask;
         private readonly object _sync = new object();
-        private readonly int _sleep;
 
         public BatchIndexingProcess(IEtlFlow etlFlow, BatchIndexingSettings settings)
         {

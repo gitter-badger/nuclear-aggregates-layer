@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 
 using FluentAssertions;

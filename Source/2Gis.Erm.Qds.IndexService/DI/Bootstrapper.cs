@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
@@ -39,11 +40,15 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Common.ElasticClient;
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Flow;
 using DoubleGis.Erm.Qds.Etl.Publish;
 using DoubleGis.Erm.Qds.Etl.Transform;
+using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 using DoubleGis.Erm.Qds.IndexService.Config;
 using DoubleGis.Erm.Qds.IndexService.Settings;
@@ -89,63 +94,55 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
             return container;
         }
 
-        private static void RegisterEtlComponents(IUnityContainer container, BatchIndexingSettings settings)
+        private static void RegisterEtlComponents(IUnityContainer container, BatchIndexingSettings batchSettings)
         {
-            if (settings == null)
+            if (batchSettings == null)
             {
-                throw new ArgumentNullException("settings");
+                throw new ArgumentNullException("batchSettings");
             }
 
-            RegisterElastic(container);
-
+            var searchSettings = new SearchSettings();
             container
-                .RegisterType<IIndexingProcess, BatchIndexingProcess>(new ContainerControlledLifetimeManager())
-                .RegisterInstance(settings)
+                .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
+                .RegisterInstance<ISearchSettings>(searchSettings)
 
-                .RegisterType<IEtlFlow, EtlFlow>(new ContainerControlledLifetimeManager())
+                .RegisterType<IIndexingProcess, BatchIndexingProcess>(Lifetime.Singleton)
+                .RegisterInstance(batchSettings)
+
+                .RegisterType<IEtlFlow, EtlFlow>(Lifetime.Singleton)
 
                 // Publisher
-                .RegisterType<IPublisher, DocsPublisher>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDocsStorage, ElasticDocsStorage>(new ContainerControlledLifetimeManager())
+                //.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton)
+                .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
+
+                .RegisterType<IPublisher, DocsPublisher>(Lifetime.Singleton)
+                .RegisterType<IDocsStorage, ElasticDocsStorage>(Lifetime.Singleton)
+                .RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton)
+                .RegisterType<IElasticMeta, ElasticMeta>(Lifetime.Singleton)
 
                 // ITransformation
-                .RegisterType<ITransformation, DenormalizerTransformation>(new ContainerControlledLifetimeManager())
-                .RegisterType<ErmEntitiesDenormalizer>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDocsMetaData, ErmDocsMetaData>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDocModifiersRegistry, DictionaryDocModifiersRegistry>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITransformRelations, TransformRelations>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITransformation, DenormalizerTransformation>(Lifetime.Singleton)
+                .RegisterType<ErmEntitiesDenormalizer>(Lifetime.Singleton)
+                .RegisterType<IDocsMetaData, ErmDocsMetaData>(Lifetime.Singleton)
+                .RegisterType<IDocUpdatersRegistry, DictionaryDocUpdatersRegistry>(Lifetime.Singleton)
+                .RegisterType<ITransformRelations, TransformRelations>(Lifetime.Singleton)
+
+                .RegisterType<IMetadataBinder, MetadataBinder>(Lifetime.Singleton)
+                .RegisterType<IQdsComponentsFactory, UnityQdsComponentsFactory>(Lifetime.Singleton)
+
+                .RegisterType<IEnumLocalizer, EnumResourcesEnumLocalizer>()
 
                 // IExtractor
-                .RegisterType<IExtractor, ErmExtractor>(new ContainerControlledLifetimeManager())
+                .RegisterType<IExtractor, ErmExtractor>(Lifetime.Singleton)
 
                 // IReferencesBuilder
-                .RegisterType<IReferencesBuilder, ChangesReferencesBuilder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IEntityLinkBuilder, PboEntityLinkBuilder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IChangesCollector, OperationsLogChangesCollector>(new ContainerControlledLifetimeManager())
-                .RegisterType<IChangesTrackerState, DocsStorageChangesTrackerState>(new ContainerControlledLifetimeManager())
-                .RegisterType<IQueryDsl, NestQueryDsl>(new ContainerControlledLifetimeManager())
-                .RegisterType<IEntityLinkFilter, RelationsMetaEntityLinkFilter>(new ContainerControlledLifetimeManager())
+                .RegisterType<IReferencesBuilder, ChangesReferencesBuilder>(Lifetime.Singleton)
+                .RegisterType<IEntityLinkBuilder, PboEntityLinkBuilder>(Lifetime.Singleton)
+                .RegisterType<IChangesCollector, OperationsLogChangesCollector>(Lifetime.Singleton)
+                .RegisterType<IChangesTrackerState, DocsStorageChangesTrackerState>(Lifetime.Singleton)
+                .RegisterType<IQueryDsl, NestQueryDsl>(Lifetime.Singleton)
+                .RegisterType<IEntityLinkFilter, RelationsMetaEntityLinkFilter>(Lifetime.Singleton)
                 ;
-        }
-
-        private static void RegisterElastic(IUnityContainer container)
-        {
-            const string elasticUrl = "http://UK-RND-54:9200";
-            const string indexName = "testindex";
-
-            var settings = new ConnectionSettings(new Uri(elasticUrl)).SetDefaultIndex(indexName); ;
-            var elastic = new ElasticClient(settings);
-
-            //elastic.MapFluent<RecordIdState>(m => m.Properties(p => p.Number(n => n.Type(NumberType.@long).Name(x => x.RecordId))));
-            //elastic.Refresh();
-
-            //var result = elastic.Index(new RecordIdState(0, 208302018152907777));
-            //elastic.Refresh();
-
-            //if (!result.OK) 
-            //    throw new ApplicationException("Чо происходит?");
-
-            container.RegisterInstance<IElasticClient>(elastic);
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -168,7 +165,7 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                      .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                      .RegisterCorporateQueues(settings);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel);
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
         }

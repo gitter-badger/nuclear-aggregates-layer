@@ -57,8 +57,8 @@
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -72,17 +72,13 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\CompositionRoots\Source\Environments.config">
-      <Link>Environments.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
-      <Name>2Gis.Erm.BL.DI</Name>
+      <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -91,10 +87,6 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
-      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
-      <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
@@ -115,6 +107,14 @@
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
+      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
+      <Name>2Gis.Erm.Qds.Etl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
+      <Name>2Gis.Erm.Qds</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
       <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>

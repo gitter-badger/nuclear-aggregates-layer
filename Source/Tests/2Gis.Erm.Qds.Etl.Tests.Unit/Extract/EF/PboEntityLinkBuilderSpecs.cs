@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                           .Callback((PerformedBusinessOperation pbo) => _testPbo = pbo);
 
                 var scopeChanges = operationScopeNode.ScopeChanges;
-                scopeChanges.Added<Client>(new long[] { _expectedClientId });
+                scopeChanges.Added<Client>(new long[] { _expectedClientIdFirst, _expectedClientIdSecond });
                 scopeChanges.Updated<Order>(new long[] { _expectedOrderId });
                 scopeChanges.Deleted<Firm>(new long[] { _expectedFirmId });
 
@@ -99,7 +99,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
 
             It should_parse_entity_type_and_id = () =>
             {
-                ResultShouldContain(EntityName.Client, _expectedClientId);
+                ResultShouldContain(EntityName.Client, _expectedClientIdFirst);
+                ResultShouldContain(EntityName.Client, _expectedClientIdSecond);
                 ResultShouldContain(EntityName.Order, _expectedOrderId);
                 ResultShouldContain(EntityName.Firm, _expectedFirmId);
             };
@@ -109,7 +110,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                 Result.Should().Contain(r => r.Name == name && r.Id == id);
             }
 
-            const int _expectedClientId = 3;
+            const int _expectedClientIdFirst = 3;
+            const int _expectedClientIdSecond = 33;
             const int _expectedOrderId = 22;
             const int _expectedFirmId = 111;
             static PerformedBusinessOperation _testPbo;

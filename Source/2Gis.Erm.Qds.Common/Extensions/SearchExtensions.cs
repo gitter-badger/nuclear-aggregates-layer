@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
-using DoubleGis.Erm.Platform.Common.Utils.Data;
-using DoubleGis.Erm.Qds.API.Operations.Authorization;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.Qds.Docs;
 
 using Nest;
 
@@ -13,19 +13,20 @@ namespace DoubleGis.Erm.Qds.Common.Extensions
         public static SearchDescriptor<TDocument> ApplySortingPaging<TDocument>(this SearchDescriptor<TDocument> searchDescriptor, QuerySettings querySettings)
             where TDocument : class
         {
+            // TODO пока выключил sorting пока не смёрджим заддачу ERM-3203
             // sorting
-            if (!string.IsNullOrEmpty(querySettings.SortOrder))
-            {
-                var sortOrder = querySettings.SortOrder.ToCamelCase() + ".sort";
-                if (string.Equals(querySettings.SortDirection, "desc", StringComparison.OrdinalIgnoreCase))
-                {
-                    searchDescriptor.SortDescending(sortOrder);
-                }
-                else
-                {
-                    searchDescriptor.SortAscending(sortOrder);
-                }
-            }
+            //if (!string.IsNullOrEmpty(querySettings.SortOrder))
+            //{
+            //    var sortOrder = querySettings.SortOrder.ToCamelCase() + ".sort";
+            //    if (string.Equals(querySettings.SortDirection, "desc", StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        searchDescriptor.SortDescending(sortOrder);
+            //    }
+            //    else
+            //    {
+            //        searchDescriptor.SortAscending(sortOrder);
+            //    }
+            //}
 
             // paging
             if (querySettings.SkipCount != 0 || querySettings.TakeCount != 0)
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.Qds.Common.Extensions
         }
 
         public static BoolQueryDescriptor<TDocument> Must<TDocument>(this BoolQueryDescriptor<TDocument> boolQueryDescriptor, Func<MustDescriptor<TDocument>, MustDescriptor<TDocument>> f)
-            where TDocument : class, IDocumentAuthorization
+            where TDocument : class, IAuthDoc
         {
             var mustDescriptor = f(new MustDescriptor<TDocument>());
             return boolQueryDescriptor.Must(mustDescriptor.Queries);

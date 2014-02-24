@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.API.Operations.Indexers.Raw;
 using DoubleGis.Erm.Qds.Common.ElasticClient;
 using DoubleGis.Erm.Qds.Migrations.Base;
@@ -21,10 +20,9 @@ namespace DoubleGis.Erm.Qds.Migrator
         {
             Console.WriteLine("Search Migrator");
 
-            var targetEnvironmentName = args[0];
-            var searchSettings = new SearchSettings(null, targetEnvironmentName);
+            var fakeAppSettings = new FakeAppSettings();
 
-            var container = new UnityContainer().ConfigureUnity(searchSettings);
+            var container = new UnityContainer().ConfigureUnity(fakeAppSettings);
             var clientFactory = container.Resolve<IElasticClientFactory>();
             var connectionSettingsFactory = container.Resolve<IElasticConnectionSettingsFactory>();
             var rawDocumentIndexer = container.Resolve<IRawDocumentIndexer>();

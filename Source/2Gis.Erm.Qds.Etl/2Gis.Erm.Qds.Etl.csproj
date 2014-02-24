@@ -76,10 +76,9 @@
     <Compile Include="Extract\EF\IReferencesConsumer.cs" />
     <Compile Include="Flow\IEtlFlow.cs" />
     <Compile Include="Publish\DocsPublisher.cs" />
-    <Compile Include="Transform\Docs\ClientGridDoc.cs" />
     <Compile Include="Transform\Docs\ClientGridDocQdsComponent.cs" />
     <Compile Include="Transform\Docs\ClientGridDocMapper.cs" />
-    <Compile Include="Transform\Docs\DocsSelector.cs" />
+    <Compile Include="Transform\Docs\RelationalDocsUpdater.cs" />
     <Compile Include="Transform\Docs\EnumResourcesEnumLocalizer.cs" />
     <Compile Include="Transform\Docs\RelationalDocsFinder.cs" />
     <Compile Include="Transform\Docs\FieldsEqualsDocsQueryBuilder.cs" />
@@ -87,24 +86,25 @@
     <Compile Include="Transform\Docs\IEnumLocalizer.cs" />
     <Compile Include="Transform\Docs\IRelationalDocsFinder.cs" />
     <Compile Include="Transform\Docs\IQdsComponent.cs" />
-    <Compile Include="Transform\Docs\TerritoryDoc.cs" />
     <Compile Include="Transform\Docs\TerritoryDocMapper.cs" />
     <Compile Include="Transform\Docs\TerritoryDocQdsComponent.cs" />
-    <Compile Include="Transform\Docs\UserDoc.cs" />
     <Compile Include="Transform\Docs\UserDocQdsComponent.cs" />
     <Compile Include="Transform\Docs\UserDocMapper.cs" />
-    <Compile Include="Transform\EF\DictionaryDocModifiersRegistry.cs" />
+    <Compile Include="Transform\EF\DictionaryDocUpdatersRegistry.cs" />
     <Compile Include="Transform\EF\IDocRelation.cs" />
+    <Compile Include="Transform\EF\IMetadataBinder.cs" />
+    <Compile Include="Transform\EF\IQdsComponentsFactory.cs" />
     <Compile Include="Transform\EF\Link.cs" />
     <Compile Include="Transform\EF\DocRelation.cs" />
+    <Compile Include="Transform\EF\MetadataBinder.cs" />
     <Compile Include="Transform\EF\TransformRelations.cs" />
     <Compile Include="Transform\EF\DocsSource.cs" />
     <Compile Include="Transform\EF\ErmEntitiesDenormalizer.cs" />
     <Compile Include="Transform\EF\ITransformRelations.cs" />
-    <Compile Include="Transform\EF\IDocsSelector.cs" />
+    <Compile Include="Transform\EF\IDocsUpdater.cs" />
     <Compile Include="Transform\EF\IDocsMetaData.cs" />
     <Compile Include="Transform\EF\ErmDocsMetaData.cs" />
-    <Compile Include="Transform\EF\IDocModifiersRegistry.cs" />
+    <Compile Include="Transform\EF\IDocUpdatersRegistry.cs" />
     <Compile Include="Transform\ITransformation.cs" />
     <Compile Include="Extract\IData.cs" />
     <Compile Include="Extract\IDataConsumer.cs" />
@@ -118,7 +118,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
