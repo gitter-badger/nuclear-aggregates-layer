@@ -1795,12 +1795,12 @@
     <value>Akce</value>
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
-    <value>Не применять</value>
+    <value>Don't apply</value>
   </data>
   <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
-    <value>По самой дорогой рубрике</value>
+    <value>By most expensive category</value>
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
-    <value>По проданной рубрике</value>
+    <value>By referenced category</value>
   </data>
 </root>
