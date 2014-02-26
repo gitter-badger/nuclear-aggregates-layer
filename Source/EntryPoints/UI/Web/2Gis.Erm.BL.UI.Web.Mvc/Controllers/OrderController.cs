@@ -7,6 +7,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -60,6 +61,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IFinder _finder;
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IOperationService _operationService;
@@ -69,10 +71,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IRepairOutdatedPositionsOperationService _repairOutdatedPositionsOperationService;
 
-
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
                                ICommonLog logger,
+                               IAPIOperationsServiceSettings operationsServiceSettings,
+                               IGetBaseCurrencyService getBaseCurrencyService,
                                ISecurityServiceUserIdentifier userIdentifierService,
                                ISecurityServiceFunctionalAccess functionalAccessService,
                                IReplicationCodeConverter replicationCodeConverter,
@@ -81,21 +84,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IFinder finder,
                                IReleaseReadModel releaseReadModel,
                                IBranchOfficeRepository branchOfficeRepository,
+                               IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
                                ILegalPersonRepository legalPersonRepository,
                                IOperationService operationService,
-                               IAPIOperationsServiceSettings operationsServiceSettings,
-                               IGetBaseCurrencyService getBaseCurrencyService,
                                IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
-                               ICopyOrderOperationService copyOrderOperationService,
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
+                               ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
@@ -105,14 +102,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _finder = finder;
             _releaseReadModel = releaseReadModel;
             _branchOfficeRepository = branchOfficeRepository;
+            _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
             _legalPersonRepository = legalPersonRepository;
             _operationService = operationService;
             _orderProlongationOperation = orderProlongationOperation;
+            _orderCreationOperation = orderCreationOperation;
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
-            _orderCreationOperation = orderCreationOperation;
         }
+
+
 
         #region Ajax methods
 
@@ -124,8 +124,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 return new JsonNetResult();
             }
 
-            var releaseNumbersDto = _orderRepository.CalculateReleaseNumbers(organizationUnitid.Value, beginDistributionDate.Value, releaseCountPlan.Value, releaseCountPlan.Value);
-            var distributionDatesDto = _orderRepository.CalculateDistributionDates(beginDistributionDate.Value, releaseCountPlan.Value, releaseCountPlan.Value);
+            var releaseNumbersDto = _orderReadModel.CalculateReleaseNumbers(organizationUnitid.Value, beginDistributionDate.Value, releaseCountPlan.Value, releaseCountPlan.Value);
+            var distributionDatesDto = _orderReadModel.CalculateDistributionDates(beginDistributionDate.Value, releaseCountPlan.Value, releaseCountPlan.Value);
 
             return new JsonNetResult(new
             {
@@ -237,18 +237,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     DiscountInPercents = x.OrderPositions
                                 .Where(y => !y.IsDeleted && y.IsActive)
                                                                             .All(y => y.CalculateDiscountViaPercent),
-                  x.Timestamp
+                    x.Timestamp
                 })
-                .AsEnumerable() 
+                .AsEnumerable()
                 .Select(x => new
-                    {
-                        Order = x.Order,
-                        Platform = x.Platform,
-                        DiscountReason = x.DiscountReason,
-                        BudgetType = x.BudgetType,
-                        DiscountInPercents = x.DiscountInPercents,
-                        EntityStateToken = Convert.ToBase64String(x.Timestamp)
-                    })
+                {
+                    Order = x.Order,
+                    Platform = x.Platform,
+                    DiscountReason = x.DiscountReason,
+                    BudgetType = x.BudgetType,
+                    DiscountInPercents = x.DiscountInPercents,
+                    EntityStateToken = Convert.ToBase64String(x.Timestamp)
+                })
                 .Single();
 
             return new JsonNetResult(orderAggregate);
@@ -266,10 +266,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             else
             {
                 response = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(new CanCreateOrderPositionForOrderRequest
-                    {
-                        OrderId = orderId,
-                        OrderType = orderType
-                    });
+                {
+                    OrderId = orderId,
+                    OrderType = orderType
+                });
             }
 
             return new JsonNetResult(response);
@@ -298,21 +298,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var firstUserOrgUnit = _finder.Find(Specs.Find.ById<User>(currentUser.Code))
                                           .SelectMany(user => user.UserOrganizationUnits)
                                           .Select(unit => new { unit.OrganizationUnitDto.Id, unit.OrganizationUnitDto.Name })
-                                          .FirstOrDefault(); 
-            
+                                          .FirstOrDefault();
+
             var model = new CheckOrdersReadinessForReleaseDialogViewModel
             {
                 StartPeriodDate = nextMonth.GetFirstDateOfMonth(),
                 Owner = new LookupField
-                            {
-                                Key = currentUser.Code,
-                                Value = _userIdentifierService.GetUserInfo(currentUser.Code).DisplayName
-                            },
+                {
+                    Key = currentUser.Code,
+                    Value = _userIdentifierService.GetUserInfo(currentUser.Code).DisplayName
+                },
                 OrganizationUnit = new LookupField
-                                       {
-                                           Key = firstUserOrgUnit != null ? firstUserOrgUnit.Id : (long?)null,
-                                           Value = firstUserOrgUnit != null ? firstUserOrgUnit.Name : null
-                                       }
+                {
+                    Key = firstUserOrgUnit != null ? firstUserOrgUnit.Id : (long?)null,
+                    Value = firstUserOrgUnit != null ? firstUserOrgUnit.Name : null
+                }
             };
 
             return View(model);
@@ -367,7 +367,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         Status = (byte)OperationStatus.Error,
                         Type = (short)BusinessOperation.CheckOrdersReadinessForRelease,
                         Description = operationDescription,
-                            OrganizationUnitId = viewModel.OrganizationUnit.Key
+                        OrganizationUnitId = viewModel.OrganizationUnit.Key
                     };
 
                     _operationService.FinishOperation(operation, response.ReportContent, HttpUtility.UrlPathEncode(response.ReportFileName), response.ContentType);
@@ -395,21 +395,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                           .SelectMany(user => user.UserOrganizationUnits)
                                           .Select(unit => new { unit.OrganizationUnitDto.Id, unit.OrganizationUnitDto.Name })
                                           .FirstOrDefault();
-                
+
             var model = new GetOrdersWithDummyAdvertisementDialogModel
+            {
+                Owner = new LookupField
                 {
-                    Owner = new LookupField
-                        {
-                            Key = currentUser.Code,
-                            Value = _userIdentifierService.GetUserInfo(currentUser.Code).DisplayName
-                        },
-                    OrganizationUnit = new LookupField
-                        {
-                            Key = firstUserOrgUnit != null ? firstUserOrgUnit.Id : (long?)null,
-                            Value = firstUserOrgUnit != null ? firstUserOrgUnit.Name : null
-                        },
-                    UserId = currentUser.Code
-                };
+                    Key = currentUser.Code,
+                    Value = _userIdentifierService.GetUserInfo(currentUser.Code).DisplayName
+                },
+                OrganizationUnit = new LookupField
+                {
+                    Key = firstUserOrgUnit != null ? firstUserOrgUnit.Id : (long?)null,
+                    Value = firstUserOrgUnit != null ? firstUserOrgUnit.Name : null
+                },
+                UserId = currentUser.Code
+            };
 
             return View(model);
         }
@@ -430,11 +430,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 }
 
                 var response = (GetOrdersWithDummyAdvertisementResponse)_publicService.Handle(new GetOrdersWithDummyAdvertisementRequest
-                    {
-                        OrganizationUnitId = viewModel.OrganizationUnit.Key.Value,
-                        OwnerId = viewModel.Owner.Key.Value,
-                        IncludeOwnerDescendants = viewModel.IncludeOwnerDescendants,
-                    });
+                {
+                    OrganizationUnitId = viewModel.OrganizationUnit.Key.Value,
+                    OwnerId = viewModel.Owner.Key.Value,
+                    IncludeOwnerDescendants = viewModel.IncludeOwnerDescendants,
+                });
 
                 viewModel.Message = BLResources.CheckingIsFinished;
                 if (response.HasOrders)
@@ -446,16 +446,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     var operationDescription = string.Format("Поиск заказов с заглушками РМ по {0} успешно завершен", viewModel.OrganizationUnit.Value);
 
                     var operation = new Operation
-                        {
-                            Guid = operationId,
-                            StartTime = DateTime.UtcNow,
-                            FinishTime = DateTime.UtcNow,
-                            OwnerCode = UserContext.Identity.Code,
-                            Status = (byte)OperationStatus.Success,
-                            Type = (short)OldBusinessOperationType.GetOrdersWithDummyAdvertisements,
-                            Description = operationDescription,
-                            OrganizationUnitId = viewModel.OrganizationUnit.Key
-                        };
+                    {
+                        Guid = operationId,
+                        StartTime = DateTime.UtcNow,
+                        FinishTime = DateTime.UtcNow,
+                        OwnerCode = UserContext.Identity.Code,
+                        Status = (byte)OperationStatus.Success,
+                        Type = (short)OldBusinessOperationType.GetOrdersWithDummyAdvertisements,
+                        Description = operationDescription,
+                        OrganizationUnitId = viewModel.OrganizationUnit.Key
+                    };
 
                     _operationService.FinishOperation(
                         operation,
@@ -549,25 +549,25 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             switch ((OrderState)newState)
             {
                 // На утверждении
-                case OrderState.OnApproval: 
+                case OrderState.OnApproval:
                     return View("ChangeStateOnApproval",
                                 new ChangeOrderStateOnApprovalViewModel
-                    {
-                        OrderId = orderId,
-                                        Inspector = new LookupField { Key = inspectorId, Value = _userIdentifierService.GetUserInfo(inspectorId).DisplayName },
-                        SourceOrganizationUnitId = sourceOrgUnitId
-                    });
+                                {
+                                    OrderId = orderId,
+                                    Inspector = new LookupField { Key = inspectorId, Value = _userIdentifierService.GetUserInfo(inspectorId).DisplayName },
+                                    SourceOrganizationUnitId = sourceOrgUnitId
+                                });
 
                 // На расторжении
-                case OrderState.OnTermination: 
+                case OrderState.OnTermination:
                     var terminationInfo = _secureFinder.Find<Order>(x => x.Id == orderId).Select(x => new { x.TerminationReason, x.Comment }).Single();
                     return View("ChangeStateOnTermination",
                                 new ChangeOrderStateOnTerminationViewModel
-                    {
-                        OrderId = orderId,
-                        TerminationReason = (OrderTerminationReason)terminationInfo.TerminationReason,
-                        TerminationReasonComment = terminationInfo.Comment
-                    });
+                                {
+                                    OrderId = orderId,
+                                    TerminationReason = (OrderTerminationReason)terminationInfo.TerminationReason,
+                                    TerminationReasonComment = terminationInfo.Comment
+                                });
                 default:
                     return View("ChangeStateDefault", new ChangeOrderStateDefaultViewModel { OrderId = orderId });
             }
@@ -625,7 +625,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             var model = new CloseOrderWithDenialViewModel { OrderId = id.Value };
 
-            var response = _orderRepository.IsOrderDeactivationPossible(id.Value);
+            var response = _orderReadModel.IsOrderDeactivationPossible(id.Value);
 
             if (response.IsDeactivationAllowed)
             {
@@ -686,27 +686,26 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult PrintReferenceInformation(long id, long profileId)
         {
             return
-                TryPrintDocument(new PrintReferenceInformationRequest {OrderId = id, LegalPersonProfileId = profileId});
+                TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
         public ActionResult PrintRegionalOrder(long id, long? profileId)
         {
             return
-                TryPrintDocument(new PrintOrderRequest
-                                     {OrderId = id, PrintRegionalVersion = true, LegalPersonProfileId = profileId});
+                TryPrintDocument(new PrintOrderRequest { OrderId = id, PrintRegionalVersion = true, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
         public ActionResult PrintBargain(long id, long? profileId)
         {
-            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId});
+            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
         public ActionResult PrintBill(long id, long? profileId)
         {
-            return TryPrintDocument(new PrintOrderBillsRequest {OrderId = id, LegalPersonProfileId = profileId});
+            return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
@@ -732,12 +731,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult PrepareJointBill(long id, long? profileId)
         {
             var model = new PrepareJointBillViewModel
-                {
-                    EntityId = id,
-                    EntityName = typeof(Order).AsEntityName(),
-                    ProfileId = profileId,
-                    IsMassBillCreateAvailable = false
-                };
+            {
+                EntityId = id,
+                EntityName = typeof(Order).AsEntityName(),
+                ProfileId = profileId,
+                IsMassBillCreateAvailable = false
+            };
 
             var orderInfo = _secureFinder.Find<Order>(o => o.Id == id && o.IsActive && !o.IsDeleted).FirstOrDefault();
             if (orderInfo != null)
@@ -755,7 +754,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
             if (orders != null && orders.Length > 0)
-                return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders, LegalPersonProfile = profileId});
+                return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders, LegalPersonProfile = profileId });
 
             return new EmptyResult();
         }
@@ -764,7 +763,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult PrintTerminationNotice(long id, long? profileId)
         {
             return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest {OrderId = id, LegalPersonProfileId = profileId });
+                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
@@ -773,12 +772,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return
                 TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, WithoutReason = true });
         }
-        
+
         [HttpGet]
         public ActionResult PrintTerminationBargainNotice(long id, long? profileId)
         {
             return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, TerminationBargain = true});
+                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, TerminationBargain = true });
         }
 
         [HttpGet]
@@ -792,8 +791,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult PrintRegionalTerminationNotice(long id, long? profileId)
         {
             return
-                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest
-                                     {OrderId = id, LegalPersonProfileId = profileId});
+                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
@@ -801,11 +799,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             return
                 TryPrintDocument(new PrintOrderAdditionalAgreementRequest
-                    {
-                        OrderId = id, 
-                        LegalPersonProfileId = profileId,
-                        PrintType = PrintAdditionalAgreementTarget.Order
-                    });
+                {
+                    OrderId = id,
+                    LegalPersonProfileId = profileId,
+                    PrintType = PrintAdditionalAgreementTarget.Order
+                });
         }
 
         [HttpGet]
@@ -835,18 +833,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public ActionResult Print(PrintOrderType printOrderType, long orderId)
         {
-            var order = _orderRepository.GetOrder(orderId);
+            var order = _orderReadModel.GetOrder(orderId);
             if (!order.LegalPersonId.HasValue)
             {
                 throw new ArgumentException("LegalPersonId");
             }
 
             var printOrderModel = new PrintOrderViewModel
-                                      {
-                                          LegalPersonId = order.LegalPersonId.Value,
-                                          OrderId = orderId,
-                                          PrintOrderType = printOrderType
-                                      };
+            {
+                LegalPersonId = order.LegalPersonId.Value,
+                OrderId = orderId,
+                PrintOrderType = printOrderType
+            };
 
             return View(printOrderModel);
         }
@@ -856,7 +854,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var isChooseProfileNeeded = true;
             long? legalPersonProfile = null;
 
-            var order = _orderRepository.GetOrder(orderId);
+            var order = _orderReadModel.GetOrder(orderId);
 
             if (order.LegalPersonProfileId.HasValue && printOrderType != PrintOrderType.PrintOrder)
             {
@@ -867,7 +865,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 var legalPersonWithProfiles =
                     _legalPersonRepository.GetLegalPersonWithProfiles(order.LegalPersonId.Value);
-                if ((LegalPersonType) legalPersonWithProfiles.LegalPerson.LegalPersonTypeEnum ==
+                if ((LegalPersonType)legalPersonWithProfiles.LegalPerson.LegalPersonTypeEnum ==
                     LegalPersonType.NaturalPerson
                     && printOrderType != PrintOrderType.PrintOrder
                     && printOrderType != PrintOrderType.PrintBargain
@@ -875,7 +873,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 {
                     isChooseProfileNeeded = false;
                 }
-                
+
                 if (legalPersonWithProfiles.Profiles.Count() == 1)
                 {
                     isChooseProfileNeeded = false;
@@ -884,10 +882,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             return new JsonNetResult(new
-                                         {
-                                             IsChooseProfileNeeded = isChooseProfileNeeded,
-                                             LegalPersonProfileId = legalPersonProfile
-                                         });
+            {
+                IsChooseProfileNeeded = isChooseProfileNeeded,
+                LegalPersonProfileId = legalPersonProfile
+            });
         }
         #endregion
 
@@ -902,11 +900,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var upgradeResponse = _repairOutdatedPositionsOperationService.RepairOutdatedPositions(response.OrderId);
 
             return new JsonNetResult(new
-                {
-                    Messages = upgradeResponse,
-                    OrderId = response.OrderId,
-                    OrderNumber = response.OrderNumber
-                });
+            {
+                Messages = upgradeResponse,
+                OrderId = response.OrderId,
+                OrderNumber = response.OrderNumber
+            });
         }
 
         // FIXME {all, 08.11.2013}: данное УГ приехало из 1.0 - в данному случае необходимо реализовать данную операцию через WCF сервис Operations, js будет взаимодействовать непорседственно с ним - необходимость в данном методе отпадет
@@ -916,11 +914,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var response = _orderProlongationOperation.ProcessSingle(orderProcessingRequestId);
 
             return new JsonNetResult(new
-                {
-                    Messages = response.Messages,
-                    OrderId = response.OrderId,
-                    OrderNumber = response.OrderNumber
-                });
+            {
+                Messages = response.Messages,
+                OrderId = response.OrderId,
+                OrderNumber = response.OrderNumber
+            });
         }
 
         [HttpPost]
@@ -929,11 +927,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var response = _orderCreationOperation.ProcessSingle(orderProcessingRequestId);
 
             return new JsonNetResult(new
-                {
-                    Messages = response.Messages,
-                    OrderId = response.Order.Id,
-                    OrderNumber = response.Order.Number,
-                });
+            {
+                Messages = response.Messages,
+                OrderId = response.Order.Id,
+                OrderNumber = response.Order.Number,
+            });
         }
 
         // FIXME {all, 08.11.2013}: данное УГ приехало из 1.0 выполнен формальный рефакторинг Handler->OperationService, при рефакторинге необходимо было реализовать данную операцию через WCF сервис Operations, js будет взаимодействовать непорседственно с ним - необходимость в данном методе отпадет

@@ -1753,40 +1753,46 @@
     <value>Čestné prohlášení Objednavatele</value>
   </data>
   <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
+    <value>Odesílání odpisů do sběrnice</value>
   </data>
   <data name="DCategoryGroup" xml:space="preserve">
-    <value>Группа</value>
+    <value>Skupina</value>
   </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
-    <value>Заявки от ЛК</value>
+    <value>Požadavky z OP</value>
   </data>
   <data name="ControlCreateOrder" xml:space="preserve">
-    <value>Создать заказ</value>
+    <value>Vytvořit objednávku</value>
   </data>
   <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
-    <value>Отменить заявку</value>
+    <value>Zrušit požadavek</value>
   </data>
   <data name="EnOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Požadavek z OP</value>
   </data>
   <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
-    <value>Продляемый заказ</value>
+    <value>Prodlužovaná objednávka</value>
   </data>
   <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
-    <value>Созданный заказ</value>
+    <value>Vytvořená objednávka</value>
   </data>
   <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
-    <value>Статус</value>
+    <value>Stav</value>
   </data>
   <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
-    <value>Тема</value>
+    <value>Téma</value>
   </data>
   <data name="DListOrderProcessingRequest" xml:space="preserve">
-    <value>Все заявки</value>
+    <value>Všechny požadavky</value>
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
-    <value>Заявка от ЛК</value>
+    <value>Požadavek z OP</value>
     <comment>ЛК - сокращение от 'Личный кабинет'</comment>
+  </data>
+  <data name="DListReservedFirmsLefkosia" xml:space="preserve">
+    <value>Фирмы в резерве по городу Никосия</value>
+  </data>
+  <data name="DListReservedFirmsLemesos" xml:space="preserve">
+    <value>Фирмы в резерве по городу Лимассол</value>
   </data>
 </root>

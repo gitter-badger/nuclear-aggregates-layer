@@ -1789,4 +1789,10 @@
     <value />
     <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
+  <data name="DListReservedFirmsLefkosia" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListReservedFirmsLemesos" xml:space="preserve">
+    <value />
+  </data>
 </root>

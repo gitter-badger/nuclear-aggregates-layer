@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -35,10 +36,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public int? MaxAdvertisementAmount { get; set; }
 
-        public bool RatePricePosition { get; set; }
+        public PricePositionRateType RateType { get; set; }
 
-        [Dependency(DependencyType.Hidden, "RatePricePosition", "this.value == 'False'")]
-        public bool IsRatePricePositionAvailable { get; set; }
+        [Dependency(DependencyType.Hidden, "RateType", "this.value == 'False'")]
+        public bool IsRateTypeAvailable { get; set; }
 
         [Dependency(DependencyType.DisableAndHide, "MaxAdvertisementAmount", "this.value == 'False'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "MinAdvertisementAmount", "this.value == 'False'")]
@@ -57,8 +58,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Cost = modelDto.Cost;
             Amount = modelDto.Amount;
             AmountSpecificationMode = modelDto.AmountSpecificationMode;
-            RatePricePosition = modelDto.RatePricePositions;
-            IsRatePricePositionAvailable = modelDto.IsRatePricePositionAvailable;
+            RateType = modelDto.RateType;
+            IsRateTypeAvailable = modelDto.IsRateTypeAvailable;
             IsPositionControlledByAmount = modelDto.IsPositionControlledByAmount;
             MinAdvertisementAmount = modelDto.MinAdvertisementAmount;
             MaxAdvertisementAmount = modelDto.MaxAdvertisementAmount;
@@ -82,19 +83,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             return new PricePositionDomainEntityDto
-                {
-                    Id = Id,
-                    PriceRef = Price.ToReference(),
-                    PositionRef = Position.ToReference(),
-                    Cost = Cost,
-                    Amount = Amount,
-                    AmountSpecificationMode = AmountSpecificationMode,
-                    RatePricePositions = RatePricePosition,
-                    IsRatePricePositionAvailable = IsRatePricePositionAvailable,
-                    MinAdvertisementAmount = MinAdvertisementAmount,
-                    MaxAdvertisementAmount = MaxAdvertisementAmount,
-                    Timestamp = Timestamp
-                };
+            {
+                Id = Id,
+                PriceRef = Price.ToReference(),
+                PositionRef = Position.ToReference(),
+                Cost = Cost,
+                Amount = Amount,
+                AmountSpecificationMode = AmountSpecificationMode,
+                RateType = RateType,
+                IsRateTypeAvailable = IsRateTypeAvailable,
+                MinAdvertisementAmount = MinAdvertisementAmount,
+                MaxAdvertisementAmount = MaxAdvertisementAmount,
+                Timestamp = Timestamp
+            };
         }
     }
 }
+

@@ -1789,4 +1789,10 @@
     <value>Заявка от ЛК</value>
     <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
+  <data name="DListReservedFirmsLefkosia" xml:space="preserve">
+    <value>Фирмы в резерве по городу Никосия</value>
+  </data>
+  <data name="DListReservedFirmsLemesos" xml:space="preserve">
+    <value>Фирмы в резерве по городу Лимассол</value>
+  </data>
 </root>

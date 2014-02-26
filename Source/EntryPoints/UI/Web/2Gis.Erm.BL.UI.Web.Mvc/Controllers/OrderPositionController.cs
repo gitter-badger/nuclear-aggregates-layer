@@ -33,19 +33,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             IPublicService publicService,
             IAPIOperationsServiceSettings operationsServiceSettings,
             IGetBaseCurrencyService getBaseCurrencyService)
-        : base(
-            msCrmSettings,
-            userContext,
-            logger,
-            operationsServiceSettings,
-            getBaseCurrencyService)
+            : base(
+                msCrmSettings,
+                userContext,
+                logger,
+                operationsServiceSettings,
+                getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _publicService = publicService;
         }
 
         [HttpGet]
-        public JsonNetResult GetEditValues(long? orderPositionId, long orderId, long pricePositionId, bool includeHidden)
+        public JsonNetResult GetEditValues(long? orderPositionId, long? categoryId, long orderId, long pricePositionId, bool includeHidden)
         {
             var response = (ViewOrderPositionResponse)_publicService.Handle(new ViewOrderPositionRequest
             {
@@ -53,6 +53,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 OrderId = orderId,
                 PricePositionId = pricePositionId,
                 IncludeHidden = includeHidden,
+                CategoryId = categoryId
             });
 
             return new JsonNetResult(response);
@@ -86,17 +87,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         public ActionResult ChangeBindingObjects(long positionId, AdvertisementDescriptor[] advertisements)
         {
             var request = new ChangeBindingObjectsRequest
-                {
-                    OrderPositionId = positionId,
-                    Advertisements = advertisements
-                };
+            {
+                OrderPositionId = positionId,
+                Advertisements = advertisements
+            };
             _publicService.Handle(request);
             return new EmptyResult();
         }
     }
 }
+
+
