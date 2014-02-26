@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     public partial class PricePositionDomainEntityDto
     {
         [DataMember]
-        public bool IsRatePricePositionAvailable { get; set; }
+        public bool IsRateTypeAvailable { get; set; }
         [DataMember]
         public bool IsPositionControlledByAmount { get; set; }
         [DataMember]

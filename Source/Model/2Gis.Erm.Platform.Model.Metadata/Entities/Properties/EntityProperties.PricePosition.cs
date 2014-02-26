@@ -54,11 +54,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.MaxAdvertisementAmount)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.RatePricePositions)
+                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.RateType)
                                   .WithFeatures(
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.RatePricePosition)),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.RateType)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsRatePricePositionAvailable)
+                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsRateTypeAvailable)
                                   .WithFeatures(new HiddenFeature()),
 
                     EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsPositionControlledByAmount)

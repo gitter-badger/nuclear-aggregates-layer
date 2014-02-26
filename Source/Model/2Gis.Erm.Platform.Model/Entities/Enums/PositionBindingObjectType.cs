@@ -24,6 +24,6 @@
         AddressFirstLevelCategoryMultiple = 37,
 
         // тематика
-        ThemeMultiple = 40
+        ThemeMultiple = 40,
     }
 }

@@ -1044,7 +1044,7 @@
           <Property Name="MaxAdvertisementAmount" Type="int" />
           <Property Name="Amount" Type="int" />
           <Property Name="AmountSpecificationMode" Type="int" Nullable="false" />
-          <Property Name="RatePricePositions" Type="bit" Nullable="false" />
+          <Property Name="RateType" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
@@ -6851,7 +6851,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <NavigationProperty Name="Price" Relationship="ErmModel.FK_Price_Position_Price" FromRole="PricePosition" ToRole="Price" />
         <Property Type="Int32" Name="MinAdvertisementAmount" />
         <Property Type="Int32" Name="MaxAdvertisementAmount" />
-        <Property Type="Boolean" Name="RatePricePositions" Nullable="false" />
+        <Property Type="Int32" Name="RateType" Nullable="false" />
       </EntityType>
       <Association Name="FK_AccociatedPosiotionsGroups_PricePositions">
         <End Type="ErmModel.PricePosition" Role="PricePosition" Multiplicity="1" />
@@ -10369,7 +10369,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <EntitySetMapping Name="PricePositions">
           <EntityTypeMapping TypeName="ErmModel.PricePosition">
             <MappingFragment StoreEntitySet="PricePositions">
-              <ScalarProperty Name="RatePricePositions" ColumnName="RatePricePositions" />
+              <ScalarProperty Name="RateType" ColumnName="RateType" />
               <ScalarProperty Name="MaxAdvertisementAmount" ColumnName="MaxAdvertisementAmount" />
               <ScalarProperty Name="MinAdvertisementAmount" ColumnName="MinAdvertisementAmount" />
               <ScalarProperty Name="AmountSpecificationMode" ColumnName="AmountSpecificationMode" />

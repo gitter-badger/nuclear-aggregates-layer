@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
         public Nullable<int> MinAdvertisementAmount { get; set; }
         public Nullable<int> MaxAdvertisementAmount { get; set; }
-        public bool RatePricePositions { get; set; }
+        public int RateType { get; set; }
     
         public ICollection<AssociatedPositionsGroup> AssociatedPositionsGroups { get; set; }
         public ICollection<OrderPosition> OrderPositions { get; set; }
