@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -9,12 +9,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class GetInitPaymentsInfoHandler : RequestHandler<GetInitPaymentsInfoRequest, GetInitPaymentsInfoResponse>
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public GetInitPaymentsInfoHandler(ISubRequestProcessor subRequestProcessor, IOrderRepository orderRepository)
+        public GetInitPaymentsInfoHandler(ISubRequestProcessor subRequestProcessor, IOrderReadModel orderReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override GetInitPaymentsInfoResponse Handle(GetInitPaymentsInfoRequest request)
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 throw new NotificationException(BLResources.CantGetOrderIdentifier);
             }
 
-            var orderInfo = _orderRepository.GetOrderInfoForInitPayments(request.OrderId.Value);
+            var orderInfo = _orderReadModel.GetOrderInfoForInitPayments(request.OrderId.Value);
 
             if (!orderInfo.IsOnRegistration)
             {

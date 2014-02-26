@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IFinder _finder;
         private readonly IValidateOrderPositionAdvertisementsService _validateOrderPositionAdvertisementsService;
@@ -46,7 +47,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             // TODO {d.ivanov, 11.11.2013}: адаптировать под read-model
             IOperationScopeFactory scopeFactory,
             IFinder finder,
-            IValidateOrderPositionAdvertisementsService validateOrderPositionAdvertisementsService)
+            IValidateOrderPositionAdvertisementsService validateOrderPositionAdvertisementsService,
+            IOrderReadModel orderReadModel)
         {
             _logger = logger;
             _publicService = publicService;
@@ -55,6 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _scopeFactory = scopeFactory;
             _finder = finder;
             _validateOrderPositionAdvertisementsService = validateOrderPositionAdvertisementsService;
+            _orderReadModel = orderReadModel;
         }
 
         public IEnumerable<RepairOutdatedPositionsOperationMessage> RepairOutdatedPositions(long orderId)
@@ -81,9 +84,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
                 // Вторая часть: сохранение актуализорованных данных.
                 long actualPriceId;
-                _orderRepository.TryGetActualPriceIdForOrder(orderId, out actualPriceId);
+                _orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId);
                 ActualizeOrderPositions(currentOrderPositions, actualPriceId, resultMessages, saveDiscounts);
-                var order = _orderRepository.GetOrder(orderId);
+                var order = _orderReadModel.GetOrder(orderId);
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
                     {
                         Order = order,
@@ -245,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
 
             currentOrderPositions = GetOrderPositionsExtended(orderId);
-            if (!_orderRepository.TryGetActualPriceIdForOrder(orderId, out actualPriceId))
+            if (!_orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId))
             {
                 throw new NotificationException(BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice);
             }

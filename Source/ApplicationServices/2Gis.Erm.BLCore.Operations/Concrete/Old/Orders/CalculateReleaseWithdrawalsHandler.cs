@@ -4,6 +4,7 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
@@ -29,21 +30,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public CalculateReleaseWithdrawalsHandler(
-            IFinder finder,
-            IUnitOfWork unitOfWork,
-            IOrderRepository orderRepository,
-            IClientProxyFactory clientProxyFactory, 
-            IPublicService publicService, 
-            IOperationScopeFactory scopeFactory)
+        public CalculateReleaseWithdrawalsHandler(IFinder finder,
+                                                  IUnitOfWork unitOfWork,
+                                                  IOrderRepository orderRepository,
+                                                  IOrderReadModel orderReadModel,
+                                                  IClientProxyFactory clientProxyFactory,
+                                                  IPublicService publicService,
+                                                  IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _unitOfWork = unitOfWork;
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _clientProxyFactory = clientProxyFactory;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
@@ -161,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 var withdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
                 var orderRepository = scope.CreateRepository<IOrderRepository>();
 
-                var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(orderRepository, orderInfo.OrderPositions);
+                var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(_orderReadModel, orderInfo.OrderPositions);
                 withdrawalRepository.Create(releaseWithdrawalPositions);
                 operationScope.Added<ReleasesWithdrawalsPosition>(releaseWithdrawalPositions.Select(position => position.Id).ToArray());
 
@@ -248,7 +251,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             orderPosition.PriceCostInfos = clientProxy.Execute(action => action.GetPriceCostsForSubPositions(orderPosition.PositionId, orderPosition.PriceId)).ToArray();
         }
 
-        private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositions(IOrderRepository orderRepository, IEnumerable<OrderPositionDto> orderPosition)
+        private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositions(IOrderReadModel orderReadModel, IEnumerable<OrderPositionDto> orderPosition)
         {
             var result = new List<ReleasesWithdrawalsPosition>();
             foreach (var orderPositionDto in orderPosition)
@@ -266,7 +269,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 }
                 else
                 {
-                    var subPositions = orderRepository.GetSelectedSubPositions(orderPositionDto.Id).ToArray();
+                    var subPositions = orderReadModel.GetSelectedSubPositions(orderPositionDto.Id).ToArray();
                     result.AddRange(CreateReleaseWithdrawalPositionsForCompositePositionWithoutMoDi(subPositions, orderPositionDto));
                 }   
             }
@@ -328,7 +331,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                         OrderId = orderPosition.OrderId,
                         CalculateDiscountViaPercent = true,
                         Cost = costInfo.Cost,
-                        CategoryRate = CategoryRate.Known(orderPosition.CategoryRate),
+                        CategoryRate = orderPosition.CategoryRate,
                         DiscountSum = orderPosition.DiscountSum,
                         DiscountPercent = orderPosition.DiscountPercent
                     });

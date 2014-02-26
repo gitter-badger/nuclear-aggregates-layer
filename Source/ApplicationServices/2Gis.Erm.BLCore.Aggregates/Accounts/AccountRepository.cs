@@ -645,19 +645,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
-            return _finder.Find<Account>(a => !a.IsDeleted && branchOfficeSyncCodes.Contains(a.BranchOfficeOrganizationUnit.SyncCode1C)).Select(x => new AccountInfoForImportFrom1C
-                {
-                    Id = x.Id,
-                    AccountDetails = x.AccountDetails.Where(y => !y.IsDeleted && y.OperationType.IsActive &&
-                                                                 !y.OperationType.IsDeleted && y.OperationType.IsInSyncWith1C &&
-                                                                 y.TransactionDate >= transactionPeriodStart && y.TransactionDate <= transactionPeriodEnd),
-                    BranchOfficeLegalName = x.BranchOfficeOrganizationUnit.ShortLegalName,
-                    BranchOfficeSyncCode1C = x.BranchOfficeOrganizationUnit.SyncCode1C,
-                    LegalPersonName = x.LegalPerson.LegalName,
-                    OwnerCode = x.OwnerCode
-                }).ToArray();
+            return _finder.Find<Account>(a => !a.IsDeleted && branchOfficeSyncCodes.Contains(a.BranchOfficeOrganizationUnit.SyncCode1C))
+                          .Select(x => new AccountInfoForImportFrom1C
+                          {
+                              Id = x.Id,
+                              AccountDetails = x.AccountDetails.Where(y => !y.IsDeleted && y.OperationType.IsActive &&
+                                                                           !y.OperationType.IsDeleted && y.OperationType.IsInSyncWith1C &&
+                                                                           y.TransactionDate >= transactionPeriodStart &&
+                                                                           y.TransactionDate <= transactionPeriodEnd),
+                              BranchOfficeLegalName = x.BranchOfficeOrganizationUnit.ShortLegalName,
+                              BranchOfficeSyncCode1C = x.BranchOfficeOrganizationUnit.SyncCode1C,
+                              LegalPersonName = x.LegalPerson.LegalName,
+                              OwnerCode = x.OwnerCode
+                          })
+                          .ToArray();
         }
-
 
         public Account FindAccount(long branchOfficeOrganizationUnitId, long legalPersonId)
         {

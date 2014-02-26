@@ -99,5 +99,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 
             return new XElement(TagName, elements);
         }
+
+        public override string ToString()
+        {
+            return string.Format("AccountCode: {0}", AccountCode);
+        }
     }
 }

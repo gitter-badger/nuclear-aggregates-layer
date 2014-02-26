@@ -1765,34 +1765,34 @@
     <value>Gestión de agencias publicitarias</value>
   </data>
   <data name="ReasonForNewDealBizaccount" xml:space="preserve">
-    <value>-- Не переведено ReasonForNewDealBizaccount --</value>
+    <value>Área Personal</value>
   </data>
   <data name="RequestMessageTypeDebug" xml:space="preserve">
-    <value>-- Не переведено RequestMessageTypeDebug --</value>
+    <value>Técnico</value>
   </data>
   <data name="RequestMessageTypeError" xml:space="preserve">
-    <value>-- Не переведено RequestMessageTypeError --</value>
+    <value>Error</value>
   </data>
   <data name="RequestMessageTypeInfo" xml:space="preserve">
-    <value>-- Не переведено RequestMessageTypeInfo --</value>
+    <value>Información</value>
   </data>
   <data name="RequestMessageTypeWarning" xml:space="preserve">
-    <value>-- Не переведено RequestMessageTypeWarning --</value>
+    <value>Advertencia</value>
   </data>
   <data name="AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate" xml:space="preserve">
-    <value>-- Не переведено AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate --</value>
+    <value>Verificación de la conformación de la plantilla del material publicitario con la plantilla especificada en la posición de la nomenclatura </value>
   </data>
   <data name="AdvertisementValidationRuleCorrectAddress" xml:space="preserve">
-    <value>-- Не переведено AdvertisementValidationRuleCorrectAddress --</value>
+    <value>Verificación de la dirección</value>
   </data>
   <data name="AdvertisementValidationRuleIsTemplatePublished" xml:space="preserve">
-    <value>-- Не переведено AdvertisementValidationRuleIsTemplatePublished --</value>
+    <value>Verificación de la publicación de la plantilla del material publicitario</value>
   </data>
   <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
-    <value>-- Не переведено AdvertisementValidationRuleRequiredAdvertisement --</value>
+    <value>Verificación de la presencia de los materiales publicitarios obligatorios</value>
   </data>
   <data name="EntityNameActivityInstance" xml:space="preserve">
-    <value>-- Не переведено EntityNameActivityInstance --</value>
+    <value>Acción</value>
   </data>
   <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
     <value>Orden de compra</value>
@@ -1802,5 +1802,14 @@
   </data>
   <data name="CyprusOrderFileKindOtherDocumentScan" xml:space="preserve">
     <value>Otro</value>
+  </data>
+  <data name="PricePositionRateTypeNone" xml:space="preserve">
+    <value>Don't apply</value>
+  </data>
+  <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
+    <value>By most expensive category</value>
+  </data>
+  <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
+    <value>By referenced category</value>
   </data>
 </root>

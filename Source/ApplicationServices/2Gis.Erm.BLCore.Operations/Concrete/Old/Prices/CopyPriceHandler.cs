@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
                 Cost = pricePosition.Cost,
                 Amount = pricePosition.Amount,
                 AmountSpecificationMode = pricePosition.AmountSpecificationMode,
-                RatePricePositions = pricePosition.RatePricePositions,
+                RateType = pricePosition.RateType,
                 MaxAdvertisementAmount = pricePosition.MaxAdvertisementAmount,
                 MinAdvertisementAmount = pricePosition.MinAdvertisementAmount,
                 CreatedOn = DateTime.UtcNow,

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
@@ -21,12 +22,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class OrderPositionsRefereceCurrentPriceListOrderValidationRule : OrderValidationRuleCommonPredicate
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IFinder _finder;
 
-        public OrderPositionsRefereceCurrentPriceListOrderValidationRule(IOrderRepository orderRepository, IFinder finder)
+        public OrderPositionsRefereceCurrentPriceListOrderValidationRule(IOrderReadModel orderReadModel, IFinder finder)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _finder = finder;
         }
 
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
 
             long actualPriceId;
-            if (!_orderRepository.TryGetActualPriceIdForOrder(request.OrderId.Value, out actualPriceId))
+            if (!_orderReadModel.TryGetActualPriceIdForOrder(request.OrderId.Value, out actualPriceId))
             {
                 messages.Add(new OrderValidationMessage
                     {

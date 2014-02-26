@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -11,11 +11,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
 {
     public sealed class RecalculateOrderDiscountHandler : RequestHandler<RecalculateOrderDiscountRequest, RecalculateOrderDiscountResponse>
     {
-        private readonly IOrderRepository _orderRepository;
 
-        public RecalculateOrderDiscountHandler(IOrderRepository orderRepository)
+        private readonly IOrderReadModel _orderReadModel;
+
+        public RecalculateOrderDiscountHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override RecalculateOrderDiscountResponse Handle(RecalculateOrderDiscountRequest request)
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
                 throw new NotificationException(BLResources.OrderValidateDiscountNegative);
             }
 
-            var payablePlanSum = _orderRepository.GetPayablePlanSum(request.OrderId, request.ReleaseCountFact);
+            var payablePlanSum = _orderReadModel.GetPayablePlanSum(request.OrderId, request.ReleaseCountFact);
 
             if (payablePlanSum == 0m)
             {

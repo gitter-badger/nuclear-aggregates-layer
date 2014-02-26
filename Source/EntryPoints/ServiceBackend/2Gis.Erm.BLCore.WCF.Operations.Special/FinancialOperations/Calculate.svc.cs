@@ -83,6 +83,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                                                                                                                       beginDistributionDate,
                                                                                                                       sourceProjectCode,
                                                                                                                       firmId,
+                                                                                                                      null,
                                                                                                                       positionsWithDiscounts);
 
                 return TransformResultForGenericClient(calculationResult);
@@ -120,6 +121,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                                                                                                                       beginDistributionDate,
                                                                                                                       null,
                                                                                                                       destProjectCode,
+                                                                                                                      null,
                                                                                                                       null,
                                                                                                                       positionsWithDiscounts);
                 return TransformResultForGenericClient(calculationResult);

@@ -208,7 +208,6 @@
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesResponse.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculatePositionPricesWithDiscountDistributionRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculatePositionPricesWithDiscountDistributionResponse.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\CategoryRate.cs" />
     <Compile Include="Concrete\Old\OrderPositions\ChangeBindingObjectsRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderPositionRequest.cs" />

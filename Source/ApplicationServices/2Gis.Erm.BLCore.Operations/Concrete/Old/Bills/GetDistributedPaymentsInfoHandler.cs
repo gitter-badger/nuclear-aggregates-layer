@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
@@ -14,11 +14,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
     public sealed class GetDistributedPaymentsInfoHandler : RequestHandler<GetDistributedPaymentsInfoRequest, GetDistributedPaymentsInfoResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public GetDistributedPaymentsInfoHandler(IOrderRepository orderRepository)
+        public GetDistributedPaymentsInfoHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override GetDistributedPaymentsInfoResponse Handle(GetDistributedPaymentsInfoRequest request)
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 throw new NotificationException(BLResources.CantGetOrderIdentifier);
             }
 
-            var orderInfo = _orderRepository.GetOrderUnsecure(request.OrderId.Value);
+            var orderInfo = _orderReadModel.GetOrderUnsecure(request.OrderId.Value);
             if (orderInfo == null)
             {
                 throw new NotificationException(BLResources.OrderInfoNotFound);

@@ -4206,9 +4206,6 @@
 	<data name="WrongDtoType" xml:space="preserve">
     <value>Неправильный тип Dto</value>
   </data>
-	<data name="CompositePositionLinkingObjectTypeMustBeFirm" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от фирмы</value>
-  </data>
 	<data name="NeedToPickAtLeastOneLinkingObjectForCompositePosition" xml:space="preserve">
     <value>Необходимо выбрать хотя бы одну позицию из пакета</value>
   </data>
@@ -5227,7 +5224,16 @@
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Закрыть отказом</value>
   </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
   <data name="AcceptableFileDimensions" xml:space="preserve">
     <value>Допустимые размеры файлов (пиксели)</value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
 </root>

@@ -2,8 +2,8 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -12,28 +12,29 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 {
     public sealed class CanCreateOrderPositionForOrderHandler : RequestHandler<CanCreateOrderPositionForOrderRequest, CanCreateOrderPositionForOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IFirmRepository _firmRepository;
 
         public CanCreateOrderPositionForOrderHandler(
             IFirmRepository firmRepository,
-            IOrderRepository orderRepository)
+            IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+
+            _orderReadModel = orderReadModel;
             _firmRepository = firmRepository;
         }
 
         protected override CanCreateOrderPositionForOrderResponse Handle(CanCreateOrderPositionForOrderRequest request)
         {
             var response = new CanCreateOrderPositionForOrderResponse();
-            var completionState = _orderRepository.GetOrderCompletionState(request.OrderId);
+            var completionState = _orderReadModel.GetOrderCompletionState(request.OrderId);
             if (!completionState.BranchOfficeOrganizationUnit || !completionState.LegalPerson)
             {
                 response.Message = BuildOrderNotCompletedMessage(completionState);
                 return response;
             }
 
-            var orderType = _orderRepository.GetOrderType(request.OrderId);
+            var orderType = _orderReadModel.GetOrderType(request.OrderId);
             if (orderType != request.OrderType)
             {
                 response.Message = BLResources.OrderTypeHasBeenChanged;

@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 {
+    // FIXME {all, 11.02.2014}: Соответствующие реквесты никто не создает, хендлер надо выпилить?
     public sealed class CalculatePositionPricesWithDiscountDistributionHandler :
         RequestHandler<CalculatePositionPricesWithDiscountDistributionRequest, CalculatePositionPricesWithDiscountDistributionResponse>
     {

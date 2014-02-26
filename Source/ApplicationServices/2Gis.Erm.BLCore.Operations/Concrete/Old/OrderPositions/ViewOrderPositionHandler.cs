@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 
@@ -6,16 +8,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 {
     public sealed class ViewOrderPositionHandler : RequestHandler<ViewOrderPositionRequest, ViewOrderPositionResponse>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IFirmRepository _firmRepository;
 
-        public ViewOrderPositionHandler(IOrderRepository orderRepository)
+        public ViewOrderPositionHandler(IOrderReadModel orderReadModel, IPriceReadModel priceReadModel, IFirmRepository firmRepository)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
+            _priceReadModel = priceReadModel;
+            _firmRepository = firmRepository;
         }
 
         protected override ViewOrderPositionResponse Handle(ViewOrderPositionRequest request)
         {
-            var positionInfo = _orderRepository.GetOrderPositionDetailedInfo(request.OrderPositionId, request.OrderId, request.PricePositionId, request.IncludeHidden);
+            var positionInfo = _orderReadModel.GetOrderPositionDetailedInfo(request.OrderPositionId, request.OrderId, request.PricePositionId, request.IncludeHidden);
+
+            var categoryRate = _priceReadModel.GetCategoryRate(request.PricePositionId, _firmRepository.GetOrderFirmId(request.OrderId), request.CategoryId);
+
+            var priceCalulations = _orderReadModel.CalculatePricePerUnit(request.OrderId, categoryRate, positionInfo.PricePositionCost);
 
             return new ViewOrderPositionResponse
             {
@@ -28,8 +38,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
                 IsPositionComposite = positionInfo.IsComposite,
                 IsBudget = positionInfo.IsBudget,
                 LinkingObjectsSchema = positionInfo.LinkingObjectsSchema,
-                PricePerUnit = positionInfo.PricePerUnit,
-                VatRatio = positionInfo.VatRatio,
+                PricePerUnit = priceCalulations.PricePerUnit,
+                VatRatio = priceCalulations.VatRatio,
             };
         }
     }

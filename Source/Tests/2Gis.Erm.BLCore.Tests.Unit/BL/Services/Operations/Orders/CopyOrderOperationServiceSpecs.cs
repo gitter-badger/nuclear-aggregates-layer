@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
@@ -47,6 +48,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
             protected static IPublicService PublicService;
             protected static ISecurityServiceEntityAccess SecurityServiceEntityAccess;
             protected static IOrderRepository OrderRepository;
+            protected static IOrderReadModel OrderReadModel;
             protected static IOperationScopeFactory ScopeFactory;
 
             private Establish context = () =>
@@ -56,6 +58,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                     SecurityServiceEntityAccess = SetupSecurityServiceEntityAccess();
                     OrderRepository = SetupOrderRepository();
                     ScopeFactory = SetupScopeFactory();
+                    OrderReadModel = SetupOrderReadModel();
 
                     Target = new CopyOrderOperationService(
                         UserContext, 
@@ -64,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                         OrderRepository, 
                         ScopeFactory,
                         null,
-                        null);
+                        null, OrderReadModel);
                 };
 
             private static IOperationScopeFactory SetupScopeFactory()
@@ -85,37 +88,48 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
 
             private static IOrderRepository SetupOrderRepository()
             {
+                
                 var orderRepository = Mock.Of<IOrderRepository>();
                 var orderPositions = new OrderPositionWithAdvertisementsDto[0];
-                var releaseNumbersDto = new ReleaseNumbersDto();
-                var distributiuonDatesDto = new DistributionDatesDto();
 
                 OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = (int)OrderState.OnTermination };
-
-                Mock.Get(orderRepository).Setup(x => x.GetOrder(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
-
-                Mock.Get(orderRepository).Setup(x => x.GetOrderPositionsWithAdvertisements(ORDER_TO_COPY_ID)).Returns(orderPositions);
 
                 Mock.Get(orderRepository)
                     .Setup(x => x.CreateCopiedOrder(OrderToCopy, orderPositions))
                     .Returns<Order, IEnumerable<OrderPositionWithAdvertisementsDto>>((o, pos) => { o.Id += 1; return o; }); // увы, метод CreateCopiedOrder изменяет входящий в него объект
+                
+                return orderRepository;
+            }
 
-                Mock.Get(orderRepository)
+            private static IOrderReadModel SetupOrderReadModel()
+            {
+                var orderReadModel = Mock.Of<IOrderReadModel>();
+                var orderPositions = new OrderPositionWithAdvertisementsDto[0];
+                var distributiuonDatesDto = new DistributionDatesDto();
+                var releaseNumbersDto = new ReleaseNumbersDto();
+
+                OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = (int)OrderState.OnTermination };
+
+                Mock.Get(orderReadModel).Setup(x => x.GetOrder(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
+
+                Mock.Get(orderReadModel).Setup(x => x.GetOrderPositionsWithAdvertisements(ORDER_TO_COPY_ID)).Returns(orderPositions);
+
+                Mock.Get(orderReadModel)
                     .Setup(x => x.CalculateDistributionDates(
                         Moq.It.IsAny<DateTime>(),
                         Moq.It.IsAny<int>(),
                         Moq.It.IsAny<int>()))
                     .Returns(distributiuonDatesDto);
 
-                Mock.Get(orderRepository)
+                Mock.Get(orderReadModel)
                     .Setup(x => x.CalculateReleaseNumbers(
                         Moq.It.IsAny<long>(),
                         Moq.It.IsAny<DateTime>(),
                         Moq.It.IsAny<int>(),
                         Moq.It.IsAny<int>()))
                     .Returns(releaseNumbersDto);
-                
-                return orderRepository;
+
+                return orderReadModel;
             }
 
             private static ISecurityServiceEntityAccess SetupSecurityServiceEntityAccess()

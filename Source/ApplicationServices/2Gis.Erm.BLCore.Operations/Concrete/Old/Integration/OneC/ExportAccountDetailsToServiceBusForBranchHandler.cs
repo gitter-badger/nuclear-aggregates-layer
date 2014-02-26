@@ -8,7 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
@@ -44,17 +44,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
         public ExportAccountDetailsToServiceBusForBranchHandler(IFinder finder,
-                                                                ISubRequestProcessor subRequestProcessor,
-                                                                IClientProxyFactory clientProxyFactory,
-                                                                IOrderRepository orderRepository)
+            ISubRequestProcessor subRequestProcessor, 
+            IClientProxyFactory clientProxyFactory, 
+                                                                IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
             _clientProxyFactory = clientProxyFactory;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         private enum ExportOrderType
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
 
             var accountDetailDtos = GetAccountDetailDtos(request.OrganizationUnitId, period);
-            
+
             var dtosToValidate = accountDetailDtos.Where(x => x.LegalPersonSyncCode1C != null).DistinctBy(x => x.LegalPersonSyncCode1C).ToArray();
             var validateLegalPersonsResponse = ValidateLegalPersons(dtosToValidate);
 
@@ -94,14 +94,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var totalProcessedByModiCount = modiResponse.ProcessedWithoutErrors + modiResponse.BlockingErrorsAmount + modiResponse.NonBlockingErrorsAmount;
             if (!accountDetailDtos.Any() && totalProcessedByModiCount == 0)
-            {
+                           {
                 throw new NotificationException(string.Format(BLResources.NoDebitsForSpecifiedPeriod, period.Start, period.End));
-            }
+                                     }
 
             var orderIds = accountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
-            var distributions = _orderRepository.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
+            var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
             foreach (var accountDetailDto in accountDetailDtos)
-            {
+                                     {
                 accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
             }
 
@@ -120,58 +120,58 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                              debitInfoDto.Debits.Length,
                                              debitsStream);
             return response;
-        }
+                        }
 
         private static DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
                                                            TimePeriod period,
                                                            IEnumerable<AccountDetailDto> accountDetailDtos)
-        {
+                {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
-                {
-                    AccountCode = x.AccountCode,
-                    ProfileCode = x.ProfileCode,
-                    Amount = GetAccountDetailAmount(x),
-                    SignupDate = x.OrderSignupDateUtc,
-                    ClientOrderNumber = x.ClientOrderNumber,
+                        {
+                            AccountCode = x.AccountCode,
+                            ProfileCode = x.ProfileCode,
+                            Amount = GetAccountDetailAmount(x),
+                            SignupDate = x.OrderSignupDateUtc,
+                            ClientOrderNumber = x.ClientOrderNumber,
                     OrderType = x.OrderType,
-                    OrderNumber = x.OrderNumber,
-                    MediaInfo = x.ElectronicMedia,
-                    LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
+                            OrderNumber = x.OrderNumber,
+                            MediaInfo = x.ElectronicMedia,
+                            LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
                     Type = x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                               ? DebitDto.DebitType.Client
-                               : DebitDto.DebitType.Regional,
-                    PlatformDistributions = new[]
-                            {
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Desktop,
+                                    ? DebitDto.DebitType.Client
+                                    : DebitDto.DebitType.Regional,
+                            PlatformDistributions = new[]
+                                {
+                                    new PlatformDistribution
+                                        {
+                                            PlatformCode = PlatformEnum.Desktop,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Desktop)
                                                      ? x.PlatformDistributions[PlatformEnum.Desktop]
                                                      : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Mobile,
+                                        },
+                                    new PlatformDistribution
+                                        {
+                                            PlatformCode = PlatformEnum.Mobile,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Mobile)
                                                      ? x.PlatformDistributions[PlatformEnum.Mobile]
                                                      : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Api,
+                                        },
+                                    new PlatformDistribution
+                                        {
+                                            PlatformCode = PlatformEnum.Api,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Api)
                                                      ? x.PlatformDistributions[PlatformEnum.Api]
                                                      : 0
-                                    },
-                                new PlatformDistribution
-                                    {
-                                        PlatformCode = PlatformEnum.Online,
+                                        },
+                                    new PlatformDistribution
+                                        {
+                                            PlatformCode = PlatformEnum.Online,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Online)
                                                      ? x.PlatformDistributions[PlatformEnum.Online]
                                                      : 0
-                                    }
-                            }
+                                        }
+                                }
                 })
                 .ToArray();
 
@@ -252,7 +252,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             return response;
         }
-        
+
         private static DataTable GetErrorsDataTable(IEnumerable<ErrorDto> blockingErrors, IEnumerable<ErrorDto> nonBlockingErrors)
         {
             const int AttributesCount = 4;
@@ -357,13 +357,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private ValidateLegalPersonsResponse ValidateLegalPersons(IEnumerable<AccountDetailDto> allAccountDetails)
         {
             var request = new ValidateLegalPersonsFor1CRequest
+            {
+                Entities = allAccountDetails.Select(x => new ValidateLegalPersonRequestItem
                 {
-                    Entities = allAccountDetails.Select(x => new ValidateLegalPersonRequestItem
-                        {
-                            Entity = x.LegalPerson,
-                            SyncCode1C = x.LegalPersonSyncCode1C
-                        })
-                };
+                    Entity = x.LegalPerson, 
+                    SyncCode1C = x.LegalPersonSyncCode1C
+                })
+            };
 
             return (ValidateLegalPersonsResponse)_subRequestProcessor.HandleSubRequest(request, Context);
         }

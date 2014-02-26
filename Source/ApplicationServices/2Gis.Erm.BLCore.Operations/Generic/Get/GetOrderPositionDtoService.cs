@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             modelDto.IsBlockedByRelease = !response.Success;
             modelDto.OrderWorkflowStepId = orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&
-                               _finder.Find<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id).Select(x => x.RatePricePositions).Single();
+                               _finder.Find<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id).Select(x => x.RateType != 0).Single();
         }
     }
 }

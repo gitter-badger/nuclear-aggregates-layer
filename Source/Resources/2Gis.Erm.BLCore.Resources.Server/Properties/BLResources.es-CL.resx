@@ -4205,9 +4205,6 @@ Operación realizada: {4}.</value>
   <data name="WrongDtoType" xml:space="preserve">
     <value>Tipo incorrecto Dto</value>
   </data>
-  <data name="CompositePositionLinkingObjectTypeMustBeFirm" xml:space="preserve">
-    <value>No se puede crear una posición compleja con el tipo del enlace con los objetos diferente del de la empresa</value>
-  </data>
   <data name="NeedToPickAtLeastOneLinkingObjectForCompositePosition" xml:space="preserve">
     <value>Es necesario seleccionar al menos una posición del paquete</value>
   </data>
@@ -5214,5 +5211,14 @@ Contacto: {1}</value>
   </data>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>-- Не переведено CloseWithDenial --</value>
+  </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
 </root>

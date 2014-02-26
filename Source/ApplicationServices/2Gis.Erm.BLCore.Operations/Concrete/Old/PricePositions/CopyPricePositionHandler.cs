@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.PricePositions
                 PriceId = request.PriceId,
                 DgppId = sourcePricePosition.DgppId,
                 PositionId = request.PositionId,
-                RatePricePositions = sourcePricePosition.RatePricePositions,
+                RateType = sourcePricePosition.RateType,
                 Cost = sourcePricePosition.Cost,
                 Amount = sourcePricePosition.Amount,
                 AmountSpecificationMode = sourcePricePosition.AmountSpecificationMode,

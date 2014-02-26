@@ -2907,9 +2907,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Применять коэффициент.
         /// </summary>
-        public static string RatePricePosition {
+        public static string RateType {
             get {
-                return ResourceManager.GetString("RatePricePosition", resourceCulture);
+                return ResourceManager.GetString("RateType", resourceCulture);
             }
         }
         

@@ -14,6 +14,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ISecureFinder _finder;
 
+        private static readonly PositionBindingObjectType[] AllowedPositionBindingObjectTypes =
+            {
+                PositionBindingObjectType.CategorySingle,
+                PositionBindingObjectType.AddressCategorySingle,
+                PositionBindingObjectType.AddressCategoryMultiple,
+                PositionBindingObjectType.CategoryMultiple,
+                PositionBindingObjectType.AddressFirstLevelCategorySingle,
+                PositionBindingObjectType.AddressFirstLevelCategoryMultiple,
+                PositionBindingObjectType.CategoryMultipleAsterix,
+                PositionBindingObjectType.Firm
+            };
+
         public GetPricePositionDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
         {
             _finder = finder;
@@ -27,15 +39,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   Id = x.Id,
                                   PriceRef = new EntityReference { Id = x.PriceId, Name = null },
                                   PositionRef = new EntityReference { Id = x.PositionId, Name = x.Position.Name },
-                                  RatePricePositions = x.RatePricePositions,
-                                  IsRatePricePositionAvailable = x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.CategorySingle
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.AddressCategorySingle
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.AddressCategoryMultiple
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.CategoryMultiple
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.AddressFirstLevelCategorySingle
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.AddressFirstLevelCategoryMultiple
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.CategoryMultipleAsterix
-                                                                 || x.Position.BindingObjectTypeEnum == (int)PositionBindingObjectType.Firm,
+                                  RateType = (PricePositionRateType)x.RateType,
+                                  IsRateTypeAvailable = AllowedPositionBindingObjectTypes.Contains((PositionBindingObjectType)x.Position.BindingObjectTypeEnum),
                                   IsPositionControlledByAmount = x.Position.IsControlledByAmount,
                                   Cost = x.Cost,
                                   Amount = x.Amount,
