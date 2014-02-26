@@ -116,6 +116,10 @@
     <Content Include="salesSchemas.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MoDi\2Gis.Erm.BLCore.MoDi.csproj">
+      <Project>{46ff1f04-9e90-4858-8263-9ed38a0bdd69}</Project>
+      <Name>2Gis.Erm.BLCore.MoDi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
