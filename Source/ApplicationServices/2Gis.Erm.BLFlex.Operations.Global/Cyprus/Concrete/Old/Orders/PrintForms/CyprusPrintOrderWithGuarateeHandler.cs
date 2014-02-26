@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -16,12 +17,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
     public sealed class CyprusPrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, ICyprusAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public CyprusPrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderRepository orderRepository)
+        public CyprusPrintOrderWithGuarateeHandler(ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel)
         {
             _requestProcessor = requestProcessor;
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
         }
 
         protected override Response Handle(PrintOrderWithGuarateeRequest request)
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 PrintRegionalVersion = request.PrintRegionalVersion
             };
 
-            var order = _orderRepository.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrder(request.OrderId);
             return new StreamResponse
             {
                 Stream = ProcessRequests(orderRequest).ZipStreamDictionary(),

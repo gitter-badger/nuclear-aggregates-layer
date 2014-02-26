@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
@@ -29,22 +32,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
     {
         private readonly IFinder _finder;
         private readonly IPublicService _publicService;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IFirmRepository _firmRepository;
 
-        public CzechEditOrderPositionHandler(
-            IFinder finder,
-            IPublicService publicService,
-            IOrderRepository orderRepository,
-            IOrderValidationResultsResetter orderValidationResultsResetter,
-            IOperationScopeFactory scopeFactory)
+        public CzechEditOrderPositionHandler(IFinder finder,
+                                             IPublicService publicService,
+                                             IOrderReadModel orderReadModel,
+                                             IOrderRepository orderRepository,
+                                             IOrderValidationResultsResetter orderValidationResultsResetter,
+                                             IOperationScopeFactory scopeFactory,
+                                             IPriceReadModel priceReadModel,
+                                             IFirmRepository firmRepository)
         {
             _finder = finder;
             _publicService = publicService;
+            _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
             _orderValidationResultsResetter = orderValidationResultsResetter;
             _scopeFactory = scopeFactory;
+            _priceReadModel = priceReadModel;
+            _firmRepository = firmRepository;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -54,38 +65,38 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
                                    .Select(x => new
-                                       {
-                                           x.Id,
-                                           x.FirmId,
-                                           x.WorkflowStepId,
-                                           x.ReleaseCountFact,
-                                           x.DealId,
-                                           x.EndDistributionDateFact,
-                                           x.OwnerCode,
-                                           x.DestOrganizationUnitId,
-                                           x.PlatformId,
-                                           x.BudgetType,
-                                           OrderType = (OrderType)x.OrderType
-                                       })
+                                   {
+                                       x.Id,
+                                       x.FirmId,
+                                       x.WorkflowStepId,
+                                       x.ReleaseCountFact,
+                                       x.DealId,
+                                       x.EndDistributionDateFact,
+                                       x.OwnerCode,
+                                       x.DestOrganizationUnitId,
+                                       x.PlatformId,
+                                       x.BudgetType,
+                                       OrderType = (OrderType)x.OrderType
+                                   })
                                    .Single();
 
             var subRequest = new CanCreateOrderPositionForOrderRequest
-                {
-                    OrderId = orderPosition.OrderId,
-                    OrderType = orderInfo.OrderType,
-                    FirmId = orderInfo.FirmId,
-                    OrderPositionCategoryIds = advertisementsLinks
-                        .Where(x => x.CategoryId.HasValue)
-                        .Select(x => x.CategoryId.Value)
-                        .ToArray(),
-                    OrderPositionFirmAddressIds = advertisementsLinks
-                        .Where(x => x.FirmAddressId.HasValue)
-                        .Select(x => x.FirmAddressId.Value)
-                        .ToArray(),
+            {
+                OrderId = orderPosition.OrderId,
+                OrderType = orderInfo.OrderType,
+                FirmId = orderInfo.FirmId,
+                OrderPositionCategoryIds = advertisementsLinks
+                    .Where(x => x.CategoryId.HasValue)
+                    .Select(x => x.CategoryId.Value)
+                    .ToArray(),
+                OrderPositionFirmAddressIds = advertisementsLinks
+                    .Where(x => x.FirmAddressId.HasValue)
+                    .Select(x => x.FirmAddressId.Value)
+                    .ToArray(),
 
-                    IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
-                    AdvertisementLinksCount = advertisementsLinks.Count()
-                };
+                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
+                AdvertisementLinksCount = advertisementsLinks.Count()
+            };
 
             var canCreateResponse = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(subRequest);
             if (!canCreateResponse.CanCreate)
@@ -122,15 +133,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                                                    .Select(
                                                        x =>
                                                        new
-                                                           {
-                                                               x.Cost,
-                                                               x.Position.AccountingMethodEnum,
-                                                               x.Price.OrganizationUnitId,
-                                                               x.RatePricePositions,
-                                                               x.Position.IsComposite,
-                                                               x.PositionId,
-                                                               x.PriceId
-                                                           })
+                                                       {
+                                                           x.Cost,
+                                                           x.Position.AccountingMethodEnum,
+                                                           x.Price.OrganizationUnitId,
+                                                           x.RateType,
+                                                           x.Position.IsComposite,
+                                                           x.PositionId,
+                                                           x.PriceId
+                                                       })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -138,18 +149,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                         throw new NotificationException(BLResources.OrderOrganizationUnitDiffersFromPricesOne);
                     }
 
+                    var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), request.CategoryId);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
-                            {
-                                Cost = pricePositionInfo.Cost,
-                                DiscountPercent = orderPosition.DiscountPercent,
-                                DiscountSum = orderPosition.DiscountSum,
-                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
-                                OrderId = orderPosition.OrderId,
-                                CategoryRate = pricePositionInfo.RatePricePositions ? CategoryRate.NeedsCalculation : CategoryRate.Default,
-                                Amount = orderPosition.Amount
-                            });
+                        {
+                            Cost = pricePositionInfo.Cost,
+                            DiscountPercent = orderPosition.DiscountPercent,
+                            DiscountSum = orderPosition.DiscountSum,
+                            CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
+                            OrderId = orderPosition.OrderId,
+                            CategoryRate = categoryRate,
+                            Amount = orderPosition.Amount
+                        });
 
                     orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
                     orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
@@ -175,12 +187,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 
-                    var order = _orderRepository.GetOrder(orderPosition.OrderId);
+                    var order = _orderReadModel.GetOrder(orderPosition.OrderId);
 
                     // TODO : разобраться - проверка в методе CheckAgainstOtherOrderPositions основывается на
                     // старых значениях PlatformId и BudgetType, а теперь эти поля могут измениться - как бы чего не вышло.
-                    _orderRepository.DetermineOrderBudgetType(order);
-                    _orderRepository.DetermineOrderPlatform(order);
+                    _orderReadModel.DetermineOrderBudgetType(order);
+                    _orderReadModel.DetermineOrderPlatform(order);
 
                     _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });

@@ -1305,7 +1305,7 @@
 	<data name="OperatesOnTheBasisTypeFoundingBargain" xml:space="preserve">
     <value>Учредительного договора</value>
   </data>
-	<data name="OperatesOnTheBasisTypeUnderfined" xml:space="preserve">
+	<data name="OperatesOnTheBasisTypeUndefined" xml:space="preserve">
     <value>Не задано</value>
   </data>
 	<data name="OperatesOnTheBasisTypeRegistrationCertificate" xml:space="preserve">

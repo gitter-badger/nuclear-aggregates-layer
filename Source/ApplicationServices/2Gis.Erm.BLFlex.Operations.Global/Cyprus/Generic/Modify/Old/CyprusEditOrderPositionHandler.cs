@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
@@ -10,7 +13,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -31,21 +33,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
         private readonly IFinder _finder;
         private readonly IPublicService _publicService;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IFirmRepository _firmRepository;
 
-        public CyprusEditOrderPositionHandler(
-            IFinder finder,
-            IPublicService publicService,
-            IOrderRepository orderRepository,
-            IOrderValidationResultsResetter orderValidationResultsResetter,
-            IOperationScopeFactory scopeFactory)
+        public CyprusEditOrderPositionHandler(IFinder finder,
+                                              IPublicService publicService,
+                                              IOrderRepository orderRepository,
+                                              IOrderReadModel orderReadModel,
+                                              IOrderValidationResultsResetter orderValidationResultsResetter,
+                                              IOperationScopeFactory scopeFactory,
+                                              IPriceReadModel priceReadModel,
+                                              IFirmRepository firmRepository)
         {
             _finder = finder;
             _publicService = publicService;
             _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _orderValidationResultsResetter = orderValidationResultsResetter;
             _scopeFactory = scopeFactory;
+            _priceReadModel = priceReadModel;
+            _firmRepository = firmRepository;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -127,7 +137,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                                                            x.Cost,
                                                            x.Position.AccountingMethodEnum,
                                                            x.Price.OrganizationUnitId,
-                                                           x.RatePricePositions,
                                                            x.Position.IsComposite,
                                                            x.PositionId,
                                                            x.PriceId
@@ -139,6 +148,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                         throw new NotificationException(BLResources.OrderOrganizationUnitDiffersFromPricesOne);
                     }
 
+                    var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), request.CategoryId);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
@@ -148,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                             DiscountSum = orderPosition.DiscountSum,
                             CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
                             OrderId = orderPosition.OrderId,
-                            CategoryRate = pricePositionInfo.RatePricePositions ? CategoryRate.NeedsCalculation : CategoryRate.Default,
+                            CategoryRate = categoryRate,
                             Amount = orderPosition.Amount
                         });
 
@@ -176,12 +186,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 
-                    var order = _orderRepository.GetOrder(orderPosition.OrderId);
+                    var order = _orderReadModel.GetOrder(orderPosition.OrderId);
 
                     // TODO : разобраться - проверка в методе CheckAgainstOtherOrderPositions основывается на
                     // старых значениях PlatformId и BudgetType, а теперь эти поля могут измениться - как бы чего не вышло.
-                    _orderRepository.DetermineOrderBudgetType(order);
-                    _orderRepository.DetermineOrderPlatform(order);
+                    _orderReadModel.DetermineOrderBudgetType(order);
+                    _orderReadModel.DetermineOrderPlatform(order);
 
                     _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });

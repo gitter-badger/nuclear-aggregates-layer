@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
@@ -28,17 +29,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IOrderReadModel _orderReadModel;
 
         public CalculateReleaseWithdrawalsHandler(
             IFinder finder,
             IUnitOfWork unitOfWork,
             IPublicService publicService,
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _unitOfWork = unitOfWork;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
+            _orderReadModel = orderReadModel;
         }
 
         protected override EmptyResponse Handle(CalculateReleaseWithdrawalsRequest request)
@@ -156,7 +160,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                 var withdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
                 var orderRepository = scope.CreateRepository<IOrderRepository>();
 
-                var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(orderRepository, orderInfo.OrderPositions);
+                var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(_orderReadModel, orderInfo.OrderPositions);
                 withdrawalRepository.Create(releaseWithdrawalPositions);
                 operationScope.Added<ReleasesWithdrawalsPosition>(releaseWithdrawalPositions.Select(position => position.Id).ToArray());
 
@@ -241,7 +245,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             orderPosition.PriceCostInfos = new PriceCostInfo[0];
         }
 
-        private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositions(IOrderRepository orderRepository, IEnumerable<OrderPositionDto> orderPosition)
+        private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositions(IOrderReadModel orderReadModel, IEnumerable<OrderPositionDto> orderPosition)
         {
             var result = new List<ReleasesWithdrawalsPosition>();
             foreach (var orderPositionDto in orderPosition)
@@ -259,7 +263,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                 }
                 else
                 {
-                    var subPositions = orderRepository.GetSelectedSubPositions(orderPositionDto.Id).ToArray();
+                    var subPositions = orderReadModel.GetSelectedSubPositions(orderPositionDto.Id).ToArray();
                     result.AddRange(CreateReleaseWithdrawalPositionsForCompositePositionWithoutMoDi(subPositions, orderPositionDto));
                 }
             }
@@ -321,7 +325,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                     OrderId = orderPosition.OrderId,
                     CalculateDiscountViaPercent = true,
                     Cost = costInfo.Cost,
-                    CategoryRate = CategoryRate.Known(orderPosition.CategoryRate),
+                    CategoryRate = orderPosition.CategoryRate,
                     DiscountSum = orderPosition.DiscountSum,
                     DiscountPercent = orderPosition.DiscountPercent
                 });

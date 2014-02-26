@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Number;
@@ -10,12 +11,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Numb
 {
     public sealed class GenerateOrderNumberHandler : RequestHandler<GenerateOrderNumberRequest, GenerateOrderNumberResponse>, IRussiaAdapted
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly OrderNumberGenerationStrategy[] _orderNumberGenerationStrategies;
 
-        public GenerateOrderNumberHandler(IOrderRepository orderRepository)
+        public GenerateOrderNumberHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
             _orderNumberGenerationStrategies = new OrderNumberGenerationStrategy[]
                 {
                     OrderNumberGenerationStrategies.Russia.ReadFromNewFormat,
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Numb
         protected override GenerateOrderNumberResponse Handle(GenerateOrderNumberRequest request)
         {
             var order = request.Order;
-            var syncCodes = _orderRepository.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
             var numberBillet = request.IsRegionalNumber ? "ОФ_{0}-{1}-{2}" : "БЗ_{0}-{1}-{2}";
             var numberFormat = string.Format(numberBillet, syncCodes[order.SourceOrganizationUnitId], syncCodes[order.DestOrganizationUnitId], "{0}");
             string orderNumber = null;

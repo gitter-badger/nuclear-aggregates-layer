@@ -1,6 +1,7 @@
 using System;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Number;
@@ -12,12 +13,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Numbe
 {
     public sealed class CzechGenerateOrderNumberHandler : RequestHandler<GenerateOrderNumberRequest, GenerateOrderNumberResponse>, ICzechAdapted
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderReadModel _orderReadModel;
         private readonly OrderNumberGenerationStrategy[] _orderNumberGenerationStrategies;
 
-        public CzechGenerateOrderNumberHandler(IOrderRepository orderRepository)
+        public CzechGenerateOrderNumberHandler(IOrderReadModel orderReadModel)
         {
-            _orderRepository = orderRepository;
+            _orderReadModel = orderReadModel;
+
             _orderNumberGenerationStrategies = new OrderNumberGenerationStrategy[]
                 {
                     OrderNumberGenerationStrategies.Czech.ReadFromNewFormat,
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Numbe
         protected override GenerateOrderNumberResponse Handle(GenerateOrderNumberRequest request)
         {
             var order = request.Order;
-            var syncCodes = _orderRepository.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
             if (request.IsRegionalNumber)
             {
                 throw new NotSupportedException("Regional orders not supported by business model");
