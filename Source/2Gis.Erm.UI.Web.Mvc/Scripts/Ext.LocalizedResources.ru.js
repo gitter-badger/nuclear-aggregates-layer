@@ -1,13 +1,10 @@
 ﻿ 
 
-// File updated : 18.02.2014 16:50:41
+// File updated : 24.02.2014 18:46:39
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
 /* 
-Processing resources report:
-	Target culture: ru
-	Resource entries count: 277
 
 */
 Ext.LocalizedResources =
@@ -261,6 +258,7 @@ SelectToWhiteList : 'Выбрать',
 SelectToWhiteListMatherial : 'Выбор РМ белый список',
 SelectToWhiteListMatherialFailed : 'При выборе РМ в белый список произошла ошибка. Попробуйте повторить операцию',
 September : 'Сентябрь',
+SetLimitStatusDialogConfirmation : 'Вы действительно хотите изменить статус лимита на',
 SomeOfTheClientsHaveDebtsAlert : 'Внимание! Вы пытаетесь взять из резерва Клиента с дебиторской задолженностью!',
 SourceEditText : 'Переключиться на исходный код.',
 SourceEditTitle : 'Исходный код',

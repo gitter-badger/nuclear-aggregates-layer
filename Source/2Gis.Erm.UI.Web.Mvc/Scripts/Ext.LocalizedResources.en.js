@@ -1,11 +1,8 @@
-﻿// File updated : 18.02.2014 16:50:41
+﻿// File updated : 24.02.2014 18:46:39
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
 /* 
-Processing resources report:
-	Target culture: en
-	Resource entries count: 277
 
 */
 Ext.LocalizedResources =
@@ -54,7 +51,7 @@ BeginDistributionDate : 'Start of placement',
 BillCreationApprovalNeeded : 'Approval is required!',
 BillMassCreateConfirmMessage : 'Attention! Payments will be created for the selected group of orders. Continue?',
 BillMassCreateOrderHasZeroPayablePlan : 'Bulk creation of deferred payments cannot be performed if one of the orders has zero amount for payment. The list of payments for bulk creation should not contain selected orders.',
-BillNumber : 'Номер счета',
+BillNumber : 'Payment number',
 BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',
@@ -259,6 +256,7 @@ SelectToWhiteList : 'Select',
 SelectToWhiteListMatherial : 'Select AM to the white list',
 SelectToWhiteListMatherialFailed : 'An error occurred during AM white list selection. Try again',
 September : 'September',
+SetLimitStatusDialogConfirmation : 'Do you really want to change limit status to',
 SomeOfTheClientsHaveDebtsAlert : 'Attention! You are trying to take a Client with a debt receivable!',
 SourceEditText : 'Switch to the source code.',
 SourceEditTitle : 'Source code',

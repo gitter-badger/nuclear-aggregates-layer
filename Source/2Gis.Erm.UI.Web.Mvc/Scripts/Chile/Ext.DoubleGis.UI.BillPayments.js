@@ -29,11 +29,11 @@ Ext.DoubleGis.UI.BillSliderTip = Ext.extend(Ext.slider.Tip, {
 });
 Ext.DoubleGis.UI.BillPaymentsFields = [
     { name: 'PaymentNumber', type: 'string' },
+    { name: 'BillNumber', type: 'string' },
     { name: 'PaymentDatePlan', type: 'date' },
     { name: 'BeginDistributionDate', type: 'date' },
     { name: 'EndDistributionDate', type: 'date' },
-    { name: 'PayablePlan', type: 'float' },
-    { name: 'BillNumber', type: 'string' }
+    { name: 'PayablePlan', type: 'float' }
 ];
 Ext.DoubleGis.UI.BillPaymentsRecord = Ext.data.Record.create(Ext.DoubleGis.UI.BillPaymentsFields);
 Ext.DoubleGis.UI.BillPaymentsControl = Ext.extend(Ext.util.Observable, {
@@ -87,6 +87,12 @@ Ext.DoubleGis.UI.BillPaymentsControl = Ext.extend(Ext.util.Observable, {
                     width: 100 // заданная явно ширина, при fixed = false и forceFit = true (у всего грида) - приводит к растягиванию колонок, но при этом сохраняются их относительные друг друга размеры
                 },
                 {
+                    header: Ext.LocalizedResources.BillNumber,
+                    dataIndex: 'BillNumber',
+                    width: 100,
+                    editor: new window.Ext.form.TextField()
+                },
+                {
                     header: Ext.LocalizedResources.PaymentDatePlan,
                     dataIndex: 'PaymentDatePlan',
                     xtype: 'datecolumn',
@@ -120,12 +126,6 @@ Ext.DoubleGis.UI.BillPaymentsControl = Ext.extend(Ext.util.Observable, {
                     renderer: function (value) {
                         return value != undefined ? value : '';
                     }
-                },
-                {
-                    header: Ext.LocalizedResources.BillNumber,
-                    dataIndex: 'BillNumber',
-                    width: 100,
-                    editor: new window.Ext.form.TextField()
                 }
             ]
         });
@@ -293,7 +293,7 @@ Ext.DoubleGis.UI.BillPaymentsControl = Ext.extend(Ext.util.Observable, {
                 payment.BeginDistributionDate == undefined ||
                 payment.EndDistributionDate == undefined ||
                 payment.PayablePlan == undefined ||
-                payment.BillNumber == undefined) {
+                payment.BillNumber == undefined || payment.BillNumber.trim().length == 0) {
 
                 result.HasError = true;
                 result.ErrorMessage = Ext.LocalizedResources.AllFieldsMustBeSetForPayment + ' "' + payment.PaymentNumber + '"';

@@ -23,7 +23,7 @@
 	const string JsResourceFileNameTemplate = "Ext.LocalizedResources.{0}.js";
 
 	// Список локалей, для которых будут создаваться ресурсы.
-    var targetCultures = LocalizationSettings.NeutralFallbackCultures;
+    var targetCultures = LocalizationSettings.SupportedCultures2NeutralFallbackToMap;
 
     EnvDTE.ProjectItem templateItem = Project.DTE.Solution.FindProjectItem(Host.TemplateFile);
 	string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
@@ -33,19 +33,19 @@
 											typeof(DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI) 
 										};
 	
-	var resourcesResolver = new ResourcesResolver(targetResourceEntryHostTypes, targetCultures);
+	var resourcesResolver = new ResourcesResolver(targetResourceEntryHostTypes, targetCultures.Values);
 
     foreach(var culture in targetCultures)
     {
         string report;
 		var extractedResources = 
 			resourcesResolver
-				.ExtractResources(culture, out report)
+				.ExtractResources(culture.Key, out report)
 				.OrderBy(pair => pair.Key);
 
-        BuildJsResourceFile(extractedResources, targetResourceEntryHostTypes, report);
+        BuildJsResourceFile(extractedResources, targetResourceEntryHostTypes, string.Empty);
 
-        var outputFileName = string.Format(JsResourceFileNameTemplate, culture.TwoLetterISOLanguageName);
+        var outputFileName = string.Format(JsResourceFileNameTemplate, culture.Value.TwoLetterISOLanguageName);
 		var outputFileFullPath = System.IO.Path.Combine(templateDirectory, outputFileName);
         
 		SaveScript(outputFileFullPath);

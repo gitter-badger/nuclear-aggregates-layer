@@ -138,7 +138,28 @@
         }
     },
 
-    onLegalPersonChanged: function () {
-        this.updateBargain(true); // fixme {a.rechkalov, 2014-02-14}: Тут должно быть как в России или как в Чехии/Кипре?
+    onLegalPersonChanged: function (cmp) {
+        var legalPersonLookup = Ext.getCmp('LegalPerson');
+        var legalPersonId = legalPersonLookup.item ? legalPersonLookup.item.id : null;
+
+        if (legalPersonId != null) {
+            this.Request({
+                method: 'POST',
+                url: '/Chile/LegalPerson/GetPaymentMethod',
+                params: {
+                    legalPersonId: legalPersonId
+                },
+                success: function (xhr) {
+                    var paymentMethodResponse = Ext.decode(xhr.responseText);
+                    if (paymentMethodResponse) {
+                        var paymentMethodComboBox = Ext.get('PaymentMethod');
+                        paymentMethodComboBox.setValue(paymentMethodResponse.PaymentMethod);
+                    }
+                },
+                scope: this
+            });
+        }
+
+        this.updateBargain(true);
     }
 }
