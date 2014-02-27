@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -139,7 +139,7 @@
     <value>Uvedená hlavní firma klienta nepatří klientovi</value>
   </data>
 	<data name="InvalidRequestMethod" xml:space="preserve">
-    <value>Chybný požadavek metody: &apos;{0}&apos;</value>
+    <value>Chybný požadavek metody: '{0}'</value>
   </data>
 	<data name="FileKindAlreadyUploaded" xml:space="preserve">
     <value>Soubor uvedeného typu je již načten, odstraňte jej a zopakujte pokus</value>
@@ -154,7 +154,7 @@
     <value>Je třeba vytvořit záznam v protokolu sestavení</value>
   </data>
 	<data name="PriceNotFoundException" xml:space="preserve">
-    <value>Nebyl nalezen ceník ke dni {0} pro oddělení organizace &apos;{1}&apos;</value>
+    <value>Nebyl nalezen ceník ke dni {0} pro oddělení organizace '{1}'</value>
   </data>
 	<data name="QualifyFirm" xml:space="preserve">
     <value>Přidělit firmu</value>
@@ -166,7 +166,7 @@
     <value>{0}-Oznámení o regionálním zrušení</value>
   </data>
 	<data name="CurrencyController_RelatedCountryExists" xml:space="preserve">
-    <value>S měnou &apos;{0}&apos;, která má být odstraněna, je propojena země &apos;{1}&apos;, měnu není možné odstranit.</value>
+    <value>S měnou '{0}', která má být odstraněna, je propojena země '{1}', měnu není možné odstranit.</value>
   </data>
 	<data name="Information" xml:space="preserve">
     <value>Informace</value>
@@ -295,7 +295,7 @@
     <value>Z rezervy je možné vybírat najednou maximálně jednu firmu.</value>
   </data>
 	<data name="RequiredLastDayOfMonthMessage" xml:space="preserve">
-    <value>Hodnota &apos;{0}&apos; musí odpovídat poslednímu dni v měsíci</value>
+    <value>Hodnota '{0}' musí odpovídat poslednímu dni v měsíci</value>
   </data>
 	<data name="UploadAccountDetails" xml:space="preserve">
     <value>Odeslat operace odepsání</value>
@@ -364,7 +364,7 @@
     <value>Vybrán režim „Přidělit uživateli“, není však uveden uživatel.</value>
   </data>
 	<data name="OrderPositionWasNotUpgraded" xml:space="preserve">
-    <value>Položka nabídky &apos;{0}&apos; musí být obnovena ručně</value>
+    <value>Položka nabídky '{0}' musí být obnovena ručně</value>
   </data>
 	<data name="ErrorDuringOperation" xml:space="preserve">
     <value>Během provádění operace došlo k chybě</value>
@@ -439,7 +439,7 @@
     <value>Pole s klíčem odkazu</value>
   </data>
 	<data name="OrganizationUnitNonUniqueDgppId" xml:space="preserve">
-    <value>Oddělení organizace s kódem DGPP &apos;{0}&apos; již existuje. </value>
+    <value>Oddělení organizace s kódem DGPP '{0}' již existuje. </value>
   </data>
 	<data name="ShowReadOnlyCard" xml:space="preserve">
     <value>Zobrazit v režimu „pouze pro čtení“</value>
@@ -895,7 +895,7 @@
     <value>Není uveden identifikátor rubriky</value>
   </data>
 	<data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
-    <value>Měna &apos;{0}&apos;, která má být odstraněna, je propojena s kurzem ke dni &apos;{1}&apos;, měnu není možné odstranit.</value>
+    <value>Měna '{0}', která má být odstraněna, je propojena s kurzem ke dni '{1}', měnu není možné odstranit.</value>
   </data>
 	<data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
     <value>Chybí povolení. U firmy není možné provést změnu území</value>
@@ -928,7 +928,7 @@
     <value>Skrytá</value>
   </data>
 	<data name="RequiredFirstDayOfMonthMessage" xml:space="preserve">
-    <value>Hodnota &apos;{0}&apos; musí odpovídat prvnímu dni v měsíci</value>
+    <value>Hodnota '{0}' musí odpovídat prvnímu dni v měsíci</value>
   </data>
 	<data name="AssignInAllHierarchy" xml:space="preserve">
     <value>Změnit správce ve všech vázaných objektech.</value>
@@ -943,13 +943,13 @@
     <value>Pr. osoba {0} má vedeny archivní objednávky nebo objednávky uzavřené jako zamítnuté. Přesto skrýt?</value>
   </data>
 	<data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
-    <value>Pro stav &apos;{0}&apos; nejsou nakonfigurovány změny stavu limitu</value>
+    <value>Pro stav '{0}' nejsou nakonfigurovány změny stavu limitu</value>
   </data>
 	<data name="MassiveOrderValidationRuleRequiredFieldsArentEmpty" xml:space="preserve">
     <value>Vyplněno povinných polí objednávek</value>
   </data>
 	<data name="OrderCheckWhiteListedAdvertisementIsRequired" xml:space="preserve">
-    <value>Pro firmu &apos;{2}&apos; je třeba pro období od &apos;{0}&apos; do &apos;{1}&apos; přidat RM do seznamu povolených</value>
+    <value>Pro firmu '{2}' je třeba pro období od '{0}' do '{1}' přidat RM do seznamu povolených</value>
   </data>
 	<data name="CannotRevertReleaseBecausePreviousReleaseEndedWithErrors" xml:space="preserve">
     <value>Operaci obnovy není možné spustit, při předchozím sestavení došlo k chybě</value>
@@ -1131,7 +1131,7 @@ Blokující chyby:{2}</value>
     <value>Není uvedena ulice</value>
   </data>
 	<data name="InsufficientAccountBalanceToCreateLocks" xml:space="preserve">
-    <value>Na osobním účtu je nedostatek finančních prostředků mezi &apos;{0}&apos; a &apos;{1}&apos;. Nebyla vytvořena blokování u objednávek &apos;{0}&apos;.</value>
+    <value>Na osobním účtu je nedostatek finančních prostředků mezi '{0}' a '{1}'. Nebyla vytvořena blokování u objednávek '{0}'.</value>
   </data>
 	<data name="UnknownLegalPersonType" xml:space="preserve">
     <value>Neznámý typ právnické osoby</value>
@@ -1194,7 +1194,7 @@ Blokující chyby:{2}</value>
     <value>Nemáte oprávnění pro práci s rezervou</value>
   </data>
 	<data name="OrganizationUnitNonUniqueSyncCode1C" xml:space="preserve">
-    <value>Oddělení organizace s kódem 1C &apos;{0}&apos; již existuje.</value>
+    <value>Oddělení organizace s kódem 1C '{0}' již existuje.</value>
   </data>
 	<data name="CantAddCompositePosition" xml:space="preserve">
     <value>Není možné přidat komplexní prvek</value>
@@ -1405,7 +1405,7 @@ Blokující chyby:{2}</value>
     <value>{0} je průvodní položka, hlavní položka nebyla nalezena.</value>
   </data>
 	<data name="NotSupportedEnumerationValue" xml:space="preserve">
-    <value>Není podporován člen převodu &apos;{0}&apos;.</value>
+    <value>Není podporován člen převodu '{0}'.</value>
   </data>
 	<data name="IncorrectBeginDistributionDateMinRegionalOrder" xml:space="preserve">
     <value>Zveřejnění regionální objednávky musí začínat následující měsíc</value>
@@ -1465,7 +1465,7 @@ Blokující chyby:{2}</value>
     <value>Smlouvu je možné vytvořit pouze prostřednictvím karty objednávky.</value>
   </data>
 	<data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
-    <value>Seznam již obsahuje rubriku &apos;{0}&apos;.</value>
+    <value>Seznam již obsahuje rubriku '{0}'.</value>
   </data>
 	<data name="CategoryGroupDeleteConfirmation" xml:space="preserve">
     <value>Následkem odstranění skupiny budou všechny rubriky, které do ní spadají, odebrány ze skupiny. Pokračovat v odstranění?</value>
@@ -1620,7 +1620,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Události k odeslání do Ads</value>
   </data>
 	<data name="CannotFindOrgUnitWithDgppId" xml:space="preserve">
-    <value>Pododdíl s Dgppld &apos;{0}&apos; nebyl v systému nalezen</value>
+    <value>Pododdíl s Dgppld '{0}' nebyl v systému nalezen</value>
   </data>
 	<data name="InvalidBindingObjectCount" xml:space="preserve">
     <value>Počet položek v objednávce se nesmí měnit. Nyní je vybráno {0}, měli byste nainstalovat {1}</value>
@@ -1680,7 +1680,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Hodnota musí odpovídat poslednímu dni v měsíci</value>
   </data>
 	<data name="NoFileAccessPermission" xml:space="preserve">
-    <value>Pro zápis dat do souboru nemáte oprávnění: &apos;{0}&apos;</value>
+    <value>Pro zápis dat do souboru nemáte oprávnění: '{0}'</value>
   </data>
 	<data name="QualifyAssignToOtherUserClientLegend" xml:space="preserve">
     <value>Přidělit vybraný objekt „Klient“ jinému uživateli</value>
@@ -1779,7 +1779,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Na základě této objednávky proběhlo vydání, objednávku není možné upravit! Změnu prodejních podmínek je možné provést po zrušení této objednávky a vytvoření nové.</value>
   </data>
 	<data name="UserNotFound" xml:space="preserve">
-    <value>Uživatel {0}&apos; nenalezen</value>
+    <value>Uživatel {0}' nenalezen</value>
   </data>
 	<data name="ChangeClient" xml:space="preserve">
     <value>Změnit klienta</value>
@@ -1983,7 +1983,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>&lt;prázdná hodnota&gt;</value>
   </data>
 	<data name="OrganizationUnitWithIdDoesNotHaveDgppId" xml:space="preserve">
-    <value>Město s ID &apos;{0}&apos; nemá kód DGPP!</value>
+    <value>Město s ID '{0}' nemá kód DGPP!</value>
   </data>
 	<data name="AdsCheckFileNameTooLong" xml:space="preserve">
     <value>V názvu souboru {0} není dodrženo omezení délky {1} symbolů</value>
@@ -2022,7 +2022,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Směr třídění</value>
   </data>
 	<data name="CannotWindRubricWithDgppId" xml:space="preserve">
-    <value>Rubrika s dgppId &apos;{0}&apos; nebyla v systému nalezena</value>
+    <value>Rubrika s dgppId '{0}' nebyla v systému nalezena</value>
   </data>
 	<data name="SelectedObjectsForRemoval" xml:space="preserve">
     <value>Vybráno {0} objektů k odstranění: </value>
@@ -2122,7 +2122,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Musí být vybrán alespoň jeden vázaný objekt</value>
   </data>
 	<data name="TypeMustBeAnEnum" xml:space="preserve">
-    <value>Type &apos;{0}&apos; must be an enumerated type (Enum)</value>
+    <value>Type '{0}' must be an enumerated type (Enum)</value>
   </data>
 	<data name="NotAvailable" xml:space="preserve">
     <value>Nedostupné</value>
@@ -2173,7 +2173,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Hlavní</value>
   </data>
 	<data name="AdsCheckTooLongWord" xml:space="preserve">
-    <value>Ve slově &apos;{0}&apos; byl překročen maximální počet symbolů: {1} z možných {2}.</value>
+    <value>Ve slově '{0}' byl překročen maximální počet symbolů: {1} z možných {2}.</value>
   </data>
 	<data name="InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions" xml:space="preserve">
     <value>Ceníková položka {0} obsahuje více než jednu skupinu průvodních položek - nepodporováno systémem.</value>
@@ -2209,7 +2209,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Nebyl nalezen propojený klient s obchodní transakcí</value>
   </data>
 	<data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
-    <value>Změnit stav limitu na stav &apos;{0}&apos; je možné pouze ze stavů: &apos;{1}&apos;</value>
+    <value>Změnit stav limitu na stav '{0}' je možné pouze ze stavů: '{1}'</value>
   </data>
 	<data name="CannotValidateOrderWithoutFirm" xml:space="preserve">
     <value>Není možné provést kontrolu objednávky, protože na objednávce není uvedena firma.</value>
@@ -2380,7 +2380,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Chybný formát XML zprávy: </value>
   </data>
 	<data name="OrderPositionWasRemoved" xml:space="preserve">
-    <value>Položka nabídky &apos;{0}&apos; byla odstraněna, protože chybí v novém ceníku</value>
+    <value>Položka nabídky '{0}' byla odstraněna, protože chybí v novém ceníku</value>
   </data>
 	<data name="AdvertisementCheckFailed" xml:space="preserve">
     <value>Nepodařilo se zkontrolovat reklamní materiál.</value>
@@ -2407,7 +2407,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Uvést klienta.</value>
   </data>
 	<data name="PutMessageFromDgppToBilling_ClosePeriodRestriction" xml:space="preserve">
-    <value>Nelze načíst zprávu: datum začátku období nemůže začínat před posledním dnem ukončeného období. Datum začátku období: &apos;{0}&apos;, poslední den ukončení období: &apos;{1}&apos;</value>
+    <value>Nelze načíst zprávu: datum začátku období nemůže začínat před posledním dnem ukončeného období. Datum začátku období: '{0}', poslední den ukončení období: '{1}'</value>
   </data>
 	<data name="ConfirmYourAction" xml:space="preserve">
     <value>Potvrďte akci</value>
@@ -2494,7 +2494,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
     <value>Chybná úroveň rubriky. Musí být v rozmezí mezi 1 až 3</value>
   </data>
 	<data name="AccountInLegalPersonHasDebts" xml:space="preserve">
-    <value>Na osobním účtu č. {1} pr. osoby &apos;{0}&apos; jsou vedeny pohledávky ve výši {2}</value>
+    <value>Na osobním účtu č. {1} pr. osoby '{0}' jsou vedeny pohledávky ve výši {2}</value>
   </data>
 	<data name="LegalPersonIsDeletedAlertText" xml:space="preserve">
     <value>Pozor! Právnická osoba klienta byla odstraněna</value>
@@ -2756,7 +2756,7 @@ Operace provedena: {4}.</value>
     <value>Datum začátku zveřejnění musí být alespoň {0}</value>
   </data>
 	<data name="CategorySuccessfullyChanged" xml:space="preserve">
-    <value>Rubrika &apos;{0}&apos; byla změněna</value>
+    <value>Rubrika '{0}' byla změněna</value>
   </data>
 	<data name="OrderCloseConformation" xml:space="preserve">
     <value>Nebude možné obnovit objednávku! Pokračovat v ukončení?</value>
@@ -2819,7 +2819,7 @@ Operace provedena: {4}.</value>
     <value>Odeslat</value>
   </data>
 	<data name="GenericConfirmationMessage" xml:space="preserve">
-    <value>Potvrďte akci &apos;{0}&apos; s {1} objektem (objekty) &apos;{2}&apos;</value>
+    <value>Potvrďte akci '{0}' s {1} objektem (objekty) '{2}'</value>
   </data>
 	<data name="DealMustBeActive" xml:space="preserve">
     <value>Pro provedení této operace je třeba vybrat aktivní obchodní transakci</value>
@@ -2834,7 +2834,7 @@ Operace provedena: {4}.</value>
     <value>Objednávka č. {0} byla zamítnuta uživatelem {1}. Důvod zamítnutí: {2}.</value>
   </data>
 	<data name="Firm_PleaseUseQualifyOperstion" xml:space="preserve">
-    <value>Firma &apos;{0}&apos; je v rezervě, použijte operaci „Vzít z rezervy“</value>
+    <value>Firma '{0}' je v rezervě, použijte operaci „Vzít z rezervy“</value>
   </data>
 	<data name="OrderApproval_NeedToCreateBillsWhenProcessingOrderOnApproval" xml:space="preserve">
     <value>Před převedením objednávky do stavu „Schvaluje se“ je třeba vystavit fakturu</value>
@@ -3017,7 +3017,7 @@ Operace provedena: {4}.</value>
     <value>Počet provedených akcí</value>
   </data>
 	<data name="AccessToClientIsDenied" xml:space="preserve">
-    <value>Klient &apos;{0}&apos;: Přístup byl odepřen</value>
+    <value>Klient '{0}': Přístup byl odepřen</value>
   </data>
 	<data name="PrivilegeDepth" xml:space="preserve">
     <value>Hloubka oprávnění</value>
@@ -3032,7 +3032,7 @@ Operace provedena: {4}.</value>
     <value>Informace o ukončení obchodní transakce</value>
   </data>
 	<data name="ReferenceWithIdNotFound" xml:space="preserve">
-    <value>Import. Nenalezen adresář s kódem &apos;{0}&apos;</value>
+    <value>Import. Nenalezen adresář s kódem '{0}'</value>
   </data>
 	<data name="Rejected" xml:space="preserve">
     <value>Zamítnuto</value>
@@ -3254,7 +3254,7 @@ Operace provedena: {4}.</value>
     <value>Je třeba povinně vyplnit následující prvky reklamního materiálu:</value>
   </data>
 	<data name="PleaseUseQualifyOperation" xml:space="preserve">
-    <value>Správce &apos;{0}&apos; není možné změnit, pro přidělení správce použijte příkaz „Vzít z rezervy“</value>
+    <value>Správce '{0}' není možné změnit, pro přidělení správce použijte příkaz „Vzít z rezervy“</value>
   </data>
 	<data name="ChargeAsPaymentForOrder" xml:space="preserve">
     <value>Odpis z úhrady objednávky {0} za zveřejnění ve vydání {1}</value>
@@ -3290,7 +3290,7 @@ Operace provedena: {4}.</value>
     <value>Nedostatek prostředků pro vyřízení objednávky. Vyžadováno: {0}. Aktuální stav: {1}. Nezbytný limit: {2}.</value>
   </data>
 	<data name="OrderCheckHasWhiteListedAdvertisement" xml:space="preserve">
-    <value>Firma &apos;{2}&apos; má za účelem zobrazení v seznamu povolených v období od &apos;{0}&apos; do &apos;{1}&apos; nastavený RM &apos;{3}&apos;</value>
+    <value>Firma '{2}' má za účelem zobrazení v seznamu povolených v období od '{0}' do '{1}' nastavený RM '{3}'</value>
   </data>
 	<data name="ApplicationError" xml:space="preserve">
     <value>Chyba programu. Obraťte se na vývojáře.</value>
@@ -3326,7 +3326,7 @@ Operace provedena: {4}.</value>
     <value>Pozor! Datum podepsání objednávky začíná dříve než datum vytvoření objednávky</value>
   </data>
 	<data name="ServerRuntimeError" xml:space="preserve">
-    <value>Chyba při provádění {0} na serveru: &apos;{1}&apos;</value>
+    <value>Chyba při provádění {0} na serveru: '{1}'</value>
   </data>
 	<data name="OperationIsDiabled" xml:space="preserve">
     <value>Tato operace byla vypnuta</value>
@@ -3488,7 +3488,7 @@ Operace provedena: {4}.</value>
     <value>Bude vypnuto pododdílů: {0}. Všichni uživatelé, kteří se vztahují k těmto pododdílům, budou přesměrováni do hlavního pododdílu a deaktivováni.</value>
   </data>
 	<data name="AddressSuccessfullyChanged" xml:space="preserve">
-    <value>Změna adresy &apos;{0}&apos; proběhla úspěšně</value>
+    <value>Změna adresy '{0}' proběhla úspěšně</value>
   </data>
 	<data name="QualifyCreateNewClientLegend" xml:space="preserve">
     <value>Automatické vytvoření nového klienta s názvem odpovídajícím názvu firmy.</value>
@@ -3590,7 +3590,7 @@ Operace provedena: {4}.</value>
     <value>Znovu si přidělit vybraný objekt „Firma“</value>
   </data>
 	<data name="FirmSuccessfullyChanged" xml:space="preserve">
-    <value>Změna podniku &apos;{0}&apos; proběhla úspěšně</value>
+    <value>Změna podniku '{0}' proběhla úspěšně</value>
   </data>
 	<data name="OrdersCheckOrderHasReleaseInfo" xml:space="preserve">
     <value>V období od {0} do {1} bylo již u města {2} provedeno sestavení</value>
@@ -3602,7 +3602,7 @@ Operace provedena: {4}.</value>
     <value>Vyplnění prvků reklamních materiálů</value>
   </data>
 	<data name="OrderPositionWasReplaced" xml:space="preserve">
-    <value>Byla provedena příslušná výměna položky &apos;{0}&apos; objednávky {1} podle ceníku {2}</value>
+    <value>Byla provedena příslušná výměna položky '{0}' objednávky {1} podle ceníku {2}</value>
   </data>
 	<data name="OrderApproval_BillsSumDoesntMatchWhenProcessingOrderOnApproval" xml:space="preserve">
     <value>Součet na fakturách neodpovídá plánované hodnotě objednávky</value>
@@ -3737,7 +3737,7 @@ Operace provedena: {4}.</value>
     <value>Finance/vzrušení</value>
   </data>
 	<data name="PutMessageFromDgppToBilling_PrevMessageRestriction" xml:space="preserve">
-    <value>Opětovné odeslání není možné: zpráva s exchangeId odpovídajícím &apos;{0}&apos; musí mít zadané období od &apos;{1}&apos; do &apos;{2}&apos; a kód města odeslání odpovídající &apos;{3}&apos;</value>
+    <value>Opětovné odeslání není možné: zpráva s exchangeId odpovídajícím '{0}' musí mít zadané období od '{1}' do '{2}' a kód města odeslání odpovídající '{3}'</value>
   </data>
 	<data name="PaymentPeriodStartMustBeLessThanPaymentPeriodEnd" xml:space="preserve">
     <value>Datum začátku období vyúčtování musí začínat dříve než datum ukončení období</value>
@@ -3755,7 +3755,7 @@ Operace provedena: {4}.</value>
     <value>Zrušení</value>
   </data>
 	<data name="TitleServiceInformation" xml:space="preserve">
-    <value>Pracovní záznamy</value>
+    <value>Служебные сведения</value>
   </data>
 	<data name="TitleEmployeeInformation" xml:space="preserve">
     <value>Informace o oprávněné osobě</value>
@@ -4143,7 +4143,7 @@ Operace provedena: {4}.</value>
     <value>Počet reklamy určený k vydání.</value>
   </data>
 	<data name="AdvertisementAmountErrorMessage" xml:space="preserve">
-    <value>Sestavení musí obsahovat položku {0} v počtu od {1} do {2}. Skutečné množství za měsíc {6} - {3} (zpracováno - {4}, obsahuje {5} chyb).</value>
+    <value>Позиция {0} должна присутствовать в сборке в количестве от {1} до {2}. Фактическое количество в месяц {6} - {3} (Оформлено - {4}, содержит ошибки - {5}).</value>
   </data>
 	<data name="FirmContactContainsSponsoredLinkError" xml:space="preserve">
     <value>Společnost {0} má objednaný reklamní odkaz {1}, položka {2} v objednávce {3}, u kterého dochází k duplikaci firemního kontaktu.</value>
@@ -4279,7 +4279,7 @@ Operace provedena: {4}.</value>
     <value>Obsah souboru obrázku neodpovídá jeho příponě</value>
   </data>
 	<data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Není možné odstranit službu &apos;{0}&apos;, protože ji využívá {1} adres</value>
+    <value>Není možné odstranit službu '{0}', protože ji využívá {1} adres</value>
   </data>
 	<data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Nepodařilo se uložit šablonu: může existovat pouze jedna šablona mrakodrapu</value>
@@ -4333,7 +4333,7 @@ Operace provedena: {4}.</value>
     <value>neurčen</value>
   </data>
 	<data name="PrintformTemplateNotFoundForOrgUnitTemplate" xml:space="preserve">
-    <value>Nebylo možné získat soubor šablony výtisku &apos;{0}&apos; pro oddělení organizace &apos;{1}&apos;</value>
+    <value>Nebylo možné získat soubor šablony výtisku '{0}' pro oddělení organizace '{1}'</value>
   </data>
 	<data name="EntityNameNotSpecified" xml:space="preserve">
     <value>Není uveden typ entity</value>
@@ -4372,7 +4372,7 @@ Operace provedena: {4}.</value>
     <value>Barnaul</value>
   </data>
 	<data name="CheckForDebtsHelper_ClientTemplate" xml:space="preserve">
-    <value>Klient &apos;{0}&apos;;</value>
+    <value>Klient '{0}';</value>
   </data>
 	<data name="WrongOrderType" xml:space="preserve">
     <value>Chybný typ objednávky</value>
@@ -4438,7 +4438,7 @@ Operace provedena: {4}.</value>
     <value>Pokus o uložení objednávky s cílovým městem, které není propojeno s projektem. Obnovte kartu a zadejte správnou hodnotu.</value>
   </data>
 	<data name="OrderCheckCompositePositionMustHaveLinkingObject" xml:space="preserve">
-    <value>V položce {0} je třeba uvést alespoň jeden vázaný objekt pro podpoložku &apos;{1}&apos;</value>
+    <value>V položce {0} je třeba uvést alespoň jeden vázaný objekt pro podpoložku '{1}'</value>
   </data>
 	<data name="CreateOrUpdateServiceUnknownEntityError" xml:space="preserve">
     <value>Nepodařilo se určit entitu u přeneseného objektu dto</value>
@@ -4762,7 +4762,7 @@ Operace provedena: {4}.</value>
     <value>Není možné upravit RM, jejichž šablona nebyla zveřejněna.</value>
   </data>
 	<data name="ThereIsNoAdvertisementsForSomeLinkingObjects" xml:space="preserve">
-    <value>V položce „{0}“ nejsou uvedeny reklamní materiály</value>
+    <value>Для позиции "{0}" не указаны рекламные материалы</value>
   </data>
 	<data name="OrderContainsDummyAdvertisementError" xml:space="preserve">
     <value>Položka {0} obsahuje zástupný symbol reklamního materiálu</value>
@@ -4774,7 +4774,7 @@ Operace provedena: {4}.</value>
     <value>Nemáte oprávnění pro úpravu zástupného symbolu</value>
   </data>
 	<data name="AdvertisementWithUnpublishedTemplateIsChosen" xml:space="preserve">
-    <value>V položce „{0}“ je uveden reklamní materiál s nezveřejněnou šablonou</value>
+    <value>Для позиции "{0}" указан рекламный материал с неопубликованным шаблоном</value>
   </data>
 	<data name="CanNotChangePublishedAdvertisementTemplate" xml:space="preserve">
     <value>Není možné změnit zveřejněnou šablonu RM</value>
@@ -4994,233 +4994,239 @@ Kontakt: {1}</value>
     <value>Je třeba vystavit alespoň jednu fakturu</value>
   </data>
 	<data name="RegionalApiError" xml:space="preserve">
-    <value>V položce {0} je vytvořena reklama API, přestože firma nemá adresu v projektu města, ve kterém je rozmístěna objednávka</value>
+    <value>В позиции {0} оформлена реклама API, хотя у фирмы нет адреса в проекте города размещения заказа</value>
   </data>
 	<data name="OpenOrder" xml:space="preserve">
-    <value>Otevřít objednávku.</value>
+    <value>Открыть заказ.</value>
   </data>
 	<data name="InTheCostCalculationServiceErrorOccured" xml:space="preserve">
-    <value>Ve službě výpočtu ceny došlo k chybě</value>
+    <value>В сервисе расчета стоимости произошла ошибка</value>
   </data>
 	<data name="PositionIsNotInPrice" xml:space="preserve">
-    <value>Ve vybraném městě pro zveřejnění reklamy není možné získat položku {0}</value>
+    <value>По выбранному городу размещения рекламы невозможно приобрести позицию {0}</value>
   </data>
 	<data name="AdvertisementIsInvalidMessage" xml:space="preserve">
-    <value>Při ověřování RM „{0}“ firmy „{1}“ moderátor odmítl prvek RM „{2}“. Uvedený prvek RM je třeba opravit před zahájením sestavení v tomto měsíci.</value>
+    <value>При выверке РМ «{0}» по фирме «{1}» модератором был отклонeн элемент РМ «{2}». Необходимо внести исправления в данный элемент РМ до наступления сборки за текущий месяц.</value>
   </data>
 	<data name="OrdersWillNotBePublishedMessage" xml:space="preserve">
-    <value>Pokud zmíněný RM nebude opraven, další objednávky nebudou zahrnuty do vydání: {0}.</value>
+    <value>Если не исправить данный РМ, следущие заказы не попадут в выпуск: {0}.</value>
   </data>
 	<data name="OrderProlongation" xml:space="preserve">
-    <value>Prolongace</value>
+    <value>Продление</value>
   </data>
 	<data name="NewOrder" xml:space="preserve">
-    <value>Nová objednávka</value>
+    <value>Новый заказ</value>
   </data>
 	<data name="InTheOrderProcessingRequestsServiceErrorOccured" xml:space="preserve">
-    <value>Ve službě zpracování požadavků na vytvoření objednávky došlo k chybě</value>
+    <value>В сервисе работы с заявками на создание заказа произошла ошибка</value>
   </data>
 	<data name="OrderToProlongateDoesntHaveAnyPositions" xml:space="preserve">
-    <value>Prodlužovaná objednávka neobsahuje žádné položky</value>
+    <value>У продляемого заказа нет позиций</value>
   </data>
 	<data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>Nelze deaktivovat právnickou osobu zákazníka se spojenými osobními účty</value>
+    <value>Нельзя деактивировать юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
 	<data name="OrderForProlongationNotFound" xml:space="preserve">
-    <value>Nenalezena žádná objednávka k prolongaci</value>
+    <value>Не найден заказ для продления</value>
   </data>
 	<data name="PlatformMustBeSpecified" xml:space="preserve">
-    <value>V objednávce musí být uvedena platforma</value>
+    <value>У заказа должна быть указана платформа</value>
   </data>
 	<data name="OutdatedPositionDoesntHaveAdvertisement" xml:space="preserve">
-    <value>U položky {0} není uveden reklamní materiál a chybí zástupná procedura</value>
+    <value>Для позиции {0} не указан рекламный материал и отсутсвует заглушка</value>
   </data>
 	<data name="NoDebitsForSpecifiedPeriod" xml:space="preserve">
-    <value>V období {0:d} - {1:d} nebyly nalezeny žádné odpisy</value>
+    <value>Не обнаружено списаний за период {0:d} - {1:d}</value>
   </data>
 	<data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
-    <value>Pro změnu příznaku s údaji o tom, zda je zákazník reklamní agentura, je požadováno odpovídající oprávnění</value>
+    <value>Для измения признака является ли клиент рекламным агентством нужна соответсвующая привилегия</value>
   </data>
 	<data name="GeneralMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
 	<data name="StringContainsControlCharacters" xml:space="preserve">
-    <value>Řádek obsahuje řídicí znaky</value>
+    <value>Строка содержит управляющие символы</value>
   </data>
 	<data name="FieldValueContainsControlCharacters" xml:space="preserve">
-    <value>Text obsahuje nepřípustné znaky. Obraťte se na službu podpory.</value>
+    <value>Текст содержит недопустимые символы. Обратитесь в службу поддержки.</value>
   </data>
 	<data name="OrderProcessingRequestProcessedSuccessfully" xml:space="preserve">
-    <value>Požadavek z OP byl úspěšně zpracován</value>
+    <value>Заявка от ЛК успешно обработана</value>
   </data>
 	<data name="OrderProcessingRequestWasCancelled" xml:space="preserve">
-    <value>Požadavek byl zrušen</value>
+    <value>Заявка была отменена</value>
   </data>
 	<data name="CannotCancelCanceledOrderRequest" xml:space="preserve">
-    <value>Nelze zrušit již zrušený požadavek</value>
+    <value>Нельзя отменить уже отмененную заявку</value>
   </data>
 	<data name="CannotCancelCompletedOrderRequest" xml:space="preserve">
-    <value>Nelze zrušit provedený požadavek</value>
+    <value>Нельзя отменить выполненную заявку</value>
   </data>
 	<data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>U firmy uvedené na objednávce [{0}] chybí zákazník</value>
+    <value>У фирмы бланка заказа [{0}] отсутствует клиент</value>
   </data>
 	<data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
-    <value>Projekt {0} není spojen s oddělením organizace</value>
+    <value>Проект {0} не связан с отделением организации</value>
   </data>
 	<data name="CannotGetActualPriceListForOrganizationUnit" xml:space="preserve">
-    <value>Pro oddělení organizace s Id = {0} se nepodařilo získat aktuální ceník</value>
+    <value>Для отделения организации с Id = {0} не удалось получить актуальный прайс-лист</value>
   </data>
 	<data name="OrderCreationRequestNotProcessedClientNotFound" xml:space="preserve">
-    <value>Požadavek OrderProcessingRequest.Id = {0} nebyl zpracován, protože pro firmu uvedenou v tomto požadavku nebyl vytvořen zákazník.</value>
+    <value>Заявка OrderProcessingRequest.Id = {0} не обработана, поскольку для фирмы из этой заявки не создан клиент.</value>
   </data>
 	<data name="OrderCreationRequestNotProcessedBranchOrganizationUnitNotFound" xml:space="preserve">
-    <value>Nenalezena hlavní pr. osoba pro oddělení organizace OrganizationUnit.Id = {0}</value>
+    <value>Не найдено основное юр. лицо для отделения организации OrganizationUnit.Id = {0}</value>
   </data>
 	<data name="OrderCreationRequestInformationReserveUserNotFound" xml:space="preserve">
-    <value>Nepodařilo se přidělit funkci správce pro uživatele „Rezerva“</value>
+    <value>Не удалось назначить куратором пользователя "Резерв"</value>
   </data>
 	<data name="OrderCreationRequestInformationReserveUserFound" xml:space="preserve">
-    <value>Správce objednávky je nyní uživatel „Rezerva“</value>
+    <value>Куратором заказа назначен пользователь "Резерв"</value>
   </data>
 	<data name="OrderCreationRequestInformationOrganizationUnitDirectorNotFound" xml:space="preserve">
-    <value>Nepodařilo se přidělit funkci správce pro ředitele oddělení „{0}“</value>
+    <value>Не удалось назначить куратором директора подразделения "{0}"</value>
   </data>
 	<data name="OrderCreationRequestInformationOrganizationUnitDirectorFound" xml:space="preserve">
-    <value>Správce objednávky je nyní ředitel oddělení „{0}“</value>
+    <value>Куратором заказа назначен директор подразделения "{0}"</value>
   </data>
 	<data name="OrderCreationRequestInformationClientOwnerNotFound" xml:space="preserve">
-    <value>Nepodařilo se přidělit funkci správce pro správce zákazníka „{0}“</value>
+    <value>Не удалось назначить куратором заказа куратора клиента "{0}"</value>
   </data>
 	<data name="OrderCreationRequestInformationClientOwnerFound" xml:space="preserve">
-    <value>Správce objednávky je nyní správce zákazníka „{0}“</value>
+    <value>Куратором заказа назначен куратор клиента "{0}"</value>
   </data>
 	<data name="OrderCreationRequestInformationExistingAccountNotFound" xml:space="preserve">
-    <value>Nepodařilo se nalézt stávající osobní účet mezi zákazníkem „{0}“ a zhotovitelem „{1}“</value>
+    <value>Не удалось найти существующий лицевой счёт между заказчиком "{0}" и исполнителем "{1}"</value>
   </data>
 	<data name="OrderCreationRequestInformationExistingAccountFound" xml:space="preserve">
-    <value>Byl použit stávající osobní účet mezi zákazníkem „{0}“ a zhotovitelem „{1}“</value>
+    <value>Использован существующий лицевой счёт между заказчиком "{0}" и исполнителем "{1}"</value>
   </data>
 	<data name="MustBeExistingEntity" xml:space="preserve">
-    <value>Entita již musí být uložena dříve</value>
+    <value>Сущность должна быть уже сохранена ранее</value>
   </data>
 	<data name="MustBeNewEntity" xml:space="preserve">
-    <value>Entita musí být nová</value>
+    <value>Сущность должна быть новой</value>
   </data>
 	<data name="OrderCreationRequestFailed" xml:space="preserve">
-    <value>Při vytvoření objednávky došlo k chybě, zprávy jsou zapsány do protokolu</value>
+    <value>При создании заказа произошла ошибка, сообщения записаны в журнал</value>
   </data>
 	<data name="OrderCreationRequestTypeMismatch" xml:space="preserve">
-    <value>Aby bylo možné vytvořit objednávku, je třeba mít požadavek na vytvoření. Zpracovávaný požadavek má typ: {0}</value>
+    <value>Чтобы создать заказ, нужна заявка на создание. Обрабатываемая заявка имеет тип: {0}</value>
   </data>
 	<data name="OrderProlongationRequestTypeMismatch" xml:space="preserve">
-    <value>Aby bylo možné prodloužit objednávku, je třeba mít požadavek na prolongaci. Zpracovávaný požadavek má typ: {0}</value>
+    <value>Чтобы продлить заказ, нужна заявка на продление. Обрабатываемая заявка имеет тип: {0}</value>
   </data>
 	<data name="OrderProlongationRequestInformationBaseOrderOwnerFound" xml:space="preserve">
-    <value>Správce objednávky je nyní správce základní objednávky „{0}“</value>
+    <value>Куратором заказа назначен куратор базового заказа "{0}"</value>
   </data>
 	<data name="OrderProlongationRequestInformationBaseOrderOwnerNotFound" xml:space="preserve">
-    <value>Nepodařilo se přidělit funkci správce pro správce základní objednávky „{0}“</value>
+    <value>Не удалось назначить куратором созданного заказа куратора базового заказа "{0}"</value>
   </data>
 	<data name="ReleaseCountPlanValueErrorTemplate" xml:space="preserve">
-    <value>Hodnota ReleaseCountPlan musí být &gt;= {0} a &lt;= {1}</value>
+    <value>Значение ReleaseCountPlan должно быть &gt;= {0} и &lt;= {1}</value>
   </data>
 	<data name="ValidOwnerForOrderProcessingRequestMissingErrorTemplate" xml:space="preserve">
-    <value>Nenalezen uživatel, kterému je třeba přidělit požadavek na vytvoření objednávky pro Firm.Id {0}</value>
+    <value>Не найден пользователь, которому следует назначить заявку на создание заказа для Firm.Id {0}</value>
   </data>
 	<data name="LegalPersonProfileMissing" xml:space="preserve">
-    <value>Nenalezen profil právnické osoby prodlužované objednávky</value>
+    <value>Профиль юридического лица продляемого заказа не найден</value>
   </data>
 	<data name="BeginDateMustNotBeInPast" xml:space="preserve">
-    <value>Datum zahájení zveřejnění objednávky nesmí být v minulosti</value>
+    <value>Дата начала размещения заказа не должна быть в прошлом</value>
   </data>
 	<data name="OrderProcessingRequestCreationResultEmailSubject" xml:space="preserve">
-    <value>V osobním profilu je pro Vašeho zákazníka vytvořen požadavek na novou objednávku</value>
+    <value>В "Личном кабинете" по Вашему клиенту оформлена заявка на новый заказ</value>
   </data>
 	<data name="OrderProcessingRequestProlongationResultEmailSubject" xml:space="preserve">
-    <value>V osobním profilu je pro Vašeho zákazníka vytvořen požadavek na prolongace</value>
+    <value>В "Личном кабинете" по Вашему клиенту оформлена заявка на продление</value>
   </data>
 	<data name="OrderProcessingRequestCreationResultEmailHeader" xml:space="preserve">
-    <value>V osobním profilu byl vytvořen požadavek na vytvoření nové objednávky:</value>
+    <value>В "Личном кабинете" была оформлена заявка на создание нового заказа:</value>
   </data>
 	<data name="OrderProcessingRequestProlongationResultEmailHeaderTemplate" xml:space="preserve">
-    <value>V osobním profilu byl vytvořen požadavek na prolongaci objednávky {0}</value>
+    <value>В "Личном кабинете" была оформлена заявка на продление заказа {0}</value>
   </data>
 	<data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
-    <value>Firma: {0}.
-Pr. osoba: {1}.
-Začátek zveřejnění: {2}.
-Doba zveřejnění: {3}.</value>
+    <value>Фирма: {0}.
+Юр. лицо: {1}.
+Начало размещения: {2}.
+Срок размещения: {3}.</value>
   </data>
 	<data name="OrderProcessingRequestResultEmailDescriptionTemplate" xml:space="preserve">
-    <value>Podrobnosti: 
+    <value>Подробности: 
 {0}</value>
   </data>
 	<data name="OrderProcessingRequestResultEmailErrorMessagePrefixTemplate" xml:space="preserve">
-    <value>Blokující! </value>
+    <value>Блокирующая! </value>
   </data>
 	<data name="OrderProcessingRequestResultEmailErrorsEnumerationTemplate" xml:space="preserve">
-    <value>Během vytvoření objednávky vznikly následující chyby:
+    <value>В ходе создания заказа возникли следующие ошибки:
 {0}</value>
   </data>
 	<data name="OrderProcessingRequestResultEmailRenewedOrderTemplate" xml:space="preserve">
-    <value>Požadavek byl zpracován a podle něj byla vytvořena objednávka {0}</value>
+    <value>Заявка была обработана и по ней создан заказ {0}</value>
   </data>
 	<data name="OrderProcessingRequestCreationResultEmailFooter" xml:space="preserve">
-    <value>Ohledně tohoto požadavku se musíte spojit se zákazníkem a vytvořit objednávku.</value>
+    <value>По данной заявке вам необходимо связаться с клиентом и оформить заказ.</value>
   </data>
 	<data name="OutdatedPositionDoesntHaveDummyAdvertisement" xml:space="preserve">
-    <value>U položky {0} není uveden platný reklamní materiál a chybí zástupná procedura</value>
+    <value>Для позиции {0} не указан валидный рекламный материал и отсутсвует заглушка</value>
   </data>
 	<data name="OutdatedPositionHasInvalidAdvertisement" xml:space="preserve">
     <value>Položka {0} nemůže být aktualizována, protože obsahuje neplatný RM</value>
   </data>
 	<data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
-    <value>Je zvolena neplatná adresa u položky: &quot;{0}&quot;</value>
+    <value>Выбран невалидный адрес для позиции: "{0}"</value>
   </data>
 	<data name="AdvertisementAmountShortErrorMessage" xml:space="preserve">
-    <value>Sestavení musí obsahovat položku {0} v počtu od {1} do {2}. Skutečný počet položek za měsíc {3} - {4}</value>
+    <value>Позиция {0} должна присутствовать в сборке в количестве от {1} до {2}. Фактическое количество позиций в месяц {3} - {4}</value>
   </data>
 	<data name="OrderProlongationRequestInformationDealExistingReused" xml:space="preserve">
-    <value>Byla použita již existující obchodní transakce „{0}“</value>
+    <value>Использована уже существующая сделка "{0}"</value>
   </data>
 	<data name="OrderProlongationRequestInformationDealNewCreated" xml:space="preserve">
-    <value>Je vytvořena nová obchodní transakce „{0}“</value>
+    <value>Создана новая сделка "{0}"</value>
   </data>
 	<data name="AddressesNotBelongToFirm" xml:space="preserve">
-    <value>Následující adresy: {0} nejsou spojeny s firmou {1}</value>
+    <value>Следующие адреса: {0} не связаны с фирмой {1}</value>
   </data>
 	<data name="EntityIsInactiveError" xml:space="preserve">
-    <value>Entita {0} Id = {1} je neaktivní</value>
+    <value>Сущность {0}.Id = {1} неактивна</value>
   </data>
 	<data name="DestOrganizationUnitIsInactive" xml:space="preserve">
-    <value>Cílové město je neaktivní</value>
+    <value>Город назначения неактивен</value>
   </data>
 	<data name="SourceOrganizationUnitIsInactive" xml:space="preserve">
-    <value>Výchozí město je neaktivní</value>
+    <value>Город-источник неактивен</value>
   </data>
 	<data name="MessagesNotSendedBecauseNotificationIsDisabled" xml:space="preserve">
-    <value>E-mailové upozornění nebylo odesláno, protože v konfiguraci systému jsou upozornění vypnutá</value>
+    <value>E-mail оповещение не было отправлено, т.к. оповещения отключены в конфигурации системы</value>
   </data>
 	<data name="OrderProcessingRequestSendNotificationErrorEmailMissingTemplate" xml:space="preserve">
-    <value>Nepodařilo se odeslat upozornění, protože nebyl nalezen e-mail pro příjemce [{0}]</value>
+    <value>Не удалось отправить оповещение - не найден e-mail для пользователя [{0}]</value>
   </data>
 	<data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>Nelze odstranit právnickou osobu zákazníka se spojenými osobními účty</value>
+    <value>Нельзя удалить юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
 	<data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Vytvoření, změna a odstranění objektů evidenčního systému „Dod. služby pro firmy“.</value>
+    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
   </data>
 	<data name="FormatErrorMessage" xml:space="preserve">
-		<value>Hodnotu &apos;„{0}“ nelze použít v poli {1}</value>
+		<value>Значение '{0}' не применимо к полю {1}</value>
 	</data>
 	<data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
-    <value>Nemáte dostatečné oprávnění pro vrácení klienta [{0}] do rezervy</value>
+    <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
   </data>
 	<data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
-    <value>Nelze vytvořit požadavek na prolongaci objednávky ve stavu [{0}]</value>
+    <value>Невозможно создать заявку на продление заказа в статусе [{0}]</value>
   </data>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Uzavřít jako zamítnuto</value>
+  </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
   </data>
 </root>
