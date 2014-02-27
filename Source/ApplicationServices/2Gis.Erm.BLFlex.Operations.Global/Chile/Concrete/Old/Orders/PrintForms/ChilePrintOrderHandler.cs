@@ -60,6 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IBankReadModel _bankReadModel;
+        private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintOrderHandler(ISubRequestProcessor requestProcessor,
             ISecurityServiceUserIdentifier userIdentifierService,
@@ -80,6 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             _firmAggregateRepository = firmAggregateRepository;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
@@ -351,7 +353,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                         LegalPerson = legalPerson,
                         LegalPersonRart = legalPersonPart,
                         Profile = profile,
-                        ProfilePart = profilePart,
+                        ProfilePart = new 
+                        {
+                            profilePart.RepresentativeRut,
+                            profilePart.RepresentativeAuthorityDocumentIssuedBy,
+                            RepresentativeAuthorityDocumentIssuedOn = _shortDateFormatter.Format(profilePart.RepresentativeAuthorityDocumentIssuedOn),
+                        },
                         ProfileAccountType = profilePart.AccountType.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                         LegalPersonAddress =
                             (profile != null && profile.DocumentsDeliveryMethod == (int)DocumentsDeliveryMethod.DeliveryByManager)
