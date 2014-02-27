@@ -104,9 +104,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.ExtractUseC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{2DCD024B-93A5-4D7D-9573-EAB8D93340EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Reports", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj", "{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj", "{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Reports.UI", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports.UI\2Gis.Erm.BLCore.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports.UI", "..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports.UI\2Gis.Erm.BL.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.API.Metadata", "..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj", "{D62C3159-8538-4398-9E7F-5BD2B48A6C20}"
 EndProject
@@ -579,10 +579,10 @@ Global
 		SccProjectTopLevelParentUniqueName24 = 2GIS.ERM.VS2012.sln
 		SccProjectName24 = ../../Platform/Source/API/2Gis.Erm.Platform.API.GeoMaster
 		SccLocalPath24 = ..\\..\\Platform\\Source\\API\\2Gis.Erm.Platform.API.GeoMaster
-		SccProjectUniqueName25 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports\\2Gis.Erm.BLCore.Reports.csproj
+		SccProjectUniqueName25 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports\\2Gis.Erm.BL.Reports.csproj
 		SccProjectTopLevelParentUniqueName25 = 2GIS.ERM.VS2012.sln
-		SccProjectName25 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BLCore.Reports
-		SccLocalPath25 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports
+		SccProjectName25 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports
+		SccLocalPath25 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports
 		SccProjectUniqueName26 = ..\\..\\BLCore\\Source\\ApplicationServices\\2Gis.Erm.BLCore.Operations\\2Gis.Erm.BLCore.Operations.csproj
 		SccProjectTopLevelParentUniqueName26 = 2GIS.ERM.VS2012.sln
 		SccProjectName26 = ../../BLCore/Source/ApplicationServices/2Gis.Erm.BLCore.Operations
@@ -759,10 +759,10 @@ Global
 		SccProjectTopLevelParentUniqueName69 = 2GIS.ERM.VS2012.sln
 		SccProjectName69 = ../../BLCore/Source/Tools/2Gis.Erm.BLCore.ExtractUseCases
 		SccLocalPath69 = ..\\..\\BLCore\\Source\\Tools\\2Gis.Erm.BLCore.ExtractUseCases
-		SccProjectUniqueName70 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports.UI\\2Gis.Erm.BLCore.Reports.UI.csproj
+		SccProjectUniqueName70 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI\\2Gis.Erm.BL.Reports.UI.csproj
 		SccProjectTopLevelParentUniqueName70 = 2GIS.ERM.VS2012.sln
-		SccProjectName70 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BLCore.Reports.UI
-		SccLocalPath70 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BLCore.Reports.UI
+		SccProjectName70 = ../../BLCore/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports.UI
+		SccLocalPath70 = ..\\..\\BLCore\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI
 		SccProjectUniqueName71 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources\\2Gis.Platform.UI.WPF.Resources.csproj
 		SccProjectTopLevelParentUniqueName71 = 2GIS.ERM.VS2012.sln
 		SccProjectName71 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Resources

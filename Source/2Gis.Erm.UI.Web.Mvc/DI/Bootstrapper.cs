@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
@@ -35,7 +36,6 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
-using DoubleGis.Erm.BLCore.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
