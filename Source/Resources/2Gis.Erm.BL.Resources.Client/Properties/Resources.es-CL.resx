@@ -909,4 +909,7 @@
   <data name="BillNumber" xml:space="preserve">
     <value>Numero de factura</value>
   </data>
+  <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
+    <value>Desea realmente reemplazar el estado de límite por</value>
+  </data>
 </root>

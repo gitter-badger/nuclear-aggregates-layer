@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,852 +59,855 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AcquireOrderExtensionFailed" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AcquireOrderExtensionFailed" xml:space="preserve">
     <value>Не удалось получить вычисляемые значения.</value>
   </data>
-  <data name="ActionsHistory" xml:space="preserve">
+	<data name="ActionsHistory" xml:space="preserve">
     <value>История изменений</value>
   </data>
-  <data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
+	<data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
     <value>Действие: {0}, Выполнено: {1} Дата: {2}</value>
   </data>
-  <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
+	<data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
     <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "изменение" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"изменения":"изменений"]})</value>
   </data>
-  <data name="Active" xml:space="preserve">
+	<data name="Active" xml:space="preserve">
     <value>Активна</value>
   </data>
-  <data name="Address" xml:space="preserve">
+	<data name="Address" xml:space="preserve">
     <value>Адрес</value>
   </data>
-  <data name="AdvertisementElements" xml:space="preserve">
+	<data name="AdvertisementElements" xml:space="preserve">
     <value>Элементы рекламного материала</value>
   </data>
-  <data name="Advertisements" xml:space="preserve">
+	<data name="Advertisements" xml:space="preserve">
     <value>Рекламные материалы</value>
   </data>
-  <data name="Alert" xml:space="preserve">
+	<data name="Alert" xml:space="preserve">
     <value>Внимание!</value>
   </data>
-  <data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
+	<data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
     <value>Все существующие счета на оплату будут удалены. Продолжить?</value>
   </data>
-  <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
+	<data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
     <value>Все поля должны быть заполнены для платежа</value>
   </data>
-  <data name="April" xml:space="preserve">
+	<data name="April" xml:space="preserve">
     <value>Апрель</value>
   </data>
-  <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
+	<data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
     <value>Удалить договор?</value>
   </data>
-  <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
+	<data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
     <value>Должен быть выбран хотя бы один объект привязки</value>
   </data>
-  <data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
+	<data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
     <value>Должен быть выбран хотя бы один объект привязки в следующих подпозициях: </value>
   </data>
-  <data name="August" xml:space="preserve">
+	<data name="August" xml:space="preserve">
     <value>Август</value>
   </data>
-  <data name="AvailableRecords" xml:space="preserve">
+	<data name="AvailableRecords" xml:space="preserve">
     <value>Доступные записи</value>
   </data>
-  <data name="BackColorText" xml:space="preserve">
+	<data name="BackColorText" xml:space="preserve">
     <value>Изменение цвета фона для выделенного текста или абзаца.</value>
   </data>
-  <data name="BackColorTitle" xml:space="preserve">
+	<data name="BackColorTitle" xml:space="preserve">
     <value>Заливка</value>
   </data>
-  <data name="BeginDistributionDate" xml:space="preserve">
+	<data name="BeginDistributionDate" xml:space="preserve">
     <value>Начало размещения</value>
   </data>
-  <data name="BoldText" xml:space="preserve">
+	<data name="BoldText" xml:space="preserve">
     <value>Применение полужирного начертания к выделенному тексту.</value>
   </data>
-  <data name="BoldTitle" xml:space="preserve">
+	<data name="BoldTitle" xml:space="preserve">
     <value>Полужирный (Ctrl+B)</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="CardIsDirtyAlert" xml:space="preserve">
+	<data name="CardIsDirtyAlert" xml:space="preserve">
     <value>Данное действие невозможно выполнить при наличии несохранённых изменений. Пожалуйста, сохраните изменения или обновите карточку, прежде чем продолжить.</value>
   </data>
-  <data name="CardIsNewAlert" xml:space="preserve">
+	<data name="CardIsNewAlert" xml:space="preserve">
     <value>Данное действие невозможно выполнить, пока запись не сохранена. Пожалуйста, сохраните запись, прежде чем продолжить.</value>
   </data>
-  <data name="CardIsReadOnly" xml:space="preserve">
+	<data name="CardIsReadOnly" xml:space="preserve">
     <value>Данная карточка открыта в режиме "только для чтения".</value>
   </data>
-  <data name="CardIsUndefined" xml:space="preserve">
+	<data name="CardIsUndefined" xml:space="preserve">
     <value>Для данной сущности не объявлена карточка редактирования.</value>
   </data>
-  <data name="Category" xml:space="preserve">
+	<data name="Category" xml:space="preserve">
     <value>Рубрика</value>
   </data>
-  <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
+	<data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
     <value>Рубрика '{0}' уже присутствует в списке.</value>
   </data>
-  <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
+	<data name="CheckInProgressPleaseStandBy" xml:space="preserve">
     <value>Выполняется проверка. Пожалуйста, подождите...</value>
   </data>
-  <data name="CheckProducedTheFollowingErrors" xml:space="preserve">
+	<data name="CheckProducedTheFollowingErrors" xml:space="preserve">
     <value>В ходе проверки были обнаружены следующие ошибки:</value>
   </data>
-  <data name="ClickHereToAddNote" xml:space="preserve">
+	<data name="ClickHereToAddNote" xml:space="preserve">
     <value>Щелкните здесь для добавления примечания...</value>
   </data>
-  <data name="Close" xml:space="preserve">
+	<data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
-  <data name="CloseCardConfirmation" xml:space="preserve">
+	<data name="CloseCardConfirmation" xml:space="preserve">
     <value>Внесенные изменения не сохранены. Чтобы остаться на этой странице и сохранить изменения, нажмите кнопку "Отмена".</value>
   </data>
-  <data name="ContentIsEmpty" xml:space="preserve">
+	<data name="ContentIsEmpty" xml:space="preserve">
     <value>Содержимое отсутствует</value>
   </data>
-  <data name="Continue" xml:space="preserve">
+	<data name="Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
-  <data name="Create" xml:space="preserve">
+	<data name="Create" xml:space="preserve">
     <value>Создать</value>
   </data>
-  <data name="CreateLinkText" xml:space="preserve">
+	<data name="CreateLinkText" xml:space="preserve">
     <value>Создание ссылки из выделенного текста.</value>
   </data>
-  <data name="CreateLinkTitle" xml:space="preserve">
+	<data name="CreateLinkTitle" xml:space="preserve">
     <value>Вставить гиперссылку</value>
   </data>
-  <data name="CreateText" xml:space="preserve">
+	<data name="CreateText" xml:space="preserve">
     <value>Создать</value>
   </data>
-  <data name="DatePickerMaxText" xml:space="preserve">
+	<data name="DatePickerMaxText" xml:space="preserve">
     <value>Эта дата позже максимальной даты</value>
   </data>
-  <data name="DatePickerMinText" xml:space="preserve">
+	<data name="DatePickerMinText" xml:space="preserve">
     <value>Эта дата раньше минимальной даты</value>
   </data>
-  <data name="DatePickerMonthYearText" xml:space="preserve">
+	<data name="DatePickerMonthYearText" xml:space="preserve">
     <value>Выбор месяца (Control+Вверх/Вниз для выбора года)</value>
   </data>
-  <data name="DatePickerNextText" xml:space="preserve">
+	<data name="DatePickerNextText" xml:space="preserve">
     <value>Следующий месяц (Control+Вправо)</value>
   </data>
-  <data name="DatePickerPrevText" xml:space="preserve">
+	<data name="DatePickerPrevText" xml:space="preserve">
     <value>Предыдущий месяц (Control+Влево)</value>
   </data>
-  <data name="DatePickerToday" xml:space="preserve">
+	<data name="DatePickerToday" xml:space="preserve">
     <value>Сегодня</value>
   </data>
-  <data name="DatePickerTodayTip" xml:space="preserve">
+	<data name="DatePickerTodayTip" xml:space="preserve">
     <value>{0} (Пробел)</value>
   </data>
-  <data name="December" xml:space="preserve">
+	<data name="December" xml:space="preserve">
     <value>Декабрь</value>
   </data>
-  <data name="DecreaseFontSizeText" xml:space="preserve">
+	<data name="DecreaseFontSizeText" xml:space="preserve">
     <value>Уменьшение размера шрифта.</value>
   </data>
-  <data name="DecreaseFontSizeTitle" xml:space="preserve">
+	<data name="DecreaseFontSizeTitle" xml:space="preserve">
     <value>Уменьшить размер</value>
   </data>
-  <data name="Deleted" xml:space="preserve">
+	<data name="Deleted" xml:space="preserve">
     <value>Удалена</value>
   </data>
-  <data name="DeleteText" xml:space="preserve">
+	<data name="DeleteText" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="DeleteValue" xml:space="preserve">
+	<data name="DeleteValue" xml:space="preserve">
     <value>Удалить значение</value>
   </data>
-  <data name="DisabledDatesText" xml:space="preserve">
+	<data name="DisabledDatesText" xml:space="preserve">
     <value>Данная дата недоступна для выбора</value>
   </data>
-  <data name="DisabledDaysText" xml:space="preserve">
+	<data name="DisabledDaysText" xml:space="preserve">
     <value>Данная дата недоступна для выбора</value>
   </data>
-  <data name="DisplayMsg" xml:space="preserve">
+	<data name="DisplayMsg" xml:space="preserve">
     <value>Отображаются записи с {0} по {1}, всего {2}</value>
   </data>
-  <data name="EmptyMsg" xml:space="preserve">
+	<data name="EmptyMsg" xml:space="preserve">
     <value>Нет данных для отображения</value>
   </data>
-  <data name="EndDistributionDate" xml:space="preserve">
+	<data name="EndDistributionDate" xml:space="preserve">
     <value>Окончание размещения</value>
   </data>
-  <data name="Error" xml:space="preserve">
+	<data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
-  <data name="ErrorDuringOperation" xml:space="preserve">
+	<data name="ErrorDuringOperation" xml:space="preserve">
     <value>Во время выполнения операции произошла ошибка</value>
   </data>
-  <data name="ErrorRetrievingDataFromServer" xml:space="preserve">
+	<data name="ErrorRetrievingDataFromServer" xml:space="preserve">
     <value>Ошибка при получении данных с сервера</value>
   </data>
-  <data name="February" xml:space="preserve">
+	<data name="February" xml:space="preserve">
     <value>Февраль</value>
   </data>
-  <data name="FieldInvalidText" xml:space="preserve">
+	<data name="FieldInvalidText" xml:space="preserve">
     <value>Указано неверное значение</value>
   </data>
-  <data name="FileUploadCompleteText" xml:space="preserve">
+	<data name="FileUploadCompleteText" xml:space="preserve">
     <value>Загрузка завершена</value>
   </data>
-  <data name="FileUploadText" xml:space="preserve">
+	<data name="FileUploadText" xml:space="preserve">
     <value>Пожалуйста, подождите, идет загрузка файла на сервер...</value>
   </data>
-  <data name="FindMoreRecords" xml:space="preserve">
+	<data name="FindMoreRecords" xml:space="preserve">
     <value>Поиск дополнительных записей</value>
   </data>
-  <data name="ForeColorText" xml:space="preserve">
+	<data name="ForeColorText" xml:space="preserve">
     <value>Измение цвета текста.</value>
   </data>
-  <data name="Friday" xml:space="preserve">
+	<data name="Friday" xml:space="preserve">
     <value>Пятница</value>
   </data>
-  <data name="GetDataError" xml:space="preserve">
+	<data name="GetDataError" xml:space="preserve">
     <value>Ошибка получения данных с сервера.</value>
   </data>
-  <data name="GridDDText" xml:space="preserve">
+	<data name="GridDDText" xml:space="preserve">
     <value>{0} выбранных строк</value>
   </data>
-  <data name="IncreaseFontSizeText" xml:space="preserve">
+	<data name="IncreaseFontSizeText" xml:space="preserve">
     <value>Увеличение размера шрифта.</value>
   </data>
-  <data name="IncreaseFontSizeTitle" xml:space="preserve">
+	<data name="IncreaseFontSizeTitle" xml:space="preserve">
     <value>Увеличить размер</value>
   </data>
-  <data name="IndicatorText" xml:space="preserve">
+	<data name="IndicatorText" xml:space="preserve">
     <value>Идет загрузка...</value>
   </data>
-  <data name="Information" xml:space="preserve">
+	<data name="Information" xml:space="preserve">
     <value>Сведения</value>
   </data>
-  <data name="InsertOrderedListText" xml:space="preserve">
+	<data name="InsertOrderedListText" xml:space="preserve">
     <value>Начать нумерованный список.</value>
   </data>
-  <data name="InsertOrderedListTitle" xml:space="preserve">
+	<data name="InsertOrderedListTitle" xml:space="preserve">
     <value>Нумерация</value>
   </data>
-  <data name="InsertUnorderedListText" xml:space="preserve">
+	<data name="InsertUnorderedListText" xml:space="preserve">
     <value>Начать маркированный список.</value>
   </data>
-  <data name="InsertUnorderedListTitle" xml:space="preserve">
+	<data name="InsertUnorderedListTitle" xml:space="preserve">
     <value>Маркеры</value>
   </data>
-  <data name="InvalidDateText" xml:space="preserve">
+	<data name="InvalidDateText" xml:space="preserve">
     <value>{0} не является правильной датой - дата должна быть указана в формате {1}</value>
   </data>
-  <data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
+	<data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
     <value>Перед выполнением операции смены статуса необходимо выбрать лимит в списке</value>
   </data>
-  <data name="ItalicText" xml:space="preserve">
+	<data name="ItalicText" xml:space="preserve">
     <value>Применение курсивного начертания к выделенному тексту.</value>
   </data>
-  <data name="ItalicTitle" xml:space="preserve">
+	<data name="ItalicTitle" xml:space="preserve">
     <value>Курсив(Ctrl+I)</value>
   </data>
-  <data name="ItsReadOnlyMode" xml:space="preserve">
+	<data name="ItsReadOnlyMode" xml:space="preserve">
     <value>Данный список просматривается в режиме "Только для чтения". Создание сущности невозможно.</value>
   </data>
-  <data name="January" xml:space="preserve">
+	<data name="January" xml:space="preserve">
     <value>Январь</value>
   </data>
-  <data name="July" xml:space="preserve">
+	<data name="July" xml:space="preserve">
     <value>Июль</value>
   </data>
-  <data name="June" xml:space="preserve">
+	<data name="June" xml:space="preserve">
     <value>Июнь</value>
   </data>
-  <data name="JustifyCenterText" xml:space="preserve">
+	<data name="JustifyCenterText" xml:space="preserve">
     <value>Выравнивание текста по центру.</value>
   </data>
-  <data name="JustifyCenterTitle" xml:space="preserve">
+	<data name="JustifyCenterTitle" xml:space="preserve">
     <value>По центру</value>
   </data>
-  <data name="JustifyLeftText" xml:space="preserve">
+	<data name="JustifyLeftText" xml:space="preserve">
     <value>Выравнивание текста по левому краю.</value>
   </data>
-  <data name="JustifyLeftTitle" xml:space="preserve">
+	<data name="JustifyLeftTitle" xml:space="preserve">
     <value>Выровнять текст по левому краю</value>
   </data>
-  <data name="JustifyRightText" xml:space="preserve">
+	<data name="JustifyRightText" xml:space="preserve">
     <value>Выравнивание текста по правому краю.</value>
   </data>
-  <data name="JustifyRightTitle" xml:space="preserve">
+	<data name="JustifyRightTitle" xml:space="preserve">
     <value>Выровнять текст по правому краю.</value>
   </data>
-  <data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
+	<data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
     <value>Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.</value>
   </data>
-  <data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
+	<data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
     <value>Введенное значение не является корректным e-mail адресом</value>
   </data>
-  <data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
+	<data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
     <value>Введенное значение не является корректным url адресом</value>
   </data>
-  <data name="LinkingObject" xml:space="preserve">
+	<data name="LinkingObject" xml:space="preserve">
     <value>Объект привязки</value>
   </data>
-  <data name="LinkingParameters" xml:space="preserve">
+	<data name="LinkingParameters" xml:space="preserve">
     <value>Параметры привязки</value>
   </data>
-  <data name="ListDoesNotSupportAppend" xml:space="preserve">
+	<data name="ListDoesNotSupportAppend" xml:space="preserve">
     <value>Данный список не поддерживает операцию добавления.</value>
   </data>
-  <data name="ListSeparator" xml:space="preserve">
+	<data name="ListSeparator" xml:space="preserve">
     <value>, </value>
   </data>
-  <data name="LoadAdvertisementResults" xml:space="preserve">
+	<data name="LoadAdvertisementResults" xml:space="preserve">
     <value>Рекламные материалы</value>
   </data>
-  <data name="LoadMask" xml:space="preserve">
+	<data name="LoadMask" xml:space="preserve">
     <value>Загрузка...</value>
   </data>
-  <data name="LookupEmptyValue" xml:space="preserve">
+	<data name="LookupEmptyValue" xml:space="preserve">
     <value>&lt;пустое значение&gt;</value>
   </data>
-  <data name="March" xml:space="preserve">
+	<data name="March" xml:space="preserve">
     <value>Март</value>
   </data>
-  <data name="MatchesNotFound" xml:space="preserve">
+	<data name="MatchesNotFound" xml:space="preserve">
     <value>Совпадений не найдено</value>
   </data>
-  <data name="MaxDateText" xml:space="preserve">
+	<data name="MaxDateText" xml:space="preserve">
     <value>Дата в этом поле должна быть не больше {0}</value>
   </data>
-  <data name="May" xml:space="preserve">
+	<data name="May" xml:space="preserve">
     <value>Май</value>
   </data>
-  <data name="MergeClientsAlert" xml:space="preserve">
+	<data name="MergeClientsAlert" xml:space="preserve">
     <value>После завершения операции слияния в системе останется основной Клиент, подчиненный будет скрыт. Операцию нельзя будет отменить. Продолжить?</value>
   </data>
-  <data name="MinDateText" xml:space="preserve">
+	<data name="MinDateText" xml:space="preserve">
     <value>Дата в этом поле должна быть позже {0}</value>
   </data>
-  <data name="Modified" xml:space="preserve">
+	<data name="Modified" xml:space="preserve">
     <value>Изменено</value>
   </data>
-  <data name="ModifiedValue" xml:space="preserve">
+	<data name="ModifiedValue" xml:space="preserve">
     <value>Установленное значение</value>
   </data>
-  <data name="Monday" xml:space="preserve">
+	<data name="Monday" xml:space="preserve">
     <value>Понедельник</value>
   </data>
-  <data name="MonthlyLowerBoundText" xml:space="preserve">
+	<data name="MonthlyLowerBoundText" xml:space="preserve">
     <value>Значение должно быть первым числом месяца</value>
   </data>
-  <data name="MonthlyUpperBoundText" xml:space="preserve">
+	<data name="MonthlyUpperBoundText" xml:space="preserve">
     <value>Значение должно быть последним числом месяца</value>
   </data>
-  <data name="MultipleMatchesFound" xml:space="preserve">
+	<data name="MultipleMatchesFound" xml:space="preserve">
     <value>Найдено несколько совпадений</value>
   </data>
-  <data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
+	<data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
     <value>Введите все или часть имени записи в поле "Поиск записей" и нажмите значок "Поиск записей".</value>
   </data>
-  <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
+	<data name="MultiSelectionListSearchInstructions" xml:space="preserve">
     <value>Введите искомые данные в поле "Искать" и нажмите кнопку "Найти". Затем в списке "Доступные записи" выберите требуемые записи и переместите их в список "Выбранные записи".</value>
   </data>
-  <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
+	<data name="MultiSelectionListToListEmptyText" xml:space="preserve">
     <value>Не выбрано ни одной записи.</value>
   </data>
-  <data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
+	<data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
     <value>Найдено записей: более 100. Если требуемая запись отсутствует в списке, попробуйте ввести другие данные для поиска.</value>
   </data>
-  <data name="MustSelectOneOrMoreObject" xml:space="preserve">
+	<data name="MustSelectOneOrMoreObject" xml:space="preserve">
     <value>Для выполнения этой операции необходимо предварительно выбрать одну или несколько записей</value>
   </data>
-  <data name="MustSelectOnlyOneObject" xml:space="preserve">
+	<data name="MustSelectOnlyOneObject" xml:space="preserve">
     <value>Для выполнения этой операции необходимо выбрать одну  и только одну запись</value>
   </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
+	<data name="NeedToSelectOneItem" xml:space="preserve">
     <value>Для выполнения данной операции необходимо выбрать одну запись.</value>
   </data>
-  <data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
+	<data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
     <value>Для выполнения данной операции необходимо выбрать одну или две записи</value>
   </data>
-  <data name="No" xml:space="preserve">
+	<data name="No" xml:space="preserve">
     <value>Нет</value>
   </data>
-  <data name="NoteCreated" xml:space="preserve">
+	<data name="NoteCreated" xml:space="preserve">
     <value>Примечание создано</value>
   </data>
-  <data name="Notes" xml:space="preserve">
+	<data name="Notes" xml:space="preserve">
     <value>Примечания</value>
   </data>
-  <data name="November" xml:space="preserve">
+	<data name="November" xml:space="preserve">
     <value>Ноябрь</value>
   </data>
-  <data name="October" xml:space="preserve">
+	<data name="October" xml:space="preserve">
     <value>Октябрь</value>
   </data>
-  <data name="OK" xml:space="preserve">
+	<data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="OpenText" xml:space="preserve">
+	<data name="OpenText" xml:space="preserve">
     <value>Открыть</value>
   </data>
-  <data name="OrderCheck" xml:space="preserve">
+	<data name="OrderCheck" xml:space="preserve">
     <value>Проверка заказа</value>
   </data>
-  <data name="OrderCheckFailed" xml:space="preserve">
+	<data name="OrderCheckFailed" xml:space="preserve">
     <value>Не удалось проверить заказ</value>
   </data>
-  <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
+	<data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Заказ корректен, однако в ходе проверки были обнаружены следующие предупреждения:</value>
   </data>
-  <data name="OrderCheckResults" xml:space="preserve">
+	<data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
-  <data name="OrderIsNotRelatedToAccount" xml:space="preserve">
+	<data name="OrderIsNotRelatedToAccount" xml:space="preserve">
     <value>Заказ не связан ни с одним лицевым счётом</value>
   </data>
-  <data name="OrderState" xml:space="preserve">
+	<data name="OrderState" xml:space="preserve">
     <value>Статус заказа</value>
   </data>
-  <data name="OrderValidationFailed" xml:space="preserve">
+	<data name="OrderValidationFailed" xml:space="preserve">
     <value>Не удалось выполнить проверку</value>
   </data>
-  <data name="OriginalValue" xml:space="preserve">
+	<data name="OriginalValue" xml:space="preserve">
     <value>Исходное значение</value>
   </data>
-  <data name="PayablePlan" xml:space="preserve">
+	<data name="PayablePlan" xml:space="preserve">
     <value>К оплате (план)</value>
   </data>
-  <data name="Payment" xml:space="preserve">
+	<data name="Payment" xml:space="preserve">
     <value>Платеж</value>
   </data>
-  <data name="PaymentDatePlan" xml:space="preserve">
+	<data name="PaymentDatePlan" xml:space="preserve">
     <value>Дата оплаты, до</value>
   </data>
-  <data name="Payments" xml:space="preserve">
+	<data name="Payments" xml:space="preserve">
     <value>Платежи</value>
   </data>
-  <data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
+	<data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
     <value>В системе на данный момент отсутствует опубликованный прайс-лист для города {0}</value>
   </data>
-  <data name="PrintText" xml:space="preserve">
+	<data name="PrintText" xml:space="preserve">
     <value>Печать</value>
   </data>
-  <data name="ProcessMessagesConfirm" xml:space="preserve">
+	<data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>Вы действительно хотите обработать выбранные сообщения?</value>
   </data>
-  <data name="Properties" xml:space="preserve">
+	<data name="Properties" xml:space="preserve">
     <value>Свойства</value>
   </data>
-  <data name="PropertyName" xml:space="preserve">
+	<data name="PropertyName" xml:space="preserve">
     <value>Изменяемое поле</value>
   </data>
-  <data name="RefreshText" xml:space="preserve">
+	<data name="RefreshText" xml:space="preserve">
     <value>Обновить список</value>
   </data>
-  <data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
+	<data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
     <value>Планируемое число выпусков должно быть в диапазоне [1-12]</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
+	<data name="RequiredFieldMessage" xml:space="preserve">
     <value>Необходимо указать значение для поля "{0}"</value>
   </data>
-  <data name="Saturday" xml:space="preserve">
+	<data name="Saturday" xml:space="preserve">
     <value>Суббота</value>
   </data>
-  <data name="SearchInstructions" xml:space="preserve">
+	<data name="SearchInstructions" xml:space="preserve">
     <value>Введите в поле "Искать" данные, которые требуется найти, и нажмите кнопку "Найти". Затем выберите требуемую запись, и нажмите кнопку OK.</value>
   </data>
-  <data name="SelectedRecords" xml:space="preserve">
+	<data name="SelectedRecords" xml:space="preserve">
     <value>Выбранные записи</value>
   </data>
-  <data name="SelectObjectsToProcess" xml:space="preserve">
+	<data name="SelectObjectsToProcess" xml:space="preserve">
     <value>Выберите сообщения для обработки</value>
   </data>
-  <data name="SelectOneOrMoreRecords" xml:space="preserve">
+	<data name="SelectOneOrMoreRecords" xml:space="preserve">
     <value>Необходимо выбрать по крайней мере одну запись для удаления.</value>
   </data>
-  <data name="SelectToWhiteList" xml:space="preserve">
+	<data name="SelectToWhiteList" xml:space="preserve">
     <value>Выбрать</value>
   </data>
-  <data name="SelectToWhiteListMatherial" xml:space="preserve">
+	<data name="SelectToWhiteListMatherial" xml:space="preserve">
     <value>Выбор РМ белый список</value>
   </data>
-  <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
+	<data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
     <value>При выборе РМ в белый список произошла ошибка. Попробуйте повторить операцию</value>
   </data>
-  <data name="September" xml:space="preserve">
+	<data name="September" xml:space="preserve">
     <value>Сентябрь</value>
   </data>
-  <data name="SourceEditText" xml:space="preserve">
+	<data name="SourceEditText" xml:space="preserve">
     <value>Переключиться на исходный код.</value>
   </data>
-  <data name="SourceEditTitle" xml:space="preserve">
+	<data name="SourceEditTitle" xml:space="preserve">
     <value>Исходный код</value>
   </data>
-  <data name="StartSearch" xml:space="preserve">
+	<data name="StartSearch" xml:space="preserve">
     <value>Начать поиск</value>
   </data>
-  <data name="StatusLabel" xml:space="preserve">
+	<data name="StatusLabel" xml:space="preserve">
     <value>&lt;b&gt;Статус: &lt;/b&gt;</value>
   </data>
-  <data name="SumRemainingMustBeNull" xml:space="preserve">
+	<data name="SumRemainingMustBeNull" xml:space="preserve">
     <value>Остаток суммы заказа не равен нулю. Необходимо распределить остаток по счетам</value>
   </data>
-  <data name="Sunday" xml:space="preserve">
+	<data name="Sunday" xml:space="preserve">
     <value>Воскресенье</value>
   </data>
-  <data name="TabPanelItemCloseText" xml:space="preserve">
+	<data name="TabPanelItemCloseText" xml:space="preserve">
     <value>Закрыть вкладку</value>
   </data>
-  <data name="TheAdvertisement" xml:space="preserve">
+	<data name="TheAdvertisement" xml:space="preserve">
     <value>Рекламный материал</value>
   </data>
-  <data name="Thursday" xml:space="preserve">
+	<data name="Thursday" xml:space="preserve">
     <value>Четверг</value>
   </data>
-  <data name="TimeFormat" xml:space="preserve">
+	<data name="TimeFormat" xml:space="preserve">
     <value>H:i:s</value>
   </data>
-  <data name="Title" xml:space="preserve">
+	<data name="Title" xml:space="preserve">
     <value>Заголовок</value>
   </data>
-  <data name="Total" xml:space="preserve">
+	<data name="Total" xml:space="preserve">
     <value>Итого к оплате</value>
   </data>
-  <data name="Tuesday" xml:space="preserve">
+	<data name="Tuesday" xml:space="preserve">
     <value>Вторник</value>
   </data>
-  <data name="UnderlineText" xml:space="preserve">
+	<data name="UnderlineText" xml:space="preserve">
     <value>Подчёркивание выделенного текста.</value>
   </data>
-  <data name="UnderlineTitle" xml:space="preserve">
+	<data name="UnderlineTitle" xml:space="preserve">
     <value>Подчёркнутый (Ctrl+U)</value>
   </data>
-  <data name="UnknownFileSize" xml:space="preserve">
+	<data name="UnknownFileSize" xml:space="preserve">
     <value>Размер неизвестен</value>
   </data>
-  <data name="UploadFileQuestion" xml:space="preserve">
+	<data name="UploadFileQuestion" xml:space="preserve">
     <value>Вы действительно хотите загрузить файл "{0}" на сервер?</value>
   </data>
-  <data name="Wednesday" xml:space="preserve">
+	<data name="Wednesday" xml:space="preserve">
     <value>Среда</value>
   </data>
-  <data name="WorkInProgressPleaseStandBy" xml:space="preserve">
+	<data name="WorkInProgressPleaseStandBy" xml:space="preserve">
     <value>Работа выполняется. Пожалуйста, подождите...</value>
   </data>
-  <data name="Yes" xml:space="preserve">
+	<data name="Yes" xml:space="preserve">
     <value>Да</value>
   </data>
-  <data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
+	<data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
     <value>Текущий договор устарел, для размещения заказа в рамках договора необходимо создать новый договор</value>
   </data>
-  <data name="IsWarmClientWarningFormat" xml:space="preserve">
+	<data name="IsWarmClientWarningFormat" xml:space="preserve">
     <value>Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"</value>
   </data>
-  <data name="BillCreationApprovalNeeded" xml:space="preserve">
+	<data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Требуется согласование!</value>
   </data>
-  <data name="BillMassCreateConfirmMessage" xml:space="preserve">
+	<data name="BillMassCreateConfirmMessage" xml:space="preserve">
     <value>Внимание! Будут созданы счета на оплату для выбранной группы заказов. Продолжить?</value>
   </data>
-  <data name="RelatedOrdersDestination" xml:space="preserve">
+	<data name="RelatedOrdersDestination" xml:space="preserve">
     <value>Город назначения</value>
   </data>
-  <data name="RelatedOrdersIsSelected" xml:space="preserve">
+	<data name="RelatedOrdersIsSelected" xml:space="preserve">
     <value>Выбрать</value>
   </data>
-  <data name="RelatedOrdersNoOrders" xml:space="preserve">
+	<data name="RelatedOrdersNoOrders" xml:space="preserve">
     <value>Нет заказов, подходящих для массового создания счетов на оплату</value>
   </data>
-  <data name="RelatedOrdersNumber" xml:space="preserve">
+	<data name="RelatedOrdersNumber" xml:space="preserve">
     <value>Номер</value>
   </data>
-  <data name="RelatedOrdersSource" xml:space="preserve">
+	<data name="RelatedOrdersSource" xml:space="preserve">
     <value>Город источник</value>
   </data>
-  <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
+	<data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
     <value>Невозможно массовое создание счетов на оплату, с использованием рассрочки, используя заказ с нулевой суммой к оплате. Не должно быть выбранных заказов в списке для массового создания счетов на оплату.</value>
   </data>
-  <data name="ValueCantBeEmpty" xml:space="preserve">
+	<data name="ValueCantBeEmpty" xml:space="preserve">
     <value>Значение не может быть пустым</value>
   </data>
-  <data name="MergeLegalPersonsAlert" xml:space="preserve">
+	<data name="MergeLegalPersonsAlert" xml:space="preserve">
     <value>Внимание! После завершения операции слияния в системе останется только основное Юр. лицо клиента, не основное Юр. лицо клиента будет скрыто. Операцию нельзя будет отменить!</value>
   </data>
-  <data name="MergeLegalPersonsSucceded" xml:space="preserve">
+	<data name="MergeLegalPersonsSucceded" xml:space="preserve">
     <value>Операция слияния проведена успешно</value>
   </data>
-  <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
+	<data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
     <value>Внимание! Вы пытаетесь взять из резерва Клиента с дебиторской задолженностью!</value>
   </data>
-  <data name="CheckClientsDebtsFailed" xml:space="preserve">
+	<data name="CheckClientsDebtsFailed" xml:space="preserve">
     <value>Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.</value>
   </data>
-  <data name="InvalidSelectedPositionsCount" xml:space="preserve">
+	<data name="InvalidSelectedPositionsCount" xml:space="preserve">
     <value>Должно быть выбрано позиций: {0}</value>
   </data>
-  <data name="CanNotSelectHiddenPosition" xml:space="preserve">
+	<data name="CanNotSelectHiddenPosition" xml:space="preserve">
     <value>Нужно заменить объекты привязки, которые были скрыты, на доступные на текущий момент</value>
   </data>
-  <data name="HiddenItem" xml:space="preserve">
+	<data name="HiddenItem" xml:space="preserve">
     <value>(скрыт до выяснения)</value>
   </data>
-  <data name="DeletedItem" xml:space="preserve">
+	<data name="DeletedItem" xml:space="preserve">
     <value>(скрыт навсегда)</value>
   </data>
-  <data name="ListDoesNotSupportExcluding" xml:space="preserve">
+	<data name="ListDoesNotSupportExcluding" xml:space="preserve">
     <value>Данный список не поддерживает операцию исключения из подразделения.</value>
   </data>
-  <data name="OrderRepairFailed" xml:space="preserve">
+	<data name="OrderRepairFailed" xml:space="preserve">
     <value>Не удалось исправить позиции заказа</value>
   </data>
-  <data name="RepairOutdatedOrderPositions" xml:space="preserve">
+	<data name="RepairOutdatedOrderPositions" xml:space="preserve">
     <value>Обновить заказ по актуальному прайс-листу</value>
   </data>
-  <data name="RepairInProgressPleaseStandBy" xml:space="preserve">
+	<data name="RepairInProgressPleaseStandBy" xml:space="preserve">
     <value>Выполняется исправление. Пожалуйста, подождите...</value>
   </data>
-  <data name="DiscountResetWarning" xml:space="preserve">
+	<data name="DiscountResetWarning" xml:space="preserve">
     <value>По всем позициям заказа будет удалена информация о скидках! Продолжаем?</value>
   </data>
-  <data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
+	<data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
     <value>Обновление заказа привело к следующим изменениям:</value>
   </data>
-  <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
+	<data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value>Данный профиль уже является основным</value>
   </data>
-  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+	<data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
     <value>Для формирования ПФ необходимо указать юр. лицо заказчика</value>
   </data>
-  <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
+	<data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Для формирования ПФ необходимо сохранить заказ</value>
   </data>
-  <data name="GridViewColumns" xml:space="preserve">
+	<data name="GridViewColumns" xml:space="preserve">
     <value>Столбцы</value>
   </data>
-  <data name="GridViewSortAscText" xml:space="preserve">
+	<data name="GridViewSortAscText" xml:space="preserve">
     <value>Сортировать по возрастанию</value>
   </data>
-  <data name="GridViewSortDescText" xml:space="preserve">
+	<data name="GridViewSortDescText" xml:space="preserve">
     <value>Сортировать по убыванию</value>
   </data>
-  <data name="Reports" xml:space="preserve">
+	<data name="Reports" xml:space="preserve">
     <value>Отчёты</value>
   </data>
-  <data name="OrderIsCorrect" xml:space="preserve">
+	<data name="OrderIsCorrect" xml:space="preserve">
     <value>Заказ корректен</value>
   </data>
-  <data name="Task" xml:space="preserve">
+	<data name="Task" xml:space="preserve">
     <value>Задача</value>
   </data>
-  <data name="Search" xml:space="preserve">
+	<data name="Search" xml:space="preserve">
     <value>Искать:</value>
   </data>
-  <data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
+	<data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
     <value>Не отображать</value>
   </data>
-  <data name="AdditionalServicesDisplay" xml:space="preserve">
+	<data name="AdditionalServicesDisplay" xml:space="preserve">
     <value>Отображать</value>
   </data>
-  <data name="AdditionalServicesDefault" xml:space="preserve">
+	<data name="AdditionalServicesDefault" xml:space="preserve">
     <value>Не задано</value>
   </data>
-  <data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
+	<data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
     <value>Зависит от адреса</value>
   </data>
-  <data name="AdditionalServicesValueNotFound" xml:space="preserve">
+	<data name="AdditionalServicesValueNotFound" xml:space="preserve">
     <value>Недопустимое значение!</value>
   </data>
-  <data name="AdditionalServicesService" xml:space="preserve">
+	<data name="AdditionalServicesService" xml:space="preserve">
     <value>Услуга</value>
   </data>
-  <data name="AdditionalServicesDisplayService" xml:space="preserve">
+	<data name="AdditionalServicesDisplayService" xml:space="preserve">
     <value>Отображать услугу</value>
   </data>
-  <data name="FileNameNotSpecified" xml:space="preserve">
+	<data name="FileNameNotSpecified" xml:space="preserve">
     <value>имя файла не указано</value>
   </data>
-  <data name="ActivityDaysAndHoursFormat" xml:space="preserve">
+	<data name="ActivityDaysAndHoursFormat" xml:space="preserve">
     <value>Дней: {0}, часов: {1}</value>
   </data>
-  <data name="ActivityDaysFormat" xml:space="preserve">
+	<data name="ActivityDaysFormat" xml:space="preserve">
     <value>Дней: {0}</value>
   </data>
-  <data name="CopyCurrentOrder" xml:space="preserve">
+	<data name="CopyCurrentOrder" xml:space="preserve">
     <value>Скопировать текущий заказ</value>
   </data>
-  <data name="CopyOrderWithTermination" xml:space="preserve">
+	<data name="CopyOrderWithTermination" xml:space="preserve">
     <value>Создать заказ вместо расторгнутого</value>
   </data>
-  <data name="OrderCopying" xml:space="preserve">
+	<data name="OrderCopying" xml:space="preserve">
     <value>Копирование заказа</value>
   </data>
-  <data name="OrderCopyingInProgress" xml:space="preserve">
+	<data name="OrderCopyingInProgress" xml:space="preserve">
     <value>Идёт копирование заказа. Пожалуйста, подождите...</value>
   </data>
-  <data name="OrderCopyingFailure" xml:space="preserve">
+	<data name="OrderCopyingFailure" xml:space="preserve">
     <value>Не удалось скопировать заказ</value>
   </data>
-  <data name="OrderCopyingCompleted" xml:space="preserve">
+	<data name="OrderCopyingCompleted" xml:space="preserve">
     <value>Копирование завершено</value>
   </data>
-  <data name="OrderCopyingSuccess" xml:space="preserve">
+	<data name="OrderCopyingSuccess" xml:space="preserve">
     <value>Заказ скопирован. Номер нового заказа - {entity}</value>
   </data>
-  <data name="LimitStatusOpened" xml:space="preserve">
+	<data name="LimitStatusOpened" xml:space="preserve">
     <value>Открыт</value>
   </data>
-  <data name="LimitStatusApproved" xml:space="preserve">
+	<data name="LimitStatusApproved" xml:space="preserve">
     <value>Одобрен</value>
   </data>
-  <data name="LimitStatusRejected" xml:space="preserve">
+	<data name="LimitStatusRejected" xml:space="preserve">
     <value>Отклонен</value>
   </data>
-  <data name="LimitStatusError" xml:space="preserve">
+	<data name="LimitStatusError" xml:space="preserve">
     <value>ОШИБКА</value>
   </data>
-  <data name="AddCategory" xml:space="preserve">
+	<data name="AddCategory" xml:space="preserve">
     <value>Добавить рубрику</value>
   </data>
-  <data name="BargainCreationIsInProgress" xml:space="preserve">
+	<data name="BargainCreationIsInProgress" xml:space="preserve">
     <value>Идёт создание договора. Пожалуйста, подождите...</value>
   </data>
-  <data name="BargainCreation" xml:space="preserve">
+	<data name="BargainCreation" xml:space="preserve">
     <value>Создание договора</value>
   </data>
-  <data name="BargainIsCreated" xml:space="preserve">
+	<data name="BargainIsCreated" xml:space="preserve">
     <value>Создан договор {entity}</value>
   </data>
-  <data name="ApplicationError" xml:space="preserve">
+	<data name="ApplicationError" xml:space="preserve">
     <value>Ошибка программы</value>
   </data>
-  <data name="Checking" xml:space="preserve">
+	<data name="Checking" xml:space="preserve">
     <value>Проверка</value>
   </data>
-  <data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
+	<data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
     <value>Пожалуйста, подождите - идет проверка на наличие задолженности у выбранных клиентов</value>
   </data>
-  <data name="CategoryName" xml:space="preserve">
+	<data name="CategoryName" xml:space="preserve">
     <value>Название рубрики</value>
   </data>
-  <data name="DummyValue" xml:space="preserve">
+	<data name="DummyValue" xml:space="preserve">
     <value>Заглушка</value>
   </data>
-  <data name="DummyValueWillBeApplied" xml:space="preserve">
+	<data name="DummyValueWillBeApplied" xml:space="preserve">
     <value>Вместо рекламного материала будет применена заглушка.</value>
   </data>
-  <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
+	<data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
     <value>Адрес не привязан к карте</value>
   </data>
-  <data name="InputValidationInvalidUrl" xml:space="preserve">
+	<data name="InputValidationInvalidUrl" xml:space="preserve">
     <value>Значение поля "{0}" не является корректным url-адресом</value>
   </data>
-  <data name="TextEditorOverflow" xml:space="preserve">
+	<data name="TextEditorOverflow" xml:space="preserve">
     <value>Количество символов превышает допустимые {0} символов на {1}.</value>
   </data>
-  <data name="SymbolsLeft" xml:space="preserve">
+	<data name="SymbolsLeft" xml:space="preserve">
     <value>Символов осталось: {0}</value>
   </data>
-  <data name="AdsCheckTooLongWord" xml:space="preserve">
+	<data name="AdsCheckTooLongWord" xml:space="preserve">
     <value>В слове '{0}' превышено максимально допустимое количество символов: {1} из {2} возможных.</value>
   </data>
-  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
+	<data name="TextEditorLineBreaksOverflow" xml:space="preserve">
     <value>Количество строк превышает допустимые {0} на {1}.</value>
   </data>
-  <data name="LineBreaksLeft" xml:space="preserve">
+	<data name="LineBreaksLeft" xml:space="preserve">
     <value>Строк осталось {0}</value>
   </data>
-  <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
+	<data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
     <value>Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.</value>
   </data>
-  <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
+	<data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
     <value>Текст содержит управляющие символы, удалить их перед сохранением?</value>
   </data>
-  <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
+	<data name="AdvertisementElementWasNotSaved" xml:space="preserve">
     <value>Элемент РМ не был сохранён.</value>
   </data>
-  <data name="OrderCreation" xml:space="preserve">
+	<data name="OrderCreation" xml:space="preserve">
     <value>Создание заказа</value>
   </data>
-  <data name="OrderCreationIsInProgress" xml:space="preserve">
+	<data name="OrderCreationIsInProgress" xml:space="preserve">
     <value>Идёт создание заказа. Пожалуйста, подождите...</value>
   </data>
-  <data name="OrderIsCreated" xml:space="preserve">
+	<data name="OrderIsCreated" xml:space="preserve">
     <value>Создан заказ {entity}</value>
   </data>
-  <data name="OrderProcessingRequestCancelled" xml:space="preserve">
+	<data name="OrderProcessingRequestCancelled" xml:space="preserve">
     <value>Заявка отменена</value>
   </data>
-  <data name="MessageText" xml:space="preserve">
+	<data name="MessageText" xml:space="preserve">
     <value>Текст сообщения</value>
   </data>
-  <data name="MessageType" xml:space="preserve">
+	<data name="MessageType" xml:space="preserve">
     <value>Тип сообщения</value>
   </data>
-  <data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
+	<data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
     <value>Выполнено: {0}    Дата: {1}</value>
   </data>
-  <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
+	<data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
     <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"сообщения":"сообщений"]})</value>
   </data>
-  <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
+	<data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Сообщения по заявке</value>
+  </data>
+  <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
+    <value>Вы действительно хотите изменить статус лимита на</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
     <value>Номер счета</value>

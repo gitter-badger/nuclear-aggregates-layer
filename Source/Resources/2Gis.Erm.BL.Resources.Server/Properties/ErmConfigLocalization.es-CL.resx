@@ -1788,10 +1788,28 @@
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Petición de la oficina personal del anunciante</value>
   </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Directorios de Chile</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Bancos</value>
+  </data>
+  <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
+    <value>Уведомление о расторжении договора</value>
+  </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
     <value>Фирмы в резерве по городу Никосия</value>
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Фирмы в резерве по городу Лимассол</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Коммуны</value>
+  </data>
+  <data name="DListBanks" xml:space="preserve">
+    <value>Bancos</value>
+  </data>
+  <data name="DListCommunes" xml:space="preserve">
+    <value>Коммуны</value>
   </data>
 </root>
