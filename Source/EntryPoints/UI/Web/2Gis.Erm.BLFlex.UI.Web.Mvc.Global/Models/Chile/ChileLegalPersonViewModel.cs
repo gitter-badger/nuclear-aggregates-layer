@@ -1,15 +1,14 @@
-using System;
+п»їusing System;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -28,9 +27,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         [RequiredLocalized]
         [StringLengthLocalized(512)]
-        public string ActivityType { get; set; }
+        [Dependency(DependencyType.ReadOnly, "OperationsKind", "Ext.getDom('Id').value != '0'")]
+        public string OperationsKind { get; set; }
 
         [RequiredLocalized]
+        [Dependency(DependencyType.ReadOnly, "Client", "Ext.getDom('Id').value != '0'")]
         public LookupField Client { get; set; }
 
         [RequiredLocalized]
@@ -44,7 +45,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public string LegalAddress { get; set; }
 
         [RequiredLocalized]
-        [StringLengthLocalized(512)]
         [Dependency(DependencyType.ReadOnly, "Commune", "Ext.getDom('Id').value != '0'")]
         public LookupField Commune { get; set; }
         
@@ -65,16 +65,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (LegalPersonDomainEntityDto)domainEntityDto;
+            var modelDto = (ChileLegalPersonDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             LegalName = modelDto.LegalName;
             LegalPersonType = modelDto.LegalPersonTypeEnum;
             LegalAddress = modelDto.LegalAddress;
-            Rut = modelDto.Inn;
+            Rut = modelDto.Rut;
+            OperationsKind = modelDto.OperationsKind;
             Client = LookupField.FromReference(modelDto.ClientRef);
-            Commune = LookupField.FromReference(new EntityReference(null)); // FIXME {all, 24.01.2014}: Читать значение коммуны
-            ReplicationCode = modelDto.ReplicationCode;
+            Commune = LookupField.FromReference(modelDto.CommuneRef);
             Comment = modelDto.Comment;
             HasProfiles = modelDto.HasProfiles;
             Timestamp = modelDto.Timestamp;
@@ -82,17 +82,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            // FIXME {all, 24.01.2014}: Сохранять значение коммуны
-            return new LegalPersonDomainEntityDto
+            return new ChileLegalPersonDomainEntityDto
                 {
                     Id = Id,
                     LegalName = LegalName,
-                    ShortName = LegalName,
                     LegalPersonTypeEnum = LegalPersonType,
                     LegalAddress = LegalAddress,
-                    Inn = Rut,
+                    Rut = Rut,
+                    OperationsKind = OperationsKind,
+                    CommuneRef = Commune.ToReference(),
                     ClientRef = Client.ToReference(),
-                    ReplicationCode = ReplicationCode.Value,
                     Comment = Comment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp

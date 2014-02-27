@@ -1,8 +1,8 @@
 using System;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List
 {

@@ -1,17 +1,17 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.AccountDetails
+namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.AccountDetails
 {
-    public sealed class CyprusValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>, ICyprusAdapted, IChileAdapted, ICzechAdapted
+    public sealed class MultiCultureValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>, ICyprusAdapted, IChileAdapted, ICzechAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAccountRepository _accountRepository;
 
-        public CyprusValidateCreateAccountDetailHandler(IUserContext userContext, IAccountRepository accountRepository)
+        public MultiCultureValidateCreateAccountDetailHandler(IUserContext userContext, IAccountRepository accountRepository)
         {
             _accountRepository = accountRepository;
             _userContext = userContext;

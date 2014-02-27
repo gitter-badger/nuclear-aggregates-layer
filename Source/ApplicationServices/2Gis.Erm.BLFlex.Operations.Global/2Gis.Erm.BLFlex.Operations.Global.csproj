@@ -53,6 +53,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -62,16 +63,61 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Chile\Concrete\Old\Bills\ChilePrintBillHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Clients\ChileCheckClientActivitiesHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\LegalPersons\ChileMergeLegalPersonsHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\Number\ChileGenerateOrderNumberHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Chile\Generic\Activate\ChileActivateLegalPersonService.cs" />
+    <Compile Include="Chile\Generic\Delete\DeleteBankService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetBankDtoService.cs" />
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
     <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
     <Compile Include="Chile\Generic\List\ChileListOrderService.cs" />
+    <Compile Include="Chile\Generic\List\ListBankService.cs" />
+    <Compile Include="Chile\Generic\List\ListCommuneService.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBankObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
+    <Compile Include="MultiCulture\Concrete\ModifyLegalPersonProfileService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
+    <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
+    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
+    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
+    <Compile Include="Shared\ChileFormatterFactory.cs" />
+    <Compile Include="Shared\Consistency\ChileLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\ConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\ConsistencyRuleCollection.cs" />
+    <Compile Include="Shared\Consistency\CyprusLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\CzechLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\IConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\ILegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\InnConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\RussiaLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\LegalPersonProfileExtensions.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileAppointmentObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChilePhonecallObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileTaskObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\ModifyBranchOfficeOrganizationUnitService.cs" />
+    <Compile Include="Chile\Generic\Modify\ModifyLegalPersonService.cs" />
+    <Compile Include="Chile\Generic\Modify\Old\ChileEditClientHandler.cs" />
+    <Compile Include="Chile\Generic\Modify\Old\ChileEditOrderPositionHandler.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\BillObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBillObtainer.cs" />
     <Compile Include="MultiCulture\Concrete\Old\AccountDetails\MultiCultureValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Clients\CyprusCheckClientActivitiesHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditClientHandler.cs" />
-    <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonProfileHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusMergeLegalPersonsHandler.cs" />
@@ -84,6 +130,7 @@
     <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
     <Compile Include="Cyprus\Generic\Get\CyprusGetLegalPersonDtoService.cs" />
     <Compile Include="Cyprus\Generic\Get\CyprusGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetPhonecallDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetTaskDtoService.cs" />
@@ -118,14 +165,12 @@
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechLegalPersonObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechPhonecallObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechTaskObtainer.cs" />
-    <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonProfileHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditOrderPositionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditClientHandler.cs" />
-    <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonProfileHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\MergeLegalPersonsHandler.cs" />
@@ -148,7 +193,7 @@
     <Compile Include="Russia\Generic\List\ListOrderService.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\LegalPersonObtainer.cs" />
-    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
@@ -198,6 +243,10 @@
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -229,6 +278,10 @@
     <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
       <Project>{a012ac28-ebeb-4d9a-963a-7ceb72f54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
       <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>

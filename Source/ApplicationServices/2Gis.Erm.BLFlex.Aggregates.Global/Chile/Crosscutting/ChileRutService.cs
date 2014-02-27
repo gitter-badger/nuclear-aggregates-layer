@@ -2,14 +2,15 @@
 using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
 {
     /// <summary>
     /// Проверяет корректность чилийского Rut,
     /// за основу взят алгоритм, описанный тут: http://www.vesic.org/english/blog/c-sharp/verifying-chilean-rut-code-tax-number/
-    /// Сгенерировать валидные занчения можно тут: 
+    /// Сгенерировать валидные занчения можно тут: http://tools.optionti.com/app/RutGenerator/
     /// </summary>
     public sealed class ChileRutService : ICheckInnService, IChileAdapted
     {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
             if (!match.Success)
             {
                 // FIXME {all, 22.01.2014}: требуется локализация
-                message = "Invalid RUT format. Expected something like 12.345.678-K";
+                message = BLResources.InvalidChileRutFormat;
                 return true;
             }
 
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting
             if (expectedCheckDigit != checkDigit)
             {
                 // FIXME {all, 22.01.2014}: требуется локализация
-                message = "Invalid checksum";
+                message = string.Format(BLResources.InvalidChileRutChecksum, rut);
                 return true;
             }
 

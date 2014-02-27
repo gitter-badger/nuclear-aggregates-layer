@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -10,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
@@ -67,8 +67,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             {
                 clientId = parentEntityId.Value;
             }
-            else if (!string.IsNullOrEmpty(extendedInfo) && long.TryParse(Regex.Match(extendedInfo, @"ClientId=(\d+)").Groups[1].Value, out clientId))
+            else if (!string.IsNullOrEmpty(extendedInfo))
             {
+                long.TryParse(Regex.Match(extendedInfo, @"ClientId=(\d+)").Groups[1].Value, out clientId);
             }
 
             dto.ClientRef = clientId > 0 
