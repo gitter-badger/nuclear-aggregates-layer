@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
@@ -10,6 +11,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -22,16 +24,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         private readonly IOrderReadModel _orderReadModel;
 
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
+        private readonly IValidateBillsService _validateBillsService;
+        private readonly IAppSettings _appSettings;
 
         public CreateBillsHandler(ISubRequestProcessor subRequestProcessor,
-                                  IOrderRepository orderRepository,
-                                  IOrderReadModel orderReadModel,
-                                  IEvaluateBillNumberService evaluateBillNumberService)
+            IOrderRepository orderRepository,
+            IOrderReadModel orderReadModel,
+            IEvaluateBillNumberService evaluateBillNumberService,
+            IValidateBillsService validateBillsService,
+            IAppSettings appSettings)
         {
             _subRequestProcessor = subRequestProcessor;
             _orderRepository = orderRepository;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
+            _validateBillsService = validateBillsService;
+            _appSettings = appSettings;
         }
 
         protected override EmptyResponse Handle(CreateBillsRequest request)
@@ -53,23 +61,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 throw new NotificationException(BLResources.BillsPayableSumNotEqualsToOrderPayable);
             }
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                // delete previous bills
-                _subRequestProcessor.HandleSubRequest(new DeleteBillsRequest { OrderId = request.OrderId }, Context);
+            var billsToCreate = new List<Bill>();
 
                 if (request.CreateBillInfos.Length == 1)
                 {
-                    var bill = CreateBill(request.CreateBillInfos[0], request, orderInfo);
+                var createBillInfo = request.CreateBillInfos[0];
+                var bill = CreateBill(createBillInfo, request, orderInfo);
 
                     bill.BillDate = orderInfo.CreatedOn;
                     // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                    bill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number);
+                bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number);
 
                     bill.PayablePlan = orderInfo.PayablePlan;
                     bill.VatPlan = orderInfo.VatPlan;
 
-                    _orderRepository.CreateOrUpdate(bill);
+                billsToCreate.Add(bill);
                 }
                 else
                 {
@@ -84,16 +90,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
                         bill.BillDate = orderInfo.CreatedOn;
                         // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                        bill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number, i + 1);
+                    bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number, i + 1);
 
-                        bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, 2, MidpointRounding.ToEven);
+                    bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                         billsPayablePlanSum += bill.PayablePlan;
 
                         var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
-                        bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, 2, MidpointRounding.ToEven);
+                    bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                         billsVatPlanSum += bill.VatPlan;
 
-                        _orderRepository.CreateOrUpdate(bill);
+                    billsToCreate.Add(bill);
                     }
 
                     // correct PayablePlan for last bill
@@ -102,12 +108,36 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
                     lastBill.BillDate = orderInfo.CreatedOn;
                     // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
-                    lastBill.BillNumber = _evaluateBillNumberService.Evaluate(orderInfo.Number, request.CreateBillInfos.Length);
+                lastBill.BillNumber = _evaluateBillNumberService.Evaluate(lastCreateBillInfo.BillNumber, orderInfo.Number, request.CreateBillInfos.Length);
 
-                    lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, 2, MidpointRounding.ToEven);
-                    lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, 2, MidpointRounding.ToEven);
+                lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
-                    _orderRepository.CreateOrUpdate(lastBill);
+                billsToCreate.Add(lastBill);
+            }
+
+            {
+                string report;
+                if (!_validateBillsService.PreValidate(billsToCreate, out report))
+                {
+                    throw new NotificationException(report);
+                }
+            }
+
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                // delete previous bills
+                _subRequestProcessor.HandleSubRequest(new DeleteBillsRequest { OrderId = request.OrderId }, Context);
+
+                string report;
+                if (!_validateBillsService.Validate(billsToCreate, out report))
+                {
+                    throw new NotificationException(report);
+                }
+
+                foreach (var bill in billsToCreate)
+                {
+                    _orderRepository.CreateOrUpdate(bill);
                 }
 
                 transaction.Complete();

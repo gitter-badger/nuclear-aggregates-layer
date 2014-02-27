@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
     public interface ICreateAggregateRepository<in TEntity> : IUnknownAggregateSpecificOperation<CreateIdentity>
         where TEntity : class, IEntity, IEntityKey
     {
-        int Create(TEntity entity);
+        long Create(TEntity entity);
     }
 }

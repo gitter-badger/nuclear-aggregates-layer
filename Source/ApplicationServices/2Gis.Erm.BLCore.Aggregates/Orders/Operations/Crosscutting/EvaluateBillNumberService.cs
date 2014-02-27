@@ -9,14 +9,14 @@
             _billNumberTemplate = billNumberTemplate;
         }
         
-        public string Evaluate(string orderNumber)
+        public string Evaluate(string acquiredBillNumber, string orderNumber)
         {
-            return string.Format(_billNumberTemplate, orderNumber);
+            return string.Format(_billNumberTemplate, acquiredBillNumber, orderNumber);
         }
 
-        public string Evaluate(string orderNumber, int billIndex)
+        public string Evaluate(string acquiredBillNumber, string orderNumber, int billIndex)
         {
-            return string.Format(_billNumberTemplate, orderNumber + "/" + billIndex);
+            return string.Format(_billNumberTemplate, acquiredBillNumber, orderNumber + "/" + billIndex);
         }
     }
 }

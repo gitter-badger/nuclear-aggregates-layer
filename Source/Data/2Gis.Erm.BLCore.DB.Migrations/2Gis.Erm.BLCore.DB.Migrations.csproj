@@ -674,6 +674,7 @@
     <Compile Include="2.0\2014.01.10 rev. 14776 - set TerritoryId to null in FirmAddresses.cs" />
     <Compile Include="2.1\2014.02.04 rev. 15934 - alter EAV tables for dictionary and business entities.cs" />
     <Compile Include="2.1\2014.01.26 rev. 15459 - create EAV tables for dictionary and business entities.cs" />
+    <Compile Include="2.1\2014.02.24 rev.  17142 - alter EAV tables for numeric value.cs" />
     <Compile Include="2.1\2014.02.14 rev. 16620 - alter UpdateBuildings.cs" />
     <Compile Include="2.1\2014.02.10 rev. 16180 - Change type of RatePricePosition and rename.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
@@ -259,8 +260,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId)
         {
-            return _finder.Find(BranchOfficeSpecifications.Find.PrimaryBranchOfficeOrganizationUnit()
-                                & BranchOfficeSpecifications.Find.BelongsToOrganizationUnit(organizationUnitId))
+            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(organizationUnitId))
                           .FirstOrDefault();
         }
 

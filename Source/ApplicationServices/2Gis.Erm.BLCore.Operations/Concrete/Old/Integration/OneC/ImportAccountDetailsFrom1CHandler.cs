@@ -4,7 +4,7 @@ using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
@@ -25,26 +25,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     {
         private readonly IAppSettings _appSettings;
         private readonly ICommonLog _logger;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly INotificationSender _notificationSender;
 
         public ImportAccountDetailsFrom1CHandler(IAppSettings appSettings,
                                                  ICommonLog logger,
+                                                 IBranchOfficeReadModel branchOfficeReadModel,
                                                  IAccountRepository accountRepository,
                                                  ILegalPersonRepository legalPersonRepository,
-                                                 IBranchOfficeRepository branchOfficeRepository,
                                                  IEmployeeEmailResolver employeeEmailResolver,
                                                  INotificationSender notificationSender)
 
         {
             _appSettings = appSettings;
             _logger = logger;
+            _branchOfficeReadModel = branchOfficeReadModel;
             _accountRepository = accountRepository;
             _legalPersonRepository = legalPersonRepository;
-            _branchOfficeRepository = branchOfficeRepository;
             _employeeEmailResolver = employeeEmailResolver;
             _notificationSender = notificationSender;
         }
@@ -159,7 +159,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 return false;
             }
 
-            var branchOfficeOrganizationUnit = _branchOfficeRepository.FindBranchOfficeOrganizationUnit(row.BranchOfficeOrganizationUnit1CCode);
+            var branchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(row.BranchOfficeOrganizationUnit1CCode);
             if (branchOfficeOrganizationUnit == null)
             {
                 var message = string.Format("Активное юридическое лицо отделения организации с кодом [{0}] не найдено. Строка [{1}].",

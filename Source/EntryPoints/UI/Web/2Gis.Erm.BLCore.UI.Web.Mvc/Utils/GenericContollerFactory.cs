@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
