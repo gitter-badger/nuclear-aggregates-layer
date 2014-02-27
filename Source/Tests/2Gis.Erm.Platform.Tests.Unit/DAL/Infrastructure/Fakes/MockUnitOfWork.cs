@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             return null;
         }
 
-        protected override object CreateReadModel(Type aggregateReadModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateAggregateReadModel(Type aggregateReadModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             throw new NotImplementedException();
         }
@@ -53,6 +53,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
                                                  IReadDomainContextProvider readDomainContextProvider,
                                                  IModifiableDomainContextProvider modifiableDomainContextProvider,
                                                  IDomainContextSaveStrategy saveStrategy)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             throw new NotImplementedException();
         }

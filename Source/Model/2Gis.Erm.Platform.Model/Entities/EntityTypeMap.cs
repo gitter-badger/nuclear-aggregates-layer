@@ -15,7 +15,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             // ERM
             { EntityName.Deal, typeof(Deal) },
             { EntityName.BranchOfficeOrganizationUnit, typeof(BranchOfficeOrganizationUnit) },
+            { EntityName.BranchOfficeOrganizationUnitPart, typeof(BranchOfficeOrganizationUnitPart) },
             { EntityName.LegalPerson, typeof(LegalPerson) },
+            { EntityName.LegalPersonPart, typeof(LegalPersonPart) },
             { EntityName.OperationType, typeof(OperationType) },
             { EntityName.Order, typeof(Order) },
             { EntityName.OrderPosition, typeof(OrderPosition) }, 
@@ -137,6 +139,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.ExportFailedEntity, typeof(ExportFailedEntity) },
             { EntityName.UserEntity, typeof(UserEntity) },
             { EntityName.Bank, typeof(Bank) },
+            { EntityName.Commune, typeof(Commune) },
 
             // Dynamic Storage
             { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
