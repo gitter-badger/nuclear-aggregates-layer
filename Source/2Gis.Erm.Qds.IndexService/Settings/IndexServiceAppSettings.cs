@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Qds.IndexService.Settings
         private readonly BoolSetting _useWarehouseIntegration = ConfigFileSetting.Bool.Required("UseWarehouseIntegration");
 
         private readonly BatchIndexingSettings _batchIndexingSettings = new BatchIndexingSettings(
-            ConfigFileSetting.Int.Optional("BatchIndexingSleep", 50).Value, 
+            ConfigFileSetting.Int.Optional("BatchIndexingSleep", 50).Value,
             ConfigFileSetting.Int.Optional("BatchIndexingStopTimeout", 1000).Value);
 
         public bool EnableIntegration

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 
+using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
@@ -9,13 +9,13 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -24,13 +24,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Core.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -41,7 +39,6 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds.API.Core.Settings;
-using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Common.ElasticClient;
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
@@ -50,17 +47,16 @@ using DoubleGis.Erm.Qds.Etl.Publish;
 using DoubleGis.Erm.Qds.Etl.Transform;
 using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
-using DoubleGis.Erm.Qds.IndexService.Config;
 using DoubleGis.Erm.Qds.IndexService.Settings;
 
 using Microsoft.Practices.Unity;
-
-using Nest;
 
 namespace DoubleGis.Erm.Qds.IndexService.DI
 {
     public static class Bootstrapper
     {
+        private static readonly Type[] EagerLoading = { typeof(TaskObtainer) }; // чтобы в домен загрузилась сборка 2Gis.Erm.BLFlex.Operations.Global
+
         public static IUnityContainer ConfigureUnity(IIndexServiceAppSettings settings)
         {
             IUnityContainer container = new UnityContainer();
@@ -85,9 +81,8 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
 
             CheckConventionsСomplianceExplicitly();
 
-            container.ConfigureUnity(settings, massProcessors, true)  // первый проход
-                     .ConfigureUnity(settings, massProcessors, false) // второй проход
-                     .ConfigureServiceClient();
+            container.ConfigureUnity(settings, massProcessors, true) // первый проход
+                     .ConfigureUnity(settings, massProcessors, false); // второй проход
 
             RegisterEtlComponents(container, settings.BatchIndexingSettings);
 
@@ -112,7 +107,6 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                 .RegisterType<IEtlFlow, EtlFlow>(Lifetime.Singleton)
 
                 // Publisher
-                //.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton)
                 .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
 
                 .RegisterType<IPublisher, DocsPublisher>(Lifetime.Singleton)
@@ -162,8 +156,7 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                      .ConfigureIdentityInfrastructure()
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
-                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                     .RegisterCorporateQueues(settings);
+                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton);
 
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
@@ -193,7 +186,6 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                             .RegisterInstance<INotificationProcessingSettings>(settings)
                             .RegisterInstance<IGetUserInfoFromAdSettings>(settings)
                             .RegisterInstance<IDBCleanupSettings>(settings)
-                //.RegisterInstance<ITaskServiceProcesingSettings>(settings)
                             .RegisterInstance<IIndexServiceAppSettings>(settings);
         }
 
@@ -224,6 +216,7 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(Lifetime.PerScope, MappingScope)
 
                 // services
+                // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICrmTaskFactory, CrmTaskFactory>(Lifetime.PerScope, MappingScope)
 
@@ -251,12 +244,6 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);
-        }
-
-        private static IUnityContainer RegisterCorporateQueues(this IUnityContainer container, IIndexServiceAppSettings taskServiceAppSettings)
-        {
-            return container.RegisterType<IRabbitMqQueueFactory, RabbitMqQueueFactory>(Lifetime.Singleton,
-                        new InjectionConstructor(taskServiceAppSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
     }
 }
