@@ -969,7 +969,7 @@
 	<data name="MailSendingType" xml:space="preserve">
     <value>Тип рассылки</value>
   </data>
-	<data name="RateType" xml:space="preserve">
+	<data name="RatePricePosition" xml:space="preserve">
     <value>Применять коэффициент</value>
   </data>
 	<data name="NameLat" xml:space="preserve">
