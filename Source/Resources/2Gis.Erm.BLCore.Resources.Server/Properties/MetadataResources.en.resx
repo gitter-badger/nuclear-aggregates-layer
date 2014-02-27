@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -1311,4 +1311,28 @@
 	<data name="AdvertisementElementErrorDescription" xml:space="preserve">
 		<value>Error</value>
 	</data>
+  <data name="RepresentativeName" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="RepresentativePosition" xml:space="preserve">
+    <value>Position of the representative</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Business area</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>Commune</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedOn" xml:space="preserve">
+    <value>Issue date</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedBy" xml:space="preserve">
+    <value>Issuer</value>
+  </data>
+  <data name="BankAccountType" xml:space="preserve">
+    <value>Account type</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Bank name</value>
+  </data>
 </root>

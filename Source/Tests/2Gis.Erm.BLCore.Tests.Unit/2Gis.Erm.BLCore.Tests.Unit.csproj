@@ -214,6 +214,10 @@
       <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>

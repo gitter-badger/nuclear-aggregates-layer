@@ -14,8 +14,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                                                IDeactivateAggregateRepository<BranchOffice>,
                                                IDeactivateAggregateRepository<BranchOfficeOrganizationUnit>
     {
-        BranchOfficeOrganizationUnit FindBranchOfficeOrganizationUnit(long entityId);
-        BranchOfficeOrganizationUnit FindBranchOfficeOrganizationUnit(string syncCode1C);
         BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId);
         IEnumerable<long> GetOrganizationUnitTerritories(long organizationUnit);
         int Deactivate(BranchOffice branchOffice);

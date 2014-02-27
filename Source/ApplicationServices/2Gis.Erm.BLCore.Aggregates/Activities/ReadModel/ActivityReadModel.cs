@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Activities.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
@@ -13,38 +14,72 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
     public class ActivityReadModel : IActivityReadModel 
     {
         private readonly IFinder _finder;
-        private readonly IActivityDynamicPropertiesConverter _activityDynamicPropertiesConverter;
+        private readonly IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance> _taskPropertiesConverter;
+        private readonly IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance> _phonecallPropertiesConverter;
+        private readonly IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance> _appointmentPropertiesConverter;
 
-        public ActivityReadModel(IFinder finder, IActivityDynamicPropertiesConverter activityDynamicPropertiesConverter)
+        public ActivityReadModel(IFinder finder,
+                                 IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance> taskPropertiesConverter,
+                                 IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance> phonecallPropertiesConverter,
+                                 IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance> appointmentPropertiesConverter)
         {
             _finder = finder;
-            _activityDynamicPropertiesConverter = activityDynamicPropertiesConverter;
+            _taskPropertiesConverter = taskPropertiesConverter;
+            _phonecallPropertiesConverter = phonecallPropertiesConverter;
+            _appointmentPropertiesConverter = appointmentPropertiesConverter;
         }
 
         public TActivity GetActivity<TActivity>(long activityId) where TActivity : ActivityBase, new()
         {
-            return _finder.Single<TActivity>(activityId, _activityDynamicPropertiesConverter);
+            var converters = new Dictionary<Type, Func<long, ActivityBase>>
+                {
+                    { typeof(Task), GetTask },
+                    { typeof(Phonecall), GetPhonecall },
+                    { typeof(Appointment), GetAppointment },
+                };
+
+            Func<long, ActivityBase> getFunc;
+            if (!converters.TryGetValue(typeof(TActivity), out getFunc))
+            {
+                throw new NotSupportedException(string.Format("Type {0} is not supported", typeof(TActivity).Name));
+            }
+
+            return (TActivity)getFunc(activityId);
         }
 
-        public ActivityInstanceDto GetActivityInstanceDto<TActivity>(TActivity activity) where TActivity : ActivityBase
+        public Task GetTask(long taskId)
         {
-            var dto = _finder.Find<ActivityInstance, ActivityInstanceDto>(ActivitySpecs.Activity.Select.ActivityInstanceDto(),
-                                                                          Specs.Find.ById<ActivityInstance>(activity.Id))
-                             .SingleOrDefault();
+            return _finder.Single(taskId, _taskPropertiesConverter.ConvertFromDynamicEntityInstance);
+        }
 
-            var activityPropertyInstances = dto != null ? dto.ActivityPropretyInstances : new Collection<ActivityPropertyInstance>();
-            var tuple = _activityDynamicPropertiesConverter.ConvertToActivityInstance(activity, activityPropertyInstances);
-            return new ActivityInstanceDto
-                {
-                    ActivityInstance = tuple.Item1,
-                    ActivityPropretyInstances = tuple.Item2
-                };
+        public Phonecall GetPhonecall(long phonecallId)
+        {
+            return _finder.Single(phonecallId, _phonecallPropertiesConverter.ConvertFromDynamicEntityInstance);
+        }
+
+        public Appointment GetAppointment(long appointmentId)
+        {
+            return _finder.Single(appointmentId, _appointmentPropertiesConverter.ConvertFromDynamicEntityInstance);
+        }
+
+        public ActivityInstanceDto GetActivityInstanceDto(Task task)
+        {
+            return _finder.Single(task, _taskPropertiesConverter.ConvertToDynamicEntityInstance);
+        }
+
+        public ActivityInstanceDto GetActivityInstanceDto(Phonecall phonecall)
+        {
+            return _finder.Single(phonecall, _phonecallPropertiesConverter.ConvertToDynamicEntityInstance);
+        }
+
+        public ActivityInstanceDto GetActivityInstanceDto(Appointment appointment)
+        {
+            return _finder.Single(appointment, _appointmentPropertiesConverter.ConvertToDynamicEntityInstance);
         }
 
         public bool CheckIfRelatedActivitiesExists(long clientId)
         {
             var hasActivitiesInProgress = GetActivityInProgressDtosQuery(clientId).Any();
-
             return hasActivitiesInProgress;
         }
 

@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             ContainerUtils.AddParameterResolver(OnAggregateReadModelDependencyResolver);
             ContainerUtils.AddParameterResolver(OnAggregateRepositoryDependencyResolver);
+            ContainerUtils.AddParameterResolver(OnSimplifiedModelConsumerReadModelDependencyResolver);
             ContainerUtils.AddParameterResolver(OnSimplifiedModelConsumerDependencyResolver);
             ContainerUtils.AddParameterResolver(OnPersistenceServiceDependencyResolver);
             ContainerUtils.AddParameterResolver(OnOperationServicesDependencyResolver);
@@ -53,11 +54,18 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             resolvedParameter = null;
 
-            if (ModelIndicators.IsAggregateRepository(constructorParameter.ParameterType))
+            if (constructorParameter.ParameterType.IsAggregateRepository())
             {
                 if (!constructorParameter.ParameterType.IsInterface)
                 {
                     throw new InvalidOperationException("Aggregate repository can't be injected dependency as concrete type. Dependant consumer type: " + type + ". Dependency type:" + constructorParameter.ParameterType);
+                }
+
+                // Резолв aggregate service-а, который является зависимостью другого aggregate service-а
+                if (type.IsAggregateRepository())
+                {
+                    resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.ConstructorInjectionNestedAggregateRepositoriesScope);
+                    return true;
                 }
 
                 // constructorParameter - это аргегирующий репозиторий, 
@@ -70,11 +78,29 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return false;
         }
 
+        private static bool OnSimplifiedModelConsumerReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
+        {
+            resolvedParameter = null;
+
+            if (constructorParameter.ParameterType.IsSimplifiedModelConsumerReadModel())
+            {
+                if (!constructorParameter.ParameterType.IsInterface)
+                {
+                    throw new InvalidOperationException("Simplified model consumer read model can't be injected dependency as concrete type. Dependant consumer type: " + type + ". Dependency type:" + constructorParameter.ParameterType);
+                }
+
+                resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.SimplifiedModelConsumerReadModelScope);
+                return true;
+            }
+
+            return false;
+        }
+
         private static bool OnSimplifiedModelConsumerDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
         {
             resolvedParameter = null;
 
-            if (ModelIndicators.IsSimplifiedModelConsumer(constructorParameter.ParameterType))
+            if (constructorParameter.ParameterType.IsSimplifiedModelConsumer())
             {
                 if (!constructorParameter.ParameterType.IsInterface)
                 {

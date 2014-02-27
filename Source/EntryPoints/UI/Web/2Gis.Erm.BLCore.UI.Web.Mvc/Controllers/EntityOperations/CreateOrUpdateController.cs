@@ -25,6 +25,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 

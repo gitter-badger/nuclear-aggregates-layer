@@ -176,9 +176,7 @@
     <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
@@ -229,6 +227,7 @@
     <Compile Include="Concrete\Simplified\Dictionary\Countries\CountryService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\CurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\GetBaseCurrencyService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\DynamicDictionaryEntityService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Project\ProjectService.cs" />
@@ -289,7 +288,6 @@
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionsGroupService.cs" />
-    <Compile Include="Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateBranchOfficeService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDeniedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDepartmentService.cs" />
@@ -313,8 +311,6 @@
     <Compile Include="Generic\Delete\DeleteCategoryGroupService.cs" />
     <Compile Include="Generic\Delete\DeleteCurrencyService.cs" />
     <Compile Include="Generic\Delete\DeleteGenericEntityService.cs" />
-    <Compile Include="Generic\Delete\DeleteLegalPersonProfileService.cs" />
-    <Compile Include="Generic\Delete\DeleteLegalPersonService.cs" />
     <Compile Include="Generic\Delete\DeleteLimitService.cs" />
     <Compile Include="Generic\Delete\DeleteLockDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteOperationTypeService.cs" />
@@ -354,7 +350,6 @@
     <Compile Include="Generic\Get\GetBargainTypeDtoService.cs" />
     <Compile Include="Generic\Get\GetBillDtoService.cs" />
     <Compile Include="Generic\Get\GetBranchOfficeDtoService.cs" />
-    <Compile Include="Generic\Get\GetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryOrganizationUnitDtoService.cs" />

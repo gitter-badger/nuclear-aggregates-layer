@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -20,25 +20,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly INotificationSender _notificationSender;
         private readonly ICommonLog _logger;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
-        private readonly ILegalPersonRepository _legalPersonRepository;
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
 
         public EditAccountDetailHandler(IAppSettings appSettings,
                                         IEmployeeEmailResolver employeeEmailResolver,
                                         INotificationSender notificationSender,
                                         ICommonLog logger,
-                                        IAccountRepository accountRepository,
-                                        ILegalPersonRepository legalPersonRepository,
-                                        IBranchOfficeRepository branchOfficeRepository)
+                                        ILegalPersonReadModel legalPersonReadModel,
+                                        IBranchOfficeReadModel branchOfficeReadModel,
+                                        IAccountRepository accountRepository)
         {
             _appSettings = appSettings;
             _employeeEmailResolver = employeeEmailResolver;
             _notificationSender = notificationSender;
             _logger = logger;
+            _legalPersonReadModel = legalPersonReadModel;
+            _branchOfficeReadModel = branchOfficeReadModel;
             _accountRepository = accountRepository;
-            _legalPersonRepository = legalPersonRepository;
-            _branchOfficeRepository = branchOfficeRepository;
         }
 
         protected override EmptyResponse Handle(EditRequest<AccountDetail> request)
@@ -79,14 +79,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 string accountOwnerEmail;
                 if (_employeeEmailResolver.TryResolveEmail(account.OwnerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
                 {
-                    var legalPerson = _legalPersonRepository.FindLegalPerson(account.LegalPersonId);
+                    var legalPerson = _legalPersonReadModel.GetLegalPerson(account.LegalPersonId);
                     if (legalPerson == null)
                     {
                         _logger.ErrorEx("Can't find legal person with id: " + account.LegalPersonId);
                         return;
                     }
 
-                    var branchOffice = _branchOfficeRepository.FindBranchOfficeOrganizationUnit(account.BranchOfficeOrganizationUnitId);
+                    var branchOffice = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(account.BranchOfficeOrganizationUnitId);
                     if (branchOffice == null)
                     {
                         _logger.ErrorEx("Can't find branch office with id: " + account.BranchOfficeOrganizationUnitId);
