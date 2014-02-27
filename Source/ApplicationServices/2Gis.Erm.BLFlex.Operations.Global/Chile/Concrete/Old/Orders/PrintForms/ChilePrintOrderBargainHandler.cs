@@ -71,7 +71,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            if (!orderData.LegalPersonProfileId.HasValue)
+            var legalPersonProfileId = request.LegalPersonProfileId ?? orderData.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
             {
                 throw new NotificationException(BLResources.LegalPersonProfileMissing);
             }
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(orderData.BranchOfficeOrganizationUnitId.Value);
             var boouPart = boou.Parts.OfType<BranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderData.LegalPersonId.Value);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(orderData.LegalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<LegalPersonProfilePart>().Single();
 
             var bankName = legalPersonProfilePart.BankId.HasValue ? _bankReadModel.GetBank(legalPersonProfilePart.BankId.Value).Name : string.Empty;

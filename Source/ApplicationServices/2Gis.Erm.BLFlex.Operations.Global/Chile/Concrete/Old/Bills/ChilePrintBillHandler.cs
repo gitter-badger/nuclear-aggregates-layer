@@ -72,7 +72,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            if (!billInfo.LegalPersonProfileId.HasValue)
+            var legalPersonProfileId = request.LegalPersonProfileId ?? billInfo.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
             {
                 throw new NotificationException(BLResources.LegalPersonProfileMissing);
             }
@@ -80,8 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId.Value);
             var legalPersonPart = legalPerson.Parts.OfType<LegalPersonPart>().Single();
 
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
-            var legalPersonProfilePart = legalPersonProfile.Parts.OfType<LegalPersonProfilePart>().Single();
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
 
             var communeRef = _legalPersonReadModel.GetCommuneReference(legalPerson.Id);
 
