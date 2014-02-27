@@ -2,7 +2,7 @@
 {
     public enum BusinessModel
     {
-        NotSetted,
+        NotSetted = 0,
         Russia,
         Cyprus,
         Czech,

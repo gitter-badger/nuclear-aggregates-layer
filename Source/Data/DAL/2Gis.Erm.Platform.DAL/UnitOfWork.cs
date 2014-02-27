@@ -80,28 +80,27 @@ namespace DoubleGis.Erm.Platform.DAL
             return (TAggregateRepository)CreateRepository(targetType, false, domainContextHost, new DomainContextSaveStrategy(true));
         }
 
-        protected abstract object CreateRepository(
-                                    Type aggregateRepositoryType,
-                                    bool createByConcreteType,
-                                    IReadDomainContextProvider readDomainContextProvider, 
-                                    IModifiableDomainContextProvider modifiableDomainContextProvider, 
-                                    IDomainContextSaveStrategy saveStrategy);
+        protected abstract object CreateRepository(Type aggregateRepositoryType,
+                                                   bool createByConcreteType,
+                                                   IReadDomainContextProvider readDomainContextProvider,
+                                                   IModifiableDomainContextProvider modifiableDomainContextProvider,
+                                                   IDomainContextSaveStrategy saveStrategy);
 
-        protected abstract object CreateReadModel(
-                                    Type aggregateReadModelType,
-                                    IReadDomainContextProvider readDomainContextProvider);
-        
-        protected abstract object CreateConsumer(
-                                    Type consumerType,
-                                    IReadDomainContextProvider readDomainContextProvider,
-                                    IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                    IDomainContextSaveStrategy saveStrategy);
+        protected abstract object CreateAggregateReadModel(Type aggregateReadModelType,
+                                                           IReadDomainContextProvider readDomainContextProvider);
 
-        protected abstract object CreatePersistenceService(
-                                    Type consumerType,
-                                    IReadDomainContextProvider readDomainContextProvider,
-                                    IModifiableDomainContextProvider modifiableDomainContextProvider,
-                                    IDomainContextSaveStrategy saveStrategy);
+        protected abstract object CreateConsumer(Type consumerType,
+                                                 IReadDomainContextProvider readDomainContextProvider,
+                                                 IModifiableDomainContextProvider modifiableDomainContextProvider,
+                                                 IDomainContextSaveStrategy saveStrategy);
+
+        protected abstract object CreateCosumerReadModel(Type readModelType,
+                                                          IReadDomainContextProvider readDomainContextProvider);
+
+        protected abstract object CreatePersistenceService(Type consumerType,
+                                                           IReadDomainContextProvider readDomainContextProvider,
+                                                           IModifiableDomainContextProvider modifiableDomainContextProvider,
+                                                           IDomainContextSaveStrategy saveStrategy);
 
         #endregion
         
@@ -109,7 +108,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
         object IAggregatesLayerRuntimeFactory.CreateRepository(Type aggregateRepositoryType)
         {
-            if (!ModelIndicators.IsAggregateRepository(aggregateRepositoryType))
+            if (!aggregateRepositoryType.IsAggregateRepository())
             {
                 throw new ArgumentException("Type specified as aggregate repository have to implement interace " + ModelIndicators.Aggregates.Repository);
             }
@@ -122,9 +121,9 @@ namespace DoubleGis.Erm.Platform.DAL
             return CreateRepository(aggregateRepositoryType, true, this, new DomainContextSaveStrategy(false));
         }
 
-        object IAggregatesLayerRuntimeFactory.CreateReadModel(Type aggregateReadModelType)
+        object IAggregatesLayerRuntimeFactory.CreateAggregateReadModel(Type aggregateReadModelType)
         {
-            if (!ModelIndicators.IsAggregateReadModel(aggregateReadModelType))
+            if (!aggregateReadModelType.IsAggregateReadModel())
             {
                 throw new ArgumentException("Type specified as aggregate read model have to implement interace " + ModelIndicators.Aggregates.ReadModel);
             }
@@ -135,7 +134,7 @@ namespace DoubleGis.Erm.Platform.DAL
             }
 
             var readDomainContextProviderProxy = new ReadDomainContextProviderProxy(this, this);
-            return CreateReadModel(aggregateReadModelType, readDomainContextProviderProxy);
+            return CreateAggregateReadModel(aggregateReadModelType, readDomainContextProviderProxy);
         }
 
         #endregion
@@ -144,7 +143,7 @@ namespace DoubleGis.Erm.Platform.DAL
 
         object ISimplifiedModelConsumerRuntimeFactory.CreateConsumer(Type consumerType)
         {
-            if (!ModelIndicators.IsSimplifiedModelConsumer(consumerType))
+            if (!consumerType.IsSimplifiedModelConsumer())
             {
                 throw new ArgumentException("Type specified as simplified model consumer have to implement interace " + typeof(ISimplifiedModelConsumer).Name);
             }
@@ -155,6 +154,24 @@ namespace DoubleGis.Erm.Platform.DAL
             }
 
             return CreateConsumer(consumerType,
+                                  new ReadDomainContextProviderProxy(this, this),
+                                  new ModifiableDomainContextProviderProxy(this, this),
+                                  new DomainContextSaveStrategy(false));
+        }
+
+        object ISimplifiedModelConsumerRuntimeFactory.CreateAggregateReadModel(Type readModelType)
+        {
+            if (!readModelType.IsSimplifiedModelConsumerReadModel())
+            {
+                throw new ArgumentException("Type specified as simplified model consumer have to implement interace " + typeof(ISimplifiedModelConsumer).Name);
+            }
+
+            if (readModelType.IsInterface)
+            {
+                throw new InvalidOperationException("Can't create simplified model consumer read model by interface " + readModelType + ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
+            }
+
+            return CreateConsumer(readModelType,
                                   new ReadDomainContextProviderProxy(this, this),
                                   new ModifiableDomainContextProviderProxy(this, this),
                                   new DomainContextSaveStrategy(false));

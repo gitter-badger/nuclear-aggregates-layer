@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model;
-
-namespace DoubleGis.Erm.Platform.API.Core.Globalization
+namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
 {
     public static class BusinessModelMapping
     {
@@ -19,6 +17,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Globalization
 
         public static BusinessModel AsBusinessModel(this Type adapted)
         {
+            if (!typeof(IAdapted).IsAssignableFrom(adapted))
+            {
+                throw new InvalidOperationException(string.Format("IAdapted interface must be assignable from type {0}", adapted.Name));
+            }
+
             // Можно подумать об использовании BiDictionary
             // http://stackoverflow.com/questions/268321/bidirectional-1-to-1-dictionary-in-c-sharp
             var mapping = Mappings.SingleOrDefault(x => x.Value == adapted);

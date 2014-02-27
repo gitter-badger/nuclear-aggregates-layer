@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                        : _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides); // запросили создание, указав интерфейс, направляем resolve в специальный scope
         }
 
-        protected override object CreateReadModel(Type aggregateReadModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateAggregateReadModel(Type aggregateReadModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             var dependencyOverrides = new DependencyOverrides
                         {
@@ -78,6 +78,19 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                         };
 
             return _unityContainer.Resolve(consumerType, dependencyOverrides);
+        }
+
+        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        {
+            var dependencyOverrides = new DependencyOverrides
+                        {
+                            // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
+                            // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
+                            // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
+                            { typeof(IReadDomainContextProvider), readDomainContextProvider }
+                        };
+
+            return _unityContainer.Resolve(readModelType, dependencyOverrides);
         }
 
         protected override object CreatePersistenceService(Type persistenceServiceType,

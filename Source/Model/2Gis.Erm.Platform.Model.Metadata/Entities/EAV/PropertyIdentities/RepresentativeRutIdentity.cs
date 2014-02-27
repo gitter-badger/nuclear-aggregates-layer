@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Properties;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 {
-    public sealed class RutIdentity : EntityPropertyIdentityBase<RutIdentity>
+    public sealed class RepresentativeRutIdentity : EntityPropertyIdentityBase<RepresentativeRutIdentity>
     {
         public override int Id
         {
@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 
         public override string Description
         {
-            get { return "Rut"; }
+            get { return "RepresentativeRut"; }
         }
 
         public override string PropertyName
         {
-            get { return "Rut"; }
+            get { return "RepresentativeRut"; }
         }
 
         public override Type PropertyType

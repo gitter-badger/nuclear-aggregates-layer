@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
 
@@ -60,26 +59,34 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
                 foreach (var consumerInterface in consumerInterfaces)
                 {
-                    var genericArguments = consumerInterface.GetGenericArguments();
-                    if (consumerInterface.IsGenericType && !consumerInterface.IsGenericTypeDefinition
-                        && genericArguments.Any(x => x.IsGenericParameter))
+                    if (consumerInterface.IsSimplifiedModelConsumerReadModel())
                     {
-                        // open generic
-                        _container.RegisterType(
-                                consumerInterface.GetGenericTypeDefinition(),
-                                consumerImplementation,
-                                Mapping.SimplifiedModelConsumerScope,
-                                Lifetime.PerResolve,
-                                new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                        _container.RegisterType(consumerInterface,
+                                                consumerImplementation,
+                                                Mapping.SimplifiedModelConsumerReadModelScope,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(SimplifiedModelConsumerReadModelInjectionFactory));
                     }
+                    else
+                    {
+                        var genericArguments = consumerInterface.GetGenericArguments();
+                        if (consumerInterface.IsGenericType && !consumerInterface.IsGenericTypeDefinition && genericArguments.Any(x => x.IsGenericParameter))
+                        {
+                            // open generic
+                            _container.RegisterType(consumerInterface.GetGenericTypeDefinition(),
+                                                    consumerImplementation,
+                                                    Mapping.SimplifiedModelConsumerScope,
+                                                    Lifetime.PerResolve,
+                                                    new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                        }
 
-                    // closed generic
-                    _container.RegisterType(
-                        consumerInterface,
-                        consumerImplementation,
-                        Mapping.SimplifiedModelConsumerScope,
-                        Lifetime.PerResolve,
-                        new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                        // closed generic
+                        _container.RegisterType(consumerInterface,
+                                                consumerImplementation,
+                                                Mapping.SimplifiedModelConsumerScope,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                    }
                 }
             }
         }
@@ -92,6 +99,12 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             }
 
             return true;
+        }
+
+        private static object SimplifiedModelConsumerReadModelInjectionFactory(IUnityContainer container, Type consumerType, string registrationName)
+        {
+            var factory = container.Resolve<ISimplifiedModelConsumerRuntimeFactory>();
+            return factory.CreateAggregateReadModel(consumerType);
         }
 
         private static object SimplifiedModelConsumerInjectionFactory(IUnityContainer container, Type consumerType, string registrationName)

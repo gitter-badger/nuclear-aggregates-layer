@@ -560,7 +560,7 @@
           <Property Name="OperatesOnTheBasisInGenitive" Type="int" />
           <Property Name="CertificateNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMethod" Type="int" />
-          <Property Name="AccountNumber" Type="nvarchar" MaxLength="16" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="24" />
           <Property Name="BankCode" Type="nvarchar" MaxLength="4" />
           <Property Name="IBAN" Type="nvarchar" MaxLength="28" />
           <Property Name="SWIFT" Type="nvarchar" MaxLength="11" />
@@ -1468,7 +1468,7 @@
           <Property Name="EntityInstanceId" Type="bigint" Nullable="false" />
           <Property Name="PropertyId" Type="int" Nullable="false" />
           <Property Name="TextValue" Type="nvarchar(max)" />
-          <Property Name="NumericValue" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="NumericValue" Type="decimal" Precision="23" Scale="4" />
           <Property Name="DateTimeValue" Type="datetime2" Precision="2" />
         </EntityType>
         <EntityType Name="DictionaryEntityInstances">
@@ -1494,7 +1494,7 @@
           <Property Name="EntityInstanceId" Type="bigint" Nullable="false" />
           <Property Name="PropertyId" Type="int" Nullable="false" />
           <Property Name="TextValue" Type="nvarchar(max)" />
-          <Property Name="NumericValue" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="NumericValue" Type="decimal" Precision="23" Scale="4" />
           <Property Name="DateTimeValue" Type="datetime2" Precision="2" />
         </EntityType>
         <EntityType Name="AdditionalFirmServices">
@@ -8620,7 +8620,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="DateTime" Name="BargainBeginDate" Precision="2" />
         <Property Type="DateTime" Name="BargainEndDate" Precision="2" />
         <Property Type="Int32" Name="PaymentMethod" />
-        <Property Type="String" Name="AccountNumber" MaxLength="16" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="AccountNumber" MaxLength="24" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="IBAN" MaxLength="28" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="BankName" MaxLength="100" FixedLength="false" Unicode="true" />
 		<Property Type="String" Name="BankCode" MaxLength="4" FixedLength="false" Unicode="true" />
@@ -9481,7 +9481,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Property Name="EntityInstanceId" Type="Int64" Nullable="false" />
           <Property Name="PropertyId" Type="Int32" Nullable="false" />
           <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NumericValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="NumericValue" Type="Decimal" Precision="23" Scale="4" />
           <Property Name="DateTimeValue" Type="DateTime" Precision="2" />
           <NavigationProperty Name="BusinessEntityInstance" Relationship="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" FromRole="BusinessEntityPropertyInstance" ToRole="BusinessEntityInstance" />
         </EntityType>
@@ -9509,7 +9509,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Property Name="EntityInstanceId" Type="Int64" Nullable="false" />
           <Property Name="PropertyId" Type="Int32" Nullable="false" />
           <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NumericValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="NumericValue" Type="Decimal" Precision="23" Scale="4" />
           <Property Name="DateTimeValue" Type="DateTime" Precision="2" />
           <NavigationProperty Name="DictionaryEntityInstance" Relationship="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" FromRole="DictionaryEntityPropertyInstance" ToRole="DictionaryEntityInstance" />
         </EntityType>

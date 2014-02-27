@@ -77,5 +77,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
             return true;
         }
+
+        public static bool IsPartable(this IEntityKey entity)
+        {
+            return entity is IPartable;
+        }
+
+        public static bool IsPartable(this Type entityType)
+        {
+            return typeof(IPartable).IsAssignableFrom(entityType);
+        }
     }
 }

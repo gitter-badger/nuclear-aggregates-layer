@@ -81,13 +81,13 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
         private static object AggregateReadModelInjectionFactory(IUnityContainer container, Type readModelType, string registrationName)
         {
             var aggregateRepositoryFactory = container.Resolve<IAggregatesLayerRuntimeFactory>();
-            return aggregateRepositoryFactory.CreateReadModel(readModelType);
+            return aggregateRepositoryFactory.CreateAggregateReadModel(readModelType);
         }
 
         private void ProcessAggregateRepositories()
         {
-            var repositoriesMarkers = ModelIndicators.Aggregates.Group.Repositories.Union(ModelIndicators.Aggregates.Group.Repositories);
-
+            var repositoriesMarkers = ModelIndicators.Aggregates.Group.Repositories;
+            
             foreach (var aggregateRepositoryType in _aggregateRepositoryTypes)
             {
                 var implementedInterfacesWithoutMarkers =
@@ -109,21 +109,31 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                     var genericArguments = aggregateRepositoryInterface.GetGenericArguments();
                     if (aggregateRepositoryInterface.IsGenericType &&
                         !aggregateRepositoryInterface.IsGenericTypeDefinition &&
-                            genericArguments.Any(x => x.IsGenericParameter))
+                        genericArguments.Any(x => x.IsGenericParameter))
                     {
                         // –егистраци€ открытого generic-интерфейса и маппинг его на открытый generic-тип
                         // ¬ этом случае у типа T свойство IsGenericParameter = true
                         // Ќапример, IDeleteGenericEntityService<LegalPerson> <-> DeleteGenericEntityService<T>
                         // ѕричем, в зависимости от ограничений на T регистрируем тип в secure, либо unsecure scope; 
-                        string mapping = aggregateRepositoryType.GetGenericArguments().Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
-                                                 ? Mapping.SecureOperationRepositoriesScope
-                                                 : Mapping.UnsecureOperationRepositoriesScope;
-                        _container.RegisterType(
-                        aggregateRepositoryInterface.GetGenericTypeDefinition(),
-                            aggregateRepositoryType,
-                            mapping,
-                            Lifetime.PerResolve,
-                            new InjectionFactory(AggregateRepositoryInjectionFactory));
+
+                        var genericTypeDefinition = aggregateRepositoryInterface.GetGenericTypeDefinition();
+                        var mapping = aggregateRepositoryType.GetGenericArguments()
+                                                             .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                                          ? Mapping.SecureOperationRepositoriesScope
+                                          : Mapping.UnsecureOperationRepositoriesScope;
+                        
+                        _container.RegisterType(genericTypeDefinition,
+                                                aggregateRepositoryType,
+                                                mapping,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(AggregateRepositoryInjectionFactory));
+
+                        // ѕоддержка возможности спросить открытый generic aggregate service в конструктор другого aggregate service
+                        _container.RegisterType(genericTypeDefinition,
+                                                aggregateRepositoryType,
+                                                Mapping.ConstructorInjectionNestedAggregateRepositoriesScope,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(AggregateRepositoryInjectionFactory));
                     }
                     else
                     {
@@ -132,15 +142,15 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                         // Ќапример, IDeleteGenericEntityService<LegalPerson> <-> DeleteLegalPersonService
                         // ¬ этом случае по€вл€етс€ возможность спросить в конструктор не полный агрегирующий репозиторий, а одну из его функцинальных частей, например, удаление
                         // ѕравильно это или нет, еще предстоит решить. ≈сли это не верно, сделать здесь ограничитель на такие кейсы
-                        _container.RegisterType(
-                        aggregateRepositoryInterface,
-                            aggregateRepositoryType,
-                            Mapping.ConstructorInjectionAggregateRepositoriesScope,
-                            Lifetime.PerResolve,
-                            new InjectionFactory(AggregateRepositoryInjectionFactory));
+                        _container.RegisterType(aggregateRepositoryInterface,
+                                                aggregateRepositoryType,
+                                                Mapping.ConstructorInjectionAggregateRepositoriesScope,
+                                                Lifetime.PerResolve,
+                                                new InjectionFactory(AggregateRepositoryInjectionFactory));
 
                         // COMMENT {all, 19.09.2013}: –егистраци€ в дополнительном scope дл€ корректного резолвинга в UnityOperationServicesManager.GetEntitySpecificOperation
-                        var mapping = aggregateRepositoryInterface.GetGenericArguments().Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                        var mapping = aggregateRepositoryInterface.GetGenericArguments()
+                                                                  .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
                                           ? Mapping.SecureOperationRepositoriesScope
                                           : Mapping.UnsecureOperationRepositoriesScope;
                         _container.RegisterType(aggregateRepositoryInterface,
@@ -151,18 +161,16 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 
                         // регистрации, чтобы можно было €вно запрашивать создание агрегирующего репозитори€, 
                         // например у UoWScope, указыва€ интерфейс репозитори€, а не конкретный класс - реализацию
-                        _container.RegisterType(
-                            aggregateRepositoryInterface,
-                            aggregateRepositoryType,
-                            Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
-                            Lifetime.PerResolve);
+                        _container.RegisterType(aggregateRepositoryInterface,
+                                                aggregateRepositoryType,
+                                                Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
+                                                Lifetime.PerResolve);
                     }
 
-                    _container.RegisterTypeWithDependencies(
-                        aggregateRepositoryType,
-                        Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
-                        Lifetime.PerResolve,
-                        null);
+                    _container.RegisterTypeWithDependencies(aggregateRepositoryType,
+                                                            Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
+                                                            Lifetime.PerResolve,
+                                                            null);
                 }
             }
         }
@@ -173,10 +181,10 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             {
                 var implementedInterfacesWithoutMarkers =
                     readModel.GetInterfaces()
-                                  .Where(t => t.IsAggregateReadModel()
-                                            && !ModelIndicators.Aggregates.Group.ReadOnly.Contains(t.IsGenericType ? t.GetGenericTypeDefinition() : t))
-                                  .Distinct()
-                                  .ToArray();
+                             .Where(t => t.IsAggregateReadModel()
+                                         && !ModelIndicators.Aggregates.Group.ReadOnly.Contains(t.IsGenericType ? t.GetGenericTypeDefinition() : t))
+                             .Distinct()
+                             .ToArray();
 
                 // “.е. чтобы получить агрегирующий репозиторий нужно чтобы он реализовывал специфичный дл€ себ€ интерфейс (помимо IReadModel) - 
                 // именно такой интерфейс нужно запрашивать тогда, когда понадобилс€ конкретный агрегирующий репозиторий
@@ -195,12 +203,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                         throw new InvalidOperationException("Open generic implementations for read model are not allowed");
                     }
 
-                    _container.RegisterType(
-                           readModelInterface,
-                           readModel,
-                           Mapping.ConstructorInjectionReadModelsScope,
-                           Lifetime.PerResolve,
-                           new InjectionFactory(AggregateReadModelInjectionFactory));
+                    _container.RegisterType(readModelInterface,
+                                            readModel,
+                                            Mapping.ConstructorInjectionReadModelsScope,
+                                            Lifetime.PerResolve,
+                                            new InjectionFactory(AggregateReadModelInjectionFactory));
                 }
             }
         }

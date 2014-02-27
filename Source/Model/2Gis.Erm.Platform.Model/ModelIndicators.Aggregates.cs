@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.Platform.Model
 {
@@ -25,11 +26,10 @@ namespace DoubleGis.Erm.Platform.Model
                 }
 
                 var targetGenericTypeParameters = checkingIndicator.GetGenericArguments();
-                var resolvedIndicatorUsings = 
-                    checkingType.GetInterfaces()
-                                .Where(t => t.IsGenericType && checkingIndicator == t.GetGenericTypeDefinition())
-                                .Select(t => t.GetGenericArguments())
-                                .ToArray();
+                var resolvedIndicatorUsings = checkingType.GetInterfaces()
+                                                          .Where(t => t.IsGenericType && checkingIndicator == t.GetGenericTypeDefinition())
+                                                          .Select(t => t.GetGenericArguments())
+                                                          .ToArray();
 
                 if (resolvedIndicatorUsings.Length == 0)
                 {
@@ -140,6 +140,17 @@ namespace DoubleGis.Erm.Platform.Model
         public static Type AggregateForRepositoryPart(this Type checkingType)
         {
             return Aggregates.ExtractArgsForIndicator(checkingType, Aggregates.RepositoryPart).SingleOrDefault();
+        }
+
+        public static IEnumerable<Type> GetAggregateParts(this Type checkingType, Type aggregateRoot)
+        {
+            var genericArguments = checkingType.GetInterfaces()
+                                               .Where(t => t.IsGenericType)
+                                               .SelectMany(t => t.GetGenericArguments())
+                                               .Where(x => x.IsEntity())
+                                               .Distinct()
+                                               .ToArray();
+            return genericArguments.Except(new[] { aggregateRoot }).ToArray();
         }
     }
 }

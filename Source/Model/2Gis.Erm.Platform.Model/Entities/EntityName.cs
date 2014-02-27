@@ -14,11 +14,13 @@
 
         // erm
         LegalPerson = 147,
+        LegalPersonPart = 259,
         Order = 151,
         OrderPosition = 150,
         OrderFile = 202,
         Deal = 199,
         BranchOfficeOrganizationUnit = 139,
+        BranchOfficeOrganizationUnitPart = 260,
         OperationType = 149,
         AccountDetail = 141,
         Price = 155,
@@ -131,6 +133,7 @@
         NotificationEmailTo = 304,
         NotificationEmailAttachment = 305,
         Bank = 310,
+        Commune = 311,
 
         // Ambivalent
         FileWithContent = 400,

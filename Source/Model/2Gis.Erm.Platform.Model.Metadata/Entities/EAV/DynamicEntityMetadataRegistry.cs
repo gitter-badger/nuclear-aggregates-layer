@@ -71,13 +71,26 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             new Dictionary<Type, IEnumerable<IEntityPropertyIdentity>>
                 {
                     {
+                        typeof(LegalPersonPart), new IEntityPropertyIdentity[]
+                            {
+                                CommuneIdIdentity.Instance,
+                                OperationsKindIndentity.Instance
+                            }
+                    },
+                    {
                         typeof(LegalPersonProfilePart), new IEntityPropertyIdentity[]
                             {
                                 AccountTypeIdentity.Instance,
                                 BankIdIdentity.Instance,
-                                RutIdentity.Instance,
-                                IssuedOnIdentity.Instance,
-                                IssuedByIdentity.Instance
+                                RepresentativeRutIdentity.Instance,
+                                RepresentativeAuthorityDocumentIssuedOnIdentity.Instance,
+                                RepresentativeAuthorityDocumentIssuedByIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(BranchOfficeOrganizationUnitPart), new IEntityPropertyIdentity[]
+                            {
+                                RepresentativeRutIdentity.Instance
                             }
                     }
                 };

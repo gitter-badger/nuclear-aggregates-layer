@@ -220,6 +220,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 
                 SRPandNonSRPPatternsCantMixed(checkingType);
                 SingleAggregateRootSpecified(checkingType);
+                NestedAggregateServicesOnlyForPartableEntities(checkingType);
 
                 // TODO {all, 27.08.2013}: временно отключена из-за массовых нарушений
                 // AggregateRootIsUniqueAmongAggregates(checkingType); 
@@ -229,13 +230,13 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                 PersistenceServiceShouldBeUsedInsteadOfDatabaseCaller(checkingType);
                 PersistenceServiceShouldBeUsedInsteadOfSimplified(checkingType);
             }
-            
+
             /// <summary>
             /// Нельзя смешивать SRP (реализуют IAggregatePartRepository) и nonSRP (реализуют IAggregateRootRepository) подходы к реализации агрегирующих репозиториев. 
             /// Т.е. старые монолитные nonSRP агрегирующие репозиориии, должны оставаться как есть, по мере рефакторинга
             /// весь функционал должен переехать в SRP реализации операционноориентированых частей агрегирующих репозиториев
             /// </summary>
-            private void SRPandNonSRPPatternsCantMixed(Type checkingType)
+            private static void SRPandNonSRPPatternsCantMixed(Type checkingType)
             {
                 var aggregateRootNonSRP = ModelIndicators.AggregateForRepositoryRoot(checkingType);
                 var aggregateRootSRP = ModelIndicators.AggregateForRepositoryPart(checkingType);
@@ -251,28 +252,9 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             }
 
             /// <summary>
-            /// Указанный корень для агрегата должен быть уникальным среди реализаций агрегирующих репозиториев в старом nonSRP стиле
-            /// </summary>
-            private void AggregateRootIsUniqueAmongAggregates(Type checkingType)
-            {
-                var aggregateRoot = ModelIndicators.AggregateForRepositoryRoot(checkingType);
-                if (aggregateRoot == null)
-                {   // видимо, данный тип, не является агегирующим репозиторием старого образца (до рефакторинга на SRP)
-                    return;
-                }
-
-                if (_nonSRPMonolithicAggregateRepositories.Contains(aggregateRoot))
-                {
-                    throw new InvalidOperationException("Entity type " + aggregateRoot + " specified as aggregate root more than once");
-                }
-
-                _nonSRPMonolithicAggregateRepositories.Add(aggregateRoot);
-            }
-            
-            /// <summary>
             /// Конкретная реализация агрегирующего репозитория должна иметь строго 1 указанный для неё корень агрегата (возможно указанный несколько раз) 
             /// </summary>
-            private void SingleAggregateRootSpecified(Type checkingType)
+            private static void SingleAggregateRootSpecified(Type checkingType)
             {
                 var aggregateRoot = ModelIndicators.AggregateForRepositoryRoot(checkingType);
                 if (aggregateRoot == null)
@@ -286,35 +268,62 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                 }
             }
 
+            private static void NestedAggregateServicesOnlyForPartableEntities(Type checkingType)
+            {
+                var aggregateRepositoryDependencies = checkingType.GetTargetConstructor()
+                                                                  .GetParameters()
+                                                                  .Where(p => p.ParameterType.IsAggregateRepository())
+                                                                  .Select(p => p.ParameterType)
+                                                                  .ToArray();
+                if (!aggregateRepositoryDependencies.Any())
+                {
+                    return;
+                }
+
+                var aggregateRoot = checkingType.ResolveAggregateRoot();
+                var aggregateParts = checkingType.GetAggregateParts(aggregateRoot);
+                if (!aggregateRoot.IsPartable() && !aggregateParts.Any(x => x.IsPartable()))
+                {
+                    throw new InvalidOperationException(string.Format("Concrete implementation {0} of aggregate repository for aggregate root {1} " +
+                                                                      "injects another aggregate repository, but neither the aggregate root or aggregate parts " +
+                                                                      "is not partable entities",
+                                                                      checkingType,
+                                                                      aggregateRoot));
+                }
+            }
+
             /// <summary>
             /// Агрегирующий репозиторий может иметь в зависимостях сущностные репозитории только для сущностей своего агрегата.
             /// Т.е. проверяем что нет возможности изменять сущности не являющиеся частью данного агрегата, в обход соответсвующего им агрегирующего репозитория
             /// </summary>
-            private void EntitiesRepositoriesOnlyForAggregateEntities(Type checkingType)
+            private static void EntitiesRepositoriesOnlyForAggregateEntities(Type checkingType)
             {
                 var aggregateRoot = ModelIndicators.ResolveAggregateRoot(checkingType).AsEntityName();
                 
                 AggregateDescriptor aggregateDescriptor;
                 if (!AggregatesList.Aggregates.TryGetValue(aggregateRoot, out aggregateDescriptor) || aggregateDescriptor == null)
                 {
-                    throw new InvalidOperationException(string.Format("Concrete implementation {0} of aggregate repository has specified aggregate root {1} without appropriate descriptor in aggregates list", checkingType, aggregateRoot));
+                    throw new InvalidOperationException(string.Format("Concrete implementation {0} of aggregate repository has specified aggregate root {1} " +
+                                                                      "without appropriate descriptor in aggregates list",
+                                                                      checkingType,
+                                                                      aggregateRoot));
                 }
 
-                var invalidEntitiesReport =
-                    CheckSequenceAndInvalidElementsReport(
-                        UpdateableEntities(checkingType),
-                        e => e.IsPersistenceOnly() || aggregateDescriptor.AggregateEntities.Contains(e.AsEntityName()));
+                var invalidEntitiesReport = CheckSequenceAndInvalidElementsReport(UpdateableEntities(checkingType),
+                                                                                  e => e.IsPersistenceOnly() || aggregateDescriptor.AggregateEntities.Contains(e.AsEntityName()));
                 if (!string.IsNullOrEmpty(invalidEntitiesReport))
                 {
-                    throw new InvalidOperationException(
-                        string.Format("Concrete implementation {0} of aggregate repository has ability to update entities not from appropriate aggregate. Invalid entities: {1}", checkingType, invalidEntitiesReport));
+                    throw new InvalidOperationException(string.Format("Concrete implementation {0} of aggregate repository has ability " +
+                                                                      "to update entities not from appropriate aggregate. Invalid entities: {1}",
+                                                                      checkingType,
+                                                                      invalidEntitiesReport));
                 }
             }
 
             /// <summary>
             /// Проверяем, что сущностей из упрощенной domain model нет среди сущностей, изменяемых данным агрегирующим репозиторием
             /// </summary>
-            private void SimplifiedModelEntitiesIsReadOnly(Type checkingType)
+            private static void SimplifiedModelEntitiesIsReadOnly(Type checkingType)
             {
                 var invalidEntitiesReport =
                     CheckSequenceAndInvalidElementsReport(UpdateableEntities(checkingType), e => !(e.IsSimplifiedModel() && !e.IsAmbivalent()));
@@ -328,7 +337,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             /// <summary>
             /// Проверяем, что в данный агрегирующий репозиторий инжектятся persistent services только для сущностей из своего аргерата
             /// </summary>
-            private void PersistenceServiceShouldOnlyWorkWithAggregateParts(Type checkingType)
+            private static void PersistenceServiceShouldOnlyWorkWithAggregateParts(Type checkingType)
             {
                 var aggregateRoot = ModelIndicators.ResolveAggregateRoot(checkingType).AsEntityName();
 
@@ -364,7 +373,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             /// <summary>
             /// Проверяем, что данный агрегирующий репозиторий не использует IDataBaseCaller и ISimplifiedPersistenceService
             /// </summary>
-            private void PersistenceServiceShouldBeUsedInsteadOfDatabaseCaller(Type checkingType)
+            private static void PersistenceServiceShouldBeUsedInsteadOfDatabaseCaller(Type checkingType)
             {
                 var databaseCallerUsed = checkingType.GetTargetConstructor()
                                                      .GetParameters()
@@ -380,7 +389,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             /// <summary>
             /// Проверяем, что данный агрегирующий репозиторий не использует ISimplifiedPersistenceService
             /// </summary>
-            private void PersistenceServiceShouldBeUsedInsteadOfSimplified(Type checkingType)
+            private static void PersistenceServiceShouldBeUsedInsteadOfSimplified(Type checkingType)
             {
                 var simplifiedServiceUsed = checkingType.GetTargetConstructor()
                                                      .GetParameters()
@@ -392,6 +401,26 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                                                                       checkingType));
                 }
             }
+
+            /// <summary>
+            /// Указанный корень для агрегата должен быть уникальным среди реализаций агрегирующих репозиториев в старом nonSRP стиле
+            /// </summary>
+            private void AggregateRootIsUniqueAmongAggregates(Type checkingType)
+            {
+                var aggregateRoot = ModelIndicators.AggregateForRepositoryRoot(checkingType);
+                if (aggregateRoot == null)
+                {   // видимо, данный тип, не является агегирующим репозиторием старого образца (до рефакторинга на SRP)
+                    return;
+                }
+
+                if (_nonSRPMonolithicAggregateRepositories.Contains(aggregateRoot))
+                {
+                    throw new InvalidOperationException("Entity type " + aggregateRoot + " specified as aggregate root more than once");
+                }
+
+                _nonSRPMonolithicAggregateRepositories.Add(aggregateRoot);
+            }
+            
         }
 
         private class SimplifiedModelConsumerReadModels

@@ -14,12 +14,14 @@
         public const int DealIdId = 10;
         public const int ActualEndPropertyId = 11;
         public const int NamePropertyId = 12;
-        public const int EntityPartTypePropertyId = 13;
+        public const int EntityTypeNamePropertyId = 13;
         public const int AccountTypePropertyId = 14;
         public const int BankIdPropertyId = 15;
         public const int RutPropertyId = 16;
         public const int IssuedOnPropertyId = 17;
         public const int IssuedByPropertyId = 18;
         public const int BusinessModelPropertyId = 19;
+        public const int CommuneIdPropertyId = 20;
+        public const int OperationsKindPropertyId = 21;
     }
 }
