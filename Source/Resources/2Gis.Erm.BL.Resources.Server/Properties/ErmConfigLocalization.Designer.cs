@@ -702,6 +702,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlPrintTerminationBargainNoticeAction {
+            get {
+                return ResourceManager.GetString("ControlPrintTerminationBargainNoticeAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlPrintTermNoticeAction {
             get {
                 return ResourceManager.GetString("ControlPrintTermNoticeAction", resourceCulture);
@@ -2331,6 +2340,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DListBanks {
+            get {
+                return ResourceManager.GetString("DListBanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DListBargainFiles {
             get {
                 return ResourceManager.GetString("DListBargainFiles", resourceCulture);
@@ -2514,6 +2532,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListClientsWithWarmClientTask {
             get {
                 return ResourceManager.GetString("DListClientsWithWarmClientTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListCommunes {
+            get {
+                return ResourceManager.GetString("DListCommunes", resourceCulture);
             }
         }
         
@@ -4968,9 +4995,36 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NavGroupBanks {
+            get {
+                return ResourceManager.GetString("NavGroupBanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NavGroupCatalogueManagement {
             get {
                 return ResourceManager.GetString("NavGroupCatalogueManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NavGroupChileDirectory {
+            get {
+                return ResourceManager.GetString("NavGroupChileDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NavGroupCommunes {
+            get {
+                return ResourceManager.GetString("NavGroupCommunes", resourceCulture);
             }
         }
         

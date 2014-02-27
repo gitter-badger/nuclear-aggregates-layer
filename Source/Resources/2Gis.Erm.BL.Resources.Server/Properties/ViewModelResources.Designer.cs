@@ -106,29 +106,20 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата выдачи.
-        /// </summary>
-        public static string DocumentBeginDate {
-            get {
-                return ResourceManager.GetString("DocumentBeginDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Кем выдано.
         /// </summary>
-        public static string DocumentProvider {
+        public static string IssuedBy {
             get {
-                return ResourceManager.GetString("DocumentProvider", resourceCulture);
+                return ResourceManager.GetString("IssuedBy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Действует на основании.
+        ///   Looks up a localized string similar to Дата выдачи.
         /// </summary>
-        public static string OperatesOnTheBasis {
+        public static string IssuedOn {
             get {
-                return ResourceManager.GetString("OperatesOnTheBasis", resourceCulture);
+                return ResourceManager.GetString("IssuedOn", resourceCulture);
             }
         }
         
