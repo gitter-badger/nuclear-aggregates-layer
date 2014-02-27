@@ -264,8 +264,6 @@
     <Compile Include="Concrete\Old\Prices\PublishPriceRequest.cs" />
     <Compile Include="Concrete\Old\Prices\ReplacePriceRequest.cs" />
     <Compile Include="Concrete\Old\Prices\UnpublishPriceRequest.cs" />
-    <Compile Include="Concrete\Old\Reports\LegalPersonPaymentsRequest.cs" />
-    <Compile Include="Concrete\Old\Reports\PlanningReportRequest.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionRequest.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesRequest.cs" />
     <Compile Include="Concrete\Old\Territories\SelectOrganizationUnitTerritoriesRequest.cs" />
