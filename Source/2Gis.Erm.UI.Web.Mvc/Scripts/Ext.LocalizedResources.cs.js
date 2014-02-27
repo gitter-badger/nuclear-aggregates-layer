@@ -1,11 +1,8 @@
-﻿// File updated : 18.02.2014 16:50:41
+﻿// File updated : 24.02.2014 18:46:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
 /* 
-Processing resources report:
-	Target culture: cs
-	Resource entries count: 276
 
 */
 Ext.LocalizedResources =
@@ -54,6 +51,7 @@ BeginDistributionDate : 'Začátek zveřejnění',
 BillCreationApprovalNeeded : 'Je vyžadován souhlas!',
 BillMassCreateConfirmMessage : 'Pozor! Pro vybranou skupinu objednávek budou vytvořeny faktury. Pokračovat?',
 BillMassCreateOrderHasZeroPayablePlan : 'Není možné hromadně vystavit faktury se splátkami, jestliže pracujete s objednávkou, na které je částka k zaplacení rovna nule. V seznamu pro hromadné vystavení faktur nesmí být vybrané objednávky.',
+BillNumber : 'Cislo faktury',
 BoldText : 'Použití tučného písma na vybraný text.',
 BoldTitle : 'Tučné (Ctrl+B)',
 Cancel : 'Zrušit',
@@ -258,6 +256,7 @@ SelectToWhiteList : 'Vybrat',
 SelectToWhiteListMatherial : 'Výběr RM - seznam povolených',
 SelectToWhiteListMatherialFailed : 'Při výběru RM do seznamu povolených se vyskytla chyba. Zkuste opakovat operaci',
 September : 'Září',
+SetLimitStatusDialogConfirmation : 'Skutečně si přejete změnit stav limitu na',
 SomeOfTheClientsHaveDebtsAlert : 'Pozor! Pokoušíte se vzít z rezervy klienta s úvěrovými závazky!',
 SourceEditText : 'Přepnout na zdrojový kód.',
 SourceEditTitle : 'Zdrojový kód',

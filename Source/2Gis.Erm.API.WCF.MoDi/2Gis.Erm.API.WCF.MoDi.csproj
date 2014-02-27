@@ -114,9 +114,12 @@
     <Content Include="packages.config" />
     <Content Include="Web.config" />
     <Content Include="salesSchemas.config" />
-
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MoDi\2Gis.Erm.BLCore.MoDi.csproj">
+      <Project>{46ff1f04-9e90-4858-8263-9ed38a0bdd69}</Project>
+      <Name>2Gis.Erm.BLCore.MoDi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
@@ -172,6 +175,10 @@
     <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2c631161-68af-49e3-9924-b2894e8fd63b}</Project>
       <Name>2Gis.Erm.BLCore.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

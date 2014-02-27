@@ -85,7 +85,6 @@
       <DependentUpon>log4net.config</DependentUpon>
     </None>
     <Content Include="packages.config" />
-
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

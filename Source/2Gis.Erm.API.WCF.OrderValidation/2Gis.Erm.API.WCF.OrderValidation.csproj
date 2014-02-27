@@ -199,7 +199,6 @@
     </None>
     <Content Include="orderValidation.config" />
     <Content Include="packages.config" />
-
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

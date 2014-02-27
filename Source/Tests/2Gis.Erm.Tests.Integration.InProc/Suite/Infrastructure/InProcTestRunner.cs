@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
                             case TestResultStatus.Ignored:
                                 _testStatusObserver.Ignored(integrationTestType, result);
                                 ignored.Add(testScope.Test, result);
-                                _logger.InfoFormatEx("Succeeded {0} with result {1}", testDescription, result);
+                                _logger.InfoFormatEx("Ignored {0} with result {1}", testDescription, result);
                                 break;
 
                             default:

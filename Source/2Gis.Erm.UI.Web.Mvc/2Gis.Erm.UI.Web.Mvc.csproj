@@ -640,6 +640,8 @@
     <Content Include="Content\slider.css" />
     <Content Include="Content\Spinner.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.BillPayments.js" />
     <Content Include="Scripts\Cyprus\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Czech\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
@@ -650,6 +652,7 @@
     <Content Include="Scripts\DataList\Activity.DataList.js" />
     <Content Include="Scripts\DataList\Contact.DataList.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementElement.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Bill.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Contact.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Client.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.BranchOfficeOrganizationUnit.js" />
@@ -1107,6 +1110,14 @@
     <Content Include="Scripts\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
       <Project>{f2833a2e-0e6f-4a3e-b8d3-35b7165085a1}</Project>
       <Name>2Gis.Erm.BLCore.Releasing</Name>
@@ -1170,10 +1181,6 @@
     <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
-      <Project>{21120b29-e708-4cb7-b582-a52043beaec0}</Project>
-      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj">
       <Project>{3033cfd9-fcdc-41f5-8448-8555336acd4a}</Project>
