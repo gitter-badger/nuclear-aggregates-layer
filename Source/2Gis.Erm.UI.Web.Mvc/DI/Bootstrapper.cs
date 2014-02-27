@@ -281,7 +281,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IBargainService, BargainService>(mappingScope, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<IPrintFormTemplateService, PrintFormTemplateService>(mappingScope, CustomLifetime.PerRequest)
 
-                .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
 
                 .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(settings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))

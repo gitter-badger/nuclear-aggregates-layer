@@ -151,7 +151,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container)
         {
             return container
-                .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton);
         }
     }

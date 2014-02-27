@@ -187,7 +187,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
-                     .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
