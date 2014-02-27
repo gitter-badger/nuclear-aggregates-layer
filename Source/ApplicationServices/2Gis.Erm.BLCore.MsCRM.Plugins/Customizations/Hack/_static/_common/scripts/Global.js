@@ -766,7 +766,7 @@ window.CrmUrlToErmUrlTemplateMapping =
     { CrmUrl: "http://uk-erm-test03/DoubleGis03", ErmUrlTemplate: "//web-app03.test.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app03.test.erm.russia/" },
     { CrmUrl: "http://uk-erm-test04/DoubleGis04", ErmUrlTemplate: "//web-app04.test.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app04.test.erm.russia/" },
     { CrmUrl: "http://uk-erm-test05/DoubleGis05", ErmUrlTemplate: "//web-app05.test.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app05.test.erm.russia/" },
-    { CrmUrl: "http://uk-erm-test06/DoubleGis21", ErmUrlTemplate: "//web-app21.test.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app21.test.erm.russia/" },
+    { CrmUrl: "http://uk-erm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.russia/" },
     { CrmUrl: "http://uk-erm-load01/DoubleGis", ErmUrlTemplate: "//web-app.load.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.load.erm.russia/" },
     { CrmUrl: "http://uk-erm-load02/DoubleGis", ErmUrlTemplate: "//web-app.load.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.load.erm.russia/" }
 ];
