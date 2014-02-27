@@ -1,0 +1,115 @@
+using System.Text.RegularExpressions;
+
+namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number
+{
+    public delegate bool OrderNumberGenerationStrategy(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber);
+
+    public static class OrderNumberGenerationStrategies
+    {
+        public static bool UseReservedNumber(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+        {
+            if (!reservedNumber.HasValue)
+            {
+                orderNumber = null;
+                return false;
+            }
+
+            orderNumber = string.Format(orderNumberTemplate, reservedNumber.Value);
+            return true;
+        }
+
+        public static bool UseExistingOrderNumber(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+        {
+            if (string.IsNullOrWhiteSpace(currentOrderNumber))
+            {
+                orderNumber = null;
+                return false;
+            }
+
+            orderNumber = currentOrderNumber;
+            return true;
+        }
+
+        public static class Russia
+        {
+            private const string NewOrderNumberRegexTemplate = @"[а-яА-Я]+_\d+-\d+-(\d+)-?[a-zA-Z]*";
+            private const string OldOrderNumberRegexTemplate = @"[а-яА-Я]+_\d+-\d+-(\d+)";
+
+            public static bool ReadFromNewFormat(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+            {
+                var newOrderNumberRegex = new Regex(NewOrderNumberRegexTemplate, RegexOptions.Singleline | RegexOptions.Compiled);
+                return ReadFromFormat(newOrderNumberRegex, currentOrderNumber, orderNumberTemplate, out orderNumber);
+            }
+        
+            public static bool ReadFromOldFormat(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+            {
+                var oldOrderNumberRegex = new Regex(OldOrderNumberRegexTemplate, RegexOptions.Singleline | RegexOptions.Compiled);
+                return ReadFromFormat(oldOrderNumberRegex, currentOrderNumber, orderNumberTemplate, out orderNumber);
+            }
+
+            private static bool ReadFromFormat(Regex formatRegex, string currentOrderNumber, string orderNumberTemplate, out string orderNumber)
+            {
+                if (string.IsNullOrWhiteSpace(currentOrderNumber))
+                {
+                    orderNumber = null;
+                    return false;
+                }
+
+                var match = formatRegex.Match(currentOrderNumber);
+                var orderNumberMatchesFormat = match.Success && match.Groups.Count == 2;
+
+                long orderNumberValue;
+                if (!orderNumberMatchesFormat || !long.TryParse(match.Groups[1].Value, out orderNumberValue))
+                {
+                    orderNumber = null;
+                    return false;
+                }
+
+                orderNumber = string.Format(orderNumberTemplate, orderNumberValue);
+                return true;
+            }
+        }
+
+        public static class MultiCulture
+        {
+            // TODO {all, 24.02.2014}: В зарубежных моделях нет "старого формата". Но с другой стороны, шаблон "нового" для новых заказов не подойдёт. 
+            //                         Кроме того, в зарубежных моделях номер заказа имеет более чёткую структуру, может стоит на неё завязаться?
+            private const string NewOrderNumberRegexTemplate = @"[a-zA-Z]+_\d+-\d+-(\d+)-?[a-zA-Z]*";
+            private const string OldOrderNumberRegexTemplate = @"[a-zA-Z]+_\d+-\d+-(\d+)";
+
+            public static bool ReadFromNewFormat(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+            {
+                var newOrderNumberRegex = new Regex(NewOrderNumberRegexTemplate, RegexOptions.Singleline | RegexOptions.Compiled);
+                return ReadFromFormat(newOrderNumberRegex, currentOrderNumber, orderNumberTemplate, out orderNumber);
+            }
+
+            public static bool ReadFromOldFormat(string currentOrderNumber, string orderNumberTemplate, long? reservedNumber, out string orderNumber)
+            {
+                var oldOrderNumberRegex = new Regex(OldOrderNumberRegexTemplate, RegexOptions.Singleline | RegexOptions.Compiled);
+                return ReadFromFormat(oldOrderNumberRegex, currentOrderNumber, orderNumberTemplate, out orderNumber);
+            }
+
+            private static bool ReadFromFormat(Regex formatRegex, string currentOrderNumber, string orderNumberTemplate, out string orderNumber)
+            {
+                if (string.IsNullOrWhiteSpace(currentOrderNumber))
+                {
+                    orderNumber = null;
+                    return false;
+                }
+
+                var match = formatRegex.Match(currentOrderNumber);
+                var orderNumberMatchesFormat = match.Success && match.Groups.Count == 2;
+
+                long orderNumberValue;
+                if (!orderNumberMatchesFormat || !long.TryParse(match.Groups[1].Value, out orderNumberValue))
+                {
+                    orderNumber = null;
+                    return false;
+                }
+
+                orderNumber = string.Format(orderNumberTemplate, orderNumberValue);
+                return true;
+            }
+        }
+    }
+}

@@ -123,7 +123,13 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Areas\AreaRegistrations.cs" />
     <Compile Include="Areas\Chile\AreaRegistrator.cs" />
+    <Compile Include="Areas\Chile\Controllers\LegalPersonController.cs" />
     <Compile Include="Areas\Chile\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\MultiCultureCreateBillViewModel.cs" />
@@ -142,10 +148,13 @@
     </Compile>
     <Compile Include="Models\Chile\ChileBillViewModel.cs" />
     <Compile Include="Models\MultiCultureBillViewModel.cs" />
+    <Compile Include="Models\Chile\ChileBankViewModel.cs" />
     <Compile Include="Models\Chile\ChileLegalPersonViewModel.cs" />
     <Compile Include="Models\Chile\ChileLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Chile\ChileBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Chile\ChileBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Chile\ChileChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Chile\ChileBargainTypeViewModel.cs" />
     <Compile Include="Models\MultiCultureOrderViewModel.cs" />
     <Compile Include="Models\Russia\AccountViewModel.cs" />
     <Compile Include="Models\Russia\AppointmentViewModel.cs" />
@@ -179,8 +188,14 @@
     <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileIntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileIntegrationTypeImportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
@@ -288,6 +303,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MultiCultureBill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\BargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Bank.generated.cs">
+      <DependentUpon>Bank.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\Account.generated.cs">
       <AutoGen>True</AutoGen>
@@ -535,11 +565,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MultiCultureBargain.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Czech\BargainType.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BargainType.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Czech\BranchOffice.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -619,6 +644,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Create.generated.cs</LastGenOutput>
     </None>
+    <None Include="Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\Web.config" />
     <None Include="Views\CreateOrUpdate\Cyprus\Bill.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -635,6 +664,18 @@
     <None Include="Views\CreateOrUpdate\Chile\Bill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Bank.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bank.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Russia\Account.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -840,10 +881,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MultiCultureBargain.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Czech\BargainType.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Czech\BranchOffice.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
@@ -978,6 +1015,10 @@
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
       <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

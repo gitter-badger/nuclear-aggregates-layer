@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Enumeration;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Chile
 {
@@ -12,10 +12,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Chile
         {
             return new[]
                 {
-                    PaymentMethod.Undefined,
                     PaymentMethod.BankTransaction,
                     PaymentMethod.CashPayment,
-                    PaymentMethod.CreditCardPayment,
+                    PaymentMethod.CreditCard,
                     PaymentMethod.DebitCard,
                     PaymentMethod.BankChequePayment,
                 };

@@ -424,6 +424,33 @@
       </DataList>
     </DataLists>
   </Entity>
+  <Entity Name="Bank">
+    <Card EntityNameLocaleResourceId="EnAssociatedPositionsGroup" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+      <ToolbarItems>
+        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
+      </ToolbarItems>
+      <RelatedItems>
+      </RelatedItems>
+    </Card>
+    <DataLists>
+      <DataList NameLocaleResourceId="DListBanks" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true">
+        <ToolbarItems>
+          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+        </ToolbarItems>
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Expression="it.Id" Width="100" Hidden="true" Filtered="false" FieldType="Int" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldName" Expression="it.Name" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
   <Entity Name="Bargain">
     <Card EntityNameLocaleResourceId="Bargain" EntityMainAttribute="Number" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Bargain.gif" LargeIcon="en_ico_lrg_Bargain.gif">
       <ToolbarItems>
@@ -885,6 +912,16 @@
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithWarmClientTask" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true" ExtendedInfo="WarmClientTask=true;Outdated=false"/>
       <!--Тёплые клиенты с просроченной задачей-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithOutdatedWarmClientTask" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true" ExtendedInfo="WarmClientTask=true;Outdated=true"/>
+    </DataLists>
+  </Entity>
+  <Entity Name="Commune">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListCommunes" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif" DefaultFilter="IsDeleted=false&amp;&amp;IsActive=true">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Expression="it.Id" Width="100" Hidden="true" Filtered="false" FieldType="Int" ExtTypeName="String" DotNetTypeName="System.String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldName" Expression="it.Name" Width="200" Hidden="false" Filtered="true" FieldType="String" ExtTypeName="String" DotNetTypeName="System.String" />
+        </Fields>
+      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="Contact">
@@ -1765,7 +1802,7 @@
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargain" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBill" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrepareJointBillsAction" NameLocaleResourceId="ControlPrepareJointBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrepareJointBill" SecurityPrivelegeFlag="0" />
-        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeAction" NameLocaleResourceId="ControlPrintTermNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNotice" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeAction" NameLocaleResourceId="ControlPrintTerminationBargainNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNotice" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintLetterOfGuarantee" NameLocaleResourceId="ControlPrintLetterOfGuaranteeAction" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintLetterOfGuarantee" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="Actions" Name="CreateBargain" NameLocaleResourceId="ControlCreateBargain" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CreateBargain" SecurityPrivelegeFlag="34" />
         <ToolbarItem ParentName="Actions" Name="RemoveBargain" NameLocaleResourceId="ControlRemoveBargain" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.RemoveBargain" SecurityPrivelegeFlag="34" />
@@ -2273,9 +2310,9 @@
   <Entity Name="Project">
     <Card EntityNameLocaleResourceId="EnProjects" EntityMainAttribute="DisplayName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_16_Default.gif">
       <ToolbarItems>
-        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="2" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="2" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />

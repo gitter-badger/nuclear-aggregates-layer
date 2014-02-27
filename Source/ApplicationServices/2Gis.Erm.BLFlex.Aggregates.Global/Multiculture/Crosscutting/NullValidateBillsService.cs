@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting
 {
