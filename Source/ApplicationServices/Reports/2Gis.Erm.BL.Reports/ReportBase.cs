@@ -6,7 +6,7 @@ using System.Linq;
 
 using OfficeOpenXml;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     public abstract class ReportBase : IReport
     {

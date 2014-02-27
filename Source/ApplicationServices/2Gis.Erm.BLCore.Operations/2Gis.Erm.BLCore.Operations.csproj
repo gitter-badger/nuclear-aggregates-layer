@@ -653,9 +653,9 @@
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
       <Name>2Gis.Erm.BLCore.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
-      <Project>{F4EBF77D-7AA2-4241-B605-BEFF01E0A4DE}</Project>
-      <Name>2Gis.Erm.BLCore.Reports</Name>
+    <ProjectReference Include="..\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
+      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
+      <Name>2Gis.Erm.BL.Reports</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

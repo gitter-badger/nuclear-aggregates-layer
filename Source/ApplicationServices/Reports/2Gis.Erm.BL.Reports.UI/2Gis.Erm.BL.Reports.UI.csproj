@@ -8,8 +8,8 @@
     <ProjectGuid>{8F39316B-250E-4504-8393-16E5A03F2CA6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubleGis.Erm.BLCore.Reports.UI</RootNamespace>
-    <AssemblyName>2Gis.Erm.BLCore.Reports.UI</AssemblyName>
+    <RootNamespace>DoubleGis.Erm.BL.Reports.UI</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.Reports.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -75,9 +75,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
+    <ProjectReference Include="..\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
-      <Name>2Gis.Erm.BLCore.Reports</Name>
+      <Name>2Gis.Erm.BL.Reports</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

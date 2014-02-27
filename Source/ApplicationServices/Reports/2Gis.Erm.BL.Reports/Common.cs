@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     /// <summary>
     /// Значения параметров и строк подключения по умолчанию

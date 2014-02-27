@@ -9,7 +9,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using OfficeOpenXml.Table;
 
-namespace DoubleGis.Erm.BLCore.Reports.PlanningReport
+namespace DoubleGis.Erm.BL.Reports.PlanningReport
 {
     public sealed class PlanningReport : SpreadsheetReportBase
     {

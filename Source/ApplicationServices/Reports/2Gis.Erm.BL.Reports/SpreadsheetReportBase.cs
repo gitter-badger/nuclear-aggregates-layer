@@ -7,7 +7,7 @@ using System.Linq;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     public abstract class SpreadsheetReportBase : ReportBase
     {

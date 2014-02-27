@@ -2,7 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 
-namespace DoubleGis.Erm.BLCore.Reports.UI
+namespace DoubleGis.Erm.BL.Reports.UI
 {
     class ProtectedDictionaryPropertyGridAdapter : ICustomTypeDescriptor
     {

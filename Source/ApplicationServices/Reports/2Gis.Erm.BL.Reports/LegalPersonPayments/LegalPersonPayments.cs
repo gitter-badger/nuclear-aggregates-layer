@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 
-namespace DoubleGis.Erm.BLCore.Reports.LegalPersonPayments
+namespace DoubleGis.Erm.BL.Reports.LegalPersonPayments
 {
     public sealed class LegalPersonPayments : SpreadsheetReportBase
     {

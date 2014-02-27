@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.BLCore.Reports.UI
+﻿namespace DoubleGis.Erm.BL.Reports.UI
 {
 	partial class ProgressForm
 	{

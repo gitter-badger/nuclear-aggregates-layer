@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     public class ProtectedDictionary : IEnumerable<KeyValuePair<string, object>>
     {

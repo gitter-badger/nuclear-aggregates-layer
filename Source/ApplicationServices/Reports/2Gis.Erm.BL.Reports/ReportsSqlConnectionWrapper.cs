@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.IO;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     public class ReportsSqlConnectionWrapper : IReportsSqlConnectionWrapper
     {

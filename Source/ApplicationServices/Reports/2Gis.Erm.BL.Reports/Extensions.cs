@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     /// <summary>
     /// Расширения классов

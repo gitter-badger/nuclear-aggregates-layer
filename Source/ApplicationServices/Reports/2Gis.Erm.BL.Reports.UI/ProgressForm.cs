@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace DoubleGis.Erm.BLCore.Reports.UI
+namespace DoubleGis.Erm.BL.Reports.UI
 {
     public partial class ProgressForm : Form
     {

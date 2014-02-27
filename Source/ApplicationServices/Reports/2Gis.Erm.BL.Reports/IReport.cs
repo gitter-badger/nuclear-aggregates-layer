@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace DoubleGis.Erm.BLCore.Reports
+namespace DoubleGis.Erm.BL.Reports
 {
     public interface IReport
     {
