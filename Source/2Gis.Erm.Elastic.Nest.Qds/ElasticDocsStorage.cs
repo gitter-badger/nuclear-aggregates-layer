@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Qds;
 using DoubleGis.Erm.Qds.Common.ElasticClient;
 
-using Nest.Resolvers;
-
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
     public class ElasticDocsStorage : IDocsStorage
@@ -68,9 +66,9 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             foreach (var doc in docs)
             {
                 IDoc d = doc;
+                var type = d.GetType();
 
-                // TODO Формирование имени типа делегировать в _elasticMeta
-                var indexResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Index(d, _elasticMeta.GetIndexName(d.GetType().Name), d.GetType().Name.MakePlural().ToLowerInvariant()));
+                var indexResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Index(d, _elasticMeta.GetIndexName(type), _elasticMeta.GetTypeName(type)));
                 _responseHandler.ThrowWhenError(indexResponse);
             }
 

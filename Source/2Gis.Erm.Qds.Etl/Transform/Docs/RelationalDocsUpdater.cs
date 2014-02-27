@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
             {
                 var docs = RelationalDocsFinder.FindDocsByRelatedPart<TDoc>(entity);
 
-                if (!docs.Any()) // TODO Подумать, как правильно делегировать создание документа?
+                if (!docs.Any()) // TODO Подумать, как правильно делегировать создание документа и ваааще подумать, что-то как-то тут все не так-то почему-то.
                 {
                     var newDoc = (TDoc)QdsComponent.CreateNewDoc(entity);
                     if (newDoc != null)

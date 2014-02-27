@@ -3,9 +3,9 @@ using System;
 using DoubleGis.Erm.Qds;
 using DoubleGis.Erm.Qds.Common.ElasticClient;
 using DoubleGis.Erm.Qds.Docs;
-using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using Nest;
+using Nest.Resolvers;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
@@ -27,18 +27,28 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             _settingsFactory = settingsFactory;
         }
 
-        public string GetIndexName(string typeName)
+        public string GetIndexName(Type type)
         {
-            if (typeName == null)
+            if (type == null)
             {
-                throw new ArgumentNullException("typeName");
+                throw new ArgumentNullException("type");
             }
 
             // TODO убрать это в нужное место, как-то связанное с миграциями и метаданными.
-            if (typeName == typeof(ClientGridDoc).Name)
+            if (type == typeof(ClientGridDoc))
                 return _settingsFactory.GetIsolatedIndexName(DataIndexName);
 
             return _settingsFactory.GetIsolatedIndexName(CatalogIndexName);
+        }
+
+        public string GetTypeName(Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            return type.Name.MakePlural().ToLowerInvariant();
         }
 
         public PagedSearchDescriptor<TDoc> CreatePage<TDoc>(IDocsQuery query) where TDoc : class
@@ -52,7 +62,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             if (fieldQuery == null)
                 throw new NotSupportedException(query.GetType().FullName);
 
-            var searchDescr = new SearchDescriptor<TDoc>().Index(GetIndexName(typeof(TDoc).Name))
+            var searchDescr = new SearchDescriptor<TDoc>().Index(GetIndexName(typeof(TDoc)))
                     .From(0)
                     .Size(PageSize)
                     .Query(qd => qd.Term(fieldQuery.FieldName, fieldQuery.FieldValue));
@@ -71,7 +81,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("response");
             }
 
-            if (pagedSearchDescriptor.From + pagedSearchDescriptor.Size >= response.Total) 
+            if (pagedSearchDescriptor.From + pagedSearchDescriptor.Size >= response.Total)
                 return null;
 
             return new PagedSearchDescriptor<TDoc>(pagedSearchDescriptor.SearchDescriptor, pagedSearchDescriptor.From + PageSize, PageSize);

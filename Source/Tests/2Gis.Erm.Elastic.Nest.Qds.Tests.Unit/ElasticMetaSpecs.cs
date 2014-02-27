@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds.Common.ElasticClient;
@@ -79,11 +80,29 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         }
 
         [Subject(typeof(ElasticMeta))]
+        class When_get_type_name_by_data_type_document : ElasticMetaContext
+        {
+            Establish context = () =>
+            {
+                DocType = typeof(ClientGridDoc);
+                ExpectedTypeName = "clientgriddocs";
+            };
+
+            Because of = () => Result = Target.GetTypeName(DocType);
+
+            It should_return_lower_case_plural_type_name = () => Result.Should().Be(ExpectedTypeName);
+
+            static string ExpectedTypeName;
+            static string Result;
+            static Type DocType;
+        }
+
+        [Subject(typeof(ElasticMeta))]
         class When_get_index_name_by_data_type_document : ElasticMetaContext
         {
             Establish context = () =>
                 {
-                    DocType = typeof(ClientGridDoc).Name;
+                    DocType = typeof(ClientGridDoc);
                     ExpectedIndexName = "expected.index.name";
 
                     SettingsFactory.Setup(sf => sf.GetIsolatedIndexName(ElasticMeta.DataIndexName)).Returns(ExpectedIndexName);
@@ -95,19 +114,19 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             static string ExpectedIndexName;
             static string Result;
-            static string DocType;
+            static Type DocType;
         }
 
         [Subject(typeof(ElasticMeta))]
         class When_get_index_name_by_catalog_type_document : ElasticMetaContext
         {
             Establish context = () =>
-            {
-                DocType = "CatalogTypeDoc";
-                ExpectedIndexName = "expected.index.name";
+                {
+                    DocType = typeof(UserDoc);
+                    ExpectedIndexName = "expected.index.name";
 
-                SettingsFactory.Setup(sf => sf.GetIsolatedIndexName(ElasticMeta.CatalogIndexName)).Returns(ExpectedIndexName);
-            };
+                    SettingsFactory.Setup(sf => sf.GetIsolatedIndexName(ElasticMeta.CatalogIndexName)).Returns(ExpectedIndexName);
+                };
 
             Because of = () => Result = Target.GetIndexName(DocType);
 
@@ -115,7 +134,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             static string ExpectedIndexName;
             static string Result;
-            static string DocType;
+            static Type DocType;
         }
 
         class ElasticMetaContext
