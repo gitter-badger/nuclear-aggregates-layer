@@ -10,10 +10,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Core.Settings;
-using DoubleGis.Erm.Qds.API.Operations.Authorization;
-using DoubleGis.Erm.Qds.API.Operations.Documents;
 using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Operations.Extensions;
 
 using Nest;
@@ -90,6 +89,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                     .Version(x.Timestamp, indirectly)
                     .Object(new ClientGridDoc
                     {
+                        Id = x.Id,
                         ReplicationCode = x.ReplicationCode.ToString(), 
                         Name = x.Name, 
                         MainAddress = x.MainAddress, 
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                         CreatedOn = x.CreatedOn, 
                         InformationSource = x.InformationSource.ToStringLocalized(EnumResources.ResourceManager, _userProfile.UserLocaleInfo.UserCultureInfo), 
 
-                        Authorization = new DocumentAuthorization
+                        Auth = new DocumentAuthorization
                         {
                             Tags = new[]
                             {

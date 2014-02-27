@@ -46,7 +46,6 @@
       <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.Signed.0.12.0.0\lib\NET4\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -59,14 +58,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElasticDocsStorage.cs" />
+    <Compile Include="ElasticResponseHandler.cs" />
     <Compile Include="FieldValueQuery.cs" />
+    <Compile Include="IElasticMeta.cs" />
+    <Compile Include="IElasticResponseHandler.cs" />
+    <Compile Include="ElasticMeta.cs" />
     <Compile Include="NestQueryDsl.cs" />
+    <Compile Include="PagedSearchDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
+      <Name>2Gis.Erm.Qds.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
+      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
+      <Name>2Gis.Erm.Qds.Etl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
       <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{a2ec52a5-720b-4f42-9615-006e6b5fb49a}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -51,17 +51,23 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
                 EntityLink reference = item;
                 Type entityType = reference.Name.AsEntityType();
 
-                var query = _finder
-                    .FindAll(entityType)
-                    .Cast<IEntityKey>()
-                    .Where(e => e.Id == reference.Id);
-
-                descriptors.Add(new TypedEntitySet(entityType, query));
+                var typedEntitySet = QueryEntitySet(entityType, reference);
+                descriptors.Add(typedEntitySet);
             }
 
             var extractedData = new ErmData(descriptors, entityLinks.State);
 
             consumer.DataExtracted(extractedData);
+        }
+
+        private TypedEntitySet QueryEntitySet(Type entityType, EntityLink reference)
+        {
+            var quaryAll = _finder.FindAll(entityType);
+            var castedQuery = (IQueryable<IEntityKey>)quaryAll;
+            var query = castedQuery.Where(e => e.Id == reference.Id);
+
+            var typedEntitySet = new TypedEntitySet(entityType, query);
+            return typedEntitySet;
         }
     }
 }

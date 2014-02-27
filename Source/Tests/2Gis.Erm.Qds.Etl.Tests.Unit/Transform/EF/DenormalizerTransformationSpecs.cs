@@ -22,17 +22,56 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
     public class DenormalizerTransformationSpecs
     {
         [Subject(typeof(DenormalizerTransformation))]
+        class When_transform : DenormalizerTransformationContext
+        {
+            Establish context = () =>
+            {
+                var entityKeys = new [] {Mock.Of<IEntityKey>()};
+
+                Updater = CreateUpdaterFor(entityKeys, new[] { Mock.Of<IDoc>() });
+                DocumentsMetaDataSetupGetModifiers(Updater.Object);
+                FillExtractedData(NewTypedEntitySet<IEntityKey>(entityKeys));
+
+                TargetTransform(ExtractedData);
+
+                FillExtractedData(new TypedEntitySet[0]);
+            };
+
+            Because of = () => TargetTransform(ExtractedData);
+
+            It should_clear_previous_transformation_results = () => Result.Documents.Should().BeEmpty();
+
+            private static Mock<IDocsUpdater> Updater;
+        }
+
+        [Subject(typeof(DenormalizerTransformation))]
+        class When_init : DenormalizerTransformationContext
+        {
+            Establish context = () =>
+                {
+                    ExpectedQdsComponents = new IQdsComponent[0];
+                    QdsComponentsFactory.Setup(q => q.CreateQdsComponents()).Returns(ExpectedQdsComponents);
+                };
+
+            Because of = () => Target.Init();
+
+            It should_bind_metadata = () => MetadataBinder.Verify(m => m.BindMetadata(ExpectedQdsComponents));
+
+            static IEnumerable<IQdsComponent> ExpectedQdsComponents;
+        }
+
+        [Subject(typeof(DenormalizerTransformation))]
         public class When_transform_typed_entity_set : DenormalizerTransformationContext
         {
             Establish context = () =>
             {
                 var entityKeys = new[] { Mock.Of<IEntityKey>() };
 
-                _expectedDocOne = Mock.Of<IDoc>();
-                var modifierOne = CreateModifierFor(entityKeys, _expectedDocOne);
+                ExpectedDocOne = Mock.Of<IDoc>();
+                var modifierOne = CreateUpdaterFor(entityKeys, ExpectedDocOne);
 
-                _expectedDocTwo = Mock.Of<IDoc>();
-                var modifierTwo = CreateModifierFor(entityKeys, _expectedDocTwo);
+                ExpectedDocTwo = Mock.Of<IDoc>();
+                var modifierTwo = CreateUpdaterFor(entityKeys, ExpectedDocTwo);
 
                 DocumentsMetaDataSetupGetModifiers(modifierOne.Object, modifierTwo.Object);
                 FillExtractedData(NewTypedEntitySet<IEntityKey>(entityKeys));
@@ -41,18 +80,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             Because of = () => TargetTransform(ExtractedData);
 
             It should_return_collected_updates = () =>
-                TransfomedDataContains(_expectedDocOne, _expectedDocTwo);
+                TransfomedDataContains(ExpectedDocOne, ExpectedDocTwo);
 
-            static IDoc _expectedDocOne;
-            static IDoc _expectedDocTwo;
-
-            static Mock<IDocsSelector> CreateModifierFor(IEnumerable<IEntityKey> entities, params IDoc[] documents)
-            {
-                var modifier = new Mock<IDocsSelector>();
-                modifier.Setup(m => m.ModifyDocuments(entities)).Returns(documents);
-
-                return modifier;
-            }
+            static IDoc ExpectedDocOne;
+            static IDoc ExpectedDocTwo;
 
             static void TransfomedDataContains(params object[] expectedDocs)
             {
@@ -65,37 +96,37 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
         {
             Establish context = () =>
                 {
-                    _modifier = new Mock<IDocsSelector>();
-                    DocumentsMetaDataSetupGetModifiers(_modifier.Object, _modifier.Object);
+                    Updater = new Mock<IDocsUpdater>();
+                    DocumentsMetaDataSetupGetModifiers(Updater.Object, Updater.Object);
                     FillExtractedData(NewTypedEntitySet<IEntityKey>(Mock.Of<IEntityKey>()));
                 };
 
             Because of = () => TargetTransform(ExtractedData);
 
             It should_update_for_each_modifier_associated_with_entity_type = () =>
-                _modifier.Verify(m => m.ModifyDocuments(ExtractedData.Data.First().Entities), Times.Exactly(2));
+                Updater.Verify(m => m.UpdateDocuments(ExtractedData.Data.First().Entities), Times.Exactly(2));
 
-            private static Mock<IDocsSelector> _modifier;
+            private static Mock<IDocsUpdater> Updater;
         }
 
         [Subject(typeof(DenormalizerTransformation))]
-        public class When_Transform_called_for_not_ErmExtractedData : DenormalizerTransformationContext
+        public class When_transform_called_for_not_erm_extracted_data : DenormalizerTransformationContext
         {
             Establish context = () =>
             {
-                _unsupportedData = Mock.Of<IData>();
+                UnsupportedData = Mock.Of<IData>();
             };
 
-            Because of = () => _actualException = Catch.Exception(() =>
-                TargetTransform(_unsupportedData));
+            Because of = () => ActualException = Catch.Exception(() =>
+                TargetTransform(UnsupportedData));
 
-            It should_throw_NotSupportedException = () => _actualException.Should()
+            It should_throw_not_supported_exception = () => ActualException.Should()
                 .NotBeNull("Ожидалось исключение.")
                 .And
                 .BeOfType<ArgumentException>("Не верный тип исключения.");
 
-            private static IData _unsupportedData;
-            private static Exception _actualException;
+            private static IData UnsupportedData;
+            private static Exception ActualException;
         }
 
         public class DenormalizerTransformationContext
@@ -107,11 +138,28 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                         .Callback((ITransformedData td) => Result = (DenormalizedTransformedData)td);
 
                     DocumentsMetaData = new Mock<IDocsMetaData>();
+                    MetadataBinder = new Mock<IMetadataBinder>();
+                    QdsComponentsFactory = new Mock<IQdsComponentsFactory>();
 
-                    Target = new DenormalizerTransformation(new ErmEntitiesDenormalizer(DocumentsMetaData.Object));
+                    Target = new DenormalizerTransformation(new ErmEntitiesDenormalizer(DocumentsMetaData.Object), MetadataBinder.Object, QdsComponentsFactory.Object);
                 };
 
+            // TODO Много всего, поглядеть да подумать надо
+            protected static Mock<IQdsComponentsFactory> QdsComponentsFactory { get; private set; }
+            protected static Mock<IMetadataBinder> MetadataBinder { get; private set; }
             protected static Mock<IDocsMetaData> DocumentsMetaData { get; private set; }
+            protected static DenormalizerTransformation Target { get; private set; }
+            protected static Mock<ITransformedDataConsumer> Consumer { get; private set; }
+            protected static ErmData ExtractedData { get; private set; }
+            protected static DenormalizedTransformedData Result { get; private set; }
+
+            protected static Mock<IDocsUpdater> CreateUpdaterFor(IEnumerable<IEntityKey> entities, params IDoc[] documents)
+            {
+                var modifier = new Mock<IDocsUpdater>();
+                modifier.Setup(m => m.UpdateDocuments(entities)).Returns(documents);
+
+                return modifier;
+            }
 
             protected static TypedEntitySet NewTypedEntitySet<T>(params IEntityKey[] entityKeys)
             {
@@ -128,15 +176,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                 ExtractedData = new ErmData(typedEntitySets, Mock.Of<ITrackState>());
             }
 
-            protected static void DocumentsMetaDataSetupGetModifiers(params IDocsSelector[] modifiers)
+            protected static void DocumentsMetaDataSetupGetModifiers(params IDocsUpdater[] modifiers)
             {
-                DocumentsMetaData.Setup(d => d.GetDocsSelectors(typeof(IEntityKey))).Returns(modifiers);
+                DocumentsMetaData.Setup(d => d.GetDocsUpdaters(typeof(IEntityKey))).Returns(modifiers);
             }
-
-            protected static DenormalizerTransformation Target { get; private set; }
-            protected static Mock<ITransformedDataConsumer> Consumer { get; private set; }
-            protected static ErmData ExtractedData { get; private set; }
-            protected static DenormalizedTransformedData Result { get; private set; }
         }
     }
 }

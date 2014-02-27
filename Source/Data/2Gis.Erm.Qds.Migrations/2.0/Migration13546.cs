@@ -46,9 +46,11 @@ namespace DoubleGis.Erm.Qds.Migrations
                 DateDetection = false,
                 NumericDetection = false,
                 AllFieldMapping = new AllFieldMapping().SetDisabled(),
+                IdFieldMapping = new IdFieldMapping().SetStored(true).SetPath("Id"),
                 TypeNameMarker = "ClientGridDoc".MakePlural().ToLowerInvariant(),
                 Properties = new Dictionary<string, IElasticType>
                 {
+                    { "Id".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
                     { "ReplicationCode".ToCamelCase(), new StringMapping { Index = FieldIndexOption.no } },
                     {
                         "Name".ToCamelCase(), new MultiFieldMapping
@@ -83,7 +85,7 @@ namespace DoubleGis.Erm.Qds.Migrations
                             }
                         }
                     },
-                    { "TerritoryId".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString(), Index = NonStringIndexOption.no } },
+                    { "TerritoryId".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
                     {
                         "TerritoryName".ToCamelCase(), new MultiFieldMapping
                         {
@@ -96,7 +98,7 @@ namespace DoubleGis.Erm.Qds.Migrations
                             }
                         }
                     },
-                    { "OwnerCode".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString(), Index = NonStringIndexOption.no } },
+                    { "OwnerCode".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
                     {
                         "OwnerName".ToCamelCase(), new MultiFieldMapping
                         {
@@ -106,7 +108,7 @@ namespace DoubleGis.Erm.Qds.Migrations
                                     "OwnerName".ToCamelCase() + ".sort",
                                     new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
                                 },
-                            }
+                            },
                         }
                     },
                     { "IsActive".ToCamelCase(), new BooleanMapping() },
@@ -125,7 +127,7 @@ namespace DoubleGis.Erm.Qds.Migrations
                         }
                     },
                     {
-                        "Authorization".ToCamelCase(), new ObjectMapping
+                        "Auth".ToCamelCase(), new ObjectMapping
                         {
                             Dynamic = DynamicMappingOption.strict,
                             Properties = new Dictionary<string, IElasticType>
@@ -138,7 +140,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }
@@ -192,7 +194,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             });
 
             var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }
@@ -210,15 +212,27 @@ namespace DoubleGis.Erm.Qds.Migrations
                 AllFieldMapping = new AllFieldMapping().SetDisabled(),
 
                 TypeNameMarker = "UserDoc".MakePlural().ToLowerInvariant(),
+                IdFieldMapping = new IdFieldMapping().SetStored(true).SetPath("Id"),
                 Properties = new Dictionary<string, IElasticType>
                 {
                     { "Name".ToCamelCase(), new StringMapping { Index = FieldIndexOption.no } },
                     { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } },
+                    { "Id".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
+                    {
+                        "Auth".ToCamelCase(), new ObjectMapping
+                        {
+                            Dynamic = DynamicMappingOption.strict,
+                            Properties = new Dictionary<string, IElasticType>
+                            {
+                                { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } }
+                            },
+                        }
+                    },
                 },
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }
@@ -239,7 +253,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }
@@ -263,7 +277,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }

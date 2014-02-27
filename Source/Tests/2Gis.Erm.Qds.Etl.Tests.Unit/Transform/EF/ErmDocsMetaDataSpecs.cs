@@ -12,49 +12,49 @@ using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
 {
-    public class ErmDocsMetaDataSpecs
+    class ErmDocsMetaDataSpecs
     {
         [Subject(typeof(ErmDocsMetaData))]
-        public class When_get_modifiers_by_entity_type : ErmDocsMetaDataContext
+        class When_get_updaters_by_entity_type : ErmDocsMetaDataContext
         {
             Establish context = () =>
                 {
-                    _entityType = typeof(TestEntity);
+                    EntityType = typeof(TestEntity);
 
                     var docType = typeof(TestDoc);
                     var docTypeTwo = typeof(AnotherTestDoc);
 
-                    DocsMapping.Setup(dm => dm.GetRelatedDocTypes(_entityType)).Returns(new[] { docType, docTypeTwo });
+                    DocsMapping.Setup(dm => dm.GetRelatedDocTypes(EntityType)).Returns(new[] { docType, docTypeTwo });
 
-                    _expectedModifier = Mock.Of<IDocsSelector>();
-                    _expectedModifierTwo = Mock.Of<IDocsSelector>();
+                    ExpectedUpdater = Mock.Of<IDocsUpdater>();
+                    ExpectedUpdaterTwo = Mock.Of<IDocsUpdater>();
 
-                    ModifiersRegistry.Setup(r => r.GetModifier(docType)).Returns(_expectedModifier);
-                    ModifiersRegistry.Setup(r => r.GetModifier(docTypeTwo)).Returns(_expectedModifierTwo);
+                    UpdatersRegistry.Setup(r => r.GetUpdater(docType)).Returns(ExpectedUpdater);
+                    UpdatersRegistry.Setup(r => r.GetUpdater(docTypeTwo)).Returns(ExpectedUpdaterTwo);
                 };
 
-            Because of = () => Result = Target.GetDocsSelectors(_entityType);
+            Because of = () => Result = Target.GetDocsUpdaters(EntityType);
 
             It should_return_doc_modifiers_for_mapped_document_types = () =>
-                    Result.Should().Contain(new[] { _expectedModifierTwo, _expectedModifier });
+                    Result.Should().Contain(new[] { ExpectedUpdaterTwo, ExpectedUpdater });
 
-            static Type _entityType;
-            static IDocsSelector _expectedModifier;
-            static IDocsSelector _expectedModifierTwo;
-            static IDocsSelector[] Result { get; set; }
+            static Type EntityType;
+            static IDocsUpdater ExpectedUpdater;
+            static IDocsUpdater ExpectedUpdaterTwo;
+            static IDocsUpdater[] Result { get; set; }
         }
 
-        public class ErmDocsMetaDataContext
+        class ErmDocsMetaDataContext
         {
             Establish context = () =>
                 {
-                    ModifiersRegistry = new Mock<IDocModifiersRegistry>();
+                    UpdatersRegistry = new Mock<IDocUpdatersRegistry>();
                     DocsMapping = new Mock<ITransformRelations>();
 
-                    Target = new ErmDocsMetaData(ModifiersRegistry.Object, DocsMapping.Object);
+                    Target = new ErmDocsMetaData(UpdatersRegistry.Object, DocsMapping.Object);
                 };
 
-            protected static Mock<IDocModifiersRegistry> ModifiersRegistry;
+            protected static Mock<IDocUpdatersRegistry> UpdatersRegistry;
             protected static Mock<ITransformRelations> DocsMapping;
 
             protected static ErmDocsMetaData Target { get; private set; }

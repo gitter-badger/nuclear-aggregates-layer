@@ -8,7 +8,7 @@
             RecordId = recordId;
         }
 
-        public long Id { get; private set; }
+        public long Id { get; set; }
         public long RecordId { get; private set; }
     }
 }

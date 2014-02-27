@@ -1,6 +1,7 @@
 using System;
 
 using DoubleGis.Erm.Qds;
+using DoubleGis.Erm.Qds.Common.Extensions;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
@@ -13,7 +14,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("docFieldName");
             }
 
-            return new FieldValueQuery(docFieldName, value);
+            return new FieldValueQuery(docFieldName.ToCamelCase(), value);
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Qds.API.Operations.Documents;
+using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.Etl.Extract.EF;
 
 namespace DoubleGis.Erm.Qds.API.Operations
 {
@@ -12,6 +14,8 @@ namespace DoubleGis.Erm.Qds.API.Operations
         {
             { typeof(MigrationDoc), "metadata" },
             { typeof(UserDoc), "metadata" },
+            { typeof(TerritoryDoc), "metadata" },
+            { typeof(RecordIdState), "metadata" },
             { typeof(ClientGridDoc), "data" },
         };
 

@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 {
     public interface IQdsComponent
     {
-        IDocsSelector CreateDocSelector();
+        IDocsUpdater CreateDocUpdater();
 
         IDocRelation PartsDocRelation { get; }
         IDocRelation[] IndirectDocRelations { get; }

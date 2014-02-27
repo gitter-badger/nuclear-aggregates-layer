@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 {
@@ -89,10 +90,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
         {
             var userDocs = _finder.FindDocsByIndirectRelationPart<UserDoc>(client);
 
-            var userDoc = new UserDoc();
-            if (userDocs != null && userDocs.Any())
-                userDoc = userDocs.Single();
-
+            var userDoc = userDocs.FirstOrDefault() ?? new UserDoc();
             clientGridDoc.OwnerName = userDoc.Name;
         }
 
@@ -100,10 +98,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
         {
             var territories = _finder.FindDocsByIndirectRelationPart<TerritoryDoc>(client);
 
-            var territory = new TerritoryDoc();
-            if (territories != null && territories.Any())
-                territory = territories.Single();
-
+            var territory = territories.FirstOrDefault()?? new TerritoryDoc();
             clientGridDoc.TerritoryName = territory.Name;
         }
 

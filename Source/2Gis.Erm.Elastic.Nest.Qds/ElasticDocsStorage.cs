@@ -2,23 +2,34 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds;
-
-using Nest;
+using DoubleGis.Erm.Qds.Common.ElasticClient;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
     public class ElasticDocsStorage : IDocsStorage
     {
-        readonly IElasticClient _elastic;
+        private readonly IElasticClientFactory _elasticClientFactory;
+        private readonly IElasticMeta _elasticMeta;
+        private readonly IElasticResponseHandler _responseHandler;
 
-        public ElasticDocsStorage(IElasticClient elastic)
+        public ElasticDocsStorage(IElasticClientFactory elasticClientFactory, IElasticMeta elasticMeta, IElasticResponseHandler responseHandler)
         {
-            if (elastic == null)
+            if (elasticClientFactory == null)
             {
-                throw new ArgumentNullException("elastic");
+                throw new ArgumentNullException("elasticClientFactory");
+            }
+            if (elasticMeta == null)
+            {
+                throw new ArgumentNullException("elasticMeta");
+            }
+            if (responseHandler == null)
+            {
+                throw new ArgumentNullException("responseHandler");
             }
 
-            _elastic = elastic;
+            _elasticClientFactory = elasticClientFactory;
+            _elasticMeta = elasticMeta;
+            _responseHandler = responseHandler;
         }
 
         public IEnumerable<TDoc> Find<TDoc>(IDocsQuery query) where TDoc : class, IDoc
@@ -28,21 +39,21 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("query");
             }
 
-            // TODO При развитии функциональности запросов, надо перенести функциональность формирования запроса в сам IDocsQuery, тут оставить только вызов
-            var fieldQuery = query as FieldValueQuery;
-            if (fieldQuery == null)
-                throw new NotSupportedException(query.GetType().FullName);
+            var searchDescriptor = _elasticMeta.CreatePage<TDoc>(query);
 
-            var queryDescriptor = new QueryDescriptor();
-            queryDescriptor.Term(fieldQuery.FieldName, fieldQuery.FieldValue);
+            while (searchDescriptor != null)
+            {
+                var sd = searchDescriptor;
+                var response = _elasticClientFactory.UsingElasticClient(ec => ec.Search(sd.SearchDescriptor));
+                _responseHandler.ThrowWhenError(response);
 
-            var searchDescr = new SearchDescriptor<TDoc>();
+                foreach (var doc in response.Documents)
+                {
+                    yield return doc;
+                }
 
-            searchDescr.Query(queryDescriptor);
-
-            var queryResponse = _elastic.Search<TDoc>(sd => sd.Query(qd => qd.Term(fieldQuery.FieldName, fieldQuery.FieldValue)));
-
-            return queryResponse.Documents;
+                searchDescriptor = _elasticMeta.NextPage(searchDescriptor, response);
+            }
         }
 
         public void Update(IEnumerable<IDoc> docs)
@@ -52,7 +63,17 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("docs");
             }
 
-            _elastic.IndexMany(docs);
+            foreach (var doc in docs)
+            {
+                IDoc d = doc;
+                var type = d.GetType();
+
+                var indexResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Index(d, _elasticMeta.GetIndexName(type), _elasticMeta.GetTypeName(type)));
+                _responseHandler.ThrowWhenError(indexResponse);
+            }
+
+            var shardResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Refresh());
+            _responseHandler.ThrowWhenError(shardResponse);
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Publish;
 using DoubleGis.Erm.Qds.Etl.Transform;
-using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using FluentAssertions;
@@ -21,13 +20,13 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Publish
     public class DocsPublisherSpecs
     {
         [Subject(typeof(DocsPublisher))]
-        public class When_publish_data_with_doc : DocsPublisherContext
+        public class When_publish_data : DocsPublisherContext
         {
             Establish context = () =>
-                {
-                    _expectedDoc = Mock.Of<IDoc>();
-                    _expectedState = new RecordIdState(0, 0);
-                };
+            {
+                _expectedDoc = Mock.Of<IDoc>();
+                _expectedState = new RecordIdState(0, 0);
+            };
 
             Because of = () => Target.Publish(new DenormalizedTransformedData(new[] { _expectedDoc }, _expectedState));
 
@@ -35,7 +34,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Publish
                 DocsStorage.Verify(t => t.Update(Moq.It.Is<IEnumerable<IDoc>>(c => c.Contains(_expectedDoc))));
 
             It should_update_record_state_doc = () =>
-                DocsStorage.Verify(t => t.Update(Moq.It.Is<IEnumerable<IDoc>>(c => c.Contains(_expectedState))));
+                ChangesTrackerState.Verify(t => t.SetState(_expectedState));
 
             static IDoc _expectedDoc;
             static RecordIdState _expectedState;
@@ -62,10 +61,12 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Publish
             Establish context = () =>
                 {
                     DocsStorage = new Mock<IDocsStorage>();
+                    ChangesTrackerState = new Mock<IChangesTrackerState>();
 
-                    Target = new DocsPublisher(DocsStorage.Object);
+                    Target = new DocsPublisher(DocsStorage.Object, ChangesTrackerState.Object);
                 };
 
+            protected static Mock<IChangesTrackerState> ChangesTrackerState { get; private set; }
             protected static DocsPublisher Target { get; private set; }
             protected static Mock<IDocsStorage> DocsStorage;
         }

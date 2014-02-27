@@ -9,11 +9,11 @@ namespace DoubleGis.Erm.Qds.Common.ElasticClient
 {
     public sealed class ElasticConnectionSettingsFactory : IElasticConnectionSettingsFactory
     {
-        private readonly IEnvironmentIsolationSettings _environmentIsolationSettings;
+        private readonly ISearchSettings _searchSettings;
 
-        public ElasticConnectionSettingsFactory(IEnvironmentIsolationSettings environmentIsolationSettings)
+        public ElasticConnectionSettingsFactory(ISearchSettings searchSettings)
         {
-            _environmentIsolationSettings = environmentIsolationSettings;
+            _searchSettings = searchSettings;
         }
 
         public IConnectionSettings CreateConnectionSettings(Uri uri)
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Qds.Common.ElasticClient
 
         public string GetIsolatedIndexName(string indexName)
         {
-            return string.Concat(_environmentIsolationSettings.TargetEnvironmentName.ToLowerInvariant(), ".", indexName);
+            return string.Concat(_searchSettings.IndexPrefix, ".", indexName);
         }
     }
 }

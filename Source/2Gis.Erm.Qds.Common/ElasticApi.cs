@@ -58,9 +58,11 @@ namespace DoubleGis.Erm.Qds.Common
                 bulkDescriptor.Refresh();
 
                 var response = client.Bulk(bulkDescriptor);
-                if (response.Items.Any(x => !x.OK))
+                var errorItem = response.Items.FirstOrDefault(x => !string.IsNullOrEmpty(x.Error));
+
+                if (errorItem != null)
                 {
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(string.Format("{0} - {1}", errorItem.Operation, errorItem.Error));
                 }
             }
         }

@@ -4,6 +4,6 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
     public interface IDocsMetaData
     {
-        IDocsSelector[] GetDocsSelectors(Type partType);
+        IDocsUpdater[] GetDocsUpdaters(Type partType);
     }
 }

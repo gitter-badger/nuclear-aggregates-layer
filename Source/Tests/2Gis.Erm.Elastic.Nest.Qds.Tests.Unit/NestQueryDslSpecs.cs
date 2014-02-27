@@ -13,19 +13,21 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         {
             Establish context = () =>
                 {
-                    ExpectedFieldName = "fieldname";
+                    FieldName = "FieldName";
+                    ExpectedFieldName = "fieldName";
                     ExpectedValue = "value";
                 };
 
-            Because of = () => Result = Target.ByFieldValue(ExpectedFieldName, ExpectedValue);
+            Because of = () => Result = Target.ByFieldValue(FieldName, ExpectedValue);
 
             It should_create_field_value_query = () => Result.Should().BeOfType<FieldValueQuery>();
-            It should_init_field_name = () => Result.As<FieldValueQuery>().FieldName.Should().Be(ExpectedFieldName);
+            It should_init_field_name_as_camel_case = () => Result.As<FieldValueQuery>().FieldName.Should().Be(ExpectedFieldName);
             It should_init_field_value = () => Result.As<FieldValueQuery>().FieldValue.Should().Be(ExpectedValue);
 
             static IDocsQuery Result;
             static string ExpectedFieldName;
             static object ExpectedValue;
+            static string FieldName;
         }
 
         class NestQueryDslContext
