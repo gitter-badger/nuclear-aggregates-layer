@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
@@ -8,6 +9,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -22,15 +24,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintBillHandler(
             ILegalPersonReadModel legalPersonReadModel,
-            ISubRequestProcessor requestProcessor, 
+            ISubRequestProcessor requestProcessor,
+            IFormatterFactory formatterFactory,
             IFinder finder)
         {
             _legalPersonReadModel = legalPersonReadModel;
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintBillRequest request)
@@ -137,13 +142,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                 .ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture);
         }
 
-        private static string FormatRelatedBargainInfo(Bargain bargain)
+        private string FormatRelatedBargainInfo(Bargain bargain)
         {
             return (bargain == null)
-                ? null
-                : string.Format(BLResources.RelatedToBargainInfoTemplate,
+                       ? null
+                       : string.Format(BLResources.RelatedToBargainInfoTemplate,
                                        bargain.Number,
-                                       bargain.CreatedOn);
+                                       _shortDateFormatter.Format(bargain.CreatedOn));
         }
     }
 }
