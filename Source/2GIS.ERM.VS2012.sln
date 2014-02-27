@@ -456,19 +456,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.Migrations", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.Operations", "..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj", "{CD6C5329-F9EA-41A0-8446-2B26FB92720E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.Migrator", "..\..\BLQuerying\Source\Data\2Gis.Erm.Qds.Migrator\2Gis.Erm.Qds.Migrator.csproj", "{813920A4-E626-4BF5-8C40-59395B7E6D5B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Elastic.Nest.Qds", "..\..\BLQuerying\Source\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj", "{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.IndexService", "..\..\BLQuerying\Source\2Gis.Erm.Qds.IndexService\2Gis.Erm.Qds.IndexService.csproj", "{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Elastic.Nest.Qds.Tests.Integration", "..\..\BLQuerying\Source\Tests\2Gis.Erm.Elastic.Nest.Qds.Tests.Integration\2Gis.Erm.Elastic.Nest.Qds.Tests.Integration.csproj", "{DB6B5FEE-74DC-4CF3-913D-4388DA3F1264}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Elastic.Nest.Qds.Tests.Unit", "..\..\BLQuerying\Source\Tests\2Gis.Erm.Elastic.Nest.Qds.Tests.Unit\2Gis.Erm.Elastic.Nest.Qds.Tests.Unit.csproj", "{08962CD1-F454-441A-9E68-A61EDE67CA00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.Etl.Tests.Unit", "..\..\BLQuerying\Source\Tests\2Gis.Erm.Qds.Etl.Tests.Unit\2Gis.Erm.Qds.Etl.Tests.Unit.csproj", "{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.IndexService.Tests.Unit", "..\..\BLQuerying\Source\Tests\2Gis.Erm.Qds.IndexService.Tests.Unit\2Gis.Erm.Qds.IndexService.Tests.Unit.csproj", "{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.Migrator", "2Gis.Erm.Qds.Migrator\2Gis.Erm.Qds.Migrator.csproj", "{D481901A-9570-4B33-9CFE-CF9A29426453}"
 EndProject
@@ -478,7 +472,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.IndexService.T
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 119
+		SccNumberOfProjects = 116
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -930,30 +924,18 @@ Global
 		SccProjectTopLevelParentUniqueName112 = 2GIS.ERM.VS2012.sln
 		SccProjectName112 = ../../BLQuerying/Source/Tests/2Gis.Erm.Qds.Etl.Tests.Unit
 		SccLocalPath112 = ..\\..\\BLQuerying\\Source\\Tests\\2Gis.Erm.Qds.Etl.Tests.Unit
-		SccProjectUniqueName113 = ..\\..\\BLQuerying\\Source\\Data\\2Gis.Erm.Qds.Migrator\\2Gis.Erm.Qds.Migrator.csproj
+		SccProjectUniqueName113 = 2Gis.Erm.Qds.Migrator\\2Gis.Erm.Qds.Migrator.csproj
 		SccProjectTopLevelParentUniqueName113 = 2GIS.ERM.VS2012.sln
-		SccProjectName113 = ../../BLQuerying/Source/Data/2Gis.Erm.Qds.Migrator
-		SccLocalPath113 = ..\\..\\BLQuerying\\Source\\Data\\2Gis.Erm.Qds.Migrator
-		SccProjectUniqueName114 = ..\\..\\BLQuerying\\Source\\2Gis.Erm.Qds.IndexService\\2Gis.Erm.Qds.IndexService.csproj
+		SccProjectName113 = 2Gis.Erm.Qds.Migrator
+		SccLocalPath113 = 2Gis.Erm.Qds.Migrator
+		SccProjectUniqueName114 = 2Gis.Erm.Qds.IndexService\\2Gis.Erm.Qds.IndexService.csproj
 		SccProjectTopLevelParentUniqueName114 = 2GIS.ERM.VS2012.sln
-		SccProjectName114 = ../../BLQuerying/Source/2Gis.Erm.Qds.IndexService
-		SccLocalPath114 = ..\\..\\BLQuerying\\Source\\2Gis.Erm.Qds.IndexService
-		SccProjectUniqueName115 = ..\\..\\BLQuerying\\Source\\Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit\\2Gis.Erm.Qds.IndexService.Tests.Unit.csproj
+		SccProjectName114 = 2Gis.Erm.Qds.IndexService
+		SccLocalPath114 = 2Gis.Erm.Qds.IndexService
+		SccProjectUniqueName115 = Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit\\2Gis.Erm.Qds.IndexService.Tests.Unit.csproj
 		SccProjectTopLevelParentUniqueName115 = 2GIS.ERM.VS2012.sln
-		SccProjectName115 = ../../BLQuerying/Source/Tests/2Gis.Erm.Qds.IndexService.Tests.Unit
-		SccLocalPath115 = ..\\..\\BLQuerying\\Source\\Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit
-		SccProjectUniqueName116 = 2Gis.Erm.Qds.Migrator\\2Gis.Erm.Qds.Migrator.csproj
-		SccProjectTopLevelParentUniqueName116 = 2GIS.ERM.VS2012.sln
-		SccProjectName116 = 2Gis.Erm.Qds.Migrator
-		SccLocalPath116 = 2Gis.Erm.Qds.Migrator
-		SccProjectUniqueName117 = 2Gis.Erm.Qds.IndexService\\2Gis.Erm.Qds.IndexService.csproj
-		SccProjectTopLevelParentUniqueName117 = 2GIS.ERM.VS2012.sln
-		SccProjectName117 = 2Gis.Erm.Qds.IndexService
-		SccLocalPath117 = 2Gis.Erm.Qds.IndexService
-		SccProjectUniqueName118 = Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit\\2Gis.Erm.Qds.IndexService.Tests.Unit.csproj
-		SccProjectTopLevelParentUniqueName118 = 2GIS.ERM.VS2012.sln
-		SccProjectName118 = Tests/2Gis.Erm.Qds.IndexService.Tests.Unit
-		SccLocalPath118 = Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit
+		SccProjectName115 = Tests/2Gis.Erm.Qds.IndexService.Tests.Unit
+		SccLocalPath115 = Tests\\2Gis.Erm.Qds.IndexService.Tests.Unit
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2042,16 +2024,6 @@ Global
 		{CD6C5329-F9EA-41A0-8446-2B26FB92720E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CD6C5329-F9EA-41A0-8446-2B26FB92720E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD6C5329-F9EA-41A0-8446-2B26FB92720E}.Release|x64.ActiveCfg = Release|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B}.Release|x64.ActiveCfg = Release|Any CPU
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -2062,16 +2034,6 @@ Global
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}.Release|x64.ActiveCfg = Release|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36}.Release|x64.ActiveCfg = Release|Any CPU
 		{DB6B5FEE-74DC-4CF3-913D-4388DA3F1264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB6B5FEE-74DC-4CF3-913D-4388DA3F1264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6B5FEE-74DC-4CF3-913D-4388DA3F1264}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -2102,16 +2064,6 @@ Global
 		{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29}.Release|x64.ActiveCfg = Release|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497}.Release|x64.ActiveCfg = Release|Any CPU
 		{D481901A-9570-4B33-9CFE-CF9A29426453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D481901A-9570-4B33-9CFE-CF9A29426453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D481901A-9570-4B33-9CFE-CF9A29426453}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -2274,7 +2226,6 @@ Global
 		{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{7D920B28-CA75-4F54-8605-AA1E57388326} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{5B72FCE8-04D5-4C60-9939-587FD1C01E5F} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
-		{D38456E8-B92A-4E52-9EF9-4514F2AE3C36} = {E6C31CB2-9700-4875-8986-EC61A58E04CF}
 		{61F2E7DB-DED3-41E5-B347-DAB633B4E3BB} = {1E9D99B4-C2B4-446E-A714-AED54C251747}
 		{C885CBC2-B3A0-47CF-AA3C-F22122FD1EDE} = {1E9D99B4-C2B4-446E-A714-AED54C251747}
 		{46CEBE23-C116-43B2-8C31-C4EFDE48C6F4} = {1E9D99B4-C2B4-446E-A714-AED54C251747}
@@ -2321,13 +2272,11 @@ Global
 		{A2EC52A5-720B-4F42-9615-006E6B5FB49A} = {3941AFFC-BF7F-437C-942E-3D32A2567A00}
 		{48A5C193-6A10-4188-9B82-90FDADC95C16} = {B4174B31-BF8C-4852-ADAE-30EF4C08E966}
 		{E4AB3155-046E-432E-BF3B-093C15ED2C36} = {579E0B47-3B95-4D21-8162-3E3CA10596E0}
-		{813920A4-E626-4BF5-8C40-59395B7E6D5B} = {579E0B47-3B95-4D21-8162-3E3CA10596E0}
 		{D8D2B6B6-8CFA-4A1B-868C-BE82089ED548} = {B7350B55-E42B-4058-B7A1-C674528FCE4E}
 		{EF7482F1-6531-4DDB-8042-2BB80A402F24} = {B7350B55-E42B-4058-B7A1-C674528FCE4E}
 		{DB6B5FEE-74DC-4CF3-913D-4388DA3F1264} = {DFD596D7-4F3A-4E1C-AB51-B74670621B41}
 		{08962CD1-F454-441A-9E68-A61EDE67CA00} = {DFD596D7-4F3A-4E1C-AB51-B74670621B41}
 		{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29} = {DFD596D7-4F3A-4E1C-AB51-B74670621B41}
-		{1C0E46F3-D25F-4F6A-9F2E-4A1F3C241497} = {DFD596D7-4F3A-4E1C-AB51-B74670621B41}
 		{E6C3D53F-231B-483A-B7B6-BDFF284AD763} = {D8D2B6B6-8CFA-4A1B-868C-BE82089ED548}
 		{8008D300-37A0-44BB-863E-7CE97DC7B305} = {EF7482F1-6531-4DDB-8042-2BB80A402F24}
 		{8C7E352B-1450-4C92-9F53-EABEB51E1F79} = {8008D300-37A0-44BB-863E-7CE97DC7B305}

@@ -91,7 +91,7 @@
       <Name>2Gis.Erm.Qds.Etl</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.IndexService\2Gis.Erm.Qds.IndexService.csproj">
-      <Project>{d38456e8-b92a-4e52-9ef9-4514f2ae3c36}</Project>
+      <Project>{e25b3d1c-717a-4d0d-a4ae-14dbef0617f9}</Project>
       <Name>2Gis.Erm.Qds.IndexService</Name>
     </ProjectReference>
   </ItemGroup>
