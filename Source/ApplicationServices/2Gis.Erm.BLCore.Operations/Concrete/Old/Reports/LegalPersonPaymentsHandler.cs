@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Reports
+namespace DoubleGis.Erm.BL.Operations.Special.Concrete.Old.Reports
 {
     // FIXME {v.lapeev, 24.01.2014}: Похоже этот хендлер нигде не вызывается, учтонить и удалить если так
     public sealed class LegalPersonPaymentsHandler : RequestHandler<LegalPersonPaymentsRequest, StreamResponse>

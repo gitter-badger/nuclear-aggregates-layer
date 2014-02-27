@@ -198,8 +198,6 @@
     <Compile Include="Concrete\Old\Prices\ReplacePriceHandler.cs" />
     <Compile Include="Concrete\Old\Prices\UnpublishPriceHandler.cs" />
     <Compile Include="Concrete\Old\Printing\PrintDocumentHandler.cs" />
-    <Compile Include="Concrete\Old\Reports\LegalPersonPaymentsHandler.cs" />
-    <Compile Include="Concrete\Old\Reports\PlanningReportHandler.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionHandler.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Territories\SelectOrganizationUnitTerritoriesHandler.cs" />
@@ -577,6 +575,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
+      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
+      <Name>2Gis.Erm.BL.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -652,10 +654,6 @@
     <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
       <Name>2Gis.Erm.BLCore.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
-      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
-      <Name>2Gis.Erm.BL.Reports</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
