@@ -14,7 +14,6 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
@@ -532,14 +531,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             var planningMonth = (DateTime)planningMonthField.GetValue(model);
             var isAdvertisingAgency = (bool)isAdvertisingAgencyField.GetValue(model);
 
-            var response = (PlanningReportResponse)_publicService.Handle(new PlanningReportRequest
-            {
-                OrganizationUnitId = organizationUnit.Key.Value,
-                PlanningMonth = planningMonth,
-                IsAdvertisingAgency = isAdvertisingAgency,
-            });
+            //var response = (PlanningReportResponse)_publicService.Handle(new PlanningReportRequest
+            //{
+            //    OrganizationUnitId = organizationUnit.Key.Value,
+            //    PlanningMonth = planningMonth,
+            //    IsAdvertisingAgency = isAdvertisingAgency,
+            //});
 
-            return File(response.OutputStream, response.ContentType, "PlanningReport.xlsx");
+            //return File(response.OutputStream, response.ContentType, "PlanningReport.xlsx");
+
+            return null;
         }
 
         #endregion
