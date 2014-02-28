@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
         private static readonly IDictionary<FormatType, IFormatter> Formatters = new Dictionary<FormatType, IFormatter>
             {
                 { FormatType.LongDate, new StringFormatter("{0:d' de 'MMMM' de 'yyyy}") }, 
-                { FormatType.ShortDate, new StringFormatter(PrintFormFieldsFormatHelper.ShortDateFormat) }, 
+                { FormatType.ShortDate, new StringFormatter("{0:dd-MM-yy}") }, 
                 { FormatType.Money, new StringFormatter("{0:C}") }, 
                 { FormatType.Percents, new StringFormatter("{0:N2}%") }, 
                 { FormatType.Number, new StringFormatter("{0:N2}") }, 

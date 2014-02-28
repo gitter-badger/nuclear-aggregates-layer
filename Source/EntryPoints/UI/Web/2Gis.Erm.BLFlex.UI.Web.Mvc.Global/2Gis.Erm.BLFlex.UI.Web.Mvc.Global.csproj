@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
+    <Compile Include="Models\Chile\CommuneViewModel.cs" />
     <Compile Include="Models\MultiCultureCreateBillViewModel.cs" />
     <Compile Include="Areas\Chile\Views\CreateBill\Create.generated.cs">
       <AutoGen>True</AutoGen>

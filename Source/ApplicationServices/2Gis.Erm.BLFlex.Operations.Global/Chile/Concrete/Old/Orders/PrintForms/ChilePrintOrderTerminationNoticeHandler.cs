@@ -1,6 +1,7 @@
 using System.Data.Objects;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -18,9 +19,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
-        public ChilePrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public ChilePrintOrderTerminationNoticeHandler(ILegalPersonReadModel legalPersonReadModel,
+                                                       ISubRequestProcessor requestProcessor,
+                                                       IFinder finder)
         {
+            _legalPersonReadModel = legalPersonReadModel;
             _requestProcessor = requestProcessor;
             _finder = finder;
         }
@@ -33,7 +38,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                            OrderState = (OrderState)order.WorkflowStepId, 
                                            order.IsTerminated, 
                                            CurrencyISOCode = order.Currency.ISOCode, 
-                                           order.BranchOfficeOrganizationUnitId, 
+                                           order.BranchOfficeOrganizationUnitId,
+                                           order.LegalPersonProfileId
                                        })
                                    .Single();
 
@@ -46,6 +52,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             {
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
+
+            var legalPersonProfileId = request.LegalPersonProfileId ?? orderInfo.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
+            {
+                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+            }
+
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
 
             var printData =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
@@ -64,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                    }, 
                                LegalPersonProfile = new
                                    {
-                                       order.LegalPersonProfile.ChiefNameInNominative, 
+                                       legalPersonProfile.ChiefNameInNominative, 
                                    },
                                BranchOffice = new
                                    {

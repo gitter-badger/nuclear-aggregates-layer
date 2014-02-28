@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
@@ -9,6 +10,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -25,18 +27,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+        private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintOrderBargainHandler(IFinder finder,
                                              IBankReadModel bankReadModel,
                                              ISubRequestProcessor requestProcessor,
                                              ILegalPersonReadModel legalPersonReadModel,
-                                             IBranchOfficeReadModel branchOfficeReadModel)
+                                             IBranchOfficeReadModel branchOfficeReadModel,
+                                             IFormatterFactory formatterFactory)
         {
             _finder = finder;
             _bankReadModel = bankReadModel;
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
@@ -66,7 +71,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            if (!orderData.LegalPersonProfileId.HasValue)
+            var legalPersonProfileId = request.LegalPersonProfileId ?? orderData.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
             {
                 throw new NotificationException(BLResources.LegalPersonProfileMissing);
             }
@@ -79,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(orderData.BranchOfficeOrganizationUnitId.Value);
             var boouPart = boou.Parts.OfType<BranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderData.LegalPersonId.Value);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(orderData.LegalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<LegalPersonProfilePart>().Single();
 
             var bankName = legalPersonProfilePart.BankId.HasValue ? _bankReadModel.GetBank(legalPersonProfilePart.BankId.Value).Name : string.Empty;
@@ -122,7 +128,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                     legalPersonProfile.PaymentEssentialElements,
                     legalPersonProfilePart.RepresentativeRut,
                     legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedBy,
-                    legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedOn,
+                    RepresentativeAuthorityDocumentIssuedOn = _shortDateFormatter.Format(legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedOn),
                     AccountType = LocalizeAccountType(legalPersonProfilePart.AccountType),
                     OperatesOnTheBasisInGenitive = LocalizeOperatesOnTheBasisInGenitive(legalPersonProfile.OperatesOnTheBasisInGenitive),
                     BankName = bankName

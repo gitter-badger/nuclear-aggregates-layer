@@ -45,13 +45,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            if (!order.LegalPersonProfileId.HasValue)
+            var legalPersonProfileId = request.LegalPersonProfileId ?? order.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
             {
                 throw new NotificationException(BLResources.LegalPersonProfileMissing);
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<LegalPersonProfilePart>().Single();
 
             var printData = new 
