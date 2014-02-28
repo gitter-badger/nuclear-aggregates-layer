@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -30,6 +32,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                 public static FindSpecification<Firm> WithoutActiveOrders()
                 {
                     return new FindSpecification<Firm>(x => !x.Orders.Any(y => y.IsActive && !y.IsDeleted));
+                }
+
+                public static IFindSpecification<Firm> ByReplicationCodes(IEnumerable<Guid> crmId)
+                {
+                    return new FindSpecification<Firm>(x => crmId.Contains(x.ReplicationCode));
                 }
             }
 
