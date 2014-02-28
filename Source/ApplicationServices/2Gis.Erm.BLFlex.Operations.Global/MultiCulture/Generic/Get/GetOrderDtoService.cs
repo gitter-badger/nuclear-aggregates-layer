@@ -280,7 +280,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                       firm.OrganizationUnitId,
                                       OrganizationUnitName = firm.OrganizationUnit.Name
                                   }),
-                                  LegalPerson = new { person.Id, person.ShortName },
+                                  LegalPerson = new { person.Id, person.LegalName },
                               })
                               .SingleOrDefault();
 
@@ -291,7 +291,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             clientRef = data.Client != null ? new EntityReference(data.Client.Id, data.Client.Name) : null;
             firmRef = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
-            legalPersonRef = new EntityReference(data.LegalPerson.Id, data.LegalPerson.ShortName);
+            legalPersonRef = new EntityReference(data.LegalPerson.Id, data.LegalPerson.LegalName);
             destOrganizationUnitRef = firmRef != null
                              ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUnitName)
                              : null;
@@ -312,7 +312,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                               firm.Client != null
                                                   ? new EntityReference { Id = firm.Client.Id, Name = firm.Client.Name }
                                                   : new EntityReference { Id = -1, Name = string.Empty },
-                                  LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.ShortName })
+                                  LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName })
                               }).SingleOrDefault();
 
             if (data == null)
@@ -327,7 +327,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             clientRef = data.Client != null ? new EntityReference(data.Client.Id, data.Client.Name) : null;
             firmRef = new EntityReference(data.Firm.Id, data.Firm.Name);
-            legalPersonRef = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().ShortName) : null;
+            legalPersonRef = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
             destOrganizationUnitId = new EntityReference(data.Firm.OrganizationUnitId, data.Firm.OrganizationUnitName);
             return true;
         }
