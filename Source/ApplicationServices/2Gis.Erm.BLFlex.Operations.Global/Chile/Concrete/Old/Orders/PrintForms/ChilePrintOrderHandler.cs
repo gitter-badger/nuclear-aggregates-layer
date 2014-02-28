@@ -61,6 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IBankReadModel _bankReadModel;
         private readonly IFormatter _shortDateFormatter;
+        private readonly IFormatter _longDateFormatter;
 
         public ChilePrintOrderHandler(ISubRequestProcessor requestProcessor,
             ISecurityServiceUserIdentifier userIdentifierService,
@@ -82,6 +83,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
@@ -345,7 +347,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                         BranchOfficeOrganizationUnitPart = boouPart,
                         x.BranchOffice,
                         x.CurrencyISOCode,
-                        x.Bargain,
+                        BargainNumber = x.Bargain != null ? x.Bargain.Number : string.Empty,
                         RelatedBargainInfo =
                             x.Bargain != null
                                 ? string.Format(BLCoreResources.RelatedToBargainInfoTemplate, x.Bargain.Number, x.Bargain.CreatedOn)
@@ -624,7 +626,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             }
         }
 
-        private static string GetElectronicMediaParagraph(PlatformEnum platform, string electronivMedia, string registrationCertificate, Order order)
+        private string GetElectronicMediaParagraph(PlatformEnum platform, string electronivMedia, string registrationCertificate, Order order)
         {
             switch (platform)
             {
@@ -644,8 +646,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                         registrationCertificate,
                         order.BeginReleaseNumber,
                         order.EndReleaseNumberPlan,
-                        order.BeginDistributionDate,
-                        order.EndDistributionDatePlan);
+                        _longDateFormatter.Format(order.BeginDistributionDate),
+                        _longDateFormatter.Format(order.EndDistributionDatePlan));
                 case PlatformEnum.Mobile:
                     return string.Format(
                        CultureInfo.CurrentCulture,
@@ -654,8 +656,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                        registrationCertificate,
                        order.BeginReleaseNumber,
                        order.EndReleaseNumberPlan,
-                       order.BeginDistributionDate,
-                       order.EndDistributionDatePlan);
+                       _longDateFormatter.Format(order.BeginDistributionDate),
+                       _longDateFormatter.Format(order.EndDistributionDatePlan));
                 case PlatformEnum.Api:
                     return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
                 case PlatformEnum.Online:
