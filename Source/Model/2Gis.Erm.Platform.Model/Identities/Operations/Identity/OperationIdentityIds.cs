@@ -64,6 +64,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ActualizeAccountsDuringRevertingWithdrawalIdentity = 1019;
         public const int ActualizeOrdersDuringRevertingWithdrawalIdentity = 1020;
         public const int ActualizeDealsDuringRevertingWithdrawalIdentity = 1021;
+        public const int GetFirmInfoIdentity = 1022;
 
         // EntityName.ReleaseWithdrawal = 215
         public const int CalculateReleaseWithdrawalsIdentity = 21501;
