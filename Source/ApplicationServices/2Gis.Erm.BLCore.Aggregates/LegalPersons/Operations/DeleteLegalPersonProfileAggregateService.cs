@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Dynamic.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -14,29 +13,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<LegalPersonProfile> _legalPersonProfileSecureRepository;
-        private readonly IDeleteDynamicAggregateRepository<BusinessEntityInstance, BusinessEntityPropertyInstance> _deleteDynamicAggregateRepository;
 
         public DeleteLegalPersonProfileAggregateService(
             IOperationScopeFactory operationScopeFactory,
-            ISecureRepository<LegalPersonProfile> legalPersonProfileSecureRepository,
-            IDeleteDynamicAggregateRepository<BusinessEntityInstance, BusinessEntityPropertyInstance> deleteDynamicAggregateRepository)
+            ISecureRepository<LegalPersonProfile> legalPersonProfileSecureRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _legalPersonProfileSecureRepository = legalPersonProfileSecureRepository;
-            _deleteDynamicAggregateRepository = deleteDynamicAggregateRepository;
         }
 
         public void Delete(LegalPersonProfile entity, IEnumerable<BusinessEntityInstanceDto> entityInstanceDtos)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, LegalPersonProfile>())
             {
-                foreach (var entityInstanceDto in entityInstanceDtos)
-                {
-                    _deleteDynamicAggregateRepository.Delete(entityInstanceDto.EntityInstance, entityInstanceDto.PropertyInstances);
-                }
-
-                _legalPersonProfileSecureRepository.Delete(entity);
-                operationScope.Deleted<LegalPersonProfile>(entity.Id);
+                // Профиль юр. лица при удалении не удаляется, а... wait for it... деактивируется: https://confluence.2gis.ru/pages/viewpage.action?pageId=93160525
+                entity.IsActive = false;
+                _legalPersonProfileSecureRepository.Update(entity);
+                operationScope.Updated<LegalPersonProfile>(entity.Id);
 
                 _legalPersonProfileSecureRepository.Save();
 
