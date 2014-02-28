@@ -188,6 +188,7 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFlowCardsForErmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />

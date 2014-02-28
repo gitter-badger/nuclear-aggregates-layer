@@ -88,6 +88,7 @@ namespace DoubleGis.Erm.Platform.API.Core
         public static class FinancialOperations
         {
             public const string FinancialOperations201310 = "http://2gis.ru/erm/api/financialoperations/2013/10";
+            public const string FirmInfo201402 = "http://2gis.ru/erm/api/financialoperations/firminfo/2014/02";
         }
 
         public static class Releasing
