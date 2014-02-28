@@ -439,6 +439,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                 case ReportFieldType.Lookup:
                     return BuildLookup(reportField);
 
+                case ReportFieldType.PlainText:
+                    return new ReportModel.ReportFieldDefinition
+                        {
+                            Type = typeof(string),
+                            Name = reportField.Name,
+                            DefaultValue = string.Empty,
+                        };
+
                 default:
                     throw new NotificationException("Unknown type " + reportField.Type);
             }
