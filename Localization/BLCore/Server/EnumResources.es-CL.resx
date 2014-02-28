@@ -1477,7 +1477,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUnderfined" xml:space="preserve">
-    <value>-- Не переведено PaymentMethodUnderfined --</value>
+    <value></value>
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Cheque</value>
@@ -1696,19 +1696,19 @@
     <value>CANCELLED</value>
   </data>
   <data name="ReleaseStatusReverting" xml:space="preserve">
-    <value>-- Не переведено ReleaseStatusReverting --</value>
+    <value>Reverting</value>
   </data>
   <data name="ReleaseStatusInProgressInternalProcessingStarted" xml:space="preserve">
-    <value>-- Не переведено ReleaseStatusInProgressInternalProcessingStarted --</value>
+    <value>InProgress Internal Processing Started</value>
   </data>
   <data name="ReleaseStatusInProgressWaitingExternalProcessing" xml:space="preserve">
-    <value>-- Не переведено ReleaseStatusInProgressWaitingExternalProcessing --</value>
+    <value>InProgress Waiting External Processing</value>
   </data>
   <data name="WithdrawalStatusReverting" xml:space="preserve">
-    <value>-- Не переведено WithdrawalStatusReverting --</value>
+    <value>Reverting</value>
   </data>
   <data name="WithdrawalStatusWithdrawing" xml:space="preserve">
-    <value>-- Не переведено WithdrawalStatusWithdrawing --</value>
+    <value>Withdrawing</value>
   </data>
   <data name="OrderFileKindWarrantyScan" xml:space="preserve">
     <value>Poder notarial</value>
