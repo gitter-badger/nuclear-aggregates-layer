@@ -1335,4 +1335,13 @@
   <data name="Bank" xml:space="preserve">
     <value>Nombre de banco</value>
   </data>
+  <data name="RepresentativeRut" xml:space="preserve">
+  <value>RUT представителя</value>
+</data>
+  <data name="Rut" xml:space="preserve">
+  <value>RUT</value>
+</data>
+  <data name="OperationsKind" xml:space="preserve">
+  <value>Вид деятельности</value>
+</data>
 </root>
