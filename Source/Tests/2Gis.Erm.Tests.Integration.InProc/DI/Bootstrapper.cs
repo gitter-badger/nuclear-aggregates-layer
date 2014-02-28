@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -18,7 +19,6 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
-using DoubleGis.Erm.BLCore.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
@@ -187,7 +187,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
-                     .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)

@@ -1114,6 +1114,10 @@
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
+      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
+      <Name>2Gis.Erm.BL.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
       <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
       <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
@@ -1121,10 +1125,6 @@
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
       <Project>{f2833a2e-0e6f-4a3e-b8d3-35b7165085a1}</Project>
       <Name>2Gis.Erm.BLCore.Releasing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\Reports\2Gis.Erm.BLCore.Reports\2Gis.Erm.BLCore.Reports.csproj">
-      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
-      <Name>2Gis.Erm.BLCore.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5fc26f81-5100-43b5-b55b-e470308338d2}</Project>
