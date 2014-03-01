@@ -156,6 +156,8 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
                     return ReportFieldType.DateMonth;
                 case "lookup":
                     return ReportFieldType.Lookup;
+                case "plaintext":
+                    return ReportFieldType.PlainText;
                 default:
                     return ReportFieldType.NotSpecified;
             }

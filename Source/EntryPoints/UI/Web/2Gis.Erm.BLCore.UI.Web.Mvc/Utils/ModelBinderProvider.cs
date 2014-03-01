@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.Report;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
@@ -104,9 +106,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // ENUM, validate "required" attribute on zero value
-                if (propertyType.IsEnum && string.Equals(propertyDescriptor.PropertyType.GetEnumName(0), modelState.Value.AttemptedValue, StringComparison.OrdinalIgnoreCase))
+                if (propertyType.IsEnum)
                 {
-                    return ValidateRequiredAttribute(propertyDescriptor, modelState);
+                    var undefinedValueAttribute = propertyType.GetCustomAttribute<UndefinedEnumValueAttribute>();
+                    var undefinedValue = undefinedValueAttribute != null ? undefinedValueAttribute.Value : 0;
+
+                    if (string.Equals(propertyDescriptor.PropertyType.GetEnumName(undefinedValue),
+                                      modelState.Value.AttemptedValue,
+                                      StringComparison.OrdinalIgnoreCase))
+                    {
+                        return ValidateRequiredAttribute(propertyDescriptor, modelState);
+                    }
                 }
 
                 return true;

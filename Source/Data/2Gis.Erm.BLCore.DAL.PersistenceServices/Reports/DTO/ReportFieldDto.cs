@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO
         Boolean = 1,
         DateDay = 2,
         DateMonth = 3,
+        PlainText = 4,
 
         Lookup = 14,
 

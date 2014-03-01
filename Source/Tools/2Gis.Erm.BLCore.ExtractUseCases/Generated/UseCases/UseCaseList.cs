@@ -24,7 +24,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
@@ -59,7 +58,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserOperations;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
@@ -1690,16 +1688,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ReportsController\LegalPersonPayments",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(LegalPersonPaymentsHandler),
-                        Request = typeof(LegalPersonPaymentsRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\GetListData",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1752,16 +1740,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(PublishPriceHandler),
                         Request = typeof(PublishPriceRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ReportsController\PlanningReport",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PlanningReportHandler),
-                        Request = typeof(PlanningReportRequest)
                     }
                 },
                 new UseCase
