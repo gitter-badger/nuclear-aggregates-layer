@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -78,11 +77,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 {
                     return BindInt64(bindingContext);
                 }
-
-                //if (modelType == typeof(ReportModel))
-                //{
-                //    return BindReport(controllerContext, bindingContext);
-                //}
 
                 return base.BindModel(controllerContext, bindingContext);
             }
@@ -279,41 +273,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             }
 
             #endregion
-
-            //private object BindReport(ControllerContext controllerContext, ModelBindingContext bindingContext)
-            //{
-            //    var typeName = bindingContext.ValueProvider.GetValue("ReportType").AttemptedValue;
-            //    if (string.IsNullOrWhiteSpace(typeName))
-            //    {
-            //        throw new ArgumentException("Bad report type");
-            //    }
-
-            //    var type = AppDomain.CurrentDomain.GetAssemblies()
-            //                        .Select(assembly => assembly.GetType(typeName))
-            //                        .SingleOrDefault(t => t != null);
-
-            //    if (type == null)
-            //    {
-            //        // Сервер не знает о типе данных, который был использован для построения модели. Даём шанс позже вернуться к этому вопросу.
-            //        return new DelayedReportModel(this, controllerContext, bindingContext);
-            //    }
-
-            //    if (type == null || !typeof(ReportModel).IsAssignableFrom(type))
-            //    {
-            //        throw new ArgumentException("Bad report type");
-            //    }
-
-            //    var constructor = type.GetConstructor(new Type[0]);
-
-            //    if (constructor == null)
-            //    {
-            //        throw new ArgumentException("Bad report type");
-            //    }
-
-            //    bindingContext.ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => constructor.Invoke(new object[0]), type);
-            //    var model = base.BindModel(controllerContext, bindingContext);
-            //    return model;
-            //}
         }
 
         #endregion
