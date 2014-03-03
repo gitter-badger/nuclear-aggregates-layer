@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                   IDealRepository dealRepository,
                                   IBranchOfficeRepository branchOfficeRepository,
                                   IFirmRepository firmRepository,
-                                  IUserRepository userRepository,
+                                  IUserRepository userRepository,                                  
                                   ICostCalculator costCalculator)
             : base(userContext)
         {
@@ -68,77 +69,77 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
             var dto = _finder.Find<Order>(x => x.Id == entityId)
                              .Select(x => new OrderDomainEntityDto
-                             {
-                                 Id = x.Id,
-                                 OrderNumber = x.Number,
-                                 RegionalNumber = x.RegionalNumber,
-                                 FirmRef = new EntityReference { Id = x.FirmId, Name = x.Firm.Name },
-                                 ClientRef = new EntityReference
                                  {
-                                     Id = x.Deal != null ? x.Deal.ClientId : x.Firm.ClientId,
-                                     Name = (x.Deal != null) ? x.Deal.Client.Name : (x.Firm.Client != null ? x.Firm.Client.Name : null)
-                                 },
-                                 DgppId = x.DgppId,
-                                 HasAnyOrderPosition = x.OrderPositions.Any(op => op.IsActive && !op.IsDeleted),
-                                 HasDestOrganizationUnitPublishedPrice = x.DestOrganizationUnit.Prices
-                                                                          .Any(price => price.IsPublished && price.IsActive &&
-                                                                                        !price.IsDeleted && price.BeginDate <= x.BeginDistributionDate),
-                                 SourceOrganizationUnitRef = new EntityReference { Id = x.SourceOrganizationUnitId, Name = x.SourceOrganizationUnit.Name },
-                                 DestOrganizationUnitRef = new EntityReference { Id = x.DestOrganizationUnitId, Name = x.DestOrganizationUnit.Name },
-                                 BranchOfficeOrganizationUnitRef =
-                                     new EntityReference { Id = x.BranchOfficeOrganizationUnitId, Name = x.BranchOfficeOrganizationUnit.ShortLegalName },
-                                 LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName },
-                                 DealRef = new EntityReference { Id = x.DealId, Name = x.Deal.Name },
-                                 DealCurrencyId = x.Deal.CurrencyId,
-                                 CurrencyRef = new EntityReference { Id = x.CurrencyId, Name = x.Currency.Name },
-                                 BeginDistributionDate = x.BeginDistributionDate,
-                                 EndDistributionDatePlan = x.EndDistributionDatePlan,
-                                 EndDistributionDateFact = x.EndDistributionDateFact,
-                                 BeginReleaseNumber = x.BeginReleaseNumber,
-                                 EndReleaseNumberPlan = x.EndReleaseNumberPlan,
-                                 EndReleaseNumberFact = x.EndReleaseNumberFact,
-                                 SignupDate = x.SignupDate,
-                                 ReleaseCountPlan = x.ReleaseCountPlan,
-                                 ReleaseCountFact = x.ReleaseCountFact,
-                                 PreviousWorkflowStepId = (OrderState)x.WorkflowStepId,
-                                 WorkflowStepId = (OrderState)x.WorkflowStepId,
-                                 PayablePlan = x.PayablePlan,
-                                 PayableFact = x.PayableFact,
-                                 PayablePrice = x.PayablePrice,
-                                 VatPlan = x.VatPlan,
-                                 AmountToWithdraw = x.AmountToWithdraw,
-                                 AmountWithdrawn = x.AmountWithdrawn,
-                                 DiscountSum = x.DiscountSum,
-                                 DiscountPercent = x.DiscountPercent,
-                                 DiscountReasonEnum = (OrderDiscountReason)x.DiscountReasonEnum,
-                                 DiscountComment = x.DiscountComment,
-                                 DiscountPercentChecked = x.OrderPositions
-                                                           .Where(y => !y.IsDeleted && y.IsActive)
-                                                           .All(y => y.CalculateDiscountViaPercent),
-                                 Comment = x.Comment,
-                                 IsTerminated = x.IsTerminated,
-                                 TerminationReason = (OrderTerminationReason)x.TerminationReason,
-                                 OrderType = (OrderType)x.OrderType,
-                                 InspectorRef = new EntityReference { Id = x.InspectorCode, Name = null },
-                                 BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
-                                 BudgetType = (OrderBudgetType)x.BudgetType,
-                                 Platform = x.Platform == null ? string.Empty : x.Platform.Name,
-                                 PlatformRef = new EntityReference { Id = x.PlatformId, Name = x.Platform == null ? string.Empty : x.Platform.Name },
-                                 HasDocumentsDebt = (DocumentsDebt)x.HasDocumentsDebt,
-                                 DocumentsComment = x.DocumentsComment,
-                                 AccountRef = new EntityReference { Id = x.AccountId, Name = null },
-                                 PaymentMethod = (PaymentMethod)x.PaymentMethod,
-                                 LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = null },
+                                     Id = x.Id,
+                                     OrderNumber = x.Number,
+                                     RegionalNumber = x.RegionalNumber,
+                                     FirmRef = new EntityReference { Id = x.FirmId, Name = x.Firm.Name },
+                                     ClientRef = new EntityReference
+                                     {
+                                         Id = x.Deal != null ? x.Deal.ClientId : x.Firm.ClientId,
+                                         Name = (x.Deal != null) ? x.Deal.Client.Name : (x.Firm.Client != null ? x.Firm.Client.Name : null)
+                                     },
+                                     DgppId = x.DgppId,
+                                     HasAnyOrderPosition = x.OrderPositions.Any(op => op.IsActive && !op.IsDeleted),
+                                     HasDestOrganizationUnitPublishedPrice = x.DestOrganizationUnit.Prices
+                                                                              .Any(price => price.IsPublished && price.IsActive &&
+                                                                                            !price.IsDeleted && price.BeginDate <= x.BeginDistributionDate),
+                                     SourceOrganizationUnitRef = new EntityReference { Id = x.SourceOrganizationUnitId, Name = x.SourceOrganizationUnit.Name },
+                                     DestOrganizationUnitRef = new EntityReference { Id = x.DestOrganizationUnitId, Name = x.DestOrganizationUnit.Name },
+                                     BranchOfficeOrganizationUnitRef =
+                                         new EntityReference { Id = x.BranchOfficeOrganizationUnitId, Name = x.BranchOfficeOrganizationUnit.ShortLegalName },
+                                     LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName },
+                                     DealRef = new EntityReference { Id = x.DealId, Name = x.Deal.Name },
+                                     DealCurrencyId = x.Deal.CurrencyId,
+                                     CurrencyRef = new EntityReference { Id = x.CurrencyId, Name = x.Currency.Name },
+                                     BeginDistributionDate = x.BeginDistributionDate,
+                                     EndDistributionDatePlan = x.EndDistributionDatePlan,
+                                     EndDistributionDateFact = x.EndDistributionDateFact,
+                                     BeginReleaseNumber = x.BeginReleaseNumber,
+                                     EndReleaseNumberPlan = x.EndReleaseNumberPlan,
+                                     EndReleaseNumberFact = x.EndReleaseNumberFact,
+                                     SignupDate = x.SignupDate,
+                                     ReleaseCountPlan = x.ReleaseCountPlan,
+                                     ReleaseCountFact = x.ReleaseCountFact,
+                                     PreviousWorkflowStepId = (OrderState)x.WorkflowStepId,
+                                     WorkflowStepId = (OrderState)x.WorkflowStepId,
+                                     PayablePlan = x.PayablePlan,
+                                     PayableFact = x.PayableFact,
+                                     PayablePrice = x.PayablePrice,
+                                     VatPlan = x.VatPlan,
+                                     AmountToWithdraw = x.AmountToWithdraw,
+                                     AmountWithdrawn = x.AmountWithdrawn,
+                                     DiscountSum = x.DiscountSum,
+                                     DiscountPercent = x.DiscountPercent,
+                                     DiscountReasonEnum = (OrderDiscountReason)x.DiscountReasonEnum,
+                                     DiscountComment = x.DiscountComment,
+                                     DiscountPercentChecked = x.OrderPositions
+                                                               .Where(y => !y.IsDeleted && y.IsActive)
+                                                               .All(y => y.CalculateDiscountViaPercent),
+                                     Comment = x.Comment,
+                                     IsTerminated = x.IsTerminated,
+                                     TerminationReason = (OrderTerminationReason)x.TerminationReason,
+                                     OrderType = (OrderType)x.OrderType,
+                                     InspectorRef = new EntityReference { Id = x.InspectorCode, Name = null },
+                                     BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
+                                     BudgetType = (OrderBudgetType)x.BudgetType,
+                                     Platform = x.Platform == null ? string.Empty : x.Platform.Name,
+                                     PlatformRef = new EntityReference { Id = x.PlatformId, Name = x.Platform == null ? string.Empty : x.Platform.Name },
+                                     HasDocumentsDebt = (DocumentsDebt)x.HasDocumentsDebt,
+                                     DocumentsComment = x.DocumentsComment,
+                                     AccountRef = new EntityReference { Id = x.AccountId, Name = null },
+                                     PaymentMethod = (PaymentMethod)x.PaymentMethod,
+                                     LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = null },
 
-                                 OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },
-                                 IsActive = x.IsActive,
-                                 IsDeleted = x.IsDeleted,
-                                 CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },
-                                 ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
-                                 CreatedOn = x.CreatedOn,
-                                 ModifiedOn = x.ModifiedOn,
-                                 Timestamp = x.Timestamp
-                             })
+                                     OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },
+                                     IsActive = x.IsActive,
+                                     IsDeleted = x.IsDeleted,
+                                     CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },
+                                     ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
+                                     CreatedOn = x.CreatedOn,
+                                     ModifiedOn = x.ModifiedOn,
+                                     Timestamp = x.Timestamp
+                                 })
                              .Single();
 
             // Проверка на возможность отображения кнопки "Перейти к лицевому счету"
@@ -216,7 +217,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             var resultDto = CreateOrderDto(dealId);
 
             // При создании заказа из клиента, фирмы и юр. лица заполняем соответсвующие поля
-            if (parentEntityId.HasValue
+            if (parentEntityId.HasValue 
                 && (parentEntityName == EntityName.Client || parentEntityName == EntityName.Firm || parentEntityName == EntityName.LegalPerson))
             {
                 EntityReference firmRef;
@@ -232,7 +233,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 if (resultDto.DestOrganizationUnitRef == null)
                 {
                     resultDto.DestOrganizationUnitRef = destOrganizationUnitRef;
-                }
+            }
             }
 
             return resultDto;
@@ -264,17 +265,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
             var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                               .Select(person => new
-                              {
-                                  Firms = person.Client.Firms.Select(firm =>
-                                                                     new
-                                                                     {
-                                                                         firm.Id,
-                                                                         firm.Name,
-                                                                         firm.OrganizationUnitId,
-                                                                         OrganizationUnitName = firm.OrganizationUnit.Name
-                                                                     }),
-                                  LegalPerson = new { person.Id, person.LegalName },
-                              })
+                                  {
+                                      Firms = person.Client.Firms.Select(firm =>
+                                                                         new
+                                                                             {
+                                                                                 firm.Id,
+                                                                                 firm.Name,
+                                                                                 firm.OrganizationUnitId,
+                                                                                 OrganizationUnitName = firm.OrganizationUnit.Name
+                                                                             }),
+                                      LegalPerson = new { person.Id, person.LegalName },
+                                  })
                               .SingleOrDefault();
 
             if (data == null)
@@ -297,10 +298,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
             var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
                               .Select(firm => new
-                              {
-                                  Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
-                                  LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName }),
-                              })
+                                  {
+                                      Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
+                                      LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName }),
+                                  })
                               .SingleOrDefault();
 
             if (data == null)
@@ -321,17 +322,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
             var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                               .Select(client => new
-                              {
-                                  Firms = client.Firms.Select(firm =>
-                                                              new
-                                                              {
-                                                                  firm.Id,
-                                                                  firm.Name,
-                                                                  firm.OrganizationUnitId,
-                                                                  OrganizationUNitName = firm.OrganizationUnit.Name
-                                                              }),
-                                  LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
-                              })
+                                  {
+                                      Firms = client.Firms.Select(firm =>
+                                                                  new
+                                                                      {
+                                                                          firm.Id,
+                                                                          firm.Name,
+                                                                          firm.OrganizationUnitId,
+                                                                          OrganizationUNitName = firm.OrganizationUnit.Name
+                                                                      }),
+                                      LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
+                                  })
                               .SingleOrDefault();
 
             if (data == null)
@@ -361,16 +362,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             var currentUserCode = _userContext.Identity.Code;
 
             var orderDto = new OrderDomainEntityDto
-            {
-                IsActive = true,
-                ReleaseCountPlan = ReleaseCount,
-                ReleaseCountFact = ReleaseCount,
-                HasDocumentsDebt = DocumentsDebt.Absent,
-                CreatedOn = utcNow,
-                SignupDate = utcNow,
-                PreviousWorkflowStepId = OrderState.OnRegistration,
-                WorkflowStepId = OrderState.OnRegistration
-            };
+                {
+                    IsActive = true,
+                    ReleaseCountPlan = ReleaseCount,
+                    ReleaseCountFact = ReleaseCount,
+                    HasDocumentsDebt = DocumentsDebt.Absent,
+                    CreatedOn = utcNow,
+                    SignupDate = utcNow,
+                    PreviousWorkflowStepId = OrderState.OnRegistration,
+                    WorkflowStepId = OrderState.OnRegistration
+                };
 
             var distributionDatesDto = _orderReadModel.CalculateDistributionDates(utcNow.GetNextMonthFirstDate(), ReleaseCount, ReleaseCount);
             orderDto.BeginDistributionDate = distributionDatesDto.BeginDistributionDate;

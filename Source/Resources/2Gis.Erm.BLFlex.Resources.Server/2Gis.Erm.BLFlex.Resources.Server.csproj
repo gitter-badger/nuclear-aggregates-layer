@@ -55,6 +55,11 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Properties\BLResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\BLResources.ru.Designer.cs">
       <DependentUpon>BLResources.ru.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -75,11 +80,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\BLResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BLResources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\BLResources.ru.resx">
@@ -95,15 +95,17 @@
     <EmbeddedResource Include="Properties\BLResources.cs.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BLResources.cs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BLResources.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>BLResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

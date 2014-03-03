@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
+﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -81,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
+            var modelDto = (ChileBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
@@ -92,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
             RepresentativeName = modelDto.ChiefNameInNominative;
             RepresentativePosition = modelDto.PositionInNominative;
-            RepresentativeRut = "11.222.333-K"; // FIXME {all, 24.01.2014}: stub for representative rut
+            RepresentativeRut = modelDto.RepresentativeRut;
             
             PhoneNumber = modelDto.PhoneNumber;
             ShortLegalName = modelDto.ShortLegalName;
@@ -101,7 +99,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             Email = modelDto.Email;
 
             BranchOfficeAddlId = modelDto.BranchOfficeAddlId;
-            BranchOfficeAddlRut = modelDto.BranchOfficeAddlInn;
+            BranchOfficeAddlRut = modelDto.BranchOfficeAddlRut;
             BranchOfficeAddlLegalAddress = modelDto.BranchOfficeAddlLegalAddress;
             BranchOfficeAddlName = modelDto.BranchOfficeAddlName;
             PaymentEssentialElements = modelDto.PaymentEssentialElements;
@@ -113,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeOrganizationUnitDomainEntityDto
+            return new ChileBranchOfficeOrganizationUnitDomainEntityDto
                 {
                     Id = Id,
                     OrganizationUnitRef = OrganizationUnit.ToReference(),
@@ -121,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
                     ChiefNameInNominative = RepresentativeName,
                     PositionInNominative = RepresentativePosition,
-                    //RepresentativeRut = RepresentativeRut,
+                    RepresentativeRut = RepresentativeRut,
 
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
@@ -134,7 +132,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     Email = Email,
 
                     BranchOfficeAddlId = BranchOfficeAddlId,
-                    BranchOfficeAddlInn = BranchOfficeAddlRut,
+                    BranchOfficeAddlRut = BranchOfficeAddlRut,
                     BranchOfficeAddlLegalAddress = BranchOfficeAddlLegalAddress,
                     BranchOfficeAddlName = BranchOfficeAddlName,
                     PaymentEssentialElements = PaymentEssentialElements,

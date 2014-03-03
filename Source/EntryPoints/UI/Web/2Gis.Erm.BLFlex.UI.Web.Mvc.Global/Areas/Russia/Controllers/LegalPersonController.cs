@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
@@ -11,7 +10,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;

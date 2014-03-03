@@ -2,12 +2,12 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 {
@@ -22,11 +23,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IFormatter _shortDateFormatter;
 
-        public ChilePrintBillHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public ChilePrintBillHandler(
+            ILegalPersonReadModel legalPersonReadModel,
+            ISubRequestProcessor requestProcessor,
+            IFormatterFactory formatterFactory,
+            IFinder finder)
         {
-            _finder = finder;
+            _legalPersonReadModel = legalPersonReadModel;
             _requestProcessor = requestProcessor;
+            _finder = finder;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintBillRequest request)
@@ -35,99 +44,111 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                                   .Select(bill => new
                                       {
                                           Bill = bill,
-                                          bill.OrderId,
-                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
-                                          LegalPersonType = (LegalPersonType)bill.Order.LegalPerson.LegalPersonTypeEnum,
+                                          Bargain = bill.Order.Bargain,
+                                          LegalPersonId = bill.Order.LegalPersonId,
+                                          LegalPersonProfileId = bill.Order.LegalPersonProfileId,
                                           bill.Order.BranchOfficeOrganizationUnitId,
+                                          BranchOfficeOrganizationUnitVatRate = bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+
+                                          Order = new
+                                              {
+                                                  bill.Order.Number,
+                                                  bill.Order.SignupDate,
+                                                  bill.Order.PaymentMethod,
+                                                  bill.Order.DiscountPercent,
+                                              },
+
+                                          CurrencyISOCode = bill.Order.Currency.ISOCode
                                       })
                                   .SingleOrDefault();
 
             if (billInfo == null)
+            {
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
+            }
 
-            var printData = _finder.Find(Specs.Find.ById<Bill>(request.Id))
-                                   .Select(bill => new
-                                       {
-                                           Bill = new
-                                               {
-                                                   BillNumber = bill.BillNumber,
-                                                   OrderReleaseCountPlan = billInfo.OrderReleaseCountPlan,
-                                                   BeginDistributionDate = bill.BeginDistributionDate,
-                                                   EndDistributionDate = bill.EndDistributionDate,
-                                                   PayablePlan = bill.PayablePlan,
-                                                   VatPlan = bill.VatPlan,
-                                                   PaymentDatePlan = bill.PaymentDatePlan,
-                                                   BillDate = bill.BillDate,
-                                                   PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
-                                                   NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
-                                                   CreatedOn = bill.CreatedOn,
-                                               },
-                                           Order = new
-                                               {
-                                                   bill.Order.Number,
-                                                   bill.Order.SignupDate,
-                                                   bill.Order.PaymentMethod,
-                                                   bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                               },
-                                           bill.Order.Bargain,
-                                           bill.Order.BranchOfficeOrganizationUnit,
-                                           bill.Order.BranchOfficeOrganizationUnit.BranchOffice,
-                                           bill.Order.LegalPerson,
-                                           Profile =
-                                                       bill.Order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                                           y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
-                                           CurrencyISOCode = bill.Order.Currency.ISOCode
-                                       })
-                                   .AsEnumerable()
-                                   .Select(x => new
-                                       {
-                                           x.Bill,
-                                           OrderVatRate = (x.Order.VatRate == default(decimal)) ? (decimal?)null : x.Order.VatRate,
-                                           x.Order,
-                                           PaymentMethod =
-                                                    ((PaymentMethod)x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager,
-                                                                                                             CultureInfo.CurrentCulture),
-                                           RelatedBargainInfo = (x.Bargain != null)
-                                                                    ? string.Format(BLResources.RelatedToBargainInfoTemplate,
-                                                                                    x.Bargain.Number,
-                                                                                    PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn))
-                                                                    : null,
-                                           billInfo.OrderReleaseCountPlan,
-                                           x.BranchOfficeOrganizationUnit,
-                                           x.BranchOffice,
-                                           x.LegalPerson,
-                                           x.Profile,
-                                           x.CurrencyISOCode
-                                       })
-                                   .Single();
+            if (!billInfo.LegalPersonId.HasValue)
+            {
+                throw new NotificationException(BLResources.LegalPersonNotFound);
+            }
 
-            return _requestProcessor.HandleSubRequest(new PrintDocumentRequest()
+            var legalPersonProfileId = request.LegalPersonProfileId ?? billInfo.LegalPersonProfileId;
+            if (!legalPersonProfileId.HasValue)
+            {
+                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+            }
+
+            var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId.Value);
+            var legalPersonPart = legalPerson.Parts.OfType<LegalPersonPart>().Single();
+
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+
+            var communeRef = _legalPersonReadModel.GetCommuneReference(legalPerson.Id);
+
+            var printData2 = new
                 {
-                    CurrencyIsoCode = printData.CurrencyISOCode,
-                    FileName = printData.Bill.BillNumber,
+                    Order = new
+                        {
+                            billInfo.Order.Number,
+                            billInfo.Order.SignupDate,
+                            billInfo.Order.PaymentMethod,
+                            billInfo.BranchOfficeOrganizationUnitVatRate,
+                            billInfo.Order.DiscountPercent
+                        },
+
+                    LegalPerson = new
+                        {
+                            legalPerson.LegalName,
+                            legalPerson.LegalAddress,
+                            legalPerson.Inn, // TODO {all, 26.02.2014}: Rut vs Inn
+                            legalPersonPart.OperationsKind,
+                            legalPersonProfile.Phone,
+
+                            Commune = communeRef.Name,
+                            PaymentMethod = LocalizePaymentMethod(legalPersonProfile.PaymentMethod),
+                        },
+
+                    Bill = new
+                        {
+                            billInfo.Bill.BillNumber,
+                            billInfo.Bill.PaymentDatePlan,
+                            billInfo.Bill.BeginDistributionDate,
+                            billInfo.Bill.EndDistributionDate,
+                            billInfo.Bill.PayablePlan,
+                            billInfo.Bill.VatPlan,
+                            PayableWithoutVatPlan = billInfo.Bill.PayablePlan - billInfo.Bill.VatPlan,
+                        },
+
+                    RelatedBargainInfo = FormatRelatedBargainInfo(billInfo.Bargain),
+                };
+
+            var printDocumentRequest = new PrintDocumentRequest
+                {
+                    CurrencyIsoCode = billInfo.CurrencyISOCode,
                     BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = printData,
-                    TemplateCode = GetTemplateCode(billInfo.LegalPersonType)
-                },
-                                                      Context);
+                    FileName = printData2.Bill.BillNumber,
+                    PrintData = printData2,
+                    TemplateCode = TemplateCode.BillLegalPerson
+                };
+
+            return _requestProcessor.HandleSubRequest(printDocumentRequest, Context);
         }
 
-        private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType)
+        private static string LocalizePaymentMethod(int? paymentMethod)
         {
-            switch (legalPersonType)
-            {
-                case LegalPersonType.LegalPerson:
-                    return TemplateCode.BillLegalPerson;
+            return (paymentMethod.HasValue
+                        ? (PaymentMethod)paymentMethod.Value
+                        : PaymentMethod.Undefined)
+                .ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture);
+        }
 
-                case LegalPersonType.Businessman:
-                    return TemplateCode.BillBusinessman;
-
-                case LegalPersonType.NaturalPerson:
-                    return TemplateCode.BillNaturalPerson;
-
-                default:
-                    throw new ArgumentOutOfRangeException("legalPersonType");
-            }
+        private string FormatRelatedBargainInfo(Bargain bargain)
+        {
+            return (bargain == null)
+                       ? null
+                       : string.Format(BLResources.RelatedToBargainInfoTemplate,
+                                       bargain.Number,
+                                       _shortDateFormatter.Format(bargain.CreatedOn));
         }
     }
 }

@@ -99,6 +99,10 @@
       <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

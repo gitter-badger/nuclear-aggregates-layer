@@ -20,7 +20,7 @@
 
                     ChangeLegalPersonRequisites: function () {
                         var params = "dialogWidth:" + 700 + "px; dialogHeight:" + 330 + "px; status:yes; scroll:no;resizable:no;";
-                        var url = '/Cyprus/LegalPerson/CyprusChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
+                        var url = '/Chile/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
                         window.showModalDialog(url, null, params);
                     }
                 });
@@ -110,7 +110,7 @@
             @Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ActivityType, FieldFlex.lone)
+            @Html.TemplateField(m => m.OperationsKind, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
@@ -122,7 +122,7 @@
             @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            @Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Commune })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } })

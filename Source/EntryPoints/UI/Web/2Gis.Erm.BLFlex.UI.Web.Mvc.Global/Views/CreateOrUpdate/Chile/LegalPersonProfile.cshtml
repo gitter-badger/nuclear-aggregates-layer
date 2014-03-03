@@ -10,7 +10,7 @@
     <script type="text/javascript">
         window.InitPage = function() {
             window.Card.on("afterbuild", function() {
-                var operatesValues = document.getElementById('OperatesOnTheBasis').getElementsByTagName('option');
+                var operatesValues = document.getElementById('OperatesOnTheBasisInGenitive').getElementsByTagName('option');
                 var disabledValues = @Html.Raw(Json.Encode(Model.DisabledDocuments));
                 for (var i = 0; i < disabledValues.length; i++) {
                     var optionToDisable = operatesValues[disabledValues[i]];
@@ -23,7 +23,6 @@
 
 @section CardBody
 {    
-    @Html.HiddenFor(m => m.LegalPersonType)
     @Html.HiddenFor(m => m.Id)
 
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">    
@@ -61,7 +60,7 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.AccountNumber, FieldFlex.twins)
-            @Html.TemplateField(m => m.Bank, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            @Html.TemplateField(m => m.Bank, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Bank })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.AdditionalPaymentElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
@@ -80,12 +79,12 @@
     
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Phone, FieldFlex.twins)
-            @Html.TemplateField(m => m.OperatesOnTheBasis, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.OperatesOnTheBasisInGenitive, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
     
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.DocumentBeginDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
-            @Html.TemplateField(m => m.DocumentProvider, FieldFlex.twins)
+            @Html.TemplateField(m => m.RepresentativeDocumentIssuedOn, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+            @Html.TemplateField(m => m.RepresentativeDocumentIssuedBy, FieldFlex.twins)
         </div>
     </div>
 }

@@ -1,82 +1,97 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 {
     public class ChileGetLegalPersonProfileDtoService : GetDomainEntityDtoServiceBase<LegalPersonProfile>, IChileAdapted
     {
         private readonly ISecureFinder _finder;
+        private readonly ILegalPersonReadModel _legalPersonProfileReadModel;
+        private readonly IBankReadModel _bankReadModel;
 
-        public ChileGetLegalPersonProfileDtoService(IUserContext userContext, ISecureFinder finder)
+        public ChileGetLegalPersonProfileDtoService(IUserContext userContext, 
+            ISecureFinder finder,
+            ILegalPersonReadModel legalPersonProfileReadModel, 
+            IBankReadModel bankReadModel)
             : base(userContext)
         {
             _finder = finder;
+            _legalPersonProfileReadModel = legalPersonProfileReadModel;
+            _bankReadModel = bankReadModel;
         }
 
         protected override IDomainEntityDto<LegalPersonProfile> GetDto(long entityId)
         {
-            return _finder.Find<LegalPersonProfile>(x => x.Id == entityId)
-                          .Select(entity => new LegalPersonProfileDomainEntityDto
-                              {
-                                  Id = entity.Id,
-                                  Name = entity.Name,
-                                  AdditionalEmail = entity.AdditionalEmail,
-                                  ChiefNameInGenitive = entity.ChiefNameInGenitive,
-                                  ChiefNameInNominative = entity.ChiefNameInNominative,
-                                  DocumentsDeliveryAddress = entity.DocumentsDeliveryAddress,
-                                  DocumentsDeliveryMethod = (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod,
-                                  LegalPersonRef = new EntityReference { Id = entity.LegalPersonId, Name = entity.LegalPerson.LegalName },
-                                  PositionInNominative = entity.PositionInNominative,
-                                  PositionInGenitive = entity.PositionInGenitive,
-                                  OperatesOnTheBasisInGenitive = entity.OperatesOnTheBasisInGenitive == null
+            var profile = _legalPersonProfileReadModel.GetLegalPersonProfile(entityId);
+            if (profile == null)
+            {
+                throw new EntityNotFoundException(typeof(LegalPersonProfile), entityId);
+            }
+
+            var profilePart = profile.Parts.OfType<LegalPersonProfilePart>().SingleOrDefault();
+            if (profilePart == null)
+            {
+                throw new EntityNotFoundException(typeof(LegalPersonProfile), entityId);
+            }
+
+            // COMMENT {all, 12.02.2014}: Скажите мне, это нормально, что приходится пользоваться ReadModel и Finder для получения названий?
+            var bankName = profilePart.BankId.HasValue ? _bankReadModel.GetBank(profilePart.BankId.Value).Name : string.Empty;
+            var legalPersonName = _finder.Find(Specs.Find.ById<LegalPerson>(profile.LegalPersonId)).Single().LegalName;
+
+            return new ChileLegalPersonProfileDomainEntityDto
+                {
+                    Id = profile.Id,
+                    Name = profile.Name,
+                    LegalPersonRef = new EntityReference { Id = profile.LegalPersonId, Name = legalPersonName },
+                    DocumentsDeliveryAddress = profile.DocumentsDeliveryAddress,
+                    RecipientName = profile.RecipientName,
+                    PersonResponsibleForDocuments = profile.PersonResponsibleForDocuments,
+                    DocumentsDeliveryMethod = (DocumentsDeliveryMethod)profile.DocumentsDeliveryMethod,
+                    EmailForAccountingDocuments = profile.EmailForAccountingDocuments,
+                    AdditionalEmail = profile.AdditionalEmail,
+                    PostAddress = profile.PostAddress,
+                    PaymentMethod = profile.PaymentMethod == null
+                                        ? PaymentMethod.Undefined
+                                        : (PaymentMethod)profile.PaymentMethod,
+                    AccountType = profilePart.AccountType,
+                    AccountNumber = profile.AccountNumber,
+                    BankRef = new EntityReference { Id = profilePart.BankId, Name = bankName },
+                    AdditionalPaymentElements = profile.AdditionalPaymentElements,
+                    RepresentativeName = profile.ChiefNameInNominative,
+                    RepresentativePosition = profile.PositionInNominative,
+                    RepresentativeRut = profile.ChilePart().RepresentativeRut,
+                    Phone = profile.Phone,
+                    OperatesOnTheBasisInGenitive = profile.OperatesOnTheBasisInGenitive == null
                                                                      ? OperatesOnTheBasisType.Undefined
-                                                                     : (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive,
-                                  CertificateDate = entity.CertificateDate,
-                                  CertificateNumber = entity.CertificateNumber,
-                                  RegistrationCertificateDate = entity.RegistrationCertificateDate,
-                                  RegistrationCertificateNumber = entity.RegistrationCertificateNumber,
-                                  BargainBeginDate = entity.BargainBeginDate,
-                                  BargainEndDate = entity.BargainEndDate,
-                                  BargainNumber = entity.BargainNumber,
-                                  WarrantyNumber = entity.WarrantyNumber,
-                                  WarrantyBeginDate = entity.WarrantyBeginDate,
-                                  WarrantyEndDate = entity.WarrantyEndDate,
-                                  PostAddress = entity.PostAddress,
-                                  EmailForAccountingDocuments = entity.EmailForAccountingDocuments,
-                                  LegalPersonType = (LegalPersonType)entity.LegalPerson.LegalPersonTypeEnum,
-                                  PaymentEssentialElements = entity.PaymentEssentialElements,
-                                  AdditionalPaymentElements = entity.AdditionalPaymentElements,
-                                  PaymentMethod = entity.PaymentMethod == null
-                                                      ? PaymentMethod.Undefined
-                                                      : (PaymentMethod)entity.PaymentMethod,
-                                  IBAN = entity.IBAN,
-                                  SWIFT = entity.SWIFT,
-                                  AccountNumber = entity.AccountNumber,
-                                  BankName = entity.BankName,
-                                  PersonResponsibleForDocuments = entity.PersonResponsibleForDocuments,
-                                  Phone = entity.Phone,
-                                  RecipientName = entity.RecipientName,
-                                  IsMainProfile = entity.IsMainProfile,
-                                  OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
-                                  CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                  CreatedOn = entity.CreatedOn,
-                                  IsActive = entity.IsActive,
-                                  IsDeleted = entity.IsDeleted,
-                                  ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                  ModifiedOn = entity.ModifiedOn,
-                                  Timestamp = entity.Timestamp
-                              })
-                          .Single();
+                                                       : (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive,
+                    RepresentativeDocumentIssuedOn = profilePart.RepresentativeAuthorityDocumentIssuedOn,
+                    RepresentativeDocumentIssuedBy = profilePart.RepresentativeAuthorityDocumentIssuedBy,
+
+                    IsMainProfile = profile.IsMainProfile,
+                    OwnerRef = new EntityReference { Id = profile.OwnerCode, Name = null },
+                    CreatedByRef = new EntityReference { Id = profile.CreatedBy, Name = null },
+                    CreatedOn = profile.CreatedOn,
+                    IsActive = profile.IsActive,
+                    IsDeleted = profile.IsDeleted,
+                    ModifiedByRef = new EntityReference { Id = profile.ModifiedBy, Name = null },
+                    ModifiedOn = profile.ModifiedOn,
+                    Timestamp = profile.Timestamp
+                };
         }
 
         protected override IDomainEntityDto<LegalPersonProfile> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
@@ -87,10 +102,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             }
 
             return _finder.Find<LegalPerson>(x => x.Id == parentEntityId)
-                          .Select(legalPerson => new LegalPersonProfileDomainEntityDto
+                          .Select(legalPerson => new ChileLegalPersonProfileDomainEntityDto
                               {
                                   LegalPersonRef = new EntityReference { Id = parentEntityId.Value, Name = legalPerson.LegalName },
-                                  LegalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum,
+                                  PaymentMethod = PaymentMethod.BankTransaction,
                                   DocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined,
                               })
                           .Single();

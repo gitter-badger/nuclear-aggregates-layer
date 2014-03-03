@@ -1,12 +1,12 @@
 ﻿using System;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Number
 {
@@ -21,8 +21,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Numb
 
             _orderNumberGenerationStrategies = new OrderNumberGenerationStrategy[]
                 {
-                    OrderNumberGenerationStrategies.Cyprus.ReadFromNewFormat,
-                    OrderNumberGenerationStrategies.Cyprus.ReadFromOldFormat,
+                    OrderNumberGenerationStrategies.MultiCulture.ReadFromNewFormat,
+                    OrderNumberGenerationStrategies.MultiCulture.ReadFromOldFormat,
                     OrderNumberGenerationStrategies.UseReservedNumber,
                     OrderNumberGenerationStrategies.UseExistingOrderNumber
                 };
