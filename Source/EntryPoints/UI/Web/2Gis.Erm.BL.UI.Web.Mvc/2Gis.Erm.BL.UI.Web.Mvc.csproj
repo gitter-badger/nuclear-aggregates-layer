@@ -199,6 +199,7 @@
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\PublishPriceViewModel.cs" />
+    <Compile Include="Models\Report\DelayedReportModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="Models\SetBranchOfficeOrganizationUnitStatusViewModel.cs" />
     <Compile Include="Models\SetLimitStatusViewModel.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Services\Grid\LegalPersonProfileViewService.cs" />
     <Compile Include="Services\Grid\LimitGridViewService.cs" />
     <Compile Include="Services\Grid\OrderFileViewService.cs" />
+    <Compile Include="Utils\ModelBinderProvider.cs" />
     <Compile Include="Views\Account\ExportTo1CDialog.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
