@@ -13,6 +13,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public sealed class ModelBinderProvider : IModelBinderProvider
     {
+        private static readonly Type[] SupportedTypes = new[] 
+        {
+            typeof(string),
+            typeof(Uri),
+            typeof(LookupField),
+            typeof(DateTime),
+            typeof(DateTime?),
+            typeof(Guid[]),
+            typeof(long),
+            typeof(long?),
+        };
         private readonly IModelBinder _modelBinder;
 
         public ModelBinderProvider()
@@ -22,7 +33,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         IModelBinder IModelBinderProvider.GetBinder(Type modelType)
         {
-            return _modelBinder;
+            return IsSupportedType(modelType)
+                       ? _modelBinder
+                       : null;
+        }
+
+        private static bool IsSupportedType(Type modelType)
+        {
+            return SupportedTypes.Contains(modelType) || modelType.IsEnum;
         }
 
         #region model binders
