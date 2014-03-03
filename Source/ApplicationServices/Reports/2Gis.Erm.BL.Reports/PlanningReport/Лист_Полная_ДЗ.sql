@@ -8,13 +8,13 @@ SELECT
 	, [Полная дебиторская задолженность] = -(ISNULL(b.Balance,0) - ISNULL(lck.Lock, 0))
 FROM
 	Billing.LegalPersons lp with(nolock)
-	JOIN Security.Users u with(nolock) ON
-		u.Id = lp.OwnerCode
-			LEFT JOIN Billing.Clients c with(nolock) ON
+	LEFT JOIN Billing.Clients c with(nolock) ON
 		c.id = lp.ClientId
 	JOIN Billing.Accounts a with(nolock) ON
 		a.LegalPersonId = lp.Id
 		AND a.IsDeleted = 0
+	JOIN Security.Users u with(nolock) ON
+		u.Id = a.OwnerCode
 	JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON
 		a.BranchOfficeOrganizationUnitId = bou.Id
 	LEFT JOIN(

@@ -24,6 +24,7 @@ FROM
 		SELECT
 			a.LegalPersonId
 			, a.BranchOfficeOrganizationUnitId
+			,a.OwnerCode
 			, [Balance] = ISNULL(SUM(ABS(ad.Amount)*(2*ot.IsPlus-1)),0)
 			, [DZ1201] =
 					SUM(
@@ -47,6 +48,7 @@ FROM
 							END
 						)
 					, 0)
+
 		FROM
 			Billing.Accounts a with(nolock)
 			LEFT JOIN Billing.AccountDetails ad with(nolock) ON
@@ -107,7 +109,7 @@ FROM
 
 		AND lp.IsDeleted = 0
 	JOIN Security.Users u with(nolock) ON
-		u.Id = lp.OwnerCode
+		u.Id = a.OwnerCode
 	JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON
 		a.BranchOfficeOrganizationUnitId = bou.Id
 WHERE
