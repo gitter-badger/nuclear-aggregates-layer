@@ -24,7 +24,7 @@ FROM
 		SELECT
 			a.LegalPersonId
 			, a.BranchOfficeOrganizationUnitId
-			,a.OwnerCode
+			, a.OwnerCode
 			, [Balance] = ISNULL(SUM(ABS(ad.Amount)*(2*ot.IsPlus-1)),0)
 			, [DZ1201] =
 					SUM(
@@ -85,6 +85,7 @@ FROM
 		GROUP BY
 			a.LegalPersonId
 			, a.BranchOfficeOrganizationUnitId
+			, a.OwnerCode
 	) a
 	LEFT JOIN(
 		SELECT
