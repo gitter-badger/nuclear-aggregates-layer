@@ -120,7 +120,7 @@ Result AS
 		INNER JOIN Billing.LegalPersons lp with(nolock) ON (acc.LegalPersonId = lp.Id)
 			LEFT JOIN Billing.Clients c with(nolock) ON
 		c.id = lp.ClientId
-		INNER JOIN [Security].[Users] u with(nolock) ON (u.Id = lp.OwnerCode)
+		INNER JOIN [Security].[Users] u with(nolock) ON (u.Id = acc.OwnerCode)
 		LEFT JOIN Receives r with(nolock) ON (acc.Id = r.AccountId)	
 		LEFT JOIN Locks l with(nolock) ON (acc.Id = l.AccountId)
 		LEFT JOIN Limits lim with(nolock) ON (lim.AccountId = acc.Id)

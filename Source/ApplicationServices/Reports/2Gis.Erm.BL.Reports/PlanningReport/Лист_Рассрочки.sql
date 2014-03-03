@@ -61,7 +61,7 @@ LEFT JOIN(	SELECT l.AccountId
 JOIN Billing.LegalPersons lp with(nolock) ON a.LegalPersonId = lp.Id AND lp.IsDeleted = 0
 	LEFT JOIN Billing.Clients c with(nolock) ON
 		c.id = lp.ClientId
-JOIN Security.Users u with(nolock) ON u.Id = lp.OwnerCode
+JOIN Security.Users u with(nolock) ON u.Id = a.OwnerCode
 JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON a.BranchOfficeOrganizationUnitId = bou.Id
 WHERE bou.OrganizationUnitId = @City AND a.IsDeleted = 0 AND ( bills.PayPlan > 0 OR bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) > 0 )
 	AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)

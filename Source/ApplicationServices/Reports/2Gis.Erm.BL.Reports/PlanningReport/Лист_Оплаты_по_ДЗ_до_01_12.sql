@@ -1,5 +1,6 @@
 ﻿--declare @IssueDate date = '20130901' 
 --		,@City int = 1
+--		,@IsAdvertisingAgency int = 0
 
 DECLARE
 	@DZCheckPoint date = '20111201'
@@ -15,7 +16,7 @@ SELECT
 FROM
 	(
 		SELECT
-			[LegalPersonId] = lp.Id
+			[AccountId] = a.Id
 			, [DZ] =
 					ISNULL(SUM(CASE WHEN ISNULL(l.PeriodStartDate, ad.TransactionDate) < @DZCheckPoint THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END), 0)
 			, [Payments] = 
@@ -28,10 +29,6 @@ FROM
 				l.DebitAccountDetailId = ad.Id
 				AND l.IsDeleted = 0
 				AND l.IsActive = 0
-			JOIN Billing.LegalPersons lp with(nolock) ON
-				a.LegalPersonId = lp.Id
-	LEFT JOIN Billing.Clients c with(nolock) ON
-		c.id = lp.ClientId
 			JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON
 				a.BranchOfficeOrganizationUnitId = bou.Id
 			JOIN Billing.OperationTypes ot with(nolock) ON
@@ -41,17 +38,18 @@ FROM
 			AND ad.TransactionDate < @IssueDate
 			AND a.IsDeleted = 0
 			AND ad.IsDeleted = 0
-			AND lp.IsDeleted = 0
-		AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)
 		GROUP BY
-			lp.Id
-	) data
+			a.Id
+	) DATA
+	JOIN Billing.Accounts AS a ON a.id = DATA.AccountId
 	JOIN Billing.LegalPersons lp with(nolock) ON
-		[data].LegalPersonId = lp.Id
+		a.LegalPersonId = lp.Id
+	LEFT JOIN Billing.Clients c with(nolock) ON
+		c.id = lp.ClientId
 	JOIN Security.Users u with(nolock) ON
 		u.Id = lp.OwnerCode
 WHERE
-	[data].DZ < 0
+	[data].DZ < 0 		AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0) AND lp.IsDeleted = 0
 ORDER BY 
 	u.DisplayName
 	, lp.LegalName
