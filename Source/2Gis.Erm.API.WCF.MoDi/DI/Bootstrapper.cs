@@ -6,6 +6,7 @@ using DoubleGis.Erm.API.WCF.MoDi.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.MoDi;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.WCF.MoDi;
 using DoubleGis.Erm.BLFlex.DI.Config;
@@ -24,6 +25,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
@@ -35,7 +37,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
 {
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(IUserPersistenceService) };
+        private static readonly Type[] EagerLoading = { typeof(IUserPersistenceService), typeof(ReportsService) };
 
         public static IUnityContainer ConfigureUnity(IMoDiAppSettings settings, ILoggerContextManager loggerContextManager)
         {
@@ -150,7 +152,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container)
         {
             return container
-                .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton);
         }
     }

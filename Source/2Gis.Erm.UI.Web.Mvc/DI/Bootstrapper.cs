@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
@@ -35,7 +36,6 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
-using DoubleGis.Erm.BLCore.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
@@ -45,6 +45,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
@@ -80,6 +81,7 @@ using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
@@ -115,6 +117,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new UIServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new EnumAdaptationMassProcessor(container),
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new ControllersProcessor(container)
                 };
@@ -159,6 +162,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                         modifyOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
                                 new OperationServiceInterceptionDescriptor<ModifyLegalPersonUsingHandlerService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
+                                new OperationServiceInterceptionDescriptor<ModifyLegalPersonService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderUsingHandlerService>(CompareObjectMode.Shallow, new[] { "OrderPositions", "OrderReleaseTotals", "Account", "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderPositionUsingHandlerService>(CompareObjectMode.Shallow, new[] { "ReleasesWithdrawals, *.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyAdvertisementUsingHandlerService>(CompareObjectMode.Shallow, new[] { "AdvertisementElements, OrderPositionAdvertisements, *.Count" }),
@@ -196,13 +200,18 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)
-                     .RegisterType<UnityDependencyResolver>(Lifetime.Singleton)
+                     .RegisterType<UnityDependencyResolver>(
+                         Lifetime.Singleton,
+                         new InjectionFactory(c => new UnityDependencyResolver(
+                                                       c.Resolve<IUnityContainer>(),
+                                                       c.Resolve<IGlobalizationSettings>(),
+                                                       new[] { new BL.UI.Web.Mvc.Utils.ModelBinderProvider() })))
                      .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMvcMetadataProvider()
                      .ConfigureEAV()
-                     // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
+                // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
                      .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerRequest, Mapping.Erm)
                      .RegisterTypeWithDependencies<IOrderValidationSettings, OrderValidationSettings>(CustomLifetime.PerRequest, Mapping.Erm);
 
@@ -212,7 +221,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly()
-            {
+        {
             var checkingResourceStorages = new[]
             {
                     typeof(BLResources),
@@ -221,7 +230,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-            }
+        }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IWebAppSettings settings)
             {
@@ -277,7 +286,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IBargainService, BargainService>(mappingScope, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<IPrintFormTemplateService, PrintFormTemplateService>(mappingScope, CustomLifetime.PerRequest)
 
-                .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
 
                 .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(settings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
@@ -347,7 +355,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, BankPropertiesConverter>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
-
+                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonPartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BranchOfficeOrganizationUnitPartPropertiesConverter>(Lifetime.Singleton)
+                
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
 

@@ -34,15 +34,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                 return OrdinaryTestResult.As.NotExecuted;
             }
 
-            var appointment = _activityReadModel.GetActivity<Appointment>(appropriateAppointment.Id);
-            var activity = _activityReadModel.GetActivity<Task>(appropriateTask.Id);
-            var phonecall = _activityReadModel.GetActivity<Phonecall>(appropriatePhonecall.Id);
+            var appointment = _activityReadModel.GetAppointment(appropriateAppointment.Id);
+            var task = _activityReadModel.GetTask(appropriateTask.Id);
+            var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
             // ReSharper disable once PossibleInvalidOperationException
             _activityReadModel.CheckIfRelatedActivitiesExists(activityWithClient.ClientId.Value);
 
             var appointmentDto = _activityReadModel.GetActivityInstanceDto(appointment);
-            var activityDto = _activityReadModel.GetActivityInstanceDto(activity);
+            var activityDto = _activityReadModel.GetActivityInstanceDto(task);
             var phonecallDto = _activityReadModel.GetActivityInstanceDto(phonecall);
 
             IEnumerable<ActivityInstance> relatedActivities;

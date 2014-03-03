@@ -126,7 +126,7 @@ window.InitPage = function () {
                         mask.show();
                         var iframe = Ext.get('positionFrame_frame');
 
-                        iframe.dom.src = '/Grid/View/OrderPosition/Order/{0}/{1}'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
+                        iframe.dom.src = '/Grid/View/OrderPosition/Order/{0}/{1}?extendedInfo=filterToParent%3Dtrue'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
                         iframe.on('load', function (evt, el) {
                             el.height = Ext.get(el.parentElement).getComputedHeight();
                             el.width = Ext.get(el.parentElement).getComputedWidth();
@@ -761,7 +761,7 @@ window.InitPage = function () {
             // Задолженность по документам
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
-            Ext.getCmp('LegalPerson').on("change", function () { this.updateBargain(true); }, this);
+            Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
             Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.updateBargain(true); }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
 

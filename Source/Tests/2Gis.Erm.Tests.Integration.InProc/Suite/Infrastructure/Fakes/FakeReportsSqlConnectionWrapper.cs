@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Reports;
+using DoubleGis.Erm.BL.Reports;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes
 {

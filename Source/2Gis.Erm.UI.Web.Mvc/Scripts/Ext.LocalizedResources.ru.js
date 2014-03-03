@@ -1,13 +1,10 @@
 ﻿ 
 
-// File updated : 03.02.2014 10:57:05
+// File updated : 24.02.2014 18:46:39
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
 /* 
-Processing resources report:
-	Target culture: ru
-	Resource entries count: 276
 
 */
 Ext.LocalizedResources =
@@ -56,6 +53,7 @@ BeginDistributionDate : 'Начало размещения',
 BillCreationApprovalNeeded : 'Требуется согласование!',
 BillMassCreateConfirmMessage : 'Внимание! Будут созданы счета на оплату для выбранной группы заказов. Продолжить?',
 BillMassCreateOrderHasZeroPayablePlan : 'Невозможно массовое создание счетов на оплату, с использованием рассрочки, используя заказ с нулевой суммой к оплате. Не должно быть выбранных заказов в списке для массового создания счетов на оплату.',
+BillNumber : 'Номер счета',
 BoldText : 'Применение полужирного начертания к выделенному тексту.',
 BoldTitle : 'Полужирный (Ctrl+B)',
 Cancel : 'Отмена',
@@ -260,6 +258,7 @@ SelectToWhiteList : 'Выбрать',
 SelectToWhiteListMatherial : 'Выбор РМ белый список',
 SelectToWhiteListMatherialFailed : 'При выборе РМ в белый список произошла ошибка. Попробуйте повторить операцию',
 September : 'Сентябрь',
+SetLimitStatusDialogConfirmation : 'Вы действительно хотите изменить статус лимита на',
 SomeOfTheClientsHaveDebtsAlert : 'Внимание! Вы пытаетесь взять из резерва Клиента с дебиторской задолженностью!',
 SourceEditText : 'Переключиться на исходный код.',
 SourceEditTitle : 'Исходный код',

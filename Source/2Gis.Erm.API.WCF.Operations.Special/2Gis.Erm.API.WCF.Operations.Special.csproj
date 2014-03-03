@@ -217,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Calculate.svc" />
+    <Content Include="FirmInfo.svc" />
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
@@ -227,7 +228,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="OrderRequest.svc" />
