@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.Report
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report
 {
     public class ReportModel : ViewModel, IConfigurableViewModel
     {

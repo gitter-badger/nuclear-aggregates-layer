@@ -12,6 +12,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.API.Operations.Special.Concrete.Old.Reports;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
@@ -21,7 +23,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.Report;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -41,8 +42,9 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using Newtonsoft.Json;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
+using ReportModel = DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report.ReportModel;
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class ReportController : ControllerBase
     {
@@ -539,14 +541,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             var planningMonth = (DateTime)planningMonthField.GetValue(model);
             var isAdvertisingAgency = (bool)isAdvertisingAgencyField.GetValue(model);
 
-            //var response = (PlanningReportResponse)_publicService.Handle(new PlanningReportRequest
-            //{
-            //    OrganizationUnitId = organizationUnit.Key.Value,
-            //    PlanningMonth = planningMonth,
-            //    IsAdvertisingAgency = isAdvertisingAgency,
-            //});
+            var response = (PlanningReportResponse)_publicService.Handle(new PlanningReportRequest
+            {
+                OrganizationUnitId = organizationUnit.Key.Value,
+                PlanningMonth = planningMonth,
+                IsAdvertisingAgency = isAdvertisingAgency,
+            });
 
-            //return File(response.OutputStream, response.ContentType, "PlanningReport.xlsx");
+            return File(response.OutputStream, response.ContentType, "PlanningReport.xlsx");
 
             return null;
         }
