@@ -1,0 +1,48 @@
+﻿@using Models.Report
+
+@model ReportModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @Model.DisplayName }
+@section TopBarTitle { @Model.DisplayName }
+@section PageScript
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.Report.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section PageContent
+{
+    
+    
+    <div class="Tab">
+        @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_blank" } }))
+        {
+            @Html.HiddenFor(model => model.ReportName)
+            @Html.HiddenFor(model => model.ReportType)
+            @Html.HiddenFor(model => model.Format)
+            @Html.HiddenFor(model => model.HiddenField)
+            @Html.HiddenFor(model => model.ReportServerFormatParameter)
+            @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+
+            <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            
+            foreach (var field in Model.Fields ?? new ReportModel.ReportFieldDefinition[0])
+            {
+                <div class="row-wrapper">
+                    @Html.TemplateGenericField(field.GetExpression, field.Config)
+                </div>
+            }
+        }
+    </div>
+}
+
+@section PageButtons
+{
+    <input class="CrmButton" type="button" id="Preview" style="width: auto" value="@BLResources.GenerateReport" />
+    <input class="CrmButton" type="button" id="Download" style="width: auto" value="@BLResources.DownloadReport" />
+}
