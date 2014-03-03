@@ -443,6 +443,9 @@
     <Content Include="Variables.Expl.Cyprus.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Int.Chile.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Int.Cyprus.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
