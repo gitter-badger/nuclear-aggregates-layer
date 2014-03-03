@@ -165,18 +165,18 @@ Bank Name: {7}
     <value>Internet-sites and Web-applications specified in Price-list as of date of advertisement placement</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Mass media: "{0}" (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
+    <value>1. Mass media: "{0}" (PC and mobile versions). Mass media issues from No. {2} to No. {3}.
 2. Internet-site 2gis.com.cy.
 3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internet-site at maps.2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Mass media: "{0}" (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (PC version). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
