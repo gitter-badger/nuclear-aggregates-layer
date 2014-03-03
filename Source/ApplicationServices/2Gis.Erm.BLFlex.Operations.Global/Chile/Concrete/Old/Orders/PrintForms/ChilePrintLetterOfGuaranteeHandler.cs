@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Linq;
 
@@ -7,6 +8,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -21,14 +23,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintLetterOfGuaranteeHandler(ILegalPersonReadModel legalPersonReadModel,
+                                                  IFormatterFactory formatterFactory,
                                                   ISubRequestProcessor requestProcessor,
                                                   IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
@@ -71,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                     legalPersonProfile.ChiefNameInNominative,
                     legalPersonProfile.PositionInNominative,
                     legalPersonProfilePart.RepresentativeRut,
-                    legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedOn,
+                    RepresentativeAuthorityDocumentIssuedOn = _shortDateFormatter.Format(legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedOn),
                     legalPersonProfilePart.RepresentativeAuthorityDocumentIssuedBy,
                     OperatesOnTheBasisInGenitive = LocalizeOperatesOnTheBasisInGenitive(legalPersonProfile.OperatesOnTheBasisInGenitive)
                 },
