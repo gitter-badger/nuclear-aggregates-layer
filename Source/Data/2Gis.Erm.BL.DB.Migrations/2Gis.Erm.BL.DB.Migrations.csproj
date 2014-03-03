@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
+    <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
     <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
     <Compile Include="bb-s2\2014.01.29 rev. 15518 - ERM-3150.cs" />
     <Compile Include="bb-s2\2014.01.30 rev. 15632 - Turn client replication on.cs" />
@@ -63,6 +65,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DB.Migrations\2Gis.Erm.BLCore.DB.Migrations.csproj">
+      <Project>{29068FB9-201B-409D-9A63-A7E06AC9DFEF}</Project>
+      <Name>2Gis.Erm.BLCore.DB.Migrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>

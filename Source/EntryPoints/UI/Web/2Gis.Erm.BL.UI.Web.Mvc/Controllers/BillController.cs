@@ -5,13 +5,11 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -33,15 +31,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         // Если Дата подписания > 20-го числа текущего месяца то "Дата оплаты, до" в первом (единственном) счёте устанавливать = Дате подписания БЗ.
         private static readonly Func<int, DateTime, DateTime, DateTime> PaymentDatePlanEvaluator =
             (paymentNumber, signupDate, beginPeriod) =>
-            {
-                if (paymentNumber == 1)
                 {
-                    var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
-                    return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
-                }
+                    if (paymentNumber == 1)
+                    {
+                        var firstPaymantDate = beginPeriod.AddMonths(-1).AddDays(20 - beginPeriod.Day);
+                        return signupDate.Day > 20 && signupDate.Month == firstPaymantDate.Month && signupDate.Year == firstPaymantDate.Year ? signupDate : firstPaymantDate;
+                    }
 
-                return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
-            };
+                    return beginPeriod.AddMonths(-1).AddDays(10 - beginPeriod.Day);
+                };
 
         private readonly IPublicService _publicService;
         private readonly IOrderReadModel _orderReadModel;
@@ -63,17 +61,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderReadModel = orderReadModel;
             _legalPersonRepository = legalPersonRepository;
             _finder = finder;
-        }
-
-
-
-        [UseDependencyFields]
-        public ActionResult Create(long orderId)
-        {
-            var response = (GetRelatedOrdersForCreateBillResponse)_publicService.Handle(new GetRelatedOrdersForCreateBillRequest { OrderId = orderId });
-            var model = new CreateBillViewModel { OrderId = orderId };
-            model.IsMassBillCreateAvailable = response.Orders != null && response.Orders.Length > 0;
-            return View(model);
         }
 
         public ActionResult DeleteAll()
@@ -224,7 +211,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 throw new ArgumentException("LegalPersonId");
             }
 
-            var printOrderModel = new PrintOrderViewModel()
+            var printOrderModel = new PrintOrderViewModel
             {
                 LegalPersonId = order.LegalPersonId.Value,
                 OrderId = id
