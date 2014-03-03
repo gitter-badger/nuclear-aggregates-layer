@@ -17,7 +17,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Utils
 
         IModelBinder IModelBinderProvider.GetBinder(Type modelType)
         {
-            return _modelBinder;
+            return typeof(ReportModel).IsAssignableFrom(modelType)
+                       ? _modelBinder
+                       : null;
         }
 
         private sealed class DefaultModelBinder : System.Web.Mvc.DefaultModelBinder
