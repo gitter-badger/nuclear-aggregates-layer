@@ -4,8 +4,6 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report;
 
-using ReportModel = DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.Report.ReportModel;
-
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Utils
 {
     public class ModelBinderProvider : IModelBinderProvider
@@ -30,6 +28,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Utils
                 {
                     return BindReport(controllerContext, bindingContext);
                 }
+
+                return base.BindModel(controllerContext, bindingContext);
             }
 
             private object BindReport(ControllerContext controllerContext, ModelBindingContext bindingContext)
