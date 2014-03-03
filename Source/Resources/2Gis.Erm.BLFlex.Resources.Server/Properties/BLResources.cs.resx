@@ -165,18 +165,18 @@ Název banky {7}
     <value>Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Média: „{0}“ (verze pro PC a mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}.
+    <value>1. Média: „{0}“ (verze pro PC a mobilní verze). Vydání od č. {2} do č. {3}.
 2. Internetový portál 2gis.cz.
 3. Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Média: „{0}“ (mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
+    <value>Média: „{0}“ (mobilní verze). Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internetové stránky na adrese maps.2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Média: „{0}“ (verze pro PC). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
+    <value>Média: „{0}“ (verze pro PC). Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
