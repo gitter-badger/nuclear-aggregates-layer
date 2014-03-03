@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
@@ -28,9 +29,9 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
             IndirectDocRelations = new IDocRelation[0];
         }
 
-        public IDocsSelector CreateDocSelector()
+        public IDocsUpdater CreateDocUpdater()
         {
-            return new DocsSelector<UserDoc>(this, _relationalDocsFinder, new UserDocMapper());
+            return new RelationalDocsUpdater<UserDoc>(this, _relationalDocsFinder, new UserDocMapper());
         }
 
         public IDocRelation PartsDocRelation { get; private set; }

@@ -3,11 +3,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 {
-    // TODO Подумать название типа parent child?
     public class FieldsEqualsDocsQueryBuilder<TDoc, TPart> : IDocsQueryBuilder where TPart : IEntityKey
     {
         private readonly IQueryDsl _queryDsl;

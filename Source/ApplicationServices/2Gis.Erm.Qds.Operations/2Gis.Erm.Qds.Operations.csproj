@@ -59,25 +59,27 @@
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Indexers\Raw\RawDocumentIndexer.cs" />
     <Compile Include="Indexers\Raw\RawEntityIndexer.cs" />
+    <Compile Include="Indexers\RecordIdStateIndexer.cs" />
+    <Compile Include="Indexers\TerritoryIndexer.cs" />
     <Compile Include="Indexers\UserIndexer.cs" />
     <Compile Include="Indexers\ClientIndexer.cs" />
-    <Compile Include="ListClientService.cs" />
+    <Compile Include="QdsListClientService.cs" />
     <Compile Include="Metadata\QuerySettingsProviderSelector.cs" />
-    <Compile Include="Metadata\QuerySettingsProvider.cs" />
+    <Compile Include="Metadata\QdsQuerySettingsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
-      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BL.Operations</Name>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
@@ -103,6 +105,18 @@
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
+      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
+      <Name>2Gis.Erm.Qds.Etl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
       <Project>{9e27f95a-5b1a-426b-9f72-ad2240fe8026}</Project>
       <Name>2Gis.Erm.Qds.API.Core</Name>
@@ -110,6 +124,10 @@
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
       <Project>{a2ec52a5-720b-4f42-9615-006e6b5fb49a}</Project>
       <Name>2Gis.Erm.Qds.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

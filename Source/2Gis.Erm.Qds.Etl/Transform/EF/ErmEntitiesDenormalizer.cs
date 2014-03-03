@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
@@ -33,15 +32,22 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
                 throw new ArgumentNullException("entities");
             }
 
-            foreach (var modifier in _docsModifierRegistry.GetDocsSelectors(entityType))
+            var array = entities.ToArray();
+
+            foreach (var modifier in _docsModifierRegistry.GetDocsUpdaters(entityType))
             {
-                _list.AddRange(modifier.ModifyDocuments(entities));
+                _list.AddRange(modifier.UpdateDocuments(array));
             }
         }
 
         public IEnumerable<IDoc> GetChangedDocuments()
         {
             return _list;
+        }
+
+        public void ClearChangedDocuments()
+        {
+            _list.Clear();
         }
     }
 }

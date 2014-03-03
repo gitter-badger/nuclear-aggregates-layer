@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Qds.API.Operations;
-using DoubleGis.Erm.Qds.API.Operations.Authorization;
-using DoubleGis.Erm.Qds.API.Operations.Documents;
+using DoubleGis.Erm.Qds.Docs;
 
 using Nest;
 
 namespace DoubleGis.Erm.Qds.Common.Extensions
 {
     public class MustDescriptor<TDocument>
-        where TDocument : class, IDocumentAuthorization
+        where TDocument : class, IAuthDoc
     {
         protected readonly List<BaseQuery> QueryList = new List<BaseQuery>();
 
@@ -41,9 +40,9 @@ namespace DoubleGis.Erm.Qds.Common.Extensions
 
         public MustDescriptor<TDocument> ApplyUserPermissions(UserDoc user)
         {
-            if (!user.Tags.Contains("organization"))
+            if (!user.Auth.Tags.Contains("organization"))
             {
-                var queryDescriptor = new QueryDescriptor<TDocument>().Terms(y => y.Authorization.Tags, user.Tags.ToArray());
+                var queryDescriptor = new QueryDescriptor<TDocument>().Terms(y => y.Auth.Tags, user.Auth.Tags.ToArray());
                 QueryList.Add(queryDescriptor);
             }
 

@@ -35,10 +35,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             IUserContext userContext)
         : base(querySettingsProvider, finderBaseProvider, finder, userContext)
         {
-            this._userContext = userContext;
-            this._userRepository = userRepository;
-            this._userIdentifierService = userIdentifierService;
-            this._functionalAccessService = functionalAccessService;
+            _userContext = userContext;
+            _userRepository = userRepository;
+            _userIdentifierService = userIdentifierService;
+            _functionalAccessService = functionalAccessService;
         }
 
         protected override IEnumerable<ListClientDto> GetListData(
@@ -47,12 +47,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             out int count)
         {
             IEnumerable<ListClientDto> clients;
-            if (this.TryGetClientsRestrictedByUser(query, querySettings, out clients, out count))
+            if (TryGetClientsRestrictedByUser(query, querySettings, out clients, out count))
             {
                 return clients;
             }
 
-            if (this.TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, out clients, out count))
+            if (TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, out clients, out count))
             {
                 return clients;
             }
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 "FirmId",
                 firmId => x => x.Firms.Any(y => y.Id == firmId));
 
-            return this.SelectClients(
+            return SelectClients(
                 query
                     .Where(x => !x.IsDeleted)
                     .ApplyFilter(with1AppointmentFilter)
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (userFilter != null || currentUserFilter != null)
             {
-                clients = this.SelectClients(query
+                clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .ApplyFilter(userFilter)
                                     .ApplyFilter(currentUserFilter)
@@ -157,13 +157,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             clients = null;
             count = 0;
 
-            var currentIdentity = this._userContext.Identity;
+            var currentIdentity = _userContext.Identity;
 
             var restrictForMergeIdFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "restrictForMergeId",
                 clientId =>
                 {
-                    var privelegDepth = GetMaxAccess(this._functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, currentIdentity.Code));
+                    var privelegDepth = GetMaxAccess(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, currentIdentity.Code));
                     switch (privelegDepth)
                     {
                         case MergeClientsAccess.None:
@@ -180,8 +180,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         case MergeClientsAccess.DepartmentWithChilds:
                         {
                             bool useDepartmentsWithChilds = privelegDepth == MergeClientsAccess.DepartmentWithChilds;
-                            var departments = this._userIdentifierService.GetUserDepartments(currentIdentity.Code, useDepartmentsWithChilds);
-                            var ownerDepartments = this._userRepository.GetUsersByDepartments(departments).Select(u => u.Id);
+                            var departments = _userIdentifierService.GetUserDepartments(currentIdentity.Code, useDepartmentsWithChilds);
+                            var ownerDepartments = _userRepository.GetUsersByDepartments(departments).Select(u => u.Id);
                             return c => c.Id != clientId && ownerDepartments.Contains(c.OwnerCode);
                         }
                     }
@@ -191,7 +191,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (restrictForMergeIdFilter != null)
             {
-                clients = this.SelectClients(query
+                clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .ApplyFilter(restrictForMergeIdFilter)
                                     .ApplyQuerySettings(querySettings, out count));
@@ -246,7 +246,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                     TerritoryId = x.TerritoryId,
                                     TerritoryName = x.TerritoryName,
                                     OwnerCode = x.OwnerCode,
-                                    OwnerName = this._userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName
+                                    OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName
                                 });
         }
     }

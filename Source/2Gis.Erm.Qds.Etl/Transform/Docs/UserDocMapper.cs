@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 {

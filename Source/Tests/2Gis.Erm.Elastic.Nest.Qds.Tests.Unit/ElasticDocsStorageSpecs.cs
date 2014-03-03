@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Qds;
 
@@ -11,8 +12,6 @@ using Moq;
 
 using Nest;
 
-using Newtonsoft.Json;
-
 using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
@@ -20,85 +19,103 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
     class ElasticDocsStorageSpecs
     {
         [Subject(typeof(ElasticDocsStorage))]
-        class When_find_by_unsupported_query : ElasticDocsStorageContext
+        class When_find : ElasticDocsStorageContext
         {
-            Because of = () => Result = Catch.Exception(() => Target.Find<TestDoc>(Mock.Of<IDocsQuery>()));
+            Establish context = () =>
+            {
+                Query = Mock.Of<IDocsQuery>();
+                FirstExpectedDoc = new TestDoc();
+                SecondExpectedDoc = new TestDoc();
 
-            It should_throw_unsupported_exception = () => Result.Should().BeOfType<NotSupportedException>();
+                IQueryResponse<TestDoc> firstResponse;
+                var firstPageDescriptor = SetupPageSearchDescriptor(FirstExpectedDoc, out firstResponse);
 
-            static Exception Result { get; set; }
+                IQueryResponse<TestDoc> secondResponse;
+                var secondPageDescriptor = SetupPageSearchDescriptor(SecondExpectedDoc, out secondResponse);
+
+                ElasticMeta.Setup(em => em.CreatePage<TestDoc>(Query)).Returns(firstPageDescriptor);
+                ElasticMeta.Setup(em => em.NextPage(firstPageDescriptor, firstResponse)).Returns(secondPageDescriptor);
+                ElasticMeta.Setup(em => em.NextPage(secondPageDescriptor, secondResponse)).Returns<PagedSearchDescriptor<TestDoc>>(null);
+            };
+
+            Because of = () => Result = Target.Find<TestDoc>(Query);
+
+            It should_return_docs_for_each_result = () => Result.Should().BeEquivalentTo(new object[] { FirstExpectedDoc, SecondExpectedDoc });
+
+            static PagedSearchDescriptor<TestDoc> SetupPageSearchDescriptor(TestDoc expectedDoc, out IQueryResponse<TestDoc> queryResponse)
+            {
+                var mockQueryResponse = new Mock<IQueryResponse<TestDoc>>();
+                mockQueryResponse.SetupGet(q => q.Documents).Returns(new[] { expectedDoc });
+                queryResponse = mockQueryResponse.Object;
+
+                var searchDescriptor = new PagedSearchDescriptor<TestDoc>(new SearchDescriptor<TestDoc>(), 0, 40);
+                ElasticClient.Setup(e => e.Search(searchDescriptor.SearchDescriptor)).Returns(queryResponse);
+
+                return searchDescriptor;
+            }
+
+            static IEnumerable<TestDoc> Result;
+            static TestDoc FirstExpectedDoc;
+            static TestDoc SecondExpectedDoc;
+            static IDocsQuery Query;
         }
 
         [Subject(typeof(ElasticDocsStorage))]
-        class When_find_test_docs_by_field_value : ElasticDocsStorageContext
+        class When_find_and_serach_response_is_not_valid : ElasticDocsStorageContext
         {
             Establish context = () =>
-                {
-                    _expectedDocs = new[] { new TestDoc(), };
+            {
+                var invalidResponse = Mock.Of<IQueryResponse<TestDoc>>();
+                ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<DocsStorageException>();
 
-                    var mockResponse = new Mock<IQueryResponse<TestDoc>>();
-                    mockResponse.SetupGet(r => r.Documents).Returns(_expectedDocs);
+                ElasticClient.Setup(e => e.Search(Moq.It.IsAny<SearchDescriptor<TestDoc>>())).Returns(invalidResponse);
 
-                    _query = new FieldValueQuery("fieldName", "field Value");
+                ElasticMeta.Setup(m => m.CreatePage<TestDoc>(Moq.It.IsAny<IDocsQuery>()))
+                    .Returns(new PagedSearchDescriptor<TestDoc>(new SearchDescriptor<TestDoc>(), 0, 40));
+            };
 
-                    Elastic.Setup(e => e.Search<TestDoc>(Moq.It.IsAny<Func<SearchDescriptor<TestDoc>, SearchDescriptor<TestDoc>>>()))
-                           .Returns(mockResponse.Object)
-                           .Callback<Func<SearchDescriptor<TestDoc>, SearchDescriptor<TestDoc>>>(sd => _searchDescr = sd);
-                };
+            Because of = () => Result = Catch.Exception(() => Target.Find<TestDoc>(Mock.Of<IDocsQuery>()).ToArray());
 
-            Because of = () => _result = Target.Find<TestDoc>(_query);
+            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<DocsStorageException>();
 
-            It should_return_expected_docs = () => _result.Should().BeEquivalentTo(_expectedDocs);
-
-            // TODO Кривой тест, надо подумать как поправить, если это возможно
-            It shold_request_docs_by_field_value = () =>
-                {
-                    var descriptor = _searchDescr(new SearchDescriptor<TestDoc>());
-                    var json = JsonConvert.SerializeObject(descriptor);
-
-                    json.Should().Contain(_query.FieldName);
-                    json.Should().Contain(_query.FieldValue.ToString());
-                };
-
-            static FieldValueQuery _query;
-            static IEnumerable<TestDoc> _result;
-            static TestDoc[] _expectedDocs;
-            static Func<SearchDescriptor<TestDoc>, SearchDescriptor<TestDoc>> _searchDescr;
+            static Exception Result;
         }
 
         [Subject(typeof(ElasticDocsStorage))]
-        class When_update_docs : ElasticDocsStorageContext
+        class When_update_and_index_response_is_not_valid : ElasticDocsStorageContext
         {
             Establish context = () =>
                 {
-                    _expected = new[] { new TestDoc() };
+                    TestDoc = Mock.Of<IDoc>();
+                    var invalidResponse = Mock.Of<IndexResponse>();
+                    ElasticClient.Setup(e => e.Index(TestDoc, Moq.It.IsAny<string>(), Moq.It.IsAny<string>())).Returns(invalidResponse);
 
-                    Elastic.Setup(e => e.IndexMany(_expected)).Callback(() => _actual = _expected);
+                    ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<DocsStorageException>();
                 };
 
-            Because of = () => Target.Update(_expected);
+            Because of = () => Result = Catch.Exception(() => Target.Update(new[] { TestDoc }));
 
-            It should_index_many_passed_docs = () => _actual.Should().BeEquivalentTo(_expected);
+            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<DocsStorageException>();
 
-            static IEnumerable<IDoc> _actual;
-            static IEnumerable<IDoc> _expected;
+            static Exception Result;
+            static IDoc TestDoc;
         }
 
         class ElasticDocsStorageContext
         {
             Establish context = () =>
                 {
-                    Elastic = new Mock<IElasticClient>();
-                    Target = new ElasticDocsStorage(Elastic.Object);
+                    ElasticClient = new Mock<IElasticClient>();
+                    ElasticMeta = new Mock<IElasticMeta>();
+                    ResponseHandler = new Mock<IElasticResponseHandler>();
+
+                    Target = new ElasticDocsStorage(new MockElasticClientFactory(ElasticClient.Object), ElasticMeta.Object, ResponseHandler.Object);
                 };
 
-            protected static Mock<IElasticClient> Elastic { get; private set; }
-
+            protected static Mock<IElasticResponseHandler> ResponseHandler { get; private set; }
+            protected static Mock<IElasticClient> ElasticClient { get; private set; }
+            protected static Mock<IElasticMeta> ElasticMeta { get; private set; }
             protected static ElasticDocsStorage Target { get; private set; }
         }
-    }
-
-    public class TestDoc : IDoc
-    {
     }
 }

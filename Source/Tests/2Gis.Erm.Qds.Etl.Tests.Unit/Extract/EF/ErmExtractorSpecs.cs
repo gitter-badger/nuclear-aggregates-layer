@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
+using DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF;
 
 using FluentAssertions;
 
@@ -21,92 +22,35 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
     class ErmExtractorSpecs
     {
         [Subject(typeof(ErmExtractor))]
-        public class When_extract_by_entity_id : ErmExtractorContext
-        {
-            Establish context = () =>
-            {
-                _expectedId = 42;
-                LinksDataReferences = CreateDataReferences(new EntityLink(EntityName.Client, _expectedId));
-
-                long noiseId = 947;
-                Finder.Setup(f => f.FindAll(Moq.It.Is<Type>(t => t == typeof(Client))))
-                      .Returns(new[] { new Client { Id = _expectedId }, new Client { Id = noiseId } }.AsQueryable());
-
-                Consumer.Setup(c => c.DataExtracted(Moq.It.IsAny<IData>()))
-                        .Callback((IData data) => Data = (ErmData)data);
-            };
-
-            Because of = () => Target.Extract(LinksDataReferences, Consumer.Object);
-
-            It should_query_entity_by_id = () => 
-                Data.Data.Single().Entities.Cast<Client>().Single().Id.Should().Be(_expectedId);
-
-            private static ErmData Data;
-            private static int _expectedId;
-        }
-
-        [Subject(typeof(ErmExtractor))]
-        public class When_extract_with_entity_name : ErmExtractorContext
+        class When_extract_by_entity_link : ErmExtractorContext
         {
             Establish context = () =>
                 {
-                    LinksDataReferences = CreateDataReferences(new EntityLink(EntityName.Client, 42));
+                    _expectedEntity = new Client { Id = 42 };
+                    _expectedState = Mock.Of<ITrackState>();
+
+                    Finder.Setup(f => f.FindAll(_expectedEntity.GetType()))
+                        .Returns(new[] { _expectedEntity, new Client(), }.AsQueryable<IEntityKey>());
+
+                    LinksDataReferences = CreateDataReferences(_expectedState, new EntityLink(EntityName.Client, _expectedEntity.Id));
 
                     Consumer.Setup(c => c.DataExtracted(Moq.It.IsAny<IData>()))
-                            .Callback((IData data) => Data = (ErmData)data);
+                            .Callback((IData data) => _extractedData = (ErmData)data);
                 };
 
             Because of = () => Target.Extract(LinksDataReferences, Consumer.Object);
 
-            It should_convert_entity_name_to_entity_type = () =>
-                Data.Data.Single().EntityType.Should().Be<Client>();
+            It should_create_typed_entity_set = () => _extractedData.Data.Should().OnlyContain(set => set.EntityType == _expectedEntity.GetType());
+            It should_only_contain_expected_entity = () => _extractedData.Data.Single().Entities.Should().OnlyContain(e => e == _expectedEntity);
+            It should_pass_state_from_data_references = () => _extractedData.State.Should().Be(_expectedState);
 
-            private static ErmData Data;
+            static ErmData _extractedData;
+            static Client _expectedEntity;
+            static ITrackState _expectedState;
         }
 
         [Subject(typeof(ErmExtractor))]
-        public class When_extract_data : ErmExtractorContext
-        {
-            Establish context = () =>
-            {
-                LinksDataReferences = CreateDataReferences(new EntityLink[0]);
-            };
-
-            Because of = () => Target.Extract(LinksDataReferences, Consumer.Object);
-
-            It should_pass_erm_extracted_eata_to_counsumer = () =>
-                 Consumer.Verify(c => c.DataExtracted(Moq.It.Is<IData>(d => d is ErmData)), Times.Once());
-        }
-
-        [Subject(typeof(ErmExtractor))]
-        public class When_extract_by_entity_name : ErmExtractorContext
-        {
-            Establish context = () =>
-            {
-                LinksDataReferences = CreateDataReferences(
-                    new EntityLink(EntityName.Client, 1),
-                    new EntityLink(EntityName.Order, 2));
-
-                Finder.Setup(f => f.FindAll(Moq.It.IsAny<Type>()))
-                      .Returns((new IEntityKey[0]).AsQueryable());
-            };
-
-            Because of = () => Target.Extract(LinksDataReferences, Consumer.Object);
-
-            It should_call_find_all_with_appropriate_entity_type = () =>
-                {
-                    VerifyFindAllOnceForEntity<Client>();
-                    VerifyFindAllOnceForEntity<Order>();
-                };
-
-            static void VerifyFindAllOnceForEntity<T>()
-            {
-                Finder.Verify(f => f.FindAll(Moq.It.Is<Type>(t => t == typeof(T))), Times.Once(), "Ожидался вызов для типа сущности.");
-            }
-        }
-
-        [Subject(typeof(ErmExtractor))]
-        public class When_extract_called_for_not_erm_entity_data_references : ErmExtractorContext
+        class When_extract_called_for_not_erm_entity_data_references : ErmExtractorContext
         {
             Establish context = () =>
             {
@@ -126,7 +70,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
             private static IDataSource _unsupportedDataRefs;
         }
 
-        public class ErmExtractorContext
+        class ErmExtractorContext
         {
             Establish context = () =>
             {
@@ -135,14 +79,14 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                 Target = new ErmExtractor(Finder.Object);
             };
 
-            public static Mock<IFinder> Finder { get; private set; }
-            public static Mock<IDataConsumer> Consumer { get; private set; }
-            public static ErmExtractor Target { get; private set; }
-            public static EntityLinksDataSource LinksDataReferences { get; set; }
+            protected static Mock<IFinder> Finder { get; private set; }
+            protected static Mock<IDataConsumer> Consumer { get; set; }
+            protected static ErmExtractor Target { get; set; }
+            protected static EntityLinksDataSource LinksDataReferences { get; set; }
 
-            public static EntityLinksDataSource CreateDataReferences(params EntityLink[] drs)
+            protected static EntityLinksDataSource CreateDataReferences(ITrackState state, params EntityLink[] drs)
             {
-                return new EntityLinksDataSource(drs, Mock.Of<ITrackState>());
+                return new EntityLinksDataSource(drs, state);
             }
         }
     }

@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
         public void SaveVersionInfo(long version)
         {
             var response = _elasticClient.Index(new { }, _indexName, _typeName, version.ToString(CultureInfo.InvariantCulture));
-            if (!response.OK)
+            if (!response.ConnectionStatus.Success)
             {
                 throw new InvalidOperationException();
             }

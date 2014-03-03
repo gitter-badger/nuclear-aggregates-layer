@@ -52,13 +52,14 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
                 throw new ArgumentNullException("operation");
             }
 
-            return from pair in _contextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor)
-                   select CreateLink(pair.Key, pair.Value);
+            return from strictOperation in _contextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor)
+                   from id in strictOperation.Value
+                   select CreateLink(strictOperation.Key, id);
         }
 
-        private static EntityLink CreateLink(StrictOperationIdentity identity, IEnumerable<long> ids)
+        private static EntityLink CreateLink(StrictOperationIdentity identity, long id)
         {
-            return new EntityLink(identity.Entities.Single(), ids.Single());
+            return new EntityLink(identity.Entities.Single(), id);
         }
     }
 }

@@ -3,6 +3,7 @@
     public interface ISearchSettings
     {
         string Host { get; }
+        string IndexPrefix { get; }
         Protocol Protocol { get; }
         int HttpPort { get; }
         int ThriftPort { get; }
