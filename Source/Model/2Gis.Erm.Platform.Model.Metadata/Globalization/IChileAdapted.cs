@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Globalization
+﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
 {
     public interface IChileAdapted : IAdapted
     {

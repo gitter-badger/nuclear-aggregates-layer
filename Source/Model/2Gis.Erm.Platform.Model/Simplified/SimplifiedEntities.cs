@@ -49,7 +49,11 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
             EntityName.UserEntity,
             EntityName.FileWithContent,
             EntityName.OrderProcessingRequest,
-            EntityName.OrderProcessingRequestMessage
+            EntityName.OrderProcessingRequestMessage,
+            EntityName.DictionaryEntityInstance,
+            EntityName.DictionaryEntityPropertyInstance,
+            EntityName.Bank,
+            EntityName.Commune
         };
 
         private static readonly IDictionary<EntityName, Type> SimplifiedEntitiesMap = new Dictionary<EntityName, Type>();

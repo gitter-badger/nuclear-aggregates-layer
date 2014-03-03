@@ -14,14 +14,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                     ClientId = dynamicEntityInstance.ClientId,
                     ContactId = dynamicEntityInstance.ContactId,
                     FirmId = dynamicEntityInstance.FirmId,
-                    CreatedBy = dynamicEntityInstance.CreatedBy,
-                    CreatedOn = dynamicEntityInstance.CreatedOn,
-                    ModifiedBy = dynamicEntityInstance.ModifiedBy,
-                    ModifiedOn = dynamicEntityInstance.ModifiedOn,
-                    IsActive = dynamicEntityInstance.IsActive,
-                    IsDeleted = dynamicEntityInstance.IsDeleted,
                     OwnerCode = dynamicEntityInstance.OwnerCode,
-                    Timestamp = dynamicEntityInstance.Timestamp,
                     Type = (ActivityType)dynamicEntityInstance.Type
                 };
         }
@@ -34,14 +27,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                     ClientId = entity.ClientId,
                     ContactId = entity.ContactId,
                     FirmId = entity.FirmId,
-                    CreatedBy = entity.CreatedBy,
-                    CreatedOn = entity.CreatedOn,
-                    ModifiedBy = entity.ModifiedBy,
-                    ModifiedOn = entity.ModifiedOn,
-                    IsActive = entity.IsActive,
-                    IsDeleted = entity.IsDeleted,
                     OwnerCode = entity.OwnerCode,
-                    Timestamp = entity.Timestamp,
                     Type = (int)entity.Type
                 };
         }

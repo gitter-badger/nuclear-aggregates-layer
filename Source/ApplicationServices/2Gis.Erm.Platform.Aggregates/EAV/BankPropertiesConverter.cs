@@ -8,14 +8,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         {
             return new Bank
                 {
-                    Id = dynamicEntityInstance.Id,
-                    CreatedBy = dynamicEntityInstance.CreatedBy,
-                    CreatedOn = dynamicEntityInstance.CreatedOn,
-                    ModifiedBy = dynamicEntityInstance.ModifiedBy,
-                    ModifiedOn = dynamicEntityInstance.ModifiedOn,
-                    IsActive = dynamicEntityInstance.IsActive,
-                    IsDeleted = dynamicEntityInstance.IsDeleted,
-                    Timestamp = dynamicEntityInstance.Timestamp,
+                    Id = dynamicEntityInstance.Id
                 };
         }
 
@@ -24,14 +17,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             return new DictionaryEntityInstance
                 {
                     Id = entity.Id,
-                    EntityId = referencedEntityId,
-                    CreatedBy = entity.CreatedBy,
-                    CreatedOn = entity.CreatedOn,
-                    ModifiedBy = entity.ModifiedBy,
-                    ModifiedOn = entity.ModifiedOn,
-                    IsActive = entity.IsActive,
-                    IsDeleted = entity.IsDeleted,
-                    Timestamp = entity.Timestamp,
+                    EntityId = referencedEntityId
                 };
         }
 

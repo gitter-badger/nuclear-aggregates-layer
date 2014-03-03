@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
     public abstract class DynamicEntityPropertiesConverter<TEntity, TEntityInstance, TEntityPropertyInstace> :
         IDynamicEntityPropertiesConverter<TEntity, TEntityInstance, TEntityPropertyInstace>
-        where TEntity : class, IEntity 
+        where TEntity : class, IEntity, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity
         where TEntityInstance : class, IDynamicEntityInstance
         where TEntityPropertyInstace : class, IDynamicEntityPropertyInstance
     {
         private readonly Action<TEntity, ICollection<TEntityPropertyInstace>> _converterFromPersistence;
-        private readonly Action<TEntity, long, ICollection<TEntityPropertyInstace>> _converterToPersistence;
+        private readonly Action<TEntity, long, ICollection<TEntityPropertyInstace>, BusinessModel> _converterToPersistence;
 
         protected DynamicEntityPropertiesConverter()
         {
@@ -31,6 +33,13 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         {
             var entity = CreateEntity(dynamicEntityInstance);
             _converterFromPersistence(entity, propertyInstances);
+
+            SetAuditableProperties(dynamicEntityInstance, entity);
+            SetDeactivatableProperties(dynamicEntityInstance, entity);
+            SetDeletableProperties(dynamicEntityInstance, entity);
+            SetDeletableProperties(dynamicEntityInstance, entity);
+            SetStateTrackingEntityProperties(dynamicEntityInstance, entity);
+
             return entity;
         }
 
@@ -39,15 +48,45 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             ICollection<TEntityPropertyInstace> propertyInstances, 
             long? referencedEntityId)
         {
-            var entityInstance = CreateEntityInstance(entity, referencedEntityId);
-            _converterToPersistence(entity, entityInstance.Id, propertyInstances);
+            var businessModel = typeof(TEntity).IsAdapted() ? typeof(TEntity).AsAdapted().AsBusinessModel() : BusinessModel.NotSetted;
+            var dynamicEntityInstance = CreateEntityInstance(entity, referencedEntityId);
+            _converterToPersistence(entity, dynamicEntityInstance.Id, propertyInstances, businessModel);
 
-            return Tuple.Create(entityInstance, propertyInstances);
+            SetAuditableProperties(entity, dynamicEntityInstance);
+            SetDeactivatableProperties(entity, dynamicEntityInstance);
+            SetDeletableProperties(entity, dynamicEntityInstance);
+            SetDeletableProperties(entity, dynamicEntityInstance);
+            SetStateTrackingEntityProperties(entity, dynamicEntityInstance);
+
+            return Tuple.Create(dynamicEntityInstance, propertyInstances);
         }
 
         protected abstract TEntity CreateEntity(TEntityInstance dynamicEntityInstance);
         protected abstract TEntityInstance CreateEntityInstance(TEntity entity, long? referencedEntityId);
         protected abstract TEntityPropertyInstace CreateEntityPropertyInstace(long entityId, int propertyId);
+
+        private static void SetAuditableProperties(IAuditableEntity source, IAuditableEntity target)
+        {
+            target.CreatedBy = source.CreatedBy;
+            target.CreatedOn = source.CreatedOn;
+            target.ModifiedBy = source.ModifiedBy;
+            target.ModifiedOn = source.ModifiedOn;
+        }
+
+        private static void SetDeactivatableProperties(IDeactivatableEntity source, IDeactivatableEntity target)
+        {
+            target.IsActive = source.IsActive;
+        }
+
+        private static void SetDeletableProperties(IDeletableEntity source, IDeletableEntity target)
+        {
+            target.IsDeleted = source.IsDeleted;
+        }
+
+        private static void SetStateTrackingEntityProperties(IStateTrackingEntity source, IStateTrackingEntity target)
+        {
+            target.Timestamp = source.Timestamp;
+        }
 
         private static object GetPropertyValue(IEnumerable<TEntityPropertyInstace> propertyInstances, int propertyId, Type propertyType)
         {

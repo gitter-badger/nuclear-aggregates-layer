@@ -1,19 +1,14 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed class LegalPersonProfilePart : IEntityPart
+    public class BranchOfficeOrganizationUnitPart : IEntityPart
     {
         public long Id { get; set; }
         public long EntityId { get; set; }
-        public AccountType AccountType { get; set; }
-        public long? BankId { get; set; }
         public string RepresentativeRut { get; set; }
-        public DateTime? RepresentativeAuthorityDocumentIssuedOn { get; set; }
-        public string RepresentativeAuthorityDocumentIssuedBy { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

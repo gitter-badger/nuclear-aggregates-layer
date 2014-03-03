@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Properties;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 {
-    public sealed class IssuedOnIdentity : EntityPropertyIdentityBase<IssuedOnIdentity>
+    public sealed class RepresentativeAuthorityDocumentIssuedOnIdentity : EntityPropertyIdentityBase<RepresentativeAuthorityDocumentIssuedOnIdentity>
     {
         public override int Id
         {
@@ -13,17 +13,17 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 
         public override string Description
         {
-            get { return "IssuedOn"; }
+            get { return "RepresentativeAuthorityDocumentIssuedOn"; }
         }
 
         public override string PropertyName
         {
-            get { return "IssuedOn"; }
+            get { return "RepresentativeAuthorityDocumentIssuedOn"; }
         }
 
         public override Type PropertyType
         {
-            get { return typeof(DateTime); }
+            get { return typeof(DateTime?); }
         }
     }
 }
