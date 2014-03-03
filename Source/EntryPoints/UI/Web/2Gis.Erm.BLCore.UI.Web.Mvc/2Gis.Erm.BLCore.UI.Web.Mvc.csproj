@@ -148,7 +148,6 @@
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\PrivilegeController.cs" />
     <Compile Include="Controllers\ReleaseInfoController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UI\GridController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
@@ -187,7 +186,6 @@
     <Compile Include="Models\ReleaseDialogViewModel.cs" />
     <Compile Include="Models\ReleaseInfoViewModel.cs" />
     <Compile Include="Models\ReleaseRevertDialogViewModel.cs" />
-    <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\ServicesViewModel.cs" />
     <Compile Include="Models\UserProfileViewModel.cs" />
@@ -451,16 +449,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReleaseRevertDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Report\Complex.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Complex.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Report\Edit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\AdministrationTab.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -679,14 +667,6 @@
     <None Include="Views\ReleaseInfo\ReleaseRevertDialog.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ReleaseRevertDialog.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Report\Complex.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Complex.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Report\Edit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\AdministrationTab.cshtml">
       <Generator>RazorGenerator</Generator>
