@@ -1488,7 +1488,7 @@
   <data name="PaymentMethodCashPayment" xml:space="preserve">
     <value>Pago en efectivo</value>
   </data>
-  <data name="PaymentMethodCreditCardPayment" xml:space="preserve">
+  <data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Tarjeta bancaria</value>
   </data>
   <data name="ActivityTaskTypeNotSet" xml:space="preserve">
@@ -1811,5 +1811,23 @@
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
     <value>By referenced category</value>
+  </data>
+  <data name="AccountTypeNotSet" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AccountTypeCurrentAccount" xml:space="preserve">
+    <value>Cuenta Corriente</value>
+  </data>
+  <data name="AccountTypeSavingsAccount" xml:space="preserve">
+    <value>Cuenta Vista</value>
+  </data>
+  <data name="PaymentMethodUndefined" xml:space="preserve">
+    <value></value>
+  <comment></comment></data>
+  <data name="PaymentMethodDebitCard" xml:space="preserve">
+    <value>Дебетовая карта</value>
+  </data>
+  <data name="PaymentMethodCreditCard" xml:space="preserve">
+    <value>Кредитная карта</value>
   </data>
 </root>

@@ -4,15 +4,27 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.Report;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public sealed class ModelBinderProvider : IModelBinderProvider
     {
+        private static readonly Type[] SupportedTypes = new[] 
+        {
+            typeof(string),
+            typeof(Uri),
+            typeof(LookupField),
+            typeof(DateTime),
+            typeof(DateTime?),
+            typeof(Guid[]),
+            typeof(long),
+            typeof(long?),
+        };
         private readonly IModelBinder _modelBinder;
 
         public ModelBinderProvider()
@@ -22,7 +34,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         IModelBinder IModelBinderProvider.GetBinder(Type modelType)
         {
-            return _modelBinder;
+            return IsSupportedType(modelType)
+                       ? _modelBinder
+                       : null;
+        }
+
+        private static bool IsSupportedType(Type modelType)
+        {
+            return SupportedTypes.Contains(modelType) || modelType.IsEnum;
         }
 
         #region model binders
@@ -78,11 +97,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                     return BindInt64(bindingContext);
                 }
 
-                if (modelType == typeof(ReportModel))
-                {
-                    return BindReport(controllerContext, bindingContext);
-                }
-
                 return base.BindModel(controllerContext, bindingContext);
             }
 
@@ -104,9 +118,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 }
 
                 // ENUM, validate "required" attribute on zero value
-                if (propertyType.IsEnum && string.Equals(propertyDescriptor.PropertyType.GetEnumName(0), modelState.Value.AttemptedValue, StringComparison.OrdinalIgnoreCase))
+                if (propertyType.IsEnum)
                 {
-                    return ValidateRequiredAttribute(propertyDescriptor, modelState);
+                    var undefinedValueAttribute = propertyType.GetCustomAttribute<UndefinedEnumValueAttribute>();
+                    var undefinedValue = undefinedValueAttribute != null ? undefinedValueAttribute.Value : 0;
+
+                    if (string.Equals(propertyDescriptor.PropertyType.GetEnumName(undefinedValue),
+                                      modelState.Value.AttemptedValue,
+                                      StringComparison.OrdinalIgnoreCase))
+                    {
+                        return ValidateRequiredAttribute(propertyDescriptor, modelState);
+                    }
                 }
 
                 return true;
@@ -270,41 +292,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             }
 
             #endregion
-
-            private object BindReport(ControllerContext controllerContext, ModelBindingContext bindingContext)
-            {
-                var typeName = bindingContext.ValueProvider.GetValue("ReportType").AttemptedValue;
-                if (string.IsNullOrWhiteSpace(typeName))
-                {
-                    throw new ArgumentException("Bad report type");
-                }
-
-                var type = AppDomain.CurrentDomain.GetAssemblies()
-                                    .Select(assembly => assembly.GetType(typeName))
-                                    .SingleOrDefault(t => t != null);
-
-                if (type == null)
-                {
-                    // Сервер не знает о типе данных, который был использован для построения модели. Даём шанс позже вернуться к этому вопросу.
-                    return new DelayedReportModel(this, controllerContext, bindingContext);
-                }
-
-                if (type == null || !typeof(ReportModel).IsAssignableFrom(type))
-                {
-                    throw new ArgumentException("Bad report type");
-                }
-
-                var constructor = type.GetConstructor(new Type[0]);
-
-                if (constructor == null)
-                {
-                    throw new ArgumentException("Bad report type");
-                }
-
-                bindingContext.ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => constructor.Invoke(new object[0]), type);
-                var model = base.BindModel(controllerContext, bindingContext);
-                return model;
-            }
         }
 
         #endregion

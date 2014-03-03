@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\AssemblyInfo.Common.cs">
@@ -52,6 +53,7 @@
     <Compile Include="FinancialOperations\OrderRequest.svc.cs" />
     <Compile Include="FinancialOperations\RequestState.svc.cs" />
     <Compile Include="FinancialOperations\Settings\IFinancialOperationsAppSettings.cs" />
+    <Compile Include="FirmInfo\FirmInfo.svc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

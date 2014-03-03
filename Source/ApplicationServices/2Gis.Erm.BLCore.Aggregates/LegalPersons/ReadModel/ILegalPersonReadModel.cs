@@ -1,15 +1,18 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
-using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
 {
     public interface ILegalPersonReadModel : IAggregateReadModel<LegalPerson>
     {
+        LegalPerson GetLegalPerson(long legalPersonId);
+        EntityReference GetClientReference(long legalPersonId);
+        EntityReference GetCommuneReference(long legalPersonId);
+        bool HasAnyLegalPersonProfiles(long legalPersonId);
         LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId);
-        LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId, BusinessModel businessModel);
-        BusinessEntityInstanceDto GetBusinessEntityInstanceDtoForLegalPersonProfilePart(LegalPersonProfilePart legalPersonProfilePart,
-                                                                                        BusinessModel businessModel);
+        BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonPart legalPersonPart);
+        BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonProfilePart legalPersonProfilePart);
     }
 }

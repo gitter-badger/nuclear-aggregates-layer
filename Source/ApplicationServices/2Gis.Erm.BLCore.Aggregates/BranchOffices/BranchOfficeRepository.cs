@@ -5,6 +5,7 @@ using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         {
             return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
                 .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                .Where(BranchOfficeSpecifications.Find.PrimaryBranchOfficeOrganizationUnit())
+                .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
                 .Select(x => new BranchOfficeOrganizationShortInformationDto
                 {
                     Id = x.Id,
@@ -112,16 +113,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             branchOfficeOrganizationUnit.IsActive = false;
             _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
             return _branchOfficeOrganizationUnitGenericRepository.Save();
-        }
-
-        public BranchOfficeOrganizationUnit FindBranchOfficeOrganizationUnit(long entityId)
-        {
-            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.Id == entityId).SingleOrDefault();
-        }
-
-        public BranchOfficeOrganizationUnit FindBranchOfficeOrganizationUnit(string syncCode1C)
-        {
-            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C).SingleOrDefault();
         }
 
         public void CreateOrUpdate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)

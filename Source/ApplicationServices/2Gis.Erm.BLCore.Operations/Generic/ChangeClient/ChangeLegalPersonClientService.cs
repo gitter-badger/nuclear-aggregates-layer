@@ -6,6 +6,7 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.Aggregates;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeClient;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -22,6 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
     {
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
@@ -29,12 +31,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
         public ChangeLegalPersonClientService(
             IUserContext userContext, 
             IOperationScopeFactory scopeFactory, 
+            ILegalPersonReadModel legalPersonReadModel,
             ILegalPersonRepository legalPersonRepository,
             ISecurityServiceFunctionalAccess functionalAccessService,
             ISecurityServiceUserIdentifier userIdentifierService)
         {
             _userContext = userContext;
             _scopeFactory = scopeFactory;
+            _legalPersonReadModel = legalPersonReadModel;
             _legalPersonRepository = legalPersonRepository;
             _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
@@ -90,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
                         throw new ArgumentException(firstDomainError);
                     }
 
-                    var person = _legalPersonRepository.FindLegalPerson(entityId);
+                    var person = _legalPersonReadModel.GetLegalPerson(entityId);
                     changeAggregateClientRepository.ChangeClient(entityId, clientId, _userContext.Identity.Code, bypassValidation);
 
                     operationScope

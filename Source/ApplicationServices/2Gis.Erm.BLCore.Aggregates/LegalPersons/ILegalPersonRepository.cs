@@ -23,9 +23,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         void ChangeLegalRequisites(LegalPerson legalPerson, string inn, string kpp, string legalAddress);
         void ChangeNaturalRequisites(LegalPerson legalPerson, string passportSeries, string passportNumber, string registrationAddress);
         int Deactivate(LegalPerson legalPerson);
+
+        [Obsolete("Use IDeletePartableEntityAggregateService<LegalPerson>.Create")]
         int Delete(LegalPerson legalPerson);
+        
         int Delete(LegalPersonProfile legalPersonProfile);
+
+        [Obsolete("Use ICreatePartableEntityAggregateService<LegalPerson>.Create or IUpdatePartableEntityAggregateService<LegalPerson>.Update")]
         void CreateOrUpdate(LegalPerson legalPerson);
+        
         void CreateOrUpdate(LegalPersonProfile legalPersonProfile);
         void SyncWith1C(IEnumerable<LegalPerson> legalPersons);
         LegalPersonForMergeDto GetInfoForMerging(long legalPersonId);
@@ -34,7 +40,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         CheckForDublicatesResultDto CheckIfExistsInnOrIcDuplicate(long legalPersonId, string inn, string kpp);
         CheckForDublicatesResultDto CheckIfExistsPassportDuplicate(long legalPersonId, string passportSeries, string passportNumber);
         string[] SelectNotUnique1CSyncCodes(IEnumerable<string> codes);
+
+        [Obsolete("Use ILegalPersonReadModel.GetLegalPerson")]
         LegalPerson FindLegalPerson(long entityId);
+        
         void SetProfileAsMain(long profileId);
 
         // FIXME {d.ivanov, 03.02.2014}: Метод не учитывает дополнения LegalPersonWithProfile. Перенести в ILegalPersonReadModel + учесть разные бизнес-модели

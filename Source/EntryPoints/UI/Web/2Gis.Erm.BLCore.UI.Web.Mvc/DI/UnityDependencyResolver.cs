@@ -14,25 +14,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
     public sealed class UnityDependencyResolver : IDependencyResolver
     {
         private readonly IUnityContainer _container;
+        private readonly IModelBinderProvider[] _additionalModelBinderProviders;
 
         private readonly IReadOnlyDictionary<Type, Func<IUnityContainer, object>> _overridedMvcSingleRegisteredDependencies;
         private readonly IReadOnlyDictionary<Type, Func<IUnityContainer, IEnumerable<object>>> _overridedMvcMultipleRegisteredDependencies;
 
-        public UnityDependencyResolver(IUnityContainer container, IGlobalizationSettings globalizationSettings)
+        public UnityDependencyResolver(IUnityContainer container, IGlobalizationSettings globalizationSettings, params IModelBinderProvider[] additionalModelBinderProviders)
         {
             _container = container;
+            _additionalModelBinderProviders = additionalModelBinderProviders;
 
-            _overridedMvcSingleRegisteredDependencies = new Dictionary<Type, Func<IUnityContainer, object>> 
-                                                            {
-                                                                { typeof(IControllerActivator), c => c.Resolve<IControllerActivator>() },
-                                                                { typeof(IControllerFactory), c => new GenericContollerFactory(globalizationSettings, c.Resolve<IViewModelTypesRegistry>()) },
-                                                                { typeof(ModelMetadataProvider), c => c.Resolve<ModelMetadataProvider>() },
-                                                            };
+            _overridedMvcSingleRegisteredDependencies = new Dictionary<Type, Func<IUnityContainer, object>>
+                {
+                    { typeof(IControllerActivator), c => c.Resolve<IControllerActivator>() },
+                    { typeof(IControllerFactory), c => new GenericContollerFactory(globalizationSettings, c.Resolve<IViewModelTypesRegistry>()) },
+                    { typeof(ModelMetadataProvider), c => c.Resolve<ModelMetadataProvider>() },
+                };
 
             _overridedMvcMultipleRegisteredDependencies = new Dictionary<Type, Func<IUnityContainer, IEnumerable<object>>>
-                                                              {
-                                                                  { typeof(IModelBinderProvider), unityContainer => new[] { new ModelBinderProvider() } }
-                                                              };
+                {
+                    {
+                        typeof(IModelBinderProvider), unityContainer => new[] { new ModelBinderProvider() }.Concat(_additionalModelBinderProviders)
+                    }
+                };
         }
 
         object IDependencyResolver.GetService(Type serviceType)

@@ -1311,4 +1311,37 @@
   <data name="AdvertisementElementErrorDescription" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="RepresentativeName" xml:space="preserve">
+    <value>Representante</value>
+  </data>
+  <data name="RepresentativePosition" xml:space="preserve">
+    <value>Cargo del representante</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Actividad</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>Comuna</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedOn" xml:space="preserve">
+    <value>Fecha de expedición</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedBy" xml:space="preserve">
+    <value>Organismo de expedición</value>
+  </data>
+  <data name="BankAccountType" xml:space="preserve">
+    <value>Tipo de cuenta</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Nombre de banco</value>
+  </data>
+  <data name="RepresentativeRut" xml:space="preserve">
+  <value>RUT представителя</value>
+</data>
+  <data name="Rut" xml:space="preserve">
+  <value>RUT</value>
+</data>
+  <data name="OperationsKind" xml:space="preserve">
+  <value>Вид деятельности</value>
+</data>
 </root>

@@ -8,5 +8,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadM
     {
         Bank GetBank(long bankId);
         DictionaryEntityInstanceDto GetDictionaryEntityInstanceDto(Bank bank);
+        bool IsBankUsed(long bankId);
     }
 }

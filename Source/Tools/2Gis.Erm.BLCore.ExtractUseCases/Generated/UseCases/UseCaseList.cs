@@ -24,7 +24,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
@@ -59,7 +58,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Reports;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserOperations;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
@@ -68,6 +66,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
@@ -519,16 +518,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(EditPricePositionHandler),
                         Request = typeof(EditRequest<PricePosition>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditLegalPersonProfileHandler),
-                        Request = typeof(EditRequest<LegalPersonProfile>)
                     }
                 },
                 new UseCase
@@ -1699,16 +1688,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ReportsController\LegalPersonPayments",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(LegalPersonPaymentsHandler),
-                        Request = typeof(LegalPersonPaymentsRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\GetListData",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1761,16 +1740,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(PublishPriceHandler),
                         Request = typeof(PublishPriceRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ReportsController\PlanningReport",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PlanningReportHandler),
-                        Request = typeof(PlanningReportRequest)
                     }
                 },
                 new UseCase

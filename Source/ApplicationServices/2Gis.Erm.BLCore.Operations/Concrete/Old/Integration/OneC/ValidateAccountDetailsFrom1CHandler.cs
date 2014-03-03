@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
@@ -15,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
     public class ValidateAccountDetailsFrom1CHandler : RequestHandler<ValidateAccountDetailsFrom1CRequest, ValidateAccountDetailsFrom1CResponse>
     {
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
@@ -22,11 +24,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly Dictionary<string, BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitsBy1CCode;
         private readonly Dictionary<long, BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitsById;
 
-        public ValidateAccountDetailsFrom1CHandler(
-            IBranchOfficeRepository branchOfficeRepository,
-            ILegalPersonRepository legalPersonRepository,
-            IAccountRepository accountRepository)
+        public ValidateAccountDetailsFrom1CHandler(IBranchOfficeReadModel branchOfficeReadModel,
+                                                   IBranchOfficeRepository branchOfficeRepository,
+                                                   ILegalPersonRepository legalPersonRepository,
+                                                   IAccountRepository accountRepository)
         {
+            _branchOfficeReadModel = branchOfficeReadModel;
             _branchOfficeRepository = branchOfficeRepository;
             _legalPersonRepository = legalPersonRepository;
             _accountRepository = accountRepository;
@@ -61,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
             else
             {
-                selectedBranchOfficeOrganizationUnit = _branchOfficeRepository.FindBranchOfficeOrganizationUnit(request.BranchOfficeOrganizationUnitId);
+                selectedBranchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(request.BranchOfficeOrganizationUnitId);
                 _branchOfficeOrganizationUnitsById.Add(selectedBranchOfficeOrganizationUnit.Id, selectedBranchOfficeOrganizationUnit);
             }
 
@@ -122,8 +125,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 }
                 else
                 {
-                    branchOfficeOrganizationUnit =
-                        _branchOfficeRepository.FindBranchOfficeOrganizationUnit(row.BranchOfficeOrganizationUnit1CCode);
+                    branchOfficeOrganizationUnit = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(row.BranchOfficeOrganizationUnit1CCode);
                     _branchOfficeOrganizationUnitsBy1CCode.Add(row.BranchOfficeOrganizationUnit1CCode, branchOfficeOrganizationUnit);
                 }
 
