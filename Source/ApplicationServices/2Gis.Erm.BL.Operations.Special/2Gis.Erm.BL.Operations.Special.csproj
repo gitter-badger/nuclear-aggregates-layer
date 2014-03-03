@@ -49,6 +49,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
