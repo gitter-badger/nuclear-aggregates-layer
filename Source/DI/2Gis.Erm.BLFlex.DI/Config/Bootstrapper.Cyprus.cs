@@ -3,6 +3,8 @@ using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -22,6 +24,27 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}"))
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-bill"))
                         .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton);
+        }
+
+        // TODO переделать на нормальную метадату
+        internal static void ConfigureCyprusListingMetadata()
+        {
+            FilteredFieldMetadata.RegisterFilteredFields<CyprusListLegalPersonDto>(
+                x => x.LegalName,
+                x => x.ClientName,
+                x => x.ShortName,
+                x => x.LegalAddress,
+                x => x.Tic,
+                x => x.Vat,
+                x => x.PassportNumber);
+            FilteredFieldMetadata.RegisterFilteredFields<CyprusListOrderDto>(
+                x => x.OrderNumber,
+                x => x.FirmName,
+                x => x.ClientName,
+                x => x.DestOrganizationUnitName,
+                x => x.SourceOrganizationUnitName,
+                x => x.BargainNumber,
+                x => x.LegalPersonName);
         }
     }
 }

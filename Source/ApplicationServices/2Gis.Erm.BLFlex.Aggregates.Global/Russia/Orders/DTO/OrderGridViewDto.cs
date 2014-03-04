@@ -7,7 +7,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders.DTO
     public sealed class OrderGridViewDto : IRussiaAdapted
     {
         public long Id { get; set; }
-        public string Number { get; set; }
+        public string OrderNumber { get; set; }
+        public DateTime CreatedOn { get; set; }
         public long? FirmId { get; set; }
         public string FirmName { get; set; }
         public long? ClientId { get; set; }
@@ -27,5 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders.DTO
         public decimal PayablePlan { get; set; }
         public decimal AmountWithdrawn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public long? AccountId { get; set; }
+        public long? DealId { get; set; }
     }
 }

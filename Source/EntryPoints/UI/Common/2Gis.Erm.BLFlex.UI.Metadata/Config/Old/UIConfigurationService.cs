@@ -210,17 +210,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                         Fields = basedOnDataView.Fields.Select(y => new DataListColumnStructure
                         {
-                            Filtered = y.Filtered,
                             ReferenceTo = y.ReferenceTo,
                             ReferenceKeyField = y.ReferenceKeyField,
                             NameLocaleResourceId = y.NameLocaleResourceId,
-                            ExpressionPath = y.ExpressionPath,
                             Hidden = y.Hidden,
                             Name = y.Name,
                             Width = y.Width,
                             FieldType = y.FieldType,
                             Type = y.Type,
-                            DotNetType = y.DotNetType,
                             Sortable = y.Sortable,
                         }).ToArray(),
 
@@ -243,9 +240,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         {
                             FileName = y.FileName,
                         }).ToArray(),
-
-                        DefaultFilter = basedOnDataView.DefaultFilter,
-                        ExtendedInfo = basedOnDataView.ExtendedInfo,
                     };
                 }
                 else
@@ -371,18 +365,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 dataView.MainAttribute = mainAttribute.Value;
             }
 
-            var defaultFilter = dataListEl.Attribute("DefaultFilter");
-            if (defaultFilter != null)
-            {
-                dataView.DefaultFilter = defaultFilter.Value;
-            }
-
-            var extendedInfo = dataListEl.Attribute("ExtendedInfo");
-            if (extendedInfo != null)
-            {
-                dataView.ExtendedInfo = extendedInfo.Value;
-            }
-
             var icon = dataListEl.Attribute("Icon");
             if (icon != null)
             {
@@ -434,12 +416,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     field.NameLocaleResourceId = nameLocaleResourceId.Value;
                 }
 
-                var expression = fieldEl.Attribute("Expression");
-                if (expression != null)
-                {
-                    field.ExpressionPath = expression.Value;
-                }
-
                 var width = fieldEl.Attribute("Width");
                 if (width != null)
                 {
@@ -452,12 +428,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     field.Hidden = (bool)hidden;
                 }
 
-                var filtered = fieldEl.Attribute("Filtered");
-                if (filtered != null)
-                {
-                    field.Filtered = (bool)filtered;
-                }
-
                 var fieldType = fieldEl.Attribute("FieldType");
                 if (fieldType != null)
                 {
@@ -468,12 +438,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 if (extTypeName != null)
                 {
                     field.Type = extTypeName.Value;
-                }
-
-                var dotNetTypeName = fieldEl.Attribute("DotNetTypeName");
-                if (dotNetTypeName != null)
-                {
-                    field.DotNetType = dotNetTypeName.Value;
                 }
 
                 var referenceEntityName = fieldEl.Attribute("ReferenceEntityName");
@@ -600,18 +564,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
                     Fields = x.Fields.Select(y => new DataListColumnStructure
                     {
-                        Filtered = y.Filtered,
                         ReferenceTo = y.ReferenceTo,
                         ReferenceKeyField = y.ReferenceKeyField,
                         NameLocaleResourceId = y.NameLocaleResourceId,
-                        ExpressionPath = y.ExpressionPath,
                         LocalizedName = GetLocalizedName(y.NameLocaleResourceId ?? y.Name, culture),
                         Hidden = y.Hidden,
                         Name = y.Name,
                         Width = y.Width,
                         FieldType = y.FieldType,
                         Type = y.Type,
-                        DotNetType = y.DotNetType,
                         Sortable = y.Sortable,
                     }).ToArray(),
 
@@ -636,9 +597,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     {
                         FileName = y.FileName,
                     }).ToArray(),
-
-                    DefaultFilter = x.DefaultFilter,
-                    ExtendedInfo = x.ExtendedInfo,
 
                 }).ToArray(),
             };
@@ -694,7 +652,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         Icon = y.Icon,
                         IsCrmView = y.IsCrmView,
                         RequestUrl = y.RequestUrl,
-                        FilterExpression = y.FilterExpression,
                         ExtendedInfo = y.ExtendedInfo,
                         AppendableEntity = y.AppendableEntity,
                     }).ToArray(),
@@ -908,12 +865,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 if (requestUrl != null)
                 {
                     cardRelatedItemsJson.RequestUrl = requestUrl.Value;
-                }
-
-                var filterExpression = relatedItemEl.Attribute("FilterExpression");
-                if (filterExpression != null)
-                {
-                    cardRelatedItemsJson.FilterExpression = filterExpression.Value;
                 }
 
                 var extendedInfo = relatedItemEl.Attribute("ExtendedInfo");

@@ -71,9 +71,17 @@
     <Compile Include="Config\Bootstrapper.Cyprus.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
@@ -94,6 +102,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>

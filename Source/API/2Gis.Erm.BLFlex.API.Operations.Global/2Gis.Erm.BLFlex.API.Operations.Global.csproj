@@ -53,6 +53,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Chile\Operations\Concrete\Old\LegalPersons\ChileChangeLegalPersonReqisitesRequest.cs" />
+    <Compile Include="Chile\Operations\Generic\List\ChileListCommuneDto.cs" />
+    <Compile Include="Chile\Operations\Generic\List\ChileListBankDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListOrderDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonProfileDto.cs" />
