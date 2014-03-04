@@ -104,14 +104,9 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
-    <Compile Include="Generic\List\DynamicListResult.cs" />
-    <Compile Include="Generic\List\DynamicListRow.cs" />
-    <Compile Include="Generic\List\DynamicPropertyValue.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
-    <Compile Include="Generic\List\EntityListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
-    <Compile Include="Generic\List\IListGenericEntityService.cs" />
     <Compile Include="Generic\List\IListItemEntityDto.cs" />
     <Compile Include="Generic\List\ListResult.cs" />
     <Compile Include="Generic\List\ListResultType.cs" />

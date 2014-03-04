@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -39,31 +37,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                                                        });
             switch (listResultDescriptor.ResultType)
             {
-                case ListResultType.Entity:
-                {
-                    var entityName = EntityName.None;
-                    if (!listResultDescriptor.ListResultJObject.TryGetEnumValue(PropertyNames.EntitiesListEntityType, out entityName))
-                    {
-                        throw new InvalidOperationException("Can't get entity name from list result");
-                    }
-
-                    var entityType = entityName.AsEntityType();
-                    var realResultType = typeof(EntityListResult<>).MakeGenericType(entityType);
-                    var dataProperty = realResultType.GetProperty(PropertyNames.Data);
-                    if (dataProperty == null)
-                    {
-                        throw new InvalidOperationException("Can't get Data property for type: " + realResultType);
-                    }
-
-                    var result = Activator.CreateInstance(realResultType);
-                    var collectionResult = serializer.Deserialize(new StringReader(listResultDescriptor.DataRawValue), entityType.MakeArrayType());
-                    dataProperty.SetValue(result, collectionResult);
-                    listResult = (ListResult)result;
-                    break;
-                }
                 case ListResultType.Dto:
                 {
-                    var entityName = EntityName.None;
+                    EntityName entityName;
                     if (!listResultDescriptor.ListResultJObject.TryGetEnumValue(PropertyNames.EntityDtosListEntityType, out entityName))
                     {
                         throw new InvalidOperationException("Can't get entity name from list result");
@@ -98,14 +74,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                     var collectionResult = serializer.Deserialize(new StringReader(listResultDescriptor.DataRawValue), dtoType.MakeArrayType());
                     dataProperty.SetValue(result, collectionResult);
                     listResult = (ListResult)result;
-                    break;
-                }
-                case ListResultType.Dynamic:
-                {   // пока результат в виде dynamic оборачивающего JArray - в идеале надо запользовать что-то, что будет возвращать нормальные CLR типы, а не JКОГОТО
-                    // Например, можно заиспользовать JsonFX, но он не может обработать datetime вида "FirstEmitDate": new Date("03/01/2013 00:00:00") - т.к. это не является валидным json
-                    // нужно например, "03/01/2013 00:00:00" - однако это требует изменений на сервере и в javascript
-                    var dynamicListResult = (IEnumerable<DynamicListRow>)serializer.Deserialize(new StringReader(listResultDescriptor.DataRawValue), typeof(IEnumerable<DynamicListRow>));
-                    listResult = new DynamicListResult { MainAttribute = listResultDescriptor.MainAttribute, RowCount = listResultDescriptor.RowCount, Data = dynamicListResult };
                     break;
                 }
             }
@@ -276,18 +244,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                 ResultType = ExtractPropertyName<ListResult, ListResultType>(t => t.ResultType);
                 RowCount = ExtractPropertyName<ListResult, int>(t => t.RowCount);
                 MainAttribute = ExtractPropertyName<ListResult, string>(t => t.MainAttribute);
-                EntitiesData = ExtractPropertyName<EntityListResult<FakeEntity>, FakeEntity[]>(t => t.Data);
                 EntityDtosData = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, ListFakeEntityDto[]>(t => t.Data);
-                DynamicData = ExtractPropertyName<DynamicListResult, IEnumerable>(t => t.Data);
 
-                if (EntitiesData != EntityDtosData || EntitiesData != DynamicData)
-                {
-                    throw new InvalidOperationException("Invalid data property name in subclass of " + typeof(ListResult));
-                }
+                Data = EntityDtosData;
 
-                Data = EntitiesData;
-
-                EntitiesListEntityType = ExtractPropertyName<EntityListResult<FakeEntity>, EntityName>(t => t.EntityType);
                 EntityDtosListEntityType = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, EntityName>(t => t.EntityType);
                 //EntityDtosListDtoType = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, Type>(t => t.DtoType);
             }
@@ -295,11 +255,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
             public static string ResultType { get; private set; }
             public static string RowCount { get; private set; }
             public static string MainAttribute { get; private set; }
-            private static string EntitiesData { get; set; }
             private static string EntityDtosData { get; set; }
-            private static string DynamicData { get; set; }
             public static string Data { get; private set; }
-            public static string EntitiesListEntityType { get; private set; }
             public static string EntityDtosListEntityType { get; private set; }
             public static string EntityDtosListDtoType { get; private set; }
         }
