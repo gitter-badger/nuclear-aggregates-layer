@@ -121,7 +121,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
-                    , firmFilter), querySettings, out count);
+                    , firmFilter)
+                    .DefaultFilter(_filterHelper, querySettings)
+                    , querySettings, out count);
         }
 
         private bool TryGetClientsRestrictedByUser(

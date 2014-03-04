@@ -159,19 +159,27 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
         // TODO Зарефакторить, list service не должен знать ничего о UI метаданных
         private string GetMainAtribute(EntityName entityName, string nameLocaleResourceId)
         {
-            var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
-
-            var dataListStructure = !string.IsNullOrEmpty(nameLocaleResourceId)
-                ? gridSettings.DataViews.Single(x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase))
-                : gridSettings.DataViews.First();
-
-            if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
+            try
             {
-                throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
-            }
+                var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+                var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
 
-            return dataListStructure.MainAttribute;
+                var dataListStructure = !string.IsNullOrEmpty(nameLocaleResourceId)
+                                            ? gridSettings.DataViews.Single(
+                                                x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase))
+                                            : gridSettings.DataViews.First();
+
+                if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
+                {
+                    throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
+                }
+
+                return dataListStructure.MainAttribute;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
