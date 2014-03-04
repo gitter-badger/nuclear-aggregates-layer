@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
             var extendedInfoMap = extendedInfo
                 .Split(new[] { '&', ';' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries))
-                .Where(x => x.Length == 2)
+                .Where(x => x.Length == 2 && !string.Equals(x[1], "null", StringComparison.OrdinalIgnoreCase))
                 .ToDictionary(x => x[0].ToLowerInvariant(), x => x[1]);
 
             return extendedInfoMap;
