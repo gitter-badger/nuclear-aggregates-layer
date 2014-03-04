@@ -15,7 +15,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders
                     order => new CzechOrderGridViewDto
                     {
                         Id = order.Id,
-                        Number = order.Number,
+                        OrderNumber = order.Number,
+                        CreatedOn = order.CreatedOn,
                         FirmId = order.FirmId,
                         FirmName = order.Firm.Name,
                         ClientId = order.Firm.Client.Id,
@@ -38,7 +39,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders
                         AmountWithdrawn = order.AmountWithdrawn,
                         ModifiedOn = order.ModifiedOn,
                         OrderType = order.OrderType,
-                        DiscountPercent = order.DiscountPercent
+                        DiscountPercent = order.DiscountPercent,
+                        AccountId = order.AccountId,
+                        DealId = order.DealId,
                     });
             }
         }

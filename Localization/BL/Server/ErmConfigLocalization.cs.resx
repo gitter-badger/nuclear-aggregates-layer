@@ -1787,5 +1787,30 @@
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Požadavek z OP</value>
+    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
+  </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Adresare Cili</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Banky</value>
+  </data>
+  <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
+    <value>Уведомление о расторжении договора</value>
+  </data>
+  <data name="DListReservedFirmsLefkosia" xml:space="preserve">
+    <value>Фирмы в резерве по городу Никосия</value>
+  </data>
+  <data name="DListReservedFirmsLemesos" xml:space="preserve">
+    <value>Фирмы в резерве по городу Лимассол</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Коммуны</value>
+  </data>
+  <data name="DListBanks" xml:space="preserve">
+    <value>Banky</value>
+  </data>
+  <data name="DListCommunes" xml:space="preserve">
+    <value>Коммуны</value>
   </data>
 </root>

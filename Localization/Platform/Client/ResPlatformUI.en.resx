@@ -134,6 +134,6 @@
     <value>System</value>
   </data>
   <data name="ListingCantGetResultForEntityList" xml:space="preserve">
-    <value>Can&apos;t get listing view for entities of type &quot;{0}&quot;</value>
+    <value>Can't get listing view for entities of type "{0}"</value>
   </data>
 </root>

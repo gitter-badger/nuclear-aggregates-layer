@@ -7,7 +7,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO
     public sealed class CzechOrderGridViewDto : ICzechAdapted
     {
         public long Id { get; set; }
-        public string Number { get; set; }
+        public string OrderNumber { get; set; }
+        public DateTime CreatedOn { get; set; }
         public long? FirmId { get; set; }
         public string FirmName { get; set; }
         public long? ClientId { get; set; }
@@ -31,5 +32,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO
         public DateTime? ModifiedOn { get; set; }
         public int OrderType { get; set; }
         public decimal? DiscountPercent { get; set; }
+        public long? AccountId { get; set; }
+        public long? DealId { get; set; }
     }
 }

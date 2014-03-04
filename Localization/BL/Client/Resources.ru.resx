@@ -906,4 +906,10 @@
 	<data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Сообщения по заявке</value>
   </data>
+  <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
+    <value>Вы действительно хотите изменить статус лимита на</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Номер счета</value>
+  </data>
 </root>

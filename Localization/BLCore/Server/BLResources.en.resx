@@ -5225,4 +5225,10 @@ Placement period: {3}.</value>
   <data name="AcceptableFileDimensions" xml:space="preserve">
     <value>Permitted file sizes (pixels)</value>
   </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
 </root>

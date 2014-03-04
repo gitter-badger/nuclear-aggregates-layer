@@ -19,14 +19,15 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
-    public class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
+    public sealed class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
     {
         private static readonly Func<OrderGridViewDto, ISecurityServiceUserIdentifier, IUserContext, ListOrderDto> ListDataSelectFunc =
             (order, userIdentifierService, userContext) =>
             new ListOrderDto
                 {
                     Id = order.Id,
-                    OrderNumber = order.Number,
+                    OrderNumber = order.OrderNumber,
+                    CreatedOn = order.CreatedOn,
                     FirmId = order.FirmId,
                     FirmName = order.FirmName,
                     DestOrganizationUnitId = order.DestOrganizationUnitId,
@@ -49,20 +50,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
         public ListOrderService(IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
                                 ISecurityServiceUserIdentifier userIdentifierService,
                                 IFinder finder,
-                                IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+                                IUserContext userContext,
+                                FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListOrderDto> GetListData(IQueryable<Order> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListOrderDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Order>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var selectExpression = OrderSpecifications.Select.OrdersForGridView().Selector;
 
             var dummyAdvertisementsFilter = querySettings.CreateForExtendedProperty<Order, bool>(
@@ -204,72 +217,77 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 case EntityName.Client:
                     return query
                         .Where(x => x.Firm.ClientId == querySettings.ParentEntityId || x.LegalPerson.ClientId == querySettings.ParentEntityId)
-                        .ApplyFilter(forNextEditionFilter)
-                        .ApplyFilter(forNextMonthEditionFilter)
-                        .ApplyFilter(withoutAdvertisementFilter)
-                        .ApplyFilter(rejectedByMeFilter)
-                        .ApplyFilter(useCurrentMonthForEndDistributionDateFactFilter)
-                        .ApplyFilter(dummyAdvertisementsFilter)
-                        .ApplyQuerySettings(querySettings, out count)
+                        .Filter(_filterHelper
+                        , forNextEditionFilter
+                        , forNextMonthEditionFilter
+                        , withoutAdvertisementFilter
+                        , rejectedByMeFilter
+                        , useCurrentMonthForEndDistributionDateFactFilter
+                        , dummyAdvertisementsFilter)
+                        .DefaultFilter(_filterHelper, querySettings)
                         .Select(selectExpression)
                         .Distinct()
-                        .AsEnumerable()
-                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
+                        .QuerySettings(_filterHelper, querySettings, out count)
+                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
                 case EntityName.LegalPerson:
                     return query
                         .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
-                        .ApplyFilter(forNextEditionFilter)
-                        .ApplyFilter(forNextMonthEditionFilter)
-                        .ApplyFilter(withoutAdvertisementFilter)
-                        .ApplyFilter(rejectedByMeFilter)
-                        .ApplyFilter(useCurrentMonthForEndDistributionDateFactFilter)
-                        .ApplyFilter(dummyAdvertisementsFilter)
-                        .ApplyQuerySettings(querySettings, out count)
+                        .Filter(_filterHelper
+                        , forNextEditionFilter
+                        , forNextMonthEditionFilter
+                        , withoutAdvertisementFilter
+                        , rejectedByMeFilter
+                        , useCurrentMonthForEndDistributionDateFactFilter
+                        , dummyAdvertisementsFilter)
+                        .DefaultFilter(_filterHelper, querySettings)
                         .Select(selectExpression)
                         .Distinct()
-                        .AsEnumerable()
-                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
+                        .QuerySettings(_filterHelper, querySettings, out count)
+                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
                 case EntityName.Account:
                     return query
                         .Where(x => x.AccountId == querySettings.ParentEntityId)
-                        .ApplyFilter(forNextEditionFilter)
-                        .ApplyFilter(forNextMonthEditionFilter)
-                        .ApplyFilter(withoutAdvertisementFilter)
-                        .ApplyFilter(rejectedByMeFilter)
-                        .ApplyFilter(useCurrentMonthForEndDistributionDateFactFilter)
-                        .ApplyFilter(dummyAdvertisementsFilter)
-                        .ApplyQuerySettings(querySettings, out count)
+                        .Filter(_filterHelper
+                        , forNextEditionFilter
+                        , forNextMonthEditionFilter
+                        , withoutAdvertisementFilter
+                        , rejectedByMeFilter
+                        , useCurrentMonthForEndDistributionDateFactFilter
+                        , dummyAdvertisementsFilter)
+                        .DefaultFilter(_filterHelper, querySettings)
                         .Select(selectExpression)
                         .Distinct()
-                        .AsEnumerable()
-                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
+                        .QuerySettings(_filterHelper, querySettings, out count)
+                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
                 case EntityName.Firm:
                     return query
                         .Where(x => x.FirmId == querySettings.ParentEntityId)
-                        .ApplyFilter(forNextEditionFilter)
-                        .ApplyFilter(forNextMonthEditionFilter)
-                        .ApplyFilter(withoutAdvertisementFilter)
-                        .ApplyFilter(rejectedByMeFilter)
-                        .ApplyFilter(useCurrentMonthForEndDistributionDateFactFilter)
-                        .ApplyFilter(dummyAdvertisementsFilter)
-                        .ApplyQuerySettings(querySettings, out count)
+                        .Filter(_filterHelper
+                        , forNextEditionFilter
+                        , forNextMonthEditionFilter
+                        , withoutAdvertisementFilter
+                        , rejectedByMeFilter
+                        , useCurrentMonthForEndDistributionDateFactFilter
+                        , dummyAdvertisementsFilter)
+                        .DefaultFilter(_filterHelper, querySettings)
                         .Select(selectExpression)
                         .Distinct()
-                        .AsEnumerable()
-                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
+                        .QuerySettings(_filterHelper, querySettings, out count)
+                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
                 default:
                     return query
-                        .ApplyFilter(forNextEditionFilter)
-                        .ApplyFilter(forNextMonthEditionFilter)
-                        .ApplyFilter(withoutAdvertisementFilter)
-                        .ApplyFilter(rejectedByMeFilter)
-                        .ApplyFilter(useCurrentMonthForEndDistributionDateFactFilter)
-                        .ApplyFilter(dummyAdvertisementsFilter)
-                        .ApplyQuerySettings(querySettings, out count)
+                        .Filter(_filterHelper
+                        , forNextEditionFilter
+                        , forNextMonthEditionFilter
+                        , withoutAdvertisementFilter
+                        , rejectedByMeFilter
+                        , useCurrentMonthForEndDistributionDateFactFilter
+                        , dummyAdvertisementsFilter)
+                        .DefaultFilter(_filterHelper, querySettings)
                         .Select(selectExpression)
                         .Distinct()
-                        .AsEnumerable()
-                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, UserContext));
+                        .QuerySettings(_filterHelper, querySettings, out count)
+                        .Select(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
             }
         }
     }
