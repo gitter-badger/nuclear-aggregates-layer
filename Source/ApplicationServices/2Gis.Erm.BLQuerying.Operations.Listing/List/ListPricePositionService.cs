@@ -4,29 +4,31 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListPricePositionService : ListEntityDtoServiceBase<PricePosition, ListPricePositionDto>
+    public sealed class ListPricePositionService : ListEntityDtoServiceBase<PricePosition, ListPricePositionDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListPricePositionService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListPricePositionDto> GetListData(IQueryable<PricePosition> query,
-                                                                         QuerySettings querySettings,
-                                                                         out int count)
+        protected override IEnumerable<ListPricePositionDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<PricePosition>();
+
             return query
-                .ApplyQuerySettings(querySettings, out count)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
                     {
                         x.Id,
@@ -38,7 +40,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         x.Price.BeginDate,
                         x.PositionId
                     })
-                .AsEnumerable()
+                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                         new ListPricePositionDto
                             {

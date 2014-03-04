@@ -5,6 +5,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
     public sealed class ListCategoryFirmAddressDto : IListItemEntityDto<CategoryFirmAddress>
     {
+        public long Id { get; set; }
         public long CategoryId { get; set; }
         public string Name { get; set; }
         public long? ParentId { get; set; }
@@ -15,5 +16,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long FirmAddressId { get; set; }
         public int SortingPosition { get; set; }
         public string CategoryGroup { get; set; }
+        public long FirmId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -7,7 +9,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
 {
     public sealed class QdsQuerySettingsProvider : IQuerySettingsProvider
     {
-        public QuerySettings GetQuerySettings(EntityName entityName, SearchListModel searchListModel)
+        public QuerySettings GetQuerySettings(EntityName entityName, Type documentType, SearchListModel searchListModel)
         {
             var querySettings = new QuerySettings
             {
@@ -15,11 +17,8 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                 TakeCount = searchListModel.Limit,
                 SortOrder = searchListModel.Sort,
                 SortDirection = searchListModel.Dir,
-                FilterPredicate = null,
-                Fields = null,
                 DefaultFilter = null,
                 UserInputFilter = searchListModel.FilterInput,
-                MainAttribute = null,
             };
 
             return querySettings;

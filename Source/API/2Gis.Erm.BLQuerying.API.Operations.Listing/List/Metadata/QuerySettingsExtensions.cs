@@ -2,10 +2,9 @@
 using System.Globalization;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Model.Entities;
 
-namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
+namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
     public enum ExtendedPropertyUnionType
     {
@@ -13,7 +12,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         Or
     }
 
-    public static class QueryableExtensions2
+    public static class QuerySettingsExtensions
     {
         public static bool TryGetExtendedProperty<TParam>(this QuerySettings querySettings, string name, out TParam value)
             where TParam : IConvertible

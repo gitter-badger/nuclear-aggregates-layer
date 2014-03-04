@@ -4,55 +4,58 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListCategoryService : ListEntityDtoServiceBase<Category, ListCategoryDto>
+    public sealed class ListCategoryService : ListEntityDtoServiceBase<Category, ListCategoryDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListCategoryService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListCategoryDto> GetListData(IQueryable<Category> query,
-                                                                    QuerySettings querySettings,
+        protected override IEnumerable<ListCategoryDto> List(QuerySettings querySettings,
                                                                     out int count)
         {
+            var query = _finder.FindAll<Category>();
+
             // Фильтр рубрик, которые можно добавить в тематику (рубрики есть во всех подразделениях тематики)
             if (querySettings.ParentEntityName == EntityName.Theme)
             {
                 var themeId = querySettings.ParentEntityId;
-                var finder = FinderBaseProvider.GetFinderBase(EntityName.Theme);
-                var unitCount = finder.FindAll<OrganizationUnit>()
+
+                var unitCount = _finder.FindAll<OrganizationUnit>()
                                   .Count(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
                                                                                          && !link.IsDeleted
                                                                                          && link.Theme.Id == themeId));
 
-                query = finder.FindAll<OrganizationUnit>()
+                _finder.FindAll<OrganizationUnit>()
 
-                              // Только те подразделения, в которых есть рубрика
-                              .Where(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
-                                                                                     && !link.IsDeleted
-                                                                                     && link.Theme.Id == themeId))
+                    // Только те подразделения, в которых есть рубрика
+                       .Where(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
+                                                                              && !link.IsDeleted
+                                                                              && link.Theme.Id == themeId))
 
-                              // Все не удаленные объекты связи между не удаленными рубриками и подразделениями, в которых есть рубрика третьего уровня
-                              .SelectMany(unit => unit.CategoryOrganizationUnits)
-                              .Where(link => link.IsActive && !link.IsDeleted && link.Category.IsActive && !link.Category.IsDeleted && link.Category.Level == 3)
+                    // Все не удаленные объекты связи между не удаленными рубриками и подразделениями, в которых есть рубрика третьего уровня
+                       .SelectMany(unit => unit.CategoryOrganizationUnits)
+                       .Where(link => link.IsActive && !link.IsDeleted && link.Category.IsActive && !link.Category.IsDeleted && link.Category.Level == 3)
 
-                              // Считаем, в скольки подразделениях присутсвует рубрика
-                              .GroupBy(link => link.Category)
+                    // Считаем, в скольки подразделениях присутсвует рубрика
+                       .GroupBy(link => link.Category)
 
-                              // Рубрика подходит, если присутсвует во всех подразделениях
-                              .Where(group => group.Count() == unitCount)
-                              .Select(group => group.Key);
+                    // Рубрика подходит, если присутсвует во всех подразделениях
+                       .Where(group => @group.Count() == unitCount)
+                       .Select(group => @group.Key);
             }
 
             var firmIdFilter = querySettings.CreateForExtendedProperty<Category, long>(
@@ -112,13 +115,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
             return query
                 .Where(x => !x.IsDeleted)
-                .ApplyFilter(firmIdFilter)
-                .ApplyFilter(firmAddressIdFilter)
-                .ApplyFilter(isActiveFilter)
-                .ApplyFilter(organizationUnitIdFilter)
-                .ApplyFilter(minLevelFilter)
-                .ApplyFilter(levelFilter)
-                .ApplyQuerySettings(querySettings, out count)
+                .Filter(_filterHelper
+                , firmIdFilter
+                , firmAddressIdFilter
+                , isActiveFilter
+                , organizationUnitIdFilter
+                , minLevelFilter
+                , levelFilter)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListCategoryDto
                 {
                     Id = x.Id,
@@ -126,7 +130,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ParentId = x.ParentId,
                     ParentName = x.ParentCategory != null ? x.ParentCategory.Name : null,
                     Level = x.Level
-                });
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

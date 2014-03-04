@@ -6,30 +6,33 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListTerritoryService : ListEntityDtoServiceBase<Territory, ListTerritoryDto>
+    public sealed class ListTerritoryService : ListEntityDtoServiceBase<Territory, ListTerritoryDto>
     {
         private readonly IPublicService _publicService;
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
 
         public ListTerritoryService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IPublicService publicService,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _publicService = publicService;
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListTerritoryDto> GetListData(IQueryable<Territory> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListTerritoryDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Territory>();
+
             var restrictToCurrentUserFilter = querySettings
                 .CreateByParentEntity<Territory>(EntityName.User,
                                                  () =>
@@ -49,18 +52,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-                .ApplyFilter(restrictToCurrentUserFilter)
-                .ApplyFilter(restrictToOrganizationUnit)
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(x =>
-                        new ListTerritoryDto
-                            {
-                                Id = x.Id,
-                                Name = x.Name,
-                                OrganizationUnitId = x.OrganizationUnitId,
-                                OrganizationUnitName = x.OrganizationUnit.Name,
-                                IsActive = x.IsActive
-                            });
+                .Filter(_filterHelper, restrictToCurrentUserFilter, restrictToOrganizationUnit)
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new ListTerritoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    IsActive = x.IsActive
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

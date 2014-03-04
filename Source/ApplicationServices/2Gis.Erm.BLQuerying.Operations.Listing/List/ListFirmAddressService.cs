@@ -4,39 +4,45 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListFirmAddressService : ListEntityDtoServiceBase<FirmAddress, ListFirmAddressDto>
+    public sealed class ListFirmAddressService : ListEntityDtoServiceBase<FirmAddress, ListFirmAddressDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListFirmAddressService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListFirmAddressDto> GetListData(IQueryable<FirmAddress> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListFirmAddressDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<FirmAddress>();
+
             var firmFilter = querySettings.CreateForExtendedProperty<FirmAddress, long>(
                 "FirmId", firmId => x => x.FirmId == firmId);
 
             return query
                 .Where(x => !x.Firm.IsDeleted)
-                .ApplyFilter(firmFilter)
-                .ApplyQuerySettings(querySettings, out count)
+                .Filter(_filterHelper, firmFilter)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListFirmAddressDto
                 {
                     Id = x.Id,
                     FirmId = x.FirmId,
                     FirmName = x.Firm.Name,
+                    SortingPosition = x.SortingPosition,
                     Address = x.Address + ((x.ReferencePoint == null) ? string.Empty : " — " + x.ReferencePoint),
-                });
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

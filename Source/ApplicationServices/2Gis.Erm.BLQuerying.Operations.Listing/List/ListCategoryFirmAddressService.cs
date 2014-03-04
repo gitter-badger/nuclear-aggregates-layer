@@ -14,23 +14,28 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListCategoryFirmAddressService : ListEntityDtoServiceBase<CategoryFirmAddress, ListCategoryFirmAddressDto>
+    public sealed class ListCategoryFirmAddressService : ListEntityDtoServiceBase<CategoryFirmAddress, ListCategoryFirmAddressDto>
     {
         private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
         public ListCategoryFirmAddressService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListCategoryFirmAddressDto> GetListData(IQueryable<CategoryFirmAddress> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListCategoryFirmAddressDto> List(QuerySettings querySettings, out int count)
         {
-            var defaultCategoryRate = string.Format(UserContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
+            var query = _finder.FindAll<CategoryFirmAddress>();
+
+            var defaultCategoryRate = string.Format(_userContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
             long? categoryRateOrganizationUnitId = null;
 
             if (querySettings.ParentEntityName == EntityName.Firm)
@@ -59,8 +64,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 // Для фирмы агрегируем по рубрикам адресов
                 return query
                     .Where(x => !x.Category.IsDeleted && !x.FirmAddress.IsDeleted && !x.IsDeleted)
-                    .ApplyFilter(firmFilterExpression)
-                    .Filtered(querySettings)
+                    .Filter(_filterHelper, firmFilterExpression)
+                    .DefaultFilter(_filterHelper, querySettings)
                     .GroupBy(x => x.Category)
                     .Select(x => new ListCategoryFirmAddressDto
                         {
@@ -77,8 +82,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             IsPrimary = x.Any(y => y.IsPrimary),
                             IsActive = x.Any(y => y.IsActive)
                         })
-                    .SortedPaged(querySettings, out count)
-                    .ToArray();
+                    .QuerySettings(_filterHelper, querySettings, out count);
             }
 
             if (querySettings.ParentEntityName == EntityName.FirmAddress)
@@ -90,8 +94,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.Category.IsDeleted && !x.FirmAddress.IsDeleted && !x.IsDeleted)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListCategoryFirmAddressDto
                     {
+                        Id = x.Id,
                         CategoryGroup = categoryRateOrganizationUnitId.HasValue
                             ? x.Category.CategoryOrganizationUnits.Where(unit => unit.OrganizationUnitId == categoryRateOrganizationUnitId.Value)
                                         .Select(unit => unit.CategoryGroup.CategoryGroupName).FirstOrDefault() ?? defaultCategoryRate
@@ -104,10 +110,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         ParentName = x.Category.ParentCategory != null ? x.Category.ParentCategory.Name : null,
                         Level = x.Category.Level,
                         IsPrimary = x.IsPrimary,
-                        IsActive = x.IsActive
+                        IsActive = x.IsActive,
+                        FirmId = x.FirmAddress.FirmId,
                     })
-                .ApplyQuerySettings(querySettings, out count)
-                .ToArray();
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

@@ -15,5 +15,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string TerritoryName { get; set; }
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
+
+        public long? MainFirmId { get; set; }
+        public string MainFirmName { get; set; }
+        public string MainPhoneNumber { get; set; }
+        public DateTime LastQualifyTime { get; set; }
+        public DateTime? LastDisqualifyTime { get; set; }
     }
 }

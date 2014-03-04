@@ -19,14 +19,14 @@ namespace DoubleGis.Erm.Qds.Operations
         private readonly IUserContext _userContext;
         private readonly IElasticClientFactory _elasticClientFactory;
 
-        public QdsListClientService(IQuerySettingsProvider querySettingsProvider, IFinderBaseProvider finderBaseProvider, IFinder finder, IUserContext userContext, IElasticClientFactory elasticClientFactory)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+        public QdsListClientService(IQuerySettingsProvider querySettingsProvider, IFinder finder, IUserContext userContext, IElasticClientFactory elasticClientFactory)
+            : base(querySettingsProvider)
         {
             _userContext = userContext;
             _elasticClientFactory = elasticClientFactory;
         }
 
-        protected override IEnumerable<ListClientDto> GetListData(IQueryable<Platform.Model.Entities.Erm.Client> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListClientDto> List(QuerySettings querySettings, out int count)
         {
             var queryResponse = _elasticClientFactory.UsingElasticClient(elasticClient =>
             {

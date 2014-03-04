@@ -5,28 +5,32 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListBillService : ListEntityDtoServiceBase<Bill, ListBillDto>
+    public sealed class ListBillService : ListEntityDtoServiceBase<Bill, ListBillDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListBillService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListBillDto> GetListData(IQueryable<Bill> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListBillDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Bill>();
+
             return query
                 .Where(x => !x.IsDeleted)
-                .ApplyQuerySettings(querySettings, out count)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x =>
                         new
                             {
@@ -41,9 +45,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                 x.EndDistributionDate,
                                 x.PayablePlan,
                                 x.PaymentDatePlan,
-                                x.CreatedOn
+                                x.CreatedOn,
+                                x.OrderId,
                             })
-                .AsEnumerable()
+                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                         new ListBillDto
                             {
@@ -58,7 +63,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                 EndDistributionDate = new DateTime(x.EndDistributionDate.Ticks, DateTimeKind.Local),
                                 PayablePlan = x.PayablePlan,
                                 PaymentDatePlan = x.PaymentDatePlan,
-                                CreatedOn = new DateTime(x.CreatedOn.Ticks, DateTimeKind.Local)
+                                CreatedOn = new DateTime(x.CreatedOn.Ticks, DateTimeKind.Local),
+                                OrderId = x.OrderId,
                             });
         }
     }

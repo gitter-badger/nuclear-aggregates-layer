@@ -3,60 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListBranchOfficeOrganizationUnitService : IListGenericEntityService<BranchOfficeOrganizationUnit>
+    public sealed class ListBranchOfficeOrganizationUnitService : ListEntityDtoServiceBase<BranchOfficeOrganizationUnit, ListBranchOfficeOrganizationUnitDto>
     {
-        private readonly IQuerySettingsProvider _querySettingsProvider;
-        private readonly IFinderBaseProvider _finderBaseProvider;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IFinder _finder;
         private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
         public ListBranchOfficeOrganizationUnitService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext)
+            IQuerySettingsProvider querySettingsProvider, 
+            IFinder finder,
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
-            _querySettingsProvider = querySettingsProvider;
-            _finderBaseProvider = finderBaseProvider;
             _functionalAccessService = functionalAccessService;
+            _finder = finder;
             _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        public ListResult List(SearchListModel searchListModel)
+        protected override IEnumerable<ListBranchOfficeOrganizationUnitDto> List(QuerySettings querySettings, out int count)
         {
-            int count;
-            var entityType = typeof(BranchOfficeOrganizationUnit);
-            var entityName = entityType.AsEntityName();
+            var query = _finder.FindAll<BranchOfficeOrganizationUnit>();
 
-            var finderBase = _finderBaseProvider.GetFinderBase(entityName);
-            var query = finderBase.FindAll<BranchOfficeOrganizationUnit>();
-
-            var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
-            var data = GetListData(query, querySettings, out count);
-
-            return new DynamicListResult
-            {
-                Data = data,
-                RowCount = count,
-                MainAttribute = querySettings.MainAttribute
-            };
-        }
-
-        private IEnumerable<DynamicListRow> GetListData(IQueryable<BranchOfficeOrganizationUnit> query, QuerySettings querySettings, out int count)
-        {
             var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                 "userId", 
                 "restrictByFP",
@@ -71,13 +52,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         {
                             return null;
                         }
-                        else
-                        {
-                            Expression<Func<BranchOfficeOrganizationUnit, bool>> filterExpression =
-                                x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
 
-                            return filterExpression;
-                        }
+                        Expression<Func<BranchOfficeOrganizationUnit, bool>> filterExpression =
+                            x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+
+                        return filterExpression;
                     }
                     return null;
                 });
@@ -111,12 +90,22 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         });
             }
 
-            var dynamicList = query
-                .ApplyFilter(filter)
-                .ApplyQuerySettings(querySettings, out count)
-                .ToDynamicList(querySettings.Fields);
+            var data = query
+                .Filter(_filterHelper, filter)
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new ListBranchOfficeOrganizationUnitDto
+                {
+                    Id = x.Id,
+                    BranchOfficeId = x.BranchOfficeId,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    ShortLegalName = x.ShortLegalName,
+                    BranchOfficeName = x.BranchOffice.Name,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    IsPrimary = x.IsPrimary,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
 
-            return dynamicList;
+            return data;
         }
     }
 }
