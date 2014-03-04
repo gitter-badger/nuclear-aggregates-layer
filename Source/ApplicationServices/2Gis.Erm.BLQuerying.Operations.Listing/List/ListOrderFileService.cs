@@ -13,38 +13,50 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListOrderFileService : ListEntityDtoServiceBase<OrderFile, ListOrderFileDto>
+    public sealed class ListOrderFileService : ListEntityDtoServiceBase<OrderFile, ListOrderFileDto>
     {
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
+
         public ListOrderFileService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListOrderFileDto> GetListData(IQueryable<OrderFile> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListOrderFileDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<OrderFile>();
+
             return query
                 .Where(x => !x.IsDeleted)
-                .ApplyQuerySettings(querySettings, out count)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
-                    {
-                        x.Id,
-                        x.FileId,
-                        FileKind = (OrderFileKind)x.FileKind,
-                        x.File.FileName
-                    })
-                .AsEnumerable()
-                .Select(x =>
-                        new ListOrderFileDto
-                            {
-                                Id = x.Id, 
-                                FileId = x.FileId,
-                                FileKind = x.FileKind.ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo), 
-                                FileName = x.FileName
-                            })
+                {
+                    x.Id,
+                    x.CreatedOn,
+                    x.FileId,
+                    FileKind = (OrderFileKind)x.FileKind,
+                    x.File.FileName,
+                    x.OrderId,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ListOrderFileDto
+                {
+                    Id = x.Id,
+                    CreatedOn = x.CreatedOn,
+                    FileId = x.FileId,
+                    FileKind = x.FileKind.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo), 
+                    FileName = x.FileName,
+                    OrderId = x.OrderId,
+                })
+                // TODO: почему форсится OrderBy
                 .OrderBy(x => x.FileKind);
         }
     }

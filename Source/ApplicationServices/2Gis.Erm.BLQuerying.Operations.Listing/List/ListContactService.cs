@@ -14,62 +14,68 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListContactService : ListEntityDtoServiceBase<Contact, ListContactDto>
+    public sealed class ListContactService : ListEntityDtoServiceBase<Contact, ListContactDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
         public ListContactService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            IUserContext userContext) 
-        : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListContactDto> GetListData(IQueryable<Contact> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListContactDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Contact>();
+
             return query
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(x => new
-                                 {
-                                     x.Id,
-                                     x.FullName,
-                                     x.ClientId,
-                                     Client = x.Client.Name,
-                                     x.JobTitle,
-                                     x.MainPhoneNumber,
-                                     x.MobilePhoneNumber,
-                                     x.Website,
-                                     x.HomeEmail,
-                                     x.WorkEmail,
-                                     x.OwnerCode,
-                                     CreateDate = x.CreatedOn,
-                                     x.WorkAddress,
-                                     x.AccountRole
-                                 })
-                .AsEnumerable()
-                .Select(x =>
-                        new ListContactDto
-                            {
-                                Id = x.Id,
-                                FullName = x.FullName,
-                                ClientId = x.ClientId,
-                                Client = x.Client,
-                                JobTitle = x.JobTitle,
-                                MainPhoneNumber = x.MainPhoneNumber,
-                                MobilePhoneNumber = x.MobilePhoneNumber,
-                                Website = x.Website,
-                                HomeEmail = x.HomeEmail,
-                                WorkEmail = x.WorkEmail,
-                                OwnerCode = x.OwnerCode,
-                                Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                                CreateDate = x.CreateDate,
-                                WorkAddress = x.WorkAddress,
-                                AccountRole = ((AccountRole)x.AccountRole).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo)
-                            });
+            .DefaultFilter(_filterHelper, querySettings)
+            .Select(x => new
+            {
+                x.Id,
+                x.FullName,
+                x.ClientId,
+                Client = x.Client.Name,
+                x.JobTitle,
+                x.MainPhoneNumber,
+                x.MobilePhoneNumber,
+                x.Website,
+                x.HomeEmail,
+                x.WorkEmail,
+                x.OwnerCode,
+                CreateDate = x.CreatedOn,
+                x.WorkAddress,
+                x.AccountRole
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x => new ListContactDto
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                ClientId = x.ClientId,
+                Client = x.Client,
+                JobTitle = x.JobTitle,
+                MainPhoneNumber = x.MainPhoneNumber,
+                MobilePhoneNumber = x.MobilePhoneNumber,
+                Website = x.Website,
+                HomeEmail = x.HomeEmail,
+                WorkEmail = x.WorkEmail,
+                OwnerCode = x.OwnerCode,
+                Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
+                CreateDate = x.CreateDate,
+                WorkAddress = x.WorkAddress,
+                AccountRole = ((AccountRole)x.AccountRole).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+            });
         }
     }
 }

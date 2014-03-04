@@ -4,33 +4,41 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListDealService : ListEntityDtoServiceBase<Deal, ListDealDto>
+    public sealed class ListDealService : ListEntityDtoServiceBase<Deal, ListDealDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListDealService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListDealDto> GetListData(IQueryable<Deal> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListDealDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Deal>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var filterExpression = querySettings.CreateForExtendedProperty<Deal, long>(
                 "OrderId", 
                 orderId =>
                 {
-                    var orderInfo = FinderBaseProvider
-                            .GetFinderBase(typeof(Order).AsEntityName())
-                            .FindAll<Order>()
+                    var orderInfo = _finder.FindAll<Order>()
                             .Where(x => x.Id == orderId)
                             .Select(x => new
                                 {
@@ -61,18 +69,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-                .ApplyFilter(filterExpression)
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(d =>
-                        new ListDealDto
-                            {
-                                Id = d.Id,
-                                Name = d.Name,
-                                ClientId = d.ClientId,
-                                ClientName = d.Client.Name,
-                                MainFirmId = d.MainFirmId,
-                                MainFirmName = d.Firm.Name
-                            });
+                .Filter(_filterHelper, filterExpression)
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(d => new ListDealDto
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    ClientId = d.ClientId,
+                    ClientName = d.Client.Name,
+                    MainFirmId = d.MainFirmId,
+                    MainFirmName = d.Firm.Name
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

@@ -18,24 +18,37 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListActivityService : ListEntityDtoServiceBase<ActivityInstance, ListActivityDto>
+    public sealed class ListActivityInstanceService : ListEntityDtoServiceBase<ActivityInstance, ListActivityInstanceDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
-        public ListActivityService(IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
+        public ListActivityInstanceService(IQuerySettingsProvider querySettingsProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext,
+            FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListActivityDto> GetListData(IQueryable<ActivityInstance> query,
-                                                                    QuerySettings querySettings,
+        protected override IEnumerable<ListActivityInstanceDto> List(QuerySettings querySettings,
                                                                     out int count)
         {
+            var query = _finder.FindAll<ActivityInstance>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var query2 = query.Select(x => new
             {
                 x.Id,
@@ -68,25 +81,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var forTodayFilter = CreateForTodayFilter(query2, querySettings, x => (x.ScheduledStart >= beginDay && x.ScheduledStart <= endDay) || (x.ScheduledEnd >= beginDay && x.ScheduledEnd <= endDay));
 
             var result = query2
-                .ApplyFilter(forTodayFilter)
-                .ApplyQuerySettings(querySettings, out count)
-                .ToList()
-                .Select(x => new ListActivityDto
+                .Filter(_filterHelper, forTodayFilter)
+                .DefaultFilter(_filterHelper, querySettings)
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ListActivityInstanceDto
                 {
                     Id = x.Id,
                     Type = (ActivityType)x.ActivityType,
-                    ActivityType = ((ActivityType)x.ActivityType).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
+                    ActivityType = ((ActivityType)x.ActivityType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
                     OwnerCode = x.OwnerCode,
                     OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
                     Header = x.Header,
                     ScheduledStart = x.ScheduledStart.Value,
                     ScheduledEnd = x.ScheduledEnd.Value,
-                    Status = ((ActivityStatus)x.Status).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    Priority = ((ActivityPriority)x.Priority).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    AfterSaleServiceType = x.AfterSaleServiceType.HasValue ? ((AfterSaleServiceType)(byte)x.AfterSaleServiceType).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo) : string.Empty,
+                    Status = ((ActivityStatus)x.Status).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                    Priority = ((ActivityPriority)x.Priority).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                    AfterSaleServiceType = x.AfterSaleServiceType.HasValue ? ((AfterSaleServiceType)(byte)x.AfterSaleServiceType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo) : string.Empty,
                     ActualEnd = x.ActualEnd
-                })
-                .ToArray();
+                });
 
             return result;
         }

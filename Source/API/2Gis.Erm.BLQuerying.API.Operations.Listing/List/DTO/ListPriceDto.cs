@@ -15,5 +15,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string CurrencyName { get; set; }
         public bool IsPublished { get; set; }
         public string Name { get; set; }
+        public long OrganizationUnitId { get; set; }
     }
 }

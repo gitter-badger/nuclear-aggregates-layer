@@ -13,33 +13,49 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListBargainFileService : ListEntityDtoServiceBase<BargainFile, ListBargainFileDto>
+    public sealed class ListBargainFileService : ListEntityDtoServiceBase<BargainFile, ListBargainFileDto>
     {
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
+
         public ListBargainFileService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListBargainFileDto> GetListData(IQueryable<BargainFile> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListBargainFileDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<BargainFile>();
+
             return query
                 .Where(x => !x.IsDeleted)
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(x => new { x.Id, x.FileId, FileKindId = x.FileKind, x.File.FileName, x.CreatedOn })
-                .AsEnumerable()
-                .Select(x =>
-                        new ListBargainFileDto
-                            {
-                                Id = x.Id,
-                                FileId = x.FileId,
-                                FileKind = ((BargainFileKind)x.FileKindId).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                FileName = x.FileName,
-                                CreatedOn = x.CreatedOn
-                            });
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new
+                {
+                    x.Id,
+                    x.FileId,
+                    FileKindId = x.FileKind,
+                    x.File.FileName,
+                    x.CreatedOn,
+                    x.BargainId,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ListBargainFileDto
+                {
+                    Id = x.Id,
+                    FileId = x.FileId,
+                    FileKind = ((BargainFileKind)x.FileKindId).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                    FileName = x.FileName,
+                    CreatedOn = x.CreatedOn,
+                    BargainId = x.BargainId,
+                });
         }
     }
 }
