@@ -4,8 +4,6 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 {
     public sealed class DataListStructure
     {
-        public const string Delimiter = " || ";
-        
         public string NameLocaleResourceId { get; set; }
         public string Title { get; set; }
         public string TitleLocaleResourceId { get; set; }
@@ -25,9 +23,6 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
         public IEnumerable<DataListColumnStructure> Fields { get; set; }
         public IEnumerable<ToolbarElementStructure> ToolbarItems { get; set; }
 
-        // [JsonIgnore] fields
         public IEnumerable<DataListScriptReference> Scripts { get; set; }
-        public string DefaultFilter { get; set; }
-        public string ExtendedInfo { get; set; }
     }
 }

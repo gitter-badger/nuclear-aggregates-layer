@@ -393,7 +393,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
                 Sort = targetSorting.Column,
                 Start = start,
                 Limit = limit,
-                ExtendedInfo = CurrentView.ExtendedInfo,
                 Dir = GetDirectionString(targetSorting.Direction),
                 FilterInput = filterInput
             };
@@ -416,7 +415,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
                 return;
             }
 
-            ListResult listResult;
+            ListResult listResult = null;
             int resultTargetPageNumber = 0;
 
             try
@@ -429,7 +428,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid
                 _logger.ErrorEx(ex, "Can't get listing for entity " + _identity.EntityName);
                 var msg = string.Format(_cantGetListingMessageFormat.Title, EntityNameString);
                 _messageSink.Post(new NotificationMessage(new INotification[] { new SystemNotification(Guid.NewGuid(), NotificationLevel.Error, msg) }));
-                listResult = new DynamicListResult { Data = new DynamicListRow[0], MainAttribute = "Id", RowCount = 0 };
             }
 
             lock (_sync)

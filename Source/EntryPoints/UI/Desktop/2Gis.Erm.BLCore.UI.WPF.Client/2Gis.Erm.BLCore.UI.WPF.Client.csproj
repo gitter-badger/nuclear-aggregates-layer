@@ -93,7 +93,6 @@
     </Compile>
     <Compile Include="APIInteraction\Operations\\Assign\SoapApiAssignGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\List\RestApiListNonGenericEntityService.cs" />
-    <Compile Include="APIInteraction\Operations\\List\SoapApiListGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\List\SoapApiListNonGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\ActionHistory\ApiActionHistoryGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\Activate\RestApiActivateGenericEntityService.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="APIInteraction\Operations\\Delete\RestApiDeleteGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\Disqualify\RestApiDisqualifyGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\List\RestApiListEntityServiceBase.cs" />
-    <Compile Include="APIInteraction\Operations\\List\RestApiListGenericEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\List\ListResultJsonParsers.cs" />
     <Compile Include="APIInteraction\Operations\\Modify\SoapApiModifySimplifiedModelEntityService.cs" />
     <Compile Include="APIInteraction\Operations\\Get\SoapApiGetDomainEntityDtoService.cs" />

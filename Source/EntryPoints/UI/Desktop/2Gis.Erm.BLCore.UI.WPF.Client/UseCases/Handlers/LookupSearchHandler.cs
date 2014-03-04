@@ -103,11 +103,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
         {
             switch (result.ResultType)
             {
-                case ListResultType.Dynamic:
-                    return ((DynamicListResult)result).Data.Select(x => new EntityReference(x.GetPropertyValue(settings.KeyAttribute) as long?, 
-                                                                                            Convert.ToString(x.GetPropertyValue(settings.ValueAttribute))));
-                                                     
-                case ListResultType.Entity:
                 case ListResultType.Dto:
                     return ((IDataListResult)result).Data.Cast<object>().Select(x => new EntityReference(x.GetPropertyValue<object, long?>(settings.KeyAttribute),  
                                                                                                          x.GetPropertyValue<object, string>(settings.ValueAttribute)));
