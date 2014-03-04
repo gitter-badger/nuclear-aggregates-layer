@@ -41,8 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\Old\Reports\LegalPersonPaymentsHandler.cs" />
-    <Compile Include="Concrete\Old\Reports\LegalPersonPaymentsRequest.cs" />
     <Compile Include="Concrete\Old\Reports\PlanningReportHandler.cs" />
     <Compile Include="Concrete\Old\Reports\PlanningReportRequest.cs" />
     <Compile Include="CostCalculation\CostCalculator.cs">
