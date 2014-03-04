@@ -120,6 +120,9 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .ConfigureInterception()
                      .ConfigureServiceClient();
 
+            // HACK дико извиняюсь, но пока метаданные для листинга регистрируются только так, скоро поправим
+            BLFlex.DI.Config.Bootstrapper.ConfigureGlobalListing(settings);
+
             return container;
         }
 
@@ -212,7 +215,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
-                
+
             CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
 
             return container;
