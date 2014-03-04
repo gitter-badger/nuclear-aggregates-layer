@@ -34,9 +34,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             { Tuple.Create(EntityName.Client, EntityName.Contact), "ClientId={0}" },
             { Tuple.Create(EntityName.Client, EntityName.Deal), "ClientId={0}" },
             { Tuple.Create(EntityName.Client, EntityName.LegalPerson), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Order), "LegalPerson.ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Limit), "Account.LegalPerson.ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Bargain), "LegalPerson.ClientId={0}" },
+            { Tuple.Create(EntityName.Client, EntityName.Order), "ClientId={0}" },
+            { Tuple.Create(EntityName.Client, EntityName.Limit), "ClientId={0}" },
+            { Tuple.Create(EntityName.Client, EntityName.Bargain), "ClientId={0}" },
             { Tuple.Create(EntityName.Client, EntityName.ActivityInstance), "ClientId={0}" },
 
             { Tuple.Create(EntityName.Contact, EntityName.ActivityInstance), "ContactId={0}" },
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             { Tuple.Create(EntityName.Deal, EntityName.ActivityInstance), "DealId={0}" },
 
             { Tuple.Create(EntityName.Firm, EntityName.FirmAddress), "FirmId={0}" },
-            { Tuple.Create(EntityName.Firm, EntityName.CategoryFirmAddress), "FirmAddress.FirmId={0}" },
+            { Tuple.Create(EntityName.Firm, EntityName.CategoryFirmAddress), "FirmId={0}" },
             { Tuple.Create(EntityName.Firm, EntityName.Advertisement), "FirmId={0}" },
             { Tuple.Create(EntityName.Firm, EntityName.Order), "FirmId={0}" },
             { Tuple.Create(EntityName.Firm, EntityName.ActivityInstance), "FirmId={0}" },
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             { Tuple.Create(EntityName.FirmAddress, EntityName.CategoryFirmAddress), "FirmAddressId={0}" },
                 
             { Tuple.Create(EntityName.LegalPerson, EntityName.Account), "LegalPersonId={0}" },
-            { Tuple.Create(EntityName.LegalPerson, EntityName.Limit), "Account.LegalPersonId={0}" },
+            { Tuple.Create(EntityName.LegalPerson, EntityName.Limit), "LegalPersonId={0}" },
             { Tuple.Create(EntityName.LegalPerson, EntityName.Bargain), "CustomerLegalPersonId={0}" },
             { Tuple.Create(EntityName.LegalPerson, EntityName.Order), "LegalPersonId={0}" },
 
