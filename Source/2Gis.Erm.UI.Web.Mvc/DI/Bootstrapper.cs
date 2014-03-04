@@ -200,13 +200,18 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)
-                     .RegisterType<UnityDependencyResolver>(Lifetime.Singleton)
+                     .RegisterType<UnityDependencyResolver>(
+                         Lifetime.Singleton,
+                         new InjectionFactory(c => new UnityDependencyResolver(
+                                                       c.Resolve<IUnityContainer>(),
+                                                       c.Resolve<IGlobalizationSettings>(),
+                                                       new[] { new BL.UI.Web.Mvc.Utils.ModelBinderProvider() })))
                      .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMvcMetadataProvider()
                      .ConfigureEAV()
-                     // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
+                // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
                      .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerRequest, Mapping.Erm)
                      .RegisterTypeWithDependencies<IOrderValidationSettings, OrderValidationSettings>(CustomLifetime.PerRequest, Mapping.Erm);
 
@@ -216,7 +221,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly()
-            {
+        {
             var checkingResourceStorages = new[]
             {
                     typeof(BLResources),
@@ -225,7 +230,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-            }
+        }
 
         private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IWebAppSettings settings)
             {
