@@ -101,12 +101,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
             set { _dataViewJson.DisableEdit = value; }
         }
 
-        public string ExtendedInfo
-        {
-            get { return _dataViewJson.ExtendedInfo; }
-            set { _dataViewJson.ExtendedInfo = value; }
-        }
-
         public static DataViewViewModel FromDataViewJson(DataListStructure dataViewJson)
         {
             return new DataViewViewModel(dataViewJson)

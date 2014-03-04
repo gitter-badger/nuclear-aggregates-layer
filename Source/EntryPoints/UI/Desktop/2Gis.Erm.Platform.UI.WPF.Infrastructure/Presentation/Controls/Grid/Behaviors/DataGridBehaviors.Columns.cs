@@ -75,7 +75,8 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
                 default:
                     return new DataGridTextColumn
                     {
-                        Binding = new Binding(column.Name) { StringFormat = column.DotNetType.Contains("Date")  ? "dd.MM.yyyy" : null},
+                        /// FIXME {all, 03.03.2014}: по запросу Максима (задача ERM-3203) был применен shelveset (ERM-3203 Core от 3.3.2014) до этого было Binding = new Binding(column.Name) { StringFormat = column.DotNetType.Contains("Date")  ? "dd.MM.yyyy" : null}, Максим обещал доработать 
+                        Binding = new Binding(column.Name) { StringFormat = null},
                         Header = column.LocalizedName,
                         Width = column.Hidden ? 0 : column.Width,
                         Visibility = column.Width == 0 || column.Hidden ? Visibility.Collapsed : Visibility.Visible,
