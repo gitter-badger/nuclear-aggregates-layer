@@ -137,5 +137,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Deal = 199
         public const int GenerateDealNameIdentity = 19901;
+
+
+        public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
+        public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
     }
 }

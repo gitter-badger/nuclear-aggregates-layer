@@ -73,7 +73,6 @@
     <Compile Include="Metadata\Security\IOperationSecurityRegistryReader.cs" />
     <Compile Include="Notifications\IEmployeeEmailResolver.cs" />
     <Compile Include="Notifications\IEmployeeEmailResolveStrategy.cs" />
-    <Compile Include="Notifications\ILinkToEntityCardFactory.cs" />
     <Compile Include="Notifications\INotificationsProcessingSettings.cs" />
     <Compile Include="Notifications\MailSenderAuthenticationSettings.cs" />
     <Compile Include="Notifications\MailSenderAuthenticationType.cs" />
@@ -122,6 +121,8 @@
     <Compile Include="Settings\APIServices\APIOrderValidationServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIRealeasingServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
+    <Compile Include="Settings\APIServices\APIWebClientServiceSettings.cs" />
+    <Compile Include="Settings\APIServices\IAPIWebClientServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIMoDiServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIRealeasingServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettings.cs" />

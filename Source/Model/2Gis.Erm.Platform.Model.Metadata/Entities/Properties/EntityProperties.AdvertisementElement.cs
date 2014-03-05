@@ -99,10 +99,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<AdvertisementElementDomainEntityDto>(dto => dto.FileTimestamp)
-                                  .WithFeatures(
-                                      new HiddenFeature()),
-
                     EntityProperty.Create<AdvertisementElementDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
