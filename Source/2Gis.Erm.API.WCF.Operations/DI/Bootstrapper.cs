@@ -24,10 +24,13 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
+using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
@@ -270,9 +273,14 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IActionLoggingValidatorFactory, ActionLoggingValidatorFactory>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(CustomLifetime.PerOperationContext)
+                     // crosscutting
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
-                     .RegisterType<IValidateFileService, NullValidateFileService>(CustomLifetime.PerOperationContext)
-                     .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
+                     .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
+                     .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
+                     .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
+                     .RegisterType<IValidateFileService, NullValidateFileService>(Lifetime.Singleton)
+
+                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      // notification sender
                      .ConfigureNotificationsSender(settings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);

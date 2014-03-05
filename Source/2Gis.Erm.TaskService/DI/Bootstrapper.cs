@@ -176,7 +176,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICrmTaskFactory, CrmTaskFactory>(Lifetime.PerScope, MappingScope)
 
-                .RegisterTypeWithDependencies<IOrderValidationResultsResetter, OrderValidationService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
 
