@@ -207,7 +207,6 @@
     <Compile Include="Services\Grid\IGenericEntityGridViewService.cs" />
     <Compile Include="Services\IUIServicesManager.cs" />
     <Compile Include="Services\ValidateFileService.cs" />
-    <Compile Include="Services\WebAppLinkToEntityCardFactory.cs" />
     <Compile Include="Settings\ConfigurationDto\CardJson.cs" />
     <Compile Include="Settings\ConfigurationDto\CardJson.Server.cs" />
     <Compile Include="Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs" />

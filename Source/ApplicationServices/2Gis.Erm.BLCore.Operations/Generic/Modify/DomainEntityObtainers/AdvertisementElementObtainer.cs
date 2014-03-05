@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var advertisementElement =
                 dto.Id == 0
                     ? new AdvertisementElement()
-                    : _finder.Find(AdvertisementSpecifications.Find.AdvertisementElementById(dto.Id)).Single();
+                    : _finder.Find(Specs.Find.ById<AdvertisementElement>(dto.Id)).Single();
 
             advertisementElement.Error = (int)dto.Error;
             advertisementElement.Status = (int)dto.Status;

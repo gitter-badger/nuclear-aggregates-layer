@@ -1,5 +1,3 @@
-using System.IO;
-
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
@@ -14,7 +12,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                                 IDeleteAggregateRepository<AdvertisementElement>,
                                                 IDeleteAggregateRepository<AdvertisementElementTemplate>,
                                                 IDeleteAggregateRepository<AdsTemplatesAdsElementTemplate>,
-                                                IUploadFileAggregateRepository<AdvertisementElement>,
                                                 IDownloadFileAggregateRepository<AdvertisementElement>
     {
         int Delete(Advertisement entity);
@@ -24,16 +21,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         int Delete(AdsTemplatesAdsElementTemplate entity);
 
         void CreateOrUpdate(Advertisement advertisement);
-        void CreateOrUpdate(AdvertisementElement advertisementElement, string plainText, string formattedText, string fileTimestamp);
-        long[] GetDependedOrderIds(long[] advertisementIds);
         void SelectToWhiteList(long firmId, long advertisementId);
         AdvertisementBagItem[] GetAdvertisementBag(long advertisementId);
-        AdvertisementElement[] GetLinkedDummyElements(long advertisementElementTemplateId);
-        bool IsAdvertisementDummy(long advertisementId);
         bool IsAdvertisementTemplatePublished(long advertisementTemplateId);
         bool IsAdvertisementTemplateTheSameInAdvertisementAndElements(long advertisementTemplateId, long advertisementId);
-        CheckIfAdvertisementPublishedDto CheckIfAdvertisementPublishedByAdvertisementElement(long advertisementElementId);
-        CheckIfAdvertisementPublishedDto CheckIfAdvertisementPublished(long advertisementId);
         AdsTemplatesAdsElementTemplate GetAdsTemplatesAdsElementTemplate(long entityId);
         AdvertisementElementTemplate GetAdvertisementElementTemplate(long entityId);
         Advertisement GetSelectedToWhiteListAdvertisement(long firmId);
@@ -48,10 +39,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         void AddAdvertisementsElementsFromAdvertisement(Advertisement advertisement);
         void Publish(long advertisementTemplateId);
         void Unpublish(long advertisementTemplateId);
-
-        string GetFileTimeStamp(long fileId);
-        AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId);
-        string[] ValidateFileAdvertisement(string fileName, Stream stream, long advertisementId);
 
         AdvertisementTemplateIdNameDto GetAdvertisementTemplate(long advertisementId);
     }

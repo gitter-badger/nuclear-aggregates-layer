@@ -50,6 +50,8 @@
     </Compile>
     <Compile Include="Crosscutting\AD\ADUserProfile.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoService.cs" />
+    <Compile Include="Crosscutting\CardLink\HtmlLinkUtils.cs" />
+    <Compile Include="Crosscutting\CardLink\ILinkToEntityCardFactory.cs" />
     <Compile Include="Crosscutting\ProcessingResults\IProcessingResultsMessage.cs" />
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessage.cs" />
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessageType.cs" />

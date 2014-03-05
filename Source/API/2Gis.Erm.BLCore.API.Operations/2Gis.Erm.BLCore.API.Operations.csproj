@@ -62,6 +62,8 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Deals\IGenerateDealNameService.cs" />
     <Compile Include="Concrete\Deals\IReplicateDealStageOperationService.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
+    <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
@@ -114,8 +117,6 @@
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
-    <Compile Include="Concrete\Old\AdvertisementElements\AvailableStatesForAdvertisementElement.cs" />
-    <Compile Include="Generic\Modify\Old\EditAdvertisementElement.cs" />
     <Compile Include="Concrete\Old\Advertisements\AdvertisementBagItem.cs" />
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteList.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateRequest.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Generic\Qualify\IQualifyEntityService.cs" />
     <Compile Include="Generic\Qualify\IQualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\ISetDefaultOperation.cs" />
+    <Compile Include="Generic\Update\IUpdateOperationService.cs" />
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
     <Compile Include="Metadata\MessageType.cs" />

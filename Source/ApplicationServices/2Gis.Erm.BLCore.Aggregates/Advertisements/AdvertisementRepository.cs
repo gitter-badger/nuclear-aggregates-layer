@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
@@ -17,7 +14,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -29,13 +25,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 {
     public sealed class AdvertisementRepository : IAdvertisementRepository
     {
-        private static readonly Dictionary<ImageFormat, string[]> ImageFormatToExtensionsMap = new Dictionary<ImageFormat, string[]>
-        {
-            { ImageFormat.Png, new[] { "png" } },
-            { ImageFormat.Gif, new[] { "gif" } },
-            { ImageFormat.Bmp, new[] { "bmp" } },
-        };
-
         private readonly IRepository<Advertisement> _advertisementGenericRepository;
         private readonly IRepository<AdvertisementElement> _advertisementElementGenericRepository;
         private readonly IRepository<AdvertisementTemplate> _advertisementTemplateGenericRepository;
@@ -226,19 +215,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             return deletedCount;
         }
 
-        public AdvertisementElement[] GetLinkedDummyElements(long advertisementElementTemplateId)
-        {
-            return _finder.Find<AdvertisementElementTemplate>(x => x.Id == advertisementElementTemplateId)
-                          .SelectMany(x => x.AdvertisementElements)
-                          .Where(x => !x.IsDeleted && x.Advertisement.FirmId == null && !x.Advertisement.AdvertisementTemplate.IsPublished)
-                          .ToArray();
-        }
-
-        public bool IsAdvertisementDummy(long advertisementId)
-        {
-            return _finder.Find(Specs.Find.ById<Advertisement>(advertisementId)).Select(x => x.FirmId == null).Single();
-        }
-
         public bool IsAdvertisementTemplatePublished(long advertisementTemplateId)
         {
             return _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId)).Select(x => x.IsPublished).Single();
@@ -251,28 +227,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                                             && x.AdvertisementId == advertisementId
                                                             && x.AdsTemplatesAdsElementTemplate.AdsTemplateId != advertisementTemplateId)
                            .Any();
-        }
-
-        public CheckIfAdvertisementPublishedDto CheckIfAdvertisementPublishedByAdvertisementElement(long advertisementElementId)
-        {
-            return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId)).Select(x => new CheckIfAdvertisementPublishedDto
-                {
-                    IsDummy = x.Advertisement.FirmId == null,
-                    IsPublished = x.Advertisement.AdvertisementTemplate.IsPublished,
-                    AdvertisementId = x.Advertisement.Id
-                }).Single();
-        }
-
-        public CheckIfAdvertisementPublishedDto CheckIfAdvertisementPublished(long advertisementId)
-        {
-            return _finder.Find(Specs.Find.ById<Advertisement>(advertisementId))
-                .Select(x => new CheckIfAdvertisementPublishedDto
-                {
-                    IsDummy = x.FirmId == null,
-                    IsPublished = x.AdvertisementTemplate.IsPublished,
-                    AdvertisementId = x.Id
-                    })
-                .Single();
         }
 
         public AdsTemplatesAdsElementTemplate GetAdsTemplatesAdsElementTemplate(long entityId)
@@ -470,20 +424,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             }
         }
 
-        public long[] GetDependedOrderIds(long[] advertisementIds)
-        {
-            var orderIds = _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
-                                .SelectMany(x => x.OrderPositionAdvertisements)
-                .Select(x => x.OrderPosition)
-                .Where(x => !x.IsDeleted && x.IsActive)
-                .Select(x => x.Order)
-                .Where(x => !x.IsDeleted && x.IsActive)
-                .Select(x => x.Id)
-                .Distinct()
-                .ToArray();
-            return orderIds;
-        }
-
         public void AddAdvertisementsElementsFromAdvertisement(Advertisement advertisement)
         {
             // создаём дочерние элементы РМ по шаблону
@@ -536,7 +476,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void Publish(long advertisementTemplateId)
         {
-            var isDummyValuesUnfilled = _finder.Find(AdvertisementSpecifications.Find.UnfilledDummyValuesForTemplate(advertisementTemplateId)).Any();
+            var isDummyValuesUnfilled = _finder.Find(AdvertisementSpecs.AdvertisementElements.Find.UnfilledDummyValuesForTemplate(advertisementTemplateId)).Any();
             if (isDummyValuesUnfilled)
             {
                 throw new BusinessLogicException(BLResources.YouMustFillInAllDummyValuesToPublishAdvertisementTemplate);
@@ -681,136 +621,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             return advertisementBag;
         }
 
-        public void CreateOrUpdate(AdvertisementElement advertisementElement, string plainText, string formattedText, string fileTimestamp)
-        {
-            var template = _finder.Find<AdvertisementElementTemplate>(x => x.Id == advertisementElement.AdvertisementElementTemplateId).Single();
-
-            if (template.IsAdvertisementLink)
-            {
-                Uri uri;
-                if (!string.IsNullOrEmpty(plainText) 
-                    && (!Uri.TryCreate(plainText, UriKind.Absolute, out uri) 
-                            || (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) 
-                            || uri.HostNameType != UriHostNameType.Dns))
-                {
-                    throw new NotificationException(string.Format(CultureInfo.CurrentCulture,
-                                                                  BLResources.InputValidationInvalidUrl,
-                                                                  MetadataResources.Text));
-                }
-            }
-
-            ValidateAdvertisementElement(advertisementElement, plainText, formattedText, template);
-
-            var templateRestrictionType = (AdvertisementElementRestrictionType)template.RestrictionType;
-            if (templateRestrictionType == AdvertisementElementRestrictionType.FasComment
-                || templateRestrictionType == AdvertisementElementRestrictionType.Text)
-            {   
-                // особая логика для текстовых рекламных материалов
-                advertisementElement.Text = template.FormattedText ? formattedText : plainText;    
-            }
-
-            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(advertisementElement))
-            {
-                if (advertisementElement.IsNew())
-                {
-                    _identityProvider.SetFor(advertisementElement);
-                    _advertisementElementGenericRepository.Add(advertisementElement);
-                    scope.Added<AdvertisementElement>(advertisementElement.Id);
-                }
-                else
-                {
-                    _advertisementElementGenericRepository.Update(advertisementElement);
-                    scope.Updated<AdvertisementElement>(advertisementElement.Id);
-                }
-
-                _advertisementElementGenericRepository.Save();
-                scope.Complete();
-            }
-        }
-
-        public string GetFileTimeStamp(long fileId)
-        {
-            var timestampBytes = _finder.Find<DoubleGis.Erm.Platform.Model.Entities.Erm.File>(x => x.Id == fileId).Select(x => x.Timestamp).Single();
-            var timestamp = Convert.ToBase64String(timestampBytes);
-            return timestamp;
-        }
-
-        public AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId)
-        {
-            var mailNotificationDto = _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
-                .Select(x => new AdvertisementMailNotificationDto
-                    {
-                        Firm = new LinkDto {Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
-                        FirmOwnerCode = x.Advertisement.Firm.OwnerCode,
-                        Advertisement = new LinkDto { Id = x.Advertisement.Id, Name = x.Advertisement.Name },
-                        AdvertisementTemplateName = x.Advertisement.AdvertisementTemplate.Name,
-                        AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
-                    })
-                .Single();
-
-            mailNotificationDto.Orders = _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
-                    .SelectMany(element => element.Advertisement.OrderPositionAdvertisements)
-                    .Select(opa => opa.OrderPosition)
-                    .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                    .Select(position => position.Order)
-                    .Where(Specs.Find.ActiveAndNotDeleted<Order>())
-                    .Select(order => new LinkDto { Id = order.Id, Name = order.Number })
-                    .ToArray();
-
-            return mailNotificationDto;
-        }
-
-        public string[] ValidateFileAdvertisement(string fileName, Stream stream, long advertisementId)
-        {
-            var template = _finder.Find<AdvertisementElement>(x => x.Id == advertisementId).Select(x => x.AdvertisementElementTemplate).Single();
-
-            var messages = new List<string>();
-
-            if (!ValidateRequired(stream, template))
-            {
-                messages.Add(BLResources.AdsCheckElemIsRequired);
-                return messages.ToArray();
-            }
-
-            if (!ValidateFileExtension(fileName, template))
-            {
-                messages.Add(string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckInvalidFileExtension, template.FileExtensionRestriction));
-                return messages.ToArray();
-            }
-
-            if (!ValidateFileNameLength(fileName, template))
-            {
-                messages.Add(string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckFileNameTooLong, fileName, template.FileNameLengthRestriction));
-            }
-
-            if (!ValidateFileSize(stream, template))
-            {
-                messages.Add(string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckFileNameTooBig, template.FileSizeRestriction));
-            }
-
-            if (template.RestrictionType == (int)AdvertisementElementRestrictionType.Article)
-            {
-                try
-                {
-                    if (!ValidateArticleHasIndexFile(stream))
-                    {
-                        messages.Add(string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckArticleContainsIndexFile));
-                    }
-                }
-                catch (Exception)
-                {
-                    messages.Add(string.Format(BLResources.ErrorWhileReadingChmFile));
-                }
-            }
-
-            if (template.RestrictionType == (int)AdvertisementElementRestrictionType.Image)
-            {
-                ValidateImage(stream, template, fileName, messages);
-            }
-
-            return messages.ToArray();
-        }
-
         public AdvertisementTemplateIdNameDto GetAdvertisementTemplate(long advertisementId)
         {
             return _finder.Find<AdvertisementTemplate>(item => item.Id == advertisementId)
@@ -857,390 +667,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             var file = _fileContentFinder.Find(Specs.Find.ById<FileWithContent>(downloadFileParams.FileId)).Single();
             return new StreamResponse { FileName = file.FileName, ContentType = file.ContentType, Stream = file.Content };
-        }
-
-        UploadFileResult IUploadFileAggregateRepository<AdvertisementElement>.UploadFile(UploadFileParams<AdvertisementElement> uploadFileParams)
-        {
-            if (uploadFileParams.EntityId == 0)
-            {
-                throw new BusinessLogicException(BLResources.CantUploadFileForNewAdvertisementElement);
-            }
-
-            if (uploadFileParams.Content != null && uploadFileParams.Content.Length > 10485760)
-            {
-                throw new BusinessLogicException(BLResources.FileSizeMustBeLessThan10MB);
-            }
-
-            var advertisementPublishedDto = CheckIfAdvertisementPublishedByAdvertisementElement(uploadFileParams.EntityId);
-            if (advertisementPublishedDto.IsPublished && advertisementPublishedDto.IsDummy)
-            {
-                throw new BusinessLogicException(BLResources.CantEditDummyAdvertisementWithPublishedTemplate);
-            }
-
-            var fileName = Path.GetFileName(uploadFileParams.FileName);
-            var messages = ValidateFileAdvertisement(fileName, uploadFileParams.Content, uploadFileParams.EntityId);
-
-            if (messages.Any())
-            {
-                throw new BusinessLogicException(string.Join("; ", messages));
-            }
-
-            var file = new FileWithContent
-                {
-                    Id = uploadFileParams.FileId,
-                    ContentType = uploadFileParams.ContentType,
-                    ContentLength = uploadFileParams.ContentLength,
-                    Content = uploadFileParams.Content,
-                    FileName = Path.GetFileName(uploadFileParams.FileName)
-                };
-
-            using (var operationScope = _scopeFactory.CreateOrUpdateOperationFor(file))
-            {
-                if (file.IsNew())
-                {
-                    _identityProvider.SetFor(file);
-                    _fileRepository.Add(file);
-                    operationScope.Added<FileWithContent>(file.Id);
-                }
-                else
-                {
-                    _fileRepository.Update(file);
-                    operationScope.Updated<FileWithContent>(file.Id);
-                }
-
-                var advertisementElement = _finder.Find(Specs.Find.ByOptionalFileId<AdvertisementElement>(uploadFileParams.FileId)).FirstOrDefault();
-                if (advertisementElement != null)
-                {
-                    advertisementElement.ModifiedOn = DateTime.UtcNow;
-                    advertisementElement.ModifiedBy = _userContext.Identity.Code;
-                    advertisementElement.Status = (int)AdvertisementElementStatus.NotValidated;
-                    
-                    operationScope.Updated<AdvertisementElement>(advertisementElement.Id);
-                    _advertisementElementGenericRepository.Update(advertisementElement);
-
-                    _advertisementElementGenericRepository.Save();
-                }
-
-                operationScope.Complete();
-            }
-
-            return new UploadFileResult
-                {
-                    ContentType = file.ContentType,
-                    ContentLength = file.ContentLength,
-                    FileName = file.FileName,
-                    FileId = file.Id
-                };
-        }
-
-        private static void ValidateAdvertisementElement(AdvertisementElement advertisementElement, string plainText, string formattedText, AdvertisementElementTemplate template)
-        {
-            var errors = new List<string>();
-            
-            switch ((AdvertisementElementRestrictionType)template.RestrictionType)
-            {
-                case AdvertisementElementRestrictionType.Text:
-                case AdvertisementElementRestrictionType.FasComment:
-                    {
-                        if (string.IsNullOrEmpty(plainText))
-                        {
-                            if (template.IsRequired)
-                            {
-                                throw new NotificationException(BLResources.AdsCheckElemIsRequired);
-                            }
-
-                            break;
-                        }
-
-                        if (template.TextLengthRestriction != null)
-                        {
-                            string textLengthError;
-                            if (!ValidateTextLength(plainText, template.TextLengthRestriction.Value, out textLengthError))
-                            {
-                                errors.Add(textLengthError);
-                            }
-                        }
-
-                        if (template.TextLineBreaksCountRestriction != null)
-                        {
-                            string textLineBreaksCountError;
-                            if (!ValiadteTextLineBreaksCount(plainText, template.TextLineBreaksCountRestriction.Value, out textLineBreaksCountError))
-                            {
-                                errors.Add(textLineBreaksCountError);
-                            }
-                        }
-
-                        if (template.MaxSymbolsInWord != null)
-                        {
-                            string maxSymbolsInWordError;
-                            if (!ValidateWordLength(plainText, template.MaxSymbolsInWord.Value, out maxSymbolsInWordError))
-                            {
-                                errors.Add(maxSymbolsInWordError);
-                            }
-                        }
-
-                        var restrictedStringsInText = string.Empty;
-
-                        // Проверка на отсутствие неразрывного пробела
-                        // Неразрывный пробел приводит к некорректному форматированию в конечном продукте (вплоть до того, что весь РМ отображается в одну строку)
-                        const char NonBreakingSpaceChar = (char)160;
-                        const string NonBreakingSpaceString = "&nbsp;";
-
-                        if (plainText.Contains(NonBreakingSpaceChar.ToString(CultureInfo.InvariantCulture))
-                            || (!string.IsNullOrWhiteSpace(formattedText)
-                                && formattedText.Contains(NonBreakingSpaceString)))
-                        {
-                            restrictedStringsInText = string.Format("({0})", BLResources.NonBreakingSpace);
-                        }
-
-                        // Проверка на отсутствие запрещенных сочетаний типа "\r", "\n"
-                        var restrictedStrings = new[] { @"\r", @"\n", @"\p", @"\i" };
-
-                        foreach (var restrictedString in restrictedStrings.Where(restrictedString => plainText.ToLower().Contains(restrictedString)))
-                            {
-                                if (restrictedStringsInText != string.Empty)
-                                {
-                                    restrictedStringsInText += ", " + string.Format("'{0}'", restrictedString);
-                                }
-                                else
-                                {
-                                    restrictedStringsInText += string.Format("'{0}'", restrictedString);
-                                }
-                            }
-
-                        if (restrictedStringsInText != string.Empty)
-                        {
-                            errors.Add(string.Format(BLResources.RestrictedSymbolInAdvertisementElement, restrictedStringsInText));   
-                        }
-
-                        // Защищаемся от управляющих символов, за исключеним 10 (перенос строки) и 9 (табуляция), которые допустимы в рекламном материале.
-                        if (plainText.Any(c => char.IsControl(c) && c != 10 && c != 9) || (formattedText ?? string.Empty).Any(c => char.IsControl(c) && c != 10 && c != 9))
-                        {
-                            errors.Add("Управляющие неотображаемые символы в тексте ЭРМ");
-                        }
-
-                        if (errors.Any())
-                        {
-                            throw new NotificationException(string.Join("; ", errors));
-                        }
-                    }
-
-                    break;
-
-                case AdvertisementElementRestrictionType.Date:
-                    {
-                        if (advertisementElement.BeginDate == null || advertisementElement.EndDate == null)
-                        {
-                            if (template.IsRequired)
-                            {
-                                throw new NotificationException(BLResources.AdsCheckElemIsRequired);
-                            }
-
-                            break;
-                        }
-
-                        if (advertisementElement.BeginDate.Value > advertisementElement.EndDate.Value)
-                        {
-                            throw new NotificationException(BLResources.AdsCheckInvalidDateRange);
-                        }
-
-                        if (advertisementElement.EndDate.Value - advertisementElement.BeginDate.Value < TimeSpan.FromDays(4))
-                        {
-                            throw new NotificationException(BLResources.AdvertisementPeriodError);
-                        }
-                    }
-
-                    break;
-
-                case AdvertisementElementRestrictionType.Article:
-                case AdvertisementElementRestrictionType.Image:
-                    {
-                        if (advertisementElement.FileId == null && template.IsRequired)
-                        {
-                            throw new NotificationException(BLResources.AdsCheckElemIsRequired);
-                        }
-                    }
-
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private static bool ValidateTextLength(string text, int maxTextLength, out string error)
-        {
-            text = text.Replace("\n", string.Empty);
-
-            if (text.Length > maxTextLength)
-            {
-                error = string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckTextIsTooLong, maxTextLength);
-                return false;
-            }
-
-            error = null;
-            return true;
-        }
-
-        private static bool ValiadteTextLineBreaksCount(string text, int maxLineBreaks, out string error)
-        {
-            var matchesCount = Regex.Matches(text, "\n", RegexOptions.IgnoreCase).Count + 1;
-            if (matchesCount > maxLineBreaks)
-            {
-                error = string.Format(CultureInfo.CurrentCulture, BLResources.AdsCheckTooMuchLineBreaks, maxLineBreaks);
-                return false;
-            }
-
-            error = null;
-            return true;
-        }
-
-        private static bool ValidateWordLength(string text, int maxSymbolsInWord, out string error)
-        {
-            // todo: заменить на regexp W - это же и значит типа word
-            var words = text.Split(new[] { " ", "-", "\\", "/", "<", ">", "\n", "&nbsp;" }, StringSplitOptions.RemoveEmptyEntries);
-
-            var longWords = words.Where(x => x.Length > maxSymbolsInWord).ToArray();
-            if (longWords.Any())
-            {
-                error = string.Join(", ", longWords.Select(x => string.Format(BLResources.AdsCheckTooLongWord, x, x.Length, maxSymbolsInWord)));
-                return false;
-            }
-
-            error = null;
-            return true;
-        }
-
-        private static bool ValidateRequired(Stream stream, AdvertisementElementTemplate template)
-        {
-            if (!template.IsRequired)
-            {
-                return true;
-            }
-
-            return stream != null;
-        }
-
-        private static bool ValidateFileExtension(string fileName, AdvertisementElementTemplate template)
-        {
-            if (string.IsNullOrEmpty(template.FileExtensionRestriction))
-            {
-                return true;
-            }
-
-            var allowedExtensions = ParseExtensions(template.FileExtensionRestriction);
-            var extension = GetDotLessExtension(fileName);
-
-            return allowedExtensions.Contains(extension);
-        }
-
-        private static bool ValidateFileNameLength(string fileName, AdvertisementElementTemplate template)
-        {
-            if (template.FileNameLengthRestriction == null)
-            {
-                return true;
-            }
-
-            if (fileName == null)
-            {
-                return false;
-            }
-
-            return fileName.Length <= template.FileNameLengthRestriction.Value;
-        }
-
-        private static bool ValidateFileSize(Stream stream, AdvertisementElementTemplate template)
-        {
-            if (template.FileSizeRestriction == null)
-            {
-                return true;
-            }
-
-            if (stream == null)
-            {
-                return false;
-            }
-
-            var maxFileSize = template.FileSizeRestriction.Value * 1024;
-            return stream.Length <= maxFileSize;
-        }
-
-        private static bool ValidateArticleHasIndexFile(Stream stream)
-        {
-            if (stream == null)
-            {
-                return false;
-            }
-
-            return stream.ZipStreamFindFiles(x => string.Equals(x.FileName, "index.html", StringComparison.OrdinalIgnoreCase)).Any();
-        }
-
-        private static void ValidateImage(Stream imageStream, AdvertisementElementTemplate template, string fileName, ICollection<string> messages)
-        {
-            Image image;
-            try
-            {
-                image = Image.FromStream(imageStream);
-            }
-            catch (ArgumentException)
-            {
-                messages.Add(string.Format(BLResources.AdsCheckInvalidImageFormatOrExtension));
-                return;
-            }
-
-            using (image)
-            {
-                // validate image file extension is synced with internal image fotmat
-                var extension = GetDotLessExtension(fileName);
-                if (!ImageFormatToExtensionsMap[image.RawFormat].Contains(extension))
-                {
-                    messages.Add(string.Format(BLResources.AdsCheckInvalidImageFormatOrExtension));
-                }
-
-                // validate image size
-                if (template.ImageDimensionRestriction != null)
-                {
-                    var allowedizes = ParseSizes(template.ImageDimensionRestriction);
-                    if (!allowedizes.Contains(image.Size))
-                    {
-                        messages.Add(BLResources.AdsCheckInvalidImageDimension);
-                    }
-                }
-            }
-        }
-
-        private static string GetDotLessExtension(string path)
-        {
-            var dottedExtension = Path.GetExtension(path);
-            if (string.IsNullOrEmpty(dottedExtension))
-            {
-                return dottedExtension;
-            }
-
-            var extension = dottedExtension.Trim(new[] { '.' }).ToLowerInvariant();
-            return extension;
-        }
-
-        private static IEnumerable<Size> ParseSizes(string nonParsedSizes)
-        {
-            return nonParsedSizes
-            .Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(x =>
-            {
-                var pair = x.Split(new[] { 'x' }, StringSplitOptions.RemoveEmptyEntries);
-                var width = int.Parse(pair[0].Trim());
-                var height = int.Parse(pair[1].Trim());
-
-                return new Size(width, height);
-            }).ToArray();
-        }
-
-        private static IEnumerable<string> ParseExtensions(string nonParsedExtensions)
-        {
-            return nonParsedExtensions
-                .Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Trim().ToLowerInvariant())
-                .ToArray();
         }
     }
 }

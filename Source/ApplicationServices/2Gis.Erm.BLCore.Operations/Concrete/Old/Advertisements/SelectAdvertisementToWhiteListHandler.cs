@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -14,17 +15,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements
 {
     public sealed class SelectAdvertisementToWhiteListHandler : RequestHandler<SelectAdvertisementToWhiteListRequest, EmptyResponse>
     {
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IAdvertisementReadModel _advertisementReadModel;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IFirmRepository _firmRepository;
 
-        public SelectAdvertisementToWhiteListHandler(IOrderValidationResultsResetter orderValidationResultsResetter,
-            IOperationScopeFactory scopeFactory, 
+        public SelectAdvertisementToWhiteListHandler(
+            IAdvertisementReadModel  advertisementReadModel,
             IAdvertisementRepository advertisementRepository, 
-            IFirmRepository firmRepository)
+            IFirmRepository firmRepository,
+            IOrderValidationInvalidator orderValidationInvalidator,
+            IOperationScopeFactory scopeFactory)
         {
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _advertisementReadModel = advertisementReadModel;
+            _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
             _advertisementRepository = advertisementRepository;
             _firmRepository = firmRepository;
@@ -38,12 +43,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements
 
                 // сбрасываем кеш проверок заказов
                 var advertisementIds = _firmRepository.GetAdvertisementIds(request.FirmId);
-                var orderIds = _advertisementRepository.GetDependedOrderIds(advertisementIds);
-
-                foreach (var orderId in orderIds)
-                {
-                    _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
-                }
+                var orderIds = _advertisementReadModel.GetDependedOrderIds(advertisementIds);
+                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
 
                 operationScope
                     .Updated<Advertisement>(request.AdvertisementId)

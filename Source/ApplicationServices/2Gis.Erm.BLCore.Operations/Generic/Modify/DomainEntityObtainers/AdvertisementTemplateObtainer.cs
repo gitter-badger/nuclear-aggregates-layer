@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AdvertisementTemplateDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.Find(AdvertisementSpecifications.Find.AdvertisementTemplateById(dto.Id)).SingleOrDefault() ??
+            var entity = _finder.Find(Specs.Find.ById<AdvertisementTemplate>(dto.Id)).SingleOrDefault() ??
                     new AdvertisementTemplate { Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)
