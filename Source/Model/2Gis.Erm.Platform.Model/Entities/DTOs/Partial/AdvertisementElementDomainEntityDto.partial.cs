@@ -33,8 +33,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         [DataMember]
         public string FileContentType { get; set; }
         [DataMember]
-        public string FileTimestamp { get; set; }
-        [DataMember]
         public bool NeedsValidation { get; set; }
         [DataMember]
         public bool CanUserChangeStatus { get; set; }
