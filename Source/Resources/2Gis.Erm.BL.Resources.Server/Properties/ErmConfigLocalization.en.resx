@@ -1795,7 +1795,7 @@
     <value>Banks</value>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
-    <value>Уведомление о расторжении договора</value>
+    <value>Contract termination notice</value>
   </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
     <value>Companies in reserve on my territory (Lefkosia)</value>
@@ -1804,12 +1804,12 @@
     <value>Companies in reserve on my territory (Lemesos)</value>
   </data>
   <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Communes</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Banks</value>
   </data>
   <data name="DListCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Communes</value>
   </data>
 </root>
