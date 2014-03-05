@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
         private readonly IPublicService _publicService;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly IFirmRepository _firmRepository;
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                                              IPublicService publicService,
                                              IOrderReadModel orderReadModel,
                                              IOrderRepository orderRepository,
-                                             IOrderValidationResultsResetter orderValidationResultsResetter,
+                                             IOrderValidationInvalidator orderValidationInvalidator,
                                              IOperationScopeFactory scopeFactory,
                                              IPriceReadModel priceReadModel,
                                              IFirmRepository firmRepository)
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
             _publicService = publicService;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
             _priceReadModel = priceReadModel;
             _firmRepository = firmRepository;
@@ -305,7 +305,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _orderValidationInvalidator.Invalidate(new[] { orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
         }
     }
 }

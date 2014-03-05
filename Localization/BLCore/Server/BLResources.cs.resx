@@ -5224,9 +5224,9 @@ Doba zveřejnění: {3}.</value>
     <value>Uzavřít jako zamítnuto</value>
   </data>
   <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
-    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+    <value>Není možné použít způsob výpočtu koeficientu &apos;{0}&apos; pro typ vázaného objektu položky &apos;{1}&apos;</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
-    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+    <value>U položky objednávky, která je zpracovaná pro položku ceníku s výpočtem koeficientu podle rubriky, musí být uvedena jedna rubrika</value>
   </data>
 </root>

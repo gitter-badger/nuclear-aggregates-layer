@@ -165,18 +165,18 @@ Nombre de banco {7}
     <value>Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
+    <value>1. Medios de comunicación: &quot;{0}&quot; (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
 2. Plataforma web 2gis.ru.
 3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Medios de comunicación: "{0}" (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: &quot;{0}&quot; (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Plataforma web con la dirección 2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: &quot;{0}&quot; (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>
@@ -186,10 +186,10 @@ Nombre de banco {7}
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
+    <value>Imposible crear la orden de compra para la persona jurídica &apos;{0}&apos; especificada en el perfil</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
+    <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>En la orden no está especificada la Persona jurídica del ejecutor. Imposible seleccionar una forma impresa.</value>
@@ -261,14 +261,14 @@ Penezni ustav:  {5}</value>
     <value>Existe una persona juridica del cliente oculta con RUT especificados</value>
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
-    <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
+    <value>Se debe utilizar la extensión de esencia LegalPersonProfile de Chile</value>
     <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
-    <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>
+    <value>Formato no válido de RUT. Formato permitido: 12.345.678-K</value>
   </data>
   <data name="InvalidChileRutChecksum" xml:space="preserve">
-    <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
+    <value>La verificación fallida de la suma de control del valor de RUT {0}</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
     <value>Se han duplicado los numeros de factura: {0}</value>
@@ -280,6 +280,6 @@ Penezni ustav:  {5}</value>
     <value>Ya se han creado las siguientes facturas: {0}</value>
   </data>
   <data name="CannotDeleteUsedBank" xml:space="preserve">
-    <value>Банк используется. Перед удалением избавьтесь от ссылок на него.</value>
+    <value>El banco se está utilizando. Quítele todos los enlaces antes de eliminarlo.</value>
   </data>
 </root>
