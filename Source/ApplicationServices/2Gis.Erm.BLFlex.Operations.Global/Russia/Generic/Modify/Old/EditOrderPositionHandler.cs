@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly IPublicService _publicService;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IPriceReadModel _priceReadModel;
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             IFinder finder,
             IPublicService publicService,
             IOrderRepository orderRepository,
-            IOrderValidationResultsResetter orderValidationResultsResetter,
+            IOrderValidationInvalidator orderValidationInvalidator,
             IOperationScopeFactory scopeFactory,
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IPriceReadModel priceReadModel,
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _finder = finder;
             _publicService = publicService;
             _orderRepository = orderRepository;
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
             _priceReadModel = priceReadModel;
@@ -348,7 +348,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _orderValidationInvalidator.Invalidate(new[] { orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
         }
     }
 }
