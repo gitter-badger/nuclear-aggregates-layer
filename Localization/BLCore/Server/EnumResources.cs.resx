@@ -661,13 +661,13 @@
     <value>Tištěná média</value>
   </data>
   <data name="BudgetTypeFromOneHundredToFiveHundredThousands" xml:space="preserve">
-    <value>100 000 - 500 000</value>
+    <value>100 000 - 500 000</value>
   </data>
   <data name="BudgetTypeFromTenToThirtyThousands" xml:space="preserve">
-    <value>10 000 - 30 000</value>
+    <value>10 000 - 30 000</value>
   </data>
   <data name="BudgetTypeFromThirtyToOneHundredThousands" xml:space="preserve">
-    <value>30 000 - 100 000</value>
+    <value>30 000 - 100 000</value>
   </data>
   <data name="BudgetTypeLessTenThousand" xml:space="preserve">
     <value>Do 10 000</value>
@@ -1795,12 +1795,12 @@
     <value>Akce</value>
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
-    <value>Не применять</value>
+    <value>Nepoužívat</value>
   </data>
   <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
-    <value>По самой дорогой рубрике</value>
+    <value>Podle nejdražší rubriky</value>
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
-    <value>По проданной рубрике</value>
+    <value>Podle prodané rubriky</value>
   </data>
 </root>

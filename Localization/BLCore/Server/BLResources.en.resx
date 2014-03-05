@@ -5226,9 +5226,9 @@ Placement period: {3}.</value>
     <value>Permitted file sizes (pixels)</value>
   </data>
   <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
-    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+    <value>Cannot use &apos;{0}&apos; coefficient calculation method for the reference object type of item &apos;{1}&apos;</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
-    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+    <value>A single category should be specified for the order item prepared as the price-list item with category coefficient calculation</value>
   </data>
 </root>

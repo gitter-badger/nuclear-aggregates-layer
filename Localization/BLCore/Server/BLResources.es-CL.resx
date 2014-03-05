@@ -5220,9 +5220,9 @@ Periodo de la publicación: {3}.</value>
     <value>Cerrar por ser rechazado</value>
   </data>
   <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
-    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+    <value>No se puede utilizar el método de cálculo del coeficiente &apos;{0}&apos; para el tipo del objeto de enlace de la posición &apos;{1}&apos;</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
-    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+    <value>Debe indicarse una sola categoría para una posición de la orden formalizada para la posición de la lista de precios con el coeficiente calculado según la categoría</value>
   </data>
 </root>
