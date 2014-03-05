@@ -42,7 +42,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AdvertisementElementTemplateId = x.AdvertisementElementTemplate.Id,
                     AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
                     x.AdvertisementElementTemplate.RestrictionType,
-                    x.AdvertisementElementTemplate.IsRequired
+                    x.AdvertisementElementTemplate.IsRequired,
+                    x.AdvertisementId,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListAdvertisementElementDto
