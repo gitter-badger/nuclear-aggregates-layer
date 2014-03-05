@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -17,17 +18,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
     public sealed class EditAdvertisementHandler : RequestHandler<EditRequest<Advertisement>, EmptyResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IAdvertisementReadModel _advertisementReadModel;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IAdvertisementRepository _advertisementRepository;
 
         public EditAdvertisementHandler(
+            IAdvertisementReadModel advertisementReadModel,
             IUnitOfWork unitOfWork,
-            IOrderValidationResultsResetter orderValidationResultsResetter,
+            IOrderValidationInvalidator orderValidationInvalidator,
             IOperationScopeFactory scopeFactory,
             IAdvertisementRepository advertisementRepository)
         {
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _advertisementReadModel = advertisementReadModel;
+            _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
             _unitOfWork = unitOfWork;
             _advertisementRepository = advertisementRepository;
@@ -57,9 +61,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                     throw new BusinessLogicException(BLResources.CannotChangeAdvertisementSinceItsTemplateWasChanged);
                 }
 
-                using (var scope = _unitOfWork.CreateScope())
+                using (var uowScope = _unitOfWork.CreateScope())
                 {
-                    var advertisementRepository = scope.CreateRepository<IAdvertisementRepository>();
+                    var advertisementRepository = uowScope.CreateRepository<IAdvertisementRepository>();
 
                     // Инициализирует по необходимости идентификатор advertisement
                     advertisementRepository.CreateOrUpdate(advertisement);
@@ -71,25 +75,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                     }
 
                     // сбрасываем кеш проверок заказов
-                    var orderIds = advertisementRepository.GetDependedOrderIds(new[] { advertisement.Id });
-                    foreach (var orderId in orderIds)
-                    {
-                        _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
-                    }
+                    var orderIds = _advertisementReadModel.GetDependedOrderIds(new[] { advertisement.Id });
+                    _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
 
-                    scope.Complete();
-
-                    if (isNewAdvertisement)
-                    {
-                        operationScope
-                            .Added<Advertisement>(advertisement.Id);
-                    }
-                    else
-                    {
-                        operationScope
-                            .Updated<Advertisement>(advertisement.Id);
-                    }
-
+                    uowScope.Complete();
                     operationScope.Complete();
                 }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -17,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
-    public sealed class OrderValidationService : IOrderValidationService, IOrderValidationResultsResetter
+    public sealed class OrderValidationService : IOrderValidationService, IOrderValidationInvalidator
     {
         #region validation types map
 
@@ -385,13 +386,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return new ValidateOrdersResult { OrderCount = orderCount, Messages = errorsList.ToArray() };
         }
 
-        public void SetGroupAsInvalid(long orderId, OrderValidationRuleGroup orderValidationRuleGroup)
+        public void Invalidate(IEnumerable<long> orderIds, OrderValidationRuleGroup orderValidationRuleGroup)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<ResetValidationGroupIdentity>())
             {
                 // Отметка группы как невалидной осуществляется только в случае одного заказа при выполнении бизнес-операции над этим заказом
                 // Однако заказ может быть не только На оформлении, но и в других статусах
-                _orderValidationRepository.AddInvalidResult(orderId, new ValidationContext(orderValidationRuleGroup, ValidationType.SingleOrderOnRegistration));
+                var validationContext = new ValidationContext(orderValidationRuleGroup, ValidationType.SingleOrderOnRegistration);
+                foreach (var orderId in orderIds)
+                {
+                    _orderValidationRepository.AddInvalidResult(orderId, validationContext);
+                }
 
                 scope.Complete();
             }

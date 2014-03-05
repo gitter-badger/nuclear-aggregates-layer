@@ -9,14 +9,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
     public sealed class SetADPositionsValidationAsInvalidHandler : RequestHandler<SetADPositionsValidationAsInvalidRequest, EmptyResponse>
     {
         private readonly IFirmRepository _firmRepository;
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
 
         public SetADPositionsValidationAsInvalidHandler(
             IFirmRepository firmRepository,
-            IOrderValidationResultsResetter orderValidationResultsResetter)
+            IOrderValidationInvalidator orderValidationInvalidator)
         {
             _firmRepository = firmRepository;
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _orderValidationInvalidator = orderValidationInvalidator;
         }
 
         protected override EmptyResponse Handle(SetADPositionsValidationAsInvalidRequest request)
@@ -24,11 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             var firmId = _firmRepository.GetOrderFirmId(request.OrderId);
 
             var firmNonArchivedOrderIds = _firmRepository.GetFirmNonArchivedOrderIds(firmId);
-            foreach (var orderId in firmNonArchivedOrderIds)
-            {
-                _orderValidationResultsResetter.SetGroupAsInvalid(orderId, OrderValidationRuleGroup.ADPositionsValidation);
-            }
-
+            _orderValidationInvalidator.Invalidate(firmNonArchivedOrderIds, OrderValidationRuleGroup.ADPositionsValidation);
 
             return Response.Empty;
         }

@@ -60,7 +60,7 @@
     <Compile Include="Remote\IOrderValidationApplicationService.cs" />
     <Compile Include="IOrderValidationOnStateChangeService.cs" />
     <Compile Include="IOrderValidationPredicateFactory.cs" />
-    <Compile Include="IOrderValidationResultsResetter.cs" />
+    <Compile Include="IOrderValidationInvalidator.cs" />
     <Compile Include="IOrderValidationService.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="OrderValidationAdditionalInfo.cs" />

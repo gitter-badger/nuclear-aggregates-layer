@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -64,13 +63,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                  ModifiedOn = entity.ModifiedOn,
                                                  Timestamp = entity.Timestamp
                                              },
-                                         FileTimestamp = entity.File != null ? entity.File.Timestamp : null,
                                          Template = entity.AdvertisementElementTemplate
                                      }).Single();
-
-            dtoInfo.Dto.FileTimestamp = dtoInfo.FileTimestamp != null && dtoInfo.FileTimestamp.Length > 0
-                                                ? Convert.ToBase64String(dtoInfo.FileTimestamp)
-                                                : null;
 
             return dtoInfo.Dto;
         }
