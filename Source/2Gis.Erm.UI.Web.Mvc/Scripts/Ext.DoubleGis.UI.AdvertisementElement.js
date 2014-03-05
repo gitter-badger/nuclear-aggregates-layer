@@ -292,7 +292,6 @@
 
     if (Ext.getDom('TemplateRestrictionType').value == 'Image' || Ext.getDom('TemplateRestrictionType').value == 'Article') {
         this.on("afterbuild", function () {
-            var fileTimestamp = Ext.getDom('FileTimestamp');
             var u = new Ext.ux.AsyncFileUpload(
                 {
                     applyTo: 'FileId',
@@ -308,10 +307,7 @@
                                 Ext.getDom('UploadedImage').src = String.format(Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/AdvertisementElement/{0}?_dc={1}', Ext.getDom('FileId').value, Ext.util.Format.cacheBuster());
                             }
 
-                            // При загрузке файла на место существующего, принудительно обновляем страницу во избежание OptimisticConcurrency
-                            if (fileTimestamp.value != '') {
-                                this.refresh(true);
-                            }
+                            this.refresh(true);
                         },
                         fileuploadcomplete: function () {
                             this.Items.Toolbar.enable();
