@@ -159,6 +159,9 @@
   <data name="NavGroupOrders" xml:space="preserve">
     <value>Órdenes</value>
   </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Directorios de Chile</value>
+  </data>
   <data name="NavGroupServices" xml:space="preserve">
     <value>Servicio</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="NavGroupRoles" xml:space="preserve">
     <value>Roles</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Bancos</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Comunas</value>
   </data>
   <data name="CrdRelAccountDetails" xml:space="preserve">
     <value>Operaciones</value>
@@ -1788,12 +1797,6 @@
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Petición de la oficina personal del anunciante</value>
   </data>
-  <data name="NavGroupChileDirectory" xml:space="preserve">
-    <value>Directorios de Chile</value>
-  </data>
-  <data name="NavGroupBanks" xml:space="preserve">
-    <value>Bancos</value>
-  </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Notificación de anulación del acuerdo</value>
   </data>
@@ -1802,9 +1805,6 @@
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Empresas en reserva de la ciudad de Limassol</value>
-  </data>
-  <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Comunas</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Bancos</value>

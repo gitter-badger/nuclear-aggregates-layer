@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,64 +59,64 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
   <data name="FirmAddressContactTypePhone" xml:space="preserve">
     <value>Teléfono</value>
   </data>
@@ -1476,7 +1476,7 @@
   <data name="PlatformsExtendedOnline" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="PaymentMethodUnderfined" xml:space="preserve">
+  <data name="PaymentMethodUndefined" xml:space="preserve">
     <value></value>
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
@@ -1488,8 +1488,14 @@
   <data name="PaymentMethodCashPayment" xml:space="preserve">
     <value>Pago en efectivo</value>
   </data>
-  <data name="PaymentMethodCreditCardPayment" xml:space="preserve">
+  <data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Tarjeta bancaria</value>
+  </data>
+  <data name="PaymentMethodDebitCard" xml:space="preserve">
+    <value>Дебетовая карта</value>
+  </data>
+  <data name="PaymentMethodCreditCard" xml:space="preserve">
+    <value>Кредитная карта</value>
   </data>
   <data name="ActivityTaskTypeNotSet" xml:space="preserve">
     <value>Ninguno</value>
@@ -1507,103 +1513,103 @@
     <value>Ninguno</value>
   </data>
   <data name="FirmAddressContactTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="CloseDealReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="DealStageNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="InformationSourceNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ReasonForNewDealNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FasCommentNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ProductTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="MarketTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="UsingOtherMediaOptionNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AccountRoleNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FamilyStatusNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="GenderNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderDiscountReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderTerminationReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionAccountingMethodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionCalculationMethodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="TemplateCodeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="BudgetTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="GeolocationNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="InCityBranchesAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OutCityBranchesAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="StaffAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AllOrdersReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ObjectBindingTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AccountsReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="SalesReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="BusinessOperationTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
     <value>Publicación de la plantilla de material publicitario</value>
@@ -1612,7 +1618,7 @@
     <value>Cancelación de la publicación de la plantilla de material publicitario</value>
   </data>
   <data name="ESalesPointTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
     <value>Sucursal</value>
@@ -1627,7 +1633,7 @@
     <value>Empresa gestora</value>
   </data>
   <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
     <value>Publicidad local en la sucursal</value>
@@ -1811,5 +1817,14 @@
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
     <value>Según la categoría vendida</value>
+  </data>
+  <data name="AccountTypeNotSet" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AccountTypeCurrentAccount" xml:space="preserve">
+    <value>Cuenta Corriente</value>
+  </data>
+  <data name="AccountTypeSavingsAccount" xml:space="preserve">
+    <value>Cuenta Vista</value>
   </data>
 </root>

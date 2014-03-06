@@ -969,7 +969,7 @@
   <data name="MailSendingType" xml:space="preserve">
     <value>Typ rozesílání</value>
   </data>
-  <data name="RatePricePosition" xml:space="preserve">
+  <data name="RateType" xml:space="preserve">
     <value>Používat koeficient</value>
   </data>
   <data name="NameLat" xml:space="preserve">
@@ -1050,11 +1050,11 @@
   <data name="Contact" xml:space="preserve">
     <value>Kontakt</value>
   </data>
-  <data name="ScheduledStart" xml:space="preserve">
-    <value>Datum začátku</value>
-  </data>
   <data name="ScheduledEnd" xml:space="preserve">
     <value>Datum ukončení</value>
+  </data>
+  <data name="ScheduledStart" xml:space="preserve">
+    <value>Datum začátku</value>
   </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Měsíc</value>
@@ -1311,4 +1311,37 @@
   <data name="AdvertisementElementErrorDescription" xml:space="preserve">
     <value>Chyba</value>
   </data>
+  <data name="RepresentativeName" xml:space="preserve">
+    <value>Zástupce</value>
+  </data>
+  <data name="RepresentativePosition" xml:space="preserve">
+    <value>Funkce zástupce</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Druh činnosti</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>Komuna</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedOn" xml:space="preserve">
+    <value>Datum vydání</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedBy" xml:space="preserve">
+    <value>Vydal</value>
+  </data>
+  <data name="BankAccountType" xml:space="preserve">
+    <value>Typ účtu</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Název banky</value>
+  </data>
+  <data name="RepresentativeRut" xml:space="preserve">
+  <value>RUT представителя</value>
+</data>
+  <data name="Rut" xml:space="preserve">
+  <value>RUT</value>
+</data>
+  <data name="OperationsKind" xml:space="preserve">
+  <value>Вид деятельности</value>
+</data>
 </root>
