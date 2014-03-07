@@ -148,7 +148,7 @@
     <value>Všechny stávající faktury budou odstraněny. Pokračovat?</value>
   </data>
   <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
-    <value>U vyúčtování musí být vyplněna všechna pole</value>
+    <value>K úhradě musí být vyplněna všechna pole</value>
   </data>
   <data name="April" xml:space="preserve">
     <value>Duben</value>
@@ -217,7 +217,7 @@
     <value>Zavřít</value>
   </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
-    <value>Provedené změny nebyly uloženy. Stisknutím tlačítka „Zrušit“ zůstanete na této stránce a uložíte změny.</value>
+    <value>Provedené změny nebyly uloženy. Abyste zůstali na této stránce a mohli změny uložit, stiskněte tlačítko „Zrušit“.</value>
   </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Chybí obsah</value>
@@ -313,7 +313,7 @@
     <value>Vyčkejte prosím, soubor se nahrává na server...</value>
   </data>
   <data name="FindMoreRecords" xml:space="preserve">
-    <value>Vyhledat další záznamy</value>
+    <value>Vyhledávání dalších záznamů</value>
   </data>
   <data name="ForeColorText" xml:space="preserve">
     <value>Změna barvy textu.</value>
@@ -334,7 +334,7 @@
     <value>Zvětšit velikost</value>
   </data>
   <data name="IndicatorText" xml:space="preserve">
-    <value>Načítání...</value>
+    <value>Probíhá načítání…</value>
   </data>
   <data name="Information" xml:space="preserve">
     <value>Informace</value>
@@ -406,7 +406,7 @@
     <value>Vázaný objekt</value>
   </data>
   <data name="LinkingParameters" xml:space="preserve">
-    <value>Možnosti vazby</value>
+    <value>Nastavení vazby</value>
   </data>
   <data name="ListDoesNotSupportAppend" xml:space="preserve">
     <value>Tento seznam nepodporuje operaci přidání.</value>
@@ -463,7 +463,7 @@
     <value>Do pole „Vyhledat záznamy“ zadejte celý název záznamu nebo jeho část a stiskněte ikonu „Vyhledat záznamy“.</value>
   </data>
   <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
-    <value>Zadejte hledané údaje do pole „Hledat“ a stiskněte tlačítko „Najít“. Poté vyberte v seznamu „Dostupné záznamy“ požadované záznamy a přesuňte je do seznamu „Vybrané záznamy“.</value>
+    <value>Zadejte hledané údaje do pole „Hledat“ a stiskněte ikonku „Najít“. Poté vyberte v seznamu „Dostupné záznamy“ požadované záznamy a přesuňte je do seznamu „Vybrané záznamy“.</value>
   </data>
   <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
     <value>Nebyl vybrán žádný záznam.</value>
@@ -508,7 +508,7 @@
     <value>Kontrola objednávky</value>
   </data>
   <data name="OrderCheckFailed" xml:space="preserve">
-    <value>Nebylo možné zkontrolovat objednávku</value>
+    <value>Nepodařilo se zkontrolovat objednávku</value>
   </data>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Objednávka je správná, během kontroly se však vyskytla následující upozornění:</value>
@@ -568,7 +568,7 @@
     <value>Sobota</value>
   </data>
   <data name="SearchInstructions" xml:space="preserve">
-    <value>Do pole „Hledat“ zadejte požadované hledané údaje, poté stiskněte tlačítko „Najít“. Následně vyberte požadovaný záznam a stiskněte tlačítko OK.</value>
+    <value>Do pole „Hledat“ zadejte údaje, které potřebujete vyhledat, poté stiskněte ikonku „Najít“. Následně vyberte požadovaný záznam a stiskněte tlačítko OK.</value>
   </data>
   <data name="SelectedRecords" xml:space="preserve">
     <value>Vybrané záznamy</value>
@@ -583,10 +583,10 @@
     <value>Vybrat</value>
   </data>
   <data name="SelectToWhiteListMatherial" xml:space="preserve">
-    <value>Výběr RM - seznam povolených</value>
+    <value>Výběr RM do Bílého seznamu</value>
   </data>
   <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
-    <value>Při výběru RM do seznamu povolených se vyskytla chyba. Zkuste opakovat operaci</value>
+    <value>Při výběru RM do Bílého seznamu se vyskytla chyba. Zkuste opakovat operaci</value>
   </data>
   <data name="September" xml:space="preserve">
     <value>Září</value>
@@ -640,7 +640,7 @@
     <value>Neznámá velikost</value>
   </data>
   <data name="UploadFileQuestion" xml:space="preserve">
-    <value>Skutečně si přejete odeslat soubor „{0}“ na server?</value>
+    <value>Skutečně si přejete stáhnout soubor „{0}“ na server?</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Středa</value>
@@ -655,7 +655,7 @@
     <value>Stávající smlouva je neaktuální. Za účelem zveřejnění objednávky v rámci smlouvy je třeba vytvořit novou smlouvu</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Vzhledem k tomu, že tento klient má úlohu „{0}“ uzavřenou {1} s typem „Možný klient“, byl vydán důvod obchodní transakce „Možný klient“</value>
+    <value>Vzhledem k tomu, že tento klient má úlohu „{0}“ uzavřenou {1} s typem „Potenciální klient“, byl vydán důvod obchodní transakce „Potenciální klient“</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Je vyžadován souhlas!</value>
@@ -679,7 +679,7 @@
     <value>Výchozí město</value>
   </data>
   <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
-    <value>Není možné hromadně vystavit faktury se splátkami, jestliže pracujete s objednávkou, na které je částka k zaplacení rovna nule. V seznamu pro hromadné vystavení faktur nesmí být vybrané objednávky.</value>
+    <value>Není možné hromadně vystavit faktury se splátkami, jestliže pracujete s objednávkou, na které je částka k zaplacení rovna nule. V seznamu pro hromadné vystavení faktur nesmí být vybrané tyto objednávky.</value>
   </data>
   <data name="ValueCantBeEmpty" xml:space="preserve">
     <value>Hodnota nemůže být prázdná</value>
@@ -691,10 +691,10 @@
     <value>Operace sloučení proběhla úspěšně</value>
   </data>
   <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
-    <value>Pozor! Pokoušíte se vzít z rezervy klienta s úvěrovými závazky!</value>
+    <value>Pozor! Pokoušíte se vzít z rezervy klienta s pohledávkami!</value>
   </data>
   <data name="CheckClientsDebtsFailed" xml:space="preserve">
-    <value>Nebylo možné zkontrolovat pohledávky vybraných klientů. Pravděpodobně někteří z vybraných klientů mají pohledávky.</value>
+    <value>Nebylo možné zkontrolovat zůstatky vybraných klientů. Pravděpodobně někteří z vybraných klientů mají pohledávky.</value>
   </data>
   <data name="InvalidSelectedPositionsCount" xml:space="preserve">
     <value>Musí být vybrán následující počet položek: {0}</value>
@@ -703,10 +703,10 @@
     <value>Je třeba vyměnit vázané objekty, které byly skryté, za aktuálně dostupné</value>
   </data>
   <data name="HiddenItem" xml:space="preserve">
-    <value>(skrytý, dokud nebude vyjasněno)</value>
+    <value>(skrýt, dokud nebude vyjasněno)</value>
   </data>
   <data name="DeletedItem" xml:space="preserve">
-    <value>(skrytý navždy)</value>
+    <value>(skrýt navždy)</value>
   </data>
   <data name="ListDoesNotSupportExcluding" xml:space="preserve">
     <value>Tento seznam nepodporuje operaci vyloučení z pododdílu.</value>
@@ -745,13 +745,10 @@
     <value>Třídit sestupně</value>
   </data>
   <data name="Reports" xml:space="preserve">
-    <value>Výkazy/zprávy</value>
+    <value>Výkazy</value>
   </data>
   <data name="OrderIsCorrect" xml:space="preserve">
     <value>Objednávka je správná</value>
-  </data>
-  <data name="Task" xml:space="preserve">
-    <value>Úkol</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Hledat:</value>
@@ -790,7 +787,7 @@
     <value>Zkopírovat stávající objednávku</value>
   </data>
   <data name="CopyOrderWithTermination" xml:space="preserve">
-    <value>Vytvořit novou objednávku místo zrušené objednávky</value>
+    <value>Vytvořit objednávku místo zrušené objednávky</value>
   </data>
   <data name="OrderCopying" xml:space="preserve">
     <value>Kopírování objednávky</value>
@@ -844,10 +841,10 @@
     <value>Název rubriky</value>
   </data>
   <data name="DummyValue" xml:space="preserve">
-    <value>Zástupný symbol</value>
+    <value>Zástupný materiál</value>
   </data>
   <data name="DummyValueWillBeApplied" xml:space="preserve">
-    <value>Místo reklamního materiálu bude použit zástupný symbol.</value>
+    <value>Místo reklamního materiálu bude použit zástupný materiál.</value>
   </data>
   <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
     <value>Adresa nemá vazbu na mapu</value>
@@ -905,6 +902,9 @@
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Zprávy pro pažadavek</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Úkol</value>
   </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Skutečně si přejete změnit stav limitu na</value>
