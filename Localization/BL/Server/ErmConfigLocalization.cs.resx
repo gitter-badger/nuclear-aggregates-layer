@@ -166,7 +166,7 @@
     <value>Servis</value>
   </data>
   <data name="NavGroupReports" xml:space="preserve">
-    <value>Výkazy/zprávy</value>
+    <value>Výkazy</value>
   </data>
   <data name="NavGroupUsers" xml:space="preserve">
     <value>Uživatelé</value>
@@ -205,7 +205,7 @@
     <value>Protokol použití</value>
   </data>
   <data name="CrdRelLocks" xml:space="preserve">
-    <value>Blokování</value>
+    <value>Blokace</value>
   </data>
   <data name="CrdRelOUBO" xml:space="preserve">
     <value>Pr. osoby oddělení organizace</value>
@@ -250,7 +250,7 @@
     <value>Zadat koeficienty</value>
   </data>
   <data name="ControlCheckOrdersReadinessForRelease" xml:space="preserve">
-    <value>Zkontrolovat objednávky k sestavení</value>
+    <value>Zkontrolovat objednávky k tvorbě sestavy</value>
   </data>
   <data name="ControlAssign" xml:space="preserve">
     <value>Změnit správce</value>
@@ -424,7 +424,7 @@
     <value>Aktivní firmy</value>
   </data>
   <data name="DListLegalPersons" xml:space="preserve">
-    <value>Pr. osoby klienta</value>
+    <value>Všechny Právnické osoby</value>
   </data>
   <data name="DListActiveLockDetails" xml:space="preserve">
     <value>Aktivní užívání</value>
@@ -433,10 +433,10 @@
     <value>Neaktivní užívání</value>
   </data>
   <data name="DListActiveLocks" xml:space="preserve">
-    <value>Aktivní blokování</value>
+    <value>Aktivní blokace</value>
   </data>
   <data name="DListNotActiveLocks" xml:space="preserve">
-    <value>Použitá blokování</value>
+    <value>Použité blokace</value>
   </data>
   <data name="DListOperationTypes" xml:space="preserve">
     <value>Typy operací</value>
@@ -553,7 +553,7 @@
     <value>Název kategorie</value>
   </data>
   <data name="DFieldIsHidden" xml:space="preserve">
-    <value>Skryto do vyjasnění</value>
+    <value>Skryta do vyjasnění</value>
   </data>
   <data name="EnFirmAddresses" xml:space="preserve">
     <value>Adresy firem</value>
@@ -838,7 +838,7 @@
     <value>Položky objednávky pro seznam položek</value>
   </data>
   <data name="DListLegalPersonsInactive" xml:space="preserve">
-    <value>Skryté pr. osoby klienta</value>
+    <value>Skryté Právnické osoby</value>
   </data>
   <data name="EnLegalPerson" xml:space="preserve">
     <value>Pr. osoba klienta</value>
@@ -1129,13 +1129,13 @@
     <value>Správa katalogu</value>
   </data>
   <data name="NavGroupMessageQueueManagement" xml:space="preserve">
-    <value>Řízení front zpráv</value>
+    <value>Řízení fronty zpráv</value>
   </data>
   <data name="ControlAssignWhiteListedAd" xml:space="preserve">
-    <value>Přiřadit RM do seznamu povolených</value>
+    <value>Přiřadit RM k bílému seznamu</value>
   </data>
   <data name="DFieldFullName" xml:space="preserve">
-    <value>Úplné jméno</value>
+    <value>Celé jméno</value>
   </data>
   <data name="CrdRelContacts" xml:space="preserve">
     <value>Kontakty</value>
@@ -1300,7 +1300,7 @@
     <value>Vytvořit kopii objednávky...</value>
   </data>
   <data name="ControlMerge" xml:space="preserve">
-    <value>Sloučení</value>
+    <value>Sloučit</value>
   </data>
   <data name="ControlExecWithdrawing" xml:space="preserve">
     <value>Odpis</value>
@@ -1366,7 +1366,7 @@
     <value>Náhled </value>
   </data>
   <data name="DListFiredContacts" xml:space="preserve">
-    <value>Propuštěné kontakty</value>
+    <value>Kontakty s výpovědí</value>
   </data>
   <data name="DListUserWithRole" xml:space="preserve">
     <value>Uživatele s rolemi</value>
@@ -1381,7 +1381,7 @@
     <value>Referenční informace</value>
   </data>
   <data name="DFieldSelectedToWhiteList" xml:space="preserve">
-    <value>Vybrán do seznamu povolených</value>
+    <value>Vybrán do Bílého seznamu</value>
   </data>
   <data name="EnLegalPersonProfile" xml:space="preserve">
     <value>Profil pr. osoby klienta</value>
@@ -1426,7 +1426,7 @@
     <value>Všechny plány</value>
   </data>
   <data name="DListMyActivities" xml:space="preserve">
-    <value>Mé plány</value>
+    <value>Moje plány</value>
   </data>
   <data name="DListReleaseInfoBeta" xml:space="preserve">
     <value>Technická sestavení</value>
@@ -1474,7 +1474,7 @@
     <value>Všichni klienti pobočky</value>
   </data>
   <data name="DListClientsForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených</value>
+    <value>Potenciální klienti mých podřízených</value>
   </data>
   <data name="DListClientsOnMyTerritory" xml:space="preserve">
     <value>Klienti na mém území</value>
@@ -1486,10 +1486,10 @@
     <value>Klienti mých podřízených, u kterých jsou vedeny objednávky typu „Barter“</value>
   </data>
   <data name="DListClientsWithDebtForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených s úvěrovými závazky</value>
+    <value>Klienti mých podřízených, kteří mají pohledávky</value>
   </data>
   <data name="DListClientsWithoutMakeDecisionContactsForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených bez OPR</value>
+    <value>Klienti mých podřízených bez Rozhodující osoby</value>
   </data>
   <data name="DListClientsWithSeveralOpenDealsForSubordinates" xml:space="preserve">
     <value>Klienti mých podřízených, kteří mají několik otevřených obchodních transakcí</value>
@@ -1507,13 +1507,13 @@
     <value>Firmy mých podřízených</value>
   </data>
   <data name="DListFirmsWithSelfAds" xml:space="preserve">
-    <value>Firmy s objednávkami typu „Sebeprezentace“</value>
+    <value>Firmy s objednávkami typu „Sebepropagace“</value>
   </data>
   <data name="DListMyAccountsWithNegativeBalance" xml:space="preserve">
-    <value>Mé osobní účty se záporným zůstatkem</value>
+    <value>Moje osobní účty se záporným zůstatkem</value>
   </data>
   <data name="DListMyBargains" xml:space="preserve">
-    <value>Mé smlouvy</value>
+    <value>Moje smlouvy</value>
   </data>
   <data name="DListMyBarterDeals" xml:space="preserve">
     <value>Mé barterové obchody</value>
@@ -1522,13 +1522,13 @@
     <value>Moji dnes vytvoření klienti</value>
   </data>
   <data name="DListMyClientsWithDebt" xml:space="preserve">
-    <value>Moji klienti s úvěrovými závazky</value>
+    <value>Moji klienti, kteří mají pohledávky</value>
   </data>
   <data name="DListMyClientsWithoutDeals" xml:space="preserve">
     <value>Moji klienti bez obchodních transakcí</value>
   </data>
   <data name="DListMyClientsWithoutMakeDecisionContacts" xml:space="preserve">
-    <value>Moji klienti bez OPR</value>
+    <value>Moji klienti bez Rozhodující osoby</value>
   </data>
   <data name="DListMyContacts" xml:space="preserve">
     <value>Moje kontaktní osoby</value>
@@ -1546,7 +1546,7 @@
     <value>Moji regionální klienti</value>
   </data>
   <data name="DListMyWarmClients" xml:space="preserve">
-    <value>Moji možní klienti</value>
+    <value>Moji potenciální klienti</value>
   </data>
   <data name="DListRegionalClientsForSubordinates" xml:space="preserve">
     <value>Regionální klienti mých podřízených</value>
@@ -1570,10 +1570,10 @@
     <value>Právnické osoby mých podřízených</value>
   </data>
   <data name="DListLegalPersonsWithDebtAtMyBranch" xml:space="preserve">
-    <value>Právnické osoby pobočky s úvěrovými závazky</value>
+    <value>Právnické osoby pobočky, které mají pohledávky</value>
   </data>
   <data name="DListLegalPersonsWithDebtForSubordinates" xml:space="preserve">
-    <value>Právnické osoby mých podřízených s úvěrovými závazky</value>
+    <value>Právnické osoby mých podřízených, které mají pohledávky</value>
   </data>
   <data name="DListLegalPersonsWithMyOrders" xml:space="preserve">
     <value>Pr. osoby, které mají vedeny moje objednávky, ale nejsem jejich správcem</value>
@@ -1600,7 +1600,7 @@
     <value>Moje právnické osoby</value>
   </data>
   <data name="DListMyLegalPersonsWithDebt" xml:space="preserve">
-    <value>Moji právnické osoby s úvěrovými závazky</value>
+    <value>Moje právnické osoby, které mají pohledávky</value>
   </data>
   <data name="DListMyOpenedLimits" xml:space="preserve">
     <value>Moje otevřené limity</value>
@@ -1621,7 +1621,7 @@
     <value>Moje zamítnuté limity</value>
   </data>
   <data name="DListMyTerminatedOrders" xml:space="preserve">
-    <value>Moje neaktivní (objednávky uzavřené jako zamítnuté)</value>
+    <value>Moje objednávky uzavřené jako zamítnuté</value>
   </data>
   <data name="DListOrdersForSubordinates" xml:space="preserve">
     <value>Všechny objednávky mých podřízených</value>
@@ -1633,7 +1633,7 @@
     <value>Zamítnuté objednávky mých podřízených</value>
   </data>
   <data name="DListTerminatedOrdersForSubordinates" xml:space="preserve">
-    <value>Neaktivní (uzavřené jako zamítnuté) objednávky mých podřízených</value>
+    <value>Objednávky mých podřízených uzavřené jako zamítnuté</value>
   </data>
   <data name="DListMyBarterOrders" xml:space="preserve">
     <value>Všechny moje objednávky typu „Barter“</value>
@@ -1654,7 +1654,7 @@
     <value>Objednávky mých podřízených, které vyžadují prolongaci</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
-    <value>Moje objednávky, které budou příště vydány</value>
+    <value>Moje objednávky pro nejbližší termín vydání</value>
   </data>
   <data name="DListOrdersOnApprovalForMe" xml:space="preserve">
     <value>Objednávky, které vyžadují moje schválení</value>
@@ -1669,37 +1669,37 @@
     <value>Nové firmy na mém území</value>
   </data>
   <data name="DListActivitiesForSubordinates" xml:space="preserve">
-    <value>Plány s mými podřízenými</value>
+    <value>Plány mých podřízených</value>
   </data>
   <data name="DListActivitiesInProgressForSubordinates" xml:space="preserve">
-    <value>Naplánované činnosti s mými podřízenými</value>
+    <value>Nadcházející plány mých podřízených</value>
   </data>
   <data name="DListCompletedActivitiesForSubordinates" xml:space="preserve">
-    <value>Dokončené plány s mými podřízenými</value>
+    <value>Dokončené plány mých podřízených</value>
   </data>
   <data name="DListMyActivitiesInProgress" xml:space="preserve">
-    <value>Mé naplánované činnosti</value>
+    <value>Moje nadcházející plány</value>
   </data>
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
-    <value>Mé naplánované činnosti na dnešek</value>
+    <value>Moje plány na dnešek</value>
   </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
-    <value>Mé dokončené plány</value>
+    <value>Moje dokončené plány</value>
   </data>
   <data name="DListActiveActivities" xml:space="preserve">
     <value>Otevřené plány</value>
   </data>
   <data name="DListInactiveActivities" xml:space="preserve">
-    <value>okončené plány</value>
+    <value>Dokončené plány</value>
   </data>
   <data name="DListClientsWithOnly1Appointment" xml:space="preserve">
     <value>Klienti, se kterými proběhla pouze jedna schůzka</value>
   </data>
   <data name="DListAccountsWithHostedOrdersForSubordinates" xml:space="preserve">
-    <value>Osobní účty mých podřízených se zadanými objednávkami</value>
+    <value>Osobní účty mých podřízených se zveřejňovanými objednávkami</value>
   </data>
   <data name="DListMyAccountsWithHostedOrders" xml:space="preserve">
-    <value>Mé osobní účty se zadanými objednávkami</value>
+    <value>Moje osobní účty se zveřejňovanými objednávkami</value>
   </data>
   <data name="DListApprovedOrdersWithoutAdvertisement" xml:space="preserve">
     <value>Objednávky ve stavu „Schváleno“, u kterých chybí přiložené RM</value>
@@ -1720,16 +1720,16 @@
     <value>Mnou zamítnuté objednávky, které jsou nyní ve stavu „Vyřizuje se“</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
-    <value>Úkoly pro možné klienty</value>
+    <value>Úkoly zpracování potenciálních klientů</value>
   </data>
   <data name="DListOverdueActivitiesForWarmClients" xml:space="preserve">
-    <value>Promeškané úkoly pro možné klienty</value>
+    <value>Promeškané úkoly zpracování potenciálních klientů</value>
   </data>
   <data name="DListClientsWithWarmClientTask" xml:space="preserve">
-    <value>Klienti, kteří mají úkoly typu „Možný klient“</value>
+    <value>Klienti, kteří jsou přiřazeni k úkolu typu “Potenciální klient“</value>
   </data>
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
-    <value>Klienti, kteří mají promeškané úkoly typu „Možný klient“</value>
+    <value>Klienti, kteří jsou přiřazeni k promeškanému úkolu typu „Potenciální klient“</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
     <value>Zveřejnit</value>
@@ -1796,7 +1796,6 @@
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Požadavek z OP</value>
-    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Oznámení o zrušení smlouvy</value>

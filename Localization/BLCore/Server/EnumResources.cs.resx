@@ -202,10 +202,10 @@
     <value>Dodání MP</value>
   </data>
   <data name="DocumentsDeliveryMethodDeliveryByClient" xml:space="preserve">
-    <value>Samostatně klientem</value>
+    <value>Osobní vyzvednutí</value>
   </data>
   <data name="DocumentsDeliveryMethodByEmail" xml:space="preserve">
-    <value>Elektronické rozesílání</value>
+    <value>Elektronicky</value>
   </data>
   <data name="DocumentsDeliveryMethodByCourier" xml:space="preserve">
     <value>Kurýrem</value>
@@ -220,7 +220,7 @@
     <value>Prodeje</value>
   </data>
   <data name="OrderTypeSelfAds" xml:space="preserve">
-    <value>Sebeprezentace</value>
+    <value>Sebepropagace</value>
   </data>
   <data name="PositionAccountingMethodGuaranteedProvision" xml:space="preserve">
     <value>Garantované poskytnutí</value>
@@ -277,7 +277,7 @@
     <value>Iniciativa manažera - návštěva</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
-    <value>Možný klient</value>
+    <value>Potencionální klient</value>
   </data>
   <data name="OrderStateApproved" xml:space="preserve">
     <value>Schváleno</value>
@@ -307,7 +307,7 @@
     <value>Prodejní oddělení</value>
   </data>
   <data name="InformationSourceMedia" xml:space="preserve">
-    <value>Masmédia</value>
+    <value>Hromadné sdělovací prostředky</value>
   </data>
   <data name="LimitStatusApproved" xml:space="preserve">
     <value>Potvrzeno</value>
@@ -319,7 +319,7 @@
     <value>Zamítnuto</value>
   </data>
   <data name="ReasonForNewDealWarmClient" xml:space="preserve">
-    <value>Možný klient</value>
+    <value>Potencionální klient</value>
   </data>
   <data name="AdvertisementElementRestrictionTypeArticle" xml:space="preserve">
     <value>Článek</value>
@@ -379,7 +379,7 @@
     <value>Rádio</value>
   </data>
   <data name="LegalPersonTypeBusinessman" xml:space="preserve">
-    <value>Soukromý podnikatel (OSVČ)</value>
+    <value>Osoba samostatně výdělečně činná (OSVČ)</value>
   </data>
   <data name="LegalPersonTypeLegalPerson" xml:space="preserve">
     <value>Právnická osoba</value>
@@ -472,22 +472,22 @@
     <value>Načtení odpisů</value>
   </data>
   <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Odeslání objednávek</value>
+    <value>Načtení aktivních objednávek</value>
   </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Načtení připsaných částek na osobní účty</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
-    <value>Odeslání pr. osob klientů</value>
+    <value>Načtení pr. osob klientů</value>
   </data>
   <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Odeslání osobních účtů</value>
+    <value>Načtení osobních účtů</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Odeslání odpisů z osobních účtů</value>
+    <value>Načtení odpisů z osobních účtů</value>
   </data>
   <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Odeslání ověření</value>
+    <value>Načtení ověření</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Akční</value>
@@ -514,7 +514,7 @@
     <value>Čeká na zpracování</value>
   </data>
   <data name="OrderTerminationReasonRejectionDecisionMakerChanging" xml:space="preserve">
-    <value>Kategoricky zamítnuto. Změna OPR.</value>
+    <value>Kategoricky zamítnuto. Změna osoby, která Rozhoduje.</value>
   </data>
   <data name="OrderTerminationReasonRejectionLiquidation" xml:space="preserve">
     <value>Kategoricky zamítnuto. Zavření podniku.</value>
@@ -1432,13 +1432,13 @@
     <value>Zrušeno</value>
   </data>
   <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
-    <value>Možný klient</value>
+    <value>Potencionální klient</value>
   </data>
   <data name="ActivityTaskTypeBossTask" xml:space="preserve">
-    <value>Úkol</value>
+    <value>Pokyn</value>
   </data>
   <data name="ActivityTaskTypeOther" xml:space="preserve">
-    <value>Více</value>
+    <value>Jiné</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
     <value>Projekt</value>
@@ -1477,7 +1477,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Šek</value>
@@ -1513,103 +1513,103 @@
     <value>Nezadáno</value>
   </data>
   <data name="FirmAddressContactTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CloseDealReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="DealStageNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InformationSourceNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ReasonForNewDealNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FasCommentNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ProductTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="MarketTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="UsingOtherMediaOptionNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountRoleNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FamilyStatusNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GenderNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderTerminationReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionAccountingMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionCalculationMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BudgetTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GeolocationNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OutCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="StaffAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AllOrdersReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ObjectBindingTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountsReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="SalesReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BusinessOperationTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
     <value>Zveřejnění šablony RM</value>
@@ -1618,7 +1618,7 @@
     <value>Zrušení zveřejnění šablony RM</value>
   </data>
   <data name="ESalesPointTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
     <value>Pobočka</value>
@@ -1633,7 +1633,7 @@
     <value>ŘS</value>
   </data>
   <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
     <value>Místní reklama na pobočce</value>
@@ -1681,10 +1681,10 @@
     <value>Chyba</value>
   </data>
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
-    <value>Úprava zástupného symbolu RM</value>
+    <value>Úprava zástupného materiálu RM</value>
   </data>
   <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
-    <value>Hledání objednávek se zástupnými symboly RM</value>
+    <value>Hledání objednávek se zástupnými materiály RM</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
     <value>Reklama na BADy</value>
@@ -1717,7 +1717,7 @@
     <value>Withdrawing</value>
   </data>
   <data name="OrderFileKindWarrantyScan" xml:space="preserve">
-    <value>PLNÁ MOC</value>
+    <value>Plná moc</value>
   </data>
   <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
     <value>Čestné prohlášení Objednavatele</value>
@@ -1819,7 +1819,7 @@
     <value>Podle prodané rubriky</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountTypeCurrentAccount" xml:space="preserve">
     <value>Текущий счёт</value>
