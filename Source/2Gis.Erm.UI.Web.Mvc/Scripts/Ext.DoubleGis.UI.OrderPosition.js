@@ -166,4 +166,9 @@ window.InitPage = function ()
         this.BusinessLogic.prepareToSave();
         this.Advertisements.prepareToSave();
     }, this);
+
+    this.on('afterpost', function () {
+        var self = this;
+        setTimeout(function () { self.BusinessLogic.setupAmountFieldAvailability(); });
+    });
 }
