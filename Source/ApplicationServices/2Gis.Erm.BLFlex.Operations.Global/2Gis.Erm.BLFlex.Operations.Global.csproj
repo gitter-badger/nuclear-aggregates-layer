@@ -93,6 +93,7 @@
     <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
+    <Compile Include="Shared\CzechFormatterFactory.cs" />
     <Compile Include="Shared\ChileFormatterFactory.cs" />
     <Compile Include="Shared\Consistency\ChileLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\ConsistencyRule.cs" />
