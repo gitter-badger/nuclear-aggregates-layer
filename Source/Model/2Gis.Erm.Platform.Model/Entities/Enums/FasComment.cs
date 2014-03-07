@@ -9,6 +9,17 @@
         DrugsAndService = 4,
         Abortion = 5,
         NewFasComment = 6,
+
+        // czech
+        AlcoholAdvertising = 200,
+        MedsMultiple = 201,
+        MedsSingle = 202,
+        DietarySupplement = 203,
+        SpecialNutrition = 204,
+        ChildNutrition = 205,
+        FinancilaServices = 206,
+        MedsTraditional = 207,
+        Biocides = 208
     }
 
     public enum FasCommentDisplayText
@@ -20,5 +31,16 @@
         DrugsAndService = 4,
         Abortion = 5,
         NewFasComment = 6,
+
+        // czech
+        AlcoholAdvertising = 200,
+        MedsMultiple = 201,
+        MedsSingle = 202,
+        DietarySupplement = 203,
+        SpecialNutrition = 204,
+        ChildNutrition = 205,
+        FinancilaServices = 206,
+        MedsTraditional = 207,
+        Biocides = 208
     }
 }
