@@ -1796,21 +1796,21 @@
     <value>Banky</value>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
-    <value>Уведомление о расторжении договора</value>
+    <value>Oznámení o zrušení smlouvy</value>
   </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
-    <value>Фирмы в резерве по городу Никосия</value>
+    <value>Firmy v rezervě v Nikosii</value>
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
-    <value>Фирмы в резерве по городу Лимассол</value>
+    <value>Firmy v rezervě v Limassolu</value>
   </data>
   <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Komuny</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Banky</value>
   </data>
   <data name="DListCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Komuny</value>
   </data>
 </root>
