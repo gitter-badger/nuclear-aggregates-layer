@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -750,9 +750,6 @@
   <data name="OrderIsCorrect" xml:space="preserve">
     <value>The order is correct</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Task</value>
-  </data>
   <data name="Search" xml:space="preserve">
     <value>Search:</value>
   </data>
@@ -906,10 +903,13 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Messages for the request</value>
   </data>
-  <data name="BillNumber" xml:space="preserve">
-    <value>Payment number</value>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
   </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Do you really want to change limit status to</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Payment number</value>
   </data>
 </root>

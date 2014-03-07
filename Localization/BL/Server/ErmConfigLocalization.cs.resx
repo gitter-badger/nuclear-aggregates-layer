@@ -159,6 +159,9 @@
   <data name="NavGroupOrders" xml:space="preserve">
     <value>Objednávky</value>
   </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Adresare Cili</value>
+  </data>
   <data name="NavGroupServices" xml:space="preserve">
     <value>Servis</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="NavGroupRoles" xml:space="preserve">
     <value>Role</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Banky</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Komuny</value>
   </data>
   <data name="CrdRelAccountDetails" xml:space="preserve">
     <value>Operace</value>
@@ -1179,6 +1188,9 @@
   <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
     <value>Odeslání odpisů</value>
   </data>
+  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Odesílání odpisů do sběrnice</value>
+  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Nahrát</value>
   </data>
@@ -1433,6 +1445,9 @@
   </data>
   <data name="DFieldCategoryIsPrimary" xml:space="preserve">
     <value>Základní</value>
+  </data>
+  <data name="DCategoryGroup" xml:space="preserve">
+    <value>Skupina</value>
   </data>
   <data name="DListUsersInOrganizationUnit" xml:space="preserve">
     <value>Uživatelé v oddělení organizace</value>
@@ -1752,12 +1767,6 @@
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Čestné prohlášení Objednavatele</value>
   </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Odesílání odpisů do sběrnice</value>
-  </data>
-  <data name="DCategoryGroup" xml:space="preserve">
-    <value>Skupina</value>
-  </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
     <value>Požadavky z OP</value>
   </data>
@@ -1787,13 +1796,7 @@
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Požadavek z OP</value>
-    <comment>ЛК - сокращение от &apos;Личный кабинет&apos;</comment>
-  </data>
-  <data name="NavGroupChileDirectory" xml:space="preserve">
-    <value>Adresare Cili</value>
-  </data>
-  <data name="NavGroupBanks" xml:space="preserve">
-    <value>Banky</value>
+    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Oznámení o zrušení smlouvy</value>
@@ -1803,9 +1806,6 @@
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Firmy v rezervě v Limassolu</value>
-  </data>
-  <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Komuny</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Banky</value>

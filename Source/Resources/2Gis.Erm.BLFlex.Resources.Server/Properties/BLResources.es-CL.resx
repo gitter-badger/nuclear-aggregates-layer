@@ -261,14 +261,14 @@ Penezni ustav:  {5}</value>
     <value>Existe una persona juridica del cliente oculta con RUT especificados</value>
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
-    <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
+    <value>Se debe utilizar la extensión de esencia LegalPersonProfile de Chile</value>
     <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
-    <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>
+    <value>Formato no válido de RUT. Formato permitido: 12.345.678-K</value>
   </data>
   <data name="InvalidChileRutChecksum" xml:space="preserve">
-    <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
+    <value>La verificación fallida de la suma de control del valor de RUT {0}</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
     <value>Se han duplicado los numeros de factura: {0}</value>
@@ -280,7 +280,7 @@ Penezni ustav:  {5}</value>
     <value>Ya se han creado las siguientes facturas: {0}</value>
   </data>
   <data name="CannotDeleteUsedBank" xml:space="preserve">
-    <value>Банк используется. Перед удалением избавьтесь от ссылок на него.</value>
+    <value>El banco se está utilizando. Quítele todos los enlaces antes de eliminarlo.</value>
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>The operation of commune creation is not supported</value>

@@ -750,9 +750,6 @@
   <data name="OrderIsCorrect" xml:space="preserve">
     <value>Objednávka je správná</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Úkol</value>
-  </data>
   <data name="Search" xml:space="preserve">
     <value>Hledat:</value>
   </data>
@@ -905,6 +902,9 @@
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Zprávy pro pažadavek</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Úkol</value>
   </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Skutečně si přejete změnit stav limitu na</value>

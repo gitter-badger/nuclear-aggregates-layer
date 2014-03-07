@@ -238,40 +238,40 @@ Penezni ustav:  {5}</value>
     <value>7.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
+    <value>8. The Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.
 9.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
+    <value>7. The Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.
 8.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Индивидуальный предприниматель с указанным RUT уже существует</value>
+    <value>A Sole Proprietorship with the specified RUT already exists</value>
   </data>
   <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Юр. лицо клиента с указанными RUT уже существует</value>
+    <value>The Customer's legal entity with the specified RUTs already exists</value>
   </data>
   <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Существует удаленный Индивидуальный предприниматель с указанным RUT</value>
+    <value>A deleted Sole Proprietorship with the specified RUT exists</value>
   </data>
   <data name="ChileDeletedLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Существует удаленное юр. лицо клиента с указанными RUT</value>
+    <value>The deleted legal entity of the Customer with the specified RUTs exists</value>
   </data>
   <data name="ChileInactiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Существует скрытый Индивидуальный предприниматель с указанным RUT</value>
+    <value>A hidden Sole Proprietorship with the specified RUT exists</value>
   </data>
   <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Существует скрытое юр. лицо клиента с указанными RUT</value>
+    <value>The hidden legal entity of the Customer with the specified RUTs exists</value>
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
-    <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
+    <value>The Chilean extension for the LegalPersonProfile entity should be used</value>
     <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
-    <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>
+    <value>Incorrect RUT format Valid format: 12.345.678-K</value>
   </data>
   <data name="InvalidChileRutChecksum" xml:space="preserve">
-    <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
+    <value>RUT value {0} did not pass the checksum test</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
     <value>Duplicate payment numbers have been entered: {0}</value>
@@ -283,7 +283,7 @@ Penezni ustav:  {5}</value>
     <value>Payments with the following numbers have been already created: {0}</value>
   </data>
   <data name="CannotDeleteUsedBank" xml:space="preserve">
-    <value>Банк используется. Перед удалением избавьтесь от ссылок на него.</value>
+    <value>The bank is being used. Remove the links to it before you delete it.</value>
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>The operation of commune creation is not supported</value>

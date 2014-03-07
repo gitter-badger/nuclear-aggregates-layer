@@ -1,69 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
@@ -81,42 +81,42 @@
               <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
               <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
               <xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
     <value>2.0</value>
-	</resheader>
-	<resheader name="reader">
+  </resheader>
+  <resheader name="reader">
     <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
+  </resheader>
+  <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  </resheader>
   <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
     <value>{0}
 Passport: series {1} No. {2},
@@ -152,12 +152,12 @@ Bank Name: {7}
 {8}</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as "Customer", represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as "Customer", represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
-	<data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
+  <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
     <value>Total discount: {0} - {1} ({2}).
 </value>
   </data>
@@ -165,18 +165,18 @@ Bank Name: {7}
     <value>Internet-sites and Web-applications specified in Price-list as of date of advertisement placement</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Mass media: &quot;{0}&quot; (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
+    <value>1. Mass media: "{0}" (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
 2. Internet-site 2gis.com.cy.
 3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internet-site at maps.2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
@@ -186,10 +186,10 @@ Bank Name: {7}
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Cannot create an Invoice for legal entity of the type &apos;{0}&apos; specified in the profile</value>
+    <value>Cannot create an Invoice for legal entity of the type '{0}' specified in the profile</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Legal entities of the type &apos;{0}&apos; specified in the profile cannot act act on the basis of {1}</value>
+    <value>Legal entities of the type '{0}' specified in the profile cannot act act on the basis of {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
@@ -249,7 +249,7 @@ Penezni ustav:  {5}</value>
     <value>A Sole Proprietorship with the specified RUT already exists</value>
   </data>
   <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>The Customer&apos;s legal entity with the specified RUTs already exists</value>
+    <value>The Customer's legal entity with the specified RUTs already exists</value>
   </data>
   <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>A deleted Sole Proprietorship with the specified RUT exists</value>
@@ -284,5 +284,8 @@ Penezni ustav:  {5}</value>
   </data>
   <data name="CannotDeleteUsedBank" xml:space="preserve">
     <value>The bank is being used. Remove the links to it before you delete it.</value>
+  </data>
+  <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
+    <value>The operation of commune creation is not supported</value>
   </data>
 </root>
