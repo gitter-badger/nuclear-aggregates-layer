@@ -313,7 +313,7 @@
     <value>Approved</value>
   </data>
   <data name="LimitStatusOpened" xml:space="preserve">
-    <value>Открыто</value>
+    <value>Opened</value>
   </data>
   <data name="LimitStatusRejected" xml:space="preserve">
     <value>Rejected</value>
