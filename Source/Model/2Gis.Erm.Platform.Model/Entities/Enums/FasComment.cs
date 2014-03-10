@@ -10,6 +10,7 @@
         Abortion = 5,
         NewFasComment = 6,
 
+        // TODO {d.ivanov, a.tukaev, 10.03.2014}: Либо реализовать возможность расширения enum-ов на уровне компонентов (Core и BLFlex), либо отказаться от enum-а и сделать для комментария ФАС полноценный справочник
         // czech
         AlcoholAdvertising = 200,
         MedsMultiple = 201,
@@ -32,6 +33,7 @@
         Abortion = 5,
         NewFasComment = 6,
 
+        // FIXME {a.tukaev, 10.03.2014}: Зачем нам FasComment и такой же по структуре FasCommentDisplayText? Можем оставить только один?
         // czech
         AlcoholAdvertising = 200,
         MedsMultiple = 201,
