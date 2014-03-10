@@ -1477,7 +1477,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUnderfined" xml:space="preserve">
-    <value>-- Не переведено PaymentMethodUnderfined --</value>
+    <value></value>
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Cheque</value>
@@ -1804,13 +1804,13 @@
     <value>Otro</value>
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
-    <value>Don't apply</value>
+    <value>No aplicar</value>
   </data>
   <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
-    <value>By most expensive category</value>
+    <value>Según la categoría con la publicidad más cara</value>
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
-    <value>By referenced category</value>
+    <value>Según la categoría vendida</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
     <value></value>

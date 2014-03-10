@@ -1804,13 +1804,13 @@
     <value>Action</value>
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
-    <value>Don't apply</value>
+    <value>Do not apply</value>
   </data>
   <data name="PricePositionRateTypeMostExpensiveCategory" xml:space="preserve">
-    <value>By most expensive category</value>
+    <value>The most expensive category</value>
   </data>
   <data name="PricePositionRateTypeBoundCategory" xml:space="preserve">
-    <value>By referenced category</value>
+    <value>The sold category</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
     <value></value>
