@@ -209,6 +209,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
@@ -269,6 +270,7 @@
     <Compile Include="Services\Cards\CzechLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Multiculture\MulticultureFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
