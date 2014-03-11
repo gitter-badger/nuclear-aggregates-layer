@@ -967,7 +967,9 @@
     <value>Není uvedeno {0}.</value>
   </data>
   <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
-    <value>Zpracováno bez chyb:{0}\r\nNeblokující chyby:{1}\r\nBlokujících chyb:{2}</value>
+    <value>Zpracováno bez chyb:{0}
+Neblokující chyby:{1}
+Blokujících chyb:{2}</value>
   </data>
   <data name="AdvertisementElements" xml:space="preserve">
     <value>Prvky reklamního materiálu</value>
@@ -1288,7 +1290,8 @@
     <value>10.</value>
   </data>
   <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.\r\n11.</value>
+    <value>10. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
+11.</value>
   </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Neznámý uživatel</value>
@@ -1522,7 +1525,9 @@
     <value>Země</value>
   </data>
   <data name="ErrorWhenProcessingMessages" xml:space="preserve">
-    <value>Chyba při zpracování zpráv.\r\nCelkem zpráv: {0}, úspěšně zpracováno {1} zpráv.\r\nCelkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
+    <value>Chyba při zpracování zpráv.
+Celkem zpráv: {0}, úspěšně zpracováno {1} zpráv.
+Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="AccessSharingName" xml:space="preserve">
     <value>Jméno</value>
@@ -2061,6 +2066,10 @@
   <data name="FirstLevel" xml:space="preserve">
     <value>1. úroveň</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
+    <value>;</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Ne</value>
   </data>
@@ -2551,7 +2560,11 @@
     <value>Není možné deaktivovat zakázanou položku ze zveřejněného ceníku</value>
   </data>
   <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>Na osobní účet byla připsána platba: {0}.\r\nPrávnická osoba objednatele: {1}.\r\nPrávnická osoba zhotovitele: {2}.\r\nPřipsaná částka: {3}.\r\nOperace provedena: {4}.</value>
+    <value>Na osobní účet byla připsána platba: {0}.
+Právnická osoba objednatele: {1}.
+Právnická osoba zhotovitele: {2}.
+Připsaná částka: {3}.
+Operace provedena: {4}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Je třeba zavřít všechny aktivní plány spojené s tímto objektem</value>
@@ -4198,7 +4211,8 @@
     <value>Je třeba vybrat alespoň jednu položku z balíčku</value>
   </data>
   <data name="XSDValidationError" xml:space="preserve">
-    <value>Výsledek neprošel validací XSD. Důvody:\r\n{0}</value>
+    <value>Výsledek neprošel validací XSD. Důvody:
+{0}</value>
   </data>
   <data name="ExportLocalMessageError" xml:space="preserve">
     <value>Došlo k chybě: {0}. Podrobnosti naleznete v popisu zprávy</value>
@@ -4813,7 +4827,8 @@
     <value>Potenciální klient</value>
   </data>
   <data name="HotClientDescriptionTemplate" xml:space="preserve">
-    <value>Telefon: {0}\r\nKontakt: {1}</value>
+    <value>Telefon: {0}
+Kontakt: {1}</value>
   </data>
   <data name="ImportHotClientRequiredAttributeNotFound" xml:space="preserve">
     <value>Povinný atribut {0} nenalezen</value>
@@ -5128,16 +5143,21 @@
     <value>V osobním profilu byl vytvořen požadavek na prolongaci objednávky {0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
-    <value>Firma: {0}.\r\nPr. osoba: {1}.\r\nZačátek zveřejnění: {2}.\r\nDoba zveřejnění: {3}.</value>
+    <value>Firma: {0}.
+Pr. osoba: {1}.
+Začátek zveřejnění: {2}.
+Doba zveřejnění: {3}.</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDescriptionTemplate" xml:space="preserve">
-    <value>Podrobnosti: \r\n{0}</value>
+    <value>Podrobnosti: 
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorMessagePrefixTemplate" xml:space="preserve">
     <value>Blokující! </value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorsEnumerationTemplate" xml:space="preserve">
-    <value>Během vytvoření objednávky vznikly následující chyby:\r\n{0}</value>
+    <value>Během vytvoření objednávky vznikly následující chyby:
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailRenewedOrderTemplate" xml:space="preserve">
     <value>Požadavek byl zpracován a podle něj byla vytvořena objednávka {0}</value>

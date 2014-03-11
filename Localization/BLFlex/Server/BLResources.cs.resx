@@ -118,19 +118,38 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}\r\nPrůkaz totožnosti: řada {1} č. {2},\r\nVydán: {3}\r\nRegistrace: {4}</value>
+    <value>{0}
+Průkaz totožnosti: řada {1} č. {2},
+Vydán: {3}
+Registrace: {4}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}\r\nDIČ: {1}\r\nSídlo: {2}\r\nPlatební údaje: {3}</value>
+    <value>{0}
+DIČ: {1}
+Sídlo: {2}
+Platební údaje: {3}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
-    <value>{0}\r\nDIČ: {1} Kód důvodu registrace organizace k platbě daní: {2}\r\nSídlo: {3}\r\nPlatební údaje: {4}</value>
+    <value>{0}
+DIČ: {1} Kód důvodu registrace organizace k platbě daní: {2}
+Sídlo: {3}
+Platební údaje: {4}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}\r\nPrůkaz totožnosti č. {2},\r\nVydán: {3}\r\nMísto bydliště: {4}</value>
+    <value>{0}
+Průkaz totožnosti č. {2},
+Vydán: {3}
+Místo bydliště: {4}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}\r\nT.I.C.: {1}    V.A.T. Reg. č. {2}\r\nSídlo: {3}\r\nIBAN {4}\r\nSWIFT {5}\r\nČíslo účtu {6}\r\nNázev banky {7}\r\n{8}</value>
+    <value>{0}
+T.I.C.: {1}    V.A.T. Reg. č. {2}
+Sídlo: {3}
+IBAN {4}
+SWIFT {5}
+Číslo účtu {6}
+Název banky {7}
+{8}</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
     <value>{0}, dále jen „zhotovitel“ zastoupený {1} {2} jednajícím na základě {3}, na jedné straně, a {4}, dále jen „objednatel“ zastoupený {5} {6} jednajícím na základě {7}, na straně druhé, uzavřeli tuto objednávku o následujícím:</value>
@@ -139,13 +158,16 @@
     <value>{0}, dále jen „zhotovitel“ zastoupený {1} {2} jednajícím na základě {3}, na jedné straně, a občan(ka) {4}, dále jen „objednatel“ {5}, na straně druhé, uzavřeli tuto objednávku o následujícím:</value>
   </data>
   <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
-    <value>Celková sleva: {0} - {1} ({2}).\r\n</value>
+    <value>Celková sleva: {0} - {1} ({2}).
+</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
     <value>Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Média: „{0}“ (verze pro PC a mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}.\r\n2. Internetový portál 2gis.cz.\r\n3. Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
+    <value>1. Média: „{0}“ (verze pro PC a mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}.
+2. Internetový portál 2gis.cz.
+3. Internetové stránky a webové aplikace uvedené v ceníku ke dni zveřejnění reklamy.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
     <value>Média: „{0}“ (mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
@@ -160,7 +182,8 @@
     <value>7.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.\r\n8.</value>
+    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
+8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
@@ -181,10 +204,17 @@
     <value>, na základě {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IČ: {0}         DIČ: {1}  \r\nMisto podnikání: {2}\r\nČíslo účtu: {3}/{4}\r\nPeněžní ústav: {5}</value>
+    <value>IČ: {0}         DIČ: {1}  
+Misto podnikání: {2}
+Číslo účtu: {3}/{4}
+Peněžní ústav: {5}</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IČ: {0}       	DIČ: {1}\r\nSídlo:  {2}\r\nZapsaná  {6}\r\nČíslo účtu:  {3}/{4}\r\nPeněžní ústav:  {5}</value>
+    <value>IČ: {0}       	DIČ: {1}
+Sídlo:  {2}
+Zapsaná  {6}
+Číslo účtu:  {3}/{4}
+Peněžní ústav:  {5}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
@@ -205,10 +235,12 @@
     <value>7.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.\r\n9.</value>
+    <value>8. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
+9.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.\r\n8.</value>
+    <value>7. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
+8.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Osoba samostatne vydelecne cinna s uvedenym RUT jiz existuje</value>
