@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -38,16 +39,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [DisplayNameLocalized("Text")]
         public string PlainText { get; set; }
 
-        [Dependency(DependencyType.Transfer, "PlainText", "var t = Ext.getDom('FasCommentDisplayText'); t.value=this.value; this.value=='NewFasComment'?(initially?undefined:''):t.options[t.selectedIndex].text;")]
+        [Dependency(DependencyType.Transfer, "PlainText", "var t = Ext.decode(Ext.getDom('FasCommentDisplayTextItems').value); this.value=='NewFasComment'?(initially?undefined:''):t[this.value];")]
         [Dependency(DependencyType.ReadOnly, "PlainText", "this.value!='NewFasComment'")]
         public FasComment? FasComment { get; set; }
+
+        public IReadOnlyDictionary<string, string> FasCommentDisplayTextItems { get; set; }
 
         public DateTime? BeginDate { get; set; }
 
         public DateTime? EndDate { get; set; }
-
-        [Dependency(DependencyType.Hidden, "FasCommentDisplayText", "true")]
-        public FasCommentDisplayText FasCommentDisplayText { get; set; }
 
         public long? FileId { get; set; }
 
