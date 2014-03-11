@@ -44,12 +44,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                     x.CreatedOn,
                     x.IsDeleted,
                     x.IsActive,
+                    x.LegalPersonId
                 })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                         new CzechListLegalPersonProfileDto
                         {
                             Id = x.Id,
+                            LegalPersonId = x.LegalPersonId,
                             Name = x.Name,
                             IsMainProfile = x.IsMainProfile,
                             OwnerCode = x.OwnerCode,

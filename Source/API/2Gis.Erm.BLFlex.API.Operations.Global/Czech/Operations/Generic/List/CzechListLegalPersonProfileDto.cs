@@ -14,5 +14,6 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.Li
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
         public DateTime CreatedOn { get; set; }
+        public long LegalPersonId { get; set; }
     }
 }
