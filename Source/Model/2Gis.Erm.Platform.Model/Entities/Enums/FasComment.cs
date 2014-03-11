@@ -22,7 +22,4 @@
         MedsTraditional = 207,
         Biocides = 208
     }
-
-    // FIXME {a.tukaev, 10.03.2014}: Зачем нам FasComment и такой же по структуре FasCommentDisplayText? Можем оставить только один?
-    // DONE {d.ivanov, 11.03.2014}: Сделано
 }
