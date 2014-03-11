@@ -60,7 +60,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
                         _logger.InfoFormatEx("Импорт рубрик - загружено {0} объектов из шины", package.Length);
                         if (package.Length != 0)
                         {
-                            ProcessPackageInTransaction(package, request.BasicLanguage, request.ReserveLanguage);
+                            try
+                            {
+                                ProcessPackageInTransaction(package, request.BasicLanguage, request.ReserveLanguage);
+                            }
+                            catch (Exception e)
+                            {
+                                _logger.FatalEx(e, "Импорт рубрик - ошибка при обработке пакета");
+                                throw;
+                            }
                         }
 
                         brokerApiReceiver.Acknowledge();
@@ -256,7 +264,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
             }
         }
 
-        private BusinessLogicException CreateBusinessException(string message, params object[] parameters)
+        private static BusinessLogicException CreateBusinessException(string message, params object[] parameters)
         {
             return new BusinessLogicException(string.Format(message, parameters));
         }
