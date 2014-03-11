@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 x.ContactType,
                 x.Contact,
                 x.CardId,
+                x.FirmAddressId,
             })
             .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListFirmContactDto
@@ -63,6 +64,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
                 Contact = x.Contact,
                 CardId = x.CardId,
+                FirmAddressId = x.FirmAddressId,
             });
 
             return data;
