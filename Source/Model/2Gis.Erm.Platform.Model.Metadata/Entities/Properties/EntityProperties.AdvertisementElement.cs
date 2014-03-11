@@ -65,9 +65,8 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.FasComment)),
 
-                    new EntityProperty("FasCommentDisplayText", typeof(FasCommentDisplayText))
-                        .WithFeatures(new HiddenFeature(),
-                                      new EnumPropertyFeature(EnumResources.ResourceManager)),
+                    new EntityProperty("FasCommentDisplayTextItems", typeof(IReadOnlyDictionary<string, string>))
+                        .WithFeatures(new HiddenFeature()),
 
                     EntityProperty.Create<AdvertisementElementDomainEntityDto>(dto => dto.BeginDate)
                                   .WithFeatures(
