@@ -12,5 +12,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string FileKind { get; set; }
         public string FileName { get; set; }
         public DateTime CreatedOn { get; set; }
+        public long BargainId { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public long LegalPersonId { get; set; }
         public bool IsMainProfile { get; set; }
         public long OwnerCode { get; set; }
         public DateTime CreatedOn { get; set; }

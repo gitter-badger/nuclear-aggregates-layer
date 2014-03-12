@@ -13,5 +13,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime EndDistribution { get; set; }
         public string TemplateCode { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

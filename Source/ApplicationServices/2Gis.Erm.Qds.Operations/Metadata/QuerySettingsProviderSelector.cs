@@ -1,6 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.Qds.Operations.Metadata
@@ -16,14 +17,14 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
             _newProvider = newProvider;
         }
 
-        public QuerySettings GetQuerySettings(EntityName entityName, SearchListModel searchListModel)
+        public QuerySettings GetQuerySettings(EntityName entityName, Type documentType, SearchListModel searchListModel)
         {
             switch (entityName)
             {
                 case EntityName.Client:
-                    return _newProvider.GetQuerySettings(entityName, searchListModel);
+                    return _newProvider.GetQuerySettings(entityName, documentType, searchListModel);
                 default:
-                    return _oldProvider.GetQuerySettings(entityName, searchListModel);
+                    return _oldProvider.GetQuerySettings(entityName, documentType, searchListModel);
             }
         }
     }

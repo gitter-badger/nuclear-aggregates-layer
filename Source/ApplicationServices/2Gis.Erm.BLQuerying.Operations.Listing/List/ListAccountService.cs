@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,24 +14,33 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListAccountService : ListEntityDtoServiceBase<Account, ListAccountDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 
         public ListAccountService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext, 
+            FilterHelper filterHelper, 
             ISecurityServiceUserIdentifier userIdentifierService)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
             _userIdentifierService = userIdentifierService;
         }
 
-        protected override IEnumerable<ListAccountDto> GetListData(
-            IQueryable<Account> query,
-            QuerySettings querySettings,
+        protected override IEnumerable<ListAccountDto> List(QuerySettings querySettings,
             out int count)
         {
+            var query = _finder.FindAll<Account>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var withHostedOrdersFilter = querySettings.CreateForExtendedProperty<Account, bool>(
                 "WithHostedOrders",
                 withHostedOrders =>
@@ -58,47 +66,41 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-                .ApplyFilter(withHostedOrdersFilter)
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(x => new 
-                    {
-                        Id = x.Id,
-                        IsDeleted = x.IsDeleted,
-                        CurrencyId = x.BranchOfficeOrganizationUnit.OrganizationUnit.Country.CurrencyId,
-                        LegalPersonId = x.LegalPersonId,
-                        ClientId = x.LegalPerson.ClientId,
-                        ClientName = x.LegalPerson.Client.Name,
-                        Inn = x.LegalPerson.Inn,
-                        BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                        BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnit.ShortLegalName,
-                        LegalPersonName = x.LegalPerson.LegalName,
-                        CurrencyName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Country.Currency.Name,
-                        OrganizationUnitId = x.BranchOfficeOrganizationUnit.OrganizationUnit.Id,
-                        OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
-                        AccountDetailBalance = x.Balance,
-                        CreateDate = x.CreatedOn,
-                        OwnerCode = x.OwnerCode,
-                    }).AsEnumerable()
-                .Select(x => new ListAccountDto
-                    {
-                        Id = x.Id,
-                        IsDeleted = x.IsDeleted,
-                        CurrencyId = x.CurrencyId,
-                        LegalPersonId = x.LegalPersonId,
-                        ClientId = x.ClientId,
-                        ClientName = x.ClientName,
-                        Inn = x.Inn,
-                        BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                        BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnitName,
-                        LegalPersonName = x.LegalPersonName,
-                        CurrencyName = x.CurrencyName,
-                        OrganizationUnitId = x.OrganizationUnitId,
-                        OrganizationUnitName = x.OrganizationUnitName,
-                        AccountDetailBalance = x.AccountDetailBalance,
-                        CreateDate = x.CreateDate,
-                        OwnerCode = x.OwnerCode,
-                        OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName
-                    }).ToArray();
+            .Filter(_filterHelper, withHostedOrdersFilter)
+            .DefaultFilter(_filterHelper, querySettings)
+            .Select(x => new ListAccountDto
+            {
+                Id = x.Id,
+
+                BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnit.ShortLegalName,
+
+                LegalPersonId = x.LegalPersonId,
+                LegalPersonName = x.LegalPerson.LegalName,
+
+                ClientId = x.LegalPerson.ClientId,
+                ClientName = x.LegalPerson.Client.Name,
+
+                Inn = x.LegalPerson.Inn,
+                AccountDetailBalance = x.Balance,
+
+                CurrencyId  = x.BranchOfficeOrganizationUnit.OrganizationUnit.Country.CurrencyId,
+                CurrencyName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Country.Currency.Name,
+
+                CreateDate = x.CreatedOn,
+                IsDeleted = x.IsDeleted,
+
+                OwnerCode = x.OwnerCode,
+
+                OrganizationUnitId = x.BranchOfficeOrganizationUnit.OrganizationUnit.Id,
+                OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x =>
+            {
+                x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                return x;
+            });
         }
     }
 }

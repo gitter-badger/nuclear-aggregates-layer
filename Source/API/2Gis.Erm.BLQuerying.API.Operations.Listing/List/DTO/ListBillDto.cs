@@ -19,5 +19,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public decimal PayablePlan { get; set; }
         public DateTime PaymentDatePlan { get; set; }
         public DateTime CreatedOn { get; set; }
+        public long OrderId { get; set; }
     }
 }

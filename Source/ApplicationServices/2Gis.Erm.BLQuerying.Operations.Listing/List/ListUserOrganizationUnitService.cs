@@ -1,55 +1,49 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using System.Collections.Generic;
+
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListUserOrganizationUnitService : IListGenericEntityService<UserOrganizationUnit>
-    {
-        private readonly IQuerySettingsProvider _querySettingsProvider;
-        private readonly IFinderBaseProvider _finderBaseProvider;
 
-        public ListUserOrganizationUnitService(IQuerySettingsProvider querySettingsProvider, IFinderBaseProvider finderBaseProvider)
+    public sealed class ListUserOrganizationUnitService : ListEntityDtoServiceBase<UserOrganizationUnit, ListUserOrganizationUnitDto>
+    {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
+        public ListUserOrganizationUnitService(
+            IQuerySettingsProvider querySettingsProvider, 
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
-            _querySettingsProvider = querySettingsProvider;
-            _finderBaseProvider = finderBaseProvider;
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        public ListResult List(SearchListModel searchListModel)
+        protected override IEnumerable<ListUserOrganizationUnitDto> List(QuerySettings querySettings, out int count)
         {
-            int count;
-            var entityType = typeof(UserOrganizationUnit);
-            var entityName = entityType.AsEntityName();
+            var query = _finder.FindAll<UserOrganizationUnit>();
 
-            var finderBase = _finderBaseProvider.GetFinderBase(entityName);
-            var query = finderBase.FindAll<UserOrganizationUnit>();
+            var data = query
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new ListUserOrganizationUnitDto
+                {
+                    Id = x.Id,
+                    UserId = x.UserId,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    OrganizationUnitName = x.OrganizationUnitDto.Name,
+                    UserName = x.User.DisplayName,
+                    UserDepartmentName = x.User.Department.Name,
+                    UserRoleName = x.User.UserRoles.Select(y => y.Role.Name)
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
 
-            var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
-
-            var dynamicList = query.Select(x => new
-                                       {
-                                           x.Id,
-                                           x.UserId,
-                                           x.OrganizationUnitId,
-                                           OrganizationUnitName = x.OrganizationUnitDto.Name,
-                                           UserName = x.User.DisplayName,
-                                           UserDepartmentName = x.User.Department.Name,
-                                           UserRoleName = x.User.UserRoles.Select(y => y.Role.Name)
-                                       })
-                                   .ApplyQuerySettings(querySettings, out count)
-                                   .ToDynamicList(querySettings.Fields);
-
-            return new DynamicListResult
-            {
-                Data = dynamicList,
-                RowCount = count,
-                MainAttribute = querySettings.MainAttribute
-            };
+            return data;
         }
     }
 }

@@ -8,5 +8,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long Id { get; set; }
         public string ContactType { get; set; }
         public string Contact { get; set; }
+        public long? CardId { get; set; }
+        public long? FirmAddressId { get; set; }
     }
 }

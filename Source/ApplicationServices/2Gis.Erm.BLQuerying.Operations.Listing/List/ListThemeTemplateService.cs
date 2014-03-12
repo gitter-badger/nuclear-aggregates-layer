@@ -16,34 +16,41 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListThemeTemplateService : ListEntityDtoServiceBase<ThemeTemplate, ListThemeTemplateDto>
     {
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
+
         public ListThemeTemplateService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListThemeTemplateDto> GetListData(IQueryable<ThemeTemplate> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListThemeTemplateDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<ThemeTemplate>();
+
             return query
                 .Where(Specs.Find.ActiveAndNotDeleted<ThemeTemplate>())
-                .ApplyQuerySettings(querySettings, out count)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
-                    {
-                        x.Id,
-                        x.TemplateCode,
-                        x.File.FileName
-                    })
-                .AsEnumerable()
-                .Select(x =>
-                        new ListThemeTemplateDto
-                            {
-                                Id = x.Id,
-                                TemplateCode = ((ThemeTemplateCode)x.TemplateCode).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                FileName = x.FileName
-                            });
+                {
+                    x.Id,
+                    x.TemplateCode,
+                    x.File.FileName
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ListThemeTemplateDto
+                {
+                    Id = x.Id,
+                    TemplateCode = ((ThemeTemplateCode)x.TemplateCode).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                    FileName = x.FileName
+                });
         }
     }
 }

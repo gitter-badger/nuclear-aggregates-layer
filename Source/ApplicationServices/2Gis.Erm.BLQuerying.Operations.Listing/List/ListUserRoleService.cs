@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -12,20 +11,26 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListUserRoleService : ListEntityDtoServiceBase<UserRole, ListUserRoleDto>
     {
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
+
         public ListUserRoleService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
-            IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListUserRoleDto> GetListData(IQueryable<UserRole> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListUserRoleDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<UserRole>();
+
             var data = query
+            .DefaultFilter(_filterHelper, querySettings)
             .Select(x => new
-        {
+            {
                 // filters
                 x.UserId,
 
@@ -33,8 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 x.RoleId,
                 RoleName = x.Role.Name,
             })
-            .ApplyQuerySettings(querySettings, out count)
-            .AsEnumerable()
+            .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListUserRoleDto
             {
                 Id = x.Id,

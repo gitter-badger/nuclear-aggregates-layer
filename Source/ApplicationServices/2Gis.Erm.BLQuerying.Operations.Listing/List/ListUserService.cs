@@ -14,28 +14,33 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListUserService : ListEntityDtoServiceBase<User, ListUserDto>
+    public sealed class ListUserService : ListEntityDtoServiceBase<User, ListUserDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IFinder _finder;
         private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
 
         public ListUserService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
-            IUserContext userContext)
-        : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
+            _finder = finder;
             _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListUserDto> GetListData(IQueryable<User> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListUserDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<User>();
+
             var hideReserveUserFilter = querySettings.CreateForExtendedProperty<User, bool>(
                 "hideReserveUser",
                 hideReserveUser =>
@@ -75,31 +80,32 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
 
             return query
-                .ApplyFilter(hideReserveUserFilter)
-                .ApplyFilter(hideServiceUsersFilter)
-                .ApplyFilter(roleFilter)
-                .ApplyFilter(userOrgUnitFilter)
-                .ApplyFilter(privilegyFilter)
-                .ApplyFilter(excludeIdFilter)
-                .ApplyFilter(subordinatesFilter)
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(x =>
-                        new ListUserDto
-                            {
-                                Id = x.Id,
-                                DisplayName = x.DisplayName,
-                                Account = x.Account,
-                                FirstName = x.FirstName,
-                                LastName = x.LastName,
-                                DepartmentName = x.Department.Name,
-                                ParentName = x.Parent.DisplayName,
-                                RoleName = x.UserRoles.Select(role => role.Role.Name).OrderBy(item => item),
-                                IsActive = x.IsActive,
-                                IsDeleted = x.IsDeleted
-                            });
+                .Filter(_filterHelper
+                , hideReserveUserFilter
+                , hideServiceUsersFilter
+                , roleFilter
+                , userOrgUnitFilter
+                , privilegyFilter
+                , excludeIdFilter
+                , subordinatesFilter)
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new ListUserDto
+                {
+                    Id = x.Id,
+                    DisplayName = x.DisplayName,
+                    Account = x.Account,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    DepartmentName = x.Department.Name,
+                    ParentName = x.Parent.DisplayName,
+                    RoleName = x.UserRoles.Select(role => role.Role.Name).OrderBy(item => item),
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
 
-        private Expression<Func<User, bool>> GetSubordinatesFilter(IQueryable<User> query, Expression<Func<User, bool>> subordinatesFilter)
+        private static Expression<Func<User, bool>> GetSubordinatesFilter(IQueryable<User> query, Expression<Func<User, bool>> subordinatesFilter)
         {
             // Формирует фильтр по подчинённым сотрудникам, последовательно получая идентификаторы каждого уровня 
             // и затем фильтруя пользователей по этим идентификаторам

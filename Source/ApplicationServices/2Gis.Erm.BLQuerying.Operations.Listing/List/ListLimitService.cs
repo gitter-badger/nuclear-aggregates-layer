@@ -15,23 +15,37 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListLimitService : ListEntityDtoServiceBase<Limit, ListLimitDto>
+    public sealed class ListLimitService : ListEntityDtoServiceBase<Limit, ListLimitDto>
     {
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly FilterHelper _filterHelper;
 
         public ListLimitService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
             IUserContext userContext,
-            ISecurityServiceUserIdentifier userIdentifierService)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            ISecurityServiceUserIdentifier userIdentifierService,
+            FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _userContext = userContext;
             _userIdentifierService = userIdentifierService;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListLimitDto> GetListData(IQueryable<Limit> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListLimitDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<Limit>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var nextMonthForStartPeriodDateFilter = querySettings.CreateForExtendedProperty<Limit, bool>(
                 "useNextMonthForStartPeriodDate",
                 useNextMonth =>
@@ -47,22 +61,28 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 });
 
             return query
-                .ApplyFilter(nextMonthForStartPeriodDateFilter)
-                .ApplyQuerySettings(querySettings, out count)
+                .Filter(_filterHelper, nextMonthForStartPeriodDateFilter)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
                     {
                         x.Id,
+                        x.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
                         BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
                         LegalPersonName = x.Account.LegalPerson.LegalName,
                         x.CreatedOn,
                         x.CloseDate,
                         x.Amount,
+                        x.Account.LegalPerson.ClientId,
                         ClientName = x.Account.LegalPerson.Client.Name,
                         x.OwnerCode,
                         x.InspectorCode,
-                        Status = (LimitStatus)x.Status
+                        Status = (LimitStatus)x.Status,
+                        x.AccountId,
+                        x.IsActive,
+                        x.IsDeleted,
+                        x.Account.LegalPersonId,
                     })
-                .AsEnumerable()
+                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListLimitDto
                     {
                         Id = x.Id,
@@ -71,10 +91,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         CreatedOn = x.CreatedOn,
                         CloseDate = x.CloseDate,
                         Amount = x.Amount,
-                        Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo),
+                        Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
                         ClientName = x.ClientName,
+                        OwnerCode = x.OwnerCode,
                         OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
+                        InspectorCode = x.InspectorCode,
                         InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName,
+                        AccountId = x.AccountId,
+                        ClientId = x.ClientId,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
+                        LegalPersonId = x.LegalPersonId,
+                        BranchOfficeId = x.BranchOfficeId,
                     });
         }
     }

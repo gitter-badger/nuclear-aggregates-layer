@@ -1,59 +1,73 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using System.Collections.Generic;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListFirmContactService : IListGenericEntityDtoService<FirmContact, ListFirmContactDto>
+    public sealed class ListFirmContactService : ListEntityDtoServiceBase<FirmContact, ListFirmContactDto>
     {
-        private readonly IQuerySettingsProvider _querySettingsProvider;
-        private readonly IFirmRepository _firmRepository;
+        private readonly IFinder _finder;
         private readonly IUserContext _userContext;
+        private readonly IFirmRepository _firmRepository;
+        private readonly FilterHelper _filterHelper;
 
-        public ListFirmContactService(IQuerySettingsProvider querySettingsProvider, IFirmRepository firmRepository, IUserContext userContext)
+        public ListFirmContactService(
+            IQuerySettingsProvider querySettingsProvider,
+            IFinder finder,
+            IUserContext userContext,
+            IFirmRepository firmRepository, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
-            _querySettingsProvider = querySettingsProvider;
-            _firmRepository = firmRepository;
+            _finder = finder;
             _userContext = userContext;
+            _firmRepository = firmRepository;
+            _filterHelper = filterHelper;
         }
 
-        public ListResult List(SearchListModel searchListModel)
+        protected override IEnumerable<ListFirmContactDto> List(QuerySettings querySettings, out int count)
         {
-            int count;
-
-            var entityName = typeof(FirmContact).AsEntityName();
-
-            var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
-            var data = _firmRepository.GetContacts(searchListModel.ParentEntityId.Value)
-                               .AsQueryable()
-                               .ApplyQuerySettings(querySettings, out count)
-                               .Select(x => new { x.Id, x.ContactType, x.Contact })
-                               .AsEnumerable()
-                               .Select(
-                                   x =>
-                                   new ListFirmContactDto
-                                       {
-                                           Id = x.Id,
-                                           ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                           Contact = x.Contact
-                                       })
-                               .ToArray();
-
-            return new EntityDtoListResult<FirmContact, ListFirmContactDto>
+            IQueryable<FirmContact> query;
+            if (querySettings.ParentEntityName == EntityName.FirmAddress && querySettings.ParentEntityId != null)
             {
-                Data = data,
-                RowCount = count,
-                MainAttribute = querySettings.MainAttribute
-            };
+                query = _firmRepository.GetContacts(querySettings.ParentEntityId.Value).AsQueryable();
+            }
+            else
+            {
+                query = _finder.FindAll<FirmContact>();
+            }
+
+            var data = query
+            .DefaultFilter(_filterHelper, querySettings)
+            .Select(x => new
+            {
+                x.Id,
+                x.ContactType,
+                x.Contact,
+                x.CardId,
+                x.FirmAddressId,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x => new ListFirmContactDto
+            {
+                Id = x.Id,
+                ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                Contact = x.Contact,
+                CardId = x.CardId,
+                FirmAddressId = x.FirmAddressId,
+            });
+
+            return data;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -18,19 +20,23 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
     [UseCase(Duration = UseCaseDuration.Long)]
     public class ListApplicationService : IListApplicationService, IListApplicationRestService
     {
+        private readonly IUIConfigurationService _configurationService;
+        private readonly IUserContext _userContext;
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public ListApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUseCaseTuner useCaseTuner, IUserContext userContext)
+        public ListApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUseCaseTuner useCaseTuner, IUIConfigurationService configurationService, IUserContext userContext)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
             _useCaseTuner = useCaseTuner;
+            _configurationService = configurationService;
+            _userContext = userContext;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            BLResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            MetadataResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            EnumResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
         }
 
         public ListResult Execute(EntityName entityName,
@@ -128,6 +134,8 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             // т.к. не обязательно время жизни operationservice всегда будет perusecase) применять к ней знания из метаданных
             _useCaseTuner.AlterDuration<ListApplicationService>();
 
+            var listService = _operationServicesManager.GetListEntityService(entityName);
+
             var searchListModel = new SearchListModel
                 {
                     Start = start,
@@ -141,9 +149,37 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                     ParentEntityName = parentType
                 };
 
-            var listService = _operationServicesManager.GetListEntityService(entityName);
-            var result = listService.List(searchListModel);
-            return result;
+            var listResult = listService.List(searchListModel);
+
+            listResult.MainAttribute = GetMainAtribute(entityName, nameLocaleResourceId);
+
+            return listResult;
+        }
+
+        // TODO Зарефакторить, list service не должен знать ничего о UI метаданных
+        private string GetMainAtribute(EntityName entityName, string nameLocaleResourceId)
+        {
+            try
+            {
+                var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+                var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
+
+                var dataListStructure = !string.IsNullOrEmpty(nameLocaleResourceId)
+                                            ? gridSettings.DataViews.Single(
+                                                x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase))
+                                            : gridSettings.DataViews.First();
+
+                if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
+                {
+                    throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
+                }
+
+                return dataListStructure.MainAttribute;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -13,39 +13,47 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListAdvertisementElementService : ListEntityDtoServiceBase<AdvertisementElement, ListAdvertisementElementDto>
+    public sealed class ListAdvertisementElementService : ListEntityDtoServiceBase<AdvertisementElement, ListAdvertisementElementDto>
     {
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
+
         public ListAdvertisementElementService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
+            _userContext = userContext;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListAdvertisementElementDto> GetListData(IQueryable<AdvertisementElement> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListAdvertisementElementDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<AdvertisementElement>();
+
             return query
-                .ApplyQuerySettings(querySettings, out count)
-                .Select(item => new
-                                    {
-                                        item.Id,
-                                        AdvertisementElementTemplateId = item.AdvertisementElementTemplate.Id,
-                                        AdvertisementElementTemplateName = item.AdvertisementElementTemplate.Name,
-                                        item.AdvertisementElementTemplate.RestrictionType,
-                                        item.AdvertisementElementTemplate.IsRequired
-                                    })
-                .AsEnumerable()
-                .Select(x =>
-                        new ListAdvertisementElementDto
-                            {
-                                Id = x.Id,
-                                AdvertisementElementTemplateId = x.AdvertisementElementTemplateId,
-                                AdvertisementElementTemplateName = x.AdvertisementElementTemplateName,
-                                IsRequired = x.IsRequired,
-                                RestrictionType = ((AdvertisementElementRestrictionType)x.RestrictionType).ToStringLocalized(EnumResources.ResourceManager, UserContext.Profile.UserLocaleInfo.UserCultureInfo)
-                            });
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new
+                {
+                    x.Id,
+                    AdvertisementElementTemplateId = x.AdvertisementElementTemplate.Id,
+                    AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
+                    x.AdvertisementElementTemplate.RestrictionType,
+                    x.AdvertisementElementTemplate.IsRequired,
+                    x.AdvertisementId,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ListAdvertisementElementDto
+                {
+                    Id = x.Id,
+                    AdvertisementElementTemplateId = x.AdvertisementElementTemplateId,
+                    AdvertisementElementTemplateName = x.AdvertisementElementTemplateName,
+                    IsRequired = x.IsRequired,
+                    RestrictionType = ((AdvertisementElementRestrictionType)x.RestrictionType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+                });
         }
     }
 }

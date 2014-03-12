@@ -16,24 +16,30 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public class ListOrganizationUnitService : ListEntityDtoServiceBase<OrganizationUnit, ListOrganizationUnitDto>
+    public sealed class ListOrganizationUnitService : ListEntityDtoServiceBase<OrganizationUnit, ListOrganizationUnitDto>
     {
-        private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IFinder _finder;
+        private readonly IUserContext _userContext;
+        private readonly FilterHelper _filterHelper;
+
         public ListOrganizationUnitService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
-            IUserContext userContext) 
-        : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            IUserContext userContext, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userContext = userContext;
+            _filterHelper = filterHelper;
             _functionalAccessService = functionalAccessService;
+            _finder = finder;
         }
 
-        protected override IEnumerable<ListOrganizationUnitDto> GetListData(IQueryable<OrganizationUnit> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListOrganizationUnitDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<OrganizationUnit>();
+
             var currencyFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "currencyId", currencyId => x => x.Country.CurrencyId == currencyId);
 
@@ -116,30 +122,31 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     x.BranchOfficeOrganizationUnits.Count(y => y.IsPrimary && y.BranchOffice.IsActive && !y.BranchOffice.IsDeleted) == 1);
 
             return query
-                 .Where(x => !x.IsDeleted)
-                 .ApplyFilter(currencyFilter)
-                 .ApplyFilter(orgUnitFilter)
-                 .ApplyFilter(firmFilter)
-                 .ApplyFilter(franchiseesFilter)
-                 .ApplyFilter(projectsFilter)
-                 .ApplyFilter(branchesMovedToErmFilter)
-                 .ApplyFilter(movedToErmFilter)
-                 .ApplyFilter(singlePrimaryBranchOfficeFilter)
-                 .ApplyQuerySettings(querySettings, out count)
-                 .Select(x =>
-                         new ListOrganizationUnitDto
-                             {
-                                 Id = x.Id,
-                                 Name = x.Name,
-                                 DgppId = x.DgppId,
-                                 CountryId = x.CountryId,
-                                 CountryName = x.Country.Name,
-                                 FirstEmitDate = x.FirstEmitDate,
-                                 ReplicationCode = x.ReplicationCode,
-                                 IsDeleted = x.IsDeleted,
-                                 IsActive = x.IsActive,
-                                 ErmLaunched = x.ErmLaunchDate != null
-                             });
+                .Where(x => !x.IsDeleted)
+                .Filter(_filterHelper
+                , currencyFilter
+                , orgUnitFilter
+                , firmFilter
+                , franchiseesFilter
+                , projectsFilter
+                , branchesMovedToErmFilter
+                , movedToErmFilter
+                , singlePrimaryBranchOfficeFilter)
+                .DefaultFilter(_filterHelper, querySettings)
+                .Select(x => new ListOrganizationUnitDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DgppId = x.DgppId,
+                    CountryId = x.CountryId,
+                    CountryName = x.Country.Name,
+                    FirstEmitDate = x.FirstEmitDate,
+                    ReplicationCode = x.ReplicationCode,
+                    IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
+                    ErmLaunched = x.ErmLaunchDate != null
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
          }
 
          private static WithdrawalAccess GetMaxAccess(int[] accesses)

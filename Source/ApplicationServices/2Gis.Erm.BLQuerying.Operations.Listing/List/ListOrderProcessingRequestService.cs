@@ -16,26 +16,31 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListOrderProcessingRequestService : ListEntityDtoServiceBase<OrderProcessingRequest, ListOrderProcessingRequestDto>
     {
+        private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly FilterHelper _filterHelper;
 
         public ListOrderProcessingRequestService(
             IQuerySettingsProvider querySettingsProvider, 
-            IFinderBaseProvider finderBaseProvider, 
             IFinder finder, 
             IUserContext userContext,
-            ISecurityServiceUserIdentifier userIdentifierService) 
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            ISecurityServiceUserIdentifier userIdentifierService, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
+            _finder = finder;
             _userContext = userContext;
             _userIdentifierService = userIdentifierService;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListOrderProcessingRequestDto> GetListData(IQueryable<OrderProcessingRequest> query, QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListOrderProcessingRequestDto> List(QuerySettings querySettings, out int count)
         {
+            var query = _finder.FindAll<OrderProcessingRequest>();
+
             return query
                 .Where(x => !x.IsDeleted)
-                .ApplyQuerySettings(querySettings, out count)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
                         {
                             x.Id,
@@ -56,7 +61,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
                         x.CreatedOn
                         })
-                .AsEnumerable()
+                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                         new ListOrderProcessingRequestDto
                         {

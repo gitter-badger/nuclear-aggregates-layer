@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dynamic">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -57,15 +54,36 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
+    <Compile Include="List\DTO\ListTimeZoneDto.cs" />
+    <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
+    <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListRoleDto.cs" />
+    <Compile Include="List\DTO\ListProjectDto.cs" />
+    <Compile Include="List\DTO\ListPositionChildrenDto.cs" />
+    <Compile Include="List\DTO\ListPositionCategoryDto.cs" />
+    <Compile Include="List\DTO\ListPlatformDto.cs" />
+    <Compile Include="List\DTO\ListOrderPositionDto.cs" />
+    <Compile Include="List\DTO\ListOrderPositionAdvertisementDto.cs" />
+    <Compile Include="List\DTO\ListCurrencyDto.cs" />
+    <Compile Include="List\DTO\ListCountryDto.cs" />
+    <Compile Include="List\DTO\ListContributionTypeDto.cs" />
+    <Compile Include="List\DTO\ListCategoryOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListCategoryGroupDto.cs" />
+    <Compile Include="List\DTO\ListBargainTypeDto.cs" />
+    <Compile Include="List\DTO\ListAssociatedPositionsGroupDto.cs" />
+    <Compile Include="List\DTO\ListAssociatedPositionDto.cs" />
+    <Compile Include="List\DTO\ListAdsTemplatesAdsElementTemplateDto.cs" />
     <Compile Include="List\DTO\ListAccountDetailDto.cs" />
     <Compile Include="List\DTO\ListAccountDto.cs" />
-    <Compile Include="List\DTO\ListActivityDto.cs" />
+    <Compile Include="List\DTO\ListActivityInstanceDto.cs" />
     <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementTemplateDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementTemplateDto.cs" />
     <Compile Include="List\DTO\ListBargainDto.cs" />
+    <Compile Include="List\DTO\ListBranchOfficeOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListBargainFileDto.cs" />
     <Compile Include="List\DTO\ListBillDto.cs" />
     <Compile Include="List\DTO\ListCategoryDto.cs" />
@@ -98,16 +116,19 @@
     <Compile Include="List\DTO\ListReleaseInfoDto.cs" />
     <Compile Include="List\DTO\ListTerritoryDto.cs" />
     <Compile Include="List\DTO\ListThemeDto.cs" />
+    <Compile Include="List\DTO\ListUserOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
     <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListUserDto.cs" />
+    <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
-    <Compile Include="List\DynamicListHelper.cs" />
+    <Compile Include="List\Metadata\FilteredFieldMetadata.cs" />
+    <Compile Include="List\Metadata\DataListMetadata.cs" />
     <Compile Include="List\Metadata\IQuerySettingsProvider.cs" />
-    <Compile Include="List\Metadata\QueryableExtensions.cs" />
-    <Compile Include="List\Metadata\QueryField.cs" />
     <Compile Include="List\Metadata\QuerySettings.cs" />
+    <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
+    <Compile Include="List\Metadata\RelationalMetadata.cs" />
     <Compile Include="Remote\List\IListApplicationRestService.cs" />
     <Compile Include="Remote\List\IListApplicationService.cs" />
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
@@ -133,12 +154,6 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dynamic Expressions.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
