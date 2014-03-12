@@ -1795,21 +1795,21 @@
     <value>Bancos</value>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
-    <value>Уведомление о расторжении договора</value>
+    <value>Notificación de anulación del acuerdo</value>
   </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
-    <value>Фирмы в резерве по городу Никосия</value>
+    <value>Empresas en reserva de la ciudad de Nicosia</value>
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
-    <value>Фирмы в резерве по городу Лимассол</value>
+    <value>Empresas en reserva de la ciudad de Limassol</value>
   </data>
   <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Comunas</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Bancos</value>
   </data>
   <data name="DListCommunes" xml:space="preserve">
-    <value>Коммуны</value>
+    <value>Comunas</value>
   </data>
 </root>

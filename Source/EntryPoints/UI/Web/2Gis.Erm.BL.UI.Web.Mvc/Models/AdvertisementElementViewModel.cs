@@ -51,7 +51,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public long? FileId { get; set; }
 
-        public string FileTimestamp { get; set; }
         public override byte[] Timestamp { get; set; }
 
         // Пустая строка для this.value означает, что будет выбрано значение enum, соответствующее 0, т.е. AdvertisementElementError.Absent
@@ -93,7 +92,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             FileName = advertisementElementDto.FileName;
             FileContentLength = advertisementElementDto.FileContentLength;
             FileContentType = advertisementElementDto.FileContentType;
-            FileTimestamp = advertisementElementDto.FileTimestamp;
             Timestamp = advertisementElementDto.Timestamp;
             NeedsValidation = advertisementElementDto.NeedsValidation;
             CanUserChangeStatus = advertisementElementDto.CanUserChangeStatus;
@@ -130,12 +128,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                     TemplateRestrictionType = TemplateRestrictionType,
                     FasCommentType = FasComment,
                     PlainText = PlainText,
-                    FormattedText = FormattedText,
+                    FormattedText = Unescape(FormattedText),
                     FileId = FileId,
                     FileName = FileName,
                     FileContentLength = FileContentLength,
                     FileContentType = FileContentType,
-                    FileTimestamp = FileTimestamp,
                     Error = Error,
                     Status = Status,
 
@@ -143,6 +140,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                     OwnerRef = new EntityReference(Owner != null && Owner.Key.HasValue ? Owner.Key.Value : 0),
                     Timestamp = Timestamp
                 };
+        }
+
+        private static string Unescape(string formattedText)
+        {
+            // делаем unescape на форматированный текст, т.к. до этого в js на него делаем escape
+            // а escape в js мы сделали чтобы не передавать html в теле запроса, asp.net mvc ругается что это небезопасно
+            string unescapedText = formattedText;
+            if (!string.IsNullOrEmpty(formattedText))
+            {
+                // decode formatted text
+                unescapedText = Uri.UnescapeDataString(unescapedText).Replace("\u001d", string.Empty);
+                unescapedText = Uri.UnescapeDataString(unescapedText).Replace("&nbsp;", " ");
+            }
+
+            return unescapedText;
         }
     }
 }

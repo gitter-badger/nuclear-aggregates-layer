@@ -2,6 +2,8 @@
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 
+using FluentAssertions;
+
 using Machine.Specifications;
 
 using Moq;
@@ -32,9 +34,9 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.CostCalculationService
                 Discount = Calculator.CalculateDiscount(0, 100, 5, false);
             };
 
-            private It should_have_zero_discount_sum = () => Discount.Sum.ShouldEqual(decimal.Zero);
-            private It should_have_zero_discount_percent = () => Discount.Percent.ShouldEqual(decimal.Zero);
-            private It should_be_calculated_via_cash = () => Discount.CalculateDiscountViaPercent.ShouldBeFalse();
+            private It should_have_zero_discount_sum = () => Discount.Sum.Should().Equals(decimal.Zero);
+            private It should_have_zero_discount_percent = () => Discount.Percent.Should().Equals(decimal.Zero);
+            private It should_be_calculated_via_cash = () => Discount.CalculateDiscountViaPercent.Should().BeFalse();
         }
 
         private class When_calculating_discount_with_empty_price_and_discount_with_percent : CostCalculatorContext
@@ -44,9 +46,9 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.CostCalculationService
                 Discount = Calculator.CalculateDiscount(0, 100, 5, true);
             };
 
-            private It should_have_zero_discount_sum = () => Discount.Sum.ShouldEqual(decimal.Zero);
-            private It should_have_zero_discount_percent = () => Discount.Percent.ShouldEqual(decimal.Zero);
-            private It should_be_calculated_via_percent = () => Discount.CalculateDiscountViaPercent.ShouldBeTrue();
+            private It should_have_zero_discount_sum = () => Discount.Sum.Should().Equals(decimal.Zero);
+            private It should_have_zero_discount_percent = () => Discount.Percent.Should().Equals(decimal.Zero);
+            private It should_be_calculated_via_percent = () => Discount.CalculateDiscountViaPercent.Should().BeTrue();
         }
     }
 }
