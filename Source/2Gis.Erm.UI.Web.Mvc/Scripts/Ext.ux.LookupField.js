@@ -406,6 +406,12 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 queryString += (queryString ? "&" : "?") + "pType=" + this.parentEntityName;
                 queryString += (queryString ? "&" : "?") + "pId=" + parentId;
             }
+            else if (this.extendedInfo) {
+                // очищаем флаг 'filterToParent' если не можем найти parent (ERM-3576)
+                var extendedInfoDecoded = Ext.urlDecode(this.extendedInfo);
+                delete extendedInfoDecoded.filterToParent;
+                this.extendedInfo = Ext.urlEncode(extendedInfoDecoded);
+            }
         } else if (window.Ext.getDom("ViewConfig_Id") && window.Ext.getDom("ViewConfig_EntityName")) {
             var pid = window.Ext.getDom("ViewConfig_Id").value;
             var ptype = window.Ext.getDom("ViewConfig_EntityName").value;
