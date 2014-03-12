@@ -25,7 +25,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class CyprusGetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted
+    public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted
     {
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         private readonly ICostCalculator _costCalculator;
         private readonly IOrderReferencesReadModel _referencesReadModel;
 
-        public CyprusGetOrderDtoService(IUserContext userContext,
+        public GetOrderDtoService(IUserContext userContext,
                                         ISecureFinder finder,
                                         ISecurityServiceFunctionalAccess functionalAccessService,
                                         ISecurityServiceEntityAccess entityAccessService,
