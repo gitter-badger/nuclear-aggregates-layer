@@ -11,12 +11,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
             _dataViewFieldJson = dataViewFieldJson;
         }
 
-        public bool Filtered
-        {
-            get { return _dataViewFieldJson.Filtered; }
-            set { _dataViewFieldJson.Filtered = value; }
-        }
-
         public string ReferenceEntityName
         {
             set { _dataViewFieldJson.ReferenceEntityName = value; }
@@ -43,12 +37,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
         {
             get { return _dataViewFieldJson.NameLocaleResourceId; }
             set { _dataViewFieldJson.NameLocaleResourceId = value; }
-        }
-
-        public string ExpressionPath
-        {
-            get { return _dataViewFieldJson.ExpressionPath; }
-            set { _dataViewFieldJson.ExpressionPath = value; }
         }
 
         public string LocalizedName
@@ -85,12 +73,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
         {
             get { return _dataViewFieldJson.Type; }
             set { _dataViewFieldJson.Type = value; }
-        }
-
-        public string DotNetType
-        {
-            get { return _dataViewFieldJson.DotNetType; }
-            set { _dataViewFieldJson.DotNetType = value; }
         }
 
         public bool Sortable
