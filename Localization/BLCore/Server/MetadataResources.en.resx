@@ -418,7 +418,7 @@
     <value>Assessment of prospects</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Code of client&apos;s legal entity</value>
+    <value>Code of client's legal entity</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Required</value>
@@ -856,7 +856,7 @@
     <value>Order classification</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Profile of client&apos;s legal entity</value>
+    <value>Profile of client's legal entity</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Short name</value>
@@ -969,7 +969,7 @@
   <data name="MailSendingType" xml:space="preserve">
     <value>Mailout type</value>
   </data>
-  <data name="RatePricePosition" xml:space="preserve">
+  <data name="RateType" xml:space="preserve">
     <value>Apply coefficient</value>
   </data>
   <data name="NameLat" xml:space="preserve">
@@ -1050,11 +1050,11 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
-  <data name="ScheduledStart" xml:space="preserve">
-    <value>Start date</value>
-  </data>
   <data name="ScheduledEnd" xml:space="preserve">
     <value>End date</value>
+  </data>
+  <data name="ScheduledStart" xml:space="preserve">
+    <value>Start date</value>
   </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Month</value>
@@ -1311,4 +1311,37 @@
   <data name="AdvertisementElementErrorDescription" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="RepresentativeName" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="RepresentativePosition" xml:space="preserve">
+    <value>Position of the representative</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Business area</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>Commune</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedOn" xml:space="preserve">
+    <value>Issue date</value>
+  </data>
+  <data name="RepresentativeDocumentIssuedBy" xml:space="preserve">
+    <value>Issuer</value>
+  </data>
+  <data name="BankAccountType" xml:space="preserve">
+    <value>Account type</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Bank name</value>
+  </data>
+  <data name="RepresentativeRut" xml:space="preserve">
+  <value>RUT представителя</value>
+</data>
+  <data name="Rut" xml:space="preserve">
+  <value>RUT</value>
+</data>
+  <data name="OperationsKind" xml:space="preserve">
+  <value>Вид деятельности</value>
+</data>
 </root>

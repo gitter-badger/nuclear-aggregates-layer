@@ -118,55 +118,78 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}\r\nPassport: series {1} No. {2},\r\nIssued by: {3}\r\nRegistration: {4}</value>
+    <value>{0}
+Passport: series {1} No. {2},
+Issued by: {3}
+Registration: {4}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}\r\nT.I.C.: {1}\r\nLegal address: {2}\r\nPayment details: {3}</value>
+    <value>{0}
+T.I.C.: {1}
+Legal address: {2}
+Payment details: {3}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
-    <value>{0}\r\nT.I.C.: {1} Tax Registration Reason Code (KPP) {2}\r\nLegal address: {3}\r\nPayment details: {4}</value>
+    <value>{0}
+T.I.C.: {1} Tax Registration Reason Code (KPP) {2}
+Legal address: {3}
+Payment details: {4}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}\r\nPassport No.: {2},\r\nIssued by: {3}\r\nResidency address: {4}</value>
+    <value>{0}
+Passport No.: {2},
+Issued by: {3}
+Residency address: {4}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}\r\nT.I.C.: {1}    V.A.T. Reg. No {2}\r\nLegal address: {3}\r\nIBAN: {4}\r\nSWIFT: {5}\r\nAccount Number: {6}\r\nBank Name: {7}\r\n{8}</value>
+    <value>{0}
+T.I.C.: {1}    V.A.T. Reg. No {2}
+Legal address: {3}
+IBAN: {4}
+SWIFT: {5}
+Account Number: {6}
+Bank Name: {7}
+{8}</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as "Customer", represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as "Customer", represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
-    <value>Total discount: {0} - {1} ({2}).\r\n</value>
+    <value>Total discount: {0} - {1} ({2}).
+</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
     <value>Internet-sites and Web-applications specified in Price-list as of date of advertisement placement</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Mass media: &quot;{0}&quot; (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.\r\n2. Internet-site 2gis.com.cy.\r\n3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
+    <value>1. Mass media: "{0}" (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
+2. Internet-site 2gis.com.cy.
+3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internet-site at maps.2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>7. This Invoice comes into effect from {0}. The Invoice No.{1} as of {2} becomes inoperative from {3}.\r\n8.</value>
+    <value>7. This Invoice comes into effect from {0}. The Invoice No.{1} as of {2} becomes inoperative from {3}.
+8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Cannot create an Invoice for legal entity of the type &apos;{0}&apos; specified in the profile</value>
+    <value>Cannot create an Invoice for legal entity of the type '{0}' specified in the profile</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Legal entities of the type &apos;{0}&apos; specified in the profile cannot act act on the basis of {1}</value>
+    <value>Legal entities of the type '{0}' specified in the profile cannot act act on the basis of {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
@@ -179,12 +202,22 @@
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
     <value>, na zaklade {0} ze dne {1}</value>
+    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IC: {0}         DIC: {1}  \r\nMisto podnikani: {2}\r\nCislo uctu: {3}/{4}\r\nPenezni ustav: {5}</value>
+    <value>IC: {0}         DIC: {1}  
+Misto podnikani: {2}
+Cislo uctu: {3}/{4}
+Penezni ustav: {5}</value>
+    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IC: {0}       	DIC: {1}\r\nSidlo:  {2}\r\nZapsana  {6}\r\nCislo uctu:  {3}/{4}\r\nPenezni ustav:  {5}</value>
+    <value>IC: {0}       	DIC: {1}
+Sidlo:  {2}
+Zapsana  {6}
+Cislo uctu:  {3}/{4}
+Penezni ustav:  {5}</value>
+    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
@@ -205,9 +238,54 @@
     <value>7.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. The present Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.\r\n9.</value>
+    <value>8. The Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.
+9.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. The present Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.\r\n8.</value>
+    <value>7. The Invoice comes into effect from {0}. Invoice No. {1} of {2} becomes inoperative from {3}.
+8.</value>
+  </data>
+  <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>A Sole Proprietorship with the specified RUT already exists</value>
+  </data>
+  <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>The Customer's legal entity with the specified RUTs already exists</value>
+  </data>
+  <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>A deleted Sole Proprietorship with the specified RUT exists</value>
+  </data>
+  <data name="ChileDeletedLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>The deleted legal entity of the Customer with the specified RUTs exists</value>
+  </data>
+  <data name="ChileInactiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>A hidden Sole Proprietorship with the specified RUT exists</value>
+  </data>
+  <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>The hidden legal entity of the Customer with the specified RUTs exists</value>
+  </data>
+  <data name="ChilePartableExtensionMustBeApplied">
+    <value>The Chilean extension for the LegalPersonProfile entity should be used</value>
+    <comment>Первод этой строки не требуется</comment>
+  </data>
+  <data name="InvalidChileRutFormat">
+    <value>Incorrect RUT format Valid format: 12.345.678-K</value>
+  </data>
+  <data name="InvalidChileRutChecksum">
+    <value>RUT value {0} did not pass the checksum test</value>
+  </data>
+  <data name="DublicateBillNumbers" xml:space="preserve">
+    <value>Duplicate payment numbers have been entered: {0}</value>
+  </data>
+  <data name="WrongBillNumbers" xml:space="preserve">
+    <value>The following numbers have incorrect format: {0}</value>
+  </data>
+  <data name="ExistingBillNumbers" xml:space="preserve">
+    <value>Payments with the following numbers have been already created: {0}</value>
+  </data>
+  <data name="CannotDeleteUsedBank" xml:space="preserve">
+    <value>The bank is being used. Remove the links to it before you delete it.</value>
+  </data>
+  <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
+    <value>The operation of commune creation is not supported</value>
   </data>
 </root>

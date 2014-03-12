@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,23 +15,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
     public class CyprusListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, CyprusListLegalPersonDto>, ICyprusAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
 
         public CyprusListLegalPersonService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<CyprusListLegalPersonDto> GetListData(
-            IQueryable<LegalPerson> query,
-            QuerySettings querySettings,
+        protected override IEnumerable<CyprusListLegalPersonDto> List(QuerySettings querySettings,
             out int count)
         {
+            var query = _finder.FindAll<LegalPerson>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
                 "restrictForMergeId",
                 restrictForMergeId =>
@@ -67,8 +75,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                 });
 
             return query
-                .ApplyFilter(restrictForMergeFilter)
-                .ApplyQuerySettings(querySettings, out count)
+                .Filter(_filterHelper, restrictForMergeFilter)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
                 {
                     x.Id,
@@ -86,7 +94,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                     x.IsDeleted,
                     x.IsActive,
                 })
-                .AsEnumerable()
+                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                         new CyprusListLegalPersonDto
                         {

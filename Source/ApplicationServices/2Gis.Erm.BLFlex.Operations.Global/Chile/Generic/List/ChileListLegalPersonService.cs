@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,26 +12,35 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
 {
-    public class ChileListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, ChileListLegalPersonDto>, IChileAdapted
+    public sealed class ChileListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, ChileListLegalPersonDto>, IChileAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IFinder _finder;
+        private readonly FilterHelper _filterHelper;
 
         public ChileListLegalPersonService(
             IQuerySettingsProvider querySettingsProvider,
-            IFinderBaseProvider finderBaseProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            IUserContext userContext)
-            : base(querySettingsProvider, finderBaseProvider, finder, userContext)
+            FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
+            _finder = finder;
+            _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ChileListLegalPersonDto> GetListData(
-            IQueryable<LegalPerson> query,
-            QuerySettings querySettings,
+        protected override IEnumerable<ChileListLegalPersonDto> List(QuerySettings querySettings,
             out int count)
         {
+            var query = _finder.FindAll<LegalPerson>();
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                query = _filterHelper.ForSubordinates(query);
+            }
+
             var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
                 "restrictForMergeId",
                 restrictForMergeId =>
@@ -69,8 +77,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                 });
 
             return query
-                .ApplyFilter(restrictForMergeFilter)
-                .ApplyQuerySettings(querySettings, out count)
+                .Filter(_filterHelper, restrictForMergeFilter)
+                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new
                 {
                     x.Id,
@@ -81,19 +89,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                     x.OwnerCode,
                     x.Inn,
                 })
-                .AsEnumerable()
-                .Select(x =>
-                        new ChileListLegalPersonDto
-                        {
-                            Id = x.Id,
-                            LegalName = x.LegalName,
-                            Rut = x.Inn,
-                            LegalAddress = x.LegalAddress,
-                            ClientId = x.ClientId,
-                            ClientName = x.ClientName,
-                            OwnerCode = x.OwnerCode,
-                            OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                        });
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x => new ChileListLegalPersonDto
+                {
+                    Id = x.Id,
+                    LegalName = x.LegalName,
+                    Rut = x.Inn,
+                    LegalAddress = x.LegalAddress,
+                    ClientId = x.ClientId,
+                    ClientName = x.ClientName,
+                    OwnerCode = x.OwnerCode,
+                    OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
+                });
         }
     }
 }

@@ -1,47 +1,41 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
 {
-    public sealed class ListCommuneService : IListGenericEntityService<Commune>
+    public sealed class ListCommuneService : ListEntityDtoServiceBase<Commune, ChileListCommuneDto>, IChileAdapted
     {
         private readonly IFinder _finder;
-        private readonly IQuerySettingsProvider _querySettingsProvider;
+        private readonly FilterHelper _filterHelper;
 
-        public ListCommuneService(IFinder finder, IQuerySettingsProvider querySettingsProvider)
+        public ListCommuneService(IQuerySettingsProvider querySettingsProvider, IFinder finder, FilterHelper filterHelper)
+            : base(querySettingsProvider)
         {
             _finder = finder;
-            _querySettingsProvider = querySettingsProvider;
+            _filterHelper = filterHelper;
         }
 
-        public ListResult List(SearchListModel searchListModel)
+        protected override IEnumerable<ChileListCommuneDto> List(QuerySettings querySettings, out int count)
         {
-            int count;
-            var entityType = typeof(Commune);
-            var entityName = entityType.AsEntityName();
-
-            var querySettings = _querySettingsProvider.GetQuerySettings(entityName, searchListModel);
-
-            var dynamicList = _finder.FindAll<DictionaryEntityInstance>()
-                                     .Where(CommuneSpecifications.FindOnlyCommunes())
-                                     .Select(CommuneSpecifications.Select().Selector)
-                                     .ApplyQuerySettings(querySettings, out count)
-                                     .ToDynamicList(querySettings.Fields);
-
-            return new DynamicListResult
-            {
-                Data = dynamicList,
-                RowCount = count,
-                MainAttribute = querySettings.MainAttribute
-            };
+            return _finder.FindAll<DictionaryEntityInstance>()
+                   .Where(CommuneSpecifications.FindOnlyCommunes())
+                   .Select(CommuneSpecifications.Select().Selector)
+                   .DefaultFilter(_filterHelper, querySettings)
+                   .Select(x => new ChileListCommuneDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                    })
+                    .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

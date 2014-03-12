@@ -15,7 +15,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Orders
                     order => new CyprusOrderGridViewDto
                     {
                         Id = order.Id,
-                        Number = order.Number,
+                        OrderNumber = order.Number,
+                        CreatedOn = order.CreatedOn,
                         FirmId = order.FirmId,
                         FirmName = order.Firm.Name,
                         ClientId = order.Firm.Client.Id,
@@ -35,7 +36,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Orders
                         WorkflowStepId = order.WorkflowStepId,
                         PayablePlan = order.PayablePlan,
                         AmountWithdrawn = order.AmountWithdrawn,
-                        ModifiedOn = order.ModifiedOn
+                        ModifiedOn = order.ModifiedOn,
+                        AccountId = order.AccountId,
+                        DealId = order.DealId,
                     });
             }
         }
