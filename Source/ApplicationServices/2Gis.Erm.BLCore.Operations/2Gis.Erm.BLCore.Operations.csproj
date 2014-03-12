@@ -53,6 +53,8 @@
     <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
@@ -73,7 +75,6 @@
     <Compile Include="Concrete\Integration\Export\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\OperationsExporter.cs" />
-    <Compile Include="Concrete\Old\AdvertisementElements\AvailableStatesForAdvertisementElementHandler.cs" />
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
@@ -246,7 +247,10 @@
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\RevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalOperationService.cs" />
+    <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />
+    <Compile Include="Crosscutting\AdvertisementElements\IAdvertisementElementPlainTextHarmonizer.cs" />
     <Compile Include="Crosscutting\FirmWorkingTimeLocalizer.cs" />
+    <Compile Include="Crosscutting\CardLink\WebClientLinkToEntityCardFactory.cs" />
     <Compile Include="Generic\ActionHistory\ActionsHistoryService.cs" />
     <Compile Include="Generic\Activate\ActivateAssociatedPositionsGroupService.cs" />
     <Compile Include="Generic\Activate\ActivateBranchOfficeOrganizationUnitService.cs" />
@@ -284,6 +288,8 @@
     <Compile Include="Generic\CheckForDebts\CheckClientForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
+    <Compile Include="Generic\Create\CreateAdvertisementElementOperationService.cs" />
+    <Compile Include="Generic\Create\CreateOperationServiceBase.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionsGroupService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateBranchOfficeService.cs" />
@@ -326,10 +332,13 @@
     <Compile Include="Generic\Disqualify\DisqualifyClientService.cs" />
     <Compile Include="Generic\Disqualify\DisqualifyFirmService.cs" />
     <Compile Include="Generic\Disqualify\DisqualifyGenericEntityService.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\IUploadingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\UploadingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\File\DownloadFileGenericService.cs" />
     <Compile Include="Generic\File\DownloadNoteFileService.cs" />
     <Compile Include="Generic\File\DownloadPrintFormTemplateFileService.cs" />
     <Compile Include="Generic\File\FileService.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\UploadAdvertisementElementFileOperationService.cs" />
     <Compile Include="Generic\File\UploadFileGenericService.cs" />
     <Compile Include="Generic\File\UploadNoteFileService.cs" />
     <Compile Include="Generic\File\UploadPrintFormTemplateFileService.cs" />
@@ -451,7 +460,6 @@
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdditionalFirmServiceHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdsTemplatesAdsElementTemplateHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditAdvertisementElementHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementElementTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementTemplateHandler.cs" />
@@ -496,7 +504,7 @@
     <Compile Include="Generic\Modify\Old\EditUserProfileHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditWithdrawalInfoHandler.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyAccountUsingHandlerService.cs" />
-    <Compile Include="Generic\Modify\UsingHandler\ModifyAdvertisementElementUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyAdvertisementUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyBusinessModelEntityUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyLegalPersonUsingHandlerService.cs" />
@@ -511,6 +519,10 @@
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
     <Compile Include="Concrete\Themes\SetDefaultThemeOperation.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\IModifyingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\UpdateAdvertisementElementOperationService.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\Update\UpdateOperationServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Crosscutting\PaymentsDistributor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -558,6 +570,9 @@
     </Reference>
     <Reference Include="microsoft.xrm.client">
       <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

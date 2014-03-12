@@ -15,15 +15,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IOrderValidationResultsResetter _orderValidationResultsResetter;
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
 
         public ChangeBindingObjectsHandler(IUnitOfWork unitOfWork, 
             ISubRequestProcessor requestProcessor, 
-            IOrderValidationResultsResetter orderValidationResultsResetter)
+            IOrderValidationInvalidator orderValidationInvalidator)
         {
             _unitOfWork = unitOfWork;
             _requestProcessor = requestProcessor;
-            _orderValidationResultsResetter = orderValidationResultsResetter;
+            _orderValidationInvalidator = orderValidationInvalidator;
         }
 
         // TODO {all, 09.09.2013}: Скорее всего, нужно логировать как отдельную операцию. Сейчас логируется, как удаление и создание OrderPositionAdvertisement
@@ -44,9 +44,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 
                 var repo = scope.CreateRepository<IOrderRepository>();
                 repo.ChangeOrderPositionBindingObjects(request.OrderPositionId, request.Advertisements);
-                _orderValidationResultsResetter.SetGroupAsInvalid(checkResponse.OrderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
-                _orderValidationResultsResetter.SetGroupAsInvalid(checkResponse.OrderId, OrderValidationRuleGroup.ADPositionsValidation);
-                _orderValidationResultsResetter.SetGroupAsInvalid(checkResponse.OrderId, OrderValidationRuleGroup.Generic);
+                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.ADPositionsValidation);
+                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.Generic);
                 scope.Complete();
                 transaction.Complete();
                 return Response.Empty;

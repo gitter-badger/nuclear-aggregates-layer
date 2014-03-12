@@ -50,6 +50,8 @@
     </Compile>
     <Compile Include="Crosscutting\AD\ADUserProfile.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoService.cs" />
+    <Compile Include="Crosscutting\CardLink\HtmlLinkUtils.cs" />
+    <Compile Include="Crosscutting\CardLink\ILinkToEntityCardFactory.cs" />
     <Compile Include="Crosscutting\ProcessingResults\IProcessingResultsMessage.cs" />
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessage.cs" />
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessageType.cs" />
@@ -60,7 +62,6 @@
     <Compile Include="Metadata\Old\Dto\DataListColumnStructure.cs" />
     <Compile Include="Metadata\Old\Dto\DataListScriptReference.cs" />
     <Compile Include="Metadata\Old\Dto\DataListStructure.cs" />
-    <Compile Include="Metadata\Old\Dto\DtoUtils.cs" />
     <Compile Include="Metadata\Old\Dto\EntityDataListsContainer.cs" />
     <Compile Include="Metadata\Old\Dto\NavigationElementStructure.cs" />
     <Compile Include="Metadata\Old\Dto\ToolbarElementStructure.cs" />

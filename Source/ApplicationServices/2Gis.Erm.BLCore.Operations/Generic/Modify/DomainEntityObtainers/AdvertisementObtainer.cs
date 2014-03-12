@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var advertisement =
                 dto.Id == 0
                     ? new Advertisement()
-                    : _finder.Find(AdvertisementSpecifications.Find.AdvertisementById(dto.Id)).Single();
+                    : _finder.Find(Specs.Find.ById<Advertisement>(dto.Id)).Single();
 
             advertisement.FirmId = dto.FirmRef.Id.Value;
             advertisement.AdvertisementTemplateId = dto.AdvertisementTemplateRef.Id.Value;

@@ -68,7 +68,6 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                                         typeof(IOperationSpecificEntityDto).IsAssignableFrom(x) ||
                                         typeof(IDataListResult).IsAssignableFrom(x) ||
                                         x == typeof(ListResult) || x.IsSubclassOf(typeof(ListResult)) ||
-                                        x == typeof(DynamicListRow) || x == typeof(DynamicPropertyValue) ||
                                         x == typeof(EntityReference) ||
                                         x == typeof(AdvertisementDescriptor)) &&
                                        !x.IsGenericTypeDefinition)

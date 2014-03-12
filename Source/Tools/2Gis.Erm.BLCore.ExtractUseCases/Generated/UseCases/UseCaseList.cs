@@ -784,16 +784,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
                     {
-                        ContainingClass = typeof(EditAdvertisementElementHandler),
-                        Request = typeof(EditAdvertisementElementRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
                         ContainingClass = typeof(EditNoteHandler),
                         Request = typeof(EditNoteRequest)
                     }
@@ -1986,7 +1976,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\GetListData",
+                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\List",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
                     {
