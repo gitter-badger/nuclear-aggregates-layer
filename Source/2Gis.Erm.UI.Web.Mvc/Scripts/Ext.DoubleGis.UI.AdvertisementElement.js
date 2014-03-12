@@ -306,8 +306,6 @@
                             if (Ext.getDom('TemplateRestrictionType').value == "Image" && (Ext.getDom('FileId').value * 1)) {
                                 Ext.getDom('UploadedImage').src = String.format(Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/AdvertisementElement/{0}?_dc={1}', Ext.getDom('FileId').value, Ext.util.Format.cacheBuster());
                             }
-
-                            this.refresh(true);
                         },
                         fileuploadcomplete: function () {
                             this.Items.Toolbar.enable();
