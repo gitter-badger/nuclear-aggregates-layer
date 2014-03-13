@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders.DTO
         public long? LegalPersonId { get; set; }
         public string LegalPersonName { get; set; }
         public long OwnerCode { get; set; }
+        public string OwnerName { get; set; }
         public int WorkflowStepId { get; set; }
         public decimal PayablePlan { get; set; }
         public decimal AmountWithdrawn { get; set; }
