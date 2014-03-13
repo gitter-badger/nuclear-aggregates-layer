@@ -43,9 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\SearchSettings.cs" />
     <Compile Include="Settings\ISearchSettings.cs" />
     <Compile Include="Settings\Protocol.cs" />
+    <Compile Include="Settings\SearchSettingsAspect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
