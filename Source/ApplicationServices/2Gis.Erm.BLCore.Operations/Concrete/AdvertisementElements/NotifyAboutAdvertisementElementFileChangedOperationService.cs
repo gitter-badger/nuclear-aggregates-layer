@@ -61,7 +61,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
                 var mailInfo = _advertisementReadModel.GetMailNotificationDto(advertisementElementId);
                 if (mailInfo == null || mailInfo.FirmOwnerCode == _userContext.Identity.Code)
                 {
-                    // куратор заказа сам что-то поменял в рекламных материалах, нет необходимости в уведомлениях
+                    // куратор фирмы сам что-то поменял в рекламных материалах, нет необходимости в уведомлениях
+                    scope.Complete();
                     return;
                 }
 
