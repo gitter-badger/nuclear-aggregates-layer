@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
                         LegalPersonId = order.LegalPersonId,
                         LegalPersonName = order.LegalPerson.LegalName,
                         OwnerCode = order.OwnerCode,
+                        OwnerName = null,
                         BargainId = order.BargainId,
                         BargainNumber = order.Bargain.Number,
                         WorkflowStepId = order.WorkflowStepId,
