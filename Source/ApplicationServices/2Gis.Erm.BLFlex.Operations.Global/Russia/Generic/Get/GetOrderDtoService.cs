@@ -9,9 +9,8 @@ using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -40,6 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;
         private readonly ICostCalculator _costCalculator;
+        private readonly IOrderReferencesReadModel _referencesReadModel;
 
         public GetOrderDtoService(IUserContext userContext,
                                   ISecureFinder finder,
@@ -62,6 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             _firmRepository = firmRepository;
             _userRepository = userRepository;
             _costCalculator = costCalculator;
+            _referencesReadModel = new OrderReferencesReadModel(finder);
             _userContext = userContext;
         }
 
@@ -220,12 +221,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             if (parentEntityId.HasValue 
                 && (parentEntityName == EntityName.Client || parentEntityName == EntityName.Firm || parentEntityName == EntityName.LegalPerson))
             {
+                EntityReference clientRef;
                 EntityReference firmRef;
                 EntityReference legalPersonRef;
                 EntityReference destOrganizationUnitRef;
-                if (TryGetReferences(parentEntityName, parentEntityId.Value, out firmRef, out legalPersonRef, out destOrganizationUnitRef))
+                if (_referencesReadModel.TryGetReferences(parentEntityName, parentEntityId.Value, out clientRef, out firmRef, out legalPersonRef, out destOrganizationUnitRef))
                 {
-                    resultDto.ClientRef = null;
+                    resultDto.ClientRef = clientRef;
                     resultDto.FirmRef = firmRef;
                     resultDto.LegalPersonRef = legalPersonRef;
                 }
@@ -233,125 +235,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 if (resultDto.DestOrganizationUnitRef == null)
                 {
                     resultDto.DestOrganizationUnitRef = destOrganizationUnitRef;
-            }
+                }
             }
 
             return resultDto;
-        }
-
-        private bool TryGetReferences(EntityName entityName,
-                                      long entityId,
-                                      out EntityReference firmRef,
-                                      out EntityReference legalPersonRef,
-                                      out EntityReference destOrganizationUnitRef)
-        {
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    return GeLegalPersonReferenceByClient(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-                case EntityName.Firm:
-                    return GeLegalPersonReferenceByFirm(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-                case EntityName.LegalPerson:
-                    return GeLegalPersonReferenceByLegalPerson(entityId, out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-                default:
-                    return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-            }
-        }
-
-        private bool GeLegalPersonReferenceByLegalPerson(long legalPersonId,
-                                                         out EntityReference firmRef,
-                                                         out EntityReference legalPersonRef,
-                                                         out EntityReference destOrganizationUnitRef)
-        {
-            var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                              .Select(person => new
-                                  {
-                                      Firms = person.Client.Firms.Select(firm =>
-                                                                         new
-                                                                             {
-                                                                                 firm.Id,
-                                                                                 firm.Name,
-                                                                                 firm.OrganizationUnitId,
-                                                                                 OrganizationUnitName = firm.OrganizationUnit.Name
-                                                                             }),
-                                      LegalPerson = new { person.Id, person.LegalName },
-                                  })
-                              .SingleOrDefault();
-
-            if (data == null)
-            {
-                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-            }
-
-            firmRef = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
-            legalPersonRef = new EntityReference(data.LegalPerson.Id, data.LegalPerson.LegalName);
-            destOrganizationUnitRef = firmRef != null
-                                         ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUnitName)
-                                         : null;
-            return true;
-        }
-
-        private bool GeLegalPersonReferenceByFirm(long firmId,
-                                                  out EntityReference firmRef,
-                                                  out EntityReference legalPersonRef,
-                                                  out EntityReference destOrganizationUnitId)
-        {
-            var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                              .Select(firm => new
-                                  {
-                                      Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
-                                      LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName }),
-                                  })
-                              .SingleOrDefault();
-
-            if (data == null)
-            {
-                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitId);
-            }
-
-            firmRef = new EntityReference(data.Firm.Id, data.Firm.Name);
-            legalPersonRef = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
-            destOrganizationUnitId = new EntityReference(data.Firm.OrganizationUnitId, data.Firm.OrganizationUnitName);
-            return true;
-        }
-
-        private bool GeLegalPersonReferenceByClient(long clientId,
-                                                    out EntityReference firmRef,
-                                                    out EntityReference legalPersonRef,
-                                                    out EntityReference destOrganizationUnitRef)
-        {
-            var data = _finder.Find(Specs.Find.ById<Client>(clientId))
-                              .Select(client => new
-                                  {
-                                      Firms = client.Firms.Select(firm =>
-                                                                  new
-                                                                      {
-                                                                          firm.Id,
-                                                                          firm.Name,
-                                                                          firm.OrganizationUnitId,
-                                                                          OrganizationUNitName = firm.OrganizationUnit.Name
-                                                                      }),
-                                      LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
-                                  })
-                              .SingleOrDefault();
-
-            if (data == null)
-            {
-                return EmptyResult(out firmRef, out legalPersonRef, out destOrganizationUnitRef);
-            }
-
-            firmRef = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
-            legalPersonRef = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
-            destOrganizationUnitRef = firmRef != null ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUNitName) : null;
-            return true;
-        }
-
-        private bool EmptyResult(out EntityReference firmRef,
-                                 out EntityReference legalPersonRef,
-                                 out EntityReference destOrganizationUnit)
-        {
-            firmRef = legalPersonRef = destOrganizationUnit = null;
-            return false;
         }
 
         private OrderDomainEntityDto CreateOrderDto(long? dealId)

@@ -1362,7 +1362,7 @@
       </ToolbarItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListFirmContacts" DefaultSortField="FakeField" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Contact" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListFirmContacts" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Contact" Icon="en_ico_16_Default.gif">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="ContactType" NameLocaleResourceId="DFieldContactType" Width="200" FieldType="String" ExtTypeName="String" />
