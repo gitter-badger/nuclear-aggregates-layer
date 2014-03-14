@@ -3,11 +3,11 @@
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
     /// </summary>
     public sealed class NotifyAboutAdvertisementElementValidationStatusChangedOperationService : INotifyAboutAdvertisementElementValidationStatusChangedOperationService
     {
-        private readonly IAppSettings _appSettings;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly IAdvertisementReadModel _advertisementReadModel;
         private readonly INotificationSender _notificationSender;
         private readonly ILinkToEntityCardFactory _linkToEntityCardFactory;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
         private readonly ICommonLog _logger;
 
         public NotifyAboutAdvertisementElementValidationStatusChangedOperationService(
-            IAppSettings appSettings, 
+            INotificationsSettings notificationsSettings, 
             IAdvertisementReadModel advertisementReadModel,
             INotificationSender notificationSender,
             ILinkToEntityCardFactory linkToEntityCardFactory,
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
             IOperationScopeFactory scopeFactory,
             ICommonLog logger)
         {
-            _appSettings = appSettings;
+            _notificationsSettings = notificationsSettings;
             _advertisementReadModel = advertisementReadModel;
             _notificationSender = notificationSender;
             _linkToEntityCardFactory = linkToEntityCardFactory;
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AdvertisementElements
 
         public void Notify(long advertisementElementId)
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return;

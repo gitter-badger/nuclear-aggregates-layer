@@ -384,7 +384,9 @@
     <Compile Include="Remote\Delete\IDeleteApplicationRestService.cs" />
     <Compile Include="Remote\Delete\IDeleteApplicationService.cs" />
     <Compile Include="Remote\Settings\APIOperationsServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\APIWebClientServiceSettingsAspect.cs" />
     <Compile Include="Remote\Settings\IAPIOperationsServiceSettings.cs" />
+    <Compile Include="Remote\Settings\IAPIWebClientServiceSettings.cs" />
     <Compile Include="Remote\Settings\INotifiyProgressSettings.cs" />
     <Compile Include="Remote\MsCrm\IMsCrm2ErmApplicationService.cs" />
     <Compile Include="Remote\MsCrm\MsCrm2ErmErrorDescription.cs" />

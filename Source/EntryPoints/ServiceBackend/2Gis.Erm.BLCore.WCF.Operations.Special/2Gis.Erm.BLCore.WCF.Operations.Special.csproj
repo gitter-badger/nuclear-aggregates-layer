@@ -52,7 +52,6 @@
     <Compile Include="FinancialOperations\Calculate.svc.cs" />
     <Compile Include="FinancialOperations\OrderRequest.svc.cs" />
     <Compile Include="FinancialOperations\RequestState.svc.cs" />
-    <Compile Include="FinancialOperations\Settings\IFinancialOperationsAppSettings.cs" />
     <Compile Include="FirmInfo\FirmInfo.svc.cs" />
   </ItemGroup>
   <ItemGroup>
