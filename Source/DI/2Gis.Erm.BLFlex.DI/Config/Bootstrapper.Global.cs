@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;

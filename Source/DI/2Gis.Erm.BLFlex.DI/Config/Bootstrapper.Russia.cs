@@ -4,8 +4,8 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
