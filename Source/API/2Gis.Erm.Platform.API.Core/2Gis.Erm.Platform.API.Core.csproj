@@ -122,8 +122,6 @@
     <Compile Include="PersistenceCleanup\IDbCleaner.cs" />
     <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
-    <Compile Include="Settings\APIServices\APIWebClientServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIWebClientServiceSettings.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettingsInitializer.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAccessors.cs" />
