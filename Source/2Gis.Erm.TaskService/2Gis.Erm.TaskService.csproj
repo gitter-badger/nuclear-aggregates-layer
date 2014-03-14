@@ -90,6 +90,7 @@
       <HintPath>..\packages\Quartz.2.2.1\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
@@ -420,8 +421,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.101.config">
-        <DependentUpon>quartz.config</DependentUpon>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.102.config">
       <DependentUpon>quartz.config</DependentUpon>

@@ -1,5 +1,6 @@
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.DAL;
@@ -13,16 +14,16 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 {
     public sealed class CheckForDebtsOperationServiceTest : IIntegrationTest
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IFinder _finder;
         private readonly ICheckGenericEntityForDebtsService<Account> _checkForDebtsGenericEntityService;
 
         public CheckForDebtsOperationServiceTest(
-            IAppSettings appSettings,
+            IDebtProcessingSettings debtProcessingSettings,
             IFinder finder,
             ICheckGenericEntityForDebtsService<Account> checkForDebtsGenericEntityService)
         {
-            _appSettings = appSettings;
+            _debtProcessingSettings = debtProcessingSettings;
             _finder = finder;
             _checkForDebtsGenericEntityService = checkForDebtsGenericEntityService;
         }
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
                                                 .Where(l => l.IsActive && !l.IsDeleted)
                                                 .Sum(l => (decimal?)l.PlannedAmount) ?? 0)
                     })
-                .First(x => x.NetDebt <= _appSettings.MinDebtAmount);
+                .First(x => x.NetDebt <= _debtProcessingSettings.MinDebtAmount);
 
             return Result
                 .When(_checkForDebtsGenericEntityService.CheckForDebts(targetAccount.Id))

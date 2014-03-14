@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Qds.Etl.Transform.Docs;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.IndexService.DI;
 using DoubleGis.Erm.Qds.IndexService.Settings;
 
@@ -61,11 +62,11 @@ namespace DoubleGis.Erm.Qds.IndexService.Tests.Unit
         {
             Establish context = () =>
                 {
-                    ServiceSettings = new IndexServiceAppSettings();
+                    ServiceSettings = new IndexServiceAppSettings(BusinessModels.Supported);
                     Container = Bootstrapper.ConfigureUnity(ServiceSettings);
                 };
 
-            protected static IIndexServiceAppSettings ServiceSettings { get; private set; }
+            protected static IndexServiceAppSettings ServiceSettings { get; private set; }
             protected static IUnityContainer Container;
             protected static object Result;
         }

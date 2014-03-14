@@ -5,7 +5,10 @@ using System.Linq;
 using System.ServiceProcess;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.TaskService.DI;
 using DoubleGis.Erm.TaskService.Settings;
@@ -24,7 +27,8 @@ namespace DoubleGis.Erm.TaskService
                 Debugger.Launch();
             }
 
-            var settings = new TaskServiceAppSettings();
+            var settingsContainer = new TaskServiceAppSettings(BusinessModels.Supported);
+
             var loggerContextEntryProviders =
                 new ILoggerContextEntryProvider[] 
                 {
@@ -33,15 +37,15 @@ namespace DoubleGis.Erm.TaskService
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserIP, null),
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserBrowser, null),
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settings.EntryPointName)
+                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settingsContainer.AsSettings<IEnvironmentSettings>().EntryPointName)
                 };
 
             LogUtils.InitializeLoggingInfrastructure(
-                    settings.LoggingConnectionString(),
+                    settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
                     LogUtils.DefaultLogConfigFileFullPath,
                     loggerContextEntryProviders);
 
-            var diContainer = Bootstrapper.ConfigureUnity(settings);
+            var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
             var schedulerManager = diContainer.Resolve<ISchedulerManager>();
 
             if (IsConsoleMode(args))

@@ -9,13 +9,13 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BLCore.API.Operations.Remote;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -28,31 +28,33 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
-using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
+using DoubleGis.Erm.BLCore.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
-using DoubleGis.Erm.BLCore.WCF.Operations.Settings;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -66,7 +68,6 @@ using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -83,8 +84,9 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
     internal static class Bootstrapper
     {
         private static readonly Type[] EagerLoading = { typeof(ListOrderService), typeof(ActionsLogger) }; 
+
         public static IUnityContainer ConfigureUnity(
-            IBasicOperationsSettings settings,
+            ISettingsContainer settingsContainer, 
             ILoggerContextManager loggerContextManager)
         {
             // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
@@ -93,12 +95,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
@@ -114,10 +110,19 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
-            CheckConventionsСomplianceExplicitly();
+            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
+            return container.ConfigureUnityTwoPhase(
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            c => c.ConfigureUnity(
+                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                settingsContainer.AsSettings<IMsCrmSettings>(),
+                                settingsContainer.AsSettings<ICachingSettings>(),
+                                loggerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
 
@@ -191,20 +196,22 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
         private static IUnityContainer ConfigureUnity(
             this IUnityContainer container,
-            IBasicOperationsSettings settings,
-            ILoggerContextManager loggerContextManager,
-            IMassProcessor[] massProcessors,
-            bool firstRun)
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            IGlobalizationSettings globalizationSettings,
+            IMsCrmSettings msCrmSettings,
+            ICachingSettings cachingSettings,
+            ILoggerContextManager loggerContextManager)
         {
-            container.ConfigureAppSettings(settings)
+            return container
                 .ConfigureLogging(loggerContextManager)
-                .ConfigureGlobal(settings)
-                .CreateErmSpecific(settings)
+                .ConfigureGlobal(globalizationSettings)
+                .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(settings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, settings)
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, settings)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureEAV()
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
@@ -216,13 +223,9 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
-
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
-
-            return container;
         }
 
-        private static void CheckConventionsСomplianceExplicitly()
+        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
                 {
@@ -231,16 +234,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     typeof(EnumResources)
                 };
 
-            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IBasicOperationsSettings settings)
-        {
-            return container.RegisterAPIServiceSettings(settings)
-                            .RegisterMsCRMSettings(settings)
-                            .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<INotifiyProgressSettings>(settings)
-                            .RegisterInstance<IGlobalizationSettings>(settings);
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
@@ -248,9 +242,9 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
         {
-            return appSettings.EnableCaching
+            return cachingSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext)
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(CustomLifetime.PerOperationContext);
         }
@@ -262,7 +256,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
-        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IBasicOperationsSettings settings)
+        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {
             const string MappingScope = Mapping.Erm;
 
@@ -282,7 +276,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      // notification sender
-                     .ConfigureNotificationsSender(settings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
+                     .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
             return container;
         }

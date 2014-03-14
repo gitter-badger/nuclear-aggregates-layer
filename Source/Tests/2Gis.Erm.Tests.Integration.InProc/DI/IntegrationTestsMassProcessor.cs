@@ -18,7 +18,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         private readonly Func<LifetimeManager> _lifetimeManagerFactoryMethod;
         private readonly List<Type> _testTypes = new List<Type>();
 
-        public IntegrationTestsMassProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeManagerFactoryMethod)
+        public IntegrationTestsMassProcessor(
+            IUnityContainer container,
+            Func<LifetimeManager> lifetimeManagerFactoryMethod)
         {
             _container = container;
             _lifetimeManagerFactoryMethod = lifetimeManagerFactoryMethod;

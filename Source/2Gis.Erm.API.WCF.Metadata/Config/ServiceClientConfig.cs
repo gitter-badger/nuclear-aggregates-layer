@@ -1,6 +1,11 @@
 ﻿using System;
 using System.ServiceModel;
 
+using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
@@ -14,7 +19,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
         {
             var discoveryEndpointContainer = new DiscoveryEndpointContainer();
 
-            var releasingSvcSettings = container.Resolve<IAPIRealeasingServiceSettings>();
+            var releasingSvcSettings = container.Resolve<IAPIReleasingServiceSettings>();
             var modiSvcSettings = container.Resolve<IAPIMoDiServiceSettings>();
             var operationsSvcSettings = container.Resolve<IAPIOperationsServiceSettings>();
             var costCalculationSvcSettings = container.Resolve<IAPIFinancialOperationsServiceSettings>();

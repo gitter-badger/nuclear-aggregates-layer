@@ -3,8 +3,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -21,15 +24,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         [STAThread]
         public static void Main(string[] args)
         {
-            var settings = new TestAPIInProcOperationsSettings();
+            var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
+            
             var logger = CreateLogger();
 
             logger.InfoEx("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
 
+            var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
             logger.InfoEx(new StringBuilder()
                             .AppendLine("Runtime description:")
-                            .AppendLine("TargetEnvironment: " + settings.TargetEnvironment)
-                            .AppendLine("TargetEnvironmentName: " + settings.TargetEnvironmentName)
+                            .AppendLine("TargetEnvironment: " + environmentSettings.Type)
+                            .AppendLine("TargetEnvironmentName: " + environmentSettings.EnvironmentName)
                             .ToString());
 
             TestResultsSet testResults = null;

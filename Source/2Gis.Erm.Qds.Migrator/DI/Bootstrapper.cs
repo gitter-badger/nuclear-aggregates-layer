@@ -1,13 +1,13 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.DI.Config;
-using DoubleGis.Erm.Platform.API.Core.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.API.Operations.Indexers.Raw;
 using DoubleGis.Erm.Qds.Common;
@@ -23,25 +23,26 @@ namespace DoubleGis.Erm.Qds.Migrator.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(this IUnityContainer container, FakeAppSettings fakeAppSettings)
+        public static IUnityContainer ConfigureUnity(this IUnityContainer container, ISettingsContainer settingsContainer)
         {
-            container
-                .RegisterInstance<IAppSettings>(fakeAppSettings, Lifetime.Singleton)
-                .RegisterInstance<IMsCrmSettings>(fakeAppSettings, Lifetime.Singleton)
-                .ConfigureDAL(() => Lifetime.Singleton, fakeAppSettings);
-
-            container
-                .ConfigureSearch(fakeAppSettings, () => Lifetime.Singleton);
-
-            return container;
+            return container
+                        .ConfigureSettingsAspects(settingsContainer)
+                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory,
+                                      settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                      settingsContainer.AsSettings<IConnectionStringSettings>())
+                        .ConfigureSearch(EntryPointSpecificLifetimeManagerFactory);
         }
 
-        private static IUnityContainer ConfigureSearch(this IUnityContainer container, ISearchSettings searchSettingsInstance, Func<LifetimeManager> lifetime)
+        private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
+        {
+            return Lifetime.Singleton;
+        }
+
+        private static IUnityContainer ConfigureSearch(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
             container
-                .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton);
-
-            container
+                .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton)
+            
                 .RegisterType<IEntityIndexer<User>, UserIndexer>(lifetime())
                 .RegisterType<IEntityIndexerIndirect<User>, UserIndexer>(lifetime())
 
@@ -57,12 +58,8 @@ namespace DoubleGis.Erm.Qds.Migrator.DI
                 .RegisterType<IDocumentIndexer<RecordIdState>, RecordIdStateIndexer>(lifetime())
 
                 .RegisterType<IRawDocumentIndexer, RawDocumentIndexer>(lifetime())
-                .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime());
+                .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime())
 
-            container
-                .RegisterInstance(searchSettingsInstance, Lifetime.Singleton);
-
-            container
                 .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
                 .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
                 .RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);

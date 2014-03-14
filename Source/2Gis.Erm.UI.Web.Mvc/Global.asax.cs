@@ -15,12 +15,16 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Validators;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
 using DoubleGis.Erm.UI.Web.Mvc.DI;
+using DoubleGis.Erm.UI.Web.Mvc.Settings;
 
 using Microsoft.Practices.Unity;
 
@@ -64,7 +68,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_Start()
         {
-            var settings = new WebAppSettings();
+            var settings = new WebAppSettings(BusinessModels.Supported);
+
             var loggerContextEntryProviders =
                 new ILoggerContextEntryProvider[] 
                 {
@@ -73,12 +78,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                     new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserIP),
                     new LoggerContextEntryWebProvider(LoggerContextKeys.Required.UserBrowser),
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settings.EntryPointName)
+                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settings.AsSettings<IEnvironmentSettings>().EntryPointName)
                 };
 
             _loggerContextManager = 
                 LogUtils.InitializeLoggingInfrastructure(
-                    settings.LoggingConnectionString(),
+                    settings.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
                     LogUtils.DefaultLogConfigFileFullPath,
                     loggerContextEntryProviders);
 

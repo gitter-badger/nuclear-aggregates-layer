@@ -4,38 +4,43 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
-using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
 
-namespace DoubleGis.Erm.API.WCF.Operations.Special.Settings
+namespace DoubleGis.Erm.WCF.BasicOperations.Settings
 {
     /// <summary>
     /// Требования/соглашения см. в объявлении ISettingsContainer
     /// </summary>
-    public sealed class FinancialOperationsAppSettings : SettingsContainerBase, IOrderProcessingSettings
+    public sealed class OperationsSettings : SettingsContainerBase, INotifiyProgressSettings
     {
-        private readonly IntSetting _orderRequestProcessingHoursAmount = ConfigFileSetting.Int.Required("OrderRequestProcessingHoursAmount");
+        private readonly IntSetting _progressCallbackBatchSize = ConfigFileSetting.Int.Optional("ProgressCallbackBatchSize", 1);
 
-        public FinancialOperationsAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
+        public OperationsSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
             Aspects
                 .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                 .Use<DebtProcessingSettingsAspect>()
                 .Use<NotificationsSettingsAspect>()
                 .Use<CachingSettingsAspect>()
+                .Use<ValidateFileSettingsAspect>()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>());
         }
 
-        int IOrderProcessingSettings.OrderRequestProcessingHoursAmount
+        int INotifiyProgressSettings.ProgressCallbackBatchSize
         {
-            get { return _orderRequestProcessingHoursAmount.Value; }
+            get
+            {
+                return _progressCallbackBatchSize.Value;
+            }
         }
     }
 }

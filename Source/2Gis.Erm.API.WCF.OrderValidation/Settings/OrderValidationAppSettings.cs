@@ -1,20 +1,29 @@
-﻿using DoubleGis.Erm.BLCore.WCF.OrderValidation.Settings;
+﻿using System;
+using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.OrderValidation.Settings;
+using DoubleGis.Erm.BLCore.OrderValidation.Settings.Xml;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.Settings
 {
-    public sealed class OrderValidationAppSettings : CommonConfigFileAppSettings, IOrderValidationAppSettings
+    /// <summary>
+    /// Требования/соглашения см. в объявлении ISettingsContainer
+    /// </summary>
+    public sealed class OrderValidationAppSettings : SettingsContainerBase
     {
-        public IMsCrmSettings MsCrmSettings
+        public OrderValidationAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
-            get { return MsCRMSettings; }
-        }
-
-        public APIServicesSettingsAspect ServicesSettings
-        {
-            get { return APIServicesSettings; }
+            Aspects
+               .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
+               .Use(new OrderValidationSettingsAspect(AssociatedDeniedPositionsDescriptionsAccessor.GetPricePositionDescriptions()))
+               .Use<CachingSettingsAspect>()
+               .Use(RequiredServices
+                       .Is<APIIdentityServiceSettingsAspect>());
         }
     }
 }

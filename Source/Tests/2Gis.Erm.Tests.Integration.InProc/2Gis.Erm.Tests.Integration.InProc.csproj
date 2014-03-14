@@ -66,6 +66,7 @@
       <HintPath>..\..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -203,7 +204,6 @@
     <Compile Include="Suite\Infrastructure\TestFactory.cs" />
     <Compile Include="Suite\Infrastructure\TestResultsSet.cs" />
     <Compile Include="Suite\Infrastructure\InProcTestRunner.cs" />
-    <Compile Include="Settings\ITestAPIInProcOperationsSettings.cs" />
     <Compile Include="Settings\TestAPIInProcOperationsSettings.cs" />
     <Compile Include="Suite\Infrastructure\TestScope.cs" />
     <Compile Include="Suite\Infrastructure\TeamCityTestStatusObserver.cs" />
