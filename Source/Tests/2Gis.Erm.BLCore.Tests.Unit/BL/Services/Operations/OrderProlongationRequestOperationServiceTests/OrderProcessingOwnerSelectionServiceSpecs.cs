@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Model.Metadata.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -28,7 +31,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             protected static IOrderProcessingRequestService OrderProcessingRequestService;
             protected static IOperationScopeFactory ScopeFactory;
-            protected static IOrderProcessingRequestOwnerSelectionService UserSelectionService;
+            protected static IUserReadModel UserReadModel;
+            protected static ISecurityServiceUserIdentifier SecurityServiceUserIdentifier;
 
             protected static OrderProcessingRequest OrderProcessingRequest;
             protected static ICollection<IMessageWithType> Messages;
@@ -39,7 +43,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private Establish context = () =>
                 {
-                    UserSelectionService = Mock.Of<IOrderProcessingRequestOwnerSelectionService>();
+                    UserReadModel = Mock.Of<IUserReadModel>();
+                    SecurityServiceUserIdentifier = Mock.Of<ISecurityServiceUserIdentifier>();
                     OrderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
 
                     ScopeFactory = Mock.Of<IOperationScopeFactory>();
@@ -48,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     OrderProcessingRequest = new OrderProcessingRequest();
                     Messages = new List<IMessageWithType>();
 
-                    Target = new OrderProcessingOwnerSelectionService(UserSelectionService, OrderProcessingRequestService, ScopeFactory);
+                    Target = new OrderProcessingOwnerSelectionService(UserReadModel, OrderProcessingRequestService, SecurityServiceUserIdentifier, ScopeFactory);
                 };
 
             private Because of = () => Result = Target.FindOwner(OrderProcessingRequest, Messages);
@@ -87,8 +92,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                         .Setup(x => x.GetOrderDto(BASE_ORDER_ID))
                         .Returns(() => new OrderProcessingRequestOrderDto { OwnerCode = USER_ID, Id = BASE_ORDER_ID, Number = "XYZ" });
 
-                    Mock.Get(UserSelectionService)
-                        .Setup(x => x.GetOwner(USER_ID))
+                    Mock.Get(UserReadModel)
+                        .Setup(x => x.GetNotServiceUser(USER_ID))
                         .Returns(ExpectedUser);
                 };
 
@@ -123,8 +128,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     .Setup(x => x.GetOrderDto(Moq.It.IsAny<long>()))
                     .Returns<long>(orderId => new OrderProcessingRequestOrderDto { OwnerCode = 0, Id = orderId, Number = "XYZ_" + orderId });
 
-                Mock.Get(UserSelectionService)
-                    .Setup(x => x.GetOwner(USER_ID))
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.GetNotServiceUser(USER_ID))
                     .Returns(ExpectedUser);
             };
 
@@ -156,7 +161,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     .Setup(x => x.GetOrderDto(Moq.It.IsAny<long>()))
                     .Returns<long>(orderId => new OrderProcessingRequestOrderDto { OwnerCode = 0, Id = orderId, Number = "XYZ_" + orderId });
 
-                Mock.Get(UserSelectionService)
+                Mock.Get(UserReadModel)
                     .Setup(x => x.GetOrganizationUnitDirector(ORGANIZATION_UNIT_ID))
                     .Returns(ExpectedUser);
             };
@@ -173,7 +178,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                 const long FIRM_ID = 22222222222223;
                 const long ORGANIZATION_UNIT_ID = 22222222222224;
 
-                ExpectedUser = new User();
+                var reserveUserInfo = new UserInfo(27, "reserve", string.Empty);
+                ExpectedUser = new User { Id = reserveUserInfo.Code, Account = reserveUserInfo.Account };
 
                 OrderProcessingRequest.FirmId = FIRM_ID;
 
@@ -189,8 +195,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     .Setup(x => x.GetOrderDto(Moq.It.IsAny<long>()))
                     .Returns<long>(orderId => new OrderProcessingRequestOrderDto { OwnerCode = 0, Id = orderId, Number = "XYZ_" + orderId });
 
-                Mock.Get(UserSelectionService)
-                    .Setup(x => x.GetReserveUser())
+                Mock.Get(SecurityServiceUserIdentifier)
+                    .Setup(x => x.GetReserveUserIdentity())
+                    .Returns(reserveUserInfo);
+
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.GetUser(reserveUserInfo.Code))
                     .Returns(ExpectedUser);
             };
 
@@ -221,8 +231,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     .Setup(x => x.GetFirmDto(FIRM_ID))
                     .Returns(new OrderProcessingRequestFirmDto { Client = client });
 
-                Mock.Get(UserSelectionService)
-                    .Setup(x => x.GetOwner(USER_ID))
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.GetNotServiceUser(USER_ID))
                     .Returns(ExpectedUser);
             };
 
@@ -250,7 +260,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                         Client = new OrderProcessingRequestFirmDto.ClientDto()
                     });
 
-                Mock.Get(UserSelectionService)
+                Mock.Get(UserReadModel)
                     .Setup(x => x.GetOrganizationUnitDirector(ORGANIZATION_UNIT_ID))
                     .Returns(ExpectedUser);
             };
@@ -267,7 +277,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                 const long FIRM_ID = 22222222222223;
                 const long ORGANIZATION_UNIT_ID = 22222222222224;
 
-                ExpectedUser = new User();
+                var reserveUserInfo = new UserInfo(27, "reserve", string.Empty);
+                ExpectedUser = new User { Id = reserveUserInfo.Code, Account = reserveUserInfo.Account };
 
                 OrderProcessingRequest.FirmId = FIRM_ID;
 
@@ -279,8 +290,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                         Client = new OrderProcessingRequestFirmDto.ClientDto()
                     });
 
-                Mock.Get(UserSelectionService)
-                    .Setup(x => x.GetReserveUser())
+                Mock.Get(SecurityServiceUserIdentifier)
+                    .Setup(x => x.GetReserveUserIdentity())
+                    .Returns(reserveUserInfo);
+
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.GetUser(reserveUserInfo.Code))
                     .Returns(ExpectedUser);
             };
 

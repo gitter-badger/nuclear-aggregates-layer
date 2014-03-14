@@ -3,7 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
+using DoubleGis.Erm.BLCore.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         }
 
         private IEnumerable<PricePositionDto.RelatedItemDto> MergeRelatedPositions(long positionId,
-                                                                   IDictionary<long, IEnumerable<PricePositionDto.RelatedItemDto>> globalPositions,
+                                                                   IReadOnlyDictionary<long, IEnumerable<PricePositionDto.RelatedItemDto>> globalPositions,
                                                                    IEnumerable<PricePositionDto.RelatedItemDto> pricePostions)
         {
             IEnumerable<PricePositionDto.RelatedItemDto> positions;

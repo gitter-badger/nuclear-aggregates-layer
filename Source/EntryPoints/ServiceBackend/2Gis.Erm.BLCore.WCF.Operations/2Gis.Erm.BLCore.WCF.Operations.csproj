@@ -71,9 +71,7 @@
     <Compile Include="GetDomainEntityDto.svc.cs" />
     <Compile Include="GroupAssign.svc.cs" />
     <Compile Include="MsCrm.svc.cs" />
-    <Compile Include="NullValidateFileService.cs" />
     <Compile Include="Qualify.svc.cs" />
-    <Compile Include="Settings\IBasicOperationsSettings.cs" />
     <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
     <Compile Include="SharedTypesProvider.cs" />
     <Compile Include="UploadBinary.svc.cs" />
@@ -107,6 +105,10 @@
     <ProjectReference Include="..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
       <Project>{2c631161-68af-49e3-9924-b2894e8fd63b}</Project>

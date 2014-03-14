@@ -7,13 +7,13 @@ using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
     {
         private const string OperationTypeDebitForOrderPayment = "11";
 
-        private readonly IAppSettings _appSettings;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly IRepository<Account> _accountGenericRepository;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public AccountRepository(IAppSettings appSettings,
+        public AccountRepository(IDebtProcessingSettings debtProcessingSettings,
                                  IFinder finder,
                                  ISecureFinder secureFinder,
                                  IRepository<Account> accountGenericRepository,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                                  IIdentityProvider identityProvider,
                                  IOperationScopeFactory scopeFactory)
         {
-            _appSettings = appSettings;
+            _debtProcessingSettings = debtProcessingSettings;
             _finder = finder;
             _secureFinder = secureFinder;
             _accountGenericRepository = accountGenericRepository;
@@ -879,7 +879,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                                     let lockDetailBalance = account.Balance - (account.Locks
                                                                                    .Where(x => x.IsActive && !x.IsDeleted)      // скобки и проверки на null тут НУЖНЫ,
                                                                                    .Sum(x => (decimal?)x.PlannedAmount) ?? 0)  // т.к. без них возможна ситуация decimal - null = null
-                                    where lockDetailBalance <= _appSettings.MinDebtAmount
+                                    where lockDetailBalance <= _debtProcessingSettings.MinDebtAmount
                                     select new AccountWithDebtInfo
                                     {
 

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
@@ -9,7 +10,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Import
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -61,18 +62,20 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
                     ClientProxyFactory = Mocks.Create<IClientProxyFactory>();
                     IntegrationSettings = Mocks.Create<IIntegrationSettings>();
                     Logger = new Mock<ICommonLog>();
-                    AppSettings = Mocks.Create<IAppSettings>();
+                    LocalizationSettings = new Mock<ILocalizationSettings>();
+                    NotificationsSettings = Mocks.Create<INotificationsSettings>();
                     EmployeeEmailResolver = Mocks.Create<IEmployeeEmailResolver>();
                     NotificationSender = Mocks.Create<INotificationSender>();
                     ScopeFactory = Mocks.Create<IOperationScopeFactory>();
                     AccountRepository = new FakeAccountRepository();
 
                     Handler = new ImportFlowFinancialData1CHandler(
+                        LocalizationSettings.Object,
+                        NotificationsSettings.Object,
                         ClientProxyFactory.Object,
                         IntegrationSettings.Object,
                         Logger.Object,
                         AccountRepository,
-                        AppSettings.Object,
                         EmployeeEmailResolver.Object,
                         NotificationSender.Object,
                         ScopeFactory.Object);
@@ -89,7 +92,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             protected static Mock<IClientProxyFactory> ClientProxyFactory { get; private set; }
             protected static Mock<IIntegrationSettings> IntegrationSettings { get; private set; }
             protected static Mock<ICommonLog> Logger { get; private set; }
-            protected static Mock<IAppSettings> AppSettings { get; private set; }
+            protected static Mock<ILocalizationSettings> LocalizationSettings { get; private set; }
+            protected static Mock<INotificationsSettings> NotificationsSettings { get; private set; }
             protected static Mock<IEmployeeEmailResolver> EmployeeEmailResolver { get; private set; }
             protected static Mock<INotificationSender> NotificationSender { get; private set; }
             protected static Mock<IOperationScopeFactory> ScopeFactory { get; private set; }
@@ -115,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
         private abstract class ImportFlowFinancialData1CHandlerSpecsReceiveOperationsContext : ImportFlowFinancialData1CHandlerSpecsReceivePackageContext
         {
             private Establish context = () => 
-                AppSettings.Setup(x => x.EnableNotifications).Returns(false);
+                NotificationsSettings.Setup(x => x.EnableNotifications).Returns(false);
         }
 
         private sealed class When_receive_empty_package : ImportFlowFinancialData1CHandlerSpecsContext

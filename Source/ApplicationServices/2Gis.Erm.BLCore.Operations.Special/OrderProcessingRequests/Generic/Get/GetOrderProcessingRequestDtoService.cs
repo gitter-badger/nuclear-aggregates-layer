@@ -1,20 +1,21 @@
 using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generic.Get
 {
-    // FIXME {all, 06.11.2013}: при merge из 1.0 данный тип оказался в BL.Operations при централизации структуры OrderProcessingRequest фигни был перемещен в Operation.Special, однако базовый класс использует из  BL.Operations - что выглядит не очень хорошо
-    public class GetOrderProcessingRequestDtoService : GetDomainEntityDtoServiceBase<Platform.Model.Entities.Erm.OrderProcessingRequest>
+    // TODO {all, 06.11.2013}: при merge из 1.0 данный тип оказался в BL.Operations при централизации структуры OrderProcessingRequest и был перемещен в Operation.Special, однако базовый класс использует из  BL.Operations - что выглядит не очень хорошо, скорее всего нужно отделять фасад (Special) от домена
+    public class GetOrderProcessingRequestDtoService : GetDomainEntityDtoServiceBase<OrderProcessingRequest>
     {
         private readonly IUserContext _userContext;
         private readonly ISecureFinder _finder;
@@ -26,11 +27,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
             _finder = finder;
         }
 
-        protected override IDomainEntityDto<Platform.Model.Entities.Erm.OrderProcessingRequest> GetDto(long entityId)
+        protected override IDomainEntityDto<OrderProcessingRequest> GetDto(long entityId)
         {
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
-            var modelDto = _finder.Find(OrderProcessingRequestSpecifications.Find.ById(entityId))
+            var modelDto = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(entityId))
                 .Select(entity => new OrderProcessingRequestDomainEntityDto
                     {
                         Id = entity.Id,
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
             return modelDto;
         }
 
-        protected override IDomainEntityDto<Platform.Model.Entities.Erm.OrderProcessingRequest> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<OrderProcessingRequest> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             return new OrderProcessingRequestDomainEntityDto();
         }

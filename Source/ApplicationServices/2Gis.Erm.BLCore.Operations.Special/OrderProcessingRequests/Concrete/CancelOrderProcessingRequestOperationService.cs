@@ -7,12 +7,15 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
+
+using MessageType = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest    
     // FIXME {all, 13.11.2013}: используется Finder, что не допустимо для OperationService
     public class CancelOrderProcessingRequestOperationService : ICancelOrderProcessingRequestOperationService
     {
@@ -32,10 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public void CancelRequest(long requestId)
         {
-            var orderProcessingRequest = _finder.Find(
-                OrderProcessingRequestSpecifications.Find.ById(requestId))
-                                                .Single();
-
+            var orderProcessingRequest = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(requestId)).Single();
             if (orderProcessingRequest.State == (int)OrderProcessingRequestState.Completed)
             {
                 throw new BusinessLogicException(BLResources.CannotCancelCompletedOrderRequest);

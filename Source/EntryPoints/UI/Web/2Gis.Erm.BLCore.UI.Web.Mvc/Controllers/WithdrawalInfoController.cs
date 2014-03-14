@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 

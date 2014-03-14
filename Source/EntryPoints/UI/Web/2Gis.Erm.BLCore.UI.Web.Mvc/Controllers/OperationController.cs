@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;

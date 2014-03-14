@@ -67,6 +67,8 @@
     <Compile Include="OrderValidationMessage.cs" />
     <Compile Include="OrderValidationPredicate.cs" />
     <Compile Include="OrderValidationRuleGroups.cs" />
+    <Compile Include="Remote\Settings\APIOrderValidationServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIOrderValidationServiceSettings.cs" />
     <Compile Include="ValidateOrdersRequest.cs" />
     <Compile Include="ValidateOrdersResponse.cs" />
     <Compile Include="ValidateOrdersResult.cs" />

@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Releasing.Releases
+﻿using DoubleGis.Erm.Platform.Common.Settings;
+
+namespace DoubleGis.Erm.BLCore.API.Releasing.Releases
 {
     public enum ExportIntegrationMode
     {
@@ -6,7 +8,7 @@
         Ftp = 2
     }
 
-    public interface IFtpExportIntegrationModeSettings
+    public interface IFtpExportIntegrationModeSettings : ISettings
     {
         ExportIntegrationMode ExportIntegrationMode { get; }
         string FtpExportSite { get; }

@@ -10,16 +10,12 @@ using DoubleGis.Erm.BLCore.API.MoDi.Accounting;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.AccountingSystem;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
     public static class AccountDetailsFrom1CHelper
     {
-        private static readonly Encoding CsvEncoding = Encoding.GetEncoding(1251);
-        private static readonly CultureInfo CsvCulture = LocalizationSettings.ApplicationCulture;
-
         internal enum InternalOperationType
         {
             // списание
@@ -29,10 +25,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             Charge = 1
         }
 
-        public static string[] ParseStreamAsRows(Stream inputStream)
+        public static string[] ParseStreamAsRows(Stream inputStream, Encoding useEncoding)
         {
             string content;
-            using (var streamReader = new StreamReader(inputStream, CsvEncoding))
+            using (var streamReader = new StreamReader(inputStream, useEncoding))
             {
                 content = streamReader.ReadToEnd();
             }
@@ -83,11 +79,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 BranchOfficeOrganizationUnit1CCode = branchOfficeOrganizationUnit1CCode;
             }
 
-            public static bool TryParse(string headerRow, out CsvHeader csvHeader)
+            public static bool TryParse(string headerRow, CultureInfo useCulture, out CsvHeader csvHeader)
             {
                 csvHeader = null;
-                var headerInfo = headerRow.Split(';');
 
+                var headerInfo = headerRow.Split(';');
                 if (!headerInfo.Any())
                 {
                     throw new NotificationException("Формат сообщения не соответствует ожидаемому формату, проверьте сообщение");
@@ -100,20 +96,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
                 // parse import period
                 var periodNonParsed = headerInfo[0].Split(' ');
-
                 if (periodNonParsed.Length < 2)
                 {
                     throw new NotificationException("Формат сообщения не соответствует ожидаемому формату, проверьте сообщение");
                 }
 
                 DateTime start;
-                if (!DateTime.TryParse(periodNonParsed[0], CsvCulture, DateTimeStyles.None, out start))
+                if (!DateTime.TryParse(periodNonParsed[0], useCulture, DateTimeStyles.None, out start))
                 {
                     return false;
                 }
 
                 DateTime end;
-                if (!DateTime.TryParse(periodNonParsed[1], CsvCulture, DateTimeStyles.None, out end))
+                if (!DateTime.TryParse(periodNonParsed[1], useCulture, DateTimeStyles.None, out end))
                 {
                     return false;
                 }
@@ -136,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             public string DocumentNumber { get; private set; }
             public DateTime DocumentDate { get; private set; }
 
-            public static bool TryParse(string row, out CsvRow csvRow)
+            public static bool TryParse(string row, CultureInfo useCulture, out CsvRow csvRow)
             {
                 csvRow = null;
                 var rowInfo = row.Split(';');
@@ -148,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
                 // parse amount in CsvCulture or in InvariantCulture
                 decimal amount;
-                if (!decimal.TryParse(rowInfo[4], NumberStyles.Float, CsvCulture, out amount) &&
+                if (!decimal.TryParse(rowInfo[4], NumberStyles.Float, useCulture, out amount) &&
                     !decimal.TryParse(rowInfo[4], NumberStyles.Float, CultureInfo.InvariantCulture, out amount))
                 {
                     return false;
@@ -156,14 +151,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
                 // parse operation date
                 DateTime operationDate;
-                if (!DateTime.TryParse(rowInfo[5], CsvCulture, DateTimeStyles.None, out operationDate))
+                if (!DateTime.TryParse(rowInfo[5], useCulture, DateTimeStyles.None, out operationDate))
                 {
                     return false;
                 }
 
                 // parse operation type
                 int operationType;
-                if (!int.TryParse(rowInfo[6], NumberStyles.Number, CsvCulture, out operationType))
+                if (!int.TryParse(rowInfo[6], NumberStyles.Number, useCulture, out operationType))
                 {
                     return false;
                 }
@@ -175,7 +170,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
                 // parse document date
                 DateTime documentDate;
-                if (!DateTime.TryParse(rowInfo[9], CsvCulture, DateTimeStyles.None, out documentDate))
+                if (!DateTime.TryParse(rowInfo[9], useCulture, DateTimeStyles.None, out documentDate))
                 {
                     return false;
                 }

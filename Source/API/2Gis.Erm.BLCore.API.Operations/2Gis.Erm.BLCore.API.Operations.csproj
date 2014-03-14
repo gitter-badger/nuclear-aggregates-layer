@@ -78,10 +78,14 @@
     </Compile>
     <Compile Include="Concrete\Integration\Settings\IIntegrationLocalizationSettings.cs" />
     <Compile Include="Concrete\Integration\Settings\IIntegrationSettings.cs" />
+    <Compile Include="Concrete\Integration\Settings\IntegrationSettingsAspect.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
     <Compile Include="Concrete\Old\Deals\ActualizeDealProfitIndicatorsRequest.cs" />
+    <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
+    <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
+    <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\OrderPositionAdvertisementValidationError.cs" />
@@ -107,6 +111,8 @@
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
+    <Compile Include="Generic\File\IValidateFileSettings.cs" />
+    <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
@@ -377,7 +383,9 @@
     <Compile Include="Remote\IBasicOperationErrorDescription.cs" />
     <Compile Include="Remote\Delete\IDeleteApplicationRestService.cs" />
     <Compile Include="Remote\Delete\IDeleteApplicationService.cs" />
-    <Compile Include="Remote\INotifiyProgressSettings.cs" />
+    <Compile Include="Remote\Settings\APIOperationsServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIOperationsServiceSettings.cs" />
+    <Compile Include="Remote\Settings\INotifiyProgressSettings.cs" />
     <Compile Include="Remote\MsCrm\IMsCrm2ErmApplicationService.cs" />
     <Compile Include="Remote\MsCrm\MsCrm2ErmErrorDescription.cs" />
     <Compile Include="Remote\MsCrm\MsCrmDealStage.cs" />

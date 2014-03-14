@@ -22,13 +22,12 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations.Concrete;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Operations;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
-using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure;
@@ -133,12 +132,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
         private readonly IUnityContainer _container;
         private readonly ICommonSettings _commonSettings;
+        private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IApiSettings _apiSettings;
 
-        public WpfClientModulesContainer(IUnityContainer container, ICommonSettings commonSettings, IApiSettings apiSettings)
+        public WpfClientModulesContainer(
+            IUnityContainer container, 
+            ICommonSettings commonSettings, 
+            IGlobalizationSettings globalizationSettings,
+            IApiSettings apiSettings)
         {
             _container = container;
             _commonSettings = commonSettings;
+            _globalizationSettings = globalizationSettings;
             _apiSettings = apiSettings;
         }
 
@@ -184,11 +189,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
             ConfigureDI(massProcessors, true); // первый проход
             ConfigureDI(massProcessors, false); // второй проход
 
-            _container.RegisterAPIServiceSettings(_apiSettings)
-                      .ConfigureServiceClient();
+            _container.ConfigureServiceClient();
         }
 
-        private static void CheckConventionsСomplianceExplicitly()
+        private void CheckConventionsСomplianceExplicitly()
         {
             var checkingResourceStorages = new[]
                 {
@@ -197,7 +201,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
                     typeof(EnumResources)
                 };
 
-            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(_globalizationSettings.SupportedCultures);
         }
 
         #region Design time
@@ -304,7 +308,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
             ConfigureComponentsInfrastructure(_container);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, BusinessModel.Russia.AsAdapted());
+            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, _globalizationSettings);
 
             _container
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)

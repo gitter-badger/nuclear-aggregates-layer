@@ -13,7 +13,7 @@ using Microsoft.Crm.SdkTypeProxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {
-    // FIXME {all, 01.01.2014}: уже есть типы сподобным функционалом, например, CrmDataContextExtensions, данный тип скорее должен быть таким же набором методов расширений, своего состояния у него фактически нет 
+    // FIXME {all, 01.01.2014}: уже есть типы с подобным функционалом, например, CrmDataContextExtensions, данный тип скорее должен быть таким же набором методов расширений, своего состояния у него фактически нет 
     [Obsolete]
     public sealed class CrmTaskFactory : ICrmTaskFactory
     {

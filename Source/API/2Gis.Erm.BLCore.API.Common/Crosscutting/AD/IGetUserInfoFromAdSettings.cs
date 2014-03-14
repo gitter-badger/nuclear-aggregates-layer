@@ -1,6 +1,8 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD
+﻿using DoubleGis.Erm.Platform.Common.Settings;
+
+namespace DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD
 {
-    public interface IGetUserInfoFromAdSettings
+    public interface IGetUserInfoFromAdSettings : ISettings
     {
         string ADConnectionDomainName { get;  }
         string ADConnectionLogin { get; }

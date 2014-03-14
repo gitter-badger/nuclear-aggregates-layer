@@ -7,6 +7,7 @@ using System.Web.Routing;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;

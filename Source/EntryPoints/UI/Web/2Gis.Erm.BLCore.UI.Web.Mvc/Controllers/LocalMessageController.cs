@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;

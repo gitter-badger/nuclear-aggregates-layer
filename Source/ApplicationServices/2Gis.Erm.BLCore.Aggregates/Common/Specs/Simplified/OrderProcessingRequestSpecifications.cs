@@ -9,18 +9,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified
     {
         public static class Find
         {
-            public static FindSpecification<OrderProcessingRequest> ById(long orderProcessingRequestId)
-            {
-                return new FindSpecification<OrderProcessingRequest>(x => x.Id == orderProcessingRequestId);
-            }
-
-
             public static FindSpecification<OrderProcessingRequest> ForProlongateAndOpened()
             {
-                return new FindSpecification<OrderProcessingRequest>(x =>
-                    x.IsActive && !x.IsDeleted
-                    && x.State == (int)OrderProcessingRequestState.Opened
-                    && x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder);
+                return new FindSpecification<OrderProcessingRequest>(x => 
+                    x.State == (int)OrderProcessingRequestState.Opened && x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder);
             }
         }
     }

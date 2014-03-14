@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
@@ -16,18 +16,18 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IOrderValidationService _orderValidationService;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
         private readonly IOrderValidationOnStateChangeService _orderValidationOnStateChangeService;
 
-        public OrderValidationApplicationService(IAppSettings appSettings,
+        public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
                                                  IUserContext userContext,
                                                  IOrderValidationOnStateChangeService orderValidationOnStateChangeService,
                                                  IOrderValidationService orderValidationService,
                                                  IOrderValidationPredicateFactory orderValidationPredicateFactory)
         {
-            _appSettings = appSettings;
+            _businessModelSettings = businessModelSettings;
             _orderValidationService = orderValidationService;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
             _orderValidationOnStateChangeService = orderValidationOnStateChangeService;
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                     OrderId = orderId,
                     OrderState = orderState,
                     Period = period,
-                    SignificantDigitsNumber = _appSettings.SignificantDigitsNumber
+                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
                 };
             return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
         }
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 OrderId = orderId,
                 OrderState = orderState,
                 Period = period,
-                SignificantDigitsNumber = _appSettings.SignificantDigitsNumber
+                SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
             };
 
             return _orderValidationOnStateChangeService.Validate(orderId, newOrderState, orderValidationPredicate, validateOrdersRequest);
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                     Period = period,
                     OwnerId = ownerCode,
                     IncludeOwnerDescendants = includeOwnerDescendants,
-                    SignificantDigitsNumber = _appSettings.SignificantDigitsNumber
+                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
                 };
             return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
         }

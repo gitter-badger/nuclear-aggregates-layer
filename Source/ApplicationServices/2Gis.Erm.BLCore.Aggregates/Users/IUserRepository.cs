@@ -45,12 +45,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         OrganizationUnitDto GetSingleOrDefaultOrganizationUnit(long userId);
         IEnumerable<User> GetUsersByOrganizationUnit(long organizationUnitId);
 
-        User GetUser(long id);
-        User GetUser(string account);
-
-        // todo {d.ivanov, 2013-11-21}: IReadModel
-        User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelege);
-
         /// <summary>ѕолучить активные территории, на которые зав€зан непосредственно указанный пользователь.</summary>
         IEnumerable<long> GetUserTerritoryIds(long userId);
 

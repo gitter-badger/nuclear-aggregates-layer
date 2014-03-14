@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
