@@ -43,7 +43,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIOperationsServiceSettingsAspect>()
-                        .Is<APIMoDiServiceSettingsAspect>());
+                        .Is<APIMoDiServiceSettingsAspect>()
+                        .Is<APIWebClientServiceSettingsAspect>());
         }
 
         int IWebAppProcesingSettings.AuthExpirationTimeInMinutes

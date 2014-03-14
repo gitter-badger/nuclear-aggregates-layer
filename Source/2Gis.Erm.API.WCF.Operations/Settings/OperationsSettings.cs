@@ -32,7 +32,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.Settings
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()
-                        .Is<APIMoDiServiceSettingsAspect>());
+                        .Is<APIMoDiServiceSettingsAspect>()
+                        .Is<APIWebClientServiceSettingsAspect>());
         }
 
         int INotifiyProgressSettings.ProgressCallbackBatchSize

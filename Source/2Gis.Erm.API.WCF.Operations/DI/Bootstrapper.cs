@@ -29,6 +29,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -112,7 +113,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            return container.ConfigureUnityTwoPhase(
+            container.ConfigureUnityTwoPhase(
                             settingsContainer,
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .ConfigureServiceClient();
 
             // HACK дико извиняюсь, но пока метаданные для листинга регистрируются только так, скоро поправим
-            BLFlex.DI.Config.Bootstrapper.ConfigureGlobalListing(settings);
+            BLFlex.DI.Config.Bootstrapper.ConfigureGlobalListing(settingsContainer.AsSettings<IGlobalizationSettings>());
 
             return container;
         }
@@ -271,7 +272,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
-                     .RegisterType<IValidateFileService, NullValidateFileService>(Lifetime.Singleton)
+                     .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
 
                      .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
