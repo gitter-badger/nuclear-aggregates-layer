@@ -99,6 +99,9 @@
     <Compile Include="PrintFormEngine\PrintFormFieldsFormatHelper.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\ISettingsAspect.cs" />
+    <Compile Include="Settings\ISettingsContainer.cs" />
     <Compile Include="Settings\SettingBase.cs" />
     <Compile Include="Settings\SettingEvaluationResult.cs" />
     <Compile Include="Settings\BoolSetting.cs" />
@@ -106,6 +109,9 @@
     <Compile Include="Settings\EnumSetting.cs" />
     <Compile Include="Settings\IntSetting.cs" />
     <Compile Include="Settings\ConfigFileSetting.cs" />
+    <Compile Include="Settings\SettingsContainerBase.cs" />
+    <Compile Include="Settings\SettingsContainerUtils.cs" />
+    <Compile Include="Settings\SettingsIndicators.cs" />
     <Compile Include="Settings\StringSetting.cs" />
     <Compile Include="Utils\ActivatorUtils.cs" />
     <Compile Include="Utils\CompareObjects.cs" />
@@ -115,6 +121,7 @@
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\EnumerableExtensions.cs" />
     <Compile Include="Utils\Data\ExpressionUtils.cs" />
+    <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
     <Compile Include="Ftp\IFtpService.cs" />

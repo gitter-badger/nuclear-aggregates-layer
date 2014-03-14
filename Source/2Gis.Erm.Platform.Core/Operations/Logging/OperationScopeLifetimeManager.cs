@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 
@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public sealed class OperationScopeLifetimeManager : IOperationScopeLifetimeManager
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IEnvironmentSettings _environmentSettings;
         private readonly IOperationLogger _operationLogger;
         private readonly IOperationScopeContextsStorage _operationScopeContextsStorage;
         private readonly IOperationScopeRegistrar _operationScopeRegistrar;
@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private readonly ICommonLog _logger;
 
         public OperationScopeLifetimeManager(
-            IAppSettings appSettings,
+            IEnvironmentSettings environmentSettings,
             IOperationLogger operationLogger,
             IOperationScopeContextsStorage operationScopeContextsStorage, 
             IOperationScopeRegistrar operationScopeRegistrar,
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             IProcessingContext processingContext,
             ICommonLog logger)
         {
-            _appSettings = appSettings;
+            _environmentSettings = environmentSettings;
             _operationLogger = operationLogger;
             _operationScopeContextsStorage = operationScopeContextsStorage;
             _operationScopeRegistrar = operationScopeRegistrar;
@@ -65,8 +65,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 _logger.ErrorEx(msg);
 
                 // TODO {all, 07.08.2013}: подумать в каких условиях бросать exception, в каких нет (например, development и test environment - бросаем exception, production - просто логируем)
-                if (_appSettings.TargetEnvironment == AppTargetEnvironment.Development
-                || _appSettings.TargetEnvironment == AppTargetEnvironment.Test)
+                if (_environmentSettings.Type == EnvironmentType.Development
+                || _environmentSettings.Type == EnvironmentType.Test)
                 {
                     throw new NotificationException(msg);
                 }

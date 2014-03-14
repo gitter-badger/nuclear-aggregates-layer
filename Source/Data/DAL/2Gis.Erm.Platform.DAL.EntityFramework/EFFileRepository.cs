@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -53,7 +52,7 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         public EFFileRepository(IUserContext userContext,
                                 IReadDomainContextProvider readDomainContextProvider,
-                                IAppSettings appSettings,
+                                IConnectionStringSettings connectionStringSettings,
                                 IDomainContextSaveStrategy domainContextSaveStrategy,
                                 IPersistenceChangesRegistryProvider changesRegistryProvider)
         {
@@ -62,7 +61,7 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             _changesRegistryProvider = changesRegistryProvider;
             _readDomainContextProvider = readDomainContextProvider;
 
-            _connectionString = appSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm);
+            _connectionString = connectionStringSettings.GetConnectionString(ConnectionStringName.Erm);
         }
 
         private enum CommandType

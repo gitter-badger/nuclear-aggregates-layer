@@ -1,5 +1,4 @@
-﻿
-namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
+﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
 {
     public interface IAdapted
     {

@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Security;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -43,7 +42,6 @@ namespace DoubleGis.Erm.Platform.Security
                     { EntityName.Task, EntityName.ActivityBase }
                 };
 
-        private readonly IAppSettings _appSettings;
         private readonly IFinder _finder;
         private readonly IUserEntityService _userEntityService;
         private readonly ICommonLog _logger;
@@ -59,13 +57,11 @@ namespace DoubleGis.Erm.Platform.Security
         }
 
         public SecurityServiceFacade(
-            IAppSettings appSettings,
             IFinder finder,
             IUserEntityService userEntityService,
             ICacheAdapter cacheAdapter,
             ICommonLog commonLog)
         {
-            _appSettings = appSettings;
             _finder = finder;
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
@@ -76,6 +72,9 @@ namespace DoubleGis.Erm.Platform.Security
 
         IUserInfo ISecurityServiceUserIdentifier.GetReserveUserIdentity()
         {
+            const long ReserveUserId = 27;
+            const string ReserveUserAccount = "reserve";
+
             var cacheKey = string.Format(CacheKeyMask, "UserInfo", "ReserveUser", string.Empty);
 
             var result = _cacheAdapter.Get<UserInfo>(cacheKey);
@@ -84,9 +83,7 @@ namespace DoubleGis.Erm.Platform.Security
                 return result;
             }
 
-            var reserveUserAccount = _appSettings.ReserveUserAccount;
-
-            var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.Account == reserveUserAccount)
+            var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.Account == ReserveUserAccount)
                 .Select(x => new
                 {
                     UserCode = x.Id,
@@ -97,9 +94,15 @@ namespace DoubleGis.Erm.Platform.Security
 
             if (userInfo == null)
             {
-                _logger.WarnFormatEx("Пользователь 'Резерв района' не найден по учетной записи [{0}]",
-                                     reserveUserAccount);
+                _logger.FatalFormatEx("Пользователь 'Резерв района' не найден по учетной записи [{0}]", ReserveUserAccount);
                 throw new SecurityException("Пользователь 'Резерв района' не найден");
+            }
+
+            if (userInfo.UserCode != ReserveUserId)
+            {   // небольшое УГ, проверяем, чтобы Id пользователя 'Резерв района' был допустимый, он должен быть стабильным в любой инсталляции системы
+                // т.к. на конкретное значение завязаны миграции и т.п.
+                _logger.FatalFormatEx("Пользователь 'Резерв района' имеет Id отличный от допустимого [{0}]", ReserveUserId);
+                throw new SecurityException("Пользователь 'Резерв района' имеет недопустимый Id");
             }
 
             result = new UserInfo(userInfo.UserCode, userInfo.Account, userInfo.DisplayName);
