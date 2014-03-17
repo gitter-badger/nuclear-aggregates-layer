@@ -111,7 +111,6 @@
     <Compile Include="Operations\RequestResponse\IPublicService.cs" />
     <Compile Include="Operations\RequestResponse\Request.cs" />
     <Compile Include="Operations\RequestResponse\Response.cs" />
-    <Compile Include="PersistenceCleanup\IDbCleaner.cs" />
     <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
     <Compile Include="Settings\APIServices\APIFinancialOperationsServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIIdentityServiceSettings.cs" />
