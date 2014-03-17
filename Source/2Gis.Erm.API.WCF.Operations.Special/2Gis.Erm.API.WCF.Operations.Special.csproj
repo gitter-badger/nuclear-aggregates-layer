@@ -98,6 +98,10 @@
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BLCore.API.MoDi</Name>
@@ -209,10 +213,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
       <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
       <Name>2Gis.Erm.Platform.Security</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\2Gis.Erm.API.WCF.Operations\2Gis.Erm.API.WCF.Operations.csproj">
-      <Project>{ACAA20F3-B75C-49C4-B32B-E636BDC8046C}</Project>
-      <Name>2Gis.Erm.API.WCF.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

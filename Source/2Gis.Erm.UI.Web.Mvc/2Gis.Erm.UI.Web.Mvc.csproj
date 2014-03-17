@@ -148,6 +148,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\WebAppSettings.cs" />
     <Content Include="ClientBin\2Gis.Erm.BLCore.UI.Web.Silverlight.xap" />
     <Content Include="Content\Administration.css" />
     <Content Include="Content\AsyncFileUpload.css" />

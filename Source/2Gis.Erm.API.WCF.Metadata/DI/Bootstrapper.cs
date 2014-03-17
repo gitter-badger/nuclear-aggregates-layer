@@ -2,18 +2,20 @@
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Metadata.Config;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -21,29 +23,22 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
-using DoubleGis.Erm.Platform.WCF.Metadata.Settings;
+
 using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(IMetadataServiceAppSettings settings, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
@@ -54,9 +49,15 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
-            container.RegisterAPIServiceSettings(settings).
-                      ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
+            container.ConfigureUnityTwoPhase(
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            c => c.ConfigureUnity(
+                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<ICachingSettings>(),
+                                loggerContextManager))
                      .ConfigureServiceClient();
 
             return container;
@@ -67,14 +68,19 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             return CustomLifetime.PerOperationContext;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IMetadataServiceAppSettings settings, ILoggerContextManager loggerContextManager, IMassProcessor[] massProcessors, bool firstRun)
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container,
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            ICachingSettings cachingSettings,
+            ILoggerContextManager loggerContextManager)
         {
-            container.ConfigureEntryPointSettings(settings)
+            return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(settings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, settings)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, settings)
+                    .ConfigureCacheAdapter(cachingSettings)
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureIdentityInfrastructure()
@@ -86,10 +92,6 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IServiceAvailabilityProvider, ServiceAvailabilityProvider>(Lifetime.PerResolve)
                 .RegisterType<IClientCompatibilityProvider, ClientCompatibilityProvider>(Lifetime.PerResolve);
-
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
-
-            return container;
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -103,23 +105,14 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                      .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
         }
 
-        private static IUnityContainer ConfigureEntryPointSettings(this IUnityContainer container, IMetadataServiceAppSettings settings)
-        {
-            return container.RegisterMsCRMSettings(settings)
-                            .RegisterInstance<IMetadataServiceAppSettings>(settings)
-                            .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<IGlobalizationSettings>(settings)
-                            .RegisterInstance<IIdentityProviderSettings>(settings);
-        }
-
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
         {
             return container.RegisterInstance(loggerContextManager);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
         {
-            return appSettings.EnableCaching
+            return cachingSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext)
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(CustomLifetime.PerOperationContext);
         }

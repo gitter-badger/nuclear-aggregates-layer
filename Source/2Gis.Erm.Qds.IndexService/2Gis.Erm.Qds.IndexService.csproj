@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xaml" />
@@ -91,7 +92,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="BatchIndexingProcess.cs" />
-    <Compile Include="BatchIndexingSettings.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="DI\UnityQdsComponentsFactory.cs" />
     <Compile Include="ErmNtService.cs">
@@ -102,7 +102,7 @@
     </Compile>
     <Compile Include="IIndexingProcess.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Settings\IIndexServiceAppSettings.cs" />
+    <Compile Include="Settings\IBatchIndexingSettings.cs" />
     <Compile Include="Settings\IndexServiceAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>

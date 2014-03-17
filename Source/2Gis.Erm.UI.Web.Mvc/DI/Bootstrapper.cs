@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
@@ -35,13 +36,13 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
+using DoubleGis.Erm.BLCore.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
-using DoubleGis.Erm.BLCore.OrderValidation.Configuration;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
@@ -55,14 +56,15 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -70,6 +72,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -86,7 +89,6 @@ using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
@@ -102,17 +104,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(IWebAppSettings settings)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
             
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
@@ -127,10 +123,20 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new ControllersProcessor(container)
                 };
 
-            CheckConventionsСomplianceExplicitly();
+            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnity(settings, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, massProcessors, false) // второй проход
+            container
+                .ConfigureUnityTwoPhase(
+                    settingsContainer,
+                    massProcessors,
+                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                    c => c.ConfigureUnity(
+                        settingsContainer.AsSettings<IEnvironmentSettings>(),
+                        settingsContainer.AsSettings<IConnectionStringSettings>(),
+                        settingsContainer.AsSettings<IGlobalizationSettings>(),
+                        settingsContainer.AsSettings<IMsCrmSettings>(),
+                        settingsContainer.AsSettings<ICachingSettings>(),
+                        settingsContainer.AsSettings<IWebAppProcesingSettings>()))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
                 
@@ -190,17 +196,23 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return interception.Container;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IWebAppSettings settings, IMassProcessor[] massProcessors, bool firstRun)
+        private static IUnityContainer ConfigureUnity(this IUnityContainer container,
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            IGlobalizationSettings globalizationSettings,
+            IMsCrmSettings msCrmSettings,
+            ICachingSettings cachingSettings,
+            IWebAppProcesingSettings webAppProcesingSettings)
         {
-            container.ConfigureAppSettings(settings)
-                     .ConfigureGlobal(settings)
-                     .CreateErmSpecific(settings)
-                     .CreateErmReportsSpecific(settings)
-                     .CreateDatabasebSyncChecker(settings)
-                     .CreateSecuritySpecific(settings)
-                     .ConfigureCacheAdapter(settings)
-                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, settings)
-                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, settings)
+            return container
+                     .ConfigureGlobal(globalizationSettings)
+                     .CreateErmSpecific(connectionStringSettings, msCrmSettings)
+                     .CreateErmReportsSpecific(connectionStringSettings)
+                     .CreateDatabasebSyncChecker(connectionStringSettings)
+                     .CreateSecuritySpecific(webAppProcesingSettings)
+                     .ConfigureCacheAdapter(cachingSettings)
+                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
@@ -215,18 +227,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                      .ConfigureMvcMetadataProvider()
-                     .ConfigureEAV()
-                // FIXME {d.ivanov, 29.08.2013}: только для вызова проверки сопутствующих-запрещенных напрямую как хендлера - очень мутный case, особенно, учитывая выделени данных для проверок в отдельный persistence
-                     .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerRequest, Mapping.Erm)
-                     .RegisterTypeWithDependencies<IOrderValidationSettings, OrderValidationSettings>(CustomLifetime.PerRequest, Mapping.Erm);
-
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
-
-            return container;
+                     .ConfigureEAV();
         }
 
-        private static void CheckConventionsСomplianceExplicitly()
-        {
+        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
+            {
             var checkingResourceStorages = new[]
             {
                     typeof(BLResources),
@@ -234,34 +239,24 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     typeof(EnumResources)
                 };
 
-            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IWebAppSettings settings)
-            {
-            return container.RegisterAPIServiceSettings(settings)
-                            .RegisterMsCRMSettings(settings)
-                            .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<IGlobalizationSettings>(settings)
-                            .RegisterInstance<IGetUserInfoFromAdSettings>(settings)
-                            .RegisterInstance<IWebAppSettings>(settings);
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
             }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IWebAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
         {
-            return appSettings.EnableCaching
+            return cachingSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
         }
 
-        private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
-            return container.RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmReports, CustomLifetime.PerRequest, new InjectionConstructor(appSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.ErmReports)))
+            return container.RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmReports, CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmReports)))
                 .RegisterType<IReportPersistenceService, ReportPersistenceService>(CustomLifetime.PerRequest, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmReports)))
                 .RegisterType<IReportSimplifiedModel, ReportSimplifiedModel>(CustomLifetime.PerRequest);
         }
 
-        private static IUnityContainer CreateDatabasebSyncChecker(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer CreateDatabasebSyncChecker(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
             return container.RegisterType<IMigrationDescriptorsProvider, AssemblyMigrationDescriptorsProvider>(
                 CustomLifetime.PerRequest,
@@ -274,11 +269,14 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                             "2Gis.Erm.BL.DB.Migrations",
                         }
                     }))
-                .RegisterType<IAppliedVersionsReader, AdoNetAppliedVersionsReader>(CustomLifetime.PerRequest, new InjectionConstructor(appSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
+                .RegisterType<IAppliedVersionsReader, AdoNetAppliedVersionsReader>(CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
                 .RegisterType<IDatabaseSyncChecker, DatabaseSyncChecker>(CustomLifetime.PerRequest);
         }
 
-        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IWebAppSettings settings)
+        private static IUnityContainer CreateErmSpecific(
+            this IUnityContainer container,
+            IConnectionStringSettings connectionStringSettings,
+            IMsCrmSettings msCrmSettings)
         {
             const string mappingScope = Mapping.Erm;
 
@@ -293,10 +291,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
 
-                .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(settings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
+                .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
 
                 .RegisterTypeWithDependencies<IJournalMakeRegionalAdsDocsService, JournalMakeRegionalAdsDocsService>(Mapping.SimplifiedModelConsumerScope, CustomLifetime.PerRequest)
-                
+
                 .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
 
@@ -318,7 +316,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
 
-                .ConfigureNotificationsSender(settings.MsCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
+                .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
 
             return container;
         }
@@ -330,7 +328,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerRequest);
         }
 
-        private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container, IWebAppSettings appSettings)
+        private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container, IWebAppProcesingSettings webAppProcesingSettings)
         {
             const string mappingScope = Mapping.Erm;
 
@@ -352,7 +350,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
                                                              typeof(IUserIdentityLogonService), 
                                                              typeof(ICommonLog),
-                                                             appSettings.AuthExpirationTimeInMinutes));
+                                                             webAppProcesingSettings.AuthExpirationTimeInMinutes));
         }
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)

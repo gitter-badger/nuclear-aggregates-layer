@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="BatchIndexingProcessSpecs.cs" />
     <Compile Include="BootstrapperSpecs.cs" />
+    <Compile Include="Fakes\FakeBatchIndexingSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +83,10 @@
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -89,6 +94,10 @@
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
       <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
       <Name>2Gis.Erm.Qds.Etl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.IndexService\2Gis.Erm.Qds.IndexService.csproj">
       <Project>{e25b3d1c-717a-4d0d-a4ae-14dbef0617f9}</Project>

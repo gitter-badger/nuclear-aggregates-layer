@@ -6,6 +6,7 @@ using System.ServiceModel.Description;
 using DoubleGis.Erm.API.WCF.Operations.Special.Config;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -15,17 +16,18 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations.Settings;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Identities;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -34,7 +36,6 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -47,19 +48,13 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
 {
     internal static class Bootstrapper
     {
-        private readonly static Type[] EagerLoading = { typeof(IGetDomainEntityDtoService), typeof(IUserPersistenceService) };
+        private readonly static Type[] EagerLoading = { typeof(IGetDomainEntityDtoService), typeof(UserPersistenceService) };
         
-        public static IUnityContainer ConfigureUnity(IFinancialOperationsAppSettings settings, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
@@ -71,13 +66,20 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
-            CheckConventionsСomplianceExplicitly();
+            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
+            return container
+                        .ConfigureUnityTwoPhase(
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            c => c.ConfigureUnity(
+                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<IMsCrmSettings>(),
+                                settingsContainer.AsSettings<ICachingSettings>(),
+                                loggerContextManager))
                      .ConfigureServiceClient();
-
-            return container;
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -85,15 +87,21 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             return CustomLifetime.PerOperationContext;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IFinancialOperationsAppSettings settings, ILoggerContextManager loggerContextManager, IMassProcessor[] massProcessors, bool firstRun)
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container,
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            IMsCrmSettings msCrmSettings,
+            ICachingSettings cachingSettings,
+            ILoggerContextManager loggerContextManager)
         {
-            container.ConfigureAppSettings(settings)
+            return container
                 .ConfigureLogging(loggerContextManager)
-                .CreateErmSpecific(settings)
-                .CreateSecuritySpecific(settings)
-                .ConfigureCacheAdapter(settings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, settings)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, settings)
+                    .CreateErmSpecific(msCrmSettings)
+                    .CreateSecuritySpecific()
+                    .ConfigureCacheAdapter(cachingSettings)
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureReadWriteModels()
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
@@ -103,13 +111,9 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
-
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
-
-            return container;
         }
 
-        private static void CheckConventionsСomplianceExplicitly()
+        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
                 {
@@ -118,16 +122,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                     typeof(EnumResources)
                 };
 
-            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IFinancialOperationsAppSettings settings)
-        {
-            return container.RegisterAPIServiceSettings(settings)
-                            .RegisterMsCRMSettings(settings)
-                            .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<IGlobalizationSettings>(settings)
-                            .RegisterInstance<IFinancialOperationsAppSettings>(settings);
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
@@ -135,9 +130,9 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
         {
-            if (appSettings.EnableCaching)
+            if (cachingSettings.EnableCaching)
             {
                 container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext);
             }
@@ -178,7 +173,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             return container;
         }
 
-        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IFinancialOperationsAppSettings appSettings)
+        private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {
             const string MappingScope = Mapping.Erm;
 
@@ -190,12 +185,12 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                          CustomLifetime.PerOperationContext,
                          MappingScope)
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
-                     .ConfigureNotificationsSender(appSettings.MsCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
+                     .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
             return container;
         }
 
-        private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)
         {
             const string MappingScope = Mapping.Erm;
             container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(CustomLifetime.PerOperationContext, MappingScope)

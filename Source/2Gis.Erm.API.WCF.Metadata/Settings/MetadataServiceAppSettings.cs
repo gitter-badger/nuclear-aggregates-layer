@@ -1,27 +1,48 @@
-﻿using DoubleGis.Erm.Platform.API.Core.Settings;
+﻿using System;
+using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
+using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.WCF.Metadata.Settings;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.Settings
 {
-    public sealed class MetadataServiceAppSettings : CommonConfigFileAppSettings, IMetadataServiceAppSettings
+    /// <summary>
+    /// Требования/соглашения см. в объявлении ISettingsContainer
+    /// </summary>
+    public sealed class MetadataServiceAppSettings : SettingsContainerBase, IIdentityProviderSettings
     {
         private readonly IntSetting _identityServiceUniqueId = ConfigFileSetting.Int.Required("IdentityServiceUniqueId");
-        public int IdentityServiceUniqueId
+
+        public MetadataServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
+        {
+            Aspects
+                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
+                .Use<CachingSettingsAspect>()
+                .Use(RequiredServices
+                        .Is<APIIntrospectionServiceSettingsAspect>()
+                        .Is<APIOrderValidationServiceSettingsAspect>()
+                        .Is<APIIdentityServiceSettingsAspect>()
+                        .Is<APIOperationsServiceSettingsAspect>()
+                        .Is<APIMoDiServiceSettingsAspect>()
+                        .Is<APIReleasingServiceSettingsAspect>()
+                        .Is<APIFinancialOperationsServiceSettingsAspect>());
+        }
+
+        int IIdentityProviderSettings.IdentityServiceUniqueId
         {
             get
             {
                 return _identityServiceUniqueId.Value;
             }
         }
-
-        public IMsCrmSettings MsCrmSettings
-        {
-            get { return MsCRMSettings; }
-        }
-
-        public APIServicesSettingsAspect ServicesSettings { get { return APIServicesSettings; } }
     }
 }

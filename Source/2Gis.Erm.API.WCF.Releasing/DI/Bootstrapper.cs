@@ -3,16 +3,17 @@ using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Releasing.Config;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Releasing.Release;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.WCF.Releasing.Settings;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -20,6 +21,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Ftp;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -27,7 +29,6 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -41,18 +42,12 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
-            IReleasingSettings settings,
+            ISettingsContainer settingsContainer,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
@@ -63,13 +58,20 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
-            CheckConventionsСomplianceExplicitly();
+            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnity(settings, loggerContextManager, massProcessors, true) // первый проход
-                     .ConfigureUnity(settings, loggerContextManager, massProcessors, false) // второй проход
+            return container
+                        .ConfigureUnityTwoPhase(
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            c => c.ConfigureUnity(
+                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<ICachingSettings>(),
+                                settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
+                                loggerContextManager))
                      .ConfigureServiceClient();
-
-            return container;
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -79,19 +81,20 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
 
         private static IUnityContainer ConfigureUnity(
             this IUnityContainer container,
-            IReleasingSettings settings,
-            ILoggerContextManager loggerContextManager,
-            IMassProcessor[] massProcessors,
-            bool firstRun)
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            ICachingSettings cachingSettings, 
+            IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings,
+            ILoggerContextManager loggerContextManager)
         {
-            container.ConfigureAppSettings(settings)
+            return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(settings)
-                .ConfigureReleasingInfrastructure(settings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, settings)
+                        .ConfigureCacheAdapter(cachingSettings)
+                        .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
+                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, settings)
+                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
@@ -101,13 +104,9 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory);
-
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, settings.BusinessModel.AsAdapted());
-
-            return container;
         }
 
-        private static void CheckConventionsСomplianceExplicitly()
+        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
                 {
@@ -116,17 +115,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                     typeof(EnumResources)
                 };
 
-            checkingResourceStorages.EnsureResourceEntriesUniqueness(LocalizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureAppSettings(this IUnityContainer container, IReleasingSettings settings)
-        {
-            return container.RegisterAPIServiceSettings(settings)
-                            .RegisterMsCRMSettings(settings)
-                            .RegisterInstance<IAppSettings>(settings)
-                            .RegisterInstance<IReleasingSettings>(settings)
-                            .RegisterInstance<IIntegrationSettings>(settings)
-                            .RegisterInstance<IFtpExportIntegrationModeSettings>(settings);
+            checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
@@ -134,9 +123,9 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, IAppSettings appSettings)
+        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
         {
-            return appSettings.EnableCaching
+            return cachingSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext)
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(CustomLifetime.PerOperationContext);
         }
@@ -148,7 +137,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
-        private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container, IReleasingSettings settings)
+        private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container, IFtpExportIntegrationModeSettings settings)
         {
             switch (settings.ExportIntegrationMode)
             {
