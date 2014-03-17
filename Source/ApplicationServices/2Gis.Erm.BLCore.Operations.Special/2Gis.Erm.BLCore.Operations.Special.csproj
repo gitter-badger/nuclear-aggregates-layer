@@ -61,7 +61,6 @@
     <Compile Include="OrderProcessingRequests\Concrete\OrderProcessingRequestEmailSender.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\OrderProcessingRequestMessageExtension.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\OrderProcessingRequestNotificationFormatter.cs" />
-    <Compile Include="OrderProcessingRequests\Concrete\OrderProcessingRequestOwnerSelectionService.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\ProcessOrderCreationRequestSingleOperation.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\ProcessOrderProlongationRequestMassOperation.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\ProcessOrderProlongationRequestSingleOperation.cs" />

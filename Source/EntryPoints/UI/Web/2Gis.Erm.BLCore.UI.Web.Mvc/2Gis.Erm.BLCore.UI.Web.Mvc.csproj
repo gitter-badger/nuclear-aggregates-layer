@@ -206,7 +206,6 @@
     <Compile Include="Services\Grid\GenericEntityGridViewService.cs" />
     <Compile Include="Services\Grid\IGenericEntityGridViewService.cs" />
     <Compile Include="Services\IUIServicesManager.cs" />
-    <Compile Include="Services\ValidateFileService.cs" />
     <Compile Include="Settings\ConfigurationDto\CardJson.cs" />
     <Compile Include="Settings\ConfigurationDto\CardJson.Server.cs" />
     <Compile Include="Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs" />
@@ -219,8 +218,8 @@
     <Compile Include="Settings\ConfigurationDto\NavigationDto.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.cs" />
     <Compile Include="Settings\ConfigurationDto\ToolbarJson.Server.cs" />
-    <Compile Include="Settings\IWebAppSettings.cs" />
-    <Compile Include="Settings\WebAppSettings.cs" />
+    <Compile Include="Settings\IReportsSettings.cs" />
+    <Compile Include="Settings\IWebAppProcesingSettings.cs" />
     <Compile Include="Settings\WebAppSettingsExtension.cs" />
     <Compile Include="UserProfiles\CultureInfoDto.cs" />
     <Compile Include="UserProfiles\DateTimeFormatInfoDto.cs" />
@@ -721,6 +720,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>

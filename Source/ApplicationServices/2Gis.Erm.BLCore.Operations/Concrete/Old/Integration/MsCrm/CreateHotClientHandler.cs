@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.HotClient;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
@@ -22,31 +22,30 @@ using Microsoft.Crm.SdkTypeProxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
 {
-    // TODO {d.ivanov, 25.11.2013}: сливается с файлом 2Gis.Erm.BLCore.Operations\Concrete\Old\Integration\MsCrm\CreateHotClientHandler.cs
+    // TODO {all, 04.02.2014}: рефакторинг с конвертацией в OperationService, SRP и т.п., при этом учесть фактическое пересечение по используемым выборкам с *OrderProcessing* функционалом - нужно обобщить, в том числе и на уровне ReadModel
     [UseCase(Duration = UseCaseDuration.Long)]
-    public class CreateHotClientHandler
-        : RequestHandler<CreateHotClientRequest, CreateHotClientResponse>
+    public class CreateHotClientHandler : RequestHandler<CreateHotClientRequest, CreateHotClientResponse>
     {
         private const long TelesaleCategoryGroupId = 1;
         private const long DefaultCategoryRate = 1;
 
         private readonly IMsCrmSettings _msCrmSettings;
+        private readonly IUserReadModel _userReadModel;
         private readonly IFirmRepository _firmRepository;
         private readonly IHotClientRequestService _hotClientRequestService;
         private readonly ICrmTaskFactory _crmTaskFactory;
-        private readonly IUserRepository _userRepository;
 
         public CreateHotClientHandler(IMsCrmSettings msCrmSettings,
+                                      IUserReadModel userReadModel,
                                       IFirmRepository firmRepository,
                                       IHotClientRequestService hotClientRequestService,
-                                      ICrmTaskFactory crmTaskFactory,
-                                      IUserRepository userRepository)
+                                      ICrmTaskFactory crmTaskFactory)
         {
             _msCrmSettings = msCrmSettings;
+            _userReadModel = userReadModel;
             _firmRepository = firmRepository;
             _hotClientRequestService = hotClientRequestService;
             _crmTaskFactory = crmTaskFactory;
-            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -77,8 +76,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
             var dto = CreateTaskDto(requestEntity);
             Guid taskId;
 
-                try
-                {
+            try
+            {
                 var taskOwner = ApplyOwnerSearchStrategies(requestEntity.Id, dto.Strategies);
                 taskId = _crmTaskFactory.CreateTask(taskOwner, dto.HotClientDto, dto.Regarding);
             }
@@ -88,9 +87,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
             }
 
             if (taskId != Guid.Empty)
-                    {
+            {
                 _hotClientRequestService.LinkWithCrmTask(requestEntity.Id, taskId);
-                    }
+            }
             else
             {
                 throw new BusinessLogicException("При создании задачи MS Dynamics вернул пустой идентификатор");
@@ -112,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         }
 
         private TaskCreationDto CreateTaskDto(HotClientRequest requestEntity)
-                    {
+        {
             var hotClientDto = new HotClientRequestDto
                 {
                     Id = requestEntity.Id,
@@ -123,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                 };
 
             if (requestEntity.CardCode != null)
-                        {
+            {
                 var firmCategoryGroups = _firmRepository.GetFirmAddressCategoryGroups(requestEntity.CardCode.Value);
                 
                 var mostExpensiveCategoryGroup = firmCategoryGroups.OrderByDescending(categoryGroup => categoryGroup != null ? categoryGroup.GroupRate : DefaultCategoryRate)
@@ -134,14 +133,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                 var hotClientFirmAndClientInfo = _firmRepository.GetFirmAndClientByFirmAddress(requestEntity.CardCode.Value);
 
                 if (hotClientFirmAndClientInfo != null && hotClientFirmAndClientInfo.Client != null)
-                            {
+                {
                     return CreateForClient(hotClientDto, hotClientFirmAndClientInfo.Client, hotClientFirmAndClientInfo.Firm.OrganizationUnitId, isTelesaleTask);
                 }
 
                 if (hotClientFirmAndClientInfo != null && hotClientFirmAndClientInfo.Firm != null)
-                                {
+                {
                     return CreateForFirm(hotClientDto, hotClientFirmAndClientInfo.Firm, isTelesaleTask);
-                                }
+                }
 
                 throw new BusinessLogicException(
                     string.Format("Зацепка на горячего клиента с id {0} не обработана. CardCode {1} не привел ни к фирме, ни к клиенту.",
@@ -152,24 +151,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
             if (requestEntity.BranchCode != null)
             {
                 return CreateForBranch(hotClientDto, requestEntity.BranchCode.Value);
-                            }
+            }
 
             throw new BusinessLogicException(
                 string.Format("Зацепка на горячего клиента с id {0} не обработана. У зацепки не заполнено ни BranchCode, ни CardCode", requestEntity.Id));
         }
 
         private TaskCreationDto CreateForBranch(HotClientRequestDto hotClientDto, long branchCode)
-                            {
+        {
             return new TaskCreationDto
-                                {
-                HotClientDto = hotClientDto,
-                Regarding = null,
-                Strategies = new List<StrategyDto>
-                            {
-                                ForProjectDirector(branchCode),
-                            },
-            };
-                                }
+                          {
+                            HotClientDto = hotClientDto,
+                            Regarding = null,
+                            Strategies = new List<StrategyDto> { ForProjectDirector(branchCode) },
+                          };
+        }
 
         private TaskCreationDto CreateForClient(HotClientRequestDto hotClientDto, Client client, long firmOrganizationUnitId, bool isTelesaleTask)
         {
@@ -192,7 +188,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                                              ForOrganizationUnitDirector(firmOrganizationUnitId),
                                          },
                 };
-                        }
+        }
 
         private TaskCreationDto CreateForFirm(HotClientRequestDto hotClientDto, Firm firm, bool isTelesaleTask)
         {
@@ -215,32 +211,32 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                                              ForOrganizationUnitDirector(firm.OrganizationUnitId),
                                          },
                 };
-                    }
+        }
 
         private UserDto FindOrganizationUnitTelesales(long organizationUnit)
-                    {
-            var telemarketingUser = _userRepository.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientTelemarketingProcessing);
+        {
+            var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientTelemarketingProcessing);
             return GetUserDto(telemarketingUser, user => user != null);
         }
 
         private UserDto FindOrganizationUnitDirector(long organizationUnit)
-                        {
-            var directorUser = _userRepository.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientProcessing);
+        {
+            var directorUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientProcessing);
             return GetUserDto(directorUser, user => user != null);
-                        }
+        }
 
         private UserDto FindProjectDirector(long projectCode)
         {
             var organizationUnitIds = _firmRepository.GetProjectOrganizationUnitIds(projectCode);
-            var director = _userRepository.FindAnyUserWithPrivelege(organizationUnitIds, FunctionalPrivilegeName.HotClientProcessing);
+            var director = _userReadModel.FindAnyUserWithPrivelege(organizationUnitIds, FunctionalPrivilegeName.HotClientProcessing);
             return GetUserDto(director, user => user != null);
-                    }
+        }
 
         private UserDto FindOwner(long ownerCode)
-                    {
-            var owner = _userRepository.GetUser(ownerCode);
+        {
+            var owner = _userReadModel.GetUser(ownerCode);
             return GetUserDto(owner, user => user != null && !user.IsServiceUser);
-                    }
+        }
 
         private UserDto GetUserDto(User user, Func<User, bool> acceptanceCriteria)
         {
@@ -249,12 +245,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                 return acceptanceCriteria(user)
                            ? new UserDto { Id = user.Id, Account = user.Account }
                            : null;
-                }
-                catch (WebException ex)
-                {
-                throw new ErmCommunicationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
-                }
             }
+            catch (WebException ex)
+            {
+                throw new ErmCommunicationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
+            }
+        }
 
         private StrategyDto ForClientOwner(long userId)
         {
@@ -267,19 +263,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         }
 
         private StrategyDto ForOrganizationUnitDirector(long organizationUnitId)
-                {
+        {
             return new StrategyDto("по директору OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitDirector);
-                }
+        }
 
         private StrategyDto ForOrganizationUnitTelesales(long organizationUnitId)
-                {
+        {
             return new StrategyDto("по телепродажам OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitTelesales);
-                }
+        }
 
         private StrategyDto ForProjectDirector(long projectCode)
         {
             return new StrategyDto("по директору Project.Code = {0}", projectCode, FindProjectDirector);
-            }
+        }
 
         private sealed class StrategyDto
         {
@@ -292,7 +288,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                 _strategyDescriptionTemplate = strategyDescriptionTemplate;
                 _strategyParameter = strategyParameter;
                 _strategy = strategy;
-        }
+            }
 
             public string Message 
             {
@@ -303,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
             {
                 return _strategy.Invoke(_strategyParameter);
             }
-            }
+        }
 
         private sealed class TaskCreationDto
         {

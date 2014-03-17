@@ -1,40 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Services.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public class OrderProcessingRequestEmailSender : IOrderProcessingRequestEmailSender,
                                                      ICreatedOrderProcessingRequestEmailSender
     {
         private readonly ICommonLog _logger;
-        private readonly IAppSettings _appSettings;
         private readonly ISecurityServiceUserIdentifier _userIdentityService;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly IOrderProcessingRequestNotificationFormatter _notificationFormatter;
 
-        public OrderProcessingRequestEmailSender(INotificationSender notificationSender,
+        public OrderProcessingRequestEmailSender(INotificationsSettings notificationsSettings,
+                                                 INotificationSender notificationSender,
                                                  IEmployeeEmailResolver employeeEmailResolver,
                                                  IOrderProcessingRequestNotificationFormatter notificationFormatter,
-                                                 IAppSettings appSettings,
                                                  ISecurityServiceUserIdentifier userIdentityService,
                                                  ICommonLog logger)
         {
+            _notificationsSettings = notificationsSettings;
             _notificationFormatter = notificationFormatter;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
-
-            _appSettings = appSettings;
             _userIdentityService = userIdentityService;
             _logger = logger;
         }
@@ -89,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private bool EnsureNotificationIsEnabled()
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return false;

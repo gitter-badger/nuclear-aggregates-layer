@@ -74,6 +74,7 @@
     <Compile Include="Config\CommonBootstrapper.MassProcessing.cs" />
     <Compile Include="Config\CommonBootstrapper.Initialize.cs" />
     <Compile Include="Config\CommonBootstrapper.Aspects.cs" />
+    <Compile Include="Config\CommonBootstrapper.Workflow.cs" />
     <Compile Include="Config\MassProcessing\OrderValidationRuleProcessor.cs" />
     <Compile Include="Config\MassProcessing\RequestHandlersProcessor.cs" />
     <Compile Include="Infrastructure\RequestHandling\UnityHandlerFactory.cs" />

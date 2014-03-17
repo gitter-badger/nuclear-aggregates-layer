@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -23,9 +24,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return IsErmAssembly(checkingAssembly.GetName());
         }
 
-        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun, Type adaptationMarkerType)
+        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun, IBusinessModelSettings businessModelSettings)
         {
-            var exportedTypesMap = GetExportedTypesMap(assemblies, adaptationMarkerType);
+            var exportedTypesMap = GetExportedTypesMap(assemblies, businessModelSettings);
 
             foreach (var massProcessor in massProcessors)
             {
@@ -42,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static void PerfomTypesMassProcessings(IMassProcessor[] massProcessors, bool firstRun, Type adaptationMarkerType)
+        public static void PerfomTypesMassProcessings(IMassProcessor[] massProcessors, bool firstRun, IBusinessModelSettings businessModelSettings)
         {
-            PerfomTypesMassProcessings(AppDomain.CurrentDomain.GetAssemblies(), massProcessors, firstRun, adaptationMarkerType);
+            PerfomTypesMassProcessings(AppDomain.CurrentDomain.GetAssemblies(), massProcessors, firstRun, businessModelSettings);
         }
 
-        private static Dictionary<Type, Type[]> GetExportedTypesMap(IEnumerable<Assembly> assemblies, Type adaptationMarkerType)
+        private static Dictionary<Type, Type[]> GetExportedTypesMap(IEnumerable<Assembly> assemblies, IBusinessModelSettings businessModelSettings)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                             Types = x.Assembly.GetExportedTypes()
                                      .Where(z => y != z && y.IsAssignableFrom(z))
                                      // фильтруем неадаптированные типы
-                                     .Where(z => !(typeof(IAdapted).IsAssignableFrom(z) && !adaptationMarkerType.IsAssignableFrom(z))),
+                                     .Where(z => !(typeof(IAdapted).IsAssignableFrom(z) && !businessModelSettings.BusinessModelIndicator.IsAssignableFrom(z))),
                         }))
                     .GroupBy(x => x.AssignableType, x => x.Types)
                     .ToDictionary(x => x.Key, x => x.SelectMany(y => y).ToArray());

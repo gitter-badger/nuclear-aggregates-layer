@@ -83,7 +83,7 @@
     </Compile>
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestEmailSender.cs" />
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestNotificationFormatter.cs" />
-    <Compile Include="OrderProcessingRequests\IOrderProcessingRequestOwnerSelectionService.cs" />
+    <Compile Include="OrderProcessingRequests\IOrderProcessingSettings.cs" />
     <Compile Include="OrderProcessingRequests\IProcessOrderCreationRequestSingleOperation.cs" />
     <Compile Include="OrderProcessingRequests\IProcessOrderProlongationRequestMassOperation.cs" />
     <Compile Include="OrderProcessingRequests\IProcessOrderProlongationRequestOperationService.cs" />
@@ -112,8 +112,14 @@
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\IRequestStateApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\OrderProcessingErrorDescription.cs" />
+    <Compile Include="Remote\Settings\APIFinancialOperationsServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIFinancialOperationsServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

@@ -9,6 +9,8 @@ using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -17,6 +19,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     public class ValidateAccountDetailsFrom1CHandler : RequestHandler<ValidateAccountDetailsFrom1CRequest, ValidateAccountDetailsFrom1CResponse>
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+        private readonly ILocalizationSettings _localizationSettings;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
@@ -24,11 +27,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly Dictionary<string, BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitsBy1CCode;
         private readonly Dictionary<long, BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitsById;
 
-        public ValidateAccountDetailsFrom1CHandler(IBranchOfficeReadModel branchOfficeReadModel,
-                                                   IBranchOfficeRepository branchOfficeRepository,
-                                                   ILegalPersonRepository legalPersonRepository,
-                                                   IAccountRepository accountRepository)
+        public ValidateAccountDetailsFrom1CHandler(
+            ILocalizationSettings localizationSettings,
+            IBranchOfficeReadModel branchOfficeReadModel,
+            IBranchOfficeRepository branchOfficeRepository,
+            ILegalPersonRepository legalPersonRepository,
+            IAccountRepository accountRepository)
         {
+            _localizationSettings = localizationSettings;
             _branchOfficeReadModel = branchOfficeReadModel;
             _branchOfficeRepository = branchOfficeRepository;
             _legalPersonRepository = legalPersonRepository;
@@ -41,7 +47,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         {
             var result = new ValidateAccountDetailsFrom1CResponse();
 
-            var rows = AccountDetailsFrom1CHelper.ParseStreamAsRows(request.InputStream);
+            var targetEncoding = _localizationSettings.ApplicationCulture.ToDefaultAnsiEncoding();
+            var rows = AccountDetailsFrom1CHelper.ParseStreamAsRows(request.InputStream, targetEncoding);
             if (rows.Length == 0)
             {
                 result.Errors.Add(string.Format("Файл [{0}] пуст", request.FileName));
@@ -49,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
 
             AccountDetailsFrom1CHelper.CsvHeader csvHeader;
-            if (!AccountDetailsFrom1CHelper.CsvHeader.TryParse(rows[0], out csvHeader))
+            if (!AccountDetailsFrom1CHelper.CsvHeader.TryParse(rows[0], _localizationSettings.ApplicationCulture, out csvHeader))
             {
                 result.Errors.Add(string.Format("Неверный формат заголовка файла [{0}]", request.FileName));
                 return result;
@@ -57,7 +64,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             // юр. лицо отделения организации, которое было выбрано на форме
             BranchOfficeOrganizationUnit selectedBranchOfficeOrganizationUnit;
-
             if (_branchOfficeOrganizationUnitsById.ContainsKey(request.BranchOfficeOrganizationUnitId))
             {
                 selectedBranchOfficeOrganizationUnit = _branchOfficeOrganizationUnitsById[request.BranchOfficeOrganizationUnitId];
@@ -69,7 +75,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
 
             var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(selectedBranchOfficeOrganizationUnit.OrganizationUnitId);
-
             if (!_branchOfficeOrganizationUnitsBy1CCode.ContainsKey(selectedBranchOfficeOrganizationUnit.SyncCode1C))
             {
                 _branchOfficeOrganizationUnitsBy1CCode.Add(selectedBranchOfficeOrganizationUnit.SyncCode1C, selectedBranchOfficeOrganizationUnit);
@@ -87,12 +92,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 }
             }
 
-
-
             for (int i = 1; i < rows.Length; i++)
             {
                 AccountDetailsFrom1CHelper.CsvRow row;
-                if (!AccountDetailsFrom1CHelper.CsvRow.TryParse(rows[i], out row))
+                if (!AccountDetailsFrom1CHelper.CsvRow.TryParse(rows[i], _localizationSettings.ApplicationCulture, out row))
                 {
                     result.Errors.Add("Неверный формат строки " + i);
                     continue;

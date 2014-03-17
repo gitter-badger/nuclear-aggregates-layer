@@ -1,31 +1,40 @@
 ﻿using System;
-using System.IO;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Settings
 {
-    public class ApiSettings : ConfigFileSettingsBase, IApiSettings 
+    public sealed class ApiSettings : ConfigFileSettingsBase, IApiSettings 
     {
         private const string ModuleContainerApiSettings = "ApiSettings";
         private const string ModuleSettingsSectionPath = SettingsConstants.ModuleContainerSettingsSection + "/" + ModuleContainerApiSettings;
-
-        private readonly APIServicesSettingsAspect _APIServicesSettings;
         
         public ApiSettings(string configFileFullPath) : base(configFileFullPath)
         {
-            _APIServicesSettings = new APIServicesSettingsAspect();
+            Aspects.Use(
+                RequiredServices
+                    .Is<APIReleasingServiceSettingsAspect>()
+                    .Is<APIIntrospectionServiceSettingsAspect>()
+                    .Is<APIOrderValidationServiceSettingsAspect>()
+                    .Is<APIIdentityServiceSettingsAspect>()
+                    .Is<APIOperationsServiceSettingsAspect>()
+                    .Apply(Configuration));
         }
 
-        public AppTargetEnvironment TargetEnvironment
+        public EnvironmentType TargetEnvironmentType
         {
             get
             {
                 var rawValue = ModulesContainerConfig.GetValue<string>(ModuleSettingsSectionPath, "TargetEnvironment");
-                AppTargetEnvironment buffer;
+                EnvironmentType buffer;
                 if (Enum.TryParse(rawValue, out buffer))
                 {
                     return buffer;
@@ -87,11 +96,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Settings
         public string GroupAssignServiceEndpointName
         {
             get { return ModulesContainerConfig.GetValue<string>(ModuleSettingsSectionPath, "GroupAssignServiceEndpointName"); }
-        }
-
-        public APIServicesSettingsAspect ServicesSettings 
-        {
-            get { return _APIServicesSettings; }
         }
     }
 }

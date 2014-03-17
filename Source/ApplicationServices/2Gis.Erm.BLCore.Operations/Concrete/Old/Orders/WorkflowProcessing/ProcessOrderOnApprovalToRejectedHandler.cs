@@ -3,12 +3,12 @@
 using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
 {
     public sealed class ProcessOrderOnApprovalToRejectedHandler : RequestHandler<ProcessOrderOnApprovalToRejectedRequest, EmptyResponse>
     {
-        private readonly IAppSettings _appSettings;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealRepository _dealRepository;
         private readonly IUserContext _userContext;
@@ -26,16 +26,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
         private readonly ICommonLog _logger;
         private readonly IOrderReadModel _orderReadModel;
 
-        public ProcessOrderOnApprovalToRejectedHandler(IAppSettings appSettings,
-                                                       IDealReadModel dealReadModel,
-                                                       IDealRepository dealRepository,
-                                                       IUserContext userContext,
-                                                       INotificationSender notificationSender,
-                                                       IEmployeeEmailResolver employeeEmailResolver,
+        public ProcessOrderOnApprovalToRejectedHandler(
+            INotificationsSettings notificationsSettings,
+            IDealReadModel dealReadModel,
+            IDealRepository dealRepository,
+            IUserContext userContext,
+            INotificationSender notificationSender,
+            IEmployeeEmailResolver employeeEmailResolver,
                                                        ICommonLog logger,
                                                        IOrderReadModel orderReadModel)
         {
-            _appSettings = appSettings;
+            _notificationsSettings = notificationsSettings;
             _dealReadModel = dealReadModel;
             _dealRepository = dealRepository;
             _userContext = userContext;
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
 
         private void NotifyAboutOrderRejected(Order order)
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return;

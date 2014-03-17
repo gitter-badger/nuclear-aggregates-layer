@@ -21,6 +21,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 {
+    // FIXME {all, 17.02.2014}: OperationService использует DAL напрямую (finder)
     public class OrderPositionCostCalculationOperationService : ICalculateOrderPositionCostService
     {
         private readonly IFinder _finder;

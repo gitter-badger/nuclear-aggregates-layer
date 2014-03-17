@@ -8,7 +8,6 @@ using MessageType = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public static class OrderProcessingRequestMessageExtension
     {
         public static OrderProcessingRequestMessage ToOrderProcessingRequestMessage(this IMessageWithType message, long orderProcessingRequestId)

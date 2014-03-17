@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -25,21 +25,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
         private readonly IValidateBillsService _validateBillsService;
-        private readonly IAppSettings _appSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
 
-        public CreateBillsHandler(ISubRequestProcessor subRequestProcessor,
+        public CreateBillsHandler(
+            IBusinessModelSettings businessModelSettings,
+            ISubRequestProcessor subRequestProcessor,
             IOrderRepository orderRepository,
             IOrderReadModel orderReadModel,
             IEvaluateBillNumberService evaluateBillNumberService,
-            IValidateBillsService validateBillsService,
-            IAppSettings appSettings)
+            IValidateBillsService validateBillsService)
         {
             _subRequestProcessor = subRequestProcessor;
             _orderRepository = orderRepository;
             _orderReadModel = orderReadModel;
             _evaluateBillNumberService = evaluateBillNumberService;
             _validateBillsService = validateBillsService;
-            _appSettings = appSettings;
+            _businessModelSettings = businessModelSettings;
         }
 
         protected override EmptyResponse Handle(CreateBillsRequest request)
@@ -92,11 +93,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                         // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
                     bill.BillNumber = _evaluateBillNumberService.Evaluate(createBillInfo.BillNumber, orderInfo.Number, i + 1);
 
-                    bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                    bill.PayablePlan = Math.Round(createBillInfo.PayablePlan, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                         billsPayablePlanSum += bill.PayablePlan;
 
                         var payablePlanWithoutVat = createBillInfo.PayablePlan / (1 + orderVatRatio);
-                    bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                    bill.VatPlan = Math.Round(createBillInfo.PayablePlan - payablePlanWithoutVat, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                         billsVatPlanSum += bill.VatPlan;
 
                     billsToCreate.Add(bill);
@@ -110,8 +111,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                     // FIXME {all, 29.01.2014}: при рефакторинге ApplicationService нужно перенести использование evaluateBillNumberService в запиливаемый CreateBillAggregateService
                 lastBill.BillNumber = _evaluateBillNumberService.Evaluate(lastCreateBillInfo.BillNumber, orderInfo.Number, request.CreateBillInfos.Length);
 
-                lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                lastBill.PayablePlan = Math.Round(orderInfo.PayablePlan - billsPayablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                lastBill.VatPlan = Math.Round(orderInfo.VatPlan - billsVatPlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
                 billsToCreate.Add(lastBill);
             }

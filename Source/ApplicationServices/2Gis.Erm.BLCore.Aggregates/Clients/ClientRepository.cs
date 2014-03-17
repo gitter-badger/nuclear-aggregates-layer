@@ -12,12 +12,12 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private static readonly DateTime MinMssqlDatetime = new DateTime(1753, 1, 1);
         private static readonly DateTime MaxMssqlDatetime = new DateTime(9999, 12, 31, 23, 59, 59, 997);
 
-        private readonly IAppSettings _appSettings;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly ISecureRepository<Client> _clientGenericSecureRepository;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IOperationScopeFactory _scopeFactory;
 
         public ClientRepository(
-            IAppSettings appSettings,
+            IDebtProcessingSettings debtProcessingSettings,
             IFinder finder,
             ISecureRepository<Client> clientGenericSecureRepository,
             IRepository<Firm> firmGenericRepository,
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IOperationScopeFactory operationScopeFactory, 
             IOperationScopeFactory scopeFactory)
         {
-            _appSettings = appSettings;
+            _debtProcessingSettings = debtProcessingSettings;
             _finder = finder;
             _clientGenericSecureRepository = clientGenericSecureRepository;
             _firmGenericRepository = firmGenericRepository;
@@ -724,7 +724,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                     let lockDetailBalance = account.Balance - (account.Locks
                                                                                   .Where(x => x.IsActive && !x.IsDeleted)       // скобки и проверки на null тут НУЖНЫ,
                                                                                   .Sum(x => (decimal?)x.PlannedAmount) ?? 0)    // т.к. без них возможна ситуация decimal - null = null
-                                    where lockDetailBalance <= _appSettings.MinDebtAmount
+                                    where lockDetailBalance <= _debtProcessingSettings.MinDebtAmount
                                     select new AccountWithDebtInfo
                                     {
                                         ClientName = client.Name,

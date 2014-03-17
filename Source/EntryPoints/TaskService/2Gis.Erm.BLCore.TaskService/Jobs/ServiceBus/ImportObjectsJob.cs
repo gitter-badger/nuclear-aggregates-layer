@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -18,7 +17,6 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IPublicService _publicService;
-        private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
         private readonly IImportFlowCardsForErmOperationService _importFlowCardsForErmOperationService;
 
@@ -28,14 +26,12 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
             IPublicService publicService, 
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService,
-            IGlobalizationSettings globalizationSettings,
             IImportFlowCardsForErmOperationService importFlowCardsForErmOperationService,
             IIntegrationLocalizationSettings integrationLocalizationSettings)
             : base(signInService, userImpersonationService, logger)
         {
             _integrationSettings = integrationSettings;
             _publicService = publicService;
-            _globalizationSettings = globalizationSettings;
             _integrationLocalizationSettings = integrationLocalizationSettings;
             _importFlowCardsForErmOperationService = importFlowCardsForErmOperationService;
         }
@@ -63,8 +59,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                     case "flowrubrics":
                         _publicService.Handle(new ImportFlowRubricsRequest
                             {
-                                BasicLanguage = _globalizationSettings.BasicLanguage,
-                                ReserveLanguage = _globalizationSettings.ReserveLanguage
+                                BasicLanguage = _integrationLocalizationSettings.BasicLanguage,
+                                ReserveLanguage = _integrationLocalizationSettings.ReserveLanguage
                             });
                         break;
 
@@ -78,16 +74,16 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                     case "flowgeoclassifier":
                         _publicService.Handle(new ImportFlowGeoClassifierRequest
                             {
-                                BasicLanguage = _globalizationSettings.BasicLanguage,
-                                ReserveLanguage = _globalizationSettings.ReserveLanguage
+                                BasicLanguage = _integrationLocalizationSettings.BasicLanguage,
+                                ReserveLanguage = _integrationLocalizationSettings.ReserveLanguage
                             });
                         break;
 
                     case "flowcards":
                         _publicService.Handle(new ImportFlowCardsRequest
                             {
-                                BasicLanguage = _globalizationSettings.BasicLanguage,
-                                ReserveLanguage = _globalizationSettings.ReserveLanguage,
+                                BasicLanguage = _integrationLocalizationSettings.BasicLanguage,
+                                ReserveLanguage = _integrationLocalizationSettings.ReserveLanguage,
                                 RegionalTerritoryLocaleSpecificWord = _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
                                 PregeneratedIdsAmount = PregeneratedIdsAmount
                             });

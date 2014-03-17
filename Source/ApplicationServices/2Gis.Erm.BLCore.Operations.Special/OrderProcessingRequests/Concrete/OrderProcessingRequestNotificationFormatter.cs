@@ -10,7 +10,6 @@ using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     // TODO {all, 17.12.2013}: Лучше разделить форматирование текста для операций создания заявки, реализации заявки и, возможно, других операций по заявке. 
     public class OrderProcessingRequestNotificationFormatter : IOrderProcessingRequestNotificationFormatter
     {

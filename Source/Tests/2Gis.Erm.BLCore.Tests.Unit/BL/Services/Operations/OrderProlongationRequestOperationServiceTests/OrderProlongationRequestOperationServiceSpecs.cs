@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -38,26 +40,37 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     Mocks = new MockRepository(MockBehavior.Strict);
 
                     OrderProcessingRequestService = Mocks.Create<IOrderProcessingRequestService>();
-                    AppSettings = Mocks.Create<IAppSettings>();
+                    OrderProcessingSettings = Mocks.Create<IOrderProcessingSettings>();
                     SecureFinder = new FakeSecureFinder();
-                    OwnerSelectionService = Mock.Of<IOrderProcessingRequestOwnerSelectionService>();
+                    UserReadModel = Mock.Of<IUserReadModel>();
+                    SecurityServiceUserIdentifier = Mock.Of<ISecurityServiceUserIdentifier>();
 
-                    Mock.Get(OwnerSelectionService)
-                        .Setup(x => x.GetOwner(Moq.It.IsAny<long>()))
+                    Mock.Get(UserReadModel)
+                        .Setup(x => x.GetNotServiceUser(Moq.It.IsAny<long>()))
                         .Returns<long>(id => Users.FirstOrDefault(x => x.Id == id));
 
+                    var reserveUserInfo = new UserInfo(27, "reserve", string.Empty);
+                    Mock.Get(UserReadModel)
+                        .Setup(x => x.GetUser(reserveUserInfo.Code))
+                        .Returns(new User { Id = reserveUserInfo.Code, Account = reserveUserInfo.Account });
+                    Mock.Get(SecurityServiceUserIdentifier)
+                        .Setup(x => x.GetReserveUserIdentity())
+                        .Returns(reserveUserInfo);
+
                     Service = new CreateOrderProlongationRequestOperationService(
-                        AppSettings.Object,
+                        OrderProcessingSettings.Object,
+                        UserReadModel,
                         SecureFinder,
                         OrderProcessingRequestService.Object,
-                        OwnerSelectionService);
+                        SecurityServiceUserIdentifier);
                 };
 
             protected static MockRepository Mocks { get; private set; }
             protected static Mock<IOrderProcessingRequestService> OrderProcessingRequestService { get; private set; }
             protected static FakeSecureFinder SecureFinder { get; private set; }
-            protected static IOrderProcessingRequestOwnerSelectionService OwnerSelectionService { get; private set; }
-            protected static Mock<IAppSettings> AppSettings { get; private set; }
+            protected static IUserReadModel UserReadModel;
+            protected static ISecurityServiceUserIdentifier SecurityServiceUserIdentifier;
+            protected static Mock<IOrderProcessingSettings> OrderProcessingSettings { get; private set; }
             protected static CreateOrderProlongationRequestOperationService Service { get; private set; }
             protected static IEnumerable<User> Users;
         }
@@ -89,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     SecureFinder.Storage.Add(order);
                     SecureFinder.Storage.Add(satelliteLegalPersonProfile);
                     SecureFinder.Storage.Add(mainLegalPersonProfile);
-                    AppSettings.Setup(x => x.OrderRequestProcessingHoursAmount).Returns(1);
+                    OrderProcessingSettings.Setup(x => x.OrderRequestProcessingHoursAmount).Returns(1);
                     OrderProcessingRequestService
                         .Setup(x => x.Create(
                             Moq.It.Is<OrderProcessingRequest>(o => o.LegalPersonProfileId == MAIN_ID)));

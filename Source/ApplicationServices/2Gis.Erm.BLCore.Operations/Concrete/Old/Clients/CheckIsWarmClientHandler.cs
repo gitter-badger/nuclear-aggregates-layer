@@ -5,11 +5,11 @@ using System.Net;
 
 using DoubleGis.Erm.BLCore.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals.Settings;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 
 using Microsoft.Xrm.Client;
@@ -18,17 +18,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
     public class CheckIsWarmClientHandler : RequestHandler<CheckIsWarmClientRequest, CheckIsWarmClientResponse>
     {
-        private readonly IAppSettings _appSettings;
         private readonly IMsCrmSettings _msCrmSettings;
+        private readonly IWarmClientProcessingSettings _warmClientProcessingSettings;
         private readonly IClientRepository _repository;
 
         public CheckIsWarmClientHandler(
-            IAppSettings appSettings,
             IMsCrmSettings msCrmSettings,
+            IWarmClientProcessingSettings warmClientProcessingSettings,
             IClientRepository repository)
         {
-            _appSettings = appSettings;
             _msCrmSettings = msCrmSettings;
+            _warmClientProcessingSettings = warmClientProcessingSettings;
             _repository = repository;
         }
 
@@ -41,16 +41,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 
                 try
                 {
-                    int days = _appSettings.WarmClientDaysCount;
                     var crmDataContext = _msCrmSettings.CreateDataContext();
-
                     // Сначала ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента, 
                     // потом у самого клиента.
                     foreach (var firmReplicationCode in clientInfo.FirmReplicationCodes)
                     {
                         var firmObject = crmDataContext.GetFirm(firmReplicationCode);
 
-                        var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", days);
+                        var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
 
                         if (existingFirmTask != null)
                         {
@@ -62,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                     }
 
                     var clientObject = crmDataContext.GetClient(clientInfo.ClientReplicationCode);
-                    var existingClosedTask = FindRelatedWarmTask(clientObject, "Account_Tasks", days);
+                    var existingClosedTask = FindRelatedWarmTask(clientObject, "Account_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
 
                     if (existingClosedTask != null)
                     {

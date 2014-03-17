@@ -8,7 +8,7 @@ using System.Web.Routing;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
@@ -25,12 +25,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         private static readonly Lazy<IDictionary<Type, Type>> CreateOrUpdateContollerConcreteTypes = new Lazy<IDictionary<Type, Type>>(() => new Dictionary<Type, Type>());
         private static readonly Lazy<IDictionary<Type, Type>> CrmCreateOrUpdateContollerConcreteTypes = new Lazy<IDictionary<Type, Type>>(() => new Dictionary<Type, Type>());
 
-        private readonly Type _adaptationMarkerType;
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IViewModelTypesRegistry _viewModelTypesRegistry;
 
-        public GenericContollerFactory(IGlobalizationSettings globalizationSettings, IViewModelTypesRegistry viewModelTypesRegistry)
+        public GenericContollerFactory(IBusinessModelSettings businessModelSettings, IViewModelTypesRegistry viewModelTypesRegistry)
         {
-            _adaptationMarkerType = globalizationSettings.BusinessModel.AsAdapted();
+            _businessModelSettings = businessModelSettings;
             _viewModelTypesRegistry = viewModelTypesRegistry;
         }
 
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                         Type controllerType;
                         if (!CreateOrUpdateContollerConcreteTypes.Value.TryGetValue(entityType, out controllerType))
                         {
-                            controllerType = typeof(CreateOrUpdateController<,,>).MakeGenericType(new[] { entityType, entityViewModelType, _adaptationMarkerType });
+                            controllerType = typeof(CreateOrUpdateController<,,>).MakeGenericType(new[] { entityType, entityViewModelType, _businessModelSettings.BusinessModelIndicator });
                             CreateOrUpdateContollerConcreteTypes.Value.Add(entityType, controllerType);
                         }
 
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                         throw new ConfigurationErrorsException("All adapted view models must be assignable from IAdapted interface");
                     }
 
-                    viewModelType = viewModelTypes.SingleOrDefault(x => _adaptationMarkerType.IsAssignableFrom(x));
+                    viewModelType = viewModelTypes.SingleOrDefault(x => _businessModelSettings.BusinessModelIndicator.IsAssignableFrom(x));
                 }
                 else
                 {

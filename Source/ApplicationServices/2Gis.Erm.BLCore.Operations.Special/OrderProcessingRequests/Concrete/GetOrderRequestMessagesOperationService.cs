@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // TODO {d.ivanov, 05.12.2013}: 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
+    // TODO {all, 04.02.2014}: не понятно какую ценность представляет такой OperationService с точки зрения бизнес домена ERM - скорее всего должен быть сконвертирован в ReadModel
     public class GetOrderRequestMessagesOperationService : IGetOrderRequestMessagesOperationService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;

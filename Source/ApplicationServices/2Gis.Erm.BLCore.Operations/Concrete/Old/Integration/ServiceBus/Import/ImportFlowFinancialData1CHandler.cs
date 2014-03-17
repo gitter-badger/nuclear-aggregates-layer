@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,30 +24,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
 {
     public class ImportFlowFinancialData1CHandler : RequestHandler<ImportFlowFinancialData1CRequest, EmptyResponse>
     {
+        private readonly ILocalizationSettings _localizationSettings;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly ICommonLog _logger;
         private readonly IAccountRepository _accountRepository;
-        private readonly IAppSettings _appSettings;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly INotificationSender _notificationSender;
         private readonly IReadOnlyCollection<OperationType> _operations;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ImportFlowFinancialData1CHandler(IClientProxyFactory clientProxyFactory,
-                                                IIntegrationSettings integrationSettings,
-                                                ICommonLog logger,
-                                                IAccountRepository accountRepository,
-                                                IAppSettings appSettings,
-                                                IEmployeeEmailResolver employeeEmailResolver,
-                                                INotificationSender notificationSender,
-                                                IOperationScopeFactory scopeFactory)
+        public ImportFlowFinancialData1CHandler(
+            ILocalizationSettings localizationSettings,
+            INotificationsSettings notificationsSettings,
+            IClientProxyFactory clientProxyFactory,
+            IIntegrationSettings integrationSettings,
+            ICommonLog logger,
+            IAccountRepository accountRepository,
+            IEmployeeEmailResolver employeeEmailResolver,
+            INotificationSender notificationSender,
+            IOperationScopeFactory scopeFactory)
         {
+            _localizationSettings = localizationSettings;
+            _notificationsSettings = notificationsSettings;
             _clientProxyFactory = clientProxyFactory;
             _integrationSettings = integrationSettings;
             _logger = logger;
             _accountRepository = accountRepository;
-            _appSettings = appSettings;
             _employeeEmailResolver = employeeEmailResolver;
             _notificationSender = notificationSender;
             _scopeFactory = scopeFactory;
@@ -215,7 +220,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
                                                 decimal accountDetailAmount,
                                                 DateTime transactionDate)
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return;
@@ -229,7 +234,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Im
                                          legalPersonName,
                                          branchOfficeLegalName,
                                          accountDetailAmount,
-                                         transactionDate.ToString(LocalizationSettings.ApplicationCulture));
+                                         transactionDate.ToString(_localizationSettings.ApplicationCulture));
 
                 _notificationSender.PostMessage(new[] { new NotificationAddress(accountOwnerEmail) },
                                                 BLResources.PaymentReceivedSubject,

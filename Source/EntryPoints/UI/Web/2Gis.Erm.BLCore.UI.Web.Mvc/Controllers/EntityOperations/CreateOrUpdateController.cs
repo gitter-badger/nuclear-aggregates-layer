@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -14,9 +15,9 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -33,6 +34,7 @@ using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.Controll
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
+    // FIXME {all, 22.02.2014}: добавить в данные передавемые на карточку в create usecase (возможно одновреммено с разделением на update и create) url до IdentityService - при этом удалить протаксивание этого URL, через многие DomainEntityDto (удалив при этом и соответсвующие partial части этих DTO), то же касается и MVC ViewModel
     public sealed class CreateOrUpdateController<TEntity, TModel, TAdapted> : ControllerBase
         where TEntity : class, IEntityKey
         where TModel : EntityViewModelBase<TEntity>, new()
@@ -40,12 +42,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
     {
         private readonly IUIConfigurationService _uiConfigurationService;
         private readonly IUIServicesManager _uiServicesManager;
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
 
-        public CreateOrUpdateController(IMsCrmSettings msCrmSettings,
+        public CreateOrUpdateController(IBusinessModelSettings businessModelSettings,
+                                        IMsCrmSettings msCrmSettings,
                                         IUserContext userContext,
                                         ICommonLog logger,
                                         IUIConfigurationService uiConfigurationService,
@@ -62,6 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                    operationsServiceSettings,
                    getBaseCurrencyService)
         {
+            _businessModelSettings = businessModelSettings;
             _operationServicesManager = operationServicesManager;
             _uiConfigurationService = uiConfigurationService;
             _uiServicesManager = uiServicesManager;
@@ -85,16 +90,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var entityTypeName = typeof(TEntity).Name;
             var viewName = GetViewName(model, entityTypeName);
             return View(viewName, model);
-        }
-
-        private static string GetViewName(TModel model, string entityTypeName)
-        {
-            if (model is TAdapted)
-            {
-                return string.Format("{0}/{1}", typeof(TAdapted).AsBusinessModel(), entityTypeName);
-            }
-
-            return entityTypeName;
         }
 
         [HttpPost, GetEntityStateToken, UseDependencyFields]
@@ -137,6 +132,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
 
             return jsonNetResult;
+        }
+
+        private string GetViewName(TModel model, string entityTypeName)
+        {
+            if (model is TAdapted)
+            {
+                return string.Format("{0}/{1}", _businessModelSettings.BusinessModel, entityTypeName);
+            }
+
+            return entityTypeName;
         }
 
         private TModel CreateOrUpdate(TModel model)

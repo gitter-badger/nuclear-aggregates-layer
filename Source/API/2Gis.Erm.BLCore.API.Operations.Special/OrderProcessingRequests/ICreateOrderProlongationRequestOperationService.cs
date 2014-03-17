@@ -3,7 +3,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests
 {
-    // 2+ \BL\Source\API\2Gis.Erm.BLCore.API.Operations.Special\OrderProcessingRequests
     public interface ICreateOrderProlongationRequestOperationService : IOperation<RequestOrderProlongationIdentity>
     {
         long CreateOrderProlongationRequest(long orderId, short releaseCountPlan, string description);
