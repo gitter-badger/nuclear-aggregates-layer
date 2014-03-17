@@ -175,7 +175,7 @@
     <value>Max. počet řádků</value>
   </data>
   <data name="FileExtensionRestriction" xml:space="preserve">
-    <value>Možné přípony souborů</value>
+    <value>Přípustné přípony souborů</value>
   </data>
   <data name="CloseReasonOther" xml:space="preserve">
     <value>Jiný důvod ukončení</value>
@@ -331,7 +331,7 @@
     <value>Přihlášení</value>
   </data>
   <data name="SignedOn" xml:space="preserve">
-    <value>Datum podepsání</value>
+    <value>Datum podpisu</value>
   </data>
   <data name="AdditionalEmail" xml:space="preserve">
     <value>Dodatečný e-mail</value>
@@ -340,7 +340,7 @@
     <value>plán.</value>
   </data>
   <data name="PositionInGenitive" xml:space="preserve">
-    <value>Funkce (druhý pád)</value>
+    <value>Funkce (sedmý pád)</value>
   </data>
   <data name="FirmContact" xml:space="preserve">
     <value>Kontakt</value>
@@ -400,7 +400,7 @@
     <value>Hlavní položky k prodeji regionální reklamy</value>
   </data>
   <data name="OperatesOnTheBasisInGenitive" xml:space="preserve">
-    <value>Jedná na základě (druhý pád)</value>
+    <value>Jedná na základě</value>
   </data>
   <data name="ReportDate" xml:space="preserve">
     <value>Den výkazu</value>
@@ -433,10 +433,10 @@
     <value>Funkce (první pád)</value>
   </data>
   <data name="SignupDate" xml:space="preserve">
-    <value>Datum podepsání</value>
+    <value>Datum podpisu</value>
   </data>
   <data name="PostAddress" xml:space="preserve">
-    <value>Doručovací adresa</value>
+    <value>Korespondenční adresa</value>
   </data>
   <data name="UsnNotificationText" xml:space="preserve">
     <value>Oznámení o použití zjednodušeného daňového systému</value>
@@ -466,7 +466,7 @@
     <value>Pohledávky z důvodu zrušení</value>
   </data>
   <data name="ObjectBindingType" xml:space="preserve">
-    <value>Registrovat vázaný objekt</value>
+    <value>Registrace vázaného objektu</value>
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>Datum ukončení</value>
@@ -505,7 +505,7 @@
     <value>K aktuálnímu odpisu</value>
   </data>
   <data name="IsAllowedToWhiteList" xml:space="preserve">
-    <value>RM může být vybrán do seznamu povolených</value>
+    <value>RM může být vybrán do Bílého seznamu</value>
   </data>
   <data name="ShortLegalName" xml:space="preserve">
     <value>Zkrácený úřední název</value>
@@ -523,7 +523,7 @@
     <value>Měsíc</value>
   </data>
   <data name="ActualAddress" xml:space="preserve">
-    <value>Skutečná adresa</value>
+    <value>Adresa provozovny</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Správce</value>
@@ -604,13 +604,13 @@
     <value>Plánovaný měsíc</value>
   </data>
   <data name="BargainLegalPerson" xml:space="preserve">
-    <value>Právnická osoba klienta</value>
+    <value>Právnická osoba objednatele</value>
   </data>
   <data name="StaffAmount" xml:space="preserve">
     <value>Počet zaměstnanců</value>
   </data>
   <data name="PostalAddress" xml:space="preserve">
-    <value>Doručovací adresa</value>
+    <value>Korespondenční adresa</value>
   </data>
   <data name="VatRate" xml:space="preserve">
     <value>Sazba DPH</value>
@@ -649,7 +649,7 @@
     <value>Typ omezení</value>
   </data>
   <data name="EmailForAccountingDocuments" xml:space="preserve">
-    <value>E-mail pro účetní dokumenty</value>
+    <value>E-mail pro doručování dokumentů</value>
   </data>
   <data name="WorkflowStepId" xml:space="preserve">
     <value>Stav objednávky</value>
@@ -760,7 +760,7 @@
     <value>Datum ukončení</value>
   </data>
   <data name="CancellationComment" xml:space="preserve">
-    <value>Komentáře k vypovězení</value>
+    <value>Komentář ke zrušení</value>
   </data>
   <data name="PaymentsAmount" xml:space="preserve">
     <value>Množství plateb</value>
@@ -814,7 +814,7 @@
     <value>Fáze obchodní transakce</value>
   </data>
   <data name="TerminationReason" xml:space="preserve">
-    <value>Důvod předčasného vypovězení</value>
+    <value>Důvod předčasného zrušení</value>
   </data>
   <data name="AmountWithdrawn" xml:space="preserve">
     <value>Odepsáno</value>
@@ -1063,10 +1063,10 @@
     <value>Zdroj</value>
   </data>
   <data name="LastDisqualifyTime" xml:space="preserve">
-    <value>Vrácen do rezervy</value>
+    <value>Vrácena do rezervy</value>
   </data>
   <data name="LastQualifyTime" xml:space="preserve">
-    <value>Vzít z rezervy</value>
+    <value>Vzata z rezervy</value>
   </data>
   <data name="AdditionalPhoneNumber" xml:space="preserve">
     <value>Dodatečný telefon</value>
@@ -1141,7 +1141,7 @@
     <value>Adresa domů</value>
   </data>
   <data name="IsFired" xml:space="preserve">
-    <value>Dal výpověď</value>
+    <value>Výpověď</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
     <value>Datum narození</value>
@@ -1177,7 +1177,7 @@
     <value>Stav osobního účtu</value>
   </data>
   <data name="LockDetailBalance" xml:space="preserve">
-    <value>Stav osobního účtu (včetně zablokovaných částek)</value>
+    <value>Stav osobního účtu (včetně blokací)</value>
   </data>
   <data name="LegalPesonSyncCode1C" xml:space="preserve">
     <value>Klíč pr. osoby pro 1C</value>
@@ -1207,7 +1207,7 @@
     <value>Datum ukončení blokování</value>
   </data>
   <data name="LockPlannedAmount" xml:space="preserve">
-    <value>Zablokovaná částka (plánovaná)</value>
+    <value>Suma blokace (plánovaná)</value>
   </data>
   <data name="LockBalance" xml:space="preserve">
     <value>Spotřebovaná částka (aktuální)</value>
@@ -1246,7 +1246,7 @@
     <value>Banner</value>
   </data>
   <data name="FullNameInGenitive" xml:space="preserve">
-    <value>Úplné jméno (druhý pád)</value>
+    <value>Jméno, příjmení (sedmý pád)</value>
   </data>
   <data name="FullNameInNominative" xml:space="preserve">
     <value>Jméno, příjmení (první pád)</value>
@@ -1279,7 +1279,7 @@
     <value>Kód banky</value>
   </data>
   <data name="Registered" xml:space="preserve">
-    <value>Zaregistrováno</value>
+    <value>Registrovaná</value>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
     <value>Dodatečně odeslat soubor ve formátu csv</value>
@@ -1336,12 +1336,12 @@
     <value>Název banky</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-  <value>RUT представителя</value>
-</data>
+    <value>RUT представителя</value>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
-  <value>Вид деятельности</value>
-</data>
+    <value>Вид деятельности</value>
+  </data>
 </root>

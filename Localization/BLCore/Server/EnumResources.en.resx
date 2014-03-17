@@ -313,7 +313,7 @@
     <value>Approved</value>
   </data>
   <data name="LimitStatusOpened" xml:space="preserve">
-    <value>Открыто</value>
+    <value>Opened</value>
   </data>
   <data name="LimitStatusRejected" xml:space="preserve">
     <value>Rejected</value>
@@ -1827,4 +1827,58 @@
   <data name="AccountTypeSavingsAccount" xml:space="preserve">
     <value>Упрощенный счёт</value>
   </data>
+  <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentMedsMultiple" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentMedsSingle" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDietarySupplement" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentSpecialNutrition" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentChildNutrition" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentFinancilaServices" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentMedsTraditional" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentBiocides" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextAlcoholAdvertising" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextMedsMultiple" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextMedsSingle" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextDietarySupplement" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextSpecialNutrition" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextChildNutrition" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextFinancilaServices" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextMedsTraditional" xml:space="preserve">
+	  <value></value>
+  </data>
+  <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
+	  <value></value>
+</data>
 </root>

@@ -209,6 +209,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
@@ -269,6 +270,7 @@
     <Compile Include="Services\Cards\CzechLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Multiculture\MulticultureFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
@@ -964,6 +966,10 @@
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{b558aefd-8c80-4f81-98bc-dd3abe3e519e}</Project>
