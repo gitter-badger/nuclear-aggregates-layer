@@ -178,6 +178,10 @@
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>
@@ -420,8 +424,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.101.config">
-        <DependentUpon>quartz.config</DependentUpon>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.102.config">
       <DependentUpon>quartz.config</DependentUpon>
