@@ -9,7 +9,16 @@
             _value = default(TSetting);
         }
 
+        public static SettingEvaluationResult<TSetting> Error
+        {
+            get
+            {
+                return new SettingEvaluationResult<TSetting>();
+            }
+        }
+
         public bool Successed { get; private set; }
+        
         public TSetting Value
         {
             get
@@ -21,14 +30,6 @@
             {
                 Successed = true;
                 _value = value;
-            }
-        }
-
-        public static SettingEvaluationResult<TSetting> Error
-        {
-            get
-            {
-                return new SettingEvaluationResult<TSetting>();
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
+﻿using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings
 {

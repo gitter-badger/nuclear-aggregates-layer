@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -15,16 +15,16 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly string[] _searchPaths = { "res://{0}/{1}.csdl", "res://{0}/{1}.ssdl", "res://{0}/{1}.msl" };
         private readonly Dictionary<string, MetadataWorkspace> _metadataWorkspaceCache = new Dictionary<string, MetadataWorkspace>();
 
-        private readonly IAppSettings _appSettings;
+        private readonly IConnectionStringSettings _connectionStringSettings;
 
-        public EFConnectionFactory(IAppSettings appSettings)
+        public EFConnectionFactory(IConnectionStringSettings connectionStringSettings)
         {
-            _appSettings = appSettings;
+            _connectionStringSettings = connectionStringSettings;
         }
 
         public EntityConnection CreateEntityConnection(DomainContextMetadata domainContextMetadata)
         {
-            var connectionString = _appSettings.ConnectionStrings.GetConnectionString(domainContextMetadata.ConnectionStringName);
+            var connectionString = _connectionStringSettings.GetConnectionString(domainContextMetadata.ConnectionStringName);
             var sqlConnection = new SqlConnection(connectionString);
 
             var metadataWorkspace = GetMetadataWorkspace(domainContextMetadata);

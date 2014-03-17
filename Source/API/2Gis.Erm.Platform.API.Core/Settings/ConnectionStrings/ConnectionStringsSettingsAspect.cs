@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Common.Settings;
+
 namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
 {
-    public sealed class ConnectionStringsSettingsAspect
+    public sealed class ConnectionStringsSettingsAspect : ISettingsAspect, IConnectionStringSettings
     {
         private readonly IReadOnlyDictionary<ConnectionStringName, string> _connectionStringsMap;
 
         public ConnectionStringsSettingsAspect()
         {
-            var specifiedConnectionStringsMap =
-                ConfigurationManager
-                    .ConnectionStrings
-                        .Cast<ConnectionStringSettings>()
-                        .ToDictionary(connection => connection.Name);
+            var specifiedConnectionStringsMap = ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>().ToDictionary(connection => connection.Name);
 
             var availableConnectionStringsMap = new Dictionary<ConnectionStringName, string>();
             foreach (var connectionStringAlias in Enum.GetValues(typeof(ConnectionStringName)).Cast<ConnectionStringName>().Where(x => x != ConnectionStringName.None))
@@ -29,6 +27,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
             }
 
             _connectionStringsMap = availableConnectionStringsMap;
+        }
+
+        public IReadOnlyDictionary<ConnectionStringName, string> AllConnections
+        {
+            get { return _connectionStringsMap; }
         }
 
         public string GetConnectionString(ConnectionStringName connectionStringNameAlias)
@@ -45,11 +48,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
         public string ResolveConnectionStringName(ConnectionStringName connectionStringNameAlias)
         {
             return connectionStringNameAlias.ToDefaultConnectionStringName();
-        }
-
-        public IReadOnlyDictionary<ConnectionStringName, string> AllConnections
-        {
-            get { return _connectionStringsMap; }
         }
     }
 }
