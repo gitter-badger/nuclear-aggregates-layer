@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -25,9 +26,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -47,16 +47,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class ReportController : ControllerBase
     {
-        private static readonly CultureInfo ReportCulture = LocalizationSettings.ApplicationCulture;
-
-        private readonly IWebAppSettings _webAppSettings;
+        private readonly IReportsSettings _reportsSettings;
+        private readonly ILocalizationSettings _localizationSettings;
         private readonly IReportSimplifiedModel _reportSimplifiedModel;
         private readonly IUserRepository _userRepository;
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
 
         public ReportController(
-            IWebAppSettings webAppSettings,
+            IReportsSettings reportsSettings,
+            ILocalizationSettings localizationSettings,
             IMsCrmSettings msCrmSettings,
             IUserContext userContext,
             ICommonLog logger,
@@ -68,7 +68,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             IGetBaseCurrencyService getBaseCurrencyService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
-            _webAppSettings = webAppSettings;
+            _reportsSettings = reportsSettings;
+            _localizationSettings = localizationSettings;
             _reportSimplifiedModel = reportSimplifiedModel;
             _userRepository = userRepository;
             _publicService = publicService;
@@ -79,7 +80,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             get
             {
-                var reportServerPath = _webAppSettings.ReportServer;
+                var reportServerPath = _reportsSettings.ReportServer;
 
                 if (string.IsNullOrEmpty(reportServerPath))
                 {
@@ -179,10 +180,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 stringBuilder.Append("&")
                     .Append(property.Name)
                     .Append("=")
-                    .Append(Convert.ToString(value, ReportCulture));
+                    .Append(Convert.ToString(value, _localizationSettings.ApplicationCulture));
             }
 
-            stringBuilder.Append("&rs:ParameterLanguage=").Append(ReportCulture.Name);
+            stringBuilder.Append("&rs:ParameterLanguage=").Append(_localizationSettings.ApplicationCulture.Name);
 
             stringBuilder.Append("&rs:Command=Render");
 
@@ -249,12 +250,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             if (property.PropertyType == typeof(DateTime))
             {
-                return ((DateTime)property.GetValue(model)).ToString(ReportCulture.DateTimeFormat.ShortDatePattern);
+                return ((DateTime)property.GetValue(model)).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern);
             }
 
             if (property.PropertyType == typeof(DateTime?))
             {
-                return ((DateTime?)property.GetValue(model) ?? DateTime.Now).ToString(ReportCulture.DateTimeFormat.ShortDatePattern);
+                return ((DateTime?)property.GetValue(model) ?? DateTime.Now).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern);
             }
             
             return property.GetValue(model);
