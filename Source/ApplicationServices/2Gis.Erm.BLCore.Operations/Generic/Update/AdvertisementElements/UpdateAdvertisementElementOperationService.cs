@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
 
         protected override void Update(AdvertisementElement entity, AdvertisementElementDomainEntityDto entityDto)
         {
-            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, AdvertisementElement>())
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, AdvertisementElement>())
             {
                 var advertisementInfo = _advertisementReadModel.GetAdvertisementInfoForElement(entity.Id);
                 var plainTextHarmonized = _advertisementElementPlainTextHarmonizer.Process(entityDto.PlainText);
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
             }
 
             _modifyingAdvertisementElementValidator.Validate(advertisementElementInfo.ElementTemplate, 
-                                                            new[] { advertisementElementInfo.Element },
+                                                            new[] { entity },
                                                             plainText,
                                                             formattedText);
 
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
                 throw new BusinessLogicException(BLResources.CantEditDummyAdvertisementWithPublishedTemplate);
             }
 
-            var allRelatedDummies = new List<AdvertisementElement>{ entity };
+            var allRelatedDummies = new List<AdvertisementElement> { entity };
             foreach (var dummyElement in advertisementElementInfo.ClonedDummies)
             {
                 dummyElement.FileId = entity.FileId;

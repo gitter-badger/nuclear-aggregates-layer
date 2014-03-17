@@ -2,6 +2,8 @@
 using System.IO;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -36,6 +38,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 
         public UploadFileResult UploadFile(AdvertisementElement advertisementElement, UploadFileParams<AdvertisementElement> uploadFileParams)
         {
+            if (advertisementElement == null)
+            {
+                throw new BusinessLogicException(BLResources.MustBeExistingEntity);
+            }
+
             var file = new FileWithContent
             {
                 Id = uploadFileParams.FileId,
@@ -61,17 +68,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 
                 _fileRepository.Save();
 
-                if (advertisementElement != null)
-                {
-                    advertisementElement.ModifiedOn = DateTime.UtcNow;
-                    advertisementElement.ModifiedBy = _userContext.Identity.Code;
-                    advertisementElement.Status = (int)AdvertisementElementStatus.NotValidated;
-                    
-                    _secureAdvertisementElementRepository.Update(advertisementElement);
-                    scope.Updated<AdvertisementElement>(advertisementElement.Id);
-
-                    _secureAdvertisementElementRepository.Save();
-                }
+                // до запиливания специфического OperationService загрузки файлов к элементу рекламного материала usecase загрузки был крайне мутный - фактически двухфазный, 
+                // нужно было сначала загрузить файл, а потом через usecase обновления ЭРМ сохранить связь ЭРМ с этим файлом
+                // При этом складывалось ложное впечатление, что если не нажимать кнопку сохранить на карточке, то реальной смены файла у рекламного материала не будет, однако, это не так,
+                // т.к. изменился контент в таблице filebinaries, то независимо от сохранения/не сохранения карточки, контент файла обновлялся (единственное исключение - это когда файла раньше не было)
+                // После рефакторинга FileId обновляется в рамках поддержания инварианта добавления файла к ЭРМ, т.е. всегда, нажатие на Save в карточке для этого совсем не требуется.
+                advertisementElement.FileId = file.Id;
+                advertisementElement.Status = (int)AdvertisementElementStatus.NotValidated;
+                
+                _secureAdvertisementElementRepository.Update(advertisementElement);
+                scope.Updated<AdvertisementElement>(advertisementElement.Id);
+                _secureAdvertisementElementRepository.Save();
 
                 scope.Complete();
             }
