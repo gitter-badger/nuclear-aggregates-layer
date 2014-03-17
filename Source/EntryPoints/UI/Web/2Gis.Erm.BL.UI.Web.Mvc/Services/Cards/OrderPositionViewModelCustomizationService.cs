@@ -3,12 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
@@ -18,19 +19,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
     public class OrderPositionViewModelCustomizationService : IGenericViewModelCustomizationService<OrderPosition>
     {
         private readonly IPublicService _publicService;
-        private readonly IAppSettings _appSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
 
-        public OrderPositionViewModelCustomizationService(IPublicService publicService, IAppSettings appSettings)
+        public OrderPositionViewModelCustomizationService(IPublicService publicService, IBusinessModelSettings businessModelSettings)
         {
             _publicService = publicService;
-            _appSettings = appSettings;
+            _businessModelSettings = businessModelSettings;
         }
 
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var entityViewModel = (OrderPositionViewModel)viewModel;
 
-            entityViewModel.MoneySignificantDigitsNumber = _appSettings.SignificantDigitsNumber;
+            entityViewModel.MoneySignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber;
             
             // логика удаления кнопки не вписывается в стандартную схему.
             var checkResponse = (CheckIsBindingObjectChangeAllowedResponse)

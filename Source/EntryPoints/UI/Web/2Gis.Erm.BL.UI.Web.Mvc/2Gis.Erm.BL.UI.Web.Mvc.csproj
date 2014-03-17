@@ -209,6 +209,7 @@
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
