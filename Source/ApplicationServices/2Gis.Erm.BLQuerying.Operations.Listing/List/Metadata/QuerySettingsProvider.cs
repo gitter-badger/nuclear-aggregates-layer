@@ -69,11 +69,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
             var stringBuilder = new StringBuilder();
 
             foreach (var filteredField in filteredFields)
-            {
+        {
                 if (filteredField.Type == typeof(string))
-                {
+        {
                     if (stringBuilder.Length != 0)
-                    {
+            {
                         stringBuilder.Append(Or);
                     }
 
@@ -82,40 +82,40 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata
 
                     // asterisks
                     if (filterInputEscaped.IndexOf('*') == 0)
-                    {
+            {
                         var filterInputNoAsterisk = filterInputEscaped.Trim('*');
                         stringBuilder.Append(filteredField.Name).AppendFormat(".Contains(\"{0}\")", filterInputNoAsterisk);
 
-                    }
+                }
                     else
-                    {
+                {
                         stringBuilder
                             .Append(filteredField.Name)
                             .AppendFormat(".StartsWith(\"{0}\")", filterInputEscaped);
-                    }
                 }
+            }
                 else if (filteredField.Type == typeof(short) ||
                          filteredField.Type == typeof(int) ||
                          filteredField.Type == typeof(long))
                 {
                     long filterInputParsed;
                     if (long.TryParse(filterInput, out filterInputParsed))
-                    {
+            {
                         if (stringBuilder.Length != 0)
-                        {
+                {
                             stringBuilder.Append(Or);
-                        }
+                }
 
                         stringBuilder
                             .Append(filteredField.Name)
                             .AppendFormat("={0}", filterInputParsed);
                     }
-                }
+            }
                 else
                 {
                     throw new ArgumentException("Unsupported field type");
                 }
-            }
+                }
 
             return stringBuilder.ToString();
         }
