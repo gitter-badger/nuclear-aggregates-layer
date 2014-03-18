@@ -71,6 +71,7 @@
     <Compile Include="Modules\Layout\Regions\Toolbar\IToolbar.cs" />
     <Compile Include="Modules\Layout\Regions\Toolbar\IToolbarManager.cs" />
     <Compile Include="Modules\ResourceInfrastructure\IImageProvider.cs" />
+    <Compile Include="Modules\Settings\ConfigFileSettingsBase.Dispose.cs" />
     <Compile Include="Util\Behaviors\ClickBehavior.cs" />
     <Compile Include="Util\Behaviors\SelectionBehavior.cs" />
     <Compile Include="Util\Converters\NullToBooleanConverter.cs" />
@@ -162,8 +163,6 @@
     <Compile Include="Modules\Layout\Regions\Toolbar\ILayoutToolbarComponent.cs" />
     <Compile Include="Modules\ModuleIndicators.cs" />
     <Compile Include="Modules\Settings\ConfigFileSettingsBase.cs" />
-    <Compile Include="Modules\Settings\ISettings.cs" />
-    <Compile Include="Modules\Settings\SettingIndicators.cs" />
     <Compile Include="Modules\Settings\SettingsConstants.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Util\ComponentSelector.cs" />

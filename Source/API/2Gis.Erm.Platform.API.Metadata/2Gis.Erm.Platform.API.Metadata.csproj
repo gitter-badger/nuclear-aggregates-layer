@@ -55,8 +55,16 @@
     <Compile Include="IMetadataProviderApplicationRestService.cs" />
     <Compile Include="IMetadataProviderApplicationService.cs" />
     <Compile Include="MetadataOperationErrorDescription.cs" />
+    <Compile Include="Settings\APIIdentityServiceSettingsAspect.cs" />
+    <Compile Include="Settings\APIIntrospectionServiceSettingsAspect.cs" />
+    <Compile Include="Settings\IAPIIdentityServiceSettings.cs" />
+    <Compile Include="Settings\IAPIIntrospectionServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
@@ -70,6 +78,7 @@
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

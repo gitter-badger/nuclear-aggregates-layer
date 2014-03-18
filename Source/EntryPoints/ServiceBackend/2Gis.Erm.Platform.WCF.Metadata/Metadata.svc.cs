@@ -4,7 +4,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -15,18 +15,18 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public sealed class MetadataProviderApplicationService : IMetadataProviderApplicationService, IMetadataProviderApplicationRestService
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IEnvironmentSettings _environmentSettings;
         private readonly IOperationsMetadataProvider _metadataProvider;
         private readonly IServiceAvailabilityProvider _serviceAvailabilityProvider;
         private readonly ICommonLog _logger;
 
         public MetadataProviderApplicationService(
-            IAppSettings appSettings, 
+            IEnvironmentSettings environmentSettings, 
             IOperationsMetadataProvider metadataProvider, 
             IServiceAvailabilityProvider serviceAvailabilityProvider,
             ICommonLog logger)
         {
-            _appSettings = appSettings;
+            _environmentSettings = environmentSettings;
             _metadataProvider = metadataProvider;
             _serviceAvailabilityProvider = serviceAvailabilityProvider;
             _logger = logger;
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         private FaultException<MetadataOperationErrorDescription> GetExceptionDescription(string operationSpecificMessage, Exception ex)
         {
             return new FaultException<MetadataOperationErrorDescription>(
-                new MetadataOperationErrorDescription(operationSpecificMessage + ". " + ex.Message, _appSettings.TargetEnvironment != AppTargetEnvironment.Production ? ex.ToString() : string.Empty));
+                new MetadataOperationErrorDescription(operationSpecificMessage + ". " + ex.Message, _environmentSettings.Type != EnvironmentType.Production ? ex.ToString() : string.Empty));
         }
     }
 }

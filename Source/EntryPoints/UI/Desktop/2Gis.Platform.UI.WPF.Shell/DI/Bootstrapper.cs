@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Threading;
 
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -239,15 +240,12 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             return container;
         }
 
-        private static void RegisterSettings(IUnityContainer container, string configFileFullPath, IEnumerable<SettingsDescriptor> descriptors)
+        private static void RegisterSettings(IUnityContainer container, string configFileFullPath, IEnumerable<SettingsContainerDescriptor> descriptors)
         {
-            foreach (var settingsDescriptor in descriptors)
+            foreach (var settingContainerDescriptor in descriptors)
             {
-                var settings = container.Resolve(Type.GetType(settingsDescriptor.Implementation), new DependencyOverrides { { typeof(string), configFileFullPath } });
-                foreach (var typeFrom in settingsDescriptor.Interfaces)
-                {
-                    container.RegisterInstance(Type.GetType(typeFrom), settings, Lifetime.Singleton);
-                }
+                var settingContainer = (ISettingsContainer)container.Resolve(Type.GetType(settingContainerDescriptor.Implementation), new DependencyOverrides { { typeof(string), configFileFullPath } });
+                container.ConfigureSettingsAspects(settingContainer);
             }
         }
     }

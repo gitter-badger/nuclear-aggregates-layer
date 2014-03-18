@@ -57,7 +57,15 @@
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\ErmCommunicationException.cs" />
-    <Compile Include="Globalization\IGlobalizationSettings.cs" />
+    <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElementCollection.cs" />
+    <Compile Include="Settings\APIServices\RequiredServices.cs" />
+    <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
+    <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
+    <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />
+    <Compile Include="Settings\Globalization\IGlobalizationSettings.cs" />
     <Compile Include="Exceptions\BusinessLogicException.cs" />
     <Compile Include="Exceptions\ErmException.cs" />
     <Compile Include="Exceptions\ErmSecurityException.cs" />
@@ -111,43 +119,23 @@
     <Compile Include="Operations\RequestResponse\IPublicService.cs" />
     <Compile Include="Operations\RequestResponse\Request.cs" />
     <Compile Include="Operations\RequestResponse\Response.cs" />
-    <Compile Include="PersistenceCleanup\IDbCleaner.cs" />
     <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
-    <Compile Include="Settings\APIServices\APIFinancialOperationsServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIIdentityServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIIntrospectionServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIMoDiServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIOperationsServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIOrderValidationServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIRealeasingServiceSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
-    <Compile Include="Settings\APIServices\APIWebClientServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIWebClientServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIMoDiServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIRealeasingServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIIdentityServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIIntrospectionServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIOperationsServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\IAPIOrderValidationServiceSettings.cs" />
-    <Compile Include="Settings\APIServices\APIServicesSettingsAspect.cs" />
-    <Compile Include="Settings\APIServices\IAPIServiceSettingsHost.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettingsInitializer.cs" />
-    <Compile Include="Settings\APIServices\IAPIFinancialOperationsServiceSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAccessors.cs" />
-    <Compile Include="Settings\ConnectionStrings\IConnectionStringSettingsHost.cs" />
-    <Compile Include="Settings\CRM\IMsCrmSettingsHost.cs" />
     <Compile Include="Settings\CRM\MsCRMSettingsAspect.cs" />
-    <Compile Include="Settings\LocalizationSettings.cs" />
-    <Compile Include="Settings\AppTargetEnvironment.cs" />
+    <Compile Include="Settings\Environments\EnvironmentsAspect.cs" />
+    <Compile Include="Settings\Environments\IEnvironmentSettings.cs" />
+    <Compile Include="Settings\Globalization\ILocalizationSettings.cs" />
+    <Compile Include="Settings\Globalization\LocalizationSettings.cs" />
+    <Compile Include="Settings\Environments\EnvironmentType.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringName.cs" />
     <Compile Include="Settings\ConnectionStrings\DefaultConnectionStringNameExtension.cs" />
     <Compile Include="Settings\CRM\IMsCrmSettings.cs" />
-    <Compile Include="Settings\CommonConfigFileAppSettings.cs" />
-    <Compile Include="Settings\IAppSettings.cs" />
-    <Compile Include="Settings\APIServices\ErmServiceDescriptionsConfiguration.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsAccessor.cs" />
     <Compile Include="ServiceNamespaces.cs" />
+    <Compile Include="Settings\SettingsUtils.cs" />
     <Compile Include="StableContractAttribute.cs" />
     <Compile Include="TimePeriod.cs" />
     <Compile Include="UseCases\Context\IContextKey.cs" />
@@ -177,7 +165,9 @@
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Globalization\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

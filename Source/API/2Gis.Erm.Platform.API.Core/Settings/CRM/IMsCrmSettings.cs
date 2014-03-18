@@ -1,9 +1,11 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
+﻿using DoubleGis.Erm.Platform.Common.Settings;
+
+namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {
     /// <summary>
     /// Настройки для взаимодйствия с MS Dynamics CRM
     /// </summary>
-    public interface IMsCrmSettings
+    public interface IMsCrmSettings : ISettings
     {
         bool EnableReplication { get; }
 

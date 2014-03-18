@@ -10,6 +10,6 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder
         public string ModulesContainerAssembly { get; set; }
         public string ContainerType { get; set; }
         public string[] ModuleTypes { get; set; }
-        public SettingsDescriptor[] Settings { get; set; }
+        public SettingsContainerDescriptor[] Settings { get; set; }
     }
 }

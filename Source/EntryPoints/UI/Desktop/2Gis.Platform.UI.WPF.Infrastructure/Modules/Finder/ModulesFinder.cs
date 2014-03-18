@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
 
-using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder
 {
@@ -147,16 +147,8 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder
                 }
 
                 var settings = exportedTypes
-                    .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType
-                                && SettingIndicators.Settings.IsAssignableFrom(t))
-                    .Select(impl => new SettingsDescriptor
-                    {
-                        Implementation = impl.AssemblyQualifiedName,
-                        Interfaces = impl.GetInterfaces()
-                                         .Where(t => t != SettingIndicators.Settings && SettingIndicators.Settings.IsAssignableFrom(t))
-                                         .Select(x => x.AssemblyQualifiedName)
-                                         .ToArray()
-                    })
+                    .Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericType && t.IsSettings())
+                    .Select(impl => new SettingsContainerDescriptor { Implementation = impl.AssemblyQualifiedName })
                     .ToArray();
 
                 var modulesContainerConfigFullPath = string.Format("{0}.dll.config",

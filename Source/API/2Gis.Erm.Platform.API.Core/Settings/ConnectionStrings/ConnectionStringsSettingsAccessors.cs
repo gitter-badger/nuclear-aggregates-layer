@@ -2,9 +2,9 @@
 {
     public static class ConnectionStringsSettingsAccessors
     {
-        public static string LoggingConnectionString(this IConnectionStringSettingsHost connectionStringSettingsHost)
+        public static string LoggingConnectionString(this IConnectionStringSettings connectionStringSettings)
         {
-            return connectionStringSettingsHost.ConnectionStrings.GetConnectionString(ConnectionStringName.Logging);
+            return connectionStringSettings.GetConnectionString(ConnectionStringName.Logging);
         }
     }
 }

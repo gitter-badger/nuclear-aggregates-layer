@@ -108,6 +108,7 @@
     <Compile Include="Services\Enums\DefaultEnumAdaptationService.cs" />
     <Compile Include="Services\Enums\EnumItem.cs" />
     <Compile Include="Services\Enums\EnumItemsCache.cs" />
+    <Compile Include="Services\Enums\EnumUIUtils.cs" />
     <Compile Include="Services\Enums\IEnumAdaptationService.cs" />
     <Compile Include="Services\Enums\IEnumItemsCache.cs" />
     <Compile Include="Services\IEntityUIService.cs" />

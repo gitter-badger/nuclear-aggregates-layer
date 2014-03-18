@@ -1,6 +1,8 @@
-﻿namespace DoubleGis.Erm.Platform.API.Core.Identities
+﻿using DoubleGis.Erm.Platform.Common.Settings;
+
+namespace DoubleGis.Erm.Platform.API.Core.Identities
 {
-    public interface IIdentityProviderSettings
+    public interface IIdentityProviderSettings : ISettings
     {
         int IdentityServiceUniqueId { get; }
     }

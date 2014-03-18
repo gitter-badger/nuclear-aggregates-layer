@@ -214,8 +214,11 @@
     <Compile Include="Enums\DependencyType.cs" />
     <Compile Include="Enums\DisplayStyle.cs" />
     <Compile Include="Enums\PeriodType.cs" />
-    <Compile Include="Globalization\BusinessModelMapping.cs" />
+    <Compile Include="Globalization\BusinessModels.cs" />
+    <Compile Include="Globalization\BusinessModelsIndicators.cs" />
+    <Compile Include="Globalization\BusinessModelsUtils.cs" />
     <Compile Include="Globalization\EntityAdaptationMapping.cs" />
+    <Compile Include="Globalization\GlobalizationSpecsAttribute.cs" />
     <Compile Include="Globalization\IAdapted.cs" />
     <Compile Include="Globalization\IChileAdapted.cs" />
     <Compile Include="Globalization\ICyprusAdapted.cs" />
