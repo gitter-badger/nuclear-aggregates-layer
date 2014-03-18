@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Data.Common;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.Qds.API.Core.Settings
 {
-    public sealed class SearchSettings : CommonConfigFileAppSettings, ISearchSettings
+    public sealed class SearchSettingsAspect : ISettingsAspect, ISearchSettings
     {
-        public SearchSettings()
+        public SearchSettingsAspect(IConnectionStringSettings connectionStringSettings)
         {
-            var connectionString = ConnectionStrings.GetConnectionString(ConnectionStringName.ErmSearch);
-            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+            var connectionStringBuilder = new DbConnectionStringBuilder
+                {
+                    ConnectionString = connectionStringSettings.GetConnectionString(ConnectionStringName.ErmSearch)
+                };
 
             Host = (string)connectionStringBuilder["Host"];
             IndexPrefix = (string)connectionStringBuilder["IndexPrefix"];
