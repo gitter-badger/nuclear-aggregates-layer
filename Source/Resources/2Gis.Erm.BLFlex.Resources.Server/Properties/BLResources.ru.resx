@@ -267,14 +267,14 @@ Penezni ustav:  {5}</value>
   <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Существует скрытое юр. лицо клиента с указанными RUT</value>
   </data>
-  <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
+  <data name="ChilePartableExtensionMustBeApplied">
     <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
     <comment>Первод этой строки не требуется</comment>
   </data>
-  <data name="InvalidChileRutFormat" xml:space="preserve">
+  <data name="InvalidChileRutFormat">
     <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>
   </data>
-  <data name="InvalidChileRutChecksum" xml:space="preserve">
+  <data name="InvalidChileRutChecksum">
     <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">

@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Orders
                         LegalPersonName = order.LegalPerson.LegalName,
                         PaymentMethod = order.PaymentMethod,
                         OwnerCode = order.OwnerCode,
+                        OwnerName = null,
                         BargainId = order.BargainId,
                         BargainNumber = order.Bargain.Number,
                         WorkflowStepId = order.WorkflowStepId,

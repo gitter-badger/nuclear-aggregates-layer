@@ -25,6 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO
         public string LegalPersonName { get; set; }
         public int PaymentMethod { get; set; }
         public long OwnerCode { get; set; }
+        public string OwnerName { get; set; }
         public int WorkflowStepId { get; set; }
         public decimal PayablePlan { get; set; }
         public decimal PayableFact { get; set; }

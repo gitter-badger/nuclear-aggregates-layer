@@ -517,13 +517,13 @@
     <value>Código de la lista de precios</value>
   </data>
   <data name="DFieldBranchOfficeId" xml:space="preserve">
-    <value>Código de la Persona Jurídica de la Entidad</value>
+    <value>Código de la Persona Jurídica de la entidad</value>
   </data>
   <data name="CrdRelInformation" xml:space="preserve">
-    <value>Datos</value>
+    <value>Información</value>
   </data>
   <data name="CrdRelInformationHeader" xml:space="preserve">
-    <value>Datos</value>
+    <value>Información</value>
   </data>
   <data name="CrdRelThemeOrganizationUnit" xml:space="preserve">
     <value>Sucursales de la entidad</value>
@@ -685,13 +685,13 @@
     <value>IVA</value>
   </data>
   <data name="EnBargainType" xml:space="preserve">
-    <value>Tipo de acuerdo</value>
+    <value>Tipo de contrato</value>
   </data>
   <data name="DListActiveBargainTypes" xml:space="preserve">
-    <value>Tipos de acuerdos</value>
+    <value>Tipos de contratos</value>
   </data>
   <data name="EnBargainTypes" xml:space="preserve">
-    <value>Tipos de acuerdos</value>
+    <value>Tipos de contratos</value>
   </data>
   <data name="DListDeniedPosition" xml:space="preserve">
     <value>Posiciones bloqueadas</value>
@@ -919,13 +919,13 @@
     <value>Tipos inactivos de operaciones</value>
   </data>
   <data name="DListActiveBargains" xml:space="preserve">
-    <value>Acuerdos activos</value>
+    <value>Contratos activos</value>
   </data>
   <data name="DListInactiveBargains" xml:space="preserve">
-    <value>Acuerdos inactivos</value>
+    <value>Contratos inactivos</value>
   </data>
   <data name="EnMBargains" xml:space="preserve">
-    <value>Acuerdos</value>
+    <value>Contratos</value>
   </data>
   <data name="ControlActions" xml:space="preserve">
     <value>Acciones</value>
@@ -952,7 +952,7 @@
     <value>Imprimir</value>
   </data>
   <data name="ControlPrintBargainAction" xml:space="preserve">
-    <value>Acuerdo</value>
+    <value>Contrato</value>
   </data>
   <data name="ControlPrintOrderAction" xml:space="preserve">
     <value>Orden</value>
@@ -1009,13 +1009,13 @@
     <value>Transacciones activas</value>
   </data>
   <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Crear acuerdo</value>
+    <value>Crear contrato</value>
   </data>
   <data name="DListBargains" xml:space="preserve">
-    <value>Acuerdos</value>
+    <value>Contratos</value>
   </data>
   <data name="ControlRemoveBargain" xml:space="preserve">
-    <value>Eliminar acuerdo</value>
+    <value>Eliminar contrato</value>
   </data>
   <data name="DListAdvertisementTemplateDeleted" xml:space="preserve">
     <value>Plantillas eliminadas de material publicitario</value>
@@ -1033,7 +1033,7 @@
     <value>Añadir</value>
   </data>
   <data name="CrdRelBargains" xml:space="preserve">
-    <value>Acuerdos</value>
+    <value>Contratos</value>
   </data>
   <data name="CrdRelActions" xml:space="preserve">
     <value>Historial / Planes</value>
@@ -1090,13 +1090,13 @@
     <value>Archivo para la orden</value>
   </data>
   <data name="CrdRelBargainFiles" xml:space="preserve">
-    <value>Archivos para el acuerdo</value>
+    <value>Archivos para el contrato</value>
   </data>
   <data name="DListBargainFiles" xml:space="preserve">
-    <value>Archivos para el acuerdo</value>
+    <value>Archivos para el contrato</value>
   </data>
   <data name="EnBargainFile" xml:space="preserve">
-    <value>Archivo para el acuerdo</value>
+    <value>Archivo para el contrato</value>
   </data>
   <data name="DListReleaseInfo" xml:space="preserve">
     <value>Compilaciones</value>
@@ -1180,7 +1180,7 @@
     <value>Cancelar compilación</value>
   </data>
   <data name="ControlCloseBargains" xml:space="preserve">
-    <value>Cerrar acuerdos</value>
+    <value>Cerrar contratos</value>
   </data>
   <data name="ControlExport" xml:space="preserve">
     <value>Descargar</value>
@@ -1273,7 +1273,7 @@
     <value>Órdenes Archivadas</value>
   </data>
   <data name="DListInactiveBargainTypes" xml:space="preserve">
-    <value>Tipos inactivos de acuerdos</value>
+    <value>Tipos inactivos de contratos</value>
   </data>
   <data name="DListInactiveContributionType" xml:space="preserve">
     <value>Formas ocultas de colaboración</value>
@@ -1384,7 +1384,7 @@
     <value>Seleccionado para la lista blanca</value>
   </data>
   <data name="EnLegalPersonProfile" xml:space="preserve">
-    <value>Perfil de persona jurídica del cliente</value>
+    <value>Perfil de la  persona jurídica del cliente</value>
   </data>
   <data name="DListLegalPersonProfiles" xml:space="preserve">
     <value>Perfiles de persona jurídica</value>
@@ -1486,7 +1486,7 @@
     <value>Clientes de mis subordinados que tienen órdenes de tipo Trueque</value>
   </data>
   <data name="DListClientsWithDebtForSubordinates" xml:space="preserve">
-    <value>Clientes de mis subordinados con débitos</value>
+    <value>Clientes con deudas de mis subordinados</value>
   </data>
   <data name="DListClientsWithoutMakeDecisionContactsForSubordinates" xml:space="preserve">
     <value>Clientes de mis subordinados sin Decisión Maker</value>
@@ -1513,7 +1513,7 @@
     <value>Mis cuentas nominales con un balance negativo</value>
   </data>
   <data name="DListMyBargains" xml:space="preserve">
-    <value>Mis acuerdos</value>
+    <value>Mis contratos</value>
   </data>
   <data name="DListMyBarterDeals" xml:space="preserve">
     <value>Mis transacciones de trueque</value>
@@ -1522,7 +1522,7 @@
     <value>Mis clientes creados hoy</value>
   </data>
   <data name="DListMyClientsWithDebt" xml:space="preserve">
-    <value>Mis clientes con débitos</value>
+    <value>Mis clientes con deudas</value>
   </data>
   <data name="DListMyClientsWithoutDeals" xml:space="preserve">
     <value>Mis clientes sin transacción</value>
@@ -1564,19 +1564,19 @@
     <value>Límites aprobados por mí</value>
   </data>
   <data name="DListLegalPersonsAtMyBranch" xml:space="preserve">
-    <value>Todas las personas jurídicas de la sucursal</value>
+    <value>Todas las personas jurídicas por sucursal</value>
   </data>
   <data name="DListLegalPersonsForSubordinates" xml:space="preserve">
     <value>Personas jurídicas de mis subordinados</value>
   </data>
   <data name="DListLegalPersonsWithDebtAtMyBranch" xml:space="preserve">
-    <value>Personas jurídicas de la sucursal con débitos</value>
+    <value>Personas jurídicas de la sucursal con deudas contraidas</value>
   </data>
   <data name="DListLegalPersonsWithDebtForSubordinates" xml:space="preserve">
-    <value>Personas jurídicas de mis subordinados con débitos</value>
+    <value>Personas jurídicas de mis clientes con deudas contraidas</value>
   </data>
   <data name="DListLegalPersonsWithMyOrders" xml:space="preserve">
-    <value>Personas jurídicas de las que no soy supervisor pero que tienen mis órdenes</value>
+    <value>Personas jurídicas del otro ejecutivo que tienen mis órdenes contraidas</value>
   </data>
   <data name="DListLegalPersonsWithRegionalOrders" xml:space="preserve">
     <value>Personas jurídicas con las órdenes regionales</value>
@@ -1600,7 +1600,7 @@
     <value>Mis personas jurídicas</value>
   </data>
   <data name="DListMyLegalPersonsWithDebt" xml:space="preserve">
-    <value>Mis personas jurídicas con débitos</value>
+    <value>Mis personas jurídicas con deudas contraidas</value>
   </data>
   <data name="DListMyOpenedLimits" xml:space="preserve">
     <value>Mis límites abiertos</value>
@@ -1696,7 +1696,7 @@
     <value>Clientes que se reunieron una sola vez</value>
   </data>
   <data name="DListAccountsWithHostedOrdersForSubordinates" xml:space="preserve">
-    <value>Cuentas personales de mis clientes con las órdenes colocadas</value>
+    <value>Cuentas personales de mis subordinados con los órdenes colocadas</value>
   </data>
   <data name="DListMyAccountsWithHostedOrders" xml:space="preserve">
     <value>Mis cuentas personales con las órdenes colocadas</value>
@@ -1756,13 +1756,13 @@
     <value>Publicado</value>
   </data>
   <data name="ControlPrintTermBargainNoticeAction" xml:space="preserve">
-    <value>Notificación de anulación del acuerdo indicando motivos</value>
+    <value>Notificación de anulación del contrato indicando motivos</value>
   </data>
   <data name="ControlPrintTermBargainNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Notificación de anulación del acuerdo sin indicar motivos</value>
+    <value>Notificación de anulación del contrato sin indicar motivos</value>
   </data>
   <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
-    <value>Acuerdo de anulación del acuerdo</value>
+    <value>Acuerdo de anulación del contrato</value>
   </data>
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Declaración del contratante bajo juramento</value>
@@ -1798,7 +1798,7 @@
     <value>Petición de la oficina personal del anunciante</value>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
-    <value>Notificación de anulación del acuerdo</value>
+    <value>Notificación de anulación del contrato</value>
   </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
     <value>Empresas en reserva de la ciudad de Nicosia</value>
