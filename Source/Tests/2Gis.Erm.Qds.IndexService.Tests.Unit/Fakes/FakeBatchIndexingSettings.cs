@@ -1,15 +1,17 @@
 using System;
 
-namespace DoubleGis.Erm.Qds.IndexService
+using DoubleGis.Erm.Qds.IndexService.Settings;
+
+namespace DoubleGis.Erm.Qds.IndexService.Tests.Unit.Fakes
 {
-    public class BatchIndexingSettings
+    public sealed class FakeBatchIndexingSettings : IBatchIndexingSettings
     {
-        public BatchIndexingSettings(int sleepTimeMilliseconds, int stopTimeoutMilliseconds)
+        public FakeBatchIndexingSettings(int sleepTimeMilliseconds, int stopTimeoutMilliseconds)
             : this(TimeSpan.FromMilliseconds(sleepTimeMilliseconds), TimeSpan.FromMilliseconds(stopTimeoutMilliseconds))
         {
         }
 
-        public BatchIndexingSettings(TimeSpan sleepTime, TimeSpan stopTimeout)
+        public FakeBatchIndexingSettings(TimeSpan sleepTime, TimeSpan stopTimeout)
         {
             SleepTime = sleepTime;
             StopTimeout = stopTimeout;

@@ -4,8 +4,8 @@ using System.Reflection;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.DI;
-using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 
 using Microsoft.Practices.Unity;
 
@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
     public static class TestSuiteBuilder
     {
         public static bool TryBuildSuite(
-            ITestAPIInProcOperationsSettings settings, 
+            ISettingsContainer settingsContainer, 
             ICommonLog logger, 
             out ITestRunner testRunner)
         {
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             
             try
             {
-                var diContainer = Bootstrapper.ConfigureUnity(settings);
+                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
                 logger.InfoEx("SignIn current user");
                 SignIn(diContainer);
                 logger.InfoEx("Resolving tests runner");

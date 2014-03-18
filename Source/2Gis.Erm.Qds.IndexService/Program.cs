@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Qds.IndexService.DI;
 using DoubleGis.Erm.Qds.IndexService.Settings;
 
@@ -35,14 +36,14 @@ namespace DoubleGis.Erm.Qds.IndexService
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, "IndexingService")
                 };
 
-            var settings = new IndexServiceAppSettings();
+            var settingsContainer = new IndexServiceAppSettings(BusinessModels.Supported);
 
             LogUtils.InitializeLoggingInfrastructure(
-                    settings.LoggingConnectionString(),
+                    settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
                     LogUtils.DefaultLogConfigFileFullPath,
                     loggerContextEntryProviders);
 
-            var diContainer = Bootstrapper.ConfigureUnity(settings);
+            var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
             var indexingProcess = diContainer.Resolve<IIndexingProcess>();
 
             if (IsConsoleMode(args))

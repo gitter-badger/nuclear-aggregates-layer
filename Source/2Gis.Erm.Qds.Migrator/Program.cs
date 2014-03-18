@@ -20,9 +20,10 @@ namespace DoubleGis.Erm.Qds.Migrator
         {
             Console.WriteLine("Search Migrator");
 
-            var fakeAppSettings = new FakeAppSettings();
+            var settingsContainer = new FakeAppSettings();
 
-            var container = new UnityContainer().ConfigureUnity(fakeAppSettings);
+            var container = new UnityContainer().ConfigureUnity(settingsContainer);
+
             var clientFactory = container.Resolve<IElasticClientFactory>();
             var connectionSettingsFactory = container.Resolve<IElasticConnectionSettingsFactory>();
             var rawDocumentIndexer = container.Resolve<IRawDocumentIndexer>();

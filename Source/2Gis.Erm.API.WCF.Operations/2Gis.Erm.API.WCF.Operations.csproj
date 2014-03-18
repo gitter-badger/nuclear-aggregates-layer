@@ -118,7 +118,7 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
-    <Compile Include="Settings\BasicOperationsSettings.cs" />
+    <Compile Include="Settings\OperationsSettings.cs" />
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 using DoubleGis.Erm.Qds.Etl.Flow;
+using DoubleGis.Erm.Qds.IndexService.Tests.Unit.Fakes;
 
 using FluentAssertions;
 
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.Qds.IndexService.Tests.Unit
             Establish context = () =>
                 {
                     Flow = new Mock<IEtlFlow>();
-                    Target = new BatchIndexingProcess(Flow.Object, new BatchIndexingSettings(0, 10));
+                    Target = new BatchIndexingProcess(Flow.Object, new FakeBatchIndexingSettings(0, 10));
                 };
 
             protected static Mock<IEtlFlow> Flow { get; private set; }

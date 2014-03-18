@@ -3,18 +3,19 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using DoubleGis.Erm.Qds.Etl.Flow;
+using DoubleGis.Erm.Qds.IndexService.Settings;
 
 namespace DoubleGis.Erm.Qds.IndexService
 {
-    public class BatchIndexingProcess : IIndexingProcess
+    public sealed class BatchIndexingProcess : IIndexingProcess
     {
         private readonly IEtlFlow _etlFlow;
-        private readonly BatchIndexingSettings _settings;
+        private readonly IBatchIndexingSettings _settings;
         private bool _executing;
         private Task _currentTask;
         private readonly object _sync = new object();
 
-        public BatchIndexingProcess(IEtlFlow etlFlow, BatchIndexingSettings settings)
+        public BatchIndexingProcess(IEtlFlow etlFlow, IBatchIndexingSettings settings)
         {
             if (etlFlow == null)
             {
