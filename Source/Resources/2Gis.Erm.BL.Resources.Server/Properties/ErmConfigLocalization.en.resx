@@ -159,6 +159,9 @@
   <data name="NavGroupOrders" xml:space="preserve">
     <value>Orders</value>
   </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Chile business listings</value>
+  </data>
   <data name="NavGroupServices" xml:space="preserve">
     <value>Service</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="NavGroupRoles" xml:space="preserve">
     <value>Roles</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Banks</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Communes</value>
   </data>
   <data name="CrdRelAccountDetails" xml:space="preserve">
     <value>Operations</value>
@@ -1179,6 +1188,9 @@
   <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
     <value>Unloading writing-offs</value>
   </data>
+  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Unload write-offs to bus</value>
+  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Load</value>
   </data>
@@ -1434,6 +1446,9 @@
   <data name="DFieldCategoryIsPrimary" xml:space="preserve">
     <value>Main</value>
   </data>
+  <data name="DCategoryGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
   <data name="DListUsersInOrganizationUnit" xml:space="preserve">
     <value>Users in company division</value>
   </data>
@@ -1614,14 +1629,20 @@
   <data name="DListRejectedByMeLimits" xml:space="preserve">
     <value>Limits rejected by me</value>
   </data>
+  <data name="DListRejectedOrdersForSubordinates" xml:space="preserve">
+    <value>Rejected orders of my subordinates</value>
+  </data>
+  <data name="DListTerminatedOrdersForSubordinates" xml:space="preserve">
+    <value>Inactive (closed by withdrawal) orders of my subordinates</value>
+  </data>
   <data name="DListMyBarterOrders" xml:space="preserve">
     <value>All of my orders with the "Barter" type</value>
   </data>
-  <data name="DListMyNewOrders" xml:space="preserve">
-    <value>My new orders</value>
-  </data>
   <data name="DListMySelfAdsOrders" xml:space="preserve">
     <value>All of my orders of the "Self-promotion" type</value>
+  </data>
+  <data name="DListMyNewOrders" xml:space="preserve">
+    <value>My new orders</value>
   </data>
   <data name="DListNewOrdersForSubordinates" xml:space="preserve">
     <value>New orders of my subordinates</value>
@@ -1631,12 +1652,6 @@
   </data>
   <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
     <value>Orders of my subordinates that require prolongation</value>
-  </data>
-  <data name="DListRejectedOrdersForSubordinates" xml:space="preserve">
-    <value>Rejected orders of my subordinates</value>
-  </data>
-  <data name="DListTerminatedOrdersForSubordinates" xml:space="preserve">
-    <value>Inactive (closed by withdrawal) orders of my subordinates</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
     <value>My orders for the nearest release</value>
@@ -1752,12 +1767,6 @@
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Customer's sworn statement</value>
   </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Unload write-offs to bus</value>
-  </data>
-  <data name="DCategoryGroup" xml:space="preserve">
-    <value>Group</value>
-  </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
     <value>Requests from PA</value>
   </data>
@@ -1788,12 +1797,6 @@
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Request from PA</value>
   </data>
-  <data name="NavGroupChileDirectory" xml:space="preserve">
-    <value>Chile business listings</value>
-  </data>
-  <data name="NavGroupBanks" xml:space="preserve">
-    <value>Banks</value>
-  </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Contract termination notice</value>
   </data>
@@ -1802,9 +1805,6 @@
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Companies in reserve on my territory (Lemesos)</value>
-  </data>
-  <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Communes</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Banks</value>

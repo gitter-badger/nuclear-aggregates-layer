@@ -159,6 +159,9 @@
   <data name="NavGroupOrders" xml:space="preserve">
     <value>Заказы</value>
   </data>
+  <data name="NavGroupChileDirectory" xml:space="preserve">
+    <value>Справочники Чили</value>
+  </data>
   <data name="NavGroupServices" xml:space="preserve">
     <value>Сервис</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="NavGroupRoles" xml:space="preserve">
     <value>Роли</value>
+  </data>
+  <data name="NavGroupBanks" xml:space="preserve">
+    <value>Банки</value>
+  </data>
+  <data name="NavGroupCommunes" xml:space="preserve">
+    <value>Коммуны</value>
   </data>
   <data name="CrdRelAccountDetails" xml:space="preserve">
     <value>Операции</value>
@@ -1179,6 +1188,9 @@
   <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
     <value>Выгрузка списаний</value>
   </data>
+  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Выгрузка списаний в шину</value>
+  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Загрузить</value>
   </data>
@@ -1433,6 +1445,9 @@
   </data>
   <data name="DFieldCategoryIsPrimary" xml:space="preserve">
     <value>Основная</value>
+  </data>
+  <data name="DCategoryGroup" xml:space="preserve">
+    <value>Группа</value>
   </data>
   <data name="DListUsersInOrganizationUnit" xml:space="preserve">
     <value>Пользователи в отделении организации</value>
@@ -1752,12 +1767,6 @@
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Заявление заказчика под присягой</value>
   </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
-  </data>
-  <data name="DCategoryGroup" xml:space="preserve">
-    <value>Группа</value>
-  </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
     <value>Заявки от ЛК</value>
   </data>
@@ -1789,12 +1798,6 @@
     <value>Заявка от ЛК</value>
     <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
-  <data name="NavGroupChileDirectory" xml:space="preserve">
-    <value>Справочники Чили</value>
-  </data>
-  <data name="NavGroupBanks" xml:space="preserve">
-    <value>Банки</value>
-  </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Уведомление о расторжении договора</value>
   </data>
@@ -1803,9 +1806,6 @@
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
     <value>Фирмы в резерве по городу Лимассол</value>
-  </data>
-  <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Коммуны</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
     <value>Банки</value>

@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 using FluentAssertions;
 
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.CostCalculationService
         {
             private Establish context = () =>
                 {
-                    Calculator = new CostCalculator(Mock.Of<IAppSettings>());
+                    Calculator = new CostCalculator(Mock.Of<IBusinessModelSettings>());
                 };
 
             protected static CostCalculator Calculator { get; set; }
