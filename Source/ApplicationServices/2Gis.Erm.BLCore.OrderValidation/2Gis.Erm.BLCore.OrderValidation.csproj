@@ -59,6 +59,8 @@
     <Compile Include="ADPValidationQueryProvider.cs" />
     <Compile Include="ADPValidationResultBuilder.cs" />
     <Compile Include="ADPValidator.cs" />
+    <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
+    <Compile Include="Settings\PricePositionDescription.cs" />
     <Compile Include="IPriceConfigurationService.cs" />
     <Compile Include="OrderPositionStateStorage.cs" />
     <Compile Include="OrderStateStorage.cs" />
@@ -74,11 +76,11 @@
     <Compile Include="CheckOrderBeginDistributionDateHandler.cs" />
     <Compile Include="CheckOrderReleasePeriodHandler.cs" />
     <Compile Include="CheckOrdersReadinessForReleaseHandler.cs" />
-    <Compile Include="Configuration\AssociatedDeniedPosition.cs" />
-    <Compile Include="Configuration\AssociatedDeniedPositions.cs" />
-    <Compile Include="Configuration\IOrderValidationSettings.cs" />
-    <Compile Include="Configuration\OrderValidationSettings.cs" />
-    <Compile Include="Configuration\OrderValidationSettingsConfigurationSection.cs" />
+    <Compile Include="Settings\Xml\AssociatedDeniedPosition.cs" />
+    <Compile Include="Settings\Xml\AssociatedDeniedPositions.cs" />
+    <Compile Include="Settings\IOrderValidationSettings.cs" />
+    <Compile Include="Settings\OrderValidationSettingsAspect.cs" />
+    <Compile Include="Settings\Xml\OrderValidationSettingsConfigurationSection.cs" />
     <Compile Include="OrderValidationRuleBase.cs" />
     <Compile Include="OrderValidationRuleCommonPredicate.cs" />
     <Compile Include="Rules\AccountExistsOrderValidationRule.cs" />

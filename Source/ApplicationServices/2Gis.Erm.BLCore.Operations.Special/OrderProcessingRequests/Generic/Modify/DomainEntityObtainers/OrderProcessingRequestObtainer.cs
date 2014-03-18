@@ -1,8 +1,8 @@
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
             var result =
                 dto.Id == 0
                     ? new OrderProcessingRequest { IsActive = true }
-                    : _finder.Find(OrderProcessingRequestSpecifications.Find.ById(dto.Id)).Single();
+                    : _finder.Find(Specs.Find.ById<OrderProcessingRequest>(dto.Id)).Single();
 
             result.BaseOrderId = dto.BaseOrderRef.Id;
             result.RenewedOrderId = dto.RenewedOrderRef.Id;

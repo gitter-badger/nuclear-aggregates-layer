@@ -23,7 +23,6 @@ using MessageType = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public class ProcessOrderCreationRequestSingleOperation : IProcessOrderCreationRequestSingleOperation
     {
         private readonly IOperationScopeFactory _scopeFactory;

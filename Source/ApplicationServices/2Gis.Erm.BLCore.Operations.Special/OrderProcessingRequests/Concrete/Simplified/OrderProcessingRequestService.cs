@@ -16,7 +16,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete.Simplified
 {
-    // 2+  \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     // FIXME {all, 13.11.2013}: размыта ответсвенность этого типа - часть функционала по работе с OrderProcessingRequest, напрямую использует DAL (что запрещено), часть через simplifiedmodelconumer - итого нет четкого единого подхода при рефакторинге ApplicationServices - будут доп. проблемы из-за этого
     public class OrderProcessingRequestService : IOrderProcessingRequestService
     {
@@ -89,7 +88,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public IEnumerable<OrderProcessingRequest> GetPrologationRequestsToProcess()
         {
-            return _finder.Find(OrderProcessingRequestSpecifications.Find.ForProlongateAndOpened()).ToArray();
+            return 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<OrderProcessingRequest>()
+                            && OrderProcessingRequestSpecifications.Find.ForProlongateAndOpened())
+                    .ToArray();
         }
 
         public OrderProcessingRequest GetPrologationRequestToProcess(long id)

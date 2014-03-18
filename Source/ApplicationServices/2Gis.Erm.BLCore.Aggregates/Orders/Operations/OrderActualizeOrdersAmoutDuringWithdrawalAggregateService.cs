@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,18 +14,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
 {
     public sealed class OrderActualizeOrdersAmoutDuringWithdrawalAggregateService : IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IRepository<Order> _orderRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
 
         public OrderActualizeOrdersAmoutDuringWithdrawalAggregateService(
-            IAppSettings appSettings,
+            IBusinessModelSettings businessModelSettings,
             IRepository<Order> orderRepository, 
             IOperationScopeFactory scopeFactory, 
             ICommonLog logger)
         {
-            _appSettings = appSettings;
+            _businessModelSettings = businessModelSettings;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
             _logger = logger;
@@ -40,8 +41,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
             {
                 foreach (var dto in orders)
                 {
-                    dto.Order.AmountToWithdraw = Math.Round(dto.AmountToWithdrawNext, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-                    dto.Order.AmountWithdrawn = Math.Round(dto.AmountAlreadyWithdrawn, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                    dto.Order.AmountToWithdraw = Math.Round(dto.AmountToWithdrawNext, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+                    dto.Order.AmountWithdrawn = Math.Round(dto.AmountAlreadyWithdrawn, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
                     
                     _orderRepository.Update(dto.Order);
                     scope.Updated<Order>(dto.Order.Id);

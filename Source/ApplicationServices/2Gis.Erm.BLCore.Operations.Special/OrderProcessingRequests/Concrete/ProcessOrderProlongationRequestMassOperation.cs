@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public sealed class ProcessOrderProlongationRequestMassOperation : IProcessOrderProlongationRequestMassOperation
     {
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;

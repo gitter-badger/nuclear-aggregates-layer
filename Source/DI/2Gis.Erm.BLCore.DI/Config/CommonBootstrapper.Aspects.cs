@@ -8,10 +8,9 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -36,9 +35,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 {
     public static partial class CommonBootstrapper
     {
-        public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IAppSettings appSettings)
+        public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)
         {
-            if (appSettings.TargetEnvironment == AppTargetEnvironment.Production)
+            if (environmentSettings.Type == EnvironmentType.Production)
             {
                 container.RegisterType<IPendingChangesHandlingStrategy, NullPendingChangesHandlingStrategy>(Lifetime.Singleton);
             }
@@ -54,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IModifiableDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(entryPointSpecificLifetimeManagerFactory(), new InjectionConstructor(appSettings.ConnectionStrings.GetConnectionString(ConnectionStringName.Erm)))
+                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(entryPointSpecificLifetimeManagerFactory(), new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
                         .RegisterType<IAggregatesLayerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IAggregatesLayerRuntimeFactory))
                         .RegisterType<ISimplifiedModelConsumerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as ISimplifiedModelConsumerRuntimeFactory))
                         .RegisterType<IPersistenceServiceRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IPersistenceServiceRuntimeFactory))
@@ -93,9 +92,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 .RegisterType<IExportMetadataProvider, ExportMetadataProvider>(Lifetime.Singleton);
         }
 
-        public static IUnityContainer ConfigureOperationLogging(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IAppSettings appSettings)
+        public static IUnityContainer ConfigureOperationLogging(
+            this IUnityContainer container, 
+            Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, 
+            IEnvironmentSettings environmentSettings)
         {
-            if (appSettings.TargetEnvironment == AppTargetEnvironment.Production)
+            if (environmentSettings.Type == EnvironmentType.Production)
             {
                 container.RegisterType<IOperationConsistencyVerifier, NullOperationConsistencyVerifier>(Lifetime.Singleton);
             }
@@ -110,21 +112,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IOperationScopeLifetimeManager, OperationScopeLifetimeManager>(Lifetime.PerResolve, null)
                         .RegisterType<IFlowMarkerManager, ControlFlowMarkerManager>(Lifetime.Singleton)
                         .RegisterType<IPersistenceChangesRegistryProvider, PersistenceChangesRegistryProvider>(entryPointSpecificLifetimeManagerFactory());
-        }
-
-        public static IUnityContainer RegisterAPIServiceSettings(this IUnityContainer unityContainer, IAPIServiceSettingsHost servicesSettingsHost)
-        {
-            foreach (var service in servicesSettingsHost.ServicesSettings.AvailableServices)
-            {
-                unityContainer.RegisterInstance(service.Key, service.Value);
-            }
-
-            return unityContainer;
-        }
-
-        public static IUnityContainer RegisterMsCRMSettings(this IUnityContainer unityContainer, IMsCrmSettingsHost msCrmSettingsHost)
-        {
-            return unityContainer.RegisterInstance<IMsCrmSettings>(msCrmSettingsHost.MsCrmSettings);
         }
 
         public static IUnityContainer ConfigureNotificationsSender(this IUnityContainer unityContainer, 

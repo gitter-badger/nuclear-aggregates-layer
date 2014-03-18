@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,17 +19,17 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
         private const int BatchSize = 10;
 
         private readonly IOperationServicesManager _servicesManager;
-        private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
 
         public PostIntegrationActivitiesWithFirmsJob(ICommonLog logger,
                                                      ISignInService signInService,
                                                      IUserImpersonationService userImpersonationService,
                                                      IOperationServicesManager servicesManager,
-                                                     IGlobalizationSettings globalizationSettings)
+                                                     IIntegrationLocalizationSettings integrationLocalizationSettings)
             : base(signInService, userImpersonationService, logger)
         {
             _servicesManager = servicesManager;
-            _globalizationSettings = globalizationSettings;
+            _integrationLocalizationSettings = integrationLocalizationSettings;
         }
 
         public string Activities { get; set; }
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
             if (description.IntegrationEntityName == EntityName.ImportedFirmAddress)
             {
                 var context = new XElement("Localization");
-                context.Add(new XAttribute("Language", _globalizationSettings.BasicLanguage));
+                context.Add(new XAttribute("Language", _integrationLocalizationSettings.BasicLanguage));
                 description.Context = context.ToString();
             }
         }

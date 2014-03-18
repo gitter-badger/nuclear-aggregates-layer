@@ -6,15 +6,17 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -23,7 +25,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ImportAccountDetailsFrom1CHandler : RequestHandler<ImportAccountDetailsFrom1CRequest, ImportResponse>
     {
-        private readonly IAppSettings _appSettings;
+        private readonly ILocalizationSettings _localizationSettings;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly ICommonLog _logger;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
@@ -31,7 +34,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly INotificationSender _notificationSender;
 
-        public ImportAccountDetailsFrom1CHandler(IAppSettings appSettings,
+        public ImportAccountDetailsFrom1CHandler(ILocalizationSettings localizationSettings,
+                                                 INotificationsSettings notificationsSettings,
                                                  ICommonLog logger,
                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                  IAccountRepository accountRepository,
@@ -40,7 +44,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                  INotificationSender notificationSender)
 
         {
-            _appSettings = appSettings;
+            _localizationSettings = localizationSettings;
+            _notificationsSettings = notificationsSettings;
             _logger = logger;
             _branchOfficeReadModel = branchOfficeReadModel;
             _accountRepository = accountRepository;
@@ -51,14 +56,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override ImportResponse Handle(ImportAccountDetailsFrom1CRequest request)
         {
-            var nonParsedRows = AccountDetailsFrom1CHelper.ParseStreamAsRows(request.InputStream);
+            var targetEncoding = _localizationSettings.ApplicationCulture.ToDefaultAnsiEncoding();
+            var nonParsedRows = AccountDetailsFrom1CHelper.ParseStreamAsRows(request.InputStream, targetEncoding);
             if (!nonParsedRows.Any())
             {
                 throw new NotificationException(string.Format(BLResources.FileIsEmpty, request.FileName));
             }
 
             AccountDetailsFrom1CHelper.CsvHeader header;
-            if (!AccountDetailsFrom1CHelper.CsvHeader.TryParse(nonParsedRows[0], out header))
+            if (!AccountDetailsFrom1CHelper.CsvHeader.TryParse(nonParsedRows[0], _localizationSettings.ApplicationCulture, out header))
             {
                 throw new NotificationException(string.Format(BLResources.WrongFileFormat, request.FileName));
             }
@@ -118,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             accountDetailContainer = null;
             AccountDetailsFrom1CHelper.CsvRow row;
 
-            if (!AccountDetailsFrom1CHelper.CsvRow.TryParse(nonParsedRow, out row))
+            if (!AccountDetailsFrom1CHelper.CsvRow.TryParse(nonParsedRow, _localizationSettings.ApplicationCulture, out row))
             {
                 var message = string.Format("Невозможно распознать строку при импорте списаний по лицевым счетам. Строка [{0}].", index);
                 errors.Add(message);
@@ -172,7 +178,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             }
 
             var account = _accountRepository.FindAccount(branchOfficeOrganizationUnit.Id, legalPerson.Id);
-
             if (account == null)
             {
                 var message = string.Format(
@@ -233,7 +238,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private void NotifyAboutPaymentReceived(IEnumerable<Tuple<LegalPerson, BranchOfficeOrganizationUnit, Account, AccountDetail>> accountDetailContainers)
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return;
@@ -257,7 +262,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                   legalPerson.LegalName,
                                                                   branchOffice.ShortLegalName,
                                                                   accountDetail.Amount,
-                                                                  accountDetail.TransactionDate.ToString(LocalizationSettings.ApplicationCulture)));
+                                                                  accountDetail.TransactionDate.ToString(_localizationSettings.ApplicationCulture)));
                 }
                 else
                 {

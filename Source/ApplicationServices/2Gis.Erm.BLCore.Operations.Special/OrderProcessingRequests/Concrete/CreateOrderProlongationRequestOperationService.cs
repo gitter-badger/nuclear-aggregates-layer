@@ -2,12 +2,13 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -16,7 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
+    // FIXME {all, 13.11.2013}: используется Finder, что не допустимо для OperationService
     public class CreateOrderProlongationRequestOperationService : ICreateOrderProlongationRequestOperationService
     {
         private const int MinReleaseCountPlan = 4;
@@ -25,20 +26,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         private static readonly OrderState[] InvalidOrderStates = { OrderState.OnRegistration, OrderState.Rejected, OrderState.OnApproval };
 
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly ISecureFinder _secureFinder;
-        private readonly IOrderProcessingRequestOwnerSelectionService _userSelectionService;
-        private readonly IAppSettings _appSettings;
+        private readonly IOrderProcessingSettings _orderProcessingSettings;
+        private readonly IUserReadModel _userReadModel;
 
         public CreateOrderProlongationRequestOperationService(
-            IAppSettings settings,
+            IOrderProcessingSettings orderProcessingSettings,
+            IUserReadModel userReadModel,
             ISecureFinder secureFinder,
             IOrderProcessingRequestService orderProcessingRequestService,
-            IOrderProcessingRequestOwnerSelectionService userSelectionService)
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
-            _appSettings = settings;
+            _orderProcessingSettings = orderProcessingSettings;
+            _userReadModel = userReadModel;
             _secureFinder = secureFinder;
             _orderProcessingRequestService = orderProcessingRequestService;
-            _userSelectionService = userSelectionService;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
         public long CreateOrderProlongationRequest(long orderId, short releaseCountPlan, string description)
@@ -77,9 +81,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 beginDistributionDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1);
             }
 
-            var owner = _userSelectionService.GetOwner(orderToProlongate.OwnerCode)
-                        ?? _userSelectionService.GetOrganizationUnitDirector(orderToProlongate.DestOrganizationUnitId)
-                        ?? _userSelectionService.GetReserveUser();
+            var reserveUserInfo = _securityServiceUserIdentifier.GetReserveUserIdentity();
+            var owner = _userReadModel.GetNotServiceUser(orderToProlongate.OwnerCode)
+                        ?? _userReadModel.GetOrganizationUnitDirector(orderToProlongate.DestOrganizationUnitId)
+                        ?? _userReadModel.GetUser(reserveUserInfo.Code);
 
             if (owner == null)
             {
@@ -96,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 ReleaseCountPlan = releaseCountPlan,
                 ReplicationCode = Guid.NewGuid(),
                 Title = BLResources.OrderProlongation,
-                DueDate = DateTime.UtcNow.AddHours(_appSettings.OrderRequestProcessingHoursAmount),
+                DueDate = DateTime.UtcNow.AddHours(_orderProcessingSettings.OrderRequestProcessingHoursAmount),
                 SourceOrganizationUnitId = orderToProlongate.SourceOrganizationUnitId,
                 FirmId = orderToProlongate.FirmId,
                 LegalPersonProfileId = legalPersonProfileId.Value,

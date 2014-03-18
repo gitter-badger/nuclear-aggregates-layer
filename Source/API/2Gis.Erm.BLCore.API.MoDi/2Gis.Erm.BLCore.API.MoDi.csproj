@@ -60,6 +60,8 @@
     <Compile Include="Remote\AccountingSystem\IAccountingSystemApplicationService.cs" />
     <Compile Include="Remote\PrintRegional\IPrintRegionalApplicationService.cs" />
     <Compile Include="Remote\Reports\IReportsApplicationService.cs" />
+    <Compile Include="Remote\Settings\APIMoDiServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIMoDiServiceSettings.cs" />
     <Compile Include="Remote\WithdrawalInfo\PriceCostInfo.cs" />
     <Compile Include="Remote\WithdrawalInfo\IWithdrawalInfoApplicationService.cs" />
     <Compile Include="Dto\OrderPositionDto.cs" />
@@ -78,6 +80,10 @@
     <Compile Include="Enums\PlatformsExtended.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -91,6 +97,7 @@
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

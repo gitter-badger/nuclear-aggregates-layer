@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
@@ -17,18 +18,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
 {
     public sealed class UpdateOrderFinancialPerformanceHandler : RequestHandler<UpdateOrderFinancialPerformanceRequest, EmptyResponse>
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public UpdateOrderFinancialPerformanceHandler(
             IOrderRepository orderRepository, 
-            IAppSettings appSettings, 
-            IOperationScopeFactory scopeFactory, IOrderReadModel orderReadModel)
+            IBusinessModelSettings businessModelSettings, 
+            IOperationScopeFactory scopeFactory,
+            IOrderReadModel orderReadModel)
         {
             _orderRepository = orderRepository;
-            _appSettings = appSettings;
+            _businessModelSettings = businessModelSettings;
             _scopeFactory = scopeFactory;
             _orderReadModel = orderReadModel;
         }
@@ -98,9 +100,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
 
             operationScope.Updated<OrderPosition>(orderPositions.Select(x => x.Id).ToArray());
 
-            payablePlanSum = Math.Round(payablePlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-            payablePlanWoVatSum = Math.Round(payablePlanWoVatSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-            payablePriceSum = Math.Round(payablePriceSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePlanSum = Math.Round(payablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePlanWoVatSum = Math.Round(payablePlanWoVatSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePriceSum = Math.Round(payablePriceSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
             order.PayablePrice = payablePriceSum;
             order.PayablePlan = payablePlanSum;
@@ -199,9 +201,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
             orderPositionsPayablePriceWithVatSum += lastOrderPosition.PricePerUnitWithVat * lastOrderPosition.Amount * request.ReleaseCountFact;
             orderPositionsDiscountSum += lastOrderPosition.DiscountSum;
 
-            payablePlanSum = Math.Round(payablePlanSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-            payablePlanWoVatSum = Math.Round(payablePlanWoVatSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-            payablePriceSum = Math.Round(payablePriceSum, _appSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePlanSum = Math.Round(payablePlanSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePlanWoVatSum = Math.Round(payablePlanWoVatSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
+            payablePriceSum = Math.Round(payablePriceSum, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
 
             order.PayablePrice = payablePriceSum;
             order.PayablePlan = payablePlanSum;

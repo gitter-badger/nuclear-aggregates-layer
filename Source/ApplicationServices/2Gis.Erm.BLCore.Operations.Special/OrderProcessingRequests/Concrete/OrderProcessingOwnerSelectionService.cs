@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -9,24 +10,29 @@ using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Model.Metadata.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
-    public class OrderProcessingOwnerSelectionService : IOrderProcessingOwnerSelectionService
+    // TODO {all, 04.02.2014}: не понятно какую ценность представляет такой OperationService с точки зрения бизнес домена ERM - скорее всего должен быть сконвертирован в ReadModel
+    // при рефакторинге учесть фактическое пересечение по используемым выборкам с *CreateHotClientRequest* функционалом - нужно обобщить, в том числе и на уровне ReadModel
+    public sealed class OrderProcessingOwnerSelectionService : IOrderProcessingOwnerSelectionService
     {
-        private readonly IOrderProcessingRequestOwnerSelectionService _userSelectionService;
+        private readonly IUserReadModel _userReadModel;
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public OrderProcessingOwnerSelectionService(
-            IOrderProcessingRequestOwnerSelectionService userSelectionService,
+            IUserReadModel userReadModel,
             IOrderProcessingRequestService orderProcessingRequestService,
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier,
             IOperationScopeFactory scopeFactory)
         {
-            _userSelectionService = userSelectionService;
+            _userReadModel = userReadModel;
             _orderProcessingRequestService = orderProcessingRequestService;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _scopeFactory = scopeFactory;
         }
 
@@ -60,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             var baseOrderId = orderProcessingRequest.BaseOrderId.Value;
             var baseOrder = _orderProcessingRequestService.GetOrderDto(baseOrderId);
 
-            return Strategy(() => _userSelectionService.GetOwner(baseOrder.OwnerCode),
+            return Strategy(() => _userReadModel.GetNotServiceUser(baseOrder.OwnerCode),
                             () => string.Format(BLResources.OrderProlongationRequestInformationBaseOrderOwnerNotFound, baseOrder.Number),
                             () => string.Format(BLResources.OrderProlongationRequestInformationBaseOrderOwnerFound, baseOrder.Number),
                             messages);
@@ -80,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new BusinessLogicException(message);
             }
 
-            return Strategy(() => _userSelectionService.GetOwner(firmDto.Client.OwnerCode),
+            return Strategy(() => _userReadModel.GetNotServiceUser(firmDto.Client.OwnerCode),
                             () => string.Format(BLResources.OrderCreationRequestInformationClientOwnerNotFound, firmDto.Client.Name),
                             () => string.Format(BLResources.OrderCreationRequestInformationClientOwnerFound, firmDto.Client.Name),
                             messages);
@@ -94,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new EntityNotFoundException(typeof(Platform.Model.Entities.Erm.OrderProcessingRequest), orderProcessingRequest.FirmId);
             }
 
-            return Strategy(() => _userSelectionService.GetOrganizationUnitDirector(firmDto.OrganizationUnitId),
+            return Strategy(() => _userReadModel.GetOrganizationUnitDirector(firmDto.OrganizationUnitId),
                             () => string.Format(BLResources.OrderCreationRequestInformationOrganizationUnitDirectorNotFound, firmDto.OrganizationUnitName),
                             () => string.Format(BLResources.OrderCreationRequestInformationOrganizationUnitDirectorFound, firmDto.OrganizationUnitName),
                             messages);
@@ -102,7 +108,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private User GetReserveUser(ICollection<IMessageWithType> messages)
         {
-            return Strategy(() => _userSelectionService.GetReserveUser(),
+            var reserveInfo = _securityServiceUserIdentifier.GetReserveUserIdentity();
+            return Strategy(() => _userReadModel.GetUser(reserveInfo.Code),
                             () => string.Format(BLResources.OrderCreationRequestInformationReserveUserNotFound),
                             () => string.Format(BLResources.OrderCreationRequestInformationReserveUserFound),
                             messages);

@@ -2,12 +2,13 @@
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,7 +17,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 {
     public sealed class EditAccountDetailHandler : RequestHandler<EditRequest<AccountDetail>, EmptyResponse>
     {
-        private readonly IAppSettings _appSettings;
+        private readonly ILocalizationSettings _localizationSettings;
+        private readonly INotificationsSettings _notificationsSettings;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
         private readonly INotificationSender _notificationSender;
         private readonly ICommonLog _logger;
@@ -24,7 +26,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
 
-        public EditAccountDetailHandler(IAppSettings appSettings,
+        public EditAccountDetailHandler(
+            ILocalizationSettings localizationSettings,
+            INotificationsSettings notificationsSettings,
                                         IEmployeeEmailResolver employeeEmailResolver,
                                         INotificationSender notificationSender,
                                         ICommonLog logger,
@@ -32,7 +36,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                                         IBranchOfficeReadModel branchOfficeReadModel,
                                         IAccountRepository accountRepository)
         {
-            _appSettings = appSettings;
+            _localizationSettings = localizationSettings;
+            _notificationsSettings = notificationsSettings;
             _employeeEmailResolver = employeeEmailResolver;
             _notificationSender = notificationSender;
             _logger = logger;
@@ -67,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 
         private void NotifyAboutPaymentReceived(AccountDetail accountDetail)
         {
-            if (!_appSettings.EnableNotifications)
+            if (!_notificationsSettings.EnableNotifications)
             {
                 _logger.InfoEx("Notifications disabled in config file");
                 return;
@@ -100,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                                                                   legalPerson.LegalName,
                                                                   branchOffice.ShortLegalName,
                                                                   accountDetail.Amount,
-                                                                  accountDetail.TransactionDate.ToString(LocalizationSettings.ApplicationCulture)));
+                                                                  accountDetail.TransactionDate.ToString(_localizationSettings.ApplicationCulture)));
                 }
                 else
                 {

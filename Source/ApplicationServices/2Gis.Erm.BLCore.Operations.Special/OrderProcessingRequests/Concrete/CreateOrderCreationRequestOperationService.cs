@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -20,38 +21,40 @@ using MessageType = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public class CreateOrderCreationRequestOperationService : ICreateOrderCreationRequestOperationService
     {
         private const int MinReleaseCountPlan = 4;
         private const int MaxReleaseCountPlan = 12;
 
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;
-        private readonly IOrderProcessingRequestOwnerSelectionService _userSelectionService;
-        private readonly IAppSettings _appSettings;
+        private readonly IOrderProcessingSettings _orderProcessingSettings;
+        private readonly IUserReadModel _userReadModel;
         private readonly IFirmRepository _firmRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IProjectService _projectService;
         private readonly ICreatedOrderProcessingRequestEmailSender _emailSender;
 
         public CreateOrderCreationRequestOperationService(
-            IAppSettings settings,
+            IOrderProcessingSettings orderProcessingSettings,
+            IUserReadModel userReadModel,
             IOrderProcessingRequestService orderProcessingRequestService,
-            IOrderProcessingRequestOwnerSelectionService userSelectionService,
             IFirmRepository firmRepository,
             ILegalPersonRepository legalPersonRepository,
             ICreatedOrderProcessingRequestEmailSender emailSender,
             IProjectService projectService,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
-            _appSettings = settings;
+            _orderProcessingSettings = orderProcessingSettings;
+            _userReadModel = userReadModel;
             _orderProcessingRequestService = orderProcessingRequestService;
-            _userSelectionService = userSelectionService;
             _firmRepository = firmRepository;
             _legalPersonRepository = legalPersonRepository;
             _projectService = projectService;
             _userRepository = userRepository;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _emailSender = emailSender;
         }
 
@@ -87,9 +90,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new EntityNotFoundException(typeof(Firm), firmId);
             }
 
-            var owner = _userSelectionService.GetOwner(firm.OwnerCode)
-                        ?? _userSelectionService.GetOrganizationUnitDirector(firm.OrganizationUnitId)
-                        ?? _userSelectionService.GetReserveUser();
+            var reserveUserInfo = _securityServiceUserIdentifier.GetReserveUserIdentity();
+            var owner = _userReadModel.GetNotServiceUser(firm.OwnerCode)
+                        ?? _userReadModel.GetOrganizationUnitDirector(firm.OrganizationUnitId)
+                        ?? _userReadModel.GetUser(reserveUserInfo.Code);
 
             if (owner == null)
             {
@@ -114,7 +118,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new InvalidOperationException(string.Format(BLResources.EntityIsInactiveError, typeof(OrganizationUnit).Name, sourceOrganizationUnitId));
             }
 
-            var orderProcessingRequest = new Platform.Model.Entities.Erm.OrderProcessingRequest
+            var orderProcessingRequest = new OrderProcessingRequest
                 {
                     Description = description,
                     State = (int)OrderProcessingRequestState.Opened,
@@ -122,7 +126,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                     ReplicationCode = Guid.NewGuid(),
                     ReleaseCountPlan = releaseCountPlan,
                     Title = BLResources.NewOrder,
-                    DueDate = DateTime.UtcNow.AddHours(_appSettings.OrderRequestProcessingHoursAmount),
+                    DueDate = DateTime.UtcNow.AddHours(_orderProcessingSettings.OrderRequestProcessingHoursAmount),
                     SourceOrganizationUnitId = sourceOrganizationUnitId,
                     FirmId = firmId,
                     LegalPersonProfileId = legalPersonProfileId,

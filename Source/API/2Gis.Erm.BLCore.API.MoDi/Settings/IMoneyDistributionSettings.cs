@@ -4,10 +4,11 @@ using System.Globalization;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Enums;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.BLCore.API.MoDi.Settings
 {
-    public interface IMoneyDistributionSettings
+    public interface IMoneyDistributionSettings : ISettings
     {
         DateTime FirstApril { get; }
         long UkBouId { get; }

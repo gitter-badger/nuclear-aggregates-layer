@@ -14,11 +14,15 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Delete;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Qualify;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release;
+using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 
@@ -33,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.Config
             var provider = new ServiceClientSettingsProvider();
 
             var metadataSvcSettings = container.Resolve<IAPIIntrospectionServiceSettings>();
-            var releasingSvcSettings = container.Resolve<IAPIRealeasingServiceSettings>();
+            var releasingSvcSettings = container.Resolve<IAPIReleasingServiceSettings>();
             var operationsSvcSettings = container.Resolve<IAPIOperationsServiceSettings>();
             var orderValidationSvcSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
             var sharedTypesBehaviorFactory = container.Resolve<ISharedTypesBehaviorFactory>();

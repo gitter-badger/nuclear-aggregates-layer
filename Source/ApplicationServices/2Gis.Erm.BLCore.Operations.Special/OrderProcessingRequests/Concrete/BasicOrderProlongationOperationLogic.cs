@@ -18,7 +18,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\OrderProcessingRequest
     public sealed class BasicOrderProlongationOperationLogic : IBasicOrderProlongationOperationLogic 
     {
         private readonly IOrderProcessingRequestService _orderProcessingRequestService;

@@ -8,10 +8,10 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 {
     public class LegalPersonRepository : ILegalPersonRepository
     {
-        private readonly IAppSettings _appSettings;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecureRepository<LegalPerson> _legalPersonGenericRepository;
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         private readonly IOperationScopeFactory _scopeFactory;
 
         public LegalPersonRepository(
-            IAppSettings appSettings,
+            IDebtProcessingSettings debtProcessingSettings,
             IFinder finder,
             ISecureRepository<LegalPerson> legalPersonGenericRepository,
             ISecurityServiceEntityAccess entityAccessService,
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             IIdentityProvider identityProvider, 
             IOperationScopeFactory scopeFactory)
         {
-            _appSettings = appSettings;
+            _debtProcessingSettings = debtProcessingSettings;
             _finder = finder;
             _legalPersonGenericRepository = legalPersonGenericRepository;
             _entityAccessService = entityAccessService;
@@ -557,7 +557,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                                     let lockDetailBalance = account.Balance - (account.Locks                                    // скобки и проверки на null тут НУЖНЫ,
                                                                                    .Where(x => x.IsActive && !x.IsDeleted)      // т.к. без них возможна ситуация decimal - null = null
                                                                                    .Sum(x => (decimal?)x.PlannedAmount) ?? 0)
-                                    where lockDetailBalance <= _appSettings.MinDebtAmount
+                                    where lockDetailBalance <= _debtProcessingSettings.MinDebtAmount
                                     select new AccountWithDebtInfo
                                         {
                                             LegalPersonName = legalPerson.ShortName,

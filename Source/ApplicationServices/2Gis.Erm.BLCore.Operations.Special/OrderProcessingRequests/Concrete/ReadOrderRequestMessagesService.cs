@@ -2,14 +2,17 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.Aggregates.CommonService;
-using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderProcessingRequest;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using Specs = DoubleGis.Erm.Platform.DAL.Specifications.Specs;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
@@ -32,8 +35,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             var result =
                 _finder
                     .Find(
-                        OrderProcessingRequestMessageSpecifications.Find.ActiveMessages() &
-                        OrderProcessingRequestMessageSpecifications.Find.ByRequestId(requestId))
+                        Specs.Find.Active<OrderProcessingRequestMessage>()
+                        && OrderProcessingRequestMessageSpecifications.Find.ByRequestId(requestId))
                     .Select(x => new
                         {
                             x.Id,

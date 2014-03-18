@@ -6,6 +6,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.HotClient;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             protected static IFirmRepository FirmRepository;
             protected static IHotClientRequestService HotClientRequestService;
             protected static ICrmTaskFactory CrmTaskFactory;
-            protected static IUserRepository UserRepository;
+            protected static IUserReadModel UserReadModel;
             protected static DataStore Data;
 
             protected static CreateHotClientResponse Response;
@@ -63,12 +64,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                 {
                     Data = new DataStore();
                     AppSettings = SetupAppSettings();
-                    UserRepository = SetupUserRepository();
+                    UserReadModel = SetupUserReadModel();
                     CrmTaskFactory = SetupCrmTaskFactory();
                     HotClientRequestService = SetupHotClientRequestService();
                     FirmRepository = SetupFirmRepository();
                     
-                    Handler = new CreateHotClientHandler(AppSettings, FirmRepository, HotClientRequestService, CrmTaskFactory, UserRepository);
+                    Handler = new CreateHotClientHandler(AppSettings, UserReadModel, FirmRepository, HotClientRequestService, CrmTaskFactory);
                 };
 
             Because of = () =>
@@ -84,31 +85,31 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                     }
                 };
 
-            protected static IUserRepository SetupUserRepository()
+            protected static IUserReadModel SetupUserReadModel()
             {
-                var userRepository = Mock.Of<FakeUserRepository>();
+                var userReadModel = Mock.Of<IUserReadModel>();
 
-                Mock.Get(userRepository)
-                    .Setup(service => service.GetUser(Moq.It.Is<long>(id => id == ClientOwnerId)))
+                Mock.Get(userReadModel)
+                    .Setup(x => x.GetUser(Moq.It.Is<long>(id => id == ClientOwnerId)))
                     .Returns<long>(l => new User { Id = l, Account = string.Format("user_client_{0}", l), IsServiceUser = Data.IsOwnerServiceUser });
 
-                Mock.Get(userRepository)
-                    .Setup(service => service.GetUser(Moq.It.Is<long>(id => id == FirmOwnerId)))
+                Mock.Get(userReadModel)
+                    .Setup(x => x.GetUser(Moq.It.Is<long>(id => id == FirmOwnerId)))
                     .Returns<long>(l => new User { Id = l, Account = string.Format("user_firm_{0}", l), IsServiceUser = Data.IsOwnerServiceUser }); 
                 
-                Mock.Get(userRepository)
-                    .Setup(service => service.FindAnyUserWithPrivelege(Moq.It.Is<IEnumerable<long>>(longs => longs.Contains(OrganizationUnitId)), FunctionalPrivilegeName.HotClientProcessing))
+                Mock.Get(userReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.Is<IEnumerable<long>>(longs => longs.Contains(OrganizationUnitId)), FunctionalPrivilegeName.HotClientProcessing))
                     .Returns(new User { Id = OrganizationUnitDirectorId, Account = string.Format("user_director_{0}", OrganizationUnitDirectorId) });
 
-                Mock.Get(userRepository)
-                    .Setup(service => service.FindAnyUserWithPrivelege(Moq.It.Is<IEnumerable<long>>(longs => longs.Contains(ProjectOrganizationUnitId)), FunctionalPrivilegeName.HotClientProcessing))
+                Mock.Get(userReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.Is<IEnumerable<long>>(longs => longs.Contains(ProjectOrganizationUnitId)), FunctionalPrivilegeName.HotClientProcessing))
                     .Returns(new User { Id = ProjectDirectorId, Account = string.Format("user_director_{0}", ProjectDirectorId) }); 
                 
-                Mock.Get(userRepository)
-                    .Setup(service => service.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessing))
+                Mock.Get(userReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessing))
                     .Returns(new User { Id = TelemarketingManagerId, Account = string.Format("user_telemarketing_{0}", TelemarketingManagerId) });
 
-                return userRepository;
+                return userReadModel;
             }
 
             protected static ICrmTaskFactory SetupCrmTaskFactory()

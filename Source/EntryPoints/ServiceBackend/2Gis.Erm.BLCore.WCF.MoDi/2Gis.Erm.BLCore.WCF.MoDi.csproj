@@ -50,7 +50,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="AccountingSystem.svc.cs" />
-    <Compile Include="MoneyDistributionSettings.cs" />
+    <Compile Include="MoneyDistributionSettingsAspect.cs" />
     <Compile Include="PrintRegional.svc.cs" />
     <Compile Include="Reports.svc.cs" />
     <Compile Include="Util\BouInfo.cs" />

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (UserDomainEntityDto)domainEntityDto;
 
-            var user = _finder.Find(UserSpecifications.Find.ById(dto.Id)).SingleOrDefault() ??
+            var user = _finder.Find(Specs.Find.ById<User>(dto.Id)).SingleOrDefault() ??
                        new User { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && user.Timestamp != null)

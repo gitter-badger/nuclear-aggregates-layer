@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -27,11 +27,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 {
     public class UserProfileController : ControllerBase
     {
+        private readonly ILocalizationSettings _localizationSettings;
         private readonly IUserProfileService _userProfileService;
         private readonly IGetUserInfoService _userInfoService;
         private readonly IFinder _finder;
 
         public UserProfileController(
+            ILocalizationSettings localizationSettings,
             IMsCrmSettings msCrmSettings,
             IUserContext userContext,
             ICommonLog logger,
@@ -47,6 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                 operationsServiceSettings,
                 getBaseCurrencyService)
         {
+            _localizationSettings = localizationSettings;
             _userProfileService = userProfileService;
             _userInfoService = userInfoService;
             _finder = finder;
@@ -111,14 +114,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             return new JsonNetResult(CreateProfileDtoBasedOnAppropriateSettings(userId).PersonalInfo);
         }
 
-        private IEnumerable<CultureInfo> SupportedCultures
-        {
-            get
-            {
-                return LocalizationSettings.SupportedCultures;
-            }
-        }
-
         [HttpGet]
         public JsonNetResult GetSupportedLocalSettings()
         {
@@ -132,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                 
             return new JsonNetResult(new SupportedLocalSettingsDto
             {
-                SupportedCultures = SupportedCultures.Select(ci => new CultureInfoDto
+                SupportedCultures = _localizationSettings.SupportedCultures.Select(ci => new CultureInfoDto
                 {
                     DisplayName = ci.DisplayName,
                     LCID = ci.LCID,

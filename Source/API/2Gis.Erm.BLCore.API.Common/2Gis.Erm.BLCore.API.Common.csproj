@@ -49,6 +49,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Crosscutting\AD\ADUserProfile.cs" />
+    <Compile Include="Crosscutting\AD\GetUserInfoFromAdSettingsAspect.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoService.cs" />
     <Compile Include="Crosscutting\CardLink\HtmlLinkUtils.cs" />
     <Compile Include="Crosscutting\CardLink\ILinkToEntityCardFactory.cs" />
@@ -72,6 +73,10 @@
     <Compile Include="Enums\PlatformEnum.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoFromAdSettings.cs" />
     <Compile Include="Crosscutting\IReplicationCodeConverter.cs" />
+    <Compile Include="Settings\CachingSettingsAspect.cs" />
+    <Compile Include="Settings\ICachingSettings.cs" />
+    <Compile Include="Settings\INotificationsSettings.cs" />
+    <Compile Include="Settings\NotificationsSettingsAspect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

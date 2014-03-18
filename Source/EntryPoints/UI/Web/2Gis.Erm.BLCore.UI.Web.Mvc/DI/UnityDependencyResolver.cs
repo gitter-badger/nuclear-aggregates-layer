@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
-using DoubleGis.Erm.Platform.API.Core.Globalization;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using Microsoft.Practices.Unity;

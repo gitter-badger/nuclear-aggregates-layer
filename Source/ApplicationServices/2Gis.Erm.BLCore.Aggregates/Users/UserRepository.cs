@@ -8,6 +8,7 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
@@ -149,13 +150,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         public int Activate(Department department)
         {
             var childrenDepartments =
-                _finder.Find(DepartmentSpecifications.Find.ChildrenDepartments(department)).ToArray();
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<Department>() 
+                                && UserSpecs.Departments.Find.ChildrensOf(department))
+                    .ToArray();
 
             var departmentIds = childrenDepartments.Select(x => x.Id).ToList();
             departmentIds.Add(department.Id);
 
             var userInfos = _finder
-                .Find(Specs.Find.InactiveEntities<User>() && UserSpecifications.Find.AllUsersByDepartments(departmentIds))
+                .Find(Specs.Find.InactiveEntities<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
                 .ToArray();
 
             // Активировать неактивных пользователей
@@ -191,7 +195,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserRole>())
             {
-                var userRoles = _finder.Find(UserSpecifications.Find.UserRoles(user.Id)).ToArray();
+                var userRoles = _finder.Find(UserSpecs.UserRoles.Find.ForUser(user.Id)).ToArray();
                 foreach (var userRole in userRoles)
                 {
                     _userRoleGenericRepository.Delete(userRole);
@@ -410,19 +414,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int Deactivate(Department department)
         {
-            var hasChildrenDepartments = _finder.Find(DepartmentSpecifications.Find.ChildrenDepartments(department)).Any();
+            var hasChildrenDepartments = 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<Department>()
+                                && UserSpecs.Departments.Find.ChildrensOf(department))
+                    .Any();
             if (hasChildrenDepartments)
             {
                 throw new ArgumentException(BLResources.CannotDeactivateOrgUnitWithChildren);
             }
 
-            var userInfos = _finder.Find(UserSpecifications.Find.UsersInDepartment(department.Id))
-                .Select(x => new
-                {
-                    User = x,
-                    x.UserRoles
-                })
-                .ToArray();
+            var userInfos = 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<User>() 
+                            && UserSpecs.Users.Find.ByDepartment(department.Id))
+                    .Select(x => new
+                        {
+                            User = x,
+                            x.UserRoles
+                        })
+                    .ToArray();
 
             // Удалить привязку ролей у пользователей
             foreach (var userRole in userInfos.SelectMany(x => x.UserRoles))
@@ -672,7 +683,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public UserProfile GetProfileForUser(long userCode)
         {
-            return _finder.Find(UserSpecifications.Find.ActiveProfilesForUser(userCode)).FirstOrDefault();
+            return 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<UserProfile>() 
+                                    && UserSpecs.UserProfiles.Find.ForUser(userCode))
+                    .FirstOrDefault();
         }
 
         public UserProfileDto[] GetAllUserProfiles()
@@ -792,7 +807,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public IEnumerable<User> GetUsersByDepartments(IEnumerable<long> departmentIds)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecifications.Find.AllUsersByDepartments(departmentIds))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
                           .ToArray();
         }
 
@@ -885,32 +900,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 _finder.Find<User>(
                     x => x.IsActive && x.UserOrganizationUnits.Any(y => y.OrganizationUnitId == organizationUnitId))
                     .ToArray();
-        }
-
-        public User GetUser(long id)
-        {
-            return _finder.Find(Specs.Find.ById<User>(id)).Single();
-        }
-
-        public User GetUser(string account)
-        {
-            return _finder
-                    .Find<User>(x => x.Account == account)
-                    .Where(Specs.Find.ActiveAndNotDeleted<User>())
-                    .Single();
-        }
-
-        public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
-        {
-            // TODO {a.rechkalov, 25.11.2013}: тут можно использовать спецификации
-            var rolesWithPrivelege = _finder.Find<Privilege>(privilege => privilege.Operation == (int)privelegeName)
-                                            .SelectMany(privilege => privilege.RolePrivileges)
-                                            .Select(link => link.RoleId);
-
-            var usersOfOrganizationUnit = _finder.Find<UserOrganizationUnit>(unit => organizationUnitId.Contains(unit.OrganizationUnitId))
-                                                 .Select(unit => unit.User);
-
-            return usersOfOrganizationUnit.FirstOrDefault(user => user.UserRoles.Any(role => rolesWithPrivelege.Contains(role.RoleId)));
         }
 
         public IEnumerable<long> GetUserTerritoryIds(long userId)
