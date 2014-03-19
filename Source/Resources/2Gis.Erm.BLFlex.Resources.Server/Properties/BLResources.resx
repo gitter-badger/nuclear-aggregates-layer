@@ -139,8 +139,7 @@
     <value />
   </data>
   <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
-    <value>
-</value>
+    <value />
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
     <value />
@@ -237,14 +236,14 @@
     <value />
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
-    <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
+    <value />
     <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
     <value />
   </data>
   <data name="InvalidChileRutChecksum" xml:space="preserve">
-    <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
+    <value />
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
     <value />
