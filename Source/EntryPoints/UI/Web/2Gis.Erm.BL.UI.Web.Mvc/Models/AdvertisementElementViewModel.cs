@@ -43,8 +43,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [Dependency(DependencyType.ReadOnly, "PlainText", "this.value!='NewFasComment'")]
         public FasComment? FasComment { get; set; }
 
-        [PresentationLayerProperty]
-        public string FasCommentDisplayTextItemsJson { get; set; }
+        public IReadOnlyDictionary<string, string> FasCommentDisplayTextItems { get; set; }
 
         public DateTime? BeginDate { get; set; }
 

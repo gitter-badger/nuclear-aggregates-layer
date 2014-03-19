@@ -90,7 +90,7 @@ WriteLiteral("        ");
 
             
             #line 9 "..\..\Views\AdvertisementElement\TextViewPage.cshtml"
-   Write(Html.Hidden("FasCommentDisplayTextItems", Model.FasCommentDisplayTextItemsJson));
+   Write(Html.Hidden("FasCommentDisplayTextItems", JsonConvert.SerializeObject(Model.FasCommentDisplayTextItems)));
 
             
             #line default

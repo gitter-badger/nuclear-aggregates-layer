@@ -6,7 +6,7 @@
 {
     <div class="row-wrapper">
         @Html.TemplateField(m => m.FasComment, FieldFlex.lone, null, EnumResources.ResourceManager)
-        @Html.Hidden("FasCommentDisplayTextItems", Model.FasCommentDisplayTextItemsJson)
+        @Html.Hidden("FasCommentDisplayTextItems", JsonConvert.SerializeObject(Model.FasCommentDisplayTextItems))
     </div>
 }
 
