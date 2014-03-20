@@ -694,7 +694,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult PrintRegionalOrder(long id, long? profileId)
         {
             return
-                TryPrintDocument(new PrintOrderRequest { OrderId = id, PrintRegionalVersion = true, LegalPersonProfileId = profileId });
+                TryPrintDocument(new PrintRegionalOrderRequest { OrderId = id, LegalPersonProfileId = profileId });
         }
 
         [HttpGet]
