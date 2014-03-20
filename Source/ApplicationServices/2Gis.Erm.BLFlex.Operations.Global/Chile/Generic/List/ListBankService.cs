@@ -17,8 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListBankService(IQuerySettingsProvider querySettingsProvider, IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListBankService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -29,11 +28,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             return _finder.FindAll<DictionaryEntityInstance>()
                    .Where(BankSpecifications.FindOnlyBanks())
                    .Select(BankSpecifications.Select().Selector)
-                   .DefaultFilter(_filterHelper, querySettings)
                    .Select(x => new ChileListBankDto
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
                     })
                     .QuerySettings(_filterHelper, querySettings, out count);
         }

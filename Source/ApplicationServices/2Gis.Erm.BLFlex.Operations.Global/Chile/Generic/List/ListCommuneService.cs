@@ -17,8 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListCommuneService(IQuerySettingsProvider querySettingsProvider, IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListCommuneService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -29,11 +28,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             return _finder.FindAll<DictionaryEntityInstance>()
                    .Where(CommuneSpecifications.FindOnlyCommunes())
                    .Select(CommuneSpecifications.Select().Selector)
-                   .DefaultFilter(_filterHelper, querySettings)
                    .Select(x => new ChileListCommuneDto
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        IsDeleted = x.IsDeleted,
+                        IsActive = x.IsActive,
                     })
                     .QuerySettings(_filterHelper, querySettings, out count);
         }

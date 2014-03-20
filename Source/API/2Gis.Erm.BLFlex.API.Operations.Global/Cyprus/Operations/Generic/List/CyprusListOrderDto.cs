@@ -1,12 +1,12 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List
 {
-    public class CyprusListOrderDto : IListItemEntityDto<Order>, ICyprusAdapted
+    public class CyprusListOrderDto : ICyprusAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string OrderNumber { get; set; }
@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.L
         public string SourceOrganizationUnitName { get; set; }
         public DateTime BeginDistributionDate { get; set; }
         public DateTime EndDistributionDatePlan { get; set; }
+        public DateTime EndDistributionDateFact { get; set; }
         public long? LegalPersonId { get; set; }
         public string LegalPersonName { get; set; }
         public long? BargainId { get; set; }
@@ -32,5 +33,16 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.L
         public decimal PayablePlan { get; set; }
         public decimal AmountWithdrawn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+
+        public PaymentMethod PaymentMethodEnum { get; set; }
+        public OrderState WorkflowStepEnum { get; set; }
+        public long? AccountId { get; set; }
+        public long? DealId { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsTerminated { get; set; }
+        public DocumentsDebt HasDocumentsDebtEnum { get; set; }
+        public OrderType OrderTypeEnum { get; set; }
+        public OrderTerminationReason TerminationReasonEnum { get; set; }
     }
 }
