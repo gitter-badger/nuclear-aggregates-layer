@@ -361,6 +361,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterFilter<ListUserDto>("DListUser", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListUserDto>("DListInactiveUser", x => !x.IsActive && !x.IsDeleted)
+            .RegisterFilter<ListUserDto>("DListUserWithRole", x => x.IsActive && !x.IsDeleted)
 
             .RegisterFilter<ListUserRoleDto>("DListUserRole", x => true)
 
