@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -23,6 +24,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
+                        .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve);
         }
 

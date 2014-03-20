@@ -118,38 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}
-Pasaporte: de serie {1} № {2},
-Expedido: {3}
-Registro del lugar de residencia: {4}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}
-RUT: {1}
-Domicilio comercial: {2}
-Datos bancarios: {3}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
-    <value>{0}
-RUT: {1} Razón social: {2}
-Domicilio comercial: {3}
-Datos bancarios: {4}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}
-Pasaporte № {2},
-Expedido: {3}
-Lugar de residencia: {4}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}
-T.I.C.: {1}    V.A.T. Reg. No {2}
-Domicilio comercial: {3}
-IBAN {4}
-SWIFT {5}
-Número de cuenta {6}
-Nombre de banco {7}
-{8}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
     <value>{0}, en lo sucesivo Ejecutor, representado por {1} {2}, actuando en base de {3}, por un lado, y {4}, en lo sucesivo Contratante representado por {5} {6}, actuando en base de {7}, por otro lado, han firmado la presente Orden de compra sobre lo siguiente:</value>
@@ -166,7 +147,7 @@ Nombre de banco {7}
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
     <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
-2. Plataforma web 2gis.ru.
+2. Plataforma web 2gis.сl.
 3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
@@ -182,7 +163,7 @@ Nombre de banco {7}
     <value>8.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>8. La presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
+    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
@@ -192,7 +173,7 @@ Nombre de banco {7}
     <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>En la orden no está especificada la Persona jurídica del ejecutor. Imposible seleccionar una forma impresa.</value>
+    <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
   </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value>El importe total de la orden es igual a cero, imposible imprimir</value>
@@ -201,68 +182,58 @@ Nombre de banco {7}
     <value>No se ha definido la forma de colaboración de la sucursal de la entidad con el id [{0}]</value>
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IC: {0}         DIC: {1}  
-Misto podnikani: {2}
-Cislo uctu: {3}/{4}
-Penezni ustav: {5}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IC: {0}       	DIC: {1}
-Sidlo:  {2}
-Zapsana  {6}
-Cislo uctu:  {3}/{4}
-Penezni ustav:  {5}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
-    <value>Jmeno a prijmeni:</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
-    <value>Nazev pravnicke osoby:</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. La presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
-9.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. La presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
-8.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Una empresa individual con RUT especificados ya existe</value>
+    <value>Una EIRL con el RUT especificado ya existe</value>
   </data>
   <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>La persona juridica del cliente con RUT especificados ya existe</value>
+    <value>La persona juridica del cliente con el/los RUT especificados ya existe  </value>
   </data>
   <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Existe una empresa individual eliminada con RUT especificados</value>
+    <value>Existe una EIRL eliminada con el RUT especificado</value>
   </data>
   <data name="ChileDeletedLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Existe una persona juridica del cliente eliminada con RUT especificados</value>
+    <value>Existe una persona juridica del cliente eliminada con  el/los RUT especificados</value>
   </data>
   <data name="ChileInactiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Existe una empresa individual oculta con RUT especificados</value>
+    <value>Existe una EIRL oculta con el RUT especificado</value>
   </data>
   <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
-    <value>Existe una persona juridica del cliente oculta con RUT especificados</value>
+    <value>Existe una persona juridica del cliente oculta con  el/los RUT especificados</value>
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
     <value>Se debe utilizar la extensión de esencia LegalPersonProfile de Chile</value>
-    <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
     <value>Formato no válido de RUT. Formato permitido: 12.345.678-K</value>

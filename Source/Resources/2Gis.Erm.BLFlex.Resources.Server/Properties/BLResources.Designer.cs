@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Должно использоваться чилийское расширение сущности LegalPersonProfile.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ChilePartableExtensionMustBeApplied {
             get {
@@ -268,7 +268,7 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Значение RUT {0} не прошло проверку контрольной суммы.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string InvalidChileRutChecksum {
             get {
@@ -349,8 +349,7 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string PrintOrderHandler_DiscountInfo {
             get {

@@ -3,6 +3,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -23,6 +24,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CyprusLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}"))
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-bill"))
+                        .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton);
         }
 
