@@ -96,6 +96,7 @@
     <Compile Include="Logging\SystemInfo\OS\OSVersionDescriptor.cs" />
     <Compile Include="Logging\SystemInfo\ProcessInfo.cs" />
     <Compile Include="Logging\SystemInfo\SecurityInfo.cs" />
+    <Compile Include="PrintFormEngine\PrintData.cs" />
     <Compile Include="PrintFormEngine\PrintFormFieldsFormatHelper.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
