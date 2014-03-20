@@ -79,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
       <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
       <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
