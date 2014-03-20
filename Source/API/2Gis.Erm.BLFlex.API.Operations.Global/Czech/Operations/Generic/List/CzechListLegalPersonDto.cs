@@ -1,10 +1,9 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List
 {
-    public sealed class CzechListLegalPersonDto : IListItemEntityDto<LegalPerson>, ICzechAdapted
+    public sealed class CzechListLegalPersonDto : ICzechAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string LegalName { get; set; }
@@ -15,5 +14,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.Li
         public string ClientName { get; set; }
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
     }
 }

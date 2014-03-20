@@ -18,10 +18,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
         private readonly FilterHelper _filterHelper;
 
         public ListLegalPersonProfileService(
-            IQuerySettingsProvider querySettingsProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -34,7 +32,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
             var query = _finder.FindAll<LegalPersonProfile>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListLegalPersonProfileDto
                 {
                     Id = x.Id,
@@ -45,6 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
                     LegalPersonId = x.LegalPersonId,
+                    OwnerName = null,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>

@@ -1,12 +1,11 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List
 {
-    public class CyprusListLegalPersonDto : IListItemEntityDto<LegalPerson>, ICyprusAdapted
+    public class CyprusListLegalPersonDto : ICyprusAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string LegalName { get; set; }

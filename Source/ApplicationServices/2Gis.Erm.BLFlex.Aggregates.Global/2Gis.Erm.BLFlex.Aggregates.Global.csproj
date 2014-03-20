@@ -52,21 +52,21 @@
     <Compile Include="Chile\BankSpecifications.cs" />
     <Compile Include="Chile\Crosscutting\ChileRutService.cs" />
     <Compile Include="Chile\Crosscutting\ChileValidateBillsService.cs" />
-    <Compile Include="Chile\Orders\DTO\ChileOrderGridViewDto.cs" />
     <Compile Include="Chile\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Orders\OrderSpecifications.cs" />
-    <Compile Include="Cyprus\Orders\DTO\CyprusOrderGridViewDto.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Orders\OrderSpecifications.cs" />
-    <Compile Include="Czech\Orders\DTO\CzechOrderGridViewDto.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
     <Compile Include="Multiculture\Crosscutting\NullValidateBillsService.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
-    <Compile Include="Russia\Orders\DTO\OrderGridViewDto.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
@@ -74,6 +74,10 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
@@ -95,10 +99,20 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
       <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
       <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Chile\Orders\DTO\" />
+    <Folder Include="Cyprus\Orders\DTO\" />
+    <Folder Include="Czech\Orders\DTO\" />
+    <Folder Include="Russia\Orders\DTO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

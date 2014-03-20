@@ -1,12 +1,12 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List
 {
-    public sealed class ChileListOrderDto : IListItemEntityDto<Order>, IChileAdapted
+    public sealed class ChileListOrderDto : IChileAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string OrderNumber { get; set; }
@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.Li
         public string PaymentMethod { get; set; }
         public DateTime BeginDistributionDate { get; set; }
         public DateTime EndDistributionDatePlan { get; set; }
+        public DateTime EndDistributionDateFact { get; set; }
         public long? LegalPersonId { get; set; }
         public string LegalPersonName { get; set; }
         public long OwnerCode { get; set; }
@@ -31,5 +32,19 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.Li
         public decimal PayableFact { get; set; }
         public decimal? DiscountPercent { get; set; }
         public decimal AmountWithdrawn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public decimal PayablePlan { get; set; }
+
+        public PaymentMethod PaymentMethodEnum { get; set; }
+        public OrderState WorkflowStepEnum { get; set; }
+        public long? AccountId { get; set; }
+        public long? DealId { get; set; }
+        public long? BargainId { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsTerminated { get; set; }
+        public DocumentsDebt HasDocumentsDebtEnum { get; set; }
+        public OrderType OrderTypeEnum { get; set; }
+        public OrderTerminationReason TerminationReasonEnum { get; set; }
     }
 }

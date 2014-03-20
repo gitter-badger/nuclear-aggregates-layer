@@ -18,10 +18,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
         private readonly FilterHelper _filterHelper;
 
         public CzechListLegalPersonProfileService(
-            IQuerySettingsProvider querySettingsProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -34,29 +32,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
             var query = _finder.FindAll<LegalPersonProfile>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
+                .Select(x => new CzechListLegalPersonProfileDto
                 {
-                    x.Id,
-                    x.Name,
-                    x.IsMainProfile,
-                    x.OwnerCode,
-                    x.CreatedOn,
-                    x.IsDeleted,
-                    x.IsActive,
-                    x.LegalPersonId
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
-                        new CzechListLegalPersonProfileDto
-                        {
                             Id = x.Id,
-                            LegalPersonId = x.LegalPersonId,
                             Name = x.Name,
                             IsMainProfile = x.IsMainProfile,
                             OwnerCode = x.OwnerCode,
-                            OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
                             CreatedOn = x.CreatedOn,
+                    IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
+                    LegalPersonId = x.LegalPersonId,
+                    OwnerName = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                    {
+                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+
+                        return x;
                         });
         }
     }
