@@ -39,9 +39,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
             private Because of = () =>
                 {
-                    Messages = orderValidationRule.Validate(
-                        new ValidateOrdersRequest { Type = ValidationType.SingleOrderOnRegistration },
-                        new OrderValidationPredicate(null, null, null));
+                    Messages = orderValidationRule.Validate(new OrderValidationPredicate(null, null, null), null, new ValidateOrdersRequest { Type = ValidationType.SingleOrderOnRegistration });
                 };
 
             protected static Mock<IFinder> FinderMock { get; private set; }

@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             return overridenPredicate.GetCombinedPredicate();
         }
 
-        protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate originalPredicate, IList<OrderValidationMessage> messages)
+        protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate originalPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             if (request.Type != ValidationType.PreReleaseFinal && request.Type != ValidationType.ManualReportWithAccountsCheck)
             {   // No need to run this rule when peroforming manual check/technical release

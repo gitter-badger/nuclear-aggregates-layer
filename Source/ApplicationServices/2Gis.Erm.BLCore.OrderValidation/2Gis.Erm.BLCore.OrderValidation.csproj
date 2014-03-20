@@ -64,7 +64,6 @@
     <Compile Include="IPriceConfigurationService.cs" />
     <Compile Include="OrderPositionStateStorage.cs" />
     <Compile Include="OrderStateStorage.cs" />
-    <Compile Include="OrderValidationOnStateChangeService.cs" />
     <Compile Include="OrderValidationPredicateFactory.cs" />
     <Compile Include="OrderValidationService.cs" />
     <Compile Include="PositionType.cs" />

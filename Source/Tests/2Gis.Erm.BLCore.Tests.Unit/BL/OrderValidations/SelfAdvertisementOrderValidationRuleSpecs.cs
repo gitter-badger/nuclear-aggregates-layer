@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     Target = new SelfAdvertisementOrderValidationRule(Finder);
                 }; 
             
-            private Because of = () => ValidationMessages = ((IOrderValidationRule)Target).Validate(Request, Predicate);
+            private Because of = () => ValidationMessages = ((IOrderValidationRule)Target).Validate(Predicate, null, Request);
 
             private static IFinder SetupFinder()
                 {

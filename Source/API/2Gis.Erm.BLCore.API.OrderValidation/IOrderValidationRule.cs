@@ -4,6 +4,6 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public interface IOrderValidationRule
     {
-        IReadOnlyList<OrderValidationMessage> Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate);
+        IReadOnlyList<OrderValidationMessage> Validate(OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, ValidateOrdersRequest request);
     }
 }

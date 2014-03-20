@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             var badOrders = _finder.Find(filterPredicate)
                 .Where(x => !x.LegalPerson.LegalPersonProfiles.Any(y => y.IsActive && !y.IsDeleted));

@@ -13,7 +13,12 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// <summary>
         /// Необходимо заполнить при проверке единственного заказа
         /// </summary>
-        public OrderState OrderState { get; set; }
+        public OrderState CurrentOrderState { get; set; }
+
+        /// <summary>
+        /// Необходимо заполнить при проверке единственного заказа
+        /// </summary>
+        public OrderState NewOrderState { get; set; }
         
         /// <summary>
         /// Необходимо заполнить для проверки по куратору
@@ -44,7 +49,5 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// Число значащих знаков при денежных вычислениях
         /// </summary>
         public int SignificantDigitsNumber { get; set; }
-
-        public long[] InvalidOrderIds { get; set; }
     }
 }
