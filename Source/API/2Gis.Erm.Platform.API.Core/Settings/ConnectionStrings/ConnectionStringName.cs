@@ -12,6 +12,6 @@
         CrmConnection,
         ErmRabbitMq,
         ErmValidation,
-        ErmSearch
+        ErmSearch,
     }
 }
