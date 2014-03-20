@@ -1,103 +1,144 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
-    // TODO: запилить нормальные метаданные
     public static class RelationalMetadata
     {
-        private static readonly Dictionary<Tuple<EntityName, EntityName>, string> RelationalMap = new Dictionary<Tuple<EntityName, EntityName>, string>
+        private static readonly Dictionary<Tuple<Type, EntityName>, Func<long?, Expression>> RelationalMap = new Dictionary<Tuple<Type, EntityName>, Func<long?, Expression>>()
+
+            .RegisterRelatedFilter<ListAccountDetailDto>(EntityName.Account, parentId => x => x.AccountId == parentId)
+
+            .RegisterRelatedFilter<ListAccountDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId)
+
+            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Contact, parentId => x => x.ContactId == parentId)
+            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Deal, parentId => x => x.DealId == parentId)
+            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Firm, parentId => x => x.FirmId == parentId)
+
+            .RegisterRelatedFilter<ListLockDto>(EntityName.Account, parentId => x => x.AccountId == parentId)
+            .RegisterRelatedFilter<ListLockDto>(EntityName.Order, parentId => x => x.OrderId == parentId)
+
+            .RegisterRelatedFilter<ListLimitDto>(EntityName.Account, parentId => x => x.AccountId == parentId)
+            .RegisterRelatedFilter<ListLimitDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+            .RegisterRelatedFilter<ListLimitDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId)
+
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId)
+
+            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementTemplate, parentId => x => x.AdsTemplateId == parentId)
+            .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementElementTemplate, parentId => x => x.AdsElementTemplateId == parentId)
+
+            .RegisterRelatedFilter<ListAssociatedPositionDto>(EntityName.AssociatedPositionsGroup, parentId => x => x.AssociatedPositionsGroupId == parentId)
+
+            .RegisterRelatedFilter<ListBargainFileDto>(EntityName.Bargain, parentId => x => x.BargainId == parentId)
+
+            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityName.BranchOffice, parentId => x => x.BranchOfficeId == parentId)
+            .RegisterRelatedFilter<ListBranchOfficeOrganizationUnitDto>(EntityName.OrganizationUnit, parentId => x => x.OrganizationUnitId == parentId)
+
+            .RegisterRelatedFilter<ListPrintFormTemplateDto>(EntityName.BranchOfficeOrganizationUnit, parentId => x => x.BranchOfficeOrganizationUnitId == parentId)
+
+            .RegisterRelatedFilter<ListCategoryDto>(EntityName.Category, parentId => x => x.ParentId == parentId)
+
+            .RegisterRelatedFilter<ListCategoryOrganizationUnitDto>(EntityName.Category, parentId => x => x.CategoryId == parentId)
+
+            .RegisterRelatedFilter<ListFirmDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+            .RegisterRelatedFilter<ListFirmDto>(EntityName.Territory, parentId => x => x.TerritoryId == parentId)
+
+            .RegisterRelatedFilter<ListContactDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+
+            .RegisterRelatedFilter<ListDealDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+
+            .RegisterRelatedFilter<ListLegalPersonDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+
+            .RegisterRelatedFilter<ListBargainDto>(EntityName.Client, parentId => x => x.ClientId == parentId)
+            .RegisterRelatedFilter<ListBargainDto>(EntityName.LegalPerson, parentId => x => x.CustomerLegalPersonId == parentId)
+
+            .RegisterRelatedFilter<ListCurrencyRateDto>(EntityName.Currency, parentId => x => x.CurrencyId == parentId)
+
+            .RegisterRelatedFilter<ListCountryDto>(EntityName.Currency, parentId => x => x.CurrencyId == parentId)
+
+            .RegisterRelatedFilter<ListFirmAddressDto>(EntityName.Firm, parentId => x => x.FirmId == parentId)
+
+            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityName.Firm, parentId => x => x.FirmId == parentId)
+            .RegisterRelatedFilter<ListCategoryFirmAddressDto>(EntityName.FirmAddress, parentId => x => x.FirmAddressId == parentId)
+
+            .RegisterRelatedFilter<ListAdvertisementDto>(EntityName.Firm, parentId => x => x.FirmId == parentId)
+
+            .RegisterRelatedFilter<ListFirmContactDto>(EntityName.FirmAddress, parentId => x => x.FirmAddressId == parentId || (x.FirmAddressId == null && x.CardId != null))
+
+            .RegisterRelatedFilter<ListLockDetailDto>(EntityName.Lock, parentId => x => x.LockId == parentId)
+
+            .RegisterRelatedFilter<ListBillDto>(EntityName.Order, parentId => x => x.OrderId == parentId)
+
+            .RegisterRelatedFilter<ListOrderFileDto>(EntityName.Order, parentId => x => x.OrderId == parentId)
+
+            .RegisterRelatedFilter<ListOrderProcessingRequestDto>(EntityName.Order, parentId => x => x.RenewedOrderId == parentId)
+
+            .RegisterRelatedFilter<ListPriceDto>(EntityName.OrganizationUnit, parentId => x => x.OrganizationUnitId == parentId)
+
+            .RegisterRelatedFilter<ListProjectDto>(EntityName.OrganizationUnit, parentId => x => x.OrganizationUnitId == parentId)
+
+            .RegisterRelatedFilter<ListPositionChildrenDto>(EntityName.Position, parentId => x => x.MasterPositionId == parentId)
+
+            .RegisterRelatedFilter<ListAssociatedPositionsGroupDto>(EntityName.PricePosition, parentId => x => x.PricePositionId == parentId)
+
+            .RegisterRelatedFilter<ListPricePositionDto>(EntityName.Price, parentId => x => x.PriceId == parentId)
+
+            .RegisterRelatedFilter<ListThemeOrganizationUnitDto>(EntityName.Theme, parentId => x => x.ThemeId == parentId)
+
+            .RegisterRelatedFilter<ListThemeCategoryDto>(EntityName.Theme, parentId => x => x.ThemeId == parentId)
+
+            .RegisterRelatedFilter<ListUserRoleDto>(EntityName.User, parentId => x => x.UserId == parentId)
+
+            .RegisterRelatedFilter<ListUserTerritoryDto>(EntityName.User, parentId => x => x.UserId == parentId)
+
+            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.User, parentId => x => x.UserId == parentId)
+            .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.OrganizationUnit, parentId => x => x.OrganizationUnitId == parentId)
+
+            .RegisterRelatedFilter<ListAdvertisementElementDto>(EntityName.Advertisement, parentId => x => x.AdvertisementId == parentId)
+
+            .RegisterRelatedFilter<ListLegalPersonProfileDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId)
+
+            .RegisterRelatedFilter<ListOrderPositionDto>(EntityName.Order, parentId => x => x.OrderId == parentId)
+            ;
+
+        private static Dictionary<Tuple<Type, EntityName>, Func<long?, Expression>> RegisterRelatedFilter<TDocument>(this Dictionary<Tuple<Type, EntityName>, Func<long?, Expression>> map, EntityName parentEntityName, Func<long?, Expression<Func<TDocument, bool>>> func)
         {
-            { Tuple.Create(EntityName.Account, EntityName.AccountDetail), "AccountId={0}" },
-            { Tuple.Create(EntityName.Account, EntityName.Lock), "AccountId={0}" },
-            { Tuple.Create(EntityName.Account, EntityName.Limit), "AccountId={0}" },
-            { Tuple.Create(EntityName.Account, EntityName.Order), "AccountId={0}" },
+            var key = Tuple.Create(typeof(TDocument), parentEntityName);
+            map.Add(key, func);
+            return map;
+        }
 
-            { Tuple.Create(EntityName.AdvertisementTemplate, EntityName.AdsTemplatesAdsElementTemplate), "AdsTemplateId={0}" },
-
-            { Tuple.Create(EntityName.AdvertisementElementTemplate, EntityName.AdsTemplatesAdsElementTemplate), "AdsElementTemplateId={0}" },
-
-            { Tuple.Create(EntityName.AssociatedPositionsGroup, EntityName.AssociatedPosition), "AssociatedPositionsGroupId={0}" },
-
-            { Tuple.Create(EntityName.Bargain, EntityName.BargainFile), "BargainId={0}" },
-
-            { Tuple.Create(EntityName.BranchOffice, EntityName.BranchOfficeOrganizationUnit), "BranchOfficeId={0}" },
-
-            { Tuple.Create(EntityName.BranchOfficeOrganizationUnit, EntityName.PrintFormTemplate), "BranchOfficeOrganizationUnitId={0}" },
-
-            { Tuple.Create(EntityName.Category, EntityName.Category), "ParentId={0}" },
-            { Tuple.Create(EntityName.Category, EntityName.CategoryOrganizationUnit), "CategoryId={0}" },
-
-            { Tuple.Create(EntityName.Client, EntityName.Firm), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Contact), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Deal), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.LegalPerson), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Order), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Limit), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.Bargain), "ClientId={0}" },
-            { Tuple.Create(EntityName.Client, EntityName.ActivityInstance), "ClientId={0}" },
-
-            { Tuple.Create(EntityName.Contact, EntityName.ActivityInstance), "ContactId={0}" },
-
-            { Tuple.Create(EntityName.Currency, EntityName.CurrencyRate), "CurrencyId={0}" },
-            { Tuple.Create(EntityName.Currency, EntityName.Country), "CurrencyId={0}" },
-
-            { Tuple.Create(EntityName.Deal, EntityName.Order), "DealId={0}" },
-            { Tuple.Create(EntityName.Deal, EntityName.ActivityInstance), "DealId={0}" },
-
-            { Tuple.Create(EntityName.Firm, EntityName.FirmAddress), "FirmId={0}" },
-            { Tuple.Create(EntityName.Firm, EntityName.CategoryFirmAddress), "FirmId={0}" },
-            { Tuple.Create(EntityName.Firm, EntityName.Advertisement), "FirmId={0}" },
-            { Tuple.Create(EntityName.Firm, EntityName.Order), "FirmId={0}" },
-            { Tuple.Create(EntityName.Firm, EntityName.ActivityInstance), "FirmId={0}" },
-
-            { Tuple.Create(EntityName.FirmAddress, EntityName.FirmContact), "FirmAddressId={0}||(FirmAddressId==null&&CardId!=null)" },
-            { Tuple.Create(EntityName.FirmAddress, EntityName.CategoryFirmAddress), "FirmAddressId={0}" },
-                
-            { Tuple.Create(EntityName.LegalPerson, EntityName.Account), "LegalPersonId={0}" },
-            { Tuple.Create(EntityName.LegalPerson, EntityName.Limit), "LegalPersonId={0}" },
-            { Tuple.Create(EntityName.LegalPerson, EntityName.Bargain), "CustomerLegalPersonId={0}" },
-            { Tuple.Create(EntityName.LegalPerson, EntityName.Order), "LegalPersonId={0}" },
-
-            { Tuple.Create(EntityName.Lock, EntityName.LockDetail), "LockId={0}" },
-
-            { Tuple.Create(EntityName.Order, EntityName.Bill), "OrderId={0}" },
-            { Tuple.Create(EntityName.Order, EntityName.Lock), "OrderId={0}" },
-            { Tuple.Create(EntityName.Order, EntityName.OrderFile), "OrderId={0}" },
-            { Tuple.Create(EntityName.Order, EntityName.OrderProcessingRequest), "RenewedOrderId={0}" },
-
-            { Tuple.Create(EntityName.OrganizationUnit, EntityName.BranchOfficeOrganizationUnit), "OrganizationUnitId={0}" },
-            { Tuple.Create(EntityName.OrganizationUnit, EntityName.Price), "OrganizationUnitId={0}" },
-            { Tuple.Create(EntityName.OrganizationUnit, EntityName.Project), "OrganizationUnitId={0}" },
-
-            { Tuple.Create(EntityName.Position, EntityName.PositionChildren), "MasterPositionId={0}" },
-
-            { Tuple.Create(EntityName.PricePosition, EntityName.AssociatedPositionsGroup), "PricePositionId={0}" },
-
-            { Tuple.Create(EntityName.Price, EntityName.PricePosition), "PriceId={0}" },
-
-            { Tuple.Create(EntityName.Theme, EntityName.ThemeOrganizationUnit), "ThemeId={0}" },
-            { Tuple.Create(EntityName.Theme, EntityName.ThemeCategory), "ThemeId={0}" },
-
-            { Tuple.Create(EntityName.Territory, EntityName.Firm), "TerritoryId={0}" },
-
-            { Tuple.Create(EntityName.User, EntityName.UserRole), "UserId={0}" },
-            { Tuple.Create(EntityName.User, EntityName.UserTerritory), "UserId={0}" },
-            { Tuple.Create(EntityName.User, EntityName.UserOrganizationUnit), "UserId={0}" },
-
-            //------------------------
-            { Tuple.Create(EntityName.Advertisement, EntityName.AdvertisementElement), "AdvertisementId={0}" },
-            { Tuple.Create(EntityName.LegalPerson, EntityName.LegalPersonProfile), "LegalPersonId={0}" },
-            { Tuple.Create(EntityName.Order, EntityName.OrderPosition), "OrderId={0}" },
-            { Tuple.Create(EntityName.OrganizationUnit, EntityName.UserOrganizationUnit), "OrganizationUnitId={0}" },
-        };
-
-        public static bool TryGetFilterExpressionFromRelationalMap(EntityName parentEntityName, EntityName entityName, out string filterExpression)
+        // может вызываться несколько раз, поэтому есть ContainsKey
+        public static void RegisterRelatedFilter<TDocument>(EntityName parentEntityName, Func<long?, Expression<Func<TDocument, bool>>> func)
         {
-            return RelationalMap.TryGetValue(Tuple.Create(parentEntityName, entityName), out filterExpression);
+            var key = Tuple.Create(typeof(TDocument), parentEntityName);
+
+            if (!RelationalMap.ContainsKey(key))
+            {
+                RelationalMap.RegisterRelatedFilter(parentEntityName, func);
+            }
+        }
+
+        public static bool TryGetFilterExpressionFromRelationalMap<TDocument>(EntityName parentEntityName, long? parentEntityId, out Expression expression)
+        {
+            Func<long?, Expression> func;
+            if (RelationalMap.TryGetValue(Tuple.Create(typeof(TDocument), parentEntityName), out func))
+            {
+                expression = func(parentEntityId);
+                return true;
+            }
+
+            expression = null;
+            return false;
         }
     }
-
 }

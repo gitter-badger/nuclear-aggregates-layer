@@ -15,10 +15,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListLockService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListLockService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -30,33 +27,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
+                .Select(x => new ListLockDto
                 {
                     OrderNumber = x.Order.Number,
                     CreateDate = x.CreatedOn,
-                    x.PeriodStartDate,
-                    x.PeriodEndDate,
-                    x.PlannedAmount,
-                    x.Balance,
-                    x.OwnerCode,
-                    x.Id,
-                    x.OrderId,
-                    x.AccountId,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x => new ListLockDto
-                {
-                    OrderNumber = x.OrderNumber,
-                    CreateDate = x.CreateDate,
-                    PeriodStartDate = new DateTime(x.PeriodStartDate.Ticks, DateTimeKind.Local),
-                    PeriodEndDate = new DateTime(x.PeriodEndDate.Ticks, DateTimeKind.Local),
+                    PeriodStartDate = x.PeriodStartDate,
+                    PeriodEndDate = x.PeriodEndDate,
                     PlannedAmount = x.PlannedAmount,
                     Balance = x.Balance,
                     OwnerCode = x.OwnerCode,
                     Id = x.Id,
                     OrderId = x.OrderId,
                     AccountId = x.AccountId,
+                    IsActive = x.IsActive,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.PeriodStartDate = new DateTime(x.PeriodStartDate.Ticks, DateTimeKind.Local);
+                    x.PeriodEndDate = new DateTime(x.PeriodEndDate.Ticks, DateTimeKind.Local);
+
+                    return x;
                 });
         }
     }

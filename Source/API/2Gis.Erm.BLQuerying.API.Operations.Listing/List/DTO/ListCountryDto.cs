@@ -1,9 +1,8 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListCountryDto : IListItemEntityDto<Country>
+    public sealed class ListCountryDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string IsoCode { get; set; }

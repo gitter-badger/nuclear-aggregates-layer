@@ -1,11 +1,10 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListAccountDto : IListItemEntityDto<Account>
+    public sealed class ListAccountDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public long CurrencyId { get; set; }
@@ -22,7 +21,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public decimal AccountDetailBalance { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
         public long OwnerCode { get; set; }
+        public decimal Balance { get; set; }
         public string OwnerName { get; set; }
     }
 }

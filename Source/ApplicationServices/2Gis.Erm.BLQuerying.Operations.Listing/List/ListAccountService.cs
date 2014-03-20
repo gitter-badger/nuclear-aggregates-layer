@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,17 +18,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IUserContext _userContext;
 
         public ListAccountService(
-            IQuerySettingsProvider querySettingsProvider,
             IFinder finder,
             FilterHelper filterHelper, 
-            ISecurityServiceUserIdentifier userIdentifierService)
-            : base(querySettingsProvider)
+            ISecurityServiceUserIdentifier userIdentifierService,
+            IUserContext userContext)
         {
             _finder = finder;
             _filterHelper = filterHelper;
             _userIdentifierService = userIdentifierService;
+            _userContext = userContext;
         }
 
         protected override IEnumerable<ListAccountDto> List(QuerySettings querySettings,
@@ -40,6 +42,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 query = _filterHelper.ForSubordinates(query);
             }
+
+            var myBranchFilter = querySettings.CreateForExtendedProperty<Account, bool>("MyBranch", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.LegalPerson.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var myFilter = querySettings.CreateForExtendedProperty<Account, bool>("ForMe", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
 
             var withHostedOrdersFilter = querySettings.CreateForExtendedProperty<Account, bool>(
                 "WithHostedOrders",
@@ -66,8 +80,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-            .Filter(_filterHelper, withHostedOrdersFilter)
-            .DefaultFilter(_filterHelper, querySettings)
+            .Filter(_filterHelper, withHostedOrdersFilter, myBranchFilter, myFilter)
             .Select(x => new ListAccountDto
             {
                 Id = x.Id,
@@ -89,11 +102,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
                 CreateDate = x.CreatedOn,
                 IsDeleted = x.IsDeleted,
+                IsActive = x.IsActive,
 
                 OwnerCode = x.OwnerCode,
+                OwnerName = null,
 
                 OrganizationUnitId = x.BranchOfficeOrganizationUnit.OrganizationUnit.Id,
                 OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
+
+                Balance = x.Balance,
             })
             .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x =>

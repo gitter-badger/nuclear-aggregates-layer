@@ -63,9 +63,8 @@
     <Compile Include="Indexers\TerritoryIndexer.cs" />
     <Compile Include="Indexers\UserIndexer.cs" />
     <Compile Include="Indexers\ClientIndexer.cs" />
+    <Compile Include="Infrastructure\FilterHelper.cs" />
     <Compile Include="QdsListClientService.cs" />
-    <Compile Include="Metadata\QuerySettingsProviderSelector.cs" />
-    <Compile Include="Metadata\QdsQuerySettingsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Metadata\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

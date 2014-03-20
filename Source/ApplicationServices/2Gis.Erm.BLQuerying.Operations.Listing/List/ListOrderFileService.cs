@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListOrderFileService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -36,28 +34,25 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.CreatedOn,
-                    x.FileId,
-                    FileKind = (OrderFileKind)x.FileKind,
-                    x.File.FileName,
-                    x.OrderId,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListOrderFileDto
                 {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
                     FileId = x.FileId,
-                    FileKind = x.FileKind.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo), 
-                    FileName = x.FileName,
+                    FileKindEnum = (OrderFileKind)x.FileKind,
+                    FileName = x.File.FileName,
                     OrderId = x.OrderId,
+                    IsDeleted = x.IsDeleted,
+                    FileKind = null,
                 })
-                // TODO: почему форсится OrderBy
-                .OrderBy(x => x.FileKind);
+                .QuerySettings(_filterHelper, querySettings, out count)
+                // TODO: почему форсится OrderBy;
+                .OrderBy(x => x.FileKind)
+                .Select(x =>
+                {
+                    x.FileKind = x.FileKindEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    return x;
+                });
         }
     }
 }

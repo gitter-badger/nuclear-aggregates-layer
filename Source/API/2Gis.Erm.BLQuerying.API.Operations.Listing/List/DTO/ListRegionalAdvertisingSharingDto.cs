@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListRegionalAdvertisingSharingDto : IListItemEntityDto<RegionalAdvertisingSharing>
+    public sealed class ListRegionalAdvertisingSharingDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string SourceBranchOfficeOrgUnitName { get; set; }
         public long DestBranchOfficeOrgUnitId { get; set; }
         public string DestBranchOfficeOrgUnitName { get; set; }
+        public IEnumerable<string> OrderNumbersCollection { get; set; }
         public string OrderNumbers { get; set; }
         public decimal TotalAmount { get; set; }
     }

@@ -1,9 +1,10 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using System;
+
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListPricePositionDto : IListItemEntityDto<PricePosition>
+    public sealed class ListPricePositionDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public long PriceId { get; set; }
@@ -12,5 +13,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long PlatformId { get; set; }
         public string PriceName { get; set; }
         public long PositionId { get; set; }
+
+        public string OrganizationUnitName { get; set; }
+        public DateTime BeginDate { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

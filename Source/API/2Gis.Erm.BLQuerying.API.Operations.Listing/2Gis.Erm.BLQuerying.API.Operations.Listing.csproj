@@ -123,9 +123,10 @@
     <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
+    <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
     <Compile Include="List\Metadata\FilteredFieldMetadata.cs" />
-    <Compile Include="List\Metadata\DataListMetadata.cs" />
-    <Compile Include="List\Metadata\IQuerySettingsProvider.cs" />
+    <Compile Include="List\Metadata\DefaultFilterMetadata.cs" />
+    <Compile Include="List\Metadata\MethodInfos.cs" />
     <Compile Include="List\Metadata\QuerySettings.cs" />
     <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
     <Compile Include="List\Metadata\RelationalMetadata.cs" />
@@ -134,6 +135,10 @@
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>

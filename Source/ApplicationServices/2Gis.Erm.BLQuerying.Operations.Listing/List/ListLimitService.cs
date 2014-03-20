@@ -23,12 +23,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListLimitService(
-            IQuerySettingsProvider querySettingsProvider,
             IFinder finder,
             IUserContext userContext,
             ISecurityServiceUserIdentifier userIdentifierService,
             FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -46,6 +44,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
+            var myBranchFilter = querySettings.CreateForExtendedProperty<Limit, bool>("MyBranch", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Account.LegalPerson.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var myFilter = querySettings.CreateForExtendedProperty<Limit, bool>("ForMe", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+
+            var myInspectionFilter = querySettings.CreateForExtendedProperty<Limit, bool>("MyInspection", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.InspectorCode == userId;
+            });
+
             var nextMonthForStartPeriodDateFilter = querySettings.CreateForExtendedProperty<Limit, bool>(
                 "useNextMonthForStartPeriodDate",
                 useNextMonth =>
@@ -61,49 +77,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 });
 
             return query
-                .Filter(_filterHelper, nextMonthForStartPeriodDateFilter)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
-                        BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                        LegalPersonName = x.Account.LegalPerson.LegalName,
-                        x.CreatedOn,
-                        x.CloseDate,
-                        x.Amount,
-                        x.Account.LegalPerson.ClientId,
-                        ClientName = x.Account.LegalPerson.Client.Name,
-                        x.OwnerCode,
-                        x.InspectorCode,
-                        Status = (LimitStatus)x.Status,
-                        x.AccountId,
-                        x.IsActive,
-                        x.IsDeleted,
-                        x.Account.LegalPersonId,
-                    })
-                .QuerySettings(_filterHelper, querySettings, out count)
+                .Filter(_filterHelper, nextMonthForStartPeriodDateFilter, myBranchFilter, myFilter, myInspectionFilter)
                 .Select(x => new ListLimitDto
-                    {
-                        Id = x.Id,
-                        BranchOfficeName = x.BranchOfficeName,
-                        LegalPersonName = x.LegalPersonName,
-                        CreatedOn = x.CreatedOn,
-                        CloseDate = x.CloseDate,
-                        Amount = x.Amount,
-                        Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                        ClientName = x.ClientName,
-                        OwnerCode = x.OwnerCode,
-                        OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                        InspectorCode = x.InspectorCode,
-                        InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName,
-                        AccountId = x.AccountId,
-                        ClientId = x.ClientId,
-                        IsActive = x.IsActive,
-                        IsDeleted = x.IsDeleted,
-                        LegalPersonId = x.LegalPersonId,
-                        BranchOfficeId = x.BranchOfficeId,
-                    });
+                {
+                    Id = x.Id,
+                    BranchOfficeId = x.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
+                    BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                    LegalPersonName = x.Account.LegalPerson.LegalName,
+                    CreatedOn = x.CreatedOn,
+                    CloseDate = x.CloseDate,
+                    Amount = x.Amount,
+                    ClientId = x.Account.LegalPerson.ClientId,
+                    ClientName = x.Account.LegalPerson.Client.Name,
+                    OwnerCode = x.OwnerCode,
+                    InspectorCode = x.InspectorCode,
+                    StatusEnum = (LimitStatus)x.Status,
+                    AccountId = x.AccountId,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                    LegalPersonId = x.Account.LegalPersonId,
+                    OwnerName = null,
+                    Status = null,
+                    InspectorName = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                    x.InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName;
+
+                    return x;
+                });
         }
     }
 }

@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListUserTerritoryService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListUserTerritoryService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,7 +25,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<UserTerritory>();
 
             var data = query
-            .DefaultFilter(_filterHelper, querySettings)
             .Select(x => new ListUserTerritoryDto
             {
                 Id = x.Id,

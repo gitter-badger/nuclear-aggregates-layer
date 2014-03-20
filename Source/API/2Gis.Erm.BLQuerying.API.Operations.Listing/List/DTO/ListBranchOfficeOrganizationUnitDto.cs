@@ -1,9 +1,8 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListBranchOfficeOrganizationUnitDto : IListItemEntityDto<BranchOfficeOrganizationUnit>
+    public sealed class ListBranchOfficeOrganizationUnitDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public long BranchOfficeId { get; set; }
@@ -12,5 +11,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string BranchOfficeName { get; set; }
         public string OrganizationUnitName { get; set; }
         public bool IsPrimary { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+
+        public bool OrganizationUnitIsDeleted { get; set; }
+        public bool BranchOfficeIsDeleted { get; set; }
     }
 }

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
             Establish context = () =>
             {
                 var invalidResponse = Mock.Of<IQueryResponse<TestDoc>>();
-                ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<DocsStorageException>();
+                ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<ElasticException>();
 
                 ElasticClient.Setup(e => e.Search(Moq.It.IsAny<SearchDescriptor<TestDoc>>())).Returns(invalidResponse);
 
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             Because of = () => Result = Catch.Exception(() => Target.Find<TestDoc>(Mock.Of<IDocsQuery>()).ToArray());
 
-            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<DocsStorageException>();
+            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<ElasticException>();
 
             static Exception Result;
         }
@@ -90,12 +90,12 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
                     var invalidResponse = Mock.Of<IndexResponse>();
                     ElasticClient.Setup(e => e.Index(TestDoc, Moq.It.IsAny<string>(), Moq.It.IsAny<string>())).Returns(invalidResponse);
 
-                    ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<DocsStorageException>();
+                    ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<ElasticException>();
                 };
 
             Because of = () => Result = Catch.Exception(() => Target.Update(new[] { TestDoc }));
 
-            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<DocsStorageException>();
+            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<ElasticException>();
 
             static Exception Result;
             static IDoc TestDoc;

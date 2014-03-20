@@ -1,11 +1,13 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.API.Core.Operations;
+
 namespace DoubleGis.Erm.Qds.Docs
 {
-    public class ClientGridDoc : IAuthDoc
+    public class ClientGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
     {
         public long Id { get; set; }
-        public string ReplicationCode { get; set; }
+        public Guid ReplicationCode { get; set; }
         public string Name { get; set; }
         public string MainAddress { get; set; }
         public long TerritoryId { get; set; }
@@ -17,6 +19,6 @@ namespace DoubleGis.Erm.Qds.Docs
         public DateTime CreatedOn { get; set; }
         public string InformationSource { get; set; }
 
-        public DocumentAuthorization Auth { get; set; }
+        public DocumentAuthorization Authorization { get; set; }
     }
 }

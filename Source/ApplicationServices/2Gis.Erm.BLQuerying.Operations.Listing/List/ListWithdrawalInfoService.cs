@@ -22,11 +22,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListWithdrawalInfoService(
-            IQuerySettingsProvider querySettingsProvider, 
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -40,21 +38,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.StartDate,
-                        x.FinishDate,
-                        x.PeriodStartDate,
-                        x.PeriodEndDate,
-                        x.OrganizationUnitId,
-                        OrganizationUnitName = x.OrganizationUnit.Name,
-                        Status = (WithdrawalStatus)x.Status,
-                        x.OwnerCode,
-                        x.Comment,
-                    })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListWithdrawalInfoDto
                 {
                     Id = x.Id,
@@ -63,11 +46,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     PeriodStartDate = x.PeriodStartDate,
                     PeriodEndDate = x.PeriodEndDate,
                     OrganizationUnitId = x.OrganizationUnitId,
-                    OrganizationUnitName = x.OrganizationUnitName,
-                    Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    OwnerCode = x.OwnerCode,
-                    Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                    Comment = x.Comment
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    StatusEnum = (WithdrawalStatus)x.Status,
+                    OwnerCode =  x.OwnerCode,
+                    Comment = x.Comment,
+                    Status = null,
+                    Owner = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                    return x;
                 });
         }
     }

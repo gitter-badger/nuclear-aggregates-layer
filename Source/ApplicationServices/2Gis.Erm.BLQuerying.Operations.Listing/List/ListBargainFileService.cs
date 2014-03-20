@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListBargainFileService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -36,25 +34,22 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.FileId,
-                    FileKindId = x.FileKind,
-                    x.File.FileName,
-                    x.CreatedOn,
-                    x.BargainId,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListBargainFileDto
                 {
                     Id = x.Id,
                     FileId = x.FileId,
-                    FileKind = ((BargainFileKind)x.FileKindId).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    FileName = x.FileName,
+                    FileKindEnum = (BargainFileKind)x.FileKind,
+                    FileName = x.File.FileName,
                     CreatedOn = x.CreatedOn,
                     BargainId = x.BargainId,
+                    IsDeleted = x.IsDeleted,
+                    FileKind = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.FileKind = x.FileKindEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    return x;
                 });
         }
     }

@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListAdvertisementElementTemplateService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -35,19 +33,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<AdvertisementElementTemplate>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new 
+                .Select(x => new ListAdvertisementElementTemplateDto
                 {
-                    x.Id,
-                    x.Name,
-                    RestrictionType = (AdvertisementElementRestrictionType)x.RestrictionType
+                    Id = x.Id,
+                    Name = x.Name,
+                    RestrictionTypeEnum = (AdvertisementElementRestrictionType)x.RestrictionType,
+                    IsDeleted = x.IsDeleted,
+                    RestrictionType = null,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x => new ListAdvertisementElementTemplateDto
-                { 
-                    Id = x.Id, 
-                    Name = x.Name,
-                    RestrictionType = x.RestrictionType.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo) 
+                .Select(x =>
+                {
+                    x.RestrictionType = x.RestrictionTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    return x;
                 });
         }
     }

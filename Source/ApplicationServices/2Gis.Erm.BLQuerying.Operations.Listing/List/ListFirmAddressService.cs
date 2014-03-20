@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListFirmAddressService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListFirmAddressService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -33,7 +30,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return query
                 .Where(x => !x.Firm.IsDeleted)
                 .Filter(_filterHelper, firmFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListFirmAddressDto
                 {
                     Id = x.Id,
@@ -41,6 +37,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmName = x.Firm.Name,
                     SortingPosition = x.SortingPosition,
                     Address = x.Address + ((x.ReferencePoint == null) ? string.Empty : " — " + x.ReferencePoint),
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                    ClosedForAscertainment = x.ClosedForAscertainment,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

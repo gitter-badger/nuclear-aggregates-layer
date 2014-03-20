@@ -1,11 +1,10 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListBillDto : IListItemEntityDto<Bill>
+    public sealed class ListBillDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string BillNumber { get; set; }
@@ -20,5 +19,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime PaymentDatePlan { get; set; }
         public DateTime CreatedOn { get; set; }
         public long OrderId { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -15,10 +15,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListOperationTypeService(
-            IQuerySettingsProvider querySettingsProvider,
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListOperationTypeService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -32,20 +29,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper, syncCodeFilter)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.IsPlus
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListOperationTypeDto
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    OperationTypeName = x.IsPlus ? BLResources.Charge : BLResources.Withdrawal
-                });
+                    OperationTypeName = x.IsPlus ? BLResources.Charge : BLResources.Withdrawal,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

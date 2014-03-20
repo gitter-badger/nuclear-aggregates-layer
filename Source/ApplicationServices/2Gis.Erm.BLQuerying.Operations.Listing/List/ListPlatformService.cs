@@ -13,10 +13,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListPlatformService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListPlatformService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -27,7 +24,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<Platform.Model.Entities.Erm.Platform>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListPlatformDto
                     {
                         Id = x.Id,

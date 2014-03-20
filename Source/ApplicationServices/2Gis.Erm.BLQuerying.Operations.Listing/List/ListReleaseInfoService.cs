@@ -22,11 +22,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListReleaseInfoService(
-            IQuerySettingsProvider querySettingsProvider, 
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -40,41 +38,41 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.StartDate,
-                        x.FinishDate,
-                        x.PeriodStartDate,
-                        x.PeriodEndDate,
-                        x.OrganizationUnitId,
-                        OrganizationUnitName = x.OrganizationUnit.Name,
-                        x.IsBeta,
-                        Status = (ReleaseStatus)x.Status,
-                        x.OwnerCode,
-                        x.Comment,
-                    })
+                .Select(x => new ListReleaseInfoDto
+                {
+                    Id = x.Id,
+                    StartDate = x.StartDate,
+                    FinishDate = x.FinishDate,
+                    PeriodStartDate = x.PeriodStartDate,
+                    PeriodEndDate = x.PeriodEndDate,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    IsBeta = x.IsBeta,
+                    StatusEnum = (ReleaseStatus)x.Status,
+                    OwnerCode = x.OwnerCode,
+                    Comment = x.Comment,
+                    Status = null,
+                    Owner = null,
+                    OperationType = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListReleaseInfoDto
-                            {
-                                Id = x.Id,
-                                StartDate = x.StartDate,
-                                FinishDate = x.FinishDate,
-                                PeriodStartDate = x.PeriodStartDate,
-                                PeriodEndDate = x.PeriodEndDate,
-                                OrganizationUnitId = x.OrganizationUnitId,
-                                OrganizationUnitName = x.OrganizationUnitName,
-                                OperationType =
-                                    x.IsBeta
-                                        ? ReleaseInfoOperationType.Beta.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
-                                        : ReleaseInfoOperationType.Release.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                OwnerCode = x.OwnerCode,
-                                Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                                Comment = x.Comment
-                            });
+                {
+                    x.OperationType = x.IsBeta
+                            ? ReleaseInfoOperationType.Beta.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+                            : ReleaseInfoOperationType.Release.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+
+                    return x;
+                });
+        }
+
+        // localization-only enum может не содержать None значения
+        private enum ReleaseInfoOperationType
+        {
+            Beta,
+            Release,
         }
     }
 }

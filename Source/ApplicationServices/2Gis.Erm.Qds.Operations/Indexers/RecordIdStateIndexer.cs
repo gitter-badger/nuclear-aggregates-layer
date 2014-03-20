@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,19 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
 
         public RecordIdStateIndexer(IFinder finder, IElasticApi elasticApi, ISearchSettings searchSettings)
         {
+            if (finder == null)
+            {
+                throw new ArgumentNullException("finder");
+            }
+            if (elasticApi == null)
+            {
+                throw new ArgumentNullException("elasticApi");
+            }
+            if (searchSettings == null)
+            {
+                throw new ArgumentNullException("searchSettings");
+            }
+
             _finder = finder;
             _elasticApi = elasticApi;
             _searchSettings = searchSettings;
@@ -29,12 +43,13 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
 
         void IDocumentIndexer<RecordIdState>.IndexAllDocuments()
         {
-            var lastRecordId = _finder.FindAll<PerformedBusinessOperation>().Select(pbo => pbo.Id).Max();
+            var lastPbo = _finder.FindAll<PerformedBusinessOperation>().OrderByDescending(pbo => pbo.Id).FirstOrDefault();
+            var lastRecordId = lastPbo == null ? long.MinValue : lastPbo.Id;
 
-            _elasticApi.BulkExclusive<RecordIdState>(GetTerritoryDoc(lastRecordId));
+            _elasticApi.BulkExclusive<RecordIdState>(GetRecordBulk(lastRecordId));
         }
 
-        private IEnumerable<BulkDescriptor> GetTerritoryDoc(long lastRecordId)
+        private IEnumerable<BulkDescriptor> GetRecordBulk(long lastRecordId)
         {
             var indexDescriptors = new[] { new BulkIndexDescriptor<RecordIdState>().Id(0).Object(new RecordIdState(0, lastRecordId)) };
 

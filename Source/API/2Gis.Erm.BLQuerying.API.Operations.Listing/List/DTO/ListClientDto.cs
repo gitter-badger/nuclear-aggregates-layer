@@ -1,11 +1,11 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListClientDto : IListItemEntityDto<Client>
+    public sealed class ListClientDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public Guid ReplicationCode { get; set; }
@@ -19,7 +19,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long? MainFirmId { get; set; }
         public string MainFirmName { get; set; }
         public string MainPhoneNumber { get; set; }
+        public DateTime CreatedOn { get; set; }
         public DateTime LastQualifyTime { get; set; }
         public DateTime? LastDisqualifyTime { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public InformationSource InformationSource { get; set; }
     }
 }

@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListDepartmentService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListDepartmentService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -33,13 +30,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper, excludeIdFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListDepartmentDto
                 {
                     Id = x.Id,
                     Name = x.Name,
                     ParentId = x.ParentId,
                     ParentName = x.Parent.Name,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

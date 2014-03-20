@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                 {
                     Id = x.Id,
                     Name = x.DisplayName,
-                    Auth = new DocumentAuthorization
+                    Authorization = new DocumentAuthorization
                     {
                         Tags = x.Permissions.SelectMany(y =>
                             {

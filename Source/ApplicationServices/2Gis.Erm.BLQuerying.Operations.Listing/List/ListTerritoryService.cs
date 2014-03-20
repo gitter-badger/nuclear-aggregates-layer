@@ -19,10 +19,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListTerritoryService(
-            IQuerySettingsProvider querySettingsProvider, 
             IPublicService publicService,
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _publicService = publicService;
             _finder = finder;
@@ -53,14 +51,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper, restrictToCurrentUserFilter, restrictToOrganizationUnit)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListTerritoryDto
                 {
                     Id = x.Id,
                     Name = x.Name,
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
-                    IsActive = x.IsActive
+                    IsActive = x.IsActive,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }
