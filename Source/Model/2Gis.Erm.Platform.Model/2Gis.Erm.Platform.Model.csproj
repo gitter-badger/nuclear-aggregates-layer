@@ -202,6 +202,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ResetOrderValidationResultsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
@@ -1353,7 +1355,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Release\StartReleaseIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\FinishReleaseIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Release\RevertReleaseIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Order\ResetValidationGroupIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\SetRuleGroupAsInvalidIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\UpdateOrderFinancialPerfomanceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\WorkflowProcessingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\StrictOperationIdentity.cs" />
