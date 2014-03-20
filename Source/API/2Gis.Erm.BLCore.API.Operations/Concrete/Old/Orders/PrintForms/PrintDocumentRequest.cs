@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms
 {
-    public class PrintDocumentRequest: Request
+    public class PrintDocumentRequest : Request
     {
         public object PrintData { get; set; }
         public TemplateCode TemplateCode { get; set; }
