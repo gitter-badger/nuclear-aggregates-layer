@@ -8,9 +8,6 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
@@ -56,7 +53,6 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
 using Microsoft.Practices.Unity;
 
@@ -65,12 +61,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
     internal static class Bootstrapper
     {
         // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-        private static readonly Type[] EagerLoading =
-            {
-                typeof(ActionsLogger), 
-                typeof(LegalPersonObtainer),
-                typeof(CancelOrderProcessingRequestOperationService)
-            };
+        private static readonly Type[] EagerLoading = { typeof(ActionsLogger), typeof(LegalPersonObtainer) };
 
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
@@ -122,16 +113,16 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
+                    .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
-                .ConfigureEAV()
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureIdentityInfrastructure()
+                    .ConfigureEAV()
+                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureTestInfrastructure(environmentSettings);
         }
 
@@ -184,9 +175,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
-
-            // Действительно, почему бы для InProc-тестов не регистрировать ApplicationService?
-            container.RegisterTypeWithDependencies<IRequestStateApplicationService, RequestStateApplicationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope);
 
             return container;
         }
