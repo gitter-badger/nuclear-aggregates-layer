@@ -340,6 +340,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfo", x => true)
             .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfoSuccessed", x => x.StatusEnum == ReleaseStatus.Success)
+            .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfoInProgress", x => x.StatusEnum == ReleaseStatus.InProgressInternalProcessingStarted || x.StatusEnum == ReleaseStatus.InProgressWaitingExternalProcessing)
             .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfoFailed", x => x.StatusEnum == ReleaseStatus.Error)
             .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfoBeta", x => x.IsBeta)
             .RegisterFilter<ListReleaseInfoDto>("DListReleaseInfoFinal", x => !x.IsBeta)
