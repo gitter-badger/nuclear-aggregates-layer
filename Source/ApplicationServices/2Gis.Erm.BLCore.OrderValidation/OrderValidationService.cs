@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
@@ -20,6 +19,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class OrderValidationService : IOrderValidationService, IOrderValidationInvalidator
     {
+        // FIXME {all, 03.03.2014}: фактически сервис проверок занимается и хостингом маппингов + достает детали настройки групп проверок из persistence, сопоставляет их с типом запущенной проверки и т.п. 
+        // итого видится более правильным вынести механизм получения списка rule instances для выполнения проверок в некий провайдер.
+        // провайдер уже может получать данные о правилах фактически от massprocessor rules + используя readmodel вычитывать из persistence, (а возможно из config файла настройки активных групп)
+        // сервису проверок останется всего лишь запрашивать нужный набор правил, указываея детали нужного режима проверок
         #region validation types map
 
         private static readonly Dictionary<int, Type> RuleCodeMap = new Dictionary<int, Type>
@@ -64,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 { 43, typeof(ThemeCategoriesValidationRule) },
                 { 44, typeof(ThemePositionCountValidationRule) },
                 { 47, typeof(DummyAdvertisementOrderValidationRule) },
-                { 48, typeof(RegionalApiAdvertisementsOrderValidationRule) },
+                { 48, typeof(RegionalApiAdvertisementsOrderValidationRule) }
             };
 
         private static readonly Type[] CommonRules =
@@ -88,6 +91,22 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 typeof(RegionalApiAdvertisementsOrderValidationRule)
             };
 
+        private static readonly Type[] SingleOrderValidationRules =
+            {
+                typeof(BargainOutOfDateOrderValidationRule),
+                typeof(BillsSumsOrderValidationRule),
+                typeof(LegalPersonProfilesOrderValidationRule),
+                typeof(WarrantyEndDateOrderValidationRule),
+                typeof(BargainEndDateOrderValidationRule),
+                typeof(OrderPositionsRefereceCurrentPriceListOrderValidationRule),
+                typeof(OrdersAndBargainsScansExistOrderValidationRule),
+                typeof(ReleaseNotExistsOrderValidationRule),
+                typeof(ContactDoesntContainSponsoredLinkOrderValidationRule),
+                typeof(CategoriesForFirmAmountOrderValidationRule),
+                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
+                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
+            };
+
         private static readonly Type[] NonManualRules =
             {
                 typeof(CategoriesLinkedToDestOrgUnitOrderValidationRule),
@@ -106,22 +125,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
                     CommonRules
                         .Concat(NonManualRules)
-                        .Concat(new[]
-                            {
-                                typeof(BargainOutOfDateOrderValidationRule),
-                                typeof(BillsSumsOrderValidationRule),
-                                typeof(LegalPersonProfilesOrderValidationRule),
-                                typeof(WarrantyEndDateOrderValidationRule),
-                                typeof(BargainEndDateOrderValidationRule),
-                                typeof(OrderPositionsRefereceCurrentPriceListOrderValidationRule),
-                                typeof(OrdersAndBargainsScansExistOrderValidationRule),
-                                typeof(ReleaseNotExistsOrderValidationRule),
-                                typeof(ContactDoesntContainSponsoredLinkOrderValidationRule),
-                                typeof(CategoriesForFirmAmountOrderValidationRule),
-                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
-                                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
-                            })
+                        .Concat(SingleOrderValidationRules)
                         .ToArray()
+                },
+                {
+                    ValidationType.SingleOrderOnStateChanging,
+
+                    new[] { typeof(AssociatedAndDeniedPricePositionsOrderValidationRule) }
                 },
                 {
                     ValidationType.PreReleaseBeta,
@@ -184,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                 typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
                             })
                         .ToArray()
-                },
+                }
             };
 
         #endregion
@@ -197,8 +207,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public OrderValidationService(
-            ICommonLog logger,
+        // FIXME {all, 03.03.2014}: ответсвенность по сбросу кэша проверок лучше вынести в отдельный сервис и т.п.
+        // FIXME {all, 03.03.2014}: нужно избавиться от явно использования finder, и UoW (отложенное сохранение лучше запилить явно, через AggregateService явно)
+        public OrderValidationService(ICommonLog logger,
             IFinder finder,
             IUnitOfWork unitOfWork,
             IOrderValidationRepository orderValidationRepository,
@@ -221,174 +232,36 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         {
             _useCaseTuner.AlterDuration<OrderValidationService>();
             
-            var rules = _allValidationRules.Where(x => ValidationTypesMap[request.Type].Contains(x.GetType())).ToArray();
+            var validationType = request.Type;
 
+            // TODO {all, 03.03.2014}: большой вопрос корректно ли считывайть кэш, выполнять проверки, актуализировать кэш в разных транзакциях с точки зрения именно бизнесс операции, т.е. слоя OperationServices
             int orderCount;
-            ValidResultsContainer validResultsContainer;
+            var validResultsContainer = CreateValidResultsContainer(filterPredicate, out orderCount);
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                validResultsContainer = _orderValidationRepository.CreateValidResultsContainer(filterPredicate.GetCombinedPredicate(), out orderCount);
-                transaction.Complete();
-            }
+            _logger.InfoFormatEx("Starting order validation. Type: {0}. Orders to validate: {1}", validationType, orderCount);
 
-            _logger.InfoFormatEx("Starting order validation. Type: {0}. Orders to validate: {1}", request.Type, orderCount);
             var stopwatch = Stopwatch.StartNew();
-
-            var validationMessages = new List<OrderValidationMessage>();
-            var ruleGroupMappings = GetRuleGroupMappings();
-            
-            foreach (var ruleGroupMapping in ruleGroupMappings)
-            {
-                var groupCode = ruleGroupMapping.Key;
-
-                // список заказов с ошибками, для проверки кол-ва рекламы
-                var invalidOrderIdsForAdvAmountValidation = OrderValidationRuleGroup.AdvertisementAmountValidation == groupCode
-                                                                ? validationMessages.Where(x => x.Type == MessageType.Error)
-                                                                                    .Select(x => x.OrderId)
-                                                                                    .Distinct().ToArray()
-                                                                : null;
-
-                            var validationGroupId = _orderValidationRepository.GetGroupId(groupCode);
-                var combinedPredicate = new OrderValidationPredicate(filterPredicate.GeneralPart,
-                                                             filterPredicate.OrgUnitPart,
-                                                             x => !x.OrderValidationResults
-                                                                    .Where(y => y.OrderValidationGroupId == validationGroupId)
-                                                                    .OrderByDescending(y => y.Id)
-                                                                    .Select(y => y.IsValid)
-                                                                    .FirstOrDefault());
-
-                var ordersToValidateCount = _finder.Find(combinedPredicate.GetCombinedPredicate()).Count();
-                if (ordersToValidateCount == 0)
-                {
-                    _logger.InfoFormatEx("Skipping validating orders by group [{0}]. No orders to validate.", groupCode);
-                    continue;
-                }
-
-                var groupMessages = new List<OrderValidationMessage>();
-                var groupRuleCodes = ruleGroupMapping.Value.ToArray();
-
-                _logger.InfoFormatEx("Validating orders by group [{0}]. Rules in group: [{1}]. Orders to validate: [{2}]", groupCode, groupRuleCodes.Length, ordersToValidateCount);
-                var groupStopwatch = Stopwatch.StartNew();
-
-                foreach (var ruleCode in groupRuleCodes)
-                {
-                    var ruleType = RuleCodeMap[ruleCode];
-                    var rule = rules.SingleOrDefault(x => x.GetType() == ruleType);
-                    if (rule == null)
-                    {
-                        continue;
-                    }
-
-                    var lastTime = groupStopwatch.ElapsedMilliseconds;
-                    try
-                    {
-                        request.InvalidOrderIds = invalidOrderIdsForAdvAmountValidation;
-
-                        using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-                        {
-                            var ruleMessages = rule.Validate(request, combinedPredicate);
-
-                            foreach (var message in ruleMessages)
-                            {
-                                message.RuleCode = ruleCode;
-                            }
-
-                            groupMessages.AddRange(ruleMessages);
-                            transaction.Complete();
-                        }
-
-                        var timeTaken = groupStopwatch.ElapsedMilliseconds - lastTime;
-                        _logger.InfoFormatEx("Rule '{0}' executed in {1:F2} sec. OrganizationUnitId = [{2}]",
-                                             rule.GetType().Name,
-                                             timeTaken / 1000D,
-                                             request.OrganizationUnitId);
-                    }
-                    catch (Exception ex)
-                    {
-                        var timeTaken = groupStopwatch.ElapsedMilliseconds - lastTime;
-                        _logger.InfoFormatEx("Rule '{0}' failed after {1:F2} sec. OrganizationUnitId = [{2}]",
-                             rule.GetType().Name,
-                             timeTaken / 1000D,
-                             request.OrganizationUnitId);
-
-                        _logger.ErrorFormatEx(ex, "При выполнении проверки [{0}] произошла ошибка", rule.GetType().Name);
-                        throw;
-                    }
-                }
-
-                validationMessages.AddRange(groupMessages);
-
-                Action appendValidResultsAction = () =>
-                        {
-                    var invalidOrderIds = groupMessages.Where(x => x.Type == MessageType.Error || x.Type == MessageType.Warning)
-                                                                           .Select(x => x.OrderId)
-                                                                           .Distinct()
-                                                                           .ToArray();
-                    validResultsContainer.AppendValidResults(invalidOrderIds, new ValidationContext(groupCode, request.Type));
-                        };
-
-                switch (groupCode)
-                {
-                    case OrderValidationRuleGroup.Generic:
-                    case OrderValidationRuleGroup.AdvertisementAmountValidation:
-                        // Сохраняем результаты пройденных проверок только для конкретных групп, 
-                        // для которых определены события сброса признака корректности группы
-                        break;
-                    case OrderValidationRuleGroup.ADPositionsValidation:
-                        // Для группы СЗП сохраняем результаты пройденных проверок только в случае запуска перед сборкой, т.к.
-                        // существуют ситуации для региональных заказов, когда заказ является валидным с точки зрения индивидуальной проверки,
-                        // но при массовой проверке в выборку для валидации добавляются заказы, которые конфликтуют с этим заказом.
-                        // Вероятно, ошибки здесь нет (т.к. для разных городов возможна продажа, например, запрещенных позиций),
-                        // но для сохранения предсказуемого поведения на текущий момомент не сохраняем результаты индивидуальной проверки
-                        if (request.Type == ValidationType.PreReleaseBeta ||
-                            request.Type == ValidationType.PreReleaseFinal)
-                        {
-                            appendValidResultsAction();
-                        }
-
-                        break;
-                    default:
-                        // Для проверок, запущенных через UI признак корректности группы не выставляем, 
-                        // т.к. в этом случае запускаются не все проверки в группе, и поэтому заказ не может считаться валидным с точки зрения этой группы
-                        if (request.Type != ValidationType.ManualReport &&
-                            request.Type != ValidationType.ManualReportWithAccountsCheck)
-                        {
-                            appendValidResultsAction();
-                        }
-
-                        break;
-                }
-
-                groupStopwatch.Stop();
-                _logger.InfoFormatEx("Validating orders by group [{0}] completed in {1:F2} sec.", groupCode, groupStopwatch.ElapsedMilliseconds / 1000D);
-            }
-
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-            using (var scope = _unitOfWork.CreateScope())
-            {
-                var scopedOrderValidationRepository = scope.CreateRepository<IOrderValidationRepository>();
-                scopedOrderValidationRepository.SaveValidResults(validResultsContainer);
-                scope.Complete();
-            }
-
-                transaction.Complete();
-            }
-
+            var validationMessages = ValidateOrders(validationType, filterPredicate, request, validResultsContainer);
             stopwatch.Stop();
+
             _logger.InfoFormatEx("Order validation completed in {0:F2} sec.", stopwatch.ElapsedMilliseconds / 1000D);
+            
+            stopwatch.Start();
+            CacheValidResults(validResultsContainer);
+            stopwatch.Stop();
 
-            // Вынесем ошибки не связанные с заказом в конец, сохраняя порядок
-            var errorsList = validationMessages.Where(x => x.OrderId != 0).ToList();
-            errorsList.AddRange(validationMessages.Where(x => x.OrderId == 0).ToArray());
-
-            return new ValidateOrdersResult { OrderCount = orderCount, Messages = errorsList.ToArray() };
+            _logger.InfoFormatEx("Order validation results cached in {0:F2} sec.", stopwatch.ElapsedMilliseconds / 1000D);
+            
+            return ConstructValidateOrdersResult(validationMessages, orderCount);
         }
 
         public void Invalidate(IEnumerable<long> orderIds, OrderValidationRuleGroup orderValidationRuleGroup)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<ResetValidationGroupIdentity>())
+            // FIXME {d.ivanov, 03.03.2014}: Та ли OperationIdentity здесь использована, вомзожно нужно ResetOrderValidationResultsIdentity 
+            // если Identity использована не та, то скорее всего ResetValidationGroupIdentity уже утратила актуальность - и эта операция obsolete (а, если их нет на production то её вообще следует удалить)
+            // DONE {i.maslennikov, 04.03.2014}: OperationIdentity использована та, только названа она криво. Переименовал из ResetValidationGroupIdentity в SetRuleGroupAsInvalidIdentity, оставил тот же Id
+            // Удалить конечно нельзя, было уже выполнено множество сборок
+            using (var scope = _scopeFactory.CreateNonCoupled<SetRuleGroupAsInvalidIdentity>())
             {
                 // Отметка группы как невалидной осуществляется только в случае одного заказа при выполнении бизнес-операции над этим заказом
                 // Однако заказ может быть не только На оформлении, но и в других статусах
@@ -402,16 +275,234 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             }
         }
 
+        private static void AppendValidationResults(ValidationType validationType,
+                                                    OrderValidationRuleGroup ruleGroup,
+                                                    IEnumerable<OrderValidationMessage> groupMessages,
+                                                    ValidResultsContainer validResultsContainer)
+        {
+            var invalidOrderIds = groupMessages.Where(x => x.Type == MessageType.Error || x.Type == MessageType.Warning)
+                                               .Select(x => x.OrderId)
+                                               .Distinct()
+                                               .ToArray();
+            validResultsContainer.AppendValidResults(invalidOrderIds, new ValidationContext(ruleGroup, validationType));
+        }
+
+        private static ValidateOrdersResult ConstructValidateOrdersResult(List<OrderValidationMessage> validationMessages, int orderCount)
+        {
+            // Вынесем ошибки не связанные с заказом в конец, сохраняя порядок
+            var errorsList = validationMessages.Where(x => x.OrderId != 0).ToList();
+            errorsList.AddRange(validationMessages.Where(x => x.OrderId == 0).ToArray());
+
+            return new ValidateOrdersResult { OrderCount = orderCount, Messages = errorsList.ToArray() };
+        }
+
+        private List<OrderValidationMessage> ValidateOrders(ValidationType validationType,
+                                                            OrderValidationPredicate filterPredicate,
+                                                            ValidateOrdersRequest request,
+                                                            ValidResultsContainer validResultsContainer)
+        {
+            var validationMessages = new List<OrderValidationMessage>();
+
+            var rules = _allValidationRules.Where(x => ValidationTypesMap[validationType].Contains(x.GetType())).ToDictionary(x => x.GetType(), x => x);
+            var ruleGroupMappings = GetRuleGroupMappings();
+            foreach (var ruleGroupMapping in ruleGroupMappings)
+            {
+                var groupCode = ruleGroupMapping.Key;
+                var ruleCodes = ruleGroupMapping.Value;
+                var groupRules = ruleCodes.Aggregate(new List<IOrderValidationRule>(),
+                                                     (list, nextRuleCode) =>
+                                                         {
+                                                             IOrderValidationRule rule;
+                                                             if (rules.TryGetValue(RuleCodeMap[nextRuleCode], out rule))
+                                                             {
+                                                                 list.Add(rule);
+                                                             }
+
+                                                             return list;
+                                                         });
+
+                // список заказов с ошибками, для проверки кол-ва рекламы
+                // FIXME {all, 12.02.2014}: invalidOrderIds по факту нужна одной проверке, но почему-то передается через весь стек вызовов здесь и, далее, всем проверкам
+                //                          Раньше invalidOrderIds передавались неявно в составе ValidateOrdersRequest, теперь явно - чтобы обязательно вызывать вопросы
+                // FIXME {all, 03.03.2014}: кроме того фактически есть завязка на детали работы GetRuleGroupMappings - нужно чтобы группа проверок, OrderValidationRuleGroup.AdvertisementAmountValidation всегда шла последней 
+                // что достигается значением OrderValidationRuleGroup.AdvertisementAmountValidation, которое пока максимально среди всех значений кодов групп проверок, т.е. при добавлении новой группы и т.п. никаких гарантий правильного порядка выполнения проверок нет - полностью ручное управление - высокий риск fail
+                // Кроме того, если есть фактически взаимозависомость по данным между проверками, то скорее всего требуется как-то явно организовать шаринг данных (в данном 
+                // конкретном случае вызывает вопросы одновременное наличие списка заказов успешно прошедших проверки, и списка заказов с ошибками)
+                var invalidOrderIds = OrderValidationRuleGroup.AdvertisementAmountValidation == groupCode
+                                                                ? validationMessages.Where(x => x.Type == MessageType.Error)
+                                                                                    .Select(x => x.OrderId)
+                                                                                    .Distinct().ToArray()
+                                                                : null;
+
+                var groupMessages = ValidateByRuleGroup(groupCode,
+                                                        groupRules,
+                                                        validationType,
+                                                        filterPredicate,
+                                                        request,
+                                                        invalidOrderIds,
+                                                        validResultsContainer);
+                validationMessages.AddRange(groupMessages);
+            }
+            
+            return validationMessages;
+        }
+
+        private ValidResultsContainer CreateValidResultsContainer(OrderValidationPredicate filterPredicate, out int orderCount)
+        {
+            ValidResultsContainer validResultsContainer;
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                validResultsContainer = _orderValidationRepository.CreateValidResultsContainer(filterPredicate.GetCombinedPredicate(), out orderCount);
+                transaction.Complete();
+            }
+
+            return validResultsContainer;
+        }
+
         private Dictionary<OrderValidationRuleGroup, IEnumerable<int>> GetRuleGroupMappings()
         {
-            return _finder.FindAll<DoubleGis.Erm.Platform.Model.Entities.Erm.OrderValidationRuleGroup>()
-                .Select(x => new
+            return _finder.FindAll<Platform.Model.Entities.Erm.OrderValidationRuleGroup>()
+                          .Select(x => new
+                              {
+                                  GroupCode = x.Code,
+                                  RuleCodes = x.OrderValidationRuleGroupDetails.Select(y => y.RuleCode),
+                              })
+                          .OrderBy(x => x.GroupCode)
+                          .ToDictionary(x => (OrderValidationRuleGroup)x.GroupCode, x => x.RuleCodes);
+        }
+
+        private IEnumerable<OrderValidationMessage> ValidateByRuleGroup(OrderValidationRuleGroup groupCode,
+                                                                        IList<IOrderValidationRule> rules,
+                                                                        ValidationType validationType,
+                                                                        OrderValidationPredicate filterPredicate,
+                                                                        ValidateOrdersRequest request,
+                                                                        IEnumerable<long> invalidOrderIds,
+                                                                        ValidResultsContainer validResultsContainer)
+        {
+            var validationGroupId = _orderValidationRepository.GetGroupId(groupCode);
+            // FIXME {all, 03.03.2014}: нужно использовать другой механизм сортировки кэша результатов проверок, т.к. сортировка по ID не дает гарантии, что будет учтен именно результат самой последней проверки 
+            var combinedPredicate = new OrderValidationPredicate(filterPredicate.GeneralPart,
+                                                                 filterPredicate.OrgUnitPart,
+                                                                 x => !x.OrderValidationResults
+                                                                        .Where(y => y.OrderValidationGroupId == validationGroupId)
+                                                                        .OrderByDescending(y => y.Id)
+                                                                        .Select(y => y.IsValid)
+                                                                        .FirstOrDefault());
+
+            var ordersToValidateCount = _finder.Find(combinedPredicate.GetCombinedPredicate()).Count();
+
+            if (ordersToValidateCount == 0)
+            {
+                _logger.InfoFormatEx("Skipping validating orders by group [{0}]. No orders to validate.", groupCode);
+                return Enumerable.Empty<OrderValidationMessage>();
+            }
+
+            _logger.InfoFormatEx("Validating orders by group [{0}]. Rules in group: [{1}]. Orders to validate: [{2}]",
+                                 groupCode,
+                                 rules.Count(),
+                                 ordersToValidateCount);
+
+            var groupStopwatch = Stopwatch.StartNew();
+
+            var groupMessages = new List<OrderValidationMessage>();
+            foreach (var rule in rules)
+            {
+                var ruleMessages = ValidateByRule(rule, combinedPredicate, request, invalidOrderIds, () => groupStopwatch.ElapsedMilliseconds);
+                groupMessages.AddRange(ruleMessages);
+            }
+
+            switch (groupCode)
+            {
+                case OrderValidationRuleGroup.Generic:
+                case OrderValidationRuleGroup.AdvertisementAmountValidation:
+                    // Сохраняем результаты пройденных проверок только для конкретных групп, 
+                    // для которых определены события сброса признака корректности группы
+                    break;
+                case OrderValidationRuleGroup.ADPositionsValidation:
+                    // Для группы СЗП сохраняем результаты пройденных проверок только в случае запуска перед сборкой, т.к.
+                    // существуют ситуации для региональных заказов, когда заказ является валидным с точки зрения индивидуальной проверки,
+                    // но при массовой проверке в выборку для валидации добавляются заказы, которые конфликтуют с этим заказом.
+                    // Вероятно, ошибки здесь нет (т.к. для разных городов возможна продажа, например, запрещенных позиций),
+                    // но для сохранения предсказуемого поведения на текущий момомент не сохраняем результаты индивидуальной проверки
+                    if (validationType == ValidationType.PreReleaseBeta || validationType == ValidationType.PreReleaseFinal)
                     {
-                        GroupCode = x.Code,
-                    RuleCodes = x.OrderValidationRuleGroupDetails.Select(y => y.RuleCode),
-                    })
-                .OrderBy(x => x.GroupCode)
-                .ToDictionary(x => (OrderValidationRuleGroup)x.GroupCode, x => x.RuleCodes);
+                        AppendValidationResults(validationType, groupCode, groupMessages, validResultsContainer);
+                    }
+
+                    break;
+                default:
+                    // Для проверок, запущенных через UI признак корректности группы не выставляем, 
+                    // т.к. в этом случае запускаются не все проверки в группе, и поэтому заказ не может считаться валидным с точки зрения этой группы
+                    if (validationType != ValidationType.ManualReport && validationType != ValidationType.ManualReportWithAccountsCheck)
+                    {
+                        AppendValidationResults(validationType, groupCode, groupMessages, validResultsContainer);
+                    }
+
+                    break;
+            }
+
+            groupStopwatch.Stop();
+            _logger.InfoFormatEx("Validating orders by group [{0}] completed in {1:F2} sec.", groupCode, groupStopwatch.ElapsedMilliseconds / 1000D);
+
+            return groupMessages;
+        }
+
+        private IEnumerable<OrderValidationMessage> ValidateByRule(IOrderValidationRule rule,
+                                                                   OrderValidationPredicate combinedPredicate,
+                                                                   ValidateOrdersRequest request,
+                                                                   IEnumerable<long> invalidOrderIds,
+                                                                   Func<long> getElapsedMillisecondsFunc)
+        {
+            IEnumerable<OrderValidationMessage> ruleMessages;
+            var lastTime = getElapsedMillisecondsFunc();
+            try
+            {
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                    ruleMessages = rule.Validate(combinedPredicate, invalidOrderIds, request);
+
+                    foreach (var message in ruleMessages)
+            {
+                        message.RuleCode = RuleCodeMap.Single(x => x.Value == rule.GetType()).Key;
+            }
+
+                transaction.Complete();
+            }
+
+                var timeTaken = getElapsedMillisecondsFunc() - lastTime;
+                _logger.InfoFormatEx("Rule '{0}' executed in {1:F2} sec. OrganizationUnitId = [{2}]",
+                                     rule.GetType().Name,
+                                     timeTaken / 1000D,
+                                     request.OrganizationUnitId);
+            }
+            catch (Exception ex)
+            {
+                var timeTaken = getElapsedMillisecondsFunc() - lastTime;
+                _logger.InfoFormatEx("Rule '{0}' failed after {1:F2} sec. OrganizationUnitId = [{2}]",
+                                     rule.GetType().Name,
+                                     timeTaken / 1000D,
+                                     request.OrganizationUnitId);
+
+                _logger.ErrorFormatEx(ex, "При выполнении проверки [{0}] произошла ошибка", rule.GetType().Name);
+                throw;
+            }
+
+            return ruleMessages;
+        }
+
+        private void CacheValidResults(ValidResultsContainer validResultsContainer)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                using (var scope = _unitOfWork.CreateScope())
+                {
+                    var scopedOrderValidationRepository = scope.CreateRepository<IOrderValidationRepository>();
+                    scopedOrderValidationRepository.SaveValidResults(validResultsContainer);
+                    scope.Complete();
+                }
+
+                transaction.Complete();
+            }
         }
     }
 }

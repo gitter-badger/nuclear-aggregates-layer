@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     {
         protected bool IsCheckMassive { get; private set; }
 
-        IReadOnlyList<OrderValidationMessage> IOrderValidationRule.Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate)
+        IReadOnlyList<OrderValidationMessage> IOrderValidationRule.Validate(OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, ValidateOrdersRequest request)
         {
             IsCheckMassive = request.Type == ValidationType.PreReleaseBeta ||
                              request.Type == ValidationType.PreReleaseFinal ||
@@ -24,11 +24,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                              request.Type == ValidationType.ManualReportWithAccountsCheck;
 
             var orderValidationMessages = new List<OrderValidationMessage>();
-            Validate(request, filterPredicate, orderValidationMessages);
+            Validate(request, filterPredicate, invalidOrderIds, orderValidationMessages);
             return orderValidationMessages;
         }
 
-        protected abstract void Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate, IList<OrderValidationMessage> messages);
+        protected abstract void Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages);
 
         protected string GenerateDescription(EntityName entityName, string description, long entityId)
         {

@@ -17,20 +17,20 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         public OrderValidationPredicateFactory(IFinder finder)
         {
-            this._finder = finder;
+            _finder = finder;
         }
 
-        public OrderValidationPredicate CreatePredicate(long orderId, out OrderState orderState, out TimePeriod period)
+        public OrderValidationPredicate CreatePredicate(long orderId, out OrderState currentOrderState, out TimePeriod period)
         {
-            var orderInfo = this._finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(order => new
-                    {
-                        OrderState = (OrderState) order.WorkflowStepId,
-                        order.BeginDistributionDate
-                    })
-                .Single();
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
+                                   .Select(order => new
+                                       {
+                                           OrderState = (OrderState)order.WorkflowStepId,
+                                           order.BeginDistributionDate
+                                       })
+                                   .Single();
 
-            orderState = orderInfo.OrderState;
+            currentOrderState = orderInfo.OrderState;
             period = new TimePeriod(orderInfo.BeginDistributionDate, orderInfo.BeginDistributionDate.AddMonths(1).AddSeconds(-1));
             
             return new OrderValidationPredicate(x => x.Id == orderId, null, null);
@@ -41,14 +41,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             const int Approved = (int)OrderState.Approved;
             const int OnTermination = (int)OrderState.OnTermination;
 
-            Expression<Func<Order, bool>> orgUnitPart =
-                x => x.DestOrganizationUnitId == organizationUnitId ||
-                     (x.SourceOrganizationUnitId == organizationUnitId && x.DestOrganizationUnit.ErmLaunchDate != null);
+            Expression<Func<Order, bool>> orgUnitPart = x => x.DestOrganizationUnitId == organizationUnitId ||
+                                                             (x.SourceOrganizationUnitId == organizationUnitId && x.DestOrganizationUnit.ErmLaunchDate != null);
 
             OrderValidationPredicate validationPredicate;
             if (ownerCode.HasValue)
             {
-                var userDescendantsQuery = this._finder.FindAll<UsersDescendant>();
+                var userDescendantsQuery = _finder.FindAll<UsersDescendant>();
 
                 // необходимо уточнить условия фильтрации для заказов уходящих в выпуск
                 validationPredicate = new OrderValidationPredicate(
@@ -57,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                          x.BeginDistributionDate < period.End && x.EndDistributionDateFact > period.Start &&
                          (x.OwnerCode == ownerCode || (includeOwnerDescendants &&
                                                        userDescendantsQuery.Any(ud => ud.AncestorId == ownerCode && ud.DescendantId == x.OwnerCode))),
-                    orgUnitPart, 
+                    orgUnitPart,
                     null);
             }
             else
@@ -69,6 +68,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     orgUnitPart, 
                     null);
             }
+
             return validationPredicate;
         }
     }

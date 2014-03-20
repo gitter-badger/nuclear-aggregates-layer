@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _releaseRepository = releaseRepository;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             if (request.Type == ValidationType.SingleOrderOnRegistration)
             {
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         null);
                     if (!response.Success)
                     {
-                        if (request.OrderState != OrderState.Approved)
+                        if (request.CurrentOrderState != OrderState.Approved)
                         {
                             messages.Add(response.Message);                            
                         }

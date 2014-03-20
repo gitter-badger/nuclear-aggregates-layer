@@ -9,11 +9,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 {
     public abstract class OrderValidationRuleCommonPredicate : OrderValidationRuleBase
     {
-        protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate, IList<OrderValidationMessage> messages)
+        protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
-            ValidateInternal(request, filterPredicate.GetCombinedPredicate(), messages);
+            ValidateInternal(request, filterPredicate.GetCombinedPredicate(), invalidOrderIds, messages);
         }
 
-        protected abstract void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages);
+        protected abstract void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages);
     }
 }

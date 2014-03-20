@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         /// <summary>
         /// See http://confluence.dvlp.2gis.local/pages/viewpage.action?pageId=51577357 (Вспомогательная информация)
         /// </summary>
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             var orderDetails = _finder.Find(filterPredicate)
                     .Where(o =>

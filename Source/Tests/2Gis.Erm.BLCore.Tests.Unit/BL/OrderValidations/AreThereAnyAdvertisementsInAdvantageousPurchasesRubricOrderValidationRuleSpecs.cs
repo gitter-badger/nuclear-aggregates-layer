@@ -130,7 +130,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     _orderValidationRule = new AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule(finderMock.Object);
                 };
 
-            Because of = () => Messages = _orderValidationRule.Validate(ValidateOrdersRequest, new OrderValidationPredicate(x => true, null, null));
+            Because of = () => Messages = _orderValidationRule.Validate(new OrderValidationPredicate(x => true, null, null), null, ValidateOrdersRequest);
 
             protected static IReadOnlyList<OrderValidationMessage> Messages { get; private set; }
         }
