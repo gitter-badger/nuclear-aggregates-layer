@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,64 +59,64 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
   <data name="DocumentsDeliveryAddress" xml:space="preserve">
     <value>Dirección de entrega de documentos</value>
   </data>
@@ -145,7 +145,7 @@
     <value>Posición origen</value>
   </data>
   <data name="Bargain" xml:space="preserve">
-    <value>Acuerdo</value>
+    <value>Contrato</value>
   </data>
   <data name="DiscountComment" xml:space="preserve">
     <value>Comentario al descuento</value>
@@ -154,7 +154,7 @@
     <value>Verificar el balance de cuentas personales</value>
   </data>
   <data name="WithDocDebtBargain" xml:space="preserve">
-    <value>Según el acuerdo</value>
+    <value>Según el contrato</value>
   </data>
   <data name="ShowInactiveClients" xml:space="preserve">
     <value>Clientes inactivos</value>
@@ -163,7 +163,7 @@
     <value>Lanzamiento número (inicio de la publicación)</value>
   </data>
   <data name="BaseCurrency" xml:space="preserve">
-    <value>Moneda básica</value>
+    <value>Principal moneda</value>
   </data>
   <data name="InSyncWith1C" xml:space="preserve">
     <value>Sincronización con 1C</value>
@@ -241,7 +241,7 @@
     <value>Reseñas</value>
   </data>
   <data name="BargainEndDate" xml:space="preserve">
-    <value>Fecha de finalización del acuerdo</value>
+    <value>Fecha de finalización del contrato</value>
   </data>
   <data name="CompositePosition" xml:space="preserve">
     <value>Compleja</value>
@@ -277,7 +277,7 @@
     <value>Clientes con planes obsoletos</value>
   </data>
   <data name="CurrencyIsoCode" xml:space="preserve">
-    <value>Código de moneda ISO</value>
+    <value>Código ISO de la moneda</value>
   </data>
   <data name="WithDocDebtOrder" xml:space="preserve">
     <value>Según la orden de compra</value>
@@ -301,7 +301,7 @@
     <value>Fecha de finalización del poder</value>
   </data>
   <data name="CloseBargainsViewModel_CloseDate" xml:space="preserve">
-    <value>Fecha de la cancelación de acuerdos</value>
+    <value>Fecha de cancelación de contratos</value>
   </data>
   <data name="DepartmentName" xml:space="preserve">
     <value>Nombre</value>
@@ -418,7 +418,7 @@
     <value>Evaluación de la perspectiva</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Código de persona jurídica del cliente</value>
+    <value>Código de la persona jurídica del cliente</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Obligatorio</value>
@@ -436,7 +436,7 @@
     <value>Fecha de firma</value>
   </data>
   <data name="PostAddress" xml:space="preserve">
-    <value>Dirección de correo</value>
+    <value>Casilla del correo</value>
   </data>
   <data name="UsnNotificationText" xml:space="preserve">
     <value>Notificación de aplicación del régimen simplificado de tributación</value>
@@ -445,7 +445,7 @@
     <value>Número de cuenta personal</value>
   </data>
   <data name="FoundingBargainDate" xml:space="preserve">
-    <value>Fecha de expedición de la escritura de constitución</value>
+    <value>Fecha de expedición del contrato constitutivo</value>
   </data>
   <data name="MainFirm" xml:space="preserve">
     <value>Empresa principal</value>
@@ -481,7 +481,7 @@
     <value>Expedido</value>
   </data>
   <data name="BargainNumber" xml:space="preserve">
-    <value>Número del acuerdo</value>
+    <value>Número del contrato</value>
   </data>
   <data name="ActualProfit" xml:space="preserve">
     <value>Beneficio real</value>
@@ -508,7 +508,7 @@
     <value>Material publicitario puede ser seleccionado para la lista blanca</value>
   </data>
   <data name="ShortLegalName" xml:space="preserve">
-    <value>Nombre corto de la razón social</value>
+    <value>Nombre abreviado de la razón social</value>
   </data>
   <data name="Inn" xml:space="preserve">
     <value>RUT</value>
@@ -589,7 +589,7 @@
     <value>Método de entrega de documentos</value>
   </data>
   <data name="IsBaseCurrency" xml:space="preserve">
-    <value>Básica</value>
+    <value>Principal</value>
   </data>
   <data name="RegistrationAddress" xml:space="preserve">
     <value>Registro del lugar de residencia</value>
@@ -610,7 +610,7 @@
     <value>Número de empleados</value>
   </data>
   <data name="PostalAddress" xml:space="preserve">
-    <value>Dirección de correo</value>
+    <value>Casilla del correo</value>
   </data>
   <data name="VatRate" xml:space="preserve">
     <value>Tipo de IVA</value>
@@ -619,7 +619,7 @@
     <value>Actual</value>
   </data>
   <data name="CountryIsoCode" xml:space="preserve">
-    <value>Código de país ISO</value>
+    <value>Código ISO del país</value>
   </data>
   <data name="CloseDate" xml:space="preserve">
     <value>Fecha de cancelación de la transacción</value>
@@ -679,7 +679,7 @@
     <value>Motivo de la cancelación de la transacción</value>
   </data>
   <data name="RHasBargainDebt" xml:space="preserve">
-    <value>Deudas según el acuerdo</value>
+    <value>Deudas según el contrato</value>
   </data>
   <data name="PlacementPeriod" xml:space="preserve">
     <value>Periodo de publicación</value>
@@ -688,7 +688,7 @@
     <value>Fecha de inicio</value>
   </data>
   <data name="ParentDepartment" xml:space="preserve">
-    <value>Sucursal principal</value>
+    <value>Casa matriz </value>
   </data>
   <data name="AccountsReportType" xml:space="preserve">
     <value>Tipo de informe</value>
@@ -793,7 +793,7 @@
     <value>Código 1C</value>
   </data>
   <data name="BargainBeginDate" xml:space="preserve">
-    <value>Fecha de expedición del acuerdo</value>
+    <value>Fecha de expedición del contrato</value>
   </data>
   <data name="IsAdvertisementLink" xml:space="preserve">
     <value>Enlace publicitario</value>
@@ -832,7 +832,7 @@
     <value>Número máximo de caracteres en la palabra</value>
   </data>
   <data name="TimeZoneId" xml:space="preserve">
-    <value>Huso horario (www.askgeo.com)</value>
+    <value>Zona horaria (www.askgeo.com)</value>
   </data>
   <data name="ContactPhone" xml:space="preserve">
     <value>Teléfono de contacto</value>
@@ -847,7 +847,7 @@
     <value>Número de pasaporte</value>
   </data>
   <data name="BargainType" xml:space="preserve">
-    <value>Tipo de acuerdo</value>
+    <value>Tipo de contrato</value>
   </data>
   <data name="FileId" xml:space="preserve">
     <value>Archivo cargado</value>
@@ -1141,7 +1141,7 @@
     <value>Dirección de casa</value>
   </data>
   <data name="IsFired" xml:space="preserve">
-    <value>Se ha despedido</value>
+    <value>Renunció</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
     <value>Fecha de nacimiento</value>
@@ -1180,7 +1180,7 @@
     <value>Balance de cuenta personal (considerando bloqueos)</value>
   </data>
   <data name="LegalPesonSyncCode1C" xml:space="preserve">
-    <value>Clave de una persona jurídica para 1C</value>
+    <value>Clave de una persona jurídica para el software contable</value>
   </data>
   <data name="IntegrationType" xml:space="preserve">
     <value>Tipo de mensaje</value>
@@ -1258,7 +1258,7 @@
     <value>IČ</value>
   </data>
   <data name="BankAddress" xml:space="preserve">
-    <value>Dirección de banco</value>
+    <value>Dirección del banco</value>
   </data>
   <data name="IsPngSupported" xml:space="preserve">
     <value>PNG</value>
@@ -1336,12 +1336,12 @@
     <value>Nombre de banco</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-  <value>RUT представителя</value>
-</data>
+    <value>RUT del representante</value>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
-  <value>Вид деятельности</value>
-</data>
+    <value>Actividad</value>
+  </data>
 </root>

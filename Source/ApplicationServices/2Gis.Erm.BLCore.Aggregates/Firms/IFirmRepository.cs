@@ -66,6 +66,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices);
 
         IEnumerable<FirmContact> GetContacts(long firmAddressId);
+        IDictionary<long, IEnumerable<FirmContact>> GetFirmContacts(long firmId);
+        
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
 
         void ImportFirmContacts(long firmAddressId, IEnumerable<ImportFirmContactDto> firmContacts, bool isDepCard);

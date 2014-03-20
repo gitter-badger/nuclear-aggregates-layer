@@ -4948,22 +4948,22 @@ Kontakt: {1}</value>
     <value>Existuje skrytá osoba samostatně výdělečně činná s uvedeným DIČ</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Pr. osoba klienta s uvedeným T.I.C. již existuje</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existuje odstraněná pr. osoba klienta s uvedeným T.I.C.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existuje skrytá pr. osoba klienta s uvedeným T.I.C.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Osoba samostatně výdělečně činná s uvedeným T.I.C. již existuje</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existuje odstraněná osoba samostatně výdělečně činná s uvedeným T.I.C.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existuje skrytá osoba samostatně výdělečně činná s uvedeným T.I.C.</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>V položce {0} je vytvořena reklama API, přestože firma nemá adresu v projektu města, ve kterém je rozmístěna objednávka</value>

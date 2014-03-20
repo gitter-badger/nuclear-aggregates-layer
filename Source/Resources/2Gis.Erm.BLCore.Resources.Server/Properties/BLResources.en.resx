@@ -4924,19 +4924,19 @@ Contact: {1}</value>
     <value>A hidden individual with the specified passport number and series exists</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>místem podnikání</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>se sídlem</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
@@ -4969,22 +4969,22 @@ Contact: {1}</value>
     <value>API advertising is registered in the item {0}, even though the company does not have an address in the city of order placement</value>
   </data>
   <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. and KPP already exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A deleted Sole Proprietorship with the specified T.I.C. exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A deleted legal entity of the Customer with the specified T.I.C. and KPP exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>A hidden legal entity of the Customer with the specified T.I.C. and KPP exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>At least one payment must be created</value>

@@ -1061,6 +1061,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
         }
 
+        // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
+        public IDictionary<long, IEnumerable<FirmContact>> GetFirmContacts(long firmId)
+        {
+            var firmAddresses = _finder.Find(Specs.Find.ById<Firm>(firmId))
+                                       .SelectMany(firm => firm.FirmAddresses)
+                                       .Select(address => address.Id)
+                                       .ToArray();
+
+            return firmAddresses.ToDictionary(id => id, id => GetContacts(id));
+        }
+
+        // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
         {
             var depCardsQuery = _finder.Find<DepCard>(x => !x.IsHiddenOrArchived);
