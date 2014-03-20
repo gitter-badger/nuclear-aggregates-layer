@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
         }
 
         public DataFieldStructureBuilder Property<TListDto, TEntity>(Expression<Func<TListDto, object>> dtoPropertyExpression, Expression<Func<TEntity, object>> selectExpression)
-            where TListDto : IListItemEntityDto<TEntity> where TEntity : IEntityKey
+            where TListDto : IOperationSpecificEntityDto where TEntity : IEntityKey
         {
             var propertyName = StaticReflection.GetMemberName(dtoPropertyExpression);
             var propertyType = StaticReflection.GetMemberType(dtoPropertyExpression);
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
             return new DataFieldStructure(Features);
         }
 
-        public DataFieldStructureBuilder PropertyReference<TListDto, TEntity, TTargetEntity>(Expression<Func<TListDto, object>> dtoNameExpression, Expression<Func<TEntity, object>> nameExpression, Expression<Func<TListDto, object>> dtoIdExpression, Expression<Func<TEntity, object>> idExpression) where TListDto : IListItemEntityDto<TEntity> where TEntity : IEntityKey
+        public DataFieldStructureBuilder PropertyReference<TListDto, TEntity, TTargetEntity>(Expression<Func<TListDto, object>> dtoNameExpression, Expression<Func<TEntity, object>> nameExpression, Expression<Func<TListDto, object>> dtoIdExpression, Expression<Func<TEntity, object>> idExpression) where TListDto : IOperationSpecificEntityDto where TEntity : IEntityKey
         {
             // Add an extra id field to reference to
             var dataField = DataFieldStructure.Config

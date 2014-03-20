@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
@@ -235,7 +236,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                 #endregion
             }
 
-            private class ListFakeEntityDto : IListItemEntityDto<FakeEntity>
+            private class ListFakeEntityDto : IOperationSpecificEntityDto
             {
             }
 

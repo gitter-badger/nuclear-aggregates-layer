@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.Serialization;
 
+using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -9,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
     [DataContract]
     public sealed class EntityDtoListResult<TEntity, TEntityListDto> : ListResult, IDataListResult
         where TEntity : IEntityKey 
-        where TEntityListDto : IListItemEntityDto<TEntity>
+        where TEntityListDto : IOperationSpecificEntityDto
     {
         private EntityName _entityType = typeof(TEntity).AsEntityName();
 
