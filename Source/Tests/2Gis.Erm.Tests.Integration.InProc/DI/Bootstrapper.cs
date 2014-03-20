@@ -26,8 +26,6 @@ using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -124,18 +122,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
+                .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure()
-                    .ConfigureEAV()
-                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
-                    .ConfigureTestInfrastructure(environmentSettings)
-                    .ConfigureListing();
+                .ConfigureIdentityInfrastructure()
+                .ConfigureEAV()
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureTestInfrastructure(environmentSettings);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -239,12 +236,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
-        }
-        
-        private static IUnityContainer ConfigureListing(this IUnityContainer container)
-        {
-            return container
-                .RegisterType<IQuerySettingsProvider, QuerySettingsProvider>(EntryPointSpecificLifetimeManagerFactory());
         }
     }
 }
