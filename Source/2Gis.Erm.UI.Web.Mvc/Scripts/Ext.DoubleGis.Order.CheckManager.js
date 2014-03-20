@@ -153,7 +153,7 @@ function ()
                 root: 'Messages',
                 fields: ['MessageText', 'OrderId', 'OrderNumber', 'RuleCode', 'Type'],
                 proxy: new Ext.data.ScriptTagProxy({
-                    url: orderValidationServiceUrl + '/SingleStateTransfer/' + orderId + '/' + newState,
+                    url: orderValidationServiceUrl + '/Single/' + orderId + '/' + newState,
                     timeout: 1200000
                 }),
                 listeners: {
