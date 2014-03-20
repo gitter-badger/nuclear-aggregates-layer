@@ -44,7 +44,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkCreateIdentity = 39;
         public const int BulkDeleteIdentity = 40;
 
-
         // concrete operations
         public const int PrintOrderIdentity = 1000;
         public const int StartReleaseIdentity = 1005;
@@ -65,6 +64,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ActualizeOrdersDuringRevertingWithdrawalIdentity = 1020;
         public const int ActualizeDealsDuringRevertingWithdrawalIdentity = 1021;
         public const int GetFirmInfoIdentity = 1022;
+        public const int ValidateOrdersIdentity = 1023;
+        public const int ResetOrderValidationResultsIdentity = 1024;
 
         // EntityName.ReleaseWithdrawal = 215
         public const int CalculateReleaseWithdrawalsIdentity = 21501;
