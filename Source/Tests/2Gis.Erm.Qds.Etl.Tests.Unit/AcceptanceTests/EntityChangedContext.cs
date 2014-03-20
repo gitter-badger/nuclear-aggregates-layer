@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
                 Target.LogChangesForEntity(ChangedEntity);
             };
 
-        protected static long ChangedEntityId;
-        protected static TEntity ChangedEntity;
-
         protected static void ContainDocumentOfSpecifiedTypeWithExpectedId()
         {
             DocsStorage.NewPublishedDocs.Should().Contain(d => d.Id == ChangedEntityId && d is TDoc);
         }
+
+        protected static long ChangedEntityId;
+        protected static TEntity ChangedEntity;
     }
 }

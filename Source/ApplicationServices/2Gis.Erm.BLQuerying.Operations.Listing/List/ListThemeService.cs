@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListThemeService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -68,21 +66,25 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             // distinct без учёта OrganizationUnitName
             var data = allDtosQuery
-                        .DefaultFilter(_filterHelper, querySettings)
-                        .Select(x => new { x.Id, x.Name, x.BeginDistribution, x.EndDistribution, x.TemplateCode, x.Description, x.IsActive, x.IsDeleted })
+                        .Select(x => new ListThemeDto
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            BeginDistribution = x.BeginDistribution,
+                            EndDistribution = x.EndDistribution,
+                            TemplateCodeEnum = (ThemeTemplateCode)x.TemplateCode,
+                            Description = x.Description,
+                            IsActive = x.IsActive,
+                            IsDeleted = x.IsDeleted,
+                            TemplateCode = null,
+                        })
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x => new ListThemeDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    BeginDistribution = x.BeginDistribution,
-                    EndDistribution = x.EndDistribution,
-                    TemplateCode = ((ThemeTemplateCode)x.TemplateCode).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    Description = x.Description,
-                    IsActive = x.IsActive,
-                    IsDeleted = x.IsDeleted,
-                });
+                        .Select(x =>
+                        {
+                            x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                            return x;
+                        });
 
             return data;
         }

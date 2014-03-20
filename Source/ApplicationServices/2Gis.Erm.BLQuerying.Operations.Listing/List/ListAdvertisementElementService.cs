@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListAdvertisementElementService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -35,24 +33,21 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<AdvertisementElement>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    AdvertisementElementTemplateId = x.AdvertisementElementTemplate.Id,
-                    AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
-                    x.AdvertisementElementTemplate.RestrictionType,
-                    x.AdvertisementElementTemplate.IsRequired,
-                    x.AdvertisementId,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListAdvertisementElementDto
                 {
                     Id = x.Id,
-                    AdvertisementElementTemplateId = x.AdvertisementElementTemplateId,
-                    AdvertisementElementTemplateName = x.AdvertisementElementTemplateName,
-                    IsRequired = x.IsRequired,
-                    RestrictionType = ((AdvertisementElementRestrictionType)x.RestrictionType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+                    AdvertisementElementTemplateId = x.AdvertisementElementTemplate.Id,
+                    AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
+                    RestrictionTypeEnum = (AdvertisementElementRestrictionType)x.AdvertisementElementTemplate.RestrictionType,
+                    IsRequired = x.AdvertisementElementTemplate.IsRequired,
+                    AdvertisementId = x.AdvertisementId,
+                    RestrictionType = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.RestrictionType = x.RestrictionTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    return x;
                 });
         }
     }

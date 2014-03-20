@@ -15,9 +15,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListCategoryGroupService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,7 +26,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<CategoryGroup>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListCategoryGroupDto
                     {
                         Id = x.Id,

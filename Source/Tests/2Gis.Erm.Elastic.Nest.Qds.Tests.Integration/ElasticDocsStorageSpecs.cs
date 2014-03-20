@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit;
 using DoubleGis.Erm.Qds;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
         {
             Establish context = () =>
             {
-                ExpectedCount = ElasticMeta.PageSize * 2 + 1;
+                ExpectedCount = ElasticMeta.PageSize * 2 + ElasticMeta.PageSize / 2;
                 var testDocs = new TestDoc[ExpectedCount];
 
                 for (int i = 0; i < ExpectedCount; i++)
@@ -79,7 +80,21 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
                     ElasticClient = ElasticTestConfigurator.CreateElasticClient("http://localhost:9200");
 
                     ElasticClient.DeleteIndex(ElasticTestConfigurator.TestIndexName);
-                    ElasticClient.CreateIndex(ElasticTestConfigurator.TestIndexName);
+
+
+                    var indexSettings = new IndexSettings
+                    {
+                        { "number_of_shards", 1 },
+                        { "number_of_replicas", 1 },
+                        { "refresh_interval", -1 },
+                    };
+
+                    var response = ElasticClient.CreateIndex(ElasticTestConfigurator.TestIndexName, indexSettings);
+                    if (!response.ConnectionStatus.Success)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    ElasticClient.Refresh();
 
                     var settingsFactory = new Mock<IElasticConnectionSettingsFactory>();
                     settingsFactory.Setup(sf => sf.GetIsolatedIndexName(Moq.It.IsAny<string>())).Returns(ElasticTestConfigurator.TestIndexName);

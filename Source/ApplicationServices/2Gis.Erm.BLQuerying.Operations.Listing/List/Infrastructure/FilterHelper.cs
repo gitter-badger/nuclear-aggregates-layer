@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 
@@ -11,12 +11,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
     public sealed class FilterHelper
     {
         private readonly SubordinatesFilter _subordinatesFilter;
-        private readonly DefaultFilter _defaultFilter;
 
-        public FilterHelper(SubordinatesFilter subordinatesFilter, DefaultFilter defaultFilter)
+        public FilterHelper(SubordinatesFilter subordinatesFilter)
         {
             _subordinatesFilter = subordinatesFilter;
-            _defaultFilter = defaultFilter;
         }
 
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
@@ -34,47 +32,30 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return _subordinatesFilter.Apply(queryable);
         }
 
-        public IQueryable<TEntity> DefaultFilter<TEntity>(IQueryable<TEntity> query, QuerySettings querySettings)
-        {
-            return _defaultFilter.Apply(query, querySettings);
-        }
-
         public IEnumerable<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings, out int total)
         {
-            return (IEnumerable<TDocument>)QuerySettings((IQueryable)query, querySettings, out total);
+            query = DefaultFilter(query, querySettings);
+            query = RelativeFilter(query, querySettings);
+            query = FieldFilter(query, querySettings);
+
+            return SortedPaged(query, querySettings, out total);
         }
 
-        private static IEnumerable QuerySettings(IQueryable query, QuerySettings querySettings, out int total)
+        private IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
         {
-            var newQuery = RelativeFilter(query, querySettings);
-
-            if (!string.IsNullOrEmpty(querySettings.UserInputFilter))
+            Expression expression;
+            if (!DefaultFilterMetadata.TryGetFilter<TDocument>(querySettings.FilterName, out expression))
             {
-                newQuery = System.Linq.Dynamic.DynamicQueryable.Where(newQuery, querySettings.UserInputFilter);
+                throw new ArgumentException(string.Format("Для типа {0} не определен фильтр по умолчанию", typeof(TDocument).Name));
             }
 
-            total = System.Linq.Dynamic.DynamicQueryable.Count(newQuery);
+            var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
+            var whereExpression = Expression.Call(whereMethod, queryable.Expression, expression);
 
-            // sort by id by default
-            var ordering = "Id";
-            if (!string.IsNullOrEmpty(querySettings.SortOrder))
-            {
-                ordering = querySettings.SortOrder;
-            }
-
-            if (!string.IsNullOrEmpty(querySettings.SortDirection))
-            {
-                ordering = string.Concat(ordering, " ", querySettings.SortDirection);
-            }
-
-            newQuery = System.Linq.Dynamic.DynamicQueryable.OrderBy(newQuery, ordering);
-            newQuery = System.Linq.Dynamic.DynamicQueryable.Skip(newQuery, querySettings.SkipCount);
-            newQuery = System.Linq.Dynamic.DynamicQueryable.Take(newQuery, querySettings.TakeCount);
-
-            return newQuery;
+            return queryable.Provider.CreateQuery<TDocument>(whereExpression);
         }
 
-        private static IQueryable RelativeFilter(IQueryable query, QuerySettings querySettings)
+        private IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
             if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))
@@ -82,16 +63,76 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
                 return query;
             }
 
-            string filterExpression;
-            if (!RelationalMetadata.TryGetFilterExpressionFromRelationalMap(querySettings.ParentEntityName, querySettings.EntityName, out filterExpression))
+            Expression expression;
+            if (!RelationalMetadata.TryGetFilterExpressionFromRelationalMap<TDocument>(querySettings.ParentEntityName, querySettings.ParentEntityId, out expression))
             {
-                throw new Exception(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, querySettings.EntityName));
+                throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, typeof(TDocument).Name));
             }
 
-            filterExpression = string.Format(filterExpression, querySettings.ParentEntityId);
+            var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
+            var whereExpression = Expression.Call(whereMethod, query.Expression, expression);
+            return query.Provider.CreateQuery<TDocument>(whereExpression);
+        }
 
-            var newQuery = System.Linq.Dynamic.DynamicQueryable.Where(query, filterExpression);
-            return newQuery;
+        private IQueryable<TDocument> FieldFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        {
+            if (string.IsNullOrEmpty(querySettings.UserInputFilter))
+            {
+                return query;
+            }
+
+            Expression expression;
+            if (!FilteredFieldMetadata.TryGetFieldFilter<TDocument>(querySettings.UserInputFilter, out expression))
+            {
+                throw new ArgumentException(string.Format("Для типа {0} не определены поисковые поля", typeof(TDocument).Name));
+            }
+
+            var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
+            var whereExpression = Expression.Call(whereMethod, query.Expression, expression);
+
+            return query.Provider.CreateQuery<TDocument>(whereExpression);
+        }
+
+        private IEnumerable<TDocument> SortedPaged<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings, out int total)
+        {
+            total = query.Count();
+
+            var documentType = typeof(TDocument);
+
+            var propertyInfo = !string.IsNullOrEmpty(querySettings.SortOrder)
+                               ? documentType.GetProperty(querySettings.SortOrder)
+                               : documentType.GetProperty("Id");
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException(string.Format("Для типа {0} не определены сортировочные поля", documentType.Name));
+            }
+
+            MethodInfo methodInfo;
+            if (string.IsNullOrEmpty(querySettings.SortDirection) || string.Equals(querySettings.SortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
+            {
+                methodInfo = MethodInfos.Queryable.OrderByMethodInfo.MakeGenericMethod(documentType, propertyInfo.PropertyType);
+            }
+            else if (string.Equals(querySettings.SortDirection, "DESC", StringComparison.OrdinalIgnoreCase))
+            {
+                methodInfo = MethodInfos.Queryable.OrderByDescendingMethodInfo.MakeGenericMethod(documentType, propertyInfo.PropertyType);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+
+            var parameterExpression = Expression.Parameter(documentType, "x");
+            var propertyExpression = Expression.Property(parameterExpression, propertyInfo);
+            var lambdaExpression = Expression.Lambda(propertyExpression, parameterExpression);
+            var callExpression = Expression.Call(methodInfo, query.Expression, lambdaExpression);
+
+            query = query.Provider.CreateQuery<TDocument>(callExpression);
+
+            query = query
+                .Skip(querySettings.SkipCount)
+                .Take(querySettings.TakeCount);
+
+            return query;
         }
     }
 }

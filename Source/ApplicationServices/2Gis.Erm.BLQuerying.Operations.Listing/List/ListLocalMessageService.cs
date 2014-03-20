@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListLocalMessageService(
-            IQuerySettingsProvider querySettingsProvider,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -35,36 +33,37 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<LocalMessage>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                                 {
-                                     x.Id,
-                                     IntegrationTypeImport = (IntegrationTypeImport)x.MessageType.IntegrationType,
-                                     IntegrationTypeExport = (IntegrationTypeExport)x.MessageType.IntegrationType,
-                                     x.OrganizationUnitId,
-                                     OrganizationUnitName = x.OrganizationUnit.Name,
-                                     x.CreatedOn,
-                                     x.ModifiedOn,
-                                     Status = (LocalMessageStatus)x.Status,
-                                     SenderSystem = (IntegrationSystem)x.MessageType.SenderSystem,
-                                     ReceiverSystem = (IntegrationSystem)x.MessageType.ReceiverSystem,
-                                 })
+                .Select(x => new ListLocalMessageDto
+                {
+                    Id = x.Id,
+                    IntegrationTypeImport = (IntegrationTypeImport)x.MessageType.IntegrationType,
+                    IntegrationTypeExport = (IntegrationTypeExport)x.MessageType.IntegrationType,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = x.ModifiedOn,
+                    StatusEnum = (LocalMessageStatus)x.Status,
+                    SenderSystemEnum = (IntegrationSystem)x.MessageType.SenderSystem,
+                    ReceiverSystemEnum = (IntegrationSystem)x.MessageType.ReceiverSystem,
+                    IntegrationType = null,
+                    Status = null,
+                    ReceiverSystem = null,
+                    SenderSystem = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListLocalMessageDto
-                            {
-                                Id = x.Id,
-                                IntegrationType =
-                                    x.IntegrationTypeImport.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
-                                    ?? x.IntegrationTypeExport.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                OrganizationUnitId = x.OrganizationUnitId,
-                                OrganizationUnitName = x.OrganizationUnitName,
-                                CreatedOn = x.CreatedOn,
-                                ModifiedOn = x.ModifiedOn,
-                                Status = x.Status.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                SenderSystem = x.SenderSystem.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                ReceiverSystem = x.ReceiverSystem.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
-                            });
+                {
+                    x.IntegrationType =
+                        x.IntegrationTypeImport.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+                        ??
+                        x.IntegrationTypeExport.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+
+                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.SenderSystem = x.SenderSystemEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.ReceiverSystem = x.ReceiverSystemEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+
+                    return x;
+                });
         }
     }
 }

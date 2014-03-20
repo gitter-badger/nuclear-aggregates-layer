@@ -1,11 +1,10 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListLegalPersonProfileDto : IListItemEntityDto<LegalPersonProfile>
+    public sealed class ListLegalPersonProfileDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string Name { get; set; }

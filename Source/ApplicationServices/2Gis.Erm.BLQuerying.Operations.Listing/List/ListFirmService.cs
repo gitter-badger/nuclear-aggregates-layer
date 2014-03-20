@@ -6,27 +6,30 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListFirmService : ListEntityDtoServiceBase<Firm, ListFirmDto>
     {
+        private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListFirmService(
-            IQuerySettingsProvider querySettingsProvider,
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            FilterHelper filterHelper)
-            : base(querySettingsProvider)
+            FilterHelper filterHelper,
+            IUserContext userContext)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
             _filterHelper = filterHelper;
+            _userContext = userContext;
         }
 
         protected override IEnumerable<ListFirmDto> List(QuerySettings querySettings, out int count)
@@ -38,6 +41,35 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 query = _filterHelper.ForSubordinates(query);
             }
+
+            var myTerritoryFilter = querySettings.CreateForExtendedProperty<Firm, bool>("MyTerritory", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var myBranchFilter = querySettings.CreateForExtendedProperty<Firm, bool>("MyBranch", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var selfAdsOrdersFilter = querySettings.CreateForExtendedProperty<Firm, bool>("WithSelfAdsOrders", info =>
+            {
+                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == (int)OrderType.SelfAds);
+            });
+
+            var reserveFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForReserve", info =>
+            {
+                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
+                return x => x.OwnerCode == reserveId;
+            });
+
+            var myFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForMe", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
 
             var createdInCurrentMonthFilter = querySettings.CreateForExtendedProperty<Firm, bool>(
                 "CreatedInCurrentMonth",
@@ -65,8 +97,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .Filter(_filterHelper, clientFilter, createdInCurrentMonthFilter, organizationUnitFilter)
-                .DefaultFilter(_filterHelper, querySettings)
+                .Filter(_filterHelper,
+                    clientFilter,
+                    createdInCurrentMonthFilter,
+                    organizationUnitFilter,
+                    myTerritoryFilter,
+                    myBranchFilter,
+                    selfAdsOrdersFilter,
+                    reserveFilter,
+                    myFilter)
                 .Select(x => new ListFirmDto
                     {
                         Id = x.Id,
@@ -80,13 +119,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         TerritoryId = x.Territory != null ? x.Territory.Id : (long?)null,
                         TerritoryName = x.Territory != null ? x.Territory.Name : null,
 
-                        IsActive = x.IsActive,
                         PromisingScore = x.PromisingScore,
-                        ClosedForAscertainment = x.ClosedForAscertainment,
                         LastQualifyTime = x.LastQualifyTime,
                         LastDisqualifyTime = x.LastDisqualifyTime,
                         OrganizationUnitId = x.OrganizationUnit.Id,
                         OrganizationUnitName = x.OrganizationUnit.Name,
+
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
+                        ClosedForAscertainment = x.ClosedForAscertainment,
+                        OwnerName = null,
                     })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>

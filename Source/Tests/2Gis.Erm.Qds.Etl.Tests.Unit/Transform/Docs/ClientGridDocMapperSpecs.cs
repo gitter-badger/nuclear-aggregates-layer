@@ -170,7 +170,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.Docs
                         .Excluding(d => d.InformationSource));
 
                     _doc.Id.Should().Be(_client.Id);
-                    _doc.ReplicationCode.Should().Be(_client.ReplicationCode.ToString());
+                    _doc.ReplicationCode.Should().Be(_client.ReplicationCode);
                     _doc.InformationSource.Should().Be(_localizedInformationSource);
                 };
 

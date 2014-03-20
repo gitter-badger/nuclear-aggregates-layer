@@ -1,11 +1,11 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListContactDto : IListItemEntityDto<Contact>
+    public sealed class ListContactDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string FullName { get; set; }
@@ -21,6 +21,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string Owner { get; set; }
         public DateTime CreateDate { get; set; }
         public string WorkAddress { get; set; }
+        public AccountRole AccountRoleEnum { get; set; }
         public string AccountRole { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsFired { get; set; }
     }
 }

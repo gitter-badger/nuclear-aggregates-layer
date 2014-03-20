@@ -1,11 +1,11 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListLimitDto : IListItemEntityDto<Limit>
+    public sealed class ListLimitDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public long BranchOfficeId { get; set; }
@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime CreatedOn { get; set; }
         public DateTime? CloseDate { get; set; }
         public decimal Amount { get; set; }
+        public LimitStatus StatusEnum { get; set; }
         public string Status { get; set; }
         public string ClientName { get; set; }
         public long OwnerCode { get; set; }

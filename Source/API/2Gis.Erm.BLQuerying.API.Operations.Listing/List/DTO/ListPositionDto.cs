@@ -1,9 +1,8 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListPositionDto : IListItemEntityDto<Position>
+    public sealed class ListPositionDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -12,5 +11,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string CategoryName { get; set; }
         public int ExportCode { get; set; }
         public bool RestrictChildPositionPlatforms { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

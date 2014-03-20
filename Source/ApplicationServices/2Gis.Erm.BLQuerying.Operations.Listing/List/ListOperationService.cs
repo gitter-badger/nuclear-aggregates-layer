@@ -21,11 +21,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
-        public ListOperationService(IQuerySettingsProvider querySettingsProvider, 
+        public ListOperationService(
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -38,34 +37,30 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<Operation>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                            {
-                                x.Id,
-                                x.StartTime,
-                                x.FinishTime,
-                                x.Type,
-                                x.OrganizationUnitId,
-                                OrganizationUnitName = x.OrganizationUnit.Name,
-                                x.Status,
-                                x.OwnerCode,
-                                x.Description
-                            })
+                .Select(x => new ListOperationDto
+                {
+                    Id = x.Id,
+                    StartTime = x.StartTime,
+                    FinishTime = x.FinishTime,
+                    TypeEnum = (BusinessOperation)x.Type,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    StatusEnum = (OperationStatus)x.Status,
+                    OwnerCode = x.OwnerCode,
+                    Description = x.Description,
+                    Owner = null,
+                    Status = null,
+                    Type = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListOperationDto
-                            {
-                                Id = x.Id,
-                                StartTime = x.StartTime,
-                                FinishTime = x.FinishTime,
-                                Type = ((BusinessOperation)x.Type).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                OrganizationUnitId = x.OrganizationUnitId,
-                                OrganizationUnitName = x.OrganizationUnitName,
-                                Status = ((OperationStatus)x.Status).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                                OwnerCode = x.OwnerCode,
-                                Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                                Description = x.Description
-                            });
+                {
+                    x.Type = x.TypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+
+                    return x;
+                });
         }
     }
 }

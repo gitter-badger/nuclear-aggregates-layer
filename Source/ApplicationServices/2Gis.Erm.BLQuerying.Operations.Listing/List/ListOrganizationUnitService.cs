@@ -24,11 +24,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListOrganizationUnitService(
-            IQuerySettingsProvider querySettingsProvider,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userContext = userContext;
             _filterHelper = filterHelper;
@@ -132,7 +130,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 , branchesMovedToErmFilter
                 , movedToErmFilter
                 , singlePrimaryBranchOfficeFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListOrganizationUnitDto
                 {
                     Id = x.Id,
@@ -144,7 +141,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ReplicationCode = x.ReplicationCode,
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
-                    ErmLaunched = x.ErmLaunchDate != null
+                    ErmLaunched = x.ErmLaunchDate != null,
+                    ErmLaunchDate = x.ErmLaunchDate,
+                    InfoRussiaLaunchDate = x.InfoRussiaLaunchDate,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
          }

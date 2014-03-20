@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListDeniedPositionService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListDeniedPositionService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -37,12 +34,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper, positionIdFilter, priceIdFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListDeniedPositionDto
                 {
                     Id = x.Id,
                     PositionDeniedId = x.PositionDeniedId,
                     PositionDeniedName = x.PositionDenied.Name,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

@@ -75,6 +75,10 @@
       <Project>{6ee01928-8e79-4882-9410-9a6c5e266c1f}</Project>
       <Name>2Gis.Erm.Platform.Migration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7d920b28-ca75-4f54-8605-aa1e57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>

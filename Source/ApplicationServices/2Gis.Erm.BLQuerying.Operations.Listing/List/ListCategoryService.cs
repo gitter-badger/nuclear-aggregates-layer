@@ -16,9 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListCategoryService(
-            IQuerySettingsProvider querySettingsProvider,
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -122,14 +120,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 , organizationUnitIdFilter
                 , minLevelFilter
                 , levelFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListCategoryDto
                 {
                     Id = x.Id,
                     Name = x.Name,
                     ParentId = x.ParentId,
                     ParentName = x.ParentCategory != null ? x.ParentCategory.Name : null,
-                    Level = x.Level
+                    Level = x.Level,
+                    IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

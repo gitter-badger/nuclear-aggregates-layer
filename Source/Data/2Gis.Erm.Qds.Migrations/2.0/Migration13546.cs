@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Qds.Common.Extensions;
 using DoubleGis.Erm.Qds.Migrations.Base;
@@ -14,6 +15,8 @@ namespace DoubleGis.Erm.Qds.Migrations
     [Migration(13546, "Создание поисковой инфраструктуры", "m.pashuk")]
     public sealed class Migration13546 : ElasticSearchMigration
     {
+        static readonly ElasticResponseHandler _elasticResponseHandler = new ElasticResponseHandler();
+
         public override void Apply(IElasticSearchMigrationContext context)
         {
             TryCreateMetadataIndex(context);
@@ -46,7 +49,6 @@ namespace DoubleGis.Erm.Qds.Migrations
                 DateDetection = false,
                 NumericDetection = false,
                 AllFieldMapping = new AllFieldMapping().SetDisabled(),
-                IdFieldMapping = new IdFieldMapping().SetStored(true).SetPath("Id"),
                 TypeNameMarker = "ClientGridDoc".MakePlural().ToLowerInvariant(),
                 Properties = new Dictionary<string, IElasticType>
                 {
@@ -127,7 +129,7 @@ namespace DoubleGis.Erm.Qds.Migrations
                         }
                     },
                     {
-                        "Auth".ToCamelCase(), new ObjectMapping
+                        "Authorization".ToCamelCase(), new ObjectMapping
                         {
                             Dynamic = DynamicMappingOption.strict,
                             Properties = new Dictionary<string, IElasticType>
@@ -140,10 +142,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.ConnectionStatus.Success)
-            {
-                throw new InvalidOperationException();
-            }
+            _elasticResponseHandler.ThrowWhenError(response);
         }
 
         private static void TryCreateDataIndex(IElasticSearchMigrationContext context)
@@ -194,10 +193,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             });
 
             var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            if (!response.ConnectionStatus.Success)
-            {
-                throw new InvalidOperationException();
-            }
+            _elasticResponseHandler.ThrowWhenError(response);
         }
 
         private static void PutUserDocMapping(IElasticSearchMigrationContext context)
@@ -212,14 +208,13 @@ namespace DoubleGis.Erm.Qds.Migrations
                 AllFieldMapping = new AllFieldMapping().SetDisabled(),
 
                 TypeNameMarker = "UserDoc".MakePlural().ToLowerInvariant(),
-                IdFieldMapping = new IdFieldMapping().SetStored(true).SetPath("Id"),
                 Properties = new Dictionary<string, IElasticType>
                 {
                     { "Name".ToCamelCase(), new StringMapping { Index = FieldIndexOption.no } },
                     { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } },
                     { "Id".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
                     {
-                        "Auth".ToCamelCase(), new ObjectMapping
+                        "Authorization".ToCamelCase(), new ObjectMapping
                         {
                             Dynamic = DynamicMappingOption.strict,
                             Properties = new Dictionary<string, IElasticType>
@@ -232,10 +227,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.ConnectionStatus.Success)
-            {
-                throw new InvalidOperationException();
-            }
+            _elasticResponseHandler.ThrowWhenError(response);
         }
 
         private static void PutMigrationsMapping(IElasticSearchMigrationContext context)
@@ -253,10 +245,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            if (!response.ConnectionStatus.Success)
-            {
-                throw new InvalidOperationException();
-            }
+            _elasticResponseHandler.ThrowWhenError(response);
         }
 
         private static void TryCreateMetadataIndex(IElasticSearchMigrationContext context)
@@ -277,10 +266,7 @@ namespace DoubleGis.Erm.Qds.Migrations
             };
 
             var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            if (!response.ConnectionStatus.Success)
-            {
-                throw new InvalidOperationException();
-            }
+            _elasticResponseHandler.ThrowWhenError(response);
         }
     }
 }

@@ -22,11 +22,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListContactService(
-            IQuerySettingsProvider querySettingsProvider, 
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -38,32 +36,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Contact>();
 
-            return query
-            .DefaultFilter(_filterHelper, querySettings)
-            .Select(x => new
+            var myFilter = querySettings.CreateForExtendedProperty<Contact, bool>("ForMe", info =>
             {
-                x.Id,
-                x.FullName,
-                x.ClientId,
-                Client = x.Client.Name,
-                x.JobTitle,
-                x.MainPhoneNumber,
-                x.MobilePhoneNumber,
-                x.Website,
-                x.HomeEmail,
-                x.WorkEmail,
-                x.OwnerCode,
-                CreateDate = x.CreatedOn,
-                x.WorkAddress,
-                x.AccountRole
-            })
-            .QuerySettings(_filterHelper, querySettings, out count)
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+
+            return query
+            .Filter(_filterHelper, myFilter)
             .Select(x => new ListContactDto
             {
                 Id = x.Id,
                 FullName = x.FullName,
                 ClientId = x.ClientId,
-                Client = x.Client,
+                Client = x.Client.Name,
                 JobTitle = x.JobTitle,
                 MainPhoneNumber = x.MainPhoneNumber,
                 MobilePhoneNumber = x.MobilePhoneNumber,
@@ -71,10 +57,22 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 HomeEmail = x.HomeEmail,
                 WorkEmail = x.WorkEmail,
                 OwnerCode = x.OwnerCode,
-                Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                CreateDate = x.CreateDate,
+                CreateDate = x.CreatedOn,
                 WorkAddress = x.WorkAddress,
-                AccountRole = ((AccountRole)x.AccountRole).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo)
+                AccountRoleEnum = (AccountRole)x.AccountRole,
+                IsActive = x.IsActive,
+                IsDeleted = x.IsDeleted,
+                IsFired = x.IsFired,
+                AccountRole = null,
+                Owner = null,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x =>
+            {
+                x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                x.AccountRole = x.AccountRoleEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+
+                return x;
             });
         }
     }

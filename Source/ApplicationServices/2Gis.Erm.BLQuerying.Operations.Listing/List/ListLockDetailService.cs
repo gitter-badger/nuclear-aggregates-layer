@@ -16,9 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListLockDetailService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -30,23 +28,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    CreateDate = x.CreatedOn,
-                    x.Amount,
-                    x.Description,
-                    x.LockId,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListLockDetailDto
                 {
-                    Id = x.Id, 
-                    CreateDate = x.CreateDate, 
-                    Amount = x.Amount, 
-                    Description = HttpUtility.HtmlEncode(x.Description), 
+                    Id= x.Id,
+                    CreateDate = x.CreatedOn,
+                    Amount = x.Amount,
+                    Description = x.Description,
                     LockId = x.LockId,
+                    IsActive = x.IsActive,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.Description = HttpUtility.HtmlEncode(x.Description);
+                    return x;
                 });
         }
     }

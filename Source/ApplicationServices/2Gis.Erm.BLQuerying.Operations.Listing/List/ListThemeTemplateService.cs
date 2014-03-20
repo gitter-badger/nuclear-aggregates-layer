@@ -21,10 +21,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListThemeTemplateService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -37,19 +35,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(Specs.Find.ActiveAndNotDeleted<ThemeTemplate>())
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.TemplateCode,
-                    x.File.FileName
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x => new ListThemeTemplateDto
                 {
                     Id = x.Id,
-                    TemplateCode = ((ThemeTemplateCode)x.TemplateCode).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                    FileName = x.FileName
+                    TemplateCodeEnum = (ThemeTemplateCode)x.TemplateCode,
+                    FileName = x.File.FileName,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                    TemplateCode = null,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    return x;
                 });
         }
     }

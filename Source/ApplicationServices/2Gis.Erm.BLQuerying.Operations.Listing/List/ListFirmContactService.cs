@@ -23,11 +23,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListFirmContactService(
-            IQuerySettingsProvider querySettingsProvider,
             IFinder finder,
             IUserContext userContext,
             IFirmRepository firmRepository, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -48,23 +46,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
 
             var data = query
-            .DefaultFilter(_filterHelper, querySettings)
-            .Select(x => new
-            {
-                x.Id,
-                x.ContactType,
-                x.Contact,
-                x.CardId,
-                x.FirmAddressId,
-            })
-            .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListFirmContactDto
             {
                 Id = x.Id,
-                ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                ContactTypeEnum = (FirmAddressContactType)x.ContactType,
                 Contact = x.Contact,
                 CardId = x.CardId,
                 FirmAddressId = x.FirmAddressId,
+                ContactType = null,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x =>
+            {
+                x.ContactType = x.ContactTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                return x;
             });
 
             return data;
