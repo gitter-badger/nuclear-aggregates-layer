@@ -70,7 +70,7 @@
     <Compile Include="Chile\Concrete\Old\Orders\Number\ChileGenerateOrderNumberHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
-    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintLetterOfGuaranteeHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Chile\Generic\Activate\ChileActivateLegalPersonService.cs" />
@@ -80,6 +80,12 @@
     <Compile Include="Chile\Generic\Get\ChileGetCommuneDtoService.cs" />
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonProfileDtoService.cs" />
     <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
+    <Compile Include="Chile\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Cyprus\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Cyprus\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="Czech\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Czech\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="IOrderPrintFormReadModel.cs" />
     <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
     <Compile Include="Chile\Generic\List\ChileListOrderService.cs" />
     <Compile Include="Chile\Generic\List\ListBankService.cs" />
@@ -87,6 +93,9 @@
     <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBankObtainer.cs" />
     <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonObtainer.cs" />
     <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
+    <Compile Include="Chile\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="OrderRelationsDto.cs" />
+    <Compile Include="OrderPrintFormReadModel.cs" />
     <Compile Include="MultiCulture\Concrete\ModifyLegalPersonProfileService.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
@@ -96,6 +105,9 @@
     <Compile Include="MultiCulture\Generic\Get\IOrderReferencesReadModel.cs" />
     <Compile Include="MultiCulture\Generic\Get\OrderReferencesReadModel.cs" />
     <Compile Include="Shared\CzechFormatterFactory.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintRegionalOrderHandler.cs" />
+    <Compile Include="Russia\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\OrderPrintFormDataExtractor.cs" />
     <Compile Include="Shared\ChileFormatterFactory.cs" />
     <Compile Include="Shared\Consistency\ChileLegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\ConsistencyRule.cs" />
@@ -129,7 +141,6 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\Number\CyprusGenerateOrderNumberHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
-    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
     <Compile Include="Cyprus\Generic\Get\CyprusGetLegalPersonDtoService.cs" />
@@ -158,7 +169,6 @@
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandler.cs" />
-    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Czech\Generic\Activate\CzechActivateLegalPersonService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonDtoService.cs" />
     <Compile Include="Czech\Generic\Get\CzechGetLegalPersonProfileDtoService.cs" />
@@ -201,6 +211,7 @@
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
+    <Compile Include="Shared\PrintOrderHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">

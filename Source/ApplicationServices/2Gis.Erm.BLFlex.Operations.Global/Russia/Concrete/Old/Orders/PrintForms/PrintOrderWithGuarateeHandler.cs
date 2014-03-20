@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -31,7 +30,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             {
                 OrderId = request.OrderId,
                 LegalPersonProfileId = request.LegalPersonProfileId,
-                PrintRegionalVersion = request.PrintRegionalVersion
             };
 
             var letterRequest = new PrintLetterOfGuaranteeRequest
