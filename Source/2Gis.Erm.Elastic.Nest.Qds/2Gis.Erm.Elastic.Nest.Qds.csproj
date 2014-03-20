@@ -70,6 +70,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
