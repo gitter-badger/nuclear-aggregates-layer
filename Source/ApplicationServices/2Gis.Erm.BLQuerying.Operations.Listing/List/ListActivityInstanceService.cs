@@ -36,8 +36,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListActivityInstanceDto> List(QuerySettings querySettings,
-                                                                    out int count)
+        protected override IEnumerable<ListActivityInstanceDto> List(QuerySettings querySettings, out int count)
         {
             var query = _finder.FindAll<ActivityInstance>();
 
@@ -73,20 +72,44 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 ActualEnd = x.ActivityPropertyInstances.Where(y => y.PropertyId == ActualEndIdentity.Instance.Id).Select(y => y.DateTimeValue).FirstOrDefault()
             });
 
-            var beginDay = DateTime.Today;
-            var endDay = beginDay.AddDays(1).AddMilliseconds(-1);
 
-            var forTodayFilter = CreateForExtendedProperty(query2, "ForToday", querySettings, x => (x.ScheduledStart >= beginDay && x.ScheduledStart <= endDay) || (x.ScheduledEnd >= beginDay && x.ScheduledEnd <= endDay));
+            var forTodayFilter = CreateForExtendedProperty(query2, "ForToday", querySettings, forToday =>
+            {
+                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
 
-            var userId = _userContext.Identity.Code;
-            var forMeFilter = CreateForExtendedProperty(query2, "ForMe", querySettings, x => x.OwnerCode == userId);
+                return
+                    x =>
+                    userDateTimeTodayUtc <= x.ScheduledStart && x.ScheduledStart < userDateTimeTomorrowUtc ||
+                    userDateTimeTodayUtc <= x.ScheduledEnd && x.ScheduledEnd < userDateTimeTomorrowUtc;
+            });
+
+            var forMeFilter = CreateForExtendedProperty(query2, "ForMe", querySettings, forMe =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+
+            var expiredFilter = CreateForExtendedProperty(query2, "Expired", querySettings, expired =>
+            {
+                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+
+                if (expired)
+                {
+                    return x => x.ScheduledEnd < userDateTimeTodayUtc;
+                }
+
+                return x => x.ScheduledEnd >= userDateTimeTodayUtc;
+            });
 
             var result = query2
-                .Filter(_filterHelper, forTodayFilter, forMeFilter)
+                .Filter(_filterHelper, forTodayFilter, forMeFilter, expiredFilter)
                 .Select(x => new ListActivityInstanceDto
                 {
                     Id = x.Id,
-                    Type = (ActivityType)x.ActivityType,
+                    ActivityTypeEnum = (ActivityType)x.ActivityType,
                     OwnerCode = x.OwnerCode,
                     Header = x.Header,
                     ScheduledStart = x.ScheduledStart.Value,
@@ -101,7 +124,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmId = x.FirmId,
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
-                    TaskType = (ActivityTaskType)(int)x.TaskType,
+                    TaskType = x.TaskType == null ? ActivityTaskType.NotSet : (ActivityTaskType)(int)x.TaskType.Value,
                     OwnerName = null,
                     ActivityType = null,
                     AfterSaleServiceType = null,
@@ -111,7 +134,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                 {
-                    x.ActivityType = x.Type.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.Priority = x.PriorityEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -123,18 +146,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return result;
         }
 
-        private static Expression<Func<T, bool>> CreateForExtendedProperty<T>(IQueryable<T> query, string key, QuerySettings querySettings, Expression<Func<T, bool>> expression)
+        private static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity>(IQueryable<TEntity> query, string key, QuerySettings querySettings, Func<bool, Expression<Func<TEntity, bool>>> action)
         {
-            return querySettings.CreateForExtendedProperty<T, bool>(key,
-                forToday =>
-                {
-                    if (!forToday)
-                    {
-                        return null;
-                    }
-
-                    return expression;
-                });
+            return querySettings.CreateForExtendedProperty(key, action);
         }
     }
 }

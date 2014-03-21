@@ -99,9 +99,30 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
             var documentType = typeof(TDocument);
 
-            var propertyInfo = !string.IsNullOrEmpty(querySettings.SortOrder)
-                               ? documentType.GetProperty(querySettings.SortOrder)
-                               : documentType.GetProperty("Id");
+            PropertyInfo propertyInfo;
+            if (!string.IsNullOrEmpty(querySettings.SortOrder))
+            {
+                // хак для сортировки по имени пользователя
+                if (string.Equals(querySettings.SortOrder, "OwnerName"))
+                {
+                    querySettings.SortOrder = "OwnerCode";
+                }
+
+                // хак для сортировки по enum
+                var sortOrderEnum = querySettings.SortOrder + "Enum";
+                if (documentType.GetProperty(sortOrderEnum) != null)
+                {
+                    propertyInfo = documentType.GetProperty(sortOrderEnum);
+                }
+                else
+                {
+                    propertyInfo = documentType.GetProperty(querySettings.SortOrder);
+                }
+            }
+            else
+            {
+                propertyInfo = documentType.GetProperty("Id");
+            }
             if (propertyInfo == null)
             {
                 throw new ArgumentException(string.Format("Для типа {0} не определены сортировочные поля", documentType.Name));
