@@ -154,7 +154,7 @@
     <value>Abril</value>
   </data>
   <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
-    <value>¿Desea eliminar el acuerdo?</value>
+    <value>¿Desea eliminar el contrato?</value>
   </data>
   <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
     <value>Se debe seleccionar al menos un enlace con el objeto</value>
@@ -337,7 +337,7 @@
     <value>Descargando...</value>
   </data>
   <data name="Information" xml:space="preserve">
-    <value>Datos</value>
+    <value>Información</value>
   </data>
   <data name="InsertOrderedListText" xml:space="preserve">
     <value>Iniciar lista numerada.</value>
@@ -652,7 +652,7 @@
     <value>Sí</value>
   </data>
   <data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
-    <value>El acuerdo actual está obsoleto, para hacer una orden con arreglo al acuerdo se debe crear un nuevo acuerdo</value>
+    <value>El contrato actual está obsoleto, para hacer una orden con arreglo al contrato se debe crear un contrato nuevo</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
     <value>Se muestra el motivo de la transacción Cliente interesado, ya que para dicho cliente existe la tarea "{0}", cerrada {1} con el tipo Cliente interesado</value>
@@ -685,13 +685,13 @@
     <value>El valor no puede estar vacío</value>
   </data>
   <data name="MergeLegalPersonsAlert" xml:space="preserve">
-    <value>¡Atención! Después de la operación de fusión en el sistema seguirá sólo la Persona jurídica principal del cliente, la Persona jurídica adicional del cliente se ocultará. ¡La operación no podrá ser cancelada!</value>
+    <value>¡Atencion!  Despues de la finalizacion  de la funcion de fichas,  en  el  sistema  estara disponible solamente la persona juridica principal del cliente, la persona juridica adicional  del cliente sera  oculta y  la operación  no podra ser anulada.</value>
   </data>
   <data name="MergeLegalPersonsSucceded" xml:space="preserve">
     <value>La operación de fusión se ha completado con éxito</value>
   </data>
   <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
-    <value>¡Atención! ¡Está intentando tomar de la reserva a un Cliente con débitos!</value>
+    <value>¡Atención! ¡Está intentando tomar de la reserva a un Cliente con deudas!</value>
   </data>
   <data name="CheckClientsDebtsFailed" xml:space="preserve">
     <value>No se han podido verificar las deudas de clientes seleccionados. Tal vez algunos clientes seleccionados tienen deudas.</value>
@@ -730,7 +730,7 @@
     <value>Este perfil ya es el principal</value>
   </data>
   <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
-    <value>Para la preparación de documentos para publicar es necesario especificar la Persona jurídica del contratante</value>
+    <value>Para la preparación de los documentos para publicar es necesario especificar la Persona jurídica del contratante</value>
   </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Para la preparación de documentos para publicar es necesario guardar la orden</value>
@@ -820,13 +820,13 @@
     <value>Añadir categoría</value>
   </data>
   <data name="BargainCreationIsInProgress" xml:space="preserve">
-    <value>Procesando la creación del acuerdo. Por favor, espere...</value>
+    <value>Procesando la creación del contrato. Por favor, espere...</value>
   </data>
   <data name="BargainCreation" xml:space="preserve">
-    <value>Crear un acuerdo</value>
+    <value>Creando contrato</value>
   </data>
   <data name="BargainIsCreated" xml:space="preserve">
-    <value>El acuerdo se ha creado {entity}</value>
+    <value>El contrato se ha creado {entity}</value>
   </data>
   <data name="ApplicationError" xml:space="preserve">
     <value>Error del programa</value>
