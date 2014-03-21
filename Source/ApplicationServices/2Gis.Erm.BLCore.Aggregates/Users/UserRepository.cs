@@ -17,7 +17,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -548,15 +547,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
         {
-            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted).Select(
-                x => new CategoryGroupMembershipDto
-                {
-                    Id = x.Id,
-                    CategoryGroupId = x.CategoryGroupId,
-                    CategoryId = x.CategoryId,
-                    CategoryName = x.Category.Name,
-                    CategoryLevel = x.Category.Level
-                }).ToArray();
+            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted
+                                                               && x.Category.IsActive && !x.Category.IsDeleted)
+                          .Select(x => new CategoryGroupMembershipDto
+                              {
+                                  Id = x.Id,
+                                  CategoryGroupId = x.CategoryGroupId,
+                                  CategoryId = x.CategoryId,
+                                  CategoryName = x.Category.Name,
+                                  CategoryLevel = x.Category.Level
+                              }).ToArray();
         }
 
         public void CreateOrUpdate(UserRole userRole)
