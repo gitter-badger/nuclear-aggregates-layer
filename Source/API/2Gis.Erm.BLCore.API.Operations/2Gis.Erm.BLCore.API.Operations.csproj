@@ -86,6 +86,7 @@
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\OrderPositionAdvertisementValidationError.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
-    <Compile Include="Generic\List\IListItemEntityDto.cs" />
     <Compile Include="Generic\List\ListResult.cs" />
     <Compile Include="Generic\List\ListResultType.cs" />
     <Compile Include="Generic\List\SearchListModel.cs" />

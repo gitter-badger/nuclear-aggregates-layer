@@ -36,6 +36,12 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// Проверка заказов на готовность к сборке с проверкой на деньги.
         /// </summary>
         [EnumMember]
-        ManualReportWithAccountsCheck = 16
+        ManualReportWithAccountsCheck = 16,
+        
+        /// <summary>
+        /// Проверка конкретного заказа при смене статуса
+        /// </summary>
+        [EnumMember]
+        SingleOrderOnStateChanging = 32
     }
 }

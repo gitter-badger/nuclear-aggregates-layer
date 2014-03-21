@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.OrderValidation.AssociatedAndDeniedPositions;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -23,19 +24,66 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _subRequestProcessor = subRequestProcessor;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        protected override void ValidateInternal(ValidateOrdersRequest request,
+                                                 Expression<Func<Order, bool>> filterPredicate,
+                                                 IEnumerable<long> invalidOrderIds,
+                                                 IList<OrderValidationMessage> messages)
         {
-            // ReSharper disable PossibleInvalidOperationException
-            var checkRequest = request.Type == ValidationType.SingleOrderOnRegistration
-                                  ? CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequest(request.OrderId.Value) // Для единичной проверки определен id заказа
-                                  : CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForMassiveCheck(filterPredicate); // Для массовой проверки определено отделение организации
-            // ReSharper restore PossibleInvalidOperationException
-            var response = (ValidateOrdersResponse)_subRequestProcessor.HandleSubRequest(checkRequest, null);
+            CheckOrdersAssociatedAndDeniedPositionsRequest checkRequest;
+            switch (request.Type)
+            {
+                // Для единичной проверки определен id заказа
+                case ValidationType.SingleOrderOnRegistration:
+                    checkRequest = CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequest(request.OrderId.Value);
+                    break;
 
-            foreach (var message in response.Messages)
+                // Для единичной проверки определен id заказа
+                case ValidationType.SingleOrderOnStateChanging:
+                    checkRequest = CreateSingleCheckRequest(request.OrderId.Value, request.CurrentOrderState, request.NewOrderState);
+                    break;
+
+                // Для массовой проверки определено отделение организации
+                default:
+                    checkRequest = CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForMassiveCheck(filterPredicate);
+                    break;
+            }
+
+            if (checkRequest == null)
+            {
+                return;
+            }
+
+            var checkResponse = (ValidateOrdersResponse)_subRequestProcessor.HandleSubRequest(checkRequest, null);
+
+            foreach (var message in checkResponse.Messages)
             {
                 messages.Add(message);
             }
+        }
+
+        private static CheckOrdersAssociatedAndDeniedPositionsRequest CreateSingleCheckRequest(long orderId, OrderState previousState, OrderState newState)
+        {
+            if (newState == OrderState.OnRegistration && (previousState == OrderState.OnApproval || previousState == OrderState.Approved))
+            {
+                return CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForOrderBeingCancelled(orderId);
+            }
+
+            if (newState == OrderState.OnTermination && previousState == OrderState.Approved)
+            {
+                return CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForOrderBeingCancelled(orderId);
+            }
+
+            if (newState == OrderState.Rejected && previousState == OrderState.OnApproval)
+            {
+                return CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForOrderBeingCancelled(orderId);
+            }
+
+            if (newState == OrderState.Approved && previousState == OrderState.OnTermination)
+            {
+                return CheckOrdersAssociatedAndDeniedPositionsRequest.CreateRequestForOrderbeingReapproved(orderId);
+            }
+
+            return null;
         }
     }
 }

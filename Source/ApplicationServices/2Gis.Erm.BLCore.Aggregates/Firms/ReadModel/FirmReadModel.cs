@@ -4,6 +4,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO.FirmInfo;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
@@ -51,6 +53,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                       }
                               })
                           .ToDictionary(x => x.CrmId, x => x.Dto);
+        }
+
+        public bool HasFirmClient(long firmId)
+        {
+            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.ClientId != null).Single();
         }
     }
 }

@@ -17,7 +17,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -548,15 +547,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
         {
-            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted).Select(
-                x => new CategoryGroupMembershipDto
-                {
-                    Id = x.Id,
-                    CategoryGroupId = x.CategoryGroupId,
-                    CategoryId = x.CategoryId,
-                    CategoryName = x.Category.Name,
-                    CategoryLevel = x.Category.Level
-                }).ToArray();
+            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted
+                                                               && x.Category.IsActive && !x.Category.IsDeleted)
+                          .Select(x => new CategoryGroupMembershipDto
+                              {
+                                  Id = x.Id,
+                                  CategoryGroupId = x.CategoryGroupId,
+                                  CategoryId = x.CategoryId,
+                                  CategoryName = x.Category.Name,
+                                  CategoryLevel = x.Category.Level
+                              }).ToArray();
         }
 
         public void CreateOrUpdate(UserRole userRole)
@@ -630,23 +630,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 throw new ArgumentException(BLResources.UserAlreadyExists);
             }
 
-            if (user.IsNew())
+            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(user))
             {
-                _userGenericRepository.Add(user);
-            }
-            else
-            {
-                // проверка руководителя
-                if (user.ParentId != null)
+                if (user.IsNew())
                 {
-                    var recursion = _userPersistenceService.CheckUserParentnessRecursion(user.Id, user.ParentId.Value);
-                    if (recursion > 0)
+                    _userGenericRepository.Add(user);
+                    scope.Added<User>(user.Id);
+                }
+                else
+                {
+                    // проверка руководителя
+                    if (user.ParentId != null)
                     {
-                        throw new ArgumentException(BLResources.UserParentnessRecursionError);
+                        var recursion = _userPersistenceService.CheckUserParentnessRecursion(user.Id, user.ParentId.Value);
+                        if (recursion > 0)
+                        {
+                            throw new ArgumentException(BLResources.UserParentnessRecursionError);
+                        }
                     }
+
+                    _userGenericRepository.Update(user);
+                    scope.Updated<User>(user.Id);
                 }
 
-                _userGenericRepository.Update(user);
+                scope.Complete();
             }
 
             _userGenericRepository.Save();
@@ -872,13 +879,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(Territory territory)
         {
-            if (territory.IsNew())
+
+            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(territory))
             {
-                _territoryGenericRepository.Add(territory);
-            }
-            else
-            {
-                _territoryGenericRepository.Update(territory);
+                if (territory.IsNew())
+                {
+                    _territoryGenericRepository.Add(territory);
+                    scope.Added<Territory>(territory.Id);
+                }
+                else
+                {
+                    _territoryGenericRepository.Update(territory);
+                    scope.Updated<Territory>(territory.Id);
+                }
+
+                scope.Complete();
             }
 
             _territoryGenericRepository.Save();

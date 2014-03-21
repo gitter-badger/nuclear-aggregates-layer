@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     _orderValidationRule = new AdvertisementTextFormattingOrderValidationRule(FinderMock.Object);
                 };
 
-            Because of = () => Messages = _orderValidationRule.Validate(new ValidateOrdersRequest(), new OrderValidationPredicate(null, null, null));
+            Because of = () => Messages = _orderValidationRule.Validate(new OrderValidationPredicate(null, null, null), null, new ValidateOrdersRequest());
 
             protected static Mock<IFinder> FinderMock { get; private set; }
             protected static IReadOnlyList<OrderValidationMessage> Messages { get; private set; }

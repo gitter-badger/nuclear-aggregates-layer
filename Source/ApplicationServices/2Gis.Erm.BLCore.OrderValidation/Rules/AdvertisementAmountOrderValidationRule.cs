@@ -29,9 +29,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _logger = logger;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request,
-                                                 Expression<Func<Order, bool>> filterPredicate,
-                                                 IList<OrderValidationMessage> messages)
+        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             long organizationUnitId;
             long actualPriceId;
@@ -233,8 +231,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     var invalidOrderPositionsAmount = !IsCheckMassive
                                                           ? 0
-                                                          : advertisementDistributioins[key].Count(
-                                                              x => request.InvalidOrderIds != null && request.InvalidOrderIds.Contains(x.OrderId));
+                                                          : advertisementDistributioins[key].Count(x => invalidOrderIds != null && invalidOrderIds.Contains(x.OrderId));
                     var totalOrderPositionsAmount = advertisementDistributioins[key].Count;
                     var validOrderPositionsAmount = totalOrderPositionsAmount - invalidOrderPositionsAmount;
 

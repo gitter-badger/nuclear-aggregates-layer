@@ -19,18 +19,15 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IOrderValidationService _orderValidationService;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
-        private readonly IOrderValidationOnStateChangeService _orderValidationOnStateChangeService;
 
         public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
                                                  IUserContext userContext,
-                                                 IOrderValidationOnStateChangeService orderValidationOnStateChangeService,
                                                  IOrderValidationService orderValidationService,
                                                  IOrderValidationPredicateFactory orderValidationPredicateFactory)
         {
             _businessModelSettings = businessModelSettings;
             _orderValidationService = orderValidationService;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
-            _orderValidationOnStateChangeService = orderValidationOnStateChangeService;
 
             BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
             MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
@@ -48,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
             return ValidateSingleOrder(orderId);
         }
 
-        public ValidateOrdersResult ValidateOnStateChangeSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
+        public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
         {
             long orderId;
             if (!long.TryParse(specifiedOrderId, out orderId))
@@ -67,40 +64,12 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 throw new WebFaultException<ArgumentException>(new ArgumentException(string.Format("Unrecognized Order State: {0}", newOrderState)), HttpStatusCode.BadRequest);
             }
 
-            return ValidateOnStateChangeSingleOrder(orderId, (OrderState)newOrderState);
+            return ValidateSingleOrder(orderId, (OrderState)newOrderState);
         }
 
         public ValidateOrdersResult ValidateSingleOrder(long orderId)
         {
-            OrderState orderState;
-            TimePeriod period;
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(orderId, out orderState, out period);
-            var validateOrdersRequest = new ValidateOrdersRequest
-                {
-                    Type = ValidationType.SingleOrderOnRegistration,
-                    OrderId = orderId,
-                    OrderState = orderState,
-                    Period = period,
-                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-                };
-            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
-        }
-
-        public ValidateOrdersResult ValidateOnStateChangeSingleOrder(long orderId, OrderState newOrderState)
-        {
-            OrderState orderState;
-            TimePeriod period;
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(orderId, out orderState, out period);
-            var validateOrdersRequest = new ValidateOrdersRequest
-            {
-                Type = ValidationType.SingleOrderOnRegistration,
-                OrderId = orderId,
-                OrderState = orderState,
-                Period = period,
-                SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-            };
-
-            return _orderValidationOnStateChangeService.Validate(orderId, newOrderState, orderValidationPredicate, validateOrdersRequest);
+            return ValidateSingleOrder(orderId, null);
         }
 
         public ValidateOrdersResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
@@ -115,6 +84,26 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                     IncludeOwnerDescendants = includeOwnerDescendants,
                     SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
                 };
+            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
+        }
+
+        private ValidateOrdersResult ValidateSingleOrder(long orderId, OrderState? newOrderState)
+        {
+            OrderState currentOrderState;
+            TimePeriod period;
+            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(orderId, out currentOrderState, out period);
+            var validateOrdersRequest = new ValidateOrdersRequest
+                {
+                    Type = newOrderState == null || currentOrderState == OrderState.OnRegistration
+                               ? ValidationType.SingleOrderOnRegistration
+                               : ValidationType.SingleOrderOnStateChanging,
+                    OrderId = orderId,
+                    CurrentOrderState = currentOrderState,
+                    NewOrderState = newOrderState == null ? OrderState.NotSet : newOrderState.Value,
+                    Period = period,
+                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
+                };
+
             return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
         }
     }

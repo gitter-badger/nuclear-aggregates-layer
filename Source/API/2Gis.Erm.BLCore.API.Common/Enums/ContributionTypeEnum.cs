@@ -2,6 +2,7 @@
 {
     public enum ContributionTypeEnum
     {
+        NotSet = 0,
         Branch = 1,
         Franchisees = 2
     }
