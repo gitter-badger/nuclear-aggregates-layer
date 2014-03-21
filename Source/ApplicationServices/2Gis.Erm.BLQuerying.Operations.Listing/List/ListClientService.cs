@@ -108,6 +108,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.OwnerCode == userId;
             });
 
+            var todayFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForToday", info =>
+            {
+                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
+
+                return x => userDateTimeTodayUtc <= x.CreatedOn && x.CreatedOn < userDateTimeTomorrowUtc;
+            });
+
             query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter, reserveFilter, myFilter);
 
             IEnumerable<ListClientDto> clients;
@@ -175,7 +184,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
-                    , firmFilter)
+                    , firmFilter
+                    , todayFilter)
                     , querySettings, out count);
         }
 

@@ -30,12 +30,16 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListActivitiesInProgressForSubordinates", "ForSubordinates=true" },
             // Мои запланированные действия на сегодня
             {"DListMyActivitiesInProgressForToday", "ForToday=true;ForMe=true" },
+            // Действия по теплым клиентам
+            {"DListActivitiesForWarmClients", "Expired=false" },
+            // Просроченные действия по теплым клиентам
+            {"DListOverdueActivitiesForWarmClients", "Expired=true" },
             // Мои договоры
             {"DListMyBargains", "ForMe=true" },
             // Мои клиенты
             {"DListMyClients", "ForMe=true" },
             // Мои клиенты, созданные сегодня
-            {"DListMyClientsCreatedToday", "ForMe=true" },
+            {"DListMyClientsCreatedToday", "ForToday=true;ForMe=true" },
             // Клиенты на моей территории
             {"DListClientsOnMyTerritory", "MyTerritory=true" },
             // Мои клиенты с дебиторской задолженностью

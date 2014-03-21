@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
     public static class DefaultFilterMetadata
     {
         private static readonly Dictionary<Tuple<Type, string>, Expression> FilterMap = new Dictionary<Tuple<Type, string>, Expression>()
+
             .RegisterFilter<ListAccountDto>("DListAccounts", x => x.IsActive && !x.IsDeleted)
             // Мои лицевые счета с отрицательным балансом
             .RegisterFilter<ListAccountDto>("DListMyAccountsWithNegativeBalance", x => x.IsActive && !x.IsDeleted && x.Balance < 0)
@@ -46,9 +47,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои запланированные действия на сегодня
             .RegisterFilter<ListActivityInstanceDto>("DListMyActivitiesInProgressForToday", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient && x.ScheduledEnd >= DateTime.Today)
+            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
             // Просроченные действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient && x.ScheduledEnd < DateTime.Today)
+            .RegisterFilter<ListActivityInstanceDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
 
             .RegisterFilter<ListAdditionalFirmServiceDto>("AdditionalFirmServices", x => true)
 
@@ -103,7 +104,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои клиенты
             .RegisterFilter<ListClientDto>("DListMyClients", x => x.IsActive && !x.IsDeleted)
             // Мои клиенты, созданные сегодня
-            .RegisterFilter<ListClientDto>("DListMyClientsCreatedToday", x => x.IsActive && !x.IsDeleted && x.CreatedOn == DateTime.Today)
+            .RegisterFilter<ListClientDto>("DListMyClientsCreatedToday", x => x.IsActive && !x.IsDeleted)
             // Клиенты на моей территории
             .RegisterFilter<ListClientDto>("DListClientsOnMyTerritory", x => x.IsActive && !x.IsDeleted)
             // Мои клиенты с дебиторской задолженностью
