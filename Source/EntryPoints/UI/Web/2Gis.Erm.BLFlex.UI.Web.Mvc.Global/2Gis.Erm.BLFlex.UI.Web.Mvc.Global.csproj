@@ -209,6 +209,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeImportEnumCustomization.cs" />

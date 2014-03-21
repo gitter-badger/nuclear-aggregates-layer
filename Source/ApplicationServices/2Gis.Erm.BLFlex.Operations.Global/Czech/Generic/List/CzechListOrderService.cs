@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Orders.DTO;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -21,50 +20,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
 {
     public sealed class CzechListOrderService : ListEntityDtoServiceBase<Order, CzechListOrderDto>, ICzechAdapted
     {
-        private static readonly Func<CzechOrderGridViewDto, ISecurityServiceUserIdentifier, IUserContext, CzechListOrderDto> ListDataSelectFunc =
-            (order, userIdentifierService, userContext) =>
-            new CzechListOrderDto
-            {
-                Id = order.Id,
-                OrderNumber = order.OrderNumber,
-                CreatedOn = order.CreatedOn,
-                FirmId = order.FirmId,
-                FirmName = order.FirmName,
-                ClientId = order.ClientId,
-                ClientName = order.ClientName,
-                DestOrganizationUnitId = order.DestOrganizationUnitId,
-                DestOrganizationUnitName = order.DestOrganizationUnitName,
-                SourceOrganizationUnitId = order.SourceOrganizationUnitId,
-                SourceOrganizationUnitName = order.SourceOrganizationUnitName,
-                BeginDistributionDate = order.BeginDistributionDate,
-                EndDistributionDatePlan = order.EndDistributionDatePlan,
-                LegalPersonId = order.LegalPersonId,
-                LegalPersonName = order.LegalPersonName,
-                BargainId = order.BargainId,
-                BargainNumber = order.BargainNumber,
-                PaymentMethod = ((PaymentMethod)order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                OwnerCode = order.OwnerCode,
-                OwnerName = userIdentifierService.GetUserInfo(order.OwnerCode).DisplayName,
-                WorkflowStep = ((OrderState)order.WorkflowStepId).ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                PayablePlan = order.PayablePlan,
-                PayableFact = order.PayableFact,
-                AmountWithdrawn = order.AmountWithdrawn,
-                ModifiedOn = order.ModifiedOn,
-                OrderType = ((OrderType)order.OrderType).ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                DiscountPercent = order.DiscountPercent
-            };
+        private static readonly Func<CzechListOrderDto, ISecurityServiceUserIdentifier, IUserContext, CzechListOrderDto> ListDataSelectFunc = (x, userIdentifierService, userContext) =>
+        {
+            x.PaymentMethod = x.PaymentMethodEnum.ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            x.WorkflowStep = x.WorkflowStepEnum.ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            x.OrderType = x.OrderTypeEnum.ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            x.OwnerName = userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+            return x;
+        };
 
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
-        public CzechListOrderService(IQuerySettingsProvider querySettingsProvider,
-                                      ISecurityServiceUserIdentifier userIdentifierService,
+        public CzechListOrderService(ISecurityServiceUserIdentifier userIdentifierService,
                                       IFinder finder,
                                       IUserContext userContext,
                                       FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -83,6 +56,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
             }
 
             var selectExpression = OrderSpecifications.Select.OrdersForCzechGridView().Selector;
+
+            var myFilter = querySettings.CreateForExtendedProperty<Order, bool>("ForMe", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+
+            var myInspectionFilter = querySettings.CreateForExtendedProperty<Order, bool>("MyInspection", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.InspectorCode == userId;
+            });
 
             var dummyAdvertisementsFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "WithDummyValues",
@@ -229,8 +214,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                         , withoutAdvertisementFilter
                         , rejectedByMeFilter
                         , useCurrentMonthForEndDistributionDateFactFilter
-                        , dummyAdvertisementsFilter)
-                        .DefaultFilter(_filterHelper, querySettings)
+                        , dummyAdvertisementsFilter
+                        , myFilter
+                        , myInspectionFilter)
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)
@@ -244,8 +230,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                         , withoutAdvertisementFilter
                         , rejectedByMeFilter
                         , useCurrentMonthForEndDistributionDateFactFilter
-                        , dummyAdvertisementsFilter)
-                        .DefaultFilter(_filterHelper, querySettings)
+                        , dummyAdvertisementsFilter
+                        , myFilter
+                        , myInspectionFilter)
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)
@@ -259,8 +246,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                         , withoutAdvertisementFilter
                         , rejectedByMeFilter
                         , useCurrentMonthForEndDistributionDateFactFilter
-                        , dummyAdvertisementsFilter)
-                        .DefaultFilter(_filterHelper, querySettings)
+                        , dummyAdvertisementsFilter
+                        , myFilter
+                        , myInspectionFilter)
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)
@@ -274,8 +262,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                         , withoutAdvertisementFilter
                         , rejectedByMeFilter
                         , useCurrentMonthForEndDistributionDateFactFilter
-                        , dummyAdvertisementsFilter)
-                        .DefaultFilter(_filterHelper, querySettings)
+                        , dummyAdvertisementsFilter
+                        , myFilter
+                        , myInspectionFilter)
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)
@@ -288,8 +277,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                         , withoutAdvertisementFilter
                         , rejectedByMeFilter
                         , useCurrentMonthForEndDistributionDateFactFilter
-                        , dummyAdvertisementsFilter)
-                        .DefaultFilter(_filterHelper, querySettings)
+                        , dummyAdvertisementsFilter
+                        , myFilter
+                        , myInspectionFilter)
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings, out count)

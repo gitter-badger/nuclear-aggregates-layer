@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
                 ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
                 ConsistencyRule.CreateFormat(entity => entity.Parts.OfType<LegalPersonProfilePart>(), chileParts => chileParts.Count() != 1, BLFlexResources.ChilePartableExtensionMustBeApplied),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChilePart().RepresentativeRut, BLResources.RequiredFieldMessage, ViewModelResources.Rut),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.ChilePart().RepresentativeRut, BLResources.RequiredFieldMessage, MetadataResources.Rut),
                 new InnConsistencyRule<LegalPersonProfile, ChileRutService>(entity => entity.ChilePart().RepresentativeRut),
                 ConsistencyRule.CreateEnumValuesRestriction(
                     entity => (PaymentMethod)entity.PaymentMethod.Value,
@@ -45,11 +45,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Warranty)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, ViewModelResources.IssuedOn)
+                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
                         },
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Charter)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, ViewModelResources.IssuedOn)
+                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
                         }
                 };
 
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
                                 entity => entity.ChilePart().AccountType,
-                                string.Format(BLResources.RequiredFieldMessage, ViewModelResources.BankAccountType),
+                                string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
                                 entity => entity.ChilePart().AccountType,
-                                string.Format(BLResources.RequiredFieldMessage, ViewModelResources.BankAccountType),
+                                string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
                                 entity => entity.ChilePart().AccountType,
-                                string.Format(BLResources.RequiredFieldMessage, ViewModelResources.BankAccountType),
+                                string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
                                 entity => entity.ChilePart().AccountType,
-                                string.Format(BLResources.RequiredFieldMessage, ViewModelResources.BankAccountType),
+                                string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },

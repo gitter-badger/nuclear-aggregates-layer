@@ -1,10 +1,9 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List
 {
-    public sealed class ChileListLegalPersonDto : IListItemEntityDto<LegalPerson>, IChileAdapted
+    public sealed class ChileListLegalPersonDto : IChileAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string LegalName { get; set; }
@@ -14,5 +13,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.Li
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
         public string LegalAddress { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
     }
 }

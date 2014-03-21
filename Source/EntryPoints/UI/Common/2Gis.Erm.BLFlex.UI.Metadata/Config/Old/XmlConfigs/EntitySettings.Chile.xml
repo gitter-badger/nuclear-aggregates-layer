@@ -107,7 +107,7 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="Type" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="ActivityTypeEnum" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ActivityType" NameLocaleResourceId="DFieldActivityType" Width="90" FieldType="String" ExtTypeName="String" />
           <Field Name="Header" NameLocaleResourceId="Title" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="Status" Width="90" FieldType="String" ExtTypeName="String" />
