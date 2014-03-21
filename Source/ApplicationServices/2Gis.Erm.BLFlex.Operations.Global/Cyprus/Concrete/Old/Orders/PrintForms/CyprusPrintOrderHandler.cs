@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(order.MainLegalPersonProfileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
             var contacts = _firmAggregateRepository.GetFirmContacts(order.FirmId);
 

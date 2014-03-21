@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order, TemplateCode templateCode)
         {
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(order.MainLegalPersonProfileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
 
             var billQuery = _orderPrintFormReadModel.GetBillQuery(request.OrderId);
