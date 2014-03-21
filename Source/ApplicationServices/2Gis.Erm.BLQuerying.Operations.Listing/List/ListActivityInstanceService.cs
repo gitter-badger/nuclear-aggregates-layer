@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListActivityInstanceDto
                 {
                     Id = x.Id,
-                    Type = (ActivityType)x.ActivityType,
+                    ActivityTypeEnum = (ActivityType)x.ActivityType,
                     OwnerCode = x.OwnerCode,
                     Header = x.Header,
                     ScheduledStart = x.ScheduledStart.Value,
@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmId = x.FirmId,
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
-                    TaskType = (ActivityTaskType)(int)x.TaskType,
+                    TaskType = x.TaskType == null ? ActivityTaskType.NotSet : (ActivityTaskType)(int)x.TaskType.Value,
                     OwnerName = null,
                     ActivityType = null,
                     AfterSaleServiceType = null,
@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
                 {
-                    x.ActivityType = x.Type.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.Priority = x.PriorityEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
