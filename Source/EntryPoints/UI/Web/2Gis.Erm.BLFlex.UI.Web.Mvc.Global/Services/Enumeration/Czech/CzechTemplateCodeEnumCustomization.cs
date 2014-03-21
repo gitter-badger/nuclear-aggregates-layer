@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
 
         protected override IEnumerable<TemplateCode> GetRequiredEnumValues()
         {
-            return Enum.GetValues(typeof(IntegrationTypeExport)).Cast<TemplateCode>().Except(_notUsedOrderTemplates);
+            return Enum.GetValues(typeof(TemplateCode)).Cast<TemplateCode>().Except(_notUsedOrderTemplates);
         }
     }
 }
