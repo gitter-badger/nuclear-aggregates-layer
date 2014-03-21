@@ -39,6 +39,7 @@ using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.TaskService.DI
 {
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(TaskObtainer), typeof(NotificationsProcessor), typeof(ProcessNotifications) }; 
+        private static readonly Type[] EagerLoading = { typeof(TaskObtainer), typeof(NotificationsProcessor), typeof(ProcessNotifications), typeof(ICleanupPersistenceService) }; 
 
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
