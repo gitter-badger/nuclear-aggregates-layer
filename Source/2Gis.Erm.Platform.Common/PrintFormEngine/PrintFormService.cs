@@ -278,6 +278,13 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
         private static bool TryGetValueByPath(string dottedPathToValue, object valueHolder, out object value)
         {
+            var printData = valueHolder as PrintData;
+            if (printData != null)
+            {
+                value = printData.GetData(dottedPathToValue);
+                return true;
+            }
+
             if (valueHolder == null || string.IsNullOrEmpty(dottedPathToValue))
             {
                 value = null;
