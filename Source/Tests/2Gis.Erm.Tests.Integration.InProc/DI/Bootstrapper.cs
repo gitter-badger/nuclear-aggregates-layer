@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -22,12 +21,9 @@ using DoubleGis.Erm.BLCore.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -67,12 +63,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
     internal static class Bootstrapper
     {
         // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-        private static readonly Type[] EagerLoading =
-            {
-                typeof(ActionsLogger), 
-                typeof(LegalPersonObtainer),
-                typeof(CancelOrderProcessingRequestOperationService)
-            };
+        private static readonly Type[] EagerLoading = { typeof(ActionsLogger), typeof(LegalPersonObtainer) };
 
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
@@ -134,8 +125,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                     .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
-                    .ConfigureTestInfrastructure(environmentSettings)
-                    .ConfigureListing();
+                    .ConfigureTestInfrastructure(environmentSettings);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -188,9 +178,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
-            // Действительно, почему бы для InProc-тестов не регистрировать ApplicationService?
-            container.RegisterTypeWithDependencies<IRequestStateApplicationService, RequestStateApplicationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope);
-
             return container;
         }
 
@@ -239,12 +226,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
-        }
-        
-        private static IUnityContainer ConfigureListing(this IUnityContainer container)
-        {
-            return container
-                .RegisterType<IQuerySettingsProvider, QuerySettingsProvider>(EntryPointSpecificLifetimeManagerFactory());
         }
     }
 }

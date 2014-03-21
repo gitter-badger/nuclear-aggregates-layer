@@ -7,7 +7,7 @@ window.InitPage = function () {
         Ext.apply(this, {
             EditActivity: function () {
                 if (this.Items.Grid.getSelectionModel().selections.items.length == 0) return;
-                var selectedActivityType = this.Items.Grid.getSelectionModel().selections.items[0].data.Type;
+                var selectedActivityType = this.Items.Grid.getSelectionModel().selections.items[0].data.ActivityTypeEnum;
                 this.Edit({ overridenEntityName : selectedActivityType });
             },
             CreateTask: function () {
@@ -21,7 +21,7 @@ window.InitPage = function () {
             },
             renderImage: function (id, col, record) {
                 var iconFileName;
-                switch (record.data.Type) {
+                switch (record.data.ActivityTypeEnum) {
                     case "Appointment":
                         iconFileName = "en_ico_16_Appointment.gif";
                         break;
@@ -30,6 +30,9 @@ window.InitPage = function () {
                         break;
                     case "Task":
                         iconFileName = "en_ico_16_Task.gif";
+                        break;
+                    default:
+                        iconFileName = "en_ico_16_Default.gif";
                         break;
                 }
                 return Ext.DoubleGis.Global.Helpers.GridColumnHelper.RenderEntityIcon(iconFileName);

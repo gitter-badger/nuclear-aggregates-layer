@@ -231,7 +231,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
-            {
+        {
             var checkingResourceStorages = new[]
             {
                     typeof(BLResources),

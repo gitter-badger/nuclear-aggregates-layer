@@ -17,11 +17,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
         protected override bool TryCreateRequest(Order modelEntity, out PrintOrderWithGuarateeRequest request)
         {
             request = new PrintOrderWithGuarateeRequest
-                {
-                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
-                    OrderId = modelEntity.Id,
-                    PrintRegionalVersion = modelEntity.SourceOrganizationUnitId != modelEntity.DestOrganizationUnitId
-                };
+            {
+                LegalPersonProfileId = modelEntity.LegalPersonProfileId,
+                OrderId = modelEntity.Id,
+            };
 
             return true;
         }

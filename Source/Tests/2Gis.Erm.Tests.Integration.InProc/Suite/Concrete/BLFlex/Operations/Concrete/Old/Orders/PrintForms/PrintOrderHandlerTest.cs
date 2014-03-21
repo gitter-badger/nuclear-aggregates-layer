@@ -7,20 +7,32 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operations.Concrete.Old.Orders.PrintForms
 {
-    public class PrintOrderHandlerTest : UseModelEntityHandlerTestBase<Order, PrintOrderRequest, StreamResponse>
+    public class PrintOrderHandlerTest : UseModelEntityHandlerTestBase<Order, Request, StreamResponse>
     {
         public PrintOrderHandlerTest(IPublicService publicService, IAppropriateEntityProvider<Order> appropriateEntityProvider) : base(publicService, appropriateEntityProvider)
         {
         }
 
-        protected override bool TryCreateRequest(Order modelEntity, out PrintOrderRequest request)
+        protected override bool TryCreateRequest(Order modelEntity, out Request request)
         {
-            request = new PrintOrderRequest
+            if (modelEntity.SourceOrganizationUnitId != modelEntity.DestOrganizationUnitId)
+            {
+                request = new PrintRegionalOrderRequest
                 {
                     LegalPersonProfileId = modelEntity.LegalPersonProfileId,
                     OrderId = modelEntity.Id,
-                    PrintRegionalVersion = modelEntity.SourceOrganizationUnitId != modelEntity.DestOrganizationUnitId
                 };
+            }
+            else
+            {
+                request = new PrintOrderRequest
+                {
+                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
+                    OrderId = modelEntity.Id,
+                };
+            }
+
+
 
             return true;
         }

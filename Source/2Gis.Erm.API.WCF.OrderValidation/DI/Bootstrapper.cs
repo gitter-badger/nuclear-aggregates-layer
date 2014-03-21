@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OrderValidationRuleProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new OrderValidationRuleProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<ICachingSettings>(),
                                 loggerContextManager))
-                        .ConfigureServiceClient();
+                     .ConfigureServiceClient();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -91,22 +91,22 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ILoggerContextManager loggerContextManager)
         {
             return container
-                        .ConfigureLogging(loggerContextManager)
-                        .CreateErmSpecific()
-                        .CreateSecuritySpecific()
-                        .ConfigureCacheAdapter(cachingSettings)
-                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                        .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                        .ConfigureIdentityInfrastructure()
-                        .ConfigureReadWriteModels()
-                        .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                        .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                        .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
-                        .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
-                        .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
-                        .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
-                        .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
+                .ConfigureLogging(loggerContextManager)
+                .CreateErmSpecific()
+                .CreateSecuritySpecific()
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureIdentityInfrastructure()
+                .ConfigureReadWriteModels()
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
+                .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
+                .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
+                .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
+                .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -163,10 +163,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
-                     .RegisterTypeWithDependencies<IOrderValidationService, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
-                     .RegisterTypeWithDependencies<IOrderValidationOnStateChangeService, OrderValidationOnStateChangeService>(CustomLifetime.PerOperationContext, MappingScope)
-                     // только для вызова проверки сопутствующих-запрещенных напрямую как хендлера
+            return container
+                .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
         }
 
