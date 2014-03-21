@@ -14,11 +14,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return filterHelper.Filter(query, expressions);
         }
 
-        public static IQueryable<TEntity> DefaultFilter<TEntity>(this IQueryable<TEntity> query, FilterHelper filterHelper, QuerySettings querySettings)
-        {
-            return filterHelper.DefaultFilter(query, querySettings);
-        }
-
         public static IEnumerable<TDocument> QuerySettings<TDocument>(this IQueryable<TDocument> query,
                                                                       FilterHelper filterHelper,
                                                                       QuerySettings querySettings,

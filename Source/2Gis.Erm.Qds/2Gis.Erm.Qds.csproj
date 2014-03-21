@@ -50,10 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocsStorageException.cs" />
     <Compile Include="Docs\ClientGridDoc.cs" />
     <Compile Include="Docs\DocumentAuthorization.cs" />
-    <Compile Include="Docs\IAuthDoc.cs" />
+    <Compile Include="Docs\IAuthorizationDoc.cs" />
     <Compile Include="Docs\TerritoryDoc.cs" />
     <Compile Include="Docs\UserDoc.cs" />
     <Compile Include="IDoc.cs" />
@@ -65,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="2Gis.Erm.PublicKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

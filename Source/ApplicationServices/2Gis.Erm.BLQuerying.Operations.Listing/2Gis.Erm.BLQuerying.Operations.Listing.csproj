@@ -36,10 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dynamic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=68293a411f0cabcc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -53,7 +49,6 @@
     </Compile>
     <Compile Include="List\Infrastructure\QueryableExtension.cs" />
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
-    <Compile Include="List\Infrastructure\DefaultFilter.cs" />
     <Compile Include="List\Infrastructure\SubordinatesFilter.cs" />
     <Compile Include="List\Infrastructure\ListEntityDtoServiceBase.cs" />
     <Compile Include="List\ListBranchOfficeService.cs" />
@@ -122,8 +117,6 @@
     <Compile Include="List\ListDepartmentService.cs" />
     <Compile Include="List\ListUserService.cs" />
     <Compile Include="List\ListWithdrawalInfoService.cs" />
-    <Compile Include="List\Metadata\QuerySettingsProvider.cs" />
-    <Compile Include="List\ReleaseInfoOperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,10 +170,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dynamic Expressions.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="List\Metadata\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

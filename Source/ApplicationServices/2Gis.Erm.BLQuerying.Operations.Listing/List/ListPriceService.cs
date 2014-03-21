@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListPriceService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListPriceService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -33,32 +30,26 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper, excludeIdFilter)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.CreateDate,
-                        x.PublishDate,
-                        x.BeginDate,
-                        OrganizationUnitName = x.OrganizationUnit.Name,
-                        CurrencyName = x.Currency.Name,
-                        x.IsPublished,
-                        x.OrganizationUnitId,
-                    })
+                .Select(x => new ListPriceDto
+                {
+                    Id = x.Id,
+                    CreateDate = x.CreateDate,
+                    PublishDate = x.PublishDate,
+                    BeginDate = x.BeginDate,
+                    OrganizationUnitName = x.OrganizationUnit.Name,
+                    CurrencyName = x.Currency.Name,
+                    IsPublished = x.IsPublished,
+                    OrganizationUnitId = x.OrganizationUnitId,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                    Name = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListPriceDto
-                            {
-                                Id = x.Id,
-                                CreateDate = x.CreateDate,
-                                PublishDate = x.PublishDate,
-                                BeginDate = x.BeginDate,
-                                OrganizationUnitName = x.OrganizationUnitName,
-                                CurrencyName = x.CurrencyName,
-                                IsPublished = x.IsPublished,
-                                Name = string.Format("{0} ({1})", x.BeginDate.ToShortDateString(), x.OrganizationUnitName),
-                                OrganizationUnitId = x.OrganizationUnitId,
-                            });
+                {
+                    x.Name = string.Format("{0} ({1})", x.BeginDate.ToShortDateString(), x.OrganizationUnitName);
+                    return x;
+                });
         }
     }
 }

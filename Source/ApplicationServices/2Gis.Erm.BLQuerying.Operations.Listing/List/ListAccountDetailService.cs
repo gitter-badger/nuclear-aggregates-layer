@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListAccountDetailService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListAccountDetailService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,7 +25,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<AccountDetail>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListAccountDetailDto
                     {
                         Id = x.Id,
@@ -38,7 +34,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         OperationType = x.OperationType.Name,
                         TransactionDate = x.TransactionDate,
                         Description = x.Description,
-                        IsDeleted = x.IsDeleted
+                        IsDeleted = x.IsDeleted,
                     })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

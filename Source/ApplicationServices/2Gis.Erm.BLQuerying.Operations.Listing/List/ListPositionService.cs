@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListPositionService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListPositionService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -37,7 +34,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                     .Filter(_filterHelper, supportedByExportFilter, compositeFilter)
-                    .DefaultFilter(_filterHelper, querySettings)
                     .Select(x => new ListPositionDto
                     {
                         Id = x.Id,
@@ -46,7 +42,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsComposite = x.IsComposite,
                         CategoryName = x.PositionCategory.Name,
                         ExportCode = x.ExportCode,
-                        RestrictChildPositionPlatforms = x.RestrictChildPositionPlatforms
+                        RestrictChildPositionPlatforms = x.RestrictChildPositionPlatforms,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
                     })
                     .QuerySettings(_filterHelper, querySettings, out count);
         }

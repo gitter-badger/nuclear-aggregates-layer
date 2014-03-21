@@ -1,9 +1,8 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListDealDto : IListItemEntityDto<Deal>
+    public sealed class ListDealDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -11,5 +10,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string ClientName { get; set; }
         public long? MainFirmId { get; set; }
         public string MainFirmName { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public long OwnerCode { get; set; }
     }
 }

@@ -16,9 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListBillService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -30,42 +28,33 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x =>
-                        new
-                            {
-                                x.Id,
-                                x.BillNumber,
-                                OrderNumber = x.Order.Number,
-                                x.Order.FirmId,
-                                FirmName = x.Order.Firm.Name,
-                                x.Order.Firm.ClientId,
-                                ClientName = x.Order.Firm.Client.Name,
-                                x.BeginDistributionDate,
-                                x.EndDistributionDate,
-                                x.PayablePlan,
-                                x.PaymentDatePlan,
-                                x.CreatedOn,
-                                x.OrderId,
-                            })
+                .Select(x => new ListBillDto
+                {
+                    Id = x.Id,
+                    BillNumber = x.BillNumber,
+                    OrderNumber = x.Order.Number,
+                    FirmId = x.Order.FirmId,
+                    FirmName = x.Order.Firm.Name,
+                    ClientId = x.Order.Firm.ClientId,
+                    ClientName = x.Order.Firm.Client.Name,
+                    BeginDistributionDate = x.BeginDistributionDate,
+                    EndDistributionDate = x.EndDistributionDate,
+                    PayablePlan = x.PayablePlan,
+                    PaymentDatePlan = x.PaymentDatePlan,
+                    CreatedOn = x.CreatedOn,
+                    OrderId = x.OrderId,
+                    IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListBillDto
-                            {
-                                Id = x.Id,
-                                BillNumber = x.BillNumber,
-                                OrderNumber = x.OrderNumber,
-                                FirmId = x.FirmId,
-                                FirmName = x.FirmName,
-                                ClientId = x.ClientId,
-                                ClientName = x.ClientName,
-                                BeginDistributionDate = new DateTime(x.BeginDistributionDate.Ticks, DateTimeKind.Local),
-                                EndDistributionDate = new DateTime(x.EndDistributionDate.Ticks, DateTimeKind.Local),
-                                PayablePlan = x.PayablePlan,
-                                PaymentDatePlan = x.PaymentDatePlan,
-                                CreatedOn = new DateTime(x.CreatedOn.Ticks, DateTimeKind.Local),
-                                OrderId = x.OrderId,
-                            });
+                {
+                    x.BeginDistributionDate = new DateTime(x.BeginDistributionDate.Ticks, DateTimeKind.Local);
+                    x.EndDistributionDate = new DateTime(x.EndDistributionDate.Ticks, DateTimeKind.Local);
+                    x.CreatedOn = new DateTime(x.CreatedOn.Ticks, DateTimeKind.Local);
+
+                    return x;
+                });
         }
     }
 }

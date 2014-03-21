@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListUserRoleService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListUserRoleService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,23 +25,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<UserRole>();
 
             var data = query
-            .DefaultFilter(_filterHelper, querySettings)
-            .Select(x => new
-            {
-                // filters
-                x.UserId,
-
-                x.Id,
-                x.RoleId,
-                RoleName = x.Role.Name,
-            })
-            .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListUserRoleDto
             {
                 Id = x.Id,
+                UserId = x.UserId,
                 RoleId = x.RoleId,
-                RoleName = x.RoleName,
-            });
+                RoleName = x.Role.Name,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count);
 
             return data;
         }

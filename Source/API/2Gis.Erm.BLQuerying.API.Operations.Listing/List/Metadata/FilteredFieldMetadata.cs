@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -8,15 +7,10 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
-    public struct FilteredField
-    {
-        public Type Type { get; set; }
-        public string Name { get; set; }
-    }
 
     public static class FilteredFieldMetadata
     {
-        private static readonly Dictionary<Type, FilteredField[]> FilteredFieldsMap = new Dictionary<Type, FilteredField[]>()
+        private static readonly Dictionary<Type, LambdaExpression[]> FilteredFieldsMap = new Dictionary<Type, LambdaExpression[]>()
             .RegisterFilteredFields<ListAccountDto>(
                 x => x.BranchOfficeOrganizationUnitName,
                 x => x.LegalPersonName,
@@ -72,6 +66,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListCategoryDto>(
                 x => x.Name)
+            .RegisterFilteredFields<ListCategoryGroupDto>(
+                x => x.CategoryGroupName)
             .RegisterFilteredFields<ListCategoryFirmAddressDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListCategoryOrganizationUnitDto>(
@@ -96,6 +92,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListCurrencyDto>(
                 x => x.ISOCode,
                 x => x.Name)
+            .RegisterFilteredFields<ListCurrencyRateDto>(
+                x => x.CurrencyName)
             .RegisterFilteredFields<ListDealDto>(
                 x => x.Name,
                 x => x.ClientName,
@@ -128,6 +126,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListLockDto>(
                 x => x.OrderNumber)
+            .RegisterFilteredFields<ListLockDetailDto>(
+                x => x.Description)
             .RegisterFilteredFields<ListLegalPersonProfileDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListOperationDto>(
@@ -136,6 +136,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.Name)
             .RegisterFilteredFields<ListOrderPositionDto>(
                 x => x.PositionName)
+            .RegisterFilteredFields<ListOrderPositionAdvertisementDto>(
+                x => x.Id)
             .RegisterFilteredFields<ListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
@@ -193,7 +195,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.Name,
                 x => x.Description)
             .RegisterFilteredFields<ListThemeTemplateDto>(
-                x => x.TemplateCode,
                 x => x.FileName)
             .RegisterFilteredFields<ListThemeOrganizationUnitDto>(
                 x => x.OrganizationUnitName)
@@ -209,6 +210,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.FirstName,
                 x => x.LastName,
                 x => x.Account)
+            .RegisterFilteredFields<ListUserRoleDto>(
+                x => x.RoleName)
             .RegisterFilteredFields<ListUserOrganizationUnitDto>(
                 x => x.OrganizationUnitName,
                 x => x.UserName)
@@ -218,61 +221,126 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             ;
 
-        internal static Dictionary<Type, FilteredField[]> RegisterFilteredFields<TDocument>(this Dictionary<Type, FilteredField[]> map, params Expression<Func<TDocument, object>>[] memberExpressions)
+        private static Dictionary<Type, LambdaExpression[]> RegisterFilteredFields<TDocument>(this Dictionary<Type, LambdaExpression[]> map, params Expression<Func<TDocument, object>>[] expressions)
         {
-            var filteredFields = memberExpressions.Select(x =>
-            {
-                var body = x.Body;
-
-                // Convert(expr) => expr
-                var unaryExpression = body as UnaryExpression;
-                if (unaryExpression != null)
-                {
-                    body = unaryExpression.Operand;
-                }
-
-                var memberExpression = body as MemberExpression;
-                if (memberExpression == null)
-                {
-                    throw new ArgumentException("Property call expression must be implemented");
-                }
-
-                var propertyInfo = memberExpression.Member as PropertyInfo;
-                if (propertyInfo == null)
-                {
-                    throw new ArgumentException("Property call expression must be implemented");
-                }
-
-                return new FilteredField
-                {
-                    Name = propertyInfo.Name,
-                    Type = propertyInfo.PropertyType,
-                };
-            }).ToArray();
-
-            map.Add(typeof(TDocument), filteredFields);
-            
+            var key = typeof(TDocument);
+            map.Add(key, expressions);
             return map;
         }
 
-        // может вызываться несколько раз, поэтому есть ContainsKey
-        public static void RegisterFilteredFields<TDocument>(params Expression<Func<TDocument, object>>[] memberExpressions)
+        private static PropertyInfo GetPropertyInfo(LambdaExpression lambdaExpression)
         {
-            if (!FilteredFieldsMap.ContainsKey(typeof(TDocument)))
+            var body = lambdaExpression.Body;
+
+            // Convert(expr) => expr
+            var unaryExpression = body as UnaryExpression;
+            if (unaryExpression != null)
             {
-                FilteredFieldsMap.RegisterFilteredFields(memberExpressions);                
+                body = unaryExpression.Operand;
+            }
+
+            var memberExpression = body as MemberExpression;
+            if (memberExpression == null)
+            {
+                throw new ArgumentException("Property call expression must be implemented");
+            }
+
+            var propertyInfo = memberExpression.Member as PropertyInfo;
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException("Property call expression must be implemented");
+            }
+
+            return propertyInfo;
+        }
+
+        // может вызываться несколько раз, поэтому есть ContainsKey
+        public static void RegisterFilteredFields<TDocument>(params Expression<Func<TDocument, object>>[] expressions)
+        {
+            var key = typeof(TDocument);
+
+            if (!FilteredFieldsMap.ContainsKey(key))
+            {
+                FilteredFieldsMap.RegisterFilteredFields(expressions);
             }
         }
 
-        public static FilteredField[] GetFilteredFields(Type type)
+        public static bool TryGetFieldFilter<TDocument>(string phrase, out Expression expression)
         {
-            FilteredField[] filteredFields;
-            if (!FilteredFieldsMap.TryGetValue(type, out filteredFields))
+            expression = null;
+
+            LambdaExpression[] lambdaExpressions;
+            if (FilteredFieldsMap.TryGetValue(typeof(TDocument), out lambdaExpressions))
             {
-                throw new ArgumentException(string.Format("Для типа {0} не определены поля для поиска", type.Name));
+                var parameterExpression = Expression.Parameter(typeof(TDocument), "x");
+
+                foreach (var lambdaExpression in lambdaExpressions)
+                {
+                    var propertyInfo = GetPropertyInfo(lambdaExpression);
+
+                    if (propertyInfo.PropertyType == typeof(string))
+                    {
+                        MethodInfo methodInfo;
+                        string phraseTrimmed;
+
+                        if (phrase.IndexOf('*') == 0)
+                        {
+                            phraseTrimmed = phrase.Trim('*');
+                            methodInfo = MethodInfos.String.ContainsMethodInfo;
+                        }
+                        else
+                        {
+                            phraseTrimmed = phrase;
+                            methodInfo = MethodInfos.String.StartsWithMethodInfo;
+                        }
+
+                        var phraseExpression = Expression.Constant(phraseTrimmed);
+                        var memberExpression = Expression.Property(parameterExpression, propertyInfo);
+                        var fieldFilterExpression = Expression.Call(memberExpression, methodInfo, phraseExpression);
+
+                        if (expression != null)
+                        {
+                            expression = Expression.Or(expression, fieldFilterExpression);
+                        }
+                        else
+                        {
+                            expression = fieldFilterExpression;
+                        }
+                    }
+                    else if (propertyInfo.PropertyType == typeof(short) ||
+                            propertyInfo.PropertyType == typeof(int) ||
+                            propertyInfo.PropertyType == typeof(long))
+                    {
+                        long phraseParsed;
+                        if (long.TryParse(phrase, out phraseParsed))
+                        {
+                            var phraseExpression = Expression.Constant(phraseParsed);
+                            var memberExpression = Expression.Property(parameterExpression, propertyInfo);
+                            var convertExpression = Expression.Convert(memberExpression, typeof(long));
+                            var fieldFilterExpression = Expression.Equal(convertExpression, phraseExpression);
+
+                            if (expression != null)
+                            {
+                                expression = Expression.Or(expression, fieldFilterExpression);
+                            }
+                            else
+                            {
+                                expression = fieldFilterExpression;
+                            }
+                        }
+                    }
+                }
+
+                if (expression == null)
+                {
+                    throw new ArgumentException();
+                }
+                expression = Expression.Lambda(expression, parameterExpression);
+
+                return true;
             }
 
-            return filteredFields;
+            return false;
         }
     }
 }

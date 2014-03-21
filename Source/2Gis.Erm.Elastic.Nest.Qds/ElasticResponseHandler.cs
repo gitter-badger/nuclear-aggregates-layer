@@ -18,7 +18,11 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             if (response.IsValid)
                 return;
 
-            throw new DocsStorageException(response.ConnectionStatus.Error.ExceptionMessage, response.ConnectionStatus.Error.OriginalException);
+            var result = response.ConnectionStatus.Result;
+
+            var message = !string.IsNullOrEmpty(result) ? result : response.ConnectionStatus.Error.ExceptionMessage;
+
+            throw new ElasticException(message, response.ConnectionStatus.Error.OriginalException);
         }
     }
 }

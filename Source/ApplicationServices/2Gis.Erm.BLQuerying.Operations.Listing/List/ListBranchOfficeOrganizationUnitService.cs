@@ -23,10 +23,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         public ListBranchOfficeOrganizationUnitService(
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _functionalAccessService = functionalAccessService;
             _finder = finder;
@@ -92,7 +90,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var data = query
                 .Filter(_filterHelper, filter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListBranchOfficeOrganizationUnitDto
                 {
                     Id = x.Id,
@@ -102,6 +99,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     BranchOfficeName = x.BranchOffice.Name,
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     IsPrimary = x.IsPrimary,
+                    IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
+                    OrganizationUnitIsDeleted = x.OrganizationUnit.IsDeleted,
+                    BranchOfficeIsDeleted = x.BranchOffice.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
 

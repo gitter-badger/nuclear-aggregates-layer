@@ -1,16 +1,19 @@
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
 using System;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListOrderFileDto : IListItemEntityDto<OrderFile>
+    public sealed class ListOrderFileDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public long FileId { get; set; }
+        public OrderFileKind FileKindEnum { get; set; }
         public string FileKind { get; set; }
         public string FileName { get; set; }
         public long OrderId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

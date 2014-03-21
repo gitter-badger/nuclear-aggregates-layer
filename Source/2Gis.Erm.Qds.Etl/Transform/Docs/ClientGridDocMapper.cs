@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
             d.TerritoryId = c.TerritoryId;
             d.IsActive = c.IsActive;
             d.CreatedOn = c.CreatedOn;
-            d.ReplicationCode = c.ReplicationCode.ToString();
+            d.ReplicationCode = c.ReplicationCode;
             d.InformationSource = GetLocalizedInformationSource(c.InformationSource);
 
             return true;

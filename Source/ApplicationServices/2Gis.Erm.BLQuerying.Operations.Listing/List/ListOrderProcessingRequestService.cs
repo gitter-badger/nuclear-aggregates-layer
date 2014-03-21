@@ -22,11 +22,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListOrderProcessingRequestService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, 
             IUserContext userContext,
             ISecurityServiceUserIdentifier userIdentifierService, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -40,50 +38,37 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                        {
-                            x.Id,
-                            x.Title,
-                            x.BaseOrderId,
-                        BaseOrderNumber = x.BaseOrder.Number,
-                            x.RenewedOrderId,
-                        RenewedOrderNumber = x.RenewedOrder.Number,
-                            x.OwnerCode,
-                        x.State,
-                        x.BeginDistributionDate,
-                        x.FirmId,
-                        FirmName = x.Firm.Name,
-                        x.DueDate,
-                        x.LegalPersonProfileId,
-                        LegalPersonProfileName = x.LegalPersonProfile.Name,
-                        x.SourceOrganizationUnitId,
-                        SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
-                        x.CreatedOn
-                        })
+                .Select(x => new ListOrderProcessingRequestDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    BaseOrderId = x.BaseOrderId,
+                    BaseOrderNumber = x.BaseOrder.Number,
+                    RenewedOrderId = x.RenewedOrderId,
+                    RenewedOrderNumber = x.RenewedOrder.Number,
+                    OwnerCode = x.OwnerCode,
+                    StateEnum = (OrderProcessingRequestState)x.State,
+                    BeginDistributionDate = x.BeginDistributionDate,
+                    FirmId = x.FirmId,
+                    FirmName = x.Firm.Name,
+                    DueDate = x.DueDate,
+                    LegalPersonProfileId = x.LegalPersonProfileId,
+                    LegalPersonProfileName = x.LegalPersonProfile.Name,
+                    SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                    SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
+                    CreatedOn = x.CreatedOn,
+                    IsDeleted = x.IsDeleted,
+                    OwnerName = null,
+                    State = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListOrderProcessingRequestDto
-                        {
-                            Id = x.Id,
-                            Title = x.Title,
-                            BaseOrderId = x.BaseOrderId,
-                            BaseOrderNumber = x.BaseOrderNumber,
-                            RenewedOrderId = x.RenewedOrderId,
-                            RenewedOrderNumber = x.RenewedOrderNumber,
-                            OwnerCode = x.OwnerCode,
-                            OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName,
-                            State = ((OrderProcessingRequestState)x.State).ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                            BeginDistributionDate = x.BeginDistributionDate,
-                            FirmId = x.FirmId,
-                            FirmName = x.FirmName,
-                            DueDate = x.DueDate,
-                            LegalPersonProfileId = x.LegalPersonProfileId,
-                            LegalPersonProfileName = x.LegalPersonProfileName,
-                            SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                            SourceOrganizationUnitName = x.SourceOrganizationUnitName,
-                            CreatedOn = x.CreatedOn
-                        });
+                {
+                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                    x.State = x.StateEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+
+                    return x;
+                });
         }
     }
 }

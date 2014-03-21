@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                     .Object(new ClientGridDoc
                     {
                         Id = x.Id,
-                        ReplicationCode = x.ReplicationCode.ToString(), 
+                        ReplicationCode = x.ReplicationCode, 
                         Name = x.Name, 
                         MainAddress = x.MainAddress, 
                         TerritoryId = x.TerritoryId, 
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                         CreatedOn = x.CreatedOn, 
                         InformationSource = x.InformationSource.ToStringLocalized(EnumResources.ResourceManager, _userProfile.UserLocaleInfo.UserCultureInfo), 
 
-                        Auth = new DocumentAuthorization
+                        Authorization = new DocumentAuthorization
                         {
                             Tags = new[]
                             {

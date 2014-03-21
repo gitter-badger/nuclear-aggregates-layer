@@ -20,10 +20,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListPrintFormTemplateService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _userContext = userContext;
@@ -35,29 +33,25 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<PrintFormTemplate>();
 
             var data = query
-            .DefaultFilter(_filterHelper, querySettings)
-            .Select(x => new
-            {
-                // filters
-                x.BranchOfficeOrganizationUnitId,
-                x.IsActive,
-                x.IsDeleted,
-
-                x.Id,
-                x.FileId,
-                TemplateCode = (TemplateCode)x.TemplateCode,
-                x.File.FileName,
-                BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnit.ShortLegalName,
-            })
-            .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListPrintFormTemplateDto
             {
+                // filters
+                BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                IsActive = x.IsActive,
+                IsDeleted = x.IsDeleted,
+
                 Id = x.Id,
                 FileId = x.FileId,
-                TemplateCode = x.TemplateCode.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                FileName = x.FileName,
-                BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnitName
+                TemplateCodeEnum = (TemplateCode)x.TemplateCode,
+                FileName = x.File.FileName,
+                BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnit.ShortLegalName,
+                TemplateCode = null,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count)
+            .Select(x =>
+            {
+                x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                return x;
             });
 
             return data;

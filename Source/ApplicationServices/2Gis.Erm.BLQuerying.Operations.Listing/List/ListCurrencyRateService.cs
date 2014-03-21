@@ -16,9 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListCurrencyRateService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -32,36 +30,23 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
             .Where(x => !x.IsDeleted)
-            .DefaultFilter(_filterHelper, querySettings)
-            .Select(x => new
-            {
-                x.Id,
-                x.CurrencyId,
-                CurrencyName = x.Currency.Name,
-                x.BaseCurrencyId,
-                BaseCurrencyName = x.BaseCurrency.Name,
-                x.Rate,
-                x.CreatedOn,
-                x.IsDeleted,
-                IsCurrent = query
-                            .Where(y => !y.IsDeleted && y.CreatedOn <= utcNow && y.CurrencyId == x.CurrencyId)
-                            .OrderByDescending(y => y.CreatedOn)
-                            .Select(y => y.Id)
-                            .FirstOrDefault() == x.Id
-            })
-            .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x => new ListCurrencyRateDto
             {
                 Id = x.Id,
                 CurrencyId = x.CurrencyId,
-                CurrencyName = x.CurrencyName,
+                CurrencyName = x.Currency.Name,
                 BaseCurrencyId = x.BaseCurrencyId,
-                BaseCurrencyName = x.BaseCurrencyName,
+                BaseCurrencyName = x.BaseCurrency.Name,
                 Rate = x.Rate,
                 CreatedOn = x.CreatedOn,
                 IsDeleted = x.IsDeleted,
-                IsCurrent = x.IsCurrent
-            });
+                IsCurrent = query
+                            .Where(y => !y.IsDeleted && y.CreatedOn <= utcNow && y.CurrencyId == x.CurrencyId)
+                            .OrderByDescending(y => y.CreatedOn)
+                            .Select(y => y.Id)
+                            .FirstOrDefault() == x.Id,
+            })
+            .QuerySettings(_filterHelper, querySettings, out count);
         }
     }
 }

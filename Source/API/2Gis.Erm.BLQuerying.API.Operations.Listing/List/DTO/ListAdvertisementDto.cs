@@ -1,11 +1,10 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListAdvertisementDto : IListItemEntityDto<Advertisement>
+    public sealed class ListAdvertisementDto : IOperationSpecificEntityDto
     {
         public DateTime CreatedOn { get; set; }
         public long Id { get; set; }
@@ -14,5 +13,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string AdvertisementTemplateName { get; set; }
         public bool IsSelectedToWhiteList { get; set; }
         public long? FirmId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

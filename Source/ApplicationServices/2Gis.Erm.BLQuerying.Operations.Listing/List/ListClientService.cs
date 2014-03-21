@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
@@ -26,19 +27,20 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IFinder _finder;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
 
         public ListClientService(
-            IQuerySettingsProvider querySettingsProvider,
             IUserRepository userRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
             IUserContext userContext,
-            FilterHelper filterHelper)
-            : base(querySettingsProvider)
+            FilterHelper filterHelper,
+            IDebtProcessingSettings debtProcessingSettings)
         {
             _userContext = userContext;
             _filterHelper = filterHelper;
+            _debtProcessingSettings = debtProcessingSettings;
             _userRepository = userRepository;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
@@ -55,6 +57,67 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 query = _filterHelper.ForSubordinates(query);
             }
+
+            var myTerritoryFilter = querySettings.CreateForExtendedProperty<Client, bool>("MyTerritory", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var myBranchFilter = querySettings.CreateForExtendedProperty<Client, bool>("MyBranch", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
+
+            var debtFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithDebt", info =>
+            {
+                var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
+                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Accounts.Any(z => !z.IsDeleted && z.IsActive && z.Balance < minDebtAmount));
+            });
+
+            var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithBarterOrders", info =>
+            {
+                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && (z.OrderType == (int)OrderType.AdsBarter || z.OrderType == (int)OrderType.ProductBarter || z.OrderType == (int)OrderType.ServiceBarter)));
+            });
+
+            var noMakingDecisionsFilter = querySettings.CreateForExtendedProperty<Client, bool>("NoMakingDecisions", info =>
+            {
+                return x => !x.Contacts.Any(y => !y.IsDeleted && y.IsActive && !y.IsFired && y.AccountRole == (int)AccountRole.MakingDecisions);
+            });
+
+            var regionalFilter = querySettings.CreateForExtendedProperty<Client, bool>("IsRegional", info =>
+            {
+                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && z.SourceOrganizationUnitId != z.DestOrganizationUnitId));
+            });
+
+            var dealCountFilter = querySettings.CreateForExtendedProperty<Client, int>("MinDealCount", dealCount =>
+            {
+                return x => x.Deals.Count(y => !y.IsDeleted && y.IsActive) > dealCount;
+            });
+
+            var reserveFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForReserve", info =>
+            {
+                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
+                return x => x.OwnerCode == reserveId;
+            });
+
+            var myFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForMe", info =>
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+
+            var todayFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForToday", info =>
+            {
+                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
+                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
+
+                return x => userDateTimeTodayUtc <= x.CreatedOn && x.CreatedOn < userDateTimeTomorrowUtc;
+            });
+
+            query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter, reserveFilter, myFilter);
 
             IEnumerable<ListClientDto> clients;
             if (TryGetClientsRestrictedByUser(query, querySettings, out clients, out count))
@@ -121,8 +184,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
-                    , firmFilter)
-                    .DefaultFilter(_filterHelper, querySettings)
+                    , firmFilter
+                    , todayFilter)
                     , querySettings, out count);
         }
 
@@ -152,7 +215,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .Filter(_filterHelper, userFilter, currentUserFilter)
-                                    .DefaultFilter(_filterHelper, querySettings), querySettings, out count);
+                                    , querySettings, out count);
                 return true;
             }
 
@@ -205,7 +268,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .Filter(_filterHelper, restrictForMergeIdFilter)
-                                    .DefaultFilter(_filterHelper, querySettings), querySettings, out count);
+                                    , querySettings, out count);
 
                 return true;
             }
@@ -249,6 +312,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 MainPhoneNumber = x.MainPhoneNumber,
                 LastQualifyTime = x.LastQualifyTime,
                 LastDisqualifyTime = x.LastDisqualifyTime,
+                IsActive = x.IsActive,
+                IsDeleted = x.IsDeleted,
+                CreatedOn = x.CreatedOn,
+                InformationSource = (InformationSource)x.InformationSource,
+                OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings, out count)
             .Select(x =>

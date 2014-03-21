@@ -15,9 +15,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListCategoryOrganizationUnitService(
-            IQuerySettingsProvider querySettingsProvider, 
             IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,7 +26,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<CategoryOrganizationUnit>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListCategoryOrganizationUnitDto
                     {
                         Id = x.Id,
@@ -36,6 +33,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         CategoryName = x.Category.Name,
                         OrganizationUnitId = x.OrganizationUnitId,
                         OrganizationUnitName = x.OrganizationUnit.Name,
+                        IsDeleted = x.IsDeleted,
+                        CategoryIsDeleted = x.Category.IsDeleted,
                     })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

@@ -1,11 +1,10 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListLockDto : IListItemEntityDto<Lock>
+    public sealed class ListLockDto : IOperationSpecificEntityDto
     {
         public string OrderNumber { get; set; }
         public DateTime CreateDate { get; set; }
@@ -17,5 +16,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long Id { get; set; }
         public long OrderId { get; set; }
         public long AccountId { get; set; }
+        public bool IsActive { get; set; }
     }
 }

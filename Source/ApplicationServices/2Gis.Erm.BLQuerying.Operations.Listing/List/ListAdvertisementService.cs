@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListAdvertisementService(
-            IQuerySettingsProvider querySettingsProvider,
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListAdvertisementService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -41,7 +38,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 , firmIdFilter
                 , advertisementTemplateIdFilter
                 , isAllowedToWhiteListFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListAdvertisementDto
                 {
                     CreatedOn = x.CreatedOn,
@@ -51,6 +47,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AdvertisementTemplateName = x.AdvertisementTemplate.Name,
                     IsSelectedToWhiteList = x.IsSelectedToWhiteList,
                     FirmId = x.FirmId,
+                    IsDeleted = x.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
 

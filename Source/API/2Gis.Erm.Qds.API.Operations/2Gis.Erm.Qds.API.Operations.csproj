@@ -55,6 +55,10 @@
     <Compile Include="Indexers\Raw\IRawEntityIndexer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
       <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
       <Name>2Gis.Erm.Qds.Etl</Name>

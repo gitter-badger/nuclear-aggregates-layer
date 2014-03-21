@@ -1,12 +1,11 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListLegalPersonDto : IListItemEntityDto<LegalPerson>, IRussiaAdapted
+    public sealed class ListLegalPersonDto : IRussiaAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string LegalName { get; set; }

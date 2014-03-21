@@ -35,7 +35,8 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 
             foreach (var entity in entities)
             {
-                var docs = RelationalDocsFinder.FindDocsByRelatedPart<TDoc>(entity);
+                // TODO ERM-3449 Без этого ToArray() после апдейта происходит загрузка старых документов и они отправляются на индексацию
+                var docs = RelationalDocsFinder.FindDocsByRelatedPart<TDoc>(entity).ToArray();
 
                 if (!docs.Any()) // TODO Подумать, как правильно делегировать создание документа и ваааще подумать, что-то как-то тут все не так-то почему-то.
                 {

@@ -14,10 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListPricePositionService(
-            IQuerySettingsProvider querySettingsProvider, 
-            IFinder finder, FilterHelper filterHelper)
-            : base(querySettingsProvider)
+        public ListPricePositionService(IFinder finder, FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -28,30 +25,26 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<PricePosition>();
 
             return query
-                .DefaultFilter(_filterHelper, querySettings)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.PriceId,
-                        PositionName = x.Position.Name,
-                        x.Cost,
-                        x.Position.PlatformId,
-                        OrganizationUnitName = x.Price.OrganizationUnit.Name,
-                        x.Price.BeginDate,
-                        x.PositionId
-                    })
+                .Select(x => new ListPricePositionDto
+                {
+                    Id=  x.Id,
+                    PriceId = x.PriceId,
+                    PositionName = x.Position.Name,
+                    Cost = x.Cost,
+                    PlatformId = x.Position.PlatformId,
+                    OrganizationUnitName = x.Price.OrganizationUnit.Name,
+                    BeginDate = x.Price.BeginDate,
+                    PositionId = x.PositionId,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                    PriceName = null,
+                })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                        new ListPricePositionDto
-                            {
-                                Id = x.Id,
-                                PriceId = x.PriceId,
-                                PositionName = x.PositionName,
-                                Cost = x.Cost,
-                                PlatformId = x.PlatformId,
-                                PriceName = string.Format("{0} ({1})", x.BeginDate.ToShortDateString(), x.OrganizationUnitName),
-                                PositionId = x.PositionId
-                            });
+                {
+                    x.PriceName = string.Format("{0} ({1})", x.BeginDate.ToShortDateString(), x.OrganizationUnitName);
+                    return x;
+                });
         }
     }
 }

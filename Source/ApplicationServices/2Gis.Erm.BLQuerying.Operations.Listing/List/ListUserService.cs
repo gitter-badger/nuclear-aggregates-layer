@@ -23,12 +23,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListUserService(
-            IQuerySettingsProvider querySettingsProvider, 
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
-            : base(querySettingsProvider)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
@@ -88,7 +86,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 , privilegyFilter
                 , excludeIdFilter
                 , subordinatesFilter)
-                .DefaultFilter(_filterHelper, querySettings)
                 .Select(x => new ListUserDto
                 {
                     Id = x.Id,
@@ -100,7 +97,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ParentName = x.Parent.DisplayName,
                     RoleName = x.UserRoles.Select(role => role.Role.Name).OrderBy(item => item),
                     IsActive = x.IsActive,
-                    IsDeleted = x.IsDeleted
+                    IsDeleted = x.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
         }

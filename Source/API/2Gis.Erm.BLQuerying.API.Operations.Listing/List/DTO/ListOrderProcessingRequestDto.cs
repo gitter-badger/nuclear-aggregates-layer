@@ -1,11 +1,11 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListOrderProcessingRequestDto : IListItemEntityDto<OrderProcessingRequest>
+    public sealed class ListOrderProcessingRequestDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public string Title { get; set; }
@@ -13,6 +13,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string BaseOrderNumber { get; set; }
         public long? RenewedOrderId { get; set; }
         public string RenewedOrderNumber { get; set; }
+        public OrderProcessingRequestState StateEnum { get; set; }
         public string State { get; set; }
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
@@ -25,5 +26,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long? SourceOrganizationUnitId { get; set; }
         public string SourceOrganizationUnitName { get; set; }
         public DateTime CreatedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
