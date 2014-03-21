@@ -4,8 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Settings;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
@@ -35,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IDealRepository _dealRepository;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly IFirmRepository _firmRepository;
@@ -48,6 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                   ISecurityServiceFunctionalAccess functionalAccessService,
                                   ISecurityServiceEntityAccess entityAccessService,
                                   IOrderReadModel orderReadModel,
+                                  IFirmReadModel firmReadModel,
                                   IDealRepository dealRepository,
                                   IBranchOfficeRepository branchOfficeRepository,
                                   IFirmRepository firmRepository,
@@ -59,6 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             _functionalAccessService = functionalAccessService;
             _entityAccessService = entityAccessService;
             _orderReadModel = orderReadModel;
+            _firmReadModel = firmReadModel;
             _dealRepository = dealRepository;
             _branchOfficeRepository = branchOfficeRepository;
             _firmRepository = firmRepository;
@@ -208,12 +210,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 var hasExtendedCreationPrivilege = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
                 if (!hasExtendedCreationPrivilege)
                 {
-                    throw new NotificationException(BLResources.AccessDeniedCreateOrderFromList);
+                    throw new BusinessLogicException(BLResources.AccessDeniedCreateOrderFromList);
                 }
             }
             else if (parentEntityName == EntityName.Deal && parentEntityId == null)
             {
-                throw new NotificationException(BLResources.DealNotSpecifiedDuringOrderCreation);
+                throw new BusinessLogicException(BLResources.DealNotSpecifiedDuringOrderCreation);
             }
 
             var dealId = parentEntityName == EntityName.Deal ? parentEntityId : null;
@@ -223,6 +225,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             if (parentEntityId.HasValue
                 && (parentEntityName == EntityName.Client || parentEntityName == EntityName.Firm || parentEntityName == EntityName.LegalPerson))
             {
+                if (parentEntityName == EntityName.Firm && _firmReadModel.HasFirmClient(parentEntityId.Value) == false)
+                {
+                    throw new BusinessLogicException(BLResources.CannotCreateOrderForFirmWithoutClient);
+                }
+
                 EntityReference clientRef;
                 EntityReference firmRef;
                 EntityReference legalPersonRef;
