@@ -188,6 +188,8 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 case EntityName.Client:
                 case EntityName.Firm:
                     return new ActionHistoryMetadata { Properties = new[] { "OwnerCode" } };
+                case EntityName.AccountDetail:
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Amount", "Description" } };
                 case EntityName.Deal:
                     return new ActionHistoryMetadata { Properties = new[] { "DealStage", "OwnerCode" } };
                 case EntityName.Order:
