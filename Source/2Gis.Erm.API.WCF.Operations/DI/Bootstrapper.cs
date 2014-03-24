@@ -163,6 +163,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         assignOperation, new IOperationServiceInterceptionDescriptor<IOperation>[] 
                             {
                                 new OperationServiceInterceptionDescriptor<AssignAccountService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
+                                new OperationServiceInterceptionDescriptor<AssignAccountDetailService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
                                 new OperationServiceInterceptionDescriptor<AssignClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
                                 new OperationServiceInterceptionDescriptor<AssignDealService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
                                 new OperationServiceInterceptionDescriptor<AssignFirmService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
