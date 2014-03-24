@@ -11,6 +11,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 
+using Newtonsoft.Json;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
     public class AdvertisementElementViewModelCustomizationService : IGenericViewModelCustomizationService<AdvertisementElement>
@@ -36,17 +38,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 { FasComment.Biocides, () => EnumResources.FasCommentDisplayTextBiocides }
             };
 
-        private static readonly Lazy<IReadOnlyDictionary<string, string>> Items = new Lazy<IReadOnlyDictionary<string, string>>(GetDisplayTextItems, true);
-
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
-            advertisementElementModel.FasCommentDisplayTextItems = Items.Value;
+            advertisementElementModel.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
         }
-
-        private static IReadOnlyDictionary<string, string> GetDisplayTextItems()
+        
+        private static string GetDisplayTextItemsJson()
         {
-            return FasCommentToDisplayTextMapping.ToDictionary(x => EnumUIUtils.GetEnumName(x.Key, true), x => x.Value());
+            return JsonConvert.SerializeObject(FasCommentToDisplayTextMapping.ToDictionary(x => EnumUIUtils.GetEnumName(x.Key, true), x => x.Value()));
         }
     }
 }
