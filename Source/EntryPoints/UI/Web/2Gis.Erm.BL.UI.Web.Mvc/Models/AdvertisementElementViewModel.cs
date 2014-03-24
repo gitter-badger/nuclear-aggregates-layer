@@ -39,11 +39,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [DisplayNameLocalized("Text")]
         public string PlainText { get; set; }
 
-        [Dependency(DependencyType.Transfer, "PlainText", "Ext.decode(Ext.getDom('FasCommentDisplayTextItems').value)[this.value];")]
+        [Dependency(DependencyType.Transfer, "PlainText", "var t = Ext.decode(Ext.getDom('FasCommentDisplayTextItems').value); initially?undefined:t[this.value];")]
         [Dependency(DependencyType.ReadOnly, "PlainText", "this.value!='NewFasComment'")]
         public FasComment? FasComment { get; set; }
 
-        public IReadOnlyDictionary<string, string> FasCommentDisplayTextItems { get; set; }
+        [PresentationLayerProperty]
+        public string FasCommentDisplayTextItemsJson { get; set; }
 
         public DateTime? BeginDate { get; set; }
 
