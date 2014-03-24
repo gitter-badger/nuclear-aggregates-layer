@@ -254,6 +254,6 @@
     <value>El banco se está utilizando. Quítele todos los enlaces antes de eliminarlo.</value>
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
-    <value>The operation of commune creation is not supported</value>
+    <value>La operación de creación de la comuna no es compatible con el sistema</value>
   </data>
 </root>
