@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
         public IEnumerable<EntityName> GetDependentEntityNames(EntityName entityName)
         {
-            return new[] { EntityName.LegalPerson, EntityName.Account, EntityName.Client, EntityName.Firm, EntityName.Deal, EntityName.Order, EntityName.AdvertisementElement };
+            return new[] { EntityName.LegalPerson, EntityName.Account, EntityName.AccountDetail, EntityName.Client, EntityName.Firm, EntityName.Deal, EntityName.Order, EntityName.AdvertisementElement };
         }
 
         public IEnumerable<IEntityKey> GetDependentEntities(EntityName parentEntityName, EntityName targetEntityName, long parentId)
@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
                 case EntityName.Account:
                     return GetDependentAccounts(parentEntityName, parentId, forceCaching);
+
+                case EntityName.AccountDetail:
+                    return GetDependentAccountDetails(parentEntityName, parentId, forceCaching);
 
                 case EntityName.Client:
                     return GetDependentClients(parentEntityName, parentId, forceCaching);
@@ -300,6 +303,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                     }
                 default:
                     return new Account[0];
+            }
+        }
+
+        private IEnumerable<AccountDetail> GetDependentAccountDetails(EntityName parentEntityName, long parentId, bool forceCaching)
+        {
+            switch (parentEntityName)
+            {
+                case EntityName.AccountDetail:
+                    return new[] { _finder.Find(Platform.DAL.Specifications.Specs.Find.ById<AccountDetail>(parentId)).Single() };
+
+                default:
+                    return new AccountDetail[0];
             }
         }
     }

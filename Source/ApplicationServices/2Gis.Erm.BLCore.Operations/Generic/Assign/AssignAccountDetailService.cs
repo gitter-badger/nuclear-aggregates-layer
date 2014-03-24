@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _userContext = userContext;
         }
 
-        public AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
+        public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, AccountDetail>())
             {
