@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
@@ -295,7 +296,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
 
                 .RegisterTypeWithDependencies<IJournalMakeRegionalAdsDocsService, JournalMakeRegionalAdsDocsService>(Mapping.SimplifiedModelConsumerScope, CustomLifetime.PerRequest)
-
+                
                 .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
 
@@ -311,6 +312,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, mappingScope)
+
+                .RegisterTypeWithDependencies<ISupportedCategoriesChecker, SupportedCategoriesChecker>(CustomLifetime.PerRequest, mappingScope)
 
                 // notification sender
                 .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>()

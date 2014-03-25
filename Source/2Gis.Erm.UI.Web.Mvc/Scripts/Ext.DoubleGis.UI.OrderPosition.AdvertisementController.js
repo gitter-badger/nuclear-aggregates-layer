@@ -26,6 +26,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         firmId: null,
         organizationUnitId: null,
         areLinkingObjectParametersLocked: null,
+        useSingleCategoryForPackage: null,
         linkingObjectsByKey: [],
         linkingObjects: [],
         positions: [],
@@ -52,187 +53,213 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             dummyCheckBoxColumnWidth: 70
         }
     },
-    
+
 
     // Содержит настройки, применяемые в зависимости от выбранного режима элемента управления.
     // Внешний вид и поведение создаваемого элемента управления различаются для разных режимов работы.
     // По-умолчанию выставляется режим для работы в карточке позиции заказа - тот, который раньше был единственным.
     modeDescriptions: {
         editOrderPosition: {
-            setupWidth: function(columns, width, settings) {
+            setupWidth: function (columns, width, settings) {
                 var sum = settings.advertisementColumnWidth + settings.titleColumnWidth + settings.checkBoxColumnWidth + settings.dummyCheckBoxColumnWidth;
                 var rate = width / sum;
                 columns[0].width = settings.titleColumnWidth * rate;
                 columns[2].width = settings.advertisementColumnWidth * rate;
                 columns[3].width = settings.dummyCheckBoxColumnWidth * rate;
             },
-            getColumns: function() {
+            getColumns: function () {
                 var self = this;
 
                 return [{
-                        header: Ext.LocalizedResources.LinkingObject,
-                        dataIndex: 'name',
-                        width: self.ui.settings.titleColumnWidth
-                    }, {
-                        header: '',
-                        dataIndex: 'dumb',
-                        sortType: 'asFloat',
-                        width: self.ui.settings.checkBoxColumnWidth,
-                        align: 'center',
+                    header: Ext.LocalizedResources.LinkingObject,
+                    dataIndex: 'name',
+                    width: self.ui.settings.titleColumnWidth
+                }, {
+                    header: '',
+                    dataIndex: 'dumb',
+                    sortType: 'asFloat',
+                    width: self.ui.settings.checkBoxColumnWidth,
+                    align: 'center',
 
-                        tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
-                            renderCheckbox: function(id) {
-                                var identity = self.localData.nodeIdentities[id];
-                                if (identity.nodeType == self.nodeTypes.LinkingObject) {
-                                    var element = identity.linkingObject.beginCheckboxCreation();
+                    tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
+                        renderCheckbox: function (id) {
+                            var identity = self.localData.nodeIdentities[id];
+                            if (identity.nodeType == self.nodeTypes.LinkingObject) {
+                                var element = identity.linkingObject.beginCheckboxCreation();
+                                return element.outerHTML;
+                            }
+                            return '<span></span>';
+                        }
+                    })
+                }, {
+                    header: Ext.LocalizedResources.TheAdvertisement,
+                    dataIndex: 'id',
+                    sortType: 'asFloat',
+                    width: self.ui.settings.advertisementColumnWidth,
+                    align: 'center',
+
+                    tpl: new window.Ext.XTemplate('{id:this.renderAdvertisement}', {
+                        renderAdvertisement: function (id) {
+                            var identity = self.localData.nodeIdentities[parseInt(id)];
+                            if (identity.nodeType == self.nodeTypes.LinkingObject) {
+                                if (identity.linkingObject.supportsAdvertisement()) {
+                                    var element = identity.linkingObject.beginAdvertisementLookupCreation();
                                     return element.outerHTML;
                                 }
-                                return '<span></span>';
                             }
-                        })
-                    }, {
-                        header: Ext.LocalizedResources.TheAdvertisement,
-                        dataIndex: 'id',
-                        sortType: 'asFloat',
-                        width: self.ui.settings.advertisementColumnWidth,
-                        align: 'center',
+                            return '<span></span>';
+                        }
+                    })
+                }, {
+                    header: Ext.LocalizedResources.DummyValue,
+                    dataIndex: 'isDummy',
+                    sortType: 'asFloat',
+                    width: self.ui.settings.dummyCheckBoxColumnWidth,
+                    align: 'center',
 
-                        tpl: new window.Ext.XTemplate('{id:this.renderAdvertisement}', {
-                            renderAdvertisement: function(id) {
-                                var identity = self.localData.nodeIdentities[parseInt(id)];
-                                if (identity.nodeType == self.nodeTypes.LinkingObject) {
-                                    if (identity.linkingObject.supportsAdvertisement()) {
-                                        var element = identity.linkingObject.beginAdvertisementLookupCreation();
-                                        return element.outerHTML;
-                                    }
+                    tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
+                        renderCheckbox: function (id) {
+                            var identity = self.localData.nodeIdentities[parseInt(id)];
+                            if (identity.nodeType == self.nodeTypes.LinkingObject) {
+                                if (identity.linkingObject.supportsAdvertisement()) {
+                                    var element = identity.linkingObject.beginDummyCheckboxCreation();
+                                    return element.outerHTML;
                                 }
-                                return '<span></span>';
                             }
-                        })
-                    }, {
-                        header: Ext.LocalizedResources.DummyValue,
-                        dataIndex: 'isDummy',
-                        sortType: 'asFloat',
-                        width: self.ui.settings.dummyCheckBoxColumnWidth,
-                        align: 'center',
-
-                        tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
-                            renderCheckbox: function(id) {
-                                var identity = self.localData.nodeIdentities[parseInt(id)];
-                                if (identity.nodeType == self.nodeTypes.LinkingObject) {
-                                    if (identity.linkingObject.supportsAdvertisement()) {
-                                        var element = identity.linkingObject.beginDummyCheckboxCreation();
-                                        return element.outerHTML;
-                                    }
-                                }
-                                return '<span></span>';
-                            }
-                        })
-                    }];
+                            return '<span></span>';
+                        }
+                    })
+                }];
             }
         },
         changeLinkedObjects: {
-            setupWidth: function(columns, width, settings) {
+            setupWidth: function (columns, width, settings) {
                 columns[0].width = width - 2 * settings.checkBoxColumnWidth;
             },
-            getColumns: function() {
+            getColumns: function () {
                 var self = this;
 
                 return [{
-                        header: Ext.LocalizedResources.LinkingObject,
-                        dataIndex: 'name',
-                        width: self.ui.settings.titleColumnWidth
-                    }, {
-                        header: '',
-                        dataIndex: 'dumb',
-                        sortType: 'asFloat',
-                        width: self.ui.settings.checkBoxColumnWidth,
-                        align: 'center',
+                    header: Ext.LocalizedResources.LinkingObject,
+                    dataIndex: 'name',
+                    width: self.ui.settings.titleColumnWidth
+                }, {
+                    header: '',
+                    dataIndex: 'dumb',
+                    sortType: 'asFloat',
+                    width: self.ui.settings.checkBoxColumnWidth,
+                    align: 'center',
 
-                        tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
-                            renderCheckbox: function(id) {
-                                var identity = self.localData.nodeIdentities[id];
-                                if (identity.nodeType == self.nodeTypes.LinkingObject) {
-                                    var element = identity.linkingObject.beginDisabledCheckboxCreation();
-                                    return element.outerHTML;
-                                }
-                                return '<span></span>';
+                    tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
+                        renderCheckbox: function (id) {
+                            var identity = self.localData.nodeIdentities[id];
+                            if (identity.nodeType == self.nodeTypes.LinkingObject) {
+                                var element = identity.linkingObject.beginDisabledCheckboxCreation();
+                                return element.outerHTML;
                             }
-                        })
-                    }, {
-                        header: '',
-                        dataIndex: 'dumb',
-                        sortType: 'asFloat',
-                        width: self.ui.settings.checkBoxColumnWidth,
-                        align: 'center',
+                            return '<span></span>';
+                        }
+                    })
+                }, {
+                    header: '',
+                    dataIndex: 'dumb',
+                    sortType: 'asFloat',
+                    width: self.ui.settings.checkBoxColumnWidth,
+                    align: 'center',
 
-                        tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
-                            renderCheckbox: function(id) {
-                                var identity = self.localData.nodeIdentities[parseInt(id)];
-                                if (identity.nodeType == self.nodeTypes.LinkingObject) {
-                                    var element = identity.linkingObject.beginCheckboxCreation();
-                                    return element.outerHTML;
-                                }
-                                return '<span></span>';
+                    tpl: new window.Ext.XTemplate('{id:this.renderCheckbox}', {
+                        renderCheckbox: function (id) {
+                            var identity = self.localData.nodeIdentities[parseInt(id)];
+                            if (identity.nodeType == self.nodeTypes.LinkingObject) {
+                                var element = identity.linkingObject.beginCheckboxCreation();
+                                return element.outerHTML;
                             }
-                        })
-                    }];
+                            return '<span></span>';
+                        }
+                    })
+                }];
             }
         }
     },
 
     /* Public methods */
 
-    constructor: function (mode)
-    {
+    constructor: function (mode) {
         this.addEvents("selectedCountChanged");
         this.mode = mode ? this.modeDescriptions[mode] : this.modeDescriptions['editOrderPosition'];
     },
 
-    setLocalData: function (data)
-    {
+    setLocalData: function (data) {
         window.Ext.apply(this.localData, data);
     },
 
-    setSchema: function (linkingObjectsSchema)
-    {
+    setSchema: function (linkingObjectsSchema) {
         this.reset();
         this.serverData.linkingObjectsSchema = linkingObjectsSchema;
         this.rebuildLinkingObjectsLayout();
-        this.notifySelectedCountChanged();
+
+       
+        var selectedLinkingObject = this.localData.useSingleCategoryForPackage
+             // get the first selected linking object 
+            ? this.localData.linkingObjects.findOne(function(object) {
+                return object.isSelected();
+            })
+            : null;
+        
+        this.notifySelectedCountChanged(selectedLinkingObject);
     },
 
-    registerControls: function (controls)
-    {
+    registerControls: function (controls) {
         window.Ext.apply(this.controls, controls);
         this.registerAdvertisements(window.Ext.decode(this.controls.jsonHidden.dom.value));
     },
-    
-    hasInvalidCheckedObjects: function() {
-        var invalidObject =  this.localData.linkingObjects.findOne(function (object) {
+
+    hasInvalidCheckedObjects: function () {
+        var invalidObject = this.localData.linkingObjects.findOne(function (object) {
             return object.isDeleted() && object.isSelected() && object.isChanged();
         });
 
         return invalidObject;
     },
 
-    prepareToSave: function ()
-    {
+    prepareToSave: function () {
         this.controls.jsonHidden.dom.value = window.Ext.encode(this.gatherAdvertisements());
     },
 
     /* Events */
 
-    notifySelectedCountChanged: function () {
-        var args = { selectedCount: 0, isLimitReached: false };
+    notifySelectedCountChanged: function (source) {
+        var args = { selectedCount: 0, isLimitReached: false, categoryId: null };
         this.localData.positions.forEach(function (object) {
             object.isAdvertisementLimitReached = false;
         });
-        
+
+        var isSingleCategoryType = function(object) {
+            return object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.CategorySingle ||
+                object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressCategorySingle ||
+                object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressFirstLevelCategorySingle;
+        };
+
+        if (this.localData.useSingleCategoryForPackage && source && isSingleCategoryType(source)) {
+            this.localData.linkingObjects.forEach(function(object) {
+                if (isSingleCategoryType(object)) {
+                    if (object.categoryId == source.categoryId) {
+                        object.checkbox.checked = source.checkbox.checked;
+                    } else {
+                        object.checkbox.checked = false;
+                    }
+                }
+            });
+
+            args.categoryId = source.categoryId;
+        }
+
         this.localData.linkingObjects.forEach(function (object) {
             if (object.isSelected()) {
                 if (object.position.IsLinkingObjectOfSingleType) object.position.isAdvertisementLimitReached = true;
                 args.selectedCount++;
+            } else {
+                object.clearAdvertisement();
             }
         });
 
@@ -243,8 +270,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
     /* Private methods - tree creation/maintenance */
 
-    rebuildLinkingObjectsLayout: function ()
-    {
+    rebuildLinkingObjectsLayout: function () {
 
         window.Ext.QuickTips.init();
 
@@ -263,12 +289,10 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         var schema = this.serverData.linkingObjectsSchema;
         var categoriesMap = new Object();
         var i;
-        for (i = 0; i < schema.FirmCategories.length; i++)
-        {
+        for (i = 0; i < schema.FirmCategories.length; i++) {
             categoriesMap[schema.FirmCategories[i].Id] = schema.FirmCategories[i];
         }
-        for (i = 0; i < schema.AdditionalCategories.length; i++)
-        {
+        for (i = 0; i < schema.AdditionalCategories.length; i++) {
             categoriesMap[schema.AdditionalCategories[i].Id] = schema.AdditionalCategories[i];
         }
 
@@ -278,8 +302,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
         var linkingObjectTypes = Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes;
 
-        for (i = 0; i < schema.Positions.length; i++)
-        {
+        for (i = 0; i < schema.Positions.length; i++) {
             var position = schema.Positions[i];
             position.LinkingObjects = [];
             position.isAdvertisementLimitReached = false;
@@ -296,9 +319,9 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 leaf: false
             };
             rootConfig.children.push(positionNode);
-            
+
             if (schema.Warnings && schema.Warnings.length > 0) {
-                
+
                 var warningNode = this.createWarningNode(schema.Warnings[0].Text, this.createNodeIdentity(this.nodeTypes.Warning, position));
                 warningNode.leaf = true;
                 positionNode.children.push(warningNode);
@@ -310,8 +333,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             var categoryNode;
             var j;
 
-            switch (position.LinkingObjectType)
-            {
+            switch (position.LinkingObjectType) {
                 // firm    
                 case linkingObjectTypes.Firm:
                     {
@@ -322,12 +344,11 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                     }
                     break;
 
-                // address     
+                    // address     
                 case linkingObjectTypes.AddressSingle:
                 case linkingObjectTypes.AddressMultiple:
                     {
-                        for (j = 0; j < schema.FirmAddresses.length; j++)
-                        {
+                        for (j = 0; j < schema.FirmAddresses.length; j++) {
                             address = schema.FirmAddresses[j];
                             linkingObject = new linkingObjectConstructor(this, position, null, address.Id, position.LinkingObjectType);
 
@@ -339,7 +360,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                     }
                     break;
 
-                // category      
+                    // category      
                 case linkingObjectTypes.CategorySingle:
                 case linkingObjectTypes.CategoryMultiple:
                 case linkingObjectTypes.CategoryMultipleAsterix:
@@ -347,8 +368,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                         var requiredCategories = [];
                         var requiredCategoriesList = [];
 
-                        for (j = 0; j < schema.FirmCategories.length; j++)
-                        {
+                        for (j = 0; j < schema.FirmCategories.length; j++) {
                             if (schema.FirmCategories[j].Level != 3)
                                 continue;
 
@@ -358,27 +378,21 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
                         var categoriesToAdd = [];
                         var positionAdvertisements = this.advertisements.byPosition[position.Id];
-                        if (positionAdvertisements)
-                        {
-                            for (j = 0; j < positionAdvertisements.length; j++)
-                            {
-                                if (positionAdvertisements[j].CategoryId && !requiredCategories[positionAdvertisements[j].CategoryId])
-                                {
+                        if (positionAdvertisements) {
+                            for (j = 0; j < positionAdvertisements.length; j++) {
+                                if (positionAdvertisements[j].CategoryId && !requiredCategories[positionAdvertisements[j].CategoryId]) {
                                     categoriesToAdd[positionAdvertisements[j].CategoryId] = true;
                                 }
                             }
-                            for (j = 0; j < schema.AdditionalCategories.length; j++)
-                            {
-                                if (categoriesToAdd[schema.AdditionalCategories[j].Id])
-                                {
+                            for (j = 0; j < schema.AdditionalCategories.length; j++) {
+                                if (categoriesToAdd[schema.AdditionalCategories[j].Id]) {
                                     requiredCategories[schema.AdditionalCategories[j].Id] = schema.AdditionalCategories[j];
                                     requiredCategoriesList.push(schema.AdditionalCategories[j]);
                                 }
                             }
                         }
 
-                        for (j = 0; j < requiredCategoriesList.length; j++)
-                        {
+                        for (j = 0; j < requiredCategoriesList.length; j++) {
                             var category = requiredCategoriesList[j];
                             linkingObject = new linkingObjectConstructor(this, position, category.Id, null, position.LinkingObjectType);
                             categoryNode = this.createCategoryNode(category, this.createNodeIdentity(this.nodeTypes.LinkingObject, position, linkingObject));
@@ -391,13 +405,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                     }
                     break;
 
-                // address and category     
+                    // address and category     
                 case linkingObjectTypes.AddressCategorySingle:
                 case linkingObjectTypes.AddressCategoryMultiple:
                 case linkingObjectTypes.AddressFirstLevelCategorySingle:
                 case linkingObjectTypes.AddressFirstLevelCategoryMultiple:
-                    for (j = 0; j < schema.FirmAddresses.length; j++)
-                    {
+                    for (j = 0; j < schema.FirmAddresses.length; j++) {
                         address = schema.FirmAddresses[j];
                         addressNode = this.createAddressNode(address, this.createNodeIdentity(this.nodeTypes.General, position));
                         addressNode.expanded = true;
@@ -406,8 +419,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                         requiredCategories = [];
                         requiredCategoriesList = [];
 
-                        for (var k = 0; k < address.Categories.length; k++)
-                        {
+                        for (var k = 0; k < address.Categories.length; k++) {
                             var categoryId = address.Categories[k];
                             var categoryLevel = categoriesMap[categoryId].Level;
 
@@ -426,27 +438,21 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
                         categoriesToAdd = [];
                         positionAdvertisements = this.advertisements.byPosition[position.Id];
-                        if (positionAdvertisements)
-                        {
-                            for (k = 0; k < positionAdvertisements.length; k++)
-                            {
-                                if (positionAdvertisements[k].CategoryId && !requiredCategories[positionAdvertisements[k].CategoryId])
-                                {
+                        if (positionAdvertisements) {
+                            for (k = 0; k < positionAdvertisements.length; k++) {
+                                if (positionAdvertisements[k].CategoryId && !requiredCategories[positionAdvertisements[k].CategoryId]) {
                                     categoriesToAdd[positionAdvertisements[k].CategoryId] = true;
                                 }
                             }
-                            for (k = 0; k < schema.AdditionalCategories.length; k++)
-                            {
-                                if (categoriesToAdd[schema.AdditionalCategories[k].Id])
-                                {
+                            for (k = 0; k < schema.AdditionalCategories.length; k++) {
+                                if (categoriesToAdd[schema.AdditionalCategories[k].Id]) {
                                     requiredCategories[schema.AdditionalCategories[k].Id] = schema.AdditionalCategories[k];
                                     requiredCategoriesList.push(schema.AdditionalCategories[k]);
                                 }
                             }
                         }
 
-                        for (k = 0; k < requiredCategoriesList.length; k++)
-                        {
+                        for (k = 0; k < requiredCategoriesList.length; k++) {
                             category = requiredCategoriesList[k];
 
                             linkingObject = new linkingObjectConstructor(this, position, category.Id, address.Id, position.LinkingObjectType);
@@ -469,7 +475,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                         var themeNode = this.createThemeNode(theme, nodeId);
                         positionNode.children.push(themeNode);
                         linkingObject.node = themeNode;
-                        
+
                     }, this);
                     break;
             }
@@ -484,13 +490,15 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
         this.setupColumnsWidths(document.body.clientWidth, document.body.clientHeight);
 
-        this.localData.linkingObjects.forEach(function(obj) { obj.finalizeInitalization(); });
+        this.localData.linkingObjects.forEach(function (obj) { obj.finalizeInitalization(); });
 
         this.ui.dumbCheckbox = document.createElement("input");
         this.ui.dumbCheckbox.type = 'checkbox';
         this.bindCheckboxes(this.ui.treeGrid.root, this.ui.dumbCheckbox);
+
+
     },
-    
+
     createAddCategoryLinkNode: function (id) {
         return {
             type: 'addCategory',
@@ -504,7 +512,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             dumb: '0'
         };
     },
-    
+
     createThemeNode: function (theme, id) {
         return {
             id: id,
@@ -532,7 +540,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             dumb: '0'
         };
     },
-    
+
     createWarningNode: function (warning, id) {
         return {
             id: id,
@@ -546,39 +554,38 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             dumb: '0'
         };
     },
-    
+
     createAddressNode: function (address, id) {
         return {
             id: id,
             type: 'address',
             draggable: false,
             name: this.getAddressName(address),
-            disabled: address.IsDeleted, 
+            disabled: address.IsDeleted,
             hiddenTemporarily: address.IsHidden,
             children: [],
             advertisement: null,
             dumb: '0'
         };
     },
-    
+
     getAddressName: function (address) {
         if (address.IsHidden) {
             return String.format('<i>{0} ({1})</i>', address.Address, Ext.LocalizedResources.HiddenItem);
         }
-        
+
         if (address.IsDeleted) {
             return String.format('<i>{0} ({1})</i>', address.Address, Ext.LocalizedResources.DeletedItem);
         }
-        
+
         if (!address.IsLocatedOnTheMap) {
             return String.format('<i>{0} ({1})</i>', address.Address, Ext.LocalizedResources.AddressIsNotLocatedOnTheMap);
         }
-        
+
         return address.Address;
     },
 
-    createTree: function (rootConfig)
-    {
+    createTree: function (rootConfig) {
         this.ui.AdvertisementLookups = [];
 
         var tree = new window.Ext.ux.tree.TreeGrid({
@@ -602,8 +609,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         window.Ext.EventManager.onWindowResize(this.setupColumnsWidths, this);
     },
 
-    createCustomSortFn: function (sortFn)
-    {
+    createCustomSortFn: function (sortFn) {
         var nodeTypes = this.nodeTypes;
         var nodeIdentities = this.localData.nodeIdentities;
         var getSortIndex = function (node) {
@@ -624,8 +630,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             }
             return 0;
         };
-        return function (n1, n2)
-        {
+        return function (n1, n2) {
             var sortIndexOne = getSortIndex(n1);
             var sortIndexTwo = getSortIndex(n2);
             if (sortIndexOne == sortIndexTwo)
@@ -634,19 +639,15 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         };
     },
 
-    removeEmptyNodes: function (node)
-    {
+    removeEmptyNodes: function (node) {
         var nodeIdentity = this.localData.nodeIdentities[node.id];
         var counter = (nodeIdentity.nodeType == this.nodeTypes.LinkingObject || nodeIdentity.nodeType == this.nodeTypes.AddCategoryLink || nodeIdentity.nodeType == this.nodeTypes.Warning) ? 1 : 0;
 
-        for (var i = 0; i < node.children.length; i++)
-        {
+        for (var i = 0; i < node.children.length; i++) {
             var activeLeaves = this.removeEmptyNodes(node.children[i]);
-            if (activeLeaves)
-            {
+            if (activeLeaves) {
                 counter += activeLeaves;
-            } else
-            {
+            } else {
                 node.children.remove(node.children[i]);
                 i--;
             }
@@ -669,8 +670,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             this.renderAddressNode(node);
         }
 
-        for (var i = 0; i < node.childNodes.length; i++)
-        {
+        for (var i = 0; i < node.childNodes.length; i++) {
             this.renderCustomTreeNodes(node.childNodes[i]);
         }
     },
@@ -681,9 +681,8 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         textEl.style.color = 'Black';
         textEl.getAttribute('style').cssText = textEl.getAttribute('style').cssText + ' !important';
     },
-    
-    renderAddCategoryLink: function (node)
-    {
+
+    renderAddCategoryLink: function (node) {
         var ui = node.getUI();
         ui.getIconEl().style.display = 'none';
         var textEl = ui.getTextEl();
@@ -691,12 +690,11 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         textEl.style.fontStyle = "italic";
         textEl.style.color = 'Blue';
         var self = this;
-        ui.getAnchor().onclick = function ()
-        {
+        ui.getAnchor().onclick = function () {
             self.addCategoryClick(node);
         };
     },
-    
+
     renderWarning: function (node) {
         var ui = node.getUI();
         ui.getIconEl().style.display = 'none';
@@ -706,25 +704,21 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         textEl.getAttribute('style').cssText = textEl.getAttribute('style').cssText + ' !important';
     },
 
-    setupColumnsWidths: function (width)
-    {
+    setupColumnsWidths: function (width) {
         this.mode.setupWidth(this.ui.treeGrid.columns, width - this.ui.settings.widthDelta, this.ui.settings);
         this.ui.treeGrid.updateColumnWidths();
     },
 
     //Traverses the tree and binds a dumb checkbox to each node. This action is required by tree's internal logic.
-    bindCheckboxes: function (node, dumbCheckbox)
-    {
+    bindCheckboxes: function (node, dumbCheckbox) {
         if (node.isLeaf())
             node.getUI().checkbox = dumbCheckbox;
         else
             node.childNodes.forEach(function (child) { this.bindCheckboxes(child, dumbCheckbox); }, this);
     },
 
-    reset: function ()
-    {
-        if (!this.ui.treeGrid)
-        {
+    reset: function () {
+        if (!this.ui.treeGrid) {
             return;
         }
 
@@ -738,58 +732,47 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
     /* Private methods - other */
 
-    registerLinkingObject: function (linkingObject)
-    {
+    registerLinkingObject: function (linkingObject) {
         this.localData.linkingObjectsByKey[linkingObject.key] = linkingObject;
         this.localData.linkingObjects.push(linkingObject);
     },
 
-    registerAdvertisements: function (advertisements)
-    {
+    registerAdvertisements: function (advertisements) {
         this.advertisements.byKey = {};
         this.advertisements.byPosition = {};
-        for (var i = 0; i < advertisements.length; i++)
-        {
+        for (var i = 0; i < advertisements.length; i++) {
             var advertisement = advertisements[i];
 
             var key = this.makeLinkingObjectKey(advertisement.PositionId, advertisement.CategoryId, advertisement.FirmAddressId, advertisement.ThemeId);
             this.advertisements.byKey[key] = advertisement;
-            if (!this.advertisements.byPosition[advertisement.PositionId])
-            {
+            if (!this.advertisements.byPosition[advertisement.PositionId]) {
                 this.advertisements.byPosition[advertisement.PositionId] = [];
             }
             this.advertisements.byPosition[advertisement.PositionId].push(advertisement);
         }
     },
 
-    gatherAdvertisements: function ()
-    {
+    gatherAdvertisements: function () {
         var advertisements = [];
-        if (!this.schemaIsLoaded())
-        {
+        if (!this.schemaIsLoaded()) {
             return advertisements;
         }
 
-        for (var i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++)
-        {
+        for (var i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
             var position = this.serverData.linkingObjectsSchema.Positions[i];
-            for (var j = 0; j < position.LinkingObjects.length; j++)
-            {
+            for (var j = 0; j < position.LinkingObjects.length; j++) {
                 var linkingObject = position.LinkingObjects[j];
 
-                if (linkingObject.checkbox.checked)
-                {
+                if (linkingObject.checkbox.checked) {
                     var advertisementId = null;
 
-                    if (linkingObject.supportsAdvertisement() && linkingObject.isAdvertisementSelected())
-                    {
+                    if (linkingObject.supportsAdvertisement() && linkingObject.isAdvertisementSelected()) {
                         advertisementId = linkingObject.getSelectedAdvertisement().id;
                     }
 
                     var linkingObjectTypes = Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes;
 
-                    switch (position.LinkingObjectType)
-                    {
+                    switch (position.LinkingObjectType) {
                         case linkingObjectTypes.AddressCategorySingle:
                         case linkingObjectTypes.AddressCategoryMultiple:
                         case linkingObjectTypes.AddressFirstLevelCategorySingle:
@@ -842,28 +825,23 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         return advertisements;
     },
 
-    validate: function ()
-    {
+    validate: function () {
         var results = [];
 
-        if (!this.schemaIsLoaded())
-        {
+        if (!this.schemaIsLoaded()) {
             return results;
         }
 
         var badPositions = [];
         var i;
 
-        for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++)
-        {
+        for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
             var position = this.serverData.linkingObjectsSchema.Positions[i];
             var found = false;
-            for (var j = 0; j < position.LinkingObjects.length && !found; j++)
-            {
+            for (var j = 0; j < position.LinkingObjects.length && !found; j++) {
                 found |= position.LinkingObjects[j].isSelected();
             }
-            if (!found)
-            {
+            if (!found) {
                 badPositions.push(position);
             }
         }
@@ -874,25 +852,26 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 message = Ext.LocalizedResources.AtLeastOneLinkingObjectMustBeSelected;
                 results.push({ Level: 'CriticalError', Message: message });
             }
-            // Теперь в пакетных позициях можно отключить всё что угодно
-            //else {
-            //    badPositions.sort(function (a, b) {
-            //        if (a.Name < b.Name) return -1;
-            //        if (a.Name > b.Name) return 1;
-            //        return 0;
-            //    });
+            // Теперь в пакетных позициях можно отключить всё что угодно (исключение - новая модель продаж)
+            else if (this.localData.useSingleCategoryForPackage) {
+                badPositions.sort(function (a, b) {
+                    if (a.Name < b.Name) return -1;
+                    if (a.Name > b.Name) return 1;
+                    return 0;
+                });
 
-            //    message = Ext.LocalizedResources.AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions;
-            //    for (i = 0; i < badPositions.length; i++) {
-            //        if (i > 0) {
-            //            message += Ext.LocalizedResources.ListSeparator;
-            //        }
-            //        message += badPositions[i].Name;
-            //    }
-            //}
+                message = Ext.LocalizedResources.AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions;
+                for (i = 0; i < badPositions.length; i++) {
+                    if (i > 0) {
+                        message += Ext.LocalizedResources.ListSeparator;
+                    }
+                    message += badPositions[i].Name;
+                }
+                results.push({ Level: 'CriticalError', Message: message });
+            }
         }
         //var badPositions = [];
-        
+
         //for (i = 0; i < this.serverData.linkingObjectsSchema.Positions.length; i++) {
         //    var position = this.serverData.linkingObjectsSchema.Positions[i];
         //    var found = false;
@@ -909,21 +888,17 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         return results;
     },
 
-    makeLinkingObjectKey: function (positionId, categoryId, firmAddressId, themeId)
-    {
+    makeLinkingObjectKey: function (positionId, categoryId, firmAddressId, themeId) {
         return 'adv-' + positionId + '-' + categoryId + '-' + firmAddressId + '-' + themeId;
     },
 
-    setLimitReached: function (newValue)
-    {
-        for (var index = 0; index < this.localData.linkingObjects.length; index++)
-        {
+    setLimitReached: function (newValue) {
+        for (var index = 0; index < this.localData.linkingObjects.length; index++) {
             this.localData.linkingObjects[index].setupControlsAvailability();
         }
     },
 
-    createNodeIdentity: function (nodeType, position, linkingObject, firmAddressId)
-    {
+    createNodeIdentity: function (nodeType, position, linkingObject, firmAddressId) {
         if (firmAddressId == undefined) {
             firmAddressId = null;
         }
@@ -932,8 +907,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
             position: position,
             firmAddressId: firmAddressId
         };
-        if (nodeType == this.nodeTypes.LinkingObject)
-        {
+        if (nodeType == this.nodeTypes.LinkingObject) {
             identity.linkingObject = linkingObject;
         }
 
@@ -941,31 +915,25 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         return (this.localData.nodeIdentities.length - 1).toString();
     },
 
-    addCategoryClick: function (node)
-    {
+    addCategoryClick: function (node) {
         var nodeIndentity = this.localData.nodeIdentities[node.id];
         var position = nodeIndentity.position;
         var firmAddressId = nodeIndentity.firmAddressId;
         var positionNode = node.parentNode;
 
         var category = this.selectOrganizationUnitCategory(position);
-        if (!category)
-        {
+        if (!category) {
             return;
         }
 
         var linkingObject;
-        try
-        {
+        try {
             linkingObject = new window.Ext.DoubleGis.UI.OrderPosition.LinkingObject(this, position, category.Id, firmAddressId, position.LinkingObjectType);
-        } catch (exc)
-        {
-            if (exc == "AlreadyExists")
-            {
+        } catch (exc) {
+            if (exc == "AlreadyExists") {
                 alert(Ext.LocalizedResources.CategoryAlreasyExistsInTheList.replace("{0}", category.Name));
                 return;
-            } else
-            {
+            } else {
                 throw exc;
             }
         }
@@ -977,8 +945,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         this.bindCheckboxes(this.ui.treeGrid.root, this.ui.dumbCheckbox);
     },
 
-    selectOrganizationUnitCategory: function (position)
-    {
+    selectOrganizationUnitCategory: function (position) {
         var linkingObjectTypes = Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes;
 
         var categoryLevel;
@@ -987,15 +954,19 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         else
             categoryLevel = 3;
 
-        var extendedInfoExpr = "extendedInfo=" + encodeURIComponent(("OrganizationUnitId=" + this.localData.organizationUnitId.toString()) + "&" + ("Level=" + categoryLevel));
-        var url = "/Grid/Search/Category?" + extendedInfoExpr;
+        var extendedInfo = "OrganizationUnitId=" + this.localData.organizationUnitId.toString() + "&" + ("Level=" + categoryLevel);
+
+        if (this.localData.useSingleCategoryForPackage) {
+            extendedInfo += "&forNewSalesModel=true";
+        }
+
+        var url = "/Grid/Search/Category?" + "extendedInfo=" + encodeURIComponent(extendedInfo);
 
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
         return result ? result.items[0].data : null;
     },
 
-    schemaIsLoaded: function ()
-    {
+    schemaIsLoaded: function () {
         return this.serverData.linkingObjectsSchema && this.serverData.linkingObjectsSchema.Positions;
     }
 });
