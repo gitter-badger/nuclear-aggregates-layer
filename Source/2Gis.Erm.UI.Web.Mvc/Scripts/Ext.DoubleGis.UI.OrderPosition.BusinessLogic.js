@@ -33,7 +33,8 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         AmountSpecificationMode: null,
         IsBudget: null,
         LinkingObjectsSchema: null,
-        IsPositionComposite: null
+        IsPositionComposite: null,
+        RateType: null
     },
 
     ComputationalData: {
@@ -262,11 +263,12 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         window.Ext.Ajax.request({
             url: url,
             timeout: 1200000,
-            success: function (response, opts)
-            {
-                self.recalculateAll(window.Ext.decode(response.responseText));
+            success: function (response, opts) {
+                var responseData = window.Ext.decode(response.responseText);
+                self.ServerData.RateType = responseData.RateType;
+                self.recalculateAll(responseData);
                 self.recalculateDiscount();
-                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema);
+                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.RateType);
             },
             failure: function (response)
             {
@@ -463,8 +465,16 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     onSelectedAdvertisementCountChanged: function (args)
     {
-        if (this.ServerData.IsBudget || this.ServerData.IsPositionComposite)
+        if (this.ServerData.IsBudget)
         {
+            return;
+        }
+
+        if (this.ServerData.RateType == "BoundCategory") {
+            this.acquirePricesForCategory(args.selectedCount > 0 ? args.categoryId : null);
+        }
+
+        if (this.ServerData.IsPositionComposite) {
             return;
         }
 
@@ -484,6 +494,42 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
                 args.isLimitReached = this.ServerData.PricePositionAmount == args.selectedCount;
                 break;
         }
+    },
+
+    acquirePricesForCategory: function(categoryId) {
+        var requestParams = {
+            categoryId: categoryId,
+            orderId: this.LocalData.OrderId,
+            pricePositionId: this.UI.Lookups.PricePosition.getValue().id
+        };
+
+        var url = '/OrderPosition/GetRatedPrices';
+        url = window.Ext.urlAppend(url, window.Ext.urlEncode(requestParams));
+
+        var self = this;
+
+        window.Ext.Ajax.request({
+            url: url,
+            timeout: 1200000,
+            success: function (response, opts) {
+                var responseData = window.Ext.decode(response.responseText);
+                self.recalculateAll(responseData);
+                self.recalculateDiscount();
+            },
+            failure: function (response) {
+                if (response.status == 500 && response.responseText && response.responseText.length > 0) {
+                    Ext.Msg.show({
+                        title: Ext.LocalizedResources.Error,
+                        msg: Ext.LocalizedResources.ErrorRetrievingDataFromServer + ': \n' + response.responseText,
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                } else {
+                    alert(Ext.LocalizedResources.ErrorRetrievingDataFromServer);
+                }
+            }
+        });
+
     },
 
     setupAmountFieldAvailability: function ()

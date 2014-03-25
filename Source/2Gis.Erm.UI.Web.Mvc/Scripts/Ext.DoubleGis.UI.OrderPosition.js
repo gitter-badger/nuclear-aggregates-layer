@@ -127,8 +127,9 @@ window.InitPage = function ()
             organizationUnitId: window.Ext.getDom('OrganizationUnitId').value
         });
 
-        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema)
+        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, rateType)
         {
+            this.Advertisements.localData.useSingleCategoryForPackage = rateType == "BoundCategory";
             this.Advertisements.setSchema(linkingObjectsShema);
         }, this);
 
