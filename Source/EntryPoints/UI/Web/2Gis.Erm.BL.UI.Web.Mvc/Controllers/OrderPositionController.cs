@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -25,6 +27,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IPublicService _publicService;
+        private readonly IGetRatedPricesForCategoryOperationService _getRatedPricesForCategoryOperationService;
+        private readonly IViewOrderPositionOperationService _viewOrderPositionOperationService;
 
         public OrderPositionController(
             IMsCrmSettings msCrmSettings,
@@ -33,7 +37,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             IOperationServicesManager operationServicesManager,
             IPublicService publicService,
             IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
+            IGetBaseCurrencyService getBaseCurrencyService,
+            IGetRatedPricesForCategoryOperationService getRatedPricesForCategoryOperationService,
+            IViewOrderPositionOperationService viewOrderPositionOperationService)
             : base(
                 msCrmSettings,
                 userContext,
@@ -43,21 +49,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _operationServicesManager = operationServicesManager;
             _publicService = publicService;
+            _getRatedPricesForCategoryOperationService = getRatedPricesForCategoryOperationService;
+            _viewOrderPositionOperationService = viewOrderPositionOperationService;
         }
 
         [HttpGet]
-        public JsonNetResult GetEditValues(long? orderPositionId, long? categoryId, long orderId, long pricePositionId, bool includeHidden)
+        public JsonNetResult GetEditValues(long? orderPositionId, long orderId, long pricePositionId, bool includeHidden)
         {
-            var response = (ViewOrderPositionResponse)_publicService.Handle(new ViewOrderPositionRequest
-            {
-                OrderPositionId = orderPositionId,
-                OrderId = orderId,
-                PricePositionId = pricePositionId,
-                IncludeHidden = includeHidden,
-                CategoryId = categoryId
-            });
+            var orderPositionWithSchemaDto = _viewOrderPositionOperationService.ViewOrderPosition(orderId, pricePositionId, orderPositionId, includeHidden);
 
-            return new JsonNetResult(response);
+            return new JsonNetResult(orderPositionWithSchemaDto);
+        }
+
+        [HttpGet]
+        public JsonNetResult GetRatedPrices(long orderId, long pricePositionId, long? categoryId)
+        {
+            var prices = _getRatedPricesForCategoryOperationService.GetRatedPrices(orderId, pricePositionId, categoryId);
+            return new JsonNetResult(prices);
         }
 
         [HttpPost]
