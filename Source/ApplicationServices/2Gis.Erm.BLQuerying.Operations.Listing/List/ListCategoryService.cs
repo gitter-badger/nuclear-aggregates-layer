@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -111,9 +112,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                 .Any(y => y.IsActive &&
                                                                                                                                                                             !y.IsDeleted &&
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
+
+            bool forNewSalesModel;
+            if (querySettings.TryGetExtendedProperty("forNewSalesModel", out forNewSalesModel))
+            {
+                long organizationUnitId;
+                if (!querySettings.TryGetExtendedProperty("OrganizationUnitId", out organizationUnitId) ||
+                    !NewSalesModelRestrictions.SupportedOrganizationUnitIds.Contains(organizationUnitId))
+                {
+                    count = 0;
+                    return Enumerable.Empty<ListCategoryDto>();
+                }
+            }
+
+            var forNewSalesModelFilter = querySettings.CreateForExtendedProperty<Category, bool>(
+                "forNewSalesModel",
+                nsm => x => !forNewSalesModel || NewSalesModelRestrictions.SupportedCategoryIds.Contains(x.Id));
+            
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper
+                , forNewSalesModelFilter
                 , firmIdFilter
                 , firmAddressIdFilter
                 , isActiveFilter
