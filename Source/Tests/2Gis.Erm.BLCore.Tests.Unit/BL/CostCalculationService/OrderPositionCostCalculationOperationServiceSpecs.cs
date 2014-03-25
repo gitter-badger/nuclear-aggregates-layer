@@ -2,9 +2,8 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Special.CostCalculation;
@@ -105,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                         FirmRepositoryMock.Object,
                         Mock.Of<IOperationScopeFactory>(),
                         ProjectServiceMock.Object,
-                        Mock.Of<IPriceReadModel>());
+                        Mock.Of<ICalculateCategoryRateOperationService>());
                 };
 
             protected static Mock<IFinder> FinderMock { get; private set; }

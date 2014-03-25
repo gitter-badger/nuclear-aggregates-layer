@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
@@ -450,6 +451,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 .Any(price => price.IsPublished && price.BeginDate <= orderBeginDistributionDate);
         }
 
+        // FIXME {a.tukaev, 20.03.2014}: Этот метод содержит очень много аспектов получения и обработки данных для последующего использования в UI. 
+        //                               Необходимо размотать эти спагетти и те, что есть в ViewOrderPositionHandler, выделив ответственности и реализовать их в отлдельных типах с четкими контрактами
         public OrderPositionDetailedInfo GetOrderPositionDetailedInfo(long? orderPositionId, long orderId, long pricePositionId, bool includeHiddenAddresses)
         {
             var order = GetOrder(orderId);
@@ -1144,7 +1147,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return themes;
         }
 
-
+        // TODO {all, 20.03.2014}: CalculatePricePerUnit -  полноценная операция в аггрегате Order, а не часть read модели. К тому же, скорее всего, эта операция должна быть в компоненте BLFlex
         public OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost)
         {
             // в заказе "BranchOfficeOrganizationUnit" соответсвует городу источнику

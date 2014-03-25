@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO.FirmInfo;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,6 +17,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public FirmReadModel(ISecureFinder finder)
         {
             _finder = finder;
+        }
+
+        public long GetOrderFirmId(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
         }
 
         public IReadOnlyDictionary<Guid, FirmWithAddressesAndProjectDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds)
@@ -53,6 +59,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                       }
                               })
                           .ToDictionary(x => x.CrmId, x => x.Dto);
+        }
+
+        public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
+        {
+            return _finder.Find(OrderSpecs.Orders.Find.ActiveOrdersForFirm(firmId)).Select(x => x.Id).ToArray();
+        }
+
+        public long GetOrgUnitId(long firmId)
+        {
+            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
         }
 
         public bool HasFirmClient(long firmId)
