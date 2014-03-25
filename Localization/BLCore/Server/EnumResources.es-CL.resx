@@ -1492,10 +1492,10 @@
     <value>Tarjeta bancaria</value>
   </data>
   <data name="PaymentMethodDebitCard" xml:space="preserve">
-    <value>Дебетовая карта</value>
+    <value>Tarjeta de débito</value>
   </data>
   <data name="PaymentMethodCreditCard" xml:space="preserve">
-    <value>Кредитная карта</value>
+    <value>Tarjeta de crédito</value>
   </data>
   <data name="ActivityTaskTypeNotSet" xml:space="preserve">
     <value>Ninguno</value>
@@ -1801,13 +1801,13 @@
     <value>Acción</value>
   </data>
   <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
-    <value>Orden de compra</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusOrderFileKindTerminationScan" xml:space="preserve">
-    <value>Anulación</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusOrderFileKindOtherDocumentScan" xml:space="preserve">
-    <value>Otro</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
     <value>No aplicar</value>
@@ -1828,57 +1828,57 @@
     <value>Cuenta Vista</value>
   </data>
   <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsMultiple" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsSingle" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDietarySupplement" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentSpecialNutrition" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentChildNutrition" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentFinancilaServices" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsTraditional" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentBiocides" xml:space="preserve">
-    <value />
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextAlcoholAdvertising" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsMultiple" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsSingle" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextDietarySupplement" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextSpecialNutrition" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChildNutrition" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextFinancilaServices" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsTraditional" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
-    <value />
+	  <value>[Not defined for current business model and language]</value>
   </data>
 </root>

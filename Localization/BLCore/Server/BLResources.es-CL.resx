@@ -967,7 +967,9 @@
     <value>{0} no indicado.</value>
   </data>
   <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
-    <value>Procesado sin errores:{0}\r\nErrores no críticos:{1}\r\nErrores de bloqueo:{2}</value>
+    <value>Procesado sin errores:{0}
+Errores no críticos:{1}
+Errores de bloqueo:{2}</value>
   </data>
   <data name="AdvertisementElements" xml:space="preserve">
     <value>Elementos del material publicitario</value>
@@ -1288,7 +1290,8 @@
     <value>10.</value>
   </data>
   <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira desde el {3}.\r\n11.</value>
+    <value>10. Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira desde el {3}.
+11.</value>
   </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Usuario desconocido</value>
@@ -1522,7 +1525,9 @@
     <value>País</value>
   </data>
   <data name="ErrorWhenProcessingMessages" xml:space="preserve">
-    <value>Error al procesar los mensajes.\r\nNúmero total de mensajes: {0}, procesados con éxito {1} mensajes.\r\nNúmero total de registros: {2}, procesados con éxito {3} mensajes.</value>
+    <value>Error al procesar los mensajes.
+Número total de mensajes: {0}, procesados con éxito {1} mensajes.
+Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="AccessSharingName" xml:space="preserve">
     <value>Nombre</value>
@@ -2061,6 +2066,10 @@
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
+    <value>;</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -2551,7 +2560,11 @@
     <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
   </data>
   <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>El pago se ha ingresado en la cuenta personal: {0}.\r\nPersona jurídica del cliente: {1}.\r\nPersona jurídica del ejecutor:: {2}.\r\nPago recibido: {3}.\r\nOperación realizada: {4}.</value>
+    <value>El pago se ha ingresado en la cuenta personal: {0}.
+Persona jurídica del cliente: {1}.
+Persona jurídica del ejecutor: {2}.
+Pago recibido: {3}.
+Operación realizada: {4}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Se requiere cerrar todos los planes activos con este objeto</value>
@@ -4036,7 +4049,8 @@
     <value>Esta plantilla se utiliza en uno o más materiales publicitarios y no puede eliminarse</value>
   </data>
   <data name="AccessSharingFormDescription" xml:space="preserve">
-    <value>Seleccione los usuarios para adjudicar permisos de acceso al registro seleccionado. Después seleccione las casillas situadas a la derecha para especificar los permisos que se deben conceder a\r\n  cada usuario.</value>
+    <value>Seleccione los usuarios para adjudicar permisos de acceso al registro seleccionado. Después seleccione las casillas situadas a la derecha para especificar los permisos que se deben conceder a
+	cada usuario.</value>
   </data>
   <data name="TabTitleInformation" xml:space="preserve">
     <value>Información</value>
@@ -4198,7 +4212,8 @@
     <value>Es necesario seleccionar al menos una posición del paquete</value>
   </data>
   <data name="XSDValidationError" xml:space="preserve">
-    <value>El resultado no ha superado la validación xsd. Motivos:\r\n{0}</value>
+    <value>El resultado no ha superado la validación xsd. Motivos:
+{0}</value>
   </data>
   <data name="ExportLocalMessageError" xml:space="preserve">
     <value>Ha ocurrido un error: {0}. Véase detalles en la descripción del mensaje</value>
@@ -4813,7 +4828,8 @@
     <value>Cliente interesado</value>
   </data>
   <data name="HotClientDescriptionTemplate" xml:space="preserve">
-    <value>Teléfono: {0}\r\nContacto: {1}</value>
+    <value>Teléfono: {0}
+Contacto: {1}</value>
   </data>
   <data name="ImportHotClientRequiredAttributeNotFound" xml:space="preserve">
     <value>No se ha encontrado el atributo obligatorio {0}</value>
@@ -4909,19 +4925,19 @@
     <value>Existe una persona natural oculta con la serie y el número de pasaporte especificados</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>místem podnikání</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>se sídlem</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Ya existe una EIRL con el RUT especificado</value>
@@ -4933,43 +4949,43 @@
     <value>Existe una EIRL oculta con el RUT especificado</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>La persona jurídica del cliente con T.I.C. especificado ya existe</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existe una persona jurídica del cliente eliminada con T.I.C. especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existe una persona jurídica del cliente oculta con T.I.C. especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Ya existe una EIRL con el  T.I.C. especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existe una EIRL eliminada con el T.I.C. especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Existe una empresa individual oculta con el T.I.C especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>En la posición {0} se ha formalizado la publicidad API aunque la empresa no tiene dirección en el proyecto de la ciudad de publicación de órdenes</value>
   </data>
   <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Ya existe una EIRL con el   DIC o IC especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>La persona jurídica del cliente con DIC o IC especificados ya existe</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existe una EIRL eliminada con el DIC o IC especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existe una persona jurídica del cliente eliminada con DIC o IC especificados</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existe una empresa individual oculta con el DIC o IC especificado</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existe una persona jurídica del cliente oculta con DIC o IC especificados</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>Hace falta crear al menos una factura</value>
@@ -5128,16 +5144,21 @@
     <value>En el Área personal, se ha formalizado una solicitud para prorrogar la orden {0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
-    <value>Empresa: {0}.\r\nPersona jurídica: {1}.\r\nInicio de la publicación: {2}.\r\nPeriodo de la publicación: {3}.</value>
+    <value>Empresa: {0}.
+Persona jurídica: {1}.
+Inicio de la publicación: {2}.
+Periodo de la publicación: {3}.</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDescriptionTemplate" xml:space="preserve">
-    <value>Detalles: \r\n{0}</value>
+    <value>Detalles: 
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorMessagePrefixTemplate" xml:space="preserve">
     <value>¡Crítico!</value>
   </data>
   <data name="OrderProcessingRequestResultEmailErrorsEnumerationTemplate" xml:space="preserve">
-    <value>Durante la creación de la orden, se han encontrado los siguientes errores:\r\n{0}</value>
+    <value>Durante la creación de la orden, se han encontrado los siguientes errores:
+{0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailRenewedOrderTemplate" xml:space="preserve">
     <value>La solicitud se ha procesado y se ha generado una orden {0}, según la solicitud</value>
