@@ -110,6 +110,7 @@
     <Compile Include="Activities\DTO\ActivityInstanceDto.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
+    <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
     <Compile Include="Dynamic\ReadModel\EavFinderActivityExtensions.cs" />
     <Compile Include="Dynamic\ReadModel\EavFinderExtensions.cs" />
     <Compile Include="Activities\ReadModel\IActivityReadModel.cs" />

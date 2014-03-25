@@ -29,8 +29,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         int ChangeTerritory(Firm firm, long territoryId);
         int ChangeTerritory(IEnumerable<Firm> firm, long territoryId);
         IEnumerable<long> GetFirmAddressesIds(long firmId);
-        long GetOrderFirmId(long orderId);
-        IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId);
         IEnumerable<Firm> GetFirmsByTerritory(long territoryId);
 
         IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders();

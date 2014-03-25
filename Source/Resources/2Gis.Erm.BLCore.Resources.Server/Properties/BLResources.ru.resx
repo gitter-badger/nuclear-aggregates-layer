@@ -5236,4 +5236,10 @@
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
+  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+    <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
+    <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
+  </data>
 </root>

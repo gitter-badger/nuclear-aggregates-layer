@@ -90,9 +90,15 @@
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\OrderPositionAdvertisementValidationError.cs" />
+    <Compile Include="Concrete\OrderPositions\ICalculateCategoryRateOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\IViewOrderPositionOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\Dto\LinkingObjectsSchemaDto.cs" />
+    <Compile Include="Concrete\OrderPositions\Dto\OrderPositionWithSchemaDto.cs" />
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
+    <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationMessage.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\HotClientRequestDto.cs" />
@@ -114,6 +120,7 @@
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\File\IValidateFileSettings.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
+    <Compile Include="Crosscutting\ISupportedCategoriesChecker.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
@@ -216,7 +223,6 @@
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountResponse.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountRequest.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\ViewOrderPositionRequest.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsResponse.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsRequest.cs" />

@@ -1554,16 +1554,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderPositionController\GetEditValues",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ViewOrderPositionHandler),
-                        Request = typeof(ViewOrderPositionRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.LocalMessages.ProcessLocalMessages\ExecuteInternal",
                     MaxUseCaseDepth = 3,
                     Root = new UseCaseNode(0)
