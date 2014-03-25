@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                         }
 
                         // Если не выбрана ни одна рубрика, берем коэффициент 1: https://confluence.2gis.ru/pages/viewpage.action?pageId=133467722
-                        return 1m;
+                        return DefaultCategoryRate;
                     }
 
                     return _priceReadModel.GetCategoryRateByCategory(categoryId.Value, organizationUnitId);
