@@ -127,7 +127,7 @@
     <value>Acción: {0}, Completado: {1} Fecha: {2}</value>
   </data>
   <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "modificación": values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"modificaciones":"modificaciones"]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;modificación&quot;: values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;modificaciones&quot;:&quot;modificaciones&quot;]})</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Activa</value>
@@ -202,7 +202,7 @@
     <value>Categoría</value>
   </data>
   <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
-    <value>La categoría '{0}' ya está en la lista.</value>
+    <value>La categoría &apos;{0}&apos; ya está en la lista.</value>
   </data>
   <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
     <value>Verificando. Por favor, espere...</value>
@@ -562,7 +562,7 @@
     <value>El número previsto de lanzamientos debe estar en el rango [1-12]</value>
   </data>
   <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Es necesario indicar un valor para el campo "{0}"</value>
+    <value>Es necesario indicar un valor para el campo &quot;{0}&quot;</value>
   </data>
   <data name="Saturday" xml:space="preserve">
     <value>Sábado</value>
@@ -640,7 +640,7 @@
     <value>Tamaño desconocido</value>
   </data>
   <data name="UploadFileQuestion" xml:space="preserve">
-    <value>¿Desea realmente cargar el archivo "{0}" en el servidor?</value>
+    <value>¿Desea realmente cargar el archivo &quot;{0}&quot; en el servidor?</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Miércoles</value>
@@ -655,7 +655,7 @@
     <value>El contrato actual está obsoleto, para hacer una orden con arreglo al contrato se debe crear un contrato nuevo</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Se muestra el motivo de la transacción Cliente interesado, ya que para dicho cliente existe la tarea "{0}", cerrada {1} con el tipo Cliente interesado</value>
+    <value>Se muestra el motivo de la transacción Cliente interesado, ya que para dicho cliente existe la tarea &quot;{0}&quot;, cerrada {1} con el tipo Cliente interesado</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>¡Se requiere confirmación!</value>
@@ -850,7 +850,7 @@
     <value>La dirección no está enlazada con el mapa</value>
   </data>
   <data name="InputValidationInvalidUrl" xml:space="preserve">
-    <value>El valor del campo "{0}" no es una dirección URL válida</value>
+    <value>El valor del campo &quot;{0}&quot; no es una dirección URL válida</value>
   </data>
   <data name="TextEditorOverflow" xml:space="preserve">
     <value>El número de caracteres excede el permitido {0} en {1} caracteres.</value>
@@ -859,7 +859,7 @@
     <value>Caracteres restantes: {0}</value>
   </data>
   <data name="AdsCheckTooLongWord" xml:space="preserve">
-    <value>En la palabra '{0}' se ha excedido el número máximo permitido de caracteres: {1} de {2} posibles.</value>
+    <value>En la palabra &apos;{0}&apos; se ha excedido el número máximo permitido de caracteres: {1} de {2} posibles.</value>
   </data>
   <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
     <value>El número de líneas excede el permitido {0} en {1}.</value>
@@ -898,7 +898,7 @@
     <value>Completado: {0}   Fecha: {1}</value>
   </data>
   <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "mensaje": values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"mensajes":"mensajes"]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;mensaje&quot;: values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;mensajes&quot;:&quot;mensajes&quot;]})</value>
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Mensajes según la petición</value>
