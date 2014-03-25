@@ -108,4 +108,8 @@
             }
         }
     });
+
+    Ext.each(Ext.CardLookupSettings, function (item, i) {
+        new Ext.ux.LookupField(item);
+    }, this);
 });
