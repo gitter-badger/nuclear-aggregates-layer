@@ -36,11 +36,6 @@
         };
         Ext.onReady(function ()
         {
-
-            window.Ext.each(window.Ext.CardLookupSettings, function (item)
-            {
-                new window.Ext.ux.LookupField(item);
-            }, this);
             setVisualFeatures();
             window.Ext.get("Cancel").on("click", function () { window.close(); });
             window.Ext.get("OK").on("click", submitForm);

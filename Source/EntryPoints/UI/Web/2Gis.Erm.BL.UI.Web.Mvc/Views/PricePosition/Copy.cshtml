@@ -44,12 +44,6 @@
 
                 EntityForm.submit();
             });
-
-
-            window.Ext.each(window.Ext.CardLookupSettings, function(item) {
-                new window.Ext.ux.LookupField(item);
-            }, this);
-
         });
     </script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
