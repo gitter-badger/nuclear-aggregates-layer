@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
@@ -9,6 +9,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -37,7 +39,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
         private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPriceReadModel _priceReadModel;
-        private readonly IFirmRepository _firmRepository;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
 
         public ChileEditOrderPositionHandler(IFinder finder,
                                              IPublicService publicService,
@@ -46,7 +50,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                                              IOrderValidationInvalidator orderValidationInvalidator,
                                              IOperationScopeFactory scopeFactory,
                                              IPriceReadModel priceReadModel,
-                                             IFirmRepository firmRepository)
+                                             IFirmReadModel firmReadModel,
+                                             ISupportedCategoriesChecker supportedCategoriesChecker,
+                                             ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
         {
             _finder = finder;
             _publicService = publicService;
@@ -55,7 +61,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
             _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
             _priceReadModel = priceReadModel;
-            _firmRepository = firmRepository;
+            _firmReadModel = firmReadModel;
+            _supportedCategoriesChecker = supportedCategoriesChecker;
+            _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -104,6 +112,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
             }
 
+            if (request.CategoryId != null)
+            {
+                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId), request.CategoryId.Value, orderInfo.DestOrganizationUnitId);
+            }
+
             if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
             {
                 // Во избежание несанкционированных изменений в позиции заказа, прошедшего этап "на оформлении",
@@ -149,11 +162,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                         throw new NotificationException(BLResources.OrderOrganizationUnitDiffersFromPricesOne);
                     }
 
-                    var categories = request.AdvertisementsLinks.Where(x => x.CategoryId != null).Select(x => x.CategoryId.Value).Distinct().ToArray();
-                    var categoryId = categories.Length == 1 ? (long?)categories[0] : null;
-
-                    var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), categoryId);
-
+                    var categoryRate = _calculateCategoryRateOperationService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
+                                                                                           request.Entity.PricePositionId,
+                                                                                           request.CategoryId,
+                                                                                           true);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
