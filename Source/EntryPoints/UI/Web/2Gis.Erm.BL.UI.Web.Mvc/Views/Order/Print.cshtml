@@ -17,10 +17,6 @@
     <script type="text/javascript">
         Ext.onReady(function() {
 
-            Ext.each(Ext.CardLookupSettings, function(item, i) {
-                new window.Ext.ux.LookupField(item);
-            }, this);
-
             Ext.get("Cancel").on("click", function() { window.close(); });
             Ext.get("OK").on("click", function() {
                 if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {

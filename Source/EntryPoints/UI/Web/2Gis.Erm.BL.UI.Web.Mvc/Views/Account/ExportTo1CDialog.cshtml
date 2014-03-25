@@ -1,5 +1,4 @@
 ﻿@using System.Globalization
-@using Platform.Model.Metadata.Enums
 
 @model Models.ExportAccountTo1CViewModel
 
@@ -33,10 +32,6 @@
                         Ext.getDom('ResultForm').submit();
                     };
                 }
-
-                Ext.each(Ext.CardLookupSettings, function (item, i) {
-                    new window.Ext.ux.LookupField(item);
-                }, this);
 
                 if (Ext.getDom("Notifications").innerHTML.trim() == "OK") {
  
