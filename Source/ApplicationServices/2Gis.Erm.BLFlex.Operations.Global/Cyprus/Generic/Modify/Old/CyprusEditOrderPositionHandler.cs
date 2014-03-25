@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
-        private readonly ICalculateCategoryRateService _calculateCategoryRateService;
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateService;
         private readonly IFirmReadModel _firmReadModel;
 
         public CyprusEditOrderPositionHandler(IFinder finder,
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                                               IOperationScopeFactory scopeFactory,
                                               IPriceReadModel priceReadModel,
                                               ISupportedCategoriesChecker supportedCategoriesChecker,
-                                              ICalculateCategoryRateService calculateCategoryRateService,
+                                              ICalculateCategoryRateOperationService calculateCategoryRateService,
                                               IFirmReadModel firmReadModel)
         {
             _finder = finder;
