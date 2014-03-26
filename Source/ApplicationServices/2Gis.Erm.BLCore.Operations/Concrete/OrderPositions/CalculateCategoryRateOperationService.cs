@@ -9,11 +9,12 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
 {
-    // TODO {a.tukaev, 25.03.2014}: Лучше чтобы в назание абстракций и реализаций для OperationsService оканчивались именно на OperationService, т.к. сервисов разного вида у нас много 
     public class CalculateCategoryRateOperationService : ICalculateCategoryRateOperationService
     {
+        private const decimal DefaultCategoryRate = 1;
         private readonly IPriceReadModel _priceReadModel;
         private readonly IFirmReadModel _firmReadModel;
+
 
         public CalculateCategoryRateOperationService(IPriceReadModel priceReadModel, IFirmReadModel firmReadModel)
         {
@@ -28,6 +29,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var rateType = _priceReadModel.GetPricePositionRateType(pricePositionId);
             switch (rateType)
             {
+                case PricePositionRateType.None:
+                {
+                    return DefaultCategoryRate;
+                }
                 case PricePositionRateType.MostExpensiveCategory:
                 {
                     return _priceReadModel.GetCategoryRateByFirm(firmId);
@@ -43,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                         }
 
                         // Если не выбрана ни одна рубрика, берем коэффициент 1: https://confluence.2gis.ru/pages/viewpage.action?pageId=133467722
-                        return 1m;
+                        return DefaultCategoryRate;
                     }
 
                     return _priceReadModel.GetCategoryRateByCategory(categoryId.Value, organizationUnitId);
