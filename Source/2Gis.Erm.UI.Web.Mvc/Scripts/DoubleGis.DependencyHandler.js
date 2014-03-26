@@ -87,8 +87,8 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
             }
         }, this);
     },
-    handleChange: function (eventObj, elRef) { this.calculateDependencies(elRef, true); },
-    cmpHandleChange: function (cmp) { this.calculateDependencies(cmp, true); },
+    handleChange: function (eventObj, elRef) { this.calculateDependencies(elRef, false); },
+    cmpHandleChange: function (cmp) { this.calculateDependencies(cmp, false); },
     evaluateExpression: function (expression, initially)
     {
         return eval(expression);
@@ -107,7 +107,7 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
         switch (dependency.Type)
         {
             case this.HIDDEN:
-                sign ? this.hideField(dependency, initially) : this.showField(dependency, initially);
+                sign ? this.hideField(dependency) : this.showField(dependency);
                 break;
             case this.READONLY:
                 this.setReadOnly(dependency, sign);
@@ -117,14 +117,14 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
                 break;
             case this.DISABLE_AND_HIDE:
                 sign ? this.disableField(dependency) : this.enableField(dependency);
-                sign ? this.hideField(dependency, initially) : this.showField(dependency, initially);
+                sign ? this.hideField(dependency) : this.showField(dependency);
                 break;
             case this.REQUIRED:
                 sign ? this.addRequiredVRule(dependency) : this.removeRequiredVRule(dependency);
                 break;
             case this.NOT_REQUIRED_DISABLE_HIDE:
                 sign ? this.disableField(dependency) : this.enableField(dependency);
-                sign ? this.hideField(dependency, initially) : this.showField(dependency, initially);
+                sign ? this.hideField(dependency) : this.showField(dependency);
                 sign ? this.removeRequiredVRule(dependency) : this.addRequiredVRule(dependency);
                 break;
         }
@@ -176,7 +176,7 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
             }
         }
     },
-    hideField: function (dependency, initially)
+    hideField: function (dependency)
     {
         var field = window.Ext.get(dependency.Id);
         if (field.dom.tagName == "INPUT" || field.dom.tagName == "SELECT" || field.dom.tagName == "TEXTAREA")
@@ -186,15 +186,15 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
             {
                 wrapper.replaceClass("display-wrapper", "hidden-wrapper");
                 this.calculateRowLayout(wrapper);
-                initially ? wrapper.setVisibilityMode(Ext.Element.DISPLAY).hide() : wrapper.fadeOut({ useDisplay: true, duration: 0.75 });
+                wrapper.setVisibilityMode(Ext.Element.DISPLAY).hide();
             }
         }
         else
         {
-            initially ? field.setVisibilityMode(Ext.Element.DISPLAY).hide() : field.fadeOut({ useDisplay: true, duration: 0.75 });
+            field.setVisibilityMode(Ext.Element.DISPLAY).hide();
         }
     },
-    showField: function (dependency, initially)
+    showField: function (dependency)
     {
         var field = window.Ext.get(dependency.Id);
         if (field.dom.nodeName == "INPUT" || field.dom.nodeName == "SELECT")
@@ -204,12 +204,12 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
             {
                 wrapper.replaceClass("hidden-wrapper", "display-wrapper");
                 this.calculateRowLayout(wrapper);
-                initially ? wrapper.show() : wrapper.fadeIn({ useDisplay: true, duration: 0.75 });
+                wrapper.show();
             }
         }
         else
         {
-            initially ? field.show() : field.fadeIn({ useDisplay: true, duration: 0.75 });
+            field.show();
         }
     },
     setReadOnly: function (dependency, readonly)
