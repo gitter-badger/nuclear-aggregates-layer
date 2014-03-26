@@ -5200,7 +5200,7 @@ Periodo de la publicación: {3}.</value>
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
   <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
+    <value>Creación, modificación y eliminación de objetos 'Servicios adicionales para la empresa' del sistema de gestión.</value>
   </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
@@ -5233,6 +5233,6 @@ Periodo de la publicación: {3}.</value>
     <value>Debe indicarse una sola categoría para una posición de la orden formalizada para la posición de la lista de precios con el coeficiente calculado según la categoría</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>No se puede crear la posición compleja con el tipo de enlace con el objeto distinto de los siguientes: {0}</value>
   </data>
 </root>

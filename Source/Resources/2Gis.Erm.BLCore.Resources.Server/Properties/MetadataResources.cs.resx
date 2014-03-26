@@ -166,7 +166,7 @@
     <value>Hlavní měna</value>
   </data>
   <data name="InSyncWith1C" xml:space="preserve">
-    <value>Synchronizace s 1С</value>
+    <value>Synchronizace s 1C</value>
   </data>
   <data name="HasDocumentsDebt" xml:space="preserve">
     <value>Dostupnost dokumentů</value>
@@ -1336,12 +1336,12 @@
     <value>Název banky</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>RUT представителя</value>
+    <value>RUT zástupce</value>
   </data>
   <data name="Rut" xml:space="preserve">
     <value>RUT</value>
   </data>
   <data name="OperationsKind" xml:space="preserve">
-    <value>Вид деятельности</value>
+    <value>Druh činnosti</value>
   </data>
 </root>

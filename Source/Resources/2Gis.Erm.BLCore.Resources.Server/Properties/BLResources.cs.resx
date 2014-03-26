@@ -4734,7 +4734,7 @@ Operace provedena: {4}.</value>
     <value>Není možné nastavit pro firmu objednávku, aniž by byla propojena s klientem.</value>
   </data>
   <data name="RubricDoesntContainName" xml:space="preserve">
-    <value>Рубрика не содержит названия ни на базовом, ни на резервном языке</value>
+    <value>Rubrika neobsahuje název ani v hlavním ani v rezervním jazyce</value>
   </data>
 	<data name="YouHaveNotPublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
     <value>Nemáte povolení ke zveřejnění šablon reklamních materiálů</value>
@@ -5232,6 +5232,6 @@ Doba zveřejnění: {3}.</value>
     <value>U položky objednávky, která je zpracovaná pro položku ceníku s výpočtem koeficientu podle rubriky, musí být uvedena jedna rubrika</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>Není možné vytvořit komplexní položku s typem vázaného objektu, který neodpovídá následujícím: {0}</value>
   </data>
 </root>

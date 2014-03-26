@@ -4734,7 +4734,7 @@ The operation has been executed: {4}.</value>
     <value>Cannot create an order for a company that doesn't have any clients</value>
   </data>
   <data name="RubricDoesntContainName" xml:space="preserve">
-    <value>Рубрика не содержит названия ни на базовом, ни на резервном языке</value>
+    <value>Category has no name neither in main nor in alternative language</value>
   </data>
   <data name="YouHaveNotPublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
     <value>You do not have the permission to publish advertising materials templates</value>
@@ -5226,7 +5226,7 @@ Placement period: {3}.</value>
     <value>A single category should be specified for the order item prepared as the price-list item with category coefficient calculation</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
     <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
