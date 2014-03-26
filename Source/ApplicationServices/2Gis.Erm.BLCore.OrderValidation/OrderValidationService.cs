@@ -238,19 +238,20 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             int orderCount;
             var validResultsContainer = CreateValidResultsContainer(filterPredicate, out orderCount);
 
-            _logger.InfoFormatEx("Starting order validation. Type: {0}. Orders to validate: {1}", validationType, orderCount);
+            _logger.InfoFormatEx("Starting order validation. Type: {0}. Orders to validate: {1}. Request token: {2}", validationType, orderCount, request.Token);
+            _logger.InfoEx("Validation details: " + request.AsDescription());
 
             var stopwatch = Stopwatch.StartNew();
             var validationMessages = ValidateOrders(validationType, filterPredicate, request, validResultsContainer);
             stopwatch.Stop();
 
-            _logger.InfoFormatEx("Order validation completed in {0:F2} sec.", stopwatch.ElapsedMilliseconds / 1000D);
+            _logger.InfoFormatEx("Order validation request {0} completed in {1:F2} sec.", request.Token, stopwatch.ElapsedMilliseconds / 1000D);
             
             stopwatch.Start();
             CacheValidResults(validResultsContainer);
             stopwatch.Stop();
 
-            _logger.InfoFormatEx("Order validation results cached in {0:F2} sec.", stopwatch.ElapsedMilliseconds / 1000D);
+            _logger.InfoFormatEx("Order validation request {0} results cached in {1:F2} sec.", request.Token, stopwatch.ElapsedMilliseconds / 1000D);
             
             return ConstructValidateOrdersResult(validationMessages, orderCount);
         }
@@ -319,7 +320,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                                              }
 
                                                              return list;
-                                                         });
+                                                         })
+                                            .ToArray();
+
+                if (!groupRules.Any())
+                {
+                    _logger.InfoFormatEx("Validation request token: {0}. Skip validation by group [{1}]. Appropriate rules count: 0.", request.Token, groupCode);
+                    continue;
+                }
 
                 // список заказов с ошибками, для проверки кол-ва рекламы
                 // FIXME {all, 12.02.2014}: invalidOrderIds по факту нужна одной проверке, но почему-то передается через весь стек вызовов здесь и, далее, всем проверкам
@@ -372,7 +380,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         }
 
         private IEnumerable<OrderValidationMessage> ValidateByRuleGroup(OrderValidationRuleGroup groupCode,
-                                                                        IList<IOrderValidationRule> rules,
+                                                                        IOrderValidationRule[] rules,
                                                                         ValidationType validationType,
                                                                         OrderValidationPredicate filterPredicate,
                                                                         ValidateOrdersRequest request,
@@ -380,6 +388,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                                                         ValidResultsContainer validResultsContainer)
         {
             var validationGroupId = _orderValidationRepository.GetGroupId(groupCode);
+
             // FIXME {all, 03.03.2014}: нужно использовать другой механизм сортировки кэша результатов проверок, т.к. сортировка по ID не дает гарантии, что будет учтен именно результат самой последней проверки 
             var combinedPredicate = new OrderValidationPredicate(filterPredicate.GeneralPart,
                                                                  filterPredicate.OrgUnitPart,
@@ -390,16 +399,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                                                         .FirstOrDefault());
 
             var ordersToValidateCount = _finder.Find(combinedPredicate.GetCombinedPredicate()).Count();
-
             if (ordersToValidateCount == 0)
             {
-                _logger.InfoFormatEx("Skipping validating orders by group [{0}]. No orders to validate.", groupCode);
+                _logger.InfoFormatEx("Validation request token: {0}. Skipping validating orders by group [{1}]. No orders to validate.", request.Token, groupCode);
                 return Enumerable.Empty<OrderValidationMessage>();
             }
 
-            _logger.InfoFormatEx("Validating orders by group [{0}]. Rules in group: [{1}]. Orders to validate: [{2}]",
+            _logger.InfoFormatEx("Validation request token: {0}. Validating orders by group [{1}]. Rules in group count: [{2}]. Orders to validate: [{3}]",
+                                 request.Token,
                                  groupCode,
-                                 rules.Count(),
+                                 rules.Length,
                                  ordersToValidateCount);
 
             var groupStopwatch = Stopwatch.StartNew();
@@ -442,7 +451,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             }
 
             groupStopwatch.Stop();
-            _logger.InfoFormatEx("Validating orders by group [{0}] completed in {1:F2} sec.", groupCode, groupStopwatch.ElapsedMilliseconds / 1000D);
+            _logger.InfoFormatEx(
+                "Validation request token: {0}. Validating orders by group [{1}] completed in {2:F2} sec.", 
+                request.Token, 
+                groupCode, 
+                groupStopwatch.ElapsedMilliseconds / 1000D);
 
             return groupMessages;
         }
@@ -457,20 +470,21 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             var lastTime = getElapsedMillisecondsFunc();
             try
             {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
+                using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+                {
                     ruleMessages = rule.Validate(combinedPredicate, invalidOrderIds, request);
 
                     foreach (var message in ruleMessages)
-            {
+                    {
                         message.RuleCode = RuleCodeMap.Single(x => x.Value == rule.GetType()).Key;
-            }
+                    }
 
-                transaction.Complete();
-            }
+                    transaction.Complete();
+                }
 
                 var timeTaken = getElapsedMillisecondsFunc() - lastTime;
-                _logger.InfoFormatEx("Rule '{0}' executed in {1:F2} sec. OrganizationUnitId = [{2}]",
+                _logger.InfoFormatEx("Validation request token: {0}. Rule '{1}' executed in {2:F2} sec. OrganizationUnitId = [{3}]",
+                                     request.Token,
                                      rule.GetType().Name,
                                      timeTaken / 1000D,
                                      request.OrganizationUnitId);
@@ -478,12 +492,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             catch (Exception ex)
             {
                 var timeTaken = getElapsedMillisecondsFunc() - lastTime;
-                _logger.InfoFormatEx("Rule '{0}' failed after {1:F2} sec. OrganizationUnitId = [{2}]",
+                _logger.InfoFormatEx("Validation request token: {0}. Rule '{1}' failed after {2:F2} sec. OrganizationUnitId = [{3}]",
+                                     request.Token,
                                      rule.GetType().Name,
                                      timeTaken / 1000D,
                                      request.OrganizationUnitId);
 
-                _logger.ErrorFormatEx(ex, "При выполнении проверки [{0}] произошла ошибка", rule.GetType().Name);
+                _logger.ErrorFormatEx(ex, "При выполнении проверки [{0}] произошла ошибка. Validation request token: {1}", rule.GetType().Name, request.Token);
                 throw;
             }
 
