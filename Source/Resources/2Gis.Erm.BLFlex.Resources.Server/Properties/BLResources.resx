@@ -179,31 +179,24 @@
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value />
-    <comment>используется в печатной форме заказа в Праге</comment>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
     <value />
@@ -237,7 +230,6 @@
   </data>
   <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
     <value />
-    <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat" xml:space="preserve">
     <value />
@@ -258,6 +250,57 @@
     <value />
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value />
   </data>
 </root>
