@@ -4923,21 +4923,6 @@ Contact: {1}</value>
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>A hidden individual with the specified passport number and series exists</value>
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
   </data>
@@ -4947,44 +4932,8 @@ Contact: {1}</value>
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The Customer's legal entity with the specified T.I.C. already exists</value>
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The hidden legal entity of the Customer with the specified T.I.C. exists </value>
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>A deleted Sole Proprietorship with the specified T.I.C. exists</value>
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>API advertising is registered in the item {0}, even though the company does not have an address in the city of order placement</value>
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>At least one payment must be created</value>
@@ -5220,27 +5169,18 @@ Placement period: {3}.</value>
     <value>Close as rejected</value>
   </data>
   <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
-    <value>Cannot use '{0}' coefficient calculation method for the reference object type of item '{1}'</value>
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
-    <value>A single category should be specified for the order item prepared as the price-list item with category coefficient calculation</value>
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
     <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
-  </data>
-  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
-    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
-  </data>
-  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
-    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
-  </data>
-  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
 </root>

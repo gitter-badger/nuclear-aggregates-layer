@@ -497,7 +497,6 @@
   </data>
   <data name="OrderStateFromOnApprovalToRejectedSubjectTemplate" xml:space="preserve">
     <value>Заказ № {0} отклонён.</value>
-    <comment>При отклонении АУПом заказа находившегося на утверждении</comment>
   </data>
   <data name="OrderList" xml:space="preserve">
     <value>Список заказов</value>
@@ -4925,26 +4924,6 @@
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>Существует скрытое физ. лицо с указанными серией и номером паспорта</value>
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>místem podnikání</value>
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>se sídlem</value>
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Индивидуальный предприниматель с указанным ИНН уже существует</value>
   </data>
@@ -4954,51 +4933,14 @@
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Существует скрытый Индивидуальный предприниматель с указанным ИНН</value>
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Юр. лицо клиента с указанным T.I.C. уже существует</value>
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Существует удаленное юр. лицо клиента с указанным T.I.C.</value>
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>Существует скрытое юр. лицо клиента с указанным T.I.C.</value>
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Индивидуальный предприниматель с указанным T.I.C. уже существует</value>
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>Существует удаленный Индивидуальный предприниматель с указанным T.I.C.</value>
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>Существует скрытый Индивидуальный предприниматель с указанным T.I.C.</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>В позиции {0} оформлена реклама API, хотя у фирмы нет адреса в проекте города размещения заказа</value>
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Индивидуальный предприниматель с указанным DIC или IC уже существует</value>
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Юр. лицо клиента с указанными DIC или IC уже существует</value>
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Существует удаленный Индивидуальный предприниматель с указанным DIC или IC</value>
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Существует удаленное юр. лицо клиента с указанными DIC или IC</value>
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Существует скрытый Индивидуальный предприниматель с указанным DIC или IC</value>
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Существует скрытое юр. лицо клиента с указанными DIC или IC</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>Необходимо создать хотя бы один счёт на оплату</value>
   </data>
   <data name="OpenOrder" xml:space="preserve">
     <value>Открыть заказ.</value>
-    <comment>Опциональное предложение в теле письма, должно заканчиваться точкой</comment>
   </data>
   <data name="InTheCostCalculationServiceErrorOccured" xml:space="preserve">
     <value>В сервисе расчета стоимости произошла ошибка</value>
@@ -5210,14 +5152,14 @@
     <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
   </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
-		<value>Выбран невалидный адрес для следующих позиций: {0}</value>
-	</data>
+    <value>Выбран невалидный адрес для следующих позиций: {0}</value>
+  </data>
   <data name="OutdatedPositionDoesntHaveAdvertisement" xml:space="preserve">
-		<value>Для позиции {0} не указан рекламный материал и отсутсвует заглушка</value>
-	</data>
+    <value>Для позиции {0} не указан рекламный материал и отсутсвует заглушка</value>
+  </data>
   <data name="FormatErrorMessage" xml:space="preserve">
-		<value>Значение '{0}' не применимо к полю {1}</value>
-	</data>
+    <value>Значение '{0}' не применимо к полю {1}</value>
+  </data>
   <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
     <value>Недостаточно прав для возвращения клиента [{0}] в резерв</value>
   </data>
