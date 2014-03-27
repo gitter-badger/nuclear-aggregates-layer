@@ -16,7 +16,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
         {
             _masterPositionsMap = new Dictionary<long, PricePositionDto.RelatedItemDto[]>();
             _deniedPositionWithSymmetricDeniedRulesMap = new Dictionary<long, Dictionary<long, PricePositionDto.RelatedItemDto>>();
-            var symmetricOnlyPositions = new HashSet<long>();
 
             foreach (var positionDescription in positionDescriptions)
             {
@@ -34,8 +33,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
                         _deniedPositionWithSymmetricDeniedRulesMap.Add(positionDescription.PositionId, deniedMap);
                     }
 
-                    symmetricOnlyPositions.Remove(positionDescription.PositionId);
-
                     foreach (var deniedPosition in positionDescription.DeniedPositions)
                     {
                         TryAddDeniedPosition(deniedMap, deniedPosition.PositionId, deniedPosition);
@@ -43,7 +40,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
                         Dictionary<long, PricePositionDto.RelatedItemDto> symetricDeniedMap;
                         if (!_deniedPositionWithSymmetricDeniedRulesMap.TryGetValue(deniedPosition.PositionId, out symetricDeniedMap))
                         {
-                            symmetricOnlyPositions.Add(deniedPosition.PositionId);
                             symetricDeniedMap = new Dictionary<long, PricePositionDto.RelatedItemDto>();
                             _deniedPositionWithSymmetricDeniedRulesMap.Add(deniedPosition.PositionId, symetricDeniedMap);
                         }
@@ -58,11 +54,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
                     }
                 }
             }
-
-            foreach (var positionId in symmetricOnlyPositions)
-            {
-                _deniedPositionWithSymmetricDeniedRulesMap.Remove(positionId);
-            }
         }
 
         public IReadOnlyDictionary<long, IEnumerable<PricePositionDto.RelatedItemDto>> GetGlobalDeniedPositions(IEnumerable<long> requiredPositionIds)
@@ -71,9 +62,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
             foreach (var positionId in requiredPositionIds)
             {
                 Dictionary<long, PricePositionDto.RelatedItemDto> deniedPositionsMap;
-                positions.Add(positionId, !_deniedPositionWithSymmetricDeniedRulesMap.TryGetValue(positionId, out deniedPositionsMap)
-                                          ? Enumerable.Empty<PricePositionDto.RelatedItemDto>()
-                                          : deniedPositionsMap.Values);
+                positions.Add(
+                    positionId, 
+                    !_deniedPositionWithSymmetricDeniedRulesMap.TryGetValue(positionId, out deniedPositionsMap) ? Enumerable.Empty<PricePositionDto.RelatedItemDto>() : deniedPositionsMap.Values);
             }
 
             return positions;
@@ -85,10 +76,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
             foreach (var positionId in requiredPositionIds)
             {
                 PricePositionDto.RelatedItemDto[] masterPositions;
-                positions.Add(positionId,
-                              !_masterPositionsMap.TryGetValue(positionId, out masterPositions)
-                                  ? Enumerable.Empty<PricePositionDto.RelatedItemDto>()
-                                  : masterPositions);
+                positions.Add(
+                    positionId,
+                    !_masterPositionsMap.TryGetValue(positionId, out masterPositions) ? Enumerable.Empty<PricePositionDto.RelatedItemDto>() : masterPositions);
             }
 
             return positions;
