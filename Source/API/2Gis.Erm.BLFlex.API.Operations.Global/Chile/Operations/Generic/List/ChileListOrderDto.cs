@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.Li
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long? FirmId { get; set; }
+        public long FirmId { get; set; }
         public string FirmName { get; set; }
         public long? ClientId { get; set; }
         public string ClientName { get; set; }
