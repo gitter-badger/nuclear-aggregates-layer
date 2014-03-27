@@ -171,6 +171,7 @@
     <Compile Include="Infrastructure\Interaction\ReflectionUtils.cs" />
     <Compile Include="Infrastructure\Interaction\REST\AsyncDelegation.cs" />
     <Compile Include="Infrastructure\Interaction\REST\GetWrapper.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\Int64ToStringConverter.cs" />
     <Compile Include="Infrastructure\Interaction\REST\IRestService.cs" />
     <Compile Include="Infrastructure\Interaction\REST\DotNetDateTimeConverter.cs" />
     <Compile Include="Infrastructure\Interaction\REST\PostWrapper.cs" />
