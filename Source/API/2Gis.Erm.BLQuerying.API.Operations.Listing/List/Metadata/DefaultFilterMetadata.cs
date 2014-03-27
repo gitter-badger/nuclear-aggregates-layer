@@ -367,8 +367,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterFilter<ListUserRoleDto>("DListUserRole", x => true)
 
-            .RegisterFilter<ListUserOrganizationUnitDto>("DListUserOrganizationUnit", x => true)
-            .RegisterFilter<ListUserOrganizationUnitDto>("DListUsersInOrganizationUnit", x => true)
+            .RegisterFilter<ListUserOrganizationUnitDto>("DListUserOrganizationUnit", x => x.UserIsActive && !x.UserIsDeleted)
+            .RegisterFilter<ListUserOrganizationUnitDto>("DListUsersInOrganizationUnit", x => x.UserIsActive && !x.UserIsDeleted)
 
             .RegisterFilter<ListUserTerritoryDto>("DListUserTerritory", x => !x.IsDeleted)
 

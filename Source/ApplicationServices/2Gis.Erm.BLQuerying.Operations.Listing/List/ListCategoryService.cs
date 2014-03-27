@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                          && !link.IsDeleted
                                                                                          && link.Theme.Id == themeId));
 
-                _finder.FindAll<OrganizationUnit>()
+                query = _finder.FindAll<OrganizationUnit>()
 
                     // Только те подразделения, в которых есть рубрика
                        .Where(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive

@@ -35,7 +35,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OrganizationUnitName = x.OrganizationUnitDto.Name,
                     UserName = x.User.DisplayName,
                     UserDepartmentName = x.User.Department.Name,
-                    UserRoleName = x.User.UserRoles.Select(y => y.Role.Name)
+                    UserRoleName = x.User.UserRoles.Select(y => y.Role.Name),
+                    UserIsActive = x.User.IsActive,
+                    UserIsDeleted = x.User.IsDeleted,
                 })
                 .QuerySettings(_filterHelper, querySettings, out count);
 
