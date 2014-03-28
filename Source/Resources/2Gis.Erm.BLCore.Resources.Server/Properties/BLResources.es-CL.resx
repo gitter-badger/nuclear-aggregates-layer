@@ -2066,8 +2066,7 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
+  <data name="CsvSeparator" xml:space="preserve">
     <value>;</value>
   </data>
   <data name="No" xml:space="preserve">
@@ -5149,7 +5148,7 @@ Periodo de la publicación: {3}.</value>
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
   <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Creación, modificación y eliminación de objetos 'Servicios adicionales para la empresa' del sistema de gestión.</value>
+    <value>Creación, modificación y eliminación de objetos "Servicios adicionales para la empresa" del sistema de gestión.</value>
   </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
