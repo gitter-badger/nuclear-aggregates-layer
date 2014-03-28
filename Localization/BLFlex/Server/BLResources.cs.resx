@@ -166,10 +166,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Není možné vytvořit objednávku pro typ právnické osoby &apos;{0}&apos; uvedený v profilu</value>
+    <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Právnická osoba typu &apos;{0}&apos; uvedená v profilu nemůže jednat na základě {1}</value>
+    <value>Právnická osoba typu '{0}' uvedená v profilu nemůže jednat na základě {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
@@ -261,5 +261,56 @@ Peněžní ústav:  {5}</value>
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value>místem podnikání</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value>se sídlem</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>, na zaklade {0} ze dne {1}</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>zastoupen</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>jednající</value>
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ již existuje</value>
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Pr. osoba klienta s uvedeným IČ nebo DIČ již existuje</value>
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Existuje odstraněná osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ</value>
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Existuje odstraněná pr. osoba klienta s uvedeným IČ nebo DIČ</value>
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Existuje skrytá osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ</value>
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Existuje skrytá pr. osoba klienta s uvedeným IČ nebo DIČ</value>
   </data>
 </root>

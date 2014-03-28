@@ -1796,7 +1796,6 @@
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
     <value>Заявка от ЛК</value>
-    <comment>ЛК - сокращение от 'Личный кабинет'</comment>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
     <value>Уведомление о расторжении договора</value>
