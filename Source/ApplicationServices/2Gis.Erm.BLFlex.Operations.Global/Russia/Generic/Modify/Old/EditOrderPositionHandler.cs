@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
@@ -9,6 +10,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -38,7 +41,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IPriceReadModel _priceReadModel;
-        private readonly IFirmRepository _firmRepository;
+        private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
 
         public EditOrderPositionHandler(
             IFinder finder,
@@ -49,7 +54,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
             IPriceReadModel priceReadModel,
             IOrderReadModel orderReadModel,
-            IFirmRepository firmRepository)
+            ISupportedCategoriesChecker supportedCategoriesChecker,
+            IFirmReadModel firmReadModel,
+            ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
         {
             _finder = finder;
             _publicService = publicService;
@@ -59,7 +66,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
             _priceReadModel = priceReadModel;
             _orderReadModel = orderReadModel;
-            _firmRepository = firmRepository;
+            _supportedCategoriesChecker = supportedCategoriesChecker;
+            _firmReadModel = firmReadModel;
+            _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -107,6 +116,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             if (!canCreateResponse.CanCreate)
             {
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
+            }
+
+            if (request.CategoryId != null)
+            {
+                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId), request.CategoryId.Value, orderInfo.DestOrganizationUnitId);
             }
 
             if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
@@ -194,7 +208,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     }
                     else
                     {
-                        var categoryRate = _priceReadModel.GetCategoryRate(request.Entity.PricePositionId, _firmRepository.GetOrderFirmId(request.Entity.OrderId), request.CategoryId);
+                        var categoryRate = _calculateCategoryRateOperationService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
+                                                                       request.Entity.PricePositionId,
+                                                                       request.CategoryId,
+                                                                       true);
 
                         var calculateOrderPositionPricesResponse =
                             (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest

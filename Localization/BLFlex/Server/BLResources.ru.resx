@@ -269,7 +269,6 @@ Penezni ustav:  {5}</value>
   </data>
   <data name="ChilePartableExtensionMustBeApplied">
     <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
-    <comment>Первод этой строки не требуется</comment>
   </data>
   <data name="InvalidChileRutFormat">
     <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>

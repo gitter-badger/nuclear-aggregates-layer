@@ -125,23 +125,18 @@ WriteLiteral(@">
                     EntityForm.submit();
                 }
             });
-
-            // TODO {all, 27.02.2014}: Почему построение лукапов есть в Card.js, но отсутствует в DialogWindow.js?
-            Ext.each(Ext.CardLookupSettings, function (item, i) {
-                new Ext.ux.LookupField(item);
-            }, this);
         });
     </script>
 ");
 
             
-            #line 44 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 39 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 39 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -157,7 +152,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 47 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 42 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
        Write(Html.HiddenFor(m => m.LegalPersonP));
 
             
@@ -168,7 +163,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("            ");
 
             
-            #line 49 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 44 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
        Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
 
             
@@ -187,7 +182,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 51 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 46 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Model.Message);
 
             
@@ -202,7 +197,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 54 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 49 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Html.TemplateField(m => m.LegalName, FieldFlex.lone));
 
             
@@ -217,7 +212,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 57 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 52 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
 
             
@@ -232,7 +227,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 60 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 55 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Html.TemplateField(m => m.Rut, FieldFlex.lone));
 
             
@@ -247,7 +242,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 63 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 58 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Commune }));
 
             
@@ -256,7 +251,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 66 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 61 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
     }
 
             
