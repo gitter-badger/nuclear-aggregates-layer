@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler
             _publicService = publicService;
         }
 
-        public long Modify(IDomainEntityDto domainEntityDto)
+        public virtual long Modify(IDomainEntityDto domainEntityDto)
         {
             var entity = _businessModelEntityObtainer.ObtainBusinessModelEntity(domainEntityDto);
             _publicService.Handle(new EditRequest<TEntity> { Entity = entity });

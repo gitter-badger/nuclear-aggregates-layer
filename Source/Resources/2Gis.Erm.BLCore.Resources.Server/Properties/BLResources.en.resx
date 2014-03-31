@@ -5228,4 +5228,19 @@ Placement period: {3}.</value>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
+  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+    <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
+    <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+  </data>
 </root>

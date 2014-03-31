@@ -6,8 +6,8 @@ using System.ServiceModel;
 using DoubleGis.Erm.BLCore.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -28,20 +28,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         private readonly ICostCalculator _costCalculator;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IPriceReadModel _priceReadModel;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IProjectService _projectService;
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
 
         public OrderPositionCostCalculationOperationService(
             IFinder finder,
             ICostCalculator costCalculator,
             IClientProxyFactory clientProxyFactory,
-                                                            IOrderReadModel orderReadModel,
+            IOrderReadModel orderReadModel,
             IFirmRepository firmRepository,
             IOperationScopeFactory scopeFactory,
-                                                            IProjectService projectService,
-                                                            IPriceReadModel priceReadModel)
+            IProjectService projectService,
+            ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
         {
             _finder = finder;
             _costCalculator = costCalculator;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             _firmRepository = firmRepository;
             _scopeFactory = scopeFactory;
             _projectService = projectService;
-            _priceReadModel = priceReadModel;
+            _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
         }
 
         /// <summary>
@@ -255,7 +255,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 
             var nullCostOrder = orderType == OrderType.SelfAds || orderType == OrderType.SocialAds;
 
-            var categoryRate = firmId.HasValue ? _priceReadModel.GetCategoryRate(pricePositionInfo.Id, firmId.Value, categoryId) : 1m;
+            // FIXME {all, 25.03.2014}: Нужно проанализировать этот usecase - выглядит довольно странно override для логики расчета CategoryRate, если цивилизованно не удается избавиться от firmId.HasValue (изменеив CalculateCategoryRate), стоит наверное добавить в PriceReadModel.GetDefaultRate - вообщем избавиться от magic number
+            var categoryRate = firmId.HasValue ? _calculateCategoryRateOperationService.CalculateCategoryRate(firmId.Value, pricePositionInfo.Id, categoryId, true) : 1m;
 
             if (pricePositionInfo.IsComposite)
             {

@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

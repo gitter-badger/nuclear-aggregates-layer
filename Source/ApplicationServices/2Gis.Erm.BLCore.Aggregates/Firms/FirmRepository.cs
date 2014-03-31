@@ -326,16 +326,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 .ToArray();
         }
 
-        public long GetOrderFirmId(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
-        }
-
-        public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
-        {
-            return _finder.Find(OrderSpecs.Orders.Find.ActiveOrdersForFirm(firmId)).Select(x => x.Id).ToArray();
-        }
-
         public IEnumerable<OrganizationUnitDto> ExportFirmWithActiveOrders()
         {
             // Выгрузка фирм идет только на текущий период, поскольку версионирования данных в системе не выполняется, 

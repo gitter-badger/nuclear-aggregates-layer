@@ -2,6 +2,7 @@
 {
     public enum OrderPositionAdvertisementValidationRule
     {
+        None = 0,
         RequiredAdvertisement = 1,
         IsTemplatePublished = 2,
         CorrectAddress = 3,

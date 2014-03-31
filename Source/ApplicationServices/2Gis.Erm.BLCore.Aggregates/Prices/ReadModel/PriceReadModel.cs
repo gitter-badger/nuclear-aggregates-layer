@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 {
     public class PriceReadModel : IPriceReadModel
     {
+        private const decimal DefaultCategoryRate = 1;
         private readonly IFinder _finder;
 
         public PriceReadModel(IFinder finder)
@@ -23,43 +24,42 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return (PricePositionRateType)_finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.RateType).Single();
         }
 
-        public decimal GetCategoryRate(long pricePositionId, long firmId, long? categoryId)
+        public decimal GetCategoryRateByFirm(long firmId)
         {
-            const decimal DefaultRate = 1;
-            var rateType = (PricePositionRateType)_finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.RateType).Single();
-
-            if (rateType == PricePositionRateType.None)
-            {
-                return DefaultRate;
-            }
+            var categoryQuery = _finder.Find(Specs.Find.ById<Firm>(firmId))
+                                       .SelectMany(order => order.FirmAddresses)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
+                                       .SelectMany(address => address.CategoryFirmAddresses)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
+                                       .Select(addressCategory => addressCategory.Category)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<Category>());
 
             var orgUnitId = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
-            var categoryRateQuery = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                                           .SelectMany(order => order.FirmAddresses)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
-                                           .SelectMany(address => address.CategoryFirmAddresses)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
-                                           .Select(addressCategory => addressCategory.Category)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<Category>());
 
-            if (rateType == PricePositionRateType.BoundCategory)
-            {
-                if (categoryId == null)
-                {
-                    throw new NotificationException(
-                        BLResources.CategoryShouldBeSpecifiedForTheBoundCategoryRateType);
-                }
+            return GetCategoryRateInternal(categoryQuery, orgUnitId);
+        }
 
-                categoryRateQuery = categoryRateQuery.Where((Specs.Find.ById<Category>(categoryId.Value)));
-            }
+        // TODO {a.tukaev, 25.03.2014}: аргумент organizationUnitId лучше вычислять внутри этого метода получая от клиентского кода firmId, например также, как в методе GetCategoryRateByFirm
+        public decimal GetCategoryRateByCategory(long categoryId, long organizationUnitId)
+        {
+            return GetCategoryRateInternal(_finder.Find(Specs.Find.ById<Category>(categoryId)), organizationUnitId);
+        }
 
-            var categoryRate = categoryRateQuery.SelectMany(category => category.CategoryOrganizationUnits)
-                                                .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                                                .Where(categoryOrganizationUnit => categoryOrganizationUnit.OrganizationUnitId == orgUnitId)
-                                                .Select(categoryOrganizationUnit => (decimal?)(categoryOrganizationUnit.CategoryGroup != null
-                                                                                                   ? categoryOrganizationUnit.CategoryGroup.GroupRate
-                                                                                                   : DefaultRate))
-                                                .Max();
+        public decimal GetPricePositionCost(long pricePositionId)
+        {
+            return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.Cost).Single();
+        }
+
+
+        private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)
+        {
+            var categoryRate = categoryQuery.SelectMany(category => category.CategoryOrganizationUnits)
+                                            .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
+                                            .Where(categoryOrganizationUnit => categoryOrganizationUnit.OrganizationUnitId == organizationUnitId)
+                                            .Select(categoryOrganizationUnit => (decimal?)(categoryOrganizationUnit.CategoryGroup != null
+                                                                                               ? categoryOrganizationUnit.CategoryGroup.GroupRate
+                                                                                               : DefaultCategoryRate))
+                                            .Max();
 
             if (categoryRate == null)
             {

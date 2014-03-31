@@ -108,7 +108,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Silverlight.UserProfiles.Presentation
             }
 
             var result = savedProfile != null
-                             ? new SaveResult { ResponseText = JsonConvert.SerializeObject(savedProfile, new DotNetDateTimeConverter(), new StringEnumConverter()) }
+                             ? new SaveResult
+                                 {
+                                     ResponseText = JsonConvert.SerializeObject(savedProfile,
+                                                                                new DotNetDateTimeConverter(),
+                                                                                new StringEnumConverter(),
+                                                                                new Int64ToStringConverter())
+                                 }
                              : SaveResult.Error;
             return result;
         }

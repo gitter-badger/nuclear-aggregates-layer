@@ -165,7 +165,6 @@
     <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\ViewOrderPositionHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
@@ -205,6 +204,8 @@
     <Compile Include="Concrete\Old\Territories\ValidateTerritoryAvailabilityHandler.cs" />
     <Compile Include="Concrete\Old\UserOperations\UpdateUserCrmRelatedEntitiesHandler.cs" />
     <Compile Include="Concrete\Old\UserProfiles\SyncUserProfilesHandler.cs" />
+    <Compile Include="Concrete\OrderPositions\CalculateCategoryRateOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\Orders\CopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderCreationStrategy.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderEditingStrategy.cs" />
@@ -220,6 +221,8 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
+    <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
+    <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\ContributionTypeService.cs" />

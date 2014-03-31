@@ -7,6 +7,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
     public interface IPriceReadModel : IAggregateReadModel<Price>
     {
         PricePositionRateType GetPricePositionRateType(long pricePositionId);
-        decimal GetCategoryRate(long pricePositionId, long firmId, long? categoryId);
+        decimal GetCategoryRateByFirm(long firmId);
+        decimal GetCategoryRateByCategory(long categoryId, long organizationUnitId);
+        decimal GetPricePositionCost(long pricePositionId);
     }
 }

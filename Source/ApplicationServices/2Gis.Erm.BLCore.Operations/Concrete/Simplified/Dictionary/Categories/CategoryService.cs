@@ -157,6 +157,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             _categoryOrganizationUnitRepository.Save();
         }
 
+        public bool IsCategoryLinkedWithOrgUnit(long categoryId, long organizationUnitId)
+        {
+            return _finder.Find<CategoryOrganizationUnit>(x => x.CategoryId == categoryId && x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted)
+                          .Any();
+        }
+
+        public string GetCategoryName(long categoryId)
+        {
+            return _finder.Find(Specs.Find.ById<Category>(categoryId)).Select(x => x.Name).Single();
+        }
+
         private void UpdateCategoryOrganizationUnits(long categoryId, IEnumerable<long> organizationUnitIds)
         {
             // В оригинальном коде использовался такой-же подход, возможно от того, что при удалении записи только помечаются удалёнными, 
