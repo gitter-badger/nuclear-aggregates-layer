@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
@@ -81,7 +82,10 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
                 return new FindSpecification<TEntity>(x => x.FileId == fileId);
             }
 
-
+            public static FindSpecification<TEntity> Custom<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
+            {
+                return new FindSpecification<TEntity>(expression);
+            } 
         }
 
         public static class Select
