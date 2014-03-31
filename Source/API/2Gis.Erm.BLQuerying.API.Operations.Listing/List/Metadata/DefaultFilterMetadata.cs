@@ -92,8 +92,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListCategoryDto>("DListActiveCategories", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryDto>("DListInactiveCategories", x => !x.IsActive && !x.IsDeleted)
 
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive)
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive)
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive && !x.IsDeleted && x.CategoryIsActive && !x.CategoryIsDeleted && (x.CategoryOrganizationUnitIsActive == null && x.CategoryOrganizationUnitIsDeleted == null || x.CategoryOrganizationUnitIsActive.Value && !x.CategoryOrganizationUnitIsDeleted.Value))
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive && !x.IsDeleted || !x.CategoryIsActive && !x.CategoryIsDeleted || (x.CategoryOrganizationUnitIsActive != null && x.CategoryOrganizationUnitIsDeleted != null && !x.CategoryOrganizationUnitIsActive.Value && !x.CategoryOrganizationUnitIsDeleted.Value))
 
             .RegisterFilter<ListCategoryGroupDto>("DListActiveCategoryGroups", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryGroupDto>("DListAllCategoryGroups", x => !x.IsDeleted)
@@ -367,8 +367,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterFilter<ListUserRoleDto>("DListUserRole", x => true)
 
-            .RegisterFilter<ListUserOrganizationUnitDto>("DListUserOrganizationUnit", x => true)
-            .RegisterFilter<ListUserOrganizationUnitDto>("DListUsersInOrganizationUnit", x => true)
+            .RegisterFilter<ListUserOrganizationUnitDto>("DListUserOrganizationUnit", x => x.UserIsActive && !x.UserIsDeleted)
+            .RegisterFilter<ListUserOrganizationUnitDto>("DListUsersInOrganizationUnit", x => x.UserIsActive && !x.UserIsDeleted)
 
             .RegisterFilter<ListUserTerritoryDto>("DListUserTerritory", x => !x.IsDeleted)
 

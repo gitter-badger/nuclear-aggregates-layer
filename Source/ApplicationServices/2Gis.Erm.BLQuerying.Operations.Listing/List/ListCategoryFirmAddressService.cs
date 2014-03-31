@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -26,94 +25,72 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userContext = userContext;
             _filterHelper = filterHelper;
         }
-
+        
         protected override IEnumerable<ListCategoryFirmAddressDto> List(QuerySettings querySettings, out int count)
         {
             var query = _finder.FindAll<CategoryFirmAddress>();
 
-            var defaultCategoryRate = string.Format(_userContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
-            long? categoryRateOrganizationUnitId = null;
-
-            if (querySettings.ParentEntityName == EntityName.Firm && querySettings.ParentEntityId != null)
+            var query2 = query.Select(x => new QueryMiddleDto
             {
-                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<Firm>(querySettings.ParentEntityId.Value))
-                                                        .Select(firm => firm.OrganizationUnitId)
-                                                        .Single();
+                FirmId = x.FirmAddress.FirmId,
+                CategoryFirmAddress = x,
+            });
 
-                var firmFilterExpression = querySettings.CreateForExtendedProperty<CategoryFirmAddress, bool>("IsActive",
-                isActive =>
+            if (querySettings.ParentEntityName == EntityName.Firm)
+            {
+                query2 = query2
+                .GroupBy(x => x.FirmId)
+                .Select(x => new QueryMiddleDto
                 {
-                        if (isActive)
-                        {
-                            return x => !x.Category.IsDeleted &&
-                                                x.Category.IsActive &&
-                                                x.IsActive && !x.IsDeleted && x.FirmAddress.IsActive &&
-                                                !x.FirmAddress.IsDeleted && !x.FirmAddress.ClosedForAscertainment &&
-                                                x.FirmAddress.FirmId == querySettings.ParentEntityId.Value;
-                }
-
-                        return x => x.Category.IsActive &&
-                                                !x.IsActive &&
-                                                x.FirmAddress.IsActive &&
-                                                x.FirmAddress.FirmId == querySettings.ParentEntityId.Value;
-                    });
-
-                // заполняем только то что связано с рубрикой и делаем Distinct
-                return query
-                    .Where(x => !x.Category.IsDeleted && !x.FirmAddress.IsDeleted && !x.IsDeleted)
-                    .Filter(_filterHelper, firmFilterExpression)
-                    .Select(x => new ListCategoryFirmAddressDto
-                        {
-                            CategoryGroup = categoryRateOrganizationUnitId.HasValue
-                                ? x.Category.CategoryOrganizationUnits.Where(unit => unit.OrganizationUnitId == categoryRateOrganizationUnitId.Value)
-                                            .Select(unit => unit.CategoryGroup.CategoryGroupName).FirstOrDefault() ?? defaultCategoryRate
-                                : string.Empty,
-                        CategoryId = x.Category.Id,
-                        Name = x.Category.Name,
-                        ParentId = x.Category.ParentId,
-                        ParentName = x.Category.ParentCategory.Name,
-                        Level = x.Category.Level,
-                        SortingPosition = 0,
-                        IsPrimary = true,
-                        IsActive = true,
-                        FirmId = querySettings.ParentEntityId.Value,
-                        FirmAddressId = 0,
-                        Id = 0,
-                        })
-                    .Distinct()
-                    .QuerySettings(_filterHelper, querySettings, out count);
+                    FirmId = x.Key,
+                    CategoryFirmAddress = x.Select(y => y.CategoryFirmAddress).FirstOrDefault(),
+                });
             }
 
-            if (querySettings.ParentEntityName == EntityName.FirmAddress && querySettings.ParentEntityId != null)
-            {
-                categoryRateOrganizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(querySettings.ParentEntityId.Value))
-                                                        .Select(address => address.Firm.OrganizationUnitId)
-                                                        .Single();
-            }
+            var defaultCategoryRate = string.Format(_userContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
 
-            return query
-                .Where(x => !x.Category.IsDeleted && !x.FirmAddress.IsDeleted && !x.IsDeleted)
+            return query2
+                .Select(x => new
+                {
+                    x.FirmId,
+                    x.CategoryFirmAddress,
+                    CategoryOrganizationUnit = x.CategoryFirmAddress.FirmAddress.Firm.OrganizationUnit.CategoryOrganizationUnits.FirstOrDefault(y => y.CategoryId == x.CategoryFirmAddress.CategoryId),
+                })
                 .Select(x => new ListCategoryFirmAddressDto
-                    {
-                        Id = x.Id,
-                        CategoryGroup = categoryRateOrganizationUnitId.HasValue
-                            ? x.Category.CategoryOrganizationUnits.Where(unit => unit.OrganizationUnitId == categoryRateOrganizationUnitId.Value)
-                                        .Select(unit => unit.CategoryGroup.CategoryGroupName).FirstOrDefault() ?? defaultCategoryRate
-                            : string.Empty,
-                        FirmAddressId = x.FirmAddressId,
-                        SortingPosition = x.SortingPosition,
+                {
+                    Id = x.CategoryFirmAddress.Id,
+                    SortingPosition = x.CategoryFirmAddress.SortingPosition,
+                    IsPrimary = x.CategoryFirmAddress.IsPrimary,
+                    IsActive = x.CategoryFirmAddress.IsActive,
+                    IsDeleted = x.CategoryFirmAddress.IsDeleted,
+                    FirmAddressId = x.CategoryFirmAddress.FirmAddressId,
+                    FirmId = x.FirmId,
 
-                        CategoryId = x.Category.Id,
-                        Name = x.Category.Name,
-                        ParentId = x.Category.ParentId,
-                        ParentName = x.Category.ParentCategory != null ? x.Category.ParentCategory.Name : null,
-                        Level = x.Category.Level,
+                    CategoryId = x.CategoryFirmAddress.Category.Id,
+                    Name = x.CategoryFirmAddress.Category.Name,
+                    ParentId = x.CategoryFirmAddress.Category.ParentId,
+                    ParentName = x.CategoryFirmAddress.Category.ParentCategory.Name,
+                    Level = x.CategoryFirmAddress.Category.Level,
+                    CategoryIsActive = x.CategoryFirmAddress.Category.IsActive,
+                    CategoryIsDeleted = x.CategoryFirmAddress.Category.IsDeleted,
 
-                        IsPrimary = x.IsPrimary,
-                        IsActive = x.IsActive,
-                        FirmId = x.FirmAddress.FirmId,
-                    })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName,
+
+                    CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit.IsActive,
+                    CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit.IsDeleted,
+                })
+                .QuerySettings(_filterHelper, querySettings, out count)
+                .Select(x =>
+                {
+                    x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
+                    return x;
+                });
+        }
+
+        private sealed class QueryMiddleDto
+        {
+            public long FirmId { get; set; }
+            public CategoryFirmAddress CategoryFirmAddress { get; set; }
         }
     }
 }
