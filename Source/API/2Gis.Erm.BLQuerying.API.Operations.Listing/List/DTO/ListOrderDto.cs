@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long? FirmId { get; set; }
+        public long FirmId { get; set; }
         public string FirmName { get; set; }
         public long DestOrganizationUnitId { get; set; }
         public string DestOrganizationUnitName { get; set; }
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime? ModifiedOn { get; set; }
 
         public OrderState WorkflowStepEnum { get; set; }
-        public long ClientId { get; set; }
+        public long? ClientId { get; set; }
         public long? AccountId { get; set; }
         public long? DealId { get; set; }
         public bool IsActive { get; set; }
