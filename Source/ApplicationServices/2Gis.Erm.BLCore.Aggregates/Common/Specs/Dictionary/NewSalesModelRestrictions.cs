@@ -7,14 +7,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary
         public static readonly IReadOnlyCollection<long> SupportedCategoryIds =
            new long[]
                 {
+                    192, // Кинотеатры
                     356, // Магазины обувные
+                    390, // Часы
                     15502, // Товары для творчества и рукоделия
-                    390, // Часы 
-                    192, // Кинотеатры 
-                    462, // Электронные компоненты
-                    170, // Боулинг 
-                    15075, // Копировальные услуги
-                    165 // Кафе / рестораны быстрого питания
+                    207, // Аптеки
+                    526, // Сумки / кожгалантерея
                 };
 
         public static readonly IReadOnlyCollection<long> SupportedOrganizationUnitIds =
