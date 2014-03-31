@@ -90,7 +90,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             var checkbox = document.createElement('input');
             checkbox.id = 'checkbox-' + this.key;
             checkbox.type = 'checkbox';
-            self.checkbox = checkbox; 
+            self.checkbox = checkbox;
             window.Ext.getDom(outerDivId).appendChild(checkbox);
             checkbox.checked = (self.type == window.Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.Firm && isComposite == 'false') || self.getAdvertisement() != null;
             self.originalValue = checkbox.checked;
@@ -98,7 +98,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         return div;
     },
-    
+
     beginDummyCheckboxCreation: function () {
         var outerDivId = 'isDummyCheckboxDiv-' + this.key;
         var div = document.createElement('div');
@@ -118,7 +118,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         return div;
     },
-    
+
     // Метод создаёт чекбокс отражающий не изменённое пользователем состояние заказа в базе данных и не доступный для изменения.
     beginDisabledCheckboxCreation: function () {
         var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
@@ -168,7 +168,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
     supportsAdvertisement: function () {
         return typeof this.position.AdvertisementTemplateId == 'string' && this.position.AdvertisementTemplateId != '0';
-    },    
+    },
 
 
     registerEvents: function () {
@@ -181,7 +181,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         this.checkbox.onclick = function () { self.onCheckboxClick(); };
 
         if (this.supportsAdvertisement() && this.isDummyCheckBox) {
-            this.isDummyCheckBox.onclick = function() { self.onIsDummyCheckboxClick(); };
+            this.isDummyCheckBox.onclick = function () { self.onIsDummyCheckboxClick(); };
         }
     },
 
@@ -200,7 +200,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             checkboxDisabled = true;
             isDummyCheckboxDisabled = true;
         }
-        else {           
+        else {
             if (this.checkbox.checked) {
                 if (this.type == window.Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.Firm && isComposite == 'false') {
                     checkboxDisabled = true;
@@ -210,8 +210,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                 if (this.isDeleted()) {
                     checkboxDisabled = true;
                     isDummyCheckboxDisabled = true;
+                }
             }
-        }
         }
 
         this.checkbox.disabled = checkboxDisabled;
@@ -239,11 +239,11 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
     isDeleted: function () {
         return this.node.disabled;
     },
-    
+
     isSelected: function () {
         return this.checkbox.checked;
     },
-    
+
     isChanged: function () {
         return this.checkbox.checked != this.originalValue;
     },
@@ -264,6 +264,15 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         return this.advertisementLookup.getValue();
     },
 
+    clearAdvertisement: function () {
+        if (this.supportsAdvertisement() && this.isDummyCheckBox) {
+            this.isDummyCheckBox.checked = false;
+        }
+        if (this.supportsAdvertisement() && this.advertisementLookup) {
+            this.advertisementLookup.clearValue();
+        }
+    },
+
     destroy: function () {
         //Place lookup release code here  
     },
@@ -272,14 +281,14 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
     //#region private event handlers
 
-    onAdvertisementChanged: function() {
+    onAdvertisementChanged: function () {
         if (this.advertisementLookup.getValue()) {
             if (this.position.DummyAdvertisementId != this.advertisementLookup.getValue().id) {
                 this.isDummyCheckBox.checked = false;
             }
             if (!this.checkbox.checked) {
                 this.checkbox.checked = true;
-                this.controller.notifySelectedCountChanged();
+                this.controller.notifySelectedCountChanged(this);
             }
         } else {
             this.isDummyCheckBox.checked = false;
@@ -317,14 +326,9 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
     onCheckboxClick: function () {
         if (!this.checkbox.checked) {
-            if (this.supportsAdvertisement() && this.isDummyCheckBox) {
-                this.isDummyCheckBox.checked = false;
-            }
-            if (this.supportsAdvertisement() && this.advertisementLookup) {
-                this.advertisementLookup.clearValue();
-            }
+            this.clearAdvertisement();
         }
-        this.controller.notifySelectedCountChanged();
+        this.controller.notifySelectedCountChanged(this);
     },
 
     onIsDummyCheckboxClick: function () {
@@ -334,14 +338,12 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             }
         }
 
-        if (!this.isDummyCheckBox.checked)
-        {
+        if (!this.isDummyCheckBox.checked) {
             if (this.advertisementLookup) {
                 this.advertisementLookup.clearValue();
             }
         }
-        else
-        {
+        else {
             if (this.supportsAdvertisement() && this.advertisementLookup) {
                 Ext.MessageBox.show({
                     title: Ext.LocalizedResources.Alert,
@@ -349,7 +351,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                     width: 300,
                     buttons: window.Ext.MessageBox.ContinueCANCEL,
                     linkingObjectNode: this,
-                    fn: function(buttonId, value, opt) {
+                    fn: function (buttonId, value, opt) {
                         if (buttonId == 'Continue') {
                             opt.linkingObjectNode.advertisementLookup.setValue({ id: opt.linkingObjectNode.position.DummyAdvertisementId, name: Ext.LocalizedResources.DummyValue }, true);
                             if (!opt.linkingObjectNode.checkbox.checked && !opt.linkingObjectNode.checkbox.disabled) {

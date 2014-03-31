@@ -75,10 +75,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         return true;
     },
     Process: function () {
-        Ext.each(Ext.CardLookupSettings, function (item, i) {
-            new Ext.ux.LookupField(item);
-        }, this);
-
+        
         var topMessage = Ext.get("TopBarMessage").dom;
         topMessage.innerHTML = topMessage.innerHTML.replace(/%0%/g, this.EntitiesCount);
 

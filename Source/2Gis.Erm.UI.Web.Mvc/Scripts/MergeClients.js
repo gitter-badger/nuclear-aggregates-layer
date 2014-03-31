@@ -144,11 +144,6 @@ Ext.ux.MergeClientsUtility = Ext.extend(Object,
                         this.addNotification(window.Ext.getDom("Message").innerHTML.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerNotification");
                     }
 
-                    window.Ext.each(window.Ext.CardLookupSettings, function (item)
-                    {
-                        new window.Ext.ux.LookupField(item);
-                    }, this);
-
                     Ext.get("Cancel").on("click", this.close);
                     Ext.get("OK").on("click", this.submitForm);
                     Ext.getCmp("Client1").on('change', this.getClientsData, this);

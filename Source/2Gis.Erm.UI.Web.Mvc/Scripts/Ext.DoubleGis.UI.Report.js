@@ -33,10 +33,6 @@ function isHiddenField(name) {
 }
 
 Ext.onReady(function () {
-    Ext.each(Ext.CardLookupSettings, function (item, i) {
-        new window.Ext.ux.LookupField(item);
-    }, this);
-
     Ext.get("Preview").on("click", function () {
         window.EntityForm['Format'].value = 'preview';
         submit();

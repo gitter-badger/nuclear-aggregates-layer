@@ -91,10 +91,6 @@ Ext.ux.MergeLegalPersonsUtility = Ext.extend(Object,
                             
                     }
 
-                    window.Ext.each(window.Ext.CardLookupSettings, function (item) {
-                        new window.Ext.ux.LookupField(item);
-                    }, this);
-
                     Ext.get("Cancel").on("click", this.close);
                     Ext.get("OK").on("click", this.submitForm);
                    
