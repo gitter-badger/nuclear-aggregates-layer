@@ -63,12 +63,7 @@
 
         Ext.onReady(function ()
         {
-            window.Ext.each(window.Ext.CardLookupSettings, function (item)
-            {
-                var l = new window.Ext.ux.LookupField(item);
-            }, this);
             setVisualFeatures();
-
 
             //Show error messages
             if (Ext.getDom("Notifications").innerHTML.trim() == "OK")

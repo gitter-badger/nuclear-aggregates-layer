@@ -140,38 +140,37 @@ WriteLiteral("></script>\r\n\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function() {\r\n\r\n            Ext.each(Ext.CardLookupSetting" +
-"s, function(item, i) {\r\n                new window.Ext.ux.LookupField(item);\r\n  " +
-"          }, this);\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", function() { wi" +
-"ndow.close(); });\r\n            Ext.get(\"OK\").on(\"click\", function() {\r\n         " +
-"       if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {\r\n\r\n              " +
-"      var billId = Ext.getDom(\'OrderId\').value;\r\n                    var profile" +
-"Id = Ext.getCmp(\"LegalPersonProfile\").getValue().id;\r\n\r\n                    url " +
-"= \'/Bill/PrintBill/\' + billId + \'?profileId=\' + profileId + \'&__dc=\' + Ext.util." +
-"Format.cacheBuster();\r\n\r\n                    Ext.getDom(\"OK\").disabled = true;\r\n" +
-"                    Ext.getDom(\"Cancel\").disabled = true;\r\n\r\n                   " +
-" var iframe;\r\n                    iframe = document.getElementById(\"hiddenDownlo" +
-"ader\");\r\n                    if (iframe === null) {\r\n                        ifr" +
-"ame = document.createElement(\'iframe\');\r\n                        iframe.id = \"hi" +
-"ddenDownloader\";\r\n                        iframe.style.visibility = \'hidden\';\r\n\r" +
-"\n                        var iframeEl = new Ext.Element(iframe);\r\n              " +
-"          iframeEl.on(\"load\", function() {\r\n                            var ifra" +
-"meContent = iframe.contentWindow.document.documentElement.innerText;\r\n          " +
-"                  if (iframeContent != \"\") {\r\n                                al" +
-"ert(iframeContent);\r\n                            }\r\n                        });\r" +
-"\n                        document.body.appendChild(iframe);\r\n                   " +
-" }\r\n\r\n                    iframe.src = url;\r\n                    Ext.getDom(\"OK\"" +
-").disabled = false;\r\n                    Ext.getDom(\"Cancel\").disabled = false;\r" +
-"\n                }\r\n            });\r\n        });\r\n    </script>\r\n\r\n");
+WriteLiteral(">\r\n        Ext.onReady(function() {\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", " +
+"function() { window.close(); });\r\n            Ext.get(\"OK\").on(\"click\", function" +
+"() {\r\n                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {\r\n\r" +
+"\n                    var billId = Ext.getDom(\'OrderId\').value;\r\n                " +
+"    var profileId = Ext.getCmp(\"LegalPersonProfile\").getValue().id;\r\n\r\n         " +
+"           url = \'/Bill/PrintBill/\' + billId + \'?profileId=\' + profileId + \'&__d" +
+"c=\' + Ext.util.Format.cacheBuster();\r\n\r\n                    Ext.getDom(\"OK\").dis" +
+"abled = true;\r\n                    Ext.getDom(\"Cancel\").disabled = true;\r\n\r\n    " +
+"                var iframe;\r\n                    iframe = document.getElementByI" +
+"d(\"hiddenDownloader\");\r\n                    if (iframe === null) {\r\n            " +
+"            iframe = document.createElement(\'iframe\');\r\n                        " +
+"iframe.id = \"hiddenDownloader\";\r\n                        iframe.style.visibility" +
+" = \'hidden\';\r\n\r\n                        var iframeEl = new Ext.Element(iframe);\r" +
+"\n                        iframeEl.on(\"load\", function() {\r\n                     " +
+"       var iframeContent = iframe.contentWindow.document.documentElement.innerTe" +
+"xt;\r\n                            if (iframeContent != \"\") {\r\n                   " +
+"             alert(iframeContent);\r\n                            }\r\n             " +
+"           });\r\n                        document.body.appendChild(iframe);\r\n    " +
+"                }\r\n\r\n                    iframe.src = url;\r\n                    " +
+"Ext.getDom(\"OK\").disabled = false;\r\n                    Ext.getDom(\"Cancel\").dis" +
+"abled = false;\r\n                }\r\n            });\r\n        });\r\n    </script>\r\n" +
+"\r\n");
 
             
-            #line 60 "..\..\Views\Bill\Print.cshtml"
+            #line 56 "..\..\Views\Bill\Print.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 60 "..\..\Views\Bill\Print.cshtml"
+            #line 56 "..\..\Views\Bill\Print.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -205,16 +204,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create("\r\n                             onmouseover=\"", 2934), Tuple.Create("\"", 3005)
-, Tuple.Create(Tuple.Create("", 2978), Tuple.Create("AddTooltip(", 2978), true)
+WriteAttribute("onmouseover", Tuple.Create("\r\n                             onmouseover=\"", 2789), Tuple.Create("\"", 2860)
+, Tuple.Create(Tuple.Create("", 2833), Tuple.Create("AddTooltip(", 2833), true)
             
-            #line 71 "..\..\Views\Bill\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 2989), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 67 "..\..\Views\Bill\Print.cshtml"
+, Tuple.Create(Tuple.Create("", 2844), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 2989), false)
-, Tuple.Create(Tuple.Create("", 3003), Tuple.Create(");", 3003), true)
+, 2844), false)
+, Tuple.Create(Tuple.Create("", 2858), Tuple.Create(");", 2858), true)
 );
 
 WriteLiteral("\r\n                             onmouseout=\"RemoveTooltip();\"");
@@ -224,7 +223,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 73 "..\..\Views\Bill\Print.cshtml"
+            #line 69 "..\..\Views\Bill\Print.cshtml"
                        Write(Model.Message);
 
             
@@ -241,7 +240,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 79 "..\..\Views\Bill\Print.cshtml"
+            #line 75 "..\..\Views\Bill\Print.cshtml"
                                                                           Write(BLResources.PrintWithLegalPersonProfile);
 
             
@@ -263,7 +262,7 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 84 "..\..\Views\Bill\Print.cshtml"
+            #line 80 "..\..\Views\Bill\Print.cshtml"
                                    Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" }));
 
             
@@ -291,34 +290,34 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 101 "..\..\Views\Bill\Print.cshtml"
+            #line 97 "..\..\Views\Bill\Print.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 101 "..\..\Views\Bill\Print.cshtml"
+            #line 97 "..\..\Views\Bill\Print.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
             #line default
             #line hidden
             
-            #line 101 "..\..\Views\Bill\Print.cshtml"
+            #line 97 "..\..\Views\Bill\Print.cshtml"
                                        
         
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Bill\Print.cshtml"
+            #line 98 "..\..\Views\Bill\Print.cshtml"
    Write(Html.HiddenFor(m => m.LegalPersonId));
 
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Bill\Print.cshtml"
+            #line 98 "..\..\Views\Bill\Print.cshtml"
                                              
     }
 

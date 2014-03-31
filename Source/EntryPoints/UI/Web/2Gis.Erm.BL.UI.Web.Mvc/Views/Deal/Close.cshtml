@@ -33,11 +33,6 @@
                 window.Ext.getDom("TopBarMessage").innerHTML = String.format(window.Ext.getDom("TopBarMessage").innerHTML, window.dialogArguments.length);
             }
 
-            Ext.each(Ext.CardLookupSettings, function (item, i)
-            {
-                new window.Ext.ux.LookupField(item);
-            }, this);
-
             // write eventhandlers for buttons
             Ext.get("Cancel").on("click", function () { window.close(); });
             Ext.get("OK").on("click", submitForm);
