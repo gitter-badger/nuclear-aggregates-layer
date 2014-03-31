@@ -176,6 +176,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListRejectedByMeOrdersOnRegistration", "RejectedByMe=true;MyInspection=true" },
             {"DListReservedFirmsLefkosia", "ForReserve=true" },
             {"DListReservedFirmsLemesos", "ForReserve=true" },
+            {"DListActiveCategoryFirmAddresses", "IsActive=true" },
+            {"DListInactiveCategoryFirmAddresses", "IsActive=false" },
         };
 
         public static bool TryGetExtendedInfo(string filterName, out string extendedInfo)
