@@ -92,8 +92,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListCategoryDto>("DListActiveCategories", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryDto>("DListInactiveCategories", x => !x.IsActive && !x.IsDeleted)
 
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive)
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive)
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive && !x.IsDeleted && x.CategoryIsActive && !x.CategoryIsDeleted && (x.CategoryOrganizationUnitIsActive == null && x.CategoryOrganizationUnitIsDeleted == null || x.CategoryOrganizationUnitIsActive.Value && !x.CategoryOrganizationUnitIsDeleted.Value))
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive && !x.IsDeleted || !x.CategoryIsActive && !x.CategoryIsDeleted || (x.CategoryOrganizationUnitIsActive != null && x.CategoryOrganizationUnitIsDeleted != null && !x.CategoryOrganizationUnitIsActive.Value && !x.CategoryOrganizationUnitIsDeleted.Value))
 
             .RegisterFilter<ListCategoryGroupDto>("DListActiveCategoryGroups", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryGroupDto>("DListAllCategoryGroups", x => !x.IsDeleted)
@@ -237,7 +237,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListLocalMessageDto>("DListLocalMessageActive", x => (x.StatusEnum == LocalMessageStatus.NotProcessed || x.StatusEnum == LocalMessageStatus.WaitForProcess || x.StatusEnum == LocalMessageStatus.Processing) && x.ReceiverSystemEnum == IntegrationSystem.Erm)
             .RegisterFilter<ListLocalMessageDto>("DListLocalMessageProcessed", x => x.StatusEnum == LocalMessageStatus.Processed && x.ReceiverSystemEnum == IntegrationSystem.Erm)
             .RegisterFilter<ListLocalMessageDto>("DListLocalMessageFailed", x => x.StatusEnum == LocalMessageStatus.Failed && x.ReceiverSystemEnum == IntegrationSystem.Erm)
-            .RegisterFilter<ListLocalMessageDto>("DListLocalMessageOutbox", x => x.StatusEnum == LocalMessageStatus.Failed && x.SenderSystemEnum == IntegrationSystem.Erm)
+            .RegisterFilter<ListLocalMessageDto>("DListLocalMessageOutbox", x => x.SenderSystemEnum == IntegrationSystem.Erm)
 
             .RegisterFilter<ListLockDto>("DListActiveLocks", x => x.IsActive)
             .RegisterFilter<ListLockDto>("DListNotActiveLocks", x => !x.IsActive)
