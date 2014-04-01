@@ -18,11 +18,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         IReadOnlyList<OrderValidationMessage> IOrderValidationRule.Validate(OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, ValidateOrdersRequest request)
         {
-            IsCheckMassive = request.Type == ValidationType.PreReleaseBeta ||
-                             request.Type == ValidationType.PreReleaseFinal ||
-                             request.Type == ValidationType.ManualReport ||
-                             request.Type == ValidationType.ManualReportWithAccountsCheck;
-
+            IsCheckMassive = request.Type.IsMassive();
             var orderValidationMessages = new List<OrderValidationMessage>();
             Validate(request, filterPredicate, invalidOrderIds, orderValidationMessages);
             return orderValidationMessages;

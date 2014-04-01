@@ -1,10 +1,14 @@
-﻿using DoubleGis.Erm.Platform.API.Core;
+﻿using System;
+
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public sealed class ValidateOrdersRequest
     {
+        private readonly Guid _token = Guid.NewGuid();
+
         /// <summary>
         /// Необходимо заполнить только для проверки одного единственного заказа
         /// </summary>
@@ -49,5 +53,10 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// Число значащих знаков при денежных вычислениях
         /// </summary>
         public int SignificantDigitsNumber { get; set; }
+
+        public Guid Token
+        {
+            get { return _token; }
+        }
     }
 }
