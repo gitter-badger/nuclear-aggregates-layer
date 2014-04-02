@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 using FluentAssertions;
@@ -10,20 +9,20 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BL.Tests.Unit.BL.CostCalculationService
+namespace DoubleGis.Erm.BL.Tests.Unit.ApplicationServices.Operasions.Special.CostCalculator
 {
     public class CostCalculatorSpecs
     {
         [Tags("BL")]
-        [Subject(typeof(CostCalculator))]
+        [Subject(typeof(Operations.Special.CostCalculation.CostCalculator))]
         public abstract class CostCalculatorContext
         {
             private Establish context = () =>
                 {
-                    Calculator = new CostCalculator(Mock.Of<IBusinessModelSettings>());
+                    Calculator = new Operations.Special.CostCalculation.CostCalculator(Mock.Of<IBusinessModelSettings>());
                 };
 
-            protected static CostCalculator Calculator { get; set; }
+            protected static Operations.Special.CostCalculation.CostCalculator Calculator { get; set; }
             protected static DiscountInfo Discount { get; set; }
         }
 
