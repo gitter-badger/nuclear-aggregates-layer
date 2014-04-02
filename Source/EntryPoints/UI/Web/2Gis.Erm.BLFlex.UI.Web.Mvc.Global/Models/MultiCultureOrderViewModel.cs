@@ -150,6 +150,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         // Скрытое поле, заведено в контекте бага 1735
         public decimal VatPlan { get; set; }
 
+        // Скрытое поле, заведено в контекте бага ERM-3725
+        public long? LegalPersonProfileId { get; set; }
+
         public decimal AmountToWithdraw { get; set; }
 
         public decimal AmountWithdrawn { get; set; }
@@ -275,6 +278,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             AccountId = modelDto.AccountRef != null ? modelDto.AccountRef.Id : null;
             ShowRegionalAttributes = modelDto.ShowRegionalAttributes;
             CanSwitchToAccount = modelDto.CanSwitchToAccount;
+            LegalPersonProfileId = modelDto.LegalPersonProfileRef != null ? modelDto.LegalPersonProfileRef.Id : null;
 
             Timestamp = modelDto.Timestamp;
         }
@@ -329,6 +333,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                 DocumentsComment = DocumentsComment,
                 AccountRef = new EntityReference(AccountId),
                 PaymentMethod = PaymentMethod,
+                LegalPersonProfileRef = new EntityReference(LegalPersonProfileId),
 
                 OwnerRef = Owner.ToReference(),
 
