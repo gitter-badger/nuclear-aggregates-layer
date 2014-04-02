@@ -665,6 +665,9 @@ window.InitPage = function () {
                     }
 
                 },
+                resetLegalPersonProfile: function () {
+                    Ext.get("LegalPersonProfileId").dom.value = "";
+                },
                 toFixedWithoutRounding: function (figure, decimals) {
                     if (!decimals) decimals = 2;
                     var d = Math.pow(10, decimals);
@@ -764,6 +767,7 @@ window.InitPage = function () {
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
             Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.updateBargain(true); }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
+            Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
 
             // Если для текущей бизнес-модели должны быть заданы дополнительные обработчики событий, задаём их
             if (this.setupCultureSpecificEventListeners) {
