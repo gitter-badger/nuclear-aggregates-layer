@@ -5243,4 +5243,7 @@ Placement period: {3}.</value>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
+  </data>
 </root>

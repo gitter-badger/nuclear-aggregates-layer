@@ -10416,6 +10416,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string OrderLegalPersonProfileShouldBelongToOrderLegalPerson {
+            get {
+                return ResourceManager.GetString("OrderLegalPersonProfileShouldBelongToOrderLegalPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string OrderList {
             get {
                 return ResourceManager.GetString("OrderList", resourceCulture);

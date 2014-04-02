@@ -5225,4 +5225,7 @@
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value></value>
   </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
