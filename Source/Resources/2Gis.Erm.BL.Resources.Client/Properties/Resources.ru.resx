@@ -912,4 +912,10 @@
   <data name="BillNumber" xml:space="preserve">
     <value>Номер счета</value>
   </data>
+  <data name="IncomingMessages" xml:space="preserve">
+    <value>Входящие сообщения</value>
+  </data>
+  <data name="OutgoingMessages" xml:space="preserve">
+    <value>Исходящие сообщения</value>
+  </data>
 </root>

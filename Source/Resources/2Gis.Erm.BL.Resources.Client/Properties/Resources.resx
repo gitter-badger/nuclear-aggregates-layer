@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,851 +59,851 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AcquireOrderExtensionFailed" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcquireOrderExtensionFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="ActionsHistory" xml:space="preserve">
+  <data name="ActionsHistory" xml:space="preserve">
     <value />
   </data>
-	<data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
+  <data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
     <value />
   </data>
-	<data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
+  <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
     <value />
   </data>
-	<data name="Active" xml:space="preserve">
+  <data name="Active" xml:space="preserve">
     <value />
   </data>
-	<data name="Address" xml:space="preserve">
+  <data name="Address" xml:space="preserve">
     <value />
   </data>
-	<data name="AdvertisementElements" xml:space="preserve">
+  <data name="AdvertisementElements" xml:space="preserve">
     <value />
   </data>
-	<data name="Advertisements" xml:space="preserve">
+  <data name="Advertisements" xml:space="preserve">
     <value />
   </data>
-	<data name="Alert" xml:space="preserve">
+  <data name="Alert" xml:space="preserve">
     <value />
   </data>
-	<data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
+  <data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
     <value />
   </data>
-	<data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
+  <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
     <value />
   </data>
-	<data name="April" xml:space="preserve">
+  <data name="April" xml:space="preserve">
     <value />
   </data>
-	<data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
+  <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
     <value />
   </data>
-	<data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
+  <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
     <value />
   </data>
-	<data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
+  <data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
     <value />
   </data>
-	<data name="August" xml:space="preserve">
+  <data name="August" xml:space="preserve">
     <value />
   </data>
-	<data name="AvailableRecords" xml:space="preserve">
+  <data name="AvailableRecords" xml:space="preserve">
     <value />
   </data>
-	<data name="BackColorText" xml:space="preserve">
+  <data name="BackColorText" xml:space="preserve">
     <value />
   </data>
-	<data name="BackColorTitle" xml:space="preserve">
+  <data name="BackColorTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="BeginDistributionDate" xml:space="preserve">
+  <data name="BeginDistributionDate" xml:space="preserve">
     <value />
   </data>
-	<data name="BoldText" xml:space="preserve">
+  <data name="BoldText" xml:space="preserve">
     <value />
   </data>
-	<data name="BoldTitle" xml:space="preserve">
+  <data name="BoldTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="Cancel" xml:space="preserve">
+  <data name="Cancel" xml:space="preserve">
     <value />
   </data>
-	<data name="CardIsDirtyAlert" xml:space="preserve">
+  <data name="CardIsDirtyAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="CardIsNewAlert" xml:space="preserve">
+  <data name="CardIsNewAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="CardIsReadOnly" xml:space="preserve">
+  <data name="CardIsReadOnly" xml:space="preserve">
     <value />
   </data>
-	<data name="CardIsUndefined" xml:space="preserve">
+  <data name="CardIsUndefined" xml:space="preserve">
     <value />
   </data>
-	<data name="Category" xml:space="preserve">
+  <data name="Category" xml:space="preserve">
     <value />
   </data>
-	<data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
+  <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
     <value />
   </data>
-	<data name="CheckInProgressPleaseStandBy" xml:space="preserve">
+  <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
     <value />
   </data>
-	<data name="CheckProducedTheFollowingErrors" xml:space="preserve">
+  <data name="CheckProducedTheFollowingErrors" xml:space="preserve">
     <value />
   </data>
-	<data name="ClickHereToAddNote" xml:space="preserve">
+  <data name="ClickHereToAddNote" xml:space="preserve">
     <value />
   </data>
-	<data name="Close" xml:space="preserve">
+  <data name="Close" xml:space="preserve">
     <value />
   </data>
-	<data name="CloseCardConfirmation" xml:space="preserve">
+  <data name="CloseCardConfirmation" xml:space="preserve">
     <value />
   </data>
-	<data name="ContentIsEmpty" xml:space="preserve">
+  <data name="ContentIsEmpty" xml:space="preserve">
     <value />
   </data>
-	<data name="Continue" xml:space="preserve">
+  <data name="Continue" xml:space="preserve">
     <value />
   </data>
-	<data name="Create" xml:space="preserve">
+  <data name="Create" xml:space="preserve">
     <value />
   </data>
-	<data name="CreateLinkText" xml:space="preserve">
+  <data name="CreateLinkText" xml:space="preserve">
     <value />
   </data>
-	<data name="CreateLinkTitle" xml:space="preserve">
+  <data name="CreateLinkTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="CreateText" xml:space="preserve">
+  <data name="CreateText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerMaxText" xml:space="preserve">
+  <data name="DatePickerMaxText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerMinText" xml:space="preserve">
+  <data name="DatePickerMinText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerMonthYearText" xml:space="preserve">
+  <data name="DatePickerMonthYearText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerNextText" xml:space="preserve">
+  <data name="DatePickerNextText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerPrevText" xml:space="preserve">
+  <data name="DatePickerPrevText" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerToday" xml:space="preserve">
+  <data name="DatePickerToday" xml:space="preserve">
     <value />
   </data>
-	<data name="DatePickerTodayTip" xml:space="preserve">
+  <data name="DatePickerTodayTip" xml:space="preserve">
     <value />
   </data>
-	<data name="December" xml:space="preserve">
+  <data name="December" xml:space="preserve">
     <value />
   </data>
-	<data name="DecreaseFontSizeText" xml:space="preserve">
+  <data name="DecreaseFontSizeText" xml:space="preserve">
     <value />
   </data>
-	<data name="DecreaseFontSizeTitle" xml:space="preserve">
+  <data name="DecreaseFontSizeTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="Deleted" xml:space="preserve">
+  <data name="Deleted" xml:space="preserve">
     <value />
   </data>
-	<data name="DeleteText" xml:space="preserve">
+  <data name="DeleteText" xml:space="preserve">
     <value />
   </data>
-	<data name="DeleteValue" xml:space="preserve">
+  <data name="DeleteValue" xml:space="preserve">
     <value />
   </data>
-	<data name="DisabledDatesText" xml:space="preserve">
+  <data name="DisabledDatesText" xml:space="preserve">
     <value />
   </data>
-	<data name="DisabledDaysText" xml:space="preserve">
+  <data name="DisabledDaysText" xml:space="preserve">
     <value />
   </data>
-	<data name="DisplayMsg" xml:space="preserve">
+  <data name="DisplayMsg" xml:space="preserve">
     <value />
   </data>
-	<data name="EmptyMsg" xml:space="preserve">
+  <data name="EmptyMsg" xml:space="preserve">
     <value />
   </data>
-	<data name="EndDistributionDate" xml:space="preserve">
+  <data name="EndDistributionDate" xml:space="preserve">
     <value />
   </data>
-	<data name="Error" xml:space="preserve">
+  <data name="Error" xml:space="preserve">
     <value />
   </data>
-	<data name="ErrorDuringOperation" xml:space="preserve">
+  <data name="ErrorDuringOperation" xml:space="preserve">
     <value />
   </data>
-	<data name="ErrorRetrievingDataFromServer" xml:space="preserve">
+  <data name="ErrorRetrievingDataFromServer" xml:space="preserve">
     <value />
   </data>
-	<data name="February" xml:space="preserve">
+  <data name="February" xml:space="preserve">
     <value />
   </data>
-	<data name="FieldInvalidText" xml:space="preserve">
+  <data name="FieldInvalidText" xml:space="preserve">
     <value />
   </data>
-	<data name="FileUploadCompleteText" xml:space="preserve">
+  <data name="FileUploadCompleteText" xml:space="preserve">
     <value />
   </data>
-	<data name="FileUploadText" xml:space="preserve">
+  <data name="FileUploadText" xml:space="preserve">
     <value />
   </data>
-	<data name="FindMoreRecords" xml:space="preserve">
+  <data name="FindMoreRecords" xml:space="preserve">
     <value />
   </data>
-	<data name="ForeColorText" xml:space="preserve">
+  <data name="ForeColorText" xml:space="preserve">
     <value />
   </data>
-	<data name="Friday" xml:space="preserve">
+  <data name="Friday" xml:space="preserve">
     <value />
   </data>
-	<data name="GetDataError" xml:space="preserve">
+  <data name="GetDataError" xml:space="preserve">
     <value />
   </data>
-	<data name="GridDDText" xml:space="preserve">
+  <data name="GridDDText" xml:space="preserve">
     <value />
   </data>
-	<data name="IncreaseFontSizeText" xml:space="preserve">
+  <data name="IncreaseFontSizeText" xml:space="preserve">
     <value />
   </data>
-	<data name="IncreaseFontSizeTitle" xml:space="preserve">
+  <data name="IncreaseFontSizeTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="IndicatorText" xml:space="preserve">
+  <data name="IndicatorText" xml:space="preserve">
     <value />
   </data>
-	<data name="Information" xml:space="preserve">
+  <data name="Information" xml:space="preserve">
     <value />
   </data>
-	<data name="InsertOrderedListText" xml:space="preserve">
+  <data name="InsertOrderedListText" xml:space="preserve">
     <value />
   </data>
-	<data name="InsertOrderedListTitle" xml:space="preserve">
+  <data name="InsertOrderedListTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="InsertUnorderedListText" xml:space="preserve">
+  <data name="InsertUnorderedListText" xml:space="preserve">
     <value />
   </data>
-	<data name="InsertUnorderedListTitle" xml:space="preserve">
+  <data name="InsertUnorderedListTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="InvalidDateText" xml:space="preserve">
+  <data name="InvalidDateText" xml:space="preserve">
     <value />
   </data>
-	<data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
+  <data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
     <value />
   </data>
-	<data name="ItalicText" xml:space="preserve">
+  <data name="ItalicText" xml:space="preserve">
     <value />
   </data>
-	<data name="ItalicTitle" xml:space="preserve">
+  <data name="ItalicTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="ItsReadOnlyMode" xml:space="preserve">
+  <data name="ItsReadOnlyMode" xml:space="preserve">
     <value />
   </data>
-	<data name="January" xml:space="preserve">
+  <data name="January" xml:space="preserve">
     <value />
   </data>
-	<data name="July" xml:space="preserve">
+  <data name="July" xml:space="preserve">
     <value />
   </data>
-	<data name="June" xml:space="preserve">
+  <data name="June" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyCenterText" xml:space="preserve">
+  <data name="JustifyCenterText" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyCenterTitle" xml:space="preserve">
+  <data name="JustifyCenterTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyLeftText" xml:space="preserve">
+  <data name="JustifyLeftText" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyLeftTitle" xml:space="preserve">
+  <data name="JustifyLeftTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyRightText" xml:space="preserve">
+  <data name="JustifyRightText" xml:space="preserve">
     <value />
   </data>
-	<data name="JustifyRightTitle" xml:space="preserve">
+  <data name="JustifyRightTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
+  <data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
     <value />
   </data>
-	<data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
+  <data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
     <value />
   </data>
-	<data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
+  <data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
     <value />
   </data>
-	<data name="LinkingObject" xml:space="preserve">
+  <data name="LinkingObject" xml:space="preserve">
     <value />
   </data>
-	<data name="LinkingParameters" xml:space="preserve">
+  <data name="LinkingParameters" xml:space="preserve">
     <value />
   </data>
-	<data name="ListDoesNotSupportAppend" xml:space="preserve">
+  <data name="ListDoesNotSupportAppend" xml:space="preserve">
     <value />
   </data>
-	<data name="ListSeparator" xml:space="preserve">
+  <data name="ListSeparator" xml:space="preserve">
     <value />
   </data>
-	<data name="LoadAdvertisementResults" xml:space="preserve">
+  <data name="LoadAdvertisementResults" xml:space="preserve">
     <value />
   </data>
-	<data name="LoadMask" xml:space="preserve">
+  <data name="LoadMask" xml:space="preserve">
     <value />
   </data>
-	<data name="LookupEmptyValue" xml:space="preserve">
+  <data name="LookupEmptyValue" xml:space="preserve">
     <value />
   </data>
-	<data name="March" xml:space="preserve">
+  <data name="March" xml:space="preserve">
     <value />
   </data>
-	<data name="MatchesNotFound" xml:space="preserve">
+  <data name="MatchesNotFound" xml:space="preserve">
     <value />
   </data>
-	<data name="MaxDateText" xml:space="preserve">
+  <data name="MaxDateText" xml:space="preserve">
     <value />
   </data>
-	<data name="May" xml:space="preserve">
+  <data name="May" xml:space="preserve">
     <value />
   </data>
-	<data name="MergeClientsAlert" xml:space="preserve">
+  <data name="MergeClientsAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="MinDateText" xml:space="preserve">
+  <data name="MinDateText" xml:space="preserve">
     <value />
   </data>
-	<data name="Modified" xml:space="preserve">
+  <data name="Modified" xml:space="preserve">
     <value />
   </data>
-	<data name="ModifiedValue" xml:space="preserve">
+  <data name="ModifiedValue" xml:space="preserve">
     <value />
   </data>
-	<data name="Monday" xml:space="preserve">
+  <data name="Monday" xml:space="preserve">
     <value />
   </data>
-	<data name="MonthlyLowerBoundText" xml:space="preserve">
+  <data name="MonthlyLowerBoundText" xml:space="preserve">
     <value />
   </data>
-	<data name="MonthlyUpperBoundText" xml:space="preserve">
+  <data name="MonthlyUpperBoundText" xml:space="preserve">
     <value />
   </data>
-	<data name="MultipleMatchesFound" xml:space="preserve">
+  <data name="MultipleMatchesFound" xml:space="preserve">
     <value />
   </data>
-	<data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
+  <data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
     <value />
   </data>
-	<data name="MultiSelectionListSearchInstructions" xml:space="preserve">
+  <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
     <value />
   </data>
-	<data name="MultiSelectionListToListEmptyText" xml:space="preserve">
+  <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
     <value />
   </data>
-	<data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
+  <data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="MustSelectOneOrMoreObject" xml:space="preserve">
+  <data name="MustSelectOneOrMoreObject" xml:space="preserve">
     <value />
   </data>
-	<data name="MustSelectOnlyOneObject" xml:space="preserve">
+  <data name="MustSelectOnlyOneObject" xml:space="preserve">
     <value />
   </data>
-	<data name="NeedToSelectOneItem" xml:space="preserve">
+  <data name="NeedToSelectOneItem" xml:space="preserve">
     <value />
   </data>
-	<data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
+  <data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
     <value />
   </data>
-	<data name="No" xml:space="preserve">
+  <data name="No" xml:space="preserve">
     <value />
   </data>
-	<data name="NoteCreated" xml:space="preserve">
+  <data name="NoteCreated" xml:space="preserve">
     <value />
   </data>
-	<data name="Notes" xml:space="preserve">
+  <data name="Notes" xml:space="preserve">
     <value />
   </data>
-	<data name="November" xml:space="preserve">
+  <data name="November" xml:space="preserve">
     <value />
   </data>
-	<data name="October" xml:space="preserve">
+  <data name="October" xml:space="preserve">
     <value />
   </data>
-	<data name="OK" xml:space="preserve">
+  <data name="OK" xml:space="preserve">
     <value />
   </data>
-	<data name="OpenText" xml:space="preserve">
+  <data name="OpenText" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCheck" xml:space="preserve">
+  <data name="OrderCheck" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCheckFailed" xml:space="preserve">
+  <data name="OrderCheckFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
+  <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCheckResults" xml:space="preserve">
+  <data name="OrderCheckResults" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderIsNotRelatedToAccount" xml:space="preserve">
+  <data name="OrderIsNotRelatedToAccount" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderState" xml:space="preserve">
+  <data name="OrderState" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderValidationFailed" xml:space="preserve">
+  <data name="OrderValidationFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="OriginalValue" xml:space="preserve">
+  <data name="OriginalValue" xml:space="preserve">
     <value />
   </data>
-	<data name="PayablePlan" xml:space="preserve">
+  <data name="PayablePlan" xml:space="preserve">
     <value />
   </data>
-	<data name="Payment" xml:space="preserve">
+  <data name="Payment" xml:space="preserve">
     <value />
   </data>
-	<data name="PaymentDatePlan" xml:space="preserve">
+  <data name="PaymentDatePlan" xml:space="preserve">
     <value />
   </data>
-	<data name="Payments" xml:space="preserve">
+  <data name="Payments" xml:space="preserve">
     <value />
   </data>
-	<data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
+  <data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
     <value />
   </data>
-	<data name="PrintText" xml:space="preserve">
+  <data name="PrintText" xml:space="preserve">
     <value />
   </data>
-	<data name="ProcessMessagesConfirm" xml:space="preserve">
+  <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value />
   </data>
-	<data name="Properties" xml:space="preserve">
+  <data name="Properties" xml:space="preserve">
     <value />
   </data>
-	<data name="PropertyName" xml:space="preserve">
+  <data name="PropertyName" xml:space="preserve">
     <value />
   </data>
-	<data name="RefreshText" xml:space="preserve">
+  <data name="RefreshText" xml:space="preserve">
     <value />
   </data>
-	<data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
+  <data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
     <value />
   </data>
-	<data name="RequiredFieldMessage" xml:space="preserve">
+  <data name="RequiredFieldMessage" xml:space="preserve">
     <value />
   </data>
-	<data name="Saturday" xml:space="preserve">
+  <data name="Saturday" xml:space="preserve">
     <value />
   </data>
-	<data name="SearchInstructions" xml:space="preserve">
+  <data name="SearchInstructions" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectedRecords" xml:space="preserve">
+  <data name="SelectedRecords" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectObjectsToProcess" xml:space="preserve">
+  <data name="SelectObjectsToProcess" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectOneOrMoreRecords" xml:space="preserve">
+  <data name="SelectOneOrMoreRecords" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectToWhiteList" xml:space="preserve">
+  <data name="SelectToWhiteList" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectToWhiteListMatherial" xml:space="preserve">
+  <data name="SelectToWhiteListMatherial" xml:space="preserve">
     <value />
   </data>
-	<data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
+  <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="September" xml:space="preserve">
+  <data name="September" xml:space="preserve">
     <value />
   </data>
-	<data name="SourceEditText" xml:space="preserve">
+  <data name="SourceEditText" xml:space="preserve">
     <value />
   </data>
-	<data name="SourceEditTitle" xml:space="preserve">
+  <data name="SourceEditTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="StartSearch" xml:space="preserve">
+  <data name="StartSearch" xml:space="preserve">
     <value />
   </data>
-	<data name="StatusLabel" xml:space="preserve">
+  <data name="StatusLabel" xml:space="preserve">
     <value />
   </data>
-	<data name="SumRemainingMustBeNull" xml:space="preserve">
+  <data name="SumRemainingMustBeNull" xml:space="preserve">
     <value />
   </data>
-	<data name="Sunday" xml:space="preserve">
+  <data name="Sunday" xml:space="preserve">
     <value />
   </data>
-	<data name="TabPanelItemCloseText" xml:space="preserve">
+  <data name="TabPanelItemCloseText" xml:space="preserve">
     <value />
   </data>
-	<data name="TheAdvertisement" xml:space="preserve">
+  <data name="TheAdvertisement" xml:space="preserve">
     <value />
   </data>
-	<data name="Thursday" xml:space="preserve">
+  <data name="Thursday" xml:space="preserve">
     <value />
   </data>
-	<data name="TimeFormat" xml:space="preserve">
+  <data name="TimeFormat" xml:space="preserve">
     <value />
   </data>
-	<data name="Title" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
     <value />
   </data>
-	<data name="Total" xml:space="preserve">
+  <data name="Total" xml:space="preserve">
     <value />
   </data>
-	<data name="Tuesday" xml:space="preserve">
+  <data name="Tuesday" xml:space="preserve">
     <value />
   </data>
-	<data name="UnderlineText" xml:space="preserve">
+  <data name="UnderlineText" xml:space="preserve">
     <value />
   </data>
-	<data name="UnderlineTitle" xml:space="preserve">
+  <data name="UnderlineTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="UnknownFileSize" xml:space="preserve">
+  <data name="UnknownFileSize" xml:space="preserve">
     <value />
   </data>
-	<data name="UploadFileQuestion" xml:space="preserve">
+  <data name="UploadFileQuestion" xml:space="preserve">
     <value />
   </data>
-	<data name="Wednesday" xml:space="preserve">
+  <data name="Wednesday" xml:space="preserve">
     <value />
   </data>
-	<data name="WorkInProgressPleaseStandBy" xml:space="preserve">
+  <data name="WorkInProgressPleaseStandBy" xml:space="preserve">
     <value />
   </data>
-	<data name="Yes" xml:space="preserve">
+  <data name="Yes" xml:space="preserve">
     <value />
   </data>
-	<data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
+  <data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
     <value />
   </data>
-	<data name="IsWarmClientWarningFormat" xml:space="preserve">
+  <data name="IsWarmClientWarningFormat" xml:space="preserve">
     <value />
   </data>
-	<data name="BillCreationApprovalNeeded" xml:space="preserve">
+  <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value />
   </data>
-	<data name="BillMassCreateConfirmMessage" xml:space="preserve">
+  <data name="BillMassCreateConfirmMessage" xml:space="preserve">
     <value />
   </data>
-	<data name="RelatedOrdersDestination" xml:space="preserve">
+  <data name="RelatedOrdersDestination" xml:space="preserve">
     <value />
   </data>
-	<data name="RelatedOrdersIsSelected" xml:space="preserve">
+  <data name="RelatedOrdersIsSelected" xml:space="preserve">
     <value />
   </data>
-	<data name="RelatedOrdersNoOrders" xml:space="preserve">
+  <data name="RelatedOrdersNoOrders" xml:space="preserve">
     <value />
   </data>
-	<data name="RelatedOrdersNumber" xml:space="preserve">
+  <data name="RelatedOrdersNumber" xml:space="preserve">
     <value />
   </data>
-	<data name="RelatedOrdersSource" xml:space="preserve">
+  <data name="RelatedOrdersSource" xml:space="preserve">
     <value />
   </data>
-	<data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
+  <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
     <value />
   </data>
-	<data name="ValueCantBeEmpty" xml:space="preserve">
+  <data name="ValueCantBeEmpty" xml:space="preserve">
     <value />
   </data>
-	<data name="MergeLegalPersonsAlert" xml:space="preserve">
+  <data name="MergeLegalPersonsAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="MergeLegalPersonsSucceded" xml:space="preserve">
+  <data name="MergeLegalPersonsSucceded" xml:space="preserve">
     <value />
   </data>
-	<data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
+  <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
     <value />
   </data>
-	<data name="CheckClientsDebtsFailed" xml:space="preserve">
+  <data name="CheckClientsDebtsFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="InvalidSelectedPositionsCount" xml:space="preserve">
+  <data name="InvalidSelectedPositionsCount" xml:space="preserve">
     <value />
   </data>
-	<data name="CanNotSelectHiddenPosition" xml:space="preserve">
+  <data name="CanNotSelectHiddenPosition" xml:space="preserve">
     <value />
   </data>
-	<data name="HiddenItem" xml:space="preserve">
+  <data name="HiddenItem" xml:space="preserve">
     <value />
   </data>
-	<data name="DeletedItem" xml:space="preserve">
+  <data name="DeletedItem" xml:space="preserve">
     <value />
   </data>
-	<data name="ListDoesNotSupportExcluding" xml:space="preserve">
+  <data name="ListDoesNotSupportExcluding" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderRepairFailed" xml:space="preserve">
+  <data name="OrderRepairFailed" xml:space="preserve">
     <value />
   </data>
-	<data name="RepairOutdatedOrderPositions" xml:space="preserve">
+  <data name="RepairOutdatedOrderPositions" xml:space="preserve">
     <value />
   </data>
-	<data name="RepairInProgressPleaseStandBy" xml:space="preserve">
+  <data name="RepairInProgressPleaseStandBy" xml:space="preserve">
     <value />
   </data>
-	<data name="DiscountResetWarning" xml:space="preserve">
+  <data name="DiscountResetWarning" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
+  <data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
     <value />
   </data>
-	<data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
+  <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value />
   </data>
-	<data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
     <value />
   </data>
-	<data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
+  <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value />
   </data>
-	<data name="GridViewColumns" xml:space="preserve">
+  <data name="GridViewColumns" xml:space="preserve">
     <value />
   </data>
-	<data name="GridViewSortAscText" xml:space="preserve">
+  <data name="GridViewSortAscText" xml:space="preserve">
     <value />
   </data>
-	<data name="GridViewSortDescText" xml:space="preserve">
+  <data name="GridViewSortDescText" xml:space="preserve">
     <value />
   </data>
-	<data name="Reports" xml:space="preserve">
+  <data name="Reports" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderIsCorrect" xml:space="preserve">
+  <data name="OrderIsCorrect" xml:space="preserve">
     <value />
   </data>
-	<data name="Search" xml:space="preserve">
+  <data name="Search" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
+  <data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesDisplay" xml:space="preserve">
+  <data name="AdditionalServicesDisplay" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesDefault" xml:space="preserve">
+  <data name="AdditionalServicesDefault" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
+  <data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesValueNotFound" xml:space="preserve">
+  <data name="AdditionalServicesValueNotFound" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesService" xml:space="preserve">
+  <data name="AdditionalServicesService" xml:space="preserve">
     <value />
   </data>
-	<data name="AdditionalServicesDisplayService" xml:space="preserve">
+  <data name="AdditionalServicesDisplayService" xml:space="preserve">
     <value />
   </data>
-	<data name="FileNameNotSpecified" xml:space="preserve">
+  <data name="FileNameNotSpecified" xml:space="preserve">
     <value />
   </data>
-	<data name="ActivityDaysAndHoursFormat" xml:space="preserve">
+  <data name="ActivityDaysAndHoursFormat" xml:space="preserve">
     <value />
   </data>
-	<data name="ActivityDaysFormat" xml:space="preserve">
+  <data name="ActivityDaysFormat" xml:space="preserve">
     <value />
   </data>
-	<data name="CopyCurrentOrder" xml:space="preserve">
+  <data name="CopyCurrentOrder" xml:space="preserve">
     <value />
   </data>
-	<data name="CopyOrderWithTermination" xml:space="preserve">
+  <data name="CopyOrderWithTermination" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCopying" xml:space="preserve">
+  <data name="OrderCopying" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCopyingInProgress" xml:space="preserve">
+  <data name="OrderCopyingInProgress" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCopyingFailure" xml:space="preserve">
+  <data name="OrderCopyingFailure" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCopyingCompleted" xml:space="preserve">
+  <data name="OrderCopyingCompleted" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCopyingSuccess" xml:space="preserve">
+  <data name="OrderCopyingSuccess" xml:space="preserve">
     <value />
   </data>
-	<data name="LimitStatusOpened" xml:space="preserve">
+  <data name="LimitStatusOpened" xml:space="preserve">
     <value />
   </data>
-	<data name="LimitStatusApproved" xml:space="preserve">
+  <data name="LimitStatusApproved" xml:space="preserve">
     <value />
   </data>
-	<data name="LimitStatusRejected" xml:space="preserve">
+  <data name="LimitStatusRejected" xml:space="preserve">
     <value />
   </data>
-	<data name="LimitStatusError" xml:space="preserve">
+  <data name="LimitStatusError" xml:space="preserve">
     <value />
   </data>
-	<data name="AddCategory" xml:space="preserve">
+  <data name="AddCategory" xml:space="preserve">
     <value />
   </data>
-	<data name="BargainCreationIsInProgress" xml:space="preserve">
+  <data name="BargainCreationIsInProgress" xml:space="preserve">
     <value />
   </data>
-	<data name="BargainCreation" xml:space="preserve">
+  <data name="BargainCreation" xml:space="preserve">
     <value />
   </data>
-	<data name="BargainIsCreated" xml:space="preserve">
+  <data name="BargainIsCreated" xml:space="preserve">
     <value />
   </data>
-	<data name="ApplicationError" xml:space="preserve">
+  <data name="ApplicationError" xml:space="preserve">
     <value />
   </data>
-	<data name="Checking" xml:space="preserve">
+  <data name="Checking" xml:space="preserve">
     <value />
   </data>
-	<data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
+  <data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
     <value />
   </data>
-	<data name="CategoryName" xml:space="preserve">
+  <data name="CategoryName" xml:space="preserve">
     <value />
   </data>
-	<data name="DummyValue" xml:space="preserve">
+  <data name="DummyValue" xml:space="preserve">
     <value />
   </data>
-	<data name="DummyValueWillBeApplied" xml:space="preserve">
+  <data name="DummyValueWillBeApplied" xml:space="preserve">
     <value />
   </data>
-	<data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
+  <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
     <value />
   </data>
-	<data name="InputValidationInvalidUrl" xml:space="preserve">
+  <data name="InputValidationInvalidUrl" xml:space="preserve">
     <value />
   </data>
-	<data name="TextEditorOverflow" xml:space="preserve">
+  <data name="TextEditorOverflow" xml:space="preserve">
     <value />
   </data>
-	<data name="SymbolsLeft" xml:space="preserve">
+  <data name="SymbolsLeft" xml:space="preserve">
     <value />
   </data>
-	<data name="AdsCheckTooLongWord" xml:space="preserve">
+  <data name="AdsCheckTooLongWord" xml:space="preserve">
     <value />
   </data>
-	<data name="TextEditorLineBreaksOverflow" xml:space="preserve">
+  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
     <value />
   </data>
-	<data name="LineBreaksLeft" xml:space="preserve">
+  <data name="LineBreaksLeft" xml:space="preserve">
     <value />
   </data>
-	<data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
+  <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
     <value />
   </data>
-	<data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
+  <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
     <value />
   </data>
-	<data name="AdvertisementElementWasNotSaved" xml:space="preserve">
+  <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCreation" xml:space="preserve">
+  <data name="OrderCreation" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderCreationIsInProgress" xml:space="preserve">
+  <data name="OrderCreationIsInProgress" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderIsCreated" xml:space="preserve">
+  <data name="OrderIsCreated" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderProcessingRequestCancelled" xml:space="preserve">
+  <data name="OrderProcessingRequestCancelled" xml:space="preserve">
     <value />
   </data>
-	<data name="MessageText" xml:space="preserve">
+  <data name="MessageText" xml:space="preserve">
     <value />
   </data>
-	<data name="MessageType" xml:space="preserve">
+  <data name="MessageType" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
+  <data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
+  <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
     <value />
   </data>
-	<data name="OrderRequestMessagesTabTitle" xml:space="preserve">
+  <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value />
   </data>
-	<data name="Task" xml:space="preserve">
+  <data name="Task" xml:space="preserve">
     <value />
   </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
@@ -911,5 +911,11 @@
   </data>
   <data name="BillNumber" xml:space="preserve">
     <value />
-	</data>
+  </data>
+  <data name="IncomingMessages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutgoingMessages" xml:space="preserve">
+    <value />
+  </data>
 </root>
