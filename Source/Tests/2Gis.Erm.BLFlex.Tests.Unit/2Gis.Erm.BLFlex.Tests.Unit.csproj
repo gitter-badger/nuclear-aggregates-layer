@@ -66,12 +66,12 @@
     </Compile>
     <Compile Include="ApplicationServices\Aggregates.Global\Chile\Crosscutting\RutServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Aggregates.Global\Russia\Crosscutting\InnServiceSpecs.cs" />
-    <Compile Include="BL\GenerateOrderNumberHandlerSpecs.cs" />
-    <Compile Include="BL\Print\Cyprus\OrderPrintFormDataExtractorSpecs.cs" />
-    <Compile Include="BL\Print\Czech\OrderPrintFormDataExtractorSpecs.cs" />
-    <Compile Include="BL\Print\PrintDataSpecs.cs" />
-    <Compile Include="BL\Print\Chile\OrderPrintFormDataExtractorSpecs.cs" />
-    <Compile Include="BL\Print\Russia\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\Number\GenerateOrderNumberHandlerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -127,7 +127,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Folder Include="BL\Print\Chile\" />
+    <Folder Include="BL\Print\Cyprus\" />
+    <Folder Include="BL\Print\Czech\" />
+    <Folder Include="BL\Print\Russia\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
