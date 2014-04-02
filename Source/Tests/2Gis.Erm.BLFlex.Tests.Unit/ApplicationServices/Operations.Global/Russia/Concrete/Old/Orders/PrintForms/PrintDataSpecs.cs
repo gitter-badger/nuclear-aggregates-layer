@@ -7,9 +7,7 @@ using FluentAssertions;
 
 using Machine.Specifications;
 
-using It = Machine.Specifications.It;
-
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Russia.Concrete.Old.Orders.PrintForms
 {
     public static class PrintDataSpecs
     {

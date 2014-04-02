@@ -1,12 +1,11 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.Model
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Aggregates.Global.Chile.Crosscutting
 {
     public class RutServiceSpecs
     {

@@ -193,13 +193,12 @@ Bank Name: {7}
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
-    </data>
+  </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
-    
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -243,13 +242,13 @@ Bank Name: {7}
   <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="ChilePartableExtensionMustBeApplied">
+  <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="InvalidChileRutFormat">
+  <data name="InvalidChileRutFormat" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="InvalidChileRutChecksum">
+  <data name="InvalidChileRutChecksum" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DublicateBillNumbers" xml:space="preserve">
@@ -266,5 +265,59 @@ Bank Name: {7}
   </data>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>The Customer's legal entity with the specified T.I.C. already exists</value>
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>The hidden legal entity of the Customer with the specified T.I.C. exists </value>
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value>A deleted Sole Proprietorship with the specified T.I.C. exists</value>
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Контекстная рубрика – {1}</value>
   </data>
 </root>

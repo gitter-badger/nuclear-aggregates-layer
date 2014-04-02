@@ -256,4 +256,58 @@
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>La operación de creación de la comuna no es compatible con el sistema</value>
   </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Контекстная рубрика – {1}</value>
+  </data>
 </root>
