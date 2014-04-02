@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         BargainLegalPerson = 10,
         BargainBusinessman = 11,
         BargainNaturalPerson = 12,
+        BargainNewSalesModel = 13,
 
         // доп. соглашение
         AdditionalAgreementLegalPerson = 20,

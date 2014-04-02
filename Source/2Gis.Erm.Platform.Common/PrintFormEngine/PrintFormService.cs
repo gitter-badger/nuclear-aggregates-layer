@@ -33,6 +33,8 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
                     doc.ChangeDocumentType(WordprocessingDocumentType.Document);
                 }
 
+                ProcessOptionalBlocks(doc.MainDocumentPart, data);
+
                 var allSdtBlocks = doc.MainDocumentPart.Document.Descendants<SdtElement>()
                     .Union(doc.MainDocumentPart.HeaderParts.SelectMany(x => x.Header.Descendants<SdtElement>()))
                     .Union(doc.MainDocumentPart.FooterParts.SelectMany(x => x.Footer.Descendants<SdtElement>()))
@@ -70,6 +72,35 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
                 doc.Close();
                 stream.Position = 0;
+            }
+        }
+
+        private void ProcessOptionalBlocks(MainDocumentPart document, object dataObject)
+        {
+            // Старый функционал, основанный на анонимных объектах, не поддерживаем.
+            var printData = dataObject as PrintData;
+            if (printData == null)
+            {
+                return;
+            }
+
+            var optionalSdtBlocks = document.Document.Descendants<SdtElement>()
+                                            .Union(document.HeaderParts.SelectMany(x => x.Header.Descendants<SdtElement>()))
+                                            .Union(document.FooterParts.SelectMany(x => x.Footer.Descendants<SdtElement>()))
+                                            .Where(block => string.IsNullOrEmpty(block.GetName()) && block.GetTag().StartsWith("Optional"))
+                                            .ToArray();
+
+            foreach (var sdtBlock in optionalSdtBlocks)
+            {
+                var tag = sdtBlock.GetTag();
+                var parent = sdtBlock.Parent;
+
+                var dataPath = tag.Split(',').Last();
+                var blockMustExist = (bool)printData.GetData(dataPath);
+                if (!blockMustExist)
+                {
+                    parent.RemoveChild(sdtBlock);
+                }
             }
         }
 
