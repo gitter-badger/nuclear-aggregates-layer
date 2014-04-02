@@ -5,7 +5,7 @@ using FluentAssertions;
 
 using Machine.Specifications;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.Model
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Aggregates.Global.Russia.Crosscutting
 {
     public class InnServiceSpecs
     {

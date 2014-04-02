@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -17,7 +16,7 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Chile
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Chile.Generic
 {
     public static class OrderPrintFormDataExtractorSpecs
     {

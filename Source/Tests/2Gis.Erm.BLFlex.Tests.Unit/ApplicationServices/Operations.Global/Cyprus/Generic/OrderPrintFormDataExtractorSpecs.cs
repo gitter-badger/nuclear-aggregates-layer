@@ -16,7 +16,7 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Cyprus
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Cyprus.Generic
 {
     public static class OrderPrintFormDataExtractorSpecs
     {
