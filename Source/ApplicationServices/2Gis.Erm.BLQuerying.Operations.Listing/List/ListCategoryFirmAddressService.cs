@@ -30,31 +30,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<CategoryFirmAddress>();
 
-            var query2 = query.Select(x => new QueryMiddleDto
-            {
-                FirmId = x.FirmAddress.FirmId,
-                CategoryFirmAddress = x,
-            });
-
-            if (querySettings.ParentEntityName == EntityName.Firm)
-            {
-                query2 = query2
-                .GroupBy(x => x.FirmId)
-                .Select(x => new QueryMiddleDto
-                {
-                    FirmId = x.Key,
-                    CategoryFirmAddress = x.Select(y => y.CategoryFirmAddress).FirstOrDefault(),
-                });
-            }
-
             var defaultCategoryRate = string.Format(_userContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
 
-            return query2
+            var data = query
                 .Select(x => new
                 {
-                    x.FirmId,
-                    x.CategoryFirmAddress,
-                    CategoryOrganizationUnit = x.CategoryFirmAddress.FirmAddress.Firm.OrganizationUnit.CategoryOrganizationUnits.FirstOrDefault(y => y.CategoryId == x.CategoryFirmAddress.CategoryId),
+                    CategoryFirmAddress = x,
+                    CategoryOrganizationUnit = x.FirmAddress.Firm.OrganizationUnit.CategoryOrganizationUnits.FirstOrDefault(z => z.CategoryId == x.CategoryId),
                 })
                 .Select(x => new ListCategoryFirmAddressDto
                 {
@@ -63,8 +45,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsPrimary = x.CategoryFirmAddress.IsPrimary,
                     IsActive = x.CategoryFirmAddress.IsActive,
                     IsDeleted = x.CategoryFirmAddress.IsDeleted,
-                    FirmAddressId = x.CategoryFirmAddress.FirmAddressId,
-                    FirmId = x.FirmId,
+                    FirmId = x.CategoryFirmAddress.FirmAddress.FirmId,
 
                     CategoryId = x.CategoryFirmAddress.Category.Id,
                     Name = x.CategoryFirmAddress.Category.Name,
@@ -74,23 +55,64 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryIsActive = x.CategoryFirmAddress.Category.IsActive,
                     CategoryIsDeleted = x.CategoryFirmAddress.Category.IsDeleted,
 
+                    FirmAddressId = x.CategoryFirmAddress.FirmAddressId,
+                    FirmAddressIsActive = x.CategoryFirmAddress.FirmAddress.IsActive,
+                    FirmAddressIsDeleted = x.CategoryFirmAddress.FirmAddress.IsDeleted,
+
                     CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName,
-
-                    CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit.IsActive,
-                    CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit.IsDeleted,
-                })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
-                {
-                    x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
-                    return x;
+                    CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsActive : true,
+                    CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });
-        }
 
-        private sealed class QueryMiddleDto
-        {
-            public long FirmId { get; set; }
-            public CategoryFirmAddress CategoryFirmAddress { get; set; }
+            // in memory grouping for firm
+            if (querySettings.ParentEntityName == EntityName.Firm)
+            {
+                data = _filterHelper.DefaultFilter(data, querySettings);
+                data = _filterHelper.RelativeFilter(data, querySettings);
+
+                data = data.GroupBy(x => new
+                {
+                    x.CategoryId,
+                    x.Name,
+                    x.ParentId,
+                    x.ParentName,
+                    x.Level,
+                    x.CategoryIsActive,
+                    x.CategoryIsDeleted,
+                    x.FirmId,
+                })
+                .Select(x => new ListCategoryFirmAddressDto
+                {
+                    Id = 0,
+                    SortingPosition = x.Max(y => y.SortingPosition),
+                    IsPrimary = x.Any(y => y.IsPrimary),
+                    IsActive = x.Any(y => y.IsActive),
+                    IsDeleted = x.All(y => y.IsDeleted),
+                    FirmId = x.Key.FirmId,
+
+                    CategoryId = x.Key.CategoryId,
+                    Name = x.Key.Name,
+                    ParentId = x.Key.ParentId,
+                    ParentName = x.Key.ParentName,
+                    Level = x.Key.Level,
+                    CategoryIsActive = x.Key.CategoryIsActive,
+                    CategoryIsDeleted = x.Key.CategoryIsDeleted,
+
+                    FirmAddressId = 0,
+                    FirmAddressIsActive = x.Any(y => y.FirmAddressIsActive),
+                    FirmAddressIsDeleted = x.All(y => y.FirmAddressIsDeleted),
+
+                    CategoryGroup = x.Select(y => y.CategoryGroup).FirstOrDefault(),
+                    CategoryOrganizationUnitIsActive = x.Any(y => y.CategoryOrganizationUnitIsActive),
+                    CategoryOrganizationUnitIsDeleted = x.All(y => y.CategoryOrganizationUnitIsDeleted),
+                });
+            }
+
+            return data.QuerySettings(_filterHelper, querySettings, out count).Select(x =>
+            {
+                x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
+                return x;
+            });
         }
     }
 }
