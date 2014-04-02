@@ -2151,6 +2151,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string SelectMessageToSave {
+            get {
+                return ResourceManager.GetString("SelectMessageToSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string SelectObjectsToProcess {
             get {
                 return ResourceManager.GetString("SelectObjectsToProcess", resourceCulture);

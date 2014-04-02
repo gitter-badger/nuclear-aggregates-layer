@@ -918,4 +918,7 @@
   <data name="OutgoingMessages" xml:space="preserve">
     <value>Исходящие сообщения</value>
   </data>
+  <data name="SelectMessageToSave" xml:space="preserve">
+    <value>Выберите сообщения для сохранения</value>
+  </data>
 </root>

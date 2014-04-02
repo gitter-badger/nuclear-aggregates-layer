@@ -918,4 +918,7 @@
   <data name="OutgoingMessages" xml:space="preserve">
     <value />
   </data>
+  <data name="SelectMessageToSave" xml:space="preserve">
+    <value />
+  </data>
 </root>
