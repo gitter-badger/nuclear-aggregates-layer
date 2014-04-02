@@ -249,6 +249,9 @@ window.InitPage = function () {
                 PrintBargain: function () {
                     this.Print('PrintBargain');
                 },
+                PrintNewSalesModelBargain: function () {
+                    this.Print('PrintNewSalesModelBargain');
+                },
                 PrintBill: function () {
                     this.Print('PrintBill');
                 },
