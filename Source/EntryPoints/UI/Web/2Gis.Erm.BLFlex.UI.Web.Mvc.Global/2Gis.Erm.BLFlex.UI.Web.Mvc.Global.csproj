@@ -373,7 +373,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Russia\Order.generated.cs" />
+    <Compile Include="Views\CreateOrUpdate\Russia\Order.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Order.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\Phonecall.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
