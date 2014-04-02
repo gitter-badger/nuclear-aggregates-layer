@@ -303,4 +303,7 @@
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value />
   </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value />
+  </data>
 </root>

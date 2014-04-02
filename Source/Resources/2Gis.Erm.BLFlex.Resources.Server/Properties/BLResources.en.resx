@@ -317,4 +317,7 @@ Bank Name: {7}
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Контекстная рубрика – {1}</value>
+  </data>
 </root>

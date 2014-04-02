@@ -231,6 +231,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     "BranchOfficeOrganizationUnit.Kpp",
                     "BranchOfficeOrganizationUnit.PaymentEssentialElements",
                     "BranchOfficeOrganizationUnit.ShortLegalName",
+                    "BranchOfficeOrganizationUnit.ActualAddress",
+                    "BranchOfficeOrganizationUnit.Email",
                     "ClientRequisitesParagraph",
                     "DiscountSum",
                     "ElectronicMedia",

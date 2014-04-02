@@ -62,6 +62,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="BargainRelationsDto.cs" />
     <Compile Include="Chile\Concrete\Old\Bills\ChilePrintBillHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Clients\ChileCheckClientActivitiesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Chile\Concrete\Old\Orders\Number\ChileGenerateOrderNumberHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
+    <Compile Include="BargainPrintFormReadModel.cs" />
+    <Compile Include="IBargainPrintFormReadModel.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintLetterOfGuaranteeHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderTerminationNoticeHandler.cs" />
@@ -104,6 +107,9 @@
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Get\IOrderReferencesReadModel.cs" />
     <Compile Include="MultiCulture\Generic\Get\OrderReferencesReadModel.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainHandler.cs" />
+    <Compile Include="Russia\Generic\BargainPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\IBargainPrintFormDataExtractor.cs" />
     <Compile Include="Shared\CzechFormatterFactory.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintRegionalOrderHandler.cs" />
     <Compile Include="Russia\Generic\IOrderPrintFormDataExtractor.cs" />

@@ -57,18 +57,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             foreach (var contact in contacts)
             {
                 var template = FirmAddressContactTypePlural[contact.ContactType];
-                stringBuilder.Append(template).Append(": ").AppendLine(String.Join("; ", contact.Contact));
+                stringBuilder.Append(template).Append(": ").AppendLine(string.Join("; ", contact.Contact));
             }
 
             // WorkingTime
-            if (!String.IsNullOrEmpty(address.WorkingTime))
+            if (!string.IsNullOrEmpty(address.WorkingTime))
             {
                 var localizedWorkingTime = FirmWorkingTimeLocalizer.LocalizeWorkingTime(address.WorkingTime, CultureInfo.CurrentCulture);
                 stringBuilder.Append(MetadataResources.WorkingTime).Append(": ").AppendLine(localizedWorkingTime);
             }
 
             // PaymentMethods
-            if (!String.IsNullOrEmpty(address.PaymentMethods))
+            if (!string.IsNullOrEmpty(address.PaymentMethods))
             {
                 stringBuilder.Append(MetadataResources.PaymentMethods).Append(": ").AppendLine(address.PaymentMethods);
             }
@@ -109,9 +109,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         _longDateFormatter.Format(order.BeginDistributionDate),
                         _longDateFormatter.Format(order.EndDistributionDatePlan));
                 case PlatformEnum.Api:
-                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphApi;
+                    return string.Format(BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphApi, electronivMedia);
                 case PlatformEnum.Online:
-                    return BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphOnline;
+                    return string.Format(BLFlexResources.PrintOrderHandler_ElectronicMedaiParagraphOnline, electronivMedia);
                 default:
                     throw new ArgumentOutOfRangeException("platform");
             }
@@ -142,6 +142,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                     orderPosition.PricePerUnit,
                     orderPosition.Order.ReleaseCountPlan,
                     orderPosition.PricePosition.Position.IsComposite,
+                    BindingObjectTypeEnum = (PositionBindingObjectType)orderPosition.PricePosition.Position.BindingObjectTypeEnum,
 
                     Platform = orderPosition.PricePosition.Position.Platform.DgppId,
 
@@ -157,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                                                                             .Select(c => c.Category.Name)
                                                   })
                                                   .GroupBy(z => new { z.Address, z.ReferencePoint })
-                                                  .Select(z => new PrintOrderHelper.AdvertisementDto
+                                                  .Select(z => new AdvertisementDto
                                                   {
                                                       Address = z.Key.Address,
                                                       ReferencePoint = z.Key.ReferencePoint,
@@ -172,7 +173,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                         { "DiscountPercent", x.DiscountPercent.ToString("F") }, // TODO {all, 12.03.2014}: Форматирования данных в коде не должно быть
                         { "ElectronicMediaParagraph", GetElectronicMediaParagraph((PlatformEnum)x.Platform, orderInfo.ElectronicMedia, orderInfo.RegistrationCertificate, orderInfo.Order) },
                         { "FirmName", orderInfo.FirmName },
-                        { "Name", FormatName(x.IsComposite, x.Name, x.Advertisements) },
+                        { "Name", FormatName(x.IsComposite, x.BindingObjectTypeEnum, x.Name, x.Advertisements) },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWoVat },
                         { "PriceForMonthWithDiscount", (x.PayablePlanWoVat / x.Amount) / x.ReleaseCountPlan },
@@ -187,7 +188,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
         public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
         {
             var addresses = query
-                .Select(y => new PrintOrderHelper.AddressDto
+                .Select(y => new AddressDto
                 {
                     Id = y.Id,
                     Address = y.Address,
@@ -249,6 +250,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             return order;
         }
 
+        // TODO {a.rechkalov, 01.04.2014}: Можно объедитнить с GetOrder, если OrderExtension не осталось в печатных формах
         public PrintData GetOrderExtension(IQueryable<Order> query)
         {
             var orderExtension = query
@@ -301,36 +303,62 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 
         private static string FormatAddressWithReferencePoint(string address, string referencePoint)
         {
-            return String.IsNullOrWhiteSpace(referencePoint)
+            return string.IsNullOrWhiteSpace(referencePoint)
                        ? address
                        : address + " — " + referencePoint;
         }
 
-        public string FormatName(bool isPositionComposite, string positionName, IEnumerable<AdvertisementDto> advertisements)
+        public string FormatName(bool isPositionComposite, PositionBindingObjectType bindingType, string positionName, IEnumerable<AdvertisementDto> advertisements)
         {
             if (isPositionComposite)
             {
+                if (CategoryBindedCompositePosition(bindingType))
+                {
+                    var categories = advertisements.SelectMany(z => z.Categories)
+                                                   .Where(s => !string.IsNullOrWhiteSpace(s))
+                                                   .Distinct()
+                                                   .ToArray();
+                    return categories.Any()
+                               ? string.Format(BLFlexResources.OrderPositionNameWithContextCategory, positionName, string.Join(", ", categories))
+                               : positionName;
+                }
+
                 return positionName;
             }
 
             var bindings = advertisements
                 .Select(z =>
-                {
-                    var address = FormatAddressWithReferencePoint(z.Address, z.ReferencePoint);
-                    var categories = z.Categories.Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
+                    {
+                        var address = FormatAddressWithReferencePoint(z.Address, z.ReferencePoint);
+                        var categories = z.Categories.Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
 
-                    return !categories.Any()
-                               ? address
-                               : string.IsNullOrEmpty(address)
-                                     ? string.Join(", ", categories)
-                                     : string.Format("{0}: {1}", address, string.Join(", ", categories));
-                })
+                        return !categories.Any()
+                                   ? address
+                                   : string.IsNullOrEmpty(address)
+                                         ? string.Join(", ", categories)
+                                         : string.Format("{0}: {1}", address, string.Join(", ", categories));
+                    })
                 .Where(s => !string.IsNullOrWhiteSpace(s))
                 .ToArray();
 
             return bindings.Any()
                        ? positionName + ": " + string.Join(", ", bindings)
                        : positionName;
+        }
+
+        private bool CategoryBindedCompositePosition(PositionBindingObjectType bindingType)
+        {
+            var categoryBindedTypes = new[]
+            {
+                PositionBindingObjectType.CategoryMultipleAsterix,
+                PositionBindingObjectType.AddressCategorySingle,
+                PositionBindingObjectType.AddressCategoryMultiple,
+                PositionBindingObjectType.CategorySingle,
+                PositionBindingObjectType.CategoryMultiple,
+                PositionBindingObjectType.AddressFirstLevelCategorySingle,
+                PositionBindingObjectType.AddressFirstLevelCategoryMultiple,
+            };
+            return categoryBindedTypes.Contains(bindingType);
         }
 
         public sealed class AddressDto
