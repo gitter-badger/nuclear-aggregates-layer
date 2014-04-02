@@ -1,5 +1,4 @@
 ﻿using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
