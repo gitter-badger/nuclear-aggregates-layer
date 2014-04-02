@@ -1812,4 +1812,7 @@
   <data name="DListCommunes" xml:space="preserve">
     <value>Коммуны</value>
   </data>
+  <data name="ControlPrintNewSalesModelBargainAction" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  </data>
 </root>
