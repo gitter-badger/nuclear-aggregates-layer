@@ -64,14 +64,14 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="ApplicationServices\Aggregates.Global\Chile\Crosscutting\RutServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Aggregates.Global\Russia\Crosscutting\InnServiceSpecs.cs" />
     <Compile Include="BL\GenerateOrderNumberHandlerSpecs.cs" />
     <Compile Include="BL\Print\Cyprus\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="BL\Print\Czech\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="BL\Print\PrintDataSpecs.cs" />
     <Compile Include="BL\Print\Chile\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="BL\Print\Russia\OrderPrintFormDataExtractorSpecs.cs" />
-    <Compile Include="Model\RutServiceSpecs.cs" />
-    <Compile Include="Model\InnServiceSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -125,6 +125,9 @@
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
