@@ -1455,7 +1455,7 @@
   <data name="FunctionalPrivilegeNameCascadeLegalPersonAssign" xml:space="preserve">
     <value>Cascade change of the legal entity's owners</value>
   </data>
-  <data name="LanguageAbbreviationCs" xml:space="preserve">
+	<data name="LanguageAbbreviationCs" xml:space="preserve">
     <value>Czech</value>
   </data>
   <data name="PlatformsExtendedDesktop" xml:space="preserve">
@@ -1476,19 +1476,19 @@
   <data name="PlatformsExtendedOnline" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="PaymentMethodUndefined" xml:space="preserve">
+	<data name="PaymentMethodUndefined" xml:space="preserve">
     <value />
   </data>
-  <data name="PaymentMethodBankChequePayment" xml:space="preserve">
+	<data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Check</value>
   </data>
-  <data name="PaymentMethodBankTransaction" xml:space="preserve">
+	<data name="PaymentMethodBankTransaction" xml:space="preserve">
     <value>Bank account</value>
   </data>
-  <data name="PaymentMethodCashPayment" xml:space="preserve">
+	<data name="PaymentMethodCashPayment" xml:space="preserve">
     <value>Cash payment</value>
   </data>
-  <data name="PaymentMethodBankCard" xml:space="preserve">
+	<data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Bank card</value>
   </data>
   <data name="PaymentMethodDebitCard" xml:space="preserve">
@@ -1497,118 +1497,118 @@
   <data name="PaymentMethodCreditCard" xml:space="preserve">
     <value>Credit card</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+	<data name="ActivityTaskTypeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityPriorityNotSet" xml:space="preserve">
+	<data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+	<data name="ActivityPurposeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityStatusNotSet" xml:space="preserve">
+	<data name="ActivityStatusNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="ActivityTypeNotSet" xml:space="preserve">
+	<data name="ActivityTypeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
-  <data name="FirmAddressContactTypeNone" xml:space="preserve">
+	<data name="FirmAddressContactTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="CloseDealReasonNone" xml:space="preserve">
+	<data name="CloseDealReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="DealStageNone" xml:space="preserve">
+	<data name="DealStageNone" xml:space="preserve">
     <value />
   </data>
-  <data name="InformationSourceNone" xml:space="preserve">
+	<data name="InformationSourceNone" xml:space="preserve">
     <value />
   </data>
-  <data name="ReasonForNewDealNone" xml:space="preserve">
+	<data name="ReasonForNewDealNone" xml:space="preserve">
     <value />
   </data>
-  <data name="FasCommentNone" xml:space="preserve">
+	<data name="FasCommentNone" xml:space="preserve">
     <value />
   </data>
-  <data name="ProductTypeNone" xml:space="preserve">
+	<data name="ProductTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="MarketTypeNone" xml:space="preserve">
+	<data name="MarketTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="UsingOtherMediaOptionNone" xml:space="preserve">
+	<data name="UsingOtherMediaOptionNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AccountRoleNone" xml:space="preserve">
+	<data name="AccountRoleNone" xml:space="preserve">
     <value />
   </data>
-  <data name="FamilyStatusNone" xml:space="preserve">
+	<data name="FamilyStatusNone" xml:space="preserve">
     <value />
   </data>
-  <data name="GenderNone" xml:space="preserve">
+	<data name="GenderNone" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderDiscountReasonNone" xml:space="preserve">
+	<data name="OrderDiscountReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderTerminationReasonNone" xml:space="preserve">
+	<data name="OrderTerminationReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionAccountingMethodNone" xml:space="preserve">
+	<data name="PositionAccountingMethodNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionBindingObjectTypeNone" xml:space="preserve">
+	<data name="PositionBindingObjectTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionCalculationMethodNone" xml:space="preserve">
+	<data name="PositionCalculationMethodNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
+	<data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
     <value />
   </data>
-  <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
+	<data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
+	<data name="OrderPositionDiscountReasonNone" xml:space="preserve">
     <value />
   </data>
-  <data name="TemplateCodeNone" xml:space="preserve">
+	<data name="TemplateCodeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BudgetTypeNone" xml:space="preserve">
+	<data name="BudgetTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="GeolocationNone" xml:space="preserve">
+	<data name="GeolocationNone" xml:space="preserve">
     <value />
   </data>
-  <data name="InCityBranchesAmountNone" xml:space="preserve">
+	<data name="InCityBranchesAmountNone" xml:space="preserve">
     <value />
   </data>
-  <data name="OutCityBranchesAmountNone" xml:space="preserve">
+	<data name="OutCityBranchesAmountNone" xml:space="preserve">
     <value />
   </data>
-  <data name="StaffAmountNone" xml:space="preserve">
+	<data name="StaffAmountNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AllOrdersReportTypeNone" xml:space="preserve">
+	<data name="AllOrdersReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="ObjectBindingTypeNone" xml:space="preserve">
+	<data name="ObjectBindingTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AccountsReportTypeNone" xml:space="preserve">
+	<data name="AccountsReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="SalesReportTypeNone" xml:space="preserve">
+	<data name="SalesReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="RegistryDocReportTypeNone" xml:space="preserve">
+	<data name="RegistryDocReportTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSaleServiceTypeNone" xml:space="preserve">
+	<data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+	<data name="BusinessOperationTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1617,7 +1617,7 @@
   <data name="FunctionalPrivilegeNameUnpublishAdvertisementTemplate" xml:space="preserve">
     <value>Canceling publication of AM template</value>
   </data>
-  <data name="ESalesPointTypeNone" xml:space="preserve">
+	<data name="ESalesPointTypeNone" xml:space="preserve">
     <value />
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
@@ -1828,57 +1828,60 @@
     <value>Simplified account</value>
   </data>
   <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsMultiple" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsSingle" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDietarySupplement" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentSpecialNutrition" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentChildNutrition" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentFinancilaServices" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentMedsTraditional" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentBiocides" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextAlcoholAdvertising" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsMultiple" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsSingle" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextDietarySupplement" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextSpecialNutrition" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChildNutrition" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextFinancilaServices" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsTraditional" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+	  <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  <comment></comment></data>
 </root>

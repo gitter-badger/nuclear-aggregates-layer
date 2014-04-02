@@ -1881,4 +1881,7 @@
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
 	  <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  <comment></comment></data>
 </root>

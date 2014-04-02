@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1884,4 +1884,7 @@
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  <comment></comment></data>
 </root>
