@@ -232,6 +232,15 @@
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Name>2Gis.Erm.BL.Operations.Special</Name>
       <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
