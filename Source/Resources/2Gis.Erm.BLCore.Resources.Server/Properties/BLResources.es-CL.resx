@@ -2066,8 +2066,7 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
+  <data name="CsvSeparator" xml:space="preserve">
     <value>;</value>
   </data>
   <data name="No" xml:space="preserve">
@@ -4924,21 +4923,6 @@ Contacto: {1}</value>
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>Existe una persona natural oculta con la serie y el número de pasaporte especificados</value>
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Ya existe una EIRL con el RUT especificado</value>
   </data>
@@ -4948,44 +4932,8 @@ Contacto: {1}</value>
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Existe una EIRL oculta con el RUT especificado</value>
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>En la posición {0} se ha formalizado la publicidad API aunque la empresa no tiene dirección en el proyecto de la ciudad de publicación de órdenes</value>
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>Hace falta crear al menos una factura</value>
@@ -5200,7 +5148,7 @@ Periodo de la publicación: {3}.</value>
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
   <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
+    <value>Creación, modificación y eliminación de objetos "Servicios adicionales para la empresa" del sistema de gestión.</value>
   </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
@@ -5233,7 +5181,7 @@ Periodo de la publicación: {3}.</value>
     <value>Debe indicarse una sola categoría para una posición de la orden formalizada para la posición de la lista de precios con el coeficiente calculado según la categoría</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>No se puede crear la posición compleja con el tipo de enlace con el objeto distinto de los siguientes: {0}</value>
   </data>
   <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
     <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>

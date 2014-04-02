@@ -1280,7 +1280,6 @@
   </data>
   <data name="Registered" xml:space="preserve">
     <value>Зарегистрировано</value>
-    <comment>поле профиля юр. лица</comment>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
     <value>Выгрузить дополнительно файл в формате csv</value>
@@ -1310,8 +1309,8 @@
     <value>Является рекламным агентством</value>
   </data>
   <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-		<value>Ошибка</value>
-	</data>
+    <value>Ошибка</value>
+  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Представитель</value>
   </data>
@@ -1337,12 +1336,12 @@
     <value>Название банка</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-  <value>RUT представителя</value>
-</data>
+    <value>RUT представителя</value>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
-  <value>Вид деятельности</value>
-</data>
+    <value>Вид деятельности</value>
+  </data>
 </root>

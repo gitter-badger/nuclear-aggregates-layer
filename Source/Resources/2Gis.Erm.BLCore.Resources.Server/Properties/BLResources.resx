@@ -497,7 +497,6 @@
   </data>
   <data name="OrderStateFromOnApprovalToRejectedSubjectTemplate" xml:space="preserve">
     <value />
-    <comment>При отклонении АУПом заказа находившегося на утверждении</comment>
   </data>
   <data name="OrderList" xml:space="preserve">
     <value />
@@ -4913,26 +4912,6 @@
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value />
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value />
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value />
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value />
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value />
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value />
-    <comment>используется в печатной форме заявления под присягой в Праге</comment>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value />
   </data>
@@ -4942,43 +4921,7 @@
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value />
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value />
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value />
   </data>
   <data name="BillsMissing" xml:space="preserve">
@@ -4986,7 +4929,6 @@
   </data>
   <data name="OpenOrder" xml:space="preserve">
     <value />
-    <comment>Опциональное предложение в теле письма, должно заканчиваться точкой</comment>
   </data>
   <data name="InTheCostCalculationServiceErrorOccured" xml:space="preserve">
     <value />
@@ -5220,10 +5162,10 @@
     <value />
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
     <value></value>
