@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return SortedPaged(query, querySettings, out total);
         }
 
-        private IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
+        public IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
         {
             Expression expression;
             if (!DefaultFilterMetadata.TryGetFilter<TDocument>(querySettings.FilterName, out expression))
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return queryable.Provider.CreateQuery<TDocument>(whereExpression);
         }
 
-        private IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        public IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
             if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))

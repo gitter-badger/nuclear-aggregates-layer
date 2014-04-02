@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -44,7 +45,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsPrimary = x.CategoryFirmAddress.IsPrimary,
                     IsActive = x.CategoryFirmAddress.IsActive,
                     IsDeleted = x.CategoryFirmAddress.IsDeleted,
-                    FirmAddressId = x.CategoryFirmAddress.FirmAddressId,
                     FirmId = x.CategoryFirmAddress.FirmAddress.FirmId,
 
                     CategoryId = x.CategoryFirmAddress.Category.Id,
@@ -55,43 +55,64 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryIsActive = x.CategoryFirmAddress.Category.IsActive,
                     CategoryIsDeleted = x.CategoryFirmAddress.Category.IsDeleted,
 
-                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName,
+                    FirmAddressId = x.CategoryFirmAddress.FirmAddressId,
+                    FirmAddressIsActive = x.CategoryFirmAddress.FirmAddress.IsActive,
+                    FirmAddressIsDeleted = x.CategoryFirmAddress.FirmAddress.IsDeleted,
 
-                    CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit.IsActive,
-                    CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit.IsDeleted,
+                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName,
+                    CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsActive : true,
+                    CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
+                });
+
+            // in memory grouping for firm
+            if (querySettings.ParentEntityName == EntityName.Firm)
+            {
+                data = _filterHelper.DefaultFilter(data, querySettings);
+                data = _filterHelper.RelativeFilter(data, querySettings);
+
+                data = data.GroupBy(x => new
+                {
+                    x.CategoryId,
+                    x.Name,
+                    x.ParentId,
+                    x.ParentName,
+                    x.Level,
+                    x.CategoryIsActive,
+                    x.CategoryIsDeleted,
+                    x.FirmId,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                // in memory
-                .GroupBy(x => x.FirmId)
                 .Select(x => new ListCategoryFirmAddressDto
                 {
-                    Id = x.First().Id,
-                    SortingPosition = x.First().SortingPosition,
-                    IsPrimary = x.First().IsPrimary,
-                    IsActive = x.First().IsActive,
-                    IsDeleted = x.First().IsDeleted,
-                    FirmAddressId = x.First().FirmAddressId,
-                    FirmId = x.Key,
+                    Id = 0,
+                    SortingPosition = x.Max(y => y.SortingPosition),
+                    IsPrimary = x.Any(y => y.IsPrimary),
+                    IsActive = x.Any(y => y.IsActive),
+                    IsDeleted = x.All(y => y.IsDeleted),
+                    FirmId = x.Key.FirmId,
 
-                    CategoryId = x.First().CategoryId,
-                    Name = x.First().Name,
-                    ParentId = x.First().ParentId,
-                    ParentName = x.First().ParentName,
-                    Level = x.First().Level,
-                    CategoryIsActive = x.First().CategoryIsActive,
-                    CategoryIsDeleted = x.First().CategoryIsDeleted,
+                    CategoryId = x.Key.CategoryId,
+                    Name = x.Key.Name,
+                    ParentId = x.Key.ParentId,
+                    ParentName = x.Key.ParentName,
+                    Level = x.Key.Level,
+                    CategoryIsActive = x.Key.CategoryIsActive,
+                    CategoryIsDeleted = x.Key.CategoryIsDeleted,
 
-                    CategoryGroup = x.First().CategoryGroup ?? defaultCategoryRate,
+                    FirmAddressId = 0,
+                    FirmAddressIsActive = x.Any(y => y.FirmAddressIsActive),
+                    FirmAddressIsDeleted = x.All(y => y.FirmAddressIsDeleted),
 
-                    CategoryOrganizationUnitIsActive = x.First().CategoryOrganizationUnitIsActive,
-                    CategoryOrganizationUnitIsDeleted = x.First().CategoryOrganizationUnitIsDeleted,
-                })
-                .Skip(querySettings.SkipCount)
-                .Take(querySettings.TakeCount)
-                .ToArray();
+                    CategoryGroup = x.Select(y => y.CategoryGroup).FirstOrDefault(),
+                    CategoryOrganizationUnitIsActive = x.Any(y => y.CategoryOrganizationUnitIsActive),
+                    CategoryOrganizationUnitIsDeleted = x.All(y => y.CategoryOrganizationUnitIsDeleted),
+                });
+            }
 
-            count = data.Length;
-            return data;
+            return data.QuerySettings(_filterHelper, querySettings, out count).Select(x =>
+            {
+                x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
+                return x;
+            });
         }
     }
 }
