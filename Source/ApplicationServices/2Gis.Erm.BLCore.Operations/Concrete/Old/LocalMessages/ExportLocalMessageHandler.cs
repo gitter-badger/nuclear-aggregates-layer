@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
@@ -24,14 +24,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
     public sealed class ExportLocalMessageHandler : RequestHandler<ExportLocalMessageRequest, Response>
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public ExportLocalMessageHandler(
             ISubRequestProcessor subRequestProcessor, 
-            IBranchOfficeRepository branchOfficeRepository)
+            IBranchOfficeReadModel branchOfficeReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
-            _branchOfficeRepository = branchOfficeRepository;
+            _branchOfficeReadModel = branchOfficeReadModel;
         }
 
         protected override Response Handle(ExportLocalMessageRequest request)
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 throw new NotificationException("Не указано отделение организации");
             }
 
-            var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(request.OrganizationUnitId.Value);
+            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(request.OrganizationUnitId.Value);
             Request exportRequest;
 
             switch (contributionType)
@@ -233,7 +233,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 throw new NotificationException("Не указано отделение организации");
             }
 
-            var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(request.OrganizationUnitId.Value);
+            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(request.OrganizationUnitId.Value);
             Request exportRequest;
 
             switch (contributionType)

@@ -36,7 +36,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         int? GetOrganizationUnitDgppId(long organizationUnitId);
         OrganizationUnit GetOrganizationUnit(int organizationUnitDgppId);
-        FirmAndClientDto GetFirmAndClientByFirmAddress(long firmAddressCode);
         Territory ImportTerritory(ImportTerritoriesHeaderDto header, ImportTerritoryDto territoryDto);
 
         IEnumerable<long> GetTerritoriesOfOrganizationUnit(long organizationUnitId);
@@ -72,17 +71,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         void ImportCategoryFirmAddresses(long firmAddressId, IEnumerable<ImportCategoryFirmAddressDto> categoryFirmAddresses);
         void ImportFirmAddresses(IEnumerable<DTO.CardForErm.ImportFirmAddressDto> firmAddresses, string regionalTerritoryName);
 
-        // todo {d.ivanov, 2013-11-21}: IReadModel
-        IEnumerable<CategoryGroup> GetFirmAddressCategoryGroups(long firmAddressId);
-
         // TODO {d.ivanov, 19.12.2013}: IReadModel
         IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds); 
 
         // todo {d.ivanov, 2013-11-21}: IReadModel
         long GetFirmAddressOrganizationUnitId(long cardCode);
 
-        // todo {d.ivanov, 2013-11-21}: IReadModel
-        IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode);
         void ImportDepCards(IEnumerable<ImportDepCardDto> importDepCardDtos);
     }
 }

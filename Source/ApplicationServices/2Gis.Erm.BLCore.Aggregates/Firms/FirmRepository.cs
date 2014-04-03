@@ -386,18 +386,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>()).SingleOrDefault(x => x.DgppId == organizationUnitDgppId);
         }
 
-        public FirmAndClientDto GetFirmAndClientByFirmAddress(long firmAddressCode)
-        {
-            return _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode))
-                          .Where(x => !x.IsDeleted)
-                          .Select(x => new FirmAndClientDto
-                              {
-                                  Firm = x.Firm != null && !x.Firm.IsDeleted ? x.Firm : (Firm)null,
-                                  Client = x.Firm != null && !x.Firm.IsDeleted ? (!x.Firm.Client.IsDeleted ? x.Firm.Client : (Client)null) : (Client)null
-                              })
-                          .FirstOrDefault();
-        }
-
         public int? GetOrganizationUnitDgppId(long organizationUnitId)
         {
             return
@@ -1493,30 +1481,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             _firmAddressGenericRepository.Save();
         }
 
-        public IEnumerable<CategoryGroup> GetFirmAddressCategoryGroups(long firmAddressId)
-        {
-            var organizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                            .Select(address => address.Firm.Territory.OrganizationUnitId)
-                                            .SingleOrDefault();
-
-            var categoryIds = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                     .SelectMany(address => address.Firm.FirmAddresses)
-                                     .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
-                                     .SelectMany(address => address.CategoryFirmAddresses)
-                                     .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
-                                     .Select(categoryFirmAddress => categoryFirmAddress.CategoryId)
-                                     .Distinct()
-                                     .ToArray();
-
-            var groups = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                                .Where(link => link.OrganizationUnitId == organizationUnitId && categoryIds.Contains(link.CategoryId))
-                                .Select(link => link.CategoryGroup)
-                                .Distinct()
-                                .ToArray();
-
-            return groups;
-        }
-
         public IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds)
         {
             return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds))
@@ -1531,14 +1495,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                                             .Single();
 
             return organizationUnitId;
-        }
-
-        public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
-        {
-            var organizationUnitIds = _finder.Find<Project>(project => project.Code == projectCode && project.OrganizationUnitId.HasValue)
-                                            .Select(project => project.OrganizationUnitId.Value)
-                                            .ToArray();
-            return organizationUnitIds;
         }
 
         public void ImportDepCards(IEnumerable<ImportDepCardDto> importDepCardDtos)

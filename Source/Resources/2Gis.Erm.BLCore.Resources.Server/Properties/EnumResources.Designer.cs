@@ -2626,11 +2626,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Обработка горячих клиентов 5-й категории.
+        ///   Looks up a localized string similar to Обработка горячих клиентов 5-й категории (филиал).
         /// </summary>
-        public static string FunctionalPrivilegeNameHotClientTelemarketingProcessing {
+        public static string FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch {
             get {
-                return ResourceManager.GetString("FunctionalPrivilegeNameHotClientTelemarketingProcessing", resourceCulture);
+                return ResourceManager.GetString("FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка горячих клиентов 5-й категории (франчайзи).
+        /// </summary>
+        public static string FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee {
+            get {
+                return ResourceManager.GetString("FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee", resourceCulture);
             }
         }
         

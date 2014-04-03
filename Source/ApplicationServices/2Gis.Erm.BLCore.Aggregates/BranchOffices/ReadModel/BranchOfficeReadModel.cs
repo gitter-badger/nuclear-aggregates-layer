@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
@@ -57,6 +59,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         public BusinessEntityInstanceDto GetBusinessEntityInstanceDto(BranchOfficeOrganizationUnitPart branchOfficeOrganizationUnitPart)
         {
             return _finder.Single(branchOfficeOrganizationUnitPart, _branchOfficeOrgUnitPropertiesConverter.ConvertToDynamicEntityInstance);
+        }
+
+        public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
+        {
+            var organizationUnitIds = _finder.Find<Project>(project => project.Code == projectCode && project.OrganizationUnitId.HasValue)
+                                            .Select(project => project.OrganizationUnitId.Value)
+                                            .ToArray();
+            return organizationUnitIds;
+        }
+
+        public ContributionTypeEnum GetOrganizationUnitContributionType(long organizationUnitId)
+        {
+            var type = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+                              .SelectMany(unit => unit.BranchOfficeOrganizationUnits)
+                              .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                              .Where(boou => boou.IsPrimary)
+                              .Select(boou => boou.BranchOffice)
+                              .Select(branchOffice => branchOffice.ContributionTypeId.Value)
+                              .Single();
+
+            return (ContributionTypeEnum)type;
         }
     }
 }

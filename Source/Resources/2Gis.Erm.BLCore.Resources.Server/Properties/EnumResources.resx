@@ -1167,8 +1167,11 @@
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
     <value>Обработка горячих клиентов</value>
   <comment></comment></data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории</value>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
+  <comment></comment></data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
   <comment></comment></data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Отсутствует</value>

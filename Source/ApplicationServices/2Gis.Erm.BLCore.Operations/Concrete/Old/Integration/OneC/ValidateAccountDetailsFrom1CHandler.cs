@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -20,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly ILocalizationSettings _localizationSettings;
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
 
@@ -30,13 +28,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         public ValidateAccountDetailsFrom1CHandler(
             ILocalizationSettings localizationSettings,
             IBranchOfficeReadModel branchOfficeReadModel,
-            IBranchOfficeRepository branchOfficeRepository,
             ILegalPersonRepository legalPersonRepository,
             IAccountRepository accountRepository)
         {
             _localizationSettings = localizationSettings;
             _branchOfficeReadModel = branchOfficeReadModel;
-            _branchOfficeRepository = branchOfficeRepository;
             _legalPersonRepository = legalPersonRepository;
             _accountRepository = accountRepository;
             _branchOfficeOrganizationUnitsBy1CCode = new Dictionary<string, BranchOfficeOrganizationUnit>();
@@ -74,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 _branchOfficeOrganizationUnitsById.Add(selectedBranchOfficeOrganizationUnit.Id, selectedBranchOfficeOrganizationUnit);
             }
 
-            var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(selectedBranchOfficeOrganizationUnit.OrganizationUnitId);
+            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(selectedBranchOfficeOrganizationUnit.OrganizationUnitId);
             if (!_branchOfficeOrganizationUnitsBy1CCode.ContainsKey(selectedBranchOfficeOrganizationUnit.SyncCode1C))
             {
                 _branchOfficeOrganizationUnitsBy1CCode.Add(selectedBranchOfficeOrganizationUnit.SyncCode1C, selectedBranchOfficeOrganizationUnit);
@@ -260,7 +256,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                             throw new ArgumentOutOfRangeException();
                     }
 
-
                     if (legalPersonsByRequisites.Length > 1)
                     {
                         result.Errors.Add(
@@ -274,7 +269,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                             string.Format("По реквизитам в строке {0} не найдено ни одного активного юр. лица.", i));
                         continue;
                     }
-
 
                     if (legalPersonsByRequisites.Length > 0)
                     {
