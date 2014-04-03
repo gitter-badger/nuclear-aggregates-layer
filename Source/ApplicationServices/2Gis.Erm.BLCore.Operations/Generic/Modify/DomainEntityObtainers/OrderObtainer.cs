@@ -37,6 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.DestOrganizationUnitId = dto.DestOrganizationUnitRef.Id.Value;
             order.BranchOfficeOrganizationUnitId = dto.BranchOfficeOrganizationUnitRef.Id;
             order.LegalPersonId = dto.LegalPersonRef.Id;
+            order.LegalPersonProfileId = dto.LegalPersonProfileRef.Id;
             order.CurrencyId = dto.CurrencyRef.Id;
             order.DealId = dto.DealRef != null ? dto.DealRef.Id : null;
             order.DgppId = dto.DgppId;

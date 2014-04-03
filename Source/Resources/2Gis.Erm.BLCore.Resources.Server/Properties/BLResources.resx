@@ -2061,10 +2061,6 @@
   <data name="FirstLevel" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value />
   </data>
@@ -5166,5 +5162,8 @@
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value />
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value></value>
   </data>
 </root>

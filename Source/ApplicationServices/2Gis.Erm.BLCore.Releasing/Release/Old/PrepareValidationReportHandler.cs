@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
@@ -20,17 +21,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release.Old
     public sealed class PrepareValidationReportHandler : RequestHandler<PrepareValidationReportRequest, StreamResponse>
     {
         private readonly IReleaseReadModel _releaseRepository;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
-        public PrepareValidationReportHandler(IReleaseReadModel releaseRepository)
+        public PrepareValidationReportHandler(IReleaseReadModel releaseRepository, IGlobalizationSettings globalizationSettings)
         {
             _releaseRepository = releaseRepository;
+            _globalizationSettings = globalizationSettings;
         }
 
         protected override StreamResponse Handle(PrepareValidationReportRequest request)
         {
             var reportLines = CreateReportLines(request.ValidationResults);
             var dataTable = CreateReportDataTable(reportLines);
-            var csvReportContent = dataTable.ToCsv(BLResources.CsvSeparator, true);
+            var csvReportContent = dataTable.ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, true);
             var reportFileName = CreateReportFileName(request);
 
             return new StreamResponse

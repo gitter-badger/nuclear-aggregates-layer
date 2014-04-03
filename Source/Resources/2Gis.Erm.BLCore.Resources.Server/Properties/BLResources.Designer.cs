@@ -4688,16 +4688,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Char similar to ;.
-        /// </summary>
-        public static char CsvSeparator {
-            get {
-                object obj = ResourceManager.GetObject("CsvSeparator", resourceCulture);
-                return ((char)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string CurrencyController_BaseCurrencyCannotBeDeleted {
@@ -10257,6 +10247,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrderIsNotRelatedToAccount {
             get {
                 return ResourceManager.GetString("OrderIsNotRelatedToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderLegalPersonProfileShouldBelongToOrderLegalPerson {
+            get {
+                return ResourceManager.GetString("OrderLegalPersonProfileShouldBelongToOrderLegalPerson", resourceCulture);
             }
         }
         

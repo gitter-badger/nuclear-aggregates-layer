@@ -7,7 +7,6 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
@@ -17,8 +16,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
@@ -31,9 +28,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 
-// ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders
-// ReSharper restore CheckNamespace
 {
     public class OrderRepository : IOrderRepository
     {
@@ -119,8 +114,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         public int Create(Order order)
         {
-            EnsureOrderApprovalDateSpecified(order);
-            EnsureOrderPlatformSpecified(order);
+            CheckOrderApprovalDateSpecified(order);
+            CheckOrderPlatformSpecified(order);
+            CheckOrderLegalPersonProfileBelongsToOrderLegalPerson(order);
 
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Order>())
             {
@@ -250,9 +246,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         public int Update(Order order)
         {
-            EnsureOrderApprovalDateSpecified(order);
-            EnsureOrderPlatformSpecified(order);
-            EnsureOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(order);
+            CheckOrderApprovalDateSpecified(order);
+            CheckOrderPlatformSpecified(order);
+            CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(order);
+            CheckOrderLegalPersonProfileBelongsToOrderLegalPerson(order);
+
 
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(order))
             {
@@ -282,8 +280,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
                 order.OwnerCode = ownerCode;
 
-                EnsureOrderApprovalDateSpecified(order);
-                EnsureOrderPlatformSpecified(order);
+                CheckOrderApprovalDateSpecified(order);
+                CheckOrderPlatformSpecified(order);
                 _orderSecureGenericRepository.Update(order);
                 var count = _orderSecureGenericRepository.Save();
 
@@ -375,8 +373,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         {
             order.WorkflowStepId = (int)orderState;
 
-            EnsureOrderApprovalDateSpecified(order);
-            EnsureOrderPlatformSpecified(order);
+            CheckOrderApprovalDateSpecified(order);
+            CheckOrderPlatformSpecified(order);
 
             // TODO {all, 09.09.2013}: SetOrderStateIdentity
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(order))
@@ -429,8 +427,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 _orderFileGenericRepository.Save();
                 operationScope.Updated<OrderFile>(orderFiles.Select(x => x.Id).ToArray());
 
-                EnsureOrderApprovalDateSpecified(order);
-                EnsureOrderPlatformSpecified(order);
+                CheckOrderApprovalDateSpecified(order);
+                CheckOrderPlatformSpecified(order);
                 _orderGenericRepository.Update(order);
                 _orderGenericRepository.Save();
                 operationScope.Updated<Order>(order.Id);
@@ -658,7 +656,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             return Delete(entity);
         }
 
-        private static void EnsureOrderApprovalDateSpecified(Order order)
+        private static void CheckOrderApprovalDateSpecified(Order order)
         {
             var state = (OrderState)order.WorkflowStepId;
             switch (state)
@@ -677,7 +675,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             }
         }
 
-        private static void EnsureOrderPlatformSpecified(Order order)
+        private static void CheckOrderPlatformSpecified(Order order)
         {
             if (order.WorkflowStepId != (int)OrderState.OnRegistration && !order.PlatformId.HasValue)
             {
@@ -739,7 +737,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             }
         }
 
-        private void EnsureOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
+        private void CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
         {
             var usedThemes = _finder.Find<OrderPosition>(position => position.OrderId == order.Id)
                                     .Where(position => position.IsActive && !position.IsDeleted)
@@ -766,6 +764,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             {
                 var message = string.Format(BLResources.OrderBeginDistibutionDateIsTooLarge, allowedEndDistibutionDate.ToShortDateString());
                 throw new BusinessLogicException(message);
+            }
+        }
+
+        private void CheckOrderLegalPersonProfileBelongsToOrderLegalPerson(Order order)
+        {
+            if (order.LegalPersonProfileId == null)
+            {
+                return;
+            }
+
+            var legalPersonId = _finder.Find<LegalPersonProfile>(x => x.Id == order.LegalPersonProfileId).Select(x => x.LegalPersonId).Single();
+            if (order.LegalPersonId != legalPersonId)
+            {
+                throw new BusinessLogicException(BLResources.OrderLegalPersonProfileShouldBelongToOrderLegalPerson);
             }
         }
 

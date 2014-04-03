@@ -2066,9 +2066,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
   </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -5182,5 +5179,8 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>No se puede crear la posición compleja con el tipo de enlace con el objeto distinto de los siguientes: {0}</value>
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
   </data>
 </root>

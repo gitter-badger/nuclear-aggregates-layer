@@ -2065,9 +2065,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>the 1st level</value>
   </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -5181,5 +5178,17 @@ Placement period: {3}.</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value>Для позиции заказа, оформленной на позицию прайса с расчетом коэффициента по рубрике, должна быть указана единственная рубрика</value>
+  </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value>Невозможно использовать способ расчета коэффициента '{0}' для типа объекта привязки позиции '{1}'</value>
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
   </data>
 </root>
