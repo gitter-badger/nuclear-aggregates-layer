@@ -1167,8 +1167,8 @@
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
     <value>Procesar clientes interesados</value>
   </data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Procesar clientes interesados de quinta categoría</value>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>No tiene</value>
@@ -1881,6 +1881,9 @@
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
 	  <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+  <comment></comment></data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
     <value>Договор (новая модель продаж)</value>
   <comment></comment></data>

@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 
 namespace DoubleGis.Erm.BLCore.MoDi
 {
@@ -38,6 +39,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
         private readonly IMoneyDistributionSettings _moneyDistributionSettings;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IBranchOfficeRepository _branchOfficeRepository;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IEnumerable<PlatformsExtended> _extendedPlatformList = Enum.GetValues(typeof(PlatformsExtended)).Cast<PlatformsExtended>();
 
         public AccountingSystemService(IUseCaseTuner useCaseTuner,
@@ -45,7 +47,8 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                        IUserContext userContext,
                                        IMoneyDistributionSettings moneyDistributionSettings,
                                        ISecurityServiceUserIdentifier userIdentifierService,
-                                       IBranchOfficeRepository branchOfficeRepository)
+                                       IBranchOfficeRepository branchOfficeRepository,
+                                       IBranchOfficeReadModel branchOfficeReadModel)
         {
             _useCaseTuner = useCaseTuner;
             _finder = finder;
@@ -53,6 +56,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
             _moneyDistributionSettings = moneyDistributionSettings;
             _userIdentifierService = userIdentifierService;
             _branchOfficeRepository = branchOfficeRepository;
+            _branchOfficeReadModel = branchOfficeReadModel;
         }
 
         public ExportAccountDetailsTo1CResponse ExportAccountDetailsTo1C(long organizationId, DateTime startDate, DateTime endDate)
@@ -312,7 +316,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
         {
             _useCaseTuner.AlterDuration<AccountingSystemService>();
 
-            var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(organizationUnitId);
+            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(organizationUnitId);
 
             var orgUnitSyncCode = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId).Select(x => x.SyncCode1C).Single();
 
