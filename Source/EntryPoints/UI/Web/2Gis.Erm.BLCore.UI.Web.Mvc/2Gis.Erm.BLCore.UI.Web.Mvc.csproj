@@ -160,7 +160,6 @@
     <Compile Include="Logging\LoggerContextEntryWebProvider.cs" />
     <Compile Include="Logging\LogWebRequestAttribute.cs" />
     <Compile Include="Logging\LogWebRequestHandler.cs" />
-    <Compile Include="Logging\Validators\LegalPersonActionLoggingValidator.cs" />
     <Compile Include="Logging\WebLoggerContextInitializerExtension.cs" />
     <Compile Include="MetaData\LocalizedMetaDataProvider.cs" />
     <Compile Include="Models\AccessSharingModel.cs" />
