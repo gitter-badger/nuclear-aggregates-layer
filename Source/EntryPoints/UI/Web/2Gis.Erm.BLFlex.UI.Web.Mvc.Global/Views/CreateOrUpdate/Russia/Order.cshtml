@@ -24,7 +24,7 @@
         DIV.Tab TABLE TD {
             padding-bottom: 0 !important;
         }
-
+        
         DIV.Tab TABLE {
             width: auto !important;
         }
@@ -72,6 +72,8 @@
         @Html.HiddenFor(m => m.PlatformId)
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
+        @Html.HiddenFor(m => m.LegalPersonProfileId)
+
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />
