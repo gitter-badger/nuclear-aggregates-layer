@@ -67,10 +67,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             // in memory grouping for firm
             if (querySettings.ParentEntityName == EntityName.Firm)
             {
-                data = _filterHelper.DefaultFilter(data, querySettings);
                 data = _filterHelper.RelativeFilter(data, querySettings);
 
-                data = data.GroupBy(x => new
+                // не рассматриваем неактивные адреса фирм вообще
+                data = data
+                    .Where(x => x.FirmAddressIsActive && !x.FirmAddressIsDeleted)
+                    .GroupBy(x => new
                 {
                     x.CategoryId,
                     x.Name,
@@ -99,8 +101,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryIsDeleted = x.Key.CategoryIsDeleted,
 
                     FirmAddressId = 0,
-                    FirmAddressIsActive = x.Any(y => y.FirmAddressIsActive),
-                    FirmAddressIsDeleted = x.All(y => y.FirmAddressIsDeleted),
+                    FirmAddressIsActive = true,
+                    FirmAddressIsDeleted = false,
 
                     CategoryGroup = x.Select(y => y.CategoryGroup).FirstOrDefault(),
                     CategoryOrganizationUnitIsActive = x.Any(y => y.CategoryOrganizationUnitIsActive),
