@@ -285,7 +285,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return container.RegisterTypeWithDependencies<IPublicService, PublicService>(mappingScope, CustomLifetime.PerRequest)
                 .RegisterType<IPropertyBag, PropertyBag>(CustomLifetime.PerRequest)
 
-                .RegisterTypeWithDependencies<IActionLoggingValidatorFactory, ActionLoggingValidatorFactory>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerRequest, mappingScope)
 
                 .RegisterTypeWithDependencies<IBargainService, BargainService>(mappingScope, CustomLifetime.PerRequest)
