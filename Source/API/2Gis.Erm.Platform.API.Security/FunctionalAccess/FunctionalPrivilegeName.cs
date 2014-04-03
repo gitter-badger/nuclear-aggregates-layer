@@ -45,7 +45,8 @@
         UnpublishAdvertisementTemplate = 644,
         EditDummyAdvertisement = 645,
         HotClientProcessing = 646,
-        HotClientTelemarketingProcessing = 647,
+        HotClientTelemarketingProcessingFranchisee = 647,
         AdvertisementAgencyManagement = 648,
+        HotClientTelemarketingProcessingBranch = 649,
     }
 }
