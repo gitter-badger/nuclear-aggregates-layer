@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Dto;
 using DoubleGis.Erm.BLCore.API.MoDi.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -697,7 +698,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 table.Rows.Add(error.LegalPersonId, error.SyncCode1C, error.ErrorMessage);
             }
 
-            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(';', false));
+            return ToCsvStream(table);
         }
 
         private static byte[] ToOneCStream(IEnumerable<OneCOutput> records)
@@ -725,7 +726,12 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     record.OrderNumber);
             }
 
-            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(';', false));
+            return ToCsvStream(table);
+        }
+
+        private static byte[] ToCsvStream(DataTable table)
+        {
+            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(BLResources.CsvSeparator, false));
         }
 
         private static byte[] ToXmlStream(DebitsInfoDto infoDto)

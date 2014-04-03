@@ -4688,12 +4688,11 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Char similar to ;.
+        ///   Looks up a localized string similar to ;.
         /// </summary>
-        public static char CsvSeparator {
+        public static string CsvSeparator {
             get {
-                object obj = ResourceManager.GetObject("CsvSeparator", resourceCulture);
-                return ((char)(obj));
+                return ResourceManager.GetString("CsvSeparator", resourceCulture);
             }
         }
         

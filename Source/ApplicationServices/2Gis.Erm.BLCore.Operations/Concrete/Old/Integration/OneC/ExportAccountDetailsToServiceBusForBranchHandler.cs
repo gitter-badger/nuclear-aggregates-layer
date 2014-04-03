@@ -227,7 +227,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 NonBlockingErrorsAmount = nonBlockingErrors.Count + nonBlockingErrorsAmount
             };
 
-            var errorContent = GetErrorsDataTable(blockingErrors, nonBlockingErrors).ToCsv(';');
+            var errorContent = GetErrorsDataTable(blockingErrors, nonBlockingErrors).ToCsv(BLResources.CsvSeparator);
             if (blockingErrors.Any() || blockingErrorsAmount > 0)
             {
                 response.FileName = errorsFileName;

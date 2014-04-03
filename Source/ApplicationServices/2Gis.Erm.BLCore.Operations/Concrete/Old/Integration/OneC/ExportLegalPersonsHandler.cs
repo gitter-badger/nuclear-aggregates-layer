@@ -141,21 +141,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             {
                 {
                     "Accounts.csv",
-                    new MemoryStream(CyrillicEncoding.GetBytes(accounts.ToCsv(';')))
+                    CreateCsvStream(accounts)
                 },
                 {
                     "Customers.csv",
-                    new MemoryStream(CyrillicEncoding.GetBytes(legalPersons.ToCsv(';')))
+                    CreateCsvStream(legalPersons)
                 }
             };
 
             if (errorsList != null)
             {
                 streamDictionary.Add("ExportLegalPersonsErrors_" + DateTime.Today.ToShortDateString() + ".csv",
-                                     new MemoryStream(CyrillicEncoding.GetBytes(errorsList.ToCsv(';'))));
+                                     CreateCsvStream((errorsList)));
             }
 
             return streamDictionary.ZipStreamDictionary();
+        }
+
+        private static MemoryStream CreateCsvStream(DataTable accounts)
+        {
+            return new MemoryStream(CyrillicEncoding.GetBytes(accounts.ToCsv(BLResources.CsvSeparator)));
         }
 
         private static DataTable GetAccountsDataTable(IEnumerable<AccountFor1CExportDto> accounts)

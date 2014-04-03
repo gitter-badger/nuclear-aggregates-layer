@@ -266,7 +266,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 NonBlockingErrorsAmount = validateResponse.NonBlockingErrors.Count + modiResponse.NonBlockingErrorsAmount
             };
 
-            var errorContent = GetErrorsDataTable(blockingErrors, validateResponse.NonBlockingErrors).ToCsv(';');
+            var errorContent = GetErrorsDataTable(blockingErrors, validateResponse.NonBlockingErrors).ToCsv(BLResources.CsvSeparator);
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
@@ -289,7 +289,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.DumpAccountDetails_AccountDetailsNotExist);
             }
 
-            var content = actsDataTable.ToCsv(';');
+            var content = actsDataTable.ToCsv(BLResources.CsvSeparator);
             var modiContent = CyrillicEncoding.GetString(modiResponse.File.Stream);
 
             streamDictionary.Add("Acts.csv", new MemoryStream(CyrillicEncoding.GetBytes(content + modiContent)));
