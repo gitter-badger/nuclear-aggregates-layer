@@ -1,4 +1,4 @@
-﻿// File updated : 21.03.2014 12:04:27
+﻿// File updated : 02.04.2014 18:05:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -120,6 +120,7 @@ GridViewColumns : 'Columnas',
 GridViewSortAscText : 'Ordenar de menor a mayor',
 GridViewSortDescText : 'Ordenar de mayor a menor',
 HiddenItem : '(oculto hasta validar)',
+IncomingMessages : 'Входящие сообщения',
 IncreaseFontSizeText : 'Aumentar el tamaño de fuente.',
 IncreaseFontSizeTitle : 'Aumentar tamaño',
 IndicatorText : 'Descargando...',
@@ -223,6 +224,7 @@ OrderState : 'Estado de la orden',
 OrderUpgradeProducedTheFollowingWarnings : 'La actualización de la orden ha llevado a las siguientes modificaciones:',
 OrderValidationFailed : 'No se ha podido completar la verificación',
 OriginalValue : 'Valor inicial',
+OutgoingMessages : 'Исходящие сообщения',
 PayablePlan : 'A pagar (planificado)',
 Payment : 'Pago',
 PaymentDatePlan : 'Fecha de pago, hasta',
@@ -250,6 +252,7 @@ Search : 'Buscar:',
 SearchInstructions : 'Introduzca los datos que está buscando en el campo Buscar y pulse el botón Buscar. Después, seleccione el registro que desea y pulse OK.',
 SearchRecords : 'Búsqueda en los registros',
 SelectedRecords : 'Registros seleccionados',
+SelectMessageToSave : 'Выберите сообщения для сохранения',
 SelectObjectsToProcess : 'Seleccione mensajes a procesar',
 SelectOneOrMoreRecords : 'Debe seleccionar al menos un registro para eliminar.',
 SelectToWhiteList : 'Seleccionar',

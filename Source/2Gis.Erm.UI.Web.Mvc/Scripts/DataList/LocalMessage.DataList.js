@@ -11,12 +11,12 @@
         var availableViews = Ext.getDom("availableViews");
 
         var inboxOptionGroup = document.createElement("optgroup");
-        inboxOptionGroup.label = "Входящие сообщения";
+        inboxOptionGroup.label = Ext.LocalizedResources.IncomingMessages;
         availableViews.appendChild(inboxOptionGroup);
         var inboxOptions = [];
 
         var outboxOptionGroup = document.createElement("optgroup");
-        outboxOptionGroup.label = "Исходящие сообщения";
+        outboxOptionGroup.label = Ext.LocalizedResources.OutgoingMessages;
         availableViews.appendChild(outboxOptionGroup);
         var outboxOptions = [];
 
@@ -63,7 +63,7 @@
                 var selectedItemsLength = selectedItems.length;
 
                 if (selectedItemsLength == 0) {
-                    alert("Выберите сообщения для сохранения");
+                    alert(Ext.LocalizedResources.SelectMessageToSave);
                     return;
                 }
 

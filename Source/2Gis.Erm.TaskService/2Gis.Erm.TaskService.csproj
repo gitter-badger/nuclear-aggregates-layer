@@ -332,10 +332,6 @@
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="quartz.Production.Russia2.config">
-      <DependentUpon>quartz.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="quartz.Test.01.config">
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

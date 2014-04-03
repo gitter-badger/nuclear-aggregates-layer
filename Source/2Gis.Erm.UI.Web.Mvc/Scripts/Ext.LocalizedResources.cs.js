@@ -1,4 +1,4 @@
-﻿// File updated : 21.03.2014 12:04:26
+﻿// File updated : 02.04.2014 18:05:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -120,6 +120,7 @@ GridViewColumns : 'Sloupce',
 GridViewSortAscText : 'Třídit vzestupně',
 GridViewSortDescText : 'Třídit sestupně',
 HiddenItem : '(skrýt, dokud nebude vyjasněno)',
+IncomingMessages : 'Входящие сообщения',
 IncreaseFontSizeText : 'Zvětšení velikosti textu.',
 IncreaseFontSizeTitle : 'Zvětšit velikost',
 IndicatorText : 'Probíhá načítání…',
@@ -223,6 +224,7 @@ OrderState : 'Stav objednávky',
 OrderUpgradeProducedTheFollowingWarnings : 'Po aktualizaci objednávky došlo k následujícím změnám:',
 OrderValidationFailed : 'Nebylo možné provést kontrolu',
 OriginalValue : 'Výchozí hodnota',
+OutgoingMessages : 'Исходящие сообщения',
 PayablePlan : 'K úhradě (plán.)',
 Payment : 'Vyúčtování',
 PaymentDatePlan : 'Splatnost do',
@@ -250,6 +252,7 @@ Search : 'Hledat:',
 SearchInstructions : 'Do pole „Hledat“ zadejte údaje, které potřebujete vyhledat, poté stiskněte ikonku „Najít“. Následně vyberte požadovaný záznam a stiskněte tlačítko OK.',
 SearchRecords : 'Vyhledávání v záznamech',
 SelectedRecords : 'Vybrané záznamy',
+SelectMessageToSave : 'Выберите сообщения для сохранения',
 SelectObjectsToProcess : 'Vyberte zprávy pro zpracování',
 SelectOneOrMoreRecords : 'Je třeba vybrat alespoň jeden záznam pro odstranění.',
 SelectToWhiteList : 'Vybrat',

@@ -1,4 +1,4 @@
-﻿// File updated : 21.03.2014 12:04:26
+﻿// File updated : 02.04.2014 18:05:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -120,6 +120,7 @@ GridViewColumns : 'Columns',
 GridViewSortAscText : 'Sort ascending',
 GridViewSortDescText : 'Sort descending',
 HiddenItem : '(hidden till clarification)',
+IncomingMessages : 'Входящие сообщения',
 IncreaseFontSizeText : 'Increase font size.',
 IncreaseFontSizeTitle : 'Increase size',
 IndicatorText : 'Loading...',
@@ -223,6 +224,7 @@ OrderState : 'Order status',
 OrderUpgradeProducedTheFollowingWarnings : 'Order update will produce the following changes:',
 OrderValidationFailed : 'Failed to check',
 OriginalValue : 'Initial value',
+OutgoingMessages : 'Исходящие сообщения',
 PayablePlan : 'Due for payment (planned)',
 Payment : 'Payment',
 PaymentDatePlan : 'Payment date, before',
@@ -250,6 +252,7 @@ Search : 'Search:',
 SearchInstructions : 'Enter the search data into the "Search" field and click "Find". Then select the required record and click OK.',
 SearchRecords : 'Record search',
 SelectedRecords : 'Selected records',
+SelectMessageToSave : 'Выберите сообщения для сохранения',
 SelectObjectsToProcess : 'Select messages to be processed',
 SelectOneOrMoreRecords : 'You must select at least one record to be deleted.',
 SelectToWhiteList : 'Select',

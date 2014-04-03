@@ -485,9 +485,6 @@
     <Content Include="Variables.Production.Czech.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
-    <Content Include="Variables.Production.Russia2.wxi">
-      <DependentUpon>Variables.wxi</DependentUpon>
-    </Content>
     <Content Include="Variables.Test.14.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
