@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
@@ -37,6 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IUserRepository _userRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public ExportLegalPersonsHandler(
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
@@ -44,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             ISubRequestProcessor subRequestProcessor,
             ILegalPersonRepository legalPersonRepository,
             IUserRepository userRepository,
-            IAccountRepository accountRepository)
+            IAccountRepository accountRepository, IGlobalizationSettings globalizationSettings)
         {
             _subRequestProcessor = subRequestProcessor;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
@@ -52,6 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _legalPersonRepository = legalPersonRepository;
             _userRepository = userRepository;
             _accountRepository = accountRepository;
+            _globalizationSettings = globalizationSettings;
         }
 
         public static string ClearText(string input)
@@ -135,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             };
         }
 
-        private static Stream ZipDataTables(DataTable accounts, DataTable legalPersons, DataTable errorsList)
+        private Stream ZipDataTables(DataTable accounts, DataTable legalPersons, DataTable errorsList)
         {
             var streamDictionary = new Dictionary<string, Stream>
             {
@@ -158,9 +161,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return streamDictionary.ZipStreamDictionary();
         }
 
-        private static MemoryStream CreateCsvStream(DataTable accounts)
+        private MemoryStream CreateCsvStream(DataTable accounts)
         {
-            return new MemoryStream(CyrillicEncoding.GetBytes(accounts.ToCsv(BLResources.CsvSeparator)));
+            return new MemoryStream(CyrillicEncoding.GetBytes(accounts.ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator)));
         }
 
         private static DataTable GetAccountsDataTable(IEnumerable<AccountFor1CExportDto> accounts)

@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -45,16 +46,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public ExportAccountDetailsToServiceBusForBranchHandler(IFinder finder,
-            ISubRequestProcessor subRequestProcessor, 
-            IClientProxyFactory clientProxyFactory, 
-                                                                IOrderReadModel orderReadModel)
+                                                                ISubRequestProcessor subRequestProcessor,
+                                                                IClientProxyFactory clientProxyFactory,
+                                                                IOrderReadModel orderReadModel,
+                                                                IGlobalizationSettings globalizationSettings)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
+            _globalizationSettings = globalizationSettings;
         }
 
         private enum ExportOrderType
@@ -211,23 +215,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return stream;
         }
 
-        private static IntegrationResponse ConstructResponse(int processedWithoutErrors,
-                                                             int nonBlockingErrorsAmount,
-                                                             int blockingErrorsAmount,
-                                                             string modiErrorContent,
-                                                             IReadOnlyCollection<ErrorDto> blockingErrors,
-                                                             IReadOnlyCollection<ErrorDto> nonBlockingErrors,
-                                                             int debitsCount,
-                                                             Stream debitsStream)
+        private IntegrationResponse ConstructResponse(int processedWithoutErrors,
+                                                      int nonBlockingErrorsAmount,
+                                                      int blockingErrorsAmount,
+                                                      string modiErrorContent,
+                                                      IReadOnlyCollection<ErrorDto> blockingErrors,
+                                                      IReadOnlyCollection<ErrorDto> nonBlockingErrors,
+                                                      int debitsCount,
+                                                      Stream debitsStream)
         {
             var errorsFileName = string.Format("ExportErrors_{0}.csv", DateTime.Today.ToShortDateString());
             var response = new IntegrationResponse
-            {
-                BlockingErrorsAmount = blockingErrors.Count + blockingErrorsAmount,
-                NonBlockingErrorsAmount = nonBlockingErrors.Count + nonBlockingErrorsAmount
-            };
+                {
+                    BlockingErrorsAmount = blockingErrors.Count + blockingErrorsAmount,
+                    NonBlockingErrorsAmount = nonBlockingErrors.Count + nonBlockingErrorsAmount
+                };
 
-            var errorContent = GetErrorsDataTable(blockingErrors, nonBlockingErrors).ToCsv(BLResources.CsvSeparator);
+            var errorContent = GetErrorsDataTable(blockingErrors, nonBlockingErrors).ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator);
             if (blockingErrors.Any() || blockingErrorsAmount > 0)
             {
                 response.FileName = errorsFileName;

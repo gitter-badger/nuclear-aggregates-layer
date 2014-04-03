@@ -2066,9 +2066,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>1. úroveň</value>
   </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>Ne</value>
   </data>

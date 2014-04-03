@@ -4688,15 +4688,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ;.
-        /// </summary>
-        public static string CsvSeparator {
-            get {
-                return ResourceManager.GetString("CsvSeparator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string CurrencyController_BaseCurrencyCannotBeDeleted {

@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Utils;
 
@@ -21,14 +22,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly IOrderReadModel _orderReadModel;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IReleaseReadModel _releaseReadModel;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public GetOrdersWithDummyAdvertisementHandler(IReleaseReadModel releaseReadModel,
                                                       ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-                                                      IOrderReadModel orderReadModel)
+                                                      IOrderReadModel orderReadModel,
+                                                      IGlobalizationSettings globalizationSettings)
         {
             _releaseReadModel = releaseReadModel;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _orderReadModel = orderReadModel;
+            _globalizationSettings = globalizationSettings;
         }
 
         protected override GetOrdersWithDummyAdvertisementResponse Handle(GetOrdersWithDummyAdvertisementRequest request)
@@ -50,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             else
             {
                 var dataTable = CreateReportDataTable(ordersWithDummyAdvertisement);
-                var csvReportContent = dataTable.ToCsvEscaped(BLResources.CsvSeparator, true);
+                var csvReportContent = dataTable.ToCsvEscaped(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, true);
                 var reportContent = Encoding.GetEncoding(1251).GetBytes(csvReportContent);
 
                 checkResponse.HasOrders = true;
