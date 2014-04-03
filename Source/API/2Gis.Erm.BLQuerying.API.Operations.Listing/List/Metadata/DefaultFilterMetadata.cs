@@ -92,8 +92,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListCategoryDto>("DListActiveCategories", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryDto>("DListInactiveCategories", x => !x.IsActive && !x.IsDeleted)
 
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive && !x.IsDeleted && x.CategoryIsActive && !x.CategoryIsDeleted && x.FirmAddressIsActive && !x.FirmAddressIsDeleted && x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted)
-            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive && !x.IsDeleted || !x.CategoryIsActive && !x.CategoryIsDeleted || !x.FirmAddressIsActive && !x.FirmAddressIsDeleted || !x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted)
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListActiveCategoryFirmAddresses", x => x.IsActive && !x.IsDeleted && x.CategoryIsActive && !x.CategoryIsDeleted && x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted)
+            .RegisterFilter<ListCategoryFirmAddressDto>("DListInactiveCategoryFirmAddresses", x => !x.IsActive && !x.IsDeleted || !x.CategoryIsActive && !x.CategoryIsDeleted || !x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted)
 
             .RegisterFilter<ListCategoryGroupDto>("DListActiveCategoryGroups", x => x.IsActive && !x.IsDeleted)
             .RegisterFilter<ListCategoryGroupDto>("DListAllCategoryGroups", x => !x.IsDeleted)
