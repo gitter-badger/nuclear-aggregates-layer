@@ -93,8 +93,6 @@
     <Compile Include="Notifications\NotificationStatus.cs" />
     <Compile Include="ActionLogging\ActionLog.cs" />
     <Compile Include="ActionLogging\IActionLogger.cs" />
-    <Compile Include="ActionLogging\IActionLoggingValidator.cs" />
-    <Compile Include="ActionLogging\IActionLoggingValidatorFactory.cs" />
     <Compile Include="Identities\IIdentityProvider.cs" />
     <Compile Include="Identities\IIdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderSettings.cs" />
