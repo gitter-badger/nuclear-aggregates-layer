@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.MoDi;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLFlex.DI.Config;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -25,6 +26,8 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
@@ -75,21 +78,22 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             ILoggerContextManager loggerContextManager)
         {
             return container
-                     .ConfigureLogging(loggerContextManager)
-                     .ConfigureGlobal(globalizationSettings)
-                     .CreateSecuritySpecific()
-                     .CreateErmSpecific()
-                     .ConfigureCacheAdapter(cachingSettings)
-                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                     .ConfigureIdentityInfrastructure()
-                     .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                     .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
-                     .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
-                     .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
-                     .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
-                     .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
+                .ConfigureLogging(loggerContextManager)
+                .ConfigureGlobal(globalizationSettings)
+                .CreateSecuritySpecific()
+                .CreateErmSpecific()
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureIdentityInfrastructure()
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
+                .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
+                .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
+                .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
+                .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
+                .ConfigureEAV();
         }
 
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
@@ -142,6 +146,20 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         {
             return container
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton);
+        }
+
+        private static IUnityContainer ConfigureEAV(this IUnityContainer container)
+        {
+            return container
+                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, BankPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonPartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BranchOfficeOrganizationUnitPartPropertiesConverter>(Lifetime.Singleton)
+
+                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
     }
 }
