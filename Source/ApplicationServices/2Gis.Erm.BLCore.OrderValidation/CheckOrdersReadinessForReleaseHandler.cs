@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -24,16 +25,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IClientProxyFactory _clientProxyFactory;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public CheckOrdersReadinessForReleaseHandler(IOrderReadModel orderReadModel,
             IReleaseReadModel releaseReadModel,
             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            IClientProxyFactory clientProxyFactory)
+            IClientProxyFactory clientProxyFactory, IGlobalizationSettings globalizationSettings)
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
             _clientProxyFactory = clientProxyFactory;
+            _globalizationSettings = globalizationSettings;
         }
 
         protected override CheckOrdersReadinessForReleaseResponse Handle(CheckOrdersReadinessForReleaseRequest request)
@@ -68,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 var significantMessages = validationResults.Messages.Where(x => x.Type == MessageType.Error || x.Type == MessageType.Warning).ToArray();
                 var reportLines = PrepareReportLines(significantMessages);
                 var dataTable = CreateReportDataTable(reportLines);
-                var csvReportContent = dataTable.ToCsvEscaped(BLResources.CsvSeparator, true);
+                var csvReportContent = dataTable.ToCsvEscaped(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, true);
                 var reportContent = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(csvReportContent));
 
                 checkResponse.Message = string.Format(BLResources.CheckedOrdersCount_ThereAreErorrs, validationResults.OrderCount, errorCount, warningCount);
@@ -133,7 +136,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 var orderIdsFilter = orderIds.Skip(takeRows * i).Take(takeRows).ToArray();
 
                 var orderInfosPart = _orderReadModel.GetOrderValidationAdditionalInfos(orderIdsFilter);
-                CsvFixup(orderInfosPart);
 
                 foreach (var orderInfo in orderInfosPart)
                 {
@@ -170,17 +172,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             reportFileNameBuilder.Append(".csv");
             return reportFileNameBuilder.ToString();
-        }
-
-        private static void CsvFixup(IEnumerable<OrderValidationAdditionalInfo> orderInfosPart)
-        {
-            foreach (var orderInfo in orderInfosPart)
-            {
-                if (orderInfo.FirmName.Contains(';'))
-                    orderInfo.FirmName = String.Concat("\"", orderInfo.FirmName.Replace("\"", "\"\""), "\"");
-                if (orderInfo.LegalPersonName.Contains(';'))
-                    orderInfo.LegalPersonName = String.Concat("\"", orderInfo.LegalPersonName.Replace("\"", "\"\""), "\"");
-            }
         }
 
         private sealed class ReportLine

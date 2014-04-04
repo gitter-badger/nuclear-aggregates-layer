@@ -1336,12 +1336,12 @@
     <value>Bank name</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-  <value>RUT представителя</value>
-</data>
+    <value>Representative's RUT</value>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
-  <value>Вид деятельности</value>
-</data>
+    <value>Business area</value>
+  </data>
 </root>

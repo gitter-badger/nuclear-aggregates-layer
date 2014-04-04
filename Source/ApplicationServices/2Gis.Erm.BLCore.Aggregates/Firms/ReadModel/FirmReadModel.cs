@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO.FirmInfo;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
@@ -74,6 +75,41 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public bool HasFirmClient(long firmId)
         {
             return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.ClientId != null).Single();
+        }
+
+        public IEnumerable<CategoryGroup> GetFirmAddressCategoryGroups(long firmAddressId)
+        {
+            var organizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
+                                            .Select(address => address.Firm.Territory.OrganizationUnitId)
+                                            .SingleOrDefault();
+
+            var categoryIds = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
+                                     .SelectMany(address => address.Firm.FirmAddresses)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
+                                     .SelectMany(address => address.CategoryFirmAddresses)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
+                                     .Select(categoryFirmAddress => categoryFirmAddress.CategoryId)
+                                     .Distinct()
+                                     .ToArray();
+
+            var groups = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
+                                .Where(link => link.OrganizationUnitId == organizationUnitId && categoryIds.Contains(link.CategoryId))
+                                .Select(link => link.CategoryGroup)
+                                .Distinct()
+                                .ToArray();
+
+            return groups;
+        }
+
+        public FirmAndClientDto GetFirmAndClientByFirmAddress(long firmAddressCode)
+        {
+            return _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode) && Specs.Find.NotDeleted<FirmAddress>())
+                          .Select(x => new FirmAndClientDto
+                          {
+                              Firm = x.Firm != null && !x.Firm.IsDeleted ? x.Firm : (Firm)null,
+                              Client = x.Firm != null && !x.Firm.IsDeleted ? (!x.Firm.Client.IsDeleted ? x.Firm.Client : (Client)null) : (Client)null
+                          })
+                          .FirstOrDefault();
         }
     }
 }

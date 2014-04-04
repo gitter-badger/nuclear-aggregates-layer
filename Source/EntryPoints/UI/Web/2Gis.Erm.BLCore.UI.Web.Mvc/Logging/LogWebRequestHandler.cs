@@ -41,36 +41,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             var viewModel = (IEntityViewModelBase)input.Arguments[0];
             object originalValue = null;
 
-            IEntityKey entity;
-            switch (_entityType)
-            {
-                case EntityName.Order:
-                    {
-                        entity = _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
-                        break;
-                    }
-
-                case EntityName.Client:
-                    {
-                        entity = _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
-                        break;
-                    }
-
-                case EntityName.LegalPerson:
-                    {
-                        entity = _finder.Find(Specs.Find.ById<LegalPerson>(viewModel.Id)).Single();
-                        break;
-                    }
-
-                case EntityName.Deal:
-                    {
-                        entity = _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
-                        break;
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);
-            }
+            var entity = GetEntity(viewModel);
 
             if (entity == null)
             {
@@ -87,13 +58,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                     Logger.FatalEx(ex, "Критичная ошибка создания копии объекта до изменения");
                 }
             }
-            
+
             var result = getNext()(input, getNext);
             if (entity != null && result.Exception == null)
             {
                 try
                 {
-                    var differenceMap = CompareObjectsHelper.CompareObjects(_compareObjectMode, originalValue, entity, _elementsToIgnore);
+                    var modifiedEntity = GetEntity(viewModel);
+                    var differenceMap = CompareObjectsHelper.CompareObjects(_compareObjectMode, originalValue, modifiedEntity, _elementsToIgnore);
                     _actionLogger.LogChanges(ChangesDescriptor.Create(_entityType, entity.Id, differenceMap));
                 }
                 catch (Exception ex)
@@ -102,7 +74,28 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
             }
 
-            return result;   
+            return result;
+        }
+
+        private IEntityKey GetEntity(IEntityViewModelBase viewModel)
+        {
+            switch (_entityType)
+            {
+                case EntityName.Order:
+                    return _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
+
+                case EntityName.Client:
+                    return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
+
+                case EntityName.LegalPerson:
+                    return _finder.Find(Specs.Find.ById<LegalPerson>(viewModel.Id)).Single();
+
+                case EntityName.Deal:
+                    return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
+
+                default:
+                    throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);
+            }
         }
     }
 }

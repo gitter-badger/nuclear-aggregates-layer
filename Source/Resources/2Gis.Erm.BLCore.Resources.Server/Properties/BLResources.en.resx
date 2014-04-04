@@ -2065,10 +2065,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>the 1st level</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -4734,7 +4730,7 @@ The operation has been executed: {4}.</value>
     <value>Cannot create an order for a company that doesn't have any clients</value>
   </data>
   <data name="RubricDoesntContainName" xml:space="preserve">
-    <value>Рубрика не содержит названия ни на базовом, ни на резервном языке</value>
+    <value>Category has no name neither in main nor in alternative language</value>
   </data>
   <data name="YouHaveNotPublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
     <value>You do not have the permission to publish advertising materials templates</value>
@@ -4923,21 +4919,6 @@ Contact: {1}</value>
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>A hidden individual with the specified passport number and series exists</value>
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
   </data>
@@ -4947,44 +4928,8 @@ Contact: {1}</value>
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The Customer's legal entity with the specified T.I.C. already exists</value>
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The hidden legal entity of the Customer with the specified T.I.C. exists </value>
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>A deleted Sole Proprietorship with the specified T.I.C. exists</value>
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>API advertising is registered in the item {0}, even though the company does not have an address in the city of order placement</value>
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>At least one payment must be created</value>
@@ -5226,7 +5171,7 @@ Placement period: {3}.</value>
     <value>A single category should be specified for the order item prepared as the price-list item with category coefficient calculation</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
     <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
@@ -5242,5 +5187,14 @@ Placement period: {3}.</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="File" xml:space="preserve">
+     <value>File</value>
   </data>
 </root>

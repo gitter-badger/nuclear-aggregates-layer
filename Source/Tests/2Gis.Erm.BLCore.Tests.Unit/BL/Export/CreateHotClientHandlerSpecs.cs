@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.HotClient;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm;
-using DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongationRequestOperationServiceTests;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -25,6 +24,7 @@ using Machine.Specifications;
 using Moq;
 
 using It = Machine.Specifications.It;
+using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 {
@@ -42,15 +42,17 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
         private const long FirmOwnerId = 4;
         private const long OrganizationUnitDirectorId = 5;
         private const long ProjectDirectorId = 6;
-        private const long TelemarketingManagerId = 7;
+        private const long TelemarketingFranchiseeManagerId = 7;
         private const long HotClientRequestEntityId = 8;
         private const long ProjectOrganizationUnitId = 9;
+        private const long TelemarketingBranchManagerId = 10;
 
         public abstract class BasicContext
         {
             protected static CreateHotClientHandler Handler;
             protected static IMsCrmSettings AppSettings;
-            protected static IFirmRepository FirmRepository;
+            protected static IBranchOfficeReadModel BranchOfficeReadModel;
+            protected static IFirmReadModel FirmReadModel;
             protected static IHotClientRequestService HotClientRequestService;
             protected static ICrmTaskFactory CrmTaskFactory;
             protected static IUserReadModel UserReadModel;
@@ -67,9 +69,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                     UserReadModel = SetupUserReadModel();
                     CrmTaskFactory = SetupCrmTaskFactory();
                     HotClientRequestService = SetupHotClientRequestService();
-                    FirmRepository = SetupFirmRepository();
-                    
-                    Handler = new CreateHotClientHandler(AppSettings, UserReadModel, FirmRepository, HotClientRequestService, CrmTaskFactory);
+                    BranchOfficeReadModel = SetupBranchOfficeReadModel();
+                    FirmReadModel = SetupFirmReadModel();
+
+                    Handler = new CreateHotClientHandler(AppSettings, UserReadModel, FirmReadModel, BranchOfficeReadModel, HotClientRequestService, CrmTaskFactory);
                 };
 
             Because of = () =>
@@ -106,9 +109,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                     .Returns(new User { Id = ProjectDirectorId, Account = string.Format("user_director_{0}", ProjectDirectorId) }); 
                 
                 Mock.Get(userReadModel)
-                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessing))
-                    .Returns(new User { Id = TelemarketingManagerId, Account = string.Format("user_telemarketing_{0}", TelemarketingManagerId) });
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessingFranchisee))
+                    .Returns(new User { Id = TelemarketingFranchiseeManagerId, Account = string.Format("user_telemarketing_franchisee_{0}", TelemarketingFranchiseeManagerId) });
 
+                Mock.Get(userReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessingBranch))
+                    .Returns(new User { Id = TelemarketingBranchManagerId, Account = string.Format("user_telemarketing_branch_{0}", TelemarketingBranchManagerId) });
                 return userReadModel;
             }
 
@@ -134,17 +140,24 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                 return hotClientRequestService;
             }
 
-            protected static IFirmRepository SetupFirmRepository()
+            protected static IBranchOfficeReadModel SetupBranchOfficeReadModel()
             {
-                var firmRepository = Mock.Of<IFirmRepository>();
+                var firmRepository = Mock.Of<IBranchOfficeReadModel>();
 
                 Mock.Get(firmRepository)
-                    .Setup(repository => repository.GetFirmAddressOrganizationUnitId(Moq.It.IsAny<long>()))
-                    .Returns(() => OrganizationUnitId);
+                    .Setup(repository => repository.GetOrganizationUnitContributionType(Moq.It.IsAny<long>()))
+                    .Returns(() => Data.ContributionType);
 
                 Mock.Get(firmRepository)
                     .Setup(repository => repository.GetProjectOrganizationUnitIds(Moq.It.IsAny<long>()))
                     .Returns(() => new[] { ProjectOrganizationUnitId });
+
+                return firmRepository;
+            }
+
+            protected static IFirmReadModel SetupFirmReadModel()
+            {
+                var firmRepository = Mock.Of<IFirmReadModel>();
 
                 Mock.Get(firmRepository)
                     .Setup(repository => repository.GetFirmAddressCategoryGroups(Moq.It.IsAny<long>()))
@@ -176,6 +189,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                 public User ErmUser;
                 public bool EnableReplication;
                 public bool IsOwnerServiceUser;
+                public ContributionTypeEnum ContributionType = ContributionTypeEnum.Branch;
                 
                 public void SetupHotClientRequestInvalidEntity()
                 {
@@ -382,7 +396,87 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             It should_telemarketing_become_task_executor = () =>
             {
                 Mock.Get(CrmTaskFactory)
-                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingManagerId),
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingBranchManagerId),
+                                                          Moq.It.IsAny<HotClientRequestDto>(),
+                                                          Moq.It.IsAny<RegardingObject>()));
+            };
+        }
+
+        public class WhenTelemarketingFirmBelongsToBranch : BasicContext
+        {
+            Establish context = () =>
+            {
+                Data.SetupHotClientRequestForFirmAddressEntity();
+                Data.SetupFirmWithClient();
+                Data.SetupCategoryGroupsTelesale();
+                Data.SetupReplicationOn();
+                Data.IsOwnerServiceUser = false;
+
+                // проверяемое условие - отделение организации - бранч
+                Data.ContributionType = ContributionTypeEnum.Branch;
+            };
+
+            Behaves_like<ReplicationSucceededBehavior> replication_must_secceed;
+
+            It should_search_for_branch_user = () =>
+            {
+                Mock.Get(CrmTaskFactory)
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingBranchManagerId),
+                                                          Moq.It.IsAny<HotClientRequestDto>(),
+                                                          Moq.It.IsAny<RegardingObject>()));
+            };
+        }
+
+        public class WhenTelemarketingFirmBelongsToFranchisee : BasicContext
+        {
+            Establish context = () =>
+            {
+                Data.SetupHotClientRequestForFirmAddressEntity();
+                Data.SetupFirmWithClient();
+                Data.SetupCategoryGroupsTelesale();
+                Data.SetupReplicationOn();
+                Data.IsOwnerServiceUser = false;
+
+                // проверяемое условие - отделение организации - франчайзи
+                Data.ContributionType = ContributionTypeEnum.Franchisees;
+            };
+
+            Behaves_like<ReplicationSucceededBehavior> replication_must_secceed;
+
+            It should_search_for_franchisee_user = () =>
+            {
+                Mock.Get(CrmTaskFactory)
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingFranchiseeManagerId),
+                                                          Moq.It.IsAny<HotClientRequestDto>(),
+                                                          Moq.It.IsAny<RegardingObject>()));
+            };
+        }
+
+        public class WhenTelemarketingFirmWithoutTelemarketingManager : BasicContext
+        {
+            Establish context = () =>
+            {
+                Data.SetupHotClientRequestForFirmAddressEntity();
+                Data.SetupFirmWithClient();
+                Data.SetupCategoryGroupsTelesale();
+                Data.SetupReplicationOn();
+                Data.IsOwnerServiceUser = false;
+
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessingFranchisee))
+                    .Returns((User)null);
+
+                Mock.Get(UserReadModel)
+                    .Setup(x => x.FindAnyUserWithPrivelege(Moq.It.IsAny<IEnumerable<long>>(), FunctionalPrivilegeName.HotClientTelemarketingProcessingBranch))
+                    .Returns((User)null);
+            };
+
+            Behaves_like<ReplicationSucceededBehavior> replication_must_secceed;
+
+            It should_search_for_organization_unit_director = () =>
+            {
+                Mock.Get(CrmTaskFactory)
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == OrganizationUnitDirectorId),
                                                           Moq.It.IsAny<HotClientRequestDto>(),
                                                           Moq.It.IsAny<RegardingObject>()));
             };
@@ -478,7 +572,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             It should_not_telemarketing_become_task_executor = () =>
             {
                 Mock.Get(CrmTaskFactory)
-                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingManagerId),
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingFranchiseeManagerId),
                                                           Moq.It.IsAny<HotClientRequestDto>(),
                                                           Moq.It.IsAny<RegardingObject>()), Times.Never);
             };
@@ -504,7 +598,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             It should_not_telemarketing_become_task_executor = () =>
             {
                 Mock.Get(CrmTaskFactory)
-                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingManagerId),
+                    .Verify(factory => factory.CreateTask(Moq.It.Is<UserDto>(dto => dto.Id == TelemarketingFranchiseeManagerId),
                                                           Moq.It.IsAny<HotClientRequestDto>(),
                                                           Moq.It.IsAny<RegardingObject>()), Times.Never);
             };

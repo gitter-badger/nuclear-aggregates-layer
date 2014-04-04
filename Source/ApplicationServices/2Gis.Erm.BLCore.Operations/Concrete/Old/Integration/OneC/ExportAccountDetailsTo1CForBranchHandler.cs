@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -37,13 +38,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly ICommonLog _logger;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public ExportAccountDetailsTo1CForBranchHandler(IFinder finder,
                                                         ISubRequestProcessor subRequestProcessor,
                                                         ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                                         ICommonLog logger,
                                                         IClientProxyFactory clientProxyFactory,
-                                                        IOrderReadModel orderReadModel)
+                                                        IOrderReadModel orderReadModel,
+                                                        IGlobalizationSettings globalizationSettings)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
@@ -51,6 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _logger = logger;
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
+            _globalizationSettings = globalizationSettings;
         }
 
         private enum ExportOrderType
@@ -266,7 +270,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 NonBlockingErrorsAmount = validateResponse.NonBlockingErrors.Count + modiResponse.NonBlockingErrorsAmount
             };
 
-            var errorContent = GetErrorsDataTable(blockingErrors, validateResponse.NonBlockingErrors).ToCsv(';');
+            var errorContent = GetErrorsDataTable(blockingErrors, validateResponse.NonBlockingErrors).ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator);
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
@@ -289,7 +293,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 throw new NotificationException(BLResources.DumpAccountDetails_AccountDetailsNotExist);
             }
 
-            var content = actsDataTable.ToCsv(';');
+            var content = actsDataTable.ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator);
             var modiContent = CyrillicEncoding.GetString(modiResponse.File.Stream);
 
             streamDictionary.Add("Acts.csv", new MemoryStream(CyrillicEncoding.GetBytes(content + modiContent)));

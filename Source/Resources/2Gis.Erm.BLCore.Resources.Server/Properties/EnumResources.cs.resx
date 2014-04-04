@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1167,8 +1167,8 @@
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
     <value>Zpracování potenciálních zákazníků</value>
   </data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Zpracování potenciálních zákazníků 5. třídy</value>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Chybí</value>
@@ -1477,7 +1477,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Šek</value>
@@ -1492,10 +1492,10 @@
     <value>Bankovní karta</value>
   </data>
   <data name="PaymentMethodDebitCard" xml:space="preserve">
-    <value>Дебетовая карта</value>
+    <value>Debetní karta</value>
   </data>
   <data name="PaymentMethodCreditCard" xml:space="preserve">
-    <value>Кредитная карта</value>
+    <value>Kreditní karta</value>
   </data>
   <data name="ActivityTaskTypeNotSet" xml:space="preserve">
     <value>Nezadáno</value>
@@ -1513,103 +1513,103 @@
     <value>Nezadáno</value>
   </data>
   <data name="FirmAddressContactTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CloseDealReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="DealStageNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InformationSourceNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ReasonForNewDealNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FasCommentNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ProductTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="MarketTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="UsingOtherMediaOptionNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountRoleNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FamilyStatusNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GenderNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderTerminationReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionAccountingMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionCalculationMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BudgetTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GeolocationNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OutCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="StaffAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AllOrdersReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ObjectBindingTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountsReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="SalesReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BusinessOperationTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
     <value>Zveřejnění šablony RM</value>
@@ -1618,7 +1618,7 @@
     <value>Zrušení zveřejnění šablony RM</value>
   </data>
   <data name="ESalesPointTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
     <value>Pobočka</value>
@@ -1633,7 +1633,7 @@
     <value>ŘS</value>
   </data>
   <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
     <value>Místní reklama na pobočce</value>
@@ -1819,13 +1819,13 @@
     <value>Podle prodané rubriky</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountTypeCurrentAccount" xml:space="preserve">
-    <value>Текущий счёт</value>
+    <value>Běžný účet</value>
   </data>
   <data name="AccountTypeSavingsAccount" xml:space="preserve">
-    <value>Упрощенный счёт</value>
+    <value>Zjednodušený účet</value>
   </data>
   <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
 	  <value>Reklama na alkohol</value>
@@ -1881,4 +1881,10 @@
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
 	  <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
 </data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+  <comment></comment></data>
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  <comment></comment></data>
 </root>

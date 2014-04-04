@@ -4688,16 +4688,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Char similar to ;.
-        /// </summary>
-        public static char CsvSeparator {
-            get {
-                object obj = ResourceManager.GetObject("CsvSeparator", resourceCulture);
-                return ((char)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string CurrencyController_BaseCurrencyCannotBeDeleted {
@@ -4811,159 +4801,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CurrentUserHasNoReadEntityPermission {
             get {
                 return ResourceManager.GetString("CurrentUserHasNoReadEntityPermission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusActiveBusinessmanWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusActiveBusinessmanWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusActiveLegalPersonWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusActiveLegalPersonWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusDeletedBusinessManWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusDeletedBusinessManWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusDeletedLegalPersonWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusDeletedLegalPersonWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusInactiveBusinessmanWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusInactiveBusinessmanWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CyprusInactiveLegalPersonWithSpecifiedTicExist {
-            get {
-                return ResourceManager.GetString("CyprusInactiveLegalPersonWithSpecifiedTicExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist {
-            get {
-                return ResourceManager.GetString("CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman {
-            get {
-                return ResourceManager.GetString("CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson {
-            get {
-                return ResourceManager.GetString("CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate {
-            get {
-                return ResourceManager.GetString("CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman {
-            get {
-                return ResourceManager.GetString("CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson {
-            get {
-                return ResourceManager.GetString("CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson", resourceCulture);
             }
         }
         
@@ -6329,6 +6166,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Errors {
+            get {
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Errors_DynamicsCrmConectionFailed {
             get {
                 return ResourceManager.GetString("Errors_DynamicsCrmConectionFailed", resourceCulture);
@@ -6566,6 +6412,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FieldValueContainsControlCharacters {
             get {
                 return ResourceManager.GetString("FieldValueContainsControlCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
@@ -10410,6 +10265,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrderIsNotRelatedToAccount {
             get {
                 return ResourceManager.GetString("OrderIsNotRelatedToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderLegalPersonProfileShouldBelongToOrderLegalPerson {
+            get {
+                return ResourceManager.GetString("OrderLegalPersonProfileShouldBelongToOrderLegalPerson", resourceCulture);
             }
         }
         

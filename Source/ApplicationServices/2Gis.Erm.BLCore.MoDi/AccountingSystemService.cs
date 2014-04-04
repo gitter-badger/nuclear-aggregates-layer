@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading;
 
 using DoubleGis.Erm.BLCore.API.MoDi.Accounting;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi;
 using DoubleGis.Erm.BLCore.API.MoDi.Dto;
 using DoubleGis.Erm.BLCore.API.MoDi.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 
 namespace DoubleGis.Erm.BLCore.MoDi
 {
@@ -37,22 +38,25 @@ namespace DoubleGis.Erm.BLCore.MoDi
         private readonly IUserContext _userContext;
         private readonly IMoneyDistributionSettings _moneyDistributionSettings;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IEnumerable<PlatformsExtended> _extendedPlatformList = Enum.GetValues(typeof(PlatformsExtended)).Cast<PlatformsExtended>();
+        private readonly IGlobalizationSettings _globalizationSettings;
 
         public AccountingSystemService(IUseCaseTuner useCaseTuner,
                                        IFinder finder,
                                        IUserContext userContext,
                                        IMoneyDistributionSettings moneyDistributionSettings,
                                        ISecurityServiceUserIdentifier userIdentifierService,
-                                       IBranchOfficeRepository branchOfficeRepository)
+                                       IBranchOfficeReadModel branchOfficeReadModel,
+                                       IGlobalizationSettings globalizationSettings)
         {
             _useCaseTuner = useCaseTuner;
             _finder = finder;
             _userContext = userContext;
             _moneyDistributionSettings = moneyDistributionSettings;
             _userIdentifierService = userIdentifierService;
-            _branchOfficeRepository = branchOfficeRepository;
+            _branchOfficeReadModel = branchOfficeReadModel;
+            _globalizationSettings = globalizationSettings;
         }
 
         public ExportAccountDetailsTo1CResponse ExportAccountDetailsTo1C(long organizationId, DateTime startDate, DateTime endDate)
@@ -312,7 +316,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
         {
             _useCaseTuner.AlterDuration<AccountingSystemService>();
 
-            var contributionType = _branchOfficeRepository.GetContributionTypeForOrganizationUnit(organizationUnitId);
+            var contributionType = _branchOfficeReadModel.GetOrganizationUnitContributionType(organizationUnitId);
 
             var orgUnitSyncCode = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId).Select(x => x.SyncCode1C).Single();
 
@@ -681,7 +685,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
             return string.Format("{0}-{1}-{2}-{3}", sourceSyncCode1C, destSyncCode1C, startDate.ToString("MM"), startDate.ToString("yy"));
         }
 
-        private static byte[] ToOneCStream(IEnumerable<OneCError> errors)
+        private byte[] ToOneCStream(IEnumerable<OneCError> errors)
         {
             var table = new DataTable();
             table.Columns.Add("LegalPersonId");
@@ -693,10 +697,10 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 table.Rows.Add(error.LegalPersonId, error.SyncCode1C, error.ErrorMessage);
             }
 
-            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(';', false));
+            return ToCsvStream(table);
         }
 
-        private static byte[] ToOneCStream(IEnumerable<OneCOutput> records)
+        private byte[] ToOneCStream(IEnumerable<OneCOutput> records)
         {
             var table = new DataTable();
             table.Columns.Add("BargainType");
@@ -721,7 +725,12 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     record.OrderNumber);
             }
 
-            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(';', false));
+            return ToCsvStream(table);
+        }
+
+        private byte[] ToCsvStream(DataTable table)
+        {
+            return Encoding.GetEncoding(1251).GetBytes(table.ToCsvEscaped(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator, false));
         }
 
         private static byte[] ToXmlStream(DebitsInfoDto infoDto)

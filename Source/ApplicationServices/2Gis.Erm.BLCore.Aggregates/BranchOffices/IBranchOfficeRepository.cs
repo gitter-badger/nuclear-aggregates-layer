@@ -25,6 +25,5 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         void SetPrimaryForRegionalSalesBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId);
 
         long? GetPrintFormTemplateId(long branchOfficeOrganizationUnitId, TemplateCode templateCode);
-        ContributionTypeEnum GetContributionTypeForOrganizationUnit(long organizationUnitId);
     }
 }

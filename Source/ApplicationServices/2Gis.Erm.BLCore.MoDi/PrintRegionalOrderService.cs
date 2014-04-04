@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                     y.AccountDetail.OperationTypeId == AccountDetailOperationTypeId),
                 })
                 .Where(x => x.Lock != null)
-                .Select(x => x.Order);                
+                .Select(x => x.Order);
             }
 
             // если выбрали период позже 1 апреля 13 года, то у заказов должно быть начало размещения позже 1 апреля
@@ -249,17 +249,17 @@ namespace DoubleGis.Erm.BLCore.MoDi
                         var platformCostsGroups = platformCosts
                             .GroupBy(z => new { z.From, z.To, z.NewTo, DefinedInSalesSchema = z.DiscountCost != decimal.Zero })
                             .Select(z => new PlatformCost
-                        {
-                            PositionId = y.PositionId,
-                            From = z.Key.From,
-                            To = z.Key.To,
-                            NewTo = z.Key.NewTo,
-                            Platform = _moneyDistributionSettings.ExtendedPlatformMap[y.Platform],
-                            Cost = z.Sum(p => p.Cost),
-                            DiscountCost = z.Sum(p => p.DiscountCost),
-                            PayablePlan = z.Sum(p => p.PayablePlan),
-                            PayablePrice = z.Sum(p => p.PayablePrice),
-                        }).ToArray();
+                            {
+                                PositionId = y.PositionId,
+                                From = z.Key.From,
+                                To = z.Key.To,
+                                NewTo = z.Key.NewTo,
+                                Platform = _moneyDistributionSettings.ExtendedPlatformMap[y.Platform],
+                                Cost = z.Sum(p => p.Cost),
+                                DiscountCost = z.Sum(p => p.DiscountCost),
+                                PayablePlan = z.Sum(p => p.PayablePlan),
+                                PayablePrice = z.Sum(p => p.PayablePrice),
+                            }).ToArray();
 
                         if (platformCostsGroups.Length == 1)
                         {
@@ -268,15 +268,15 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     }
 
                     return platformCosts.Where(w => w.DiscountCost != decimal.Zero).Select(z => new PrintDataDto
-                        {
-                            OrderId = x.Id,
-                            OrderPositionId = y.Id,
-                            PlatformCost = z,
+                    {
+                        OrderId = x.Id,
+                        OrderPositionId = y.Id,
+                        PlatformCost = z,
 
-                            SourceBouId = sourceIsUk ? _moneyDistributionSettings.UkBouId : x.SourceBou.Id,
-                            DestBouId = (z.NewTo == ESalesPointType.Uk) ? _moneyDistributionSettings.UkBouId : x.DestBou.Id,
-                            ApplicationStringBouId = x.DestBou.Id
-                        });
+                        SourceBouId = sourceIsUk ? _moneyDistributionSettings.UkBouId : x.SourceBou.Id,
+                        DestBouId = (z.NewTo == ESalesPointType.Uk) ? _moneyDistributionSettings.UkBouId : x.DestBou.Id,
+                        ApplicationStringBouId = x.DestBou.Id
+                    });
                 });
             }).ToArray();
 
@@ -327,7 +327,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
             var source = GetBouPrintData(sourceBouId);
             var dest = GetBouPrintData(destBouId);
-            
+
 
             var offerDate = GetOfferDate(startDate);
 
@@ -348,157 +348,160 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     var appStringBou = GetBouPrintData(dto.Key);
 
                     return dto.Select(x =>
+                    {
+                        var positionQuery = _finder.FindAll<Position>();
+
+                        var orderPrintData = _finder.Find<Order>(y => y.Id == x.OrderId).Select(y => new
                         {
-                            var positionQuery = _finder.FindAll<Position>();
+                            FirmName = y.Firm.Name,
+                            y.DestOrganizationUnit.ElectronicMedia,
+                            ReleaseNumber = y.OrderReleaseTotals.Where(z => z.ReleaseBeginDate == startDate).Select(z => (int?)z.ReleaseNumber).FirstOrDefault(),
 
-                            var orderPrintData = _finder.Find<Order>(y => y.Id == x.OrderId).Select(y => new
-                            {
-                                FirmName = y.Firm.Name,
-                                y.DestOrganizationUnit.ElectronicMedia,
-                                ReleaseNumber = y.OrderReleaseTotals.Where(z => z.ReleaseBeginDate == startDate).Select(z => (int?)z.ReleaseNumber).FirstOrDefault(),
+                            OrderPositionAmount = y.OrderPositions.Where(z => z.Id == x.OrderPositionId).Select(z => z.Amount).FirstOrDefault(),
 
-                                OrderPositionAmount = y.OrderPositions.Where(z => z.Id == x.OrderPositionId).Select(z => z.Amount).FirstOrDefault(),
+                            PositionName = positionQuery.Where(z => z.Id == x.PlatformCost.PositionId).Select(z => z.Name).FirstOrDefault(),
 
-                                PositionName = positionQuery.Where(z => z.Id == x.PlatformCost.PositionId).Select(z => z.Name).FirstOrDefault(),
-
-                                PositionNameGroups = y.OrderPositions
-                                    .Where(z => z.Id == x.OrderPositionId)
-                                    .SelectMany(z => z.OrderPositionAdvertisements)
-                                    .Where(z => z.PositionId == x.PlatformCost.PositionId)
-                                    .GroupBy(z => z.FirmAddress)
-                                    .Select(z => new
-                                    {
-                                        FirmAddressName = (z.Key != null) ? z.Key.Address + ((z.Key.ReferencePoint == null) ? string.Empty : " — " + z.Key.ReferencePoint) : null,
-                                        CategoryNames = z.Where(p => p.CategoryId != null).Select(p => p.Category.Name),
-                                    }),
-
-                                // system fileds
-                                FirmId = y.FirmId,
-                                OrderId = y.Id,
-                                DestOrganizationUnitName = y.DestOrganizationUnit.Name,
-                            }).Single();
-
-                            // applicationString
-                            string applicationString;
-                            switch (x.PlatformCost.Platform)
-                            {
-                                case PlatformsExtended.None:
-                                    applicationString = string.Format(
-                                        "1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ № {1}. Выпуск СМИ № {2}. " + Environment.NewLine +
-                                          "2. Интернет-площадка 2gis.ru. " + Environment.NewLine +
-                                          "3. Интернет-площадки и Веб-приложения, указанные в Прайс-листе на дату размещения рекламы.",
-                                        appStringBou.ElectronicMedia,
-                                        appStringBou.RegistrationCertificate,
-                                        orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
-                                    break;
-                                case PlatformsExtended.Desktop:
-                                    applicationString = string.Format(
-                                        "Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ № {1}. Выпуск СМИ № {2}.",
-                                        appStringBou.ElectronicMedia,
-                                        appStringBou.RegistrationCertificate,
-                                        orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
-                                    break;
-                                case PlatformsExtended.Mobile:
-                                    applicationString = string.Format(
-                                        "Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ № {1}. Выпуск СМИ № {2}.",
-                                        appStringBou.ElectronicMedia,
-                                        appStringBou.RegistrationCertificate,
-                                        orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
-                                    break;
-                                case PlatformsExtended.Api:
-                                case PlatformsExtended.ApiOnline:
-                                case PlatformsExtended.ApiPartner:
-                                    applicationString = string.Format(
-                                        "Интернет-площадки и Веб-приложения указанные в Прайс-листе на дату размещения рекламы.");
-                                    break;
-                                case PlatformsExtended.Online:
-                                    applicationString = "Интернет-площадка 2gis.ru.";
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
-
-                            // positionName
-                            var positionName = orderPrintData.PositionName;
-                            var positionAdditionalName = (string)null;
-                            foreach (var namesGroup in orderPrintData.PositionNameGroups)
-                            {
-                                var categoryNames = string.Join(", ", namesGroup.CategoryNames);
-
-                                if (!string.IsNullOrEmpty(namesGroup.FirmAddressName))
+                            PositionNameGroups = y.OrderPositions
+                                .Where(z => z.Id == x.OrderPositionId)
+                                .SelectMany(z => z.OrderPositionAdvertisements)
+                                .Where(z => z.PositionId == x.PlatformCost.PositionId)
+                                .GroupBy(z => z.FirmAddress)
+                                .Select(z => new
                                 {
-                                    positionAdditionalName = namesGroup.FirmAddressName + ": " + categoryNames;
-                                }
-                                else
+                                    FirmAddressName = (z.Key != null) ? z.Key.Address + ((z.Key.ReferencePoint == null) ? string.Empty : " — " + z.Key.ReferencePoint) : null,
+                                    CategoryNames = z.Where(p => p.CategoryId != null).Select(p => p.Category.Name),
+                                }),
+
+                            // system fileds
+                            FirmId = y.FirmId,
+                            OrderId = y.Id,
+                            DestOrganizationUnitName = y.DestOrganizationUnit.Name,
+                        }).Single();
+
+                        // applicationString
+                        string applicationString;
+                        switch (x.PlatformCost.Platform)
+                        {
+                            case PlatformsExtended.None:
+                                applicationString = string.Format(
+                                    "1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуск СМИ № {2}. " + Environment.NewLine +
+                                      "2. Интернет-площадка 2gis.ru на основе Справочника организаций «{0}». " + Environment.NewLine +
+                                      "3. Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}», указанные в Прайс-листе на дату размещения рекламы.",
+                                    appStringBou.ElectronicMedia,
+                                    appStringBou.RegistrationCertificate,
+                                    orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
+                                break;
+                            case PlatformsExtended.Desktop:
+                                applicationString = string.Format(
+                                    "Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуск СМИ № {2}.",
+                                    appStringBou.ElectronicMedia,
+                                    appStringBou.RegistrationCertificate,
+                                    orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
+                                break;
+                            case PlatformsExtended.Mobile:
+                                applicationString = string.Format(
+                                    "Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуск СМИ № {2}.",
+                                    appStringBou.ElectronicMedia,
+                                    appStringBou.RegistrationCertificate,
+                                    orderPrintData.ReleaseNumber == 0 ? null : orderPrintData.ReleaseNumber);
+                                break;
+                            case PlatformsExtended.Api:
+                            case PlatformsExtended.ApiOnline:
+                            case PlatformsExtended.ApiPartner:
+                                applicationString = string.Format(
+                                    "Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}», указанные в Прайс-листе на дату размещения рекламы.",
+                                    appStringBou.ElectronicMedia);
+                                break;
+                            case PlatformsExtended.Online:
+                                applicationString = string.Format(
+                                    "Интернет-площадка по адресу 2gis.ru на основе Справочника организаций «{0}».",
+                                    appStringBou.ElectronicMedia);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+
+                        // positionName
+                        var positionName = orderPrintData.PositionName;
+                        var positionAdditionalName = (string)null;
+                        foreach (var namesGroup in orderPrintData.PositionNameGroups)
+                        {
+                            var categoryNames = string.Join(", ", namesGroup.CategoryNames);
+
+                            if (!string.IsNullOrEmpty(namesGroup.FirmAddressName))
+                            {
+                                positionAdditionalName = namesGroup.FirmAddressName + ": " + categoryNames;
+                            }
+                            else
+                            {
+                                positionAdditionalName = categoryNames;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(positionAdditionalName))
+                        {
+                            positionName += ": " + positionAdditionalName;
+                        }
+
+                        // payable
+                        var payablePrintData = new PayablePrintData();
+                        switch (dest.ContributionType)
+                        {
+                            // с НДС
+                            case ContributionTypeEnum.Branch:
                                 {
-                                    positionAdditionalName = categoryNames;
+                                    payablePrintData.PayablePlan = x.PlatformCost.DiscountCost;
+
+                                    var payablePlanWoVatExact = x.PlatformCost.DiscountCost / 1.18m;
+                                    payablePrintData.PayablePlanWoVat = Math.Round(payablePlanWoVatExact, 2, MidpointRounding.ToEven);
+
+                                    payablePrintData.PayablePlanVat = payablePrintData.PayablePlan - payablePrintData.PayablePlanWoVat;
                                 }
-                            }
 
-                            if (!string.IsNullOrEmpty(positionAdditionalName))
-                            {
-                                positionName += ": " + positionAdditionalName;
-                            }
+                                break;
 
-                            // payable
-                            var payablePrintData = new PayablePrintData();
-                            switch (dest.ContributionType)
-                            {
-                                // с НДС
-                                case ContributionTypeEnum.Branch:
-                                    {
-                                        payablePrintData.PayablePlan = x.PlatformCost.DiscountCost;
+                            // без НДС
+                            case ContributionTypeEnum.Franchisees:
+                                {
+                                    payablePrintData.PayablePlan = x.PlatformCost.DiscountCost;
+                                    payablePrintData.PayablePlanWoVat = x.PlatformCost.DiscountCost;
+                                    payablePrintData.PayablePlanVat = 0m;
+                                }
 
-                                        var payablePlanWoVatExact = x.PlatformCost.DiscountCost / 1.18m;
-                                        payablePrintData.PayablePlanWoVat = Math.Round(payablePlanWoVatExact, 2, MidpointRounding.ToEven);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
 
-                                        payablePrintData.PayablePlanVat = payablePrintData.PayablePlan - payablePrintData.PayablePlanWoVat;
-                                    }
+                        // pricePerUnit
+                        var pricePerUnitExact = x.PlatformCost.Cost / orderPrintData.OrderPositionAmount;
+                        var pricePerUnit = Math.Round(pricePerUnitExact, 2, MidpointRounding.ToEven);
 
-                                    break;
+                        // pricePerUnitWithDiscount 
+                        var pricePerUnitWithDiscountExact = x.PlatformCost.DiscountCost / orderPrintData.OrderPositionAmount;
+                        var pricePerUnitWithDiscount = Math.Round(pricePerUnitWithDiscountExact, 2, MidpointRounding.ToEven);
 
-                                // без НДС
-                                case ContributionTypeEnum.Franchisees:
-                                    {
-                                        payablePrintData.PayablePlan = x.PlatformCost.DiscountCost;
-                                        payablePrintData.PayablePlanWoVat = x.PlatformCost.DiscountCost;
-                                        payablePrintData.PayablePlanVat = 0m;
-                                    }
+                        return new PositionPrintData
+                        {
+                            FirmName = orderPrintData.FirmName,
+                            StartDate = startDate,
+                            ApplicationString = applicationString,
+                            PositionName = positionName,
 
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
+                            DiscountPercent = DiscountPercentConst,
 
-                            // pricePerUnit
-                            var pricePerUnitExact = x.PlatformCost.Cost / orderPrintData.OrderPositionAmount;
-                            var pricePerUnit = Math.Round(pricePerUnitExact, 2, MidpointRounding.ToEven);
+                            Payable = payablePrintData,
+                            Amount = orderPrintData.OrderPositionAmount,
 
-                            // pricePerUnitWithDiscount 
-                            var pricePerUnitWithDiscountExact = x.PlatformCost.DiscountCost / orderPrintData.OrderPositionAmount;
-                            var pricePerUnitWithDiscount = Math.Round(pricePerUnitWithDiscountExact, 2, MidpointRounding.ToEven);
+                            PricePerUnit = pricePerUnit,
+                            PricePerUnitWithDiscount = pricePerUnitWithDiscount,
 
-                            return new PositionPrintData
-                            {
-                                FirmName = orderPrintData.FirmName,
-                                StartDate = startDate,
-                                ApplicationString = applicationString,
-                                PositionName = positionName,
-
-                                DiscountPercent = DiscountPercentConst,
-
-                                Payable = payablePrintData,
-                                Amount = orderPrintData.OrderPositionAmount,
-
-                                PricePerUnit = pricePerUnit,
-                                PricePerUnitWithDiscount = pricePerUnitWithDiscount,
-
-                                // system fields
-                                FirmId = orderPrintData.FirmId,
-                                OrderId = orderPrintData.OrderId,
-                                DestOrganizationUnitName = orderPrintData.DestOrganizationUnitName,
-                            };
-                        });
+                            // system fields
+                            FirmId = orderPrintData.FirmId,
+                            OrderId = orderPrintData.OrderId,
+                            DestOrganizationUnitName = orderPrintData.DestOrganizationUnitName,
+                        };
+                    });
                 })
                 .OrderBy(x => x.DestOrganizationUnitName) // сортировка позиций
                 .ThenBy(x => x.FirmName)

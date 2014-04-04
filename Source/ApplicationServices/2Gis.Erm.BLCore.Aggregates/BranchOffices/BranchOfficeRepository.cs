@@ -285,15 +285,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             return templateId;
         }
 
-        public ContributionTypeEnum GetContributionTypeForOrganizationUnit(long organizationUnitId)
-        {
-            return (ContributionTypeEnum)_finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId)
-                                                       .Select(x => x.BranchOfficeOrganizationUnits
-                                                                     .FirstOrDefault(y => y.IsPrimary)
-                                                                     .BranchOffice.ContributionTypeId)
-                                                       .First();
-        }
-
         int IDeactivateAggregateRepository<BranchOffice>.Deactivate(long entityId)
         {
             var entity = _secureFinder.Find(Specs.Find.ById<BranchOffice>(entityId)).Single();
