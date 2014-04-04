@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPersons
 {
     public sealed class CyprusValidatePaymentRequisitesIsUniqueHandler : RequestHandler<ValidatePaymentRequisitesIsUniqueRequest, EmptyResponse>, ICyprusAdapted
@@ -55,17 +56,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                                 {
                                     if (ticDublicate.ActiveDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusActiveLegalPersonWithSpecifiedTicExist);        
+                                        throw new NotificationException(BLFlexResources.CyprusActiveLegalPersonWithSpecifiedTicExist);        
                                     }
 
                                     if (ticDublicate.InactiveDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusInactiveLegalPersonWithSpecifiedTicExist);
+                                        throw new NotificationException(BLFlexResources.CyprusInactiveLegalPersonWithSpecifiedTicExist);
                                     }
 
                                     if (ticDublicate.DeletedDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusDeletedLegalPersonWithSpecifiedTicExist);
+                                        throw new NotificationException(BLFlexResources.CyprusDeletedLegalPersonWithSpecifiedTicExist);
                                     } 
                                 }
 
@@ -79,17 +80,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                                     // В российской версии здесь находится проверка на дубль по инн и кпп
                                     if (ticDublicate.ActiveDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusActiveLegalPersonWithSpecifiedTicExist);
+                                        throw new NotificationException(BLFlexResources.CyprusActiveLegalPersonWithSpecifiedTicExist);
                                     }
 
                                     if (ticDublicate.InactiveDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusInactiveLegalPersonWithSpecifiedTicExist);
+                                        throw new NotificationException(BLFlexResources.CyprusInactiveLegalPersonWithSpecifiedTicExist);
                                     }
 
                                     if (ticDublicate.DeletedDublicateExists)
                                     {
-                                        throw new NotificationException(BLResources.CyprusDeletedLegalPersonWithSpecifiedTicExist);
+                                        throw new NotificationException(BLFlexResources.CyprusDeletedLegalPersonWithSpecifiedTicExist);
                                     }  
                                 }
 
@@ -108,17 +109,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
 
                         if (innDublicate.ActiveDublicateExists)
                         {
-                            throw new NotificationException(BLResources.CyprusActiveBusinessmanWithSpecifiedTicExist);
+                            throw new NotificationException(BLFlexResources.CyprusActiveBusinessmanWithSpecifiedTicExist);
                         }
 
                         if (innDublicate.InactiveDublicateExists)
                         {
-                            throw new NotificationException(BLResources.CyprusInactiveBusinessmanWithSpecifiedTicExist);
+                            throw new NotificationException(BLFlexResources.CyprusInactiveBusinessmanWithSpecifiedTicExist);
                         }
 
                         if (innDublicate.DeletedDublicateExists)
                         {
-                            throw new NotificationException(BLResources.CyprusDeletedBusinessManWithSpecifiedTicExist);
+                            throw new NotificationException(BLFlexResources.CyprusDeletedBusinessManWithSpecifiedTicExist);
                         }  
                     }
 

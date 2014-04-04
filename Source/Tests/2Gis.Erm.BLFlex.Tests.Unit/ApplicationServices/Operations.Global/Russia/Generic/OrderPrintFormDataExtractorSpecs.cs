@@ -17,7 +17,7 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Russia.Generic
 {
     public static class OrderPrintFormDataExtractorSpecs
     {
@@ -231,6 +231,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
                     "BranchOfficeOrganizationUnit.Kpp",
                     "BranchOfficeOrganizationUnit.PaymentEssentialElements",
                     "BranchOfficeOrganizationUnit.ShortLegalName",
+                    "BranchOfficeOrganizationUnit.ActualAddress",
+                    "BranchOfficeOrganizationUnit.Email",
                     "ClientRequisitesParagraph",
                     "DiscountSum",
                     "ElectronicMedia",

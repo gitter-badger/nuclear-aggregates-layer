@@ -76,6 +76,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "Kpp", boou.Kpp },
                     { "PaymentEssentialElements", boou.PaymentEssentialElements },
                     { "ShortLegalName", boou.ShortLegalName },
+                    { "ActualAddress", boou.ActualAddress },
+                    { "Email", boou.Email },
                 };
 
             return new PrintData

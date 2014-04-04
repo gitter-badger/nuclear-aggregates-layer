@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic;
+using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -16,7 +16,7 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Cyprus
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Czech.Generic
 {
     public static class OrderPrintFormDataExtractorSpecs
     {
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Cyprus
             return args.AsQueryable();
         }
 
-        [Tags("BL", "Print", "Order", "Cyprus")]
+        [Tags("BL", "Print", "Order", "Czech")]
         [Subject(typeof(IOrderPrintFormDataExtractor))]
         public class WhenRequestingChileanPrintData
         {
@@ -108,32 +108,44 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Cyprus
 
             static readonly string[] RootFieldSet =
                 {
-                    "AdvMatherialsDeadline",
+                    "BranchOffice.Ic",
                     "BranchOffice.Inn",
                     "BranchOffice.LegalAddress",
+                    "BranchOffice.Name",
+                    "BranchOfficeOrganizationUnit.ChiefNameInGenitive",
                     "BranchOfficeOrganizationUnit.ChiefNameInNominative",
                     "BranchOfficeOrganizationUnit.PaymentEssentialElements",
-                    "BranchOfficeOrganizationUnit.ShortLegalName",
+                    "BranchOfficeOrganizationUnit.PositionInGenitive",
+                    "BranchOfficeOrganizationUnit.Registered",
                     "Categories",
-                    "ClientRequisitesParagraph",
+                    "ClientLegalNamePrefix",
+                    "ClientRequisites",
                     "ElectronicMedia",
                     "Firm.Name",
+                    "LegalPerson.Ic",
+                    "LegalPerson.Inn",
+                    "LegalPerson.LegalAddress",
+                    "LegalPerson.LegalName",
+                    "OperatesOnTheBasis",
                     "Order.Number",
                     "Order.SignupDate",
-                    "Order.OwnerName",
                     "Order.PayablePlan",
                     "Order.PayablePlanWithoutVat",
                     "Order.VatPlan",
                     "Order.VatRatio",
                     "Order.VatSum",
-                    "PaymentMethod",
+                    "Order.OwnerName",
+                    "Order.SignupDate",
+                    "PersonPrefix",
+                    "Profile.ChiefNameInGenitive",
                     "Profile.ChiefNameInNominative",
                     "Profile.EmailForAccountingDocuments",
-                    "RelatedBargainInfo",
-                    
+                    "SourceElectronicMedia",
+                    "TechnicalTerminationParagraph",
+
                     "SchedulePayments",
-                    "OrderPositions",
                     "FirmAddresses",
+                    "OrderPositions",
                 };
 
             Establish context = () =>
@@ -142,16 +154,18 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Cyprus
             };
 
             Because of = () =>
-            {
-                Result = PrintData.Concat(DataExtractor.GetPaymentSchedule(Query(Bill)),
-                                    DataExtractor.GetLegalPersonProfile(LegalPersonProfile),
-                                    DataExtractor.GetOrder(Query(Order)),
-                                    DataExtractor.GetFirmAddresses(Query(FirmAddress), FirmContacts),
-                                    DataExtractor.GetBranchOffice(Query(BranchOffice)),
-                                    DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),
-                                    DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition)),
-                                    DataExtractor.GetUngrouppedFields(Query(Order), LegalPersonProfile));
-            };
+                {
+                    Result = PrintData.Concat(DataExtractor.GetPaymentSchedule(Query(Bill)),
+                                              DataExtractor.GetLegalPersonProfile(LegalPersonProfile),
+                                              DataExtractor.GetOrder(Query(Order)),
+                                              DataExtractor.GetFirmAddresses(Query(FirmAddress), FirmContacts),
+                                              DataExtractor.GetBranchOffice(Query(BranchOffice)),
+                                              DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),
+                                              DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition)),
+                                              DataExtractor.GetLegalPerson(LegalPerson),
+                                              DataExtractor.GetUngrouppedFields(Query(Order)),
+                                              DataExtractor.GetClient(LegalPerson, LegalPersonProfile));
+                };
 
             It should_contain_certain_data_set_for_root = () => Result.Select(pair => pair.Key).Should().Contain(RootFieldSet);
             It should_contain_certain_data_set_for_payments_shedule = () => Result.GetTable("SchedulePayments").First().Select(pair => pair.Key).Should().Contain(SchedulePaymentsFieldSet);

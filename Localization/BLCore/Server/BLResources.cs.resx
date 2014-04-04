@@ -2066,8 +2066,7 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>1. úroveň</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CsvSeparator" type="System.Char, mscorlib" xml:space="preserve">
+  <data name="CsvSeparator" xml:space="preserve">
     <value>;</value>
   </data>
   <data name="No" xml:space="preserve">
@@ -4734,7 +4733,7 @@ Operace provedena: {4}.</value>
     <value>Není možné nastavit pro firmu objednávku, aniž by byla propojena s klientem.</value>
   </data>
   <data name="RubricDoesntContainName" xml:space="preserve">
-    <value>Рубрика не содержит названия ни на базовом, ни на резервном языке</value>
+    <value>Rubrika neobsahuje název ani v hlavním ani v rezervním jazyce</value>
   </data>
   <data name="YouHaveNotPublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
     <value>Nemáte povolení ke zveřejnění šablon reklamních materiálů</value>
@@ -4923,21 +4922,6 @@ Kontakt: {1}</value>
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>Existuje skrytá fyz. osoba s uvedenou řadou a číslem průkazu totožnosti</value>
   </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
-    <value>místem podnikání</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
-    <value>se sídlem</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
-  </data>
-  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
-  </data>
   <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Osoba samostatně výdělečně činná s uvedeným DIČ již existuje</value>
   </data>
@@ -4947,44 +4931,8 @@ Kontakt: {1}</value>
   <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
     <value>Existuje skrytá osoba samostatně výdělečně činná s uvedeným DIČ</value>
   </data>
-  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>V položce {0} je vytvořena reklama API, přestože firma nemá adresu v projektu města, ve kterém je rozmístěna objednávka</value>
-  </data>
-  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ již existuje</value>
-  </data>
-  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Pr. osoba klienta s uvedeným IČ nebo DIČ již existuje</value>
-  </data>
-  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existuje odstraněná osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ</value>
-  </data>
-  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existuje odstraněná pr. osoba klienta s uvedeným IČ nebo DIČ</value>
-  </data>
-  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existuje skrytá osoba samostatně výdělečně činná s uvedeným IČ nebo DIČ</value>
-  </data>
-  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
-    <value>Existuje skrytá pr. osoba klienta s uvedeným IČ nebo DIČ</value>
   </data>
   <data name="BillsMissing" xml:space="preserve">
     <value>Je třeba vystavit alespoň jednu fakturu</value>
@@ -5219,6 +5167,12 @@ Doba zveřejnění: {3}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Uzavřít jako zamítnuto</value>
   </data>
+  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+    <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
+  </data>
+  <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
+    <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
+  </data>
   <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
     <value>Není možné použít způsob výpočtu koeficientu '{0}' pro typ vázaného objektu položky '{1}'</value>
   </data>
@@ -5226,6 +5180,6 @@ Doba zveřejnění: {3}.</value>
     <value>U položky objednávky, která je zpracovaná pro položku ceníku s výpočtem koeficientu podle rubriky, musí být uvedena jedna rubrika</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
-    <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
+    <value>Není možné vytvořit komplexní položku s typem vázaného objektu, který neodpovídá následujícím: {0}</value>
   </data>
 </root>
