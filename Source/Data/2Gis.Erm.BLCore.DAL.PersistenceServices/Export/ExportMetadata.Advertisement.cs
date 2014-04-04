@@ -23,13 +23,8 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementElement)
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
-                                                                                   .Select(element => element.Advertisement)),
-
-            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.File)
                                                        .Operation<UploadIdentity>()
-                                                       .Use((finder, ids) => finder.Find<AdvertisementElement>(element => element.FileId.HasValue &&
-                                                                                                                          ids.Contains(element.FileId.Value))
+                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
                                                                                    .Select(element => element.Advertisement)),
 
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementTemplate)
