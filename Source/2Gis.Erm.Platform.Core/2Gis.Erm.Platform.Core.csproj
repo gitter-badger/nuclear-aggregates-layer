@@ -60,7 +60,6 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="ActionLogging\ActionLoggingValidatorFactory.cs" />
     <Compile Include="ActionLogging\ActionsLogger.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />

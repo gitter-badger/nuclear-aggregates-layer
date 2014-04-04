@@ -12,15 +12,15 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
         public static string ToCsv(this DataTable table)
         {
-            return ToCsv(table, ',');
+            return ToCsv(table, ",");
         }
 
-        public static string ToCsv(this DataTable table, char separator)
+        public static string ToCsv(this DataTable table, string separator)
         {
             return ToCsv(table, separator, false);
         }
 
-        public static string ToCsv(this DataTable table, char separator, bool renderColumnNames)
+        public static string ToCsv(this DataTable table, string separator, bool renderColumnNames)
         {
             // Семейство этих методов давно используется без экранирования. 
             // Поэтому по умолчанию он продолжает использоваться без экранирования, 
@@ -28,12 +28,12 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             return ToCsv(table, separator, renderColumnNames, false);
         }
 
-        public static string ToCsvEscaped(this DataTable table, char separator, bool renderColumnNames)
+        public static string ToCsvEscaped(this DataTable table, string separator, bool renderColumnNames)
         {
             return ToCsv(table, separator, renderColumnNames, true);
         }
 
-        public static string ToCsv(this DataTable table, char separator, bool renderColumnNames, bool escape)
+        public static string ToCsv(this DataTable table, string separator, bool renderColumnNames, bool escape)
         {
             var result = new StringBuilder();
             var escapeValue = escape
