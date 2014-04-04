@@ -5191,4 +5191,10 @@ Placement period: {3}.</value>
   <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
     <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
   </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="File" xml:space="preserve">
+     <value>File</value>
+  </data>
 </root>

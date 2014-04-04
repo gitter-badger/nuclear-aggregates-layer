@@ -6166,6 +6166,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Errors {
+            get {
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Errors_DynamicsCrmConectionFailed {
             get {
                 return ResourceManager.GetString("Errors_DynamicsCrmConectionFailed", resourceCulture);
@@ -6403,6 +6412,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FieldValueContainsControlCharacters {
             get {
                 return ResourceManager.GetString("FieldValueContainsControlCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
