@@ -75,7 +75,6 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
@@ -138,7 +137,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                         settingsContainer.AsSettings<IMsCrmSettings>(),
                         settingsContainer.AsSettings<ICachingSettings>(),
                         settingsContainer.AsSettings<IWebAppProcesingSettings>()))
-                     .ConfigureInterception()
+                     .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
                 
             /// TODO {all, 15.07.2013}: Инициализировать что-то такое совсем MVC специфичное лучше скорее в Application_Start MVCApplication внутри bootstrapper в идеале лучше не иметь вызово container resolve
@@ -153,10 +152,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return CustomLifetime.PerRequest;
         }
 
-        private static IUnityContainer ConfigureInterception(this IUnityContainer container)
+        private static IUnityContainer ConfigureInterception(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             var interception = container.AddNewExtension<Interception>()
-                                        .Configure<Interception>();
+                                        .Configure<Interception>()
+                                        .ConfigureGlobalMvcInterception(globalizationSettings);
 
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
@@ -285,7 +285,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return container.RegisterTypeWithDependencies<IPublicService, PublicService>(mappingScope, CustomLifetime.PerRequest)
                 .RegisterType<IPropertyBag, PropertyBag>(CustomLifetime.PerRequest)
 
-                .RegisterTypeWithDependencies<IActionLoggingValidatorFactory, ActionLoggingValidatorFactory>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerRequest, mappingScope)
 
                 .RegisterTypeWithDependencies<IBargainService, BargainService>(mappingScope, CustomLifetime.PerRequest)

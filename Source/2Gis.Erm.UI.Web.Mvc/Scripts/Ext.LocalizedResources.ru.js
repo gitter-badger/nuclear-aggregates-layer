@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 21.03.2014 12:04:26
+// File updated : 02.04.2014 18:05:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -122,6 +122,7 @@ GridViewColumns : 'Столбцы',
 GridViewSortAscText : 'Сортировать по возрастанию',
 GridViewSortDescText : 'Сортировать по убыванию',
 HiddenItem : '(скрыт до выяснения)',
+IncomingMessages : 'Входящие сообщения',
 IncreaseFontSizeText : 'Увеличение размера шрифта.',
 IncreaseFontSizeTitle : 'Увеличить размер',
 IndicatorText : 'Идет загрузка...',
@@ -225,6 +226,7 @@ OrderState : 'Статус заказа',
 OrderUpgradeProducedTheFollowingWarnings : 'Обновление заказа привело к следующим изменениям:',
 OrderValidationFailed : 'Не удалось выполнить проверку',
 OriginalValue : 'Исходное значение',
+OutgoingMessages : 'Исходящие сообщения',
 PayablePlan : 'К оплате (план)',
 Payment : 'Платеж',
 PaymentDatePlan : 'Дата оплаты, до',
@@ -252,6 +254,7 @@ Search : 'Искать:',
 SearchInstructions : 'Введите в поле "Искать" данные, которые требуется найти, и нажмите кнопку "Найти". Затем выберите требуемую запись, и нажмите кнопку OK.',
 SearchRecords : 'Поиск в записях',
 SelectedRecords : 'Выбранные записи',
+SelectMessageToSave : 'Выберите сообщения для сохранения',
 SelectObjectsToProcess : 'Выберите сообщения для обработки',
 SelectOneOrMoreRecords : 'Необходимо выбрать по крайней мере одну запись для удаления.',
 SelectToWhiteList : 'Выбрать',

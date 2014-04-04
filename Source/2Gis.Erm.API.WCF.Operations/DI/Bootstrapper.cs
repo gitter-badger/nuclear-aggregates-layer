@@ -265,7 +265,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
             container.RegisterTypeWithDependencies<IPublicService, PublicService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerOperationContext, MappingScope)
-                     .RegisterTypeWithDependencies<IActionLoggingValidatorFactory, ActionLoggingValidatorFactory>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(CustomLifetime.PerOperationContext)
                      // crosscutting
