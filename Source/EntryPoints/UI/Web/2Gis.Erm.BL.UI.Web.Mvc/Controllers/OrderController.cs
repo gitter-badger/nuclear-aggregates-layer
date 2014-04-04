@@ -704,6 +704,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
+        public ActionResult PrintNewSalesModelBargain(long id, long? profileId)
+        {
+            return TryPrintDocument(new PrintNewSalesModelBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
+        }
+
+        [HttpGet]
         public ActionResult PrintBill(long id, long? profileId)
         {
             return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id, LegalPersonProfileId = profileId });

@@ -18,6 +18,7 @@
         PrintBargainAdditionalAgreement,
         PrintReferenceInformation,
         PrepareJointBill,
-        PrintLetterOfGuarantee
+        PrintLetterOfGuarantee,
+        PrintNewSalesModelBargain,
     }
 }
