@@ -572,6 +572,12 @@
     <Content Include="Variables.Test.302.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.401.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.402.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
