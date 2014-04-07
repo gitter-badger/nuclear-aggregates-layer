@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 {
-    public sealed class CyprusFormatterFactory : FormatterFactoryBase, ICyprusAdapted
+    public sealed class CyprusFormatterFactory : CommonFormatterFactory, ICyprusAdapted
     {
         public CyprusFormatterFactory()
         {
