@@ -62,5 +62,14 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.Formatter
 
             It should_give_empty_string_for_null = () => _formatter.Format(null).Should().Be(string.Empty);
         }
+
+        public class WhenRequestingPercentFormatter : FormatterContext
+        {
+            private static IFormatter _formatter;
+
+            Because of = () => _formatter = _factory.Create(null, FormatType.Percents, 0);
+
+            It should_provide_a_formatter = () => _formatter.Should().NotBeNull();
+        }
     }
 }
