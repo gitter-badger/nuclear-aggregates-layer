@@ -17,12 +17,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
     public sealed class PrintLetterOfGuaranteeHandler : RequestHandler<PrintLetterOfGuaranteeRequest, Response>, IRussiaAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public PrintLetterOfGuaranteeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintLetterOfGuaranteeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
@@ -46,9 +48,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                            x =>
                            new
                                {
-                                   x.Order, 
-                                   SignupDate = PrintFormFieldsFormatHelper.FormatLongDate(x.Order.SignupDate),
-                                   ChangeDate = PrintFormFieldsFormatHelper.FormatLongDate(DateTime.Now.GetNextMonthFirstDate()),
+                                   x.Order,
+                                   SignupDate = _longDateFormatter.Format(x.Order.SignupDate),
+                                   ChangeDate = _longDateFormatter.Format(DateTime.Now.GetNextMonthFirstDate()),
                                    x.Profile, 
                                    x.LegalPerson, 
                                    x.BranchOfficeOrganizationUnit, 

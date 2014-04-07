@@ -21,12 +21,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
     public sealed class CzechPrintBillHandler : RequestHandler<PrintBillRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public CzechPrintBillHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public CzechPrintBillHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintBillRequest request)
@@ -91,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                            RelatedBargainInfo = (x.Bargain != null)
                                                                     ? string.Format(BLResources.RelatedToBargainInfoTemplate,
                                                                                     x.Bargain.Number,
-                                                                                    PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn))
+                                                                                    _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                                     : null,
                                            billInfo.OrderReleaseCountPlan,
                                            x.BranchOfficeOrganizationUnit,

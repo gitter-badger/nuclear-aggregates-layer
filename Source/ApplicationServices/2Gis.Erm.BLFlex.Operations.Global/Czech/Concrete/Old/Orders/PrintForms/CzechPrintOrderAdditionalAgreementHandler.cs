@@ -23,12 +23,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
     public sealed class CzechPrintOrderAdditionalAgreementHandler : RequestHandler<PrintOrderAdditionalAgreementRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
@@ -77,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                              ? string.Format(
                                                  BLCoreResources.RelatedToBargainInfoTemplate,
                                                  orderInfo.Bargain.Number,
-                                                 PrintFormFieldsFormatHelper.FormatLongDate(orderInfo.Bargain.CreatedOn))
+                                                 _longDateFormatter.Format(orderInfo.Bargain.CreatedOn))
                                              : null,
                     NextReleaseDate = orderInfo.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
                     orderInfo.LegalPerson,

@@ -110,6 +110,7 @@
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Generic\BargainPrintFormDataExtractor.cs" />
     <Compile Include="Russia\Generic\IBargainPrintFormDataExtractor.cs" />
+    <Compile Include="Shared\CommonFormatterFactory.cs" />
     <Compile Include="Shared\CzechFormatterFactory.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintRegionalOrderHandler.cs" />
     <Compile Include="Russia\Generic\IOrderPrintFormDataExtractor.cs" />
@@ -124,6 +125,15 @@
     <Compile Include="Shared\Consistency\ILegalPersonProfileConsistencyRuleContainer.cs" />
     <Compile Include="Shared\Consistency\InnConsistencyRule.cs" />
     <Compile Include="Shared\Consistency\RussiaLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Formatter\CurrencyFormatter.cs" />
+    <Compile Include="Shared\Formatter\KorunaFormatter.cs" />
+    <Compile Include="Shared\Formatter\FirstLetterCapitalizer.cs" />
+    <Compile Include="Shared\Formatter\EuroFormatter.cs" />
+    <Compile Include="Shared\Formatter\PesoFormatter.cs" />
+    <Compile Include="Shared\Formatter\RoublesFormatter.cs" />
+    <Compile Include="Shared\CyprusFormatterFactory.cs" />
+    <Compile Include="Shared\RussiaFormatterFactory.cs" />
+    <Compile Include="Shared\FormatterFactoryBase.cs" />
     <Compile Include="Shared\LegalPersonProfileExtensions.cs" />
     <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileAppointmentObtainer.cs" />
     <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeOrganizationUnitObtainer.cs" />
@@ -218,6 +228,8 @@
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
     <Compile Include="Shared\PrintOrderHelper.cs" />
+    <Compile Include="Shared\Formatter\RublesInWordsFormatter.cs" />
+    <Compile Include="Shared\Formatter\StringFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">

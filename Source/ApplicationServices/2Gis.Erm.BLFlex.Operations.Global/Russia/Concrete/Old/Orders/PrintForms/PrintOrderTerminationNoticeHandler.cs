@@ -19,12 +19,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
     public sealed class PrintOrderTerminationNoticeHandler : RequestHandler<PrintOrderTerminationNoticeRequest, Response>, IRussiaAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public PrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
@@ -65,8 +67,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 .Select(x => new
                              {
                                  x.Order,
-                                 RelatedBargainInfo = (x.Bargain != null) ? 
-                                    string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn)) 
+                                 RelatedBargainInfo = (x.Bargain != null) ?
+                                    string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn)) 
                                     : null,
                                  x.TerminationDate,
                                  x.LegalPerson,
