@@ -18,12 +18,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
     public sealed class PrintOrderBargainHandler : RequestHandler<PrintOrderBargainRequest, Response>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _shortDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public PrintOrderBargainHandler(IFinder finder, ISubRequestProcessor requestProcessor)
+        public PrintOrderBargainHandler(IFinder finder, IFormatterFactory formatterFactory, ISubRequestProcessor requestProcessor)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
@@ -96,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             }
         }
 
-        private static string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile, LegalPersonType legalPersonType)
+        private string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile, LegalPersonType legalPersonType)
         {
             var operatesOnTheBasisInGenitive = string.Empty;
             if (profile != null && profile.OperatesOnTheBasisInGenitive != null)
@@ -117,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                             BLResources.OperatesOnBasisOfCertificateTemplate,
                             ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.CertificateNumber,
-                            PrintFormFieldsFormatHelper.FormatShortDate(profile.CertificateDate));
+                            _shortDateFormatter.Format(profile.CertificateDate));
                         break;
                     case OperatesOnTheBasisType.Warranty:
                         operatesOnTheBasisInGenitive =
@@ -127,14 +129,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                                     : BLResources.OperatesOnBasisOfWarantyTemplate,
                                 ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                 profile.WarrantyNumber,
-                                PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
+                                _shortDateFormatter.Format(profile.WarrantyBeginDate));
                         break;
                     case OperatesOnTheBasisType.Bargain:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfBargainTemplate,
                             ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.BargainNumber,
-                            PrintFormFieldsFormatHelper.FormatShortDate(profile.BargainBeginDate));
+                            _shortDateFormatter.Format(profile.BargainBeginDate));
                         break;
                     case OperatesOnTheBasisType.FoundingBargain:
                         operatesOnTheBasisInGenitive = string.Format(

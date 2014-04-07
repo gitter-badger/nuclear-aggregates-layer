@@ -19,10 +19,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
     public sealed class OrderPrintFormDataExtractor : IOrderPrintFormDataExtractor
     {
         private readonly PrintOrderHelper _printOrderHelper;
+        private readonly IFormatter _longDateFormatter;
 
         public OrderPrintFormDataExtractor(IFormatterFactory formatterFactory, ISecurityServiceUserIdentifier userIdentifierService)
         {
             _printOrderHelper = new PrintOrderHelper(formatterFactory, userIdentifierService);
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         public PrintData GetPaymentSchedule(IQueryable<Bill> query)
@@ -137,9 +139,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
             return PrintData.Concat(categories, stuff);
         }
 
-        private static string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)
+        private string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)
         {
-            return string.Format(BLCoreResources.RelatedToBargainInfoTemplate, bargainNumber, PrintFormFieldsFormatHelper.FormatLongDate(createdOn));
+            return string.Format(BLCoreResources.RelatedToBargainInfoTemplate, bargainNumber, _longDateFormatter.Format(createdOn));
         }
 
         private static string GetClientRequisitesParagraph(LegalPerson legalPerson, LegalPersonProfile profile)

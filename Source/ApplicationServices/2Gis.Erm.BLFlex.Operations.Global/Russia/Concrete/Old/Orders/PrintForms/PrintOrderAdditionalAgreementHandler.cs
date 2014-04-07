@@ -19,12 +19,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
     public sealed class PrintOrderAdditionalAgreementHandler : RequestHandler<PrintOrderAdditionalAgreementRequest, Response>, IRussiaAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
+        private readonly IFormatter _shortDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
@@ -71,8 +75,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 .Select(x => new
                              {
                                  x.Order,
-                                 RelatedBargainInfo = (x.Bargain != null) ? 
-                                    string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn)) : null,
+                                 RelatedBargainInfo = (x.Bargain != null) ?
+                                    string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn)) : null,
                                  NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
                                  x.LegalPerson,
                                  x.Profile,
@@ -117,7 +121,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             }
         }
 
-        private static string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile, LegalPersonType legalPersonType)
+        private string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile, LegalPersonType legalPersonType)
         {
             var operatesOnTheBasisInGenitive = string.Empty;
             if (profile.OperatesOnTheBasisInGenitive != null)
@@ -137,7 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                             BLResources.OperatesOnBasisOfCertificateTemplate,
                             ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.CertificateNumber,
-                            PrintFormFieldsFormatHelper.FormatShortDate(profile.CertificateDate));
+                            _shortDateFormatter.Format(profile.CertificateDate));
                         break;
                     case OperatesOnTheBasisType.Warranty:
                         operatesOnTheBasisInGenitive =
@@ -147,14 +151,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                      : BLResources.OperatesOnBasisOfWarantyTemplate,
                                  ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                  profile.WarrantyNumber,
-                                 PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
+                                 _shortDateFormatter.Format(profile.WarrantyBeginDate));
                         break;
                     case OperatesOnTheBasisType.Bargain:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfBargainTemplate,
                             ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.BargainNumber,
-                            PrintFormFieldsFormatHelper.FormatShortDate(profile.BargainBeginDate));
+                            _shortDateFormatter.Format(profile.BargainBeginDate));
                         break;
                     case OperatesOnTheBasisType.FoundingBargain:
                         operatesOnTheBasisInGenitive = string.Format(

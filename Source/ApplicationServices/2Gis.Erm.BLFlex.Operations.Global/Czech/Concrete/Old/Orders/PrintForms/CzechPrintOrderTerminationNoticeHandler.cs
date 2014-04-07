@@ -19,12 +19,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
     public sealed class CzechPrintOrderTerminationNoticeHandler : RequestHandler<PrintOrderTerminationNoticeRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public CzechPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public CzechPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
@@ -66,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     {
                         x.Order,
                         RelatedBargainInfo = (x.Bargain != null)
-                            ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(x.Bargain.CreatedOn))
+                            ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                             : null,
                         x.TerminationDate,
                         x.LegalPerson,

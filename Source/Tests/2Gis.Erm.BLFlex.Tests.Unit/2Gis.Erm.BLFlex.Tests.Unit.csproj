@@ -73,6 +73,10 @@
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\ChileFormatterSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\CyprusFormatterSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\CzechFormatterSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\RussianFormatterSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -127,9 +131,7 @@
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BL\Print\Russia\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

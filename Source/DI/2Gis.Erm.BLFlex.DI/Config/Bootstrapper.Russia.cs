@@ -3,6 +3,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureRussiaSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
-                    .RegisterType<IFormatterFactory, FormatterFactory>(Lifetime.Singleton)
+                    .RegisterType<IFormatterFactory, RussiaFormatterFactory>(Lifetime.Singleton)
                     .RegisterType<ICheckInnService, RussiaCheckInnService>(Lifetime.Singleton)
                     .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                     .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
