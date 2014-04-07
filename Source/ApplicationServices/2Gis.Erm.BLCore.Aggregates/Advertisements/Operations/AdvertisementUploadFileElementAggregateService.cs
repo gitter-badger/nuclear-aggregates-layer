@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -19,20 +18,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
         private readonly ISecureRepository<AdvertisementElement> _secureAdvertisementElementRepository;
         private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IIdentityProvider _identityProvider;
-        private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AdvertisementUploadFileElementAggregateService(
             ISecureRepository<AdvertisementElement> secureAdvertisementElementRepository,
             IRepository<FileWithContent> fileRepository,
             IIdentityProvider identityProvider,
-            IUserContext userContext,
             IOperationScopeFactory scopeFactory)
         {
             _secureAdvertisementElementRepository = secureAdvertisementElementRepository;
             _fileRepository = fileRepository;
             _identityProvider = identityProvider;
-            _userContext = userContext;
             _scopeFactory = scopeFactory;
         }
 

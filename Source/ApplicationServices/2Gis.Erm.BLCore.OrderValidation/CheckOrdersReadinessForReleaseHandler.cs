@@ -136,7 +136,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 var orderIdsFilter = orderIds.Skip(takeRows * i).Take(takeRows).ToArray();
 
                 var orderInfosPart = _orderReadModel.GetOrderValidationAdditionalInfos(orderIdsFilter);
-                CsvFixup(orderInfosPart);
 
                 foreach (var orderInfo in orderInfosPart)
                 {
@@ -173,17 +172,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             reportFileNameBuilder.Append(".csv");
             return reportFileNameBuilder.ToString();
-        }
-
-        private static void CsvFixup(IEnumerable<OrderValidationAdditionalInfo> orderInfosPart)
-        {
-            foreach (var orderInfo in orderInfosPart)
-            {
-                if (orderInfo.FirmName.Contains(';'))
-                    orderInfo.FirmName = String.Concat("\"", orderInfo.FirmName.Replace("\"", "\"\""), "\"");
-                if (orderInfo.LegalPersonName.Contains(';'))
-                    orderInfo.LegalPersonName = String.Concat("\"", orderInfo.LegalPersonName.Replace("\"", "\"\""), "\"");
-            }
         }
 
         private sealed class ReportLine
