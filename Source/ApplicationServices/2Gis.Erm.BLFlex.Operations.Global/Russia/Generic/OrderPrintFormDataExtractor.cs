@@ -20,10 +20,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
     {
         private readonly PrintOrderHelper _printOrderHelper;
         private readonly IFormatter _longDateFormatter;
+        private readonly IFormatter _shortDateFormatter;
 
         public OrderPrintFormDataExtractor(IFormatterFactory formatterFactory, ISecurityServiceUserIdentifier userIdentifierService)
         {
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
+            _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
             _printOrderHelper = new PrintOrderHelper(formatterFactory, userIdentifierService);
         }
 
@@ -138,9 +140,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             return stuff;
         }
 
-        private static string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)
+        private string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)
         {
-            return string.Format(BLCoreResources.RelatedToBargainInfoTemplate, bargainNumber, PrintFormFieldsFormatHelper.FormatLongDate(createdOn));
+            return string.Format(BLCoreResources.RelatedToBargainInfoTemplate, bargainNumber, _longDateFormatter.Format(createdOn));
         }
 
         private static string TechnicalTerminationParagraph(TemplateCode templateCode)
@@ -172,7 +174,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             }
         }
 
-        private static string GetBeginContractParagraph(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile profile)
+        private string GetBeginContractParagraph(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile profile)
         {
             var operatesOnTheBasisInGenitive = string.Empty;
             switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
@@ -191,7 +193,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                                     BLCoreResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson,
                                     ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                     profile.WarrantyNumber,
-                                    PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
+                                    _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                 break;
                             default:
                                 throw new BusinessLogicDataException((LegalPersonType)legalPerson.LegalPersonTypeEnum, (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive);
@@ -229,21 +231,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                                         BLCoreResources.OperatesOnBasisOfCertificateTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.CertificateNumber,
-                                        PrintFormFieldsFormatHelper.FormatShortDate(profile.CertificateDate));
+                                        _shortDateFormatter.Format(profile.CertificateDate));
                                     break;
                                 case OperatesOnTheBasisType.Warranty:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfWarantyTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.WarrantyNumber,
-                                        PrintFormFieldsFormatHelper.FormatShortDate(profile.WarrantyBeginDate));
+                                        _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.Bargain:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfBargainTemplate,
                                         ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.BargainNumber,
-                                        PrintFormFieldsFormatHelper.FormatShortDate(profile.BargainBeginDate));
+                                        _shortDateFormatter.Format(profile.BargainBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.FoundingBargain:
                                     operatesOnTheBasisInGenitive = string.Format(
