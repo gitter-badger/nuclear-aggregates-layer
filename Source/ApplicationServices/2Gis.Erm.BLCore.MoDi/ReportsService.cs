@@ -31,13 +31,15 @@ namespace DoubleGis.Erm.BLCore.MoDi
         private readonly IFinder _finder;
         private readonly IMoneyDistributionSettings _moneyDistributionSettings;
         private readonly IUserContext _userContext;
+        private readonly IPrintFormService _printFormService;
 
-        public ReportsService(IFinder finder, IUseCaseTuner useCaseTuner, IMoneyDistributionSettings moneyDistributionSettings, IUserContext userContext)
+        public ReportsService(IFinder finder, IUseCaseTuner useCaseTuner, IMoneyDistributionSettings moneyDistributionSettings, IUserContext userContext, IPrintFormService printFormService)
         {
             _finder = finder;
             _useCaseTuner = useCaseTuner;
             _moneyDistributionSettings = moneyDistributionSettings;
             _userContext = userContext;
+            _printFormService = printFormService;
         }
 
         public PlatformReportResponse PlatformReport(PlatformReportRequest request)
@@ -56,13 +58,13 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 equalsStartDateStates = equalsStartDateStates.Concat(new[] { OrderState.OnRegistration });
             }
 
-            var orderInfos = _finder.Find<Order>(x => 
-                            (x.SourceOrganizationUnitId == request.OrganizationUnitId 
+            var orderInfos = _finder.Find<Order>(x =>
+                            (x.SourceOrganizationUnitId == request.OrganizationUnitId
                                 || x.DestOrganizationUnitId == request.OrganizationUnitId
                                 || request.GetDataForAllNetwork) &&
                             x.EndDistributionDateFact > request.StartDate &&
                             x.IsActive && !x.IsDeleted)
-            //.Where(x => x.Id == 260807) // uncomment for test
+                //.Where(x => x.Id == 260807) // uncomment for test
             .Select(x => new
             {
                 Order = x,
@@ -228,8 +230,8 @@ namespace DoubleGis.Erm.BLCore.MoDi
             var firstApril = _moneyDistributionSettings.FirstApril;
 
             var orderInfos = _finder.Find<Order>(
-                x => 
-                    (x.SourceOrganizationUnitId == request.OrganizationUnitId 
+                x =>
+                    (x.SourceOrganizationUnitId == request.OrganizationUnitId
                     || x.DestOrganizationUnitId == request.OrganizationUnitId
                     || request.GetDataForAllNetwork) &&
                         x.EndDistributionDateFact > request.StartDate &&
@@ -297,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 }),
             })
             .Where(x => x.OrderPositions.Any())
-            // отфильтровываем франч-франч по API\Online у которых период размещения до 1 апреля 2013
+                // отфильтровываем франч-франч по API\Online у которых период размещения до 1 апреля 2013
             .Where(x => !(x.SourceBou.ContributionType == ContributionTypeEnum.Franchisees && x.DestBou.ContributionType == ContributionTypeEnum.Franchisees &&
                         x.BeginDistributionDate < firstApril &&
                         (x.Platform == PlatformEnum.Api || x.Platform == PlatformEnum.Online)))
@@ -408,8 +410,6 @@ namespace DoubleGis.Erm.BLCore.MoDi
         public FileDescription ProceedsReport(DateTime startDate, DateTime endDate)
         {
             var template = ConfigurationManager.AppSettings["ProceedsReportTemplate"];
-            var printFormService = (IPrintFormService)new PrintFormService(new FormatterFactory());
-
             using (var memoryStream = new MemoryStream())
             {
                 var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, template);
@@ -422,7 +422,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
                 // TODO: выставляем культуру в тред для _printFormService, удалить после рефакторинга engine печати
                 Thread.CurrentThread.CurrentCulture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-                printFormService.PrintToDocx(memoryStream, reportData, 643);
+                _printFormService.PrintToDocx(memoryStream, reportData, 643);
 
                 var fileDescription = new FileDescription
                 {
@@ -444,7 +444,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
             //var allowedOrgUnits = new long[] { 6 };
 
             var orderInfos =
-                
+
                 _finder.Find<Order>(x => x.IsActive && !x.IsDeleted)
                 //.Where(x => allowedOrgUnits.Contains(x.DestOrganizationUnitId) || allowedOrgUnits.Contains(x.SourceOrganizationUnitId)) // uncomment to test
                     .Where(x => allowedOrderStates.Contains((OrderState)x.WorkflowStepId) && x.Locks.Any(y => !y.IsDeleted && y.PeriodStartDate == startDate && y.PeriodEndDate == endDate))
@@ -463,11 +463,11 @@ namespace DoubleGis.Erm.BLCore.MoDi
                                 DiscountSum = op.DiscountSum / op.Order.ReleaseCountPlan,
                                 op.DiscountPercent,
                                 PricePositionCost = op.PricePosition.Cost
-                            }) ,
+                            }),
                         SourceBou = x.SourceOrganizationUnit.BranchOfficeOrganizationUnits.Where(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
                             .Select(y => new
                             {
-                                y.Id, 
+                                y.Id,
                                 y.OrganizationUnitId,
                                 // ReSharper disable once PossibleInvalidOperationException
                                 BranchOfficeContributionType = (ContributionTypeEnum)y.BranchOffice.ContributionTypeId
@@ -475,7 +475,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                         DestBou = x.DestOrganizationUnit.BranchOfficeOrganizationUnits.Where(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
                             .Select(y => new
                             {
-                                y.Id, 
+                                y.Id,
                                 y.OrganizationUnitId,
                                 // ReSharper disable once PossibleInvalidOperationException
                                 BranchOfficeContributionType = (ContributionTypeEnum)y.BranchOffice.ContributionTypeId
@@ -510,7 +510,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     });
                 });
 
-            var saleDirectionGroup = distributions.GroupBy(x => new {x.Distribution.NewTo, x.IsSelf}).Select(x => new
+            var saleDirectionGroup = distributions.GroupBy(x => new { x.Distribution.NewTo, x.IsSelf }).Select(x => new
             {
                 PlatformGroup = x.GroupBy(y => y.Distribution.Platform).Select(y => new
                 {

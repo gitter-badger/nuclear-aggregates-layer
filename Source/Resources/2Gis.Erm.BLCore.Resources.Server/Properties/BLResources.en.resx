@@ -1892,7 +1892,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Advertising material is used in one or more order items and cannot be deactivated</value>
   </data>
   <data name="DisqualifyClientHasOnlyOneFirm" xml:space="preserve">
-    <value>You cannon remove reference to the only company of the client</value>
+    <value>You cannot remove reference to the only company of the client</value>
   </data>
   <data name="NecessaryToCreateAtLeastOneBill" xml:space="preserve">
     <value>At least one payment must be created</value>
@@ -2429,7 +2429,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Do you really want to copy the price-list into a new one?</value>
   </data>
   <data name="CannotCreateBargainAsLegalPersonsAlreadyHaveBargain" xml:space="preserve">
-    <value>There is an unclosed contract for this couple of legal entities. A new contract cannon be created.</value>
+    <value>There is an unclosed contract for this couple of legal entities. A new contract cannot be created.</value>
   </data>
   <data name="OrderState" xml:space="preserve">
     <value>Order status</value>

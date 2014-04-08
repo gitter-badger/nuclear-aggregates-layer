@@ -18,33 +18,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class PrintJointBillHandler : RequestHandler<PrintJointBillRequest, Response>
     {
         private readonly IFinder _finder;
+        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public PrintJointBillHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintJointBillHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintJointBillRequest request)
         {
             var commonInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                 .Select(x => new
-                                 {
-                                     BillsBeginDistributionDate = x.BeginDistributionDate,
-                                     BillsEndDistributionDate = x.EndDistributionDate,
-                                     x.BillDate,
-                                     x.PaymentDatePlan,
-                                     OrderReleaseCountPlan = x.Order.ReleaseCountPlan,
-                                     x.Order.BranchOfficeOrganizationUnit,
-                                     x.Order.BranchOfficeOrganizationUnit.BranchOffice,
-                                     x.Order.LegalPerson,
-                                     CurrencyISOCode = x.Order.Currency.ISOCode,
-                                     LegalPersonType = (LegalPersonType) x.Order.LegalPerson.LegalPersonTypeEnum,
-                                     x.Order.BranchOfficeOrganizationUnitId,
-                                     Profile =
-                                 x.Order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value),
-                                 })
+                {
+                    BillsBeginDistributionDate = x.BeginDistributionDate,
+                    BillsEndDistributionDate = x.EndDistributionDate,
+                    x.BillDate,
+                    x.PaymentDatePlan,
+                    OrderReleaseCountPlan = x.Order.ReleaseCountPlan,
+                    x.Order.BranchOfficeOrganizationUnit,
+                    x.Order.BranchOfficeOrganizationUnit.BranchOffice,
+                    x.Order.LegalPerson,
+                    CurrencyISOCode = x.Order.Currency.ISOCode,
+                    LegalPersonType = (LegalPersonType)x.Order.LegalPerson.LegalPersonTypeEnum,
+                    x.Order.BranchOfficeOrganizationUnitId,
+                    Profile =
+                x.Order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value),
+                })
                 .FirstOrDefault();
 
             if (commonInfo == null || commonInfo.BranchOfficeOrganizationUnitId == null)
@@ -57,85 +59,85 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                                                          && bill.EndDistributionDate == commonInfo.BillsEndDistributionDate
                                                          && request.RelatedOrdersId.Contains(bill.OrderId))))
                 .Select(bill => new
-                                {
-                                    Bill = new BillInfo
-                                           {
-                                               BillNumber = bill.BillNumber,
-                                               BeginDistributionDate = bill.BeginDistributionDate,
-                                               EndDistributionDate = bill.EndDistributionDate,
-                                               PayablePlan = bill.PayablePlan,
-                                               VatPlan = bill.VatPlan,
-                                               PaymentDatePlan = bill.PaymentDatePlan,
-                                               PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
-                                               NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
-                                               CreatedOn = bill.CreatedOn,
-                                               OrderReleaseCountPlan = bill.Order.ReleaseCountPlan
-                                           },
-                                    Order = new
-                                            {
-                                                bill.Order.Number,
-                                                bill.Order.SignupDate,
-                                                bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                                DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name
-                                            },
-                                    bill.Order.Bargain,
-                                })
+                {
+                    Bill = new BillInfo
+                    {
+                        BillNumber = bill.BillNumber,
+                        BeginDistributionDate = bill.BeginDistributionDate,
+                        EndDistributionDate = bill.EndDistributionDate,
+                        PayablePlan = bill.PayablePlan,
+                        VatPlan = bill.VatPlan,
+                        PaymentDatePlan = bill.PaymentDatePlan,
+                        PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
+                        NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
+                        CreatedOn = bill.CreatedOn,
+                        OrderReleaseCountPlan = bill.Order.ReleaseCountPlan
+                    },
+                    Order = new
+                    {
+                        bill.Order.Number,
+                        bill.Order.SignupDate,
+                        bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                        DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name
+                    },
+                    bill.Order.Bargain,
+                })
                 .ToArray();
-           
+
             var summary = billsInfo.Aggregate(new SummaryJointBillInfo { PayableWithoutVatPlan = 0m, VatPlan = 0m, PayablePlan = 0m },
                                               (sum, item) =>
-                                                  {
-                                                      sum.PayableWithoutVatPlan += item.Bill.PayableWithoutVatPlan;
-                                                      sum.VatPlan = (item.Bill.VatPlan.HasValue ? sum.VatPlan + item.Bill.VatPlan.Value : sum.VatPlan);
-                                                      sum.PayablePlan += item.Bill.PayablePlan;
-                                                      sum.PaymentDatePlan = item.Bill.PaymentDatePlan;
-                                                      return sum;
-                                                  });
+                                              {
+                                                  sum.PayableWithoutVatPlan += item.Bill.PayableWithoutVatPlan;
+                                                  sum.VatPlan = (item.Bill.VatPlan.HasValue ? sum.VatPlan + item.Bill.VatPlan.Value : sum.VatPlan);
+                                                  sum.PayablePlan += item.Bill.PayablePlan;
+                                                  sum.PaymentDatePlan = item.Bill.PaymentDatePlan;
+                                                  return sum;
+                                              });
 
             var printData = new
-                            {
-                                commonInfo.BranchOfficeOrganizationUnit,
-                                commonInfo.BranchOffice,
-                                commonInfo.LegalPerson,
-                                commonInfo.Profile,
-                                commonInfo.CurrencyISOCode,
-                                BillDate = DateTime.Now,
-                                commonInfo.PaymentDatePlan,
-                                commonInfo.BillsBeginDistributionDate,
-                                commonInfo.BillsEndDistributionDate,
-                                commonInfo.OrderReleaseCountPlan,
-                                Bills = billsInfo.Select(b => new
-                                                              {
-                                                                  b.Bill,
-                                                                  commonInfo.OrderReleaseCountPlan,
-                                                                  OrderVatRate = (b.Order.VatRate == default(decimal)) ? (decimal?)null : b.Order.VatRate,
-                                                                  b.Order,
-                                                                  RelatedBargainInfo = (b.Bargain != null) ? 
-                                                                    string.Format(BLResources.RelatedToBargainInfoTemplate, b.Bargain.Number, PrintFormFieldsFormatHelper.FormatLongDate(b.Bargain.CreatedOn)) : null,
-                                                                  commonInfo.BillsBeginDistributionDate,
-                                                                  commonInfo.BillsEndDistributionDate
-                                                              }),
-                                Summary = new
-                                          {
-                                              summary.PayableWithoutVatPlan,
-                                              summary.VatPlan,
-                                              summary.PayablePlan,
-                                              summary.PaymentDatePlan
-                                          }
-                            };
+            {
+                commonInfo.BranchOfficeOrganizationUnit,
+                commonInfo.BranchOffice,
+                commonInfo.LegalPerson,
+                commonInfo.Profile,
+                commonInfo.CurrencyISOCode,
+                BillDate = DateTime.Now,
+                commonInfo.PaymentDatePlan,
+                commonInfo.BillsBeginDistributionDate,
+                commonInfo.BillsEndDistributionDate,
+                commonInfo.OrderReleaseCountPlan,
+                Bills = billsInfo.Select(b => new
+                {
+                    b.Bill,
+                    commonInfo.OrderReleaseCountPlan,
+                    OrderVatRate = (b.Order.VatRate == default(decimal)) ? (decimal?)null : b.Order.VatRate,
+                    b.Order,
+                    RelatedBargainInfo = (b.Bargain != null) ?
+                      string.Format(BLResources.RelatedToBargainInfoTemplate, b.Bargain.Number, _longDateFormatter.Format(b.Bargain.CreatedOn)) : null,
+                    commonInfo.BillsBeginDistributionDate,
+                    commonInfo.BillsEndDistributionDate
+                }),
+                Summary = new
+                {
+                    summary.PayableWithoutVatPlan,
+                    summary.VatPlan,
+                    summary.PayablePlan,
+                    summary.PaymentDatePlan
+                }
+            };
 
             const String distributionPeriodDateTemplate = "yyyy_MM_dd";
             var commonDistributionPeriod = commonInfo.BillsBeginDistributionDate.ToString(distributionPeriodDateTemplate) + '-' +
                                            commonInfo.BillsEndDistributionDate.ToString(distributionPeriodDateTemplate);
 
             return _requestProcessor.HandleSubRequest(new PrintDocumentRequest()
-                                                {
-                                                    CurrencyIsoCode = printData.CurrencyISOCode,
-                                                    FileName = string.Format(BLResources.JointBill, commonDistributionPeriod),
-                                                    BranchOfficeOrganizationUnitId = commonInfo.BranchOfficeOrganizationUnitId,
-                                                    TemplateCode = GetTemplateCode(commonInfo.LegalPersonType),
-                                                    PrintData = printData
-                                                }, Context);
+            {
+                CurrencyIsoCode = printData.CurrencyISOCode,
+                FileName = string.Format(BLResources.JointBill, commonDistributionPeriod),
+                BranchOfficeOrganizationUnitId = commonInfo.BranchOfficeOrganizationUnitId,
+                TemplateCode = GetTemplateCode(commonInfo.LegalPersonType),
+                PrintData = printData
+            }, Context);
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType)
