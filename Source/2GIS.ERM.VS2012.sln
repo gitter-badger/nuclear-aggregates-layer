@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Common", "..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj", "{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}"
 EndProject
@@ -429,6 +429,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Environments\Templates\Erm.Test.Czech.config = Environments\Templates\Erm.Test.Czech.config
 		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
 		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
+		Environments\Templates\Erm.Test.Ukraine.config = Environments\Templates\Erm.Test.Ukraine.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8A7FE04B-1B23-412D-AC87-D297824303A3}"
