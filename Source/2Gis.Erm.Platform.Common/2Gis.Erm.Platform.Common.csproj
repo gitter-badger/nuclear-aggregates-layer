@@ -97,7 +97,6 @@
     <Compile Include="Logging\SystemInfo\ProcessInfo.cs" />
     <Compile Include="Logging\SystemInfo\SecurityInfo.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
-    <Compile Include="PrintFormEngine\PrintFormFieldsFormatHelper.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
     <Compile Include="Settings\ISettings.cs" />
@@ -135,15 +134,12 @@
     <Compile Include="Logging\LoggerContextManager.cs" />
     <Compile Include="Logging\LoggerContextConstEntryProvider.cs" />
     <Compile Include="Logging\NullLogger.cs" />
-    <Compile Include="PrintFormEngine\FormatterFactory.cs" />
     <Compile Include="PrintFormEngine\FormatType.cs" />
     <Compile Include="PrintFormEngine\IFormatter.cs" />
     <Compile Include="PrintFormEngine\IFormatterFactory.cs" />
     <Compile Include="PrintFormEngine\IPrintFormService.cs" />
     <Compile Include="PrintFormEngine\OpenXmlExtensions.cs" />
     <Compile Include="PrintFormEngine\PrintFormService.cs" />
-    <Compile Include="PrintFormEngine\RublesInWordsFormatter.cs" />
-    <Compile Include="PrintFormEngine\StringFormatter.cs" />
     <Compile Include="Utils\DateTimeExtensions.cs" />
     <Compile Include="SolutionInfo.cs" />
     <Compile Include="Compression\StreamExtensions.cs" />
