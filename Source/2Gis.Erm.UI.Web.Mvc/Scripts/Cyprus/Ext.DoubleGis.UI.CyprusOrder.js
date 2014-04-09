@@ -41,6 +41,7 @@
 
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         if (clientId) {
+            legalPersonLookup.supressMatchesErrors = true;
             legalPersonLookup.forceGetData({
                 limit: 1
             });
@@ -57,6 +58,7 @@
 
         var clientLookup = Ext.getCmp('Client');
         if (firmId) {
+            clientLookup.supressMatchesErrors = true;
             clientLookup.forceGetData({
                 extendedInfo: "FirmId={FirmId}"
             });
