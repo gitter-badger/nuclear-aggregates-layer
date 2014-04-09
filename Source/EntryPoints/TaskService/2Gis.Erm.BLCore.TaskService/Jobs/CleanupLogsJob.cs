@@ -28,7 +28,9 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
             // cleanup erm
-            _cleanupPersistenceService.CleanupErmLogging(7200, _settings.LogSizeInDays);
+
+            // TODO {all, 09.04.2014}: раскомментировать или удалить после решения тикета ERM-3841
+            // _cleanupPersistenceService.CleanupErmLogging(7200, _settings.LogSizeInDays);
             _cleanupPersistenceService.CleanupErm(7200, _settings.LogSizeInDays);
             
             // cleanup crm
