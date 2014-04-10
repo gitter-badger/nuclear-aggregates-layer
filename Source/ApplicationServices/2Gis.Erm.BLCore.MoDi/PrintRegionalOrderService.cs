@@ -536,6 +536,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 ChiefNameInNominative = y.ChiefNameInNominative,
                 OperatesOnTheBasisInGenitive = y.OperatesOnTheBasisInGenitive,
                 Email = y.Email,
+                ActualAddress = y.ActualAddress,
                 Kpp = y.Kpp,
                 PaymentEssentialElements = y.PaymentEssentialElements,
 
@@ -621,6 +622,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
             public string ChiefNameInNominative { get; set; }
             public string OperatesOnTheBasisInGenitive { get; set; }
             public string Email { get; set; }
+            public string ActualAddress { get; set; }
             public string Kpp { get; set; }
             public string PaymentEssentialElements { get; set; }
             public string ElectronicMedia { get; set; }
