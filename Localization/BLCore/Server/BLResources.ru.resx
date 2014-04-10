@@ -2066,9 +2066,6 @@
   <data name="FirstLevel" xml:space="preserve">
     <value>1-уровень</value>
   </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
   </data>
