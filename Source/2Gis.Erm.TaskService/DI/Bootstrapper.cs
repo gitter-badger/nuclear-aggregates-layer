@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
+using DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.TaskService.DI
 {
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(TaskObtainer), typeof(NotificationsProcessor), typeof(ProcessNotifications), typeof(ICleanupPersistenceService) }; 
+        private static readonly Type[] EagerLoading = { typeof(TaskObtainer), typeof(NotificationsProcessor), typeof(ProcessNotifications), typeof(ICleanupPersistenceService), typeof(SerializePriceHandler) }; 
 
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {

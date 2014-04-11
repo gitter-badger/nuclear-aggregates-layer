@@ -475,9 +475,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports", "..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports.UI", "..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports.UI\2Gis.Erm.BL.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj", "{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 117
+		SccNumberOfProjects = 118
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -945,6 +947,10 @@ Global
 		SccProjectTopLevelParentUniqueName116 = 2GIS.ERM.VS2012.sln
 		SccProjectName116 = ../../BL/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports.UI
 		SccLocalPath116 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI
+		SccProjectUniqueName117 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations\\2Gis.Erm.BL.Operations.csproj
+		SccProjectTopLevelParentUniqueName117 = 2GIS.ERM.VS2012.sln
+		SccProjectName117 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations
+		SccLocalPath117 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2115,6 +2121,16 @@ Global
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|x64.ActiveCfg = Release|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2301,6 +2317,7 @@ Global
 		{8C7E352B-1450-4C92-9F53-EABEB51E1F79} = {8008D300-37A0-44BB-863E-7CE97DC7B305}
 		{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B} = {EC09A5A4-AC6C-40FC-9016-28923E155C55}
 		{11A69732-10F5-4FCF-9A49-46EA6D119410} = {EC09A5A4-AC6C-40FC-9016-28923E155C55}
+		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1} = {EC09A5A4-AC6C-40FC-9016-28923E155C55}
 		{9137725E-3CDE-45AE-B9F2-BD67B05BECAF} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
 		{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817} = {F2ED535E-1B74-4369-9ED9-DAC51321C3D6}
 		{8A7FE04B-1B23-412D-AC87-D297824303A3} = {F2ED535E-1B74-4369-9ED9-DAC51321C3D6}

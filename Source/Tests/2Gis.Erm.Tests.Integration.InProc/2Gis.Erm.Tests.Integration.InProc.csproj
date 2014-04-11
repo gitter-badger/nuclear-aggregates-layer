@@ -161,9 +161,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ProcessLocalMessagesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ReprocessLocalMessagesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\SaveLocalMessageHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Prices\CopyPriceHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Prices\PublishPriceHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Prices\ReplacePriceHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Prices\UnpublishPriceHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Printing\PrintDocumentHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Reports\PlanningReportHandlerTest.cs" />
