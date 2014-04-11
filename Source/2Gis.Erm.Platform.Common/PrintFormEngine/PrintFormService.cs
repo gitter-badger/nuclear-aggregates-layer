@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
                 var allSdtBlocks = doc.MainDocumentPart.Document.Descendants<SdtElement>()
                     .Union(doc.MainDocumentPart.HeaderParts.SelectMany(x => x.Header.Descendants<SdtElement>()))
                     .Union(doc.MainDocumentPart.FooterParts.SelectMany(x => x.Footer.Descendants<SdtElement>()))
+                    .Where(block => !block.GetTag().StartsWith("Optional"))
                     .ToArray();
 
                 var sdtCells = allSdtBlocks.Where(b => b is SdtRun && !b.Descendants<Table>().Any()).Cast<SdtRun>();
