@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Schema;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -27,13 +26,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             _exportRepository = exportRepository;
         }
 
+        protected abstract string GetXsdSchemaContent(string schemaName);
+
         protected abstract XElement SerializeDtoToXElement(IExportableEntityDto entityDto);
 
         protected abstract ISelectSpecification<TEntity, IExportableEntityDto> CreateDtoExpression();
 
         protected override SerializeObjectsResponse Handle(SerializeObjectsRequest<TEntity> request)
         {
-            var schema = XmlValidator.CreateXmlSchemaSetForXsd(BLCore.Operations.Properties.Resources.ResourceManager.GetString(request.SchemaName));
             var builder = request.IsRecovery
                                   ? _exportRepository.GetBuilderForFailedObjects(request.FailedEntities)
                                   : _exportRepository.GetBuilderForOperations(request.Operations);
@@ -43,6 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             var unsuccessfulExportObjects = new List<IExportableEntityDto>();
 
+            var xsdSchemaContent = GetXsdSchemaContent(request.SchemaName);
             var serializedObjects = processedObjectsDtos
                 .Where(x => ValidDtoObject(x, unsuccessfulExportObjects))
                 .Select(x => new
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                         ExportableEntityDto = x,
                         SerializedEntityDto = new XDocument(SerializeDtoToXElement(x)),
                     })
-                .Where(x => ValidXmlObject(x.ExportableEntityDto, x.SerializedEntityDto, schema, unsuccessfulExportObjects))
+                .Where(x => ValidXmlObject(x.ExportableEntityDto, x.SerializedEntityDto, xsdSchemaContent, unsuccessfulExportObjects))
                 .ToArray();
 
             if (unsuccessfulExportObjects.Any())
@@ -102,11 +103,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return true;
         }
 
-        private bool ValidXmlObject(IExportableEntityDto exportableEntityDto, XDocument document, XmlSchemaSet schema, ICollection<IExportableEntityDto> unsuccessfulExportObjects)
+        private bool ValidXmlObject(IExportableEntityDto exportableEntityDto, XDocument document, string xsd, ICollection<IExportableEntityDto> unsuccessfulExportObjects)
         {
             // validate order xml
             string error;
-            var isValidXml = XmlValidator.Validate(document, schema, out error);
+            var isValidXml = XmlValidator.Validate(document, xsd, out error);
             if (!isValidXml)
             {
                 unsuccessfulExportObjects.Add(exportableEntityDto);

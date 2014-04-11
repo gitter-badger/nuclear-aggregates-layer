@@ -1,34 +1,51 @@
-﻿using System.Transactions;
-
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 {
     public class ActivatePriceService : IActivateGenericEntityService<Price>
     {
-        private readonly IPriceRepository _priceRepository;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IBulkActivatePricePositionsAggregateService _bulkActivatePricePositionsAggregateService;
+        private readonly IBulkActivateDeniedPositionsAggregateService _bulkActivateDeniedPositionsAggregateService;
+        private readonly IActivatePriceAggregateService _activatePriceAggregateService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public ActivatePriceService(IPriceRepository priceRepository)
+        public ActivatePriceService(IPriceReadModel priceReadModel,
+                                    IBulkActivatePricePositionsAggregateService bulkActivatePricePositionsAggregateService,
+                                    IBulkActivateDeniedPositionsAggregateService bulkActivateDeniedPositionsAggregateService,
+                                    IActivatePriceAggregateService activatePriceAggregateService,
+                                    IOperationScopeFactory operationScopeFactory)
         {
-            _priceRepository = priceRepository;
+            _priceReadModel = priceReadModel;
+            _bulkActivatePricePositionsAggregateService = bulkActivatePricePositionsAggregateService;
+            _bulkActivateDeniedPositionsAggregateService = bulkActivateDeniedPositionsAggregateService;
+            _activatePriceAggregateService = activatePriceAggregateService;
+            _operationScopeFactory = operationScopeFactory;
         }
 
         public int Activate(long entityId)
         {
-            int result = 0;
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, Price>())
             {
-                var activateAggregateRepository = _priceRepository as IActivateAggregateRepository<Price>;
-                result = activateAggregateRepository.Activate(entityId);
+                var price = _priceReadModel.GetPrice(entityId);
+                var allPriceDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(entityId);
 
-                transaction.Complete();
+                var count = _bulkActivatePricePositionsAggregateService.Activate(allPriceDescendantsDto.PricePositions,
+                                                                                 allPriceDescendantsDto.AssociatedPositionsGroupsMapping,
+                                                                                 allPriceDescendantsDto.AssociatedPositionsMapping);
+
+                count += _bulkActivateDeniedPositionsAggregateService.Activate(allPriceDescendantsDto.DeniedPositions);
+
+                count += _activatePriceAggregateService.Activate(price);
+
+                operationScope.Complete();
+                return count;
             }
-
-            return result;
         }
     }
 }

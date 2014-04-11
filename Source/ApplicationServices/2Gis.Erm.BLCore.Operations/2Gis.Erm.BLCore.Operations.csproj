@@ -68,6 +68,8 @@
     <Compile Include="Concrete\Integration\Export\Export\LegalPersonOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Export\OperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Export\OrderOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Export\PriceOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Export\PricePositionOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Export\ThemeOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Export\ThemeOrganizationUnitOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Export\ThemeTemplateOperationsExportService.cs" />
@@ -192,10 +194,7 @@
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedHandler.cs" />
-    <Compile Include="Concrete\Old\PricePositions\CopyPricePositionHandler.cs" />
-    <Compile Include="Concrete\Old\Prices\CopyPriceHandler.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceHandler.cs" />
-    <Compile Include="Concrete\Old\Prices\ReplacePriceHandler.cs" />
     <Compile Include="Concrete\Old\Prices\UnpublishPriceHandler.cs" />
     <Compile Include="Concrete\Old\Printing\PrintDocumentHandler.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionHandler.cs" />
@@ -221,6 +220,9 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
+    <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
+    <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
     <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
@@ -725,7 +727,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Concrete\Old\PricePositions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

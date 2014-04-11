@@ -31,21 +31,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             // невозможно выгрузить заказ у которого нет фирмы (xsd валидация)
             if (orderDto.FirmId == null)
+            {
                 return "Заказ не имеет связи с фирмой";
+            }
 
             // невозможно выгрузить заказ у фирмы которого нет адресов (xsd валидация)
             if (!orderDto.FirmAddressDgppIds.Any())
+            {
                 return "Фирма не имеет ни одного адреса";
+            }
 
             // невозможно выгрузить заказ, у которого не задан Стабильный идентификатор юридического лица клиента (xsd валидация)
             if (orderDto.LegalEntityCode == null)
+            {
                 return "Не задан стабильный идентификатор юридического лица клиента";
+            }
 
             // невозможно выгрузить заказ, у которого нет юридического лица отделения организации (xsd валидация)
             if (orderDto.LegalEntityBranchCode == null)
+            {
                 return "Заказ не имеет юридического лица отделения организации";
+            }
 
             return null;
+        }
+
+        protected override string GetXsdSchemaContent(string schemaName)
+        {
+            return Properties.Resources.ResourceManager.GetString(schemaName);
         }
 
         protected override XElement SerializeDtoToXElement(IExportableEntityDto entiryDto)
@@ -57,7 +70,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var curator = _securityServiceUserIdentifier.GetUserInfo(order.OwnerCode).Account;
 
             if (orderDto.FirmId == null || orderDto.LegalEntityCode == null || orderDto.LegalEntityBranchCode == null)
+            {
                 throw new BusinessLogicException("При выгрузке заказов в шину интеграции возникла невозможная ситуация");
+            }
 
             var orderElement = new XElement("Order",
                 new XAttribute("Code", order.Id),

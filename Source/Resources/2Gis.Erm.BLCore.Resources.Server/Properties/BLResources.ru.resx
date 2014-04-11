@@ -5189,4 +5189,7 @@
   <data name="File" xml:space="preserve">
      <value>Файл</value>
   </data>
+  <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя активировать позицию из опубликованного прайс-листа</value>
+  </data>
 </root>

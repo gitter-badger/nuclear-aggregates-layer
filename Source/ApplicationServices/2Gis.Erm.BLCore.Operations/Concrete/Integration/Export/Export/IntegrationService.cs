@@ -20,5 +20,7 @@
         ImportFirmAddressNames = 9,
         CreateHotClientTask = 10,
         ExportFlowFinancialDataClient = 11,
+        ExportFlowPriceListsPriceList = 12,
+        ExportFlowPriceListsPriceListPosition = 13
     }
 }

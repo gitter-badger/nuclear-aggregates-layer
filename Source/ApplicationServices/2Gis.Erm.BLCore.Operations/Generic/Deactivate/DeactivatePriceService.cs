@@ -1,38 +1,64 @@
-﻿using System.Transactions;
+﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 {
     public class DeactivatePriceService : IDeactivateGenericEntityService<Price>
     {
-        private readonly IPriceRepository _priceRepository;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IBulkDeactivatePricePositionsAggregateService _bulkDeactivatePricePositionsAggregateService;
+        private readonly IBulkDeactivateDeniedPositionsAggregateService _bulkDeactivateDeniedPositionsAggregateService;
+        private readonly IDeactivatePriceAggregateService _deactivatePriceAggregateService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DeactivatePriceService(IPriceRepository priceRepository)
+        public DeactivatePriceService(IPriceReadModel priceReadModel,
+                                      IBulkDeactivatePricePositionsAggregateService bulkDeactivatePricePositionsAggregateService,
+                                      IBulkDeactivateDeniedPositionsAggregateService bulkDeactivateDeniedPositionsAggregateService,
+                                      IDeactivatePriceAggregateService deactivatePriceAggregateService,
+                                      IOperationScopeFactory operationScopeFactory)
         {
-            _priceRepository = priceRepository;
+            _priceReadModel = priceReadModel;
+            _bulkDeactivatePricePositionsAggregateService = bulkDeactivatePricePositionsAggregateService;
+            _bulkDeactivateDeniedPositionsAggregateService = bulkDeactivateDeniedPositionsAggregateService;
+            _deactivatePriceAggregateService = deactivatePriceAggregateService;
+            _operationScopeFactory = operationScopeFactory;
         }
 
         public DeactivateConfirmation Deactivate(long entityId, long ownerCode)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Price>())
             {
-                var pricePublishedForToday = _priceRepository.PricePublishedForToday(entityId);
+                var pricePublishedForToday = _priceReadModel.IsPricePublished(entityId);
                 if (pricePublishedForToday)
                 {
                     throw new NotificationException(BLResources.PriceInActionCannotBeDeactivated);
                 }
 
-                var deactivateAggregateRepository = _priceRepository as IDeactivateAggregateRepository<Price>;
-                deactivateAggregateRepository.Deactivate(entityId);
+                var price = _priceReadModel.GetPrice(entityId);
+                if (!price.IsActive)
+                {
+                    throw new ArgumentException(BLResources.PriceIsInactiveAlready);
+                }
 
-                transaction.Complete();
+                var priceWithAllDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(entityId);
+
+                _bulkDeactivatePricePositionsAggregateService.Deactivate(priceWithAllDescendantsDto.PricePositions,
+                                                                         priceWithAllDescendantsDto.AssociatedPositionsGroupsMapping,
+                                                                         priceWithAllDescendantsDto.AssociatedPositionsMapping);
+
+                _bulkDeactivateDeniedPositionsAggregateService.Deactivate(priceWithAllDescendantsDto.DeniedPositions);
+
+                _deactivatePriceAggregateService.Deactivate(price);
+
+                operationScope.Complete();
             }
 
             return null;
