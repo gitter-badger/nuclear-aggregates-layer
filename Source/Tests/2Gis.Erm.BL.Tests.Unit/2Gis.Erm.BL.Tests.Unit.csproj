@@ -61,6 +61,7 @@
     <Compile Include="ApplicationServices\Operations\Concrete\Old\Integration\ServiceBus\Export\SerializePriceHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations\Concrete\Old\Integration\ServiceBus\Export\SerializePricePositionHandlerSpecs.cs.cs" />
     <Compile Include="ApplicationServices\Operasions.Special\CostCalculator\CostCalculatorSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\IsChooseProfileNeededHelperSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
       <Project>{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}</Project>
