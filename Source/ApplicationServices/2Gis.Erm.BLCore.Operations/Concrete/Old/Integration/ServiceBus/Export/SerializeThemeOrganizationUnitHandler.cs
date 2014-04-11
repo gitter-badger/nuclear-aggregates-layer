@@ -17,6 +17,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
         }
 
+        protected override string GetXsdSchemaContent(string schemaName)
+        {
+            return Properties.Resources.ResourceManager.GetString(schemaName);
+        }
+
         protected override XElement SerializeDtoToXElement(IExportableEntityDto entityDto)
         {
             var data = entityDto as ThemeExportDto;

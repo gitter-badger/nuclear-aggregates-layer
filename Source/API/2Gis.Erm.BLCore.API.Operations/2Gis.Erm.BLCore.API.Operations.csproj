@@ -102,6 +102,10 @@
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationMessage.cs" />
+    <Compile Include="Concrete\Prices\ICopyPriceOperationService.cs" />
+    <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
+    <Compile Include="Concrete\Prices\PriceDto.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\HotClientRequestDto.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\RegardingObject.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\UserDto.cs" />
@@ -267,11 +271,7 @@
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedRequest.cs" />
-    <Compile Include="Concrete\Old\PricePositions\CopyPricePosition.cs" />
-    <Compile Include="Concrete\Old\Prices\CopyPriceRequest.cs" />
-    <Compile Include="Concrete\Old\Prices\CopyPriceResponse.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceRequest.cs" />
-    <Compile Include="Concrete\Old\Prices\ReplacePriceRequest.cs" />
     <Compile Include="Concrete\Old\Prices\UnpublishPriceRequest.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionRequest.cs" />
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesRequest.cs" />
@@ -430,7 +430,9 @@
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Concrete\Old\PricePositions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -22,7 +22,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
@@ -55,7 +54,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.PricePositions;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
@@ -986,16 +984,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.PriceController\CopyNew",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CopyPriceHandler),
-                        Request = typeof(CopyPriceRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintAdditionalAgreement",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1020,24 +1008,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(GetDistributedPaymentsInfoHandler),
                         Request = typeof(GetDistributedPaymentsInfoRequest),
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.PriceController\Copy",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ReplacePriceHandler),
-                        Request = typeof(ReplacePriceRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(CopyPriceHandler),
-            Request = typeof(CopyPriceRequest)
-        }
-    }
                     }
                 },
                 new UseCase
@@ -1819,16 +1789,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(RemoveBargainFromOrderHandler),
                         Request = typeof(RemoveBargainFromOrderRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.PricePositionController\Copy",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CopyPricePositionHandler),
-                        Request = typeof(CopyPricePositionRequest)
                     }
                 },
                 new UseCase

@@ -80,6 +80,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return null;
         }
 
+        protected override string GetXsdSchemaContent(string schemaName)
+        {
+            return Properties.Resources.ResourceManager.GetString(schemaName);
+        }
+
         protected override XElement SerializeDtoToXElement(IExportableEntityDto entiryDto)
         {
             var advertisementDto = (AdvertisementDto)entiryDto;

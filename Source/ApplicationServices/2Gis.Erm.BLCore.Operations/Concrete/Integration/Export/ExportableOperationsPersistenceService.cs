@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                                   .Select(operation => operation.Date)
                                   .FirstOrDefault();
 
-            return lastDate == default(DateTime) ? DateTime.MinValue : lastDate;
+            return lastDate == default(DateTime) ? DateTime.UtcNow : lastDate;
         }
 
         private IQueryable<PerformedBusinessOperation> GetBatchOfOperationsToProcessQuery(DateTime ignoreOperationsPrecedingDate)
@@ -151,23 +151,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             var processedBusinessOperations = _finder.FindAll<TProcessedOperationEntity>();
             var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
 
-            // Сложный запрос, который находит отражение в элементарном LEFT JOIN после трансляции в SQL
-            var notExportedOperations = performedBusinessOperations
-                .GroupJoin(processedBusinessOperations,
-                           performedOperation => performedOperation.Id,
-                           processedOperation => processedOperation.Id,
-                           (performedOperation, processedOperations) => new { performedOperation, processedOperations })
-                .SelectMany(pair => pair.processedOperations.DefaultIfEmpty(),
-                            (pair, processedOperation) => new { pair, processedOperation })
-                .Where(pair => pair.processedOperation == null)
-                .Select(pair => pair.pair.performedOperation);
+            var notExportedOperations = from performedOperation in performedBusinessOperations
+                                        join processedOperation in processedBusinessOperations on performedOperation.Id equals processedOperation.Id
+                                            into joinedOperations
+                                        from joinedOperation in joinedOperations.DefaultIfEmpty()
+                                        where joinedOperation == null
+                                        select performedOperation;
 
-            var notExportedOperationsThatMustBeProcessed = notExportedOperations
-                .Join(operationTypesToProcess,
-                      operation => new { operation.Descriptor, operation.Operation },
-                      service => new { service.Descriptor, service.Operation },
-                      (operation, service) => operation);
-
+            var notExportedOperationsThatMustBeProcessed = from operation in notExportedOperations
+                                                           join operationType in operationTypesToProcess on
+                                                               new { operation.Descriptor, operation.Operation } equals
+                                                               new { operationType.Descriptor, operationType.Operation }
+                                                           select operation;
+            
             return notExportedOperationsThatMustBeProcessed.Where(operation => operation.Date > ignoreOperationsPrecedingDate);
         }
 
