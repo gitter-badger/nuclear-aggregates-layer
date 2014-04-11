@@ -181,7 +181,7 @@
     <value>Oddělení organizace s ID [{0}] nemá určenou formu spolupráce</value>
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na základě {0} ze dne {1}</value>
+    <value>na základě {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
