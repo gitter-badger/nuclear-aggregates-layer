@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Price
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
+    using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Price
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Price/CopyNew.cshtml")]
-    public partial class CopyNew : System.Web.Mvc.WebViewPage<Models.CopyNewPriceViewModel>
+    public partial class CopyNew : System.Web.Mvc.WebViewPage<CopyNewPriceViewModel>
     {
         public CopyNew()
         {
