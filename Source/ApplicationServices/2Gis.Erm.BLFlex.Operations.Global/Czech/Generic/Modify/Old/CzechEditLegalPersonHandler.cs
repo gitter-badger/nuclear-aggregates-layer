@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
 
             if (request.Entity.Id != 0)
             {
+                // fixme {all, 04-04-2014}: использовать ReadModel, чтобы проверить наличие профилей. ѕри этом совершенно не об€зательно выгребать все данные из базы.
                 var personWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(request.Entity.Id);
                 if (!personWithProfiles.Profiles.Any())
                 {
@@ -52,21 +53,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
             switch (modelLegalPersonType)
             {
                 case LegalPersonType.LegalPerson:
-                    if (string.IsNullOrEmpty(request.Entity.Inn))
+                    if (string.IsNullOrEmpty(request.Entity.Ic))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Ic));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
                         throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
+                    
+                    if (string.IsNullOrEmpty(request.Entity.LegalName))
+                    {
+                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalName));
+                    }
+
 
                     break;
                 case LegalPersonType.Businessman:
-                    if (string.IsNullOrEmpty(request.Entity.Inn))
+                    if (string.IsNullOrEmpty(request.Entity.Ic))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Ic));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
@@ -74,12 +81,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                         throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
-                    break;
-                case LegalPersonType.NaturalPerson:
-
-                    if (string.IsNullOrEmpty(request.Entity.PassportNumber))
+                    if (string.IsNullOrEmpty(request.Entity.LegalName))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.PassportNumber));
+                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalName));
                     }
 
                     break;

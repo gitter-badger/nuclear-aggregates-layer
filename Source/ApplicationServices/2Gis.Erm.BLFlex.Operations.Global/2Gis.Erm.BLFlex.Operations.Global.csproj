@@ -72,6 +72,7 @@
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
     <Compile Include="BargainPrintFormReadModel.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintHelper.cs" />
     <Compile Include="IBargainPrintFormReadModel.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintLetterOfGuaranteeHandler.cs" />
