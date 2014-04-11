@@ -2066,9 +2066,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="FirstLevel" xml:space="preserve">
     <value>nivel: 1</value>
   </data>
-  <data name="CsvSeparator" xml:space="preserve">
-    <value>;</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
