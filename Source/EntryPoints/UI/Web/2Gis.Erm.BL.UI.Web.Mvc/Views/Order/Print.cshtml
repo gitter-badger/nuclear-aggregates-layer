@@ -1,5 +1,4 @@
-﻿
-@model Models.PrintOrderViewModel
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.PrintOrderViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -17,6 +16,15 @@
     <script type="text/javascript">
         Ext.onReady(function() {
 
+            Ext.getCmp("LegalPersonProfile").on('change', function() {
+                var profileId = Ext.getCmp("LegalPersonProfile").getValue().id;
+                var defaultProfileId = Ext.getDom("DefaultLegalPersonProfileId").value;
+                if (profileId != defaultProfileId) {
+                    Ext.getDom("warning").style.visibility = 'visible';
+                } else {
+                    Ext.getDom("warning").style.visibility = 'hidden';
+                }
+            })
             Ext.get("Cancel").on("click", function() { window.close(); });
             Ext.get("OK").on("click", function() {
                 if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {
@@ -88,6 +96,13 @@
                 </tr>
                 <tr>
                     <td>
+                        <div id="warning" style="visibility: hidden; color: red">
+                            Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <div id="pbDiv">
                             <div id="pbInner">
                             </div>
@@ -99,7 +114,7 @@
         @Html.HiddenFor(m => m.OrderId)
         @Html.HiddenFor(m => m.LegalPersonId)
         @Html.HiddenFor(m => m.PrintOrderType)
-        @Html.HiddenFor(m => m.PrintOrderType)
+        @Html.HiddenFor(m => m.DefaultLegalPersonProfileId)
     }
 }
 

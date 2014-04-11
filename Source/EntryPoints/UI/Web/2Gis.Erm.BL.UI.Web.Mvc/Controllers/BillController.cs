@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
@@ -12,7 +13,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -182,25 +182,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public JsonNetResult IsChooseProfileNeeded(long billId)
         {
-            bool isChooseProfileNeeded = true;
-            long? legalPersonProfile = null;
-
-            var order = _orderReadModel.GetOrderByBill(billId);
-            if (order != null && order.LegalPersonId.HasValue)
-            {
-                var legalPersonWithProfiles =
-                    _legalPersonRepository.GetLegalPersonWithProfiles(order.LegalPersonId.Value);
-                if (legalPersonWithProfiles.Profiles.Count() == 1)
-                {
-                    isChooseProfileNeeded = false;
-                    legalPersonProfile = legalPersonWithProfiles.Profiles.First().Id;
-                }
-            }
+            var chooseProfileDialogState = new IsChooseProfileNeededHelper(_orderReadModel, _legalPersonRepository)
+                .GetChooseProfileDialogState(billId);
 
             return new JsonNetResult(new
             {
-                IsChooseProfileNeeded = isChooseProfileNeeded,
-                LegalPersonProfileId = legalPersonProfile
+                IsChooseProfileNeeded = chooseProfileDialogState.IsChooseProfileNeeded,
+                LegalPersonProfileId = chooseProfileDialogState.LegalPersonProfileId
             });
         }
 
