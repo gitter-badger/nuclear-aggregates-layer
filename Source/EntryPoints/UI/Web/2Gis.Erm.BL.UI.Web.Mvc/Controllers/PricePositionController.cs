@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.PricePositions;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -23,39 +19,35 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 {
     public sealed class PricePositionController : ControllerBase
     {
-        private readonly IPublicService _publicService;
-        private readonly IFinder _finder;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly ICopyPricePositionOperationService _copyPricePositionOperationService;
 
-        public PricePositionController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService,
-            IFinder finder, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-        : base(
-            msCrmSettings,
-            userContext,
-            logger,
-            operationsServiceSettings,
-            getBaseCurrencyService)
+        public PricePositionController(IMsCrmSettings msCrmSettings,
+                                       IUserContext userContext,
+                                       ICommonLog logger,
+                                       IAPIOperationsServiceSettings operationsServiceSettings,
+                                       IGetBaseCurrencyService getBaseCurrencyService,
+                                       IPriceReadModel priceReadModel,
+                                       ICopyPricePositionOperationService copyPricePositionOperationService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   getBaseCurrencyService)
         {
-            _publicService = publicService;
-            _finder = finder;
+            _priceReadModel = priceReadModel;
+            _copyPricePositionOperationService = copyPricePositionOperationService;
         }
 
         [HttpGet]
         public ActionResult Copy(long id)
         {
-            var model = _finder.Find<PricePosition>(x => x.Id == id)
-                .Select(x => new CopyPricePositionModel
-                                 {
-                                     SourcePricePositionId = x.Id,
-                                     PriceId = x.PriceId
-                                 })
-                .Single();
-            return View(model);
+            var priceId = _priceReadModel.GetPriceId(id);
+            return View(new CopyPricePositionModel
+                {
+                    SourcePricePositionId = id,
+                    PriceId = priceId
+                });
         }
 
         [HttpPost]
@@ -63,12 +55,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new CopyPricePositionRequest
-                                  {
-                                      SourcePricePositionId = model.SourcePricePositionId,
-                                      PositionId = model.Position.Key.Value,
-                                      PriceId = model.PriceId
-                                  });
+                _copyPricePositionOperationService.Copy(model.PriceId, model.SourcePricePositionId, model.Position.Key.Value);
+
                 model.Message = BLResources.OK;
             }
             catch (BusinessLogicException ex)
