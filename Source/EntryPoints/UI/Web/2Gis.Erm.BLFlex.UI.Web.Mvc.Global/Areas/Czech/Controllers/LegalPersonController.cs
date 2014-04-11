@@ -64,9 +64,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
             .Select(legalPerson => new CzechChangeLegalPersonRequisitesViewModel
             {
                 Id = legalPerson.Id,
-                Inn = ((LegalPersonType)legalPerson.LegalPersonTypeEnum) == LegalPersonType.LegalPerson ? legalPerson.Inn : null,
+                Inn = legalPerson.Inn,
                 Ic = legalPerson.Ic,
-                BusinessmanInn = ((LegalPersonType)legalPerson.LegalPersonTypeEnum) == LegalPersonType.Businessman ? legalPerson.Inn : null,
                 CardNumber = legalPerson.CardNumber,
                 LegalAddress = legalPerson.LegalAddress,
                 LegalName = legalPerson.LegalName,
@@ -93,7 +92,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
                 _publicService.Handle(new CzechChangeLegalPersonRequisitesRequest
                 {
                     LegalPersonId = model.Id,
-                    Inn = model.LegalPersonType == LegalPersonType.Businessman ? model.BusinessmanInn : model.Inn,
+                    Inn = model.Inn,
                     Ic = model.Ic,
                     CardNumber = model.CardNumber,
                     LegalAddress = model.LegalAddress,

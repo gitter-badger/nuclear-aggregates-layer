@@ -183,19 +183,6 @@
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
     <value>, na základě {0} ze dne {1}</value>
   </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IČ: {0}         DIČ: {1}  
-Misto podnikání: {2}
-Číslo účtu: {3}/{4}
-Peněžní ústav: {5}</value>
-  </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IČ: {0}       	DIČ: {1}
-Sídlo:  {2}
-Zapsaná  {6}
-Číslo účtu:  {3}/{4}
-Peněžní ústav:  {5}</value>
-  </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
   </data>

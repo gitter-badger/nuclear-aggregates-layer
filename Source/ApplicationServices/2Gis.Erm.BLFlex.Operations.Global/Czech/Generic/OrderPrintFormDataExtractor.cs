@@ -38,6 +38,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
                 {
                     { "ChiefNameInGenitive", legalPersonProfile.ChiefNameInGenitive },
                     { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
+                    { "AccountNumber", legalPersonProfile.AccountNumber },
+                    { "BankCode", legalPersonProfile.BankCode },
+                    { "BankName", legalPersonProfile.BankName },
+                    { "Registered", legalPersonProfile.Registered },
                     { "EmailForAccountingDocuments", legalPersonProfile.EmailForAccountingDocuments },
                 };
 
@@ -114,19 +118,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
 
         public PrintData GetLegalPerson(LegalPerson legalPerson)
         {
+            var type = (LegalPersonType)legalPerson.LegalPersonTypeEnum;
             var legalPersonData = new PrintData
                 {
                     { "Ic", legalPerson.Ic },
                     { "Inn", legalPerson.Inn },
                     { "LegalAddress", legalPerson.LegalAddress },
                     { "LegalName", legalPerson.LegalName },
-                    { "Prefix", GetPersonPrefix((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
+                    { "Prefix", GetPersonPrefix(type) },
+
+                    { "UseInn", !string.IsNullOrWhiteSpace(legalPerson.Inn) },
+                    { "UseLegalPerson", type == LegalPersonType.LegalPerson },
+                    { "UseBusinessman", type == LegalPersonType.Businessman },
                 };
 
             return new PrintData
                 {
                     { "LegalPerson", legalPersonData },
-                    { "PersonPrefix", legalPersonData.GetData("Prefix") } // FIXME {a.rechkalov, 07.03.2014}: Требуется внести измение в ПФ и убрать этот костыль
                 };
         }
 
@@ -158,20 +166,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
 
         public PrintData GetClient(LegalPerson legalPerson, LegalPersonProfile legalPersonProfile)
         {
-            var clientRequisites = string.Format(
-                CultureInfo.CurrentCulture,
-                GetRequisitesTemplate((LegalPersonType)legalPerson.LegalPersonTypeEnum),
-                legalPerson.Ic,
-                legalPerson.Inn,
-                legalPerson.LegalAddress,
-                legalPersonProfile.AccountNumber,
-                legalPersonProfile.BankCode,
-                legalPersonProfile.BankName,
-                legalPersonProfile.Registered);
-
             return new PrintData
                 {
-                    { "ClientRequisites", clientRequisites },
                     { "ClientLegalNamePrefix", GetClientLegalNamePrefixTemplate((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
                 };
         }
@@ -188,13 +184,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
             return legalPersonType == LegalPersonType.Businessman
                 ? BLFlexResources.CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman
                 : BLFlexResources.CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson;
-        }
-
-        private static string GetRequisitesTemplate(LegalPersonType legalPersonType)
-        {
-            return legalPersonType == LegalPersonType.Businessman
-                ? BLFlexResources.CzechPrintOrderHandler_ClientRequisitesBusinessman
-                : BLFlexResources.CzechPrintOrderHandler_ClientRequisitesLegalPerson;
         }
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)

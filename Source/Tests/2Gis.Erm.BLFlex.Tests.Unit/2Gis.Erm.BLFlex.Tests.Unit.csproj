@@ -68,6 +68,10 @@
     <Compile Include="ApplicationServices\Aggregates.Global\Russia\Crosscutting\InnServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\Create.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderAdditionalAgreementHandlerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandlerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\CzechPrintLetterOfGuaranteeHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\Number\GenerateOrderNumberHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />

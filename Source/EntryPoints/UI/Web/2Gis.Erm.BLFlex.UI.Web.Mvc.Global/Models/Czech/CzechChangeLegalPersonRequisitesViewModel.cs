@@ -15,11 +15,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [RequiredLocalized]
         public string LegalName { get; set; }
 
-        [Dependency(DependencyType.DisableAndHide, "CardNumber", "this.value!='Businessman' && this.value!='NaturalPerson'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "Inn", "this.value=='Businessman' || this.value=='NaturalPerson'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "BusinessmanInn", "this.value!='Businessman'")]
-        [Dependency(DependencyType.DisableAndHide, "Ic", "this.value=='NaturalPerson'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "LegalAddress", "this.value=='NaturalPerson'")]
+        [Dependency(DependencyType.DisableAndHide, "CardNumber", "this.value!='Businessman'")]
         public LegalPersonType LegalPersonType { get; set; }
 
         public string LegalAddress { get; set; }
@@ -27,10 +23,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [StringLengthLocalized(12)]
         [DisplayNameLocalized("Dic")]
         public string Inn { get; set; }
-
-        [DisplayNameLocalized("Dic")]
-        [StringLengthLocalized(12)]
-        public string BusinessmanInn { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(8, MinimumLength = 8)]
@@ -41,7 +33,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string CardNumber { get; set; }
 
         [Dependency(DependencyType.ReadOnly, "Inn", "this.value!='Granted'")]
-        [Dependency(DependencyType.ReadOnly, "BusinessmanInn", "this.value!='Granted'")]
         public LegalPersonChangeRequisitesAccess LegalPersonP { get; set; }
 
         public override byte[] Timestamp { get; set; }

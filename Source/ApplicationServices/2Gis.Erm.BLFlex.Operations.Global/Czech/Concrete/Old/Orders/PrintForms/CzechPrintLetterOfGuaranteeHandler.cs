@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -16,7 +17,7 @@ using BLResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
-    public sealed class CzechPrintLetterOfGuaranteeHandler : RequestHandler<PrintLetterOfGuaranteeRequest, Response>, ICzechAdapted
+    public class CzechPrintLetterOfGuaranteeHandler : RequestHandler<PrintLetterOfGuaranteeRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
@@ -33,43 +34,48 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new
                             {
-                                Order = order,
-                                Profile = order.LegalPerson.LegalPersonProfiles
-                                    .FirstOrDefault(y => y.Id == request.LegalPersonProfileId),
-                                MainProfile = order.LegalPerson.LegalPersonProfiles
-                                    .FirstOrDefault(y => y.Id == request.LegalPersonProfileId && y.IsMainProfile),
-                                order.LegalPerson,
-                                order.BranchOfficeOrganizationUnit,
+                                OrderNumber = order.Number,
                                 order.BranchOfficeOrganizationUnitId,
-                                order.BranchOfficeOrganizationUnit.BranchOffice
                             })
                     .Single();
 
-            var legalPersonType = (LegalPersonType)orderInfo.LegalPerson.LegalPersonTypeEnum;
-            var profile = orderInfo.MainProfile ?? orderInfo.Profile;
+            var printRequest = new PrintDocumentRequest
+                {
+                    TemplateCode = TemplateCode.LetterOfGuarantee,
+                    FileName = string.Format("{0}-Cestne prohlaseni", orderInfo.OrderNumber),
+                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
+                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
+                };
 
-            var printData = new
-                            {
-                                orderInfo.Order,
-                                orderInfo.Profile,
-                                orderInfo.LegalPerson,
-                                orderInfo.BranchOfficeOrganizationUnit,
-                                orderInfo.BranchOfficeOrganizationUnitId,
-                                orderInfo.BranchOffice,
-                                PersonPrefix = GetPersonPrefix(legalPersonType),
-                                LegalAddressPrefix = GetLegalAddressPrefix(legalPersonType),
-                                OperatesOnTheBasis = GetOperatesOnTheBasisString(profile),
-                            };
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
+        }
+
+        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        {
             return
-                _requestProcessor.HandleSubRequest(
-                    new PrintDocumentRequest
-                        {
-                            TemplateCode = TemplateCode.LetterOfGuarantee,
-                            FileName = string.Format("{0}-Cestne prohlaseni", printData.Order.Number),
-                            BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
-                            PrintData = printData
-                        },
-                    Context);
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                       .Select(order => new
+                           {
+                               Order = order,
+                               Profile = order.LegalPerson.LegalPersonProfiles
+                                              .FirstOrDefault(y => y.Id == legalPersonProfileId),
+                               order.LegalPerson,
+                               order.BranchOfficeOrganizationUnit,
+                               order.BranchOfficeOrganizationUnit.BranchOffice
+                           })
+                       .AsEnumerable()
+                       .Select(x => new PrintData
+                           {
+                               { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
+                               { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFields(x.BranchOfficeOrganizationUnit) },
+                               { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
+                               { "Order", CzechPrintHelper.OrderFieldsForLetterOfGuarantee(x.Order) },
+                               { "Profile", CzechPrintHelper.LegalPersonProfileFields(x.Profile) },
+                               { "LegalAddressPrefix", GetLegalAddressPrefix((LegalPersonType)x.LegalPerson.LegalPersonTypeEnum) },
+                               { "PersonPrefix", GetPersonPrefix((LegalPersonType)x.LegalPerson.LegalPersonTypeEnum) },
+                               { "OperatesOnTheBasis", GetOperatesOnTheBasisString(x.Profile) },
+                           })
+                       .Single();
         }
 
         private static string GetPersonPrefix(LegalPersonType legalPersonType)
