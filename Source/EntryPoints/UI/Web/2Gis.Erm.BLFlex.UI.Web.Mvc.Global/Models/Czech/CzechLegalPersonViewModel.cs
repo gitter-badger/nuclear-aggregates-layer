@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
+        [RequiredLocalized]
         [StringLengthLocalized(512)]
         [Dependency(DependencyType.ReadOnly, "LegalAddress", "Ext.getDom('Id').value != '0'")]
         public string LegalAddress { get; set; }
