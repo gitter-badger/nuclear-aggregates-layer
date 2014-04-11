@@ -202,7 +202,7 @@ window.InitPage = function () {
                                     if (!jsonData.IsChooseProfileNeeded) {
                                         opts.extinstance.PrintWithoutProfileChoosing(methodName, jsonData.LegalPersonProfileId);
                                     } else {
-                                        opts.extinstance.PrintWithProfileChoosing(methodName);
+                                        opts.extinstance.PrintWithProfileChoosing(methodName, jsonData.LegalPersonProfileId);
                                     }
                                 },
                                 params: { orderId: entityId }
@@ -234,9 +234,9 @@ window.InitPage = function () {
                     iframe.src = url;
                     this.Items.Toolbar.enable();
                 },
-                PrintWithProfileChoosing: function (methodName) {
+                PrintWithProfileChoosing: function (methodName, profileId) {
                     var entityId = Ext.getDom('Id').value;
-                    url = '/Order/Print/' + methodName + '/' + entityId + '?__dc=' + Ext.util.Format.cacheBuster();
+                    url = '/Order/Print/' + methodName + '/' + entityId + '?profileId=' + profileId + '&__dc=' + Ext.util.Format.cacheBuster();
                     var params = "dialogWidth:500px; dialogHeight:250px; status:yes; scroll:no;resizable:no;";
                     window.showModalDialog(url, null, params);
                 },
