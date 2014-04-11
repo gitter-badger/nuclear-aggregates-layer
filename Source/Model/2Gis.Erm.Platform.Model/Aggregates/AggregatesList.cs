@@ -35,7 +35,8 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
                 /*не агрегат*/RoleAggregate.Role.ToDescriptor(),
                 /*не агрегат?*/ThemeAggregate.Theme.ToDescriptor(),
                 UserAggregate.User.ToDescriptor(),
-                WithdrawalAggregate.WithdrawalInfo.ToDescriptor()
+                WithdrawalAggregate.WithdrawalInfo.ToDescriptor(),
+                /*не агрегат?*/OrganizationUnitAggregate.OrganizationUnit.ToDescriptor()
             }
             .ToDictionary(descriptor => descriptor.AggregateRoot, descriptor => descriptor);
 

@@ -115,9 +115,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CalculateCategoryRateIdentity = 15003;
         public const int ViewOrderPositionIdentity = 15004;
 
-        // Price = 155
+        // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
         public const int GetRatedPricesForCategoryIdentity = 15502;
+        public const int PublishPriceIdentity = 15503;
+        public const int UnpublishPriceIdentity = 15504;
+        public const int ReplacePriceIdentity = 15505;
+
+        // EntityName.Price = 154
+        public const int CopyPricePositionIdentity = 15401;
 
         // EntityName.Limit = 192
         public const int CloseLimitIdentity = 19201;

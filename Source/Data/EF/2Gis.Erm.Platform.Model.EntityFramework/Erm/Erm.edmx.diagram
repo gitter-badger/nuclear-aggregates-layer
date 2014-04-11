@@ -270,6 +270,8 @@
         <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="1.375" />
         <edmx:AssociationConnector Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" />
         <edmx:AssociationConnector Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceList" Width="2.75" PointX="15.375" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" Width="2.625" PointX="10.375" PointY="15.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
