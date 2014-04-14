@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [Dependency(DependencyType.DisableAndHide, "CardNumber", "this.value!='Businessman'")]
         public LegalPersonType LegalPersonType { get; set; }
 
+        [RequiredLocalized]
         public string LegalAddress { get; set; }
 
         [StringLengthLocalized(12)]
