@@ -76,16 +76,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
         private void PerformValidation(long priceId, long positionId)
         {
-            if (!_priceReadModel.IsPriceExist(priceId))
+            var isPriceExist = _priceReadModel.IsPriceExist(priceId);
+            if (!isPriceExist)
             {
                 _logger.FatalEx(BLResources.UnableToGetExisitingPrice);
                 throw new NotificationException(BLResources.UnableToGetExisitingPrice);
             }
 
-            if (_priceReadModel.IsPriceContainsPosition(priceId, positionId))
+            var isPriceContainsPosition = _priceReadModel.IsPriceContainsPosition(priceId, positionId);
+            if (isPriceContainsPosition)
             {
                 _logger.FatalEx(BLResources.PricePositionForPositionAlreadyCreated);
                 throw new NotificationException(BLResources.PricePositionForPositionAlreadyCreated);
+            }
+
+            var isPriceContainsPositionWithinNonDeleted = _priceReadModel.IsPriceContainsPositionWithinNonDeleted(priceId, positionId);
+            if (isPriceContainsPositionWithinNonDeleted)
+            {
+                _logger.FatalEx(BLResources.HiddenPricePositionForPositionAlreadyCreated);
+                throw new NotificationException(BLResources.HiddenPricePositionForPositionAlreadyCreated);
             }
         }
 

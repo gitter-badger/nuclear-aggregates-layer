@@ -592,7 +592,7 @@
     <value>Objednávka (Online bez DPH)</value>
   </data>
   <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
-    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro pr. osobu</value>
+    <value>Oznámení o zrušení objednávky s uvedením důvodu pro pr. osobu</value>
   </data>
   <data name="TemplateCodeLimitRequest" xml:space="preserve">
     <value>Požadavek na limity</value>

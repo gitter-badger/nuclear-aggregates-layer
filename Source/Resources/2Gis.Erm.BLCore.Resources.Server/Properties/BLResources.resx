@@ -5175,4 +5175,7 @@
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value />
   </data>
+  <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value />
+  </data>
 </root>

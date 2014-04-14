@@ -7084,6 +7084,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string HiddenPricePositionForPositionAlreadyCreated {
+            get {
+                return ResourceManager.GetString("HiddenPricePositionForPositionAlreadyCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string HiddenToAscertain {
             get {
                 return ResourceManager.GetString("HiddenToAscertain", resourceCulture);

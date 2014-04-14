@@ -113,13 +113,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         public bool IsPriceContainsPosition(long priceId, long positionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                          .Any(x => x.PriceId == priceId && x.PositionId == positionId);
+                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
+                          .Any();
+        }
+
+        public bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<PricePosition>())
+                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
+                          .Any();
         }
 
         public bool IsPricePositionExist(long priceId, long positionId, long pricePositionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                          .Any(x => x.PriceId == priceId && x.PositionId == positionId && x.Id != pricePositionId);
+                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
+                          .Any();
+        }
+
+        public bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<PricePosition>())
+                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
+                          .Any();
         }
 
         public AllPriceDescendantsDto GetAllPriceDescendantsDto(long priceId)
@@ -210,12 +226,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)
         {
             var categoryRate = categoryQuery.SelectMany(category => category.CategoryOrganizationUnits)
-                                                .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
+                                            .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
                                             .Where(categoryOrganizationUnit => categoryOrganizationUnit.OrganizationUnitId == organizationUnitId)
-                                                .Select(categoryOrganizationUnit => (decimal?)(categoryOrganizationUnit.CategoryGroup != null
-                                                                                                   ? categoryOrganizationUnit.CategoryGroup.GroupRate
+                                            .Select(categoryOrganizationUnit => (decimal?)(categoryOrganizationUnit.CategoryGroup != null
+                                                                                               ? categoryOrganizationUnit.CategoryGroup.GroupRate
                                                                                                : DefaultCategoryRate))
-                                                .Max();
+                                            .Max();
 
             if (categoryRate == null)
             {

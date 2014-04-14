@@ -112,6 +112,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 throw new NotificationException(BLResources.PricePositionForPositionAlreadyCreated);
             }
 
+            var isAlreadyCreatedWithinNonDeleted = _priceReadModel.IsPricePositionExistWithinNonDeleted(priceId, positionId, pricePositionId);
+            if (isAlreadyCreatedWithinNonDeleted)
+            {
+                throw new NotificationException(BLResources.HiddenPricePositionForPositionAlreadyCreated);
+            }
+
             var isSupportedByExport = _positionReadModel.IsSupportedByExport(positionId);
             if (!isSupportedByExport)
             {

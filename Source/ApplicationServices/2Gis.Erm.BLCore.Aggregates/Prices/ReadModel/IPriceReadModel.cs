@@ -21,7 +21,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         bool IsPriceLinked(long priceId);
         bool IsPricePublished(long priceId);
         bool IsPriceContainsPosition(long priceId, long positionId);
+        bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId);
         bool IsPricePositionExist(long priceId, long positionId, long pricePositionId);
+        bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId);
         AllPriceDescendantsDto GetAllPriceDescendantsDto(long priceId);
         AllPricePositionDescendantsDto GetAllPricePositionDescendantsDto(long pricePositionId, long positionId);
         PriceDto GetPriceDto(long priceId);

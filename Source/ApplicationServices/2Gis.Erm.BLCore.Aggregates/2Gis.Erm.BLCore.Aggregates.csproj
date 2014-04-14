@@ -304,7 +304,6 @@
     <Compile Include="Prices\PositionRepository.cs" />
     <Compile Include="Prices\PositionSpecification.cs" />
     <Compile Include="Prices\PositionSpecifications.cs" />
-    <Compile Include="Prices\PricePositionSpecifications.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
@@ -436,6 +435,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
