@@ -108,6 +108,8 @@
         HotClientRequest = 257,
         ExportToMsCrmHotClients = 256,
         ExportFlowFinancialDataClient = 255,
+        ExportFlowPriceListsPriceList = 261,
+        ExportFlowPriceListsPriceListPosition = 262,
 
         // security
         User = 53,

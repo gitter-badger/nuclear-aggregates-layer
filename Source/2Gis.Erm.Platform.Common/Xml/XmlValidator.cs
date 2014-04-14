@@ -8,7 +8,46 @@ namespace DoubleGis.Erm.Platform.Common.Xml
 {
     public static class XmlValidator
     {
-        public static XmlSchemaSet CreateXmlSchemaSetForXsd(string xsd)
+        public static bool Validate(XDocument document, string xsd, out string error)
+        {
+            var stringBuilder = new StringBuilder();
+            var xmlSchemaSet = CreateXmlSchemaSetForXsd(xsd);
+            document.Validate(xmlSchemaSet, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
+            error = stringBuilder.ToString();
+
+            return stringBuilder.Length == 0;
+        }
+
+        public static bool Validate(string xml, string xsd, out string error)
+        {
+            using (var stringReader = new StringReader(xml))
+            {
+                return Validate(stringReader, xsd, out error);
+            }
+        }
+
+        public static bool Validate(StreamReader streamReader, string xsd, out string error)
+        {
+            return Validate((TextReader)streamReader, xsd, out error);
+        }
+
+        public static bool Validate(TextReader textReader, string xsd, out string error)
+        {
+            var xmlSchemaSet = CreateXmlSchemaSetForXsd(xsd);
+            var xmlReaderSettings = new XmlReaderSettings
+                {
+                    ValidationType = ValidationType.Schema,
+                    Schemas = xmlSchemaSet,
+                };
+
+            var stringBuilder = new StringBuilder();
+            Validate(textReader, xmlReaderSettings, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
+            error = stringBuilder.ToString();
+
+            return stringBuilder.Length == 0;
+        }
+
+        private static XmlSchemaSet CreateXmlSchemaSetForXsd(string xsd)
         {
             using (var stringReader = new StringReader(xsd))
             {
@@ -20,43 +59,6 @@ namespace DoubleGis.Erm.Platform.Common.Xml
 
                 return xmlSchemaSet;
             }
-        }
-
-        public static bool Validate(XDocument document, XmlSchemaSet xmlSchemaSet, out string error)
-        {
-            var stringBuilder = new StringBuilder();
-            document.Validate(xmlSchemaSet, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
-            error = stringBuilder.ToString();
-
-            return stringBuilder.Length == 0;
-        }
-
-        public static bool Validate(string xml, XmlSchemaSet xmlSchemaSet, out string error)
-        {
-            using (var stringReader = new StringReader(xml))
-            {
-                return Validate(stringReader, xmlSchemaSet, out error);
-            }
-        }
-
-        public static bool Validate(StreamReader streamReader, XmlSchemaSet xmlSchemaSet, out string error)
-        {
-            return Validate((TextReader)streamReader, xmlSchemaSet, out error);
-        }
-
-        public static bool Validate(TextReader textReader, XmlSchemaSet xmlSchemaSet, out string error)
-        {
-            var xmlReaderSettings = new XmlReaderSettings
-            {
-                ValidationType = ValidationType.Schema,
-                Schemas = xmlSchemaSet,
-            };
-
-            var stringBuilder = new StringBuilder();
-            Validate(textReader, xmlReaderSettings, (sender, eventArgs) => stringBuilder.AppendLine(eventArgs.Message));
-            error = stringBuilder.ToString();
-
-            return stringBuilder.Length == 0;
         }
 
         private static void Validate(TextReader textReader, XmlReaderSettings xmlReaderSettings, ValidationEventHandler validationEventHandler)

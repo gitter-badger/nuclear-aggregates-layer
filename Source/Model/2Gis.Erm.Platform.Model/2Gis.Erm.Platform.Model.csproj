@@ -139,6 +139,22 @@
       <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceList.cs">
+      <Link>Entities\Erm\ExportFlowPriceListsPriceList.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowPriceListsPriceListDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListPosition.cs">
+      <Link>Entities\Erm\ExportFlowPriceListsPriceListPosition.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
       <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
       <DependentUpon>ErmPOCO.tt</DependentUpon>
@@ -155,6 +171,7 @@
       <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="ContainedTypesAttribute.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoUtils.cs" />
@@ -210,6 +227,10 @@
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPricePositionIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Price\PublishPriceIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Price\ReplacePriceIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Price\UnpublishPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\GetRatedPricesForCategoryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringWithdrawalIdentity.cs" />
