@@ -34,13 +34,14 @@
         Ext.getCmp("Client").on("change", this.onClientChanged, this);
     },
 
-    // При обновлении клиента (нередактируемое поле, обновление модет быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
+    // При обновлении клиента (нередактируемое поле, обновление может быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
     onClientChanged: function () {
         var clientLookup = Ext.getCmp('Client');
         var clientId = clientLookup.item ? clientLookup.item.id : null;
 
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         if (clientId) {
+            legalPersonLookup.supressMatchesErrors = true;
             legalPersonLookup.forceGetData({
                 limit: 1
             });
@@ -57,6 +58,7 @@
 
         var clientLookup = Ext.getCmp('Client');
         if (firmId) {
+            clientLookup.supressMatchesErrors = true;
             clientLookup.forceGetData({
                 extendedInfo: "FirmId={FirmId}"
             });
