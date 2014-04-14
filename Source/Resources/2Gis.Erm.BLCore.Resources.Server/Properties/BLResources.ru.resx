@@ -733,7 +733,7 @@
     <value>предприятия</value>
   </data>
   <data name="PricePositionForPositionAlreadyCreated" xml:space="preserve">
-    <value>Позиция прайс-листа для выбранного элемента номенклатурного справочника уже создана</value>
+    <value>Уже создана активная позиция прайс-листа для выбранного элемента номенклатурного справочника</value>
   </data>
   <data name="PricePositionPlatformIsNotSupportedByExport" xml:space="preserve">
     <value>Позиция прайс-листа имеет платформу, не поддерживаемую Экспортом</value>
@@ -5191,5 +5191,8 @@
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя активировать позицию из опубликованного прайс-листа</value>
+  </data>  
+  <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value>Уже создана скрытая позиция прайс-листа для выбранного элемента номенклатурного справочника</value>
   </data>
 </root>
