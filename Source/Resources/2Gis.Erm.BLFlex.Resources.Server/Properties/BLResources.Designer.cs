@@ -360,24 +360,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CzechPrintOrderHandler_ClientRequisitesBusinessman {
-            get {
-                return ResourceManager.GetString("CzechPrintOrderHandler_ClientRequisitesBusinessman", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CzechPrintOrderHandler_ClientRequisitesLegalPerson {
-            get {
-                return ResourceManager.GetString("CzechPrintOrderHandler_ClientRequisitesLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate {
             get {
                 return ResourceManager.GetString("CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate", resourceCulture);

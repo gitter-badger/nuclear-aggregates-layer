@@ -1,5 +1,4 @@
 using System;
-using System.Data.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -16,17 +15,15 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
-    public sealed class CzechPrintOrderTerminationNoticeHandler : RequestHandler<PrintOrderTerminationNoticeRequest, Response>, ICzechAdapted
+    public class CzechPrintOrderTerminationNoticeHandler : RequestHandler<PrintOrderTerminationNoticeRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
-        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public CzechPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
+        public CzechPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
-            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
@@ -35,7 +32,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 .Select(order => new
                     {
                         OrderState = (OrderState)order.WorkflowStepId,
-                        order.IsTerminated
+                        order.IsTerminated,
+                        order.BranchOfficeOrganizationUnitId,
+                        order.Number,
+                        CurrencyISOCode = order.Currency.ISOCode,
+                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
                     })
                 .Single();
 
@@ -49,47 +50,38 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new
-                    {
-                        Order = order,
-                        order.Bargain,
-                        TerminationDate = EntityFunctions.AddDays(order.EndDistributionDateFact, 1),
-                        order.LegalPerson,
-                        Profile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
-                        order.BranchOfficeOrganizationUnit,
-                        CurrencyISOCode = order.Currency.ISOCode,
-                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                        order.BranchOfficeOrganizationUnitId,
-                        order.BranchOfficeOrganizationUnit.BranchOffice
-                    })
-                .AsEnumerable()
-                .Select(x => new
-                    {
-                        x.Order,
-                        RelatedBargainInfo = (x.Bargain != null)
-                            ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
-                            : null,
-                        x.TerminationDate,
-                        x.LegalPerson,
-                        x.Profile,
-                        x.BranchOfficeOrganizationUnit,
-                        x.CurrencyISOCode,
-                        x.LegalPersonType,
-                        x.BranchOfficeOrganizationUnitId,
-                        x.BranchOffice
-                    })
-                .Single();
-
-            return _requestProcessor.HandleSubRequest(new PrintDocumentRequest
+            var printRequest = new PrintDocumentRequest
                 {
-                    CurrencyIsoCode = printData.CurrencyISOCode,
-                    TemplateCode = GetTemplateCode(printData.LegalPersonType, request.WithoutReason, request.TerminationBargain),
-                    FileName = string.Format(BLResources.PrintTerminationNoticeFileNameFormat, printData.Order.Number),
-                    BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
-                    PrintData = printData
-                }, 
-                Context);
+                    CurrencyIsoCode = orderInfo.CurrencyISOCode,
+                    TemplateCode = GetTemplateCode(orderInfo.LegalPersonType, request.WithoutReason, request.TerminationBargain),
+                    FileName = string.Format(BLResources.PrintTerminationNoticeFileNameFormat, orderInfo.Number),
+                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
+                    PrintData = GetPrintData(request.OrderId)
+                };
+
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
+        }
+
+        protected PrintData GetPrintData(long orderId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                   .Select(order => new
+                       {
+                           Order = order,
+                           order.LegalPerson,
+                           order.BranchOfficeOrganizationUnit,
+                           order.BranchOfficeOrganizationUnit.BranchOffice
+                       })
+                   .AsEnumerable()
+                   .Select(x => new PrintData
+                       {
+                           { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
+                           { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForTerminationNotice(x.BranchOfficeOrganizationUnit) },
+                           { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
+                           { "Order", CzechPrintHelper.OrderFields(x.Order) }
+                       })
+                   .Single();
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType, bool withoutReason, bool terminationBargain)

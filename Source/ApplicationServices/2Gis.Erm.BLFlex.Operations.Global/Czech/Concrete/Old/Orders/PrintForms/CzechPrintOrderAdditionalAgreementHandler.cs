@@ -20,17 +20,15 @@ using EnumResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.EnumResou
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
-    public sealed class CzechPrintOrderAdditionalAgreementHandler : RequestHandler<PrintOrderAdditionalAgreementRequest, Response>, ICzechAdapted
+    public class CzechPrintOrderAdditionalAgreementHandler : RequestHandler<PrintOrderAdditionalAgreementRequest, Response>, ICzechAdapted
     {
         private readonly IFinder _finder;
-        private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
 
-        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
+        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
-            _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
@@ -55,55 +53,53 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                 throw new NotificationException(BLCoreResources.OrderRejectDateFieldIsNotFilled);
             }
 
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new
-                    {
-                        Order = order,
-                        order.Bargain,
-                        order.LegalPerson,
-                        Profile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                            y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
-                        OrganizationUnitName = order.LegalPerson.Client.Territory.OrganizationUnit.Name,
-                        order.BranchOfficeOrganizationUnit,
-                        order.BranchOfficeOrganizationUnit.BranchOffice,
-                        CurrencyISOCode = order.Currency.ISOCode,
-                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                        order.BranchOfficeOrganizationUnitId,
-                    })
-                .Single();
+            var orderInfo =
+                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                       .Select(order => new
+                           {
+                               OrderNumber = order.Number,
+                               CurrencyISOCode = order.Currency.ISOCode,
+                               LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                               order.BranchOfficeOrganizationUnitId,
+                           })
+                       .Single();
 
-            var printData = new
+            var printRequest = new PrintDocumentRequest
                 {
-                    orderInfo.Order,
-                    RelatedBargainInfo = (orderInfo.Bargain != null)
-                                             ? string.Format(
-                                                 BLCoreResources.RelatedToBargainInfoTemplate,
-                                                 orderInfo.Bargain.Number,
-                                                 _longDateFormatter.Format(orderInfo.Bargain.CreatedOn))
-                                             : null,
-                    NextReleaseDate = orderInfo.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
-                    orderInfo.LegalPerson,
-                    orderInfo.Profile,
-                    orderInfo.OrganizationUnitName,
-                    orderInfo.BranchOfficeOrganizationUnit,
-                    orderInfo.BranchOffice,
-                    orderInfo.CurrencyISOCode,
-                    orderInfo.LegalPersonType,
-                    orderInfo.BranchOfficeOrganizationUnitId,
-                    OperatesOnTheBasis = GetOperatesOnTheBasisString(orderInfo.Profile)
+                    CurrencyIsoCode = orderInfo.CurrencyISOCode,
+                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
+                    TemplateCode = GetTemplateCode(orderInfo.LegalPersonType, request.PrintType),
+                    FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, orderInfo.OrderNumber),
+                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
                 };
 
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
+        }
+
+        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        {
             return
-                _requestProcessor.HandleSubRequest(
-                    new PrintDocumentRequest
-                        {
-                            CurrencyIsoCode = printData.CurrencyISOCode,
-                            BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
-                            TemplateCode = GetTemplateCode(printData.LegalPersonType, request.PrintType),
-                            FileName = string.Format(BLCoreResources.PrintAdditionalAgreementFileNameFormat, printData.Order.Number),
-                            PrintData = printData
-                        },
-                    Context);
+                _finder.Find(Specs.Find.ById<Order>(orderId))
+                       .Select(order => new
+                           {
+                               Order = order,
+                               order.LegalPerson,
+                               Profile = order.LegalPerson.LegalPersonProfiles
+                                              .FirstOrDefault(y => y.Id == legalPersonProfileId),
+                               order.BranchOfficeOrganizationUnit,
+                               order.BranchOfficeOrganizationUnit.BranchOffice,
+                           })
+                       .AsEnumerable()
+                       .Select(x => new PrintData
+                           {
+                               { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
+                               { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForAdditionalAgreement(x.BranchOfficeOrganizationUnit) },
+                               { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
+                               { "Profile", CzechPrintHelper.LegalPersonProfileFieldsForAdditionalAgreement(x.Profile) },
+                               { "Order", CzechPrintHelper.OrderFields(x.Order) },
+                               { "OperatesOnTheBasis", GetOperatesOnTheBasisString(x.Profile) },
+                           })
+                       .Single();
         }
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)

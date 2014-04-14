@@ -22,10 +22,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string LegalName { get; set; }
 
         [Dependency(DependencyType.Disable, "LegalPersonType", "Ext.getDom('Id').value != '0'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "Inn", "this.value=='Businessman' || this.value=='NaturalPerson'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "BusinessmanInn", "this.value!='Businessman'")]
-        [Dependency(DependencyType.DisableAndHide, "Ic", "this.value=='NaturalPerson'")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "LegalAddress", "this.value=='NaturalPerson'")]
         public LegalPersonType LegalPersonType { get; set; }
 
         public bool IsInSyncWith1C { get; set; }
@@ -33,8 +29,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
-        [Dependency(DependencyType.ReadOnly, "LegalAddress", "Ext.getDom('Id').value != '0'")]
+        [RequiredLocalized]
         [StringLengthLocalized(512)]
+        [Dependency(DependencyType.ReadOnly, "LegalAddress", "Ext.getDom('Id').value != '0'")]
         public string LegalAddress { get; set; }
 
         [DisplayNameLocalized("Dic")]
@@ -43,14 +40,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string Inn { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.ReadOnly, "Ic", "Ext.getDom('Id').value != '0'")]
         [StringLengthLocalized(8, MinimumLength = 8)]
+        [Dependency(DependencyType.ReadOnly, "Ic", "Ext.getDom('Id').value != '0'")]
         public string Ic { get; set; }
-
-        [DisplayNameLocalized("Dic")]
-        [StringLengthLocalized(12)]
-        [Dependency(DependencyType.ReadOnly, "BusinessmanInn", "Ext.getDom('Id').value != '0'")]
-        public string BusinessmanInn { get; set; }
 
         [RequiredLocalized]
         public LookupField Client { get; set; }
@@ -77,7 +69,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             LegalAddress = modelDto.LegalAddress;
             Inn = modelDto.Inn;
             Ic = modelDto.Ic;
-            BusinessmanInn = modelDto.BusinessmanInn;
             Client = LookupField.FromReference(modelDto.ClientRef);
             IsInSyncWith1C = modelDto.IsInSyncWith1C;
             ReplicationCode = modelDto.ReplicationCode;
@@ -97,7 +88,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     LegalAddress = LegalAddress,
                     Inn = Inn,
                     Ic = Ic,
-                    BusinessmanInn = BusinessmanInn,
                     ClientRef = Client.ToReference(),
                     IsInSyncWith1C = IsInSyncWith1C,
                     ReplicationCode = ReplicationCode.Value,

@@ -201,20 +201,7 @@ SWIFT {5}
     <value>Не определена форма сотрудничества у отделения организации с id [{0}]</value>
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na zaklade {0} ze dne {1}</value>
-  </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IC: {0}         DIC: {1}  
-Misto podnikani: {2}
-Cislo uctu: {3}/{4}
-Penezni ustav: {5}</value>
-  </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IC: {0}       	DIC: {1}
-Sidlo:  {2}
-Zapsana  {6}
-Cislo uctu:  {3}/{4}
-Penezni ustav:  {5}</value>
+    <value>na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
