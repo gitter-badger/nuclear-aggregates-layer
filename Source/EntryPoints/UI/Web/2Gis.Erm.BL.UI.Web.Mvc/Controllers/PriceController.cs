@@ -3,13 +3,13 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -21,6 +21,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     public sealed class PriceController : ControllerBase
     {
         private readonly IPublicService _publicService;
+        private readonly ICopyPriceOperationService _copyPriceOperationService;
+        private readonly IReplacePriceOperationService _replacePriceOperationService;
 
         public PriceController(
             IMsCrmSettings msCrmSettings,
@@ -28,7 +30,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             ICommonLog logger,
             IPublicService publicService, 
             IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
+            IGetBaseCurrencyService getBaseCurrencyService,
+            ICopyPriceOperationService copyPriceOperationService,
+            IReplacePriceOperationService replacePriceOperationService)
         : base(
             msCrmSettings,
             userContext,
@@ -37,6 +41,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             getBaseCurrencyService)
         {
             _publicService = publicService;
+            _copyPriceOperationService = copyPriceOperationService;
+            _replacePriceOperationService = replacePriceOperationService;
         }
 
         [HttpGet]
@@ -108,12 +114,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 try
                 {
-                    var replacePriceRequest = new ReplacePriceRequest
-                    {
-                        SourcePriceId = viewModel.SourcePriceId,
-                        TargetPriceId = viewModel.TargetPrice.Key.Value,
-                    };
-                    _publicService.Handle(replacePriceRequest);
+                    _replacePriceOperationService.Replace(viewModel.SourcePriceId, viewModel.TargetPrice.Key.Value);
+
                     viewModel.Message = BLResources.OK;
                 }
                 catch (BusinessLogicException ex)
@@ -143,21 +145,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult CopyNew(CopyNewPriceViewModel viewModel)
         {
             if (!ModelUtils.CheckIsModelValid(this, viewModel))
+            {
                 return View(viewModel);
+            }
 
             try
             {
                 if (!viewModel.OrganizationUnit.Key.HasValue)
-                    throw new NotificationException(BLResources.OrganizationUnitNotSet);
-
-                var copyPriceRequest = new CopyPriceRequest
                 {
-                    SourcePriceId = viewModel.Id,
-                    OrganizationUnitId = viewModel.OrganizationUnit.Key.Value,
-                    BeginDate = viewModel.BeginDate,
-                    PublishDate = viewModel.PublishDate
-                };
-                _publicService.Handle(copyPriceRequest);
+                    throw new NotificationException(BLResources.OrganizationUnitNotSet);
+                }
+
+                _copyPriceOperationService.Copy(viewModel.Id, viewModel.OrganizationUnit.Key.Value, viewModel.PublishDate, viewModel.BeginDate);
 
                 viewModel.Message = BLResources.OK;
             }

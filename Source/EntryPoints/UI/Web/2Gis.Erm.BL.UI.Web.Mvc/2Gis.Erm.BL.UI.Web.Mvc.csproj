@@ -118,6 +118,7 @@
     <Compile Include="Controllers\CategoryGroupsMembershipController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\DealController.cs" />
+    <Compile Include="Controllers\Helpers\IsChooseProfileNeededHelper.cs" />
     <Compile Include="Controllers\LegalPersonProfileController.cs" />
     <Compile Include="Controllers\LimitController.cs" />
     <Compile Include="Controllers\NoteController.cs" />

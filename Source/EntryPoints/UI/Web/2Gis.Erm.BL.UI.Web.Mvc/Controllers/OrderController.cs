@@ -3,9 +3,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
@@ -65,6 +67,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOperationService _operationService;
 
         private readonly IProcessOrderProlongationRequestSingleOperation _orderProlongationOperation;
@@ -88,6 +91,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
                                ILegalPersonRepository legalPersonRepository,
+                               ILegalPersonReadModel legalPersonReadModel,
                                IOperationService operationService,
                                IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
@@ -106,6 +110,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
             _legalPersonRepository = legalPersonRepository;
+            _legalPersonReadModel = legalPersonReadModel;
             _operationService = operationService;
             _orderProlongationOperation = orderProlongationOperation;
             _orderCreationOperation = orderCreationOperation;
@@ -761,7 +766,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
             if (orders != null && orders.Length > 0)
+            {
                 return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders, LegalPersonProfile = profileId });
+            }
 
             return new EmptyResult();
         }
@@ -825,20 +832,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 });
         }
 
-        private ActionResult TryPrintDocument(Request request)
-        {
-            try
-            {
-                var response = (StreamResponse)_publicService.Handle(request);
-                return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
-            }
-            catch (Exception ex)
-            {
-                return new ContentResult { Content = ex.Message };
-            }
-        }
-
-        public ActionResult Print(PrintOrderType printOrderType, long orderId)
+        public ActionResult Print(PrintOrderType printOrderType, long orderId, long profileId)
         {
             var order = _orderReadModel.GetOrder(orderId);
             if (!order.LegalPersonId.HasValue)
@@ -850,7 +844,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 LegalPersonId = order.LegalPersonId.Value,
                 OrderId = orderId,
-                PrintOrderType = printOrderType
+                PrintOrderType = printOrderType,
+                DefaultLegalPersonProfileId = profileId,
+                LegalPersonProfile = new LookupField
+                    {
+                        Key = profileId, 
+                        Value = _legalPersonReadModel.GetLegalPersonProfile(profileId).Name
+                    }
             };
 
             return View(printOrderModel);
@@ -858,40 +858,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public JsonNetResult IsChooseProfileNeeded(long orderId, PrintOrderType printOrderType)
         {
-            var isChooseProfileNeeded = true;
-            long? legalPersonProfile = null;
-
-            var order = _orderReadModel.GetOrder(orderId);
-
-            if (order.LegalPersonProfileId.HasValue && printOrderType != PrintOrderType.PrintOrder)
-            {
-                isChooseProfileNeeded = false;
-                legalPersonProfile = order.LegalPersonProfileId.Value;
-            }
-            else if (order.LegalPersonId.HasValue)
-            {
-                var legalPersonWithProfiles =
-                    _legalPersonRepository.GetLegalPersonWithProfiles(order.LegalPersonId.Value);
-                if ((LegalPersonType)legalPersonWithProfiles.LegalPerson.LegalPersonTypeEnum ==
-                    LegalPersonType.NaturalPerson
-                    && printOrderType != PrintOrderType.PrintOrder
-                    && printOrderType != PrintOrderType.PrintBargain
-                    && printOrderType != PrintOrderType.PrintReferenceInformation)
-                {
-                    isChooseProfileNeeded = false;
-                }
-
-                if (legalPersonWithProfiles.Profiles.Count() == 1)
-                {
-                    isChooseProfileNeeded = false;
-                    legalPersonProfile = legalPersonWithProfiles.Profiles.First().Id;
-                }
-            }
+            var chooseProfileDialogState = new IsChooseProfileNeededHelper(_orderReadModel, _legalPersonRepository)
+                .GetChooseProfileDialogState(orderId, printOrderType);
 
             return new JsonNetResult(new
             {
-                IsChooseProfileNeeded = isChooseProfileNeeded,
-                LegalPersonProfileId = legalPersonProfile
+                IsChooseProfileNeeded = chooseProfileDialogState.IsChooseProfileNeeded,
+                LegalPersonProfileId = chooseProfileDialogState.LegalPersonProfileId
             });
         }
         #endregion
@@ -953,6 +926,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             var response = _repairOutdatedPositionsOperationService.RepairOutdatedPositions(orderId);
             return new JsonNetResult(new { Messages = response });
+        }
+
+        private ActionResult TryPrintDocument(Request request)
+        {
+            try
+            {
+                var response = (StreamResponse)_publicService.Handle(request);
+                return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
+            }
+            catch (Exception ex)
+            {
+                return new ContentResult { Content = ex.Message };
+            }
         }
     }
 

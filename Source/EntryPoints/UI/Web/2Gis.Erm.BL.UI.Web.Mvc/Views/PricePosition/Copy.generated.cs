@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.PricePosition
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
+    using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.PricePosition
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/PricePosition/Copy.cshtml")]
-    public partial class Copy : System.Web.Mvc.WebViewPage<Models.CopyPricePositionModel>
+    public partial class Copy : System.Web.Mvc.WebViewPage<CopyPricePositionModel>
     {
         public Copy()
         {
