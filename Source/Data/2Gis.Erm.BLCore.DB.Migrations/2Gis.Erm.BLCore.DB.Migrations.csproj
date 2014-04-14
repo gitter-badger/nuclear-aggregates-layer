@@ -220,6 +220,8 @@
     <Compile Include="0.15 - HangzhouBay\2012.12.05 rev. 5481 alter ReplicateTerritory.cs" />
     <Compile Include="0.15 - HangzhouBay\2012.12.05 rev. 5487 exportTo1CButton.cs" />
     <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5549 altering BusinessDirectory.vwTerritories.cs" />
+    <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
+    <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
     <Compile Include="2.1\2013.11.15 rev. 13639 - Add Functional Priveleges.cs" />
     <Compile Include="2.1\2014.03.04 rev. 17700 - delete associated and denied order validation rule for order state changing validation.cs" />
     <Compile Include="2.1\2014.02.12 rev. 16472 - add associated and denied order validation rule for order state changing validation.cs" />
@@ -614,6 +616,7 @@
     <Compile Include="1.2\2013.10.25 rev. 13109 - Support Account operations for flowFincncialData.LegalEntity.cs" />
     <Compile Include="1.2\2013.10.25 rev. 13126 - Remove RequestId and LegalPersonId from OrderProcessingRequest.cs" />
     <Compile Include="1.2\2013.10.25 rev. 13135 - Add foreign keys for OrderProcessingRequest.cs" />
+    <Compile Include="2.0\2014.03.11 rev. 17994 - Create export tables for prices and price positions.cs" />
     <Compile Include="2.0\2013.11.26 rev. 13864 - change BusinessOperationsServices for SetAsDefaultTheme operation.cs" />
     <Compile Include="2.0\2013.11.28 rev. 13938 - performance tuning for view [Security].[vwUserTerritoriesOrganizationUnits] .cs" />
     <Compile Include="2.0\2013.10.17 rev. 12842 - drop Integration.GetNonExportedOrdersCount SP.cs" />

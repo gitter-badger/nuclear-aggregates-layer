@@ -37,20 +37,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
         {
             var startPeriodDate = request.PeriodStart.GetFirstDateOfMonth();
             var endPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth();
-            var data = new AutoMailerDataDto
-                {
-                    StartDate = startPeriodDate,
-                    EndDate = endPeriodDate,
-                    SendingType = request.SendingType
-                };
-
-            data.Recipients = _orderReadModel.GetRecipientsForAutoMailer(startPeriodDate, endPeriodDate, request.IncludeRegionalAdvertisement);
+            var recepients = _orderReadModel.GetRecipientsForAutoMailer(startPeriodDate, endPeriodDate, request.IncludeRegionalAdvertisement);
+            var data = new AutoMailerDataDto(request.SendingType, startPeriodDate, endPeriodDate, recepients);
 
             var xmlString = data.ToXml().ToString();
-            var xmlSchemaSet = XmlValidator.CreateXmlSchemaSetForXsd(Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup"));
 
             string error;
-            var isValidXml = XmlValidator.Validate(xmlString, xmlSchemaSet, out error);
+            var xsd = Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup");
+            var isValidXml = XmlValidator.Validate(xmlString, xsd, out error);
             if (!isValidXml)
             {
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));
@@ -58,8 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 
             return new IntegrationResponse
                 {
-                    Stream = new MemoryStream(
-                        Encoding.UTF8.GetBytes(xmlString)),
+                    Stream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString)),
                     ContentType = MediaTypeNames.Text.Xml,
                     FileName = "SendingGroup.xml",
                     DoNotDisplayProcessingAmount = true
@@ -68,21 +61,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 
         private class AutoMailerDataDto
         {
-            public MailSendingType SendingType { get; set; }
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public IEnumerable<RecipientDto> Recipients { get; set; } 
+            private readonly MailSendingType _sendingType;
+            private readonly DateTime _startDate;
+            private readonly DateTime _endDate;
+            private readonly IEnumerable<RecipientDto> _recipientDtos;
+
+            public AutoMailerDataDto(MailSendingType sendingType, DateTime startDate, DateTime endDate, IEnumerable<RecipientDto> recipientDtos)
+            {
+                _sendingType = sendingType;
+                _startDate = startDate;
+                _endDate = endDate;
+                _recipientDtos = recipientDtos;
+            }
+            
             public XElement ToXml()
             {
                 var xml = new XElement("SendingGroup");
 
-                xml.Add(new XAttribute("TypeCode", SendingType));
-                xml.Add(new XAttribute("StartDate", StartDate));
-                xml.Add(new XAttribute("EndDate", EndDate));
+                xml.Add(new XAttribute("TypeCode", _sendingType));
+                xml.Add(new XAttribute("StartDate", _startDate));
+                xml.Add(new XAttribute("EndDate", _endDate));
 
                 var recipients = new XElement("Recipients");
                 xml.Add(recipients);
-                foreach (var recipient in Recipients)
+                foreach (var recipient in _recipientDtos)
                 {
                     recipients.Add(recipient.ToXml());
                 }

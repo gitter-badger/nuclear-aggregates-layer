@@ -17,9 +17,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 { EntityName.ExportFlowOrdersResource, IntegrationService.ExportFlowOrdersResource },
                 { EntityName.ExportFlowOrdersTheme, IntegrationService.ExportFlowOrdersTheme },
                 { EntityName.ExportFlowOrdersThemeBranch, IntegrationService.ExportFlowOrdersThemeBranch },
-                { EntityName.ImportedFirmAddress, IntegrationService.ImportFirmAddressNames },
-                { EntityName.ExportToMsCrmHotClients, IntegrationService.CreateHotClientTask },
                 { EntityName.ExportFlowFinancialDataClient, IntegrationService.ExportFlowFinancialDataClient },
+                { EntityName.ExportFlowPriceListsPriceList, IntegrationService.ExportFlowPriceListsPriceList },
+                { EntityName.ExportFlowPriceListsPriceListPosition, IntegrationService.ExportFlowPriceListsPriceListPosition },
+                { EntityName.ExportToMsCrmHotClients, IntegrationService.CreateHotClientTask },
+                { EntityName.ImportedFirmAddress, IntegrationService.ImportFirmAddressNames },
             };
 
         public static IntegrationService AsIntegrationService(this EntityName entityName)

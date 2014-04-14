@@ -106,6 +106,26 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                             IntegrationEntityName = EntityName.ExportToMsCrmHotClients
                         }
                 },
+                {
+                    "flowpricelists.pricelist",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.Price,
+                            FlowName = "flowPriceLists",
+                            SchemaResourceName = "flowPriceLists_PriceList",
+                            IntegrationEntityName = EntityName.ExportFlowPriceListsPriceList
+                        }
+                },
+                {
+                    "flowpricelists.pricelistposition",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.PricePosition,
+                            FlowName = "flowPriceLists",
+                            SchemaResourceName = "flowPriceLists_PriceListPosition",
+                            IntegrationEntityName = EntityName.ExportFlowPriceListsPriceListPosition
+                        }
+                },
             };
 
         private readonly IOperationServicesManager _servicesManager;

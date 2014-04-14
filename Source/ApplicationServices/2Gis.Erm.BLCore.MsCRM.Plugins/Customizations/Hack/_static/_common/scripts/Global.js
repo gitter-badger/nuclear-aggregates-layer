@@ -752,8 +752,8 @@ function openInPlace(sUrl, iX, iY)
 window.CrmUrlToErmUrlTemplateMapping =
 [
     // production environment
-    { CrmUrl: "http://uk-crm01/DoubleGis", ErmUrlTemplate: "//web-app.erm.2gis.local/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.erm.2gis.local/" },
-    { CrmUrl: "http://uk-crm03/DoubleGis", ErmUrlTemplate: "//web-app.erm.2gis.local/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.erm.2gis.local/" },
+    { CrmUrl: "http://uk-crm01/DoubleGis", ErmUrlTemplate: "//web-app.prod.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.prod.erm.russia/" },
+    { CrmUrl: "http://uk-crm03/DoubleGis", ErmUrlTemplate: "//web-app.prod.erm.russia/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.prod.erm.russia/" },
 
     // test environments
     { CrmUrl: "http://uk-expl03/DoubleGis", ErmUrlTemplate: "//web-app.erm-russia.2gis.local/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.erm-russia.2gis.local/" },

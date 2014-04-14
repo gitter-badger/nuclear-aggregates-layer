@@ -3,9 +3,9 @@ using System.IO;
 using System.Text;
 using System.Transactions;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -42,10 +42,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 data = reader.ReadToEnd();
             }
 
-            var xmlSchemaSet = XmlValidator.CreateXmlSchemaSetForXsd(BLCore.Operations.Properties.Resources.ResourceManager.GetString(StaticReflection.GetMemberName(request.XsdSchemaResourceExpression)));
-
             string error;
-            var isValidXml = XmlValidator.Validate(data, xmlSchemaSet, out error);
+            var xsd = Properties.Resources.ResourceManager.GetString(StaticReflection.GetMemberName(request.XsdSchemaResourceExpression));
+            var isValidXml = XmlValidator.Validate(data, xsd, out error);
             if (!isValidXml)
             {
                 _logger.FatalEx(error);

@@ -276,5 +276,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName BusinessEntityInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "BusinessEntityInstances");
 
         public static readonly SchemaQualifiedObjectName BusinessEntityPropertyInstances = new SchemaQualifiedObjectName(ErmSchemas.DynamicStorage, "BusinessEntityPropertyInstances");
+
+        public static readonly SchemaQualifiedObjectName ExportFlowPriceListsPriceList = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowPriceLists_PriceList");
+
+        [Obsolete("Use ExportFlowPriceListsPriceListPosition")]
+        public static readonly SchemaQualifiedObjectName ExportFlowPriceListsPricePosition = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowPriceLists_PricePosition");
+
+        public static readonly SchemaQualifiedObjectName ExportFlowPriceListsPriceListPosition = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowPriceLists_PriceListPosition");
     }
 }

@@ -1,58 +1,78 @@
 ﻿using System;
-using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {
     public class DeletePriceService : IDeleteGenericEntityService<Price>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IPriceReadModel _priceReadModel;
+        private readonly IBulkDeletePricePositionsAggregateService _bulkDeletePricePositionsAggregateService;
+        private readonly IBulkDeleteDeniedPositionsAggregateService _bulkDeleteDeniedPositionsAggregateService;
+        private readonly IDeletePriceAggregateService _deletePriceAggregateService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DeletePriceService(IUnitOfWork unitOfWork)
+        public DeletePriceService(IPriceReadModel priceReadModel,
+                                  IBulkDeletePricePositionsAggregateService bulkDeletePricePositionsAggregateService,
+                                  IBulkDeleteDeniedPositionsAggregateService bulkDeleteDeniedPositionsAggregateService,
+                                  IDeletePriceAggregateService deletePriceAggregateService,
+                                  IOperationScopeFactory operationScopeFactory)
         {
-            _unitOfWork = unitOfWork;
+            _priceReadModel = priceReadModel;
+            _bulkDeletePricePositionsAggregateService = bulkDeletePricePositionsAggregateService;
+            _bulkDeleteDeniedPositionsAggregateService = bulkDeleteDeniedPositionsAggregateService;
+            _deletePriceAggregateService = deletePriceAggregateService;
+            _operationScopeFactory = operationScopeFactory;
         }
 
         public DeleteConfirmation Delete(long entityId)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, Price>())
             {
-                using (var scope = _unitOfWork.CreateScope())
+                var price = _priceReadModel.GetPrice(entityId);
+                if (price == null)
                 {
-                    var priceRepository = scope.CreateRepository<IPriceRepository>();
-
-                    var pricePublishedForToday = priceRepository.PricePublishedForToday(entityId);
-                    if (pricePublishedForToday)
-                    {
-                        throw new ArgumentException(BLResources.PriceInActionCannotBeDeactivated);
-                    }
-
-                    var priceHasLinkedOrders = priceRepository.PriceHasLinkedOrders(entityId);
-                    if (priceHasLinkedOrders)
-                    {
-                        throw new ArgumentException(BLResources.PriceIsLinkedWithActiveOrdersAndCannotBeDeleted);
-                    }
-                    priceRepository.DeleteWithSubentities(entityId);
-
-                    scope.Complete();
+                    throw new ArgumentException(BLResources.EntityNotFound);
                 }
-                transaction.Complete();
+
+                var isPricePublished = _priceReadModel.IsPricePublished(entityId);
+                if (isPricePublished)
+                {
+                    throw new ArgumentException(BLResources.PriceInActionCannotBeDeactivated);
+                }
+
+                var isPriceLinked = _priceReadModel.IsPriceLinked(entityId);
+                if (isPriceLinked)
+                {
+                    throw new ArgumentException(BLResources.PriceIsLinkedWithActiveOrdersAndCannotBeDeleted);
+                }
+
+                var allPriceDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(entityId);
+
+                _bulkDeletePricePositionsAggregateService.Delete(allPriceDescendantsDto.PricePositions,
+                                                                 allPriceDescendantsDto.AssociatedPositionsGroupsMapping,
+                                                                 allPriceDescendantsDto.AssociatedPositionsMapping);
+
+                _bulkDeleteDeniedPositionsAggregateService.Delete(allPriceDescendantsDto.DeniedPositions);
+
+                _deletePriceAggregateService.Delete(price);
+
+                operationScope.Complete();
+
                 return null;
             }
         }
 
         public DeleteConfirmationInfo GetConfirmation(long entityId)
         {
-            var priceRepository = _unitOfWork.CreateRepository<PriceRepository>();
-
-            var pricePublishedForToday = priceRepository.PricePublishedForToday(entityId);
-            if (pricePublishedForToday)
+            var isPricePublished = _priceReadModel.IsPricePublished(entityId);
+            if (isPricePublished)
             {
                 return new DeleteConfirmationInfo
                 {
@@ -61,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 };
             }
 
-            var priceExists = priceRepository.PriceExists(entityId);
+            var priceExists = _priceReadModel.IsPriceExist(entityId);
             if (!priceExists)
             {
                 return new DeleteConfirmationInfo

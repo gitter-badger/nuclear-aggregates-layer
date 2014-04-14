@@ -4,7 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -332,10 +332,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         // TODO {d.ivanov, 11.11.2013}: перенести в read-model
         private PricePosition GetPricePosition(long positionId, long priceId)
         {
-            return
-                _finder.Find(PricePositionSpecifications.Find.ByPriceAndPostion(positionId, priceId))
-                       .Where(Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                       .SingleOrDefault();
+            return _finder.Find(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
+                          .Where(Specs.Find.ActiveAndNotDeleted<PricePosition>())
+                          .SingleOrDefault();
         }
 
         // TODO {d.ivanov, 11.11.2013}: перенести в read-model
