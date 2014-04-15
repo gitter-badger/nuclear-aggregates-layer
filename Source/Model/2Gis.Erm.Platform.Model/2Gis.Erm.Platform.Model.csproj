@@ -173,7 +173,7 @@
     </Compile>
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
-    <Compile Include="ContainedTypesAttribute.cs" />
+    <Compile Include="DI\PlatformZone.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoUtils.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
@@ -241,7 +241,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
     <Compile Include="ModelIndicators.Simplified.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="DI\PlatformModelAssembly.cs" />
     <Compile Include="Entities\DTOs\AppointmentDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoRegistry.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\IDomainEntityDtoRegistry.cs" />
@@ -1433,6 +1433,18 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\StrictOperationIdentityUtils.cs" />
     <Compile Include="UndefinedEnumValueAttribute.cs" />
+    <Compile Include="Zones\CompositionRoot.cs" />
+    <Compile Include="Zones\IContainsType.cs" />
+    <Compile Include="Zones\Infrastructure\AssemblyZonePartScope.cs" />
+    <Compile Include="Zones\Infrastructure\IZonePart.cs" />
+    <Compile Include="Zones\Infrastructure\IZonePartScope.cs" />
+    <Compile Include="Zones\Infrastructure\MemberZonePartScope.cs" />
+    <Compile Include="Zones\Infrastructure\NamespaceZonePartScope.cs" />
+    <Compile Include="Zones\IZone.cs" />
+    <Compile Include="Zones\IZoneAnchor.cs" />
+    <Compile Include="Zones\IZoneAssembly.cs" />
+    <Compile Include="Zones\IZoneMember.cs" />
+    <Compile Include="Zones\IZoneNamespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
