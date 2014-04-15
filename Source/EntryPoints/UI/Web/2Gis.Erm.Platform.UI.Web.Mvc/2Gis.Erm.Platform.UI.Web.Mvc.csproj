@@ -100,7 +100,8 @@
     <Compile Include="DI\MassProcessing\UIServicesMassProcessor.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeManager.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="DI\PlatformUiWebMvcAssembly.cs" />
+    <Compile Include="DI\WebMvcZone.cs" />
     <Compile Include="ResourceHandling\ResourcesResolver.cs" />
     <Compile Include="Security\IDefaultUserContextConfigurator.cs" />
     <Compile Include="Security\IdentityWebExtensions.cs" />
