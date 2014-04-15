@@ -47,6 +47,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlQueryingOperationsListingAssembly.cs" />
     <Compile Include="List\Infrastructure\QueryableExtension.cs" />
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
     <Compile Include="List\Infrastructure\SubordinatesFilter.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="List\ListDepartmentService.cs" />
     <Compile Include="List\ListUserService.cs" />
     <Compile Include="List\ListWithdrawalInfoService.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
