@@ -316,6 +316,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsDeleted = x.IsDeleted,
                 CreatedOn = x.CreatedOn,
                 InformationSource = (InformationSource)x.InformationSource,
+                IsAdvertisingAgency = x.IsAdvertisingAgency,
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings, out count)
