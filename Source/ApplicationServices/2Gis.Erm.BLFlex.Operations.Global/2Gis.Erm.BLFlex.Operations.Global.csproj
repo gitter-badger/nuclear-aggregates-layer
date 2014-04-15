@@ -63,6 +63,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="BargainRelationsDto.cs" />
+    <Compile Include="DI\BlFlexOperationsGlobalAssembly.cs" />
     <Compile Include="Chile\Concrete\Old\Bills\ChilePrintBillHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Clients\ChileCheckClientActivitiesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
@@ -197,7 +198,6 @@
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechPhonecallObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechTaskObtainer.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditOrderPositionHandler.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />

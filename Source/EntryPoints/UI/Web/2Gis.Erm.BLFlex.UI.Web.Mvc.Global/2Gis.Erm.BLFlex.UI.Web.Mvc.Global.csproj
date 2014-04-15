@@ -131,6 +131,7 @@
       <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\Chile\CommuneViewModel.cs" />
     <Compile Include="Models\MultiCultureCreateBillViewModel.cs" />
@@ -260,7 +261,6 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Services\Cards\MultiCultureClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
