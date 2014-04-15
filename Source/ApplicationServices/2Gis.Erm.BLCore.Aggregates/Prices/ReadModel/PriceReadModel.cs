@@ -126,15 +126,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public bool IsPricePositionExist(long priceId, long positionId, long pricePositionId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
+                                PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
                           .Any();
         }
 
         public bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
         {
-            return _finder.Find(Specs.Find.NotDeleted<PricePosition>())
-                          .Where(PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
+            return _finder.Find(Specs.Find.NotDeleted<PricePosition>() &&
+                                PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
                           .Any();
         }
 

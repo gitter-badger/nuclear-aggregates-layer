@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                     return new FindSpecification<PricePosition>(x => x.PriceId == priceId && x.PositionId == positionId);
                 }
 
-                public static FindSpecification<PricePosition> ByPriceAndPositionButAnother(long positionId, long priceId, long pricePositionId)
+                public static FindSpecification<PricePosition> ByPriceAndPositionButAnother(long priceId, long positionId, long pricePositionId)
                 {
                     return new FindSpecification<PricePosition>(x => x.PriceId == priceId && x.PositionId == positionId && x.Id != pricePositionId);
                 }
