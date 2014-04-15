@@ -47,6 +47,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlFlexAggregatesGlobalAssembly.cs" />
     <Compile Include="Chile\CommuneSpecifications.cs" />
     <Compile Include="Chile\Bills\BillSpecifications.cs" />
     <Compile Include="Chile\BankSpecifications.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="Czech\Orders\OrderSpecifications.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
     <Compile Include="Multiculture\Crosscutting\NullValidateBillsService.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
   </ItemGroup>
