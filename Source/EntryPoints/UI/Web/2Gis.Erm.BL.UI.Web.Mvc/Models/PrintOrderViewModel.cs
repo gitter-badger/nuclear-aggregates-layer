@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public PrintOrderType PrintOrderType { get; set; }
 
-        public long DefaultLegalPersonProfileId { get; set; }
+        public long? DefaultLegalPersonProfileId { get; set; }
 
         public long LegalPersonId { get; set; }
 

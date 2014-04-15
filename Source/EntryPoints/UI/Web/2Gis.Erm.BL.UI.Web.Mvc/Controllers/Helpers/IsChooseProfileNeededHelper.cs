@@ -45,11 +45,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         private bool IsChooseProfileNeeded(Order order, PrintOrderType printOrderType)
         {
-            if (order.LegalPersonProfileId.HasValue && printOrderType != PrintOrderType.PrintOrder)
-            {
-                return false;
-            }
-
             // TODO {all, 10.04.2014}: есть подозрения, что  можно убрать это условие
             if (!order.LegalPersonId.HasValue)
             {
@@ -58,6 +53,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
             // TODO {all, 07.04.2014}: перевести на LegalPersonReadModel
             var legalPersonWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(order.LegalPersonId.Value);
+
+            var validLegalPersonProfileIdSpecified = order.LegalPersonProfileId.HasValue
+                                                     && legalPersonWithProfiles.Profiles.Select(profile => profile.Id).Contains(order.LegalPersonProfileId.Value);
+
+            if (validLegalPersonProfileIdSpecified && printOrderType != PrintOrderType.PrintOrder)
+            {
+                return false;
+            }
 
             // TODO {v.lapeev, 09.04.2014}: Непонятное условие. Предполагаю, что в перечисленных документах (кстати, это какие?) для физлица не используется профиль.
             //                               Но это не так, например документ "Уведомление о расторжении для физ. лица.docx" имеет поле Profile.ChiefNameInGenitive
@@ -70,7 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
                 return false;
             }
 
-            return legalPersonWithProfiles.Profiles.Count() > 1;
+            return legalPersonWithProfiles.Profiles.Count() != 1;
         }
 
         private long? GetLegalPersonProfileId(Order order)

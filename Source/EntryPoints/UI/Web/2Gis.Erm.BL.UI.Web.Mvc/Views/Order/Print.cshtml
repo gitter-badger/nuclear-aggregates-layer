@@ -17,7 +17,8 @@
         Ext.onReady(function() {
 
             Ext.getCmp("LegalPersonProfile").on('change', function() {
-                var profileId = Ext.getCmp("LegalPersonProfile").getValue().id;
+                var profile = Ext.getCmp("LegalPersonProfile").getValue();
+                var profileId = profile ? profile.id : "";
                 var defaultProfileId = Ext.getDom("DefaultLegalPersonProfileId").value;
                 if (profileId != defaultProfileId) {
                     Ext.getDom("warning").style.visibility = 'visible';

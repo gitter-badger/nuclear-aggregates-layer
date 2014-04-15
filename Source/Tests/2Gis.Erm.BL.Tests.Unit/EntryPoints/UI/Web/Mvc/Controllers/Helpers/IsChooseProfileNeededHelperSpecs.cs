@@ -29,8 +29,13 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
         class IsChooseProfileNeededHelperContext
         {
             protected const long OrderId = 1;
+            protected const long LegalPersonId = 2;
+            protected const long LegalPersonProfileId = 3;
 
             protected static Order Order;
+            protected static LegalPerson LegalPerson;
+            protected static LegalPersonProfile[] LegalPersonProfiles;
+            protected static LegalPersonWithProfiles LegalPersonWithProfiles;
 
             protected static IOrderReadModel OrderReadModel;
             protected static ILegalPersonRepository LegalPersonRepository;
@@ -44,6 +49,10 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
                     LegalPersonRepository = Mock.Of<ILegalPersonRepository>();
 
                     Helper = new IsChooseProfileNeededHelper(OrderReadModel, LegalPersonRepository);
+
+                    Mock.Get(LegalPersonRepository)
+                        .Setup(x => x.GetLegalPersonWithProfiles(LegalPersonId))
+                        .Returns(() => new LegalPersonWithProfiles { LegalPerson = LegalPerson, Profiles = LegalPersonProfiles });
                 };
 
             protected static void CheckAllNeededPrintOrderTypes(Action<PrintOrderType> shouldAction, PrintOrderType[] PrintOrderTypesToExclude)
@@ -59,29 +68,15 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
 
         class OrderHasNoProfileButHasLegalPersonContext : IsChooseProfileNeededHelperContext
         {
-            protected const long LegalPersonId = 2;
-
-            protected static LegalPerson LegalPerson;
-            protected static LegalPersonWithProfiles LegalPersonWithProfiles;
-
             Establish context = () =>
                 {
-                    Order.LegalPersonId = LegalPersonId;
-
                     LegalPerson = new LegalPerson { Id = LegalPersonId };
-                    LegalPersonWithProfiles = new LegalPersonWithProfiles
-                        {
-                            LegalPerson = LegalPerson
-                        };
-
-                    Mock.Get(LegalPersonRepository).Setup(x => x.GetLegalPersonWithProfiles(LegalPersonId)).Returns(LegalPersonWithProfiles);
+                    Order.LegalPersonId = LegalPerson.Id;
                 };
         }
 
         class OrderHasLegalPersonAndProfileContext : OrderHasNoProfileButHasLegalPersonContext
         {
-            protected const long LegalPersonProfileId = 3;
-
             Establish context = () => { Order.LegalPersonProfileId = LegalPersonProfileId; };
         }
 
@@ -89,8 +84,6 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
         [Subject(typeof(IsChooseProfileNeededHelper))]
         class When_order_has_legal_person_with_single_profile : OrderHasNoProfileButHasLegalPersonContext
         {
-            const long LegalPersonProfileId = 3;
-
             static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
 
             static LegalPersonProfile LegalPersonProfile;
@@ -98,7 +91,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
             Establish context = () =>
                 {
                     LegalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
-                    LegalPersonWithProfiles.Profiles = new[] { LegalPersonProfile };
+                    LegalPersonProfiles = new[] { LegalPersonProfile };
                 };
 
             Because of = () => Result = Helper.GetChooseProfileDialogState(OrderId, 0); 
@@ -120,7 +113,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
 
             Establish context = () =>
                 {
-                    LegalPersonWithProfiles.Profiles = new[] { new LegalPersonProfile(), new LegalPersonProfile() };
+                    LegalPersonProfiles = new[] { new LegalPersonProfile(), new LegalPersonProfile() };
                     LegalPerson.LegalPersonTypeEnum = (int)LegalPersonType.NaturalPerson;
                 };
 
@@ -148,19 +141,26 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
 
         [Tags("ControllerHelper")]
         [Subject(typeof(IsChooseProfileNeededHelper))]
-        class When_print_not_order_and_order_has_profile : IsChooseProfileNeededHelperContext
+        class When_print_not_order_and_order_has_profile : OrderHasLegalPersonAndProfileContext
         {
-            const long ProfileId = 2;
             static PrintOrderType[] PrintOrderTypesToExclude = { PrintOrderType.PrintOrder };
 
-            Establish context = () => Order.LegalPersonProfileId = ProfileId;
+            private Establish context = () =>
+                {
+                    Order.LegalPersonProfileId = LegalPersonProfileId;
+                    Order.LegalPerson = LegalPerson;
+                    Order.LegalPersonId = LegalPerson.Id;
+
+                    LegalPersonProfiles = new[] { new LegalPersonProfile { Id = LegalPersonProfileId } };
+                    LegalPerson.LegalPersonProfiles = LegalPersonProfiles;
+                };
 
             It should_choose_profile_not_needed = () => CheckAllNeededPrintOrderTypes(
                 printOrderType =>
                     {
                         var result = Helper.GetChooseProfileDialogState(OrderId, printOrderType);
                         result.IsChooseProfileNeeded.Should().BeFalse();
-                        result.LegalPersonProfileId.Should().Be(ProfileId);
+                        result.LegalPersonProfileId.Should().Be(LegalPersonProfileId);
                     }, 
                 PrintOrderTypesToExclude);
         }
@@ -175,7 +175,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
             Establish context = () =>
                 {
                     LegalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
-                    LegalPersonWithProfiles.Profiles = new[] { LegalPersonProfile };
+                    LegalPersonProfiles = new[] { LegalPersonProfile };
                 };
 
             Because of = () => Result = Helper.GetChooseProfileDialogState(OrderId, PrintOrderType.PrintOrder);
@@ -194,14 +194,13 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
         [Subject(typeof(IsChooseProfileNeededHelper))]
         class When_print_bill_and_legal_person_has_single_profile : PrintBillContext
         {
-            protected const long LegalPersonProfileId = 3;
             static LegalPersonProfile LegalPersonProfile;
             static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
 
             Establish context = () => 
             {
                 LegalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
-                LegalPersonWithProfiles.Profiles = new[] { LegalPersonProfile };
+                LegalPersonProfiles = new[] { LegalPersonProfile };
             };
 
             Because of = () => Result = Helper.GetChooseProfileDialogState(BillId);
@@ -225,7 +224,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
             {
                 LegalPersonProfile_1 = new LegalPersonProfile { Id = LegalPersonProfileId_1 };
                 LegalPersonProfile_2 = new LegalPersonProfile { Id = LegalPersonProfileId_2 };
-                LegalPersonWithProfiles.Profiles = new[] { LegalPersonProfile_1, LegalPersonProfile_2 };
+                LegalPersonProfiles = new[] { LegalPersonProfile_1, LegalPersonProfile_2 };
             };
 
             Because of = () => Result = Helper.GetChooseProfileDialogState(BillId);
