@@ -91,6 +91,7 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="FinancialOperationsSharedTypesBehaviorFactory.cs" />
+    <Compile Include="DI\WcfOperationsSpecialRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\FinancialOperationsAppSettings.cs" />
     <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
@@ -137,10 +138,6 @@
     <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations\2Gis.Erm.BLCore.WCF.Operations.csproj">
-      <Project>{72C6A1A2-370A-4A28-94BD-EC26EDFA7538}</Project>
-      <Name>2Gis.Erm.BLCore.WCF.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>

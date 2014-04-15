@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.OrderValidation.Config;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
@@ -43,8 +41,6 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 {
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(IUserPersistenceService) };
-
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -64,17 +60,15 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            return container
-                        .ConfigureUnityTwoPhase(
+            return container.ConfigureUnityTwoPhase(WcfOrderValidationRoot.Instance,
                             settingsContainer,
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<ICachingSettings>(),
                                 loggerContextManager))
-                     .ConfigureServiceClient();
+                        .ConfigureServiceClient();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -90,22 +84,22 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ILoggerContextManager loggerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
-                .CreateErmSpecific()
-                .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(cachingSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
-                .ConfigureReadWriteModels()
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
-                .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
-                .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
-                .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
-                .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
+                        .ConfigureLogging(loggerContextManager)
+                        .CreateErmSpecific()
+                        .CreateSecuritySpecific()
+                        .ConfigureCacheAdapter(cachingSettings)
+                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                        .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                        .ConfigureIdentityInfrastructure()
+                        .ConfigureReadWriteModels()
+                        .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                        .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                        .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
+                        .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
+                        .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
+                        .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
+                        .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)

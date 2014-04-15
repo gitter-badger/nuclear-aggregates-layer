@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -8,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -63,7 +65,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
     internal static class Bootstrapper
     {
         // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-        private static readonly Type[] EagerLoading = { typeof(ActionsLogger), typeof(LegalPersonObtainer) };
+        // COMMENT {d.ivanov, 25.03.2014}: Механизм не придумали, но CR-ку можно удалить
 
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
@@ -84,12 +86,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnityTwoPhase(
+            container.ConfigureUnityTwoPhase(TestsIntegrationInProcRoot.Instance,
                             settingsContainer,
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<IGlobalizationSettings>(),
                                 settingsContainer.AsSettings<IMsCrmSettings>(),
@@ -195,7 +196,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IUserContext, UserContext>(Lifetime.PerScope, new InjectionFactory(c => new UserContext(null, null)))
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISignInService, WindowsIdentitySignInService>(Lifetime.PerScope, MappingScope)
-                .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);
+                            .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope)
+                            .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Lifetime.PerScope, MappingScope);
         }
 
         private static IUnityContainer ConfigureTestInfrastructure(this IUnityContainer container, IEnvironmentSettings settings)
@@ -223,6 +225,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, BankPropertiesConverter>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonPartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BranchOfficeOrganizationUnitPartPropertiesConverter>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }

@@ -60,18 +60,16 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            return container
-                        .ConfigureUnityTwoPhase(
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
-                                loggerContextManager))
-                     .ConfigureServiceClient();
+            return container.ConfigureUnityTwoPhase(WcfReleasingRoot.Instance,
+                                                    settingsContainer,
+                                                    massProcessors,
+                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
+                                                                          loggerContextManager))
+                            .ConfigureServiceClient();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()

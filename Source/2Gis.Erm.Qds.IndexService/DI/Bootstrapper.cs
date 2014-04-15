@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
+﻿using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -15,7 +13,6 @@ using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -53,8 +50,6 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
 {
     public static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(TaskObtainer) }; // чтобы в домен загрузилась сборка 2Gis.Erm.BLFlex.Operations.Global
-
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
             IUnityContainer container = new UnityContainer();
@@ -74,20 +69,19 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnityTwoPhase(
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>()));
+            container.ConfigureUnityTwoPhase(QdsIndexServiceRoot.Instance,
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>()));
 
             RegisterEtlComponents(container);
 

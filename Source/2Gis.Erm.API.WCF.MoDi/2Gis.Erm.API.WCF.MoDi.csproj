@@ -90,6 +90,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="DI\WcfMoDiRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\MoDiAppSettings.cs" />
     <Compile Include="UnityServiceHostFactory.cs" />
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MoDi\2Gis.Erm.BLCore.MoDi.csproj">
       <Project>{46ff1f04-9e90-4858-8263-9ed38a0bdd69}</Project>
@@ -151,10 +156,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
-      <Project>{bcfc76bf-d41b-4cfa-a8af-5ec82ec4a9cf}</Project>
-      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
