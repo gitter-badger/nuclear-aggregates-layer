@@ -39,8 +39,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
 {
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(IUserPersistenceService), typeof(ReportsService), typeof(PrintRegionalOrderService) };
-
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -56,17 +54,15 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
             };
 
-            return 
-                container.ConfigureUnityTwoPhase(
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                loggerContextManager));
+            return container.ConfigureUnityTwoPhase(WcfMoDiRoot.Instance,
+                                                    settingsContainer,
+                                                    massProcessors,
+                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                          settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          loggerContextManager));
         }
 
         private static IUnityContainer ConfigureUnity(

@@ -49,15 +49,14 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
-            container.ConfigureUnityTwoPhase(
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                loggerContextManager))
+            container.ConfigureUnityTwoPhase(WcfMetadataRoot.Instance,
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   loggerContextManager))
                      .ConfigureServiceClient();
 
             return container;

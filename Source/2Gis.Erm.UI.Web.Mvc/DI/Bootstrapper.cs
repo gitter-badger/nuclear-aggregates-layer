@@ -125,13 +125,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container
-                .ConfigureUnityTwoPhase(
+            container.ConfigureUnityTwoPhase(WebMvcRoot.Instance,
                     settingsContainer,
                     massProcessors,
                     // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                    c => c.ConfigureUnity(
-                        settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                         settingsContainer.AsSettings<IConnectionStringSettings>(),
                         settingsContainer.AsSettings<IGlobalizationSettings>(),
                         settingsContainer.AsSettings<IMsCrmSettings>(),
@@ -233,7 +231,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
-        {
+            {
             var checkingResourceStorages = new[]
             {
                     typeof(BLResources),
@@ -295,7 +293,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
 
                 .RegisterTypeWithDependencies<IJournalMakeRegionalAdsDocsService, JournalMakeRegionalAdsDocsService>(Mapping.SimplifiedModelConsumerScope, CustomLifetime.PerRequest)
-                
+
                 .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
 

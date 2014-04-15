@@ -37,7 +37,6 @@ using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLFlex.DI.Config;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
@@ -85,14 +84,13 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
     internal static class Bootstrapper
     {
-        private static readonly Type[] EagerLoading = { typeof(ListOrderService), typeof(ActionsLogger) }; 
-
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer, 
             ILoggerContextManager loggerContextManager)
         {
             // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
             //                              -> Здесь мы явно загружаем сборку 2Gis.Erm.Services, чтобы обеспечить корректный resolve типа DoubleGis.Erm.Services.ActionsLogging.ActionsLogger
+            // COMMENT {d.ivanov, 25.03.2014}: Механизм не придумали, но CR-ку можно удалить
 
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -114,17 +112,16 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnityTwoPhase(
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(
-                                settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                loggerContextManager))
+            container.ConfigureUnityTwoPhase(WcfOperationsRoot.Instance,
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                   settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   loggerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
 

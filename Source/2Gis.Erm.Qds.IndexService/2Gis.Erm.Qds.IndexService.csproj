@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="IIndexingProcess.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="DI\QdsIndexServiceRoot.cs" />
     <Compile Include="Settings\IBatchIndexingSettings.cs" />
     <Compile Include="Settings\IndexServiceAppSettings.cs" />
   </ItemGroup>
@@ -155,10 +156,6 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
-      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
-      <Name>2Gis.Erm.Platform.API.Metadata</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>
@@ -194,14 +191,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
       <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
       <Name>2Gis.Erm.Platform.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
-      <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
-      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj">
-      <Project>{b0425cb3-c6a3-4c79-bbc3-07bf53826a21}</Project>
-      <Name>2Gis.Erm.Platform.API.GeoMaster</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>

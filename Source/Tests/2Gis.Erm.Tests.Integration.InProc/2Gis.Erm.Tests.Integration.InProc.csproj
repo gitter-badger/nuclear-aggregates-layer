@@ -83,6 +83,8 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="DI\IntegrationTestsMassProcessor.cs" />
+    <Compile Include="DI\IntegrationTestsZone.cs" />
+    <Compile Include="TestsIntegrationInProcRoot.cs" />
     <Compile Include="Suite\Base\DelegateResponseAsserter.cs" />
     <Compile Include="Suite\Base\EmptyResponseAsserter.cs" />
     <Compile Include="Suite\Base\IResponseAsserter.cs" />
@@ -193,7 +195,6 @@
     <Compile Include="Suite\Infrastructure\ITestResult.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\ListOperationServiceTest.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Suite\Infrastructure\BDD\BDDIntegrationTestBase.cs" />
     <Compile Include="Suite\Infrastructure\BDD\BDDOrdinaryTestArgs.cs" />
     <Compile Include="Suite\Infrastructure\BDD\BDDTestRunConfig.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Suite\Infrastructure\TeamCityTestStatusObserver.cs" />
     <Compile Include="Suite\Infrastructure\TestSuite.cs" />
     <Compile Include="Suite\Infrastructure\TestSuiteBuilder.cs" />
+    <Compile Include="DI\TestIntegrationInProcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -309,6 +311,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
@@ -396,6 +402,10 @@
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
