@@ -57,6 +57,8 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlCoreTaskServiceAssembly.cs" />
+    <Compile Include="DI\TaskServiceZone.cs" />
     <Compile Include="Jobs\ADSync\SyncUserProfiles.cs" />
     <Compile Include="Jobs\CleanupLogsJob.cs" />
     <Compile Include="Jobs\DeleteOrphanFilesJob.cs" />

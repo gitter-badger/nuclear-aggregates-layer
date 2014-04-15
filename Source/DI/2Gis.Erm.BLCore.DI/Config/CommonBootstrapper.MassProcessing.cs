@@ -5,8 +5,8 @@ using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
-using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.DI.Zones;
+using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -24,15 +24,18 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return IsErmAssembly(checkingAssembly.GetName());
         }
 
-        public static void PerfomTypesMassProcessings(IEnumerable<Assembly> assemblies, IMassProcessor[] massProcessors, bool firstRun, IBusinessModelSettings businessModelSettings)
+        public static void PerfomTypesMassProcessings(CompositionRoot root,
+                                                      IMassProcessor[] massProcessors,
+                                                      bool firstRun,
+                                                      IBusinessModelSettings businessModelSettings)
         {
-            var exportedTypesMap = GetExportedTypesMap(assemblies, businessModelSettings);
+            var exportedTypesMap = GetExportedTypesMap(root, businessModelSettings);
 
             foreach (var massProcessor in massProcessors)
             {
                 var assignnableTypes = massProcessor.GetAssignableTypes();
 
-                var exportedTypes = assignnableTypes.SelectMany(x => exportedTypesMap[x]).ToArray();
+                var exportedTypes = assignnableTypes.Where(exportedTypesMap.ContainsKey).SelectMany(x => exportedTypesMap[x]).ToArray();
                 if (!exportedTypes.Any())
                 {
                     throw new ApplicationException(string.Format("Cannot find any types for massprocessor '{0}'", massProcessor.GetType().Name));
@@ -43,34 +46,22 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             }
         }
 
-        public static void PerfomTypesMassProcessings(IMassProcessor[] massProcessors, bool firstRun, IBusinessModelSettings businessModelSettings)
-        {
-            PerfomTypesMassProcessings(AppDomain.CurrentDomain.GetAssemblies(), massProcessors, firstRun, businessModelSettings);
-        }
-
-        private static Dictionary<Type, Type[]> GetExportedTypesMap(IEnumerable<Assembly> assemblies, IBusinessModelSettings businessModelSettings)
+        private static Dictionary<Type, Type[]> GetExportedTypesMap(CompositionRoot root, IBusinessModelSettings businessModelSettings)
         {
             try
             {
-                var exportedTypesMap = assemblies
-                    .Select(x => new
-                        {
-                            Assembly = x,
-                            ContainsTypes = ((ContainedTypesAttribute[])x.GetCustomAttributes(typeof(ContainedTypesAttribute), false)).SelectMany(y => y.Types),
-                        })
-                    .Where(x => x.ContainsTypes.Any())
-                    .SelectMany(x => x.ContainsTypes.Select(y => new
-                        {
-                            AssignableType = y,
-                            Types = x.Assembly.GetExportedTypes()
-                                     .Where(z => y != z && y.IsAssignableFrom(z))
-                                     // фильтруем неадаптированные типы
-                                     .Where(z => !(typeof(IAdapted).IsAssignableFrom(z) && !businessModelSettings.BusinessModelIndicator.IsAssignableFrom(z))),
-                        }))
-                    .GroupBy(x => x.AssignableType, x => x.Types)
-                    .ToDictionary(x => x.Key, x => x.SelectMany(y => y).ToArray());
+                var zoneTypesGrouping = from zoneDescriptor in root.ZoneDescriptors
+                                        from zoneAssembly in zoneDescriptor.Assemblies
+                                        from type in zoneAssembly.ExportedTypes
+                                        where type.IsZonePartMarker(zoneDescriptor.ZoneType)
+                                        let zonePartInfo = type.GetZonePartInfo()
+                                        where zonePartInfo.BusinessModel == null || zonePartInfo.BusinessModel == businessModelSettings.BusinessModelIndicator
+                                        from pair in zonePartInfo.ExtractTypesMap(businessModelSettings.BusinessModelIndicator)
+                                        group pair by pair.Key
+                                        into g
+                                        select new { AssignableType = g.Key, Types = g.SelectMany(x => x.Value).ToArray() };
 
-                return exportedTypesMap;
+                return zoneTypesGrouping.ToDictionary(x => x.AssignableType, x => x.Types);
             }
             catch (ReflectionTypeLoadException ex)
             {

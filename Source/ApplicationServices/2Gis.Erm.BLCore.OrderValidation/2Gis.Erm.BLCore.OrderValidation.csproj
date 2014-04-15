@@ -59,6 +59,7 @@
     <Compile Include="ADPValidationQueryProvider.cs" />
     <Compile Include="ADPValidationResultBuilder.cs" />
     <Compile Include="ADPValidator.cs" />
+    <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />
     <Compile Include="IPriceConfigurationService.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="PositionType.cs" />
     <Compile Include="PriceConfigurationService.cs" />
     <Compile Include="PriceConfigurationStorage.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="AssociatedAndDeniedPositions\CheckOrdersAssociatedAndDeniedPositionsHandler.cs" />
     <Compile Include="AssociatedAndDeniedPositions\CheckOrdersAssociatedAndDeniedPositionsRequest.cs" />
     <Compile Include="CheckOrderBeginDistributionDateHandler.cs" />

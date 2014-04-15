@@ -51,12 +51,13 @@
     </Compile>
     <Compile Include="Accounting\ExportAccountDetailsTo1CResponse.cs" />
     <Compile Include="Accounting\IAccountingSystemService.cs" />
+    <Compile Include="DI\BlCoreApiModiAssembly.cs" />
+    <Compile Include="DI\MoDiZone.cs" />
     <Compile Include="FileDescription.cs" />
     <Compile Include="PrintRegional\FirmWithOrders.cs" />
     <Compile Include="PrintRegional\IPrintRegionalOrderService.cs" />
     <Compile Include="PrintRegional\PrintRegionalOrdersResponse.cs" />
     <Compile Include="PrintRegional\PrintRegionalOrdersResponseItem.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Remote\AccountingSystem\IAccountingSystemApplicationService.cs" />
     <Compile Include="Remote\PrintRegional\IPrintRegionalApplicationService.cs" />
     <Compile Include="Remote\Reports\IReportsApplicationService.cs" />

@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
+    // TODO {all, 23.03.2014}: request объявлен в BLCore.API.Operations
     public sealed class CheckOrderBeginDistributionDateHandler : RequestHandler<CheckOrderBeginDistributionDateRequest, EmptyResponse>
     {
         private readonly IOrderReadModel _orderReadModel;

@@ -58,7 +58,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -110,6 +109,8 @@
     <Compile Include="Activities\DTO\ActivityInstanceDto.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
+    <Compile Include="DI\AggregatesZone.cs" />
+    <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
     <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
     <Compile Include="Dynamic\ReadModel\EavFinderActivityExtensions.cs" />
     <Compile Include="Dynamic\ReadModel\EavFinderExtensions.cs" />
@@ -309,7 +310,6 @@
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
@@ -383,10 +383,6 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
-      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
-      <Name>2Gis.Erm.Platform.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

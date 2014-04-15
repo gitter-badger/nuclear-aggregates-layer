@@ -139,6 +139,7 @@
     <Compile Include="DI\UseCase\ViewModel\UnityGridViewModelFactory.cs" />
     <Compile Include="DI\UseCase\ViewModel\UnityLookupFactory.cs" />
     <Compile Include="DI\UseCase\ViewModel\UnityViewModelMapperFactory.cs" />
+    <Compile Include="DI\WpfClientRoot.cs" />
     <Compile Include="Modules\Documents\ViewModels\Contextual\IContextualDocumentViewModel.cs" />
     <Compile Include="Modules\Documents\ViewModels\ICompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Toolbar\ToolbarModule.cs" />
@@ -170,7 +171,6 @@
     <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.Card.Order.cs" />
     <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.cs" />
     <Compile Include="PresentationMetadata\Documents\StringConditionCondition.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Settings\ApiSettings.cs" />
     <Compile Include="Settings\CommonSettings.cs" />
     <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteAssignMessageHandler.cs" />

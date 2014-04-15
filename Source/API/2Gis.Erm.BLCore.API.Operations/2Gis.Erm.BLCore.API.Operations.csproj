@@ -122,6 +122,7 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
+    <Compile Include="DI\OperationsZone.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\File\IValidateFileSettings.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
@@ -350,7 +351,7 @@
     <Compile Include="IOperationServicesManager.cs" />
     <Compile Include="Metadata\IMessageWithType.cs" />
     <Compile Include="Metadata\MessageType.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="DI\BlCoreApiOperationsAssembly.cs" />
     <Compile Include="Remote\ActionsHistory\ActionsHistoryOperationErrorDescription.cs" />
     <Compile Include="Remote\ActionsHistory\IActionsHistoryApplicationRestService.cs" />
     <Compile Include="Remote\ActionsHistory\IActionsHistoryApplicationService.cs" />
