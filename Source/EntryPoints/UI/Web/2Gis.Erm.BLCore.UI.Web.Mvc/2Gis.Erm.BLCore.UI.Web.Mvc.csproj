@@ -193,7 +193,6 @@
     <Compile Include="Models\WithdrawalDialogViewModel.cs" />
     <Compile Include="Models\WithdrawalInfoViewModel.cs" />
     <Compile Include="Models\WithdrawalRevertDialogViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Security\WebCookieSignInService.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
@@ -501,6 +500,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalRevertDialog.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

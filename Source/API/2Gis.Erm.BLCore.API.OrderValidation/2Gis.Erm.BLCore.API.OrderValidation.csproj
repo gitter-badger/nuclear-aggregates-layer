@@ -50,12 +50,13 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlCoreApiOrderValidationAssembly.cs" />
     <Compile Include="CheckOrderReleasePeriodRequest.cs" />
     <Compile Include="CheckOrderReleasePeriodResponse.cs" />
     <Compile Include="CheckOrdersReadinessForReleaseRequest.cs" />
     <Compile Include="CheckOrdersReadinessForReleaseResponse.cs" />
+    <Compile Include="DI\OrderValidationZone.cs" />
     <Compile Include="IOrderValidationRule.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />
     <Compile Include="Remote\IOrderValidationApplicationService.cs" />
     <Compile Include="IOrderValidationOnStateChangeService.cs" />

@@ -52,6 +52,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />
     <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
     <Compile Include="CostCalculation\BizAccountEmptyCostResult.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
     <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
+    <Compile Include="DI\OperationsSpecialZone.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />
     <Compile Include="OrderProcessingRequests\CompletedOrderRequestStateDescription.cs" />
     <Compile Include="OrderProcessingRequests\IBasicOrderProlongationOperationLogic.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="Remote\CostCalculation\CostCalculatonErrorDescription.cs" />
     <Compile Include="Remote\CostCalculation\ICostCalculationApplicationService.cs" />
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
     <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />

@@ -49,6 +49,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="BlCoreOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\OrderCostCalculationOperationService.cs" />
     <Compile Include="CostCalculation\OrderPositionCostCalculationOperationService.cs" />
     <Compile Include="FirmInfo\GetFirmInfoService.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="OrderProcessingRequests\Concrete\CreateOrderCreationRequestOperationService.cs" />
     <Compile Include="OrderProcessingRequests\Generic\Get\GetOrderProcessingRequestDtoService.cs" />
     <Compile Include="OrderProcessingRequests\Generic\Modify\DomainEntityObtainers\OrderProcessingRequestObtainer.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

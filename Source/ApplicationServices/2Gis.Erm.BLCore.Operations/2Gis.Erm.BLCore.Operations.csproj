@@ -529,7 +529,6 @@
     <Compile Include="Generic\Update\AdvertisementElements\UpdateAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\Update\UpdateOperationServiceBase.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
     <Compile Include="Crosscutting\PaymentsDistributor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -549,6 +548,7 @@
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\ValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\Orders\ObtainDealForBizzacountOrderOperationService.cs" />
     <Compile Include="Concrete\Deals\ClientDealSelectionService.cs" />
+    <Compile Include="DI\BlCoreOperationsAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="microsoft.crm.sdk">
