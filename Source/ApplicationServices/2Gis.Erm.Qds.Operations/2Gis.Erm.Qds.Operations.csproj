@@ -65,7 +65,7 @@
     <Compile Include="Indexers\ClientIndexer.cs" />
     <Compile Include="Infrastructure\FilterHelper.cs" />
     <Compile Include="QdsListClientService.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
