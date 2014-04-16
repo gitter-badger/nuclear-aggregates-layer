@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     string.Format(BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
                     PaymentMethod.CashPayment,
                     PaymentMethod.BankTransaction,
-                    PaymentMethod.BankCard,
+                    PaymentMethod.CreditCard,
                     PaymentMethod.DebitCard,
                     PaymentMethod.BankChequePayment),
                 ConsistencyRule.CreateEnumValuesRestriction(
