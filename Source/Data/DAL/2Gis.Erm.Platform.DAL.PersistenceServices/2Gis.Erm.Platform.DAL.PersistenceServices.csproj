@@ -49,7 +49,7 @@
     </Compile>
     <Compile Include="CleanupPersistenceService.cs" />
     <Compile Include="ICleanupPersistenceService.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="DI\PlatformDalPersistenceServicesAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">

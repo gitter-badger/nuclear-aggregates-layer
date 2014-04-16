@@ -98,7 +98,7 @@
     <Compile Include="Operations\Logging\PersistenceChangesRegistryProvider.cs" />
     <Compile Include="Operations\Logging\TransactedOperationScope.cs" />
     <Compile Include="Operations\Logging\VerifierContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="PlatformCoreAssembly.cs" />
     <Compile Include="Operations\Logging\IOperationLogger.cs" />
     <Compile Include="Metadata\Security\OperationSecurityRegistry2.LegalPerson.cs" />
     <Compile Include="Metadata\Security\OperationSecurityRegistry2.Advertisement.cs" />

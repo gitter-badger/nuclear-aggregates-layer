@@ -69,6 +69,9 @@
     <Compile Include="Factories\UnityTransactedOperationScopeFactory.cs" />
     <Compile Include="Factories\UnityUnitOfWork.cs" />
     <Compile Include="Factories\UnityUserContextProvider.cs" />
+    <Compile Include="Zones\ZonePartInfo.cs" />
+    <Compile Include="Zones\ZonePartTypesExtractor.cs" />
+    <Compile Include="Zones\ZoneUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -115,6 +118,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

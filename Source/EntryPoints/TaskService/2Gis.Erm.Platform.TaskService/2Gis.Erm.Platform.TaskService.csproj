@@ -66,6 +66,7 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\TaskServiceJobsMassProcessor.cs" />
     <Compile Include="Jobs\TaskServiceJobBase.cs" />
     <Compile Include="Jobs\ITaskServiceJob.cs" />
     <Compile Include="Schedulers\ISchedulerManager.cs" />
@@ -81,6 +82,10 @@
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
