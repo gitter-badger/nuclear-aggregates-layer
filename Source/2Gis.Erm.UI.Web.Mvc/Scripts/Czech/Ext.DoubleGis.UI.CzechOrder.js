@@ -50,7 +50,7 @@
         Ext.getCmp("Client").on("change", this.onClientChanged, this);
     },
 
-    // При обновлении клиента (нередактируемое поле, обновление модет быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
+    // При обновлении клиента (нередактируемое поле, обновление может быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
     onClientChanged: function () {
         var clientLookup = Ext.getCmp('Client');
         var clientId = clientLookup.item ? clientLookup.item.id : null;
