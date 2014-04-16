@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
@@ -16,8 +17,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
     /// <summary>
     /// Требования/соглашения см. в объявлении ISettingsContainer
     /// </summary>
-    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase
+    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase, IOrderProcessingSettings
     {
+        private readonly IntSetting _orderRequestProcessingHoursAmount = ConfigFileSetting.Int.Required("OrderRequestProcessingHoursAmount");
+
         public TestAPIInProcOperationsSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
             Aspects
@@ -25,10 +28,16 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
                 .Use<CachingSettingsAspect>()
                 .Use<WarmClientProcessingSettingsAspect>()
                 .Use<DebtProcessingSettingsAspect>()
+                .Use<NotificationsSettingsAspect>()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>());
+        }
+
+        int IOrderProcessingSettings.OrderRequestProcessingHoursAmount
+        {
+            get { return _orderRequestProcessingHoursAmount.Value; }
         }
     }
 }

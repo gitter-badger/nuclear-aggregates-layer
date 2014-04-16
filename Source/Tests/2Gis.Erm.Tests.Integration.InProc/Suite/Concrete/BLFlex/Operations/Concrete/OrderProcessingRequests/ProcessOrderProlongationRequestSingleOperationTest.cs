@@ -1,5 +1,8 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -27,9 +30,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
         {
             get
             {
+                var minBeginDistributionDate = DateTime.UtcNow.GetNextMonthFirstDate();
                 return base.ModelEntitySpec &&
                        new FindSpecification<OrderProcessingRequest>(
-                           x => x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder && x.State == (int)OrderProcessingRequestState.Pending);
+                           x => x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder && x.State == (int)OrderProcessingRequestState.Pending && x.BeginDistributionDate >= minBeginDistributionDate);
             }
         }
 

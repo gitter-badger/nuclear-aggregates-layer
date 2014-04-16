@@ -113,11 +113,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Settings\TaskServiceAppSettings.cs" />
+    <Compile Include="DI\TaskServiceRoot.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
       <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
@@ -230,14 +235,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
       <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
       <Name>2Gis.Erm.Platform.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
-      <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
-      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj">
-      <Project>{b0425cb3-c6a3-4c79-bbc3-07bf53826a21}</Project>
-      <Name>2Gis.Erm.Platform.API.GeoMaster</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
