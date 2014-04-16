@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.WPF.Client.DI;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.Config;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel;
@@ -33,7 +34,6 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
@@ -308,7 +308,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
             ConfigureComponentsInfrastructure(_container);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(massProcessors, firstRun, _globalizationSettings);
+            CommonBootstrapper.PerfomTypesMassProcessings(WpfClientRoot.Instance, massProcessors, firstRun, _globalizationSettings);
 
             _container
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)

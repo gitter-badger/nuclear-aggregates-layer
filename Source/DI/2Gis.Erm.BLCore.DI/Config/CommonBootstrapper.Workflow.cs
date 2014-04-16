@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
+using DoubleGis.Erm.Platform.Model.Zones;
 
 using Microsoft.Practices.Unity;
 
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         /// </summary>
         public static IUnityContainer ConfigureUnityTwoPhase(
             this IUnityContainer unityContainer,
+            CompositionRoot root,
             ISettingsContainer settingsContainer,
             IMassProcessor[] massProcessors,
             Func<IUnityContainer, IUnityContainer> configurator)
@@ -29,12 +31,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             // первый проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerfomTypesMassProcessings(massProcessors, true, businessModelSettings);
+            PerfomTypesMassProcessings(root, massProcessors, true, businessModelSettings);
 
             // второй проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerfomTypesMassProcessings(massProcessors, false, businessModelSettings);
+            PerfomTypesMassProcessings(root, massProcessors, false, businessModelSettings);
 
             return unityContainer;
         }

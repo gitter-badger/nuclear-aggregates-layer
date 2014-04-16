@@ -52,7 +52,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.MassProcessing.cs" />
+    <Compile Include="DI\BlCoreModiAssembly.cs" />
     <Compile Include="Configurations\PackagePositionsSettingsConfiguration.cs" />
     <Compile Include="Configurations\SaleSchemasSettingsConfiguration.cs" />
     <Compile Include="MoneyDistributionCalculator.cs" />
