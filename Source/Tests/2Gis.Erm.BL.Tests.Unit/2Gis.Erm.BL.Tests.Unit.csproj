@@ -62,6 +62,7 @@
     <Compile Include="ApplicationServices\Operations\Concrete\Old\Integration\ServiceBus\Export\SerializePricePositionHandlerSpecs.cs.cs" />
     <Compile Include="ApplicationServices\Operasions.Special\CostCalculator\CostCalculatorSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\IsChooseProfileNeededHelperSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\IsChooseProfileNeededHelperSpecs_ERM_3879.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

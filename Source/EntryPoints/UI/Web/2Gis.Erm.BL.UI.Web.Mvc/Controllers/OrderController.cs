@@ -832,7 +832,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 });
         }
 
-        public ActionResult Print(PrintOrderType printOrderType, long orderId, long profileId)
+        public ActionResult Print(PrintOrderType printOrderType, long orderId, long? profileId)
         {
             var order = _orderReadModel.GetOrder(orderId);
             if (!order.LegalPersonId.HasValue)
@@ -846,11 +846,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 OrderId = orderId,
                 PrintOrderType = printOrderType,
                 DefaultLegalPersonProfileId = profileId,
-                LegalPersonProfile = new LookupField
+                LegalPersonProfile = profileId.HasValue ? new LookupField
                     {
                         Key = profileId, 
-                        Value = _legalPersonReadModel.GetLegalPersonProfile(profileId).Name
-                    }
+                        Value = _legalPersonReadModel.GetLegalPersonProfile(profileId.Value).Name
+                    } : null
             };
 
             return View(printOrderModel);
