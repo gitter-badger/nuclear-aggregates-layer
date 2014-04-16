@@ -17,6 +17,11 @@
         Ext.onReady(function() {
 
             Ext.getCmp("LegalPersonProfile").on('change', function() {
+                // При печати всего, кроме заказа профиль не меняется. Поэтому не выводим сообщение. См ERM-3852, ERM-3879
+                if (Ext.getDom('PrintOrderType').value != "PrintOrder") {
+                    return;
+                }
+
                 var profile = Ext.getCmp("LegalPersonProfile").getValue();
                 var profileId = profile ? profile.id : "";
                 var defaultProfileId = Ext.getDom("DefaultLegalPersonProfileId").value;
