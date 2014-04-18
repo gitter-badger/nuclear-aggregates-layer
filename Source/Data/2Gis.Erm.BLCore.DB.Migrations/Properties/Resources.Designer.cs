@@ -732,24 +732,36 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [Erm]
-        ///GO
-        ////****** Object:  StoredProcedure [Integration].[UpdateBuildings]    Script Date: 14.02.2014 18:46:02 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
         ///--   10.09.2013, y.baranihin: dgppid-&gt;id
         ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
         ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
-        ///- [rest of string was truncated]&quot;;.
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///--   14.02.2014, a.tuk [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration16620 {
             get {
                 return ResourceManager.GetString("Migration16620", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
+        ///--   10.09.2013, y.baranihin: dgppid-&gt;id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///--   14.02.2014, a.tuk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration19684 {
+            get {
+                return ResourceManager.GetString("Migration19684", resourceCulture);
             }
         }
         

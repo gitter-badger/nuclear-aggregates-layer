@@ -683,6 +683,7 @@
     <Compile Include="2.1\2014.02.24 rev.  17142 - alter EAV tables for numeric value.cs" />
     <Compile Include="2.1\2014.02.14 rev. 16620 - alter UpdateBuildings.cs" />
     <Compile Include="2.1\2014.02.10 rev. 16180 - Change type of RatePricePosition and rename.cs" />
+    <Compile Include="2.1\2014.04.18 rev. 19684 - Alter UpdateBuildings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -979,6 +980,7 @@
     <Content Include="Resources\2013.11.25 rev. 13833\ImportDepCardsFromXml.sql" />
     <Content Include="Resources\2014.01.14 rev. 14997\GetFirmTerritories.sql" />
     <Content Include="Resources\2014.02.14 rev. 16620\UpdateBuildings.sql" />
+    <Content Include="Resources\2014.02.14 rev. 19684\UpdateBuildings.sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
