@@ -5,12 +5,10 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
     public enum LegalPersonAggregate
     {
         LegalPerson = EntityName.LegalPerson,
-        LegalPersonPart = EntityName.LegalPersonPart,
         Account = EntityName.Account, //
         Bargain = EntityName.Bargain, //
         Order = EntityName.Order, //
         Limit = EntityName.Limit, //
         LegalPersonProfile = EntityName.LegalPersonProfile,
-        LegalPersonProfilePart = EntityName.LegalPersonProfilePart
     }
 }

@@ -5,32 +5,25 @@ using System.Linq;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
+    // TODO {all, 07.04.2014}: какой-то перебор с маркерными интерфейсами у TEntity возможно лучше запиливать, как набор mapperstrategy: Auditable, Deactivatable и т.п.
     public abstract class DynamicEntityPropertiesConverter<TEntity, TEntityInstance, TEntityPropertyInstace> :
         IDynamicEntityPropertiesConverter<TEntity, TEntityInstance, TEntityPropertyInstace>
         where TEntity : class, IEntity, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity
         where TEntityInstance : class, IDynamicEntityInstance
         where TEntityPropertyInstace : class, IDynamicEntityPropertyInstance
     {
-        private readonly Action<TEntity, ICollection<TEntityPropertyInstace>> _converterFromPersistence;
-        private readonly Action<TEntity, long, ICollection<TEntityPropertyInstace>, BusinessModel> _converterToPersistence;
-
-        protected DynamicEntityPropertiesConverter()
-        {
-            var propertyIdentities = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>();
-            var entityPropertyIdentities = propertyIdentities as IEntityPropertyIdentity[] ?? propertyIdentities.ToArray();
-
-            _converterFromPersistence = entityPropertyIdentities.BuildValueGettersExpression<TEntity, TEntityPropertyInstace>(GetPropertyValue).Compile();
-            _converterToPersistence = entityPropertyIdentities.BuildValueSettersExpression<TEntity, TEntityPropertyInstace>(SetPropertyValue).Compile();
-        }
-
+        private Action<TEntity, ICollection<TEntityPropertyInstace>> _converterFromPersistence;
+        private Action<TEntity, long, ICollection<TEntityPropertyInstace>, BusinessModel> _converterToPersistence;
+        
         public TEntity ConvertFromDynamicEntityInstance(TEntityInstance dynamicEntityInstance, ICollection<TEntityPropertyInstace> propertyInstances)
         {
+            EnsureConverterFromPersistenceInitialized();
+
             var entity = CreateEntity(dynamicEntityInstance);
             _converterFromPersistence(entity, propertyInstances);
 
@@ -48,6 +41,8 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             ICollection<TEntityPropertyInstace> propertyInstances, 
             long? referencedEntityId)
         {
+            EnsureConverterToPersistenceInitialized();
+
             var businessModel = typeof(TEntity).IsAdapted() ? typeof(TEntity).AsAdapted().AsBusinessModel() : BusinessModel.NotSetted;
             var dynamicEntityInstance = CreateEntityInstance(entity, referencedEntityId);
             _converterToPersistence(entity, dynamicEntityInstance.Id, propertyInstances, businessModel);
@@ -86,6 +81,24 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         private static void SetStateTrackingEntityProperties(IStateTrackingEntity source, IStateTrackingEntity target)
         {
             target.Timestamp = source.Timestamp;
+        }
+
+        private void EnsureConverterFromPersistenceInitialized()
+        {
+            if (_converterFromPersistence == null)
+            {
+                _converterFromPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
+                    .BuildValueGettersExpression<TEntity, TEntityPropertyInstace>(GetPropertyValue).Compile();
+            }
+        }
+
+        private void EnsureConverterToPersistenceInitialized()
+        {
+            if (_converterToPersistence == null)
+            {
+                _converterToPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
+                    .BuildValueSettersExpression<TEntity, TEntityPropertyInstace>(SetPropertyValue).Compile();
+            }
         }
 
         private static object GetPropertyValue(IEnumerable<TEntityPropertyInstace> propertyInstances, int propertyId, Type propertyType)

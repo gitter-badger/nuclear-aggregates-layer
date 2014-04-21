@@ -9,7 +9,8 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
                 typeof(IRussiaAdapted),
                 typeof(IChileAdapted),
                 typeof(ICyprusAdapted),
-                typeof(ICzechAdapted)
+                typeof(ICzechAdapted),
+                typeof(IUkraineAdapted)
             };
     }
 }

@@ -1,9 +1,11 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Enums;
+﻿using DoubleGis.Erm.Platform.Model.Entities.EAV;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
-    public sealed class ActivityPropertiesConverter<TActivity> : DynamicEntityPropertiesConverter<TActivity, ActivityInstance, ActivityPropertyInstance> 
+    public sealed class ActivityPropertiesConverter<TActivity> : DynamicEntityPropertiesConverter<TActivity, ActivityInstance, ActivityPropertyInstance>, 
+                                                                 IActivityPropertiesConverter<TActivity>
         where TActivity : ActivityBase, new()
     {
         protected override TActivity CreateEntity(ActivityInstance dynamicEntityInstance)
