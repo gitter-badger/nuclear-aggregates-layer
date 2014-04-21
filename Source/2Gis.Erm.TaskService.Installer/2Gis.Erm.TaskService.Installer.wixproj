@@ -470,6 +470,9 @@
     <Content Include="Variables.Edu.Ukraine.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Edu.UAE.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Expl.Cyprus.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
@@ -504,6 +507,9 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Production.Czech.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Production.UAE.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Production.Ukraine.wxi">
