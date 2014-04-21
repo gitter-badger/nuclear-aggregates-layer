@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListLimitService : ListEntityDtoServiceBase<Limit, ListLimitDto>
+    public class ListLimitService : ListEntityDtoServiceBase<Limit, ListLimitDto>
     {
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
@@ -79,22 +79,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return query
                 .Filter(_filterHelper, nextMonthForStartPeriodDateFilter, myBranchFilter, myFilter, myInspectionFilter)
                 .Select(x => new ListLimitDto
-                {
+                    {
                     Id = x.Id,
                     BranchOfficeId = x.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
-                    BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                    LegalPersonName = x.Account.LegalPerson.LegalName,
-                    CreatedOn = x.CreatedOn,
-                    CloseDate = x.CloseDate,
-                    Amount = x.Amount,
+                        BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                        LegalPersonName = x.Account.LegalPerson.LegalName,
+                        CreatedOn = x.CreatedOn,
+                        CloseDate = x.CloseDate,
+                        StartPeriodDate = x.StartPeriodDate,
+                        EndPeriodDate = x.EndPeriodDate,
+                        Amount = x.Amount,
                     ClientId = x.Account.LegalPerson.ClientId,
                     ClientName = x.Account.LegalPerson.Client.Name,
-                    OwnerCode = x.OwnerCode,
-                    InspectorCode = x.InspectorCode,
+                        OwnerCode = x.OwnerCode,
+                        InspectorCode = x.InspectorCode,
                     StatusEnum = (LimitStatus)x.Status,
-                    AccountId = x.AccountId,
-                    IsActive = x.IsActive,
-                    IsDeleted = x.IsDeleted,
+                        AccountId = x.AccountId,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
                     LegalPersonId = x.Account.LegalPersonId,
                     OwnerName = null,
                     Status = null,
@@ -108,7 +110,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     x.InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName;
 
                     return x;
-                });
+                    });
         }
     }
 }
