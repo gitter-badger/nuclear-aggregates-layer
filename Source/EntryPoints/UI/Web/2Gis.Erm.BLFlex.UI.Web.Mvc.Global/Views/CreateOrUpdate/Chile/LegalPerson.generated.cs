@@ -27,12 +27,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 1 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
-    using BLCore.UI.Web.Mvc.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -46,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Chile/LegalPerson.cshtml")]
-    public partial class LegalPerson : System.Web.Mvc.WebViewPage<Models.Chile.ChileLegalPersonViewModel>
+    public partial class LegalPerson : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileLegalPersonViewModel>
     {
         public LegalPerson()
         {
@@ -54,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 3 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
   
     Layout = "../../Shared/_CardLayout.cshtml";
 
@@ -80,49 +74,50 @@ WriteLiteral(">\r\n        window.InitPage = function () {\r\n            window
 "             var params = \"dialogWidth:\" + 700 + \"px; dialogHeight:\" + 330 + \"px" +
 "; status:yes; scroll:no;resizable:no;\";\r\n                        var url = \'/Chi" +
 "le/LegalPerson/ChangeLegalPersonRequisites/\' + Ext.getDom(\"Id\").value;\r\n        " +
-"                window.showModalDialog(url, null, params);\r\n                    " +
-"}\r\n                });\r\n\r\n            });\r\n            window.Card.on(\"afterbuil" +
-"d\", function (card) {\r\n                if (window.Ext.getDom(\"ViewConfig_Id\").va" +
-"lue && window.Ext.getDom(\"ViewConfig_Id\").value != \"0\") {\r\n                    t" +
-"his.Items.TabPanel.add(\r\n                        {\r\n                            " +
-"xtype: \"actionshistorytab\",\r\n                            pCardInfo:\r\n           " +
-"                 {\r\n                                pTypeName: this.Settings.Ent" +
-"ityName,\r\n                                pId: window.Ext.getDom(\"ViewConfig_Id\"" +
-").value\r\n                            }\r\n                        });\r\n           " +
-"     }\r\n            });\r\n\r\n            Ext.apply(this, {\r\n\r\n                buil" +
-"dProfilesList: function () {\r\n                    if (this.form.Id.value != 0) {" +
-"\r\n                        var cnt = Ext.getCmp(\'ContentTab_holder\');\r\n          " +
-"              var tp = Ext.getCmp(\'TabWrapper\');\r\n\r\n                        tp.a" +
-"nchor = \"100%, 60%\";\r\n                        delete tp.anchorSpec;\r\n           " +
-"             cnt.add(new Ext.Panel({\r\n                            id: \'profileFr" +
-"ame_holder\',\r\n                            anchor: \'100%, 40%\',\r\n                " +
-"            html: \'<iframe id=\"profileFrame_frame\"></iframe>\'\r\n                 " +
-"       }));\r\n                        cnt.doLayout();\r\n                        va" +
-"r mask = new window.Ext.LoadMask(window.Ext.get(\"profileFrame_holder\"));\r\n      " +
-"                  mask.show();\r\n                        var iframe = Ext.get(\'pr" +
-"ofileFrame_frame\');\r\n\r\n                        iframe.dom.src = \'/Grid/View/Lega" +
-"lPersonProfile/LegalPerson/{0}/{1}?extendedInfo=filterToParent%3Dtrue\'.replace(/" +
-"\\{0\\}/g, this.form.Id.value).replace(/\\{1\\}/g, this.ReadOnly ? \'Inactive\' : \'Act" +
-"ive\');\r\n                        iframe.on(\'load\', function (evt, el) {\r\n        " +
-"                    el.height = Ext.get(el.parentElement).getComputedHeight();\r\n" +
-"                            el.width = Ext.get(el.parentElement).getComputedWidt" +
-"h();\r\n                            el.style.height = \"100%\";\r\n                   " +
-"         el.style.width = \"100%\";\r\n                            el.contentWindow." +
-"Ext.onReady(function () {\r\n                                el.contentWindow.IsBo" +
-"ttomOrderPositionDataList = true;\r\n                            });\r\n            " +
-"                this.hide();\r\n                        }, mask);\r\n               " +
-"         cnt.doLayout();\r\n\r\n                    }\r\n                }\r\n          " +
-"  });\r\n\r\n            this.on(\"afterbuild\", this.buildProfilesList, this);\r\n     " +
-"       this.on(\"afterrelatedlistready\", function (card, details) {\r\n            " +
-"    var dataListName = details.dataList.currentSettings.Name;\r\n\r\n               " +
-" if (dataListName === \'LegalPersonProfile\') {\r\n                    var dataListW" +
-"indow = details.dataList.ContentContainer.container.dom.document.parentWindow;\r\n" +
-"                    if (dataListWindow.IsBottomOrderPositionDataList) {\r\n       " +
-"                 dataListWindow.Ext.getDom(\'Toolbar\').style.display = \'none\';\r\n " +
-"                       details.dataList.Items.Grid.getBottomToolbar().hide();\r\n " +
-"                       details.dataList.ContentContainer.doLayout();\r\n          " +
-"          }\r\n                }\r\n            }, this);\r\n        };\r\n    </script>" +
-"\r\n    <style");
+"                var result = window.showModalDialog(url, null, params);\r\n       " +
+"                 if (result == \'OK\') {\r\n                            this.refresh" +
+"();\r\n                        }\r\n                    }\r\n                });\r\n\r\n  " +
+"          });\r\n            window.Card.on(\"afterbuild\", function (card) {\r\n     " +
+"           if (window.Ext.getDom(\"ViewConfig_Id\").value && window.Ext.getDom(\"Vi" +
+"ewConfig_Id\").value != \"0\") {\r\n                    this.Items.TabPanel.add(\r\n   " +
+"                     {\r\n                            xtype: \"actionshistorytab\",\r" +
+"\n                            pCardInfo:\r\n                            {\r\n        " +
+"                        pTypeName: this.Settings.EntityName,\r\n                  " +
+"              pId: window.Ext.getDom(\"ViewConfig_Id\").value\r\n                   " +
+"         }\r\n                        });\r\n                }\r\n            });\r\n\r\n " +
+"           Ext.apply(this, {\r\n\r\n                buildProfilesList: function () {" +
+"\r\n                    if (this.form.Id.value != 0) {\r\n                        va" +
+"r cnt = Ext.getCmp(\'ContentTab_holder\');\r\n                        var tp = Ext.g" +
+"etCmp(\'TabWrapper\');\r\n\r\n                        tp.anchor = \"100%, 60%\";\r\n      " +
+"                  delete tp.anchorSpec;\r\n                        cnt.add(new Ext" +
+".Panel({\r\n                            id: \'profileFrame_holder\',\r\n              " +
+"              anchor: \'100%, 40%\',\r\n                            html: \'<iframe i" +
+"d=\"profileFrame_frame\"></iframe>\'\r\n                        }));\r\n               " +
+"         cnt.doLayout();\r\n                        var mask = new window.Ext.Load" +
+"Mask(window.Ext.get(\"profileFrame_holder\"));\r\n                        mask.show(" +
+");\r\n                        var iframe = Ext.get(\'profileFrame_frame\');\r\n\r\n     " +
+"                   iframe.dom.src = \'/Grid/View/LegalPersonProfile/LegalPerson/{" +
+"0}/{1}?extendedInfo=filterToParent%3Dtrue\'.replace(/\\{0\\}/g, this.form.Id.value)" +
+".replace(/\\{1\\}/g, this.ReadOnly ? \'Inactive\' : \'Active\');\r\n                    " +
+"    iframe.on(\'load\', function (evt, el) {\r\n                            el.heigh" +
+"t = Ext.get(el.parentElement).getComputedHeight();\r\n                            " +
+"el.width = Ext.get(el.parentElement).getComputedWidth();\r\n                      " +
+"      el.style.height = \"100%\";\r\n                            el.style.width = \"1" +
+"00%\";\r\n                            el.contentWindow.Ext.onReady(function () {\r\n " +
+"                               el.contentWindow.IsBottomOrderPositionDataList = " +
+"true;\r\n                            });\r\n                            this.hide();" +
+"\r\n                        }, mask);\r\n                        cnt.doLayout();\r\n\r\n" +
+"                    }\r\n                }\r\n            });\r\n\r\n            this.on" +
+"(\"afterbuild\", this.buildProfilesList, this);\r\n            this.on(\"afterrelated" +
+"listready\", function (card, details) {\r\n                var dataListName = detai" +
+"ls.dataList.currentSettings.Name;\r\n\r\n                if (dataListName === \'Legal" +
+"PersonProfile\') {\r\n                    var dataListWindow = details.dataList.Con" +
+"tentContainer.container.dom.document.parentWindow;\r\n                    if (data" +
+"ListWindow.IsBottomOrderPositionDataList) {\r\n                        dataListWin" +
+"dow.Ext.getDom(\'Toolbar\').style.display = \'none\';\r\n                        detai" +
+"ls.dataList.Items.Grid.getBottomToolbar().hide();\r\n                        detai" +
+"ls.dataList.ContentContainer.doLayout();\r\n                    }\r\n               " +
+" }\r\n            }, this);\r\n        };\r\n    </script>\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
@@ -140,7 +135,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 103 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 105 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
 Write(Html.HiddenFor(m => m.Id));
 
             
@@ -151,18 +146,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 104 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
-Write(Html.HiddenFor(m => m.ReplicationCode));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 105 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 106 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
 Write(Html.HiddenFor(m => m.HasProfiles));
 
             
@@ -174,14 +158,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 4742), Tuple.Create("\"", 4778)
+WriteAttribute("title", Tuple.Create(" title=\"", 4836), Tuple.Create("\"", 4872)
             
-            #line 107 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
-, Tuple.Create(Tuple.Create("", 4750), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 108 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+, Tuple.Create(Tuple.Create("", 4844), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 4750), false)
+, 4844), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -193,7 +177,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 109 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 110 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalName, FieldFlex.twins));
 
             
@@ -204,7 +188,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 110 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 111 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -219,7 +203,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 113 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 114 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.OperationsKind, FieldFlex.lone));
 
             
@@ -234,7 +218,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 116 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 117 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
 
             
@@ -249,7 +233,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 119 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 120 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Rut, FieldFlex.lone));
 
             
@@ -264,7 +248,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 122 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 123 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
 
             
@@ -279,7 +263,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 125 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 126 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Commune }));
 
             
@@ -294,7 +278,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 128 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
+            #line 129 "..\..\Views\CreateOrUpdate\Chile\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } }));
 
             

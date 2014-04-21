@@ -45,13 +45,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var entity = _obtainer.ObtainBusinessModelEntity(domainEntityDto);
-            
-            if (entity.Id == 0)
-            {
-                _publicService.Handle(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity });
-            }
 
-            if (entity.Id != 0)
+            if (!entity.IsNew())
             {
                 var hasProfiles = _readModel.HasAnyLegalPersonProfiles(entity.Id);
                 if (!hasProfiles)
@@ -76,9 +71,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                 throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
             }
 
+            if (entity.IsNew())
+            {
+                _publicService.Handle(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity });
+            }
+
             try
             {
-                var dtos = entity.Parts.OfType<LegalPersonPart>().Select(x => _readModel.GetBusinessEntityInstanceDto(x)).ToArray();
+                var dtos = _readModel.GetBusinessEntityInstanceDto(entity).ToArray();
 
                 if (entity.IsNew())
                 {

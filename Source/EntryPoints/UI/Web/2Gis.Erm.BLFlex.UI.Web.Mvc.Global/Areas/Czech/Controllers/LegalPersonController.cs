@@ -13,7 +13,6 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Concrete.Old.L
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -34,6 +33,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IPublicService _publicService;
         private readonly IFinder _finder;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public LegalPersonController(IMsCrmSettings msCrmSettings,
                                      IUserContext userContext,
@@ -42,12 +42,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
                                      IPublicService publicService,
-                                     IFinder finder)
+                                     IFinder finder, ILegalPersonReadModel legalPersonReadModel)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
             _finder = finder;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         // TODO {all, 31.07.2013}: Избавиться от этого костыля
@@ -114,16 +115,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
 
         public JsonNetResult GetPaymentMethod(long legalPersonId)
         {
-            // TODO {y.baranihin, 20.01.2014}: использовать ReadModel, когда она появится
             return
                 new JsonNetResult(
                     new
-                    {
-                        PaymentMethod =
-                    _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
-                           .Select(x => (PaymentMethod?)x.PaymentMethod)
-                           .SingleOrDefault()
-                    });
+                        {
+                            PaymentMethod = _legalPersonReadModel.GetPaymentMethod(legalPersonId)
+                        });
         }
 
         private static LegalPersonChangeRequisitesAccess GetMaxAccess(int[] accesses)

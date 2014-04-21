@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
-    public sealed class ListLegalPersonProfileService : ListEntityDtoServiceBase<LegalPersonProfile, ListLegalPersonProfileDto>, IRussiaAdapted, ICyprusAdapted, IChileAdapted
+    public class ListLegalPersonProfileService : ListEntityDtoServiceBase<LegalPersonProfile, ListLegalPersonProfileDto>, IRussiaAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
@@ -33,13 +33,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 
             return query
                 .Select(x => new ListLegalPersonProfileDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    IsMainProfile = x.IsMainProfile,
-                    OwnerCode = x.OwnerCode,
-                    CreatedOn = x.CreatedOn,
-                    IsDeleted = x.IsDeleted,
+                            {
+                                Id = x.Id,
+                                Name = x.Name,
+                                IsMainProfile = x.IsMainProfile,
+                                OwnerCode = x.OwnerCode,
+                                CreatedOn = x.CreatedOn,
+                                IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
                     LegalPersonId = x.LegalPersonId,
                     OwnerName = null,
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 {
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     return x;
-                });
+                            });
         }
     }
 }

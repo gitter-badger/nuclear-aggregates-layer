@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Cyprus.CyprusLegalPersonViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusLegalPersonViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -23,19 +22,7 @@
                         var url = '/Cyprus/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
-                            var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;
-                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                            var msg = isInSyncWith1C.toLowerCase() == 'true' ? '@BLResources.OnLegalPersonRequisitesChangedMessageSync1C' : '@BLResources.OnLegalPersonRequisitesChangedMessageNotSync1C';
-                            window.Ext.MessageBox.show({
-                                title: '',
-                                msg: msg,
-                                buttons: window.Ext.MessageBox.OK,
-                                fn: function() { this.refresh(true); },
-                                scope: this,
-                                width: 500,
-                                icon: window.Ext.MessageBox.INFO
-                            });
+                            this.refresh();
                         }
                     }
                 });
@@ -116,8 +103,6 @@
 @section CardBody
 {
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ReplicationCode)
-    @Html.HiddenFor(m => m.IsInSyncWith1C)
     @Html.HiddenFor(m => m.HasProfiles)
 
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">

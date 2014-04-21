@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -48,19 +49,31 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\BlFlexAggregatesGlobalAssembly.cs" />
-    <Compile Include="Chile\CommuneSpecifications.cs" />
+    <Compile Include="Chile\SimplifiedModel\ReadModel\Communes\CommuneSpecs.cs" />
     <Compile Include="Chile\Bills\BillSpecifications.cs" />
-    <Compile Include="Chile\BankSpecifications.cs" />
+    <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankSpecs.cs" />
     <Compile Include="Chile\Crosscutting\ChileRutService.cs" />
     <Compile Include="Chile\Crosscutting\ChileValidateBillsService.cs" />
-    <Compile Include="Chile\Orders\OrderSpecifications.cs" />
-    <Compile Include="Cyprus\Orders\OrderSpecifications.cs" />
+    <Compile Include="Chile\LegalPersonAggregate\ReadModel\ChileLegalPersonReadModel.cs" />
+    <Compile Include="Chile\LegalPersonAggregate\ReadModel\IChileLegalPersonReadModel.cs" />
+    <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
+    <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
+    <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
+    <Compile Include="MultiCulture\LegalPersonAggregate\MultiCultureLegalPersonReadModel.cs" />
+    <Compile Include="MultiCulture\Orders\DTO\MulticultureOrderGridViewDto.cs" />
+    <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
-    <Compile Include="Czech\Orders\OrderSpecifications.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
-    <Compile Include="Multiculture\Crosscutting\NullValidateBillsService.cs" />
+    <Compile Include="MultiCulture\Crosscutting\NullValidateBillsService.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
+    <Compile Include="Chile\BranchOfficesAggregate\ReadModel\ChileBranchOfficeReadModel.cs" />
+    <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\BranchOfficeSpecs.cs" />
+    <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\IUkraineBranchOfficeReadModel.cs" />
+    <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\UkraineBranchOfficeReadModel.cs" />
+    <Compile Include="Ukraine\Crosscutting\UkraineIpnService.cs" />
+    <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\IUkraineLegalPersonReadModel.cs" />
+    <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\UkraineLegalPersonReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">

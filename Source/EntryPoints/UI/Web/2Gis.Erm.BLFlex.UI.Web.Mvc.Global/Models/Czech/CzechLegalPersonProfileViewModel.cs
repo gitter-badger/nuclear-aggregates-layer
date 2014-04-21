@@ -2,6 +2,7 @@ using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -44,11 +45,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public OperatesOnTheBasisType OperatesOnTheBasisInGenitive { get; set; }
 
         [Dependency(DependencyType.Required, "AccountNumber", "this.value=='BankTransaction'")]
-        /* 
-         * [Dependency(DependencyType.Required, "IBAN", "this.value=='BankTransaction'")]
-         * [Dependency(DependencyType.Required, "SWIFT", "this.value=='BankTransaction'")]
-         * [Dependency(DependencyType.Required, "BankAddress", "this.value=='BankTransaction'")]
-         */
         [Dependency(DependencyType.Required, "BankCode", "this.value=='BankTransaction'")]
         [Dependency(DependencyType.Required, "BankName", "this.value=='BankTransaction'")]
         [RequiredLocalized]
@@ -56,12 +52,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         [StringLengthLocalized(16)]
         public string AccountNumber { get; set; }
-
-        [StringLengthLocalized(28, MinimumLength = 28)]
-        public string IBAN { get; set; }
-
-        [StringLengthLocalized(11, MinimumLength = 8)]
-        public string SWIFT { get; set; }
 
         [StringLengthLocalized(4)]
         public string BankCode { get; set; }
@@ -87,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string RecipientName { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'PostOnly' || this.value == '' || this.value == 'ByCourier'")]
+        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'ByCourier'")]
         [Dependency(DependencyType.Required, "EmailForAccountingDocuments", "this.value == 'ByEmail'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
 
@@ -106,9 +96,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [DisplayNameLocalized("ContactPhone")]
         [StringLengthLocalized(50)]
         public string Phone { get; set; }
-
-        [StringLengthLocalized(512)]
-        public string PaymentEssentialElements { get; set; }
 
         public override byte[] Timestamp { get; set; }
 
@@ -129,7 +116,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             }
         }
 
-        public int[] DisabledDocuments { get; set; }
+        public string[] DisabledDocuments { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -145,12 +132,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             PaymentMethod = modelDto.PaymentMethod;
             AccountNumber = modelDto.AccountNumber;
             Registered = modelDto.Registered;
-            IBAN = modelDto.IBAN;
             BankCode = modelDto.BankCode;
             BankName = modelDto.BankName;
             BankAddress = modelDto.BankAddress;
             AdditionalPaymentElements = modelDto.AdditionalPaymentElements;
-            SWIFT = modelDto.SWIFT;
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
             PositionInNominative = modelDto.PositionInNominative;
             PositionInGenitive = modelDto.PositionInGenitive;
@@ -160,7 +145,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             Owner = LookupField.FromReference(modelDto.OwnerRef);
             EmailForAccountingDocuments = modelDto.EmailForAccountingDocuments;
             LegalPersonType = modelDto.LegalPersonType;
-            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             PersonResponsibleForDocuments = modelDto.PersonResponsibleForDocuments;
             Phone = modelDto.Phone;
             RecipientName = modelDto.RecipientName;
@@ -173,34 +157,31 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             return new LegalPersonProfileDomainEntityDto
                 {
                     Id = Id,
-                    Name = Name,
-                    AdditionalEmail = AdditionalEmail,
-                    ChiefNameInGenitive = ChiefNameInGenitive,
-                    ChiefNameInNominative = ChiefNameInNominative,
-                    Registered = Registered,
-                    DocumentsDeliveryAddress = DocumentsDeliveryAddress,
+                    Name = Name.Ensure—leanness(),
+                    AdditionalEmail = AdditionalEmail.Ensure—leanness(),
+                    ChiefNameInGenitive = ChiefNameInGenitive.Ensure—leanness(),
+                    ChiefNameInNominative = ChiefNameInNominative.Ensure—leanness(),
+                    Registered = Registered.Ensure—leanness(),
+                    DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
-                    AccountNumber = AccountNumber,
-                    IBAN = IBAN,
-                    SWIFT = SWIFT,
-                    BankCode = BankCode,
-                    BankName = BankName,
-                    BankAddress = BankAddress,
-                    AdditionalPaymentElements = AdditionalPaymentElements,
+                    AccountNumber = AccountNumber.Ensure—leanness(),
+                    BankCode = BankCode.Ensure—leanness(),
+                    BankName = BankName.Ensure—leanness(),
+                    BankAddress = BankAddress.Ensure—leanness(),
+                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
-                    PositionInNominative = PositionInNominative,
-                    PositionInGenitive = PositionInGenitive,
+                    PositionInNominative = PositionInNominative.Ensure—leanness(),
+                    PositionInGenitive = PositionInGenitive.Ensure—leanness(),
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
                     WarrantyBeginDate = WarrantyBeginDate,
-                    PostAddress = PostAddress,
+                    PostAddress = PostAddress.Ensure—leanness(),
                     OwnerRef = Owner.ToReference(),
-                    EmailForAccountingDocuments = EmailForAccountingDocuments,
+                    EmailForAccountingDocuments = EmailForAccountingDocuments.Ensure—leanness(),
                     LegalPersonType = LegalPersonType,
-                    PaymentEssentialElements = PaymentEssentialElements,
                     PersonResponsibleForDocuments = PersonResponsibleForDocuments,
-                    Phone = Phone,
-                    RecipientName = RecipientName,
+                    Phone = Phone.Ensure—leanness(),
+                    RecipientName = RecipientName.Ensure—leanness(),
                     IsMainProfile = IsMainProfile,
                     Timestamp = Timestamp
                 };

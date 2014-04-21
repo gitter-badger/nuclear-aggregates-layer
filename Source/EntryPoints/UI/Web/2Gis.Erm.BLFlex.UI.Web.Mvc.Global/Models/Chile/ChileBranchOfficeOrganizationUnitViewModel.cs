@@ -66,6 +66,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         [StringLengthLocalized(512)]
         public string BranchOfficeAddlLegalAddress { get; set; }
 
+        [DisplayNameLocalized("Rut")]
         [RutValidation]
         public string BranchOfficeAddlRut { get; set; }
 

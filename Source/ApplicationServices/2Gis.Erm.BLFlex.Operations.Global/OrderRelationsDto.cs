@@ -10,5 +10,6 @@
         public long DestOrganizationUnitId { get; set; }
         public long FirmId { get; set; }
         public long MainLegalPersonProfileId { get; set; }
+        public long BranchOfficeId { get; set; }
     }
 }

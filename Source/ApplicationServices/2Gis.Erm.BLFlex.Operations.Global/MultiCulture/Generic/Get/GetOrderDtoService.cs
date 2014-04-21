@@ -26,7 +26,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted
+    public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
     {
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;

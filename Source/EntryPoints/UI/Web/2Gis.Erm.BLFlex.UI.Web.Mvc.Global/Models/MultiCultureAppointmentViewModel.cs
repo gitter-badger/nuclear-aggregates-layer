@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureAppointmentViewModel : ActivityBaseViewModelAbstract<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted
+    public sealed class MultiCultureAppointmentViewModel : ActivityBaseViewModelAbstract<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
     {
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "Purpose", "this.value != 'NotSet'")]

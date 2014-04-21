@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter

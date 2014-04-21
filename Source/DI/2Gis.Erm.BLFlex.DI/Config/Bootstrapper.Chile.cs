@@ -2,17 +2,27 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
+using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
+using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using Microsoft.Practices.Unity;
 
@@ -23,13 +33,25 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureChileSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
+                        .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonPart>, BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
+                        .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
+                        .RegisterType<IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
+                        .RegisterType<IDictionaryEntityPropertiesConverter<Bank>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
+
                         .RegisterType<IFormatterFactory, ChileFormatterFactory>(Lifetime.Singleton)
                         .RegisterType<ICheckInnService, ChileRutService>(Lifetime.Singleton)
+                        .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
+                        .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                        .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve);
+                        .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve)
+
+                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, ChileLegalPersonObtainerFlex>(Lifetime.PerResolve)
+                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, ChileLegalPersonProfileObtainerFlex>(Lifetime.PerResolve)
+                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
+                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.PerResolve);
         }
 
         // TODO переделать на нормальную метадату
@@ -40,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.ClientName,
                 x => x.LegalAddress,
                 x => x.Rut);
-            FilteredFieldMetadata.RegisterFilteredFields<ChileListOrderDto>(
+            FilteredFieldMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
                 x => x.ClientName,
@@ -69,68 +91,68 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             // Юридические лица по филиалу с дебиторской задолженностью
             DefaultFilterMetadata.RegisterFilter<ChileListLegalPersonDto>("DListLegalPersonsWithDebtAtMyBranch", x => x.IsActive && !x.IsDeleted);
 
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListActiveOrders", x => (x.IsActive && !x.IsDeleted && x.WorkflowStepEnum != OrderState.Archive) || (!x.IsDeleted && (x.WorkflowStepEnum == OrderState.Archive || x.WorkflowStepEnum == OrderState.OnTermination) && x.EndDistributionDateFact > DateTime.Now));
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListInactiveOrders", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Archive);
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListRejectedOrders", x => !x.IsActive && !x.IsDeleted);
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListAllOrders", x => !x.IsDeleted);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListActiveOrders", x => (x.IsActive && !x.IsDeleted && x.WorkflowStepEnum != OrderState.Archive) || (!x.IsDeleted && (x.WorkflowStepEnum == OrderState.Archive || x.WorkflowStepEnum == OrderState.OnTermination) && x.EndDistributionDateFact > DateTime.Now));
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListInactiveOrders", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Archive);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedOrders", x => !x.IsActive && !x.IsDeleted);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListAllOrders", x => !x.IsDeleted);
             // Все мои активные заказы
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyActiveOrders", x => x.IsActive && !x.IsDeleted);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyActiveOrders", x => x.IsActive && !x.IsDeleted);
             // Мои заказы на расторжении
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyOrdersOnTermination", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnTermination);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyOrdersOnTermination", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnTermination);
             // Мои заказы в статусе На утверждении
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyOrdersOnApproval", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyOrdersOnApproval", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
             // Мои неактивные (заказы закрытые отказом)
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyTerminatedOrders", x => !x.IsDeleted && x.IsTerminated);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyTerminatedOrders", x => !x.IsDeleted && x.IsTerminated);
             // Мои заказы, у которых отсутствуют подписанные документы
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyOrdersWithDocumentsDebt", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyOrdersWithDocumentsDebt", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent);
             // Все заказы моих подчиненных
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersForSubordinates", x => x.IsActive && !x.IsDeleted);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersForSubordinates", x => x.IsActive && !x.IsDeleted);
             // Неактивные (закрытые отказом) заказы моих подчиненных
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListTerminatedOrdersForSubordinates", x => !x.IsDeleted && x.IsTerminated);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListTerminatedOrdersForSubordinates", x => !x.IsDeleted && x.IsTerminated);
             // Все мои заказы с типом Самореклама
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMySelfAdsOrders", x => x.IsActive && !x.IsDeleted && x.OrderTypeEnum == OrderType.SelfAds);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMySelfAdsOrders", x => x.IsActive && !x.IsDeleted && x.OrderTypeEnum == OrderType.SelfAds);
             // Все мои заказы с типом Бартер
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyBarterOrders", x => x.IsActive && !x.IsDeleted && (x.OrderTypeEnum == OrderType.AdsBarter || x.OrderTypeEnum == OrderType.ProductBarter || x.OrderTypeEnum == OrderType.ServiceBarter));
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyBarterOrders", x => x.IsActive && !x.IsDeleted && (x.OrderTypeEnum == OrderType.AdsBarter || x.OrderTypeEnum == OrderType.ProductBarter || x.OrderTypeEnum == OrderType.ServiceBarter));
             // Мои новые заказы
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyNewOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved) && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyNewOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved) && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
             // Новые заказы моих подчиненных
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListNewOrdersForSubordinates", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved) && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListNewOrdersForSubordinates", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved) && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
             // Заказы, требующие продления
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersToProlongate", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Approved);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersToProlongate", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Approved);
             // Заказы моих подчиненных, требующие продления
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersToProlongateForSubordinates", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Approved);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersToProlongateForSubordinates", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Approved);
             // Отклоненные заказы моих подчиненных
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListRejectedOrdersForSubordinates", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Rejected);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedOrdersForSubordinates", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Rejected);
             // Мои заказы в ближайший выпуск
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListMyOrdersToNextEdition", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListMyOrdersToNextEdition", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
             // Заказы моих подчиненных в ближайший выпуск
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersToNextEditionForSubordinates", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersToNextEditionForSubordinates", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
             // Все отклоненные мною БЗ
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListRejectedByMeOrders", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Rejected && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrders", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.Rejected && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
             // Заказы, требующие моего одобрения
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersOnApprovalForMe", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersOnApprovalForMe", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
             // БЗ, в статусе Одобрено, у которых отсутствуют прикрепленные РМ
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListApprovedOrdersWithoutAdvertisement", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListApprovedOrdersWithoutAdvertisement", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval);
             // Заказы в выпуск следующего месяца закрытые отказом
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListTerminatedOrdersForNextMonthEdition", x => !x.IsDeleted && x.IsTerminated);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListTerminatedOrdersForNextMonthEdition", x => !x.IsDeleted && x.IsTerminated);
             // Неподписанные БЗ за текущий выпуск
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListOrdersWithDocumentsDebtForNextMonth", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListOrdersWithDocumentsDebtForNextMonth", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved));
             // Список технических расторжений
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListTechnicalTerminatedOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum == OrderTerminationReason.RejectionTechnical);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListTechnicalTerminatedOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum == OrderTerminationReason.RejectionTechnical);
             // Список действительных расторжений
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListNonTechnicalTerminatedOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum != OrderTerminationReason.RejectionTechnical && x.TerminationReasonEnum != OrderTerminationReason.None);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListNonTechnicalTerminatedOrders", x => x.IsActive && !x.IsDeleted && (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum != OrderTerminationReason.RejectionTechnical && x.TerminationReasonEnum != OrderTerminationReason.None);
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
-            DefaultFilterMetadata.RegisterFilter<ChileListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
+            DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
 
             DefaultFilterMetadata.RegisterFilter<ChileListBankDto>("DListBanks", x => x.IsActive && !x.IsDeleted);
             DefaultFilterMetadata.RegisterFilter<ChileListCommuneDto>("DListCommunes", x => x.IsActive && !x.IsDeleted);
 
             RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<ChileListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<ChileListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<ChileListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<ChileListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<ChileListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
         }
     }
 }

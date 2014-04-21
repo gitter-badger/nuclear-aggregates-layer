@@ -64,6 +64,26 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonObtainerFlexSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\Get\CyprusGetLegalPersonDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\Get\CyprusGetLegalPersonProfileDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\Get\CzechGetLegalPersonProfileDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\Get\CzechGetLegalPersonDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RoublesInRussianPluralizerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RussianNumberToWordsPluralizerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Shared\UkraineFormatterSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetLegalPersonProfileDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetLegalPersonDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetBranchOfficeDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetBranchOfficeOrganizationUnitDtoServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeOrganizationUnitObtainerFlexSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Modify\DomainEntityObtainers\UkraineLegalPersonObtainerFlexSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Modify\DomainEntityObtainers\UkraineBranchOfficeObtainerFlexSpecs.cs" />
     <Compile Include="ApplicationServices\Aggregates.Global\Chile\Crosscutting\RutServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Aggregates.Global\Russia\Crosscutting\InnServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\OrderPrintFormDataExtractorSpecs.cs" />
@@ -77,6 +97,18 @@
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonProfileViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Cyprus\CyprusLegalPersonProfileViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Cyprus\CyprusLegalPersonViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Czech\CzechLegalPersonProfileViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Czech\CzechLegalPersonViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Russia\LegalPersonProfileViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Russia\LegalPersonViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Shared\LegalPersonProfileViewModelsTestHelper.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Shared\LegalPersonViewModelsTestHelper.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Ukraine\UkraineLegalPersonProfileViewModelSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Ukraine\UkraineLegalPersonViewModelSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\ChileFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\CyprusFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\CzechFormatterSpecs.cs" />
@@ -86,6 +118,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
       <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
       <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
@@ -102,6 +142,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
@@ -109,6 +153,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
@@ -133,6 +181,18 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj">
+      <Project>{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

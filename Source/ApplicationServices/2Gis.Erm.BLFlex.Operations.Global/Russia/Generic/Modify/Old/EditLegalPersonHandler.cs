@@ -48,12 +48,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 }
             }
 
-            if (request.Entity.Id == 0)
+            if (request.Entity.IsNew())
             {
                 _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = request.Entity }, Context);
             }
 
-            if (request.Entity.Id != 0)
+            if (!request.Entity.IsNew())
             {
                 var personWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(request.Entity.Id);
                 if (!personWithProfiles.Profiles.Any())

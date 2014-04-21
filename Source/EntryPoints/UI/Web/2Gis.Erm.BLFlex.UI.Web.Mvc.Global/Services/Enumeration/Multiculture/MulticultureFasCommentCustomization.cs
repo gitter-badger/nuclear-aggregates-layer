@@ -4,9 +4,9 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Enumeration;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Multiculture
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCulture
 {
-    public class MulticultureFasCommentCustomization : EnumCustomizationBase<FasComment>, IRussiaAdapted, ICyprusAdapted, IChileAdapted
+    public class MultiCultureFasCommentCustomization : EnumCustomizationBase<FasComment>, IRussiaAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
     {
         protected override IEnumerable<FasComment> GetRequiredEnumValues()
         {

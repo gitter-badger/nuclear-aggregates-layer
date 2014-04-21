@@ -4,6 +4,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public string RecipientName { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'PostOnly' || this.value == 'DeliveryByManager' || this.value == 'ByCourier'")]
+        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'DeliveryByManager' || this.value == 'ByCourier'")]
         [Dependency(DependencyType.Required, "EmailForAccountingDocuments", "this.value == 'ByEmail'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
         
@@ -113,7 +114,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             }
         }
 
-        public int[] DisabledDocuments { get; set; }
+        public string[] DisabledDocuments { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -138,9 +139,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             Timestamp = modelDto.Timestamp;
             Bank = modelDto.BankRef.ToLookupField();
             BankAccountType = modelDto.AccountType;
-            RepresentativeName = modelDto.RepresentativeName;
+            RepresentativeName = modelDto.ChiefNameInNominative;
             RepresentativeRut = modelDto.RepresentativeRut;
-            RepresentativePosition = modelDto.RepresentativePosition;
+            RepresentativePosition = modelDto.PositionInNominative;
             OperatesOnTheBasisInGenitive = modelDto.OperatesOnTheBasisInGenitive;
 
             RepresentativeDocumentIssuedOn = modelDto.RepresentativeDocumentIssuedOn;
@@ -152,27 +153,27 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             return new ChileLegalPersonProfileDomainEntityDto
                 {
                     Id = Id,
-                    Name = Name,
-                    AdditionalEmail = AdditionalEmail,
-                    DocumentsDeliveryAddress = DocumentsDeliveryAddress,
+                    Name = Name.Ensure—leanness(),
+                    AdditionalEmail = AdditionalEmail.Ensure—leanness(),
+                    DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
-                    AccountNumber = AccountNumber,
-                    AdditionalPaymentElements = AdditionalPaymentElements,
+                    AccountNumber = AccountNumber.Ensure—leanness(),
+                    AdditionalPaymentElements = AdditionalPaymentElements.Ensure—leanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
-                    PostAddress = PostAddress,
+                    PostAddress = PostAddress.Ensure—leanness(),
                     OwnerRef = Owner.ToReference(),
-                    EmailForAccountingDocuments = EmailForAccountingDocuments,
-                    PersonResponsibleForDocuments = PersonResponsibleForDocuments,
-                    Phone = Phone,
-                    RecipientName = RecipientName,
+                    EmailForAccountingDocuments = EmailForAccountingDocuments.Ensure—leanness(),
+                    PersonResponsibleForDocuments = PersonResponsibleForDocuments.Ensure—leanness(),
+                    Phone = Phone.Ensure—leanness(),
+                    RecipientName = RecipientName.Ensure—leanness(),
                     IsMainProfile = IsMainProfile,
                     Timestamp = Timestamp,
                     BankRef = Bank.ToReference(),
                     AccountType = BankAccountType,
-                    RepresentativeName = RepresentativeName,
-                    RepresentativeRut = RepresentativeRut,
-                    RepresentativePosition = RepresentativePosition,
+                    ChiefNameInNominative = RepresentativeName.Ensure—leanness(),
+                    RepresentativeRut = RepresentativeRut.Ensure—leanness(),
+                    PositionInNominative = RepresentativePosition.Ensure—leanness(),
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
 
                     RepresentativeDocumentIssuedBy = RepresentativeDocumentIssuedBy,

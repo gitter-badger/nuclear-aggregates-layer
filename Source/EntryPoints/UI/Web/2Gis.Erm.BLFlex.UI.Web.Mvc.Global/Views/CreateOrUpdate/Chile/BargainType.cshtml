@@ -1,24 +1,5 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Chile.ChileBargainTypeViewModel
-           
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureBargainTypeViewModel
+
 @{
-    Layout = "../../Shared/_CardLayout.cshtml";
-}
-
-@section CardScripts
-{
-}
-
-@section CardBody
-{
-    @Html.HiddenFor(m => m.IdentityServiceUrl)
-    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
-        <div class="row-wrapper">
-            @Html.EditableId(m => m.Id)
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.Name, FieldFlex.twins)
-            @Html.TemplateField(m=> m.VatRate, FieldFlex.twins)
-        </div>
-    </div>
+    Layout = "../MultiCultureBargainType.cshtml";
 }

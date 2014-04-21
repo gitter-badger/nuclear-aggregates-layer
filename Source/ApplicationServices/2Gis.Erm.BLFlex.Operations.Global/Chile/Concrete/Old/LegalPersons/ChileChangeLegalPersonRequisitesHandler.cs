@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
                 entity.LegalAddress = request.LegalAddress;
                 entity.Inn = request.Rut;
 
-                var chileLegalPersonPart = entity.Parts.OfType<LegalPersonPart>().Single();
+                var chileLegalPersonPart = entity.Parts.OfType<ChileLegalPersonPart>().Single();
                 chileLegalPersonPart.CommuneId = request.CommuneId;
 
             }
@@ -85,7 +86,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
                 _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity }, Context);
                 _legalPersonRepository.CreateOrUpdate(entity);
 
-                var chileLegalPersonParts = entity.Parts.OfType<LegalPersonPart>().Select(x => _legalPersonReadModel.GetBusinessEntityInstanceDto(x)).ToArray();
+                var chileLegalPersonParts = _legalPersonReadModel.GetBusinessEntityInstanceDto(entity).ToArray();
                 _updatePartsService.Update(entity, chileLegalPersonParts);
 
                 operationScope

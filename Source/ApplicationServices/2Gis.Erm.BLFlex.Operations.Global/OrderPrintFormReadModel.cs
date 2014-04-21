@@ -20,16 +20,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(order => new OrderRelationsDto
-                          {
-                              BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                              OrderNumber = order.Number,
-                              CurrencyIsoCode = order.Currency.ISOCode,
-                              LegalPersonId = order.LegalPersonId,
-                              SourceOrganizationUnitId = order.SourceOrganizationUnitId,
-                              DestOrganizationUnitId = order.DestOrganizationUnitId,
-                              FirmId = order.FirmId,
-                              MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
-                          })
+                              {
+                                  BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
+                                  OrderNumber = order.Number,
+                                  CurrencyIsoCode = order.Currency.ISOCode,
+                                  LegalPersonId = order.LegalPersonId,
+                                  SourceOrganizationUnitId = order.SourceOrganizationUnitId,
+                                  DestOrganizationUnitId = order.DestOrganizationUnitId,
+                                  FirmId = order.FirmId,
+                                  MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
+                                  BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId
+                              })
                           .Single();
         }
 

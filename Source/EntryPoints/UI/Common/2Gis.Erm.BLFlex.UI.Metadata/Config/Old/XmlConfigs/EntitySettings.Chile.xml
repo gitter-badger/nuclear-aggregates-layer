@@ -711,17 +711,10 @@
           <Field Name="ParentId" NameLocaleResourceId="DFieldParentId" Width="200" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ParentName" NameLocaleResourceId="ParentCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="Level" NameLocaleResourceId="CategoryLevel" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="IsPrimary" NameLocaleResourceId="DFieldCategoryIsPrimary" Width="75" FieldType="Boolean" ExtTypeName="Boolean" />
         </Fields>
       </DataList>
-      <DataList NameLocaleResourceId="DListInactiveCategories" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="true" MainAttribute="Name" Icon="en_ico_16_Category.gif">
-        <Fields>
-          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="Name" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="ParentId" NameLocaleResourceId="DFieldParentId" Width="200" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="ParentName" NameLocaleResourceId="ParentCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="Level" NameLocaleResourceId="CategoryLevel" Width="200" FieldType="String" ExtTypeName="String" />
-        </Fields>
-      </DataList>
+      <DataList BasedOn="DListActiveCategories" NameLocaleResourceId="DListInactiveCategories" />
     </DataLists>
   </Entity>
   <Entity Name="CategoryFirmAddress">
@@ -1483,8 +1476,8 @@
           <Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
           <Field Name="ClientId" NameLocaleResourceId="ClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="ClientName" NameLocaleResourceId="Client" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
-          <Field Name="CreatedOn" Width="135" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="CloseDate" NameLocaleResourceId="ClosedOn" Width="135" FieldType="Period" ExtTypeName="Date" />
+          <Field Name="StartPeriodDate" NameLocaleResourceId="DFieldStartPeriodDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="EndPeriodDate" NameLocaleResourceId="DFieldEndPeriodDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="Amount" Width="135" FieldType="Money" ExtTypeName="Float" />
           <Field Name="Status" Width="135" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="OwnerCode" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -1811,14 +1804,15 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="FirmName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="ClientId" NameLocaleResourceId="DListFieldClientId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientName" NameLocaleResourceId="NameOfClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="SourceOrganizationUnitId" NameLocaleResourceId="DFieldSourceOrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="SourceOrganizationUnitName" NameLocaleResourceId="SourceOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="SourceOrganizationUnitId" />
-          <Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="DestOrganizationUnitName" NameLocaleResourceId="DestinationOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="DestOrganizationUnitId" />
           <Field Name="OrderType" NameLocaleResourceId="DFieldOrderType" Width="150" FieldType="String" ExtTypeName="String" />
           <Field Name="WorkflowStep" NameLocaleResourceId="DFieldWorkflowStep" Width="150" FieldType="String" ExtTypeName="String" />
@@ -1832,9 +1826,6 @@
           <Field Name="PayableFact" Width="150" FieldType="Money" ExtTypeName="Float" />
           <Field Name="DiscountPercent" Width="100" FieldType="Float" ExtTypeName="Float" />
           <Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="150" FieldType="Money" ExtTypeName="Float" />
-
-          <!-- Поле для сортировки по умолчанию -->
-          <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
         </Fields>
       </DataList>
       <DataList BasedOn="DListActiveOrders" NameLocaleResourceId="DListInactiveOrders" />
