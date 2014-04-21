@@ -145,6 +145,7 @@
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
+    <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />
     <Compile Include="Utils\Resources\ResourceEntryKey.cs" />
     <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
@@ -160,6 +161,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
       <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
       <Name>2Gis.Erm.Platform.Resources.Server</Name>

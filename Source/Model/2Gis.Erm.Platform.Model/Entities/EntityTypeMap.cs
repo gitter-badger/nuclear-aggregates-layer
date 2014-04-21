@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.Entities
@@ -15,9 +17,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             // ERM
             { EntityName.Deal, typeof(Deal) },
             { EntityName.BranchOfficeOrganizationUnit, typeof(BranchOfficeOrganizationUnit) },
-            { EntityName.BranchOfficeOrganizationUnitPart, typeof(BranchOfficeOrganizationUnitPart) },
+            { EntityName.ChileBranchOfficeOrganizationUnitPart, typeof(ChileBranchOfficeOrganizationUnitPart) },
             { EntityName.LegalPerson, typeof(LegalPerson) },
-            { EntityName.LegalPersonPart, typeof(LegalPersonPart) },
+            { EntityName.ChileLegalPersonPart, typeof(ChileLegalPersonPart) },
+            { EntityName.UkraineLegalPersonPart, typeof(UkraineLegalPersonPart) },
             { EntityName.OperationType, typeof(OperationType) },
             { EntityName.Order, typeof(Order) },
             { EntityName.OrderPosition, typeof(OrderPosition) }, 
@@ -30,6 +33,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.FirmAddress, typeof(FirmAddress) },
             { EntityName.FirmContact, typeof(FirmContact) },
             { EntityName.BranchOffice, typeof(BranchOffice) },
+            { EntityName.UkraineBranchOfficePart, typeof(UkraineBranchOfficePart) },
             { EntityName.OrganizationUnit, typeof(OrganizationUnit) },
             { EntityName.Project, typeof(Project) },
             { EntityName.Client, typeof(Client) },
@@ -78,7 +82,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.Operation, typeof(Operation) },
             { EntityName.MessageType, typeof(MessageType) },
             { EntityName.LegalPersonProfile, typeof(LegalPersonProfile) },
-            { EntityName.LegalPersonProfilePart, typeof(LegalPersonProfilePart) },
+            { EntityName.ChileLegalPersonProfilePart, typeof(ChileLegalPersonProfilePart) },
+            { EntityName.UkraineLegalPersonProfilePart, typeof(UkraineLegalPersonProfilePart) },
             { EntityName.AdditionalFirmService, typeof(AdditionalFirmService) },
             { EntityName.Theme, typeof(Theme) },
             { EntityName.ThemeCategory, typeof(ThemeCategory) },

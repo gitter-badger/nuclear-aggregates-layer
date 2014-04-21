@@ -6,6 +6,5 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
     {
         BranchOffice = EntityName.BranchOffice,
         BranchOfficeOrganizationUnit = EntityName.BranchOfficeOrganizationUnit,
-        BranchOfficeOrganizationUnitPart = EntityName.BranchOfficeOrganizationUnitPart
-    }
+    } 
 }

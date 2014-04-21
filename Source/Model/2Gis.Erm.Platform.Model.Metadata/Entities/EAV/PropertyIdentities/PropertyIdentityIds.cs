@@ -23,5 +23,9 @@
         public const int BusinessModelPropertyId = 19;
         public const int CommuneIdPropertyId = 20;
         public const int OperationsKindPropertyId = 21;
+        public const int EgrpouPropertyId = 22;
+        public const int MfoPropertyId = 23;
+        public const int TaxationTypePropertyId = 24;
+        public const int IpnPropertyId = 25;
     }
 }

@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     public partial class LegalPersonDomainEntityDto
     {
         [DataMember]
+        // Это св-во не учавствует в логике и используется только для метаданных.
         public string BusinessmanInn { get; set; }
         [DataMember]
         public bool HasProfiles { get; set; }

@@ -41,6 +41,9 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2Gis.Erm.BLFlex.Model">
+      <HintPath>..\..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\bin\Debug\2Gis.Erm.BLFlex.Model.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -105,20 +108,24 @@
     <Compile Include="Entities\EAV\PropertyIdentities\CommuneIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\DealIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\DescriptionIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\EgrpouIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\HeaderIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IpnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\MfoIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\PropertyIdentityIds.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedByIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedOnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\NameIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\EntityTypeNameIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\OperationsKindIndentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\PriorityIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\PropertyIdentityIds.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\PurposeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeRutIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\ScheduledEndIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\ScheduledStartIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\StatusIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaskTypeIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
     <Compile Include="Entities\EntityPropertiesProvider.cs" />
     <Compile Include="Entities\EntityProperty.cs" />
     <Compile Include="Entities\ErrorDescription.cs" />
@@ -224,6 +231,7 @@
     <Compile Include="Globalization\ICyprusAdapted.cs" />
     <Compile Include="Globalization\ICzechAdapted.cs" />
     <Compile Include="Globalization\IRussiaAdapted.cs" />
+    <Compile Include="Globalization\IUkraineAdapted.cs" />
     <Compile Include="Messages\MessageCodes.cs" />
     <Compile Include="Messages\MessageCodesToTemplatesMapper.cs" />
     <Compile Include="Operations\Applicability\OperationApplicability.cs" />
@@ -262,7 +270,7 @@
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
-      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
