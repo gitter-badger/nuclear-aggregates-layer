@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;

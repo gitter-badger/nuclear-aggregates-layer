@@ -12,13 +12,16 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 {
+    // TODO {all, 07.04.2014}: в  целом по obtainers см. коммент к IBusinessModelEntityObtainerFlex, до выработки болееменее четкой идеологии дальнейшего развития предлагаю пока дальше obtainers такого типа не масштабировать/клонировать
     public sealed class BranchOfficeOrganizationUnitObtainer : IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit>, IAggregateReadModel<BranchOffice>
     {
         private readonly IFinder _finder;
+        private readonly IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit> _flexBehaviour;
 
-        public BranchOfficeOrganizationUnitObtainer(IFinder finder)
+        public BranchOfficeOrganizationUnitObtainer(IFinder finder, IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit> flexBehaviour)
         {
             _finder = finder;
+            _flexBehaviour = flexBehaviour;
         }
 
         public BranchOfficeOrganizationUnit ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
@@ -51,6 +54,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.RegistrationCertificate = dto.RegistrationCertificate;
             entity.Email = dto.Email;
             entity.Timestamp = dto.Timestamp;
+
+            entity.Parts = _flexBehaviour.GetEntityParts(entity);
+
+            _flexBehaviour.CopyPartFields(entity, dto);
 
             return entity;
         }

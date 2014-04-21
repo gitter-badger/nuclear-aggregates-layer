@@ -98,6 +98,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonObtainerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\BranchOfficeObtainerSpecs.cs" />
+    <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainerSpecs.cs" />
     <Compile Include="BL\Client\ClientObtainerSpecs.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -3,10 +3,10 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.BLCore.WCF.Releasing
 {
@@ -29,9 +29,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             _finishReleaseOperationService = finishReleaseOperationService;
             _logger = logger;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ReleaseStartingResult Start(int organizationUnitDgppId, TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors)

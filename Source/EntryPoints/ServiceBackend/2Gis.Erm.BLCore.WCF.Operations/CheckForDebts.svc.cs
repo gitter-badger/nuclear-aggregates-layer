@@ -8,9 +8,9 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using Newtonsoft.Json;
@@ -28,9 +28,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             _logger = logger;
             _operationServicesManager = operationServicesManager;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public CheckForDebtsResult Execute(string specifiedEntityName, string specifiedEntityIds)
