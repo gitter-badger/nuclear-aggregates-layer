@@ -271,6 +271,30 @@ SWIFT {5}
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>Операция создания коммуны не поддерживается системой</value>
   </data>
+  <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Индивидуальный предприниматель с указанным ИПН уже существует</value>
+  </data>
+  <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанными ИПН уже существует</value>
+  </data>
+  <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует удаленный Индивидуальный предприниматель с указанным ИПН</value>
+  </data>
+  <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанными ИПН</value>
+  </data>
+  <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует скрытый Индивидуальный предприниматель с указанным ИПН</value>
+  </data>
+  <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанными ИПН</value>
+  </data>
+  <data name="UkraineInvalidIpn" xml:space="preserve">
+    <value>ИПН должен быть длиной {0} символов</value>
+  </data>
+  <data name="UkraineInvalidEgrpou" xml:space="preserve">
+    <value>ЕГРПОУ должен быть длиной {0} символов</value>
+  </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
     <value>místem podnikání</value>
   </data>
@@ -324,5 +348,29 @@ SWIFT {5}
   </data>
   <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
     <value>{0}, Контекстная рубрика – {1}</value>
+  </data>
+  <data name="UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineActivateLegalPersonErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>Данное юр. лицо восстановить нельзя, т.к. существует юр. лицо с таким же ЕГРПОУ</value>
+  </data>
+  <data name="UkraineEnteredIpnIsNotCorrect" xml:space="preserve">
+    <value>Введенный ИПН не соответствует формату</value>
+  </data>
+  <data name="UkraineEnteredEgrpouIsNotCorrect" xml:space="preserve">
+    <value>Введенный ЕГРПОУ не соответствует формату</value>
+  </data>
+  <data name="UkraineActivateBusinessmanErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>Данного ИП восстановить нельзя, т.к. существует ИП с таким же ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует индивидуальный предприниматель с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ИПН</value>
   </data>
 </root>

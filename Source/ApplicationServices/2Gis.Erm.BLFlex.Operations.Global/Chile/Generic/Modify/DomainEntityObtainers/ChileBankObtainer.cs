@@ -21,13 +21,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
     public sealed class ChileBankObtainer : ISimplifiedModelEntityObtainer<Bank>, IChileAdapted
     {
         private readonly IFinder _finder;
-        private readonly IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance> _dynamicEntityPropertiesConverter;
+        private readonly IDictionaryEntityPropertiesConverter<Bank> _dynamicEntityEntityPropertiesConverter;
 
         public ChileBankObtainer(
-            IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance> dynamicEntityPropertiesConverter,
+            IDictionaryEntityPropertiesConverter<Bank> dynamicEntityEntityPropertiesConverter,
             IFinder finder)
         {
-            _dynamicEntityPropertiesConverter = dynamicEntityPropertiesConverter;
+            _dynamicEntityEntityPropertiesConverter = dynamicEntityEntityPropertiesConverter;
             _finder = finder;
         }
 
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
             var dto = (BankDomainEntityDto)domainEntityDto;
             var bank = dto.IsNew()
                            ? new Bank { IsActive = true, IsDeleted = false }
-                           : SingleOrDefault(_finder, dto.Id, _dynamicEntityPropertiesConverter.ConvertFromDynamicEntityInstance);
+                           : SingleOrDefault(_finder, dto.Id, _dynamicEntityEntityPropertiesConverter.ConvertFromDynamicEntityInstance);
             
             CopyFields(dto, bank);
             

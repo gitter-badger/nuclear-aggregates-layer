@@ -28,10 +28,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
         static readonly BranchOffice BranchOffice = new BranchOffice { BargainType = BargainType };
         static readonly BranchOfficeOrganizationUnit BranchOfficeOrganizationUnit = new BranchOfficeOrganizationUnit { BranchOffice = BranchOffice, IsPrimaryForRegionalSales = true, IsActive = true };
         static readonly Bill Bill = new Bill();
-        static readonly BranchOfficeOrganizationUnitPart BranchOfficeOrganizationUnitPart = new BranchOfficeOrganizationUnitPart();
         static readonly LegalPerson LegalPerson = new LegalPerson();
         static readonly LegalPersonProfile LegalPersonProfile = new LegalPersonProfile { OperatesOnTheBasisInGenitive = 1 };
-        static readonly LegalPersonProfilePart LegalPersonProfilePart = new LegalPersonProfilePart();
         static readonly Bank Bank = new Bank();
         static readonly FirmAddress FirmAddress = new FirmAddress { Id = FirmAddressId };
         static readonly Platform.Model.Entities.Erm.Platform Platform = new Platform.Model.Entities.Erm.Platform();

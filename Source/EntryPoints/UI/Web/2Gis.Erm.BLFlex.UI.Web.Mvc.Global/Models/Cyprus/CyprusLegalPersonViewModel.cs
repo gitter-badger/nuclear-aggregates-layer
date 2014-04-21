@@ -1,5 +1,3 @@
-using System;
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,7 +13,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
     public sealed class CyprusLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ICyprusAdapted
     {
-        public Guid? ReplicationCode { get; set; }
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         [Dependency(DependencyType.ReadOnly, "LegalName", "Ext.getDom('Id').value != '0'")]
@@ -31,9 +28,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [Dependency(DependencyType.DisableAndHide, "VAT", "this.value=='NaturalPerson'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "LegalAddress", "this.value=='NaturalPerson'")]
         public LegalPersonType LegalPersonType { get; set; }
-
-        public bool IsInSyncWith1C { get; set; }
-
 
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
@@ -95,16 +89,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             LegalName = modelDto.LegalName;
             LegalPersonType = modelDto.LegalPersonTypeEnum;
             LegalAddress = modelDto.LegalAddress;
-            Inn = modelDto.Inn;
+            Inn = modelDto.LegalPersonTypeEnum == LegalPersonType.LegalPerson ? modelDto.Inn : null;
             VAT = modelDto.VAT;
-            BusinessmanInn = modelDto.BusinessmanInn;
+            BusinessmanInn = modelDto.LegalPersonTypeEnum == LegalPersonType.Businessman ? modelDto.Inn : null;
             PassportNumber = modelDto.PassportNumber;
             PassportIssuedBy = modelDto.PassportIssuedBy;
             RegistrationAddress = modelDto.RegistrationAddress;
             CardNumber = modelDto.CardNumber;
             Client = LookupField.FromReference(modelDto.ClientRef);
-            IsInSyncWith1C = modelDto.IsInSyncWith1C;
-            ReplicationCode = modelDto.ReplicationCode;
             Comment = modelDto.Comment;
             HasProfiles = modelDto.HasProfiles;
             Timestamp = modelDto.Timestamp;
@@ -119,16 +111,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     ShortName = LegalName,
                     LegalPersonTypeEnum = LegalPersonType,
                     LegalAddress = LegalAddress,
-                    Inn = Inn,
+                    Inn = LegalPersonType == LegalPersonType.LegalPerson ? Inn : BusinessmanInn,
                     VAT = VAT,
-                    BusinessmanInn = BusinessmanInn,
                     PassportNumber = PassportNumber,
                     PassportIssuedBy = PassportIssuedBy,
                     RegistrationAddress = RegistrationAddress,
                     CardNumber = CardNumber,
                     ClientRef = Client.ToReference(),
-                    IsInSyncWith1C = IsInSyncWith1C,
-                    ReplicationCode = ReplicationCode.Value,
                     Comment = Comment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp

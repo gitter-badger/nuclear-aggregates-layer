@@ -603,6 +603,150 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UkraineActivateBusinessmanErrorDueToEgrpouDuplicate {
+            get {
+                return ResourceManager.GetString("UkraineActivateBusinessmanErrorDueToEgrpouDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineActivateLegalPersonErrorDueToEgrpouDuplicate {
+            get {
+                return ResourceManager.GetString("UkraineActivateLegalPersonErrorDueToEgrpouDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists {
+            get {
+                return ResourceManager.GetString("UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineBranchOfficeWithSpecifiedIpnAlreadyExists {
+            get {
+                return ResourceManager.GetString("UkraineBranchOfficeWithSpecifiedIpnAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists {
+            get {
+                return ResourceManager.GetString("UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineEnteredEgrpouIsNotCorrect {
+            get {
+                return ResourceManager.GetString("UkraineEnteredEgrpouIsNotCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineEnteredIpnIsNotCorrect {
+            get {
+                return ResourceManager.GetString("UkraineEnteredIpnIsNotCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist {
+            get {
+                return ResourceManager.GetString("UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineInvalidEgrpou {
+            get {
+                return ResourceManager.GetString("UkraineInvalidEgrpou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineInvalidIpn {
+            get {
+                return ResourceManager.GetString("UkraineInvalidIpn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists {
+            get {
+                return ResourceManager.GetString("UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string WrongBillNumbers {
             get {
                 return ResourceManager.GetString("WrongBillNumbers", resourceCulture);

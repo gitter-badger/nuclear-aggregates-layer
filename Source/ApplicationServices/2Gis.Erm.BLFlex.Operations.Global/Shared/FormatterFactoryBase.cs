@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 return formatter;
             }
 
-            throw new NotImplementedException();
+            throw new NotSupportedException(string.Format("Для валюты с кодом {0} не определено форматирование денег прописью", currencyIsoCode));
         }
 
         private IFormatter FormatMoneyWords(int currencyIsoCode)
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 return formatter;
             }
 
-            throw new NotImplementedException();
+            throw new NotSupportedException(string.Format("Для валюты с кодом {0} не определено форматирование денег прописью", currencyIsoCode));
         }
 
         private IFormatter FormatByDataType(Type type)

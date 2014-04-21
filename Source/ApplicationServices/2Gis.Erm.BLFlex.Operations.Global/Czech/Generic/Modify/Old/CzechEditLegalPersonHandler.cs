@@ -34,12 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
 
         protected override EmptyResponse Handle(EditRequest<LegalPerson> request)
         {
-            if (request.Entity.Id == 0)
-            {
-                _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = request.Entity }, Context);
-            }
-
-            if (request.Entity.Id != 0)
+            if (!request.Entity.IsNew())
             {
                 // fixme {all, 04-04-2014}: использовать ReadModel, чтобы проверить наличие профилей. ѕри этом совершенно не об€зательно выгребать все данные из базы.
                 var personWithProfiles = _legalPersonRepository.GetLegalPersonWithProfiles(request.Entity.Id);
@@ -89,6 +84,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                     break;
                 default:
                     throw new NotSupportedException();
+            }
+
+            if (request.Entity.IsNew())
+            {
+                _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = request.Entity }, Context);
             }
 
             try

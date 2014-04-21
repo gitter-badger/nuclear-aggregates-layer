@@ -56,16 +56,18 @@
     <Compile Include="Chile\Operations\Generic\List\ChileListCommuneDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListBankDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonDto.cs" />
-    <Compile Include="Chile\Operations\Generic\List\ChileListOrderDto.cs" />
+    <Compile Include="MultiCulture\Operations\Generic\List\MultiCultureListOrderDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonProfileDto.cs" />
     <Compile Include="Cyprus\Operations\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesRequest.cs" />
     <Compile Include="Cyprus\Operations\Generic\List\CyprusListLegalPersonDto.cs" />
-    <Compile Include="Cyprus\Operations\Generic\List\CyprusListOrderDto.cs" />
     <Compile Include="Czech\Operations\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesRequest.cs" />
     <Compile Include="Czech\Operations\Generic\List\CzechListLegalPersonDto.cs" />
     <Compile Include="Czech\Operations\Generic\List\CzechListLegalPersonProfileDto.cs" />
-    <Compile Include="Czech\Operations\Generic\List\CzechListOrderDto.cs" />
+    <Compile Include="MultiCulture\Operations\Modify\IPartableEntityValidator.cs" />
     <Compile Include="Russia\Operations\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesRequest.cs" />
+    <Compile Include="Ukraine\Operations\Concrete\Old\LegalPersons\UkraineChangeLegalPersonRequisitesRequest.cs" />
+    <Compile Include="Ukraine\Operations\Generic\List\UkraineListBranchOfficeDto.cs" />
+    <Compile Include="Ukraine\Operations\Generic\List\UkraineListLegalPersonDto.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

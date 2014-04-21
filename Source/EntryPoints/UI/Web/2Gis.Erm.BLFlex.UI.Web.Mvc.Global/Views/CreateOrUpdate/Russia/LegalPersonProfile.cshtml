@@ -1,5 +1,5 @@
 ﻿
-@model Models.Russia.LegalPersonProfileViewModel
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.LegalPersonProfileViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -10,14 +10,16 @@
     <script type="text/javascript">
             window.InitPage = function() {
                 window.Card.on("afterbuild", function() {
-                    var operatesValues = document.getElementById('OperatesOnTheBasisInGenitive').getElementsByTagName('option');
-                    var disabledValues = @Html.Raw(Json.Encode(Model.DisabledDocuments));
-                    for (var i = 0; i < disabledValues.length; i++) {
-                        var optionToDisable = operatesValues[disabledValues[i]];
-                        if(optionToDisable != undefined) {
-                            optionToDisable.disabled = true;
+                var operatesValues = document.getElementById('OperatesOnTheBasisInGenitive').getElementsByTagName('option');
+                var disabledValues = @Html.Raw(Json.Encode(Model.DisabledDocuments));
+                for (var i = 0; i < disabledValues.length; i++) {
+                    for (var j = 0; j < operatesValues.length; j++) {
+                        if (operatesValues[j].value == disabledValues[i] || (disabledValues[i] == 'Undefined' && operatesValues[j].value == '')) {
+                            operatesValues[j].disabled = true;
+                            break;
                         }
                     }
+                }
 
                     var documentsDeliveryMethodCombobox = document.getElementById('DocumentsDeliveryMethod');
                     Ext.DoubleGis.Global.Helpers.HideComboBoxItemsByValues(documentsDeliveryMethodCombobox, ['ByCourier']);

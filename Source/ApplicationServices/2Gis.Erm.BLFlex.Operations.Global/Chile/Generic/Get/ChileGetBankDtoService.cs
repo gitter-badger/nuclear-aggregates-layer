@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;

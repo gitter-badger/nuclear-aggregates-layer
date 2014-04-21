@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;

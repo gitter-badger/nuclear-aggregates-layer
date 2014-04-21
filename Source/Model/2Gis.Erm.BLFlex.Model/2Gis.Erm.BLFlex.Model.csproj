@@ -49,6 +49,10 @@
   <ItemGroup>
     <Compile Include="Entities\DTOs\BankDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UkraineBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UkraineBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UkraineLegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UkraineLegalPersonDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ChileLegalPersonDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ChileLegalPersonProfileDomainEntityDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -70,9 +70,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete
 
             try
             {
-                var partDtos = entity.Parts.OfType<LegalPersonProfilePart>()
-                                           .Select(part => _legalPersonReadModel.GetBusinessEntityInstanceDto(part))
-                                           .ToArray();
+                var partDtos = _legalPersonReadModel.GetBusinessEntityInstanceDto(entity).ToArray();
 
                 if (entity.IsNew())
                 {

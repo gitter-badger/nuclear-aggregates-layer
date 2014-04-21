@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Chile.ChileLegalPersonProfileViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileLegalPersonProfileViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -13,8 +12,12 @@
                 var operatesValues = document.getElementById('OperatesOnTheBasisInGenitive').getElementsByTagName('option');
                 var disabledValues = @Html.Raw(Json.Encode(Model.DisabledDocuments));
                 for (var i = 0; i < disabledValues.length; i++) {
-                    var optionToDisable = operatesValues[disabledValues[i]];
-                    optionToDisable.disabled = true;
+                    for (var j = 0; j < operatesValues.length; j++) {
+                        if (operatesValues[j].value == disabledValues[i] || (disabledValues[i] == 'Undefined' && operatesValues[j].value == '')) {
+                            operatesValues[j].disabled = true;
+                            break;
+                        }
+                    }
                 }
             });
         };

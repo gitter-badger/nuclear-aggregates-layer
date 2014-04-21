@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Config\Bootstrapper.Chile.cs" />
     <Compile Include="Config\Bootstrapper.Global.cs" />
+    <Compile Include="Config\Bootstrapper.Ukraine.cs" />
     <Compile Include="Config\Bootstrapper.Russia.cs" />
     <Compile Include="Config\Bootstrapper.Czech.cs" />
     <Compile Include="Config\Bootstrapper.Cyprus.cs" />
@@ -91,6 +92,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
       <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
       <Name>2Gis.Erm.Platform.DI.Common</Name>
@@ -114,6 +119,10 @@
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
       <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
       <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

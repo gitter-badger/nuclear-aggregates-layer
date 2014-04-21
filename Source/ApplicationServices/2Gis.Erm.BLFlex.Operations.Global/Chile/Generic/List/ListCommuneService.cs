@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Communes;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -25,9 +24,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
 
         protected override IEnumerable<ChileListCommuneDto> List(QuerySettings querySettings, out int count)
         {
-            return _finder.FindAll<DictionaryEntityInstance>()
-                   .Where(CommuneSpecifications.FindOnlyCommunes())
-                   .Select(CommuneSpecifications.Select().Selector)
+            // FIXME {all, 10.04.2014}: при рефаторинге EAV попытаться свести просто к FindAll<Commune> и т.п. - то что bank это EAV нужно запрятать куда-то (finder)
+            return _finder.Find<DictionaryEntityInstance, Commune>(CommuneSpecs.Select.Communes, CommuneSpecs.Find.OnlyCommunes)
                    .Select(x => new ChileListCommuneDto
                     {
                         Id = x.Id,

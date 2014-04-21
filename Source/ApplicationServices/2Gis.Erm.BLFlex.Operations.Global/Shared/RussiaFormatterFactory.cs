@@ -6,11 +6,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 {
     public sealed class RussiaFormatterFactory : CommonFormatterFactory, IRussiaAdapted
     {
+        private const int RublesCurrencyIsoCode = 643;
+
         public RussiaFormatterFactory()
         {
             SetFormat(FormatType.LongDate, "{0:dd MMMM yyyy}");
             SetFormat(FormatType.ShortDate, "{0:dd.MM.yy}");
             SetFormat(FormatType.Money, new RoublesFormatter());
+
+            SetMoneyWordsFormatter(RublesCurrencyIsoCode,
+                                   new MoneyToWordsFormatter(
+                                       new RussianNumberToWordsConverter(true),
+                                       new RoublesInRussianPluralizer(),
+                                       new KopekInRussianPluralizer()));
         }
     }
 }

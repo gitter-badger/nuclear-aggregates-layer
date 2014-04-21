@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class BillObtainer : IBusinessModelEntityObtainer<Bill>, IAggregateReadModel<Order>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
+    public sealed class BillObtainer : IBusinessModelEntityObtainer<Bill>, IAggregateReadModel<Order>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
     {
         private readonly IFinder _finder;
 

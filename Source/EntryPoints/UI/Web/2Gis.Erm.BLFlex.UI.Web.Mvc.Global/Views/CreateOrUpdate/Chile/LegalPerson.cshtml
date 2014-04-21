@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Chile.ChileLegalPersonViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileLegalPersonViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -21,7 +20,10 @@
                     ChangeLegalPersonRequisites: function () {
                         var params = "dialogWidth:" + 700 + "px; dialogHeight:" + 330 + "px; status:yes; scroll:no;resizable:no;";
                         var url = '/Chile/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
-                        window.showModalDialog(url, null, params);
+                        var result = window.showModalDialog(url, null, params);
+                        if (result == 'OK') {
+                            this.refresh();
+                        }
                     }
                 });
 
@@ -101,7 +103,6 @@
 @section CardBody
 {
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ReplicationCode)
     @Html.HiddenFor(m => m.HasProfiles)
 
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
