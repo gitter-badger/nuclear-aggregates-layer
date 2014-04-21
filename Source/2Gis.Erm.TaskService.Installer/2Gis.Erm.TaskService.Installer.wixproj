@@ -331,6 +331,15 @@
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
       <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
       <Project>{bcfc76bf-d41b-4cfa-a8af-5ec82ec4a9cf}</Project>
@@ -458,6 +467,9 @@
     <Content Include="Variables.Edu.Czech.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Edu.Ukraine.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Edu.UAE.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
@@ -498,6 +510,9 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Production.UAE.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Production.Ukraine.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.14.wxi">

@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     { BusinessModel.Cyprus, ConfigureCyprusSpecific },
                     { BusinessModel.Czech, ConfigureCzechSpecific },
                     { BusinessModel.Chile, ConfigureChileSpecific },
+                    { BusinessModel.Ukraine, ConfigureUkraineSpecific },
                 };
 
         public static Interception ConfigureGlobalMvcInterception(this Interception interception, IGlobalizationSettings globalizationSettings)
