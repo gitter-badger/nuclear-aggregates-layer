@@ -1539,6 +1539,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DFieldEgrpou {
+            get {
+                return ResourceManager.GetString("DFieldEgrpou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DFieldEndPeriodDate {
+            get {
+                return ResourceManager.GetString("DFieldEndPeriodDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DFieldEndTime {
             get {
                 return ResourceManager.GetString("DFieldEndTime", resourceCulture);
@@ -1614,6 +1632,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DFieldInspector {
             get {
                 return ResourceManager.GetString("DFieldInspector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DFieldIpn {
+            get {
+                return ResourceManager.GetString("DFieldIpn", resourceCulture);
             }
         }
         
@@ -1911,6 +1938,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DFieldSourceBranchOfficeOrgUnitName {
             get {
                 return ResourceManager.GetString("DFieldSourceBranchOfficeOrgUnitName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DFieldStartPeriodDate {
+            get {
+                return ResourceManager.GetString("DFieldStartPeriodDate", resourceCulture);
             }
         }
         

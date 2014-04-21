@@ -1813,6 +1813,18 @@
   <data name="DListCommunes" xml:space="preserve">
     <value />
   </data>
+  <data name="DFieldEndPeriodDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DFieldStartPeriodDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DFieldEgrpou" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DFieldIpn" xml:space="preserve">
+    <value />
+  </data>
   <data name="ControlPrintNewSalesModelBargainAction" xml:space="preserve">
     <value />
   </data>
