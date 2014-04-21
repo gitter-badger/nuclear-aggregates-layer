@@ -2,14 +2,13 @@
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.Platform.Model.Entities.Erm
+namespace DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile
 {
-    public sealed class LegalPersonPart : IEntityPart
+    public sealed class ChileBranchOfficeOrganizationUnitPart : IEntityPart
     {
         public long Id { get; set; }
         public long EntityId { get; set; }
-        public long CommuneId { get; set; }
-        public string OperationsKind { get; set; }
+        public string RepresentativeRut { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

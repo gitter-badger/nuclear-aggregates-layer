@@ -12,9 +12,9 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         private readonly Dictionary<Type, object> _converters = new Dictionary<Type, object>();
 
         public ActivityDynamicPropertiesConverter(
-            IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance> taskPropertiesConverter,
-            IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance> phonecallPropertiesConverter,
-            IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance> appointmentPropertiesConverter)
+            IActivityPropertiesConverter<Task> taskPropertiesConverter,
+            IActivityPropertiesConverter<Phonecall> phonecallPropertiesConverter,
+            IActivityPropertiesConverter<Appointment> appointmentPropertiesConverter)
         {
             _converters.Add(typeof(Task), taskPropertiesConverter);
             _converters.Add(typeof(Phonecall), phonecallPropertiesConverter);
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                 throw new ArgumentException("Converter for entity " + typeof(TActivity) + " not found");
             }
 
-            var typedConverter = (IDynamicEntityPropertiesConverter<TActivity, ActivityInstance, ActivityPropertyInstance>)converter;
+            var typedConverter = (IActivityPropertiesConverter<TActivity>)converter;
             return typedConverter.ConvertFromDynamicEntityInstance(activityInstance, propertyInstances);
         }
 
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                 throw new ArgumentException("Converter for entity " + typeof(TActivity) + " not found");
             }
 
-            var typedConverter = (IDynamicEntityPropertiesConverter<TActivity, ActivityInstance, ActivityPropertyInstance>)converter;
+            var typedConverter = (IActivityPropertiesConverter<TActivity>)converter;
             return typedConverter.ConvertToDynamicEntityInstance(activity, propertyInstances, null);
         }
     }

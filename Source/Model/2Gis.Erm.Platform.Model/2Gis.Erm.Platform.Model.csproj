@@ -183,12 +183,15 @@
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
+    <Compile Include="Entities\Enums\TaxationType.cs" />
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
-    <Compile Include="Entities\Erm\BranchOfficeOrganizationUnitPart.cs" />
+    <Compile Include="Entities\Erm\Parts\Chile\ChileBranchOfficeOrganizationUnitPart.cs" />
+    <Compile Include="Entities\Erm\Parts\Chile\ChileLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\Commune.cs" />
-    <Compile Include="Entities\Erm\LegalPersonPart.cs" />
-    <Compile Include="Entities\Erm\LegalPersonProfilePart.cs" />
+    <Compile Include="Entities\Erm\Parts\Chile\ChileLegalPersonPart.cs" />
+    <Compile Include="Entities\Erm\Partial\BranchOffice.cs" />
+    <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\Partial\ActivityInstance.cs" />
     <Compile Include="Entities\Erm\Partial\ActivityPropertyInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BranchOfficeOrganizationUnit.cs" />
@@ -198,6 +201,8 @@
     <Compile Include="Entities\Erm\Partial\DictionaryEntityPropertyInstance.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPerson.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPersonProfile.cs" />
+    <Compile Include="Entities\Erm\Parts\Ukraine\UkraineBranchOfficePart.cs" />
+    <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonPart.cs" />
     <Compile Include="Entities\Interfaces\IDynamicEntityInstance.cs" />
     <Compile Include="Entities\Interfaces\IDynamicEntityPropertyInstance.cs" />
     <Compile Include="Entities\Interfaces\IEntityPart.cs" />

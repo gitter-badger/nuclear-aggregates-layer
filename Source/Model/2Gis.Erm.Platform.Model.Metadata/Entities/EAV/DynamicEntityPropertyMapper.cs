@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Getters[typeof(ActivityTaskType)] = x => x.NumericValue.HasValue ? (ActivityTaskType)x.NumericValue : ActivityTaskType.NotSet;
             Getters[typeof(EntityName)] = x => x.NumericValue.HasValue ? (EntityName)x.NumericValue : EntityName.None;
             Getters[typeof(AccountType)] = x => x.NumericValue.HasValue ? (AccountType)x.NumericValue : AccountType.NotSet;
+            Getters[typeof(TaxationType)] = x => x.NumericValue.HasValue ? (TaxationType)x.NumericValue : TaxationType.NotSet;
             
             Setters[typeof(BusinessModel)] = (x, y) => x.NumericValue = (int)y;
 
@@ -48,6 +49,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Setters[typeof(ActivityTaskType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(EntityName)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(AccountType)] = (x, y) => x.NumericValue = (int)y;
+            Setters[typeof(TaxationType)] = (x, y) => x.NumericValue = (int)y;
         }
 
         public static Func<TPropertyInstance, object> GetGetter(Type propertyType)

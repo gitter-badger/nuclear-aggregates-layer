@@ -49,12 +49,10 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="EAV\ActivityPropertiesConverter.cs" />
-    <Compile Include="EAV\BranchOfficeOrganizationUnitPartPropertiesConverter.cs" />
     <Compile Include="EAV\DynamicEntityPropertiesConverter.cs" />
     <Compile Include="EAV\ActivityDynamicPropertiesConverter.cs" />
-    <Compile Include="EAV\BankPropertiesConverter.cs" />
-    <Compile Include="EAV\LegalPersonPartPropertiesConverter.cs" />
-    <Compile Include="EAV\LegalPersonProfilePartPropertiesConverter.cs" />
+    <Compile Include="EAV\DictionaryEntityPropertiesConverter.cs" />
+    <Compile Include="EAV\BusinessEntityPropertiesConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">

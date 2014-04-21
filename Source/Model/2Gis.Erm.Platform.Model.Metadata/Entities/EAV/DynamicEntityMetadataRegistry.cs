@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
@@ -71,14 +73,21 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             new Dictionary<Type, IEnumerable<IEntityPropertyIdentity>>
                 {
                     {
-                        typeof(LegalPersonPart), new IEntityPropertyIdentity[]
+                        typeof(ChileLegalPersonPart), new IEntityPropertyIdentity[]
                             {
                                 CommuneIdIdentity.Instance,
                                 OperationsKindIndentity.Instance
                             }
                     },
                     {
-                        typeof(LegalPersonProfilePart), new IEntityPropertyIdentity[]
+                        typeof(UkraineLegalPersonPart), new IEntityPropertyIdentity[]
+                            {
+                                EgrpouIdentity.Instance,
+                                TaxationTypeIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(ChileLegalPersonProfilePart), new IEntityPropertyIdentity[]
                             {
                                 AccountTypeIdentity.Instance,
                                 BankIdIdentity.Instance,
@@ -88,9 +97,21 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                             }
                     },
                     {
-                        typeof(BranchOfficeOrganizationUnitPart), new IEntityPropertyIdentity[]
+                        typeof(UkraineLegalPersonProfilePart), new IEntityPropertyIdentity[]
+                            {
+                                MfoIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(ChileBranchOfficeOrganizationUnitPart), new IEntityPropertyIdentity[]
                             {
                                 RepresentativeRutIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(UkraineBranchOfficePart), new IEntityPropertyIdentity[]
+                            {
+                                IpnIdentity.Instance
                             }
                     }
                 };

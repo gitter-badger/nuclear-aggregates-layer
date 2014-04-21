@@ -22,6 +22,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
 
         /// <summary>
+        /// Список значений EntityName, являющихся расширением для какой-либо инсталляции, данные fake сущности не являются элементами доменной модели ERM, 
+        /// а являются просто удобными контейнерами для работы с доп.аттрибутами (своего рода attached properties) доменных сущностей, которые появляются у сущности только в некоторых businessmodel 
+        /// </summary>
+        public static readonly EntityName[] EntityParts =
+            {
+                EntityName.ChileLegalPersonPart,
+                EntityName.UkraineLegalPersonPart,
+                EntityName.ChileBranchOfficeOrganizationUnitPart,
+                EntityName.UkraineBranchOfficePart,
+                EntityName.ChileLegalPersonProfilePart,
+                EntityName.UkraineLegalPersonProfilePart
+            };
+
+        /// <summary>
         /// Список типов ERM существующих только на уровне persistance, используемых только в DAL и не используемых в более высокоуровневых слоях, чем агрегирующие репозитории 
         /// </summary>
         public static readonly HashSet<Type> PersistenceOnlyEntities = new HashSet<Type>
@@ -108,6 +122,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool IsVirtual(this EntityName entityName)
         {
             return VirtualEntityNames.Contains(entityName);
+        }
+
+        public static bool IsPart(this EntityName entityName)
+        {
+            return EntityParts.Contains(entityName);
         }
 
         public static bool IsPersistenceOnly(this Type checkingType)

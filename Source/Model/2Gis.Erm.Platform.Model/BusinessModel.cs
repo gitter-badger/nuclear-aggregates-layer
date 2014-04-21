@@ -7,5 +7,6 @@
         Cyprus,
         Czech,
         Chile,
+        Ukraine
     }
 }
