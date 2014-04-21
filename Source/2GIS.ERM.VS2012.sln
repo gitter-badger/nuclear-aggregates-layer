@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Common", "..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj", "{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}"
 EndProject
@@ -408,6 +408,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Edu.Cyprus.config = Environments\Erm.Edu.Cyprus.config
 		Environments\Erm.Edu.Czech.config = Environments\Erm.Edu.Czech.config
 		Environments\Erm.Edu.Russia.config = Environments\Erm.Edu.Russia.config
+		Environments\Erm.Edu.Ukraine.config = Environments\Erm.Edu.Ukraine.config
 		Environments\Erm.Expl.Cyprus.config = Environments\Erm.Expl.Cyprus.config
 		Environments\Erm.Expl.Russia.config = Environments\Erm.Expl.Russia.config
 		Environments\Erm.Int.Chile.config = Environments\Erm.Int.Chile.config
@@ -419,6 +420,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Production.Cyprus.config = Environments\Erm.Production.Cyprus.config
 		Environments\Erm.Production.Czech.config = Environments\Erm.Production.Czech.config
 		Environments\Erm.Production.Russia.config = Environments\Erm.Production.Russia.config
+		Environments\Erm.Production.Ukraine.config = Environments\Erm.Production.Ukraine.config
 		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
 	EndProjectSection
 EndProject
