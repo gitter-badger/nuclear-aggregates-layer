@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
@@ -34,9 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             _configurationService = configurationService;
             _userContext = userContext;
 
-            BLResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ListResult Execute(EntityName entityName,

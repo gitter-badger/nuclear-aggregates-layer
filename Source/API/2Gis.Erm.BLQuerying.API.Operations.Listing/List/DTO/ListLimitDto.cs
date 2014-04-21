@@ -13,6 +13,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string LegalPersonName { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? CloseDate { get; set; }
+        public DateTime StartPeriodDate { get; set; }
+        public DateTime EndPeriodDate { get; set; }
         public decimal Amount { get; set; }
         public LimitStatus StatusEnum { get; set; }
         public string Status { get; set; }
