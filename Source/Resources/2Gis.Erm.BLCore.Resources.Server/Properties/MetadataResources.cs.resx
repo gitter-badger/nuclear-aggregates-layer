@@ -1344,4 +1344,16 @@
   <data name="OperationsKind" xml:space="preserve">
     <value>Druh činnosti</value>
   </data>
+  <data name="Egrpou" xml:space="preserve">
+    <value>ЕГРПОУ</value>
+  </data>
+  <data name="Ipn" xml:space="preserve">
+    <value>ИПН</value>
+  </data>
+  <data name="TaxationType" xml:space="preserve">
+    <value>Тип налогообложения</value>
+  </data>
+  <data name="Mfo" xml:space="preserve">
+    <value>МФО</value>
+  </data>
 </root>

@@ -362,7 +362,6 @@
     <Compile Include="Generic\Get\GetBargainFileDtoService.cs" />
     <Compile Include="Generic\Get\GetBargainTypeDtoService.cs" />
     <Compile Include="Generic\Get\GetBillDtoService.cs" />
-    <Compile Include="Generic\Get\GetBranchOfficeDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryOrganizationUnitDtoService.cs" />
@@ -407,7 +406,6 @@
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
-    <Compile Include="Generic\Modify\Custom\ModifyBankService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
@@ -438,6 +436,8 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\DepartmentObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\FirmAddressObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\FirmObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\LimitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\LockDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\NoteObtainer.cs" />
@@ -475,8 +475,6 @@
     <Compile Include="Generic\Modify\Old\EditBargainHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainTypeHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBillHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditBranchOfficeHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditBranchOfficeOrganizationUnitHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCategoryGroupHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContactHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditContributionTypeHandler.cs" />

@@ -14,14 +14,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
     public class ActivityReadModel : IActivityReadModel 
     {
         private readonly IFinder _finder;
-        private readonly IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance> _taskPropertiesConverter;
-        private readonly IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance> _phonecallPropertiesConverter;
-        private readonly IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance> _appointmentPropertiesConverter;
+        private readonly IActivityPropertiesConverter<Task> _taskPropertiesConverter;
+        private readonly IActivityPropertiesConverter<Phonecall> _phonecallPropertiesConverter;
+        private readonly IActivityPropertiesConverter<Appointment> _appointmentPropertiesConverter;
 
         public ActivityReadModel(IFinder finder,
-                                 IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance> taskPropertiesConverter,
-                                 IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance> phonecallPropertiesConverter,
-                                 IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance> appointmentPropertiesConverter)
+                                 IActivityPropertiesConverter<Task> taskPropertiesConverter,
+                                 IActivityPropertiesConverter<Phonecall> phonecallPropertiesConverter,
+                                 IActivityPropertiesConverter<Appointment> appointmentPropertiesConverter)
         {
             _finder = finder;
             _taskPropertiesConverter = taskPropertiesConverter;

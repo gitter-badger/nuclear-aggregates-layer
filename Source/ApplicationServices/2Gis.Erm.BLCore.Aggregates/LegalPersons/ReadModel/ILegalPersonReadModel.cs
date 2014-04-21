@@ -1,6 +1,10 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
@@ -8,11 +12,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
     public interface ILegalPersonReadModel : IAggregateReadModel<LegalPerson>
     {
         LegalPerson GetLegalPerson(long legalPersonId);
-        EntityReference GetClientReference(long legalPersonId);
-        EntityReference GetCommuneReference(long legalPersonId);
         bool HasAnyLegalPersonProfiles(long legalPersonId);
         LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId);
-        BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonPart legalPersonPart);
-        BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonProfilePart legalPersonProfilePart);
+        PaymentMethod? GetPaymentMethod(long legalPersonId);
+
+        IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPerson x);
+        IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPersonProfile legalPersonProfile);
+
+        T GetLegalPersonDto<T>(long entityId)
+            where T : LegalPersonDomainEntityDto, new();
+
+        T GetLegalPersonProfileDto<T>(long entityId)
+            where T : LegalPersonProfileDomainEntityDto, new();
     }
 }

@@ -1828,59 +1828,68 @@
     <value>Zjednodušený účet</value>
   </data>
   <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
-	  <value>Reklama na alkohol</value>
+    <value>Reklama na alkohol</value>
   </data>
   <data name="FasCommentMedsMultiple" xml:space="preserve">
-	  <value>Léčivý přípravek</value>
+    <value>Léčivý přípravek</value>
   </data>
   <data name="FasCommentMedsSingle" xml:space="preserve">
-	  <value>Léčivý přípravek s jednou účinnou látkou</value>
+    <value>Léčivý přípravek s jednou účinnou látkou</value>
   </data>
   <data name="FasCommentDietarySupplement" xml:space="preserve">
-	  <value>Doplněk stravy</value>
+    <value>Doplněk stravy</value>
   </data>
   <data name="FasCommentSpecialNutrition" xml:space="preserve">
-	  <value>Potravina pro zvláštní výživu</value>
+    <value>Potravina pro zvláštní výživu</value>
   </data>
   <data name="FasCommentChildNutrition" xml:space="preserve">
-	  <value>Pokračující kojenecká výživa</value>
+    <value>Pokračující kojenecká výživa</value>
   </data>
   <data name="FasCommentFinancilaServices" xml:space="preserve">
-	  <value>Finanční služby</value>
+    <value>Finanční služby</value>
   </data>
   <data name="FasCommentMedsTraditional" xml:space="preserve">
-	  <value>Tradiční rostlinný léčivý přípravek</value>
+    <value>Tradiční rostlinný léčivý přípravek</value>
   </data>
   <data name="FasCommentBiocides" xml:space="preserve">
-	  <value>Biocidní přípravek</value>
+    <value>Biocidní přípravek</value>
   </data>
   <data name="FasCommentDisplayTextAlcoholAdvertising" xml:space="preserve">
-	  <value>Konzumace alkoholu osobami mladšími 18 let je zakázána.</value>
+    <value>Konzumace alkoholu osobami mladšími 18 let je zakázána.</value>
   </data>
   <data name="FasCommentDisplayTextMedsMultiple" xml:space="preserve">
-	  <value>Registrovaný (humánní) léčivý přípravek. Před použitím si pečlivě přečtěte příbalovou informaci. O užívání tohoto přípravku se poraďte se svým lékařem.</value>
+    <value>Registrovaný (humánní) léčivý přípravek. Před použitím si pečlivě přečtěte příbalovou informaci. O užívání tohoto přípravku se poraďte se svým lékařem.</value>
   </data>
   <data name="FasCommentDisplayTextMedsSingle" xml:space="preserve">
-	  <value>Registrovaný (humánní) léčivý přípravek. Potahové tablety obsahují jednu účinnou látku. Před použitím si pečlivě přečtěte příbalovou informaci. O užívání tohoto přípravku se poraďte se svým lékařem.</value>
+    <value>Registrovaný (humánní) léčivý přípravek. Potahové tablety obsahují jednu účinnou látku. Před použitím si pečlivě přečtěte příbalovou informaci. O užívání tohoto přípravku se poraďte se svým lékařem.</value>
   </data>
   <data name="FasCommentDisplayTextDietarySupplement" xml:space="preserve">
-	  <value>Doplněk stravy.</value>
+    <value>Doplněk stravy.</value>
   </data>
   <data name="FasCommentDisplayTextSpecialNutrition" xml:space="preserve">
-	  <value>Potravina pro zvláštní výživu.</value>
+    <value>Potravina pro zvláštní výživu.</value>
   </data>
   <data name="FasCommentDisplayTextChildNutrition" xml:space="preserve">
-	  <value>Důležité upozornění: Pokračující kojenecká výživa. Kojení je pro kojence nejlepší způsob výživy. </value>
+    <value>Důležité upozornění: Pokračující kojenecká výživa. Kojení je pro kojence nejlepší způsob výživy. </value>
   </data>
   <data name="FasCommentDisplayTextFinancilaServices" xml:space="preserve">
-	  <value>Postupujte v souladu se zákonem o spotřebitelském úvěru (zákon č. 145/2010 Sb.).</value>
+    <value>Postupujte v souladu se zákonem o spotřebitelském úvěru (zákon č. 145/2010 Sb.).</value>
   </data>
   <data name="FasCommentDisplayTextMedsTraditional" xml:space="preserve">
-	  <value>Použití tohoto tradičního rostlinného léčivého přípravku je založeno výlučně na zkušenosti z dlouhodobého použití.</value>
+    <value>Použití tohoto tradičního rostlinného léčivého přípravku je založeno výlučně na zkušenosti z dlouhodobého použití.</value>
   </data>
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
-	  <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
-</data>
+    <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
+  </data>
+  <data name="TaxationTypeNotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="TaxationTypeWithoutVat" xml:space="preserve">
+    <value>без НДС</value>
+  </data>
+  <data name="TaxationTypeWithVat" xml:space="preserve">
+    <value>с НДС</value>
+  </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
     <value>Обработка горячих клиентов 5-й категории (филиал)</value>
   <comment></comment></data>

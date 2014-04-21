@@ -5,13 +5,12 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
-using DoubleGis.Erm.BLCore.API.Operations.Remote;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
 {
@@ -28,9 +27,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             _operationServicesManager = operationServicesManager;
             _notifiyProgressSettings = notifiyProgressSettings;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public AssignResult[] Assign(AssignCommonParameter operationParameter, AssignEntityParameter[] operationItemParameters)

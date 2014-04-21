@@ -5,10 +5,10 @@ using System.ServiceModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Obsolete;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.BLCore.WCF.Releasing.Obsolete
 {
@@ -31,9 +31,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing.Obsolete
             _finishReleaseOperationService = finishReleaseOperationService;
             _logger = logger;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public Response Handle(Request request)
