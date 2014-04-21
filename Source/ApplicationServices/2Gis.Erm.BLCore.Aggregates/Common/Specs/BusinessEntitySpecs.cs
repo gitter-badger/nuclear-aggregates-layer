@@ -26,6 +26,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Specs
                         x => x.BusinessEntityPropertyInstances.Any(y => y.PropertyId == BusinessModelIdentity.Instance.Id &&
                                                                         y.NumericValue == (decimal)businessModel));
                 }
+
+                public static FindSpecification<BusinessEntityInstance> ByProperty(int propertyId, string propertyValue)
+                {
+                    return new FindSpecification<BusinessEntityInstance>(
+                        x => x.BusinessEntityPropertyInstances.Any(y => y.PropertyId == propertyId &&
+                                                                        y.TextValue == propertyValue));
+                }
             }
 
             public static class Select

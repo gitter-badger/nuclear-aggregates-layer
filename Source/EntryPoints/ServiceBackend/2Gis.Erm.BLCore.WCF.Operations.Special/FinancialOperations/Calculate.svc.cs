@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
@@ -33,9 +34,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             _getPositionsByOrderService = getPositionsByOrderService;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ICostCalculationResult[] CalculateOrderProlongation(long orderId)

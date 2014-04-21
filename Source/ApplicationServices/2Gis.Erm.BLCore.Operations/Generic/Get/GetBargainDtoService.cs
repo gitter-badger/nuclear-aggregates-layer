@@ -16,7 +16,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ISecureFinder _finder;
 
-        public GetBargainDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
+        public GetBargainDtoService(IUserContext userContext, ISecureFinder finder)
+            : base(userContext)
         {
             _finder = finder;
         }
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   Id = entity.Id,
                                   Number = entity.Number,
                                   BargainTypeRef = new EntityReference { Id = entity.BargainTypeId, Name = entity.BargainType.Name },
-                                  LegalPersonRef = new EntityReference { Id = entity.CustomerLegalPersonId, Name = entity.LegalPerson.ShortName },
+                                  LegalPersonRef = new EntityReference { Id = entity.CustomerLegalPersonId, Name = entity.LegalPerson.LegalName },
                                   BranchOfficeOrganizationUnitRef = new EntityReference { Id = entity.ExecutorBranchOfficeId, Name = entity.BranchOfficeOrganizationUnit.ShortLegalName },
                                   Comment = entity.Comment,
                                   SignedOn = entity.SignedOn,

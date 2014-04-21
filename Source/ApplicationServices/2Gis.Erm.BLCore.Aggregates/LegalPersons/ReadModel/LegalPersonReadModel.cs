@@ -1,77 +1,58 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs;
-using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
 {
-    public class LegalPersonReadModel : ILegalPersonReadModel
+    // FIXME {all, 07.04.2014}: к именно текущему состоянию данного типа вопросов не очень много, но предлагаю пока взять timeout на дальнейшее масштабирование практики переопределения readmodel в зависимости от business model через наследование
+    // т.к. у нас в приложении в перспективе будет на уровне метаданных полная информация в какой бизнесмодели какие свойства к каким сущностям подцепленны, возможно не придется этим заниматься на уровне императивного кода в readmodel
+    // Сам подход partable (расширяемых, возможно лучше было использовать что-то вроде extensibility) сущностей был ориентирован на то, чтобы минимизировать необходимость в создании Chile***Service_Model и т.п. 
+    // Итого - до согласования подхода работы с расширяемыми сущностями (EAV и т.п.) пока подход с abstract классом и business model specific подкласами заморожен.
+    public abstract class LegalPersonReadModel : ILegalPersonReadModel
     {
         private readonly IFinder _finder;
-        private readonly IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance> _legalPersonPartPropertiesConverter;
-        private readonly IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance> _legalPersonProfilePartPropertiesConverter;
+        private readonly ISecureFinder _secureFinder;
 
-        public LegalPersonReadModel(
-            IFinder finder,
-            IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance> legalPersonPartPropertiesConverter,
-            IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance> legalPersonProfilePartPropertiesConverter)
+        protected LegalPersonReadModel(IFinder finder, ISecureFinder secureFinder)
         {
             _finder = finder;
-            _legalPersonPartPropertiesConverter = legalPersonPartPropertiesConverter;
-            _legalPersonProfilePartPropertiesConverter = legalPersonProfilePartPropertiesConverter;
+            _secureFinder = secureFinder;
         }
 
-        public LegalPerson GetLegalPerson(long legalPersonId)
+        public virtual LegalPerson GetLegalPerson(long legalPersonId)
         {
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId)).Single();
-                var legalPersonProfilePart = _finder.SingleOrDefault(legalPersonId, _legalPersonPartPropertiesConverter.ConvertFromDynamicEntityInstance);
-                legalPerson.Parts = new[] { legalPersonProfilePart };
-
-                transactionScope.Complete();
-
-                return legalPerson;
-            }
+            return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId)).Single();
         }
 
-        public EntityReference GetClientReference(long legalPersonId)
+        public virtual LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId)
         {
-            return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                          .Select(x => new EntityReference { Id = x.ClientId, Name = x.Client.Name })
+            return _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).Single();
+        }
+
+        public PaymentMethod? GetPaymentMethod(long legalPersonId)
+        {
+            return _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
+                          .Select(x => (PaymentMethod?)x.PaymentMethod)
                           .SingleOrDefault();
         }
 
-        public EntityReference GetCommuneReference(long legalPersonId)
+        // FIXME {all, 07.04.2014}: какое-то слишком абстрактное название дляметодов - readmodel это набор методов, являющихся wrapper над спецификациями, разной толщины - но все они usecase специфичны. Т.о. либо метод должен быть более конкретным, либо тип в которомон находиться более абстрактным
+        public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPerson legalPerson)
         {
-            var numericCommuneId = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByReferencedEntity(legalPersonId))
-                                   .Select(x => x.BusinessEntityPropertyInstances
-                                                 .Where(y => y.PropertyId == CommuneIdIdentity.Instance.Id)
-                                                 .Select(y => y.NumericValue)
-                                                 .FirstOrDefault())
-                                   .SingleOrDefault();
-            if (numericCommuneId == null)
-            {
-                return null;
-            }
+            return Enumerable.Empty<BusinessEntityInstanceDto>();
+        }
 
-            var communeId = Convert.ToInt64(numericCommuneId);
-            var communeName = _finder.Find(Specs.Find.ById<DictionaryEntityInstance>(communeId))
-                                     .SelectMany(x => x.DictionaryEntityPropertyInstances)
-                                     .Where(x => x.PropertyId == NameIdentity.Instance.Id)
-                                     .Select(x => x.TextValue)
-                                     .SingleOrDefault();
-            return new EntityReference(communeId, communeName);
+        // FIXME {all, 07.04.2014}: какое-то слишком абстрактное название дляметодов - readmodel это набор методов, являющихся wrapper над спецификациями, разной толщины - но все они usecase специфичны. Т.о. либо метод должен быть более конкретным, либо тип в которомон находиться более абстрактным
+        public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPersonProfile legalPersonProfile)
+        {
+            return Enumerable.Empty<BusinessEntityInstanceDto>();
         }
 
         public bool HasAnyLegalPersonProfiles(long legalPersonId)
@@ -79,29 +60,101 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId)).Any(x => x.LegalPersonProfiles.Any());
         }
 
-        public LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId)
+        public T GetLegalPersonDto<T>(long entityId)
+            where T : LegalPersonDomainEntityDto, new()
         {
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).Single();
-                var legalPersonProfilePart = _finder.SingleOrDefault(legalPersonProfileId,
-                                                                     _legalPersonProfilePartPropertiesConverter.ConvertFromDynamicEntityInstance);
-                legalPersonProfile.Parts = new[] { legalPersonProfilePart };
-
-                transactionScope.Complete();
-
-                return legalPersonProfile;
-            }
+            return _secureFinder.Find<LegalPerson>(x => x.Id == entityId)
+                          .Select(entity => new T
+                          {
+                              Id = entity.Id,
+                              LegalName = entity.LegalName,
+                              ShortName = entity.ShortName,
+                              LegalPersonTypeEnum = (LegalPersonType)entity.LegalPersonTypeEnum,
+                              LegalAddress = entity.LegalAddress,
+                              Inn = entity.Inn,
+                              Kpp = entity.Kpp,
+                              VAT = entity.VAT,
+                              Ic = entity.Ic,
+                              PassportSeries = entity.PassportSeries,
+                              PassportNumber = entity.PassportNumber,
+                              PassportIssuedBy = entity.PassportIssuedBy,
+                              RegistrationAddress = entity.RegistrationAddress,
+                              ClientRef = new EntityReference { Id = entity.ClientId, Name = entity.Client.Name },
+                              IsInSyncWith1C = entity.IsInSyncWith1C,
+                              ReplicationCode = entity.ReplicationCode,
+                              Comment = entity.Comment,
+                              OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
+                              CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
+                              CreatedOn = entity.CreatedOn,
+                              IsActive = entity.IsActive,
+                              IsDeleted = entity.IsDeleted,
+                              ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
+                              ModifiedOn = entity.ModifiedOn,
+                              HasProfiles = entity.LegalPersonProfiles.Any(),
+                              CardNumber = entity.CardNumber,
+                              Timestamp = entity.Timestamp
+                          })
+                          .Single();
         }
 
-        public BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonPart legalPersonPart)
+        public T GetLegalPersonProfileDto<T>(long entityId)
+            where T : LegalPersonProfileDomainEntityDto, new()
         {
-            return _finder.Single(legalPersonPart, _legalPersonPartPropertiesConverter.ConvertToDynamicEntityInstance);
-        }
-
-        public BusinessEntityInstanceDto GetBusinessEntityInstanceDto(LegalPersonProfilePart legalPersonProfilePart)
-        {
-            return _finder.Single(legalPersonProfilePart, _legalPersonProfilePartPropertiesConverter.ConvertToDynamicEntityInstance);
+            return _secureFinder.Find<LegalPersonProfile>(x => x.Id == entityId)
+                          .Select(entity => new T
+                          {
+                              Id = entity.Id,
+                              Name = entity.Name,
+                              AdditionalEmail = entity.AdditionalEmail,
+                              ChiefNameInGenitive = entity.ChiefNameInGenitive,
+                              ChiefNameInNominative = entity.ChiefNameInNominative,
+                              Registered = entity.Registered,
+                              DocumentsDeliveryAddress = entity.DocumentsDeliveryAddress,
+                              DocumentsDeliveryMethod = (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod,
+                              LegalPersonRef = new EntityReference { Id = entity.LegalPersonId, Name = entity.LegalPerson.LegalName },
+                              PositionInNominative = entity.PositionInNominative,
+                              PositionInGenitive = entity.PositionInGenitive,
+                              OperatesOnTheBasisInGenitive = entity.OperatesOnTheBasisInGenitive == null
+                                                                        ? OperatesOnTheBasisType.Undefined
+                                                                        : (OperatesOnTheBasisType)entity.OperatesOnTheBasisInGenitive,
+                              CertificateDate = entity.CertificateDate,
+                              CertificateNumber = entity.CertificateNumber,
+                              BargainBeginDate = entity.BargainBeginDate,
+                              BargainEndDate = entity.BargainEndDate,
+                              BargainNumber = entity.BargainNumber,
+                              WarrantyNumber = entity.WarrantyNumber,
+                              WarrantyBeginDate = entity.WarrantyBeginDate,
+                              WarrantyEndDate = entity.WarrantyEndDate,
+                              PostAddress = entity.PostAddress,
+                              EmailForAccountingDocuments = entity.EmailForAccountingDocuments,
+                              LegalPersonType = (LegalPersonType)entity.LegalPerson.LegalPersonTypeEnum,
+                              PaymentEssentialElements = entity.PaymentEssentialElements,
+                              AdditionalPaymentElements = entity.AdditionalPaymentElements,
+                              PaymentMethod = entity.PaymentMethod == null
+                                                                        ? PaymentMethod.Undefined
+                                                                        : (PaymentMethod)entity.PaymentMethod,
+                              IBAN = entity.IBAN,
+                              SWIFT = entity.SWIFT,
+                              AccountNumber = entity.AccountNumber,
+                              BankCode = entity.BankCode,
+                              BankName = entity.BankName,
+                              BankAddress = entity.BankAddress,
+                              RegistrationCertificateDate = entity.RegistrationCertificateDate,
+                              RegistrationCertificateNumber = entity.RegistrationCertificateNumber,
+                              PersonResponsibleForDocuments = entity.PersonResponsibleForDocuments,
+                              Phone = entity.Phone,
+                              RecipientName = entity.RecipientName,
+                              IsMainProfile = entity.IsMainProfile,
+                              OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
+                              CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
+                              CreatedOn = entity.CreatedOn,
+                              IsActive = entity.IsActive,
+                              IsDeleted = entity.IsDeleted,
+                              ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
+                              ModifiedOn = entity.ModifiedOn,
+                              Timestamp = entity.Timestamp
+                          })
+                          .Single();
         }
     }
 }

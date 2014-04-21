@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
 {
@@ -26,9 +27,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             _orderProlongationRequestService = orderProcessingRequestService;
             _orderCreationRequestService = orderCreationRequestService;
 
-            BLResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            MetadataResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            EnumResources.Culture = userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public long ProlongateOrder(long orderId, short releaseCountPlan)

@@ -2722,7 +2722,7 @@
     <value>Назначить {0}</value>
   </data>
   <data name="PaymentAccount" xml:space="preserve">
-    <value>Расчетный счет</value>
+    <value>Безналичный расчет</value>
   </data>
   <data name="StartSearch" xml:space="preserve">
     <value>Начать поиск</value>
@@ -5187,7 +5187,7 @@
     <value>Ошибки</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>Файл</value>
+    <value>Файл</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя активировать позицию из опубликованного прайс-листа</value>
