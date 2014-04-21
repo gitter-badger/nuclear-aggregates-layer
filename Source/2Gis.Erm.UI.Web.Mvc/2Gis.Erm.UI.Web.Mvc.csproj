@@ -151,6 +151,7 @@
     <Compile Include="DI\Bootstrapper.Cyprus.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Czech.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Global.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Ukraine.Mvc.Interception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DI\WebMvcRoot.cs" />
     <Compile Include="Settings\WebAppSettings.cs" />
@@ -1092,6 +1093,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Ukraine\Ext.DoubleGis.UI.UkraineOrder.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

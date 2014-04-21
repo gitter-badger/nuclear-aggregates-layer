@@ -23,21 +23,20 @@
             item.disable();
         }
 
-        Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked); 
+        Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
     },
 
     setupCultureSpecificEventListeners: function () {
         Ext.getCmp("Client").on("change", this.onClientChanged, this);
     },
 
-    // При обновлении клиента (нередактируемое поле, обновление может быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
+    // При обновлении клиента (нередактируемое поле, обновление модет быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
     onClientChanged: function () {
         var clientLookup = Ext.getCmp('Client');
         var clientId = clientLookup.item ? clientLookup.item.id : null;
 
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         if (clientId) {
-            legalPersonLookup.supressMatchesErrors = true;
             legalPersonLookup.forceGetData({
                 limit: 1
             });
@@ -54,7 +53,6 @@
 
         var clientLookup = Ext.getCmp('Client');
         if (firmId) {
-            clientLookup.supressMatchesErrors = true;
             clientLookup.forceGetData({
                 extendedInfo: "FirmId={FirmId}"
             });
@@ -95,7 +93,7 @@
             }
         }
     },
-    
+
     onLegalPersonChanged: function (cmp) {
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         var legalPersonId = legalPersonLookup.item ? legalPersonLookup.item.id : null;
@@ -103,7 +101,7 @@
         if (legalPersonId != null) {
             this.Request({
                 method: 'POST',
-                url: '/Cyprus/LegalPerson/GetPaymentMethod',
+                url: '/Ukraine/LegalPerson/GetPaymentMethod',
                 params: {
                     legalPersonId: legalPersonId
                 },

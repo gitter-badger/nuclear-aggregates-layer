@@ -346,6 +346,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerRequest, new InjectionFactory(c => new UserContext(null, null)))
 
+
+
+
+
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
@@ -357,13 +361,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
-                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, BankPropertiesConverter>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonProfilePartPropertiesConverter>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<LegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, LegalPersonPartPropertiesConverter>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BranchOfficeOrganizationUnitPartPropertiesConverter>(Lifetime.Singleton)
+                .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
+                .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
+                .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
                 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }

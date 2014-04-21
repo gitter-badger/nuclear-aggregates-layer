@@ -63,10 +63,6 @@
             item.disable();
         }
 
-        var canEditDocumentsDebt = this.form.HasOrderDocumentsDebtChecking.value.toLowerCase() == 'true';
-        Ext.getDom("HasDocumentsDebt").disabled = canEditDocumentsDebt ? null : "disabled";
-        Ext.getDom("DocumentsComment").disabled = canEditDocumentsDebt ? null : "disabled";
-        Ext.get("DocumentsComment").setReadOnly(!canEditDocumentsDebt);
         Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
     },
 
