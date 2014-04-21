@@ -1,5 +1,3 @@
-using System;
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,7 +13,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
     public sealed class CzechLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ICzechAdapted
     {
-        public Guid? ReplicationCode { get; set; }
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         [Dependency(DependencyType.ReadOnly, "LegalName", "Ext.getDom('Id').value != '0'")]
@@ -24,8 +21,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [Dependency(DependencyType.Disable, "LegalPersonType", "Ext.getDom('Id').value != '0'")]
         public LegalPersonType LegalPersonType { get; set; }
 
-        public bool IsInSyncWith1C { get; set; }
-        
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
@@ -70,8 +65,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             Inn = modelDto.Inn;
             Ic = modelDto.Ic;
             Client = LookupField.FromReference(modelDto.ClientRef);
-            IsInSyncWith1C = modelDto.IsInSyncWith1C;
-            ReplicationCode = modelDto.ReplicationCode;
             Comment = modelDto.Comment;
             HasProfiles = modelDto.HasProfiles;
             Timestamp = modelDto.Timestamp;
@@ -89,8 +82,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     Inn = Inn,
                     Ic = Ic,
                     ClientRef = Client.ToReference(),
-                    IsInSyncWith1C = IsInSyncWith1C,
-                    ReplicationCode = ReplicationCode.Value,
                     Comment = Comment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp

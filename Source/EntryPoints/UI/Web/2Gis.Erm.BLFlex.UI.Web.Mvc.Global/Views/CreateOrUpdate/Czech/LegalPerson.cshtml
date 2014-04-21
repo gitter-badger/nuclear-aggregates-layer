@@ -1,4 +1,4 @@
-﻿@model Models.Czech.CzechLegalPersonViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech.CzechLegalPersonViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -22,19 +22,7 @@
                         var url = '/Czech/LegalPerson/ChangeLegalPersonRequisites/' + Ext.getDom("Id").value;
                         var result = window.showModalDialog(url, null, params);
                         if (result == 'OK') {
-                            var isInSyncWith1C = window.Ext.getDom("IsInSyncWith1C").value;
-                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                            var msg = isInSyncWith1C.toLowerCase() == 'true' ? '@BLResources.OnLegalPersonRequisitesChangedMessageSync1C' : '@BLResources.OnLegalPersonRequisitesChangedMessageNotSync1C';
-                            window.Ext.MessageBox.show({
-                                title: '',
-                                msg: msg,
-                                buttons: window.Ext.MessageBox.OK,
-                                fn: function() { this.refresh(true); },
-                                scope: this,
-                                width: 500,
-                                icon: window.Ext.MessageBox.INFO
-                            });
+                            this.refresh();
                         }
                     }
                 });
@@ -55,7 +43,7 @@
             });
 
             Ext.apply(this, {
-                
+
                 buildProfilesList: function () {
                     if (this.form.Id.value != 0) {
                         var cnt = Ext.getCmp('ContentTab_holder');
@@ -85,11 +73,11 @@
                             this.hide();
                         }, mask);
                         cnt.doLayout();
-                        
+
                     }
                 }
             });
-            
+
             this.on("afterbuild", this.buildProfilesList, this);
             this.on("afterrelatedlistready", function(card, details) {
                 var dataListName = details.dataList.currentSettings.Name;
@@ -116,8 +104,6 @@
 @section CardBody
 {
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ReplicationCode)
-    @Html.HiddenFor(m => m.IsInSyncWith1C)
     @Html.HiddenFor(m => m.HasProfiles)
 
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">

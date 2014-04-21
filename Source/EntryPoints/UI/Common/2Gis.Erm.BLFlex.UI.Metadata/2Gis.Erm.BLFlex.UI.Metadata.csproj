@@ -78,8 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Cyprus.xml" />
-    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Czech.xml" />
-    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.xml" />
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Czech.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Cyprus.xml" />
     <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Czech.xml" />
     <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.xml" />
@@ -94,10 +98,18 @@
     <Compile Include="Config\Old\UIConfigurationService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Chile.xml" />
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Chile.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Chile.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Ukraine.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Ukraine.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

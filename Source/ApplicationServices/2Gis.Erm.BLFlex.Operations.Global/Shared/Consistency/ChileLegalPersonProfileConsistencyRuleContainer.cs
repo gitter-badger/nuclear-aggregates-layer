@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, BLResources.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
                 ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
                 ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
-                ConsistencyRule.CreateFormat(entity => entity.Parts.OfType<LegalPersonProfilePart>(), chileParts => chileParts.Count() != 1, BLFlexResources.ChilePartableExtensionMustBeApplied),
+                ConsistencyRule.CreateFormat(entity => entity.Parts.OfType<ChileLegalPersonProfilePart>(), chileParts => chileParts.Count() != 1, BLFlexResources.ChilePartableExtensionMustBeApplied),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.ChilePart().RepresentativeRut, BLResources.RequiredFieldMessage, MetadataResources.Rut),
                 new InnConsistencyRule<LegalPersonProfile, ChileRutService>(entity => entity.ChilePart().RepresentativeRut),
                 ConsistencyRule.CreateEnumValuesRestriction(
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                     string.Format(BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
                     PaymentMethod.CashPayment,
                     PaymentMethod.BankTransaction,
-                    PaymentMethod.BankCard,
+                    PaymentMethod.CreditCard,
                     PaymentMethod.DebitCard,
                     PaymentMethod.BankChequePayment),
                 ConsistencyRule.CreateEnumValuesRestriction(

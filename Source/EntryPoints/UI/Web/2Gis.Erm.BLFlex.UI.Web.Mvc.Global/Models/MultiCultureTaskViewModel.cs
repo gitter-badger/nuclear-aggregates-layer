@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureTaskViewModel : ActivityBaseViewModelAbstract<Task>, ICyprusAdapted, IChileAdapted, ICzechAdapted
+    public sealed class MultiCultureTaskViewModel : ActivityBaseViewModelAbstract<Task>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
     {
         [RequiredLocalized]
         public ActivityTaskType TaskType { get; set; }

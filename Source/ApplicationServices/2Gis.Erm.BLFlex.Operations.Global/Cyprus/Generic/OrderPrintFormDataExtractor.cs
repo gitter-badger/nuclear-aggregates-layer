@@ -49,11 +49,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
         public PrintData GetOrder(IQueryable<Order> query)
         {
             var order = _printOrderHelper.GetOrder(query);
-            var orderExtension = _printOrderHelper.GetOrderExtension(query);
 
             return new PrintData 
             { 
-                { "Order", PrintData.Concat(order, orderExtension) }, 
+                { "Order", order }, 
             };
         }
 

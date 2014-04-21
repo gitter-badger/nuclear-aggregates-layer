@@ -23,7 +23,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders
 {
-    public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, ICzechAdapted, ICyprusAdapted, IChileAdapted
+    public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
     {
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;

@@ -31,8 +31,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                     {
                         entityViewModel.DisabledDocuments = new[]
                             {
-                                (int)OperatesOnTheBasisType.Undefined,
-                                (int)OperatesOnTheBasisType.Certificate
+                                OperatesOnTheBasisType.Undefined.ToString(),
+                                OperatesOnTheBasisType.Certificate.ToString()
                             };
                         break;
                     }
@@ -41,10 +41,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                     {
                         entityViewModel.DisabledDocuments = new[]
                             {
-                                (int)OperatesOnTheBasisType.Undefined,
-                                (int)OperatesOnTheBasisType.Charter,
-                                (int)OperatesOnTheBasisType.Bargain,
-                                (int)OperatesOnTheBasisType.FoundingBargain
+                                OperatesOnTheBasisType.Undefined.ToString(),
+                                OperatesOnTheBasisType.Charter.ToString(),
+                                OperatesOnTheBasisType.Bargain.ToString(),
+                                OperatesOnTheBasisType.FoundingBargain.ToString()
                             };
                         break;
                     }
@@ -53,10 +53,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                     {
                         entityViewModel.DisabledDocuments = new[]
                             {
-                                (int)OperatesOnTheBasisType.Certificate,
-                                (int)OperatesOnTheBasisType.Charter,
-                                (int)OperatesOnTheBasisType.Bargain,
-                                (int)OperatesOnTheBasisType.FoundingBargain
+                                OperatesOnTheBasisType.Certificate.ToString(),
+                                OperatesOnTheBasisType.Charter.ToString(),
+                                OperatesOnTheBasisType.Bargain.ToString(),
+                                OperatesOnTheBasisType.FoundingBargain.ToString()
                             };
                         break;
                     }

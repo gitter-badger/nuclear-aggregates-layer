@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted
+    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted, IUkraineAdapted
     {
         #region Meaningful data
 

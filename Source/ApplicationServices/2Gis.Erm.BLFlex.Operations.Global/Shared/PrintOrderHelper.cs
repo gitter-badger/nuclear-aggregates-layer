@@ -233,37 +233,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
         {
             var order = query
                 .Select(x => new
-                {
-                    x.Number,
-                    x.SignupDate,
-                    x.OwnerCode,
-                })
-                .AsEnumerable()
-                .Select(x => new PrintData 
-                {
-                    { "Number", x.Number },
-                    { "SignupDate", x.SignupDate },
-                    { "OwnerName", _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName },
-                })
-                .Single();
-
-            return order;
-        }
-
-        // TODO {a.rechkalov, 01.04.2014}: Можно объедитнить с GetOrder, если OrderExtension не осталось в печатных формах
-        public PrintData GetOrderExtension(IQueryable<Order> query)
-        {
-            var orderExtension = query
-                .Select(x => new
-                {
-                    x.PayablePlan,
-                    x.VatPlan,
-                    x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                    PayablePlanWithoutVat = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).Select(position => position.PayablePlanWoVat),
-                })
+                    {
+                        x.Number,
+                        x.SignupDate,
+                        x.OwnerCode,
+                        x.PayablePlan,
+                        x.VatPlan,
+                        x.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                        PayablePlanWithoutVat = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).Select(position => position.PayablePlanWoVat),
+                    })
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
+                        { "Number", x.Number },
+                        { "SignupDate", x.SignupDate },
+                        { "OwnerName", _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName },
                         { "PayablePlan", x.PayablePlan },
                         { "PayablePlanWithoutVat", x.PayablePlanWithoutVat.Sum() },
                         { "VatPlan", x.VatPlan },
@@ -272,7 +256,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                     })
                 .Single();
 
-            return orderExtension;
+            return order;
         }
 
         public PrintData GetCategories(IQueryable<Order> query)
@@ -376,5 +360,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             public string Address { get; set; }
             public string ReferencePoint { get; set; }
         }
+
+
     }
 }

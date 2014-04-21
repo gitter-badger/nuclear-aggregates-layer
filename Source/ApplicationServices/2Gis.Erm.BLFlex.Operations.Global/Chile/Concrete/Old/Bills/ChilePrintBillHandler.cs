@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -15,6 +16,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
@@ -24,15 +26,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IChileLegalPersonReadModel _chileLegalPersonReadModel;
         private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintBillHandler(
             ILegalPersonReadModel legalPersonReadModel,
+            IChileLegalPersonReadModel chileLegalPersonReadModel,
             ISubRequestProcessor requestProcessor,
             IFormatterFactory formatterFactory,
             IFinder finder)
         {
             _legalPersonReadModel = legalPersonReadModel;
+            _chileLegalPersonReadModel = chileLegalPersonReadModel;
             _requestProcessor = requestProcessor;
             _finder = finder;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
@@ -79,11 +84,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId.Value);
-            var legalPersonPart = legalPerson.Parts.OfType<LegalPersonPart>().Single();
+            var legalPersonPart = legalPerson.Parts.OfType<ChileLegalPersonPart>().Single();
 
             var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
 
-            var communeRef = _legalPersonReadModel.GetCommuneReference(legalPerson.Id);
+            var communeRef = _chileLegalPersonReadModel.GetCommuneReference(legalPerson.Id);
 
             var printData2 = new
                 {

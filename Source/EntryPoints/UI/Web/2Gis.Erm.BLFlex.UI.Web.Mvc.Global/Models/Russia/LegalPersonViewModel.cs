@@ -59,8 +59,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
-        // TODO {y.baranihin, 12.08.2013}: Осталось единственное строкое поле в модели без аттрибута StringLengthLocalized. Возможно, имеет смысл и его покрыть.
-        // DONE {v.sinitsyn, 12.08.2013}: Ok
         [SanitizedString]
         [StringLengthLocalized(512)]
         public string LegalAddress { get; set; }
@@ -129,9 +127,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             ShortName = modelDto.ShortName;
             LegalPersonType = modelDto.LegalPersonTypeEnum;
             LegalAddress = modelDto.LegalAddress;
-            Inn = modelDto.Inn;
+            Inn = modelDto.LegalPersonTypeEnum  == LegalPersonType.LegalPerson ? modelDto.Inn : null;
             Kpp = modelDto.Kpp;
-            BusinessmanInn = modelDto.BusinessmanInn;
+            BusinessmanInn = modelDto.LegalPersonTypeEnum == LegalPersonType.Businessman ? modelDto.Inn : null;
             PassportSeries = modelDto.PassportSeries;
             PassportNumber = modelDto.PassportNumber;
             PassportIssuedBy = modelDto.PassportIssuedBy;
@@ -154,9 +152,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                 ShortName = ShortName,
                 LegalPersonTypeEnum = LegalPersonType,
                 LegalAddress = LegalAddress,
-                Inn = Inn,
+                Inn = LegalPersonType == LegalPersonType.LegalPerson ? Inn : BusinessmanInn,
                 Kpp = Kpp,
-                BusinessmanInn = BusinessmanInn,
                 PassportSeries = PassportSeries,
                 PassportNumber = PassportNumber,
                 PassportIssuedBy = PassportIssuedBy,

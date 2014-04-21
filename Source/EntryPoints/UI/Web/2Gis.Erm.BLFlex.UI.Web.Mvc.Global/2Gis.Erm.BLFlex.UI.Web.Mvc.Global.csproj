@@ -131,6 +131,13 @@
       <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\Ukraine\AreaRegistrator.cs" />
+    <Compile Include="Areas\Ukraine\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\Chile\CommuneViewModel.cs" />
@@ -156,7 +163,6 @@
     <Compile Include="Models\Chile\ChileBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Chile\ChileBranchOfficeViewModel.cs" />
     <Compile Include="Models\Chile\ChileChangeLegalPersonRequisitesViewModel.cs" />
-    <Compile Include="Models\Chile\ChileBargainTypeViewModel.cs" />
     <Compile Include="Models\MultiCultureOrderViewModel.cs" />
     <Compile Include="Models\Russia\AccountViewModel.cs" />
     <Compile Include="Models\Russia\AppointmentViewModel.cs" />
@@ -170,17 +176,26 @@
     <Compile Include="Models\Russia\OrderViewModel.cs" />
     <Compile Include="Models\Russia\PhonecallViewModel.cs" />
     <Compile Include="Models\Russia\TaskViewModel.cs" />
-    <Compile Include="Services\Cards\Contact\RussiaContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Contact\CyprusContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Contact\CzechContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Contact\ChileContactViewModelCustomizationService.cs" />
+    <Compile Include="Models\Ukraine\Extensions.cs" />
+    <Compile Include="Models\Ukraine\UkraineChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineContactViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineLegalPersonViewModel.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureAppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\RussiaClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
@@ -189,17 +204,13 @@
     <Compile Include="Services\Cards\Russia\OrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileOrderFileKindEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Chile\ChileActivityPurposeEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Chile\ChileIntegrationTypeExportEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Chile\ChileIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileLegalPersonTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileOperatesOnTheBasisTypesEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeImportEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Cyprus\CyprusIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -212,8 +223,8 @@
     <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
-    <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeExportEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Czech\CzechIntegrationTypeImportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -240,7 +251,6 @@
     <Compile Include="Models\Cyprus\CyprusAccountViewModel.cs" />
     <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
     <Compile Include="Models\MultiCultureAppointmentViewModel.cs" />
-    <Compile Include="Models\Cyprus\CyprusBargainTypeViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBargainViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBranchOfficeViewModel.cs" />
@@ -251,7 +261,7 @@
     <Compile Include="Models\MultiCulturePhonecallViewModel.cs" />
     <Compile Include="Models\MultiCultureTaskViewModel.cs" />
     <Compile Include="Models\MultiCultureAccountViewModel.cs" />
-    <Compile Include="Models\Czech\CzechBargainTypeViewModel.cs" />
+    <Compile Include="Models\MultiCultureBargainTypeViewModel.cs" />
     <Compile Include="Models\MultiCultureBargainViewModel.cs" />
     <Compile Include="Models\Czech\CzechBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Czech\CzechBranchOfficeViewModel.cs" />
@@ -263,31 +273,39 @@
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
     <Compile Include="Services\Cards\MultiCultureClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CyprusLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CyprusAccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CzechAccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CzechLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CzechLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Enumeration\Chile\ChileOrderTypeEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Multiculture\MulticultureFasCommentCustomization.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusAccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureAccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\LegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Cyprus\CyprusActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOrderFileKindEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Cyprus\CyprusOrderTypeEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Czech\CzechActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureActivityPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechLegalPersonTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechOrderFileKindEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\Czech\CzechOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureOrderTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechPaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkrainePaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Views\CreateOrUpdate\MultiCultureBargainType.generated.cs">
+      <DependentUpon>MultiCultureBargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Chile\Bill.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -297,6 +315,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Czech\Bill.generated.cs">
       <AutoGen>True</AutoGen>
@@ -313,7 +336,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Czech\BargainType.generated.cs">
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BargainType.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BargainType.cshtml</DependentUpon>
@@ -643,6 +666,76 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LegalPerson.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Bill.generated.cs">
+      <DependentUpon>Bill.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BranchOffice.generated.cs">
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <None Include="App.Config" />
     <None Include="Areas\Chile\Views\CreateBill\Create.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -656,10 +749,22 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
     </None>
+    <None Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\Web.config" />
+    <None Include="Views\CreateOrUpdate\MultiCultureBargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureBargainType.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Cyprus\Bill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Czech\Bill.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -677,7 +782,7 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainType.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Czech\BargainType.cshtml">
+    <None Include="Views\CreateOrUpdate\Ukraine\BargainType.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainType.generated.cs</LastGenOutput>
     </None>
@@ -961,6 +1066,62 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MergeLegalPersonsGetData.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1028,6 +1189,14 @@
       <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
       <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
       <Name>2Gis.Erm.BLFlex.Model</Name>
@@ -1037,9 +1206,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Cyprus\EnumCustomization\" />
     <Folder Include="Areas\Czech\EnumCustomization\" />
-    <Folder Include="Views\Bill\Chile\" />
+    <Folder Include="Services\Cards\Contact\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

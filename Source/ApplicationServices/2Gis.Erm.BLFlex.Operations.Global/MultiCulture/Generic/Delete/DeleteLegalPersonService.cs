@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
 
                     var legalPerson = _readModel.GetLegalPerson(entityId);
 
-                    var dtos = legalPerson.Parts.OfType<LegalPersonPart>().Select(x => _readModel.GetBusinessEntityInstanceDto(x));
+                    var dtos = _readModel.GetBusinessEntityInstanceDto(legalPerson);
 
                     _deleteLegalPersonSerice.Delete(findResult.LegalPerson, dtos);
 

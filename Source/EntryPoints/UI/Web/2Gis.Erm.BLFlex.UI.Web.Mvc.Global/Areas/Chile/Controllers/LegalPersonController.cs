@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -21,7 +22,6 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
         private readonly IPublicService _publicService;
         private readonly IFinder _finder;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IChileLegalPersonReadModel _chileLegalPersonReadModel;
 
         public LegalPersonController(IMsCrmSettings msCrmSettings,
                                      IUserContext userContext,
@@ -43,13 +44,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
                                      ISecurityServiceFunctionalAccess functionalAccessService,
                                      IPublicService publicService,
                                      IFinder finder,
-                                     ILegalPersonReadModel legalPersonReadModel)
+                                     ILegalPersonReadModel legalPersonReadModel,
+                                     IChileLegalPersonReadModel chileLegalPersonReadModel)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
+            _chileLegalPersonReadModel = chileLegalPersonReadModel;
         }
 
         // TODO {all, 31.07.2013}: Избавиться от этого костыля
@@ -73,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
             })
             .Single();
 
-            var communeReference = _legalPersonReadModel.GetCommuneReference(id);
+            var communeReference = _chileLegalPersonReadModel.GetCommuneReference(id);
 
             model.Commune = LookupField.FromReference(communeReference);
 
@@ -115,16 +118,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
 
         public JsonNetResult GetPaymentMethod(long legalPersonId)
         {
-            // TODO {y.baranihin, 20.01.2014}: использовать ReadModel, когда она появится
             return
                 new JsonNetResult(
                     new
-                    {
-                        PaymentMethod =
-                    _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
-                           .Select(x => (PaymentMethod?)x.PaymentMethod)
-                           .SingleOrDefault()
-                    });
+                        {
+                            PaymentMethod = _legalPersonReadModel.GetPaymentMethod(legalPersonId)
+                        });
         }
 
         private static LegalPersonChangeRequisitesAccess GetMaxAccess(int[] accesses)

@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -105,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [StringLengthLocalized(256)]
         public string RecipientName { get; set; }
 
-        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'PostOnly' || this.value == '' || this.value == 'ByCourier'")]
+        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'ByCourier'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
 
         [EmailLocalized]
@@ -124,9 +125,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [DisplayNameLocalized("ContactPhone")]
         [StringLengthLocalized(50)]
         public string Phone { get; set; }
-
-        [StringLengthLocalized(512)]
-        public string PaymentEssentialElements { get; set; }
 
         public override byte[] Timestamp { get; set; }
 
@@ -147,7 +145,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             }
         }
 
-        public int[] DisabledDocuments { get; set; }
+        public string[] DisabledDocuments { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -184,7 +182,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             Owner = LookupField.FromReference(modelDto.OwnerRef);
             EmailForAccountingDocuments = modelDto.EmailForAccountingDocuments;
             LegalPersonType = modelDto.LegalPersonType;
-            PaymentEssentialElements = modelDto.PaymentEssentialElements;
             PersonResponsibleForDocuments = modelDto.PersonResponsibleForDocuments;
             Phone = modelDto.Phone;
             RecipientName = modelDto.RecipientName;
@@ -197,40 +194,39 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             return new LegalPersonProfileDomainEntityDto
                 {
                     Id = Id,
-                    Name = Name,
-                    AdditionalEmail = AdditionalEmail,
-                    ChiefNameInGenitive = ChiefNameInGenitive,
-                    ChiefNameInNominative = ChiefNameInNominative,
-                    DocumentsDeliveryAddress = DocumentsDeliveryAddress,
+                    Name = Name.EnsureСleanness(),
+                    AdditionalEmail = AdditionalEmail.EnsureСleanness(),
+                    ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
+                    ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
+                    DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                     PaymentMethod = PaymentMethod,
-                    AccountNumber = AccountNumber,
-                    IBAN = IBAN,
-                    SWIFT = SWIFT,
-                    BankName = BankName,
-                    AdditionalPaymentElements = AdditionalPaymentElements,
+                    AccountNumber = AccountNumber.EnsureСleanness(),
+                    IBAN = IBAN.EnsureСleanness(),
+                    SWIFT = SWIFT.EnsureСleanness(),
+                    BankName = BankName.EnsureСleanness(),
+                    AdditionalPaymentElements = AdditionalPaymentElements.EnsureСleanness(),
                     DocumentsDeliveryMethod = DocumentsDeliveryMethod,
                     LegalPersonRef = LegalPerson.ToReference(),
-                    PositionInNominative = PositionInNominative,
-                    PositionInGenitive = PositionInGenitive,
+                    PositionInNominative = PositionInNominative.EnsureСleanness(),
+                    PositionInGenitive = PositionInGenitive.EnsureСleanness(),
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
                     CertificateDate = CertificateDate,
-                    CertificateNumber = CertificateNumber,
+                    CertificateNumber = CertificateNumber.EnsureСleanness(),
                     RegistrationCertificateDate = RegistrationCertificateDate,
-                    RegistrationCertificateNumber = RegistrationCertificateNumber,
+                    RegistrationCertificateNumber = RegistrationCertificateNumber.EnsureСleanness(),
                     BargainBeginDate = BargainBeginDate,
                     BargainEndDate = BargainEndDate,
-                    BargainNumber = BargainNumber,
-                    WarrantyNumber = WarrantyNumber,
+                    BargainNumber = BargainNumber.EnsureСleanness(),
+                    WarrantyNumber = WarrantyNumber.EnsureСleanness(),
                     WarrantyBeginDate = WarrantyBeginDate,
                     WarrantyEndDate = WarrantyEndDate,
-                    PostAddress = PostAddress,
+                    PostAddress = PostAddress.EnsureСleanness(),
                     OwnerRef = Owner.ToReference(),
-                    EmailForAccountingDocuments = EmailForAccountingDocuments,
+                    EmailForAccountingDocuments = EmailForAccountingDocuments.EnsureСleanness(),
                     LegalPersonType = LegalPersonType,
-                    PaymentEssentialElements = PaymentEssentialElements,
-                    PersonResponsibleForDocuments = PersonResponsibleForDocuments,
-                    Phone = Phone,
-                    RecipientName = RecipientName,
+                    PersonResponsibleForDocuments = PersonResponsibleForDocuments.EnsureСleanness(),
+                    Phone = Phone.EnsureСleanness(),
+                    RecipientName = RecipientName.EnsureСleanness(),
                     IsMainProfile = IsMainProfile,
                     Timestamp = Timestamp
                 };

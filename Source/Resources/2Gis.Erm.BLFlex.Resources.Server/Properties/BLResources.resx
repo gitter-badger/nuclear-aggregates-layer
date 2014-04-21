@@ -246,6 +246,30 @@
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value />
   </data>
+  <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineInvalidIpn" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineInvalidEgrpou" xml:space="preserve">
+    <value />
+  </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
     <value />
   </data>
@@ -298,6 +322,30 @@
     <value />
   </data>
   <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineActivateLegalPersonErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineEnteredIpnIsNotCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineEnteredEgrpouIsNotCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineActivateBusinessmanErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value />
   </data>
 </root>

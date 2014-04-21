@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
 using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
             return _printOrderHelper.GetPaymentSchedule(query);
         }
 
-        public PrintData GetLegalPersonProfile(LegalPersonProfile legalPersonProfile, LegalPersonProfilePart legalPersonProfilePart, Bank bank)
+        public PrintData GetLegalPersonProfile(LegalPersonProfile legalPersonProfile, ChileLegalPersonProfilePart legalPersonProfilePart, Bank bank)
         {
             var part = new PrintData
                 {
@@ -77,9 +78,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
         public PrintData GetOrder(IQueryable<Order> query)
         {
             var order = _printOrderHelper.GetOrder(query);
-            var orderExtension = _printOrderHelper.GetOrderExtension(query);
 
-            return new PrintData { { "Order", PrintData.Concat(order, orderExtension) } };
+            return new PrintData { { "Order", order } };
         }
 
         public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
                 };
         }
 
-        public PrintData GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit boou, BranchOfficeOrganizationUnitPart boouPart)
+        public PrintData GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit boou, ChileBranchOfficeOrganizationUnitPart boouPart)
         {
             var branchOfficeOrganizationUnit = new PrintData
                 {

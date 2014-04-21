@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -23,10 +24,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
         private readonly ISecureFinder _securefinder;
         private readonly IFinder _finder;
         private readonly IAPIIdentityServiceSettings _identityServiceSettings;
-        private readonly IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance> _boouPropertiesConverter;
+        private readonly IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart> _boouPropertiesConverter;
 
         public ChileGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext, ISecureFinder securefinder, IFinder finder, IAPIIdentityServiceSettings identityServiceSettings,
-            IDynamicEntityPropertiesConverter<BranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance> boouPropertiesConverter)
+            IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart> boouPropertiesConverter)
             : base(userContext)
         {
             _securefinder = securefinder;
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 
             var organizationUnitName = _securefinder.Find<OrganizationUnit>(x => x.Id == entity.OrganizationUnitId).Select(x => x.Name).Single();
             var branchOffice = _securefinder.Find<BranchOffice>(x => x.Id == entity.BranchOfficeId).Single();
-            var boouPart = (BranchOfficeOrganizationUnitPart)entity.Parts.Single();
+            var boouPart = (ChileBranchOfficeOrganizationUnitPart)entity.Parts.Single();
 
             return new ChileBranchOfficeOrganizationUnitDomainEntityDto
             {
@@ -59,6 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
                 ActualAddress = entity.ActualAddress,
                 PostalAddress = entity.PostalAddress,
                 BranchOfficeAddlId = branchOffice.Id,
+                BranchOfficeAddlRut = branchOffice.Inn,
                 BranchOfficeAddlLegalAddress = branchOffice.LegalAddress,
                 BranchOfficeAddlName = branchOffice.Name,
                 PaymentEssentialElements = entity.PaymentEssentialElements,
@@ -109,11 +111,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             if (entityInstanceDto != null)
             {
                 var boouPart = _boouPropertiesConverter.ConvertFromDynamicEntityInstance(entityInstanceDto.EntityInstance, entityInstanceDto.PropertyInstances);
-                boou.Parts = new List<BranchOfficeOrganizationUnitPart> { boouPart };
+                boou.Parts = new List<ChileBranchOfficeOrganizationUnitPart> { boouPart };
             }
             else
             {
-                boou.Parts = new List<BranchOfficeOrganizationUnitPart> { new BranchOfficeOrganizationUnitPart() };
+                boou.Parts = new List<ChileBranchOfficeOrganizationUnitPart> { new ChileBranchOfficeOrganizationUnitPart() };
             }
 
             return boou;

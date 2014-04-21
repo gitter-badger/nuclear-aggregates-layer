@@ -30,7 +30,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class MultiCultureOrderViewModelCustomizationService : IGenericViewModelCustomizationService<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted
+    public class MultiCultureOrderViewModelCustomizationService : IGenericViewModelCustomizationService<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;

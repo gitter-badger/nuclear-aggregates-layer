@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
                 entityViewModel.MessageType = MessageType.Info;
             }
 
-            entityViewModel.DisabledDocuments = new int[0];
+            entityViewModel.DisabledDocuments = new string[0];
         }
     }
 }

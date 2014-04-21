@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
+﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
@@ -16,7 +14,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
     public sealed class ChileLegalPersonViewModel : EntityViewModelBase<LegalPerson>, IChileAdapted
     {
-        public Guid? ReplicationCode { get; set; }
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         [Dependency(DependencyType.ReadOnly, "LegalName", "Ext.getDom('Id').value != '0'")]
@@ -71,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             LegalName = modelDto.LegalName;
             LegalPersonType = modelDto.LegalPersonTypeEnum;
             LegalAddress = modelDto.LegalAddress;
-            Rut = modelDto.Rut;
+            Rut = modelDto.Inn;
             OperationsKind = modelDto.OperationsKind;
             Client = LookupField.FromReference(modelDto.ClientRef);
             Commune = LookupField.FromReference(modelDto.CommuneRef);
@@ -88,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     LegalName = LegalName,
                     LegalPersonTypeEnum = LegalPersonType,
                     LegalAddress = LegalAddress,
-                    Rut = Rut,
+                    Inn = Rut,
                     OperationsKind = OperationsKind,
                     CommuneRef = Commune.ToReference(),
                     ClientRef = Client.ToReference(),

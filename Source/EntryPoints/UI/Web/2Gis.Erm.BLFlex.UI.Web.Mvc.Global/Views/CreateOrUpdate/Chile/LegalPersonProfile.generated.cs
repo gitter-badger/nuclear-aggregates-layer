@@ -27,12 +27,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 1 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
-    using BLCore.UI.Web.Mvc.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -46,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Chile/LegalPersonProfile.cshtml")]
-    public partial class LegalPersonProfile : System.Web.Mvc.WebViewPage<Models.Chile.ChileLegalPersonProfileViewModel>
+    public partial class LegalPersonProfile : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileLegalPersonProfileViewModel>
     {
         public LegalPersonProfile()
         {
@@ -54,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Chile
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 3 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
   
     Layout = "../../Shared/_CardLayout.cshtml";
 
@@ -76,7 +70,7 @@ WriteLiteral(@">
                 var disabledValues = ");
 
             
-            #line 14 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 13 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
                                 Write(Html.Raw(Json.Encode(Model.DisabledDocuments)));
 
             
@@ -84,8 +78,12 @@ WriteLiteral(@">
             #line hidden
 WriteLiteral(@";
                 for (var i = 0; i < disabledValues.length; i++) {
-                    var optionToDisable = operatesValues[disabledValues[i]];
-                    optionToDisable.disabled = true;
+                    for (var j = 0; j < operatesValues.length; j++) {
+                        if (operatesValues[j].value == disabledValues[i] || (disabledValues[i] == 'Undefined' && operatesValues[j].value == '')) {
+                            operatesValues[j].disabled = true;
+                            break;
+                        }
+                    }
                 }
             });
         };
@@ -103,7 +101,7 @@ WriteLiteral("    \r\n");
 WriteLiteral("    ");
 
             
-            #line 26 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 29 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
 Write(Html.HiddenFor(m => m.Id));
 
             
@@ -115,14 +113,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 883), Tuple.Create("\"", 919)
+WriteAttribute("title", Tuple.Create(" title=\"", 1127), Tuple.Create("\"", 1163)
             
-            #line 28 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
-, Tuple.Create(Tuple.Create("", 891), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 31 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+, Tuple.Create(Tuple.Create("", 1135), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 891), false)
+, 1135), false)
 );
 
 WriteLiteral(">    \r\n        <div");
@@ -134,7 +132,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 30 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.lone));
 
             
@@ -149,7 +147,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 34 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true }));
 
             
@@ -164,7 +162,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 38 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 41 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.DocumentsDeliveryAddress, FieldFlex.lone));
 
             
@@ -179,7 +177,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 42 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 45 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RecipientName, FieldFlex.twins));
 
             
@@ -190,7 +188,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 46 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.DocumentsDeliveryMethod, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -205,7 +203,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.PersonResponsibleForDocuments, FieldFlex.twins));
 
             
@@ -216,7 +214,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 51 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.EmailForAccountingDocuments, FieldFlex.twins));
 
             
@@ -231,7 +229,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 55 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.AdditionalEmail, FieldFlex.lone));
 
             
@@ -246,7 +244,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 55 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 58 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.PostAddress, FieldFlex.lone));
 
             
@@ -261,7 +259,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 58 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.PaymentMethod, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -272,7 +270,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 59 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 62 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.BankAccountType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -287,7 +285,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 62 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 65 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.AccountNumber, FieldFlex.twins));
 
             
@@ -298,7 +296,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 63 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 66 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.Bank, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Bank }));
 
             
@@ -313,7 +311,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 66 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 69 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.AdditionalPaymentElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
 
             
@@ -324,7 +322,7 @@ WriteLiteral("\r\n        </div>\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 69 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 72 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
    Write(Html.SectionHead("sectionInfo", @BLResources.TitleEmployeeInformation));
 
             
@@ -339,7 +337,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 72 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 75 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RepresentativeName, FieldFlex.twins));
 
             
@@ -350,7 +348,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 73 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 76 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RepresentativeRut, FieldFlex.twins));
 
             
@@ -365,7 +363,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 77 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 80 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RepresentativePosition, FieldFlex.lone));
 
             
@@ -380,7 +378,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 81 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 84 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.Phone, FieldFlex.twins));
 
             
@@ -391,7 +389,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 82 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 85 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.OperatesOnTheBasisInGenitive, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -406,7 +404,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 86 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 89 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RepresentativeDocumentIssuedOn, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -417,7 +415,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 87 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
+            #line 90 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
        Write(Html.TemplateField(m => m.RepresentativeDocumentIssuedBy, FieldFlex.twins));
 
             

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
+using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -16,47 +16,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
     public class GetLegalPersonDtoService : GetDomainEntityDtoServiceBase<LegalPerson>, IRussiaAdapted
     {
         private readonly ISecureFinder _finder;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
-        public GetLegalPersonDtoService(IUserContext userContext, ISecureFinder finder)
+        public GetLegalPersonDtoService(IUserContext userContext, ISecureFinder finder, ILegalPersonReadModel legalPersonReadModel)
             : base(userContext)
         {
             _finder = finder;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         protected override IDomainEntityDto<LegalPerson> GetDto(long entityId)
         {
-            var modelDto = _finder.Find<LegalPerson>(x => x.Id == entityId)
-                                  .Select(entity => new LegalPersonDomainEntityDto
-                                      {
-                                          Id = entity.Id,
-                                          LegalName = entity.LegalName,
-                                          ShortName = entity.ShortName,
-                                          LegalPersonTypeEnum = (LegalPersonType)entity.LegalPersonTypeEnum,
-                                          LegalAddress = entity.LegalAddress,
-                                          Inn = (LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.LegalPerson ? entity.Inn : null,
-                                          Kpp = entity.Kpp,
-                                          VAT = entity.VAT,
-                                          BusinessmanInn = (LegalPersonType)entity.LegalPersonTypeEnum == LegalPersonType.Businessman ? entity.Inn : null,
-                                          PassportSeries = entity.PassportSeries,
-                                          PassportNumber = entity.PassportNumber,
-                                          PassportIssuedBy = entity.PassportIssuedBy,
-                                          RegistrationAddress = entity.RegistrationAddress,
-                                          ClientRef = new EntityReference { Id = entity.ClientId, Name = entity.Client.Name },
-                                          IsInSyncWith1C = entity.IsInSyncWith1C,
-                                          ReplicationCode = entity.ReplicationCode,
-                                          Comment = entity.Comment,
-                                          OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
-                                          CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                          CreatedOn = entity.CreatedOn,
-                                          IsActive = entity.IsActive,
-                                          IsDeleted = entity.IsDeleted,
-                                          ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                          ModifiedOn = entity.ModifiedOn,
-                                          HasProfiles = entity.LegalPersonProfiles.Any(),
-                                          Timestamp = entity.Timestamp
-                                      })
-                                  .Single();
-            return modelDto;
+            return _legalPersonReadModel.GetLegalPersonDto<LegalPersonDomainEntityDto>(entityId);
         }
 
         protected override IDomainEntityDto<LegalPerson> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)

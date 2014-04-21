@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                         throw new NotificationException(BLResources.CantDeleteMainLegalPersonProfile);
                     }
 
-                    var dtos = legalPersonProfile.Parts.OfType<LegalPersonProfilePart>().Select(x => _readModel.GetBusinessEntityInstanceDto(x));
+                    var dtos = _readModel.GetBusinessEntityInstanceDto(legalPersonProfile);
 
                     _deleteService.Delete(legalPersonProfile, dtos);
 
