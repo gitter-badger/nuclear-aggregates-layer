@@ -121,6 +121,10 @@
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
@@ -132,6 +136,10 @@
     <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
       <Project>{b87f1e7f-f375-452d-9055-2e9ab60254c9}</Project>
