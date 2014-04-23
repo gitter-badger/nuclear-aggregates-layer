@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
@@ -28,6 +29,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 
 using Microsoft.Practices.Unity;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -36,26 +38,29 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureUkraineSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonPart>, BusinessEntityPropertiesConverter<UkraineLegalPersonPart>>(
-                    Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>, BusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>>(
-                    Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineBranchOfficePart>, BusinessEntityPropertiesConverter<UkraineBranchOfficePart>>(
-                    Lifetime.Singleton)
+                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonPart>, BusinessEntityPropertiesConverter<UkraineLegalPersonPart>>(Lifetime.Singleton)
+                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>, BusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>>(Lifetime.Singleton)
+                .RegisterType<IBusinessEntityPropertiesConverter<UkraineBranchOfficePart>, BusinessEntityPropertiesConverter<UkraineBranchOfficePart>>(Lifetime.Singleton)
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, UkraineLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, UkraineFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, UkraineIpnService>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, UkraineBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
-                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
-                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
                 .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                 .RegisterType<IUkraineOrderPrintFormDataExtractor, UkraineOrderPrintFormDataExtractor>(Lifetime.PerResolve)
-
                 .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, UkraineLegalPersonObtainerFlex>(Lifetime.PerResolve)
                 .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, UkraineLegalPersonProfileObtainerFlex>(Lifetime.PerResolve)
                 .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, UkraineBranchOfficeObtainerFlex>(Lifetime.PerResolve)
-                .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton);
+                .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton)
+                .ConfigureUkraineSpecificNumberServices();
+        }
+
+        public static IUnityContainer ConfigureUkraineSpecificNumberServices(this IUnityContainer container)
+        {
+            return container
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
+                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
         }
 
         // TODO переделать на нормальную метадату

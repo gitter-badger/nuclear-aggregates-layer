@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
@@ -15,7 +14,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.Formatter
     public static class UkrainianFormatterSpecs
     {
         [Tags("BL", "Formatter", "Ukraine")]
-        [Subject(typeof(GenerateOrderNumberHandler))]
+        [Subject(typeof(UkraineFormatterFactory))]
         public abstract class FormatterContext
         {
             protected static IFormatterFactory _factory;
