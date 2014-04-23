@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -61,13 +63,15 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                     OrderReadModel = SetupOrderReadModel();
 
                     Target = new CopyOrderOperationService(
-                        UserContext, 
-                        PublicService, 
-                        SecurityServiceEntityAccess, 
-                        OrderRepository, 
+                        UserContext,
+                        PublicService,
+                        SecurityServiceEntityAccess,
+                        OrderRepository,
                         ScopeFactory,
                         null,
-                        null, OrderReadModel);
+                        null,
+                        OrderReadModel,
+                        SetupOrderNumberService());
                 };
 
             private static IOperationScopeFactory SetupScopeFactory()
@@ -90,12 +94,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
             {
                 
                 var orderRepository = Mock.Of<IOrderRepository>();
-                var orderPositions = new OrderPositionWithAdvertisementsDto[0];
 
                 OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = (int)OrderState.OnTermination };
 
                 Mock.Get(orderRepository)
-                    .Setup(x => x.CreateCopiedOrder(OrderToCopy, orderPositions))
+                    .Setup(x => x.CreateCopiedOrder(Moq.It.IsAny<Order>(), Moq.It.IsAny<OrderPositionWithAdvertisementsDto[]>()))
                     .Returns<Order, IEnumerable<OrderPositionWithAdvertisementsDto>>((o, pos) => { o.Id += 1; return o; }); // увы, метод CreateCopiedOrder изменяет входящий в него объект
                 
                 return orderRepository;
@@ -113,6 +116,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 Mock.Get(orderReadModel).Setup(x => x.GetOrder(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
 
                 Mock.Get(orderReadModel).Setup(x => x.GetOrderPositionsWithAdvertisements(ORDER_TO_COPY_ID)).Returns(orderPositions);
+
+                Mock.Get(orderReadModel)
+                    .Setup(x => x.GetOrderOrganizationUnitsSyncCodes(Moq.It.IsAny<long[]>()))
+                    .Returns<long[]>(ids => ids.Distinct().ToDictionary(i => i, i => (i * 10).ToString()));
 
                 Mock.Get(orderReadModel)
                     .Setup(x => x.CalculateDistributionDates(
@@ -150,15 +157,25 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 return securityServiceEntityAccess;
             }
 
+            private static IEvaluateOrderNumberService SetupOrderNumberService()
+            {
+                var service = Mock.Of<IEvaluateOrderNumberService>();
+
+                Mock.Get(service)
+                    .Setup(s => s.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>()))
+                    .Returns(string.Empty);
+
+                Mock.Get(service)
+                    .Setup(s => s.EvaluateRegional(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>()))
+                    .Returns(string.Empty);
+
+                return service;
+            }
+
             private static IPublicService SetupPublicService()
             {
                 var publicService = Mock.Of<IPublicService>();
-                var orderNumberResponse = new GenerateOrderNumberResponse();
                 var recalculateOrderDiscountResponse = new RecalculateOrderDiscountResponse();
-
-                Mock.Get(publicService)
-                    .Setup(x => x.Handle(Moq.It.IsAny<GenerateOrderNumberRequest>()))
-                    .Returns(orderNumberResponse);
 
                 Mock.Get(publicService)
                     .Setup(x => x.Handle(Moq.It.IsAny<RecalculateOrderDiscountRequest>()))

@@ -126,7 +126,6 @@
     <Compile Include="BL\Export\HotClientRequestOperationsExporterSpecs.cs" />
     <Compile Include="BL\Export\OperationsExportServiceSpecs.cs" />
     <Compile Include="BL\FirmWorkingTimeLocalizerSpecs.cs" />
-    <Compile Include="BL\GenerateOrderNumberHandlerSpecs.cs" />
     <Compile Include="BL\Import\FakeAccountRepository.cs" />
     <Compile Include="BL\Import\ImportFlowFinancialData1CHandlerSpecs.cs" />
     <Compile Include="BL\OrderPositionAdvertisementValidation\AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRuleSpecs.cs" />
@@ -163,6 +162,8 @@
     <Compile Include="Model\ConcurrentPeriodCounterSpecs.cs" />
     <Compile Include="Model\LegalPersonRepositorySpecs.cs" />
     <Compile Include="Model\UserRepositoryTests\UserRepositorySpecs.cs" />
+    <Compile Include="Operations\Concrete\Orders\Processing\OrderEditingStrategySpecs.cs" />
+    <Compile Include="Operations\Concrete\Orders\Processing\OrderCreationStrategySpecs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

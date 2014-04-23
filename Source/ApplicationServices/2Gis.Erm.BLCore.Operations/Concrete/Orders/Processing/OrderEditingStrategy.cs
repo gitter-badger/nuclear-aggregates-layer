@@ -4,6 +4,7 @@ using System.Text;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
@@ -43,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IEvaluateOrderNumberService _numberService;
 
         public OrderEditingStrategy(IUserContext userContext,
                                     IOrderRepository orderRepository,
@@ -54,13 +56,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                     ICommonLog logger,
                                     IReleaseReadModel releaseRepository,
                                     IAccountRepository accountRepository,
-                                    ISecurityServiceFunctionalAccess functionalAccessService)
+                                    ISecurityServiceFunctionalAccess functionalAccessService,
+                                    IEvaluateOrderNumberService numberService)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _logger = logger;
             _releaseRepository = releaseRepository;
             _accountRepository = accountRepository;
             _functionalAccessService = functionalAccessService;
+            _numberService = numberService;
         }
 
         public override void FinishProcessing(Order order)
@@ -136,8 +140,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 }
             }
 
-            var response = (GenerateOrderNumberResponse)ResumeContext.UseCaseResume(new GenerateOrderNumberRequest { Order = order, ReservedNumber = reservedNumberDigit });
-            order.Number = response.Number;
+            var syncCodes = OrderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            order.Number = _numberService.Evaluate(order.Number,
+                                                   syncCodes[order.SourceOrganizationUnitId],
+                                                   syncCodes[order.DestOrganizationUnitId],
+                                                   reservedNumberDigit);
             order.RegionalNumber = null;
 
             if (order.SourceOrganizationUnitId == order.DestOrganizationUnitId)
@@ -151,9 +158,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 return;
             }
 
-            var request = new GenerateOrderNumberRequest { Order = order, ReservedNumber = reservedNumberDigit, IsRegionalNumber = true };
-            var regResponse = (GenerateOrderNumberResponse)ResumeContext.UseCaseResume(request);
-            order.RegionalNumber = regResponse.Number;
+            order.RegionalNumber = _numberService.EvaluateRegional(order.Number,
+                                                                   syncCodes[order.SourceOrganizationUnitId],
+                                                                   syncCodes[order.DestOrganizationUnitId],
+                                                                   reservedNumberDigit);
         }
 
         protected override void UpdateFinancialInformation(Order order)

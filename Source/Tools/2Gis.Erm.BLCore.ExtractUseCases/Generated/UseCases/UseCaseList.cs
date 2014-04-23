@@ -68,7 +68,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Pr
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms;
@@ -934,11 +933,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(ProcessOrderOnApprovalToRejectedHandler),
             Request = typeof(ProcessOrderOnApprovalToRejectedRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(GenerateOrderNumberHandler),
-            Request = typeof(GenerateOrderNumberRequest)
         },
         new UseCaseNode(1)
         {
