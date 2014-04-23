@@ -67,6 +67,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
                 while (currentProcessedCount > 0);
 
+                orderSerializer.Complete();
+
                 ordersStream.Position = 0;
                 _ordersForReleaseToFileStoragePublisher.Publish(organizationUnitId, organizationUnitDgppId, period, ordersStream);
             }

@@ -4,6 +4,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
@@ -35,6 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserRepository _userRepository;
         private readonly IProjectService _projectService;
+        private readonly IEvaluateOrderNumberService _numberService;
 
         public OrderProcessingService(
             IUserContext userContext,
@@ -45,7 +47,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             ISecurityServiceFunctionalAccess functionalAccessService,
             IProjectService projectService,
             IUserRepository userRepository,
-            IOrderReadModel orderReadModel)
+            IOrderReadModel orderReadModel, 
+            IEvaluateOrderNumberService numberService)
         {
             _userContext = userContext;
             _logger = logger;
@@ -56,6 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             _projectService = projectService;
             _userRepository = userRepository;
             _orderReadModel = orderReadModel;
+            _numberService = numberService;
         }
 
         public IOrderProcessingStrategy[] EvaluateProcessingStrategies(IUseCaseResumeContext<EditOrderRequest> resumeContext, IOperationScope operationScope)
@@ -79,7 +83,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                  operationScope,
                                                                  _userRepository,
                                                                  _orderReadModel,
-                                                                 _accountRepository));
+                                                                 _accountRepository,
+                                                                 _numberService));
                 return involvedStrategies.ToArray();
             }
 
@@ -95,7 +100,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                 _logger,
                                                                 _releaseRepository,
                                                                 _accountRepository,
-                                                                _functionalAccessService));
+                                                                _functionalAccessService,
+                                                                _numberService));
             }
 
             if (originalOrderState != proposedOrderState)

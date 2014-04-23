@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -36,6 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IDealReadModel _dealReadModel;
         private readonly IDealActualizeDealProfitIndicatorsAggregateService _dealActualizeDealProfitIndicatorsAggregateService;
+        private readonly IEvaluateOrderNumberService _numberService;
 
         public CopyOrderOperationService(IUserContext userContext,
                                          IPublicService publicService,
@@ -44,7 +46,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                          IOperationScopeFactory scopeFactory,
                                          IDealActualizeDealProfitIndicatorsAggregateService dealActualizeDealProfitIndicatorsAggregateService,
                                          IDealReadModel dealReadModel,
-                                         IOrderReadModel orderReadModel)
+                                         IOrderReadModel orderReadModel,
+                                         IEvaluateOrderNumberService numberService)
         {
             _userContext = userContext;
             _publicService = publicService;
@@ -54,6 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _dealActualizeDealProfitIndicatorsAggregateService = dealActualizeDealProfitIndicatorsAggregateService;
             _dealReadModel = dealReadModel;
             _orderReadModel = orderReadModel;
+            _numberService = numberService;
         }
 
         public CopyOrderResult CopyOrder(long orderId, bool isTechnicalTermination)
@@ -203,25 +207,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private string GenerateOrderNumber(Order order, long reservedNumber)
         {
-            var request = new GenerateOrderNumberRequest
-                {
-                    Order = order,
-                    ReservedNumber = reservedNumber
-                };
-            var response = (GenerateOrderNumberResponse)_publicService.Handle(request);
-            return response.Number;
+            var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            return _numberService.Evaluate(order.Number, syncCodes[order.SourceOrganizationUnitId], syncCodes[order.DestOrganizationUnitId], reservedNumber);
         }
 
         private string GenerateRegionalOrderNumber(Order order, long reservedNumber)
         {
-            var generateOrderRegionalNumberRequest = new GenerateOrderNumberRequest
-                {
-                    Order = order,
-                    ReservedNumber = reservedNumber,
-                    IsRegionalNumber = true
-                };
-            var generateOrderRegionalNumberResponse = (GenerateOrderNumberResponse)_publicService.Handle(generateOrderRegionalNumberRequest);
-            return generateOrderRegionalNumberResponse.Number;
+            var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+            return _numberService.EvaluateRegional(order.Number, syncCodes[order.SourceOrganizationUnitId], syncCodes[order.DestOrganizationUnitId], reservedNumber);
         }
     }
 }

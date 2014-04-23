@@ -243,8 +243,6 @@
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountRequest.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GenerateOrderNumberRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GenerateOrderNumberResponse.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementRequest.cs" />
