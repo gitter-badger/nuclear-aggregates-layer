@@ -4,10 +4,12 @@ using DoubleGis.Erm.BLCore.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Operations.DI;
 using DoubleGis.Erm.BLCore.API.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.API.OrderValidation.DI;
+using DoubleGis.Erm.BLCore.API.Releasing.DI;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Operations.Special;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
+using DoubleGis.Erm.BLCore.Releasing.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.BLFlex.Operations.Global.DI;
@@ -45,6 +47,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                       .RequireZone<OrderValidationZone>()
                                           .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                           .UseAnchor<BlCoreOrderValidationAssembly>()
+                                      .RequireZone<ReleasingZone>()
+                                          .UseAnchor<BlCoreApiReleasingAssembly>()
+                                          .UseAnchor<BlCoreReleasingAssembly>()
                                       .RequireZone<PlatformZone>()
                                           .UseAnchor<BlCoreDalPersistenceServicesAssembly>()
                                           .UseAnchor<PlatformModelAssembly>()
