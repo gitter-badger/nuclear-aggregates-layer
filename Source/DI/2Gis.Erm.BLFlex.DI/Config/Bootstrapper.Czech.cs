@@ -6,6 +6,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
@@ -35,15 +37,21 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                         .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CzechLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}"))
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                        .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
-
                         .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, NullLegalPersonObtainerFlex>(Lifetime.Singleton)
                         .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, NullLegalPersonProfileObtainerFlex>(Lifetime.Singleton)
                         .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton);
+                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton)
+                        .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                        .ConfigureCzechSpecificNumberServices();
+        }
+
+        public static IUnityContainer ConfigureCzechSpecificNumberServices(this IUnityContainer container)
+        {
+            return container
+                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}"))
+                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
+                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("OBJ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet));
         }
 
         // TODO переделать на нормальную метадату
