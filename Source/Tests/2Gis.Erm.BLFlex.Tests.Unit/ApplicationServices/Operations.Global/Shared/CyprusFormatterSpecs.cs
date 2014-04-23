@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Threading;
 
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
@@ -17,7 +16,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.Formatter
     public static class CyprusFormatterSpecs
     {
         [Tags("BL", "Formatter", "Cyprus")]
-        [Subject(typeof(GenerateOrderNumberHandler))]
+        [Subject(typeof(CyprusFormatterFactory))]
         public abstract class FormatterContext
         {
             protected static IFormatterFactory _factory;

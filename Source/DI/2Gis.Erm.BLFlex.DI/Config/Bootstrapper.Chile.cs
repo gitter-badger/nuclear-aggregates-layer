@@ -11,6 +11,8 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -43,15 +45,21 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                         .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve)
-
                         .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, ChileLegalPersonObtainerFlex>(Lifetime.PerResolve)
                         .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, ChileLegalPersonProfileObtainerFlex>(Lifetime.PerResolve)
                         .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.PerResolve);
+                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.PerResolve)
+                        .ConfigureChileSpecificNumberServices();
+        }
+
+        public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)
+        {
+            return container
+                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
+                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
+                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("ORD_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet));
         }
 
         // TODO переделать на нормальную метадату

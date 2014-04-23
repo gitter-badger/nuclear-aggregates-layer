@@ -71,12 +71,14 @@
     <Compile Include="MultiCulture\Concrete\Old\Clients\MultiCultureCheckClientActivitiesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
-    <Compile Include="Chile\Concrete\Old\Orders\Number\ChileGenerateOrderNumberHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
     <Compile Include="BargainPrintFormReadModel.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintHelper.cs" />
     <Compile Include="IBargainPrintFormReadModel.cs" />
+    <Compile Include="MultiCulture\Concrete\AbstractEvaluateOrderNumberService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberWithoutRegionalService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberService.cs" />
     <Compile Include="Chile\Generic\Modify\ChileBranchOfficeValidator.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
@@ -182,7 +184,6 @@
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusValidatePaymentRequisitesIsUniqueHandler.cs" />
-    <Compile Include="Cyprus\Concrete\Old\Orders\Number\CyprusGenerateOrderNumberHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
@@ -202,7 +203,6 @@
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechValidatePaymentRequisitesIsUniqueHandler.cs" />
-    <Compile Include="Czech\Concrete\Old\Orders\Number\CzechGenerateOrderNumberHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintLetterOfGuaranteeHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderHandler.cs" />
@@ -221,7 +221,6 @@
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\MergeLegalPersonsHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueHandler.cs" />
-    <Compile Include="Russia\Concrete\Old\Orders\Number\GenerateOrderNumberHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderHandler.cs" />
@@ -242,7 +241,6 @@
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
     <Compile Include="Ukraine\Concrete\Old\LegalPersons\UkraineValidatePaymentRequisitesIsUniqueHandler.cs" />
-    <Compile Include="Ukraine\Concrete\Old\Orders\Number\UkraineGenerateOrderNumberHandler.cs" />
     <Compile Include="Ukraine\Generic\Get\UkraineGetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Ukraine\Generic\Get\UkraineGetBranchOfficeDtoService.cs" />
     <Compile Include="Ukraine\Generic\Get\UkraineGetLegalPersonProfileDtoService.cs" />

@@ -6,6 +6,8 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -20,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
 {
     public static partial class Bootstrapper
     {
-        internal static IUnityContainer ConfigureRussiaSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
+        public static IUnityContainer ConfigureRussiaSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
                     .RegisterType<IFormatterFactory, RussiaFormatterFactory>(Lifetime.Singleton)
@@ -28,16 +30,24 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                     .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                     .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
+                    .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                    .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                    .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, NullLegalPersonObtainerFlex>(Lifetime.Singleton)
+                    .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, NullLegalPersonProfileObtainerFlex>(Lifetime.Singleton)
+                    .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
+                    .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton)
+                    .ConfigureRussiaSpecificNumberServices();
+        }
+
+        public static IUnityContainer ConfigureRussiaSpecificNumberServices(this IUnityContainer container)
+        {
+            return container
                     .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
                     .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
-
-                    .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, NullLegalPersonObtainerFlex>(Lifetime.Singleton)
-                    .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, NullLegalPersonProfileObtainerFlex>(Lifetime.Singleton)
-                    .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
-                    .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton);
+                    .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "ОФ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
         }
     }
 }
