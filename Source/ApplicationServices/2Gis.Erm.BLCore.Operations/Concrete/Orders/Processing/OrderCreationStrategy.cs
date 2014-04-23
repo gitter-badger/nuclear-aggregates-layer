@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
@@ -16,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     public class OrderCreationStrategy : OrderProcessingStrategy
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IEvaluateOrderNumberService _numberService;
 
         public OrderCreationStrategy(IUserContext userContext,
                                      IOrderRepository orderRepository,
@@ -24,10 +26,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                      IOperationScope operationScope,
                                      IUserRepository userRepository,
                                      IOrderReadModel orderReadModel,
-                                     IAccountRepository accountRepository)
+                                     IAccountRepository accountRepository,
+                                     IEvaluateOrderNumberService numberService)
             : base(userContext, orderRepository, resumeContext, projectService, operationScope, userRepository, orderReadModel)
         {
             _accountRepository = accountRepository;
+            _numberService = numberService;
         }
 
         public override void FinishProcessing(Order order)
@@ -38,14 +42,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void ActualizeOrderNumber(Order order, long? reservedNumberDigit)
         {
+            var syncCodes = OrderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
+
             if (string.IsNullOrEmpty(order.Number))
             {
-                var response = (GenerateOrderNumberResponse)ResumeContext.UseCaseResume(new GenerateOrderNumberRequest
-                    {
-                        Order = order,
-                        ReservedNumber = reservedNumberDigit
-                    });
-                order.Number = response.Number;
+                order.Number = _numberService.Evaluate(order.Number,
+                                                       syncCodes[order.SourceOrganizationUnitId],
+                                                       syncCodes[order.DestOrganizationUnitId],
+                                                       reservedNumberDigit);
             }
 
             order.RegionalNumber = null;
@@ -61,9 +65,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 return;
             }
 
-            var request = new GenerateOrderNumberRequest { Order = order, ReservedNumber = reservedNumberDigit, IsRegionalNumber = true };
-            var regResponse = (GenerateOrderNumberResponse)ResumeContext.UseCaseResume(request);
-            order.RegionalNumber = regResponse.Number;
+            order.RegionalNumber = _numberService.EvaluateRegional(order.Number,
+                                                                   syncCodes[order.SourceOrganizationUnitId],
+                                                                   syncCodes[order.DestOrganizationUnitId],
+                                                                   reservedNumberDigit);
         }
 
         protected override void UpdateDeal(Order order)
