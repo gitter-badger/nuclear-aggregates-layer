@@ -171,7 +171,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Territories\SelectOrganizationUnitTerritoriesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Territories\ValidateTerritoryAvailabilityHandlerTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityTestBase.cs" />
-    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\Number\GenerateOrderNumberHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderHandlerTest.cs" />
