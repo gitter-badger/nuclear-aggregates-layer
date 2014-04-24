@@ -40,6 +40,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
         };
 
+        private readonly ICommonLog _logger;
+        private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IEvaluateOrderNumberService _numberService;
