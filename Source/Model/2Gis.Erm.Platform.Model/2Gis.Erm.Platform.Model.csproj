@@ -178,7 +178,6 @@
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />
-    <Compile Include="Entities\Enums\BankAccountType.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
