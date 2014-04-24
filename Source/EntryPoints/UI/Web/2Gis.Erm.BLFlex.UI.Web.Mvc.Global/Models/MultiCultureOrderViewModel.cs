@@ -25,15 +25,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [Dependency(DependencyType.Required, "OrderNumber", @"Ext.getDom('Id').value != 0")]
         public override long Id
         {
-            get
-            {
-                return base.Id;
-            }
+            get { return base.Id; }
 
-            set
-            {
-                base.Id = value;
-            }
+            set { base.Id = value; }
         }
 
         public bool EditRegionalNumber { get; set; }
@@ -48,12 +42,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public LookupField Client { get; set; }
 
-        [Dependency(DependencyType.ReadOnly, "SourceOrganizationUnit", "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
+        [Dependency(DependencyType.ReadOnly, "SourceOrganizationUnit",
+            "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
         [Dependency(DependencyType.ReadOnly, "DestinationOrganizationUnit", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "LegalPerson", "this.value && this.value.toLowerCase()=='true'")]
-        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit",
+            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
         [Dependency(DependencyType.ReadOnly, "Firm", "this.value && this.value.toLowerCase()=='true'")]
-        [Dependency(DependencyType.Disable, "OrderType", "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
+        [Dependency(DependencyType.Disable, "OrderType",
+            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
         public bool MakeReadOnly
         {
             get { return HasAnyOrderPosition || !IsActive; }
@@ -90,14 +87,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public LookupField LegalPerson { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
+        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         [DisplayNameLocalized("BeginReleaseDate")]
-        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
+        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
         public DateTime BeginDistributionDate { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage")]
+        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage"
+            )]
         [DisplayNameLocalized("EndPlanReleaseDate")]
-        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
+        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
         public DateTime EndDistributionDatePlan { get; set; }
 
         [DisplayNameLocalized("EndFactReleaseDate")]
@@ -135,6 +136,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [Dependency(DependencyType.Required, "Inspector", "this.value == 2")]
         [Dependency(DependencyType.Disable, "PaymentMethod", "this.value >= 2")]
         public int WorkflowStepId { get; set; }
+
         public string AvailableSteps { get; set; }
 
         public long? DgppId { get; set; }
@@ -164,7 +166,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [Dependency(DependencyType.Required, "DiscountComment", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         public decimal? DiscountSum { get; set; }
 
-        [CustomClientValidation("validateDiscountPercent", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "DiscountPercentMustBeBetweenZeroAndOneHundred")]
+        [CustomClientValidation("validateDiscountPercent", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "DiscountPercentMustBeBetweenZeroAndOneHundred")]
         [Dependency(DependencyType.Required, "DiscountReason", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         [Dependency(DependencyType.Required, "DiscountComment", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         public decimal? DiscountPercent { get; set; }
@@ -187,9 +190,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         [ExcludeZeroValue]
         public OrderType OrderType { get; set; }
-
-        [Dependency(DependencyType.Disable, "discountBlock", "this.value=='Budget'")]
-        public OrderBudgetType BudgetType { get; set; }
 
         public LookupField Inspector { get; set; }
 
@@ -269,7 +269,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             OrderType = modelDto.OrderType;
             Inspector = LookupField.FromReference(modelDto.InspectorRef);
             Bargain = LookupField.FromReference(modelDto.BargainRef);
-            BudgetType = modelDto.BudgetType;
             Platform = modelDto.Platform;
             PlatformId = modelDto.PlatformRef != null ? modelDto.PlatformRef.Id : null;
             PaymentMethod = modelDto.PaymentMethod;
@@ -286,59 +285,56 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             var dto = new OrderDomainEntityDto
-            {
-                Id = Id,
-                OrderNumber = OrderNumber,
-                RegionalNumber = RegionalNumber,
-                FirmRef = Firm.ToReference(),
-                ClientRef = new EntityReference(ClientId),
-                DgppId = DgppId,
-                HasAnyOrderPosition = HasAnyOrderPosition,
-                HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
-                BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
-                LegalPersonRef = LegalPerson.ToReference(),
-                CurrencyRef = Currency.ToReference(),
-                BeginDistributionDate = BeginDistributionDate,
-                EndDistributionDatePlan = EndDistributionDatePlan,
-                EndDistributionDateFact = EndDistributionDateFact,
-                BeginReleaseNumber = BeginReleaseNumber,
-                EndReleaseNumberPlan = EndReleaseNumberPlan,
-                EndReleaseNumberFact = EndReleaseNumberFact,
-                SignupDate = SignupDate,
-                ReleaseCountPlan = ReleaseCountPlan,
-                ReleaseCountFact = ReleaseCountFact,
-                PreviousWorkflowStepId = (OrderState)PreviousWorkflowStepId,
-                WorkflowStepId = (OrderState)WorkflowStepId,
-                PayablePlan = PayablePlan,
-                PayableFact = PayableFact,
-                PayablePrice = PayablePrice,
-                VatPlan = VatPlan,
-                AmountToWithdraw = AmountToWithdraw,
-                AmountWithdrawn = AmountWithdrawn,
-                DiscountSum = DiscountSum,
-                DiscountPercent = DiscountPercent,
-                DiscountReasonEnum = DiscountReason,
-                DiscountComment = DiscountComment,
-                DiscountPercentChecked = DiscountPercentChecked,
-                Comment = Comment,
-                IsTerminated = IsTerminated,
-                TerminationReason = TerminationReason,
-                OrderType = OrderType,
-                InspectorRef = Inspector.ToReference(),
-                BargainRef = Bargain.ToReference(),
-                BudgetType = BudgetType,
-                Platform = Platform,
-                PlatformRef = new EntityReference(PlatformId),
-                HasDocumentsDebt = HasDocumentsDebt,
-                DocumentsComment = DocumentsComment,
-                AccountRef = new EntityReference(AccountId),
-                PaymentMethod = PaymentMethod,
-                LegalPersonProfileRef = new EntityReference(LegalPersonProfileId),
-
-                OwnerRef = Owner.ToReference(),
-
-                Timestamp = Timestamp,
-            };
+                {
+                    Id = Id,
+                    OrderNumber = OrderNumber,
+                    RegionalNumber = RegionalNumber,
+                    FirmRef = Firm.ToReference(),
+                    ClientRef = new EntityReference(ClientId),
+                    DgppId = DgppId,
+                    HasAnyOrderPosition = HasAnyOrderPosition,
+                    HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
+                    BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
+                    LegalPersonRef = LegalPerson.ToReference(),
+                    CurrencyRef = Currency.ToReference(),
+                    BeginDistributionDate = BeginDistributionDate,
+                    EndDistributionDatePlan = EndDistributionDatePlan,
+                    EndDistributionDateFact = EndDistributionDateFact,
+                    BeginReleaseNumber = BeginReleaseNumber,
+                    EndReleaseNumberPlan = EndReleaseNumberPlan,
+                    EndReleaseNumberFact = EndReleaseNumberFact,
+                    SignupDate = SignupDate,
+                    ReleaseCountPlan = ReleaseCountPlan,
+                    ReleaseCountFact = ReleaseCountFact,
+                    PreviousWorkflowStepId = (OrderState)PreviousWorkflowStepId,
+                    WorkflowStepId = (OrderState)WorkflowStepId,
+                    PayablePlan = PayablePlan,
+                    PayableFact = PayableFact,
+                    PayablePrice = PayablePrice,
+                    VatPlan = VatPlan,
+                    AmountToWithdraw = AmountToWithdraw,
+                    AmountWithdrawn = AmountWithdrawn,
+                    DiscountSum = DiscountSum,
+                    DiscountPercent = DiscountPercent,
+                    DiscountReasonEnum = DiscountReason,
+                    DiscountComment = DiscountComment,
+                    DiscountPercentChecked = DiscountPercentChecked,
+                    Comment = Comment,
+                    IsTerminated = IsTerminated,
+                    TerminationReason = TerminationReason,
+                    OrderType = OrderType,
+                    InspectorRef = Inspector.ToReference(),
+                    BargainRef = Bargain.ToReference(),
+                    Platform = Platform,
+                    PlatformRef = new EntityReference(PlatformId),
+                    HasDocumentsDebt = HasDocumentsDebt,
+                    DocumentsComment = DocumentsComment,
+                    AccountRef = new EntityReference(AccountId),
+                    PaymentMethod = PaymentMethod,
+                    LegalPersonProfileRef = new EntityReference(LegalPersonProfileId),
+                    OwnerRef = Owner.ToReference(),
+                    Timestamp = Timestamp,
+                };
 
             if (SourceOrganizationUnit.Key.HasValue)
             {
