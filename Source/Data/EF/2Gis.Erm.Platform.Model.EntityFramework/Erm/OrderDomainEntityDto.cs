@@ -123,8 +123,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public decimal AmountWithdrawn { get; set; }
     	[DataMember]
-        public OrderBudgetType BudgetType { get; set; }
-    	[DataMember]
         public Nullable<long> InspectorCode { get; set; }
     	[DataMember]
         public string Comment { get; set; }

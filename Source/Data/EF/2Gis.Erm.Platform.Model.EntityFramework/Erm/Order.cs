@@ -110,7 +110,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public decimal VatPlan { get; set; }
         public decimal AmountToWithdraw { get; set; }
         public decimal AmountWithdrawn { get; set; }
-        public int BudgetType { get; set; }
         public Nullable<long> InspectorCode { get; set; }
         public string Comment { get; set; }
         public int OrderType { get; set; }

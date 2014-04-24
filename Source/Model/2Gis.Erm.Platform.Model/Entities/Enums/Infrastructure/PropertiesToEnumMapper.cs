@@ -17,10 +17,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<AdvertisementElement>(entity => entity.Error), typeof(AdvertisementElementError) },
                 { CreateKey<AdvertisementElementTemplate>(entity => entity.RestrictionType), typeof(AdvertisementElementRestrictionType) },
                 { CreateKey<AssociatedPosition>(entity => entity.ObjectBindingType), typeof(ObjectBindingType) },
-                { CreateKey<Bargain>(entity => entity.HasDocumentsDebt), typeof(DocumentsDebt) }, 
-                { CreateKey<BargainFile>(entity => entity.FileKind), typeof(BargainFileKind) }, 
-                { CreateKey<Client>(entity => entity.InformationSource), typeof(InformationSource) }, 
-                { CreateKey<Contact>(entity => entity.GenderCode), typeof(Gender) }, 
+                { CreateKey<Bargain>(entity => entity.HasDocumentsDebt), typeof(DocumentsDebt) },
+                { CreateKey<BargainFile>(entity => entity.FileKind), typeof(BargainFileKind) },
+                { CreateKey<Client>(entity => entity.InformationSource), typeof(InformationSource) },
+                { CreateKey<Contact>(entity => entity.GenderCode), typeof(Gender) },
                 { CreateKey<Contact>(entity => entity.FamilyStatusCode), typeof(FamilyStatus) },
                 { CreateKey<Contact>(entity => entity.AccountRole), typeof(AccountRole) },
                 { CreateKey<Deal>(entity => entity.DealStage), typeof(DealStage) },
@@ -47,11 +47,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<Order>(entity => entity.DiscountReasonEnum), typeof(OrderDiscountReason) },
                 { CreateKey<Order>(entity => entity.TerminationReason), typeof(OrderTerminationReason) },
                 { CreateKey<Order>(entity => entity.OrderType), typeof(OrderType) },
-                { CreateKey<Order>(entity => entity.BudgetType), typeof(OrderBudgetType) },
                 { CreateKey<Order>(entity => entity.HasDocumentsDebt), typeof(DocumentsDebt) },
                 { CreateKey<OrderFile>(entity => entity.FileKind), typeof(OrderFileKind) },
-                { CreateKey<Platform.Model.Entities.Erm.Platform>(entity => entity.PlacementPeriodEnum), typeof(PositionPlatformPlacementPeriod) },
-                { CreateKey<Platform.Model.Entities.Erm.Platform>(entity => entity.MinPlacementPeriodEnum), typeof(PositionPlatformMinPlacementPeriod) },
+                { CreateKey<Erm.Platform>(entity => entity.PlacementPeriodEnum), typeof(PositionPlatformPlacementPeriod) },
+                { CreateKey<Erm.Platform>(entity => entity.MinPlacementPeriodEnum), typeof(PositionPlatformMinPlacementPeriod) },
                 { CreateKey<Position>(entity => entity.CalculationMethodEnum), typeof(PositionCalculationMethod) },
                 { CreateKey<Position>(entity => entity.AccountingMethodEnum), typeof(PositionAccountingMethod) },
                 { CreateKey<Position>(entity => entity.BindingObjectTypeEnum), typeof(PositionBindingObjectType) },
@@ -183,6 +182,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
 
             return ((MemberExpression)unaryExpression.Operand).Member.DeclaringType;
         }
+
         #endregion
     }
 }

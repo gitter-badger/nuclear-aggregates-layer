@@ -33,6 +33,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public EntityReference PriceRef { get; set; }
     	[DataMember]
+        public EntityReference OrderPositionRef { get; set; }
+    	[DataMember]
         public string Description { get; set; }
     	[DataMember]
         public bool IsActive { get; set; }
