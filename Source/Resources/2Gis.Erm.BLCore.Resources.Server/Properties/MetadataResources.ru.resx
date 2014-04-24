@@ -1356,4 +1356,7 @@
   <data name="Mfo" xml:space="preserve">
     <value>МФО</value>
   </data>
+  <data name="OrderPosition" xml:space="preserve">
+    <value>Позиция заказа</value>
+  </data>
 </root>

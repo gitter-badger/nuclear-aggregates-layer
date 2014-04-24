@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -85,8 +84,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.DTO
         public string OrderNumber { get; set; }
         public long? AccountId { get; set; }
         public long PriceId { get; set; }
-        public bool IsBudget { get; set; }
         public decimal AmountToWithdrawSum { get; set; }
+
+        public IEnumerable<OrderPositionReleaseInfo> OrderPositions { get; set; }
+    }
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public class OrderPositionReleaseInfo
+    {
+        public long OrderPositionId { get; set; }
+        public bool IsPlannedProvision { get; set; }
+        public decimal AmountToWithdraw { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

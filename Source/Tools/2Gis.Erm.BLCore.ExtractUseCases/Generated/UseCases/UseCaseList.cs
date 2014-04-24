@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
@@ -39,7 +38,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.CrmActivities;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Firms;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Billing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC;
@@ -1035,11 +1033,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         },
         new UseCaseNode(1)
         {
-            ContainingClass = typeof(ExportOrdersHandler),
-            Request = typeof(ExportOrdersRequest)
-        },
-        new UseCaseNode(1)
-        {
             ContainingClass = typeof(ExportLegalPersonsHandler),
             Request = typeof(ExportLegalPersonsRequest),
             ChildNodes = new[]
@@ -1094,11 +1087,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Request = typeof(CreateLocalMessageRequest)
                 }
             }
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ExportOrdersHandler),
-            Request = typeof(ExportOrdersRequest)
         },
         new UseCaseNode(1)
         {

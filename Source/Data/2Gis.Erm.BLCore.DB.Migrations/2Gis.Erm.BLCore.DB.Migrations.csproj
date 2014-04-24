@@ -684,6 +684,8 @@
     <Compile Include="2.1\2014.02.14 rev. 16620 - alter UpdateBuildings.cs" />
     <Compile Include="2.1\2014.02.10 rev. 16180 - Change type of RatePricePosition and rename.cs" />
     <Compile Include="2.1\2014.04.18 rev. 19684 - Alter UpdateBuildings.cs" />
+    <Compile Include="2.1\2014.04.21 rev. 19787 - drop BudgetType column from Billing.Orders.cs" />
+    <Compile Include="2.1\2014.04.21 rev. 19802 - create OrderPositionId column in Billing.LockDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />

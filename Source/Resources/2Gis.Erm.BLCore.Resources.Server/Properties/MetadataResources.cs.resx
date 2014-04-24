@@ -1344,6 +1344,9 @@
   <data name="OperationsKind" xml:space="preserve">
     <value>Druh činnosti</value>
   </data>
+  <data name="OrderPosition" xml:space="preserve">
+    <value>Позиция заказа</value>
+  </data>
   <data name="Egrpou" xml:space="preserve">
     <value>ЕГРПОУ</value>
   </data>

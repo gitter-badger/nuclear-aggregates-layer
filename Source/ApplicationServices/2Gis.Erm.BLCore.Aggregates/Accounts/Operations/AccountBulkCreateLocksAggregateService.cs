@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.Platform.API.Core;
@@ -14,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
     public sealed class AccountBulkCreateLocksAggregateService : IAccountBulkCreateLocksAggregateService
     {
-        private readonly IRepository<Lock> _lockRepository;
-        private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IIdentityProvider _identityProvider;
-        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IRepository<LockDetail> _lockDetailRepository;
+        private readonly IRepository<Lock> _lockRepository;
         private readonly ICommonLog _logger;
+        private readonly IOperationScopeFactory _scopeFactory;
 
         public AccountBulkCreateLocksAggregateService(
             IRepository<Lock> lockRepository,
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 
         public void Create(TimePeriod period, IEnumerable<OrderReleaseInfo> orderReleaseInfo)
         {
-            int createdLocks = 0;
+            var createdLocks = 0;
             using (var scope = _scopeFactory.CreateSpecificFor<BulkCreateIdentity, Lock>())
             {
                 foreach (var orderInfo in orderReleaseInfo)
@@ -47,26 +48,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                     }
 
                     var newlock = new Lock
-                    {
-                        OrderId = orderInfo.OrderId,
-                        AccountId = orderInfo.AccountId.Value,
-                        PeriodStartDate = period.Start,
-                        PeriodEndDate = period.End,
-                        PlannedAmount = orderInfo.AmountToWithdrawSum,
-                        IsActive = true
-                    };
+                        {
+                            OrderId = orderInfo.OrderId,
+                            AccountId = orderInfo.AccountId.Value,
+                            PeriodStartDate = period.Start,
+                            PeriodEndDate = period.End,
+                            PlannedAmount = orderInfo.AmountToWithdrawSum,
+                            IsActive = true
+                        };
 
                     _identityProvider.SetFor(newlock);
 
-                    if (!orderInfo.IsBudget)
+                    foreach (var op in orderInfo.OrderPositions.Where(op => !op.IsPlannedProvision))
                     {
-                        var lockDetail = new LockDetail { LockId = newlock.Id, PriceId = orderInfo.PriceId, Amount = newlock.PlannedAmount, IsActive = true };
+                        var lockDetail = new LockDetail
+                            {
+                                LockId = newlock.Id,
+                                PriceId = orderInfo.PriceId,
+                                OrderPositionId = op.OrderPositionId,
+                                Amount = op.AmountToWithdraw,
+                                IsActive = true
+                            };
+
                         _identityProvider.SetFor(lockDetail);
 
                         scope.Added<LockDetail>(lockDetail.Id);
                         _lockDetailRepository.Add(lockDetail);
-                        
-                        newlock.Balance = newlock.PlannedAmount;
+
+                        newlock.Balance += lockDetail.Amount;
                     }
 
                     _lockRepository.Add(newlock);

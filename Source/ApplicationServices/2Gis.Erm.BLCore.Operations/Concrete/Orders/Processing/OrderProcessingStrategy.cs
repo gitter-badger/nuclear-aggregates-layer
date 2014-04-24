@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
     public abstract class OrderProcessingStrategy : IOrderProcessingStrategy
     {
         protected readonly IOperationScope OperationScope;
-        private readonly IUserContext _userContext;
-        private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IOrderRepository _orderRepository;
         private readonly IProjectService _projectService;
-        private readonly IUserRepository _userRepository;
         private readonly IUseCaseResumeContext<EditOrderRequest> _resumeContext;
+        private readonly IUserContext _userContext;
+        private readonly IUserRepository _userRepository;
 
         protected OrderProcessingStrategy(
             IUserContext userContext,
@@ -46,18 +46,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected IOrderRepository OrderRepository
         {
-            get
-            {
-                return _orderRepository;
-            }
+            get { return _orderRepository; }
         }
 
         protected IUseCaseResumeContext<EditOrderRequest> ResumeContext
         {
-            get
-            {
-                return _resumeContext;
-            }
+            get { return _resumeContext; }
         }
 
         protected IOrderReadModel OrderReadModel
@@ -74,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 throw new ArgumentException(BLResources.OrderValidateSignupDateMustBeLessThanBeginDistributionDate);
             }
 
-            if (((order.DiscountPercent.HasValue && order.DiscountPercent != 0m) || (order.DiscountSum.HasValue && order.DiscountSum != 0m)) 
+            if (((order.DiscountPercent.HasValue && order.DiscountPercent != 0m) || (order.DiscountSum.HasValue && order.DiscountSum != 0m))
                 && order.DiscountReasonEnum == (int)OrderDiscountReason.None)
             {
                 throw new ArgumentException(BLResources.OrderValidateDiscountReasonRequired);
@@ -122,7 +116,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             var reservedNumberDigit = ResumeContext.Request.ReservedNumberDigit;
             ActualizeOrderNumber(order, reservedNumberDigit);
             UpdateDeal(order);
-            DetermineOrderBudgetType(order);
             DetermineOrderPlatform(order);
             CreateAccount(order);
         }
@@ -140,10 +133,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         }
 
         protected virtual void UpdateDeal(Order order)
-        {
-        }
-
-        protected virtual void DetermineOrderBudgetType(Order order)
         {
         }
 

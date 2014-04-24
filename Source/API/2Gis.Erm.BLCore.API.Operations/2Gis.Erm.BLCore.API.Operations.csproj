@@ -171,7 +171,6 @@
     <Compile Include="Concrete\Old\HotClient\CreateHotClientResponse.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\MailSendingType.cs" />
-    <Compile Include="Concrete\Old\Integration\Billing\ExportOrdersRequest.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersRequest.cs" />
