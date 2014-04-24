@@ -24,6 +24,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [DisplayNameLocalized("PriceList")]
         public LookupField Price { get; set; }
 
+        public LookupField OrderPosition { get; set; }
+
         // Описание
         [StringLengthLocalized(200)]
         public string Description { get; set; }
@@ -40,6 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             CreateDate = modelDto.CreatedOn;
             Amount = modelDto.Amount;
             Price = LookupField.FromReference(modelDto.PriceRef);
+            OrderPosition = LookupField.FromReference(modelDto.OrderPositionRef);
             Description = modelDto.Description;
             LockId = modelDto.LockRef.Id.Value;
             Timestamp = modelDto.Timestamp;
