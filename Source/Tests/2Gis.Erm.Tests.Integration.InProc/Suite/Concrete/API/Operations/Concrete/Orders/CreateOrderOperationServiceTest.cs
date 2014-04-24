@@ -66,7 +66,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                     BargainRef = new EntityReference(bargain.Id),
                     BeginDistributionDate = DateTime.Now.GetNextMonthFirstDate(),
                     WorkflowStepId = OrderState.OnRegistration,
-                    BudgetType = OrderBudgetType.Sell,
                     OrderType = OrderType.Sale,
                     PaymentMethod = PaymentMethod.CashPayment,
                     PayableFact = 1000m,

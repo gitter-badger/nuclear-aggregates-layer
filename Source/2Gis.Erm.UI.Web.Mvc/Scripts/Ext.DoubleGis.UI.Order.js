@@ -439,7 +439,6 @@ window.InitPage = function () {
                     // updating EntityStateToken
                     card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
 
-                    card.form.BudgetType.value = orderAggregate.BudgetType;
                     card.form.DiscountReason.value = orderAggregate.DiscountReason;
                     // prevent setting of "null"
                     card.form.OrderNumber.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
