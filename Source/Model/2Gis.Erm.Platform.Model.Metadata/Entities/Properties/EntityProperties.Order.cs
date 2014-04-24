@@ -251,12 +251,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrderType)),
 
-                    EntityProperty.Create<OrderDomainEntityDto>(dto => dto.BudgetType)
-                                  .WithFeatures(
-                                      new EnumPropertyFeature(EnumResources.ResourceManager),
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.BudgetType),
-                                      new HiddenFeature()),
-
                     EntityProperty.Create<OrderDomainEntityDto>(dto => dto.InspectorRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User)

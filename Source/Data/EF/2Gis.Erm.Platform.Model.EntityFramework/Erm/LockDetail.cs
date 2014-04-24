@@ -35,6 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public decimal Amount { get; set; }
         public long PriceId { get; set; }
+        public Nullable<long> OrderPositionId { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

@@ -655,6 +655,7 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="OrderPositionId" Type="bigint" Nullable="true" />
           <Property Name="PriceId" Type="bigint" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -874,7 +875,6 @@
           <Property Name="DocumentsComment" Type="nvarchar" MaxLength="300" />
           <Property Name="TechnicallyTerminatedOrderId" Type="bigint" />
           <Property Name="InspectorCode" Type="bigint" />
-          <Property Name="BudgetType" Type="int" Nullable="false" />
           <Property Name="AmountWithdrawn" Type="decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="300" />
           <Property Name="PlatformId" Type="bigint" />
@@ -6063,6 +6063,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Type="Decimal" Name="Amount" Nullable="false" Precision="19" Scale="4" />
         <Property Type="Int64" Name="PriceId" Nullable="false" />
+        <Property Type="Int64" Name="OrderPositionId" Nullable="true" />
         <Property Type="String" Name="Description" MaxLength="200" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -7268,7 +7269,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Decimal" Name="VatPlan" Precision="19" Scale="4" Nullable="false" />
         <Property Type="Decimal" Name="AmountToWithdraw" Precision="19" Scale="4" Nullable="false" />
         <Property Type="Decimal" Name="AmountWithdrawn" Precision="19" Scale="4" Nullable="false" />
-        <Property Type="Int32" Name="BudgetType" Nullable="false" />
         <Property Type="Int64" Name="InspectorCode" />
         <Property Type="String" Name="Comment" MaxLength="300" FixedLength="false" Unicode="true" />
         <Property Type="Int32" Name="OrderType" Nullable="false" />
@@ -9950,6 +9950,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
               <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               <ScalarProperty Name="Description" ColumnName="Description" />
               <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+              <ScalarProperty Name="OrderPositionId" ColumnName="OrderPositionId" />
               <ScalarProperty Name="Amount" ColumnName="Amount" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
@@ -10573,7 +10574,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
               <ScalarProperty Name="OrderType" ColumnName="OrderType" />
               <ScalarProperty Name="Comment" ColumnName="Comment" />
               <ScalarProperty Name="InspectorCode" ColumnName="InspectorCode" />
-              <ScalarProperty Name="BudgetType" ColumnName="BudgetType" />
               <ScalarProperty Name="AmountWithdrawn" ColumnName="AmountWithdrawn" />
               <ScalarProperty Name="AmountToWithdraw" ColumnName="AmountToWithdraw" />
               <ScalarProperty Name="VatPlan" ColumnName="VatPlan" />
