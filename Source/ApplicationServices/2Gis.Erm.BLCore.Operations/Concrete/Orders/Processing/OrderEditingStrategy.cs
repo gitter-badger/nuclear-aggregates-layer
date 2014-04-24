@@ -40,8 +40,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
         };
 
-        private readonly ICommonLog _logger;
-        private readonly IReleaseReadModel _releaseRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IEvaluateOrderNumberService _numberService;
@@ -78,7 +76,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             // todo {all, 2013-08-05}: эта самая проверка выполняется в хендлере. действительно есть необходимость её выпонять ещё раз?
             if (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)
             {
-                var isReleaseInProgress = _releaseRepository.HasFinalReleaseInProgress(order.DestOrganizationUnitId, new TimePeriod(order.BeginDistributionDate, order.EndDistributionDateFact));
+                var isReleaseInProgress = _releaseRepository.HasFinalReleaseInProgress(order.DestOrganizationUnitId,
+                                                                                       new TimePeriod(order.BeginDistributionDate, order.EndDistributionDateFact));
                 if (isReleaseInProgress)
                 {
                     throw new ArgumentException(BLResources.OrderChangesDeniedByRelease);
@@ -119,7 +118,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             CheckField(order.SourceOrganizationUnitId != orderStateValidationInfo.SourceOrganizationUnitId, MetadataResources.SourceOrganizationUnit, message);
             CheckField(order.DestOrganizationUnitId != orderStateValidationInfo.DestOrganizationUnitId, MetadataResources.DestinationOrganizationUnit, message);
             CheckField(order.LegalPersonId != orderStateValidationInfo.LegalPersonId, MetadataResources.LegalPerson, message);
-            CheckField(order.BranchOfficeOrganizationUnitId != orderStateValidationInfo.BranchOfficeOrganizationUnitId, MetadataResources.BranchOfficeOrganizationUnitName, message);
+            CheckField(order.BranchOfficeOrganizationUnitId != orderStateValidationInfo.BranchOfficeOrganizationUnitId,
+                       MetadataResources.BranchOfficeOrganizationUnitName,
+                       message);
 
             if (message.Length > 0)
             {
@@ -167,19 +168,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         protected override void UpdateFinancialInformation(Order order)
         {
             #region Logging
+
             _logger.InfoFormatEx("Обновление скидки заказа [{0}]", order.Id);
+
             #endregion
+
             ResumeContext.UseCaseResume(new UpdateOrderDiscountRequest { Order = order, DiscountInPercents = ResumeContext.Request.DiscountInPercents });
+
             #region Logging
+
             _logger.DebugEx("Обновление скидки заказа - завершено");
+
             #endregion
 
             #region Logging
+
             _logger.InfoFormatEx("Обновление остатков по заказу [{0}]", order.Id);
+
             #endregion
+
             ResumeContext.UseCaseResume(new CalculateReleaseWithdrawalsRequest { Order = order });
+
             #region Logging
+
             _logger.DebugEx("Обновление остатков по заказу - завершено");
+
             #endregion
         }
 
@@ -195,20 +208,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             OperationScope.Updated<Deal>(order.DealId.Value);
         }
 
-        protected override void DetermineOrderBudgetType(Order order)
-        {
-            #region Logging
-            _logger.InfoEx("Установка бюджетного типа заказа");
-            #endregion
-            OrderReadModel.DetermineOrderBudgetType(order);
-            #region Logging
-            _logger.DebugEx("Установка бюджетного типа заказа - завершено");
-            #endregion
-        }
-
         protected override void DetermineOrderPlatform(Order order)
         {
-            OrderReadModel.DetermineOrderPlatform(order);
+            OrderReadModel.UpdateOrderPlatform(order);
         }
 
         protected override void CreateAccount(Order order)

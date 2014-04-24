@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             DateTime endPeriodDate);
 
         IEnumerable<long> DetermineOrderPlatforms(long orderId);
-        void DetermineOrderPlatform(Order order);
+        void UpdateOrderPlatform(Order order);
         IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId);
         Order GetOrderByBill(long billId);
         OrderWithBillsDto GetOrderWithBills(long orderId);
@@ -46,7 +46,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             decimal newDiscountSum);
 
         Note GetLastNoteForOrder(long orderId, DateTime sinceDate);
-        void DetermineOrderBudgetType(Order order);
         bool IsOrganizationUnitsBothBranches(long sourceOrganizationUnitId, long destOrganizationUnitId);
 
         /// <summary>

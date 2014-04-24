@@ -105,7 +105,6 @@
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
     <Compile Include="Concrete\Old\Firms\CheckMsCrmFirmActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Billing\ExportOrdersHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />

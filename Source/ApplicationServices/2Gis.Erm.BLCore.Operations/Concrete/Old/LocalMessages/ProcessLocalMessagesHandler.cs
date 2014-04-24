@@ -6,13 +6,13 @@ using System.Linq;
 using System.Transactions;
 using System.Xml;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.Aggregates.LocalMessages.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -27,13 +27,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
     public sealed class ProcessLocalMessagesHandler : RequestHandler<ProcessLocalMessagesRequest, EmptyResponse>
     {
-        private readonly ICommonLog _logger;
-
-        private readonly ILocalMessageRepository _localMessageRepository;
         private readonly IFileService _fileService;
+        private readonly ILocalMessageRepository _localMessageRepository;
+        private readonly ICommonLog _logger;
         private readonly ISubRequestProcessor _subRequestProcessor;
 
-        public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository, IFileService fileService, ISubRequestProcessor subRequestProcessor, ICommonLog logger)
+        public ProcessLocalMessagesHandler(ILocalMessageRepository localMessageRepository,
+                                           IFileService fileService,
+                                           ISubRequestProcessor subRequestProcessor,
+                                           ICommonLog logger)
         {
             _localMessageRepository = localMessageRepository;
             _fileService = fileService;
@@ -102,10 +104,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                 var resultMessage =
                     string.Format(
-                        "Cообщение загружено успешно [{0}]: было обработано [{1}] элементов из [{2}]",
-                        localMessageDto.LocalMessage.Id,
-                        response.Processed,
-                        response.Total);
+                                  "Cообщение загружено успешно [{0}]: было обработано [{1}] элементов из [{2}]",
+                                  localMessageDto.LocalMessage.Id,
+                                  response.Processed,
+                                  response.Total);
                 _logger.InfoEx(resultMessage);
 
                 messages.Add(resultMessage);
@@ -135,21 +137,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             switch (integrationType)
             {
                 case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return ProcessFirmsWithActiveOrdersToDgpp(localMessageDto);
-                    }
+                {
+                    return ProcessFirmsWithActiveOrdersToDgpp(localMessageDto);
+                }
 
                 case IntegrationTypeExport.DataForAutoMailer:
-                    {
-                        return ProcessDataForAutoMailer(localMessageDto);
-                    }
+                {
+                    return ProcessDataForAutoMailer(localMessageDto);
+                }
 
                 case IntegrationTypeExport.AccountDetailsToServiceBus:
                 {
                     return ProcessAccountDetailsToServiceBus(localMessageDto);
                 }
 
-                case IntegrationTypeExport.OrdersToBilling:
                 case IntegrationTypeExport.LegalPersonsTo1C:
                 case IntegrationTypeExport.AccountDetailsTo1C:
                 case IntegrationTypeExport.None:
@@ -168,7 +169,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     MessageStream = stream,
                     FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => DoubleGis.Erm.BLCore.Operations.Properties.Resources.flowFinancialData_DebitsInfo
+                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfo
                 },
                                                                          Context,
                                                                          false);
@@ -186,13 +187,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var stream = file.Content;
 
             var response = (ExportResponse)_subRequestProcessor.HandleSubRequest(
-                new WriteFirmsWithActiveOrdersToRabbitMqRequest
-                {
-                    MessageStream = stream,
-                    OrganizationUnitId = localMessageDto.LocalMessage.OrganizationUnitId.Value,
-                },
-                Context,
-                false);
+                                                                                 new WriteFirmsWithActiveOrdersToRabbitMqRequest
+                                                                                     {
+                                                                                         MessageStream = stream,
+                                                                                         OrganizationUnitId =
+                                                                                             localMessageDto.LocalMessage.OrganizationUnitId.Value,
+                                                                                     },
+                                                                                 Context,
+                                                                                 false);
 
             return response;
         }
@@ -203,13 +205,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var stream = file.Content;
 
             return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-            {
-                MessageStream = stream,
-                FlowName = "flowDeliveryData",
-                XsdSchemaResourceExpression = () => DoubleGis.Erm.BLCore.Operations.Properties.Resources.flowDeliveryData_SendingGroup
-            },
-                                                             Context,
-                                                             false);
+                {
+                    MessageStream = stream,
+                    FlowName = "flowDeliveryData",
+                    XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
+                },
+                                                                         Context,
+                                                                         false);
         }
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
@@ -223,31 +225,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             switch (integrationType)
             {
                 case IntegrationTypeImport.FirmsFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportFirmsRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
+                {
+                    response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                                                                                     new DgppImportFirmsRequest { MessageStream = stream },
+                                                                                     Context,
+                                                                                     false);
+                    break;
+                }
 
                 case IntegrationTypeImport.TerritoriesFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportTerritoriesRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
+                {
+                    response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                                                                                     new DgppImportTerritoriesRequest { MessageStream = stream },
+                                                                                     Context,
+                                                                                     false);
+                    break;
+                }
 
                 case IntegrationTypeImport.AccountDetailsFrom1C:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new ImportAccountDetailsFrom1CRequest { InputStream = stream, FileName = localMessageDto.FileName },
-                            Context,
-                            false);
-                        break;
-                    }
+                {
+                    response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                                                                                     new ImportAccountDetailsFrom1CRequest
+                                                                                         {
+                                                                                             InputStream = stream,
+                                                                                             FileName = localMessageDto.FileName
+                                                                                         },
+                                                                                     Context,
+                                                                                     false);
+                    break;
+                }
 
                 default:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на импорт");

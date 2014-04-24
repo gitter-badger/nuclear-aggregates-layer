@@ -32,7 +32,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         int GetNonDeletedLocksCount(long orderId);
         int GetActiveLocksCount(long orderId);
         int GetInactiveLocksCount(long orderId);
-        int DeleteLocksForPeriod(long destinationOrganizationUnitId, TimePeriod period);
         void UpdateAccountBalance(IEnumerable<long> accountIds);
         decimal? CalculateDebitForOrderPaymentSum(long orderId);
         void RecalculateLockValue(Lock lockEntity);
@@ -49,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         int Create(AccountDetail accountDetail);
         int Create(IEnumerable<AccountDetail> accountDetails);
         int Create(Lock @lock);
-        int CreateLockDetailForLock(long lockId, long priceId, decimal amount);
         int Create(Limit limit);
 
         int Update(Account account);

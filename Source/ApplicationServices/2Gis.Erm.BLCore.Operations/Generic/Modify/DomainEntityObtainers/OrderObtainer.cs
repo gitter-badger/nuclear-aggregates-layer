@@ -54,7 +54,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.DocumentsComment = string.IsNullOrEmpty(dto.DocumentsComment) ? null : dto.DocumentsComment;
             order.AmountToWithdraw = dto.AmountToWithdraw;
             order.AmountWithdrawn = dto.AmountWithdrawn;
-            order.BudgetType = (int)dto.BudgetType;
             order.Comment = dto.Comment;
             order.DiscountPercent = dto.DiscountPercent;
             order.DiscountSum = dto.DiscountSum;
@@ -69,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.PaymentMethod = (int)dto.PaymentMethod;
             order.OwnerCode = dto.OwnerRef.Id.Value;
             order.Timestamp = dto.Timestamp;
-            
+
             return order;
         }
     }

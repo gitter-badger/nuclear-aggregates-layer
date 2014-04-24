@@ -10,7 +10,6 @@ using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -119,25 +118,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return count;
         }
 
-        public int CreateLockDetailForLock(long lockId, long priceId, decimal amount)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.LockDetail))
-            {
-                var lockDetail = new LockDetail { LockId = lockId, PriceId = priceId, Amount = amount, IsActive = true };
-
-                _identityProvider.SetFor(lockDetail);
-                _lockDetailGenericRepository.Add(lockDetail);
-                count = _lockDetailGenericRepository.Save();
-
-                operationScope
-                    .Added<LockDetail>(lockDetail.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
         public Limit GetLimitById(long id)
         {
             return _finder.Find(Specs.Find.ById<Limit>(id)).SingleOrDefault();
@@ -146,46 +126,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public Limit GetLimitByReplicationCode(Guid replicationCode)
         {
             return _finder.Find<Limit>(limit => limit.ReplicationCode == replicationCode).SingleOrDefault();
-        }
-
-        public int DeleteLocksForPeriod(long destinationOrganizationUnitId, TimePeriod period)
-        {
-            var processedItems = 0;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.Lock))
-            {
-                var lockInfos =
-                    _finder.Find(AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(destinationOrganizationUnitId, period))
-                    .Select(l => new { Lock = l, l.LockDetails });
-
-                foreach (var lockInfo in lockInfos)
-                {
-                    decimal balance = 0m;
-
-                    if (lockInfo.LockDetails != null)
-                    {
-                        foreach (var lockDetail in lockInfo.LockDetails)
-                        {
-                            balance += lockDetail.Amount;
-                            
-                            _lockDetailGenericRepository.Delete(lockDetail);
-                            operationScope.Deleted<LockDetail>(lockDetail.Id);
-                        }
-
-                        _lockDetailGenericRepository.Save();
-                    }
-                    
-                    lockInfo.Lock.Balance = balance;
-                    _lockGenericRepository.Delete(lockInfo.Lock);
-                    operationScope.Deleted<Lock>(lockInfo.Lock.Id);
-
-                    _lockGenericRepository.Save();
-                    ++processedItems;
-                }
-                
-                operationScope.Complete();
-            }
-
-            return processedItems;
         }
 
         public int Update(AccountDetail accountDetail)
@@ -709,8 +649,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public void RecalculateLockValue(Lock lockEntity)
         {
             lockEntity.Balance = _finder.Find(Specs.Find.ActiveAndNotDeleted<LockDetail>())
-                .Where(detail => detail.LockId == lockEntity.Id)
-                .Sum(detail => (decimal?)detail.Amount ?? 0);
+                                        .Where(detail => detail.LockId == lockEntity.Id)
+                                        .Sum(detail => (decimal?)detail.Amount) ?? 0;
         }
 
         public LimitDto InitializeLimitForAccount(long accountId, DateTime periodStart, DateTime periodEnd)

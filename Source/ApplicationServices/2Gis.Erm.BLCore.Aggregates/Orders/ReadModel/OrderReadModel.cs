@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -30,9 +28,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
     public sealed class OrderReadModel : IOrderReadModel
     {
+        private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
-        private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
         public OrderReadModel(IFinder finder, ISecureFinder secureFinder, ISecurityServiceEntityAccess entityAccessService, IUserContext userContext)
@@ -50,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                               {
                                   OrderId = o.Id,
                                   OrderNumber = o.Number,
-                                  IsBudget = o.BudgetType == (int)OrderBudgetType.Budget,
                                   AccountId = o.AccountId
                                               ?? o.BranchOfficeOrganizationUnit.Accounts
                                                   .Where(x => x.IsActive && !x.IsDeleted && x.LegalPersonId == o.LegalPersonId)
@@ -60,7 +57,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                   AmountToWithdrawSum = o.OrderReleaseTotals
                                                          .Where(x => x.ReleaseBeginDate == period.Start && x.ReleaseEndDate == period.End)
                                                          .Select(x => x.AmountToWithdraw)
-                                                         .FirstOrDefault()
+                                                         .FirstOrDefault(),
+                                  OrderPositions = o.OrderPositions.Where(op => op.IsActive && !op.IsDeleted)
+                                                    .Select(op => new OrderPositionReleaseInfo
+                                                        {
+                                                            OrderPositionId = op.Id,
+                                                            AmountToWithdraw = op.ReleasesWithdrawals.Where(rw =>
+                                                                                                            rw.ReleaseBeginDate == period.Start &&
+                                                                                                            rw.ReleaseEndDate == period.End)
+                                                                                 .Select(rw => rw.AmountToWithdraw)
+                                                                                 .FirstOrDefault(),
+                                                            IsPlannedProvision =
+                                                                op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision
+                                                        })
                               })
                           .ToArray();
         }
@@ -73,40 +82,40 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds)
         {
             var orderInfos = _finder.Find(Specs.Find.ByIds<Order>(orderIds))
-                                .Select(o => new
-                                {
-                                    o.Id,
-                                    o.Number,
-                                    o.OwnerCode,
-                                    SourceOrganizationUnitName = o.SourceOrganizationUnit.Name,
-                                    DestOrganizationUnitName = o.DestOrganizationUnit.Name,
-                                    FirmName = o.Firm.Name,
-                                    LegalPersonName = o.LegalPerson.ShortName
-                                })
-                .ToArray();
+                                    .Select(o => new
+                                        {
+                                            o.Id,
+                                            o.Number,
+                                            o.OwnerCode,
+                                            SourceOrganizationUnitName = o.SourceOrganizationUnit.Name,
+                                            DestOrganizationUnitName = o.DestOrganizationUnit.Name,
+                                            FirmName = o.Firm.Name,
+                                            LegalPersonName = o.LegalPerson.ShortName
+                                        })
+                                    .ToArray();
 
             // есть вариант дальнейшее вытягивание инфы по пользователю делать через ISecurityServiceUserIdentifier.GetUserInfo(int? userCode),
             // но т.к. это будет делаться последовательными запросами по одной записи пока от этого отказались
             var userInfos = _finder.Find(Specs.Find.ByIds<User>(orderInfos.Select(i => i.OwnerCode)))
-                                .Select(u => new
-                                {
-                                    u.Id,
-                                    u.DisplayName
-                                });
+                                   .Select(u => new
+                                       {
+                                           u.Id,
+                                           u.DisplayName
+                                       });
             return orderInfos.GroupJoin(userInfos,
                                         orderInfo => orderInfo.OwnerCode,
                                         userInfo => userInfo.Id,
                                         (order, users) => new OrderValidationAdditionalInfo
-                                        {
-                                            Id = order.Id,
-                                            Number = order.Number,
-                                            SourceOrganizationUnitName = order.SourceOrganizationUnitName,
-                                            DestOrganizationUnitName = order.DestOrganizationUnitName,
-                                            FirmName = order.FirmName,
-                                            LegalPersonName = order.LegalPersonName,
-                                            OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
-                                        })
-                .ToArray();
+                                            {
+                                                Id = order.Id,
+                                                Number = order.Number,
+                                                SourceOrganizationUnitName = order.SourceOrganizationUnitName,
+                                                DestOrganizationUnitName = order.DestOrganizationUnitName,
+                                                FirmName = order.FirmName,
+                                                LegalPersonName = order.LegalPersonName,
+                                                OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
+                                            })
+                             .ToArray();
         }
 
         public IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount)
@@ -122,22 +131,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId)
         {
             return _finder
-                        .Find(OrderSpecs.Orders.Find.CompletelyReleasedByOrganizationUnit(sourceOrganizationUnitId))
-                        .ToArray();
+                .Find(OrderSpecs.Orders.Find.CompletelyReleasedByOrganizationUnit(sourceOrganizationUnitId))
+                .ToArray();
         }
 
         public CreateBargainInfo GetBargainInfoForCreate(long orderId)
         {
             return _finder
-                        .Find<Order, CreateBargainInfo>(OrderSpecs.Bargains.Select.CreateBargainInfoSelector, Specs.Find.ById<Order>(orderId))
-                        .Single();
+                .Find<Order, CreateBargainInfo>(OrderSpecs.Bargains.Select.CreateBargainInfoSelector, Specs.Find.ById<Order>(orderId))
+                .Single();
         }
 
         public bool TryGetExistingBargain(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderSignupDate, out Bargain existingBargain)
         {
             existingBargain = _finder
-                                    .Find(OrderSpecs.Bargains.Find.Actual(legalPersonId, branchOfficeOrganizationUnitId, orderSignupDate))
-                                    .FirstOrDefault();
+                .Find(OrderSpecs.Bargains.Find.Actual(legalPersonId, branchOfficeOrganizationUnitId, orderSignupDate))
+                .FirstOrDefault();
 
             return existingBargain != null;
         }
@@ -150,49 +159,56 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var userDescendantsQuery = _finder.FindAll<UsersDescendant>();
 
             var orderInfos = _finder.Find<Order>(
-                x =>
-                x.IsActive && !x.IsDeleted && (x.OwnerCode == ownerCode || (includeOwnerDescendants &&
-                                                                            userDescendantsQuery.Any(
-                                                                                ud => ud.AncestorId == ownerCode && ud.DescendantId == x.OwnerCode))) &&
-                (x.SourceOrganizationUnitId == organizationUnitId || x.DestOrganizationUnitId == organizationUnitId) &&
-                x.OrderPositions.Any(y => y.IsActive && !y.IsDeleted && y.OrderPositionAdvertisements.Any(z => dummyAdvertisements.Contains(z.AdvertisementId))))
+                                                 x =>
+                                                 x.IsActive && !x.IsDeleted && (x.OwnerCode == ownerCode || (includeOwnerDescendants &&
+                                                                                                             userDescendantsQuery.Any(
+                                                                                                                                      ud =>
+                                                                                                                                      ud.AncestorId == ownerCode &&
+                                                                                                                                      ud.DescendantId ==
+                                                                                                                                      x.OwnerCode))) &&
+                                                 (x.SourceOrganizationUnitId == organizationUnitId || x.DestOrganizationUnitId == organizationUnitId) &&
+                                                 x.OrderPositions.Any(
+                                                                      y =>
+                                                                      y.IsActive && !y.IsDeleted &&
+                                                                      y.OrderPositionAdvertisements.Any(z => dummyAdvertisements.Contains(z.AdvertisementId))))
                                     .Select(x => new
-                                    {
-                                        Id = x.Id,
-                                        DestOrganizationUnitName = x.DestOrganizationUnit.Name,
-                                        SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
-                                        FirmName = x.Firm.Name,
-                                        LegalPersonName = x.LegalPerson.LegalName,
-                                        Number = x.Number,
-                                        BeginDistributionDate = x.BeginDistributionDate,
-                                        x.WorkflowStepId,
-                                        OwnerCode = x.OwnerCode
-                                    }).ToArray();
+                                        {
+                                            x.Id,
+                                            DestOrganizationUnitName = x.DestOrganizationUnit.Name,
+                                            SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
+                                            FirmName = x.Firm.Name,
+                                            LegalPersonName = x.LegalPerson.LegalName,
+                                            x.Number,
+                                            x.BeginDistributionDate,
+                                            x.WorkflowStepId,
+                                            x.OwnerCode
+                                        }).ToArray();
 
             var userInfos = _finder.Find(Specs.Find.ByIds<User>(orderInfos.Select(x => x.OwnerCode)))
                                    .Select(u => new
-                                   {
-                                       u.Id,
-                                       u.DisplayName
-                                   });
+                                       {
+                                           u.Id,
+                                           u.DisplayName
+                                       });
 
             return orderInfos.GroupJoin(userInfos,
                                         orderInfo => orderInfo.OwnerCode,
                                         userInfo => userInfo.Id,
                                         (order, users) => new OrderWithDummyAdvertisementDto
-                                        {
-                                            Id = order.Id,
-                                            Number = order.Number,
-                                            SourceOrganizationUnitName = order.SourceOrganizationUnitName,
-                                            DestOrganizationUnitName = order.DestOrganizationUnitName,
-                                            OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
-                                            BeginDistributionDate = order.BeginDistributionDate,
-                                            WorkflowStep = ((OrderState)order.WorkflowStepId).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
-                                            FirmName = order.FirmName,
-                                        })
+                                            {
+                                                Id = order.Id,
+                                                Number = order.Number,
+                                                SourceOrganizationUnitName = order.SourceOrganizationUnitName,
+                                                DestOrganizationUnitName = order.DestOrganizationUnitName,
+                                                OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
+                                                BeginDistributionDate = order.BeginDistributionDate,
+                                                WorkflowStep =
+                                                    ((OrderState)order.WorkflowStepId).ToStringLocalized(EnumResources.ResourceManager,
+                                                                                                         CultureInfo.CurrentCulture),
+                                                FirmName = order.FirmName,
+                                            })
                              .ToArray();
         }
-
 
         public Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
             IEnumerable<long> orderIds,
@@ -200,51 +216,49 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             DateTime endPeriodDate)
         {
             return _finder.Find<Order>(x => orderIds.Contains(x.Id)).Select(x => new
-            {
-                x.Id,
-                distributions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
-                                 .SelectMany(
-                                     y =>
-                                     y.ReleasesWithdrawals.Where(
-                                         z => z.ReleaseBeginDate == startPeriodDate && z.ReleaseEndDate == endPeriodDate))
-                                 .SelectMany(z => z.ReleasesWithdrawalsPositions)
-                                 .GroupBy(y => y.Platform.DgppId)
-                                 .Select(y => new
-                                 {
-                                     Platform = (PlatformEnum)y.Key,
-                                     AmountToWithdraw = y.Sum(z => z.AmountToWithdraw)
-                                 })
-            }).ToDictionary(x => x.Id, x => x.distributions.ToDictionary(y => y.Platform, y => y.AmountToWithdraw));
+                {
+                    x.Id,
+                    distributions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
+                                     .SelectMany(
+                                                 y =>
+                                                 y.ReleasesWithdrawals.Where(
+                                                                             z => z.ReleaseBeginDate == startPeriodDate && z.ReleaseEndDate == endPeriodDate))
+                                     .SelectMany(z => z.ReleasesWithdrawalsPositions)
+                                     .GroupBy(y => y.Platform.DgppId)
+                                     .Select(y => new
+                                         {
+                                             Platform = (PlatformEnum)y.Key,
+                                             AmountToWithdraw = y.Sum(z => z.AmountToWithdraw)
+                                         })
+                }).ToDictionary(x => x.Id, x => x.distributions.ToDictionary(y => y.Platform, y => y.AmountToWithdraw));
         }
-
 
         public IEnumerable<long> DetermineOrderPlatforms(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(o => o.OrderPositions)
-                .Where(item => item.IsActive && !item.IsDeleted)
-                .Select(item => item.PricePosition.Position.PlatformId)
-                .Distinct()
-                .ToList();
+                          .SelectMany(o => o.OrderPositions)
+                          .Where(item => item.IsActive && !item.IsDeleted)
+                          .Select(item => item.PricePosition.Position.PlatformId)
+                          .Distinct()
+                          .ToList();
         }
 
-        public void DetermineOrderPlatform(Order order)
+        public void UpdateOrderPlatform(Order order)
         {
             var platformIds = DetermineOrderPlatforms(order.Id).ToArray();
             var platformId = platformIds.Count() > 1
-                                 ? _finder.Find<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
+                                 ? _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
                                  : platformIds.FirstOrDefault();
 
             order.PlatformId = platformId == 0 ? null : platformId as long?;
         }
-
 
         public IEnumerable<Order> GetActiveOrdersForLegalPerson(long legalPersonId)
         {
             return
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Order>()
-                                && OrderSpecs.Orders.Find.ForLegalPerson(legalPersonId))
+                          && OrderSpecs.Orders.Find.ForLegalPerson(legalPersonId))
                     .ToArray();
         }
 
@@ -265,21 +279,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             // сортируем от меньшего к большему для лучшей точности вычислений
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(x => x.OrderPositions)
-                .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                .OrderBy(x => x.PricePerUnit)
-                .ToArray();
+                          .SelectMany(x => x.OrderPositions)
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .OrderBy(x => x.PricePerUnit)
+                          .ToArray();
         }
 
         // todo {all, 2013-07-24}: метод не контактирует с репозиторием
         public RecalculatedOrderPositionDataDto Recalculate(
-                    int amount,
-                    decimal pricePerUnit,
-                    decimal pricePerUnitWithVat,
-                    int orderReleaseCountFact,
-                    bool calculateInPercent,
-                    decimal newDiscountPercent,
-                    decimal newDiscountSum)
+            int amount,
+            decimal pricePerUnit,
+            decimal pricePerUnitWithVat,
+            int orderReleaseCountFact,
+            bool calculateInPercent,
+            decimal newDiscountPercent,
+            decimal newDiscountSum)
         {
             var result = new RecalculatedOrderPositionDataDto();
 
@@ -318,30 +332,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .FirstOrDefault();
         }
 
-        public void DetermineOrderBudgetType(Order order)
-        {
-            var orderType = _finder.Find(Specs.Find.ById<Order>(order.Id))
-                .SelectMany(o => o.OrderPositions
-                                     .Where(op => op.IsActive && !op.IsDeleted &&
-                                                  (op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision ||
-                                                  op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.GuaranteedProvision)))
-                .Select(x => x.PricePosition.Position.AccountingMethodEnum)
-                .FirstOrDefault();
-
-            switch (orderType)
-            {
-                case (int)PositionAccountingMethod.PlannedProvision:
-                    order.BudgetType = (int)OrderBudgetType.Budget;
-                    break;
-                case (int)PositionAccountingMethod.GuaranteedProvision:
-                    order.BudgetType = (int)OrderBudgetType.Sell;
-                    break;
-                default:
-                    order.BudgetType = (int)OrderBudgetType.None;
-                    break;
-            }
-        }
-
         public bool IsOrganizationUnitsBothBranches(long sourceOrganizationUnitId, long destOrganizationUnitId)
         {
             if (sourceOrganizationUnitId == destOrganizationUnitId)
@@ -351,8 +341,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             var contributionTypes = GetBranchOfficesContributionTypes(sourceOrganizationUnitId, destOrganizationUnitId);
 
-            ContributionTypeEnum? destContribType = contributionTypes[destOrganizationUnitId];
-            ContributionTypeEnum? sourceContribType = contributionTypes[sourceOrganizationUnitId];
+            var destContribType = contributionTypes[destOrganizationUnitId];
+            var sourceContribType = contributionTypes[sourceOrganizationUnitId];
 
             if (!destContribType.HasValue)
             {
@@ -395,32 +385,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                    sourceContribType.HasValue && sourceContribType.Value == ContributionTypeEnum.Branch;
         }
 
-
         public bool IsBranchToBranchOrder(Order order)
         {
             return CheckIsBranchToBranchOrder(order.SourceOrganizationUnitId, order.DestOrganizationUnitId, true);
         }
-
 
         // TODO {d.ivanov, 11.11.2013}: Перенести отсюда в read-model
         public bool TryGetActualPriceIdForOrder(long orderId, out long actualPriceId)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
                                    .Select(x => new
-                                   {
-                                       x.DestOrganizationUnitId,
-                                       x.BeginDistributionDate
-                                   }).FirstOrDefault();
+                                       {
+                                           x.DestOrganizationUnitId,
+                                           x.BeginDistributionDate
+                                       }).FirstOrDefault();
 
             if (orderInfo == null)
             {
                 actualPriceId = 0;
                 return false;
             }
-            else
-            {
-                return TryGetActualPriceId(orderInfo.DestOrganizationUnitId, orderInfo.BeginDistributionDate, out actualPriceId);
-            }
+            return TryGetActualPriceId(orderInfo.DestOrganizationUnitId, orderInfo.BeginDistributionDate, out actualPriceId);
         }
 
         // TODO {d.ivanov, 11.11.2013}: Перенести отсюда в read-model
@@ -428,9 +413,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             var priceId = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                                  .SelectMany(
-                                     x =>
-                                     x.Prices.Where(
-                                         y => y.IsActive && !y.IsDeleted && y.IsPublished && y.BeginDate <= beginDistributionDate))
+                                             x =>
+                                             x.Prices.Where(
+                                                            y => y.IsActive && !y.IsDeleted && y.IsPublished && y.BeginDate <= beginDistributionDate))
                                  .OrderByDescending(y => y.BeginDate)
                                  .Select(price => price.Id).FirstOrDefault();
 
@@ -446,9 +431,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public bool OrderPriceWasPublished(long organizationUnitId, DateTime orderBeginDistributionDate)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                .SelectMany(unit => unit.Prices)
-                .Where(Specs.Find.ActiveAndNotDeleted<Price>())
-                .Any(price => price.IsPublished && price.BeginDate <= orderBeginDistributionDate);
+                          .SelectMany(unit => unit.Prices)
+                          .Where(Specs.Find.ActiveAndNotDeleted<Price>())
+                          .Any(price => price.IsPublished && price.BeginDate <= orderBeginDistributionDate);
         }
 
         // FIXME {a.tukaev, 20.03.2014}: Этот метод содержит очень много аспектов получения и обработки данных для последующего использования в UI. 
@@ -459,23 +444,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var pricePositionInfo =
                 _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                        .Select(item => new
-                       {
-                           item.PositionId,
-                           item.Position.Name,
-                           Platform = item.Position.Platform.Name,
-                           item.Amount,
-                           item.AmountSpecificationMode,
-                           PricePositionCost = item.Cost,
-                           IsBudget = item.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision,
-                           item.Position.IsComposite,
-                           LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                           item.Position.AdvertisementTemplateId,
-                           DummyAdvertisementId =
-                                       item.Position.AdvertisementTemplate != null
-                                           ? item.Position.AdvertisementTemplate.DummyAdvertisementId.Value
-                                           : (long?)null,
-                           item.Position.CategoryId
-                       })
+                           {
+                               item.PositionId,
+                               item.Position.Name,
+                               Platform = item.Position.Platform.Name,
+                               item.Amount,
+                               item.AmountSpecificationMode,
+                               PricePositionCost = item.Cost,
+                               IsBudget = item.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision,
+                               item.Position.IsComposite,
+                               LinkingObjectType = item.Position.BindingObjectTypeEnum,
+                               item.Position.AdvertisementTemplateId,
+                               DummyAdvertisementId =
+                                           item.Position.AdvertisementTemplate != null
+                                               ? item.Position.AdvertisementTemplate.DummyAdvertisementId.Value
+                                               : (long?)null,
+                               item.Position.CategoryId
+                           })
                        .Single();
 
             var firmAddresses =
@@ -485,29 +470,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Where(address => (address.IsActive && !address.IsDeleted) ||
                                          (includeHiddenAddresses && address.OrderPositionAdvertisements.Any()))
                        .Select(address => new
-                       {
-                           IsDeleted = address.IsDeleted || (address.ClosedForAscertainment && !address.IsActive),
+                           {
+                               IsDeleted = address.IsDeleted || (address.ClosedForAscertainment && !address.IsActive),
 
-                           // Удалённые и скрытые навсегда адреса обрабатываем одинаково.
-                           IsHidden = address.ClosedForAscertainment && address.IsActive && !address.IsDeleted, // Скрыт временно.
-                           address.IsLocatedOnTheMap,
-                           address.Id,
-                           Address = address.Address + ((address.ReferencePoint == null) ? string.Empty : " — " + address.ReferencePoint),
-                           Categories = address.CategoryFirmAddresses
-                                               .Where(link => link.IsActive && !link.IsDeleted)
-                                               .Select(link => link.Category)
-                                               .Where(category => category.IsActive && !category.IsDeleted &&
-                                                                  category.CategoryOrganizationUnits
-                                                                          .Any(cou => cou.OrganizationUnitId == order.DestOrganizationUnitId))
-                                               .Select(category => category.Id)
-                                               .Union(address.CategoryFirmAddresses
-                                                             .Where(link => link.IsActive && !link.IsDeleted && link.Category.Level == 3)
-                                                             .Select(link => link.Category.ParentCategory.ParentCategory)
-                                                             .Where(category => category.IsActive && !category.IsDeleted &&
-                                                                                category.CategoryOrganizationUnits
-                                                                                        .Any(cou => cou.OrganizationUnitId == order.DestOrganizationUnitId))
-                                                             .Select(category => category.Id))
-                       })
+                               // Удалённые и скрытые навсегда адреса обрабатываем одинаково.
+                               IsHidden = address.ClosedForAscertainment && address.IsActive && !address.IsDeleted, // Скрыт временно.
+                               address.IsLocatedOnTheMap,
+                               address.Id,
+                               Address = address.Address + ((address.ReferencePoint == null) ? string.Empty : " — " + address.ReferencePoint),
+                               Categories = address.CategoryFirmAddresses
+                                                   .Where(link => link.IsActive && !link.IsDeleted)
+                                                   .Select(link => link.Category)
+                                                   .Where(category => category.IsActive && !category.IsDeleted &&
+                                                                      category.CategoryOrganizationUnits
+                                                                              .Any(cou => cou.OrganizationUnitId == order.DestOrganizationUnitId))
+                                                   .Select(category => category.Id)
+                                                   .Union(address.CategoryFirmAddresses
+                                                                 .Where(link => link.IsActive && !link.IsDeleted && link.Category.Level == 3)
+                                                                 .Select(link => link.Category.ParentCategory.ParentCategory)
+                                                                 .Where(category => category.IsActive && !category.IsDeleted &&
+                                                                                    category.CategoryOrganizationUnits
+                                                                                            .Any(cou => cou.OrganizationUnitId == order.DestOrganizationUnitId))
+                                                                 .Select(category => category.Id))
+                           })
                        .ToArray();
 
             var firmCategoriesIds = firmAddresses.SelectMany(item => item.Categories).Distinct().ToArray();
@@ -543,25 +528,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                           .Where(x => !x.IsDeleted)
                                           .Select(x => x.ChildPosition)
                                           .Select(x => new
-                                          {
-                                              x.Id,
-                                              x.Name,
-                                              x.BindingObjectTypeEnum,
-                                              x.AdvertisementTemplateId,
-                                              x.AdvertisementTemplate.DummyAdvertisementId
-                                          })
+                                              {
+                                                  x.Id,
+                                                  x.Name,
+                                                  x.BindingObjectTypeEnum,
+                                                  x.AdvertisementTemplateId,
+                                                  x.AdvertisementTemplate.DummyAdvertisementId
+                                              })
                                           .ToArray();
 
                 positions = rawPositions
                     .Select(x => new LinkingObjectsSchemaDto.PositionDto
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        LinkingObjectType = ((PositionBindingObjectType)x.BindingObjectTypeEnum).ToString(),
-                        AdvertisementTemplateId = x.AdvertisementTemplateId,
-                        DummyAdvertisementId = x.DummyAdvertisementId,
-                        IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType((PositionBindingObjectType)x.BindingObjectTypeEnum)
-                    });
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            LinkingObjectType = ((PositionBindingObjectType)x.BindingObjectTypeEnum).ToString(),
+                            AdvertisementTemplateId = x.AdvertisementTemplateId,
+                            DummyAdvertisementId = x.DummyAdvertisementId,
+                            IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType((PositionBindingObjectType)x.BindingObjectTypeEnum)
+                        });
             }
             else
             {
@@ -592,63 +577,61 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             return new OrderPositionDetailedInfo
-            {
-                Amount = pricePositionInfo.Amount,
-                AmountSpecificationMode = pricePositionInfo.AmountSpecificationMode,
-                IsBudget = pricePositionInfo.IsBudget,
-                IsComposite = pricePositionInfo.IsComposite,
-                Platform = pricePositionInfo.Platform ?? string.Empty,
-                PricePositionCost = pricePositionInfo.PricePositionCost,
-                ReleaseCountFact = order.ReleaseCountFact,
-                ReleaseCountPlan = order.ReleaseCountPlan,
-                LinkingObjectsSchema = new LinkingObjectsSchemaDto
                 {
-                    Warnings = warnings,
-                    FirmCategories = categories.Where(item => firmCategoriesIds.Contains(item.Id)),
-                    Themes = themeDtos,
-                    AdditionalCategories = categories.Where(item => !firmCategoriesIds.Contains(item.Id)),
-                    Positions = positions,
-                    FirmAddresses = firmAddresses.Select(fa => new LinkingObjectsSchemaDto.FirmAddressDto
-                    {
-                        Id = fa.Id,
-                        Address = string.IsNullOrWhiteSpace(fa.Address)
-                                                   ? BLResources.ViewOrderPositionHandler_EmptyAddress
-                                      : fa.Address,
-                        IsDeleted = fa.IsDeleted,
-                        IsHidden = fa.IsHidden,
-                        IsLocatedOnTheMap = fa.IsLocatedOnTheMap,
-                        Categories = fa.Categories,
-                    })
-                },
-            };
+                    Amount = pricePositionInfo.Amount,
+                    AmountSpecificationMode = pricePositionInfo.AmountSpecificationMode,
+                    IsBudget = pricePositionInfo.IsBudget,
+                    IsComposite = pricePositionInfo.IsComposite,
+                    Platform = pricePositionInfo.Platform ?? string.Empty,
+                    PricePositionCost = pricePositionInfo.PricePositionCost,
+                    ReleaseCountFact = order.ReleaseCountFact,
+                    ReleaseCountPlan = order.ReleaseCountPlan,
+                    LinkingObjectsSchema = new LinkingObjectsSchemaDto
+                        {
+                            Warnings = warnings,
+                            FirmCategories = categories.Where(item => firmCategoriesIds.Contains(item.Id)),
+                            Themes = themeDtos,
+                            AdditionalCategories = categories.Where(item => !firmCategoriesIds.Contains(item.Id)),
+                            Positions = positions,
+                            FirmAddresses = firmAddresses.Select(fa => new LinkingObjectsSchemaDto.FirmAddressDto
+                                {
+                                    Id = fa.Id,
+                                    Address = string.IsNullOrWhiteSpace(fa.Address)
+                                                  ? BLResources.ViewOrderPositionHandler_EmptyAddress
+                                                  : fa.Address,
+                                    IsDeleted = fa.IsDeleted,
+                                    IsHidden = fa.IsHidden,
+                                    IsLocatedOnTheMap = fa.IsLocatedOnTheMap,
+                                    Categories = fa.Categories,
+                                })
+                        },
+                };
         }
-
 
         public OrderForProlongationDto GetOrderForProlongationInfo(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => new OrderForProlongationDto
-            {
-                OrderId = x.Id,
-                OrderType = (OrderType)x.OrderType,
-                SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                DestOrganizationUnitId = x.DestOrganizationUnitId,
-                FirmId = x.FirmId,
-                EndDistributionDateFact = x.EndDistributionDateFact,
-                ReleaseCountFact = x.ReleaseCountFact,
-                Positions = x.OrderPositions
-                             .Where(y => y.IsActive && !y.IsDeleted)
-                             .Select(y =>
-                                     new OrderPositionForProlongationDto
-                                     {
-                                         CalculateDiscountViaPercent = y.CalculateDiscountViaPercent,
-                                         PositionId = y.PricePosition.PositionId,
-                                         DiscountPercent = y.DiscountPercent,
-                                         DiscountSum = y.DiscountSum,
-                                         Amount = y.Amount
-                                     })
-            }).Single();
+                {
+                    OrderId = x.Id,
+                    OrderType = (OrderType)x.OrderType,
+                    SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                    DestOrganizationUnitId = x.DestOrganizationUnitId,
+                    FirmId = x.FirmId,
+                    EndDistributionDateFact = x.EndDistributionDateFact,
+                    ReleaseCountFact = x.ReleaseCountFact,
+                    Positions = x.OrderPositions
+                                 .Where(y => y.IsActive && !y.IsDeleted)
+                                 .Select(y =>
+                                         new OrderPositionForProlongationDto
+                                             {
+                                                 CalculateDiscountViaPercent = y.CalculateDiscountViaPercent,
+                                                 PositionId = y.PricePosition.PositionId,
+                                                 DiscountPercent = y.DiscountPercent,
+                                                 DiscountSum = y.DiscountSum,
+                                                 Amount = y.Amount
+                                             })
+                }).Single();
         }
-
 
         public OrderState GetOrderState(long orderId)
         {
@@ -663,32 +646,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderPositionWithAdvertisementsDto[] GetOrderPositionsWithAdvertisements(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(order => order.OrderPositions)
-                .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                .Select(position => new OrderPositionWithAdvertisementsDto
-                {
-                    OrderPosition = position,
-                    Advertisements = position.OrderPositionAdvertisements,
-                    IsComposite = position.PricePosition.Position.IsComposite,
-                    BindingObjectType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum
-                })
-                .ToArray();
+                          .SelectMany(order => order.OrderPositions)
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .Select(position => new OrderPositionWithAdvertisementsDto
+                              {
+                                  OrderPosition = position,
+                                  Advertisements = position.OrderPositionAdvertisements,
+                                  IsComposite = position.PricePosition.Position.IsComposite,
+                                  BindingObjectType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum
+                              })
+                          .ToArray();
         }
 
         public IEnumerable<OrderPosition> GetOrderPositions(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(order => order.OrderPositions)
-                .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                .ToList();
+                          .SelectMany(order => order.OrderPositions)
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .ToList();
         }
 
         public IDictionary<long, string> GetOrderOrganizationUnitsSyncCodes(params long[] organizationUnitId)
         {
             return _finder.Find<OrganizationUnit>(unit => organizationUnitId.Contains(unit.Id))
-                .ToDictionary(unit => unit.Id, unit => unit.SyncCode1C);
+                          .ToDictionary(unit => unit.Id, unit => unit.SyncCode1C);
         }
-
 
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersToCreateBill(long orderId)
         {
@@ -707,17 +689,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                  orderby dou.Name ascending
                                  select
                                      new RelatedOrderDescriptor
-                                     {
-                                         Id = order.Id,
-                                         Number = order.Number,
-                                         BeginDistributionDate = order.BeginDistributionDate,
-                                         EndDistributionDate = order.EndDistributionDatePlan,
-                                         SourceOrganizationUnit = sou.Name,
-                                         DestinationOrganizationUnit = dou.Name
-                                     }).ToArray();
+                                         {
+                                             Id = order.Id,
+                                             Number = order.Number,
+                                             BeginDistributionDate = order.BeginDistributionDate,
+                                             EndDistributionDate = order.EndDistributionDatePlan,
+                                             SourceOrganizationUnit = sou.Name,
+                                             DestinationOrganizationUnit = dou.Name
+                                         }).ToArray();
             return relatedOrders;
         }
-
 
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersForPrintJointBill(long orderId)
         {
@@ -748,14 +729,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                  orderby dou.Name ascending
                                  select
                                      new RelatedOrderDescriptor
-                                     {
-                                         Id = order.Id,
-                                         Number = order.Number,
-                                         BeginDistributionDate = order.BeginDistributionDate,
-                                         EndDistributionDate = order.EndDistributionDatePlan,
-                                         SourceOrganizationUnit = sou.Name,
-                                         DestinationOrganizationUnit = dou.Name
-                                     }).ToArray();
+                                         {
+                                             Id = order.Id,
+                                             Number = order.Number,
+                                             BeginDistributionDate = order.BeginDistributionDate,
+                                             EndDistributionDate = order.EndDistributionDatePlan,
+                                             SourceOrganizationUnit = sou.Name,
+                                             DestinationOrganizationUnit = dou.Name
+                                         }).ToArray();
 
                 relatedOrders = relatedOrders.Distinct(new StrictKeyEqualityComparer<RelatedOrderDescriptor, long>(d => d.Id)).ToArray();
             }
@@ -767,16 +748,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return
                 _finder.Find<Order>(x => x.Id == orderId)
-                    .Select(
-                        x =>
-                        new OrderInfoToCheckOrderBeginDistributionDate
-                        {
-                            OrderId = x.Id,
-                            BeginDistributionDate = x.BeginDistributionDate,
-                            SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                            DestinationOrganizationUnitId = x.DestOrganizationUnitId
-                        })
-                    .SingleOrDefault();
+                       .Select(
+                               x =>
+                               new OrderInfoToCheckOrderBeginDistributionDate
+                                   {
+                                       OrderId = x.Id,
+                                       BeginDistributionDate = x.BeginDistributionDate,
+                                       SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                                       DestinationOrganizationUnitId = x.DestOrganizationUnitId
+                                   })
+                       .SingleOrDefault();
         }
 
         public IEnumerable<OrderPayablePlanInfo> GetPayablePlans(long[] orderIds)
@@ -793,17 +774,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return
                 _finder.Find<Order>(x => x.IsActive && !x.IsDeleted && x.Id == orderId)
                        .Select(
-                           x =>
-                           new OrderInfoToGetInitPayments
-                           {
-                               ReleaseCountPlan = x.ReleaseCountPlan,
-                               BeginDistributionDate = x.BeginDistributionDate,
-                               EndDistributionDate = x.EndDistributionDatePlan,
-                               SignupDate = x.SignupDate,
-                               PayablePlan = x.PayablePlan,
-                               IsOnRegistration = x.WorkflowStepId == (int)OrderState.OnRegistration,
-                               BillsCount = x.Bills.Count(y => y.IsActive && !y.IsDeleted),
-                           })
+                               x =>
+                               new OrderInfoToGetInitPayments
+                                   {
+                                       ReleaseCountPlan = x.ReleaseCountPlan,
+                                       BeginDistributionDate = x.BeginDistributionDate,
+                                       EndDistributionDate = x.EndDistributionDatePlan,
+                                       SignupDate = x.SignupDate,
+                                       PayablePlan = x.PayablePlan,
+                                       IsOnRegistration = x.WorkflowStepId == (int)OrderState.OnRegistration,
+                                       BillsCount = x.Bills.Count(y => y.IsActive && !y.IsDeleted),
+                                   })
                        .Single();
         }
 
@@ -812,7 +793,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var startDateForNotActualClientPeriod = startDate.Date.AddDays(-1);
             var endDateForNotActualClientPeriod = startDate.Date.AddMilliseconds(-1);
 
-            var apiPlatformId = _finder.Find<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api).Select(x => x.Id).Single();
+            var apiPlatformId = _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api).Select(x => x.Id).Single();
 
             // Получаем текущих рекламодателей
             var actualRecepientsInfo = _finder.Find<Order>(x => x.IsActive && !x.IsDeleted &&
@@ -823,31 +804,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                  x.WorkflowStepId == (int)OrderState.OnTermination) &&
                                                                 x.BeginDistributionDate <= endDate && x.EndDistributionDateFact >= startDate)
                                               .Select(x => new
-                                              {
-                                                  BranchName = x.Firm.OrganizationUnit.Name,
-                                                  FirmCode = x.Firm.Id,
-                                                  FirmName = x.Firm.Name,
-                                                  Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
-                                                                                  y.AccountRole == (int)AccountRole.MakingDecisions)
-                                                                                  .OrderByDescending(y => y.WorkEmail)
-                                                             .FirstOrDefault(),
-                                                  IsClientActually = true,
-                                                  ContainsApiPlatform = x.OrderPositions
-                                                                         .Any(y => y.IsActive && !y.IsDeleted &&
-                                                                                   y.OrderPositionAdvertisements
-                                                                                    .Any(z => z.Position.PlatformId == apiPlatformId)),
-                                                  BranchOfficeOrganizationUnit =
-                                                           x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
-                                                  x.Firm.OwnerCode,
-                                              })
+                                                  {
+                                                      BranchName = x.Firm.OrganizationUnit.Name,
+                                                      FirmCode = x.Firm.Id,
+                                                      FirmName = x.Firm.Name,
+                                                      Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
+                                                                                                  y.AccountRole == (int)AccountRole.MakingDecisions)
+                                                                 .OrderByDescending(y => y.WorkEmail)
+                                                                 .FirstOrDefault(),
+                                                      IsClientActually = true,
+                                                      ContainsApiPlatform = x.OrderPositions
+                                                                             .Any(y => y.IsActive && !y.IsDeleted &&
+                                                                                       y.OrderPositionAdvertisements
+                                                                                        .Any(z => z.Position.PlatformId == apiPlatformId)),
+                                                      BranchOfficeOrganizationUnit =
+                                                               x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+                                                      x.Firm.OwnerCode,
+                                                  })
                                               .ToArray()
                                               .GroupBy(x => x.FirmCode)
                                               .Select(lst => new
-                                              {
-                                                  FirmCode = lst.Key,
-                                                  Value = lst.FirstOrDefault(),
-                                                  AreThereAnyApiPlatform = lst.Any(y => y.ContainsApiPlatform)
-                                              })
+                                                  {
+                                                      FirmCode = lst.Key,
+                                                      Value = lst.FirstOrDefault(),
+                                                      AreThereAnyApiPlatform = lst.Any(y => y.ContainsApiPlatform)
+                                                  })
                                               .ToArray();
 
             // Получаем бывших рекламодателей
@@ -856,33 +837,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                    (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
                                                                    (x.WorkflowStepId == (int)OrderState.Archive ||
                                                                     x.WorkflowStepId == (int)OrderState.OnTermination) &&
-                                                                   x.EndDistributionDateFact >= startDateForNotActualClientPeriod && x.EndDistributionDateFact <= endDateForNotActualClientPeriod)
+                                                                   x.EndDistributionDateFact >= startDateForNotActualClientPeriod &&
+                                                                   x.EndDistributionDateFact <= endDateForNotActualClientPeriod)
                                                  .Select(x => new
-                                                 {
-                                                     BranchName = x.Firm.OrganizationUnit.Name,
-                                                     FirmCode = x.Firm.Id,
-                                                     FirmName = x.Firm.Name,
-                                                     Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
-                                                                                                 y.AccountRole == (int)AccountRole.MakingDecisions)
-                                                                .OrderByDescending(y => y.WorkEmail)
-                                                                .FirstOrDefault(),
-                                                     IsClientActually = false,
-                                                     ContainsApiPlatform = x.OrderPositions
-                                                                            .Any(y => y.IsActive && !y.IsDeleted &&
-                                                                                      y.OrderPositionAdvertisements
-                                                                                       .Any(z => z.Position.PlatformId == apiPlatformId)),
-                                                     BranchOfficeOrganizationUnit =
-                                                              x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
-                                                     x.Firm.OwnerCode,
-                                                 })
+                                                     {
+                                                         BranchName = x.Firm.OrganizationUnit.Name,
+                                                         FirmCode = x.Firm.Id,
+                                                         FirmName = x.Firm.Name,
+                                                         Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
+                                                                                                     y.AccountRole == (int)AccountRole.MakingDecisions)
+                                                                    .OrderByDescending(y => y.WorkEmail)
+                                                                    .FirstOrDefault(),
+                                                         IsClientActually = false,
+                                                         ContainsApiPlatform = x.OrderPositions
+                                                                                .Any(y => y.IsActive && !y.IsDeleted &&
+                                                                                          y.OrderPositionAdvertisements
+                                                                                           .Any(z => z.Position.PlatformId == apiPlatformId)),
+                                                         BranchOfficeOrganizationUnit =
+                                                                  x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+                                                         x.Firm.OwnerCode,
+                                                     })
                                                  .ToArray()
                                                  .GroupBy(x => x.FirmCode)
                                                  .Select(lst => new
-                                                 {
-                                                     FirmCode = lst.Key,
-                                                     Value = lst.FirstOrDefault(),
-                                                     AreThereAnyApiPlatform = lst.Any(y => y.ContainsApiPlatform)
-                                                 })
+                                                     {
+                                                         FirmCode = lst.Key,
+                                                         Value = lst.FirstOrDefault(),
+                                                         AreThereAnyApiPlatform = lst.Any(y => y.ContainsApiPlatform)
+                                                     })
                                                  .ToArray();
 
             var recepientsInfo = actualRecepientsInfo.Union(notActualRecepientsInfo.Where(x => actualRecepientsInfo.All(y => y.FirmCode != x.FirmCode)))
@@ -894,23 +876,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             var result = recepientsInfo
                 .Select(x => new RecipientDto
-                {
-                    BranchName = x.Value.BranchName,
-                    ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
-                    ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
-                    ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
-                    FirmCode = x.FirmCode,
-                    FirmName = x.Value.FirmName,
-                    IsClientActually = x.Value.IsClientActually,
-                    IsOrdersOfWebAPI = x.AreThereAnyApiPlatform,
-                    LegalEntityBranchDirectorName = x.Value.BranchOfficeOrganizationUnit == null
-                                                        ? null
-                                                        : x.Value.BranchOfficeOrganizationUnit.ChiefNameInGenitive,
-                    LegalEntityBranchEmail = x.Value.BranchOfficeOrganizationUnit == null ? null : x.Value.BranchOfficeOrganizationUnit.Email,
-                    CuratorEmail = userProfiles.FirstOrDefault(y => y.UserId == x.Value.OwnerCode) == null
-                                       ? null
-                                       : userProfiles.First(y => y.UserId == x.Value.OwnerCode).Email
-                })
+                    {
+                        BranchName = x.Value.BranchName,
+                        ContactClientEmail = x.Value.Contact == null ? null : x.Value.Contact.WorkEmail,
+                        ContactClientName = x.Value.Contact == null ? null : x.Value.Contact.FullName,
+                        ContactClientSex = x.Value.Contact == null ? null : ((Gender)x.Value.Contact.GenderCode).ToString(),
+                        FirmCode = x.FirmCode,
+                        FirmName = x.Value.FirmName,
+                        IsClientActually = x.Value.IsClientActually,
+                        IsOrdersOfWebAPI = x.AreThereAnyApiPlatform,
+                        LegalEntityBranchDirectorName = x.Value.BranchOfficeOrganizationUnit == null
+                                                            ? null
+                                                            : x.Value.BranchOfficeOrganizationUnit.ChiefNameInGenitive,
+                        LegalEntityBranchEmail = x.Value.BranchOfficeOrganizationUnit == null ? null : x.Value.BranchOfficeOrganizationUnit.Email,
+                        CuratorEmail = userProfiles.FirstOrDefault(y => y.UserId == x.Value.OwnerCode) == null
+                                           ? null
+                                           : userProfiles.First(y => y.UserId == x.Value.OwnerCode).Email
+                    })
                 .OrderBy(x => x.BranchName).ThenByDescending(x => x.IsClientActually).ThenBy(x => x.FirmCode)
                 .ToArray();
 
@@ -920,8 +902,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public ReleaseNumbersDto CalculateReleaseNumbers(long organizationUnitId, DateTime rawBeginDistributuionDate, int releaseCountPlan, int releaseCountFact)
         {
             var firstEmitDate = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                .Select(x => (DateTime?)x.FirstEmitDate)
-                .FirstOrDefault();
+                                       .Select(x => (DateTime?)x.FirstEmitDate)
+                                       .FirstOrDefault();
 
             if (firstEmitDate == null)
             {
@@ -933,13 +915,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var endReleaseNumberFact = beginReleaseNumber + (releaseCountFact - 1);
 
             return new ReleaseNumbersDto
-            {
-                BeginReleaseNumber = beginReleaseNumber,
-                EndReleaseNumberPlan = endReleaseNumberPlan,
-                EndReleaseNumberFact = endReleaseNumberFact,
-            };
+                {
+                    BeginReleaseNumber = beginReleaseNumber,
+                    EndReleaseNumberPlan = endReleaseNumberPlan,
+                    EndReleaseNumberFact = endReleaseNumberFact,
+                };
         }
-
 
         public void UpdateOrderReleaseNumbers(Order order)
         {
@@ -953,7 +934,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             order.EndReleaseNumberFact = releaseNumbersDto.EndReleaseNumberFact;
         }
 
-
         public DistributionDatesDto CalculateDistributionDates(DateTime rawBeginDistributuionDate, int releaseCountPlan, int releaseCountFact)
         {
             var beginDistributionDate = rawBeginDistributuionDate.GetFirstDateOfMonth();
@@ -961,11 +941,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var endDistributionDateFact = beginDistributionDate.AddMonths(releaseCountFact - 1).GetLastDateOfMonth();
 
             return new DistributionDatesDto
-            {
-                BeginDistributionDate = beginDistributionDate,
-                EndDistributionDatePlan = endDistributionDatePlan,
-                EndDistributionDateFact = endDistributionDateFact,
-            };
+                {
+                    BeginDistributionDate = beginDistributionDate,
+                    EndDistributionDatePlan = endDistributionDatePlan,
+                    EndDistributionDateFact = endDistributionDateFact,
+                };
         }
 
         public void UpdateOrderDistributionDates(Order order)
@@ -977,58 +957,56 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
         }
 
-
-
         public decimal GetPayablePlanSum(long orderId, int releaseCount)
         {
             return _finder.Find<OrderPosition>(x => x.OrderId == orderId)
-                       .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                       .Sum(x => (decimal?)(x.PricePerUnitWithVat * x.Amount * releaseCount)) ?? 0m;
+                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .Sum(x => (decimal?)(x.PricePerUnitWithVat * x.Amount * releaseCount)) ?? 0m;
         }
 
         public OrderFinancialInfo GetFinancialInformation(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(x => new OrderFinancialInfo
-                {
-                    DiscountSum = x.DiscountSum,
-                    ReleaseCountFact = x.ReleaseCountFact,
-                    DiscountInPercent = x.OrderPositions
-                             .Where(y => !y.IsDeleted && y.IsActive)
-                             .All(y => y.CalculateDiscountViaPercent),
-                    IsBudget = x.OrderPositions
-                             .Any(y => !y.IsDeleted && y.IsActive &&
-                                       y.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision)
-                })
-                .Single();
+                          .Select(x => new OrderFinancialInfo
+                              {
+                                  DiscountSum = x.DiscountSum,
+                                  ReleaseCountFact = x.ReleaseCountFact,
+                                  DiscountInPercent = x.OrderPositions
+                                                       .Where(y => !y.IsDeleted && y.IsActive)
+                                                       .All(y => y.CalculateDiscountViaPercent),
+                                  IsBudget = x.OrderPositions
+                                              .Any(y => !y.IsDeleted && y.IsActive &&
+                                                        y.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision)
+                              })
+                          .Single();
         }
 
         public OrderCompletionState GetOrderCompletionState(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(order => new OrderCompletionState
-                {
-                    LegalPerson = order.LegalPersonId != null,
-                    BranchOfficeOrganizationUnit = order.BranchOfficeOrganizationUnitId != null
-                })
-                .Single();
+                          .Select(order => new OrderCompletionState
+                              {
+                                  LegalPerson = order.LegalPersonId != null,
+                                  BranchOfficeOrganizationUnit = order.BranchOfficeOrganizationUnitId != null
+                              })
+                          .Single();
         }
 
         public OrderDeactivationPosibility IsOrderDeactivationPossible(long orderId)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Number,
-                    x.OwnerCode,
-                    x.IsActive,
-                    x.BargainId,
-                    x.WorkflowStepId,
-                    x.IsTerminated,
-                    x.TerminationReason,
-                    x.Comment
-                }).SingleOrDefault();
+                                   .Select(x => new
+                                       {
+                                           x.Id,
+                                           x.Number,
+                                           x.OwnerCode,
+                                           x.IsActive,
+                                           x.BargainId,
+                                           x.WorkflowStepId,
+                                           x.IsTerminated,
+                                           x.TerminationReason,
+                                           x.Comment
+                                       }).SingleOrDefault();
 
             if (null == orderInfo)
             {
@@ -1039,36 +1017,41 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var orderNumber = string.Format("{0} - {1}", MetadataResources.Order, orderInfo.Number);
 
             // на текущий момент интересует только возможность деактивировать
-            var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete, EntityName.Order, _userContext.Identity.Code, orderDto.Id, orderDto.OwnerCode, null);
+            var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
+                                                                       EntityName.Order,
+                                                                       _userContext.Identity.Code,
+                                                                       orderDto.Id,
+                                                                       orderDto.OwnerCode,
+                                                                       null);
             if (!isDeleteAllowed)
             {
                 return new OrderDeactivationPosibility
-                {
-                    EntityCode = orderNumber,
-                    IsDeactivationAllowed = false,
-                    DeactivationDisallowedReason = BLResources.EntityAccessDenied
-                };
+                    {
+                        EntityCode = orderNumber,
+                        IsDeactivationAllowed = false,
+                        DeactivationDisallowedReason = BLResources.EntityAccessDenied
+                    };
             }
 
             // заказ уже закрыт
             if (!orderInfo.IsActive)
             {
                 return new OrderDeactivationPosibility
-                {
-                    EntityCode = orderNumber,
-                    IsDeactivationAllowed = false,
-                    DeactivationDisallowedReason = BLResources.OrderHasAlreadyBeenClosed
-                };
+                    {
+                        EntityCode = orderNumber,
+                        IsDeactivationAllowed = false,
+                        DeactivationDisallowedReason = BLResources.OrderHasAlreadyBeenClosed
+                    };
             }
 
             if (!(orderInfo.WorkflowStepId == (int)OrderState.OnRegistration || orderInfo.WorkflowStepId == (int)OrderState.Rejected))
             {
                 return new OrderDeactivationPosibility
-                {
-                    EntityCode = orderNumber,
-                    IsDeactivationAllowed = false,
-                    DeactivationDisallowedReason = BLResources.OrderCloseIncorrectState
-                };
+                    {
+                        EntityCode = orderNumber,
+                        IsDeactivationAllowed = false,
+                        DeactivationDisallowedReason = BLResources.OrderCloseIncorrectState
+                    };
             }
 
             // Выбрать причину из списка причин досрочного расторжения
@@ -1076,46 +1059,51 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                  (orderInfo.TerminationReason == (int)OrderTerminationReason.TemporaryRejectionOther)) && string.IsNullOrEmpty(orderInfo.Comment))
             {
                 return new OrderDeactivationPosibility
-                {
-                    EntityCode = orderNumber,
-                    IsDeactivationAllowed = false,
-                    DeactivationDisallowedReason = BLResources.OrderDeleteTerminationCommentRequired
-                };
+                    {
+                        EntityCode = orderNumber,
+                        IsDeactivationAllowed = false,
+                        DeactivationDisallowedReason = BLResources.OrderDeleteTerminationCommentRequired
+                    };
             }
 
             if (orderInfo.BargainId.HasValue)
             {
                 var hasOtherOrdersInBargain = _finder.Find(Specs.Find.ById<Order>(orderId))
-                    .Select(x => x.Bargain.Orders.Any(y => y.IsActive && !y.IsDeleted && y.Id != orderInfo.Id))
-                    .Single();
+                                                     .Select(x => x.Bargain.Orders.Any(y => y.IsActive && !y.IsDeleted && y.Id != orderInfo.Id))
+                                                     .Single();
 
                 if (!hasOtherOrdersInBargain)
                 {
                     return new OrderDeactivationPosibility
-                    {
-                        EntityCode = orderNumber,
-                        IsDeactivationAllowed = true,
-                        DeactivationConfirmation = BLResources.OrderCloseWithBargainDeletionConformation
-                    };
+                        {
+                            EntityCode = orderNumber,
+                            IsDeactivationAllowed = true,
+                            DeactivationConfirmation = BLResources.OrderCloseWithBargainDeletionConformation
+                        };
                 }
             }
 
-            return new OrderDeactivationPosibility { EntityCode = orderNumber, IsDeactivationAllowed = true, DeactivationConfirmation = BLResources.OrderCloseConformation };
+            return new OrderDeactivationPosibility
+                {
+                    EntityCode = orderNumber,
+                    IsDeactivationAllowed = true,
+                    DeactivationConfirmation = BLResources.OrderCloseConformation
+                };
         }
 
         public OrderStateValidationInfo GetOrderStateValidationInfo(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(x => new OrderStateValidationInfo
-                {
-                    LegalPersonId = x.LegalPersonId,
-                    BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                    SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                    DestOrganizationUnitId = x.DestOrganizationUnitId,
-                    HasDocumentsDebt = x.HasDocumentsDebt,
-                    AnyPositions = x.OrderPositions.Any(y => y.IsActive && !y.IsDeleted)
-                })
-                .SingleOrDefault();
+                          .Select(x => new OrderStateValidationInfo
+                              {
+                                  LegalPersonId = x.LegalPersonId,
+                                  BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                                  SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                                  DestOrganizationUnitId = x.DestOrganizationUnitId,
+                                  HasDocumentsDebt = x.HasDocumentsDebt,
+                                  AnyPositions = x.OrderPositions.Any(y => y.IsActive && !y.IsDeleted)
+                              })
+                          .SingleOrDefault();
         }
 
         public bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId)
@@ -1126,54 +1114,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Any();
         }
 
-        private IEnumerable<LinkingObjectsSchemaDto.ThemeDto> FindThemesCanBeUsedWithOrder(Order order)
-        {
-            var themes = _finder.Find(Specs.Find.ById<OrganizationUnit>(order.DestOrganizationUnitId))
-                .SelectMany(unit => unit.ThemeOrganizationUnits)
-                .Where(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
-                .Select(link => link.Theme)
-                .Where(Specs.Find.ActiveAndNotDeleted<Theme>())
-                                .Where(theme => theme.BeginDistribution <= order.BeginDistributionDate
-                                    && theme.EndDistribution >= order.EndDistributionDatePlan
-                                    && !theme.IsDefault
-                                    && !theme.ThemeTemplate.IsSkyScraper)
-                .Select(theme => new LinkingObjectsSchemaDto.ThemeDto
-                {
-                    Id = theme.Id,
-                    Name = theme.Name
-                })
-                .ToArray();
-
-            return themes;
-        }
-
         // TODO {all, 20.03.2014}: CalculatePricePerUnit -  полноценная операция в аггрегате Order, а не часть read модели. К тому же, скорее всего, эта операция должна быть в компоненте BLFlex
         public OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost)
         {
             // в заказе "BranchOfficeOrganizationUnit" соответсвует городу источнику
             var orderBatch = _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(item => new
-                {
-                    item.Id,
-                    item.OrderType,
-                    SourceVatRate = item.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                    DestVatRate = item.DestOrganizationUnit.BranchOfficeOrganizationUnits
-                                .FirstOrDefault(unit => unit.IsPrimaryForRegionalSales)
-                                .BranchOffice
-                                .BargainType
-                                                          .VatRate,
-                    item.SourceOrganizationUnitId,
-                    item.DestOrganizationUnitId,
-                    item.FirmId
-                })
-                .Single();
+                                    .Select(item => new
+                                        {
+                                            item.Id,
+                                            item.OrderType,
+                                            SourceVatRate = item.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                            DestVatRate = item.DestOrganizationUnit.BranchOfficeOrganizationUnits
+                                                              .FirstOrDefault(unit => unit.IsPrimaryForRegionalSales)
+                                                              .BranchOffice
+                                                              .BargainType
+                                                              .VatRate,
+                                            item.SourceOrganizationUnitId,
+                                            item.DestOrganizationUnitId,
+                                            item.FirmId
+                                        })
+                                    .Single();
 
             if (orderBatch.OrderType == (int)OrderType.SelfAds || orderBatch.OrderType == (int)OrderType.SocialAds)
             {
                 return new OrderPositionPriceDto { CategoryRate = 1m, PricePerUnit = 0m, VatRatio = 0m };
             }
 
-            decimal pricePerUnit, vatRatio;
+            decimal pricePerUnit,
+                    vatRatio;
             if (orderBatch.SourceVatRate == decimal.Zero)
             {
                 // Город источник - франчайзи
@@ -1198,13 +1166,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             return new OrderPositionPriceDto
-            {
-                PricePerUnit = pricePerUnit * categoryRate,
-                VatRatio = vatRatio,
-                CategoryRate = categoryRate,
-            };
+                {
+                    PricePerUnit = pricePerUnit * categoryRate,
+                    VatRatio = vatRatio,
+                    CategoryRate = categoryRate,
+                };
         }
-
 
         public IEnumerable<Order> GetOrdersForBargain(long bargainId)
         {
@@ -1219,21 +1186,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderPositionRebindingDto GetOrderPositionInfo(long orderPositionId)
         {
             return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
-                .Select(position => new OrderPositionRebindingDto
-                {
-                    AdverisementCount = position.OrderPositionAdvertisements.Count,
-                    BindingType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum,
-                    OrderWorkflowSate = (OrderState)position.Order.WorkflowStepId,
-                    OrderId = position.Order.Id
-                })
-                .SingleOrDefault();
+                          .Select(position => new OrderPositionRebindingDto
+                              {
+                                  AdverisementCount = position.OrderPositionAdvertisements.Count,
+                                  BindingType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum,
+                                  OrderWorkflowSate = (OrderState)position.Order.WorkflowStepId,
+                                  OrderId = position.Order.Id
+                              })
+                          .SingleOrDefault();
         }
 
         public OrderUsageDto GetOrderUsage(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(order => new OrderUsageDto { Order = order, AnyLocks = order.Locks.Any(@lock => !@lock.IsDeleted) })
-                .Single();
+                          .Select(order => new OrderUsageDto { Order = order, AnyLocks = order.Locks.Any(@lock => !@lock.IsDeleted) })
+                          .Single();
         }
 
         public OrderDiscountsDto GetOrderDiscounts(long orderId)
@@ -1241,13 +1208,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(x =>
                                   new OrderDiscountsDto
-                                  {
-                                      CalculateDiscountViaPercent = x.OrderPositions
-                                                                     .Where(y => !y.IsDeleted && y.IsActive)
-                                                                     .All(y => y.CalculateDiscountViaPercent),
-                                      DiscountPercent = x.DiscountPercent.HasValue ? x.DiscountPercent.Value : 0M,
-                                      DiscountSum = x.DiscountSum.HasValue ? x.DiscountSum.Value : 0M
-                                  }).Single();
+                                      {
+                                          CalculateDiscountViaPercent = x.OrderPositions
+                                                                         .Where(y => !y.IsDeleted && y.IsActive)
+                                                                         .All(y => y.CalculateDiscountViaPercent),
+                                          DiscountPercent = x.DiscountPercent.HasValue ? x.DiscountPercent.Value : 0M,
+                                          DiscountSum = x.DiscountSum.HasValue ? x.DiscountSum.Value : 0M
+                                      }).Single();
         }
 
         public Order GetOrderUnsecure(long orderId)
@@ -1260,10 +1227,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find<OrderPosition>(x => x.Id == orderPositionId)
                           .SelectMany(x => x.OrderPositionAdvertisements)
                           .Select(x => new SubPositionDto
-                          {
-                              PositionId = x.PositionId,
-                              PlatformId = x.Position.PlatformId
-                          })
+                              {
+                                  PositionId = x.PositionId,
+                                  PlatformId = x.Position.PlatformId
+                              })
                           .Distinct()
                           .ToArray();
         }
@@ -1296,6 +1263,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return sourceVat;
         }
 
+        private IEnumerable<LinkingObjectsSchemaDto.ThemeDto> FindThemesCanBeUsedWithOrder(Order order)
+        {
+            var themes = _finder.Find(Specs.Find.ById<OrganizationUnit>(order.DestOrganizationUnitId))
+                                .SelectMany(unit => unit.ThemeOrganizationUnits)
+                                .Where(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
+                                .Select(link => link.Theme)
+                                .Where(Specs.Find.ActiveAndNotDeleted<Theme>())
+                                .Where(theme => theme.BeginDistribution <= order.BeginDistributionDate
+                                                && theme.EndDistribution >= order.EndDistributionDatePlan
+                                                && !theme.IsDefault
+                                                && !theme.ThemeTemplate.IsSkyScraper)
+                                .Select(theme => new LinkingObjectsSchemaDto.ThemeDto
+                                    {
+                                        Id = theme.Id,
+                                        Name = theme.Name
+                                    })
+                                .ToArray();
+
+            return themes;
+        }
+
         private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
         {
             switch (type)
@@ -1318,19 +1306,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
         }
 
-
-
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
         {
             var list = _finder.Find<OrganizationUnit>(unit => organizationUnitIds.Contains(unit.Id))
-                .Select(x => new
-                {
-                    OrgUnitId = x.Id,
-                    ContributionType = x.BranchOfficeOrganizationUnits
-                             .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
-                             .Select(boou => boou.BranchOffice.ContributionTypeId).FirstOrDefault()
-                })
-                .ToArray();
+                              .Select(x => new
+                                  {
+                                      OrgUnitId = x.Id,
+                                      ContributionType = x.BranchOfficeOrganizationUnits
+                                                          .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
+                                                          .Select(boou => boou.BranchOffice.ContributionTypeId).FirstOrDefault()
+                                  })
+                              .ToArray();
 
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);
         }

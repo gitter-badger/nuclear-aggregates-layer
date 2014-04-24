@@ -2401,6 +2401,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderPosition {
+            get {
+                return ResourceManager.GetString("OrderPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Заявка из ЛК.
         /// </summary>
         public static string OrderProcessingRequest {
