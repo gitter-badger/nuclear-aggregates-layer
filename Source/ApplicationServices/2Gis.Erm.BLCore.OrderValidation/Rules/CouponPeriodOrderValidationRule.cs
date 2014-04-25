@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects.SqlClient;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -25,45 +25,36 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
-            const int periodLengthInDays = 4;
+            const int PeriodLengthInDays = 4;
 
-            var badAdvertisemements = _finder.Find(filterPredicate)
-                                             .SelectMany(order => order.OrderPositions)
-                                             .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
-                                             .SelectMany(orderPosition =>
-                                                         orderPosition.OrderPositionAdvertisements
-                                                                      .Where(opa => opa.Advertisement != null)
-                                                                      .SelectMany(opa => opa.Advertisement.AdvertisementElements
-                                                                                            .Where(x => !x.IsDeleted &&
-                                                                                                        x.BeginDate != null &&
-                                                                                                        x.EndDate != null &&
-                                                                                                        (SqlFunctions.DateDiff("day", x.BeginDate, x.EndDate) <
-                                                                                                         periodLengthInDays ||
-                                                                                                         (IsCheckMassive &&
-                                                                                                          SqlFunctions.DateDiff(
-                                                                                                              "day",
-                                                                                                              request.Period.Start,
-                                                                                                              x.EndDate) <
-                                                                                                          periodLengthInDays) ||
-                                                                                                         (IsCheckMassive &&
-                                                                                                          SqlFunctions.DateDiff(
-                                                                                                              "day",
-                                                                                                              x.BeginDate,
-                                                                                                              request.Period.End) <
-                                                                                                          periodLengthInDays)))
-                                                                                            .Select(advertisement => new
-                                                                                                {
-                                                                                                    OrderPositionId = orderPosition.Id,
-                                                                                                    OrderPositionName =
-                                                                                                                         opa.Position
-                                                                                                                            .Name,
-                                                                                                    OrderId = orderPosition.Order.Id,
-                                                                                                    OrderNumber = orderPosition.Order.Number,
-                                                                                                    AdvertisementId = advertisement.Id,
-                                                                                                    AdvertisementName = advertisement.Advertisement.Name,
-                                                                                                    AdvertisementElementId = advertisement.Id
-                                                                                                })))
-                                             .ToArray();
+            var badAdvertisemements =
+                _finder.Find(filterPredicate)
+                       .SelectMany(order => order.OrderPositions)
+                       .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
+                       .SelectMany(orderPosition =>
+                                   orderPosition.OrderPositionAdvertisements
+                                                .Where(opa => opa.Advertisement != null)
+                                                .SelectMany(
+                                                    opa => opa.Advertisement.AdvertisementElements
+                                                              .Where(x => !x.IsDeleted &&
+                                                                          x.BeginDate != null &&
+                                                                          x.EndDate != null &&
+                                                                          (DbFunctions.DiffDays(x.BeginDate, x.EndDate) < PeriodLengthInDays ||
+                                                                           (IsCheckMassive &&
+                                                                            DbFunctions.DiffDays(request.Period.Start, x.EndDate) < PeriodLengthInDays) ||
+                                                                           (IsCheckMassive &&
+                                                                            DbFunctions.DiffDays(x.BeginDate, request.Period.End) < PeriodLengthInDays)))
+                                                              .Select(advertisement => new
+                                                                  {
+                                                                      OrderPositionId = orderPosition.Id,
+                                                                      OrderPositionName = opa.Position.Name,
+                                                                      OrderId = orderPosition.Order.Id,
+                                                                      OrderNumber = orderPosition.Order.Number,
+                                                                      AdvertisementId = advertisement.Id,
+                                                                      AdvertisementName = advertisement.Advertisement.Name,
+                                                                      AdvertisementElementId = advertisement.Id
+                                                                  })))
+                       .ToArray();
 
             foreach (var advertisemement in badAdvertisemements)
             {

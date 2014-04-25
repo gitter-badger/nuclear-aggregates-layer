@@ -580,7 +580,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
