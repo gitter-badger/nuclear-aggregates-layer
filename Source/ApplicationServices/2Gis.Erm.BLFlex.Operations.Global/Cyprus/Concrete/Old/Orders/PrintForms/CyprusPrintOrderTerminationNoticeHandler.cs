@@ -1,5 +1,4 @@
 using System;
-using System.Data.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -50,36 +49,39 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             }
 
             var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new
-                    {
-                        Order = order,
-                        order.Bargain,
-                        TerminationDate = EntityFunctions.AddDays(order.EndDistributionDateFact, 1),
-                        order.LegalPerson,
-                        Profile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
-                        order.BranchOfficeOrganizationUnit,
-                        CurrencyISOCode = order.Currency.ISOCode,
-                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                        order.BranchOfficeOrganizationUnitId,
-                        order.BranchOfficeOrganizationUnit.BranchOffice
-                    })
-                .AsEnumerable()
-                .Select(x => new
-                    {
-                        x.Order,
-                        RelatedBargainInfo = (x.Bargain != null) ?
-                                                                     string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
-                                                 : null,
-                        x.TerminationDate,
-                        x.LegalPerson,
-                        x.Profile,
-                        x.BranchOfficeOrganizationUnit,
-                        x.CurrencyISOCode,
-                        x.LegalPersonType,
-                        x.BranchOfficeOrganizationUnitId,
-                        x.BranchOffice
-                    })
-                .Single();
+                                   .Select(order => new
+                                       {
+                                           Order = order,
+                                           order.Bargain,
+                                           order.EndDistributionDateFact,
+                                           order.LegalPerson,
+                                           Profile = order.LegalPerson.LegalPersonProfiles
+                                                          .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
+                                           order.BranchOfficeOrganizationUnit,
+                                           CurrencyISOCode = order.Currency.ISOCode,
+                                           LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                                           order.BranchOfficeOrganizationUnitId,
+                                           order.BranchOfficeOrganizationUnit.BranchOffice
+                                       })
+                                   .AsEnumerable()
+                                   .Select(x => new
+                                       {
+                                           x.Order,
+                                           RelatedBargainInfo = x.Bargain != null
+                                                                    ? string.Format(BLResources.RelatedToBargainInfoTemplate,
+                                                                                    x.Bargain.Number,
+                                                                                    _longDateFormatter.Format(x.Bargain.CreatedOn))
+                                                                    : null,
+                                           TerminationDate = x.EndDistributionDateFact.AddDays(1),
+                                           x.LegalPerson,
+                                           x.Profile,
+                                           x.BranchOfficeOrganizationUnit,
+                                           x.CurrencyISOCode,
+                                           x.LegalPersonType,
+                                           x.BranchOfficeOrganizationUnitId,
+                                           x.BranchOffice
+                                       })
+                                   .Single();
 
             return _requestProcessor.HandleSubRequest(new PrintDocumentRequest
                 {
