@@ -1,4 +1,3 @@
-using System.Data.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
@@ -67,28 +66,43 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                            {
                                Order = new
                                    {
-                                       order.RejectionDate, 
+                                       order.RejectionDate,
                                        order.Number,
-                                       order.SignupDate, 
-                                       TerminationDate = EntityFunctions.AddDays(order.EndDistributionDateFact, 1), 
-                                   }, 
+                                       order.SignupDate,
+                                       order.EndDistributionDateFact,
+                                   },
                                LegalPerson = new
                                    {
-                                       order.LegalPerson.LegalName, 
-                                   }, 
+                                       order.LegalPerson.LegalName,
+                                   },
                                LegalPersonProfile = new
                                    {
-                                       legalPersonProfile.ChiefNameInNominative, 
+                                       legalPersonProfile.ChiefNameInNominative,
                                    },
                                BranchOffice = new
                                    {
-                                       order.BranchOfficeOrganizationUnit.BranchOffice.Name, 
-                                       order.BranchOfficeOrganizationUnit.BranchOffice.Inn, 
-                                   }, 
+                                       order.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                                       order.BranchOfficeOrganizationUnit.BranchOffice.Inn,
+                                   },
                                Bargain = new
                                    {
-                                       order.Bargain.Number, 
-                                   }, 
+                                       order.Bargain.Number,
+                                   },
+                           })
+                       .AsEnumerable()
+                       .Select(x => new
+                           {
+                               Order = new
+                                   {
+                                       x.Order.RejectionDate,
+                                       x.Order.Number,
+                                       x.Order.SignupDate,
+                                       TerminationDate = x.Order.EndDistributionDateFact.AddDays(1),
+                                   },
+                               x.LegalPerson,
+                               x.LegalPersonProfile,
+                               x.BranchOffice,
+                               x.Bargain
                            })
                        .Single();
 

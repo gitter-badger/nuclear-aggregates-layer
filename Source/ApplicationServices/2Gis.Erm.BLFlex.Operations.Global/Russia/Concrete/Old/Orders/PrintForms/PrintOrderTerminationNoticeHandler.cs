@@ -1,5 +1,4 @@
 using System;
-using System.Data.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -54,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                  {
                                      Order = order,
                                      order.Bargain,
-                                     TerminationDate = EntityFunctions.AddDays(order.EndDistributionDateFact, 1),
+                                     order.EndDistributionDateFact,
                                      order.LegalPerson,
                                      Profile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
                                      order.BranchOfficeOrganizationUnit,
@@ -70,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                  RelatedBargainInfo = (x.Bargain != null) ?
                                     string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn)) 
                                     : null,
-                                 x.TerminationDate,
+                                 TerminationDate = x.EndDistributionDateFact.AddDays(1),
                                  x.LegalPerson,
                                  x.Profile,
                                  x.BranchOfficeOrganizationUnit,
