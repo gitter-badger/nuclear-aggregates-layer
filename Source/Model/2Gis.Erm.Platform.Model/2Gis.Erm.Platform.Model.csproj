@@ -46,29 +46,27 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurityPOCO.tt">
-      <Link>Entities\Security\ErmSecurityPOCO.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ErmSecurityPOCO.log</LastGenOutput>
-    </None>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmPOCO.tt">
-      <Link>Entities\Erm\ErmPOCO.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ErmPOCO.log</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurityPOCO.log">
-      <Link>Entities\Security\ErmSecurityPOCO.log</Link>
+    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurity.log">
+      <Link>Entities\Security\ErmSecurity.log</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
     </None>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmPOCO.log">
-      <Link>Entities\Erm\ErmPOCO.log</Link>
+    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurity.tt">
+      <Link>Entities\Security\ErmSecurity.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ErmSecurity.log</LastGenOutput>
+    </None>
+    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Erm.log">
+      <Link>Entities\Erm\Erm.log</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </None>
+    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Erm.tt">
+      <Link>Entities\Erm\Erm.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Erm.log</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +101,157 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Department.cs">
+      <Link>Entities\Security\Department.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurityEntities.cs">
+      <Link>Entities\Security\ErmSecurityEntities.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\FunctionalPrivilegeDepth.cs">
+      <Link>Entities\Security\FunctionalPrivilegeDepth.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\OrganizationUnitDto.cs">
+      <Link>Entities\Security\OrganizationUnitDto.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Privilege.cs">
+      <Link>Entities\Security\Privilege.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Role.cs">
+      <Link>Entities\Security\Role.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\RolePrivilege.cs">
+      <Link>Entities\Security\RolePrivilege.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\TerritoryDto.cs">
+      <Link>Entities\Security\TerritoryDto.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\TimeZone.cs">
+      <Link>Entities\Security\TimeZone.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\User.cs">
+      <Link>Entities\Security\User.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserEntity.cs">
+      <Link>Entities\Security\UserEntity.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserOrganizationUnit.cs">
+      <Link>Entities\Security\UserOrganizationUnit.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserProfile.cs">
+      <Link>Entities\Security\UserProfile.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserRole.cs">
+      <Link>Entities\Security\UserRole.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserTerritory.cs">
+      <Link>Entities\Security\UserTerritory.cs</Link>
+      <DependentUpon>ErmSecurity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Account.cs">
+      <Link>Entities\Erm\Account.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AccountDetail.cs">
+      <Link>Entities\Erm\AccountDetail.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistory.cs">
+      <Link>Entities\Erm\ActionsHistory.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDetail.cs">
+      <Link>Entities\Erm\ActionsHistoryDetail.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstance.cs">
+      <Link>Entities\Erm\ActivityInstance.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstance.cs">
+      <Link>Entities\Erm\ActivityPropertyInstance.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmService.cs">
+      <Link>Entities\Erm\AdditionalFirmService.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdsTemplatesAdsElementTemplate.cs">
+      <Link>Entities\Erm\AdsTemplatesAdsElementTemplate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Advertisement.cs">
+      <Link>Entities\Erm\Advertisement.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElement.cs">
+      <Link>Entities\Erm\AdvertisementElement.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementTemplate.cs">
+      <Link>Entities\Erm\AdvertisementElementTemplate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementTemplate.cs">
+      <Link>Entities\Erm\AdvertisementTemplate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AfterSaleServiceActivity.cs">
+      <Link>Entities\Erm\AfterSaleServiceActivity.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPosition.cs">
+      <Link>Entities\Erm\AssociatedPosition.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPositionsGroup.cs">
+      <Link>Entities\Erm\AssociatedPositionsGroup.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Bargain.cs">
+      <Link>Entities\Erm\Bargain.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainFile.cs">
+      <Link>Entities\Erm\BargainFile.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainType.cs">
+      <Link>Entities\Erm\BargainType.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Bill.cs">
+      <Link>Entities\Erm\Bill.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOffice.cs">
+      <Link>Entities\Erm\BranchOffice.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOfficeOrganizationUnit.cs">
+      <Link>Entities\Erm\BranchOfficeOrganizationUnit.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Building.cs">
+      <Link>Entities\Erm\Building.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstance.cs">
       <Link>Entities\Erm\BusinessEntityInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstanceDomainEntityDto.cs">
       <Link>Entities\DTOs\BusinessEntityInstanceDomainEntityDto.cs</Link>
@@ -113,11 +259,75 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstance.cs">
       <Link>Entities\Erm\BusinessEntityPropertyInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstanceDomainEntityDto.cs">
       <Link>Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessOperationService.cs">
+      <Link>Entities\Erm\BusinessOperationService.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CardRelation.cs">
+      <Link>Entities\Erm\CardRelation.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Category.cs">
+      <Link>Entities\Erm\Category.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryFirmAddress.cs">
+      <Link>Entities\Erm\CategoryFirmAddress.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryGroup.cs">
+      <Link>Entities\Erm\CategoryGroup.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryOrganizationUnit.cs">
+      <Link>Entities\Erm\CategoryOrganizationUnit.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CityPhoneZone.cs">
+      <Link>Entities\Erm\CityPhoneZone.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Client.cs">
+      <Link>Entities\Erm\Client.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Contact.cs">
+      <Link>Entities\Erm\Contact.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ContributionType.cs">
+      <Link>Entities\Erm\ContributionType.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Country.cs">
+      <Link>Entities\Erm\Country.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Currency.cs">
+      <Link>Entities\Erm\Currency.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CurrencyRate.cs">
+      <Link>Entities\Erm\CurrencyRate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Deal.cs">
+      <Link>Entities\Erm\Deal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPosition.cs">
+      <Link>Entities\Erm\DeniedPosition.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCard.cs">
+      <Link>Entities\Erm\DepCard.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCardDomainEntityDto.cs">
       <Link>Entities\DTOs\DepCardDomainEntityDto.cs</Link>
@@ -125,7 +335,7 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityInstance.cs">
       <Link>Entities\Erm\DictionaryEntityInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityInstanceDomainEntityDto.cs">
       <Link>Entities\DTOs\DictionaryEntityInstanceDomainEntityDto.cs</Link>
@@ -133,15 +343,175 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstance.cs">
       <Link>Entities\Erm\DictionaryEntityPropertyInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstanceDomainEntityDto.cs">
       <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmEntities.cs">
+      <Link>Entities\Erm\ErmEntities.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFailedEntity.cs">
+      <Link>Entities\Erm\ExportFailedEntity.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowCardExtensionsCardCommercial.cs">
+      <Link>Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataClient.cs">
+      <Link>Entities\Erm\ExportFlowFinancialDataClient.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataLegalEntity.cs">
+      <Link>Entities\Erm\ExportFlowFinancialDataLegalEntity.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersAdvMaterial.cs">
+      <Link>Entities\Erm\ExportFlowOrdersAdvMaterial.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersOrder.cs">
+      <Link>Entities\Erm\ExportFlowOrdersOrder.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersResource.cs">
+      <Link>Entities\Erm\ExportFlowOrdersResource.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersTheme.cs">
+      <Link>Entities\Erm\ExportFlowOrdersTheme.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersThemeBranch.cs">
+      <Link>Entities\Erm\ExportFlowOrdersThemeBranch.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClients.cs">
+      <Link>Entities\Erm\ExportToMsCrm_HotClients.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\File.cs">
+      <Link>Entities\Erm\File.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Firm.cs">
+      <Link>Entities\Erm\Firm.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddress.cs">
+      <Link>Entities\Erm\FirmAddress.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddressService.cs">
+      <Link>Entities\Erm\FirmAddressService.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmContact.cs">
+      <Link>Entities\Erm\FirmContact.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\HotClientRequest.cs">
+      <Link>Entities\Erm\HotClientRequest.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ImportedFirmAddress.cs">
+      <Link>Entities\Erm\ImportedFirmAddress.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPerson.cs">
+      <Link>Entities\Erm\LegalPerson.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonProfile.cs">
+      <Link>Entities\Erm\LegalPersonProfile.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Limit.cs">
+      <Link>Entities\Erm\Limit.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LocalMessage.cs">
+      <Link>Entities\Erm\LocalMessage.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Lock.cs">
+      <Link>Entities\Erm\Lock.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LockDetail.cs">
+      <Link>Entities\Erm\LockDetail.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\MessageType.cs">
+      <Link>Entities\Erm\MessageType.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Note.cs">
+      <Link>Entities\Erm\Note.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationAddresses.cs">
+      <Link>Entities\Erm\NotificationAddresses.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmails.cs">
+      <Link>Entities\Erm\NotificationEmails.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsAttachments.cs">
+      <Link>Entities\Erm\NotificationEmailsAttachments.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsCc.cs">
+      <Link>Entities\Erm\NotificationEmailsCc.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsTo.cs">
+      <Link>Entities\Erm\NotificationEmailsTo.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationProcessings.cs">
+      <Link>Entities\Erm\NotificationProcessings.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Operation.cs">
+      <Link>Entities\Erm\Operation.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OperationType.cs">
+      <Link>Entities\Erm\OperationType.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Order.cs">
+      <Link>Entities\Erm\Order.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderFile.cs">
+      <Link>Entities\Erm\OrderFile.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPosition.cs">
+      <Link>Entities\Erm\OrderPosition.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionAdvertisement.cs">
+      <Link>Entities\Erm\OrderPositionAdvertisement.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionValidationInfo.cs">
+      <Link>Entities\Erm\OrderPositionValidationInfo.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequest.cs">
+      <Link>Entities\Erm\OrderProcessingRequest.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceList.cs">
       <Link>Entities\Erm\ExportFlowPriceListsPriceList.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListDomainEntityDto.cs">
       <Link>Entities\DTOs\ExportFlowPriceListsPriceListDomainEntityDto.cs</Link>
@@ -149,7 +519,7 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListPosition.cs">
       <Link>Entities\Erm\ExportFlowPriceListsPriceListPosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs">
       <Link>Entities\DTOs\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs</Link>
@@ -157,19 +527,143 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
       <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessageDomainEntityDto.cs">
       <Link>Entities\DTOs\OrderProcessingRequestMessageDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderReleaseTotal.cs">
+      <Link>Entities\Erm\OrderReleaseTotal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrdersDeniedPositionValidationInfo.cs">
+      <Link>Entities\Erm\OrdersDeniedPositionValidationInfo.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrdersRegionalAdvertisingSharing.cs">
+      <Link>Entities\Erm\OrdersRegionalAdvertisingSharing.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResult.cs">
+      <Link>Entities\Erm\OrderValidationResult.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroup.cs">
+      <Link>Entities\Erm\OrderValidationRuleGroup.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroupDetail.cs">
+      <Link>Entities\Erm\OrderValidationRuleGroupDetail.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnit.cs">
+      <Link>Entities\Erm\OrganizationUnit.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperation.cs">
+      <Link>Entities\Erm\PerformedBusinessOperation.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
+      <Link>Entities\Erm\Platform.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Position.cs">
+      <Link>Entities\Erm\Position.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionCategory.cs">
+      <Link>Entities\Erm\PositionCategory.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionChildren.cs">
+      <Link>Entities\Erm\PositionChildren.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Price.cs">
+      <Link>Entities\Erm\Price.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PricePosition.cs">
+      <Link>Entities\Erm\PricePosition.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PrintFormTemplate.cs">
+      <Link>Entities\Erm\PrintFormTemplate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Project.cs">
+      <Link>Entities\Erm\Project.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Reference.cs">
+      <Link>Entities\Erm\Reference.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReferenceItem.cs">
+      <Link>Entities\Erm\ReferenceItem.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\RegionalAdvertisingSharing.cs">
+      <Link>Entities\Erm\RegionalAdvertisingSharing.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseInfo.cs">
+      <Link>Entities\Erm\ReleaseInfo.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleasesWithdrawalsPosition.cs">
+      <Link>Entities\Erm\ReleasesWithdrawalsPosition.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseValidationResult.cs">
+      <Link>Entities\Erm\ReleaseValidationResult.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseWithdrawal.cs">
+      <Link>Entities\Erm\ReleaseWithdrawal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\SecurityAccelerator.cs">
       <Link>Entities\Erm\SecurityAccelerator.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Territory.cs">
+      <Link>Entities\Erm\Territory.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Theme.cs">
+      <Link>Entities\Erm\Theme.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeCategory.cs">
+      <Link>Entities\Erm\ThemeCategory.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeOrganizationUnit.cs">
+      <Link>Entities\Erm\ThemeOrganizationUnit.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeTemplate.cs">
+      <Link>Entities\Erm\ThemeTemplate.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UsersDescendant.cs">
+      <Link>Entities\Erm\UsersDescendant.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnits.cs">
+      <Link>Entities\Erm\UserTerritoriesOrganizationUnits.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnitsDomainEntityDto.cs">
       <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\WithdrawalInfo.cs">
+      <Link>Entities\Erm\WithdrawalInfo.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
@@ -733,502 +1227,6 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserTerritoryDomainEntityDto.cs">
       <Link>Entities\DTOs\UserTerritoryDomainEntityDto.cs</Link>
       <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Department.cs">
-      <Link>Entities\Security\Department.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\ErmSecurityEntities.cs">
-      <Link>Entities\Security\ErmSecurityEntities.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\FunctionalPrivilegeDepth.cs">
-      <Link>Entities\Security\FunctionalPrivilegeDepth.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\OrganizationUnitDto.cs">
-      <Link>Entities\Security\OrganizationUnitDto.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Privilege.cs">
-      <Link>Entities\Security\Privilege.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\Role.cs">
-      <Link>Entities\Security\Role.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\RolePrivilege.cs">
-      <Link>Entities\Security\RolePrivilege.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\TerritoryDto.cs">
-      <Link>Entities\Security\TerritoryDto.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\TimeZone.cs">
-      <Link>Entities\Security\TimeZone.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\User.cs">
-      <Link>Entities\Security\User.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserEntity.cs">
-      <Link>Entities\Security\UserEntity.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserOrganizationUnit.cs">
-      <Link>Entities\Security\UserOrganizationUnit.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserProfile.cs">
-      <Link>Entities\Security\UserProfile.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserRole.cs">
-      <Link>Entities\Security\UserRole.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserTerritory.cs">
-      <Link>Entities\Security\UserTerritory.cs</Link>
-      <DependentUpon>ErmSecurityPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Account.cs">
-      <Link>Entities\Erm\Account.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AccountDetail.cs">
-      <Link>Entities\Erm\AccountDetail.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistory.cs">
-      <Link>Entities\Erm\ActionsHistory.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDetail.cs">
-      <Link>Entities\Erm\ActionsHistoryDetail.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstance.cs">
-      <Link>Entities\Erm\ActivityInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstance.cs">
-      <Link>Entities\Erm\ActivityPropertyInstance.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmService.cs">
-      <Link>Entities\Erm\AdditionalFirmService.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdsTemplatesAdsElementTemplate.cs">
-      <Link>Entities\Erm\AdsTemplatesAdsElementTemplate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Advertisement.cs">
-      <Link>Entities\Erm\Advertisement.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElement.cs">
-      <Link>Entities\Erm\AdvertisementElement.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementTemplate.cs">
-      <Link>Entities\Erm\AdvertisementElementTemplate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementTemplate.cs">
-      <Link>Entities\Erm\AdvertisementTemplate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AfterSaleServiceActivity.cs">
-      <Link>Entities\Erm\AfterSaleServiceActivity.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPosition.cs">
-      <Link>Entities\Erm\AssociatedPosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPositionsGroup.cs">
-      <Link>Entities\Erm\AssociatedPositionsGroup.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Bargain.cs">
-      <Link>Entities\Erm\Bargain.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainFile.cs">
-      <Link>Entities\Erm\BargainFile.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainType.cs">
-      <Link>Entities\Erm\BargainType.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Bill.cs">
-      <Link>Entities\Erm\Bill.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOffice.cs">
-      <Link>Entities\Erm\BranchOffice.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOfficeOrganizationUnit.cs">
-      <Link>Entities\Erm\BranchOfficeOrganizationUnit.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Building.cs">
-      <Link>Entities\Erm\Building.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessOperationService.cs">
-      <Link>Entities\Erm\BusinessOperationService.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CardRelation.cs">
-      <Link>Entities\Erm\CardRelation.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Category.cs">
-      <Link>Entities\Erm\Category.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryFirmAddress.cs">
-      <Link>Entities\Erm\CategoryFirmAddress.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryGroup.cs">
-      <Link>Entities\Erm\CategoryGroup.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryOrganizationUnit.cs">
-      <Link>Entities\Erm\CategoryOrganizationUnit.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CityPhoneZone.cs">
-      <Link>Entities\Erm\CityPhoneZone.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Client.cs">
-      <Link>Entities\Erm\Client.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Contact.cs">
-      <Link>Entities\Erm\Contact.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ContributionType.cs">
-      <Link>Entities\Erm\ContributionType.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Country.cs">
-      <Link>Entities\Erm\Country.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Currency.cs">
-      <Link>Entities\Erm\Currency.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CurrencyRate.cs">
-      <Link>Entities\Erm\CurrencyRate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Deal.cs">
-      <Link>Entities\Erm\Deal.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPosition.cs">
-      <Link>Entities\Erm\DeniedPosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCard.cs">
-      <Link>Entities\Erm\DepCard.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmEntities.cs">
-      <Link>Entities\Erm\ErmEntities.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFailedEntity.cs">
-      <Link>Entities\Erm\ExportFailedEntity.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowCardExtensionsCardCommercial.cs">
-      <Link>Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataClient.cs">
-      <Link>Entities\Erm\ExportFlowFinancialDataClient.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataLegalEntity.cs">
-      <Link>Entities\Erm\ExportFlowFinancialDataLegalEntity.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersAdvMaterial.cs">
-      <Link>Entities\Erm\ExportFlowOrdersAdvMaterial.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersOrder.cs">
-      <Link>Entities\Erm\ExportFlowOrdersOrder.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersResource.cs">
-      <Link>Entities\Erm\ExportFlowOrdersResource.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersTheme.cs">
-      <Link>Entities\Erm\ExportFlowOrdersTheme.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersThemeBranch.cs">
-      <Link>Entities\Erm\ExportFlowOrdersThemeBranch.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClients.cs">
-      <Link>Entities\Erm\ExportToMsCrm_HotClients.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\File.cs">
-      <Link>Entities\Erm\File.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Firm.cs">
-      <Link>Entities\Erm\Firm.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddress.cs">
-      <Link>Entities\Erm\FirmAddress.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddressService.cs">
-      <Link>Entities\Erm\FirmAddressService.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmContact.cs">
-      <Link>Entities\Erm\FirmContact.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\HotClientRequest.cs">
-      <Link>Entities\Erm\HotClientRequest.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ImportedFirmAddress.cs">
-      <Link>Entities\Erm\ImportedFirmAddress.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPerson.cs">
-      <Link>Entities\Erm\LegalPerson.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonProfile.cs">
-      <Link>Entities\Erm\LegalPersonProfile.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Limit.cs">
-      <Link>Entities\Erm\Limit.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LocalMessage.cs">
-      <Link>Entities\Erm\LocalMessage.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Lock.cs">
-      <Link>Entities\Erm\Lock.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LockDetail.cs">
-      <Link>Entities\Erm\LockDetail.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\MessageType.cs">
-      <Link>Entities\Erm\MessageType.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Note.cs">
-      <Link>Entities\Erm\Note.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationAddresses.cs">
-      <Link>Entities\Erm\NotificationAddresses.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmails.cs">
-      <Link>Entities\Erm\NotificationEmails.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsAttachments.cs">
-      <Link>Entities\Erm\NotificationEmailsAttachments.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsCc.cs">
-      <Link>Entities\Erm\NotificationEmailsCc.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsTo.cs">
-      <Link>Entities\Erm\NotificationEmailsTo.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationProcessings.cs">
-      <Link>Entities\Erm\NotificationProcessings.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Operation.cs">
-      <Link>Entities\Erm\Operation.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OperationType.cs">
-      <Link>Entities\Erm\OperationType.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Order.cs">
-      <Link>Entities\Erm\Order.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderFile.cs">
-      <Link>Entities\Erm\OrderFile.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPosition.cs">
-      <Link>Entities\Erm\OrderPosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionAdvertisement.cs">
-      <Link>Entities\Erm\OrderPositionAdvertisement.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionValidationInfo.cs">
-      <Link>Entities\Erm\OrderPositionValidationInfo.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequest.cs">
-      <Link>Entities\Erm\OrderProcessingRequest.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderReleaseTotal.cs">
-      <Link>Entities\Erm\OrderReleaseTotal.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrdersDeniedPositionValidationInfo.cs">
-      <Link>Entities\Erm\OrdersDeniedPositionValidationInfo.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrdersRegionalAdvertisingSharing.cs">
-      <Link>Entities\Erm\OrdersRegionalAdvertisingSharing.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResult.cs">
-      <Link>Entities\Erm\OrderValidationResult.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroup.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroup.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroupDetail.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroupDetail.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnit.cs">
-      <Link>Entities\Erm\OrganizationUnit.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperation.cs">
-      <Link>Entities\Erm\PerformedBusinessOperation.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
-      <Link>Entities\Erm\Platform.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Position.cs">
-      <Link>Entities\Erm\Position.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionCategory.cs">
-      <Link>Entities\Erm\PositionCategory.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionChildren.cs">
-      <Link>Entities\Erm\PositionChildren.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Price.cs">
-      <Link>Entities\Erm\Price.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PricePosition.cs">
-      <Link>Entities\Erm\PricePosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PrintFormTemplate.cs">
-      <Link>Entities\Erm\PrintFormTemplate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Project.cs">
-      <Link>Entities\Erm\Project.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Reference.cs">
-      <Link>Entities\Erm\Reference.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReferenceItem.cs">
-      <Link>Entities\Erm\ReferenceItem.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\RegionalAdvertisingSharing.cs">
-      <Link>Entities\Erm\RegionalAdvertisingSharing.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseInfo.cs">
-      <Link>Entities\Erm\ReleaseInfo.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleasesWithdrawalsPosition.cs">
-      <Link>Entities\Erm\ReleasesWithdrawalsPosition.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseValidationResult.cs">
-      <Link>Entities\Erm\ReleaseValidationResult.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseWithdrawal.cs">
-      <Link>Entities\Erm\ReleaseWithdrawal.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Territory.cs">
-      <Link>Entities\Erm\Territory.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Theme.cs">
-      <Link>Entities\Erm\Theme.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeCategory.cs">
-      <Link>Entities\Erm\ThemeCategory.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeOrganizationUnit.cs">
-      <Link>Entities\Erm\ThemeOrganizationUnit.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeTemplate.cs">
-      <Link>Entities\Erm\ThemeTemplate.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UsersDescendant.cs">
-      <Link>Entities\Erm\UsersDescendant.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnits.cs">
-      <Link>Entities\Erm\UserTerritoriesOrganizationUnits.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\WithdrawalInfo.cs">
-      <Link>Entities\Erm\WithdrawalInfo.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\EntitySet.cs" />
     <Compile Include="Entities\EntitySetExtension.cs" />

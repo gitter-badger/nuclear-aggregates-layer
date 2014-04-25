@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Objects;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -19,24 +20,23 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     {
         private const string StoredProcedurePrefix = "Replicate";
 
-        private readonly HashSet<IEntityKey> _replicableHashSet = new HashSet<IEntityKey>();
+        private static readonly List<Type> DeferredReplicationTypes = new List<Type>
+            {
+                typeof(Firm),
+                typeof(Territory),
+                typeof(FirmAddress),
+            };
 
+        private readonly HashSet<IEntityKey> _replicableHashSet = new HashSet<IEntityKey>();
         private readonly IProcessingContext _processingContext;
-        private readonly IObjectContext _objectContext;
+        private readonly IDbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly ICommonLog _logger;
 
-        private static readonly List<Type> DeferredReplicationTypes = new List<Type>
-        {
-            typeof(Firm),
-            typeof(Territory),
-            typeof(FirmAddress),
-        };
-
         public EFDomainContext(IProcessingContext processingContext,
                                string defaultContextName,
-                               IObjectContext objectContext,
+                               IDbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                IMsCrmSettings msCrmSettings,
                                ICommonLog logger)
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             DefaultContextName = defaultContextName;
 
             _processingContext = processingContext;
-            _objectContext = objectContext;
+            _dbContext = dbContext;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
             _msCrmSettings = msCrmSettings;
             _logger = logger;
@@ -57,21 +57,22 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public bool AnyPendingChanges
         {
             get 
-            { 
-                _objectContext.DetectChanges();
-                return _objectContext.GetObjectStateEntries(EntityState.Added | EntityState.Modified | EntityState.Deleted).Any();
+            {
+                try
+                {
+                    return _dbContext.HasChanges();
+                }
+                catch (InvalidOperationException)
+                {
+                    // object context is already disposed
+                    return false;
+                }
             }
         }
         
         public int SaveChanges(SaveOptions options)
         {
-            _objectContext.DetectChanges();
-
-            var entitiesQuery = _objectContext.GetObjectStateEntries(EntityState.Added | EntityState.Modified | EntityState.Deleted)
-                .Where(entry => !entry.IsRelationship)
-                .OrderBy(entry => entry.State);
-
-            foreach (var entry in entitiesQuery)
+            foreach (var entry in _dbContext.Entries())
             {
                 var entity = entry.Entity;
                 if (entity == null)
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             EnsureUseCaseDuration();
 
-            var savedCount = _objectContext.SaveChanges(options.ToEFSaveOptions());
+            var savedCount = _dbContext.SaveChanges(options);
             if (savedCount > 0 && options != SaveOptions.None)
             {   
                 // сохранили 
@@ -107,61 +108,54 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             return savedCount;
         }
 
-        public void ChangeObjectState(object entity, EntityState state)
-        {
-            _objectContext.ChangeObjectState(entity, state);
-        }
-
         #region Delegating members for ObjectContext
 
         public void Dispose()
         {
-            if (_objectContext != null)
+            if (_dbContext != null)
             {
                 _pendingChangesHandlingStrategy.HandlePendingChanges(this);
-                _objectContext.Dispose();
+                _dbContext.Dispose();
             }
         }
 
         public void AcceptAllChanges()
         {
-            _objectContext.AcceptAllChanges();
+            _dbContext.AcceptAllChanges();
         }
 
         public ObjectResult<TElement> ExecuteFunction<TElement>(string functionName, params ObjectParameter[] parameters)
         {
-            return _objectContext.ExecuteFunction<TElement>(functionName, parameters);
+            return _dbContext.ExecuteFunction<TElement>(functionName, parameters);
         }
 
-        public IObjectSet<TEntity> CreateObjectSet<TEntity>() where TEntity : class
+        public DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
-            return _objectContext.CreateObjectSet<TEntity>();
+            return _dbContext.Set<TEntity>();
         }
 
-        public object GetObjectByKey(EntityKey key)
+        public DbEntityEntry Entry(object entity)
         {
-            return _objectContext.GetObjectByKey(key);
+            return _dbContext.Entry(entity);
+        }
+
+        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return _dbContext.Entry(entity);
         }
 
         #endregion
 
-        public void TryGetObjectStateEntry(EntityKey getEntityKey, out EFEntityStateEntry stateEntry)
-        {
-            _objectContext.TryGetObjectStateEntry(getEntityKey, out stateEntry);
-        }
-
         IQueryable IReadDomainContext.GetQueryableSource(Type entityType)
         {
             EnsureUseCaseDuration();
-            return _objectContext.CreateQuery(entityType);
+            return _dbContext.Set(entityType).AsNoTracking();
         }
 
         IQueryable<TEntity> IReadDomainContext.GetQueryableSource<TEntity>()
         {
             EnsureUseCaseDuration();
-            var objectSet = _objectContext.CreateObjectSet<TEntity>();
-            objectSet.MergeOption = MergeOption.NoTracking;
-            return objectSet.AsQueryable();
+            return _dbContext.Set<TEntity>().AsNoTracking();
         }
 
         private void EnsureUseCaseDuration()
@@ -170,8 +164,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var timeout = (int)(_processingContext.ContainsKey(UseCaseDurationKey.Instance)
                                                 ? _processingContext.GetValue(UseCaseDurationKey.Instance)
                                                 : UseCaseDuration.Normal);
-            var currentValue = _objectContext.CommandTimeout ?? 0;
-            _objectContext.CommandTimeout = Math.Max(timeout, currentValue);
+            var currentValue = _dbContext.CommandTimeout ?? 0;
+            _dbContext.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
         private void MarkEntityAsReplicable(object entity)
@@ -181,8 +175,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return;
             }
 
-            // TODO {y.baranihin, 06.0.2013}: Contains всё же понятнее чем Any(x => x == y)
-            // Done
             if (DeferredReplicationTypes.Contains(entity.GetType()))
             {
                 return;
@@ -218,7 +210,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             {
                 try
                 {
-                    _objectContext.ExecuteFunction(storedProcedurePrefix + entity.GetType().Name, new ObjectParameter("Id", entity.Id));
+                    _dbContext.ExecuteFunction(storedProcedurePrefix + entity.GetType().Name, new ObjectParameter("Id", entity.Id));
                     _replicableHashSet.Remove(entity);
                 }
                 catch (Exception ex)

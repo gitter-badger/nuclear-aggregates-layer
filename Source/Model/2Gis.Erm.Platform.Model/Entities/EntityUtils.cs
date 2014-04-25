@@ -31,10 +31,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 return entityWithId.Id;
             }
 
-            throw new InvalidOperationException(
-                string.Format("Can't extract Id for entity {0}. Valid domain entity must implement {1}", 
-                typeof(TEntity).Name,
-                typeof(IEntityKey).Name));
+            throw new InvalidOperationException(string.Format("Can't extract Id for entity {0}. Valid domain entity must implement {1}",
+                                                              typeof(TEntity).Name,
+                                                              typeof(IEntityKey).Name));
         }
 
         public static TEntity ResetToNew<TEntity>(this TEntity entity)

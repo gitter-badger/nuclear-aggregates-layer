@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private EFDomainContext CreateDomainContext(DomainContextMetadata domainContextMetadata)
         {
             var entityConnection = _connectionFactory.CreateEntityConnection(domainContextMetadata);
-            var objectContext = new EFObjectContext(entityConnection);
+            var objectContext = new EFDbContext(entityConnection);
 
             var domainContext = new EFDomainContext(ProcessingContext, domainContextMetadata.EntityContainerName, objectContext, _pendingChangesHandlingStrategy, _msCrmSettings, _logger);
             return domainContext;

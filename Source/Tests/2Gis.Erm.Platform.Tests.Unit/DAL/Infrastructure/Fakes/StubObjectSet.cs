@@ -1,38 +1,33 @@
-﻿using System.Data.Metadata.Edm;
-using System.Data.Objects;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
-    public class StubObjectSet<TEntity> : Platform.DAL.EntityFramework.IObjectSet<TEntity> where TEntity : class
+    public class StubObjectSet<TEntity> : DbSet<TEntity> where TEntity : class
     {
-        public MergeOption MergeOption { get; set; }
-        public EntitySet EntitySet { get; set; }
-
-        public TEntity ApplyCurrentValues(TEntity entity)
+        public override TEntity Add(TEntity entity)
         {
             return entity;
         }
 
-        public void AddObject(TEntity entity)
+        public override IEnumerable<TEntity> AddRange(IEnumerable<TEntity> entities)
         {
+            return entities;
         }
 
-        public void DeleteObject(TEntity entity)
+        public override TEntity Remove(TEntity entity)
         {
+            return entity;
         }
 
-        public void Attach(TEntity entity)
+        public override IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entities)
         {
+            return entities;
         }
 
-        public void Detach(TEntity entity)
+        public override TEntity Attach(TEntity entity)
         {
-        }
-
-        public IQueryable<TEntity> AsQueryable()
-        {
-            return Enumerable.Empty<TEntity>().AsQueryable();
+            return entity;
         }
     }
 }

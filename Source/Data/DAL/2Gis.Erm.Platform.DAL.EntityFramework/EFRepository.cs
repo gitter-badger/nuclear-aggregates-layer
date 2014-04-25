@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 _context = _domainContextProvider.Get<TEntity>() as EFDomainContext;
                 if (_context == null)
                 {
-                    throw new ApplicationException("IObjectContext implementation must inherit from ObjectContext");
+                    throw new ApplicationException("IDbContext implementation must inherit from ObjectContext");
                 }
 
                 return _context;

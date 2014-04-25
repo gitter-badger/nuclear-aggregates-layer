@@ -8,9 +8,9 @@
         /// </summary>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        public static System.Data.Objects.SaveOptions ToEFSaveOptions(this SaveOptions options)
+        public static System.Data.Entity.Core.Objects.SaveOptions ToEFSaveOptions(this SaveOptions options)
         {
-            return (System.Data.Objects.SaveOptions)(int)options;
+            return (System.Data.Entity.Core.Objects.SaveOptions)(int)options;
         }
     }
 }
