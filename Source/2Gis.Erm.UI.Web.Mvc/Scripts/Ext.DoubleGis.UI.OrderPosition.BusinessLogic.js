@@ -31,7 +31,6 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         OrderReleaseCountPlan: null,
         PricePositionAmount: null,
         AmountSpecificationMode: null,
-        IsBudget: null,
         LinkingObjectsSchema: null,
         IsPositionComposite: null,
         RateType: null
@@ -291,17 +290,9 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     setDiscountMode: function ()
     {
-        if (this.ServerData.IsBudget === false)
-        {
             var value = this.UI.Radios.CalculateDiscountViaPercentFalse.dom.checked;
             this.UI.Texts.DiscountPercent.dom.disabled = value;
             this.UI.Texts.DiscountSum.dom.disabled = !value;
-        }
-        else
-        {
-            this.UI.Texts.DiscountPercent.dom.disabled = true;
-            this.UI.Texts.DiscountSum.dom.disabled = true;
-        }
     },
 
     recalculateDiscount: function (afterrecalc)
@@ -369,35 +360,20 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     recalculateAll: function (data)
     {
-        if (data)
-        {
+        if (data) {
             window.Ext.apply(this.ServerData, data);
             document.getElementById('IsComposite').value = this.ServerData.IsPositionComposite;
             this.UI.Texts.Platform.dom.value = this.ServerData.PlatformName;
 
-            if (this.ServerData.IsBudget)
-            {
-                this.UI.Texts.Amount.dom.value = 1;
-
-                this.UI.Texts.DiscountPercent.dom.value = '0';
-                this.UI.Texts.DiscountSum.dom.value = '0';
-
-                this.setReadonly(this.UI.Texts.PricePerUnitWithVat, false);
-
-                this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.parseFloatLocalized(this.UI.Texts.PricePerUnitWithVat.dom.value)));
-            } else
-            {
-                if (this.ServerData.AmountSpecificationMode == this.Constants.AmountSpecificationMode.FixedValue)
-                {
-                    this.UI.Texts.Amount.dom.value = this.ServerData.PricePositionAmount;
-                }
-
-                this.UI.Divs.DiscountSumOuter.dom.disabled = false;
-                this.UI.Divs.DiscountPercentOuter.dom.disabled = false;
-
-                this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnit * (1 + this.ServerData.VatRatio)));
-                this.ComputationalData.PricePerUnit = this.ServerData.PricePerUnit;
+            if (this.ServerData.AmountSpecificationMode == this.Constants.AmountSpecificationMode.FixedValue) {
+                this.UI.Texts.Amount.dom.value = this.ServerData.PricePositionAmount;
             }
+
+            this.UI.Divs.DiscountSumOuter.dom.disabled = false;
+            this.UI.Divs.DiscountPercentOuter.dom.disabled = false;
+
+            this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnit * (1 + this.ServerData.VatRatio)));
+            this.ComputationalData.PricePerUnit = this.ServerData.PricePerUnit;
 
             this.setupAmountFieldAvailability();
         }
@@ -407,10 +383,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
         this.ComputationalData.PayablePricePriorDiscount = pricePerUnitWithVat * amount * this.ServerData.OrderReleaseCountPlan;
         this.ComputationalData.ShipmentPlan = amount * this.ServerData.OrderReleaseCountPlan;
-        if (this.ServerData.IsBudget)
-        {
-            this.ComputationalData.PricePerUnit = this.round(pricePerUnitWithVat / (1 + this.ServerData.VatRatio));
-        }
+
         this.ComputationalData.PayablePrice = amount * this.ServerData.OrderReleaseCountPlan * this.ComputationalData.PricePerUnit;
 
         this.UI.Texts.ShipmentPlan.setValueAdv(this.ComputationalData.ShipmentPlan);
@@ -465,11 +438,6 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     onSelectedAdvertisementCountChanged: function (args)
     {
-        if (this.ServerData.IsBudget)
-        {
-            return;
-        }
-
         if (this.ServerData.RateType == "BoundCategory") {
             this.acquirePricesForCategory(args.selectedCount > 0 ? args.categoryId : null);
         }
@@ -534,7 +502,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     setupAmountFieldAvailability: function ()
     {
-        var readonly = this.ServerData.IsBudget || this.ServerData.AmountSpecificationMode != this.Constants.AmountSpecificationMode.ArbitraryValue;
+        var readonly = this.ServerData.AmountSpecificationMode != this.Constants.AmountSpecificationMode.ArbitraryValue;
         this.setReadonly(this.UI.Texts.Amount, readonly);
     }
 });
