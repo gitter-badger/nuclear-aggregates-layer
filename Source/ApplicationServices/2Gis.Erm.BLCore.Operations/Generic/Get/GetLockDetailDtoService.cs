@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -39,10 +40,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      IsActive = entity.IsActive,
                                      IsDeleted = entity.IsDeleted,
                                      ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
+                                     OrderPositionRef = new EntityReference { Id = entity.OrderPositionId },
                                      ModifiedOn = entity.ModifiedOn,
                                      Timestamp = entity.Timestamp
                                  })
                              .Single();
+
+            if (dto.OrderPositionRef.Id != null)
+            {
+                dto.OrderPositionRef.Name = _finder.Find(Specs.Find.ById<OrderPosition>(dto.OrderPositionRef.Id.Value))
+                                                   .Select(x => x.PricePosition.Position.Name)
+                                                   .Single();
+            }
+
             return dto;
         }
     }

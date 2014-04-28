@@ -21,13 +21,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
     public class DeleteOrderPositionService : IDeleteGenericEntityService<OrderPosition>
     {
         private readonly IFinder _finder;
-        private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IOrderRepository _orderRepository;
         private readonly IPublicService _publicService;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteOrderPositionService(IFinder finder, IOrderRepository orderRepository, IPublicService publicService, IUnitOfWork unitOfWork, IOperationScopeFactory scopeFactory, IOrderReadModel orderReadModel)
+        public DeleteOrderPositionService(IFinder finder,
+                                          IOrderRepository orderRepository,
+                                          IPublicService publicService,
+                                          IUnitOfWork unitOfWork,
+                                          IOperationScopeFactory scopeFactory,
+                                          IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _orderRepository = orderRepository;
@@ -68,19 +73,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 using (var scope = _unitOfWork.CreateScope())
                 {
                     var scopedOrderRepository = scope.CreateRepository<IOrderRepository>();
-                    var hasOtherActiveOrderPosition = _finder.Find<OrderPosition>(position => position.OrderId == orderPositionInfo.Order.Id &&
-                                                                                              position.Id != entityId &&
-                                                                                              !position.IsDeleted && position.IsActive)
-                                                             .Any();
-                    if (!hasOtherActiveOrderPosition)
-                    {
-                        // в случае, если в заказе не осталось активных позиций => пометить order.BudgetType = Undefined
-                        orderPositionInfo.Order.BudgetType = (int)OrderBudgetType.None;
-                    }
-
 
                     // определим платформу заказа
-                    _orderReadModel.DetermineOrderPlatform(orderPositionInfo.Order);
+                    _orderReadModel.UpdateOrderPlatform(orderPositionInfo.Order);
                     scopedOrderRepository.UpdateOrderNumber(orderPositionInfo.Order);
 
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
@@ -113,12 +108,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
         public DeleteConfirmationInfo GetConfirmation(long entityId)
         {
             var orderPositionInfo = _finder.Find(Specs.Find.ById<OrderPosition>(entityId))
-                .Select(position => new
-                                    {
-                                        position.PricePosition.Position.Name,
-                                        OrderWorkflowStepId = position.Order.WorkflowStepId,
-                                    })
-                .SingleOrDefault();
+                                           .Select(position => new
+                                               {
+                                                   position.PricePosition.Position.Name,
+                                                   OrderWorkflowStepId = position.Order.WorkflowStepId,
+                                               })
+                                           .SingleOrDefault();
 
             if (orderPositionInfo == null)
             {
@@ -139,11 +134,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
             }
 
             return new DeleteConfirmationInfo
-            {
-                EntityCode = orderPositionInfo.Name,
-                IsDeleteAllowed = true,
-                DeleteConfirmation = string.Empty
-            };
+                {
+                    EntityCode = orderPositionInfo.Name,
+                    IsDeleteAllowed = true,
+                    DeleteConfirmation = string.Empty
+                };
         }
     }
 }

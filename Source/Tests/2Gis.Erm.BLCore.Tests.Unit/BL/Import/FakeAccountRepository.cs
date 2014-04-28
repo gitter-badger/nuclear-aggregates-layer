@@ -249,11 +249,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public int CreateLockDetailForLock(long lockId, long priceId, decimal amount)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Create(Limit limit)
         {
             throw new NotImplementedException();

@@ -3,11 +3,10 @@ using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Billing;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -23,11 +22,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 {
     public sealed class ExportLocalMessageHandler : RequestHandler<ExportLocalMessageRequest, Response>
     {
-        private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+        private readonly ISubRequestProcessor _subRequestProcessor;
 
         public ExportLocalMessageHandler(
-            ISubRequestProcessor subRequestProcessor, 
+            ISubRequestProcessor subRequestProcessor,
             IBranchOfficeReadModel branchOfficeReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
@@ -42,8 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             BusinessLogicException ex2 = null;
             var statusOnSuccess = LocalMessageStatus.WaitForProcess;
             if (request.IntegrationType == IntegrationTypeExport.LegalPersonsTo1C ||
-                request.IntegrationType == IntegrationTypeExport.AccountDetailsTo1C ||
-                request.IntegrationType == IntegrationTypeExport.OrdersToBilling)
+                request.IntegrationType == IntegrationTypeExport.AccountDetailsTo1C)
             {
                 statusOnSuccess = LocalMessageStatus.Processed;
             }
@@ -68,8 +66,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             // иными словать нижний if должен полностью удалиться
             if (!(response is EmptyResponse))
             {
-                _subRequestProcessor.HandleSubRequest(
-                    new CreateLocalMessageRequest
+                _subRequestProcessor
+                    .HandleSubRequest(new CreateLocalMessageRequest
                         {
                             Content = sucсessFlag && integrationResponse != null ? integrationResponse.Stream : new MemoryStream(),
                             IntegrationType = (int)request.IntegrationType,
@@ -81,20 +79,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                                         EventDate = DateTime.UtcNow,
                                         Status = !haveErrors ? (int)statusOnSuccess : (int)LocalMessageStatus.Failed,
                                         OrganizationUnitId = request.OrganizationUnitId,
-                                        ProcessResult =
-                                            sucсessFlag && integrationResponse != null
-                                                ? (integrationResponse.BlockingErrorsAmount > 0
-                                                   || integrationResponse.NonBlockingErrorsAmount > 0
-                                                       ? BLResources.ErrorsAreInTheFile
-                                                       : string.Empty)
-                                                : errorMsg
+                                        ProcessResult = sucсessFlag && integrationResponse != null
+                                                            ? (integrationResponse.BlockingErrorsAmount > 0
+                                                               || integrationResponse.NonBlockingErrorsAmount > 0
+                                                                   ? BLResources.ErrorsAreInTheFile
+                                                                   : string.Empty)
+                                                            : errorMsg
                                     }
 
                             // Если не sucсessFlag, то предыдущая транзакция была закрыта при выкидывании 
                             // BusinessLogicException. Поэтому открываем новую.
                         },
-                    Context,
-                    sucсessFlag);
+                                      Context,
+                                      sucсessFlag);
             }
 
             if (!sucсessFlag)
@@ -110,54 +107,37 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             switch (request.IntegrationType)
             {
                 case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(new ExportFirmsWithActiveOrdersRequest(), Context);
-                    }
-
-                case IntegrationTypeExport.OrdersToBilling:
-                    {
-                        if (request.OrganizationUnitId == null)
-                        {
-                            throw new NotificationException("Не указано отделение организации");
-                        }
-
-                        return _subRequestProcessor.HandleSubRequest(
-                            new ExportOrdersRequest
-                                {
-                                    OrganizationUnitId = request.OrganizationUnitId.Value,
-                                    BeginDate = request.PeriodStart.GetFirstDateOfMonth(),
-                                    EndDate = request.PeriodStart.GetEndPeriodOfThisMonth()
-                                },
-                            Context);
-                    }
+                {
+                    return _subRequestProcessor.HandleSubRequest(new ExportFirmsWithActiveOrdersRequest(), Context);
+                }
 
                 case IntegrationTypeExport.LegalPersonsTo1C:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(
-                            new ExportLegalPersonsRequest
-                                {
-                                    OrganizationUnitId = request.OrganizationUnitId,
-                                    PeriodStart = request.PeriodStart
-                                },
-                            Context);
-                    }
+                {
+                    return _subRequestProcessor.HandleSubRequest(
+                                                                 new ExportLegalPersonsRequest
+                                                                     {
+                                                                         OrganizationUnitId = request.OrganizationUnitId,
+                                                                         PeriodStart = request.PeriodStart
+                                                                     },
+                                                                 Context);
+                }
 
                 case IntegrationTypeExport.DataForAutoMailer:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(
-                            new ExportDataForAutoMailerRequest
-                                {
-                                    SendingType = request.SendingType,
-                                    PeriodStart = request.PeriodStart,
-                                    IncludeRegionalAdvertisement = request.IncludeRegionalAdvertisement
-                                },
-                            Context);
-                    }
+                {
+                    return _subRequestProcessor.HandleSubRequest(
+                                                                 new ExportDataForAutoMailerRequest
+                                                                     {
+                                                                         SendingType = request.SendingType,
+                                                                         PeriodStart = request.PeriodStart,
+                                                                         IncludeRegionalAdvertisement = request.IncludeRegionalAdvertisement
+                                                                     },
+                                                                 Context);
+                }
 
                 case IntegrationTypeExport.AccountDetailsTo1C:
-                    {
-                        return ExportAccountDetailsTo1C(request);
-                    }
+                {
+                    return ExportAccountDetailsTo1C(request);
+                }
 
                 case IntegrationTypeExport.AccountDetailsToServiceBus:
                 {
@@ -238,7 +218,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
             switch (contributionType)
             {
-                            case ContributionTypeEnum.Branch:
+                case ContributionTypeEnum.Branch:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForBranchRequest
                         {
@@ -250,7 +230,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
                     break;
 
-                            case ContributionTypeEnum.Franchisees:
+                case ContributionTypeEnum.Franchisees:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForFranchiseesRequest
                         {
