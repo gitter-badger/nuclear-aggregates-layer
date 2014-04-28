@@ -33,7 +33,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public PositionBindingObjectType BindingObjectType { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.Disable, "AccountingMethod", "this.value == 'GuaranteedProvision'")]
         public PositionAccountingMethod AccountingMethod { get; set; }
 
         [RequiredLocalized]
