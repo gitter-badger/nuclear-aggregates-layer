@@ -13,10 +13,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         [EnumMember]
         FirmsWithActiveOrdersToDgpp = 4,
 
-        // ERM <-> Billing (range 11 - 20)
-        [EnumMember]
-        OrdersToBilling = 12,
-
         // ERM <-> 1C (range 21 - 30)
         [EnumMember]
         LegalPersonsTo1C = 22,
