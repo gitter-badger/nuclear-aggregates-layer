@@ -25,15 +25,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [Dependency(DependencyType.Required, "OrderNumber", @"Ext.getDom('Id').value != 0")]
         public override long Id
         {
-            get
-            {
-                return base.Id;
-            }
+            get { return base.Id; }
 
-            set
-            {
-                base.Id = value;
-            }
+            set { base.Id = value; }
         }
 
         public bool EditRegionalNumber { get; set; }
@@ -49,12 +43,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public LookupField Client { get; set; }
 
-        [Dependency(DependencyType.ReadOnly, "SourceOrganizationUnit", "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
+        [Dependency(DependencyType.ReadOnly, "SourceOrganizationUnit",
+            "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
         [Dependency(DependencyType.ReadOnly, "DestinationOrganizationUnit", "this.value && this.value.toLowerCase()=='true'")]
         [Dependency(DependencyType.ReadOnly, "LegalPerson", "this.value && this.value.toLowerCase()=='true'")]
-        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit",
+            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('HasOrderBranchOfficeOrganizationUnitSelection').value.toLowerCase()=='false'")]
         [Dependency(DependencyType.ReadOnly, "Firm", "this.value && this.value.toLowerCase()=='true'")]
-        [Dependency(DependencyType.Disable, "OrderType", "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
+        [Dependency(DependencyType.Disable, "OrderType",
+            "(this.value && this.value.toLowerCase()=='true') || Ext.getDom('CanEditOrderType').value.toLowerCase()=='false'")]
         public bool MakeReadOnly
         {
             get { return HasAnyOrderPosition || !IsActive; }
@@ -95,14 +92,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public long? DealCurrencyId { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
+        [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         [DisplayNameLocalized("BeginReleaseDate")]
-        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
+        [CustomClientValidation("validateBeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
         public DateTime BeginDistributionDate { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage")]
+        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage"
+            )]
         [DisplayNameLocalized("EndPlanReleaseDate")]
-        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
+        [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
         public DateTime EndDistributionDatePlan { get; set; }
 
         [DisplayNameLocalized("EndFactReleaseDate")]
@@ -138,6 +139,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [Dependency(DependencyType.Required, "BranchOfficeOrganizationUnit", "this.value == 2")]
         [Dependency(DependencyType.Required, "Inspector", "this.value == 2")]
         public int WorkflowStepId { get; set; }
+
         public string AvailableSteps { get; set; }
 
         public long? DgppId { get; set; }
@@ -167,7 +169,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [Dependency(DependencyType.Required, "DiscountComment", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         public decimal? DiscountSum { get; set; }
 
-        [CustomClientValidation("validateDiscountPercent", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "DiscountPercentMustBeBetweenZeroAndOneHundred")]
+        [CustomClientValidation("validateDiscountPercent", ErrorMessageResourceType = typeof(BLResources),
+            ErrorMessageResourceName = "DiscountPercentMustBeBetweenZeroAndOneHundred")]
         [Dependency(DependencyType.Required, "DiscountReason", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         [Dependency(DependencyType.Required, "DiscountComment", "(this.value && (this.value == this.value) && (+(this.value.replace(',', '.')) > 0))")]
         public decimal? DiscountPercent { get; set; }
@@ -190,9 +193,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         [ExcludeZeroValue]
         public OrderType OrderType { get; set; }
-
-        [Dependency(DependencyType.Disable, "discountBlock", "this.value=='Budget'")]
-        public OrderBudgetType BudgetType { get; set; }
 
         public LookupField Inspector { get; set; }
 
@@ -271,7 +271,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             OrderType = modelDto.OrderType;
             Inspector = LookupField.FromReference(modelDto.InspectorRef);
             Bargain = LookupField.FromReference(modelDto.BargainRef);
-            BudgetType = modelDto.BudgetType;
             Platform = modelDto.Platform;
             PlatformId = modelDto.PlatformRef != null ? modelDto.PlatformRef.Id : null;
             HasDocumentsDebt = modelDto.HasDocumentsDebt;
@@ -329,16 +328,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     OrderType = OrderType,
                     InspectorRef = Inspector.ToReference(),
                     BargainRef = Bargain.ToReference(),
-                    BudgetType = BudgetType,
                     Platform = Platform,
                     PlatformRef = new EntityReference(PlatformId),
                     HasDocumentsDebt = HasDocumentsDebt,
                     DocumentsComment = DocumentsComment,
                     AccountRef = new EntityReference(AccountId),
                     LegalPersonProfileRef = new EntityReference(LegalPersonProfileId),
-
                     OwnerRef = Owner.ToReference(),
-
                     Timestamp = Timestamp,
                 };
 

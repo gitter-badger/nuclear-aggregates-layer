@@ -32,16 +32,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
     // TODO {v.lapeev, 11.02.2014}: кандидат на MultiCulture
     public sealed class ChileEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted
     {
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IFinder _finder;
-        private readonly IPublicService _publicService;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderValidationInvalidator _orderValidationInvalidator;
-        private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPriceReadModel _priceReadModel;
-        private readonly IFirmReadModel _firmReadModel;
+        private readonly IPublicService _publicService;
+        private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
-        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
 
         public ChileEditOrderPositionHandler(IFinder finder,
                                              IPublicService publicService,
@@ -83,7 +83,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                                            x.OwnerCode,
                                            x.DestOrganizationUnitId,
                                            x.PlatformId,
-                                           x.BudgetType,
                                            OrderType = (OrderType)x.OrderType
                                        })
                                    .Single();
@@ -101,7 +100,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                         .Where(x => x.FirmAddressId.HasValue)
                         .Select(x => x.FirmAddressId.Value)
                         .ToArray(),
-
                     IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
                     AdvertisementLinksCount = advertisementsLinks.Count()
                 };
@@ -114,7 +112,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
 
             if (request.CategoryId != null)
             {
-                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId), request.CategoryId.Value, orderInfo.DestOrganizationUnitId);
+                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId),
+                                                  request.CategoryId.Value,
+                                                  orderInfo.DestOrganizationUnitId);
             }
 
             if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
@@ -140,21 +140,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                 {
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
-                    CheckAgainstOtherOrderPositions(orderPosition, orderInfo.Id, orderInfo.BudgetType, orderInfo.PlatformId);
-
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(
-                                                       x =>
-                                                       new
-                                                           {
-                                                               x.Cost,
-                                                               x.Position.AccountingMethodEnum,
-                                                               x.Price.OrganizationUnitId,
-                                                               x.RateType,
-                                                               x.Position.IsComposite,
-                                                               x.PositionId,
-                                                               x.PriceId
-                                                           })
+                                                           x =>
+                                                           new
+                                                               {
+                                                                   x.Cost,
+                                                                   x.Position.AccountingMethodEnum,
+                                                                   x.Price.OrganizationUnitId,
+                                                                   x.RateType,
+                                                                   x.Position.IsComposite,
+                                                                   x.PositionId,
+                                                                   x.PriceId
+                                                               })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -163,9 +161,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                     }
 
                     var categoryRate = _calculateCategoryRateOperationService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
-                                                                                           request.Entity.PricePositionId,
-                                                                                           request.CategoryId,
-                                                                                           true);
+                                                                                                    request.Entity.PricePositionId,
+                                                                                                    request.CategoryId,
+                                                                                                    true);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
@@ -189,7 +187,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
 
-
                     ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision);
 
                     // Сохраняем изменения OrderPosition в БД
@@ -205,10 +202,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
 
                     var order = _orderReadModel.GetOrder(orderPosition.OrderId);
 
-                    // TODO : разобраться - проверка в методе CheckAgainstOtherOrderPositions основывается на
-                    // старых значениях PlatformId и BudgetType, а теперь эти поля могут измениться - как бы чего не вышло.
-                    _orderReadModel.DetermineOrderBudgetType(order);
-                    _orderReadModel.DetermineOrderPlatform(order);
+                    _orderReadModel.UpdateOrderPlatform(order);
 
                     _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
@@ -292,36 +286,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.Old
             }
         }
 
-        private void CheckAgainstOtherOrderPositions(OrderPosition entity, long orderId, int? budgetType, long? platformId)
-        {
-            var hasOtherPositions = _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(order => order.OrderPositions)
-                .Any(op => op.Id != entity.Id && !op.IsDeleted && op.IsActive);
-
-            if (budgetType != (int)OrderBudgetType.None)
-            {
-                if (hasOtherPositions)
-                {
-                    var accountingMethod = _finder.Find(Specs.Find.ById<PricePosition>(entity.PricePositionId))
-                                                .Select(pp => (PositionAccountingMethod)pp.Position.AccountingMethodEnum)
-                                                .FirstOrDefault();
-
-                    if (accountingMethod == PositionAccountingMethod.PlannedProvision && budgetType != (int)OrderBudgetType.Budget)
-                    {
-                        throw new NotificationException(BLResources.OrderSellCanAcceptOnlySellPositions);
-                    }
-
-                    if (accountingMethod == PositionAccountingMethod.GuaranteedProvision && budgetType != (int)OrderBudgetType.Sell)
-                    {
-                        throw new NotificationException(BLResources.OrderBudgetCanAcceptOnlyBudgetPositions);
-                    }
-                }
-            }
-        }
-
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationInvalidator.Invalidate(new []{ orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _orderValidationInvalidator.Invalidate(new[] { orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
         }
     }
 }

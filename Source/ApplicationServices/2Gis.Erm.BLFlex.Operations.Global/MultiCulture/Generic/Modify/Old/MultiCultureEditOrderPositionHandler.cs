@@ -32,16 +32,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
     // FIXME {all, 13.11.2013}: приехало из 1.0 - больше похоже на почти полную копипасту (нет сделок и т.п.) - необходимо проверить на соблюдение целостности BusinessModel
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
     {
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IFinder _finder;
-        private readonly IPublicService _publicService;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderValidationInvalidator _orderValidationInvalidator;
-        private readonly IOperationScopeFactory _scopeFactory;
         private readonly IPriceReadModel _priceReadModel;
+        private readonly IPublicService _publicService;
+        private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
-        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
-        private readonly IFirmReadModel _firmReadModel;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
                                              IPublicService publicService,
@@ -73,38 +73,36 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
                                    .Select(x => new
-                                   {
-                                       x.Id,
-                                       x.FirmId,
-                                       x.WorkflowStepId,
-                                       x.ReleaseCountFact,
-                                       x.DealId,
-                                       x.EndDistributionDateFact,
-                                       x.OwnerCode,
-                                       x.DestOrganizationUnitId,
-                                       x.PlatformId,
-                                       x.BudgetType,
-                                       OrderType = (OrderType)x.OrderType
-                                   })
+                                       {
+                                           x.Id,
+                                           x.FirmId,
+                                           x.WorkflowStepId,
+                                           x.ReleaseCountFact,
+                                           x.DealId,
+                                           x.EndDistributionDateFact,
+                                           x.OwnerCode,
+                                           x.DestOrganizationUnitId,
+                                           x.PlatformId,
+                                           OrderType = (OrderType)x.OrderType
+                                       })
                                    .Single();
 
             var subRequest = new CanCreateOrderPositionForOrderRequest
-            {
-                OrderId = orderPosition.OrderId,
-                OrderType = orderInfo.OrderType,
-                FirmId = orderInfo.FirmId,
-                OrderPositionCategoryIds = advertisementsLinks
-                    .Where(x => x.CategoryId.HasValue)
-                    .Select(x => x.CategoryId.Value)
-                    .ToArray(),
-                OrderPositionFirmAddressIds = advertisementsLinks
-                    .Where(x => x.FirmAddressId.HasValue)
-                    .Select(x => x.FirmAddressId.Value)
-                    .ToArray(),
-
-                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
-                AdvertisementLinksCount = advertisementsLinks.Count()
-            };
+                {
+                    OrderId = orderPosition.OrderId,
+                    OrderType = orderInfo.OrderType,
+                    FirmId = orderInfo.FirmId,
+                    OrderPositionCategoryIds = advertisementsLinks
+                        .Where(x => x.CategoryId.HasValue)
+                        .Select(x => x.CategoryId.Value)
+                        .ToArray(),
+                    OrderPositionFirmAddressIds = advertisementsLinks
+                        .Where(x => x.FirmAddressId.HasValue)
+                        .Select(x => x.FirmAddressId.Value)
+                        .ToArray(),
+                    IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
+                    AdvertisementLinksCount = advertisementsLinks.Count()
+                };
 
             var canCreateResponse = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(subRequest);
             if (!canCreateResponse.CanCreate)
@@ -114,7 +112,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
             if (request.CategoryId != null)
             {
-                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId), request.CategoryId.Value, orderInfo.DestOrganizationUnitId);
+                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId),
+                                                  request.CategoryId.Value,
+                                                  orderInfo.DestOrganizationUnitId);
             }
 
             if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
@@ -140,21 +140,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 {
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
-                    CheckAgainstOtherOrderPositions(orderPosition, orderInfo.Id, orderInfo.BudgetType, orderInfo.PlatformId);
-
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(
-                                                       x =>
-                                                       new
-                                                       {
-                                                           x.Cost,
-                                                           x.Position.AccountingMethodEnum,
-                                                           x.Price.OrganizationUnitId,
-                                                           x.RateType,
-                                                           x.Position.IsComposite,
-                                                           x.PositionId,
-                                                           x.PriceId
-                                                       })
+                                                           x =>
+                                                           new
+                                                               {
+                                                                   x.Cost,
+                                                                   x.Position.AccountingMethodEnum,
+                                                                   x.Price.OrganizationUnitId,
+                                                                   x.RateType,
+                                                                   x.Position.IsComposite,
+                                                                   x.PositionId,
+                                                                   x.PriceId
+                                                               })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -163,21 +161,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     }
 
                     var categoryRate = _calculateCategoryRateOperationService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
-                                               request.Entity.PricePositionId,
-                                               request.CategoryId,
-                                               true);
+                                                                                                    request.Entity.PricePositionId,
+                                                                                                    request.CategoryId,
+                                                                                                    true);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
-                        {
-                            Cost = pricePositionInfo.Cost,
-                            DiscountPercent = orderPosition.DiscountPercent,
-                            DiscountSum = orderPosition.DiscountSum,
-                            CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
-                            OrderId = orderPosition.OrderId,
-                            CategoryRate = categoryRate,
-                            Amount = orderPosition.Amount
-                        });
+                            {
+                                Cost = pricePositionInfo.Cost,
+                                DiscountPercent = orderPosition.DiscountPercent,
+                                DiscountSum = orderPosition.DiscountSum,
+                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
+                                OrderId = orderPosition.OrderId,
+                                CategoryRate = categoryRate,
+                                Amount = orderPosition.Amount
+                            });
 
                     orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
                     orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
@@ -188,7 +186,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     orderPosition.PayablePlanWoVat = calculateOrderPositionPricesResponse.PayablePlanWoVat;
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
-
 
                     ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision);
 
@@ -205,10 +202,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     var order = _orderReadModel.GetOrder(orderPosition.OrderId);
 
-                    // TODO : разобраться - проверка в методе CheckAgainstOtherOrderPositions основывается на
-                    // старых значениях PlatformId и BudgetType, а теперь эти поля могут измениться - как бы чего не вышло.
-                    _orderReadModel.DetermineOrderBudgetType(order);
-                    _orderReadModel.DetermineOrderPlatform(order);
+                    _orderReadModel.UpdateOrderPlatform(order);
 
                     _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
@@ -289,33 +283,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             if (entity.PricePerUnitWithVat < 0 || entity.PricePerUnitWithVat < 0)
             {
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
-            }
-        }
-
-        private void CheckAgainstOtherOrderPositions(OrderPosition entity, long orderId, int? budgetType, long? platformId)
-        {
-            var hasOtherPositions = _finder.Find(Specs.Find.ById<Order>(orderId))
-                .SelectMany(order => order.OrderPositions)
-                .Any(op => op.Id != entity.Id && !op.IsDeleted && op.IsActive);
-
-            if (budgetType != (int)OrderBudgetType.None)
-            {
-                if (hasOtherPositions)
-                {
-                    var accountingMethod = _finder.Find(Specs.Find.ById<PricePosition>(entity.PricePositionId))
-                                                .Select(pp => (PositionAccountingMethod)pp.Position.AccountingMethodEnum)
-                                                .FirstOrDefault();
-
-                    if (accountingMethod == PositionAccountingMethod.PlannedProvision && budgetType != (int)OrderBudgetType.Budget)
-                    {
-                        throw new NotificationException(BLResources.OrderSellCanAcceptOnlySellPositions);
-                    }
-
-                    if (accountingMethod == PositionAccountingMethod.GuaranteedProvision && budgetType != (int)OrderBudgetType.Sell)
-                    {
-                        throw new NotificationException(BLResources.OrderBudgetCanAcceptOnlyBudgetPositions);
-                    }
-                }
             }
         }
 
