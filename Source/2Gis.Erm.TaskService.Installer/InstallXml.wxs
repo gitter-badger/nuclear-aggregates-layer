@@ -138,6 +138,14 @@
         <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll" />
       </Component>
 
+      <Component Id="EntityFramework.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="EntityFramework.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
+      </Component>
+
+      <Component Id="EntityFramework.SqlServer.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="EntityFramework.SqlServer.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
+      </Component>
+
     </ComponentGroup>
 
     <!-- NT service -->
