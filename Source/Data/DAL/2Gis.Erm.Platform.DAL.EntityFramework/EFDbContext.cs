@@ -13,6 +13,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     {
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
         private readonly DbContext _dbContext;
+        private bool _isDisposed;
 
         public EFDbContext(EntityConnection connection)
         {
@@ -57,12 +58,18 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public bool HasChanges()
         {
-            return _dbContext.ChangeTracker.HasChanges();
+            return !_isDisposed && _dbContext.ChangeTracker.HasChanges();
         }
 
         public void Dispose()
         {
+            if (_isDisposed)
+            {
+                return;
+            }
+
             _dbContext.Dispose();
+            _isDisposed = true;
         }
 
         public void AcceptAllChanges()
