@@ -20,7 +20,6 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
@@ -44,6 +43,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.Config
 
             var wsHttpbinding = BindingConfig.WsHttp
                                        .UseTransportSecurity(HttpClientCredentialType.Windows)
+                                       .MaxReceivedMessageSize(50000000)
                                        .Timeouts(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
 
             var wsDualHttpbinding = BindingConfig.WsDualHttp

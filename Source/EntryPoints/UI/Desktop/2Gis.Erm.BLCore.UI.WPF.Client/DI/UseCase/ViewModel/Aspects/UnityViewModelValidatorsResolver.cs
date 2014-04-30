@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
         private delegate bool ValidatorFeatureProcessor(
             IUseCase useCase,
-            IViewModelStructure viewModelStructure,
+            IViewModelMetadata viewModelMetadata,
             IViewModelIdentity resolvingViewModelIdentity,
             IValidatorViewModelFeature feature,
             out IValidator validator);
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             _featureProcessors = new ValidatorFeatureProcessor[] { TryProcessDynamicValidatorFeature, TryProcessStaticValidatorFeature };
         }
 
-        protected override IValidatorsContainer Create(IUseCase useCase, IViewModelStructure viewModelStructure, IViewModelIdentity resolvingViewModelIdentity, IValidatorViewModelFeature feature)
+        protected override IValidatorsContainer Create(IUseCase useCase, IViewModelMetadata viewModelMetadata, IViewModelIdentity resolvingViewModelIdentity, IValidatorViewModelFeature feature)
         {
             var validatorsFeature = feature as CompositeValidatorViewModelFeature;
             if (validatorsFeature == null || validatorsFeature.Validators == null)
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                 foreach (var processor in _featureProcessors)
                 {
                     IValidator validator;
-                    if (processor(useCase, viewModelStructure, resolvingViewModelIdentity, validatorFeature, out validator))
+                    if (processor(useCase, viewModelMetadata, resolvingViewModelIdentity, validatorFeature, out validator))
                     {
                         validators.Add(validator);
                         break;
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
         private bool TryProcessDynamicValidatorFeature(
             IUseCase useCase, 
-            IViewModelStructure viewModelStructure,
+            IViewModelMetadata viewModelMetadata,
             IViewModelIdentity resolvingViewModelIdentity,
             IValidatorViewModelFeature feature, 
             out IValidator validator)
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                 return false;
             }
 
-            var resolvedViewModelProperties = _propertiesMappers.ResolveViewModelProperties(useCase, viewModelStructure, resolvingViewModelIdentity);
+            var resolvedViewModelProperties = _propertiesMappers.ResolveViewModelProperties(useCase, viewModelMetadata, resolvingViewModelIdentity);
 
             var proxyType = typeof(ProxyValidator<,>).MakeGenericType(dynamicValidatorFeature.ConcreteValidatorType, dynamicValidatorFeature.ViewModelType);
             validator = //(IValidator)Activator.CreateInstance(proxyType, resolvedViewModelProperties);
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
         private bool TryProcessStaticValidatorFeature(
             IUseCase useCase,
-            IViewModelStructure viewModelStructure,
+            IViewModelMetadata viewModelMetadata,
             IViewModelIdentity resolvingViewModelIdentity,
             IValidatorViewModelFeature feature,
             out IValidator validator)

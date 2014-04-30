@@ -11,7 +11,10 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
@@ -26,28 +29,25 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
     {
         private delegate bool DocumentElementResolver(
             IUseCase useCase,
-            EntityName entityName, 
-            long entityId, 
-            IDocumentElementStructure elementStructure, 
+            EntityName entityName,
+            long entityId,
+            IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
             ICollection<IViewModelViewMapping> viewModelsModelViewMappings);
 
-        private readonly IDocumentStructuresProvider _documentStructuresProvider;
-        private readonly ICardStructuresProvider _cardStructuresProvider;
+        private readonly IMetadataProvider _metadataProvider;
         private readonly ICardViewModelFactory _cardViewModelFactory;
         private readonly IGridViewModelFactory _gridViewModelFactory;
         private readonly IViewModelAspectResolver[] _aspectResolvers;
         private readonly IEnumerable<DocumentElementResolver> _elementsResolvers;
 
         public UnityCardDocumentViewModelFactory(
-            IDocumentStructuresProvider documentStructuresProvider,
-            ICardStructuresProvider cardStructuresProvider,
+            IMetadataProvider metadataProvider,
             ICardViewModelFactory cardViewModelFactory,
             IGridViewModelFactory gridViewModelFactory,
             IViewModelAspectResolver[] aspectResolvers)
         {
-            _documentStructuresProvider = documentStructuresProvider;
-            _cardStructuresProvider = cardStructuresProvider;
+            _metadataProvider = metadataProvider;
             _cardViewModelFactory = cardViewModelFactory;
             _gridViewModelFactory = gridViewModelFactory;
             _aspectResolvers = aspectResolvers;
@@ -74,10 +74,16 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             var cardViewModel = _cardViewModelFactory.Create(useCase, entityName, entityId);
 
-            CardStructure cardStructure;
-            if (!_cardStructuresProvider.TryGetDescriptor(entityName, out cardStructure) || cardStructure.ViewModelViewMapping == null)
+            var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+            CardMetadata cardMetadata;
+            if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {
                 throw new InvalidOperationException("Can't resolve view type by card structure for entity " + entityName);
+            }
+
+            if (cardMetadata.ViewModelViewMapping == null)
+            {
+                throw new InvalidOperationException("Invalid metadata config for card " + entityName);
             }
 
             var container = useCase.ResolveFactoryContext();
@@ -90,12 +96,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                     OperationIdentity = entityName.ResolveTargetModelOperation<ModifyBusinessModelEntityIdentity, ModifySimplifiedModelEntityIdentity>()
                 };
 
-            if (cardStructure.ElementFeatures != null && cardStructure.ElementFeatures.Any())
+            if (cardMetadata.Features != null && cardMetadata.Features.Any())
             {
                 foreach (var resolver in _aspectResolvers)
                 {
                     DependencyOverride resolvedDependency;
-                    if (resolver.TryResolveDependency(useCase, cardStructure, viewModelIdentity, out resolvedDependency))
+                    if (resolver.TryResolveDependency(useCase, cardMetadata, viewModelIdentity, out resolvedDependency))
                     {
                         resolvedDependencies.Add(resolvedDependency);
                     }
@@ -104,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             resolvedDependencies.Add(new DependencyOverride(typeof(ICardViewModelIdentity), viewModelIdentity));
             resolvedDependencies.Add(new DependencyOverride(typeof(IEnumerable<IViewModel>),  new IViewModel[] { cardViewModel }));
-            resolvedDependencies.Add(new DependencyOverride(typeof(DataTemplateSelector), new ViewModel2ViewMappingsSelector(new[] { cardStructure.ViewModelViewMapping })));
+            resolvedDependencies.Add(new DependencyOverride(typeof(DataTemplateSelector), new ViewModel2ViewMappingsSelector(new[] { cardMetadata.ViewModelViewMapping })));
 
             return container.Resolve<CompositeDocumentViewModel>(resolvedDependencies.ToArray());
         }
@@ -113,34 +119,28 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             documentViewModel = null;
 
-            foreach (var documentStructure in _documentStructuresProvider.Structures)
+            MetadataSet documentsMetadata;
+            if (!_metadataProvider.TryGetMetadata<MetadataDocumentsIdentity>(out documentsMetadata))
             {
-                var documentElement = documentStructure.Elements.FirstOrDefault();
-                if (documentElement == null)
+                throw new InvalidOperationException("Can't resolve documents metadata");
+            }
+
+            foreach (var documentMetadata in documentsMetadata.Metadata.Values.OfType<DocumentMetadata>())
+            {
+                var cardMetadataElements = documentMetadata.Elements<CardMetadata>().Where(cm => cm.Entity == entityName);
+                if (!cardMetadataElements.Any())
                 {
                     continue;
                 }
 
-                var referenceElement = documentElement as IReferencedElementStructure;
-                if (referenceElement == null)
-                {
-                    continue;
-                }
-
-                var cardStructureIdentity = referenceElement.ReferencedElementIdentity as ICardStructureIdentity;
-                if (cardStructureIdentity == null || cardStructureIdentity.EntityName != entityName)
-                {
-                    continue;
-                }
-
-                if (documentStructure.ViewModelViewMapping == null || documentStructure.ViewModelViewMapping.ViewModelType == null)
+                if (documentMetadata.ViewModelViewMapping == null || documentMetadata.ViewModelViewMapping.ViewModelType == null)
                 {
                     throw new InvalidOperationException("Invalid structure for card document dependencies. MVVM parts is not configured properly. EntityName: " + entityName);
                 }
                 
                 var resolvedElements = new List<IViewModel>();
                 var viewModelViewMappings = new List<IViewModelViewMapping>();
-                foreach (var element in documentStructure.DocumentElements)
+                foreach (var element in documentMetadata.Elements)
                 {
                     ResolveDocumentElement(useCase, entityName, entityId, element, resolvedElements, viewModelViewMappings);
                 }
@@ -155,12 +155,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 };
 
                 var resolvedDependencies = new List<ResolverOverride>();
-                if (documentStructure.ElementFeatures != null && documentStructure.ElementFeatures.Any())
+                if (documentMetadata.Features != null && documentMetadata.Features.Any())
                 {
                     foreach (var resolver in _aspectResolvers)
                     {
                         DependencyOverride resolvedDependency;
-                        if (resolver.TryResolveDependency(useCase, documentStructure, viewModelIdentity, out resolvedDependency))
+                        if (resolver.TryResolveDependency(useCase, documentMetadata, viewModelIdentity, out resolvedDependency))
                         {
                             resolvedDependencies.Add(resolvedDependency);
                         }
@@ -170,7 +170,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 resolvedDependencies.Add(new DependencyOverride(typeof(IEnumerable<IViewModel>), resolvedElements));
                 resolvedDependencies.Add(new DependencyOverride(typeof(DataTemplateSelector), new ViewModel2ViewMappingsSelector(viewModelViewMappings)));
 
-                documentViewModel = (IViewModel)container.Resolve(documentStructure.ViewModelViewMapping.ViewModelType, resolvedDependencies.ToArray());
+                documentViewModel = (IViewModel)container.Resolve(documentMetadata.ViewModelViewMapping.ViewModelType, resolvedDependencies.ToArray());
                 return true;
             }
 
@@ -180,8 +180,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         private void ResolveDocumentElement(
             IUseCase useCase, 
             EntityName entityName, 
-            long entityId, 
-            IDocumentElementStructure elementStructure,
+            long entityId,
+            IMetadataElement elementStructure,
             ICollection<IViewModel> viewModels,
             ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
         {
@@ -197,25 +197,19 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         private bool ReferencedCard(
             IUseCase useCase, 
             EntityName entityName, 
-            long entityId, 
-            IDocumentElementStructure elementStructure,
+            long entityId,
+            IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
             ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
         {
-            var referenceElement = elementStructure as IReferencedElementStructure;
-            if (referenceElement == null)
-            {
-                return false;
-            }
-
-            var cardStructure = referenceElement.ReferencedElement as CardStructure;
-            if (cardStructure == null)
+            var cardMetadata = elementMetadata as CardMetadata;
+            if (cardMetadata == null)
             {
                 return false;
             }
 
             viewModels.Add(_cardViewModelFactory.Create(useCase, entityName, entityId));
-            viewModelsModelViewMappings.Add(cardStructure.ViewModelViewMapping);
+            viewModelsModelViewMappings.Add(cardMetadata.ViewModelViewMapping);
 
             return true;
         }
@@ -223,12 +217,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         private bool AttachedGrid(
             IUseCase useCase, 
             EntityName entityName, 
-            long entityId, 
-            IDocumentElementStructure elementStructure,
+            long entityId,
+            IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
             ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
         {
-            var attachedElement = elementStructure as IAttachedElementStructure;
+            var attachedElement = elementMetadata as AttachedMetadata;
             if (attachedElement == null || !attachedElement.HasHandler)
             {
                 return false;

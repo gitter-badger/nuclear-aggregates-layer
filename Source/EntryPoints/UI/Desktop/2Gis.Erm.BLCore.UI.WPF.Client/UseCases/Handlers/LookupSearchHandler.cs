@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            var lookupViewModel = propertiesContainer.GetDynamicPropertyValue(message.Property.TargetProperty.Name) as LookupViewModel;
+            var lookupViewModel = propertiesContainer.GetDynamicPropertyValue(message.Property.TargetPropertyMetadata.Name) as LookupViewModel;
             if (lookupViewModel == null)
             {
                 return null;

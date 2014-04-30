@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
 using Roslyn.Compilers.Common;
 
@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Utils
             new HashSet<Type>(
                 new[]
                     {
-                        typeof(HierarchyElement),
-                        typeof(HierarchyElementsBuilder)
+                        typeof(HierarchyMetadata),
+                        typeof(HierarchyMetadataBuilder)
                     });
 
         public static HashSet<INamedTypeSymbol> GetAllExcludedTypesCantGetAllInterfaces(this ISemanticModel semanticModel)

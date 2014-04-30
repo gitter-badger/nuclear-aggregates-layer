@@ -12,18 +12,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
         public static IEnumerable<IViewModelProperty> ResolveViewModelProperties(
             this IMetadata2ViewModelPropertiesMapper[] mappers,
             IUseCase useCase,
-            IViewModelStructure structure,
+            IViewModelMetadata metadata,
             IViewModelIdentity resolvingViewModelIdentity)
         {
             var viewModelProperties = new List<IViewModelProperty>();
             foreach (var mapper in mappers)
             {
-                if (!mapper.CanMap(useCase, structure, resolvingViewModelIdentity))
+                if (!mapper.CanMap(useCase, metadata, resolvingViewModelIdentity))
                 {
                     continue;
                 }
 
-                viewModelProperties.AddRange(mapper.GetProperties(useCase, structure, resolvingViewModelIdentity));
+                viewModelProperties.AddRange(mapper.GetProperties(useCase, metadata, resolvingViewModelIdentity));
             }
 
             return viewModelProperties;

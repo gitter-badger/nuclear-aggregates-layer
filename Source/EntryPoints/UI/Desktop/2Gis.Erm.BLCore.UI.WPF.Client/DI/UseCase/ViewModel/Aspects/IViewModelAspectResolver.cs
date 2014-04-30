@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
     {
         bool TryResolveDependency(
             IUseCase useCase,
-            IViewModelStructure structure,
+            IViewModelMetadata metadata,
             IViewModelIdentity resolvingViewModelIdentity,
             out DependencyOverride resolvedDependency);
     }

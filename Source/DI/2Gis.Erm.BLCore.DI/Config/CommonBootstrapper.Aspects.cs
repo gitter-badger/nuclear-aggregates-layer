@@ -28,6 +28,12 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 
 using Microsoft.Practices.Unity;
 
@@ -86,10 +92,24 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return container.RegisterType<IOperationServicesManager, UnityOperationServicesManager>(entryPointSpecificLifetimeManagerFactory());
         }
 
-        public static IUnityContainer ConfigureMetadata(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
+        public static IUnityContainer ConfigureMetadata(this IUnityContainer container)
         {
-            return container
-                .RegisterType<IExportMetadataProvider, ExportMetadataProvider>(Lifetime.Singleton);
+            // provider
+            container.RegisterType<IMetadataProvider, MetadataProvider>(Lifetime.Singleton);
+
+            // processors
+            container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, ReferencesEvaluatorProcessor>(Lifetime.Singleton);
+            container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, Feature2PropertiesLinkerProcessor>(Lifetime.Singleton);
+                     
+            // validators
+            container.RegisterType<IMetadataValidatorsSuite, MetadataValidatorsSuite>(Lifetime.Singleton);
+
+            return container;
+        }
+
+        public static IUnityContainer ConfigureExportMetadata(this IUnityContainer container)
+        {
+            return container.RegisterType<IExportMetadataProvider, ExportMetadataProvider>(Lifetime.Singleton);
         }
 
         public static IUnityContainer ConfigureOperationLogging(

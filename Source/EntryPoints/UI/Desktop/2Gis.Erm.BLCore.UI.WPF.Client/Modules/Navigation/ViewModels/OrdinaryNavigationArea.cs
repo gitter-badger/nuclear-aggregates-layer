@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
@@ -10,17 +11,17 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
 {
     public sealed class OrdinaryNavigationArea : ViewModelBase, INavigationArea
     {
-        private readonly int _id;
+        private readonly Uri _id;
         private readonly ITitleProvider _titleProvider;
         private readonly IViewModelIdentity _identity = new OrdinaryViewModelIdentity();
         
-        public OrdinaryNavigationArea(int id, ITitleProvider titleProvider)
+        public OrdinaryNavigationArea(Uri id, ITitleProvider titleProvider)
         {
             _id = id;
             _titleProvider = titleProvider;
         }
 
-        public int Id
+        public Uri Id
         {
             get
             {

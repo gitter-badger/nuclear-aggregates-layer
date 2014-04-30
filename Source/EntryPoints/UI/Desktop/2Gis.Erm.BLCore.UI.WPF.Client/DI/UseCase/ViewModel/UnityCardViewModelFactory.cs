@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Simplified;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 
@@ -17,14 +19,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
     public sealed class UnityCardViewModelFactory : ICardViewModelFactory
     {
-        private readonly ICardStructuresProvider _cardStructuresProvider;
+        private readonly IMetadataProvider _metadataProvider;
         private readonly IViewModelAspectResolver[] _aspectResolvers;
 
-        public UnityCardViewModelFactory(
-            ICardStructuresProvider cardStructuresProvider,
-            IViewModelAspectResolver[] aspectResolvers)
+        public UnityCardViewModelFactory(IMetadataProvider metadataProvider, IViewModelAspectResolver[] aspectResolvers)
         {
-            _cardStructuresProvider = cardStructuresProvider;
+            _metadataProvider = metadataProvider;
             _aspectResolvers = aspectResolvers;
         }
 
@@ -37,13 +37,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         public ICardViewModel Create(IUseCase useCase, EntityName entityName, long entityId)
         {
             var container = useCase.ResolveFactoryContext();
-            CardStructure cardStructure;
-            if (!_cardStructuresProvider.TryGetDescriptor(entityName, out cardStructure) || cardStructure == null)
+
+            var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+            CardMetadata cardMetadata;
+            if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {
-                throw new InvalidOperationException("Can't get card dependencies structure for entity: " + entityName);
+                throw new InvalidOperationException("Can't get card metadata for entity: " + entityName);
             }
 
-            if (cardStructure.ViewModelViewMapping == null || cardStructure.ViewModelViewMapping.ViewModelType == null)
+            if (cardMetadata.ViewModelViewMapping == null || cardMetadata.ViewModelViewMapping.ViewModelType == null)
             {
                 throw new InvalidOperationException("Invalid structure for card dependencies. MVVM parts is not configured properly. EntityName: " + entityName);
             }
@@ -58,12 +60,12 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 };
 
             var resolvedDependencies = new List<ResolverOverride>();
-            if (cardStructure.ElementFeatures != null && cardStructure.ElementFeatures.Any())
+            if (cardMetadata.Features != null && cardMetadata.Features.Any())
             {
                 foreach (var resolver in _aspectResolvers)
                 {
                     DependencyOverride resolvedDependency;
-                    if (resolver.TryResolveDependency(useCase, cardStructure, viewModelIdentity, out resolvedDependency))
+                    if (resolver.TryResolveDependency(useCase, cardMetadata, viewModelIdentity, out resolvedDependency))
                     {
                         resolvedDependencies.Add(resolvedDependency);
                     }
@@ -72,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             resolvedDependencies.Add(new DependencyOverride(typeof(ICardViewModelIdentity), viewModelIdentity));
 
-            return (ICardViewModel)container.Resolve(cardStructure.ViewModelViewMapping.ViewModelType, resolvedDependencies.ToArray());
+            return (ICardViewModel)container.Resolve(cardMetadata.ViewModelViewMapping.ViewModelType, resolvedDependencies.ToArray());
         }
     }
 }

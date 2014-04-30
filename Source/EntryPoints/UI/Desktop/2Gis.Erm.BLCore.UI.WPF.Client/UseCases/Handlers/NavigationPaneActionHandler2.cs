@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -19,25 +19,21 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {
-    /// TODO бывший ресолвер - пытается переиспользовать контекстный документ
-    /// нужно объеденить с NavigationPaneActionHandler
+    // FIXME {all, 17.04.2014}: бывший ресолвер - пытается переиспользовать контекстный документ - нужно объеденить с NavigationPaneActionHandler
     public sealed class NavigationPaneActionHandler2 : UseCaseSyncMessageHandlerBase<NavigationMessage>
     {
+        private readonly IMetadataProvider _metadataProvider;
         private readonly IGridViewModelFactory _gridViewModelFactory;
         private readonly IDocumentsStateInfo _documentsState;
-        private readonly INavigationSettingsProvider _navigationSettingsProvider;
-        private readonly Func<IUseCase, object, INavigationItem, IConfigElement, IContextualDocumentContext>[] _resolvers;
+        private readonly Func<IUseCase, object, INavigationItem, IMetadataElement, IContextualDocumentContext>[] _resolvers;
 
-        public NavigationPaneActionHandler2(
-            IGridViewModelFactory gridViewModelFactory,
-            IDocumentsStateInfo documentsState, 
-            INavigationSettingsProvider navigationSettingsProvider)
+        public NavigationPaneActionHandler2(IMetadataProvider metadataProvider, IGridViewModelFactory gridViewModelFactory, IDocumentsStateInfo documentsState)
         {
+            _metadataProvider = metadataProvider;
             _gridViewModelFactory = gridViewModelFactory;
             _documentsState = documentsState;
-            _navigationSettingsProvider = navigationSettingsProvider;
 
-            _resolvers = new Func<IUseCase, object, INavigationItem, IConfigElement, IContextualDocumentContext>[] { GridContext, OtherContext };
+            _resolvers = new Func<IUseCase, object, INavigationItem, IMetadataElement, IContextualDocumentContext>[] { GridContext, OtherContext };
         }
 
         protected override bool ConcreteCanHandle(NavigationMessage message, IUseCase useCase)
@@ -65,15 +61,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            IConfigElement targetConfigElement;
-            if (!_navigationSettingsProvider.Settings.TryGetElementById(message.UsedItem.Id, out targetConfigElement))
+            IMetadataElement navigationElementMetadata;
+            if (!_metadataProvider.TryGetMetadata(message.UsedItem.Id, out navigationElementMetadata))
             {
                 return null;
             }
 
             foreach (var resolver in _resolvers)
             {
-                var resolvedContext = resolver(useCase, currentElement.Context, message.UsedItem, targetConfigElement);
+                var resolvedContext = resolver(useCase, currentElement.Context, message.UsedItem, navigationElementMetadata);
                 if (resolvedContext != null)
                 {
                     return EmptyResult;
@@ -83,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             return null;
         }
 
-        private IContextualDocumentContext GridContext(IUseCase useCase, object context, INavigationItem item, IConfigElement element)
+        private IContextualDocumentContext GridContext(IUseCase useCase, object context, INavigationItem item, IMetadataElement element)
         {
             var contextualDocument = context as IContextualDocument;
             if (contextualDocument == null)
@@ -103,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            var mappingFeature = element.ElementFeatures.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
+            var mappingFeature = element.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (mappingFeature == null)
             {
                 return null;
@@ -140,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             return newContext;
         }
 
-        private IContextualDocumentContext OtherContext(IUseCase useCase, object context, INavigationItem item, IConfigElement element)
+        private IContextualDocumentContext OtherContext(IUseCase useCase, object context, INavigationItem item, IMetadataElement element)
         {
             var contextualDocument = context as IContextualDocument;
             if (contextualDocument == null)
@@ -160,8 +156,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-
-            var mappingFeature = element.ElementFeatures.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
+            var mappingFeature = element.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (mappingFeature == null)
             {
                 return null;

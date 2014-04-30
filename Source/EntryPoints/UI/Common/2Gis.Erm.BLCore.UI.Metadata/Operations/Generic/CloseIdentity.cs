@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.UI.Metadata.Operations;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic
 {
-    public class CloseIdentity : OperationIdentityBase<CloseIdentity>, IClientOperationIdentity
+    public class CloseIdentity : OperationIdentityBase<CloseIdentity>, INonCoupledOperationIdentity, IClientOperationIdentity
     {
         public override int Id
         {
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic
 
         public override string Description
         {
-            get { return "Close element"; }
+            get { return "Close action (Close dialog, window, view and etc.)"; }
         }
     }
 }

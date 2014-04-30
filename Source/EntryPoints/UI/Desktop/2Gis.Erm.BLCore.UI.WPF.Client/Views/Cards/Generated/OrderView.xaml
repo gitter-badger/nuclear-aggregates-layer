@@ -1,88 +1,87 @@
-<UserControl x:Class="DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated.OrderView"
+<UserControl x:Class="DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.OrderView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls1="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
-             xmlns:focusableBinding="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.FocusableBinding;assembly=2Gis.Platform.UI.WPF.Infrastructure"
-             xmlns:controls2="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
-             xmlns:contextNav="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigation;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:core="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+			 xmlns:focusableBinding="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.FocusableBinding;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:controls="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
+			 xmlns:contextNav="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigation;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
              xmlns:basic="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
-
-             mc:Ignorable="d"
+			 mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1000">
     <UserControl.Resources>
 		<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Client;component/Themes/generic.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/2Gis.Erm.BLCore.UI.WPF.Client;component/Themes/generic.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
         
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto,Auto,Auto,Auto">
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto,Auto,Auto,Auto">
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.OrderNumber}" 
 										Text="{Binding OrderNumber, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.RegionalNumber}" 
 										Text="{Binding RegionalNumber, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="1" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Firm}" 
 										Reference="{Binding FirmRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="1" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.SourceOrganizationUnit}" 
 										Reference="{Binding SourceOrganizationUnitRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="2" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.SourceOrganizationUnit}" 
 										Reference="{Binding DestOrganizationUnitRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="2" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="2" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.BranchOfficeOrganizationUnitName}" 
 										Reference="{Binding BranchOfficeOrganizationUnitRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="3" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="3" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.LegalPerson}" 
 										Reference="{Binding LegalPersonRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="3" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="3" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Deal}" 
-										Reference="{Binding DealRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding DealRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="4" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="4" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DgppId}" 
 										Text="{Binding DgppId, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="4" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="4" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Bargain}" 
-										Reference="{Binding BargainRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding BargainRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedEnumComboBox Grid.Row="5" Grid.Column="0" 
+				<controls:NamedEnumComboBox Grid.Row="5" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.OrderType}" 
 										SelectedValue="{Binding OrderType, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="5" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="5" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Platform}" 
-										Text="{Binding Platform, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding Platform, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										IsReadOnly="True"
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
                         <Style TargetType="HeaderedContentControl">
@@ -110,48 +109,48 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto,Auto">
-				<controls2:NamedDatePicker Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto,Auto">
+				<controls:NamedDatePicker Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.BeginReleaseDate}" 
 										SelectedDate="{Binding BeginDistributionDate, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedDatePicker Grid.Row="0" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.EndPlanReleaseDate}" 
-										SelectedDate="{Binding EndDistributionDatePlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										SelectedDate="{Binding EndDistributionDatePlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedDatePicker Grid.Row="1" Grid.Column="0" 
+				<controls:NamedDatePicker Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.EndFactReleaseDate}" 
-										SelectedDate="{Binding EndDistributionDateFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										SelectedDate="{Binding EndDistributionDateFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="1" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.BeginReleaseNumber}" 
-										Text="{Binding BeginReleaseNumber, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding BeginReleaseNumber, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="2" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.EndPlanReleaseNumber}" 
-										Text="{Binding EndReleaseNumberPlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding EndReleaseNumberPlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="2" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="2" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.EndFactReleaseNumber}" 
-										Text="{Binding EndReleaseNumberFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding EndReleaseNumberFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="3" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="3" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.PlanReleaseCount}" 
 										Text="{Binding ReleaseCountPlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="3" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="3" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.FactReleaseCount}" 
-										Text="{Binding ReleaseCountFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding ReleaseCountFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
@@ -180,33 +179,33 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DiscountSum}" 
 										Text="{Binding DiscountSum, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DiscountPercent}" 
 										Text="{Binding DiscountPercent, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedCheckBox Grid.Row="1" Grid.Column="0" 
+				<controls:NamedCheckBox Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DiscountPercentChecked}" 
-										IsChecked="{Binding DiscountPercentChecked, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										IsChecked="{Binding DiscountPercentChecked, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedEnumComboBox Grid.Row="1" Grid.Column="1" 
+				<controls:NamedEnumComboBox Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DiscountReason}" 
 										SelectedValue="{Binding DiscountReasonEnum, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="2" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DiscountComment}" 
 										Text="{Binding DiscountComment, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
@@ -235,38 +234,38 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
-				<controls2:NamedLookup Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
+				<controls:NamedLookup Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Currency}" 
-										Reference="{Binding CurrencyRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding CurrencyRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.PayablePrice}" 
-										Text="{Binding PayablePrice, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding PayablePrice, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="1" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.PayablePlan}" 
-										Text="{Binding PayablePlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding PayablePlan, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="1" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.PayableFact}" 
-										Text="{Binding PayableFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding PayableFact, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="2" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.AmountToWithdraw}" 
-										Text="{Binding AmountToWithdraw, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Text="{Binding AmountToWithdraw, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="2" Grid.Column="1" 
+				<controls:NamedTextBox Grid.Row="2" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.AmountWithdrawn}" 
 										Text="{Binding AmountWithdrawn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
@@ -295,18 +294,18 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto">
-				<controls2:NamedTextBox Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto">
+				<controls:NamedTextBox Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CancellationComment}" 
 										Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
+				<controls:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.TerminationReason}" 
 										SelectedValue="{Binding TerminationReason, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
@@ -335,23 +334,23 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto">
-				<controls2:NamedLookup Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto">
+				<controls:NamedLookup Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Inspector}" 
 										Reference="{Binding InspectorRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
+				<controls:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.HasDocumentsDebt}" 
 										SelectedValue="{Binding HasDocumentsDebt, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedTextBox Grid.Row="1" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DocumentsComment}" 
 										Text="{Binding DocumentsComment, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 				<HeaderedContentControl Header="{Binding}" Margin="0 15 0 0">
                     <HeaderedContentControl.Style>
@@ -380,38 +379,38 @@
                             </Setter>
                         </Style>
                     </HeaderedContentControl.Style>
-			<controls1:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
-				<controls2:NamedDatePicker Grid.Row="0" Grid.Column="0" 
+			<core:BriefGrid Columns="*, *" Rows="Auto,Auto,Auto">
+				<controls:NamedDatePicker Grid.Row="0" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.SignupDate}" 
 										SelectedDate="{Binding SignupDate, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="0" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedBy}" 
-										Reference="{Binding CreatedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding CreatedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="1" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Owner}" 
-										Reference="{Binding OwnerRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding OwnerRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedDatePicker Grid.Row="1" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedOn}" 
-										SelectedDate="{Binding CreatedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										SelectedDate="{Binding CreatedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedLookup Grid.Row="2" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.ModifiedBy}" 
-										Reference="{Binding ModifiedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										Reference="{Binding ModifiedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls2:NamedDatePicker Grid.Row="2" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="2" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedOn}" 
-										SelectedDate="{Binding ModifiedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										SelectedDate="{Binding ModifiedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-			</controls1:BriefGrid>
+			</core:BriefGrid>
 				</HeaderedContentControl>
 	</StackPanel>
 </UserControl>

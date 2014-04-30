@@ -50,16 +50,16 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
-    <Compile Include="Config\DataLists\UISpecific\IUIConfigFeature.cs" />
+    <Compile Include="Config\DataLists\MetadataListingsIdentity.cs" />
+    <Compile Include="Config\DataLists\UISpecific\IUIMetadataFeature.cs" />
     <Compile Include="Config\DataLists\BasedOnDataListFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldExpressionFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeatureAspect.cs" />
-    <Compile Include="Config\DataLists\DataFieldStructureBuilder.cs" />
-    <Compile Include="Config\DataLists\DataFiledStructure.cs" />
-    <Compile Include="Config\DataLists\DataListStructure.cs" />
-    <Compile Include="Config\DataLists\DataListStructureBuilder.cs" />
-    <Compile Include="Config\DataLists\DataListStructureIdentity.cs" />
+    <Compile Include="Config\DataLists\DataFieldMetadataBuilder.cs" />
+    <Compile Include="Config\DataLists\DataFieldMetadata.cs" />
+    <Compile Include="Config\DataLists\DataListMetadata.cs" />
+    <Compile Include="Config\DataLists\DataListMetadataBuilder.cs" />
     <Compile Include="Config\DataLists\DefaultFilterFeature.cs" />
     <Compile Include="Config\DataLists\DisableSortingDataFieldFeature.cs" />
     <Compile Include="Config\DataLists\FilteredDataFieldFeature.cs" />
@@ -69,15 +69,13 @@
     <Compile Include="Config\DataLists\SortDescendingFeature.cs" />
     <Compile Include="Config\DataLists\WebClientSpecific\AttachedScriptsFeature.cs" />
     <Compile Include="Config\DataLists\WebClientSpecific\ExtTypeNameFeature.cs" />
-    <Compile Include="Config\DataLists\WebClientSpecific\IWebClientConfigFeature.cs" />
+    <Compile Include="Config\DataLists\WebClientSpecific\IWebClientMetadataFeature.cs" />
     <Compile Include="Config\DataLists\WebClientSpecific\JsActionFeature.cs" />
     <Compile Include="Config\ExpressionUtils.cs" />
     <Compile Include="Config\Grids\AttachedDataListsFeature.cs" />
-    <Compile Include="Config\Grids\GridStructure.cs" />
-    <Compile Include="Config\Grids\GridStructureIdentity.cs" />
-    <Compile Include="Config\Grids\GridStructuresBuilder.cs" />
-    <Compile Include="Config\Grids\IGridStructureIdentity.cs" />
-    <Compile Include="Config\Grids\IGridStructuresProvider.cs" />
+    <Compile Include="Config\Grids\GridMetadata.cs" />
+    <Compile Include="Config\Grids\GridMetadataBuilder.cs" />
+    <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
     <Compile Include="Operations\ClientOperationIdentityIds.cs" />
@@ -123,8 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\DataLists\Configuration\" />
-    <Folder Include="Config\Grids\Settings\" />
-    <Folder Include="Config\Old\XmlConfigs\" />
     <Folder Include="Operations\Specific\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

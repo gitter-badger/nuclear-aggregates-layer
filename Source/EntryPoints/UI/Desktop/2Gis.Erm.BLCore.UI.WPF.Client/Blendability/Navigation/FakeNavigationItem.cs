@@ -1,4 +1,7 @@
-﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
+﻿using System;
+
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
@@ -7,17 +10,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation
     public sealed class FakeNavigationItem : INavigationItem
     {
         private readonly string _title;
+        private readonly Uri _id = IdBuilder.UniqueFor("FakeNavigationItems");
 
         public FakeNavigationItem(string title)
         {
             _title = title;
         }
 
-        public int Id
+        public Uri Id
         {
             get
             {
-                return 0;
+                return _id;
             }
         }
 
@@ -37,11 +41,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             set
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
@@ -49,11 +53,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             set
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
     }
