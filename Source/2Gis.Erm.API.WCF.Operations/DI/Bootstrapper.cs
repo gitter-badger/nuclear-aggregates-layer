@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.ServiceModel.Description;
 
+using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
@@ -16,7 +17,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BLCore.API.Operations.Remote;
+using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -57,7 +58,6 @@ using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
@@ -82,24 +82,20 @@ using Microsoft.Practices.Unity.InterceptionExtension;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
-
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer, 
             ILoggerContextManager loggerContextManager)
         {
-            // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-            //                              -> Здесь мы явно загружаем сборку 2Gis.Erm.Services, чтобы обеспечить корректный resolve типа DoubleGis.Erm.Services.ActionsLogging.ActionsLogger
-            // COMMENT {d.ivanov, 25.03.2014}: Механизм не придумали, но CR-ку можно удалить
-
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new MetadataSourcesMassProcessor(container), 
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -222,7 +218,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureMetadata()
                 .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
         }
 
@@ -272,6 +268,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
                      .RegisterType<IValidateFileService, ValidateFileService>(Lifetime.Singleton)
+
+                     .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 
                      .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)

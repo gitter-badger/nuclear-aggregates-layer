@@ -63,7 +63,8 @@ namespace DoubleGis.Erm.TaskService.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(),
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -75,15 +76,15 @@ namespace DoubleGis.Erm.TaskService.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             return container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    settingsContainer,
+                                                    massProcessors,
+                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>()))
-                     .ConfigureServiceClient();
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                          settingsContainer.AsSettings<ICachingSettings>()))
+                            .ConfigureServiceClient();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -102,17 +103,18 @@ namespace DoubleGis.Erm.TaskService.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
+                    .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .ConfigureIdentityInfrastructure()
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureMetadata()
+                    .ConfigureExportMetadata()
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .RegisterCorporateQueues(connectionStringSettings)
-                .ConfigureQuartz()
-                .ConfigureEAV();
+                    .ConfigureQuartz()
+                    .ConfigureEAV();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)

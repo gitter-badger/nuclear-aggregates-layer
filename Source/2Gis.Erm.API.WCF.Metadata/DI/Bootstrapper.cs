@@ -43,6 +43,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -77,11 +78,11 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
-                    .ConfigureCacheAdapter(cachingSettings)
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureMetadata()
                 .ConfigureIdentityInfrastructure()
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)

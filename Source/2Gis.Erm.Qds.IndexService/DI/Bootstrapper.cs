@@ -55,16 +55,11 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            // необхоимость в двух проходах возникла из-за особенностей работы 
-            // DoubleGis.Common.DI.Config.RegistrationUtils.RegisterTypeWithDependencies - он для определения создавать ResolvedParameter с указанным scope или БЕЗ конкретного scope
-            // делает проверку если тип параметра уже зарегистрирован в контейнере БЕЗ использования named mappings - то resolveparameter также будет работать без scope
-            // иначе для ResolvedParameter будет указан scope
-            // Т.о. при первом проходе создаются все mapping, но для некоторых из них значение ResolvedParameter будет ошибочно использовать scope
-            // второй проход перезатирает уже имеющиеся mapping -т.о. resolvedparameter будет правильно (не)связан с scope
-            var massProcessors = new IMassProcessor[]
+           var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -74,23 +69,21 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            container.ConfigureUnityTwoPhase(QdsIndexServiceRoot.Instance,
+            return container.ConfigureUnityTwoPhase(QdsIndexServiceRoot.Instance,
                                              settingsContainer,
                                              massProcessors,
                                              // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                              c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                                                    settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                    settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                                                   settingsContainer.AsSettings<ICachingSettings>()));
-
-            RegisterEtlComponents(container);
-
-            return container;
+                                                                   settingsContainer.AsSettings<ICachingSettings>()))
+                    .ConfigureMetadata()
+                    .RegisterEtlComponents();
         }
 
-        private static void RegisterEtlComponents(IUnityContainer container)
+        private static IUnityContainer RegisterEtlComponents(this IUnityContainer container)
         {
-            container
+            return container
                 .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
 
                 .RegisterType<IIndexingProcess, BatchIndexingProcess>(Lifetime.Singleton)
@@ -149,7 +142,7 @@ namespace DoubleGis.Erm.Qds.IndexService.DI
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                     .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                     .ConfigureMetadata()
                      .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton);
         }
 

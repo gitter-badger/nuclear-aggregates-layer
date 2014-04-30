@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
@@ -20,10 +21,12 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
+using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Processors;
+using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Processors;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
@@ -42,15 +45,17 @@ using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
@@ -62,11 +67,8 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
-    internal static class Bootstrapper
+    internal static partial class Bootstrapper
     {
-        // TODO {all, 25.03.2013}: Нужно придумать механизм загрузки сборок в случае отсутствия прямой ссылки на них в entry point приложения
-        // COMMENT {d.ivanov, 25.03.2014}: Механизм не придумали, но CR-ку можно удалить
-
         public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
         {
             IUnityContainer container = new UnityContainer();
@@ -76,11 +78,25 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesСlassificationMassProcessor(),  
+                    new MetadataSourcesMassProcessor(container), 
                     new IntegrationTestsMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+                    new OperationsServicesMassProcessor(
+                        container, 
+                        EntryPointSpecificLifetimeManagerFactory, 
+                        Mapping.Erm, 
+                        new Func<Type, EntitySet, IEnumerable<Type>, Type>[]
+                            {
+                                MultipleImplementationResolvers.EntitySpecific.ServerSidePreferable, 
+                                MultipleImplementationResolvers.EntitySpecific.UseFirst
+                            }, 
+                        new Func<Type, IEnumerable<Type>, Type>[]
+                            {
+                                MultipleImplementationResolvers.NonCoupled.ServerSidePreferable, 
+                                MultipleImplementationResolvers.NonCoupled.UseFirst
+                            }),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
@@ -90,7 +106,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                             settingsContainer,
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                            c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<IGlobalizationSettings>(),
                                 settingsContainer.AsSettings<IMsCrmSettings>(),
@@ -125,7 +141,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                     .ConfigureEAV()
                     .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureExportMetadata()
+                    .ConfigureMetadata()
                     .ConfigureTestInfrastructure(environmentSettings);
         }
 
@@ -146,6 +163,18 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             return cachingSettings.EnableCaching
                 ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
                 : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
+        }
+
+        private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
+        {
+            CommonBootstrapper.ConfigureMetadata(container);
+
+            // processors
+            container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, DocumentsTitlesProcessor>(Lifetime.Singleton)
+                     .RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, NavigationRestrictionsProcessor>(Lifetime.Singleton);
+
+            // validators
+            return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, CardsMetadataValidator>(Lifetime.Singleton);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -172,6 +201,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
+                     
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)

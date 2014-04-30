@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
+using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
@@ -28,7 +29,9 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<OrderValidationZone>()
                                           .UseAnchor<BlCoreApiOrderValidationAssembly>()
-                                          .UseAnchor<BlCoreOrderValidationAssembly>();
+                                          .UseAnchor<BlCoreOrderValidationAssembly>()
+                                      .RequireZone<MetadataZone>()
+                                          .UseAnchor<PlatformModelMetadataAssembly>();
             }
         } 
     }

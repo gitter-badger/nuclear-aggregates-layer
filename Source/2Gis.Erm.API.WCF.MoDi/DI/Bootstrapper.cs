@@ -47,7 +47,8 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             var massProcessors = new IMassProcessor[]
             {
                 new CheckApplicationServicesConventionsMassProcessor(), 
-                new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                new MetadataSourcesMassProcessor(container),
                 new AggregatesLayerMassProcessor(container),
                 new SimplifiedModelConsumersProcessor(container), 
                 new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -89,6 +90,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
+                .ConfigureMetadata()
                 .ConfigureEAV();
         }
 

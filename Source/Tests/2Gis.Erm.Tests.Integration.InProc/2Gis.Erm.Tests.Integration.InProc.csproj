@@ -81,10 +81,12 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\ServiceClientConfig.cs" />
+    <Compile Include="DI\Bootstrapper.ConflictResolvers.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
-    <Compile Include="DI\IntegrationTestsMassProcessor.cs" />
-    <Compile Include="DI\IntegrationTestsZone.cs" />
-    <Compile Include="TestsIntegrationInProcRoot.cs" />
+    <Compile Include="DI\MassProcessing\IntegrationTestsMassProcessor.cs" />
+    <Compile Include="DI\Zones\IntegrationTestsZone.cs" />
+    <Compile Include="DI\Zones\Parts\IntegrationTestsZonePartAssembly.cs" />
+    <Compile Include="DI\TestsIntegrationInProcRoot.cs" />
     <Compile Include="Suite\Base\DelegateResponseAsserter.cs" />
     <Compile Include="Suite\Base\EmptyResponseAsserter.cs" />
     <Compile Include="Suite\Base\IResponseAsserter.cs" />
@@ -95,7 +97,12 @@
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deal\DealReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Order\OrderReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
-    <Compile Include="Suite\Concrete\API\Metadata\MetadataTest.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElementFeatues.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElement.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.Autonomous.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\MetadataProviderTest.cs" />
+    <Compile Include="Suite\Concrete\API\Metadata\OperationsMetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\AfterSaleService\UpdateAfterSaleServiceOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
@@ -207,7 +214,7 @@
     <Compile Include="Suite\Infrastructure\TeamCityTestStatusObserver.cs" />
     <Compile Include="Suite\Infrastructure\TestSuite.cs" />
     <Compile Include="Suite\Infrastructure\TestSuiteBuilder.cs" />
-    <Compile Include="DI\TestIntegrationInProcAssembly.cs" />
+    <Compile Include="DI\Zones\Parts\MetadataZonePartAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -318,6 +325,14 @@
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
       <Name>2Gis.Erm.BLCore.WCF.Operations.Special</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Desktop\2Gis.Erm.BLCore.UI.WPF.Client\2Gis.Erm.BLCore.UI.WPF.Client.csproj">
+      <Project>{07E4256F-EB26-42B1-9B67-626ED1C156BF}</Project>
+      <Name>2Gis.Erm.BLCore.UI.WPF.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
       <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
       <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
@@ -401,6 +416,10 @@
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\EntryPoints\UI\Common\2Gis.Erm.BLQuerying.UI.Metadata\2Gis.Erm.BLQuerying.UI.Metadata.csproj">
+      <Project>{8C7E352B-1450-4C92-9F53-EABEB51E1F79}</Project>
+      <Name>2Gis.Erm.BLQuerying.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>

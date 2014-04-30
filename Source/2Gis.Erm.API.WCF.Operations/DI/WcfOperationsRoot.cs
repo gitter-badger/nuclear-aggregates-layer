@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
+using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
@@ -32,8 +33,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<QueryingZone>()
                                           .UseAnchor<BlQueryingApiOperationsListingAssembly>()
-                                          .UseAnchor<BlQueryingOperationsListingAssembly>();
-                                          //.UseAnchor<QdsOperationsAssembly>();
+                                          .UseAnchor<BlQueryingOperationsListingAssembly>()
+                                          //.UseAnchor<QdsOperationsAssembly>()
+                                      .RequireZone<MetadataZone>()
+                                          .UseAnchor<PlatformModelMetadataAssembly>();
             }
         } 
     }
