@@ -27,5 +27,14 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         {
             return new StrictOperationIdentity(operationIdentity, EntitySet.Create.NonCoupled);
         }
+
+        public static string AsUriSegment(this StrictOperationIdentity strictOperationIdentity)
+        {
+            var identityType = strictOperationIdentity.OperationIdentity.GetType();
+            return identityType.Name +
+                (strictOperationIdentity.OperationIdentity.IsNonCoupled()
+                       ? string.Empty
+                       : ("/" + string.Join("/", strictOperationIdentity.Entities)));
+        }
     }
 }

@@ -4,20 +4,20 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        private static readonly Dictionary<EntityName, IEnumerable<EntityProperty>> EntityPropertiesMap = new Dictionary<EntityName, IEnumerable<EntityProperty>>();
+        private static readonly Dictionary<EntityName, IEnumerable<EntityPropertyMetadata>> EntityPropertiesMap = new Dictionary<EntityName, IEnumerable<EntityPropertyMetadata>>();
 
         static EntityProperties()
         {
-            typeof(EntityProperties).Extract<IEnumerable<EntityProperty>>(EntityPropertyProcessor);
+            typeof(EntityProperties).Extract<IEnumerable<EntityPropertyMetadata>>(EntityPropertyProcessor);
         }
 
-        public static IReadOnlyDictionary<EntityName, IEnumerable<EntityProperty>> Settings
+        public static IReadOnlyDictionary<EntityName, IEnumerable<EntityPropertyMetadata>> Settings
         {
             get
             {
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
             }
         }
 
-        private static void EntityPropertyProcessor(IEnumerable<EntityProperty> entityProperties)
+        private static void EntityPropertyProcessor(IEnumerable<EntityPropertyMetadata> entityProperties)
         {
             var settings = entityProperties.ToArray();
             var indicatorElement = settings.FirstOrDefault();

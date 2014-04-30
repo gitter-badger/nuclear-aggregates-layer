@@ -1,25 +1,25 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions
 {
-    public sealed class ActionsFeatureAspect<TBuilder, TConfigElement> : ConfigElementBuilderAspectBase<TBuilder, IActionsContained, TConfigElement>
-        where TBuilder : ConfigElementBuilder<TBuilder, TConfigElement>, new()
-        where TConfigElement : ConfigElement, IActionsContained
+    public sealed class ActionsFeatureAspect<TBuilder, TMetadataElement> : MetadataElementBuilderAspectBase<TBuilder, IActionsContained, TMetadataElement>
+        where TBuilder : MetadataElementBuilder<TBuilder, TMetadataElement>, new()
+        where TMetadataElement : MetadataElement, IActionsContained
     {
-        public ActionsFeatureAspect(ConfigElementBuilder<TBuilder, TConfigElement> aspectHostBuilder)
+        public ActionsFeatureAspect(MetadataElementBuilder<TBuilder, TMetadataElement> aspectHostBuilder)
             : base(aspectHostBuilder)
         {
         }
 
-        public TBuilder Attach(params HierarchyElement[] actions)
+        public TBuilder Attach(params HierarchyMetadata[] actions)
         {
             if (actions == null || actions.Length == 0)
             {
                 return AspectHostBuilder;
             }
 
-            AspectHostBuilder.Features.Add(new ActionsFeature(actions));
+            AspectHostBuilder.WithFeatures(new ActionsFeature(actions));
             return AspectHostBuilder;
         }
     }

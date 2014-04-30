@@ -31,6 +31,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             return new RegularExpressionPropertyFeature(regularExpression, errorMessageResourceManagerType, errorMessageKeyName);
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

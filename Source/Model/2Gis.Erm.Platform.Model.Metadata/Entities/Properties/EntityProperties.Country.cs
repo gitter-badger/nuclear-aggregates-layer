@@ -10,65 +10,65 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> CountryProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> CountryProperties =
             new[]
                 {
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.Id),
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.Id),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.Name)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.Name)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(150),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Name)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.CurrencyRef)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.IsoCode)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.IsoCode)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(10),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CountryIsoCode)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<CountryDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<CountryDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

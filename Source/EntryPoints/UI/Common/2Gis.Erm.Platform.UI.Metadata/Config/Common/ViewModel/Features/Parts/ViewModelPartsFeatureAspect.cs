@@ -3,15 +3,15 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts
 {
-    public sealed class ViewModelPartsFeatureAspect<TBuilder, TConfigElement> : ConfigElementBuilderAspectBase<TBuilder, IPartsContainerElement, TConfigElement>
-        where TBuilder : ConfigElementBuilder<TBuilder, TConfigElement>, new()
-        where TConfigElement : ConfigElement, IPartsContainerElement
+    public sealed class ViewModelPartsFeatureAspect<TBuilder, TMetadataElement> : MetadataElementBuilderAspectBase<TBuilder, IPartsContainerElement, TMetadataElement>
+        where TBuilder : MetadataElementBuilder<TBuilder, TMetadataElement>, new()
+        where TMetadataElement : MetadataElement, IPartsContainerElement
     {
-        public ViewModelPartsFeatureAspect(ConfigElementBuilder<TBuilder, TConfigElement> aspectHostBuilder)
+        public ViewModelPartsFeatureAspect(MetadataElementBuilder<TBuilder, TMetadataElement> aspectHostBuilder)
             : base(aspectHostBuilder)
         {
         }
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Pa
                 return AspectHostBuilder;
             }
 
-            AspectHostBuilder.Features.Add(new ViewModelPartsFeature(partKeyExpressions.Select(ResourceEntryKey.Create).ToArray()));
+            AspectHostBuilder.WithFeatures(new ViewModelPartsFeature(partKeyExpressions.Select(ResourceEntryKey.Create).ToArray()));
             return AspectHostBuilder;
         }
     }

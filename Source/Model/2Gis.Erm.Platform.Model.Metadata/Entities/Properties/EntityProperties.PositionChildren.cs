@@ -10,61 +10,61 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> PositionChildrenProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> PositionChildrenProperties =
             new[]
                 {
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.Id)
                     .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.MasterPositionRef)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.MasterPositionRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.Position),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.MasterPosition)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.ChildPositionRef)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.ChildPositionRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ChildPosition)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<PositionChildrenDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<PositionChildrenDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

@@ -82,9 +82,9 @@
     <Compile Include="Config\Common\ViewModel\Features\Validator\IValidatorViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\StaticValidatorViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\ValidatorViewModelFeatureAspect.cs" />
-    <Compile Include="Config\Common\ViewModel\IViewModelStructure.cs" />
-    <Compile Include="Config\Common\ViewModel\ViewModelStructure.cs" />
-    <Compile Include="Config\Common\ViewModel\ViewModelStructuresBuilder.cs" />
+    <Compile Include="Config\Common\ViewModel\IViewModelMetadata.cs" />
+    <Compile Include="Config\Common\ViewModel\ViewModelMetadata.cs" />
+    <Compile Include="Config\Common\ViewModel\ViewModelMetadataBuilder.cs" />
     <Compile Include="Indicators\ICompositeViewModel.cs" />
     <Compile Include="Indicators\IDynamicViewModel.cs" />
     <Compile Include="Indicators\IView.cs" />

@@ -483,6 +483,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                         {
                             conflict.Value.Clear();
                             conflict.Value.Add(resolveResult);
+                            break;
                         }
                     }
                 }
@@ -505,6 +506,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                     {
                         conflict.Value.Clear();
                         conflict.Value.Add(resolveResult);
+                        break;
                     }
                 }
             }

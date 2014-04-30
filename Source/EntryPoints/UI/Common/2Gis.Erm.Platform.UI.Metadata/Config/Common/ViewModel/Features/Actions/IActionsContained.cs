@@ -1,11 +1,12 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions
 {
-    public interface IActionsContained : IConfigElementAspect
+    public interface IActionsContained : IMetadataElementAspect
     {
         bool HasActions { get; }
-        HierarchyElement[] ActionsDescriptors { get; }
+        HierarchyMetadata[] ActionsDescriptors { get; }
     }
 }

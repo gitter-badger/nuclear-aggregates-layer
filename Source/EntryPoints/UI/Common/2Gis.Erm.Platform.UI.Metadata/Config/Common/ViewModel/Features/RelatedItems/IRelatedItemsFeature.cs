@@ -1,9 +1,9 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems
 {
     public interface IRelatedItemsFeature : IViewModelFeature
     {
-        HierarchyElement[] RelatedItems { get; }
+        HierarchyMetadata[] RelatedItems { get; }
     }
 }

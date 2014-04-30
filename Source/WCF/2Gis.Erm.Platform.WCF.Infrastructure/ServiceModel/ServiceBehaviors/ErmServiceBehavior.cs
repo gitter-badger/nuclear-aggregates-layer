@@ -38,7 +38,6 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehavior
 
             foreach (var endpoint in serviceDescription.Endpoints)
             {
-
                 if (endpoint.Binding is WSHttpBindingBase || endpoint.Binding is WSDualHttpBinding)
                 {
                     endpoint.Behaviors.Add(sharedTypesBehavior);

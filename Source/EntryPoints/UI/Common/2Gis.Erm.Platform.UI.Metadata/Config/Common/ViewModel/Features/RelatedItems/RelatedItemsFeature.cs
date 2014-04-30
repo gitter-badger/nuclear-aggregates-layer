@@ -1,17 +1,17 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems
 {
     public sealed class RelatedItemsFeature : IRelatedItemsFeature
     {
-        private readonly HierarchyElement[] _relatedItems;
+        private readonly HierarchyMetadata[] _relatedItems;
 
-        public RelatedItemsFeature(params HierarchyElement[] relatedItems)
+        public RelatedItemsFeature(params HierarchyMetadata[] relatedItems)
         {
             _relatedItems = relatedItems;
         }
 
-        public HierarchyElement[] RelatedItems
+        public HierarchyMetadata[] RelatedItems
         {
             get
             {

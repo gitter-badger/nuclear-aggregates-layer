@@ -58,6 +58,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             return new RangePropertyFeature(minValue, maxValue, errorMessageResourceManagerType, errorMessageKeyName);
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }      

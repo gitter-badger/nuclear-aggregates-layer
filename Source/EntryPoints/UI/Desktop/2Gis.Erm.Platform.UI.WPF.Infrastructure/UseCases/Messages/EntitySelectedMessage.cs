@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages
         private readonly long _entityId;
 
         public EntitySelectedMessage(EntityName entityName, long entityId)
-            :base(null)
+            : base(null)
         {
             _entityName = entityName;
             _entityId = entityId;

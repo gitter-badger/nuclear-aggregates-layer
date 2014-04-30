@@ -1,4 +1,6 @@
-﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+﻿using System;
+
+using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation
@@ -8,7 +10,7 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Naviga
     /// </summary>
     public interface INavigationItem
     {
-        int Id { get; }
+        Uri Id { get; }
         string Title { get; }
         IImageProvider Icon { get; }
         IDelegateCommand NavigateCommand { get; }

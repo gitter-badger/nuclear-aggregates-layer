@@ -13,5 +13,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
                 ? (IOperationIdentity)new TSimplifiedModelIdentity() 
                 : (IOperationIdentity)new TBusinessModelIdentity();
         }
+
+        public static bool IsEntitySpecific(this IOperationIdentity identity)
+        {
+            return identity is IEntitySpecificOperationIdentity;
+        }
+
+        public static bool IsNonCoupled(this IOperationIdentity identity)
+        {
+            return identity is INonCoupledOperationIdentity;
+        }
     }
 }
