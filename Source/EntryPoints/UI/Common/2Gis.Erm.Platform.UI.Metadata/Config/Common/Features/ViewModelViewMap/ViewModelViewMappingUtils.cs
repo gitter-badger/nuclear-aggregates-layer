@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap
 {
     public static class ViewModelViewMappingUtils
     {
-        public static void ProcessMVVMMappings(this IConfigElement element, Dictionary<Type, IViewModelViewMapping> registry)
+        public static void ProcessMVVMMappings(this IMetadataElement element, Dictionary<Type, IViewModelViewMapping> registry)
         {
-            var feature = element.ElementFeatures.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
+            var feature = element.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (feature != null)
             {
                 IViewModelViewMapping alreadyExistingMapping;

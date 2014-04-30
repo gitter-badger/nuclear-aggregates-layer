@@ -10,43 +10,43 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> UserProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> UserProperties =
             new[]
                 {
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.Id),
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.Id),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.FirstName)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.FirstName)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
                     DisplayNameLocalizedFeature.Create(() => MetadataResources.FirstName)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.LastName)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.LastName)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
                     DisplayNameLocalizedFeature.Create(() => MetadataResources.LastName)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.Account)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.Account)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
                     DisplayNameLocalizedFeature.Create(() => MetadataResources.UserAccount)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.DepartmentRef)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.DepartmentRef)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
                     LookupPropertyFeature.Create(EntityName.Department)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.ParentRef)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.ParentRef)
                     .WithFeatures(
                     new RequiredPropertyFeature(),
                     DisplayNameLocalizedFeature.Create(() => MetadataResources.ParentUser)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.IsServiceUser)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.IsServiceUser)
                                   .WithFeatures(
                                   DisplayNameLocalizedFeature.Create(() => MetadataResources.IsServiceUser)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.DisplayName),
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.DisplayName),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
@@ -54,36 +54,36 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<UserDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<UserDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

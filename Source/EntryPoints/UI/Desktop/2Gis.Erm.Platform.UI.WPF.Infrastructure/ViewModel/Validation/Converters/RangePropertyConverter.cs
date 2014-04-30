@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
@@ -19,9 +20,9 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Conv
 
         protected override ErrorDescription GetErrorDescription()
         {
-            string propertyKey = Settings.TargetProperty.Name;
+            string propertyKey = Settings.TargetPropertyMetadata.Name;
             Type propertyResourceType = typeof(MetadataResources);
-            var localizeFeature = Settings.TargetProperty.Features.OfType<DisplayNameLocalizedFeature>().SingleOrDefault();
+            var localizeFeature = Settings.TargetPropertyMetadata.Features<DisplayNameLocalizedFeature>().SingleOrDefault();
             if (localizeFeature != null)
             {
                 propertyKey = localizeFeature.ResourceKey;

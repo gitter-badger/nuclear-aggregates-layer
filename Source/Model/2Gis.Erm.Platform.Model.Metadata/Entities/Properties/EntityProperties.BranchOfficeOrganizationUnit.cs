@@ -10,113 +10,113 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> BranchOfficeOrganizationUnitProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> BranchOfficeOrganizationUnitProperties =
             new[]
                 {
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeRef)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 LookupPropertyFeature.Create(EntityName.BranchOffice),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeName)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.OrganizationUnitRef)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.OrganizationUnitRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 LookupPropertyFeature.Create(EntityName.OrganizationUnit),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.OrganizationUnit)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ShortLegalName)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ShortLegalName)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ShortLegalName)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PositionInGenitive)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PositionInGenitive)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.PositionInGenitive)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PositionInNominative)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PositionInNominative)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.PositionInNominative)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ChiefNameInNominative)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ChiefNameInNominative)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ChiefNameInNominative)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ChiefNameInGenitive)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ChiefNameInGenitive)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ChiefNameInGenitive)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.OperatesOnTheBasisInGenitive)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.OperatesOnTheBasisInGenitive)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.OperatesOnTheBasisInGenitive)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Kpp)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Kpp)
                                   .WithFeatures(new LimitedLengthPropertyFeature(9, 9),
                                                 new DigitsOnlyPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.Kpp)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PaymentEssentialElements)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PaymentEssentialElements)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(256),
                                       new MultilinePropertyFeature(5),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PaymentEssentialElements)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ActualAddress)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ActualAddress)
                                   .WithFeatures(new LimitedLengthPropertyFeature(512),
                                                 new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ActualAddress)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PostalAddress)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PostalAddress)
                                   .WithFeatures(new LimitedLengthPropertyFeature(512),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.PostalAddress)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PhoneNumber)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.PhoneNumber)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PhoneNumber)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsPrimary)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsPrimary)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.IsPrimary)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsPrimaryForRegionalSales)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsPrimaryForRegionalSales)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.IsPrimaryForRegionalSales)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlId)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlId)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlName)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlName)
                                   .WithFeatures(DisplayNameLocalizedFeature.Create(() => MetadataResources.Name)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlLegalAddress)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlLegalAddress)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(512),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalAddress)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlInn)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlInn)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Inn)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlIc)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeAddlIc)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Ic)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.SyncCode1C)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.SyncCode1C)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.SyncCode1C)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.RegistrationCertificate)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.RegistrationCertificate)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.RegistrationCertificate)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Email)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Email)
                                   .WithFeatures(
                                       new EmailPropertyFeature(),
                                       new LimitedLengthPropertyFeature(64),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Email)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Id),
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Id),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
@@ -124,36 +124,36 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

@@ -48,7 +48,7 @@
           <edmx:ConnectorPoint PointX="12.019951923076924" PointY="22.134013671875003" />
           <edmx:ConnectorPoint PointX="12.019951923076924" PointY="22.875" />
         </edmx:AssociationConnector>
-        <edmx:EntityTypeShape EntityType="ErmSecurityModel.UserEntity" Width="1.5" PointX="7.875" PointY="13.25" Height="3.1340950520833353" />
+        <edmx:EntityTypeShape EntityType="ErmSecurityModel.UserEntity" Width="1.5" PointX="6.75" PointY="13.375" Height="3.1340950520833353" />
         <edmx:AssociationConnector Association="ErmSecurityModel.FK_EntityUserAccount_UserAccount">
           <edmx:ConnectorPoint PointX="11.75" PointY="20.8795068359375" />
           <edmx:ConnectorPoint PointX="8.375" PointY="20.8795068359375" />

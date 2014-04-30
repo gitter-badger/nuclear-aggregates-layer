@@ -26,6 +26,6 @@
             private set;
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

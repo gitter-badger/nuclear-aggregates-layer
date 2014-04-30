@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
+using DoubleGis.Erm.Platform.Common.Utils;
+
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider
 {
     internal class DynamicPropertyInfo : PropertyInfo
@@ -12,11 +14,15 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider
         private readonly Type _type;
         private readonly object _defaultValue;
         private readonly IEnumerable<Attribute> _attributes;
+        private readonly MethodInfo _setMethodInfo;
 
         internal DynamicPropertyInfo(string name, Type type)
         {
             _name = name;
             _type = type;
+
+            var setMethodName = StaticReflection.GetMemberName(() => SetValueAction(null, null));
+            _setMethodInfo = GetType().GetMethod(setMethodName);
         }
 
         internal DynamicPropertyInfo(string name, Type type, object defaultValue, IEnumerable<Attribute> attributes)
@@ -84,8 +90,7 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider
 
         public override MethodInfo GetSetMethod(bool nonPublic)
         {
-            Action<IDynamicPropertiesContainer, object> setMethod = (obj, value) => obj.SetDynamicPropertyValue(_name, value);
-            return setMethod.Method;
+            return _setMethodInfo;
         }
 
         public override object GetValue(object obj, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture)
@@ -93,9 +98,21 @@ namespace DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider
             return ((IDynamicPropertiesContainer)obj).GetDynamicPropertyValue(_name);
         }
 
+        public void SetValueAction(object obj, object value)
+        {
+            // данный метод должен быть именно public - инфраструктура WPF binding проверяет возможена ли запись в этой свойство (при TwoWay, OneWayToSource и т.п. bindings)
+            // проверка смотрит, на результат CanWrite, GetSetMethod (не null, public или нет)
+            // в зависимости от сочетания этих факторов принимается решение бросить exception или нет: InvalidOperationException A TwoWay or OneWayToSource binding cannot work on the read-only property
+            // Поведение изменилось при переходе .NET 4.0->4.5
+            // Подробности см:
+            //  - PropertyPathWorker.IsPropertyReadOnly
+            //  - FrameworkCompatibilityPreferences.HandleTwoWayBindingToPropertyWithNonPublicSetter
+            ((IDynamicPropertiesContainer)obj).SetDynamicPropertyValue(_name, value);
+        }
+
         public override void SetValue(object obj, object value, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture)
         {
-            ((IDynamicPropertiesContainer)obj).SetDynamicPropertyValue(_name, value);
+            SetValueAction(obj, value);
         }
 
         public override object[] GetCustomAttributes(Type attributeType, bool inherit)

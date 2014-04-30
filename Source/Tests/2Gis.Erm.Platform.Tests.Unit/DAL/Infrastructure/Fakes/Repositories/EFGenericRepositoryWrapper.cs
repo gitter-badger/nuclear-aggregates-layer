@@ -1,10 +1,12 @@
-﻿using DoubleGis.Erm.Platform.DAL;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
 {
-    public class EFGenericRepositoryWrapper<TEntity> : IRepository<TEntity>, IDomainEntityAccessor<TEntity> where TEntity : class, IEntity
+    public class EFGenericRepositoryWrapper<TEntity> : IRepository<TEntity>, IDomainEntityEntryAccessor<TEntity> where TEntity : class, IEntity
     {
         readonly EFGenericRepository<TEntity> _genericRepository;
 
@@ -19,6 +21,12 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
             repositoryProxy.Add(entity);
         }
 
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            var repositoryProxy = (IRepositoryProxy<TEntity>)_genericRepository;
+            repositoryProxy.AddRange(entities);
+        }
+
         public void Update(TEntity entity)
         {
             var repositoryProxy = (IRepositoryProxy<TEntity>)_genericRepository;
@@ -31,6 +39,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
             repositoryProxy.Delete(entity, this);
         }
 
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            var repositoryProxy = (IRepositoryProxy<TEntity>)_genericRepository;
+            repositoryProxy.DeleteRange(entities, this);
+        }
 
         public int Save()
         {
@@ -40,6 +53,12 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         public TEntity GetDomainEntity(TEntity entity)
         {
             return entity;
+        }
+
+        public IDbEntityEntry GetDomainEntityEntry(TEntity entity, out EntityPlacementState entityPlacementState)
+        {
+            entityPlacementState = EntityPlacementState.AttachedToContext;
+            return new EFEntityEntry(null);
         }
     }
 }

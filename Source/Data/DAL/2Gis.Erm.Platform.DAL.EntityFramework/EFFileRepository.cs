@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -82,6 +83,16 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             CheckSaveIsNotDeferred();
             AddOrUpdateInternal(CommandType.Insert, entity);
             _changesRegistryProvider.ChangesRegistry.Added<FileWithContent>(entity.Id);
+        }
+
+        public void AddRange(IEnumerable<FileWithContent> entities)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void DeleteRange(IEnumerable<FileWithContent> entities)
+        {
+            throw new NotSupportedException();
         }
 
         public int Save()

@@ -50,13 +50,11 @@
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
     <Compile Include="DomainContextMetadata.cs" />
-    <Compile Include="IDomainEntityAccessor.cs" />
     <Compile Include="IFileContentFinder.cs" />
     <Compile Include="IPersistenceChangesRegistry.cs" />
     <Compile Include="IPersistenceChangesRegistryProvider.cs" />
     <Compile Include="IPersistenceService.cs" />
     <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
-    <Compile Include="IRepositoryProxy.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryFactory.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryForHostFactory.cs" />
     <Compile Include="Model\Aggregates\IAggregatesLayerRuntimeFactory.cs" />

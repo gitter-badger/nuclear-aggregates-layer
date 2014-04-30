@@ -35,6 +35,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             return new MustBeGreaterOrEqualPropertyFeature(propertyName, errorMessageResourceManagerType, errorMessageKeyName);
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

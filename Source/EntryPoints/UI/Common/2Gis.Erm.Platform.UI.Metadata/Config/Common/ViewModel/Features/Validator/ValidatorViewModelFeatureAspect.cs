@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 using FluentValidation;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator
 {
-    public sealed class ValidatorViewModelFeatureAspect<TBuilder, TConfigElement> : ConfigElementBuilderAspectBase<TBuilder, IValidationTarget, TConfigElement>
-        where TBuilder : ConfigElementBuilder<TBuilder, TConfigElement>, new()
-        where TConfigElement : ConfigElement, IValidationTarget
+    public sealed class ValidatorViewModelFeatureAspect<TBuilder, TMetadataElement> : MetadataElementBuilderAspectBase<TBuilder, IValidationTarget, TMetadataElement>
+        where TBuilder : MetadataElementBuilder<TBuilder, TMetadataElement>, new()
+        where TMetadataElement : MetadataElement, IValidationTarget
     {
-        public ValidatorViewModelFeatureAspect(ConfigElementBuilder<TBuilder, TConfigElement> aspectHostBuilder)
+        public ValidatorViewModelFeatureAspect(MetadataElementBuilder<TBuilder, TMetadataElement> aspectHostBuilder)
             : base(aspectHostBuilder)
         {
         }
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Va
             if (compositeValidatorFeature == null)
             {
                 compositeValidatorFeature = new CompositeValidatorViewModelFeature();
-                AspectHostBuilder.Features.Add(compositeValidatorFeature);
+                AspectHostBuilder.WithFeatures(compositeValidatorFeature);
             }
 
             if (validatorFeature is IDynamicValidatorModelFeature && compositeValidatorFeature.Validators.Any(feature => feature is IDynamicValidatorModelFeature))

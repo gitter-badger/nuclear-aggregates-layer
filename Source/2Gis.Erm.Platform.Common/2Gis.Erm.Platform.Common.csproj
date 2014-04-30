@@ -96,6 +96,8 @@
     <Compile Include="Logging\SystemInfo\OS\OSVersionDescriptor.cs" />
     <Compile Include="Logging\SystemInfo\ProcessInfo.cs" />
     <Compile Include="Logging\SystemInfo\SecurityInfo.cs" />
+    <Compile Include="Prerequisites\PrerequisitesAttribute.cs" />
+    <Compile Include="Prerequisites\СonsideringPrerequisitesComparer.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
     <Compile Include="Ftp\IFtpService.cs" />
+    <Compile Include="Utils\IncreasingSequenceGenerator.cs" />
     <Compile Include="Utils\KeyEqualityComparer.cs" />
     <Compile Include="Logging\ICommonLog.cs" />
     <Compile Include="Logging\ILoggerContextEntryProvider.cs" />

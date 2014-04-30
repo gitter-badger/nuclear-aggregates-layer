@@ -1,13 +1,13 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap
 {
-    public sealed class ViewModelViewMappingAspect<TBuilder, TConfigElement> : ConfigElementBuilderAspectBase<TBuilder, IBoundViewModelView, TConfigElement>
-        where TBuilder : ConfigElementBuilder<TBuilder, TConfigElement>, new()
-        where TConfigElement : ConfigElement, IBoundViewModelView
+    public sealed class ViewModelViewMappingAspect<TBuilder, TMetadataElement> : MetadataElementBuilderAspectBase<TBuilder, IBoundViewModelView, TMetadataElement>
+        where TBuilder : MetadataElementBuilder<TBuilder, TMetadataElement>, new()
+        where TMetadataElement : MetadataElement, IBoundViewModelView
     {
-        public ViewModelViewMappingAspect(ConfigElementBuilder<TBuilder, TConfigElement> aspectHostBuilder)
+        public ViewModelViewMappingAspect(MetadataElementBuilder<TBuilder, TMetadataElement> aspectHostBuilder)
             : base(aspectHostBuilder)
         {
         }
@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelVie
             where TViewModel : class, IViewModel
             where TView : class, IView
         {
-            AspectHostBuilder.Features.Add(new ViewModelViewMappingFeature<TViewModel, TView>());
+            AspectHostBuilder.WithFeatures(new ViewModelViewMappingFeature<TViewModel, TView>());
             return AspectHostBuilder;
         }
     }

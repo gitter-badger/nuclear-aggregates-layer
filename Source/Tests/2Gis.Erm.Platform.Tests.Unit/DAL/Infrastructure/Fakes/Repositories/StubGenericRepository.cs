@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.DAL;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
@@ -9,11 +11,19 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         {
         }
 
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+        }
+
         public void Update(TEntity entity)
         {
         }
 
         public void Delete(TEntity entity)
+        {
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
         {
         }
 

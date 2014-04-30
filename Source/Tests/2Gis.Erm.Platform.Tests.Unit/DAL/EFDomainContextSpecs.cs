@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Data.Objects;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 MsCrmSettingsMock = new Mock<IMsCrmSettings>();
                 MsCrmSettingsMock.Setup(x => x.EnableReplication).Returns(true);
                 
-                ObjectContextMock  = new Mock<IObjectContext>();
+                ObjectContextMock  = new Mock<IDbContext>();
 
                 _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
                                                      DefaultContextName,
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             };
 
             protected static Mock<IMsCrmSettings> MsCrmSettingsMock { get; private set; }
-            protected static Mock<IObjectContext> ObjectContextMock { get; private set; }
+            protected static Mock<IDbContext> ObjectContextMock { get; private set; }
         }
 
         class When_call_SaveChanges_for_added_entities : EFDomainContextMockContext
@@ -58,8 +58,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 {
                     _deal = new Deal { ReplicationCode = Guid.Empty };
 
-                    ObjectContextMock.Setup(p => p.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
-                                     .Returns(new[] { new EFEntityStateEntry(_deal, EntityState.Added) });
+                    ObjectContextMock.Setup(p => p.Entries())
+                                     .Returns(new[] { new StubEntityEntry(_deal, EntityState.Added) });
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -77,8 +77,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _guid = Guid.NewGuid();
                     _deal = new Deal { ReplicationCode = _guid };
 
-                    ObjectContextMock.Setup(p => p.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
-                                     .Returns(new[] { new EFEntityStateEntry(_deal, EntityState.Modified) });
+                    ObjectContextMock.Setup(p => p.Entries())
+                                     .Returns(new[] { new StubEntityEntry(_deal, EntityState.Modified) });
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -96,14 +96,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     var orderPosition = new OrderPosition();
                     var firm = new Firm();
 
-                    ObjectContextMock.Setup(p => p.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
+                    ObjectContextMock.Setup(p => p.Entries())
                                      .Returns(new[]
                                          {
-                                             new EFEntityStateEntry(advertisement, EntityState.Added), 
-                                             new EFEntityStateEntry(deal, EntityState.Added),
-                                             new EFEntityStateEntry(order, EntityState.Modified),
-                                             new EFEntityStateEntry(orderPosition, EntityState.Deleted),
-                                             new EFEntityStateEntry(firm, EntityState.Unchanged)
+                                             new StubEntityEntry(advertisement, EntityState.Added), 
+                                             new StubEntityEntry(deal, EntityState.Added),
+                                             new StubEntityEntry(order, EntityState.Modified),
+                                             new StubEntityEntry(orderPosition, EntityState.Deleted),
+                                             new StubEntityEntry(firm, EntityState.Unchanged)
                                          })
                                      .Verifiable();
                 };
@@ -137,12 +137,12 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     var order = new Order();
                     var orderPosition = new OrderPosition();
 
-                    ObjectContextMock.Setup(p => p.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
+                    ObjectContextMock.Setup(p => p.Entries())
                                      .Returns(new[]
                                          {
-                                             new EFEntityStateEntry(deal, EntityState.Added),
-                                             new EFEntityStateEntry(order, EntityState.Modified),
-                                             new EFEntityStateEntry(orderPosition, EntityState.Deleted)
+                                             new StubEntityEntry(deal, EntityState.Added),
+                                             new StubEntityEntry(order, EntityState.Modified),
+                                             new StubEntityEntry(orderPosition, EntityState.Deleted)
                                          });
                 };
 
@@ -160,9 +160,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Establish context = () =>
                 {
-                    var objectContextMock = new Mock<IObjectContext>();
-                    objectContextMock.Setup(x => x.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
-                                     .Returns(new[] { new EFEntityStateEntry(null, Moq.It.IsAny<EntityState>(), false) });
+                    var objectContextMock = new Mock<IDbContext>();
+                    objectContextMock.Setup(x => x.Entries())
+                                     .Returns(new[] { new StubEntityEntry(null, Moq.It.IsAny<EntityState>()) });
 
                     _domainContext = new EFDomainContext(new ProcessingContext(),
                                                          DefaultContextName,
@@ -185,9 +185,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Establish context = () =>
             {
-                var objectContextMock = new Mock<IObjectContext>();
-                objectContextMock.Setup(x => x.GetObjectStateEntries(Moq.It.IsAny<EntityState>()))
-                                 .Returns(new[] { new EFEntityStateEntry(null, Moq.It.IsAny<EntityState>(), false) });
+                var objectContextMock = new Mock<IDbContext>();
+                objectContextMock.Setup(x => x.Entries())
+                                 .Returns(new[] { new StubEntityEntry(null, Moq.It.IsAny<EntityState>()) });
 
                 _domainContext = new EFDomainContext(new ProcessingContext(),
                                                      DefaultContextName,

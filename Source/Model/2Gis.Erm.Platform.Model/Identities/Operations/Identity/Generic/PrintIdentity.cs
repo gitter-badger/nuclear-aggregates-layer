@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic
 {
-    public sealed class PrintIdentity : OperationIdentityBase<PrintIdentity>
+    public sealed class PrintIdentity : OperationIdentityBase<PrintIdentity>, IEntitySpecificOperationIdentity
     {
         public override int Id
         {

@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
         [DataMember]
         private readonly EntityName[] _entities;
         [DataMember]
-        private readonly IReadOnlyDictionary<EntityName, EntityName[]> _entitiesByAggregates;
+        private readonly Dictionary<EntityName, EntityName[]> _entitiesByAggregates;
         [DataMember]
-        private readonly IReadOnlyDictionary<EntitySet, IOperationMetadata> _metadataDetails;
+        private readonly Dictionary<EntitySet, IOperationMetadata> _metadataDetails;
         
         public OperationApplicability(IOperationIdentity operationIdentity, IEnumerable<OperationMetadataDetailContainer> metadataDetails)
         {

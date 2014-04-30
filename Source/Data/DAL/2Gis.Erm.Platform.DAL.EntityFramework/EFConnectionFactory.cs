@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Data.EntityClient;
-using System.Data.Metadata.Edm;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;

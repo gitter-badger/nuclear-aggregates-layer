@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
@@ -36,7 +39,10 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         {
             try
             {
-                return _metadataProvider.GetApplicableOperations();
+                return _metadataProvider
+                            .GetApplicableOperations()
+                            .Where(NotRestrictedForClients)
+                            .ToArray();
             }
             catch (Exception ex)
             {
@@ -50,7 +56,10 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         {
             try
             {
-                return _metadataProvider.GetApplicableOperationsForCallingUser();
+                return _metadataProvider
+                            .GetApplicableOperationsForCallingUser()
+                            .Where(NotRestrictedForClients)
+                            .ToArray();
             }
             catch (Exception ex)
             {
@@ -64,7 +73,10 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         {
             try
             {
-                return _metadataProvider.GetApplicableOperationsForContext(entityNames, entityIds);
+                return _metadataProvider
+                                .GetApplicableOperationsForContext(entityNames, entityIds)
+                                .Where(NotRestrictedForClients)
+                                .ToArray();
             }
             catch (Exception ex)
             {
@@ -126,6 +138,13 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
                 _logger.ErrorEx(ex, "Ошибка обработки запроса");
                 throw new WebFaultException(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private bool NotRestrictedForClients(OperationApplicability operationApplicability)
+        {
+            // TODO {all, 24.04.2014}: пока примитивное ограничение для перечня операций - исключаем те которые непредназначены для remote клиента (например, потому что не помечены DataContractAttribute)
+            return operationApplicability.OperationIdentity.GetType().GetCustomAttributes<DataContractAttribute>().Any()
+                && operationApplicability.MetadataDetails.All(pair => pair.Value != null && pair.Value.GetType().GetCustomAttributes<DataContractAttribute>().Any());
         }
 
         private FaultException<MetadataOperationErrorDescription> GetExceptionDescription(string operationSpecificMessage, Exception ex)

@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -12,6 +14,12 @@ namespace DoubleGis.Erm.Platform.DAL
         /// </summary>
         /// <param name="entity">The Entity object to add</param>
         void Add(TEntity entity);
+
+        /// <summary>
+        /// Add range of the Entity Objects to the Repository
+        /// </summary>
+        /// <param name="entities">The Entity objects to add</param>
+        void AddRange(IEnumerable<TEntity> entities);
         
         /// <summary>
         /// Update changes made to the Entity object in the repository
@@ -24,6 +32,12 @@ namespace DoubleGis.Erm.Platform.DAL
         /// </summary>
         /// <param name="entity">The Entity object to delete</param>
         void Delete(TEntity entity);
+
+        /// <summary>
+        /// Delete range of the Entity objects from the repository
+        /// </summary>
+        /// <param name="entities">The Entity objects to delete</param>
+        void DeleteRange(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Persist the changes through the Add,Update,Delete to the persistence storage.

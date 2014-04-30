@@ -10,21 +10,21 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> AccountProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> AccountProperties =
             new[]
                 {
-                    EntityProperty.Create<AccountDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
+                    EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.BranchOfficeOrganizationUnit),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnit)),
 
-                    EntityProperty.Create<AccountDomainEntityDto>(dto => dto.LegalPersonRef)
+                    EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.LegalPerson),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),
-
+                                      /*
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
@@ -48,11 +48,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.OwnerCanBeChanged),
 
-                    new EntityProperty
-                        {
-                            Name = "IsSecurityRoot",
-                            Type = typeof(bool),
-                        }
+                    new EntityProperty("IsSecurityRoot", typeof(bool))
                         .WithFeatures(new IPropertyFeature[]
                             {
                                 new OnlyValuePropertyFeature<bool>(true),
@@ -111,7 +107,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
-                                      new HiddenFeature())
+                                      new HiddenFeature())*/
                 };
     }
 }
