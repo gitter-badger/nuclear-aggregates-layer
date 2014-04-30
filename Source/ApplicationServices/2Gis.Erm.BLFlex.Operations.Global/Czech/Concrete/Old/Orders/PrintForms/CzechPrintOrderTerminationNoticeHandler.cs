@@ -66,22 +66,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         {
             return
                 _finder.Find(Specs.Find.ById<Order>(orderId))
-                   .Select(order => new
-                       {
-                           Order = order,
-                           order.LegalPerson,
-                           order.BranchOfficeOrganizationUnit,
-                           order.BranchOfficeOrganizationUnit.BranchOffice
-                       })
-                   .AsEnumerable()
+                .Select(order => new
+                    {
+                        Order = order,
+                        order.LegalPerson,
+                        order.BranchOfficeOrganizationUnit,
+                        order.BranchOfficeOrganizationUnit.BranchOffice
+                    })
+                .AsEnumerable()
                    .Select(x => new PrintData
-                       {
+                    {
                            { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
                            { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForTerminationNotice(x.BranchOfficeOrganizationUnit) },
                            { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
                            { "Order", CzechPrintHelper.OrderFields(x.Order) }
-                       })
-                   .Single();
+                    })
+                .Single();
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType, bool withoutReason, bool terminationBargain)
