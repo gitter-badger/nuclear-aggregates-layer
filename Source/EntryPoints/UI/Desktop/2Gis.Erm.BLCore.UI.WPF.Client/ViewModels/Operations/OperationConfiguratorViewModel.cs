@@ -9,8 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Dialogs;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
@@ -185,6 +184,23 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
                 RaisePropertyChanged();
             }
         }
+
+        protected abstract ITitleProvider OperationName { get; }
+
+        protected string EntityNameString
+        {
+            get { return _entityName.ToStringLocalized(EnumResources.ResourceManager, _userInfo.Culture); }
+        }
+
+        protected EntityName EntityName
+        {
+            get { return _entityName; }
+        }
+
+        protected long[] OperationProcessingEntities
+        {
+            get { return _operationProcessingEntities; }
+        }
         
         public ICommonOperationParameter GetCommonParameter()
         {
@@ -232,40 +248,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
             RaisePropertyChanged(() => Status);
         }
 
-        protected abstract ITitleProvider OperationName { get; }
-
-        protected string EntityNameString 
-        {
-            get { return _entityName.ToStringLocalized(EnumResources.ResourceManager, _userInfo.Culture); }
-        }
-
-        protected EntityName EntityName
-        {
-            get { return _entityName; }
-        }
-
-        protected long[] OperationProcessingEntities
-        {
-            get { return _operationProcessingEntities; }
-        }
-
         protected override void OnOkCommand()
         {
             switch (Status)
             {
                 case OperationProcessingStatus.NotStarted:
                 {
-                    var operationsFeature = EntitySpecificOperationFeature<TOperationIdentity>.Instance;
-                    operationsFeature.Entity = EntityName.ToEntitySet();
-
                     Status = OperationProcessingStatus.Processing;
                     _messageSink.Post(
-                        new ExecuteActionMessage(
-                            new IBoundOperationFeature[]
-                                        {
-                                            operationsFeature
-                                        },
-                                        Identity.Id)
+                        new ExecuteActionMessage(new StrictOperationIdentity(new TOperationIdentity(), EntityName.ToEntitySet()), Identity.Id)
                             {
                                 NeedConfirmation = true, 
                                 Confirmed = true

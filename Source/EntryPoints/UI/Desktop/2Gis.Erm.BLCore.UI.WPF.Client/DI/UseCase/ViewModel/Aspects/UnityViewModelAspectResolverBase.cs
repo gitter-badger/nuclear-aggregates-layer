@@ -17,17 +17,17 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
     {
         private readonly Type _viewModelAspectType = typeof(TViewModelAspect);
 
-        public bool TryResolveDependency(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
+        public bool TryResolveDependency(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
         {
             resolvedDependency = null;
 
-            var aspectSpecificFeature = structure.ElementFeatures.OfType<TViewModelFeature>().SingleOrDefault();
+            var aspectSpecificFeature = metadata.Features.OfType<TViewModelFeature>().SingleOrDefault();
             if (aspectSpecificFeature == null)
             {
                 return false;
             }
 
-            var viewModelAspect = Create(useCase, structure, resolvingViewModelIdentity, aspectSpecificFeature);
+            var viewModelAspect = Create(useCase, metadata, resolvingViewModelIdentity, aspectSpecificFeature);
             if (viewModelAspect == null)
             {
                 return false;
@@ -37,6 +37,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             return true;
         }
 
-        protected abstract TViewModelAspect Create(IUseCase useCase, IViewModelStructure viewModelStructure, IViewModelIdentity resolvingViewModelIdentity, TViewModelFeature feature);
+        protected abstract TViewModelAspect Create(IUseCase useCase, IViewModelMetadata viewModelMetadata, IViewModelIdentity resolvingViewModelIdentity, TViewModelFeature feature);
     }
 }

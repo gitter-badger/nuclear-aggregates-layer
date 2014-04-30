@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 {
     public sealed class UnityViewModelLocalizerResolver : UnityViewModelAspectResolverBase<ILocalizer, LocalizeViewModelFeature>
     {
-        protected override ILocalizer Create(IUseCase useCase, IViewModelStructure viewModelStructure, IViewModelIdentity resolvingViewModelIdentity, LocalizeViewModelFeature feature)
+        protected override ILocalizer Create(IUseCase useCase, IViewModelMetadata viewModelMetadata, IViewModelIdentity resolvingViewModelIdentity, LocalizeViewModelFeature feature)
         {
             var factory = useCase.ResolveFactoryContext();
             return factory.Resolve<Localizer>(new DependencyOverrides { { typeof(Type[]), feature.ResourceManagerHostTypes } });

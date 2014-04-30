@@ -7,15 +7,17 @@
 <#@ assembly name="System.Xaml" #>
 <#@ assembly name="EnvDTE" #>
 
-<#@ import namespace="EnvDTE" #> 
-<#@ import namespace="System" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Elements" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Entities" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Processors" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Provider" #>
+<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources" #>
+ 
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Diagnostics" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Text.RegularExpressions" #>
-<#@ import namespace="System.Globalization" #>
-<#@ import namespace="System.Reflection" #>
 
 <#@ assembly name="$(SolutionDir)\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\bin\$(ConfigurationName)\2Gis.Erm.BLCore.Resources.Server.dll" #>
 <#@ assembly name="$(SolutionDir)\..\..\Platform\Source\2Gis.Erm.Platform.Common\bin\$(ConfigurationName)\2Gis.Erm.Platform.Common.dll" #>
@@ -30,7 +32,6 @@
 <#@ import namespace="DoubleGis.Erm.Platform.Common.Utils.Resources" #>
 <#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Entities" #>
 <#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures" #>
-<#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Common" #>
 <#@ import namespace="DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures" #>
 <#@ import namespace="DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts" #>
 
@@ -40,7 +41,7 @@
 
 <#@include file="Manager.ttinclude"#>
 <#
-var	viewsNamespace = "DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards";
+const string ViewsNamespace = "DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards";
 
 var manager = Manager.Create(Host, GenerationEnvironment);
 var counter = new Stopwatch();
@@ -48,7 +49,7 @@ try
 {
 	counter.Start();
 	WriteLine("Processing start at " + DateTime.Now);
-	Process(viewsNamespace, manager);
+	Process(ViewsNamespace, manager);
 	manager.Process(true);
 }
 catch (Exception ex)
@@ -67,62 +68,82 @@ finally
 <#+ 
 private void Process(string viewsNamespace, Manager manager)
 {
-	IEntityPropertiesProvider entityPropertiesProvider = new EntityPropertiesProvider();
-	ICardStructuresProvider cardStructuresProvider = new CardStructuresProvider(entityPropertiesProvider);
-
-
+	var metadataProvider = ResolveMetadataProvider();
 	int cardCounter = 0;
 
-	foreach (var entry in entityPropertiesProvider.EntityPropertiesMap)
+    MetadataSet entitiesMetadata;
+    if (!metadataProvider.TryGetMetadata<MetadataEntitiesIdentity>(out entitiesMetadata))
     {
-		++cardCounter;
-        WriteLine(cardCounter + "). Processing card for entity " + entry.Key);
-		
-		var entityName = entry.Key;
-		var entityProperties = entry.Value;
+		throw new InvalidOperationException("Can't resolve entities metadata");
+    }
 
-		CardStructure cardStructure;
-        if (!cardStructuresProvider.TryGetDescriptor(entityName, out cardStructure))
-        {	// не обрабатываем сущности для который нет поисания карточки
+    foreach (var entityMetadata in entitiesMetadata.Metadata.Values)
+    {
+        var feature = entityMetadata.Features<RelatedEntityFeature>().SingleOrDefault();
+        if (feature == null)
+        {
+			continue;
+        }
+
+        var entityName = feature.Entity;
+
+		++cardCounter;
+        WriteLine(cardCounter + "). Processing card for entity " + entityName);
+		
+		var entityProperties = entityMetadata.Elements<EntityPropertyMetadata>();
+
+        var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+		CardMetadata cardMetadata;
+        if (!metadataProvider.TryGetMetadata<CardMetadata>(metadataId, out cardMetadata))
+        {	// FIXME {all, 17.04.2014}: кода появятся метаданные для всех карточек, нужно будет обработку вести от карточек (или даже документов), а не от сущностей
+			// не обрабатываем сущности для который нет описания карточки
             // continue;
         }
 
-		bool useExisting = false;
-        if (cardStructure != null 
-            && cardStructure.ViewModelViewMapping != null 
-            && cardStructure.ViewModelViewMapping.ViewType != typeof(UseGeneratorView))
-        {
-            // прописан конкретный view, не являющийся маркерным для генератора View карточек => ничего генерить не нужно
-            useExisting = true;
-        }
-		
-		var viewName = entityName.ToString() + "View";
+        bool useExisting = cardMetadata != null 
+                           && cardMetadata.ViewModelViewMapping != null 
+                           && cardMetadata.ViewModelViewMapping.ViewType != typeof(UseGeneratorView);
+
+        var viewName = entityName + "View";
 		var viewControlFileName = viewName + ".xaml";
 		var viewCodeBehindFileName = viewName + ".xaml.cs";
 
 		if (useExisting && DoesFileExist(viewControlFileName) && DoesFileExist(viewCodeBehindFileName))
         {
-			WriteLine("For entity  " + entry.Key + " existing view used");
+			WriteLine("For entity  " + entityName + " existing view used");
 			manager.StartNewFile(viewControlFileName);
-			this.Write(OutputFile(viewControlFileName));
+			Write(OutputFile(viewControlFileName));
 			manager.EndBlock();
 			manager.StartNewFile(viewCodeBehindFileName);
-			this.Write(OutputFile(viewCodeBehindFileName));
+			Write(OutputFile(viewCodeBehindFileName));
 			manager.EndBlock();
 			continue;
 		}
 
-		WriteLine("For entity  " + entry.Key + " new view generating ");
+		WriteLine("For entity  " + entityName + " new view generating ");
         entityProperties = entityProperties.Where(x => !x.Features.OfType<HiddenFeature>().Any()).ToArray();
 		
 		manager.StartNewFile(viewControlFileName);
-		GenerateXaml(viewsNamespace, viewName, cardStructure, entityProperties);
+		GenerateXaml(viewsNamespace, viewName, cardMetadata, entityProperties);
 		manager.EndBlock();
 
 		manager.StartNewFile(viewCodeBehindFileName);
 		GenerateXamlCs(viewsNamespace, viewName);
 		manager.EndBlock();
 	}
+}
+
+private IMetadataProvider ResolveMetadataProvider()
+{	// FIXME {all, 17.04.2014}: нужно избавиться от hardcode при описании sources, processors (может быть как-то получиться заиспользовать massprocessor)
+    var sources = new IMetadataSource[]
+        {
+            new EntitiesMetadataSource(), 
+			new CardMetadataSource(), 
+        };
+
+    var processors = new IMetadataProcessor[0];
+
+	return new MetadataProvider(sources, processors);
 }
 
 private bool DoesFileExist(string filename)
@@ -156,7 +177,7 @@ private string GetCurrentDirectory()
 	return executingDirectoryName;
 }
 
-private void GenerateXaml(string viewsNamespace, string viewName, CardStructure cardStructure, IEnumerable<EntityProperty> entityProperties)
+private void GenerateXaml(string viewsNamespace, string viewName, CardMetadata cardMetadata, IEnumerable<EntityPropertyMetadata> entityPropertiesMetadata)
 {
 #>
 <UserControl x:Class="<#= viewsNamespace #>.<#= viewName #>"
@@ -182,10 +203,10 @@ private void GenerateXaml(string viewsNamespace, string viewName, CardStructure 
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
 <#+ 
-			var groupedProperties = new Dictionary<ResourceEntryKey, List<EntityProperty>>();
-            var ordinaryProperties = new List<EntityProperty>();
+			var groupedProperties = new Dictionary<ResourceEntryKey, List<EntityPropertyMetadata>>();
+            var ordinaryProperties = new List<EntityPropertyMetadata>();
 
-            foreach (var entityProperty in entityProperties)
+            foreach (var entityProperty in entityPropertiesMetadata)
             {
                 var groupedPropertyFeature = entityProperty.Features.OfType<GroupedPropertyFeature>().SingleOrDefault();
                 if (groupedPropertyFeature == null)
@@ -194,10 +215,10 @@ private void GenerateXaml(string viewsNamespace, string viewName, CardStructure 
                 }
                 else
                 {
-                    List<EntityProperty> properties;
+                    List<EntityPropertyMetadata> properties;
                     if (!groupedProperties.TryGetValue(groupedPropertyFeature.EntryKey, out properties))
                     {
-                        properties = new List<EntityProperty>();
+                        properties = new List<EntityPropertyMetadata>();
                         groupedProperties.Add(groupedPropertyFeature.EntryKey, properties);
                     }
 
@@ -210,9 +231,9 @@ private void GenerateXaml(string viewsNamespace, string viewName, CardStructure 
             if (groupedProperties.Any())
             {
                 ViewModelPartsFeature resultViewModelPartsFeature;
-				if (cardStructure != null)
+				if (cardMetadata != null)
 				{
-					resultViewModelPartsFeature = cardStructure.ElementFeatures.OfType<ViewModelPartsFeature>().SingleOrDefault()
+					resultViewModelPartsFeature = cardMetadata.Features<ViewModelPartsFeature>().SingleOrDefault()
 						?? ViewModelParts.Default; // пока если нет настроек для card parts - используем default
 				}
 				else
@@ -223,7 +244,7 @@ private void GenerateXaml(string viewsNamespace, string viewName, CardStructure 
 
 				foreach (var part in resultViewModelPartsFeature.PartKeys)
 				{
-					List<EntityProperty> properties;
+					List<EntityPropertyMetadata> properties;
 					if (!groupedProperties.TryGetValue(part, out properties))
 					{
 						continue;
@@ -288,7 +309,7 @@ namespace <#= viewsNamespace #>
 <#+
 }
 
-private void GenerateControlsGrid(IEnumerable<EntityProperty> entityProperties)
+private void GenerateControlsGrid(IEnumerable<EntityPropertyMetadata> entityProperties)
 {
 	int count = 0;
 	var rowsFormat = entityProperties.Aggregate(string.Empty, 
@@ -317,19 +338,17 @@ private void GenerateControlsGrid(IEnumerable<EntityProperty> entityProperties)
 <#+ 
 }
 
-private void GenerateControlForProperty(EntityProperty entityProperty, int rowCount, int colunmCount)
+private void GenerateControlForProperty(EntityPropertyMetadata entityProperty, int rowCount, int colunmCount)
 {
 	var titleFeature = entityProperty.Features.OfType<DisplayNameLocalizedFeature>().SingleOrDefault();
-
 	var isRequired = entityProperty.Features.OfType<RequiredPropertyFeature>().Any();
-
-		var controlDescriptor = PropertyTypeToControlMap.GetControlDescriptor(entityProperty);
-
-		var isReadOnlyText = entityProperty.Features.OfType<ReadOnlyPropertyFeature>().Any() && entityProperty.Type == typeof(string);
+	var controlDescriptor = PropertyTypeToControlMap.GetControlDescriptor(entityProperty);
+	var isReadOnly = entityProperty.Features.OfType<ReadOnlyPropertyFeature>().Any();
+	var isReadOnlyText = isReadOnly && entityProperty.Type == typeof(string);
 #>
 				<controls:<#=controlDescriptor.ControlName#> Grid.Row="<#= rowCount #>" Grid.Column="<#= colunmCount #>" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.<#= titleFeature != null ? titleFeature.ResourceKey : entityProperty.Name #>}" 
-										<#=controlDescriptor.TargetPropertyName#>="{Binding <#= entityProperty.Name #>, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
+										<#=controlDescriptor.TargetPropertyName#>="{Binding <#= entityProperty.Name #>, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=<#= isReadOnly ? "OneWay": "TwoWay" #>}" 
 										<#= isReadOnlyText ? controlDescriptor.ReadOnlyExpression : string.Empty #>
 										/>
 <#+

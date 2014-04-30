@@ -6,9 +6,9 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
@@ -29,16 +29,16 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
     {
         private readonly ITitleProviderFactory _titleProviderFactory;
         private readonly IImageProviderFactory _imageProviderFactory;
+        private readonly Type _viewModelAspectType;
 
         public UnityViewModelContextualNavigationResolver(ITitleProviderFactory titleProviderFactory, IImageProviderFactory imageProviderFactory)
         {
+            _viewModelAspectType = typeof(IContextualNavigationConfig);
             _titleProviderFactory = titleProviderFactory;
             _imageProviderFactory = imageProviderFactory;
         }
 
-        private readonly Type _viewModelAspectType = typeof(IContextualNavigationConfig);
-
-        public bool TryResolveDependency(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
+        public bool TryResolveDependency(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
         {
             resolvedDependency = null;
             var contextualNavigationItems = new List<INavigationItem>();
@@ -48,8 +48,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             var factory = useCase.ResolveFactoryContext();
             var messageSink = factory.Resolve<IMessageSink>();
 
-            ProcessViewModelParts(contextualNavigationItems, partsMap, structure, messageSink);
-            ProcessViewModelReferencedItems(contextualNavigationItems, structure, messageSink, out referencedItemViewsSelector);
+            ProcessViewModelParts(contextualNavigationItems, partsMap, metadata, messageSink);
+            ProcessViewModelReferencedItems(contextualNavigationItems, metadata, messageSink, out referencedItemViewsSelector);
 
             if (contextualNavigationItems.Count == 0)
             {
@@ -68,10 +68,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
         private void ProcessViewModelParts(
             List<INavigationItem> items, 
             Dictionary<string, INavigationItem> partsMap, 
-            IViewModelStructure structure,
+            IViewModelMetadata metadata,
             IMessageSink messageSink)
         {
-            if (!structure.HasParts)
+            if (!metadata.HasParts)
             {
                 return;
             }
@@ -95,16 +95,16 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                     item => true);
 
             var cardPartsItems = new List<INavigationItem>();
-            foreach (var resourceEntryKey in structure.Parts)
+            foreach (var resourceEntryKey in metadata.Parts)
             {
                 var item =
-                    new NavigationItem(UIDGenerator.Next, _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
+                    new NavigationItem(IdBuilder.UniqueFor("CardStructures/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
                 cardPartsItems.Add(item);
                 partsMap.Add(resourceEntryKey.ResourceEntryName, item);
             }
 
             var cardPartsRootItem = new NavigationItem(
-                UIDGenerator.Next,
+                IdBuilder.UniqueFor("CardStructures/Parts"),
                 _titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ErmConfigLocalization.CrdRelInformation)),
                 cardPartsRootNavigateCommand) { Items = cardPartsItems.ToArray() };
             items.Add(cardPartsRootItem);
@@ -112,19 +112,19 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
         private void ProcessViewModelReferencedItems(
             List<INavigationItem> items, 
-            IViewModelStructure structure, 
+            IViewModelMetadata metadata, 
             IMessageSink messageSink, 
             out DataTemplateSelector referencedItemViewsSelector)
         {
             referencedItemViewsSelector = null;
 
-            if (!structure.HasRelatedItems)
+            if (!metadata.HasRelatedItems)
             {
                 return;
             }
 
             var registry = new Dictionary<Type, IViewModelViewMapping>();
-            foreach (var relatedItem in structure.RelatedItems)
+            foreach (var relatedItem in metadata.RelatedItems)
             {
                 relatedItem.ProcessMVVMMappings(registry);
             }
@@ -144,21 +144,21 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                     },
                     item => item.Items == null || !item.Items.Any());
 
-            items.AddRange(structure.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
+            items.AddRange(metadata.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
         }
 
-        private INavigationItem ConvertItem(HierarchyElement element, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
+        private INavigationItem ConvertItem(HierarchyMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
         {
             var item = new NavigationItem(
-                element.Identity.Id,
-                _titleProviderFactory.Create(element.TitleDescriptor),
+                metadata.Identity.Id,
+                _titleProviderFactory.Create(metadata.TitleDescriptor),
                 relatedItemNavigateCommand)
             {
-                Icon = element.ImageDescriptor != null ? _imageProviderFactory.Create(element.ImageDescriptor) : null
+                Icon = metadata.ImageDescriptor != null ? _imageProviderFactory.Create(metadata.ImageDescriptor) : null
             };
-            if (element.Elements != null && element.Elements.Any())
+            if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = element.Elements.OfType<HierarchyElement>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
+                item.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
             }
 
             return item;

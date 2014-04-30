@@ -1,10 +1,11 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
-    public sealed class DataFieldExpressionFeature : IConfigFeature
+    public sealed class DataFieldExpressionFeature : IMetadataFeature
     {
         private readonly string _propertyName;
         private readonly Type _propertyType;

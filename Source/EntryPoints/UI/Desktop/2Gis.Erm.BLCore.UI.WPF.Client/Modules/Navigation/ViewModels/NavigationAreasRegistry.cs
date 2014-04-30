@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
@@ -15,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
 {
     public sealed class NavigationAreasRegistry : INavigationAreasRegistry
     {
-        private readonly INavigationSettingsProvider _settingsProvider;
         private readonly IMessageSink _messageSink;
         private readonly ITitleProviderFactory _titleProviderFactory;
         private readonly IImageProviderFactory _imageProviderFactory;
@@ -26,12 +29,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
         private readonly DelegateCommand<INavigationItem> _ordinaryNavigationAreaItemNavigationCommand;
 
         public NavigationAreasRegistry(
-            INavigationSettingsProvider settingsProvider, 
+            IMetadataProvider metadataProvider, 
             IMessageSink messageSink, 
             ITitleProviderFactory titleProviderFactory,
             IImageProviderFactory imageProviderFactory)
         {
-            _settingsProvider = settingsProvider;
             _messageSink = messageSink;
             _ordinaryNavigationAreaItemNavigationCommand =
                 new DelegateCommand<INavigationItem>(
@@ -49,7 +51,14 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
             _titleProviderFactory = titleProviderFactory;
             _imageProviderFactory = imageProviderFactory;
             _contextualArea = FakeNavigationAreasProvider.Areas.Item1;
-            var ordinaryAreas = _settingsProvider.Settings;
+
+            IMetadataElement navigationRoot;
+            if (!metadataProvider.TryGetMetadata(IdBuilder.For<MetadataNavigationIdentity>(), out navigationRoot))
+            {
+                throw new InvalidOperationException("Can't resolve navigation root metadata");
+            }
+
+            var ordinaryAreas = navigationRoot.Elements<HierarchyMetadata>().ToArray();
             _allAreas = new INavigationArea[ordinaryAreas.Length + 1];
             _ordinaryAreas = new INavigationArea[ordinaryAreas.Length];
             _allAreas[0] = ContextualArea;
@@ -85,35 +94,34 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
             }
         }
 
-        private INavigationArea Convert(HierarchyElement element)
+        private INavigationArea Convert(HierarchyMetadata metadata)
         {
             var area = new OrdinaryNavigationArea(
-                element.Identity.Id,
-                _titleProviderFactory.Create(element.TitleDescriptor))
+                metadata.Identity.Id,
+                _titleProviderFactory.Create(metadata.TitleDescriptor))
                            {
-                               Icon = element.ImageDescriptor != null ? _imageProviderFactory.Create(element.ImageDescriptor) : null
+                               Icon = metadata.ImageDescriptor != null ? _imageProviderFactory.Create(metadata.ImageDescriptor) : null
                            };
-            if (element.Elements != null && element.Elements.Any())
+            if (metadata.Elements != null && metadata.Elements.Any())
             {
-                area.Items = element.Elements.OfType<HierarchyElement>().Select(ConvertItem).ToArray();
+                area.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(ConvertItem).ToArray();
             }
 
             return area;
         }
-
        
-        private INavigationItem ConvertItem(HierarchyElement element)
+        private INavigationItem ConvertItem(HierarchyMetadata metadata)
         {
             var item = new NavigationItem(
-                element.Identity.Id,
-                _titleProviderFactory.Create(element.TitleDescriptor), 
+                metadata.Identity.Id,
+                _titleProviderFactory.Create(metadata.TitleDescriptor), 
                 _ordinaryNavigationAreaItemNavigationCommand)
                            {
-                               Icon = element.ImageDescriptor != null ? _imageProviderFactory.Create(element.ImageDescriptor) : null
+                               Icon = metadata.ImageDescriptor != null ? _imageProviderFactory.Create(metadata.ImageDescriptor) : null
                            };
-            if (element.Elements != null && element.Elements.Any())
+            if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = element.Elements.OfType<HierarchyElement>().Select(ConvertItem).ToArray();
+                item.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(ConvertItem).ToArray();
             }
 
             return item;

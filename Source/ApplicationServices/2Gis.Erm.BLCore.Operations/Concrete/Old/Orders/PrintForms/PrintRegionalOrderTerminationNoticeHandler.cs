@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Objects;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -83,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                                         VatRateForDestination = destinationBranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                         VatRateForSource = sourceBranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                         order.Bargain,
-                                        TerminationDate = EntityFunctions.AddDays(order.EndDistributionDateFact, 1),
+                                        order.EndDistributionDateFact,
                                         order.LegalPerson,
                                         LegalPersonProfile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
                                         order.Firm,
@@ -102,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                                  x.DestinationBranchOfficeOrganizationUnit,
                                  x.SourceBranchOffice,
                                  TerminationReleaseNumber = x.Order.EndReleaseNumberFact + 1,
-                                 x.TerminationDate,
+                                 TerminationDate = x.EndDistributionDateFact.AddDays(1),
                                  x.LegalPerson,
                                  x.LegalPersonProfile,
                                  x.Firm,

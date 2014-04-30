@@ -49,9 +49,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
 
         protected override bool ConcreteCanHandle(ExecuteActionMessage message, IUseCase useCase)
         {
-            var targetOperation = message.Operations.FirstOrDefault();
+            var targetOperation = message.Operation;
             return targetOperation != null
-                && targetOperation.Identity.Equals(_operationIdentity)
+                && targetOperation.OperationIdentity.Equals(_operationIdentity)
                 && !useCase.State.IsEmpty
                 && (!message.NeedConfirmation || message.Confirmed);
         }

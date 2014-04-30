@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists.WebClientSpecific
 {
-    public class JsActionFeature : IWebClientConfigFeature
+    public class JsActionFeature : IWebClientMetadataFeature
     {
         private readonly string _action;
 

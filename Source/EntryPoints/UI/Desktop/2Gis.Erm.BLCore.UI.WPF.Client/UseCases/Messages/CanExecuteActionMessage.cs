@@ -1,25 +1,25 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages
 {
-    public class CanExecuteActionMessage : MessageBase<SequentialProcessingModel>
+    public sealed class CanExecuteActionMessage : MessageBase<SequentialProcessingModel>
     {
-        private readonly IBoundOperationFeature[] _operations;
+        private readonly StrictOperationIdentity _operation;
         private readonly Guid _actionHostId;
 
-        public CanExecuteActionMessage(IBoundOperationFeature[] operations, Guid actionHostId)
+        public CanExecuteActionMessage(StrictOperationIdentity operation, Guid actionHostId)
             : base(null)
         {
-            _operations = operations;
+            _operation = operation;
             _actionHostId = actionHostId;
         }
 
-        public IBoundOperationFeature[] Operations
+        public StrictOperationIdentity Operation
         {
-            get { return _operations; }
+            get { return _operation; }
         }
 
         public Guid ActionHostId

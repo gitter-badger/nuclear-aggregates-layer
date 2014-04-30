@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Resolvers;
@@ -16,17 +16,17 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Resolvers
 {
     public sealed class NavigationUsecaseResolver : UseCaseResolverBase<NavigationMessage>
     {
+        private readonly IMetadataProvider _metadataProvider;
         private readonly IDocumentsStateInfo _documentsState;
-        private readonly INavigationSettingsProvider _navigationSettingsProvider;
-        private readonly Func<object, INavigationItem, IConfigElement, bool>[] _resolvers;
+        private readonly Func<object, INavigationItem, IMetadataElement, bool>[] _resolvers;
 
-        public NavigationUsecaseResolver(IDocumentsStateInfo documentsState, INavigationSettingsProvider navigationSettingsProvider)
+        public NavigationUsecaseResolver(IMetadataProvider metadataProvider, IDocumentsStateInfo documentsState)
         {
+            _metadataProvider = metadataProvider;
             _documentsState = documentsState;
-            _navigationSettingsProvider = navigationSettingsProvider;
 
             _resolvers =
-                new Func<object, INavigationItem, IConfigElement, bool>[]
+                new Func<object, INavigationItem, IMetadataElement, bool>[]
                     {
                         GridContext,
                         OtherContext
@@ -54,16 +54,16 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Resolvers
                 return false;
             }
 
-            IConfigElement targetConfigElement;
-            if (!_navigationSettingsProvider.Settings.TryGetElementById(message.UsedItem.Id, out targetConfigElement))
+            IMetadataElement navigationElementMetadata;
+            if (!_metadataProvider.TryGetMetadata(message.UsedItem.Id, out navigationElementMetadata))
             {
                 return false;
             }
 
-            return _resolvers.Any(resolver => resolver(currentElement.Context, message.UsedItem, targetConfigElement));
+            return _resolvers.Any(resolver => resolver(currentElement.Context, message.UsedItem, navigationElementMetadata));
         }
 
-        private bool GridContext(object context, INavigationItem item, IConfigElement element)
+        private bool GridContext(object context, INavigationItem item, IMetadataElement element)
         {
             var contextualDocument = context as IContextualDocument;
             if (contextualDocument == null)
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Resolvers
             return true;
         }
 
-        private bool OtherContext(object context, INavigationItem item, IConfigElement element)
+        private bool OtherContext(object context, INavigationItem item, IMetadataElement element)
         {
             var contextualDocument = context as IContextualDocument;
             if (contextualDocument == null)

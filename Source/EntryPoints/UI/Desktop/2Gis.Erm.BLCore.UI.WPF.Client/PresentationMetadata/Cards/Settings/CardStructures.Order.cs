@@ -3,11 +3,13 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
+using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
 
@@ -15,9 +17,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        public readonly static CardStructure Order =
-            CardStructure.Config
-                .For(OrderAggregate.Order.AsEntityName())
+        public readonly static CardMetadata Order =
+            CardMetadata.Config
+                .For<Order>()
                 .Title.Resource(() => ErmConfigLocalization.EnOrders)
                 .Parts.Use(
                     () => BLResources.TitlePlacement,
@@ -27,36 +29,36 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                     () => BLResources.TitleControl,
                     () => BLResources.AdministrationTabTitle)
                 .Actions.Attach(
-                    HierarchyElement.Config
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlSave)
-                        .Operation.EntitySpecific<ModifyBusinessModelEntityIdentity>(OrderAggregate.Order.AsEntityName()),
-                    HierarchyElement.Config
+                        .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>(),
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
-                        .Operation.EntitySpecific<ModifyBusinessModelEntityIdentity>(OrderAggregate.Order.AsEntityName())
+                        .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>()
                         .Operation.NonCoupled<CloseIdentity>(),
-                    HierarchyElement.Config
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
-                        .Operation.EntitySpecific<GetDomainEntityDtoIdentity>(OrderAggregate.Order.AsEntityName()),
-                    HierarchyElement.Config
+                        .Operation.SpecificFor<GetDomainEntityDtoIdentity, Order>(),
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlAssign)
-                        .Operation.EntitySpecific<AssignIdentity>(OrderAggregate.Order.AsEntityName()),
-                    HierarchyElement.Config
+                        .Operation.SpecificFor<AssignIdentity, Order>(),
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlClose)
-                        .Operation.EntitySpecific<CloseIdentity>(OrderAggregate.Order.AsEntityName()),
-                    HierarchyElement.Config
+                        .Operation.NonCoupled<CloseIdentity>(),
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlActions)
                         .Childs(
-                            HierarchyElement.Config
+                            HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
-                                .Operation.EntitySpecific<PrintIdentity>(OrderAggregate.Order.AsEntityName())))
+                                .Operation.SpecificFor<PrintIdentity, Order>()))
                 .RelatedItems.Attach(
-                    HierarchyElement.Config
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
                         .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName(), "OrderId={Id}", "Id == 0"),
-                    HierarchyElement.Config
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
                         .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName(), "OrderId={Id}", "Id == 0"),
-                    HierarchyElement.Config
+                    HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
                         .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName(), "OrderId={Id}", "Id == 0"))
                 .MVVM.Bind<DynamicCardViewModel, OrderView>()

@@ -56,27 +56,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             }
         }
 
-        private Type[] CreateHandlersSequence(Type messageType, IEnumerable<Type> sourceSequance)
-        {
-            var orderedSequence = new List<Type>();
-            var finishersSequence = new List<Type>();
-
-            foreach (var handlerType in sourceSequance)
-            {
-                if (!typeof(IFinisingProcessingMessagesHandler).IsAssignableFrom(handlerType))
-            {
-                    orderedSequence.Add(handlerType);
-                    continue;
-                }
-
-                finishersSequence.Add(handlerType);
-            }
-
-            finishersSequence.Add(typeof(MessageNotProcessedHandler<>).MakeGenericType(messageType));
-            orderedSequence.AddRange(finishersSequence);
-            return orderedSequence.ToArray();
-        }
-
         private static Type GetProcessingMessage(Type handlerType)
         {
             var messageHandlerIndicator = typeof(IUseCaseMessageHandler);
@@ -86,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             }
 
             var messageHandlerGenericIndicator = typeof(IMessageHandler<>);
-            var processingMessageType = 
+            var processingMessageType =
                 handlerType.GetInterfaces()
                        .Where(t => t.IsGenericType && messageHandlerGenericIndicator.IsAssignableFrom(t.GetGenericTypeDefinition()))
                        .Select(t => t.GetGenericArguments().First())
@@ -98,6 +77,27 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             }
 
             return processingMessageType;
+        }
+
+        private Type[] CreateHandlersSequence(Type messageType, IEnumerable<Type> sourceSequance)
+        {
+            var orderedSequence = new List<Type>();
+            var finishersSequence = new List<Type>();
+
+            foreach (var handlerType in sourceSequance)
+            {
+                if (!typeof(IFinisingProcessingMessagesHandler).IsAssignableFrom(handlerType))
+                {
+                    orderedSequence.Add(handlerType);
+                    continue;
+                }
+
+                finishersSequence.Add(handlerType);
+            }
+
+            finishersSequence.Add(typeof(MessageNotProcessedHandler<>).MakeGenericType(messageType));
+            orderedSequence.AddRange(finishersSequence);
+            return orderedSequence.ToArray();
         }
     }
 }

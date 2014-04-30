@@ -4,7 +4,6 @@ using System.Threading;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.Views;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
@@ -43,14 +42,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation
 
         public void Configure()
         {
-            AddNavigationComponents(_container);
-            _container.RegisterType<INavigationSettingsProvider, FakeNavigationSettingsProvider>(Lifetime.Singleton)
-                      .RegisterType<INavigationAreasRegistry, NavigationAreasRegistry>(Lifetime.Singleton);
+            AddNavigationComponents();
+            _container.RegisterType<INavigationAreasRegistry, NavigationAreasRegistry>(Lifetime.Singleton);
 
 
         }
 
-        private void AddNavigationComponents(IUnityContainer container)
+        private void AddNavigationComponents()
         {
             _container.RegisterOne2ManyTypesPerTypeUniqueness<ILayoutNavigationComponent, NavigationComponent<OrdinaryNavigationArea, NavigationAreaControl>>(Lifetime.Singleton)
                       .RegisterOne2ManyTypesPerTypeUniqueness<ILayoutNavigationComponent, NavigationComponent<ContextualNavigationArea, ContextualNavigationAreaControl>>(Lifetime.Singleton);
@@ -60,9 +58,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation
 
         void IDesignTimeModule.Configure()
         {
-            AddNavigationComponents(_container);
-            _container.RegisterType<INavigationSettingsProvider, FakeNavigationSettingsProvider>(Lifetime.Singleton)
-                      .RegisterType<INavigationAreasRegistry, NavigationAreasRegistry>(Lifetime.Singleton);
+            AddNavigationComponents();
+            _container.RegisterType<INavigationAreasRegistry, NavigationAreasRegistry>(Lifetime.Singleton);
         }
 
         void IDesignTimeStandaloneWorkerModule.Run()

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
@@ -11,20 +14,25 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels.Contex
 {
     public sealed class ContextualDocumentProvider : IContextualDocumentProvider
     {
-        private readonly INavigationSettingsProvider _navigationSettingsProvider;
+        private readonly IMetadataProvider _metadataProvider;
         private readonly IDocumentManager _documentManager;
 
-        public ContextualDocumentProvider(INavigationSettingsProvider navigationSettingsProvider, IDocumentManager documentManager)
+        public ContextualDocumentProvider(IMetadataProvider metadataProvider, IDocumentManager documentManager)
         {
-            _navigationSettingsProvider = navigationSettingsProvider;
+            _metadataProvider = metadataProvider;
             _documentManager = documentManager;
         }
 
         public void AttachContextualDocument()
         {
-            var navigationSettings = _navigationSettingsProvider.Settings;
+            IMetadataElement navigationRoot;
+            if (!_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataNavigationIdentity>(), out navigationRoot))
+            {
+                throw new InvalidOperationException("Can't resolve navigation root metadata");
+            }
+
             var registry = new Dictionary<Type, IViewModelViewMapping>();
-            foreach (var container in navigationSettings)
+            foreach (var container in navigationRoot.Elements)
             {
                 if (container.Elements == null || !container.Elements.Any())
                 {

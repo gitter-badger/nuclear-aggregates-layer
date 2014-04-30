@@ -1,18 +1,18 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        private static readonly CardStructure[] CachedSettings;
+        private static readonly CardMetadata[] CachedSettings;
         static CardStructures()
         {
-            CachedSettings = typeof(CardStructures).Extract<CardStructure>(null).ToArray();
+            CachedSettings = typeof(CardStructures).Extract<CardMetadata>(null).ToArray();
         }
 
-        public static CardStructure[] Settings 
+        public static CardMetadata[] Settings 
         {
             get
             {

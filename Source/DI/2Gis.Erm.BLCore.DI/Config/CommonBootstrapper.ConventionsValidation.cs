@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+
+using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -18,6 +21,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             {
                 throw new InvalidOperationException("Resources usage conventions violated. Duplicated resource entries detected. " + report);
             }
+        }
+        
+        public static void EnsureMetadataCorrectness(this IUnityContainer container)
+        {
+            var suite = container.Resolve<IMetadataValidatorsSuite>();
+            suite.Validate();
         }
     }
 }
