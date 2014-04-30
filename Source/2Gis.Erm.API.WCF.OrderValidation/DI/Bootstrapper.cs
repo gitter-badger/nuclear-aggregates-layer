@@ -49,7 +49,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -65,9 +66,9 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
-                                loggerContextManager))
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          loggerContextManager))
                         .ConfigureServiceClient();
         }
 
@@ -93,6 +94,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                         .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                         .ConfigureIdentityInfrastructure()
                         .ConfigureReadWriteModels()
+                        .ConfigureMetadata()
                         .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
             {
                 app.Run();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Application error. Appeal to ERM support team", "ERM WPF Client");
                 return;

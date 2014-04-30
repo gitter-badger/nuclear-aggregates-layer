@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
                                                                           loggerContextManager))
-                            .ConfigureServiceClient();
+                     .ConfigureServiceClient();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -88,20 +89,21 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
-                        .ConfigureCacheAdapter(cachingSettings)
-                        .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
-                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
+                .ConfigureExportMetadata()
+                .ConfigureMetadata()
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
                 .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory);
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
