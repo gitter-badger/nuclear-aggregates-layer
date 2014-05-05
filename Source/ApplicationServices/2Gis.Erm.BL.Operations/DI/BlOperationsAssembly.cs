@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.BL.Operations.DI
 {
-    public class BlOperationsAssembly : IZoneAssembly<OperationsZone>,
+    public sealed class BlOperationsAssembly : IZoneAssembly<OperationsZone>,
                                         IZoneAnchor<OperationsZone>,
                                         IContainsType<IRequestHandler>
     {

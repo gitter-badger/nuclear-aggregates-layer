@@ -69,7 +69,6 @@ FROM
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
 					AND o.WorkflowStepId NOT IN (1,2)
-					AND o.BudgetType = 2
 					AND o.PayablePlan > 0
 					AND o.SourceOrganizationUnitId = @City
 			) o ON

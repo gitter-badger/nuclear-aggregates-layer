@@ -70,7 +70,6 @@ FROM
 			AND ot.ReleaseEndDate >= @IssueDate
 			AND o.IsDeleted = 0
 			AND o.WorkflowStepId IN (5, 6)
-			AND o.BudgetType = 2
 			AND o.PayablePlan > 0
 			AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)
 	) t

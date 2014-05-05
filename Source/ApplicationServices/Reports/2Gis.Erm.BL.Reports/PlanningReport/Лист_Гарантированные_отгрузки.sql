@@ -29,7 +29,6 @@ WHERE
 	AND ot.ReleaseBeginDate <= DATEADD(m, 1, @IssueDate)
 	AND ot.ReleaseEndDate > DATEADD(m, 1, @IssueDate)
 	AND o.IsDeleted = 0
-	AND o.BudgetType = 2
 	AND o.PayablePlan > 0
 	AND o.WorkflowStepId = 5
 	AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)
