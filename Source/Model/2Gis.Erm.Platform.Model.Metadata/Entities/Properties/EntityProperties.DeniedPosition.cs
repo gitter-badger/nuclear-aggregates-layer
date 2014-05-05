@@ -10,33 +10,33 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> DeniedPositionProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> DeniedPositionProperties =
             new[]
                 {
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.PriceRef)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.PriceRef)
                                   .WithFeatures(new PresentationLayerPropertyFeature(),
                                                 new HiddenFeature()),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionRef)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 new ReadOnlyPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionDeniedRef)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.PositionDeniedRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.ObjectBindingType)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.ObjectBindingType)
                                   .WithFeatures(new RequiredPropertyFeature(),
                                                 new EnumPropertyFeature(EnumResources.ResourceManager),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ObjectBindingType)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.IsPricePublished),
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.IsPricePublished),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
@@ -44,36 +44,36 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<DeniedPositionDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

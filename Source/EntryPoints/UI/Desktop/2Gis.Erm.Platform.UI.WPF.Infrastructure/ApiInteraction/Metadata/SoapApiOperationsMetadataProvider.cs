@@ -77,7 +77,8 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             }
             
             object faultDescription;
-            var clientProxy = ClientProxyFactory.GetClientProxy<IMetadataProviderApplicationService, WSHttpBinding>();
+            var clientProxy = //ClientProxyFactory.GetClientProxy<IMetadataProviderApplicationService>("IMetadataProviderApplicationServiceSecure", Configuration.StandartConfiguration);
+                              ClientProxyFactory.GetClientProxy<IMetadataProviderApplicationService, WSHttpBinding>();
             if (!clientProxy.TryExecuteWithFaultContract(x => x.GetApplicableOperations(), out operations, out faultDescription))
             {
                 LogErrorAndThrow(faultDescription);

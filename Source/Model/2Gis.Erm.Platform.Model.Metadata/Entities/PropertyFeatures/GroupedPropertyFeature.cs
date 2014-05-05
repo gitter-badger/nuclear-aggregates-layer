@@ -19,6 +19,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             return new GroupedPropertyFeature(ResourceEntryKey.Create(resourceKeyExpression));
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

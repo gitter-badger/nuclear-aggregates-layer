@@ -8,20 +8,20 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel
 {
     public abstract class AbstractMetadata2ViewModelPropertiesMapper<TStructure> : IMetadata2ViewModelPropertiesMapper
-        where TStructure : IViewModelStructure
+        where TStructure : IViewModelMetadata
     {
         private readonly Type _supportedViewModelDescriptor = typeof(TStructure);
 
-        public bool CanMap(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity targetViewModelIdentity)
+        public bool CanMap(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity targetViewModelIdentity)
         {
-            return structure.GetType() == _supportedViewModelDescriptor;
+            return metadata.GetType() == _supportedViewModelDescriptor;
         }
 
-        public IEnumerable<IViewModelProperty> GetProperties(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity targetViewModelIdentity)
+        public IEnumerable<IViewModelProperty> GetProperties(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity targetViewModelIdentity)
         {
-            return GetViewModelProperties(useCase, (TStructure)structure, targetViewModelIdentity);
+            return GetViewModelProperties(useCase, (TStructure)metadata, targetViewModelIdentity);
         }
 
-        protected abstract IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, TStructure structure, IViewModelIdentity targetViewModelIdentity);
+        protected abstract IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, TStructure metadata, IViewModelIdentity targetViewModelIdentity);
     }
 }

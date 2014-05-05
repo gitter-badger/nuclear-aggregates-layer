@@ -10,88 +10,84 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> ThemeTemplateProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> ThemeTemplateProperties =
             new[]
                 {
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.Id)
                     .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.TemplateCode)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.TemplateCode)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.TemplateCode)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsSkyScraper)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsSkyScraper)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.IsSkyScraper)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileId)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileId)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new FilePropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Archive)),
 
-                   EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileName)
+                   EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileName)
                                   .WithFeatures(
                                   new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileContentType)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileContentType)
                                   .WithFeatures(
                                   new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileContentLength)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.FileContentLength)
                                   .WithFeatures(
                                   new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsActive)
-                                  .WithFeatures(
-                                      new RequiredPropertyFeature(),
-                                      new ReadOnlyPropertyFeature(),
-                                      new HiddenFeature()),
-
-                    EntityProperty.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    new EntityProperty
-                        {
-                            Name = "IsSecurityRoot",
-                            Type = typeof(bool),
-                        }
+                    EntityPropertyMetadata.Create<ThemeTemplateDomainEntityDto>(dto => dto.IsDeleted)
+                                  .WithFeatures(
+                                      new RequiredPropertyFeature(),
+                                      new ReadOnlyPropertyFeature(),
+                                      new HiddenFeature()),
+
+                    new EntityPropertyMetadata("IsSecurityRoot", typeof(bool))
                         .WithFeatures(new IPropertyFeature[]
                             {
                                 new OnlyValuePropertyFeature<bool>(true),

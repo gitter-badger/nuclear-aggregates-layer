@@ -46,10 +46,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
         /// </summary>
         public static EntityName? ToSingleRoot(this EntityName aggregateEntity)
         {
-            return Aggregates
-                .Where(d => d.Value.AggregateEntities.Contains(aggregateEntity))
-                .Select(d => d.Value.AggregateRoot)
-                .SingleOrDefault();
+            return aggregateEntity.ToAggregates().SingleOrDefault();
         }
 
         /// <summary>

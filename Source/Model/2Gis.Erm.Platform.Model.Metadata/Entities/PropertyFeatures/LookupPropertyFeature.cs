@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
             private set;
         }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
 
         public bool ShowReadOnlyCard { get; set; }
         public bool Disabled { get; set; }

@@ -11,6 +11,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 
         public string ResourceKey { get { return StaticReflection.GetMemberName(() => BLResources.InappropriateValueForField); } }
 
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

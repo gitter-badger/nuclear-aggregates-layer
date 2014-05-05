@@ -1,4 +1,5 @@
-﻿using System.ServiceModel.Channels;
+﻿using System.Configuration;
+using System.ServiceModel.Channels;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy
 {
@@ -8,5 +9,7 @@ namespace DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy
             where TBinding : Binding;
 
         IClientProxy<TChannel> GetClientProxy<TChannel>(string configurationEndpointName);
+
+        IClientProxy<TChannel> GetClientProxy<TChannel>(string endpointConfigurationName, Configuration configuration);
     }
 }

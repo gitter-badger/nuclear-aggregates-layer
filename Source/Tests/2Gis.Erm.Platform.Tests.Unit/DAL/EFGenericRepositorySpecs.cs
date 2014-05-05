@@ -48,8 +48,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             {
                 EntityMock = new Mock<TEntity>();
 
-                var objectContext = new Mock<IObjectContext>();
-                objectContext.Setup(x => x.CreateObjectSet<TEntity>()).Returns(new StubObjectSet<TEntity>());
+                var objectContext = new Mock<IDbContext>();
+                objectContext.Setup(x => x.Set<TEntity>()).Returns(new StubObjectSet<TEntity>());
 
                 var domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
                                                         "Erm",

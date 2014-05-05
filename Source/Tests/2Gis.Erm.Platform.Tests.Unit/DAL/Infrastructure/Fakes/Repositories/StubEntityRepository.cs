@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -95,6 +96,16 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositorie
         #region Implementation of IRepository<TEntity>
 
         public void Add(TEntity entity)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
         {
             throw new NotSupportedException();
         }

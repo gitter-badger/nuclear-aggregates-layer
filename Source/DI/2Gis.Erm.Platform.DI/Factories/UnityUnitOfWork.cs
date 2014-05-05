@@ -42,6 +42,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                             { typeof(IDomainContextSaveStrategy), saveStrategy }
                         };
 
+            // FIXME {all, 23.04.2014}: legacy, теперь нет разницы запрашиваем создание через абстракцию или конкретный тип - нужно выкосить createByConcreteType + не поломать unit tests 
+
             return createByConcreteType
                        ? _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides) // запросили создание конкретного типа - никакие scope не используем, 
                        : _unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides); // запросили создание, указав интерфейс, направляем resolve в специальный scope

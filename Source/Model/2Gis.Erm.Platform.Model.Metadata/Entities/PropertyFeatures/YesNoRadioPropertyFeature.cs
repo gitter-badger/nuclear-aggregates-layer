@@ -2,6 +2,6 @@
 {
     public sealed class YesNoRadioPropertyFeature : IPropertyFeature
     {
-        public EntityProperty TargetProperty { get; set; }
+        public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

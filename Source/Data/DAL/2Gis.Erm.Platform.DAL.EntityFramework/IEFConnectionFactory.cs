@@ -1,4 +1,4 @@
-using System.Data.EntityClient;
+using System.Data.Entity.Core.EntityClient;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

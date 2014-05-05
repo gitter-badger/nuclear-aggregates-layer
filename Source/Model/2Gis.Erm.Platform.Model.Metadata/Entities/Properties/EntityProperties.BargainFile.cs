@@ -10,86 +10,86 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> BargainFileProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> BargainFileProperties =
             new[]
                 {
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.BargainRef)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.BargainRef)
                                   .WithFeatures(
                                       new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.FileKind)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.FileKind)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.FileKind),
                                       new EnumPropertyFeature(EnumResources.ResourceManager)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.Comment)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.Comment)
                                   .WithFeatures(
                                       new MultilinePropertyFeature(5),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Comment)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.FileId)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.FileId)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new FilePropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.FileId)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.FileName)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.FileName)
                                   .WithFeatures(
                                       new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.FileContentType)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.FileContentType)
                                   .WithFeatures(
                                       new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.FileContentLength)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.FileContentLength)
                                   .WithFeatures(
                                       new HiddenFeature(),
                                       new PresentationLayerPropertyFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<BargainFileDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<BargainFileDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

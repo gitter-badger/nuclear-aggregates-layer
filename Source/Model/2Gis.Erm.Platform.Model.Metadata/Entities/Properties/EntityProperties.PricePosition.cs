@@ -10,97 +10,93 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> PricePositionProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> PricePositionProperties =
             new[]
                 {
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.PositionRef)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.PositionRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       LookupPropertyFeature.Create(EntityName.Position)
                                                            .WithExtendedInfo("isSupportedByExport=true"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Position)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.Cost)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.Cost)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Cost)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.CurrencyRef)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.PriceRef)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.PriceRef)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.PriceList)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.AmountSpecificationMode)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.AmountSpecificationMode)
                                   .WithFeatures(
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Quantity)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.Amount)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.Amount)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Quantity)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.MinAdvertisementAmount)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.MinAdvertisementAmount)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.MaxAdvertisementAmount)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.MinAdvertisementAmount)
-                                  .WithFeatures(
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.MaxAdvertisementAmount)),
-
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.RateType)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.RateType)
                                   .WithFeatures(
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.RateType)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsRateTypeAvailable)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.IsRateTypeAvailable)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsPositionControlledByAmount)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.IsPositionControlledByAmount)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<PricePositionDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<PricePositionDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),

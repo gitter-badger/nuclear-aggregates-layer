@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Config\MassProcessing\AggregatesLayerMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\OperationsServicesMassProcessor.cs" />
+    <Compile Include="Config\MassProcessing\MetadataSourcesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\PersistenceServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\SimplifiedModelConsumersProcessor.cs" />
     <Compile Include="Config\MassProcessing\Validation\CheckApplicationServicesConventionsMassProcessor.cs" />

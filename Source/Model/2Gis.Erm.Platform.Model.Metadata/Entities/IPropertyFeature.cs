@@ -1,9 +1,9 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities
 {
-    public interface IPropertyFeature : IConfigFeature
+    public interface IPropertyFeature : IMetadataFeature
     {
-        EntityProperty TargetProperty { get; set; }
+        EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
 }

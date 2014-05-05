@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel
 {
     public interface IMetadata2ViewModelPropertiesMapper
     {
-        bool CanMap(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity targetViewModelIdentity);
-        IEnumerable<IViewModelProperty> GetProperties(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity targetViewModelIdentity);
+        bool CanMap(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity targetViewModelIdentity);
+        IEnumerable<IViewModelProperty> GetProperties(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity targetViewModelIdentity);
     }
 }

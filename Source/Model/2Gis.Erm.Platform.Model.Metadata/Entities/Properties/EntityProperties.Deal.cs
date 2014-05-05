@@ -10,132 +10,132 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        public static readonly IEnumerable<EntityProperty> DealProperties =
+        public static readonly IEnumerable<EntityPropertyMetadata> DealProperties =
             new[]
                 {
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.Id)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ReplicationCode)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ReplicationCode)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.Name)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.Name)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(300),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.DealName)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.DealStage)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.DealStage)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.DealStage)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.EstimatedProfit)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.EstimatedProfit)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.EstimatedProfit)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ActualProfit)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ActualProfit)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ActualProfit)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.Comment)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.Comment)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(512),
                                       new MultilinePropertyFeature(5),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Comment)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CloseDate)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CloseDate)
                                   .WithFeatures(
                                       new DatePropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CloseDate)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.StartReason)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.StartReason)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.StartReason)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CloseReason)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CloseReason)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CloseReason)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CloseReasonOther)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CloseReasonOther)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(512),
                                       new ReadOnlyPropertyFeature(),
                                       new MultilinePropertyFeature(3),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CloseReasonOther)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CurrencyRef)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       LookupPropertyFeature.Create(EntityName.Currency),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
-                    new EntityProperty("IsSecurityRoot", typeof(bool))
+                    new EntityPropertyMetadata("IsSecurityRoot", typeof(bool))
                         .WithFeatures(
                             new OnlyValuePropertyFeature<bool>(true),
                             new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ClientRef)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ClientRef)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       LookupPropertyFeature.Create(EntityName.Client),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Client)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ClientReplicationCode)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ClientReplicationCode)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.MainFirmRef)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.MainFirmRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.Firm)
                                                            .WithReadOnly()
                                                            .WithExtendedInfo("'clientId={ClientRef.Id}'"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.MainFirm)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CreatedByRef)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.CreatedOn)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ModifiedByRef)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityName.User),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.ModifiedOn)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ModifiedOn)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedOn)),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.Timestamp)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.Timestamp)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.IsActive)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.IsActive)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       new HiddenFeature()),
 
-                    EntityProperty.Create<DealDomainEntityDto>(dto => dto.IsDeleted)
+                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.IsDeleted)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
