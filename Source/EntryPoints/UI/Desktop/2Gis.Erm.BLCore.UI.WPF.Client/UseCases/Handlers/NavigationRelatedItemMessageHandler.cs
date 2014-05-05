@@ -5,8 +5,11 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Handler.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -18,13 +21,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {
     public sealed class NavigationRelatedItemMessageHandler : UseCaseSyncMessageHandlerBase<NavigationRelatedItemMessage>
     {
+        private readonly IMetadataProvider _metadataProvider;
         private readonly IGridViewModelFactory _gridViewModelFactory;
-        private readonly ICardStructuresProvider _cardStructuresProvider;
 
-        public NavigationRelatedItemMessageHandler(IGridViewModelFactory gridViewModelFactory, ICardStructuresProvider cardStructuresProvider)
+        public NavigationRelatedItemMessageHandler(
+            IMetadataProvider metadataProvider,
+            IGridViewModelFactory gridViewModelFactory)
         {
+            _metadataProvider = metadataProvider;
             _gridViewModelFactory = gridViewModelFactory;
-            _cardStructuresProvider = cardStructuresProvider;
         }
 
         protected override bool ConcreteCanHandle(NavigationRelatedItemMessage message, IUseCase useCase)
@@ -52,25 +57,26 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            CardStructure cardStructure;
-            if (!_cardStructuresProvider.TryGetDescriptor(cardViewModelWithIdentity.ConcreteIdentity.EntityName, out cardStructure))
+            var metadataId = IdBuilder.For<MetadataCardsIdentity>(cardViewModelWithIdentity.ConcreteIdentity.EntityName.ToString());
+            CardMetadata cardMetadata;
+            if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {
                 return null;
             }
 
 
-            if (!cardStructure.HasRelatedItems)
+            if (!cardMetadata.HasRelatedItems)
             {
                 return null;
             }
 
-            IConfigElement targetConfigElement;
-            if (!cardStructure.RelatedItems.TryGetElementById(message.UsedItem.Id, out targetConfigElement))
+            IMetadataElement targetMetadataElement;
+            if (!cardMetadata.RelatedItems.TryGetElementById(message.UsedItem.Id, out targetMetadataElement))
             {
                 return null;
             }
 
-            var hierarchyElement = targetConfigElement as HierarchyElement;
+            var hierarchyElement = targetMetadataElement as HierarchyMetadata;
             contextualNavigationViewModel.ReferencedItemContext = GetRelatedItemViewModel(useCase, hierarchyElement);
 
             return EmptyResult;
@@ -99,20 +105,20 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
             return compositeDocument.ComposedViewModels.FirstOrDefault() as ICardViewModel;
         }
 
-        private object GetRelatedItemViewModel(IUseCase useCase, HierarchyElement element)
+        private object GetRelatedItemViewModel(IUseCase useCase, HierarchyMetadata metadata)
         {
-            var mappingFeature = element.ElementFeatures.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
+            var mappingFeature = metadata.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (mappingFeature == null)
             {
                 return null;
             }
 
-            if (!element.HasHandler)
+            if (!metadata.HasHandler)
             {
                 return null;
             }
 
-            var showGridDetail = element.Handler as ShowGridHandlerFeature;
+            var showGridDetail = metadata.Handler as ShowGridHandlerFeature;
             if (showGridDetail == null)
             {
                 return null;

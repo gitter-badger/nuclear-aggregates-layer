@@ -13,8 +13,6 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.Config;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card.OrderPosition;
@@ -33,7 +31,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
@@ -174,6 +172,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new MetadataSourcesMassProcessor(_container), 
                     new OperationsServicesMassProcessor(
                         _container,
                         EntryPointSpecificLifetimeManagerFactory,
@@ -250,7 +249,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
         private static void ConfigureViewModelInfrastrusture(IUnityContainer container)
         {
-            container.RegisterType<IPropertiesContainer, NullPropertiesContainer>(Lifetime.Singleton)
+            container.ConfigureMetadata()
+                    .RegisterType<IPropertiesContainer, NullPropertiesContainer>(Lifetime.Singleton)
                     .RegisterType<ILocalizer, NullLocalizer>(Lifetime.Singleton)
                     .RegisterType<ITitleProvider, NullTitleProvider>(Lifetime.Singleton)
                     .RegisterType<IValidatorsContainer, NullValidatorsContainer>(Lifetime.Singleton)
@@ -264,13 +264,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
                     .RegisterOne2ManyTypesPerTypeUniqueness<IViewModelAspectResolver, UnityViewModelContextualNavigationResolver>(Lifetime.Singleton)
                     .RegisterOne2ManyTypesPerTypeUniqueness<IMetadata2ViewModelPropertiesMapper, StubMetadata2ViewModelPropertiesMapper>(Lifetime.Singleton)
                     .RegisterOne2ManyTypesPerTypeUniqueness<IMetadata2ViewModelPropertiesMapper, CardMetadata2ViewModelPropertiesMapper>(Lifetime.Singleton)
-                    .RegisterType<IEntityPropertiesProvider, EntityPropertiesProvider>(Lifetime.Singleton)
                     .RegisterType<IByTypeViewModelFactory, UnityByTypeViewModelFactory>(Lifetime.Singleton)
                     .RegisterType<ICardDocumentViewModelFactory, UnityCardDocumentViewModelFactory>(Lifetime.Singleton)
                     .RegisterType<ICardViewModelFactory, UnityCardViewModelFactory>(Lifetime.Singleton)
                     .RegisterType<ILookupFactory, UnityLookupFactory>(Lifetime.Singleton)
-                    .RegisterType<ICardStructuresProvider, CardStructuresProvider>(Lifetime.Singleton)
-                    .RegisterType<IDocumentStructuresProvider, DocumentStructuresProvider>(Lifetime.Singleton)
                     .RegisterType<IOperationConfiguratorViewModelFactory, UnityOperationConfiguratorViewModelFactory>(Lifetime.Singleton)
                     .RegisterType<IGridViewModelFactory, UnityGridViewModelFactory>(Lifetime.Singleton);
         }

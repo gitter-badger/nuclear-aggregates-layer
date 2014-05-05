@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -42,11 +42,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         o.Number,
 
                         IsBeginDateValid = o.BeginDistributionDate.Day == 1, // проверяем только, что первый день месяца
-                        o.BeginDistributionDate,
 
                         // Окончание размещения = последнему дню месяца начала размещения + кол-во месяцев = Планируемому числу выпусков - 1 месяц
                         // Нет, у нас нету конвенции по поводу того, как хранить даты окончания периодов. Просто дляЗаказа это сейчас делается так: yyyy-mm-dd 23:59:59.000
-                        IsEndDateValid = o.EndDistributionDatePlan == EntityFunctions.AddSeconds(EntityFunctions.AddMonths(o.BeginDistributionDate, o.ReleaseCountPlan), -1)
+                        IsEndDateValid = o.EndDistributionDatePlan == DbFunctions.AddSeconds(DbFunctions.AddMonths(o.BeginDistributionDate, o.ReleaseCountPlan), -1)
                     })
                     .Where(o => !o.IsEndDateValid || !o.IsBeginDateValid)
                     .ToList();

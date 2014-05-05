@@ -21,9 +21,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 
         private readonly Type _viewModelAspectType = typeof(ITitleProvider);
 
-        public bool TryResolveDependency(IUseCase useCase, IViewModelStructure structure, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
+        public bool TryResolveDependency(IUseCase useCase, IViewModelMetadata metadata, IViewModelIdentity resolvingViewModelIdentity, out DependencyOverride resolvedDependency)
         {
-            var titleProvider = _titleProviderFactory.Create(structure.TitleDescriptor);
+            var titleProvider = _titleProviderFactory.Create(metadata.TitleDescriptor);
             resolvedDependency = new DependencyOverride(_viewModelAspectType, titleProvider);
             return true;
         }

@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
@@ -11,11 +13,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
         private readonly ITitleProvider _titleProvider;
         private readonly DelegateCommand<INavigationItem> _navigationCommand;
 
-        private readonly int _id;
+        private readonly Uri _id;
         private bool _isExpanded;
         private bool _isSelected;
 
-        public NavigationItem(int id, ITitleProvider titleProvider, DelegateCommand<INavigationItem> navigationCommand)
+        public NavigationItem(Uri id, ITitleProvider titleProvider, DelegateCommand<INavigationItem> navigationCommand)
         {
             _id = id;
             _titleProvider = titleProvider;
@@ -42,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
 
         public INavigationItem[] Items { get; set; }
 
-        public int Id
+        public Uri Id
         {
             get
             {

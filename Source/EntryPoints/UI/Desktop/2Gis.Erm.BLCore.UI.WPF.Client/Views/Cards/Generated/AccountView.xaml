@@ -11,7 +11,7 @@
     <UserControl.Resources>
 		<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/2Gis.Erm.UI.WPF.Client;component/Themes/generic.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/2Gis.Erm.BLCore.UI.WPF.Client;component/Themes/generic.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>

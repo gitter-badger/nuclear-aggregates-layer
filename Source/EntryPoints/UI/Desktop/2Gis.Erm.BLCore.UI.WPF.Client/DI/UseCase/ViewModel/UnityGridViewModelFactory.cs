@@ -10,10 +10,11 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Filter;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Pager;
@@ -33,12 +34,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
     public sealed class UnityGridViewModelFactory : IGridViewModelFactory
     {
+        private readonly IMetadataProvider _metadataProvider;
+        private readonly IUIConfigurationService _uiConfigurationService;
         private readonly ITitleProviderFactory _titleProviderFactory;
-        private readonly IGridStructuresProvider _gridStructuresProvider;
-        public UnityGridViewModelFactory(ITitleProviderFactory titleProviderFactory, IGridStructuresProvider gridStructuresProvider)
+
+        public UnityGridViewModelFactory(
+            IMetadataProvider metadataProvider,
+            IUIConfigurationService uiConfigurationService,
+            ITitleProviderFactory titleProviderFactory)
         {
+            _metadataProvider = metadataProvider;
+            _uiConfigurationService = uiConfigurationService;
             _titleProviderFactory = titleProviderFactory;
-            _gridStructuresProvider = gridStructuresProvider;
         }
 
         public IGridViewModel Create(IUseCase useCase, EntityName entityName)
@@ -47,11 +54,18 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             var pager = factory.Resolve<PagerViewModel>();
             var filter = factory.Resolve<FilterViewModel>();
             var userInfo = factory.Resolve<IUserInfo>();
-            var uiConfig = factory.Resolve<IUIConfigurationService>();
 
             var gridViewModelIdentity = new GridViewModelIdentity(entityName);
 
-            var gridSettings = uiConfig.GetGridSettings(entityName, userInfo.Culture);
+            var metadataId = IdBuilder.For<MetadataGridsIdentity>(entityName.ToString());
+
+            GridMetadata gridMetadata;
+            if (!_metadataProvider.TryGetMetadata(metadataId, out gridMetadata))
+            {   // FIXME {all, 17.04.2014}: перевести данную фабрику на MetadataProvider, после отказа от IUIConfigurationService
+                //throw new InvalidOperationException("Can't resolve metadata for grid of entities: " + entityName);
+            }
+
+            var gridSettings = _uiConfigurationService.GetGridSettings(entityName, userInfo.Culture);
             var viewSelector = new ListSelectorViewModel(
                 gridSettings.DataViews.Select(DataViewViewModel.FromDataViewJson).ToArray(),
                 _titleProviderFactory);
@@ -136,29 +150,19 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             // FIXME {i.maslennikov, 18.07.2013}: пока поддержка только assign для grid стартового экрана до появления нормальных метаданных для grid 
             if (toolbarElementStructure.NameLocaleResourceId.EndsWith("Assign"))
             {
-                var operationsFeature = EntitySpecificOperationFeature<AssignIdentity>.Instance;
-                operationsFeature.Entity = gridViewModelIdentity.EntityName.ToEntitySet();
+                var targetOperation = AssignIdentity.Instance.SpecificFor(gridViewModelIdentity.EntityName);
 
                 command = new DelegateCommand<INavigationItem>(
-                        item => messageSink.Post(
-                            new ExecuteActionMessage(
-                                new IBoundOperationFeature[]
-                                    {
-                                        operationsFeature
-                                    },
-                                gridViewModelIdentity.Id) 
-                           { NeedConfirmation = true }),
+                        item => messageSink.Post(new ExecuteActionMessage(targetOperation, gridViewModelIdentity.Id) { NeedConfirmation = true }),
                         item =>
                         {
-                            var result =
-                                messageSink.Send<bool>(
-                                    new CanExecuteActionMessage(new IBoundOperationFeature[] { operationsFeature }, gridViewModelIdentity.Id));
+                            var result = messageSink.Send<bool>(new CanExecuteActionMessage(targetOperation, gridViewModelIdentity.Id));
                             return result != null && result.Result;
                         });
             }
 
             return new NavigationItem(
-                UIDGenerator.Next, 
+                IdBuilder.UniqueFor("Listing/Toolbars"),
                 _titleProviderFactory.Create(titleDescriptor), 
                 command);
         }

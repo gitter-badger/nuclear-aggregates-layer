@@ -9,9 +9,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Views
     public static class PropertyTypeToControlMap
     {
         // TODO: Переделать на Expressions
-        public static ControlDescriptor GetControlDescriptor(EntityProperty property)
+        public static ControlDescriptor GetControlDescriptor(EntityPropertyMetadata propertyMetadata)
         {
-            var type = property.Type;
+            var type = propertyMetadata.Type;
             
             if (type.IsEnum)
             {

@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Features.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;

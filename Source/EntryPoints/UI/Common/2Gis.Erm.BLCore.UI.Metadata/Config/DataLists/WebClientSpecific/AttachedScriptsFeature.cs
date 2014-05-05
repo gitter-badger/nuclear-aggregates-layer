@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists.WebClientSpecific
 {
-    public class AttachedScriptsFeature : IWebClientConfigFeature
+    public class AttachedScriptsFeature : IWebClientMetadataFeature
     {
         private readonly List<string> _scriptFileNames;
 

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
+﻿using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
@@ -20,8 +18,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
 
         protected override bool ConcreteCanHandle(ExecuteActionMessage message, IUseCase useCase)
         {
-            var targetOperation = message.Operations.FirstOrDefault();
-            return targetOperation != null && targetOperation.Identity.Equals(CloseIdentity.Instance) && !useCase.State.IsEmpty;
+            var targetOperation = message.Operation;
+            return targetOperation != null && targetOperation.OperationIdentity.Equals(CloseIdentity.Instance) && !useCase.State.IsEmpty;
         }
         
         protected override IMessageProcessingResult ConcreteHandle(ExecuteActionMessage message, IUseCase useCase)

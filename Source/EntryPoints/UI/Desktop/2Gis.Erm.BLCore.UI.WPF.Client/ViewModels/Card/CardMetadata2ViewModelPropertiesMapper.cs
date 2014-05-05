@@ -2,6 +2,9 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
@@ -12,35 +15,37 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Properties;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
 {
-    public sealed class CardMetadata2ViewModelPropertiesMapper : AbstractMetadata2ViewModelPropertiesMapper<CardStructure>
+    public sealed class CardMetadata2ViewModelPropertiesMapper : AbstractMetadata2ViewModelPropertiesMapper<CardMetadata>
     {
         private delegate bool Metadata2ViewModelPropertyTransformer(
-            EntityProperty metadataProperty,
+            EntityPropertyMetadata metadataPropertyMetadata,
             IUseCase useCase,
             IViewModelIdentity hostingViewModelIdentity,
             out IViewModelProperty transformedProperty);
 
-        private readonly IEntityPropertiesProvider _entityPropertiesProvider;
+        private readonly IMetadataProvider _metadataProvider;
         private readonly ILookupFactory _lookupFactory;
         private readonly IEnumerable<Metadata2ViewModelPropertyTransformer> _propertyTransformers;
 
-        public CardMetadata2ViewModelPropertiesMapper(IEntityPropertiesProvider entityPropertiesProvider, ILookupFactory lookupFactory)
+        public CardMetadata2ViewModelPropertiesMapper(IMetadataProvider metadataProvider, ILookupFactory lookupFactory)
         {
-            _entityPropertiesProvider = entityPropertiesProvider;
+            _metadataProvider = metadataProvider;
             _lookupFactory = lookupFactory;
             _propertyTransformers = new Metadata2ViewModelPropertyTransformer[] { LookupTransformer, CommonTransformer };
         }
 
-        protected override IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, CardStructure descriptor, IViewModelIdentity targetViewModelIdentity)
+        protected override IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, CardMetadata metadata, IViewModelIdentity targetViewModelIdentity)
         {
-            var metadataProperties = _entityPropertiesProvider.GetProperties(descriptor.Identity.EntityName);
-            if (metadataProperties == null)
+            var metadataId = IdBuilder.For<MetadataEntitiesIdentity>(metadata.Entity.ToString());
+
+            IMetadataElement propertiesContainer;
+            if (!_metadataProvider.TryGetMetadata(metadataId, out propertiesContainer))
             {
                 return new IViewModelProperty[0];
             }
-            
+
             var transformedProperties = new List<IViewModelProperty>();
-            foreach (var metadataProperty in metadataProperties)
+            foreach (var metadataProperty in propertiesContainer.Elements<EntityPropertyMetadata>())
             {
                 foreach (var processor in _propertyTransformers)
                 {
@@ -57,14 +62,14 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
         }
 
         private bool LookupTransformer(
-            EntityProperty metadataProperty, 
+            EntityPropertyMetadata metadataPropertyMetadata, 
             IUseCase useCase, 
             IViewModelIdentity hostingViewModelIdentity, 
             out IViewModelProperty transformedProperty)
         {
             transformedProperty = null;
 
-            var feature = metadataProperty.Features.OfType<LookupPropertyFeature>().SingleOrDefault();
+            var feature = metadataPropertyMetadata.Features<LookupPropertyFeature>().SingleOrDefault();
             if (feature == null)
             {
                 return false;
@@ -73,20 +78,20 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
             var lookupViewModel = _lookupFactory.Create(useCase, hostingViewModelIdentity, feature);
             transformedProperty = 
                 new MetadataAndValueViewModelProperty(
-                    metadataProperty.Name,
+                    metadataPropertyMetadata.Name,
                     lookupViewModel.GetType(),
                     lookupViewModel,
-                    metadataProperty.Features);
+                    metadataPropertyMetadata.Features<IPropertyFeature>());
             return true;
         }
 
         private bool CommonTransformer(
-            EntityProperty metadataProperty,
+            EntityPropertyMetadata metadataPropertyMetadata,
             IUseCase useCase,
             IViewModelIdentity hostingViewModelIdentity,
             out IViewModelProperty transformedProperty)
         {
-            transformedProperty = new MetadataOnlyViewModelProperty(metadataProperty.Name, metadataProperty.Type, metadataProperty.Features);
+            transformedProperty = new MetadataOnlyViewModelProperty(metadataPropertyMetadata.Name, metadataPropertyMetadata.Type, metadataPropertyMetadata.Features<IPropertyFeature>());
             return true;
         }
     }

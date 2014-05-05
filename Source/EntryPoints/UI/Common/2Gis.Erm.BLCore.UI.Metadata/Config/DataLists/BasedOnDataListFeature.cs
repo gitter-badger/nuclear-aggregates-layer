@@ -1,19 +1,20 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
-    public class BasedOnDataListFeature : IConfigFeature
+    public class BasedOnDataListFeature : IMetadataFeature
     {
-        private readonly DataListStructure _dataListStructure;
+        private readonly DataListMetadata _dataListMetadata;
 
-        public BasedOnDataListFeature(DataListStructure dataListStructure)
+        public BasedOnDataListFeature(DataListMetadata dataListMetadata)
         {
-            _dataListStructure = dataListStructure;
+            _dataListMetadata = dataListMetadata;
         }
 
-        public DataListStructure DataListStructure
+        public DataListMetadata DataListMetadata
         {
-            get { return _dataListStructure; }
+            get { return _dataListMetadata; }
         }
     }
 }

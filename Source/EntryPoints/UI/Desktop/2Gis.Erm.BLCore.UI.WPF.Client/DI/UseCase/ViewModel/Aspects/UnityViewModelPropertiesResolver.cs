@@ -18,9 +18,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             _propertiesMappers = propertiesMappers;
         }
 
-        protected override IPropertiesContainer Create(IUseCase useCase, IViewModelStructure viewModelStructure, IViewModelIdentity resolvingViewModelIdentity, DynamicPropertiesFeature feature)
+        protected override IPropertiesContainer Create(IUseCase useCase, IViewModelMetadata viewModelMetadata, IViewModelIdentity resolvingViewModelIdentity, DynamicPropertiesFeature feature)
         {
-            var viewModelProperties = _propertiesMappers.ResolveViewModelProperties(useCase, viewModelStructure, resolvingViewModelIdentity);
+            var viewModelProperties = _propertiesMappers.ResolveViewModelProperties(useCase, viewModelMetadata, resolvingViewModelIdentity);
             return new PropertiesContainer(viewModelProperties);
         }
     }

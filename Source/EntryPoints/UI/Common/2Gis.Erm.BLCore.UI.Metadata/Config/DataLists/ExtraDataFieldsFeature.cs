@@ -4,14 +4,14 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
     public class ExtraDataFieldsFeature : IDataFieldFeature
     {
-        private readonly List<DataFieldStructure> _extraDataFields;
+        private readonly List<DataFieldMetadata> _extraDataFields;
 
-        public ExtraDataFieldsFeature(params DataFieldStructure[] extraDataFields)
+        public ExtraDataFieldsFeature(params DataFieldMetadata[] extraDataFields)
         {
-            _extraDataFields = new List<DataFieldStructure>(extraDataFields);
+            _extraDataFields = new List<DataFieldMetadata>(extraDataFields);
         }
 
-        public ICollection<DataFieldStructure> ExtraDataFields
+        public ICollection<DataFieldMetadata> ExtraDataFields
         {
             get { return _extraDataFields; }
         }

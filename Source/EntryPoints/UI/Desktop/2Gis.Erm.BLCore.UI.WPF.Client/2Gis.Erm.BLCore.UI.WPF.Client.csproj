@@ -119,6 +119,8 @@
     </Compile>
     <Compile Include="Blendability\Notifications\FakeNotificationsProvider.cs" />
     <Compile Include="Blendability\UserInfo\DesignTimeDataContainer.cs" />
+    <Compile Include="DI\MetadataZonePartAssembly.cs" />
+    <Compile Include="DI\OperationsZonePartAssembly.cs" />
     <Compile Include="DI\Config\CustomLifetime.cs" />
     <Compile Include="DI\Config\ServiceClientConfig.cs" />
     <Compile Include="DI\UseCase\UnityUseCaseFactory.cs" />
@@ -143,8 +145,8 @@
     <Compile Include="Modules\Documents\ViewModels\Contextual\IContextualDocumentViewModel.cs" />
     <Compile Include="Modules\Documents\ViewModels\ICompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Toolbar\ToolbarModule.cs" />
-    <Compile Include="PresentationMetadata\Cards\CardStructureIdentity.cs" />
-    <Compile Include="PresentationMetadata\Cards\ICardStructureIdentity.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardsMetadataValidator.cs" />
+    <Compile Include="PresentationMetadata\Cards\MetadataCardsIdentity.cs" />
     <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.OrderPosition.cs" />
     <Compile Include="PresentationMetadata\Cards\UseGeneratorView.xaml.cs">
       <DependentUpon>UseGeneratorView.xaml</DependentUpon>
@@ -155,22 +157,18 @@
     <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.Order.cs" />
     <Compile Include="PresentationMetadata\Common\HandlerFeatureAspectExtensions.cs" />
     <Compile Include="PresentationMetadata\Common\HierarchyElementsBuilder.cs" />
-    <Compile Include="PresentationMetadata\Documents\AttachedElementStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\AttachedElementStructureBuilder.cs" />
-    <Compile Include="PresentationMetadata\Documents\DocumentStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\DocumentStructureBuilder.cs" />
-    <Compile Include="PresentationMetadata\Documents\DocumentStructuresProvider.cs" />
-    <Compile Include="PresentationMetadata\Documents\IAttachedElementStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\ICondition.cs" />
-    <Compile Include="PresentationMetadata\Documents\DocumentElementStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\IDocumentStructuresProvider.cs" />
-    <Compile Include="PresentationMetadata\Documents\IReferencedElementStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\IReferenceEvaluator.cs" />
-    <Compile Include="PresentationMetadata\Documents\ReferencedElementStructure.cs" />
-    <Compile Include="PresentationMetadata\Documents\ReferencedElementStructureBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\AttachedMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\AttachedMetadataBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadataBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadataSource.cs" />
+    <Compile Include="PresentationMetadata\Documents\IDocumentElementMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\MetadataDocumentsIdentity.cs" />
+    <Compile Include="PresentationMetadata\Documents\Processors\DocumentsTitlesProcessor.cs" />
     <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.Card.Order.cs" />
     <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.cs" />
-    <Compile Include="PresentationMetadata\Documents\StringConditionCondition.cs" />
+    <Compile Include="PresentationMetadata\Navigation\MetadataNavigationIdentity.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Processors\NavigationRestrictionsProcessor.cs" />
     <Compile Include="Settings\ApiSettings.cs" />
     <Compile Include="Settings\CommonSettings.cs" />
     <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteAssignMessageHandler.cs" />
@@ -206,7 +204,7 @@
     <Compile Include="ViewModels\Card\ICardDocumentViewModelFactory.cs" />
     <Compile Include="ViewModels\Card\ICardViewModel.cs" />
     <Compile Include="ViewModels\Card\ICardViewModelIdentity.cs" />
-    <Compile Include="PresentationMetadata\Cards\CardStructuresBuilder.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardMetadataBuilder.cs" />
     <Compile Include="ViewModels\Card\CardMetadata2ViewModelPropertiesMapper.cs" />
     <Compile Include="Modules\Documents\ViewModels\CompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Documents\ViewModels\NullDocumentsStateInfo.cs" />
@@ -217,17 +215,14 @@
     <Compile Include="Modules\Documents\Views\Contextual\TitleOnlyContextView.xaml.cs">
       <DependentUpon>TitleOnlyContextView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PresentationMetadata\Cards\CardStructure.cs" />
-    <Compile Include="PresentationMetadata\Cards\CardStructuresProvider.cs" />
-    <Compile Include="PresentationMetadata\Cards\ICardStructuresProvider.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardMetadata.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardMetadataSource.cs" />
     <Compile Include="ViewModels\Card\ICardViewModelFactory.cs" />
     <Compile Include="Blendability\Documents\FakeDocumentsProvider.cs" />
-    <Compile Include="PresentationMetadata\Navigation\INavigationSettingsProvider.cs" />
-    <Compile Include="PresentationMetadata\Navigation\NavigationSettingsProvider.cs" />
+    <Compile Include="PresentationMetadata\Navigation\NavigationMetadataSource.cs" />
     <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Administration.cs" />
     <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.cs" />
     <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Reports.cs" />
-    <Compile Include="PresentationMetadata\Navigation\FakeNavigationSettingsProvider.cs" />
     <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Billing.cs" />
     <Compile Include="ViewModels\Card\CardViewModelIdentity.cs" />
     <Compile Include="Modules\Documents\ViewModels\Contextual\ContextualDocumentViewModel.cs" />

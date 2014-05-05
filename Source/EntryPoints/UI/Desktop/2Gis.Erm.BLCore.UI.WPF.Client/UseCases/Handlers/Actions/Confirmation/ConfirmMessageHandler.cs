@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
                 return null;
             }
             
-            var targetOperation = message.Operations.FirstOrDefault();
+            var targetOperation = message.Operation;
             if (targetOperation == null)
             {
                 return null;
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Confirmat
                 return null;
             }
 
-            var operationManagerViewModel = _operationConfiguratorViewModelFactory.Create(useCase, targetOperation.Identity, operationParameters.Item1, operationParameters.Item2);
+            var operationManagerViewModel = _operationConfiguratorViewModelFactory.Create(useCase, targetOperation.OperationIdentity, operationParameters.Item1, operationParameters.Item2);
             if (operationManagerViewModel == null)
             {
                 return null;
