@@ -200,15 +200,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
 
                 operationScope.Updated<Bargain>(appendedLegalPerson.Bargains.Select(x => x.Id));
 
-                // Заказы (Orders.LegalPersonId)
-                foreach (var order in appendedLegalPerson.Orders)
-                {
-                    order.LegalPersonId = mainLegalPerson.LegalPerson.Id;
-                    _orderRepository.Update(order);
-                }
-
-                operationScope.Updated<Order>(appendedLegalPerson.Orders.Select(x => x.Id));
-
                 // Профили юр. лиц (LegalPersonProfiles.LegalPersonId)
                 foreach (var profile in appendedLegalPerson.Profiles)
                 {
@@ -221,6 +212,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
 
                 operationScope.Updated<LegalPersonProfile>(appendedLegalPerson.Profiles.Select(x => x.Id))
                               .Updated<LegalPerson>(appendedLegalPerson.LegalPerson.Id);
+
+                // Заказы (Orders.LegalPersonId)
+                foreach (var order in appendedLegalPerson.Orders)
+                {
+                    order.LegalPersonId = mainLegalPerson.LegalPerson.Id;
+                    _orderRepository.Update(order);
+                }
+
+                operationScope.Updated<Order>(appendedLegalPerson.Orders.Select(x => x.Id));
 
                 operationScope
                     .Updated<LegalPerson>(mainLegalPerson.LegalPerson.Id, appendedLegalPerson.LegalPerson.Id)
