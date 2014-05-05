@@ -4,11 +4,11 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata
 {
-    public sealed class MetadataTest : IIntegrationTest
+    public sealed class OperationsMetadataProviderTest : IIntegrationTest
     {
         private readonly IOperationsMetadataProvider _operationsMetadataProvider;
 
-        public MetadataTest(IOperationsMetadataProvider operationsMetadataProvider)
+        public OperationsMetadataProviderTest(IOperationsMetadataProvider operationsMetadataProvider)
         {
             _operationsMetadataProvider = operationsMetadataProvider;
         }

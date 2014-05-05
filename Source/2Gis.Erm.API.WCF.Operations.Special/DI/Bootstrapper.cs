@@ -56,7 +56,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -93,13 +94,14 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
         {
             return container
                 .ConfigureLogging(loggerContextManager)
-                    .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
-                    .ConfigureCacheAdapter(cachingSettings)
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
-                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .CreateErmSpecific(msCrmSettings)
+                .CreateSecuritySpecific()
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureReadWriteModels()
+                .ConfigureMetadata()
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, FinancialOperationsSharedTypesBehaviorFactory>(Lifetime.Singleton)

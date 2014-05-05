@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
+using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.DI
@@ -30,7 +31,9 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                                       .RequireZone<PlatformZone>()
                                           .UseAnchor<BlCoreDalPersistenceServicesAssembly>()
                                           .UseAnchor<PlatformModelAssembly>()
-                                          .UseAnchor<PlatformCoreAssembly>();
+                                          .UseAnchor<PlatformCoreAssembly>()
+                                      .RequireZone<MetadataZone>()
+                                          .UseAnchor<PlatformModelMetadataAssembly>();
             }
         }
     }

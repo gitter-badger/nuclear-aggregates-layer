@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Releasing.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
+using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.API.WCF.Releasing.DI
@@ -28,7 +29,9 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<ReleasingZone>()
                                           .UseAnchor<BlCoreApiReleasingAssembly>()
-                                          .UseAnchor<BlCoreReleasingAssembly>();
+                                          .UseAnchor<BlCoreReleasingAssembly>()
+                                      .RequireZone<MetadataZone>()
+                                          .UseAnchor<PlatformModelMetadataAssembly>();
             }
         }
     }

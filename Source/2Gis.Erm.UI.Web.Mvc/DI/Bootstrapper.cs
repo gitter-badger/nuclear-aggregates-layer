@@ -112,13 +112,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
+                    new MetadataSourcesMassProcessor(container), 
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new UIServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new EnumAdaptationMassProcessor(container),
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new ControllersProcessor(container)
                 };
@@ -126,15 +126,15 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(WebMvcRoot.Instance,
-                    settingsContainer,
-                    massProcessors,
-                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                              c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                        settingsContainer.AsSettings<IConnectionStringSettings>(),
-                        settingsContainer.AsSettings<IGlobalizationSettings>(),
-                        settingsContainer.AsSettings<IMsCrmSettings>(),
-                        settingsContainer.AsSettings<ICachingSettings>(),
-                        settingsContainer.AsSettings<IWebAppProcesingSettings>()))
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                   settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   settingsContainer.AsSettings<IWebAppProcesingSettings>()))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
                 
@@ -225,7 +225,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                        new[] { new BL.UI.Web.Mvc.Utils.ModelBinderProvider() })))
                      .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                      .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                     .ConfigureMetadata(EntryPointSpecificLifetimeManagerFactory)
+                     .ConfigureMetadata()
                      .ConfigureMvcMetadataProvider()
                      .ConfigureEAV();
         }
