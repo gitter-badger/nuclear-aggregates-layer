@@ -1,19 +1,19 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids;
-using DoubleGis.Erm.Platform.Model.Metadata.Common;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 namespace DoubleGis.Erm.BLQuerying.UI.Metadata.Config.Grids.Settings
 {
     public static partial class GridStructures
     {
-        private static readonly GridStructure[] CachedSettings;
+        private static readonly GridMetadata[] CachedSettings;
         static GridStructures()
         {
-            CachedSettings = typeof(GridStructures).Extract<GridStructure>(null).ToArray();
+            CachedSettings = typeof(GridStructures).Extract<GridMetadata>(null).ToArray();
         }
 
-        public static GridStructure[] Settings 
+        public static GridMetadata[] Settings 
         {
             get
             {

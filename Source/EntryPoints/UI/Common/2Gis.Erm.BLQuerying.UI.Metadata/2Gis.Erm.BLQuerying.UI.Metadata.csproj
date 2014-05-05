@@ -56,9 +56,10 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\DataLists\Configuration\DataLists.cs" />
-    <Compile Include="Config\Grids\GridStructuresProvider.cs" />
+    <Compile Include="Config\Grids\GridMetadataSource.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.Order.cs" />
+    <Compile Include="DI\BlQueryingUiMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
