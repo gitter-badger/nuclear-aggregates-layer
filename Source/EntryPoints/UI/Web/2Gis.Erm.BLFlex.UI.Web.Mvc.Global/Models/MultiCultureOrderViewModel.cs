@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [StringLengthLocalized(200)]
         public string RegionalNumber { get; set; }
 
+        [RequiredLocalized]
         public LookupField Firm { get; set; }
 
         public LookupField Client { get; set; }
@@ -132,7 +133,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [Dependency(DependencyType.Required, "BeginReleaseNumber", "this.value == 2")]
         [Dependency(DependencyType.Required, "LegalPerson", "this.value == 2")]
         [Dependency(DependencyType.Required, "BranchOfficeOrganizationUnit", "this.value == 2")]
-        [Dependency(DependencyType.Required, "Firm", "this.value == 2")]
         [Dependency(DependencyType.Required, "Inspector", "this.value == 2")]
         [Dependency(DependencyType.Disable, "PaymentMethod", "this.value >= 2")]
         public int WorkflowStepId { get; set; }

@@ -10,9 +10,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting
 
         public bool TryGetErrorMessage(string inn, out string message)
         {
-            if (inn.Length != LegalPersonIpnLength && inn.Length != BusinessManIpnLength)
+            if (!string.IsNullOrWhiteSpace(inn) && inn.Length != LegalPersonIpnLength && inn.Length != BusinessManIpnLength)
             {
-                message =  Resources.Server.Properties.BLResources.UkraineEnteredIpnIsNotCorrect;
+                message = Resources.Server.Properties.BLResources.UkraineEnteredIpnIsNotCorrect;
                 return true;
             }
 

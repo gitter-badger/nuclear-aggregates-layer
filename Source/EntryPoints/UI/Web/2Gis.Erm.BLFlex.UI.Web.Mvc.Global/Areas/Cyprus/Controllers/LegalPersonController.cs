@@ -101,7 +101,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
                     LegalName = model.LegalName,
                     LegalPersonType = model.LegalPersonType,
                     PassportNumber = model.PassportNumber,
+                    VAT = model.VAT
                 });
+
                 model.Message = BLResources.OK;
             }
             catch (NotificationException ex)
