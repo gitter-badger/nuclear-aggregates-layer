@@ -16,6 +16,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public string LegalName { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(512)]
+        public string OperationsKind { get; set; }
+
+        [RequiredLocalized]
         public string LegalAddress { get; set; }
 
         [RequiredLocalized]
