@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
                     throw new NotificationException(string.Format(Resources.Server.Properties.BLResources.UkraineInvalidEgrpou, BusinessmanEgrpouLength));
                 }
 
-                if (string.IsNullOrEmpty(entity.LegalAddress))
+                if (string.IsNullOrEmpty(request.LegalAddress))
                 {
                     throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
                 }
