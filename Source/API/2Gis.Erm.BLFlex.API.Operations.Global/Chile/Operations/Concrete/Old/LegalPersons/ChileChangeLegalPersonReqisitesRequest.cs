@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.O
     {
         public long LegalPersonId { get; set; }
         public string LegalName { get; set; }
+        public string OperationsKind { get; set; }
         public LegalPersonType LegalPersonType { get; set; }
         public string LegalAddress { get; set; }
         public string Rut { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Models.Chile.ChileChangeLegalPersonRequisitesViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileChangeLegalPersonRequisitesViewModel
 
 @{
     Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
@@ -47,6 +47,9 @@
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.LegalName, FieldFlex.lone)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OperationsKind, FieldFlex.lone)
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)

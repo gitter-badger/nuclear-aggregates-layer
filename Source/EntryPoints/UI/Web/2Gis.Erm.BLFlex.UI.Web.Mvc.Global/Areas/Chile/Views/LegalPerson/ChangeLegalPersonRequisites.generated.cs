@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Views.LegalPerson
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Chile/Views/LegalPerson/ChangeLegalPersonRequisites.cshtml")]
-    public partial class ChangeLegalPersonRequisites : System.Web.Mvc.WebViewPage<Models.Chile.ChileChangeLegalPersonRequisitesViewModel>
+    public partial class ChangeLegalPersonRequisites : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileChangeLegalPersonRequisitesViewModel>
     {
         public ChangeLegalPersonRequisites()
         {
@@ -213,7 +213,7 @@ WriteLiteral("                ");
 
             
             #line 52 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
-           Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
+           Write(Html.TemplateField(m => m.OperationsKind, FieldFlex.lone));
 
             
             #line default
@@ -228,7 +228,7 @@ WriteLiteral("                ");
 
             
             #line 55 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
-           Write(Html.TemplateField(m => m.Rut, FieldFlex.lone));
+           Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
 
             
             #line default
@@ -243,6 +243,21 @@ WriteLiteral("                ");
 
             
             #line 58 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+           Write(Html.TemplateField(m => m.Rut, FieldFlex.lone));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n            </div>\r\n            <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
+
+            
+            #line 61 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
            Write(Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Commune }));
 
             
@@ -251,7 +266,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 61 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
+            #line 64 "..\..\Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml"
     }
 
             
