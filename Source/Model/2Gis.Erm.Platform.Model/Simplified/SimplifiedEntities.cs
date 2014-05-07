@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
             EntityName.ExportFlowFinancialDataLegalEntity,
             EntityName.ExportFlowOrdersAdvMaterial,
             EntityName.ExportFlowOrdersOrder,
+            EntityName.ExportFlowOrdersInvoice,
             EntityName.ExportFlowOrdersResource,
             EntityName.ExportFlowOrdersTheme,
             EntityName.ExportFlowOrdersThemeBranch,

@@ -482,6 +482,11 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             /// </summary>
             private void OnlySimplifiedModelEntitiesUpdatable(Type checkingType)
             {
+                if (!checkingType.IsAbstract && checkingType.IsClass && checkingType.IsGenericTypeDefinition)
+                {
+                    return;
+                }
+
                 var invalidEntitiesReport = CheckSequenceAndInvalidElementsReport(UpdateableEntities(checkingType),
                                                                                   e => e.IsSimplifiedModel() || e.IsAmbivalent());
                 if (!string.IsNullOrEmpty(invalidEntitiesReport))
