@@ -45,10 +45,10 @@ namespace DoubleGis.Erm.BLCore.DI.Infrastructure.Operations
             _metadataProvider = metadataProvider;
         }
 
-        public IOperationsExportService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName)
+        public IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName)
         {
             var entities = new[] { entityName, integrationEntityName };
-            return GetEntitySpecificOperation<IOperationsExportService, ExportIdentity>(new EntitySet(entities), null);
+            return GetEntitySpecificOperation<IIntegrationProcessorOperationService, ExportIdentity>(new EntitySet(entities), null);
         }
 
         public IListEntityService GetListEntityService(EntityName entityName)

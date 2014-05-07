@@ -36,6 +36,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations
         IModifyDomainEntityService GetModifyDomainEntityService(EntityName entityName);
         IDownloadFileService GetDownloadFileService(EntityName entityName);
         IUploadFileService GetUploadFileService(EntityName entityName);
-        IOperationsExportService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
+        IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeClientHandler : SerializeObjectsHandler<Client>
+    public sealed class SerializeClientHandler : SerializeObjectsHandler<Client, ExportFlowFinancialDataClient>
     {
         private static readonly Dictionary<AccountRole, string> AccountRoleToServiceBusMap = new Dictionary<AccountRole, string>
                 {
@@ -142,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         #region Nested Types
 
-        private class ClientDto : IExportableEntityDto
+        public class ClientDto : IExportableEntityDto
         {
             public long Id { get; set; }
             public IEnumerable<FirmDto> Firms { get; set; }
@@ -155,17 +156,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public long? DefaultFirmCode { get; set; }
         }
 
-        private class FirmDto
+        public class FirmDto
         {
             public long Id { get; set; }
         }
 
-        private class LegalPersonDto
+        public class LegalPersonDto
         {
             public long Id { get; set; }
         }
 
-        private class ContactDto
+        public class ContactDto
         {
             public long Id { get; set; }
             public string Name { get; set; }

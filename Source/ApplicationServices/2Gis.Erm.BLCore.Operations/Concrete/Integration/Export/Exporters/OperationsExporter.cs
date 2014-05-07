@@ -5,19 +5,19 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {
     public sealed class OperationsExporter<TEntity, TProcessedOperationEntity> : IOperationsExporter<TEntity, TProcessedOperationEntity> 
-        where TEntity : class, IEntityKey
-        where TProcessedOperationEntity : class, IEntity, IEntityKey
+        where TEntity : class, IEntity, IEntityKey
+        where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         private readonly ICommonLog _logger;
         private readonly IPublicService _publicService;
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                                      int packageSize,
                                      out IEnumerable<IExportableEntityDto> failedEntites)
         {
-            var request = SerializeObjectsRequest<TEntity>.Create(flowDescription.SchemaResourceName, operations);
+            var request = SerializeObjectsRequest<TEntity, TProcessedOperationEntity>.Create(flowDescription.SchemaResourceName, operations);
             var serializeObjectsResponse = ExportOperationsImpl(request, packageSize, flowDescription.FlowName);
 
             failedEntites = serializeObjectsResponse.FailedObjects;
@@ -51,13 +51,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                                          int packageSize,
                                          out IEnumerable<IExportableEntityDto> exportedEntites)
         {
-            var request = SerializeObjectsRequest<TEntity>.Create(flowDescription.SchemaResourceName, failedEntities);
+            var request = SerializeObjectsRequest<TEntity, TProcessedOperationEntity>.Create(flowDescription.SchemaResourceName, failedEntities);
             var response = ExportOperationsImpl(request, packageSize, flowDescription.FlowName);
 
             exportedEntites = response.SuccessObjects;
         }
 
-        private SerializeObjectsResponse ExportOperationsImpl(SerializeObjectsRequest<TEntity> request, int batchSize, string flowName)
+        private SerializeObjectsResponse ExportOperationsImpl(SerializeObjectsRequest<TEntity, TProcessedOperationEntity> request, int batchSize, string flowName)
         {
             try
             {

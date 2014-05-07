@@ -2,19 +2,23 @@
 
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus
 {
-    public sealed class SerializeObjectsRequest<TEntity> : Request
+    public sealed class SerializeObjectsRequest<TEntity, TProcessedOperationEntity> : Request
+        where TEntity : class, IEntity, IEntityKey
+        where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         public bool IsRecovery { get; private set; }
         public string SchemaName { get; private set; }
         public IEnumerable<PerformedBusinessOperation> Operations { get; private set; }
         public IEnumerable<ExportFailedEntity> FailedEntities { get; private set; }
 
-        public static SerializeObjectsRequest<TEntity> Create(string schemaName, IEnumerable<ExportFailedEntity> failedEntities)
+        public static SerializeObjectsRequest<TEntity, TProcessedOperationEntity> Create(string schemaName, IEnumerable<ExportFailedEntity> failedEntities)
         {
-            return new SerializeObjectsRequest<TEntity>
+            return new SerializeObjectsRequest<TEntity, TProcessedOperationEntity>
                 {
                     IsRecovery = true,
                     SchemaName = schemaName,
@@ -22,9 +26,9 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBu
                 };
         }
 
-        public static SerializeObjectsRequest<TEntity> Create(string schemaName, IEnumerable<PerformedBusinessOperation> operations)
+        public static SerializeObjectsRequest<TEntity, TProcessedOperationEntity> Create(string schemaName, IEnumerable<PerformedBusinessOperation> operations)
         {
-            return new SerializeObjectsRequest<TEntity>
+            return new SerializeObjectsRequest<TEntity, TProcessedOperationEntity>
             {
                 IsRecovery = false,
                 SchemaName = schemaName,
@@ -32,4 +36,4 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBu
             };
         }
     }
-    }
+}

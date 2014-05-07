@@ -4,6 +4,7 @@ using System.Threading;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core;
@@ -19,19 +20,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IExportableOperationsPersistenceService<Order, ExportFlowOrdersOrder> _exportableOperationsPersistenceService;
+        private readonly IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> _operationsProcessingsStoreService;
         private readonly IExportRepository<Order> _exportRepository;
         private readonly ICommonLog _logger;
 
         public ServiceBusEnsureOrderExportedStrategy(IIntegrationSettings integrationSettings,
                                                      IOrderReadModel orderReadModel,
-                                                     IExportableOperationsPersistenceService<Order, ExportFlowOrdersOrder> exportableOperationsPersistenceService,
+                                                     IOperationsProcessingsStoreService<Order, ExportFlowOrdersOrder> operationsProcessingsStoreService,
                                                      IExportRepository<Order> exportRepository,
                                                      ICommonLog logger)
         {
             _integrationSettings = integrationSettings;
             _orderReadModel = orderReadModel;
-            _exportableOperationsPersistenceService = exportableOperationsPersistenceService;
+            _operationsProcessingsStoreService = operationsProcessingsStoreService;
             _exportRepository = exportRepository;
             _logger = logger;
         }
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         private bool AllOrdersAreSuccessfullyExported(long organizationUnitId, TimePeriod period)
         {
-            var failedOrders = _exportableOperationsPersistenceService.GetFailedEntities().Select(entity => entity.EntityId);
+            var failedOrders = _operationsProcessingsStoreService.GetFailedEntities().Select(entity => entity.EntityId);
             var anyFailedOrder = _orderReadModel.GetOrdersForRelease(organizationUnitId, period).Any(order => failedOrders.Contains(order.Id));
             return !anyFailedOrder;
         }
@@ -120,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         {
             var selectSpecification = new SelectSpecification<Order, long>(order => order.Id);
             var oneMonthOperationsInterval = DateTime.UtcNow.AddMonths(-1);
-            var operations = _exportableOperationsPersistenceService.GetPendingOperations(oneMonthOperationsInterval);
+            var operations = _operationsProcessingsStoreService.GetPendingOperations(oneMonthOperationsInterval);
             var query = _exportRepository.GetBuilderForOperations(operations);
             var orders = _exportRepository.GetEntityDtos(query,
                                                          selectSpecification,

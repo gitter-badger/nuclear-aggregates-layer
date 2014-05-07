@@ -5,10 +5,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Export;
-using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 using Machine.Specifications;
 
@@ -26,10 +26,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
     {
         protected const int QueueSize = 42;
         protected const int BatchSize = 10;
-        protected static IOperationsExportService exportService;
+        protected static IIntegrationProcessorOperationService exportService;
         protected static FlowDescription flow;
 
-        protected static IExportableOperationsPersistenceService<EntityClass, ExportedEntityClass> persistenceService;
+        protected static IOperationsProcessingsStoreService<EntityClass, ExportedEntityClass> processingsStoreService;
         protected static IOperationsExporter<EntityClass, ExportedEntityClass> operationsExporter;
         protected static List<ExportFailedEntity> recordsToProcess;
         protected static List<ExportFailedEntity> recordsWasRequested;
@@ -37,9 +37,9 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         private Establish context = () =>
         {
-            persistenceService = Mock.Of<IExportableOperationsPersistenceService<EntityClass, ExportedEntityClass>>();
+            processingsStoreService = Mock.Of<IOperationsProcessingsStoreService<EntityClass, ExportedEntityClass>>();
             operationsExporter = Mock.Of<IOperationsExporter<EntityClass, ExportedEntityClass>>();
-            exportService = new OperationsExportService(persistenceService, operationsExporter);
+            exportService = new IntegrationProcessorOperationService(processingsStoreService, operationsExporter);
             flow = new FlowDescription();
 
 
@@ -55,31 +55,18 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             public long Id { get; set; }
         }
 
-        public class ExportedEntityClass : IEntity, IEntityKey
+        public class ExportedEntityClass : IIntegrationProcessorState
         {
             public long Id { get; set; }
+            public DateTime Date { get; set; }
         }
 
-        public class OperationsExportService : OperationsExportService<EntityClass, ExportedEntityClass>
+        public class IntegrationProcessorOperationService : IntegrationProcessorOperationService<EntityClass, ExportedEntityClass>
         {
-            public OperationsExportService(IExportableOperationsPersistenceService<EntityClass, ExportedEntityClass> persistenceService,
+            public IntegrationProcessorOperationService(IOperationsProcessingsStoreService<EntityClass, ExportedEntityClass> processingsStoreService,
                                            IOperationsExporter<EntityClass, ExportedEntityClass> operationsExporter)
-                : base(persistenceService, operationsExporter)
+                : base(processingsStoreService, operationsExporter)
             {
-            }
-
-            protected override ISelectSpecification<ExportedEntityClass, DateTime> ProcessingDateSpecification
-            {
-                get { return null; }
-            }
-
-            protected override void UpdateProcessedOperation(ExportedEntityClass processedOperationEntity)
-            {
-            }
-
-            protected override ExportedEntityClass CreateProcessedOperation(PerformedBusinessOperation operation)
-            {
-                return null;
             }
         }
 
@@ -90,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
     }
 
     [Tags("Export")]
-    [Subject(typeof(OperationsExportService<,>))]
+    [Subject(typeof(IntegrationProcessorOperationService<,>))]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "It's a test!")]
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:FieldNamesMustNotContainUnderscore", Justification = "It's a test!")]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "It's a test!")]
@@ -98,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
     {
         private Establish context = () =>
         {
-            Mock.Get(persistenceService)
+            Mock.Get(processingsStoreService)
                 .Setup(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.IsAny<int>()))
                 .Returns<int, int>((takeCount, skipCount) =>
                 {
@@ -119,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             // Поскольку используя moq ОЧЕНЬ непросто влиять на out параметры (https://groups.google.com/group/moqdisc/browse_thread/thread/4c7590e725151da9)
             // поэтому, зная, что метод RemoveFromFailureQueue вызывается после ExportFailedEntities и получает тот же самый объект, что вернулся из ExportFailedEntities
             // мы этот список наполняем в callback для RemoveFromFailureQueue.
-            Mock.Get(persistenceService)
+            Mock.Get(processingsStoreService)
                 .Setup(service => service.RemoveFromFailureQueue(Moq.It.IsAny<IEnumerable<IExportableEntityDto>>()))
                 .Callback<IEnumerable<IExportableEntityDto>>(dtos =>
                 {
@@ -133,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         private It should_take_first_batch = () =>
         {
-            Mock.Get(persistenceService).Verify(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.Is<int>(i => i == 0)));
+            Mock.Get(processingsStoreService).Verify(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.Is<int>(i => i == 0)));
         };
 
         private It should_take_each_record_once = () =>
@@ -144,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         private It should_take_next_batch_in_the_same_job_iteration = () =>
         {
-            Mock.Get(persistenceService).Verify(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.Is<int>(i => i == BatchSize)));
+            Mock.Get(processingsStoreService).Verify(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.Is<int>(i => i == BatchSize)));
         };
 
         private It should_process_all_queue = () =>
@@ -160,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
     }
 
     [Tags("Export")]
-    [Subject(typeof(OperationsExportService<,>))]
+    [Subject(typeof(IntegrationProcessorOperationService<,>))]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "It's a test!")]
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:FieldNamesMustNotContainUnderscore", Justification = "It's a test!")]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "It's a test!")]
@@ -171,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             // Продолжение грязного хака, связанного с out параметрами. 
             // Сначала мы узнаём сколько сущностей получил сервис экспорта, а затем сообщаем, что ровно столько было успешно экспортировано.
             int count = 0;
-            Mock.Get(persistenceService)
+            Mock.Get(processingsStoreService)
                 .Setup(service => service.GetFailedEntities(Moq.It.IsAny<int>(), Moq.It.IsAny<int>()))
                 .Returns<int, int>((takeCount, skipCount) =>
                 {
@@ -189,7 +176,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
                                                                  Moq.It.IsAny<int>(),
                                                                  out outResult));
 
-            Mock.Get(persistenceService)
+            Mock.Get(processingsStoreService)
                 .Setup(service => service.RemoveFromFailureQueue(Moq.It.IsAny<IEnumerable<IExportableEntityDto>>()))
                 .Callback<IEnumerable<IExportableEntityDto>>(dtos =>
                 {

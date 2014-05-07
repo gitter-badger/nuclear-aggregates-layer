@@ -32,8 +32,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             return new OperationsQueryBuilder<TEntity>(_finder, operations, _metadata, _operationContextParser);
         }
 
-        // FIXME {a.rechkalov, 16.08.2013}: Почему тут не использовать ISelectSpecification?
-        // DONE {d.ivanov, 17.09.2013}: Если и была причина, то сейчас её уже не вижу/не помню.
         public IEnumerable<TDto> GetEntityDtos<TDto>(IQueryBuilder<TEntity> queryBuilder,
                                                      ISelectSpecification<TEntity, TDto> selectSpecification,
                                                      params IFindSpecification<TEntity>[] filterSpecifications)
