@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializePriceHandler : SerializeObjectsHandler<Price>
+    public sealed class SerializePriceHandler : SerializeObjectsHandler<Price, ExportFlowPriceListsPriceList>
     {
         public SerializePriceHandler(IExportRepository<Price> exportOperationsRepository,
                                      ICommonLog logger)
