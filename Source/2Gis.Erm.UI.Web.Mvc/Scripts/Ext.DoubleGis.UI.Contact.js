@@ -15,9 +15,8 @@
                 return;
             }
 
-            var businessModelArea = Ext.getDom("BusinessModelArea").value;
             var params = "dialogHeight:270px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ";
-            var sUrl = "/" + businessModelArea + "/GroupOperation/Assign/Contact";
+            var sUrl = "/GroupOperation/Assign/Contact";
             var result = window.showModalDialog(sUrl, [Ext.getDom("Id").value], params);
             if (result === true) {
                 this.refresh(true);
