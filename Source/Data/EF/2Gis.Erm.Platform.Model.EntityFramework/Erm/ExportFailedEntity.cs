@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public int EntityName { get; set; }
         public long EntityId { get; set; }
+        public int ProcessorId { get; set; }
     
     	public override bool Equals(object obj)
         {
@@ -31,22 +32,22 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             if (GetType() != obj.GetType())
             {
                 return false;
-            }
+    }
     
             if (ReferenceEquals(this, obj))
             {
                 return true;
-            }
-    
+}
+
     		var entityKey = obj as IEntityKey;
     		if (entityKey != null)
     		{
     			return Id == entityKey.Id;
     		}
-    		
+
     		return false;
         }
-    
+
     	override public int GetHashCode()
     	{
     		return Id.GetHashCode();

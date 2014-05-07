@@ -467,10 +467,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="CheckUserParentnessRecursion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Security">
-          <Parameter Name="userId" Type="bigint" Mode="In" />
-          <Parameter Name="proposedParentId" Type="bigint" Mode="In" />
-        </Function>
         <Function Name="DepartmentDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Security">
           <Parameter Name="i_DepartmentID" Type="bigint" Mode="In" />
           <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
@@ -581,10 +577,6 @@
             <Parameter Name="i_timestamp" Mode="In" Type="Binary" />
             <Parameter Name="ModifiedBy" Mode="In" Type="Int64" />
             <Parameter Name="ModifiedOn" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="CheckUserParentnessRecursion" ReturnType="Collection(Int32)">
-            <Parameter Name="userId" Mode="In" Type="Int64" />
-            <Parameter Name="proposedParentId" Mode="In" Type="Int64" />
           </FunctionImport>
           <EntitySet Name="UserProfiles" EntityType="ErmSecurityModel.UserProfile" />
           <EntitySet Name="TimeZones" EntityType="ErmSecurityModel.TimeZone" />
@@ -1276,7 +1268,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CheckUserParentnessRecursion" FunctionName="ErmSecurityModel.Store.CheckUserParentnessRecursion" />
           <FunctionImportMapping FunctionImportName="DepartmentDelete" FunctionName="ErmSecurityModel.Store.DepartmentDelete" />
           <FunctionImportMapping FunctionImportName="DepartmentInsert" FunctionName="ErmSecurityModel.Store.DepartmentInsert" />
           <FunctionImportMapping FunctionImportName="DepartmentUpdate" FunctionName="ErmSecurityModel.Store.DepartmentUpdate" />

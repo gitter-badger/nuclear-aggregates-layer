@@ -1548,6 +1548,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="EntityName" Type="int" Nullable="false" />
           <Property Name="EntityId" Type="bigint" Nullable="false" />
+          <Property Name="ProcessorId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ExportFlowCardExtensions_CardCommercial">
           <Key>
@@ -1571,6 +1572,13 @@
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
         <EntityType Name="ExportFlowOrders_AdvMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExportFlowOrders_Invoice">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -3745,9 +3753,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GenerateIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Billing">
-          <Parameter Name="IndexCode" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="ReplicateAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Billing">
           <Parameter Name="Id" Type="bigint" Mode="In" />
         </Function>
@@ -3810,48 +3815,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </Function>
         <Function Name="ReplicateTerritory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BusinessDirectory">
           <Parameter Name="Id" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="CalculateClientPromising" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Integration">
-          <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
-          <Parameter Name="EnableReplication" Type="bit" Mode="In" />
-        </Function>
-        <Function Name="ImportFirmFromXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Integration">
-          <Parameter Name="Xml" Type="xml" Mode="In" />
-          <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
-          <Parameter Name="OwnerCode" Type="bigint" Mode="In" />
-          <Parameter Name="EnableReplication" Type="bit" Mode="In" />
-          <Parameter Name="RegionalTerritoryLocalName" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="ImportFirmPromising" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Integration">
-          <Parameter Name="OrganizationUnitStableId" Type="bigint" Mode="In" />
-          <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
-          <Parameter Name="EnableReplication" Type="bit" Mode="In" />
-        </Function>
-        <Function Name="UpdateBuildings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Integration">
-          <Parameter Name="buildingsXml" Type="xml" Mode="In" />
-          <Parameter Name="RegionalTerritoryLocalName" Type="nvarchar" Mode="In" />
-          <Parameter Name="EnableReplication" Type="bit" Mode="In" />
-        </Function>
-        <Function Name="DepartmentDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Security">
-          <Parameter Name="i_DepartmentID" Type="bigint" Mode="In" />
-          <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
-          <Parameter Name="ModifiedOn" Type="smalldatetime" Mode="In" />
-        </Function>
-        <Function Name="DepartmentInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Security">
-          <Parameter Name="i_DepartmentID" Type="bigint" Mode="In" />
-          <Parameter Name="i_Name" Type="nvarchar" Mode="In" />
-          <Parameter Name="i_ParentID" Type="bigint" Mode="In" />
-          <Parameter Name="CreatedBy" Type="bigint" Mode="In" />
-          <Parameter Name="CreatedOn" Type="smalldatetime" Mode="In" />
-        </Function>
-        <Function Name="DepartmentUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Security">
-          <Parameter Name="i_DepartmentID" Type="bigint" Mode="In" />
-          <Parameter Name="i_Name" Type="nvarchar" Mode="In" />
-          <Parameter Name="i_ParentId" Type="bigint" Mode="In" />
-          <Parameter Name="i_IsActive" Type="bit" Mode="In" />
-          <Parameter Name="i_timestamp" Type="timestamp" Mode="In" />
-          <Parameter Name="ModifiedBy" Type="bigint" Mode="In" />
-          <Parameter Name="ModifiedOn" Type="smalldatetime" Mode="In" />
         </Function>
         <EntityContainer Name="ErmModelStoreContainer">
           <EntitySet Name="ActivityInstances" EntityType="Self.ActivityInstances" Schema="Activity" store:Type="Tables" />
@@ -3939,6 +3902,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ExportFlowFinancialData_Client" EntityType="Self.ExportFlowFinancialData_Client" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowFinancialData_LegalEntity" EntityType="Self.ExportFlowFinancialData_LegalEntity" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_AdvMaterial" EntityType="Self.ExportFlowOrders_AdvMaterial" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="ExportFlowOrders_Invoice" EntityType="Self.ExportFlowOrders_Invoice" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Order" EntityType="Self.ExportFlowOrders_Order" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Resource" EntityType="Self.ExportFlowOrders_Resource" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Theme" EntityType="Self.ExportFlowOrders_Theme" Schema="Integration" store:Type="Tables" />
@@ -4735,9 +4699,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <FunctionImport Name="ReplicateOrder">
           <Parameter Name="Id" Mode="In" Type="Int64" />
           </FunctionImport>
-        <FunctionImport Name="GenerateIndex" ReturnType="Collection(Int64)">
-          <Parameter Name="IndexCode" Mode="In" Type="String" />
-          </FunctionImport>
         <EntitySet Name="Files" EntityType="ErmModel.File" />
         <FunctionImport Name="ReplicateClient">
           <Parameter Name="Id" Mode="In" Type="Int64" />
@@ -4881,15 +4842,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <End Role="File" EntitySet="Files" />
           <End Role="ReleaseInfo" EntitySet="ReleaseInfos" />
         </AssociationSet>
-        <FunctionImport Name="ImportFirmPromising">
-            <Parameter Name="OrganizationUnitStableId" Mode="In" Type="Int64" />
-            <Parameter Name="ModifiedBy" Mode="In" Type="Int64" />
-            <Parameter Name="EnableReplication" Mode="In" Type="Boolean" />
-          </FunctionImport>
-        <FunctionImport Name="CalculateClientPromising">
-            <Parameter Name="ModifiedBy" Mode="In" Type="Int64" />
-            <Parameter Name="EnableReplication" Mode="In" Type="Boolean" />
-          </FunctionImport>
         <EntitySet Name="LocalMessages" EntityType="ErmModel.LocalMessage" />
         <AssociationSet Name="FK_LocalMessages_Files" Association="ErmModel.FK_LocalMessages_Files">
           <End Role="File" EntitySet="Files" />
@@ -5137,11 +5089,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <FunctionImport Name="ReplicateOperationType">
           <Parameter Name="ID" Mode="In" Type="Int64" />
           </FunctionImport>
-        <FunctionImport Name="UpdateBuildings">
-            <Parameter Name="buildingsXml" Mode="In" Type="String" />
-            <Parameter Name="RegionalTerritoryLocalName" Mode="In" Type="String" />
-            <Parameter Name="EnableReplication" Mode="In" Type="Boolean" />
-          </FunctionImport>
         <EntitySet Name="NotificationAddresses" EntityType="ErmModel.NotificationAddresses" />
         <EntitySet Name="NotificationEmails" EntityType="ErmModel.NotificationEmails" />
         <EntitySet Name="NotificationEmailsAttachments" EntityType="ErmModel.NotificationEmailsAttachments" />
@@ -5192,13 +5139,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <End Role="Order" EntitySet="Orders" />
           <End Role="OrderValidationResult" EntitySet="OrderValidationResults" />
         </AssociationSet>
-        <FunctionImport Name="ImportFirmFromXml" ReturnType="Collection(Int32)">
-            <Parameter Name="Xml" Mode="In" Type="String" />
-            <Parameter Name="ModifiedBy" Mode="In" Type="Int64" />
-            <Parameter Name="OwnerCode" Mode="In" Type="Int64" />
-            <Parameter Name="EnableReplication" Mode="In" Type="Boolean" />
-            <Parameter Name="RegionalTerritoryLocalName" Mode="In" Type="String" />
-          </FunctionImport>
         <EntitySet Name="DepCards" EntityType="ErmModel.DepCard" />
         <AssociationSet Name="FK_Contacts_DepCards" Association="ErmModel.FK_Contacts_DepCards">
           <End Role="DepCard" EntitySet="DepCards" />
@@ -5235,12 +5175,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <End Role="File" EntitySet="Files" />
           <End Role="Operation" EntitySet="Operations" />
         </AssociationSet>
-        <FunctionImport Name="ImportCardsFromXml">
-          <Parameter Name="Doc" Mode="In" Type="String" />
-            <Parameter Name="ModifiedBy" Mode="In" Type="Int64" />
-            <Parameter Name="OwnerCode" Mode="In" Type="Int64" />
-            <Parameter Name="RegionalTerritoryLocalName" Mode="In" Type="String" />
-          </FunctionImport>
         <EntitySet Name="LegalPersonProfiles" EntityType="ErmModel.LegalPersonProfile" />
         <AssociationSet Name="FK_Orders_LegalPersonProfiles" Association="ErmModel.FK_Orders_LegalPersonProfiles">
           <End Role="LegalPersonProfile" EntitySet="LegalPersonProfiles" />
@@ -5433,6 +5367,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           </AssociationSet>
           <EntitySet Name="ExportFlowPriceListsPriceLists" EntityType="ErmModel.ExportFlowPriceListsPriceList" />
           <EntitySet Name="ExportFlowPriceListsPriceListPositions" EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" />
+          <EntitySet Name="ExportFlowOrdersInvoices" EntityType="ErmModel.ExportFlowOrdersInvoice" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -9307,6 +9242,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int32" Name="EntityName" Nullable="false" />
         <Property Type="Int64" Name="EntityId" Nullable="false" />
+          <Property Name="ProcessorId" Type="Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="ExportFlowFinancialDataClient">
         <Key>
@@ -9565,6 +9501,13 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
         <EntityType Name="ExportFlowPriceListsPriceListPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+        </EntityType>
+        <EntityType Name="ExportFlowOrdersInvoice">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -10819,9 +10762,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <FunctionImportMapping FunctionImportName="ReplicateBranchOffice" FunctionName="ErmModel.Store.ReplicateBranchOffice" />
         <FunctionImportMapping FunctionImportName="ReplicateBargain" FunctionName="ErmModel.Store.ReplicateBargain" />
         <FunctionImportMapping FunctionImportName="ReplicateAccount" FunctionName="ErmModel.Store.ReplicateAccount" />
-        <FunctionImportMapping FunctionImportName="ImportFirmPromising" FunctionName="ErmModel.Store.ImportFirmPromising" />
-        <FunctionImportMapping FunctionImportName="CalculateClientPromising" FunctionName="ErmModel.Store.CalculateClientPromising" />
-        <FunctionImportMapping FunctionImportName="GenerateIndex" FunctionName="ErmModel.Store.GenerateIndex" />
         <EntitySetMapping Name="WithdrawalInfos">
           <EntityTypeMapping TypeName="ErmModel.WithdrawalInfo">
             <MappingFragment StoreEntitySet="WithdrawalInfos">
@@ -10920,7 +10860,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         </EntitySetMapping>
         <FunctionImportMapping FunctionImportName="ReplicateAccountDetail" FunctionName="ErmModel.Store.ReplicateAccountDetail" />
         <FunctionImportMapping FunctionImportName="ReplicateOperationType" FunctionName="ErmModel.Store.ReplicateOperationType" />
-        <FunctionImportMapping FunctionImportName="UpdateBuildings" FunctionName="ErmModel.Store.UpdateBuildings" />
         <EntitySetMapping Name="NotificationAddresses">
           <EntityTypeMapping TypeName="ErmModel.NotificationAddresses">
             <MappingFragment StoreEntitySet="NotificationAddresses">
@@ -11074,7 +11013,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>
-        <FunctionImportMapping FunctionImportName="ImportFirmFromXml" FunctionName="ErmModel.Store.ImportFirmFromXml" />
         <EntitySetMapping Name="PrintFormTemplates">
           <EntityTypeMapping TypeName="ErmModel.PrintFormTemplate">
             <MappingFragment StoreEntitySet="PrintFormTemplates">
@@ -11468,7 +11406,8 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <EntitySetMapping Name="ExportFailedEntities">
           <EntityTypeMapping TypeName="ErmModel.ExportFailedEntity">
             <MappingFragment StoreEntitySet="ExportFailedEntities">
-              <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+              <ScalarProperty Name="ProcessorId" ColumnName="ProcessorId" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
               <ScalarProperty Name="EntityName" ColumnName="EntityName" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
@@ -11629,6 +11568,14 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <EntitySetMapping Name="ExportFlowPriceListsPriceListPositions">
             <EntityTypeMapping TypeName="ErmModel.ExportFlowPriceListsPriceListPosition">
               <MappingFragment StoreEntitySet="ExportFlowPriceLists_PriceListPosition">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExportFlowOrdersInvoices">
+            <EntityTypeMapping TypeName="ErmModel.ExportFlowOrdersInvoice">
+              <MappingFragment StoreEntitySet="ExportFlowOrders_Invoice">
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

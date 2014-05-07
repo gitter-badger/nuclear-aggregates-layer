@@ -525,6 +525,10 @@
       <Link>Entities\DTOs\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersInvoice.cs">
+      <Link>Entities\Erm\ExportFlowOrdersInvoice.cs</Link>
+      <DependentUpon>ErmPOCO.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
       <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -690,8 +694,21 @@
     <Compile Include="Entities\Erm\Partial\BranchOfficeOrganizationUnit.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\Partial\DictionaryEntityInstance.cs" />
     <Compile Include="Entities\Erm\Partial\DictionaryEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowFinancialDataClient.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowFinancialDataLegalEntity.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersAdvMaterial.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersInvoice.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersOrder.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersResource.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersTheme.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrdersThemeBranch.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowPriceListsPriceList.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowPriceListsPriceListPosition.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportToMsCrm_HotClients.cs" />
+    <Compile Include="Entities\Erm\Partial\ImportedFirmAddress.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPerson.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPersonProfile.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineBranchOfficePart.cs" />
@@ -700,6 +717,7 @@
     <Compile Include="Entities\Interfaces\IDynamicEntityPropertyInstance.cs" />
     <Compile Include="Entities\Interfaces\IEntityPart.cs" />
     <Compile Include="Entities\Interfaces\INonActivityDynamicEntityPropertyInstance.cs" />
+    <Compile Include="Entities\Interfaces\Integration\IIntegrationProcessorState.cs" />
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
@@ -1450,9 +1468,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\Erm\Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
