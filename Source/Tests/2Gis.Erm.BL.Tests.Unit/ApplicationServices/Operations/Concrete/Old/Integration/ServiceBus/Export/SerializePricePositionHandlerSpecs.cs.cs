@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                                                       IFindSpecification<PricePosition>[] z) =>
                                                      new[] { TestPricePosition }.AsQueryable().Select(y.Selector).ToArray());
 
-                SerializeRequest = SerializeObjectsRequest<PricePosition>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());
+                SerializeRequest = SerializeObjectsRequest<PricePosition, ExportFlowPriceListsPriceListPosition>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());
 
                 Handler = new SerializePricePositionHandler(PricePositionExportRepositoryMock.Object, Mock.Of<ICommonLog>());
             };
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
             protected static SerializeObjectsResponse Response { get; set; }
             protected static PricePosition TestPricePosition { get; set; }
             protected static SerializePricePositionHandler Handler { get; set; }
-            protected static SerializeObjectsRequest<PricePosition> SerializeRequest { get; set; }
+            protected static SerializeObjectsRequest<PricePosition, ExportFlowPriceListsPriceListPosition> SerializeRequest { get; set; }
         }
 
         class When_serializing_correct_price_position : SerializePricePositionHandlerBaseContext
