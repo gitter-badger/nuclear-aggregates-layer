@@ -42,7 +42,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits;
@@ -260,24 +259,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ExportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        //ContainingClass = typeof(ExportObjectsHandler<>),
-                        Request = typeof(ExportObjectsRequest<>),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(SerializeObjectsHandler<>),
-            Request = typeof(SerializeObjectsRequest<>)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.LocalMessages.ReprocessLocalMessages\ExecuteInternal",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -406,24 +387,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
                         Request = typeof(CalculateReleaseWithdrawalsRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ExportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        //ContainingClass = typeof(ExportObjectsHandler<>),
-                        Request = typeof(ExportObjectsRequest<>),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(SerializeObjectsHandler<>),
-            Request = typeof(SerializeObjectsRequest<>)
-        }
-    }
                     }
                 },
                 new UseCase
@@ -1339,24 +1302,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(PrintDocumentHandler),
             Request = typeof(PrintDocumentRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ExportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        //ContainingClass = typeof(ExportObjectsHandler<>),
-                        Request = typeof(ExportObjectsRequest<>),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(SerializeObjectsHandler<>),
-            Request = typeof(SerializeObjectsRequest<>)
         }
     }
                     }

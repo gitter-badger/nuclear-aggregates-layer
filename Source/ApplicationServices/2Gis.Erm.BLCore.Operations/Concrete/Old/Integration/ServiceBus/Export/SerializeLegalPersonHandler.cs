@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security;
@@ -17,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeLegalPersonHandler : SerializeObjectsHandler<LegalPerson>
+    public sealed class SerializeLegalPersonHandler : SerializeObjectsHandler<LegalPerson, ExportFlowFinancialDataLegalEntity>
     {
         private static readonly CultureInfo RussianCultureInfo = CultureInfo.GetCultureInfo(1049);
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
@@ -298,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         #region nested types
 
-        private sealed class LegalPersonDto : IExportableEntityDto
+        public sealed class LegalPersonDto : IExportableEntityDto
         {
             private const string TagName = "LegalEntity";
 
@@ -396,7 +397,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private sealed class LegalEntityLegalPersonDto
+        public sealed class LegalEntityLegalPersonDto
         {
             private const string TagName = "LegalPerson";
 
@@ -426,7 +427,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private sealed class LegalEntitySoleProprietorDto
+        public sealed class LegalEntitySoleProprietorDto
         {
             private const string TagName = "SoleProprietor";
 
@@ -449,7 +450,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private sealed class LegalEntityIndividualPersonDto
+        public sealed class LegalEntityIndividualPersonDto
         {
             private const string TagName = "IndividualPerson";
 
@@ -483,7 +484,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private class LegalEntityAccount
+        public class LegalEntityAccount
         {
             private const string TagName = "Account";
 
@@ -529,7 +530,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private class LegalEntityProfile
+        public class LegalEntityProfile
         {
             private const string TagName = "Profile";
 

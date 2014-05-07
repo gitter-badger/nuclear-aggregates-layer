@@ -2,31 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 {
-    public sealed class ExportableOperationsPersistenceService<TEntity, TProcessedOperationEntity> : IExportableOperationsPersistenceService<TEntity, TProcessedOperationEntity>
+    // FIXME {all, 26.03.2014}: данный тип нужно распилить на ReadModel + несколько AggregateService
+    // Однако, возможно не стоит с этим торопится, т.к. при впиливании внутреннего транспорта для perfomedbusinessoperations (например, servicebus) - функциональность данного типа становиться очень ограниченной - фактически, 
+    // вместо него должен появиться некий receiver сообщений из шины ERM
+    // COMMENT {i.maslennikov, 09.04.2014}: Думаю, стоит рассматривать экспорт объектов как отдельный bounded context и выделить в нем агрегаты
+    //                                      Важно, что эти выденные агрегаты точно никак не связаны с агрегатами других bounded context-ов
+    // TODO {d.ivanov,i.maslennikov, 09.04.2014}: Реализовать в ERM возможность существования нескольких bounded context-ов и некольких непересекающихся наборов агрегатов в них
+    public sealed class OperationsProcessingsStoreService<TEntity, TProcessedOperationEntity> : IOperationsProcessingsStoreService<TEntity, TProcessedOperationEntity>
         where TEntity : class, IEntity, IEntityKey
-        where TProcessedOperationEntity : class, IEntity, IEntityKey
+        where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         private readonly EntityName _entityName = typeof(TEntity).AsEntityName();
+        private readonly EntityName _integrationProcessorStateEntityName = typeof(TProcessedOperationEntity).AsEntityName();
 
         private readonly IIdentityProvider _identityProvider;
         private readonly IFinder _finder;
         private readonly IRepository<TProcessedOperationEntity> _processedOperationEntity;
         private readonly IRepository<ExportFailedEntity> _exportFailedRepository;
 
-        public ExportableOperationsPersistenceService(IIdentityProvider identityProvider,
-                                                      IFinder finder,
-                                                      IRepository<TProcessedOperationEntity> processedOperationEntity,
-                                                      IRepository<ExportFailedEntity> exportFailedRepository)
+        public OperationsProcessingsStoreService(
+            IFinder finder,
+            IRepository<TProcessedOperationEntity> processedOperationEntity,
+            IRepository<ExportFailedEntity> exportFailedRepository,
+            IIdentityProvider identityProvider)
         {
             _identityProvider = identityProvider;
             _finder = finder;
@@ -72,6 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                     {
                         EntityName = (int)_entityName,
                         EntityId = failedObjectId,
+                        ProcessorId = (int)_integrationProcessorStateEntityName
                     };
                 _identityProvider.SetFor(entity);
                 _exportFailedRepository.Add(entity);
@@ -86,8 +96,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         public void RemoveFromFailureQueue(IEnumerable<IExportableEntityDto> exportedObjects)
         {
             var exportedObjectIds = exportedObjects.Select(x => x.Id).ToArray();
-            var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName &&
-                                                                     exportedObjectIds.Contains(entity.EntityId))
+            var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName
+                                                                        && entity.ProcessorId == (int)_integrationProcessorStateEntityName
+                                                                        && exportedObjectIds.Contains(entity.EntityId))
                                  .ToArray();
             foreach (var record in records)
             {
@@ -169,7 +180,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         private IQueryable<ExportFailedEntity> GetFailedEntitiesQuery()
         {
-            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName);
+            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName 
+                                                                && entity.ProcessorId == (int)_integrationProcessorStateEntityName);
         }
     }
 }

@@ -126,6 +126,16 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                             IntegrationEntityName = EntityName.ExportFlowPriceListsPriceListPosition
                         }
                 },
+                {
+                    "floworders.invoice",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.Order,
+                            FlowName = "flowOrders",
+                            SchemaResourceName = "flowOrders_Invoice",
+                            IntegrationEntityName = EntityName.ExportFlowOrdersInvoice
+                        }
+                },
             };
 
         private readonly IOperationServicesManager _servicesManager;

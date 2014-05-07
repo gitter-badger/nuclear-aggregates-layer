@@ -222,6 +222,12 @@
     <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5549 altering BusinessDirectory.vwTerritories.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.05.07 rev. 20154 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
+    <Compile Include="2.1\2014.05.07 rev. 20151 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
+    <Compile Include="2.1\2014.05.07 rev. 20148 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
+    <Compile Include="2.1\2014.05.07 rev. 20146 - Alter BusinessOperationsServices for ExportFlowOrders_Invoice.cs" />
+    <Compile Include="2.1\2014.03.31 rev. 18766 - Add BusinessOperationsServices for ExportFlowOrders_Invoice.cs" />
+    <Compile Include="2.1\2014.03.25 rev. 18654 - Add ExportFlowOrders_Invoice table.cs" />
     <Compile Include="2.1\2013.11.15 rev. 13639 - Add Functional Priveleges.cs" />
     <Compile Include="2.1\2014.03.04 rev. 17700 - delete associated and denied order validation rule for order state changing validation.cs" />
     <Compile Include="2.1\2014.02.12 rev. 16472 - add associated and denied order validation rule for order state changing validation.cs" />
@@ -686,6 +692,7 @@
     <Compile Include="2.1\2014.04.18 rev. 19684 - Alter UpdateBuildings.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19787 - drop BudgetType column from Billing.Orders.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19802 - create OrderPositionId column in Billing.LockDetails.cs" />
+    <Compile Include="2.1\2014.04.18 rev. 19680 - Add column ProcessorId to ExportFailedEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -707,7 +714,6 @@
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />
     <Compile Include="Shared\ReplicationHelper.cs" />
-    <Compile Include="Shared\CisConfigurationTableNames.cs" />
     <Compile Include="Shared\CrmTableNames.cs" />
     <Compile Include="Shared\EntityCopyHelper.cs" />
     <Compile Include="Shared\ErmStoredProcedures.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Themes;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeThemeHandler : SerializeObjectsHandler<Theme>
+    public sealed class SerializeThemeHandler : SerializeObjectsHandler<Theme, ExportFlowOrdersTheme>
     {
         private readonly IThemeRepository _themeRepository;
 
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             });
         }
 
-        private sealed class ThemeExportDto : IExportableEntityDto
+        public sealed class ThemeExportDto : IExportableEntityDto
         {
             public long Id { get; set; }
 

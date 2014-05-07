@@ -12,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public InsertedNotNullableColumnDefinition(int index, Func<SqlSmoObject, Column> columnCreator, string columnName, string defaultValue) 
             : base(index, columnCreator)
         {
-            this.ColumnName = columnName;
-            this.DefaultValue = defaultValue;
+            ColumnName = columnName;
+            DefaultValue = defaultValue;
         }
 
         public string ColumnName { get; private set; }
