@@ -256,7 +256,7 @@
         <edmx:AssociationConnector Association="ErmModel.FK_ActivityPropertyInstances_ActivityInstances" ManuallyRouted="false" />
         <edmx:EntityTypeShape EntityType="ErmModel.BusinessOperationService" Width="1.5" PointX="0.99956246698254825" PointY="6.0447178660168861" />
         <edmx:EntityTypeShape EntityType="ErmModel.PerformedBusinessOperation" Width="1.5" PointX="1.1643178989944598" PointY="25.584350270025595" />
-        <edmx:EntityTypeShape EntityType="ErmModel.SecurityAccelerator" Width="1.5" PointX="9.0770890438356862" PointY="2.3663200151018424" />
+        <edmx:EntityTypeShape EntityType="ErmModel.SecurityAccelerator" Width="1.5" PointX="17.125" PointY="4" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_BaseOrders" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_LegalPersonProfiles" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequests_Firms" />
@@ -270,6 +270,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="1.375" />
         <edmx:AssociationConnector Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" />
         <edmx:AssociationConnector Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrdersInvoice" Width="1.5" PointX="15.375" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceList" Width="2.75" PointX="15.375" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" Width="2.625" PointX="10.375" PointY="15.75" />
         </edmx:Diagram>

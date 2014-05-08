@@ -113,6 +113,7 @@
         ExportFlowFinancialDataClient = 255,
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,
+        ExportFlowOrdersInvoice = 264,
 
         // security
         User = 53,
