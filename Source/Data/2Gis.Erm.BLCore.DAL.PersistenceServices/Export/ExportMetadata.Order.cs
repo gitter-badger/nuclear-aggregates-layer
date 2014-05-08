@@ -20,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             () => EntityOperationMapping<Order>.ForEntity(EntityName.Order)
                   .Operation<CreateIdentity>()
                   .Operation<UpdateIdentity>()
-                  .Operation<CopyIdentity>()
                   .Operation<AssignIdentity>()
+                  .NonCoupledOperation<CopyOrderIdentity>()
                   .NonCoupledOperation<RemoveBargainIdentity>()
                   .NonCoupledOperation<SetInspectorIdentity>()
                   .NonCoupledOperation<ChangeDealIdentity>()
@@ -54,6 +54,11 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             () => EntityOperationMapping<Order>.ForEntity(EntityName.Bargain)
                   .NonCoupledOperation<BindToOrderIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Bargain>(ids)).SelectMany(bargain => bargain.Orders)),
+
+            () => EntityOperationMapping<Order>.ForEntity(EntityName.Firm)
+                  .NonCoupledOperation<ImportFirmIdentity>()
+                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
+                                              .SelectMany(firm => firm.Orders)),
 
             // При получении карточки адреса фирмы выгружаются все связанные с данной фирмой заказа активные, не удалённые, которые НЕ в статусе "Архив";
             // http://confluence.2gis.local/pages/viewpage.action?pageId=95748369

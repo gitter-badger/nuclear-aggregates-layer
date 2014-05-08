@@ -60,8 +60,6 @@
     <Compile Include="Reports\DTO\ReportDto.cs" />
     <Compile Include="Reports\DTO\ReportFieldDto.cs" />
     <Compile Include="ClientPersistenceService.cs" />
-    <Compile Include="Export\ExportableEntityDto.cs" />
-    <Compile Include="Export\IExportableEntityDto.cs" />
     <Compile Include="Export\IExportRepository.cs" />
     <Compile Include="IExportPersistenceService.cs" />
     <Compile Include="Export\ExportMetadata.Client.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="Export\ExportMetadata.Advertisement.cs" />
     <Compile Include="Export\ExportMetadataProvider.cs" />
     <Compile Include="Export\ExportRepository.cs" />
-    <Compile Include="Export\IExportableOperationsPersistenceService.cs" />
     <Compile Include="Export\IExportMetadataProvider.cs" />
     <Compile Include="Export\QueryBuider\FailedQueueQueryBuilder.cs" />
     <Compile Include="Export\QueryBuider\IQueryBuilder.cs" />

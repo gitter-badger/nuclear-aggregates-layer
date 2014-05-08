@@ -58,25 +58,27 @@
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
-    <Compile Include="Concrete\Integration\Export\ExportableOperationsPersistenceService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\AdvertismentOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\ClientOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\FirmAddressOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\HotClientRequestOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\ImportedFirmAddressOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\IntegrationService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\LegalPersonOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\OperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\OrderOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\PriceOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\PricePositionOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\ThemeOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\ThemeOrganizationUnitOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\Export\ThemeTemplateOperationsExportService.cs" />
-    <Compile Include="Concrete\Integration\Export\HotClientRequestOperationsExporter.cs" />
-    <Compile Include="Concrete\Integration\Export\ImportedFirmAddressOperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PriceOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PricePositionOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\OperationsProcessingsStoreService.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\ExportableEntityDto.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\AdvertismentIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ClientIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\FirmAddressIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\HotClientRequestIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ImportedFirmAddressIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\IntegrationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\InvoiceIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\LegalPersonIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\IntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\OrderIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeOrganizationUnitIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeTemplateIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\HotClientRequestOperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
-    <Compile Include="Concrete\Integration\Export\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeObjectsHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeInvoicesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeOrdersHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeOrganizationUnitHandler.cs" />
@@ -707,6 +710,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Concrete\Integration\Schemas\flowOrders.AdvMaterial.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.Invoice.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Concrete\Integration\Schemas\flowOrders.Order.xsd">

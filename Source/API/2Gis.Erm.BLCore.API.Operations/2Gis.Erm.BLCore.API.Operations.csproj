@@ -71,8 +71,10 @@
     <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\FlowDescription.cs" />
+    <Compile Include="Concrete\Integration\Export\IExportableEntityDto.cs" />
+    <Compile Include="Concrete\Integration\Export\IOperationsProcessingsStoreService.cs" />
     <Compile Include="Concrete\Integration\Export\IOperationsExporter.cs" />
-    <Compile Include="Concrete\Integration\Export\IOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\IIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportFlowCardsForErmOperationService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -195,7 +197,6 @@
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ReplicateEntitiesToCrmRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\ExportObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\FlowStickersRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\ImportFlowCardsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\ImportFlowFinancialData1CRequest.cs" />
@@ -415,6 +416,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

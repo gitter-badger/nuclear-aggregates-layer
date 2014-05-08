@@ -4,17 +4,15 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.HotClient;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {
-    // TODO {d.ivanov, 25.11.2013}: сливается с файлом 2Gis.Erm.BLCore.Operations\Concrete\Integration\Export\HotClientRequestOperationsExporter.cs
-    public class HotClientRequestOperationsExporter : IOperationsExporter<HotClientRequest, ExportToMsCrm_HotClients>
+    public sealed class HotClientRequestOperationsExporter : IOperationsExporter<HotClientRequest, ExportToMsCrm_HotClients>
     {
         private readonly ICommonLog _logger;
         private readonly IPublicService _publicService;

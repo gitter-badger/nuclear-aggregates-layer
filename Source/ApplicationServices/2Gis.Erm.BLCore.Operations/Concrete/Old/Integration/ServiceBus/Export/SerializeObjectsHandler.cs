@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
@@ -9,13 +10,16 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Xml;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public abstract class SerializeObjectsHandler<TEntity> : RequestHandler<SerializeObjectsRequest<TEntity>, SerializeObjectsResponse>
+    public abstract class SerializeObjectsHandler<TEntity, TProcessedOperationEntity> :
+        RequestHandler<SerializeObjectsRequest<TEntity, TProcessedOperationEntity>, SerializeObjectsResponse>
         where TEntity : class, IEntity, IEntityKey
+        where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
         private readonly IExportRepository<TEntity> _exportRepository;
         private readonly ICommonLog _logger;
@@ -32,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         protected abstract ISelectSpecification<TEntity, IExportableEntityDto> CreateDtoExpression();
 
-        protected override SerializeObjectsResponse Handle(SerializeObjectsRequest<TEntity> request)
+        protected override SerializeObjectsResponse Handle(SerializeObjectsRequest<TEntity, TProcessedOperationEntity> request)
         {
             var builder = request.IsRecovery
                                   ? _exportRepository.GetBuilderForFailedObjects(request.FailedEntities)

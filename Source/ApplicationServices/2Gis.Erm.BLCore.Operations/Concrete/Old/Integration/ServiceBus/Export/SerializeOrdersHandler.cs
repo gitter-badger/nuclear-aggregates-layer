@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -13,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeOrdersHandler : SerializeObjectsHandler<Order>
+    public sealed class SerializeOrdersHandler : SerializeObjectsHandler<Order, ExportFlowOrdersOrder>
     {
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
@@ -23,6 +24,66 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             : base(exportOperationsRepository, logger)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
+        }
+
+        protected override ISelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
+        {
+            return new SelectSpecification<Order, IExportableEntityDto>(x => new OrderDto
+            {
+                Id = x.Id,
+
+                // order
+                Order = x,
+                FirmId = x.Firm.Id,
+                SourceOrganizationUnitDgppId = x.SourceOrganizationUnit.DgppId.Value,
+                DestOrganizationUnitDgppId = x.DestOrganizationUnit.DgppId.Value,
+
+                LegalEntityCode = x.LegalPersonId,
+                LegalEntityBranchCode = x.BranchOfficeOrganizationUnitId,
+
+                // Не фильтруем FirmAddresses по IsActive/IsDeleted, т.к. ERM не является мастер-системой для них
+                FirmAddressDgppIds = new long[0].Union(x.Firm.FirmAddresses.Select(z => z.Id)),
+
+                PayablePlan = x.PayablePlan,
+
+                OrderPositionDtos = x.OrderPositions.Where(z => z.IsActive && !z.IsDeleted)
+                .Select(z => new
+                {
+                    OrderPosition = z,
+
+                    // учитываем и обычные и пакетные позиции
+                    z.PricePosition.Position,
+                    ChildPositions = new[] { z.PricePosition.Position }
+                                    .Union(z.PricePosition.Position.ChildPositions.Where(p => p.IsActive && !p.IsDeleted).Select(p => p.ChildPosition))
+                                    .Where(p => !p.IsComposite),
+                }).Select(z => new
+                {
+                    z.OrderPosition,
+                    z.Position,
+
+                    ChildPositionDtos = z.ChildPositions.Select(p => new OrderPositionDto
+                    {
+                        // у Export и у ERM немного разные понимания слова category
+                        // в ERM category объединяет позиции в категории
+                        // в Export сategory это наоборот разделение мета-позиций по категориям
+                        // отсюда путаница в понимании атрибутов ProductCode и CategoryCode
+                        ProductCode = p.PositionCategory.ExportCode,
+                        CategoryCode = p.ExportCode,
+                        PlatformCode = p.Platform.DgppId,
+
+                        ObjectLinkDtos = z.OrderPosition.OrderPositionAdvertisements.Where(q => q.PositionId == p.Id).Select(q => new ObjectLinkDto
+                        {
+                            RubricCode = q.Category.Id,
+                            CardCode = q.FirmAddress.Id,
+                            FirmCode = x.Firm.Id,
+                            ThemeCode = q.ThemeId,
+                            AdvMaterialCode = q.AdvertisementId
+                        })
+                    })
+                })
+                .SelectMany(z => z.ChildPositionDtos)
+                .Where(z => z.ObjectLinkDtos.Any()),
+            });
         }
 
         protected override string GetError(IExportableEntityDto entityDto)
@@ -116,66 +177,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             return orderElement;
         }
-
-        protected override ISelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
-        {
-            return new SelectSpecification<Order, IExportableEntityDto>(x => new OrderDto
-            {
-                Id = x.Id,
-
-                // order
-                Order = x,
-                FirmId = x.Firm.Id,
-                SourceOrganizationUnitDgppId = x.SourceOrganizationUnit.DgppId.Value,
-                DestOrganizationUnitDgppId = x.DestOrganizationUnit.DgppId.Value,
-
-                LegalEntityCode = x.LegalPersonId,
-                LegalEntityBranchCode = x.BranchOfficeOrganizationUnitId,
-
-                // Не фильтруем FirmAddresses по IsActive/IsDeleted, т.к. ERM не является мастер-системой для них
-                FirmAddressDgppIds = new long[0].Union(x.Firm.FirmAddresses.Select(z => z.Id)),
-
-                PayablePlan = x.PayablePlan,
-
-                OrderPositionDtos = x.OrderPositions.Where(z => z.IsActive && !z.IsDeleted)
-                .Select(z => new
-                {
-                    OrderPosition = z,
-
-                    // учитываем и обычные и пакетные позиции
-                    z.PricePosition.Position,
-                    ChildPositions = new[] { z.PricePosition.Position }
-                                    .Union(z.PricePosition.Position.ChildPositions.Where(p => p.IsActive && !p.IsDeleted).Select(p => p.ChildPosition))
-                                    .Where(p => !p.IsComposite),
-                }).Select(z => new
-                {
-                    z.OrderPosition,
-                    z.Position,
-
-                    ChildPositionDtos = z.ChildPositions.Select(p => new OrderPositionDto
-                    {
-                        // у Export и у ERM немного разные понимания слова category
-                        // в ERM category объединяет позиции в категории
-                        // в Export сategory это наоборот разделение мета-позиций по категориям
-                        // отсюда путаница в понимании атрибутов ProductCode и CategoryCode
-                        ProductCode = p.PositionCategory.ExportCode,
-                        CategoryCode = p.ExportCode,
-                        PlatformCode = p.Platform.DgppId,
-
-                        ObjectLinkDtos = z.OrderPosition.OrderPositionAdvertisements.Where(q => q.PositionId == p.Id).Select(q => new ObjectLinkDto
-                        {
-                            RubricCode = q.Category.Id,
-                            CardCode = q.FirmAddress.Id,
-                            FirmCode = x.Firm.Id,
-                            ThemeCode = q.ThemeId,
-                            AdvMaterialCode = q.AdvertisementId
-                        })
-                    })
-                })
-                .SelectMany(z => z.ChildPositionDtos)
-                .Where(z => z.ObjectLinkDtos.Any()),
-            });
-        }
         
         private static XElement GetPromotionalCardsElement(OrderDto orderDto)
         {
@@ -253,7 +254,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         #region nested types
 
-        private sealed class OrderDto : IExportableEntityDto
+        public sealed class OrderDto : IExportableEntityDto
         {
             public long Id { get; set; }
 
@@ -269,7 +270,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<OrderPositionDto> OrderPositionDtos { get; set; }
         }
 
-        private sealed class OrderPositionDto
+        public sealed class OrderPositionDto
         {
             public int ProductCode { get; set; }
             public int CategoryCode { get; set; }
@@ -278,7 +279,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<ObjectLinkDto> ObjectLinkDtos { get; set; }
         }
 
-        private sealed class ObjectLinkDto
+        public sealed class ObjectLinkDto
         {
             public long? RubricCode { get; set; }
             public long? CardCode { get; set; }

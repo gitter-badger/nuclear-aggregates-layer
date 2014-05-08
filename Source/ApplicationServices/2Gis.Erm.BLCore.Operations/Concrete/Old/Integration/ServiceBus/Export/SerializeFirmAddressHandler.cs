@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeFirmAddressHandler : SerializeObjectsHandler<FirmAddress>
+    public sealed class SerializeFirmAddressHandler : SerializeObjectsHandler<FirmAddress, ExportFlowCardExtensionsCardCommercial>
     {
         public SerializeFirmAddressHandler(IExportRepository<FirmAddress> exportRepository,
                                            ICommonLog logger)
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             });
         }
 
-        private sealed class FirmAddressExportDto : IExportableEntityDto
+        public sealed class FirmAddressExportDto : IExportableEntityDto
         {
             public long Id { get; set; }
             public long FirmAddressDgppId { get; set; }
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<ServiceExportDto> Services { get; set; }
         }
 
-        private sealed class ServiceExportDto
+        public sealed class ServiceExportDto
         {
             public string Code { get; set; }
             public int BranchCode { get; set; }

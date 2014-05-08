@@ -5,7 +5,6 @@ using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.PostIntegrationActivities;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.DAL;
@@ -13,9 +12,10 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {
-    public class ImportedFirmAddressOperationsExporter : IOperationsExporter<FirmAddress, ImportedFirmAddress>
+    // TODO {all, 26.03.2014}: непосредственно используется finder, хотя данный тип не является readmodel (хотя пока и является simplifiedmodelconsumer) - учесть при рефакторинге обработки perfomed business operations
+    public sealed class ImportedFirmAddressOperationsExporter : IOperationsExporter<FirmAddress, ImportedFirmAddress>
     {
         private readonly IFinder _finder;
         private readonly IPublicService _publicService;

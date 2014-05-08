@@ -65,7 +65,6 @@
     <Compile Include="Jobs\LocalMessages\ExportLocalMessages.cs" />
     <Compile Include="Jobs\LocalMessages\ProcessLocalMessages.cs" />
     <Compile Include="Jobs\LocalMessages\ReprocessLocalMessages.cs" />
-    <Compile Include="Jobs\MS CRM\ExportObjectsToMsCrmJob.cs" />
     <Compile Include="Jobs\Olap\CalculateClientPromising.cs" />
     <Compile Include="Jobs\Olap\ImportFirmPromising.cs" />
     <Compile Include="Jobs\PostIntegrationActivities\PostIntegrationActivitiesWithFirmsJob.cs" />

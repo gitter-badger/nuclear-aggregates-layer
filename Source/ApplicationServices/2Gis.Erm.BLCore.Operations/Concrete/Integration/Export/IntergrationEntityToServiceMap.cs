@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Export;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
@@ -22,6 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 { EntityName.ExportFlowPriceListsPriceListPosition, IntegrationService.ExportFlowPriceListsPriceListPosition },
                 { EntityName.ExportToMsCrmHotClients, IntegrationService.CreateHotClientTask },
                 { EntityName.ImportedFirmAddress, IntegrationService.ImportFirmAddressNames },
+                { EntityName.ExportFlowOrdersInvoice, IntegrationService.ExportFlowOrdersInvoice },
             };
 
         public static IntegrationService AsIntegrationService(this EntityName entityName)

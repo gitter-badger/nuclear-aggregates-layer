@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -15,7 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
-    public sealed class SerializeAdvertisementHandler : SerializeObjectsHandler<Advertisement>
+    public sealed class SerializeAdvertisementHandler : SerializeObjectsHandler<Advertisement, ExportFlowOrdersAdvMaterial>
     {
         private readonly IFileService _fileService;
 
@@ -241,7 +242,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         #region nested types
 
-        private sealed class AdvertisementDto : IExportableEntityDto
+        public sealed class AdvertisementDto : IExportableEntityDto
         {
             public long Id { get; set; }
 
@@ -252,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public IEnumerable<ElementDto> Elements { get; set; }
         }
 
-        private sealed class ElementDto
+        public sealed class ElementDto
         {
             public long Id { get; set; }
             public AdvertisementElementRestrictionType RestrictionType { get; set; }

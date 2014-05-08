@@ -187,6 +187,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName ExportFlowFinancialDataLegalEntity = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowFinancialData_LegalEntity");
         
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersOrder = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowOrders_Order");
+
+        public static readonly SchemaQualifiedObjectName ExportFlowOrdersInvoice = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowOrders_Invoice");
         
         public static readonly SchemaQualifiedObjectName ExportToMsCrmHotClients = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportToMsCrm_HotClients");
         
