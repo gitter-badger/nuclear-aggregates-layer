@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         [Dependency(DependencyType.NotRequiredDisableHide, "BusinessmanEgrpou", "this.value!='Businessman'")]
         public LegalPersonType LegalPersonType { get; set; }
 
+        [RequiredLocalized]
         public string LegalAddress { get; set; }
 
         [StringLengthLocalized(12, MinimumLength = 10)]
