@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -65,16 +66,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
             }
 
             // TODO {01.02.2013}: Убрать получение DTO-объекта в агрегирующий репозиторий
-            var model = _finder.Find<LegalPerson>(x => x.Id == id)
-            .Select(legalPerson => new ChileChangeLegalPersonRequisitesViewModel
-            {
-                Id = legalPerson.Id,
-                Rut = legalPerson.Inn,
-                LegalAddress = legalPerson.LegalAddress,
-                LegalName = legalPerson.LegalName,
-                Timestamp = legalPerson.Timestamp
-            })
-            .Single();
+            var legalPerson = _legalPersonReadModel.GetLegalPerson(id);
+
+            var model =
+                new ChileChangeLegalPersonRequisitesViewModel
+                    {
+                        Id = legalPerson.Id,
+                        OperationsKind = legalPerson.ChilePart().OperationsKind,
+                        Rut = legalPerson.Inn,
+                        LegalAddress = legalPerson.LegalAddress,
+                        LegalName = legalPerson.LegalName,
+                        Timestamp = legalPerson.Timestamp
+                    };
 
             var communeReference = _chileLegalPersonReadModel.GetCommuneReference(id);
 
@@ -101,6 +104,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
                     Rut = model.Rut,
                     LegalAddress = model.LegalAddress,
                     LegalName = model.LegalName,
+                    OperationsKind = model.OperationsKind,
                     CommuneId = model.Commune.Key.Value
                 });
                 model.Message = BLResources.OK;

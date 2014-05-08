@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -16,7 +17,6 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -76,9 +76,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
                 entity.LegalAddress = request.LegalAddress;
                 entity.Inn = request.Rut;
 
-                var chileLegalPersonPart = entity.Parts.OfType<ChileLegalPersonPart>().Single();
+                var chileLegalPersonPart = entity.ChilePart();
                 chileLegalPersonPart.CommuneId = request.CommuneId;
-
+                chileLegalPersonPart.OperationsKind = request.OperationsKind;
             }
 
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())
