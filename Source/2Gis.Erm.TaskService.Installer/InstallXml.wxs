@@ -11,7 +11,7 @@
   <?ifndef ProductVersion ?>
     <?define ProductVersion = "0.0.0" ?>
   <?endif?>
-
+  
   <?ifndef EnvironmentName ?>
     <?define EnvironmentName = "Dev" ?>
     <?include Variables.wxi ?>
@@ -20,9 +20,12 @@
     <?include Variables.$(var.EnvironmentName).wxi ?>
     <?define QuartzConfigFileName = "quartz.$(var.EnvironmentName).config" ?>
   <?endif ?>
+  
+  <?ifndef ServiceName ?>
+    <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
+  <?endif ?>
 
   <!-- calculated properties -->
-  <?define ServiceName = "$(var.EnvironmentName)" ?>
   <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.ProductVersion))" ?>
 
   <!-- detect platform -->
