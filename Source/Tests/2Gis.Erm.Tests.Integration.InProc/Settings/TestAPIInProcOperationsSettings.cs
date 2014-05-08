@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
@@ -29,6 +30,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
                 .Use<WarmClientProcessingSettingsAspect>()
                 .Use<DebtProcessingSettingsAspect>()
                 .Use<NotificationsSettingsAspect>()
+                .Use<IntegrationSettingsAspect>()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()

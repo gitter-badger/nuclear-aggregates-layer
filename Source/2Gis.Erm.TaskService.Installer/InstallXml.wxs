@@ -7,25 +7,32 @@
   <?define ManufacturerProjectName = "$(var.Manufacturer) ERM" ?>
   <?define PackageDescription = "Сервис выполнения задач по расписанию системы ERM" ?>
 
-  <!-- $(var.ProductVersion) set externally by CI server -->
+  <!-- default values for parameters -->
+  <?ifndef ProductVersion ?>
+    <?define ProductVersion = "0.0.0" ?>
+  <?endif?>
   
-  <?ifdef PublishProfileName ?>
-    <?include Variables.$(var.PublishProfileName).wxi ?>
-    <?define QuartzConfigFileName = "quartz.$(var.PublishProfileName).config" ?>
-    <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.PublishProfileName)) ($(var.ProductVersion))" ?>
-    <?define ServiceName = "$(var.PublishProfileName)" ?>
-  <?else ?>
+  <?ifndef EnvironmentName ?>
+    <?define EnvironmentName = "Dev" ?>
     <?include Variables.wxi ?>
     <?define QuartzConfigFileName = "quartz.config" ?>
-    <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service (Dev) ($(var.ProductVersion))" ?>
-    <?define ServiceName = "Dev" ?>
+  <?else ?>
+    <?include Variables.$(var.EnvironmentName).wxi ?>
+    <?define QuartzConfigFileName = "quartz.$(var.EnvironmentName).config" ?>
   <?endif ?>
+  
+  <?ifndef ServiceName ?>
+    <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
+  <?endif ?>
+
+  <!-- calculated properties -->
+  <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.ProductVersion))" ?>
 
   <!-- detect platform -->
   <?if $(var.Platform) = x64 ?>
-  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
   <?else ?>
-  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
 
   <Product
