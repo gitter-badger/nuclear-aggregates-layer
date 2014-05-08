@@ -18,13 +18,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <Name>2Gis.Erm.TaskService.Installer</Name>
   </PropertyGroup>
-  <PropertyGroup Label="ERM hack: override Wix constants">
-    <DefineConstants>ProductVersion=0.0.0</DefineConstants>
-    <DefineConstants Condition=" '$(DefineConstantsOverrides)' != '' ">$([MSBuild]::Unescape($(DefineConstantsOverrides)))</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <CompilerAdditionalOptions>
+    </CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
