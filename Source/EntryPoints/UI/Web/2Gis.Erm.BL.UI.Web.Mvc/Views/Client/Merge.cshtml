@@ -78,7 +78,7 @@
                 <tr height="40">
                     <td colspan="3">
                         <table id="header" style="border-collapse: collapse; width: 100%; height: 100%; table-layout: fixed;
-                            border-left: #889dc2 1px solid; border-top: #889dc2 1px solid; border-right: #889dc2 1px solid;">
+                                                                                                                                                                                                                                                              border-left: #889dc2 1px solid; border-top: #889dc2 1px solid; border-right: #889dc2 1px solid;">
                             <colgroup>
                                 <col width="165" />
                                 <col width="20" />
@@ -97,7 +97,7 @@
                                         <input type="radio" name="client" id="client_1" class="rad left" checked="checked" />
                                     </td>
                                     <td>
-                                        @Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client2Id}" })
+                                        @Html.LookupFor(m => m.Client1, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "restrictForMergeId={Client2Id}", ReadOnly = Model.DisableMasterClient })
                                         @Html.ValidationMessageFor(m=>m.Client1)
                                     </td>
                                     <td />
@@ -109,14 +109,19 @@
                                         @Html.ValidationMessageFor(m=>m.Client2)
                                     </td>
                                 </tr>
-                                <tr>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3" id="dataRegion" />
+                </tr>
+                <tr>
+                    <td style="vertical-align: bottom">
+                        @Html.CheckBoxFor(m => m.AssignAllObjects)
+                        @Html.LabelFor(m => m.AssignAllObjects, BLResources.AssignInAllHierarchy, new { style = "font-weight: bold" })
+                    </td> 
                 </tr>
                 <tr height="5px;">
                     <td />
