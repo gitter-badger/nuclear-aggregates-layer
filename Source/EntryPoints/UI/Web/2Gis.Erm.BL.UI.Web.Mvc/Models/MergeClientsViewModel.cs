@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -12,6 +11,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized]
         public LookupField Client2 { get; set; }
         public ClientViewModel PostData { get; set; }
+
+        public bool AssignAllObjects { get; set; }
+        public bool DisableMasterClient { get; set; }
     }
 
     public sealed class MergeClientsDataViewModel : ViewModel
