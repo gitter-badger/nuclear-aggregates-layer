@@ -10,10 +10,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -76,7 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         #region Merge Clients
         
         [HttpGet]
-        public ActionResult Merge(long masterId, long? subordinateId)
+        public ActionResult Merge(long masterId, long? subordinateId, bool? disableMasterClient)
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.MergeClients, UserContext.Identity.Code))
             {
@@ -93,7 +91,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                   ? _finder.Find<Client>(c => c.Id == subordinateId && !c.IsDeleted && c.IsActive)
                                            .Select(c => new LookupField { Key = c.Id, Value = c.Name })
                                            .Single()
-                                  : null
+                                  : null,
+                    DisableMasterClient = disableMasterClient == true
                 };
             model.SetWarning(BLResources.MergeRecordsNotification);
             return View(model);
@@ -115,7 +114,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 _publicService.Handle(new MergeClientsRequest
                 {
                     AppendedClientId = model.AppendedClient,
-                    Client = entity
+                    Client = entity,
+                    AssignAllObjects = model.AssignAllObjects
                 });
                 result.Message = BLResources.OK;
             }

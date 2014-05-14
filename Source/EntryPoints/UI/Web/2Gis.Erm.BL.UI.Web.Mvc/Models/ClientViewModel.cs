@@ -97,6 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         // Поле, необходимое для мерджа клиентов
         public long AppendedClient { get; set; }
+        public bool AssignAllObjects { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
