@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             Tuple<Client, Client> clients;
             using (var operationScope = _scopeFactory.CreateSpecificFor<MergeIdentity, Client>())
             {
-                clients = _clientRepository.MergeErmClients(request.Client.Id, request.AppendedClientId, request.Client);
+                clients = _clientRepository.MergeErmClients(request.Client.Id, request.AppendedClientId, request.Client, request.AssignAllObjects);
 
                 operationScope
                     .Updated<Client>(request.Client.Id, request.AppendedClientId)
@@ -58,18 +58,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 
             var mainClient = clients.Item1;
             var appendedClient = clients.Item2;
-            // Replication
-            _subRequestProcessor.HandleSubRequest(new AssignClientRelatedEntitiesRequest
-                                                      {
-                                                          OwnerCode = request.Client.OwnerCode,
-                                                          ClientId = request.AppendedClientId
-                                                      }, Context, false);
 
-            _subRequestProcessor.HandleSubRequest(new AssignClientRelatedEntitiesRequest
-                                                      {
-                                                          OwnerCode = request.Client.OwnerCode,
-                                                          ClientId = request.Client.Id
-                                                      }, Context, false);
+            if (request.AssignAllObjects)
+            {
+                // Replication
+                _subRequestProcessor.HandleSubRequest(new AssignClientRelatedEntitiesRequest
+                    {
+                        OwnerCode = request.Client.OwnerCode,
+                        ClientId = request.AppendedClientId
+                    },
+                                                      Context,
+                                                      false);
+
+                _subRequestProcessor.HandleSubRequest(new AssignClientRelatedEntitiesRequest
+                    {
+                        OwnerCode = request.Client.OwnerCode,
+                        ClientId = request.Client.Id
+                    },
+                                                      Context,
+                                                      false);
+            }
 
             if (_msCrmSettings.EnableReplication)
             {

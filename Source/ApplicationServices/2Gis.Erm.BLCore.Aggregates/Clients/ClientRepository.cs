@@ -483,7 +483,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         }
         }
 
-        public Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient)
+        public Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient, bool assignAllObjects)
         {
             var mainClient = _finder.Find(Specs.Find.ById<Client>(mainClientId)).Single();
             var appendedClient = _finder.Find(Specs.Find.ById<Client>(appendedClientId)).Single();
@@ -496,68 +496,75 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             {
                 Deactivate(appendedClient);
 
-                // Сначала прокинем куратора в сущности добавляемого клиента
-                AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
+                if (assignAllObjects)
+                {
+                    // Сначала прокинем куратора в сущности добавляемого клиента
+                    AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
+                }
+                else
+                {
+                    Assign(appendedClient, masterClient.OwnerCode);
+                }
 
                 var relatedEntities = _secureFinder.Find(Specs.Find.ById<Client>(appendedClient.Id))
-                .Select(x => new
-                {
-                    Deals = x.Deals.Where(y => !y.IsDeleted),
-                    Firms = x.Firms.Where(y => !y.IsDeleted),
-                    Contacts = x.Contacts.Where(y => !y.IsDeleted),
-                    LegalPersons = x.LegalPersons.Where(y => !y.IsDeleted),
-                })
-                .Single();
+                                                   .Select(x => new
+                                                       {
+                                                           Deals = x.Deals.Where(y => !y.IsDeleted),
+                                                           Firms = x.Firms.Where(y => !y.IsDeleted),
+                                                           Contacts = x.Contacts.Where(y => !y.IsDeleted),
+                                                           LegalPersons = x.LegalPersons.Where(y => !y.IsDeleted),
+                                                       })
+                                                   .Single();
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Deal>())
                 {
-                foreach (var deal in relatedEntities.Deals)
-                {
-                    deal.ClientId = mainClient.Id;
-                    _dealGenericRepository.Update(deal);
+                    foreach (var deal in relatedEntities.Deals)
+                    {
+                        deal.ClientId = mainClient.Id;
+                        _dealGenericRepository.Update(deal);
                         operationScope.Updated<Deal>(deal.Id);
-                }
+                    }
 
-                _dealGenericRepository.Save();
+                    _dealGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Contact>())
                 {
-                foreach (var contact in relatedEntities.Contacts)
-                {
-                    contact.ClientId = mainClient.Id;
-                    _contactGenericRepository.Update(contact);
+                    foreach (var contact in relatedEntities.Contacts)
+                    {
+                        contact.ClientId = mainClient.Id;
+                        _contactGenericRepository.Update(contact);
                         operationScope.Updated<Contact>(contact.Id);
-                }
+                    }
 
-                _contactGenericRepository.Save();
+                    _contactGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Firm>())
                 {
-                foreach (var firm in relatedEntities.Firms)
-                {
-                    firm.ClientId = mainClient.Id;
-                    _firmGenericRepository.Update(firm);
+                    foreach (var firm in relatedEntities.Firms)
+                    {
+                        firm.ClientId = mainClient.Id;
+                        _firmGenericRepository.Update(firm);
                         operationScope.Updated<Firm>(firm.Id);
-                }
+                    }
 
-                _firmGenericRepository.Save();
+                    _firmGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, LegalPerson>())
                 {
-                foreach (var legalPerson in relatedEntities.LegalPersons)
-                {
-                    legalPerson.ClientId = mainClient.Id;
-                    _legalPersonGenericRepository.Update(legalPerson);
+                    foreach (var legalPerson in relatedEntities.LegalPersons)
+                    {
+                        legalPerson.ClientId = mainClient.Id;
+                        _legalPersonGenericRepository.Update(legalPerson);
                         operationScope.Updated<LegalPerson>(legalPerson.Id);
-                }
+                    }
 
-                _legalPersonGenericRepository.Save();
+                    _legalPersonGenericRepository.Save();
                     operationScope.Complete();
                 }
 
@@ -567,7 +574,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 _clientGenericSecureRepository.Update(mainClient);
                 _clientGenericSecureRepository.Save();
 
-                transaction.Complete(); 
+                transaction.Complete();
             }
 
             return new Tuple<Client, Client>(mainClient, appendedClient);

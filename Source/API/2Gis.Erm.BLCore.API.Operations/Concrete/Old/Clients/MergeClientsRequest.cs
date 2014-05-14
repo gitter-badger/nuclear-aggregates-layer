@@ -7,5 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients
     {
         public long AppendedClientId { get; set; }
         public Client Client { get; set; }
+        public bool AssignAllObjects { get; set; }
     }
 }

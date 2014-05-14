@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         int ChangeTerritory(Client client, long territoryId);
         void ChangeTerritory(IEnumerable<Client> clients, long territoryId);
         void ValidateOwnerIsNotReserve(Client client);
-        Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient);
+        Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient, bool assignAllObjects);
         void CalculatePromising();
         IEnumerable<Client> GetClientsByTerritory(long territoryId);
         void CreateOrUpdate(Client client);
