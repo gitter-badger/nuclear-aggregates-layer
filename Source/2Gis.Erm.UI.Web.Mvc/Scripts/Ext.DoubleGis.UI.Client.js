@@ -42,7 +42,7 @@
             };
             this.Merge = function () {
                 var params = "dialogWidth:" + 800 + "px; dialogHeight:" + 600 + "px; status:yes; scroll:yes;resizable:yes;";
-                var url = '/Client/Merge?masterId={0}';
+                var url = '/Client/Merge?masterId={0}&disableMasterClient=true';
                 window.showModalDialog(String.format(url, Ext.getDom("Id").value), null, params);
                 this.refresh(true);
             };
