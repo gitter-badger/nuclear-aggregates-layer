@@ -733,7 +733,7 @@
     <value>empresas</value>
   </data>
   <data name="PricePositionForPositionAlreadyCreated" xml:space="preserve">
-    <value>Ya se ha creado la posición de la lista de precios para el elemento seleccionado del directorio de nomenclaturas</value>
+    <value>Уже создана активная позиция прайс-листа для выбранного элемента номенклатурного справочника</value>
   </data>
   <data name="PricePositionPlatformIsNotSupportedByExport" xml:space="preserve">
     <value>La posición de la lista de precios tiene una plataforma que no es compatible con la Exportación</value>
@@ -5179,5 +5179,20 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
     <value>No se puede crear la posición compleja con el tipo de enlace con el objeto distinto de los siguientes: {0}</value>
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value>Профиль юр. лица, указанный в заказе, должен принадлежать юр. лицу, указанному в заказе</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Ошибки</value>
+  </data>
+  <data name="File" xml:space="preserve">
+     <value>Файл</value>
+  </data>
+  <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя активировать позицию из опубликованного прайс-листа</value>
+  </data>
+  <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value>Уже создана скрытая позиция прайс-листа для выбранного элемента номенклатурного справочника</value>
   </data>
 </root>
