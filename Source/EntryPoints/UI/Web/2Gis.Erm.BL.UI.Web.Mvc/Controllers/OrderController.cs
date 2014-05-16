@@ -33,6 +33,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -72,6 +73,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IReplicationCodeConverter _replicationCodeConverter;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -94,7 +96,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
-                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService)
+                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
+                               ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -114,6 +117,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderCreationOperation = orderCreationOperation;
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         #region Ajax methods
@@ -944,7 +948,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                      Key = profileId,
                                                      Value = _legalPersonReadModel.GetLegalPersonProfile(profileId.Value).Name
                                                  }
-                                             : null
+                                             : null,
+                    IsCardReadOnly =
+                        !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                     EntityName.Order,
+                                                                     UserContext.Identity.Code,
+                                                                     orderId,
+                                                                     order.OwnerCode,
+                                                                     order.OwnerCode)
                 };
 
             return View(printOrderModel);

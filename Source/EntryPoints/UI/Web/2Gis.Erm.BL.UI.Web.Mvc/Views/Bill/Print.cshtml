@@ -1,4 +1,4 @@
-﻿@model BL.UI.Web.Mvc.Models.PrintOrderViewModel
+﻿@model PrintOrderViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -77,7 +77,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" })
+                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly})
                                     </td>
                                 </tr>
                             </tbody>

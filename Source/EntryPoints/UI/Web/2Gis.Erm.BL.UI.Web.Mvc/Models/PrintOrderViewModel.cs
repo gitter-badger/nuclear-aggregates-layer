@@ -17,5 +17,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public long LegalPersonId { get; set; }
 
         public long OrderId { get; set; }
+
+        public bool IsCardReadOnly { get; set; }
     }
 }
