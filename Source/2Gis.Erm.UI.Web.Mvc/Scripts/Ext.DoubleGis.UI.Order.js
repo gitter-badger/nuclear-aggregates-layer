@@ -163,7 +163,7 @@ window.InitPage = function () {
                             if (settings.callback) {
                                 settings.callback();
                             }
-                            this.Items.Toolbar.enable();
+                            this.recalcToolbarButtonsAvailability();
                         }
                     });
                 },
@@ -232,7 +232,7 @@ window.InitPage = function () {
                     }
 
                     iframe.src = url;
-                    this.Items.Toolbar.enable();
+                    this.recalcToolbarButtonsAvailability();
                 },
                 PrintWithProfileChoosing: function (methodName, profileId) {
                     var entityId = Ext.getDom('Id').value;
@@ -511,7 +511,7 @@ window.InitPage = function () {
                                         alert(Ext.LocalizedResources.CloseBargains_CurrentBargainIsObsolete);
                                 }
                             }
-                            this.Items.Toolbar.enable();
+                            this.recalcToolbarButtonsAvailability();
                         }
                         else {
                             alert(bargainInfoResponse.conn.responseText);
@@ -582,11 +582,11 @@ window.InitPage = function () {
                     }
                     else {
                         this.SetPreviousState(this.previousOrderState); //если окно упало, то откатываю статус назад
-                        this.Items.Toolbar.enable();
+                        this.recalcToolbarButtonsAvailability();
                     }
                 },
                 onCheckManagerValidationCompleted: function (proceed) {
-                    this.Items.Toolbar.enable();
+                    this.recalcToolbarButtonsAvailability();
                     if (proceed) {
                         Ext.fly('ViewConfig_ReadOnly').setValue(false);
                         var newState = Ext.getDom('WorkflowStepId').value;
@@ -622,7 +622,7 @@ window.InitPage = function () {
                     }
                 },
                 onCheckManagerError: function (errorText) {
-                    this.Items.Toolbar.enable();
+                    this.recalcToolbarButtonsAvailability();
                     this.AddNotification(errorText, 'CriticalError', "ServerError");
                 },
                 SetPreviousState: function (prevState) {
@@ -659,7 +659,7 @@ window.InitPage = function () {
                             Ext.getCmp("EndDistributionDatePlan").setRawValue(new Date(orderInfo.EndDistributionDatePlan));
                             Ext.getCmp("EndDistributionDateFact").setRawValue(new Date(orderInfo.EndDistributionDateFact));
                         }
-                        this.Items.Toolbar.enable();
+                        this.recalcToolbarButtonsAvailability();
                     }
                     else {
                         alert(orderInfoResponse.conn.responseText);
@@ -698,7 +698,7 @@ window.InitPage = function () {
                     });
 
                     if ((newDiscountInfoResponse.conn.status >= 200 && newDiscountInfoResponse.conn.status < 300) || (Ext.isIE && newDiscountInfoResponse.conn.status == 1223)) {
-                        this.Items.Toolbar.enable();
+                        this.recalcToolbarButtonsAvailability();
                         discountPercent.dom.disabled = null;
                         discountSum.dom.disabled = null;
 
