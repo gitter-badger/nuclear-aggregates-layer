@@ -1,4 +1,4 @@
-﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.PrintOrderViewModel
+﻿@model PrintOrderViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -13,6 +13,7 @@
     <script src="/Scripts/Tooltip.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     
+
     <script type="text/javascript">
         Ext.onReady(function() {
 
@@ -93,7 +94,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId"})
+                                        @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly})
                                     </td>
                                 </tr>
                             </tbody>
