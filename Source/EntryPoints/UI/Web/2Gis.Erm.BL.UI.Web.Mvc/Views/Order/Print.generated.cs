@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/Print.cshtml")]
-    public partial class Print : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BL.UI.Web.Mvc.Models.PrintOrderViewModel>
+    public partial class Print : System.Web.Mvc.WebViewPage<PrintOrderViewModel>
     {
         public Print()
         {
@@ -109,35 +109,35 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 370), Tuple.Create("\"", 430)
-, Tuple.Create(Tuple.Create("", 376), Tuple.Create("/Scripts/Tooltip.js?", 376), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 335), Tuple.Create("\"", 395)
+, Tuple.Create(Tuple.Create("", 341), Tuple.Create("/Scripts/Tooltip.js?", 341), true)
             
             #line 13 "..\..\Views\Order\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 396), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 361), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 396), false)
+, 361), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 477), Tuple.Create("\"", 558)
-, Tuple.Create(Tuple.Create("", 483), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 483), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 442), Tuple.Create("\"", 523)
+, Tuple.Create(Tuple.Create("", 448), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 448), true)
             
             #line 14 "..\..\Views\Order\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 524), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 489), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 524), false)
+, 489), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n    \r\n    <script");
+WriteLiteral("></script>\r\n    \r\n\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
@@ -176,13 +176,13 @@ WriteLiteral(">\r\n        Ext.onReady(function() {\r\n\r\n            Ext.getCm
 " </script>\r\n    \r\n");
 
             
-            #line 72 "..\..\Views\Order\Print.cshtml"
+            #line 73 "..\..\Views\Order\Print.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 72 "..\..\Views\Order\Print.cshtml"
+            #line 73 "..\..\Views\Order\Print.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> {{"id", "EntityForm"}}))
     {
 
@@ -216,16 +216,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 3699), Tuple.Create("\"", 3771)
-, Tuple.Create(Tuple.Create("", 3744), Tuple.Create("AddTooltip(", 3744), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 3666), Tuple.Create("\"", 3738)
+, Tuple.Create(Tuple.Create("", 3711), Tuple.Create("AddTooltip(", 3711), true)
             
-            #line 83 "..\..\Views\Order\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 3755), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 84 "..\..\Views\Order\Print.cshtml"
+, Tuple.Create(Tuple.Create("", 3722), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 3755), false)
-, Tuple.Create(Tuple.Create("", 3769), Tuple.Create(");", 3769), true)
+, 3722), false)
+, Tuple.Create(Tuple.Create("", 3736), Tuple.Create(");", 3736), true)
 );
 
 WriteLiteral(" \r\n                             onmouseout=\"RemoveTooltip();\"");
@@ -235,7 +235,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 85 "..\..\Views\Order\Print.cshtml"
+            #line 86 "..\..\Views\Order\Print.cshtml"
                        Write(Model.Message);
 
             
@@ -252,7 +252,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 91 "..\..\Views\Order\Print.cshtml"
+            #line 92 "..\..\Views\Order\Print.cshtml"
                                                                           Write(BLResources.PrintWithLegalPersonProfile);
 
             
@@ -274,8 +274,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 96 "..\..\Views\Order\Print.cshtml"
-                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId"}));
+            #line 97 "..\..\Views\Order\Print.cshtml"
+                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly}));
 
             
             #line default
@@ -315,62 +315,62 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 120 "..\..\Views\Order\Print.cshtml"
+            #line 121 "..\..\Views\Order\Print.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Order\Print.cshtml"
+            #line 121 "..\..\Views\Order\Print.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Order\Print.cshtml"
+            #line 121 "..\..\Views\Order\Print.cshtml"
                                        
         
             
             #line default
             #line hidden
             
-            #line 121 "..\..\Views\Order\Print.cshtml"
+            #line 122 "..\..\Views\Order\Print.cshtml"
    Write(Html.HiddenFor(m => m.LegalPersonId));
 
             
             #line default
             #line hidden
             
-            #line 121 "..\..\Views\Order\Print.cshtml"
+            #line 122 "..\..\Views\Order\Print.cshtml"
                                              
         
             
             #line default
             #line hidden
             
-            #line 122 "..\..\Views\Order\Print.cshtml"
+            #line 123 "..\..\Views\Order\Print.cshtml"
    Write(Html.HiddenFor(m => m.PrintOrderType));
 
             
             #line default
             #line hidden
             
-            #line 122 "..\..\Views\Order\Print.cshtml"
+            #line 123 "..\..\Views\Order\Print.cshtml"
                                               
         
             
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Order\Print.cshtml"
+            #line 124 "..\..\Views\Order\Print.cshtml"
    Write(Html.HiddenFor(m => m.DefaultLegalPersonProfileId));
 
             
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Order\Print.cshtml"
+            #line 124 "..\..\Views\Order\Print.cshtml"
                                                            
     }
 

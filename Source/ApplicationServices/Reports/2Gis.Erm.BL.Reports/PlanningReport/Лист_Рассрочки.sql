@@ -30,7 +30,6 @@ JOIN (	SELECT t.AccountId
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
 					AND o.EndDistributionDateFact > @IssueDate
-					AND o.BudgetType = 2
 					AND o.PayablePlan > 0
 					and o.BeginDistributionDate < dateadd(m,1,@IssueDate) -- отсекаем будующие заказы
 				GROUP BY o.Id, o.AccountId) t

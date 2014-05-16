@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Bill
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
+    using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Bill
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Bill/Print.cshtml")]
-    public partial class Print : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.PrintOrderViewModel>
+    public partial class Print : System.Web.Mvc.WebViewPage<PrintOrderViewModel>
     {
         public Print()
         {
@@ -108,30 +109,30 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 356), Tuple.Create("\"", 416)
-, Tuple.Create(Tuple.Create("", 362), Tuple.Create("/Scripts/Tooltip.js?", 362), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 335), Tuple.Create("\"", 395)
+, Tuple.Create(Tuple.Create("", 341), Tuple.Create("/Scripts/Tooltip.js?", 341), true)
             
             #line 13 "..\..\Views\Bill\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 382), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 361), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 382), false)
+, 361), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 463), Tuple.Create("\"", 544)
-, Tuple.Create(Tuple.Create("", 469), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 469), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 442), Tuple.Create("\"", 523)
+, Tuple.Create(Tuple.Create("", 448), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 448), true)
             
             #line 14 "..\..\Views\Bill\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 510), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 489), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 510), false)
+, 489), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -204,16 +205,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create("\r\n                             onmouseover=\"", 2789), Tuple.Create("\"", 2860)
-, Tuple.Create(Tuple.Create("", 2833), Tuple.Create("AddTooltip(", 2833), true)
+WriteAttribute("onmouseover", Tuple.Create("\r\n                             onmouseover=\"", 2768), Tuple.Create("\"", 2839)
+, Tuple.Create(Tuple.Create("", 2812), Tuple.Create("AddTooltip(", 2812), true)
             
             #line 67 "..\..\Views\Bill\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 2844), Tuple.Create<System.Object, System.Int32>(Model.Message
+, Tuple.Create(Tuple.Create("", 2823), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 2844), false)
-, Tuple.Create(Tuple.Create("", 2858), Tuple.Create(");", 2858), true)
+, 2823), false)
+, Tuple.Create(Tuple.Create("", 2837), Tuple.Create(");", 2837), true)
 );
 
 WriteLiteral("\r\n                             onmouseout=\"RemoveTooltip();\"");
@@ -263,7 +264,7 @@ WriteLiteral("                                        ");
 
             
             #line 80 "..\..\Views\Bill\Print.cshtml"
-                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" }));
+                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly}));
 
             
             #line default
