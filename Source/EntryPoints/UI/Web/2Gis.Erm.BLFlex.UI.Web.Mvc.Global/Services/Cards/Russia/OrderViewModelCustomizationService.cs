@@ -15,7 +15,6 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -88,7 +87,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             var isClosedWithDenial = !entityViewModel.IsActive;
 
             // Карточка только на чтение если не "на регистрациии" или закрыта отказом
-            entityViewModel.ViewConfig.ReadOnly = entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
+            var readOnlyInitially = entityViewModel.ViewConfig.ReadOnly;
+            entityViewModel.ViewConfig.ReadOnly = readOnlyInitially || entityViewModel.WorkflowStepId != (int)OrderState.OnRegistration || isClosedWithDenial;
 
             if (isClosedWithDenial)
             {
