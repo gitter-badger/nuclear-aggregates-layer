@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
@@ -73,36 +73,36 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
                                    .Select(x => new
-                                       {
-                                           x.Id,
-                                           x.FirmId,
-                                           x.WorkflowStepId,
-                                           x.ReleaseCountFact,
-                                           x.DealId,
-                                           x.EndDistributionDateFact,
-                                           x.OwnerCode,
-                                           x.DestOrganizationUnitId,
-                                           x.PlatformId,
-                                           OrderType = (OrderType)x.OrderType
-                                       })
+                                   {
+                                       x.Id,
+                                       x.FirmId,
+                                       x.WorkflowStepId,
+                                       x.ReleaseCountFact,
+                                       x.DealId,
+                                       x.EndDistributionDateFact,
+                                       x.OwnerCode,
+                                       x.DestOrganizationUnitId,
+                                       x.PlatformId,
+                                       OrderType = (OrderType)x.OrderType
+                                   })
                                    .Single();
 
             var subRequest = new CanCreateOrderPositionForOrderRequest
-                {
-                    OrderId = orderPosition.OrderId,
-                    OrderType = orderInfo.OrderType,
-                    FirmId = orderInfo.FirmId,
-                    OrderPositionCategoryIds = advertisementsLinks
-                        .Where(x => x.CategoryId.HasValue)
-                        .Select(x => x.CategoryId.Value)
-                        .ToArray(),
-                    OrderPositionFirmAddressIds = advertisementsLinks
-                        .Where(x => x.FirmAddressId.HasValue)
-                        .Select(x => x.FirmAddressId.Value)
-                        .ToArray(),
-                    IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
-                    AdvertisementLinksCount = advertisementsLinks.Count()
-                };
+            {
+                OrderId = orderPosition.OrderId,
+                OrderType = orderInfo.OrderType,
+                FirmId = orderInfo.FirmId,
+                OrderPositionCategoryIds = advertisementsLinks
+                    .Where(x => x.CategoryId.HasValue)
+                    .Select(x => x.CategoryId.Value)
+                    .ToArray(),
+                OrderPositionFirmAddressIds = advertisementsLinks
+                    .Where(x => x.FirmAddressId.HasValue)
+                    .Select(x => x.FirmAddressId.Value)
+                    .ToArray(),
+                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
+                AdvertisementLinksCount = advertisementsLinks.Count()
+            };
 
             var canCreateResponse = (CanCreateOrderPositionForOrderResponse)_publicService.Handle(subRequest);
             if (!canCreateResponse.CanCreate)
@@ -142,16 +142,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 
                     var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(
-                                                           x =>
-                                                           new
-                                                               {
-                                                                   x.Cost,
-                                                                   x.Position.AccountingMethodEnum,
-                                                                   x.Price.OrganizationUnitId,
-                                                                   x.Position.IsComposite,
-                                                                   x.PositionId,
-                                                                   x.PriceId
-                                                               })
+                                                       x =>
+                                                       new
+                                                       {
+                                                           x.Cost,
+                                                           x.Position.AccountingMethodEnum,
+                                                           x.Price.OrganizationUnitId,
+                                                           x.Position.IsComposite,
+                                                           x.PositionId,
+                                                           x.PriceId
+                                                       })
                                                    .Single();
 
                     if (orderInfo.DestOrganizationUnitId != pricePositionInfo.OrganizationUnitId)
@@ -160,21 +160,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                     }
 
                     var categoryRate = _calculateCategoryRateService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
-                                                                                           request.Entity.PricePositionId,
-                                                                                           request.CategoryId,
-                                                                                           true);
+                                               request.Entity.PricePositionId,
+                                               request.CategoryId,
+                                               true);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
-                            {
-                                Cost = pricePositionInfo.Cost,
-                                DiscountPercent = orderPosition.DiscountPercent,
-                                DiscountSum = orderPosition.DiscountSum,
-                                CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
-                                OrderId = orderPosition.OrderId,
-                                CategoryRate = categoryRate,
-                                Amount = orderPosition.Amount
-                            });
+                        {
+                            Cost = pricePositionInfo.Cost,
+                            DiscountPercent = orderPosition.DiscountPercent,
+                            DiscountSum = orderPosition.DiscountSum,
+                            CalculateDiscountViaPercent = orderPosition.CalculateDiscountViaPercent,
+                            OrderId = orderPosition.OrderId,
+                            CategoryRate = categoryRate,
+                            Amount = orderPosition.Amount
+                        });
 
                     orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
                     orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;

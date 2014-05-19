@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;

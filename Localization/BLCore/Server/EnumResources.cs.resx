@@ -592,7 +592,7 @@
     <value>Objednávka (Online bez DPH)</value>
   </data>
   <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
-    <value>Oznámení o zrušení objednávky bez uvedení důvodu pro pr. osobu</value>
+    <value>Oznámení o zrušení objednávky s uvedením důvodu pro pr. osobu</value>
   </data>
   <data name="TemplateCodeLimitRequest" xml:space="preserve">
     <value>Požadavek na limity</value>
@@ -1167,8 +1167,8 @@
   <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
     <value>Zpracování potenciálních zákazníků</value>
   </data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessing" xml:space="preserve">
-    <value>Zpracování potenciálních zákazníků 5. třídy</value>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Chybí</value>
@@ -1881,4 +1881,19 @@
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
     <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
   </data>
+  <data name="TaxationTypeNotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="TaxationTypeWithoutVat" xml:space="preserve">
+    <value>без НДС</value>
+  </data>
+  <data name="TaxationTypeWithVat" xml:space="preserve">
+    <value>с НДС</value>
+  </data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+  <comment></comment></data>
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>Договор (новая модель продаж)</value>
+  <comment></comment></data>
 </root>

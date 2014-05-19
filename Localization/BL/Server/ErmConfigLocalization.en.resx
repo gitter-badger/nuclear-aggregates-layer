@@ -1812,4 +1812,19 @@
   <data name="DListCommunes" xml:space="preserve">
     <value>Communes</value>
   </data>
+  <data name="DFieldEndPeriodDate" xml:space="preserve">
+    <value>Дата окончания периода</value>
+  </data>
+  <data name="DFieldStartPeriodDate" xml:space="preserve">
+    <value>Дата начала периода</value>
+  </data>
+  <data name="DFieldEgrpou" xml:space="preserve">
+    <value>ЕГРПОУ</value>
+  </data>
+  <data name="DFieldIpn" xml:space="preserve">
+    <value>ИПН</value>
+  </data>
+  <data name="ControlPrintNewSalesModelBargainAction" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

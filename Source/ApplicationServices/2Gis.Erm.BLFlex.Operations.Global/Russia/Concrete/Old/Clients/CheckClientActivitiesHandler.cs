@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;

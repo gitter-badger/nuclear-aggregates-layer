@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
+﻿using System;
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
@@ -32,13 +35,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
                        : _finder.SingleOrDefault(entity.Id, _partPropertiesConverter);
 
             return new IEntityPart[] { part };
-        }
+            }
 
         public void CopyPartFields(BranchOfficeOrganizationUnit target, IDomainEntityDto dto)
         {
             var source = (ChileBranchOfficeOrganizationUnitDomainEntityDto)dto;
             var entityPart = target.ChilePart();
-            
+
             entityPart.RepresentativeRut = source.RepresentativeRut; // RUT представителя
         }
     }
