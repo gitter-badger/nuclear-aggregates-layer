@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AfterSaleServices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;

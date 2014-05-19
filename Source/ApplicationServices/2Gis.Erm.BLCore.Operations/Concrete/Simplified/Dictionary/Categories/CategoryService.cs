@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Rubrics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categories
 {
     public sealed class CategoryService : ICategoryService
     {
-        private readonly IFinder _finder;
-        private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<CategoryOrganizationUnit> _categoryOrganizationUnitRepository;
         private readonly IRepository<CategoryGroup> _categoryGroupRepository;
+        private readonly IRepository<CategoryOrganizationUnit> _categoryOrganizationUnitRepository;
+        private readonly IRepository<Category> _categoryRepository;
+        private readonly IFinder _finder;
         private readonly IIdentityProvider _identityProvider;
+        private readonly IOperationScopeFactory _scopeFactory;
 
         public CategoryService(IFinder finder,
-            IRepository<Category> categoryRepository,
-            IRepository<CategoryOrganizationUnit> categoryOrganizationUnitRepository,
-            IRepository<CategoryGroup> categoryGroupRepository, 
-            IIdentityProvider identityProvider)
+                               IRepository<Category> categoryRepository,
+                               IRepository<CategoryOrganizationUnit> categoryOrganizationUnitRepository,
+                               IRepository<CategoryGroup> categoryGroupRepository,
+                               IIdentityProvider identityProvider,
+                               IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _categoryRepository = categoryRepository;
             _categoryOrganizationUnitRepository = categoryOrganizationUnitRepository;
             _categoryGroupRepository = categoryGroupRepository;
             _identityProvider = identityProvider;
+            _scopeFactory = scopeFactory;
         }
 
         public void CreateOrUpdate(CategoryGroup entity)
@@ -120,28 +126,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             }
         }
 
-        private IEnumerable<long> ResolveParentIds(IEnumerable<long> categoryIds)
-        {
-            return _finder.Find<Category>(category => categoryIds.Contains(category.Id))
-                .Where(category => category.ParentId.HasValue)
-                .Select(category => category.ParentId.Value)
-                .Distinct()
-                .ToArray();
-        }
-
-        private void FixAffectedCategory(long categoryId)
-        {
-            var organizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Category>())
-                .Where(category => category.ParentId == categoryId)
-                .SelectMany(category => category.CategoryOrganizationUnits)
-                .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                .Select(link => link.OrganizationUnitId)
-                .Distinct();
-
-            UpdateCategoryOrganizationUnits(categoryId, organizationUnits);
-        }
-
-        public void ImportOrganizationUnits(IEnumerable<CategoryImportServiceBusDto> categories, CategoryImportContext context)
+        public void ImportOrganizationUnits(IEnumerable<RubricServiceBusDto> categories, CategoryImportContext context)
         {
             foreach (var dto in categories)
             {
@@ -159,13 +144,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         public bool IsCategoryLinkedWithOrgUnit(long categoryId, long organizationUnitId)
         {
-            return _finder.Find<CategoryOrganizationUnit>(x => x.CategoryId == categoryId && x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted)
-                          .Any();
+            return
+                _finder.Find<CategoryOrganizationUnit>(
+                                                       x =>
+                                                       x.CategoryId == categoryId && x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted)
+                       .Any();
         }
 
         public string GetCategoryName(long categoryId)
         {
             return _finder.Find(Specs.Find.ById<Category>(categoryId)).Select(x => x.Name).Single();
+        }
+
+        public IReadOnlyDictionary<long, int> GetCategoryLevels(IEnumerable<long> categoryIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Category>(categoryIds)).ToDictionary(x => x.Id, x => x.Level);
+        }
+
+        private IEnumerable<long> ResolveParentIds(IEnumerable<long> categoryIds)
+        {
+            return _finder.Find<Category>(category => categoryIds.Contains(category.Id))
+                          .Where(category => category.ParentId.HasValue)
+                          .Select(category => category.ParentId.Value)
+                          .Distinct()
+                          .ToArray();
+        }
+
+        private void FixAffectedCategory(long categoryId)
+        {
+            var organizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Category>())
+                                           .Where(category => category.ParentId == categoryId)
+                                           .SelectMany(category => category.CategoryOrganizationUnits)
+                                           .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
+                                           .Select(link => link.OrganizationUnitId)
+                                           .Distinct();
+
+            UpdateCategoryOrganizationUnits(categoryId, organizationUnits);
         }
 
         private void UpdateCategoryOrganizationUnits(long categoryId, IEnumerable<long> organizationUnitIds)
@@ -176,38 +190,57 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
             // Записи, которые должны быть, которые есть, но помечены удаленными.
             var linksToRestore = categoryUnits.Where(link => organizationUnitIds.Contains(link.OrganizationUnitId) && (!link.IsActive || link.IsDeleted));
-            foreach (var link in linksToRestore)
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, CategoryOrganizationUnit>())
             {
-                link.IsActive = true;
-                link.IsDeleted = false;
-                _categoryOrganizationUnitRepository.Update(link);
+                foreach (var link in linksToRestore)
+                {
+                    link.IsActive = true;
+                    link.IsDeleted = false;
+                    _categoryOrganizationUnitRepository.Update(link);
+                    scope.Updated<CategoryOrganizationUnit>(link.Id);
+                }
+
+                scope.Complete();
             }
 
             // Записи, которые должны быть, которых нет совсем
             var linksToCreate = organizationUnitIds.Except(categoryUnits.Select(link => link.OrganizationUnitId));
-            foreach (var organizationUnitId in linksToCreate)
+            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, CategoryOrganizationUnit>())
             {
-                var categoryOrganizationUnit = new CategoryOrganizationUnit
-                    {
-                        CategoryId = categoryId,
-                        OrganizationUnitId = organizationUnitId,
-                        IsActive = true
-                    };
+                foreach (var organizationUnitId in linksToCreate)
+                {
+                    var categoryOrganizationUnit = new CategoryOrganizationUnit
+                        {
+                            CategoryId = categoryId,
+                            OrganizationUnitId = organizationUnitId,
+                            IsActive = true
+                        };
 
-                _identityProvider.SetFor(categoryOrganizationUnit);
-                _categoryOrganizationUnitRepository.Add(categoryOrganizationUnit);
+                    _identityProvider.SetFor(categoryOrganizationUnit);
+                    _categoryOrganizationUnitRepository.Add(categoryOrganizationUnit);
+                    scope.Added<CategoryOrganizationUnit>(categoryOrganizationUnit.Id);
+                }
+
+                scope.Complete();
             }
 
             // Записи, которых не дожно быть.
             var linksToDelete = categoryUnits.Where(link => !organizationUnitIds.Contains(link.OrganizationUnitId));
-            foreach (var categoryOrganizationUnit in linksToDelete)
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, CategoryOrganizationUnit>())
             {
-                _categoryOrganizationUnitRepository.Delete(categoryOrganizationUnit);
+                foreach (var categoryOrganizationUnit in linksToDelete)
+                {
+                    _categoryOrganizationUnitRepository.Delete(categoryOrganizationUnit);
+                    scope.Deleted<CategoryOrganizationUnit>(categoryOrganizationUnit.Id);
+                }
+
+                scope.Complete();
             }
         }
 
         #region ImportCategoryLevel
-        public void ImportCategoryLevel(IEnumerable<CategoryImportServiceBusDto> categories, CategoryImportContext context)
+
+        public void ImportCategoryLevel(IEnumerable<RubricServiceBusDto> categories, CategoryImportContext context)
         {
             foreach (var category in categories)
             {
@@ -217,11 +250,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             _categoryRepository.Save();
         }
 
-        private void ImportCategory(CategoryImportServiceBusDto dto, CategoryImportContext context)
+        private void ImportCategory(RubricServiceBusDto dto, CategoryImportContext context)
         {
             var category = _finder.Find<Category>(x => x.Id == dto.Id)
-                .SingleOrDefault() ??
-                new Category { Id = dto.Id };
+                                  .SingleOrDefault() ??
+                           new Category { Id = dto.Id };
 
             if (!dto.IsDeleted && !category.IsNew() && category.Level != dto.Level)
             {
@@ -234,15 +267,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             }
             else
             {
-                UpdateCategory(category, dto, context);   
+                UpdateCategory(category, dto, context);
             }
         }
 
-        private void UpdateCategory(Category category, CategoryImportServiceBusDto dto, CategoryImportContext context)
+        private void UpdateCategory(Category category, RubricServiceBusDto dto, CategoryImportContext context)
         {
             if (dto.IsDeleted)
             {
-                _categoryRepository.Delete(category);
+                using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Category>())
+                {
+                    _categoryRepository.Delete(category);
+                    scope.Deleted<Category>(category.Id).Complete();
+                }
+                
                 if (category.ParentId.HasValue)
                 {
                     context.PutAffectedCategory(category.Level - 1, category.ParentId.Value);
@@ -266,10 +304,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                 context.PutAffectedCategory(category.Level - 1, category.ParentId.Value);
             }
 
-            _categoryRepository.Update(category);
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Category>())
+            {
+                _categoryRepository.Update(category);
+                scope.Updated<Category>(category.Id).Complete();
+            }
         }
 
-        private void CreateCategory(Category category, CategoryImportServiceBusDto dto, CategoryImportContext context)
+        private void CreateCategory(Category category, RubricServiceBusDto dto, CategoryImportContext context)
         {
             if (dto.IsDeleted)
             {
@@ -285,10 +327,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                 context.PutAffectedCategory(category.Level - 1, ermParentId);
             }
 
-            _categoryRepository.Add(category);
+            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Category>())
+            {
+                _categoryRepository.Add(category);
+                scope.Added<Category>(category.Id).Complete();
+            }
         }
 
-        private void CopySimpleFields(CategoryImportServiceBusDto source, Category destination)
+        private void CopySimpleFields(RubricServiceBusDto source, Category destination)
         {
             destination.Name = source.Name;
             destination.Level = source.Level;
@@ -296,9 +342,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             destination.IsActive = !source.IsHidden;
             destination.IsDeleted = false; //Could have been deleted
         }
+
         #endregion
 
         #region Commons
+
         private IEnumerable<long> ResolveOrganizatuionUnitsDgppIds(IEnumerable<int> list, CategoryImportContext context)
         {
             var result = new List<long>();
@@ -322,12 +370,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             }
 
             var resolvedFromDb = _finder.Find<OrganizationUnit>(unit => unit.DgppId.HasValue && unresolved.Contains(unit.DgppId.Value))
-                .Select(unit => new { ErmId = unit.Id, DgppId = unit.DgppId.Value })
-                .ToArray();
+                                        .Select(unit => new { ErmId = unit.Id, DgppId = unit.DgppId.Value })
+                                        .ToArray();
 
             if (resolvedFromDb.Length != unresolved.Count())
             {
-                throw new ArgumentException(string.Format(BLResources.CannotFindOrgUnitWithDgppId, unresolved.Except(resolvedFromDb.Select(i => i.DgppId)).First()));
+                throw new ArgumentException(string.Format(BLResources.CannotFindOrgUnitWithDgppId,
+                                                          unresolved.Except(resolvedFromDb.Select(i => i.DgppId)).First()));
             }
 
             foreach (var id in resolvedFromDb)
@@ -337,6 +386,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
             return result.Concat(resolvedFromDb.Select(i => i.ErmId));
         }
+
         #endregion
     }
 }

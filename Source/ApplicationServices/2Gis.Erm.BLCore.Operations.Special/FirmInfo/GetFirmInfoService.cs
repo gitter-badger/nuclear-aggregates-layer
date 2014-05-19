@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO.FirmInfo;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 

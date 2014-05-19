@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 

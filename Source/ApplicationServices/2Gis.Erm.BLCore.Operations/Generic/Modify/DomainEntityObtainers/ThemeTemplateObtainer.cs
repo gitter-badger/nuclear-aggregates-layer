@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLCore.Aggregates.Themes;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,8 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (ThemeTemplateDomainEntityDto)domainEntityDto;
 
-            var template = _finder.Find(ThemeSpecifications.Find.ThemeTemplateById(dto.Id)).SingleOrDefault() ??
-                               new ThemeTemplate { IsActive = true };
+            var template = _finder.Find(Specs.Find.ById<ThemeTemplate>(dto.Id)).SingleOrDefault() ??
+                           new ThemeTemplate { IsActive = true };
 
             template.Id = dto.Id;
             template.TemplateCode = dto.TemplateCode;

@@ -1,7 +1,7 @@
 using System;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.LocalMessages;
+using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

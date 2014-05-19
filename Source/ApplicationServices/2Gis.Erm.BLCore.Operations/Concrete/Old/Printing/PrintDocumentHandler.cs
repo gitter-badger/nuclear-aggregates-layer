@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;

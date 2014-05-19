@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.LocalMessages.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
+using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;

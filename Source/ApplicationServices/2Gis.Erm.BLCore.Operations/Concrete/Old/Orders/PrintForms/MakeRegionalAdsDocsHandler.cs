@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.ServiceModel;
 
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.MoDi;
 using DoubleGis.Erm.BLCore.API.MoDi.PrintRegional;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.PrintRegional;

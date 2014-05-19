@@ -6,10 +6,10 @@ using System.Text;
 using System.Transactions;
 using System.Xml;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
-using DoubleGis.Erm.BLCore.Aggregates.Clients;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -246,7 +246,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
                 {
                     Categories = _firmRepository.GetCategoriesOfOrganizationUnit(header.OrganizationUnitId),
                     OrganizationUnits = _firmRepository.GetOrganizationUnits(),
-                    ReserveUserIdentity = _securityService.GetReserveUserIdentity(),
+                    ReserveUserId = _securityService.GetReserveUserIdentity().Code,
                     Territories = _firmRepository.GetTerritoriesOfOrganizationUnit(header.OrganizationUnitId)
                 };
         }

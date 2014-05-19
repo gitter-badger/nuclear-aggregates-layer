@@ -1,5 +1,5 @@
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -35,9 +35,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
 
                 operationScope.Complete();
 
-                return Response.Empty;
-            }
+            return Response.Empty;
         }
+    }
 
         private void ValidatePrice(long priceId, long organizationUnitId)
         {

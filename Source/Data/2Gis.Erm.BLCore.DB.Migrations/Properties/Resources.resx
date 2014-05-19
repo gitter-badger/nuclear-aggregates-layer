@@ -238,4 +238,7 @@
   <data name="Migration19684" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.02.14 rev. 19684\updatebuildings.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Migration20435" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.05.19 rev. 20435\importcardsfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>

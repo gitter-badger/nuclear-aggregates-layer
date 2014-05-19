@@ -6,6 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.MoDi.Accounting;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi;
@@ -23,7 +24,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 
 namespace DoubleGis.Erm.BLCore.MoDi
 {

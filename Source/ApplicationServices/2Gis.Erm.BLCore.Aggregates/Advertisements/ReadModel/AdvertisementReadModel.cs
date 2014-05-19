@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -110,6 +111,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                 .ToArray();
 
             return orderIds;
+        }
+
+        public Firm GetFirmByAdvertisementElement(long advertisementElementId)
+        {
+            return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId)).Select(x => x.Advertisement.Firm).SingleOrDefault();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AfterSaleService;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

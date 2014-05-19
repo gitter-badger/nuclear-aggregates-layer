@@ -1,8 +1,8 @@
 using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -42,9 +42,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
 
                 operationScope.Complete();
 
-                return Response.Empty;   
-            }
+            return Response.Empty;
         }
+    }
 
         // TODO {all, 12.03.2014}: Валидация прайса выполняется и при публикации и при сохранении. Нужно вынести эту логику отдельно
         private void ValidatePrice(long priceId, long organizationUnitId, DateTime beginDate, DateTime publishDate)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

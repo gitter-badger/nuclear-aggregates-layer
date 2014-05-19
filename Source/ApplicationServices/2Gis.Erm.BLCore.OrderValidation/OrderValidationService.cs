@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

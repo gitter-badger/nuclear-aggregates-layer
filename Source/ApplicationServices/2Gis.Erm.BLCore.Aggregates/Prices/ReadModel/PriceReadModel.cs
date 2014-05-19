@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
@@ -40,12 +40,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         public decimal GetCategoryRateByFirm(long firmId)
         {
             var categoryQuery = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                                           .SelectMany(order => order.FirmAddresses)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
-                                           .SelectMany(address => address.CategoryFirmAddresses)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
-                                           .Select(addressCategory => addressCategory.Category)
-                                           .Where(Specs.Find.ActiveAndNotDeleted<Category>());
+                                       .SelectMany(order => order.FirmAddresses)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
+                                       .SelectMany(address => address.CategoryFirmAddresses)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
+                                       .Select(addressCategory => addressCategory.Category)
+                                       .Where(Specs.Find.ActiveAndNotDeleted<Category>());
 
             var orgUnitId = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
 

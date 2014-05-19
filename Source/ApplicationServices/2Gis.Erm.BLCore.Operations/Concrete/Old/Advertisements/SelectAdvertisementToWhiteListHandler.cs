@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

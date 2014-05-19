@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 var pricePositions = new[] { pricePosition };
                 var associatedPositionsGroupsMapping = new Dictionary<long, IEnumerable<AssociatedPositionsGroup>>
                     {
-                        {
+            {
                             pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups
                         }
                     };
