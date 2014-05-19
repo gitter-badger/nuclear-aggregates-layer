@@ -245,7 +245,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dynamic\Operations\" />
