@@ -76,10 +76,6 @@
       <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
       <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
-      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BLCore.Aggregates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>

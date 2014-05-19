@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;

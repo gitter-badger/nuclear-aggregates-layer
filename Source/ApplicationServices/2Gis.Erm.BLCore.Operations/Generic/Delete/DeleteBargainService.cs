@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

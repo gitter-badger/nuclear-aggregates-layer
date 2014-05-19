@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;

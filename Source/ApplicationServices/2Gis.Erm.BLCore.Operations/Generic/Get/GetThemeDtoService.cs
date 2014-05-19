@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Themes;
+using DoubleGis.Erm.BLCore.API.Aggregates.Themes;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;

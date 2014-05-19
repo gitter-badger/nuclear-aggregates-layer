@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Core.Exceptions;

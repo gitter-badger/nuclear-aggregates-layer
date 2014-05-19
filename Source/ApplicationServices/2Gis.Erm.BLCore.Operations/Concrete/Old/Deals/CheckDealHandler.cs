@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Deals.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

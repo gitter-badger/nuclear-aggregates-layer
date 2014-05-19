@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

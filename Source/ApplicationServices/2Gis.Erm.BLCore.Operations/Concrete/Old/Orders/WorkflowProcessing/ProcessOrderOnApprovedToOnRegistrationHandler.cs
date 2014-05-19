@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

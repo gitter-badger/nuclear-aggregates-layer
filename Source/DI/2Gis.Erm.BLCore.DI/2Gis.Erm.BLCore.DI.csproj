@@ -75,8 +75,11 @@
     <Compile Include="Config\CommonBootstrapper.Initialize.cs" />
     <Compile Include="Config\CommonBootstrapper.Aspects.cs" />
     <Compile Include="Config\CommonBootstrapper.Workflow.cs" />
+    <Compile Include="Config\MassProcessing\IntergationServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\OrderValidationRuleProcessor.cs" />
     <Compile Include="Config\MassProcessing\RequestHandlersProcessor.cs" />
+    <Compile Include="Infrastructure\Integration\UnityDeserializeServiceBusDtoServiceFactory.cs" />
+    <Compile Include="Infrastructure\Integration\UnityImportServiceBusDtoServiceFactory.cs" />
     <Compile Include="Infrastructure\RequestHandling\UnityHandlerFactory.cs" />
     <Compile Include="Infrastructure\Operations\UnityOperationServicesManager.cs" />
   </ItemGroup>
@@ -104,6 +107,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>

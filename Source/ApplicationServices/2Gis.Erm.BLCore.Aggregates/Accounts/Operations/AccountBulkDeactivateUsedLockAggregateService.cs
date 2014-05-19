@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;

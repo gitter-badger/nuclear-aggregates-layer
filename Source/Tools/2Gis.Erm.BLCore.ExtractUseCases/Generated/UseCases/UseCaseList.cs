@@ -42,7 +42,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages;
@@ -245,16 +244,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             }
         }
     }
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ImportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ImportFlowCardsHandler),
-                        Request = typeof(ImportFlowCardsRequest)
                     }
                 },
                 new UseCase
@@ -1092,16 +1081,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ImportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ImportFlowGeographyHandler),
-                        Request = typeof(ImportFlowGeographyRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintReferenceInformation",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1522,16 +1501,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(UpdateOrderFinancialPerformanceHandler),
                         Request = typeof(UpdateOrderFinancialPerformanceRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.ServiceBus.ImportObjectsJob\ExecuteInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ImportFlowRubricsHandler),
-                        Request = typeof(ImportFlowRubricsRequest)
                     }
                 },
                 new UseCase

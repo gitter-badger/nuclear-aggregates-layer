@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Firms;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

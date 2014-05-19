@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.Common.Caching;

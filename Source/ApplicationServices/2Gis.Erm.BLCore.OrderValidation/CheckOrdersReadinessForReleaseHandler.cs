@@ -6,8 +6,8 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

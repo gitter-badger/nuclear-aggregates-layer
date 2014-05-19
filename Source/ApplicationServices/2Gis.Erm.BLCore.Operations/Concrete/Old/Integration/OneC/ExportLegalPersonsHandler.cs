@@ -7,11 +7,11 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -172,7 +172,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
             for (var i = 0; i < attributesCount; i++)
             {
-                dataTable.Columns.Add(string.Empty);
+                dataTable.Columns.Add(string.Empty); 
             }
 
             foreach (var account in accounts)

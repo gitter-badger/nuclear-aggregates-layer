@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Platforms;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

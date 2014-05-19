@@ -1,9 +1,9 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;

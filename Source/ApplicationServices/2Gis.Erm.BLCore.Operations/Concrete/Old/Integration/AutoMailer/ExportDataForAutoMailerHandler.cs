@@ -5,8 +5,8 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

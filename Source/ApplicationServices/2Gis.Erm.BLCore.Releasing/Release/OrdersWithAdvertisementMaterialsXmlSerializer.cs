@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Logging;

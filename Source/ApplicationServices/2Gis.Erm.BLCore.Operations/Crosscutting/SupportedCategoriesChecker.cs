@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

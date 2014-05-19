@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -58,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         {
             return _secureFinder.Find<BranchOffice>(x => x.Id == entityId)
                                 .Select(entity => new T
-                                    {
+            {
                                         Id = entity.Id,
                                         DgppId = entity.DgppId,
                                         Name = entity.Name,
@@ -85,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         {
             return _secureFinder.Find<BranchOfficeOrganizationUnit>(x => x.Id == entityId)
                                 .Select(entity => new T
-                                    {
+        {
                                         Id = entity.Id,
                                         OrganizationUnitRef = new EntityReference { Id = entity.OrganizationUnitId, Name = entity.OrganizationUnit.Name },
                                         BranchOfficeRef = new EntityReference { Id = entity.BranchOfficeId, Name = entity.BranchOffice.Name },

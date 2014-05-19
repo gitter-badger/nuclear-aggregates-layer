@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Tests.Unit.Core.Infrastructure;

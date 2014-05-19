@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;

@@ -1,9 +1,9 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Clients;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

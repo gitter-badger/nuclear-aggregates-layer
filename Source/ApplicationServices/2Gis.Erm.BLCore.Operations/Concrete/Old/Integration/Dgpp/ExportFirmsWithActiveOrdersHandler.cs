@@ -4,9 +4,9 @@ using System.IO;
 using System.Net.Mime;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;

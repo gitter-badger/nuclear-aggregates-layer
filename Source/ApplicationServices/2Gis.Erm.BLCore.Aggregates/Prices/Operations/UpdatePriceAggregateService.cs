@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Aggregates;

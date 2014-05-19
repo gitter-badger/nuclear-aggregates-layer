@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;

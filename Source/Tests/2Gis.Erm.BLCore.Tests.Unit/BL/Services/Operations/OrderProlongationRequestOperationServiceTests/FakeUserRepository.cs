@@ -4,13 +4,16 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
-using OrganizationUnitDto = DoubleGis.Erm.BLCore.Aggregates.Users.OrganizationUnitDto;
+using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongationRequestOperationServiceTests
 {

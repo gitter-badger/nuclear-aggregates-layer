@@ -1,7 +1,9 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.API.Core.Identities;

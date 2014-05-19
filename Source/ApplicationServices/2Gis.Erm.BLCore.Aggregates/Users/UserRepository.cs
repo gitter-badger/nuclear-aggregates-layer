@@ -6,9 +6,14 @@ using System.Net;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
@@ -29,33 +34,10 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using Microsoft.Crm.SdkTypeProxy;
 using Microsoft.Xrm.Client.Data.Services;
 
+using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.Users
 {
-    #region Dto Defenitions
-
-    public sealed class OrganizationUnitDto
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public long CurrencyId { get; set; }
-        public string CurrencyName { get; set; }
-        public bool ProjectExists { get; set; }
-    }
-
-    public sealed class OrganizationUnitWithUsersDto
-    {
-        public OrganizationUnit Unit { get; set; }
-        public bool HasLinkedUsers { get; set; }
-    }
-
-    public sealed class UserProfileDto
-    {
-        public string UserAccountName { get; set; }
-        public UserProfile UserProfile { get; set; }
-    }
-
-    #endregion
-
     public sealed class UserRepository : IUserRepository
     {
         private readonly IMsCrmSettings _msCrmSettings;

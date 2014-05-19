@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.OrderValidation;

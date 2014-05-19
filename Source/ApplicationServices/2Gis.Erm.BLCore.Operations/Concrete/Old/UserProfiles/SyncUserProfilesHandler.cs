@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

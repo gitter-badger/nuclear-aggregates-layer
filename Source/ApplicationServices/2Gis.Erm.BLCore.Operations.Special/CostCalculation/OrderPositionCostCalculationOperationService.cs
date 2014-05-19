@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
@@ -232,7 +232,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             bool calculateDiscountViaPercent)
         {
             var pricePositionInfo = _finder.Find(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId) &&
-                                                 Specs.Find.ActiveAndNotDeleted<PricePosition>())
+                Specs.Find.ActiveAndNotDeleted<PricePosition>())
                                            .Select(x => new
                                                {
                                                    x.Id,

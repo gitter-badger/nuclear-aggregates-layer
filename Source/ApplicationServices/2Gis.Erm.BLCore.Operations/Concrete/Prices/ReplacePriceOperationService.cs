@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

@@ -1,7 +1,7 @@
 ﻿using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -53,9 +57,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             _bargainFileGenericRepository = bargainFileGenericRepository;
         }
 
-        public IEnumerable<Bargain> FindBySpecification(IFindSpecification<Bargain> spec)
+        public IReadOnlyCollection<Bargain> GetNonClosedBargains()
         {
-            return _finder.Find(spec);
+            return _finder.Find(OrderSpecs.Bargains.Find.NonClosed).ToArray();
+        }
+
+        public IReadOnlyCollection<Bargain> GetBargainsForOrder(long? legalPersonId, long? branchOfficeOrganizationUnitId)
+        {
+            return _finder.Find(OrderSpecs.Bargains.Find.ForOrder(legalPersonId, branchOfficeOrganizationUnitId)).ToArray();
         }
 
         public void CloseBargains(IEnumerable<Bargain> bargains, DateTime closeDate)

@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Common.Settings;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
+using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Settings
 {

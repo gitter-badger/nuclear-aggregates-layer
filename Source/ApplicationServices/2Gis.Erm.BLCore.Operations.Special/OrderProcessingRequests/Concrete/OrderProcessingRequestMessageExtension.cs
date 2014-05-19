@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.CommonService;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.CommonService;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

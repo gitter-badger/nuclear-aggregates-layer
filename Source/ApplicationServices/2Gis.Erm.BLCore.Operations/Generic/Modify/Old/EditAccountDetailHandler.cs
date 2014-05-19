@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;

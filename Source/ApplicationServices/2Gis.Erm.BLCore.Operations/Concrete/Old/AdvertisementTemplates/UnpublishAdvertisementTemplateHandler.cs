@@ -1,6 +1,6 @@
 ﻿using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AdvertisementTemplates;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

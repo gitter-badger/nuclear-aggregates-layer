@@ -79,6 +79,10 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\IImportMetadataProvider.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ImportMetadataProvider.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusFlowDescriptor.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusObjectDescriptor.cs" />
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
@@ -138,13 +142,29 @@
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeOrganizationUnitHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\WriteMessageToServiceBusHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowCardsHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowFinancialData1CHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowGeoClassifierHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowGeographyHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowPhoneZonesHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowRubricsHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Import\ImportFlowStickersHandler.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Deserializers\DeserializeCardForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Processors\ImportCardForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserealizeReferenceItemService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeCardRelationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeCardService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeFirmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeReferenceService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardRelationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportFirmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceItemService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowFinancialData1C\Deserializers\DeserializeOperationsInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowFinancialData1C\Processors\ImportOperationsInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowGeoClassifier\Deseirailzers\DeserealizeBranchService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowGeoClassifier\Processors\ImportBranchService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowPhoneZones\Deserializers\DeserializeCityPhoneZoneService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowPhoneZones\Processors\ImportCityPhoneZoneService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowRubrics\Deserializers\DeserializeRubricService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowRubrics\Processors\ImportRubricService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowStickers\Deserializers\DeserializeHotClientService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowStickers\Processors\ImportHotClientService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFromServiceBusService.cs" />
     <Compile Include="Concrete\Old\Journal\Concrete\IJournalMakeRegionalAdsDocsService.cs" />
     <Compile Include="Concrete\Old\Journal\Concrete\JournalMakeRegionalAdsDocsService.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IJournalBusinessOperationsService.cs" />
@@ -236,7 +256,7 @@
     <Compile Include="Concrete\Simplified\Dictionary\DynamicDictionaryEntityService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Project\ProjectService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
     <Compile Include="Concrete\Simplified\HotClientRequestService.cs" />
     <Compile Include="Concrete\Simplified\MS CRM\CrmTaskFactory.cs" />
     <Compile Include="Concrete\Simplified\MS CRM\MsCrmInteractionService.cs" />
@@ -540,7 +560,6 @@
     <Compile Include="Crosscutting\AD\GetUserInfoFromAdService.cs" />
     <Compile Include="Crosscutting\ReplicationCodeConverter.cs" />
     <Compile Include="Concrete\Deals\GenerateDealNameService.cs" />
-    <Compile Include="Concrete\Integration\Import\ImportFlowCardsForErmService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\CorrectAddressOrderPositionAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\IsTemplatePublishedOrderPositionAdvertisementValidationRule.cs" />
@@ -595,13 +614,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
-      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
-      <Name>2Gis.Erm.BL.Reports</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
@@ -671,10 +690,6 @@
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
-      <Project>{b558aefd-8c80-4f81-98bc-dd3abe3e519e}</Project>
-      <Name>2Gis.Erm.BLCore.Aggregates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
       <Name>2Gis.Erm.BLCore.Common</Name>
@@ -730,8 +745,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
     <Folder Include="Concrete\Old\PricePositions\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

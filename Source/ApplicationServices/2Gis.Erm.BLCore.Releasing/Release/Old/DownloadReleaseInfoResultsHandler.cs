@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;

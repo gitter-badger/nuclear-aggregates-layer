@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs;
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -34,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public virtual LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId)
         {
             return _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).Single();
-        }
+            }
 
         public PaymentMethod? GetPaymentMethod(long legalPersonId)
         {
@@ -47,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPerson legalPerson)
         {
             return Enumerable.Empty<BusinessEntityInstanceDto>();
-        }
+            }
 
         // FIXME {all, 07.04.2014}: какое-то слишком абстрактное название дляметодов - readmodel это набор методов, являющихся wrapper над спецификациями, разной толщины - но все они usecase специфичны. Т.о. либо метод должен быть более конкретным, либо тип в которомон находиться более абстрактным
         public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(LegalPersonProfile legalPersonProfile)
@@ -65,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         {
             return _secureFinder.Find<LegalPerson>(x => x.Id == entityId)
                           .Select(entity => new T
-                          {
+            {
                               Id = entity.Id,
                               LegalName = entity.LegalName,
                               ShortName = entity.ShortName,
@@ -102,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         {
             return _secureFinder.Find<LegalPersonProfile>(x => x.Id == entityId)
                           .Select(entity => new T
-                          {
+        {
                               Id = entity.Id,
                               Name = entity.Name,
                               AdditionalEmail = entity.AdditionalEmail,

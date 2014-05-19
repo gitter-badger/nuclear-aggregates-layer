@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Releases.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

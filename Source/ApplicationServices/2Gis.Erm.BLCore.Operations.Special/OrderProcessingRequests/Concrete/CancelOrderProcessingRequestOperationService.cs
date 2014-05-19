@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

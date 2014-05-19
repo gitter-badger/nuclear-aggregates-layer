@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
+using DoubleGis.Erm.BLCore.API.Aggregates;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -896,19 +901,5 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 return account;
             }
         }
-
-        #region nested 
-
-        public class AccountInfoForImportFrom1C
-        {
-            public long Id { get; set; }
-            public IEnumerable<AccountDetail> AccountDetails { get; set; }
-            public string LegalPersonName { get; set; }
-            public string BranchOfficeLegalName { get; set; }
-            public string BranchOfficeSyncCode1C { get; set; }
-            public long OwnerCode { get; set; }
-        }
-
-        #endregion
     }
 }

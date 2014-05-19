@@ -1,6 +1,6 @@
 using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;

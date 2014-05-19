@@ -1,8 +1,8 @@
 ﻿using System.Transactions;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;

@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

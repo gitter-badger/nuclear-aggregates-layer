@@ -5,6 +5,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService;
 using DoubleGis.Erm.Platform.DAL;

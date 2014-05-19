@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -21,14 +23,14 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             OperationsInSyncWith1C = new List<OperationType>();
             CreatedAccountDetails = new List<AccountDetail>();
             DeletedAccountDetails = new List<AccountDetail>();
-            AccountInfos = new List<AccountRepository.AccountInfoForImportFrom1C>();
+            AccountInfos = new List<AccountInfoForImportFrom1C>();
         }
 
         public List<long> UpdatedAccountIds { get; private set; }
         public List<OperationType> OperationsInSyncWith1C { get; private set; }
         public List<AccountDetail> CreatedAccountDetails { get; private set; }
         public List<AccountDetail> DeletedAccountDetails { get; private set; }
-        public List<AccountRepository.AccountInfoForImportFrom1C> AccountInfos { get; private set; }
+        public List<AccountInfoForImportFrom1C> AccountInfos { get; private set; }
 
         public int Activate(long entityId)
         {
@@ -393,7 +395,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AccountRepository.AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
+        public IEnumerable<AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
             return AccountInfos.Where(x => branchOfficeSyncCodes.Contains(x.BranchOfficeSyncCode1C)).ToArray();
         }
