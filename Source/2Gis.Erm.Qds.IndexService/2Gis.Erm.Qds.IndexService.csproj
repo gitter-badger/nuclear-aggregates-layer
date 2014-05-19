@@ -108,6 +108,10 @@
     <Compile Include="Settings\IndexServiceAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
       <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
       <Name>2Gis.Erm.BLFlex.Operations.Global</Name>

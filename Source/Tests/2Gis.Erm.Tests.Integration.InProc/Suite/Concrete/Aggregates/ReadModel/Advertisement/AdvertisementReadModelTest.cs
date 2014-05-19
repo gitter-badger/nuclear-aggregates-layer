@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO.ForRelease;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;

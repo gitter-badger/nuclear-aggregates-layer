@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.Aggregates.DI;
+using DoubleGis.Erm.BLCore.API.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Operations.DI;
 using DoubleGis.Erm.BLCore.API.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;

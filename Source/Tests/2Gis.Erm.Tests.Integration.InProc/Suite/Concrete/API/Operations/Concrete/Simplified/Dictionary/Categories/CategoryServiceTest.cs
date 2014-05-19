@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Rubrics;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             var dtos = new[]
                 {
-                    new CategoryImportServiceBusDto
+                    new RubricServiceBusDto
                         {
                             Comment = "Test",
                             Id = NewId,

@@ -477,11 +477,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports", "..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Reports.UI", "..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports.UI\2Gis.Erm.BL.Reports.UI.csproj", "{8F39316B-250E-4504-8393-16E5A03F2CA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.Aggregates", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj", "{0545D6B0-D443-443D-8939-C42EE20DD418}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations", "..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj", "{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 118
+		SccNumberOfProjects = 119
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -949,10 +951,15 @@ Global
 		SccProjectTopLevelParentUniqueName116 = 2GIS.ERM.VS2012.sln
 		SccProjectName116 = ../../BL/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports.UI
 		SccLocalPath116 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI
-		SccProjectUniqueName117 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations\\2Gis.Erm.BL.Operations.csproj
+
+		SccProjectUniqueName117 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Aggregates\\2Gis.Erm.BLCore.API.Aggregates.csproj
 		SccProjectTopLevelParentUniqueName117 = 2GIS.ERM.VS2012.sln
-		SccProjectName117 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations
-		SccLocalPath117 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations
+		SccProjectName117 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Aggregates
+		SccLocalPath117 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Aggregates
+		SccProjectUniqueName118 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations\\2Gis.Erm.BL.Operations.csproj
+		SccProjectTopLevelParentUniqueName118 = 2GIS.ERM.VS2012.sln
+		SccProjectName118 = ../../BL/Source/ApplicationServices/2Gis.Erm.BL.Operations
+		SccLocalPath118 = ..\\..\\BL\\Source\\ApplicationServices\\2Gis.Erm.BL.Operations
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2123,6 +2130,16 @@ Global
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8F39316B-250E-4504-8393-16E5A03F2CA6}.Release|x64.ActiveCfg = Release|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0545D6B0-D443-443D-8939-C42EE20DD418}.Release|x64.ActiveCfg = Release|Any CPU
 		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -2211,6 +2228,7 @@ Global
 		{650EA07F-6725-46E5-B996-B5882E4FCD33} = {B49DBDFC-D7DB-41A7-B473-1509F7013571}
 		{3B5F5E41-B438-435E-91B5-005B2A88237C} = {B49DBDFC-D7DB-41A7-B473-1509F7013571}
 		{DD4D387B-5ED9-482D-A704-D664EE16E9EF} = {B49DBDFC-D7DB-41A7-B473-1509F7013571}
+		{0545D6B0-D443-443D-8939-C42EE20DD418} = {B49DBDFC-D7DB-41A7-B473-1509F7013571}
 		{57869C8D-02F0-4C10-A7EA-55EAE5258311} = {6E231F7B-880F-44F2-92BD-F0C5CBC1FBE0}
 		{6BE211C4-D5BF-4BB0-9C7D-614E285216B0} = {6E231F7B-880F-44F2-92BD-F0C5CBC1FBE0}
 		{97B498B0-DFD6-4F22-B093-3AA1E2FA8448} = {6E231F7B-880F-44F2-92BD-F0C5CBC1FBE0}
