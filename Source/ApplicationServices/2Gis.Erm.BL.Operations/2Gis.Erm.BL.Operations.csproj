@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\Integration\Import\DeserializeBuildingService.cs" />
+    <Compile Include="Concrete\Integration\Import\DeserializeSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Integration\Import\IImportBuildingService.cs" />
+    <Compile Include="Concrete\Integration\Import\IImportSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportBuildingService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportSaleTerritoryService.cs" />
     <Compile Include="DI\BlOperationsAssembly.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializePriceHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializePricePositionHandler.cs" />
@@ -57,8 +63,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
-      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
@@ -77,8 +87,12 @@
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">

@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.API.Operations.Special.Concrete.Old.Reports;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;

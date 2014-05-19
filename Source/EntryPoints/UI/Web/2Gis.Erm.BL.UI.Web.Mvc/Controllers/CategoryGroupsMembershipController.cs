@@ -4,7 +4,7 @@ using System.Security;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
