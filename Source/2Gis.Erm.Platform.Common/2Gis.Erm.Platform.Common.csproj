@@ -154,6 +154,7 @@
     <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
     <Compile Include="Utils\Resources\ResourceUtils.cs" />
     <Compile Include="Utils\StaticReflection.cs" />
+    <Compile Include="Utils\StringComparsionExtensions.cs" />
     <Compile Include="Utils\StringSanitizerExtensions.cs" />
     <Compile Include="Xml\XElementGeneratorStaticExtensions.cs" />
     <Compile Include="Xml\XmlValidator.cs" />

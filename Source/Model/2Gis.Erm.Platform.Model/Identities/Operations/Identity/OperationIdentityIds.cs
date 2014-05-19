@@ -83,7 +83,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardsFromServiceBusIdentity = 14601;
         public const int ImportFirmIdentity = 14602;
         public const int ImportTerritoriesFromDgppIdentity = 14603;
-        public const int ImportFlowCardsForErmIdentity = 14604;
+        public const int ImportCardForErmIdentity = 14604;
+        public const int ImportCardRelationIdentity = 14605;
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
@@ -130,10 +131,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ReopenLimitIdentity = 19202;
 
         // EntityName.HotClientRequest = 257
-        public const int ImportFlowStickersIdentity = 25701;
+        public const int ImportHotClientIdentity = 25701;
 
         // EntityName.AccountDetail = 141
-        public const int ImportFlowFinancialData1CIdentity = 14101;
+        public const int ImportOperationsInfoIdentity = 14101;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;
@@ -151,5 +152,27 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
         public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
+
+
+        // EntityName.Project = 158
+        public const int ImportBranchIdentity = 15801;
+
+        // EntityName.Territory = 191
+        public const int ImportSaleTerritoryIdentity = 19101;
+
+        // EntityName.CityPhoneZone = 233
+        public const int ImportCityPhoneZoneIdentity = 23301;
+
+        // EntityName.Reference = 234
+        public const int ImportReferenceIdentity = 23401;
+
+        // EntityName.ReferenceItem = 23501
+        public const int ImportReferenceItemIdentity = 23501;
+
+        // EntityName.Category = 160
+        public const int ImportRubricIdentity = 16001;
+
+        // EntityName.Building = 241
+        public const int ImportBuildingIdentity = 24101;
     }
 }

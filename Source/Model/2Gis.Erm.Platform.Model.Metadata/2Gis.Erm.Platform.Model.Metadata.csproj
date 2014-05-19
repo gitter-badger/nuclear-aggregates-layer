@@ -242,6 +242,7 @@
     <Compile Include="Enums\CheckDayOfMonthType.cs" />
     <Compile Include="Enums\DependencyType.cs" />
     <Compile Include="Enums\DisplayStyle.cs" />
+    <Compile Include="Enums\FlowGeographyObject.cs" />
     <Compile Include="Enums\PeriodType.cs" />
     <Compile Include="Globalization\BusinessModels.cs" />
     <Compile Include="Globalization\BusinessModelsIndicators.cs" />
