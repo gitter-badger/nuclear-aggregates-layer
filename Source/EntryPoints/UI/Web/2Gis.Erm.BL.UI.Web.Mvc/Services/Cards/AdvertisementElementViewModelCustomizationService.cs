@@ -4,9 +4,14 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
@@ -17,6 +22,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
     public class AdvertisementElementViewModelCustomizationService : IGenericViewModelCustomizationService<AdvertisementElement>
     {
+        private readonly IAdvertisementReadModel _advertisementReadModel;
+        private readonly IUserContext _userContext;
+        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
+
         private static readonly Dictionary<FasComment, Func<string>> FasCommentToDisplayTextMapping = new Dictionary<FasComment, Func<string>>
             {
                 { FasComment.Alcohol, () => EnumResources.FasCommentDisplayTextAlcohol },
@@ -38,9 +47,32 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 { FasComment.Biocides, () => EnumResources.FasCommentDisplayTextBiocides }
             };
 
+        public AdvertisementElementViewModelCustomizationService(IAdvertisementReadModel advertisementReadModel,
+                                                                 IUserContext userContext,
+                                                                 ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
+        {
+            _advertisementReadModel = advertisementReadModel;
+            _userContext = userContext;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
+        }
+
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
+            if (!advertisementElementModel.IsNew)
+            {
+                var firm = _advertisementReadModel.GetFirmByAdvertisementElement(advertisementElementModel.Id);
+                if (firm != null)
+                {
+                    advertisementElementModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                                   EntityName.Firm,
+                                                                                                                   _userContext.Identity.Code,
+                                                                                                                   firm.Id,
+                                                                                                                   firm.OwnerCode,
+                                                                                                                   firm.OwnerCode);
+                }
+            }
+
             advertisementElementModel.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
         }
         
