@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DictionaryEntity;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;

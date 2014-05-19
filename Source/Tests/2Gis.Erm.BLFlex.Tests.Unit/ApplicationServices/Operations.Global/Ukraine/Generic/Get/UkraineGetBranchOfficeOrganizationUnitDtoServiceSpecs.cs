@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;

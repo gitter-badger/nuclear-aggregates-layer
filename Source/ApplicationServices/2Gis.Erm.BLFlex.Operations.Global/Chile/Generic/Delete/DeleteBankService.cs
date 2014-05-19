@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity;
-using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DictionaryEntity;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLFlex.Resources.Server.Properties;

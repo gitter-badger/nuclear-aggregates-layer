@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency

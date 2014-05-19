@@ -181,20 +181,7 @@
     <value>Oddělení organizace s ID [{0}] nemá určenou formu spolupráce</value>
   </data>
   <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
-    <value>, na základě {0} ze dne {1}</value>
-  </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesBusinessman" xml:space="preserve">
-    <value>IČ: {0}         DIČ: {1}  
-Misto podnikání: {2}
-Číslo účtu: {3}/{4}
-Peněžní ústav: {5}</value>
-  </data>
-  <data name="CzechPrintOrderHandler_ClientRequisitesLegalPerson" xml:space="preserve">
-    <value>IČ: {0}       	DIČ: {1}
-Sídlo:  {2}
-Zapsaná  {6}
-Číslo účtu:  {3}/{4}
-Peněžní ústav:  {5}</value>
+    <value>na základě {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
     <value>zastoupen</value>
@@ -262,6 +249,30 @@ Peněžní ústav:  {5}</value>
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInvalidIpn" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInvalidEgrpou" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
     <value>místem podnikání</value>
   </data>
@@ -312,5 +323,32 @@ Peněžní ústav:  {5}</value>
   </data>
   <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
     <value>Existuje skrytá pr. osoba klienta s uvedeným IČ nebo DIČ</value>
+  </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Контекстная рубрика – {1}</value>
+  </data>
+  <data name="UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActivateLegalPersonErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineEnteredIpnIsNotCorrect" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineEnteredEgrpouIsNotCorrect" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActivateBusinessmanErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
 </root>

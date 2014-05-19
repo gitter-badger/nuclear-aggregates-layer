@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Dynamic.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Operations.Generic;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
