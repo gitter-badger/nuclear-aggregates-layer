@@ -1,0 +1,8 @@
+﻿<DistrictType Code="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="район" ShortName="р-н" />
+  </Localizations>
+  <Branches>
+    <Branch Code="1" />
+  </Branches>
+</DistrictType>

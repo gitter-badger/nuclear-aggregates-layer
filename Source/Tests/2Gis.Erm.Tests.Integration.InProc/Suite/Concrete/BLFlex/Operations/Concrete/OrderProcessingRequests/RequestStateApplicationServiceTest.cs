@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
+using DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,10 +13,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
 {
     public class RequestStateApplicationServiceTest : UseModelEntityTestBase<OrderProcessingRequest>
     {
-        private readonly IRequestStateApplicationService _requestStateApplicationService;
+        private readonly RequestStateApplicationService _requestStateApplicationService;
 
         public RequestStateApplicationServiceTest(IAppropriateEntityProvider<OrderProcessingRequest> appropriateEntityProvider,
-                                                  IRequestStateApplicationService requestStateApplicationService)
+                                                  RequestStateApplicationService requestStateApplicationService)
             : base(appropriateEntityProvider)
         {
             _requestStateApplicationService = requestStateApplicationService;

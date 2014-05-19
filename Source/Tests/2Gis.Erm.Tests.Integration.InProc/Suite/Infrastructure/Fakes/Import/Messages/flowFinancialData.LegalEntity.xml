@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LegalEntity Code="16" Name="Би-спецтранс, ООО" ShortName="ООО Би-спецтранс" DefaultProfileCode="224140833770882312" Curator="Голобокова, Елена" CuratorLogin="e.golobokova" IsHidden="false" IsDeleted="false">
+  <Profiles>
+    <Profile Code="224140833770882312" Name="OKXNGZRECC" Email="JWMEO@2gis.ru" Phone="222-22-22" PersonResponsibleForDocuments="OKXNGZRECCCNTZAIXENRDZUVN" PostAddress="JWMEOVRNKZDLYBLEYUGCZPAQR" DocumentDeliveryMethod="PostOnly" DirectorName="JWMEOVRNKZ" Position="DJBVWRSWRW" OnBasicOf="Устава" Curator="manager1.1, manager1.1" CuratorLogin="manager1.1" />
+  </Profiles>
+  <Accounts>
+    <Account Code="224140970874293000" Code1C="09-1-224140831279464968" BargainTypeCode="2" LegalEntityBranchCode1C="004" />
+  </Accounts>
+  <LegalPerson TIN="156079485823423756" KPP="13487394853456757" LegalAddress="614000, г. Пермь" />
+</LegalEntity>

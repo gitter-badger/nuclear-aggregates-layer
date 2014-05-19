@@ -70,7 +70,8 @@ namespace DoubleGis.Erm.TaskService.DI
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
-                    new TaskServiceJobsMassProcessor(container) 
+                    new IntergationServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new TaskServiceJobsMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -204,7 +205,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-        {
+            {
             return container
                 .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)

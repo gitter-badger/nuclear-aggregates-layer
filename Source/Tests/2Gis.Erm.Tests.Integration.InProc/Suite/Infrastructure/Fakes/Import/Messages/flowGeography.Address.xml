@@ -1,0 +1,7 @@
+﻿<Address Code="1267569403101599" Name="7" BuildingCode="1267273050358802" OrderNo="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="8/1р" />
+    <Localization Lang="it" Name="7" />
+  </Localizations>
+  <Street StreetCode="1267449144018177" />
+</Address>

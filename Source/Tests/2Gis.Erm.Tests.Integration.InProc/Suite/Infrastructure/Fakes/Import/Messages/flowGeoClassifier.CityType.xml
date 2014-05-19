@@ -1,0 +1,9 @@
+﻿<CityType Code="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Город" ShortName="г" />
+  </Localizations>
+  <Branches>
+    <Branch Code="1" />
+    <Branch Code="9" />
+  </Branches>
+</CityType>

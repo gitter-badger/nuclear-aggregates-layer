@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CityPhoneZone Code="1" Name="383" CityCode="1267230100684807" IsDefault="true" IsDeleted="false">
+  <DGPPCodes>
+    <DGPPCode Code="1267595172905022" />
+  </DGPPCodes>
+</CityPhoneZone>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Country Code="1" ZoneCode="7" NationalPhoneLength="10" NationalPrefix="8" InternationalPrefix="10" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Россия" />
+  </Localizations>
+</Country>
