@@ -97,7 +97,8 @@
         ReleaseValidationResult = 238, 
         UserEntity = 239,
         DepCard = 240,
-        
+        Building = 241,
+
         PerformedBusinessOperation = 244,
         ExportFlowCardExtensionsCardCommercial = 246,
         ExportFlowFinancialDataLegalEntity = 247,

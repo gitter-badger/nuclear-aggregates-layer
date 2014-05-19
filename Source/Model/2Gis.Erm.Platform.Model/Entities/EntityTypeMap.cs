@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.BargainFile, typeof(BargainFile) },
             { EntityName.Currency, typeof(Currency) },
             { EntityName.CurrencyRate, typeof(CurrencyRate) },
-            { EntityName.Platform, typeof(Platform.Model.Entities.Erm.Platform) },
+                { EntityName.Platform, typeof(Erm.Platform) },
             { EntityName.PositionCategory, typeof(PositionCategory) },
             { EntityName.PricePosition, typeof(PricePosition) },
             { EntityName.Account, typeof(Account) },
@@ -101,6 +101,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.FirmAddressService, typeof(FirmAddressService) },
             { EntityName.ReleaseValidationResult, typeof(ReleaseValidationResult) },
             { EntityName.ReleasesWithdrawalsPosition, typeof(ReleasesWithdrawalsPosition) },
+                { EntityName.Building, typeof(Building) },
 
             // Activity subsystem
             { EntityName.ActivityInstance, typeof(ActivityInstance) },
@@ -160,10 +161,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
         public static IReadOnlyDictionary<EntityName, Type> EntitiesMapping
         {
-            get
-            {
-                return TypeMap;
-            }
+            get { return TypeMap; }
         }
 
         public static Type AsEntityType(this EntityName entityName)
@@ -204,7 +202,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         {
             var sb = new StringBuilder();
             var entityNames = new EntityName[entitiesTypes.Length];
-            for (int index = 0; index < entitiesTypes.Length; index++)
+            for (var index = 0; index < entitiesTypes.Length; index++)
             {
                 var entitiesType = entitiesTypes[index];
                 EntityName entityName;
