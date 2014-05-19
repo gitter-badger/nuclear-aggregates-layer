@@ -83,6 +83,8 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.ConflictResolvers.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
+	<Compile Include="DI\Infrastructure\ConstructorParameterOverride.cs" />
+    <Compile Include="DI\Infrastructure\InjectionConstructorPart.cs" />
     <Compile Include="DI\MassProcessing\IntegrationTestsMassProcessor.cs" />
     <Compile Include="DI\Zones\IntegrationTestsZone.cs" />
     <Compile Include="DI\Zones\Parts\IntegrationTestsZonePartAssembly.cs" />
@@ -108,6 +110,14 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowFinancialData1CTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowGeoClassifierTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowGeographyTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowPhoneZonesTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowRubricsTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowStickersTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CancelOrderProcessingRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderCreationRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderProlongationRequestOperationServiceTest.cs" />
@@ -189,7 +199,10 @@
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReceiverProxy.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReceiverClientProxyFactory.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\FakeReportsSqlConnectionWrapper.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReciever.cs" />
     <Compile Include="Suite\Infrastructure\ICompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\ITestFactory.cs" />
     <Compile Include="Suite\Infrastructure\ITestRunner.cs" />
@@ -218,7 +231,9 @@
     <Compile Include="DI\Zones\Parts\MetadataZonePartAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.Edu.Chile.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
@@ -321,6 +336,10 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations.Special\2Gis.Erm.BLCore.WCF.Operations.Special.csproj">
       <Project>{363E4551-2404-46CD-A4A2-7712AC137729}</Project>
@@ -426,6 +445,10 @@
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Name>2Gis.Erm.BL.Reports</Name>
@@ -453,6 +476,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
+      <Project>{A92719FF-B1FD-459B-88DE-F0B2CE23903E}</Project>
+      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
@@ -483,7 +510,119 @@
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.Card.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.CardAnchorLink.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.CardRelation.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.Firm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.PhoneCallRule.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.PromotionalCard.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.Reference.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.ReferenceItem.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.ServiceOrganization.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCardsForERM.CardForERM.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.Client.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.DebitsInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.LegalEntity.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData1C.OperationsInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.Branch.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.BuildingPurpose.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.CityType.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.Country.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.DistrictType.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.HousingEstateType.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.RegionType.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeoClassifier.StreetType.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Address.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Building.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.City.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.District.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Entrance.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.HousingEstate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Province.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Region.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.SaleTerritory.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Street.Deleted.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowGeography.Street.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowPhoneZones.CityPhoneZone.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowRubrics.Rubric.Deleted.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowRubrics.Rubric.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowStickers.HotClient.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

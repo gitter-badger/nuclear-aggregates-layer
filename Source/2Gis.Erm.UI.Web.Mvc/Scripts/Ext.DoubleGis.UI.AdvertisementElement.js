@@ -292,8 +292,10 @@
 
     if (Ext.getDom('TemplateRestrictionType').value == 'Image' || Ext.getDom('TemplateRestrictionType').value == 'Article') {
         this.on("afterbuild", function () {
+            var readOnly = window.Ext.getDom("ViewConfig_ReadOnly").checked;
             var u = new Ext.ux.AsyncFileUpload(
                 {
+                    readOnly : readOnly,
                     applyTo: 'FileId',
                     uploadUrl: '/Upload/AdvertisementElement',
                     uploadUrlSuffix: '?entityId=' + this.form.Id.value,
@@ -310,7 +312,7 @@
                             this.refresh(true);
                         },
                         fileuploadcomplete: function () {
-                            this.Items.Toolbar.enable();
+                            this.recalcToolbarButtonsAvailability();
                         },
                         scope: this
                     },

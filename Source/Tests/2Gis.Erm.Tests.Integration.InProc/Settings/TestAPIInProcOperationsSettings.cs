@@ -18,8 +18,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
     /// <summary>
     /// Требования/соглашения см. в объявлении ISettingsContainer
     /// </summary>
-    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase, IOrderProcessingSettings
+    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase, IOrderProcessingSettings , IIntegrationLocalizationSettings
     {
+        private readonly StringSetting _basicLanguage = ConfigFileSetting.String.Required("BasicLanguage");
+        private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
+        private readonly StringSetting _regionalTerritoryLocaleSpecificWord = ConfigFileSetting.String.Required("RegionalTerritoryLocaleSpecificWord");
+
         private readonly IntSetting _orderRequestProcessingHoursAmount = ConfigFileSetting.Int.Required("OrderRequestProcessingHoursAmount");
 
         public TestAPIInProcOperationsSettings(IEnumerable<Type> supportedBusinessModelIndicators)
@@ -29,12 +33,27 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
                 .Use<CachingSettingsAspect>()
                 .Use<WarmClientProcessingSettingsAspect>()
                 .Use<DebtProcessingSettingsAspect>()
-                .Use<NotificationsSettingsAspect>()
                 .Use<IntegrationSettingsAspect>()
+                .Use<NotificationsSettingsAspect>()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
                         .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>());
+        }
+
+        public string BasicLanguage
+        {
+            get { return _basicLanguage.Value; }
+        }
+
+        public string ReserveLanguage
+        {
+            get { return _reserveLanguage.Value; }
+        }
+
+        public string RegionalTerritoryLocaleSpecificWord
+        {
+            get { return _regionalTerritoryLocaleSpecificWord.Value; }
         }
 
         int IOrderProcessingSettings.OrderRequestProcessingHoursAmount

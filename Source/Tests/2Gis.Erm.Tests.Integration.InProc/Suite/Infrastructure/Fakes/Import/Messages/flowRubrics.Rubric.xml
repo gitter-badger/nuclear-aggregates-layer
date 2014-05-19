@@ -1,0 +1,34 @@
+﻿<Rubric Code="24099" ParentCode="56" Level="3" NoFlamp="false" IsCommercial="true" IsHidden="false" IsDeleted="false">
+  <Names>
+    <Name Lang="ru" Value="Парк бабочек"/>
+    <Name Lang="en" Value="The Butterfly's Park"/>
+  </Names>
+  <DefaultComments>
+    <DefaultComment Lang="ru" Value="В данную рубрику следует вносить парк бабочек" />
+    <DefaultComment Lang="en" Value="это постоянно действующая выставка экзотических насекомых" />
+  </DefaultComments>
+  <DefaultKeywords>
+    <DefaultKeyword Lang="ru" Value="Выставка бабочек" />
+    <DefaultKeyword Lang="en" Value="Выставка" />
+  </DefaultKeywords>
+  <Groups>
+    <Group>
+      <Branches>
+        <Branch Code="18"/>
+        <Branch Code="32"/>
+      </Branches>  
+      <Keywords>
+        <Keyword Lang="ru" Value="Выставка бабочек"/>
+        <Keyword Lang="en" Value="Выставка бабочек, Покупка бабочек, Продажа бабочек, Кормление бабочек с рук"/>
+      </Keywords>
+      <PublishedKeywords>
+        <Keyword Lang="ru" Value="Выставка бабочек, Покупка бабочек"/>
+        <Keyword Lang="en" Value="Продажа бабочек, Кормление бабочек с рук"/>
+      </PublishedKeywords>
+      <Comments>
+        <Comment Lang="ru" Value="В данную рубрику следует вносить парк бабочек - это постоянно действующая выставка экзотических насекомых, тропических растений и животных."/>
+        <Comment Lang="en" Value="В данную рубрику следует вносить парк бабочек - это постоянно действующая выставка экзотических насекомых, тропических растений и животных."/>
+      </Comments>
+    </Group>
+  </Groups>
+</Rubric>

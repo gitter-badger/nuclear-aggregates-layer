@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HousingEstate Code="4504261052334082" Name="6-й микрорайон (Раменки)" TypeCode="1" CityCode="1267230100684813" Synonym="Раменки" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="6-й микрорайон (Раменки)" />
+    <Localization Lang="it" Name="6-й микрорайон"  />
+  </Localizations>
+  <OldCodes>
+    <OldCode Code="4504261052334082" BranchCode="1" />
+  </OldCodes>
+</HousingEstate>

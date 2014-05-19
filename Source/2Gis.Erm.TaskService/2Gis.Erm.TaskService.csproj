@@ -116,6 +116,10 @@
     <Compile Include="DI\TaskServiceRoot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545d6b0-d443-443d-8939-c42ee20dd418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
       <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
       <Name>2Gis.Erm.BLCore.API.MoDi</Name>

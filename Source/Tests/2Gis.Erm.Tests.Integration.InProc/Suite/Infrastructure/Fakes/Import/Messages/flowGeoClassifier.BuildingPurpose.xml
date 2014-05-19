@@ -1,0 +1,9 @@
+﻿<BuildingPurpose  Code="2" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Административное здание" />
+  </Localizations>
+  <Branches>
+    <Branch Code="9" />
+    <Branch Code="12" />
+  </Branches>
+</BuildingPurpose>

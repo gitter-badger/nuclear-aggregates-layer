@@ -1,0 +1,10 @@
+﻿<Street Code="1267449144018138" Name="Проспект Маркса" OriginalName="Маркса" NameInDative="Проспекту Маркса" NameInAccusative="Проспекта Маркса" CityCode="1267230100684801" TypeCode="1" Synonym="Площадь Ленина" Priority="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Проспект Маркса" OriginalName="Маркса" NameInDative="Проспекту Маркса" NameInAccusative="Проспекта Маркса" />
+    <Localization Lang="it" Name="Marksa Проспект" OriginalName="Marksa" NameInDative="Проспекту" NameInAccusative="Проспекта"  />
+  </Localizations>
+  <District DistrictCode="1204209512726530" />
+  <OldCodes>
+    <OldCode Code="1267449144018138" BranchCode="1" />
+  </OldCodes>
+</Street>

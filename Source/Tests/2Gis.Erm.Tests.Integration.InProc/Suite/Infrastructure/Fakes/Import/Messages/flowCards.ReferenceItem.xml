@@ -1,0 +1,7 @@
+﻿<ReferenceItem ReferenceCode="PaymentMethod" Code="1" Name="Visa" Description="Виза" OrderNo="1" IsHidden="false" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Visa" Description="Виза" />
+    <Localization Lang="en" Name="Visa" Description="Виза" />
+    <Localization Lang="it" Name="Visa" Description="Виза" />
+  </Localizations>
+</ReferenceItem>

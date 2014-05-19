@@ -122,6 +122,10 @@
     <Compile Include="UnityServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>

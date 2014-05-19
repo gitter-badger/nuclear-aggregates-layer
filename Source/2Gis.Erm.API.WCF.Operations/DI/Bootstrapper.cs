@@ -7,6 +7,7 @@ using System.ServiceModel.Description;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;

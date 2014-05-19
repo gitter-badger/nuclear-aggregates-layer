@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
@@ -16,6 +18,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
@@ -61,9 +64,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
+using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
 
 using Microsoft.Practices.Unity;
 
@@ -99,7 +104,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 MultipleImplementationResolvers.NonCoupled.ServerSidePreferable, 
                                 MultipleImplementationResolvers.NonCoupled.UseFirst
                             }),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new IntergationServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -108,12 +114,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                             settingsContainer,
                             massProcessors,
                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                            c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
+                                             c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<IGlobalizationSettings>(),
                                 settingsContainer.AsSettings<IMsCrmSettings>(),
                                 settingsContainer.AsSettings<ICachingSettings>()))
-                     .ConfigureServiceClient();
+                     .ConfigureServiceClient()
+                     .OverrideDependencies();
 
             return container;
         }
@@ -146,6 +153,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                     .ConfigureExportMetadata()
                     .ConfigureMetadata()
                     .ConfigureTestInfrastructure(environmentSettings);
+                    
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -262,6 +270,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+        }
+
+        private static IUnityContainer OverrideDependencies(this IUnityContainer container)
+        {
+            return container.RegisterType(typeof(IImportFromServiceBusService),
+                                          typeof(ImportFromServiceBusService),
+                                          new InjectionConstructorPart(new ConstructorParameterOverride(typeof(IClientProxyFactory),
+                                                                                                        typeof(FakeBrokerApiReceiverClientProxyFactory))));
         }
     }
 }
