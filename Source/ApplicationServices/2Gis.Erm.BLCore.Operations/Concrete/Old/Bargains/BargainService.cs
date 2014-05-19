@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -39,19 +38,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains
                 return result;
             }
 
-            var specification = OrderSpecs.Bargains.Find.ForOrder(legalPersonId, branchOfficeOrganizationUnitId);
+            var bargainsArray = _bargainRepository.GetBargainsForOrder(legalPersonId, branchOfficeOrganizationUnitId);
 
-            var bargainsArray = _bargainRepository.FindBySpecification(specification).ToArray();
-
-            if (bargainsArray.Length == 0)
+            if (bargainsArray.Count == 0)
             {
                 return result;
             }
 
             Bargain currentBargain;
-            if (bargainsArray.Length == 1)
+            if (bargainsArray.Count == 1)
             {
-                currentBargain = bargainsArray[0];
+                currentBargain = bargainsArray.First();
             }
             else
             {
@@ -104,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains
 
         public CloseBargainsResult CloseBargains(DateTime closeDate)
         {
-            List<Bargain> bargains = _bargainRepository.FindBySpecification(OrderSpecs.Bargains.Find.NonClosed).ToList();
+            var bargains = _bargainRepository.GetNonClosedBargains();
 
             var invalidPeriodBargainsNumbers = bargains.Where(x => x.SignedOn > closeDate).Select(x => x.Number).ToArray();
 

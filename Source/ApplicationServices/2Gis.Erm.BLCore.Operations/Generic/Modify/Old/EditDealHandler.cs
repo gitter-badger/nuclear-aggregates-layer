@@ -1,6 +1,6 @@
 ﻿using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

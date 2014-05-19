@@ -2,11 +2,11 @@
 using System.Linq;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

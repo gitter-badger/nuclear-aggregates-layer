@@ -235,6 +235,10 @@
       <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>

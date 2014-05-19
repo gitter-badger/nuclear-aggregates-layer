@@ -4,9 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
@@ -63,10 +65,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                     OrderReadModel = SetupOrderReadModel();
 
                     Target = new CopyOrderOperationService(
-                        UserContext,
-                        PublicService,
-                        SecurityServiceEntityAccess,
-                        OrderRepository,
+                        UserContext, 
+                        PublicService, 
+                        SecurityServiceEntityAccess, 
+                        OrderRepository, 
                         ScopeFactory,
                         null,
                         null,

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AfterSaleServices;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

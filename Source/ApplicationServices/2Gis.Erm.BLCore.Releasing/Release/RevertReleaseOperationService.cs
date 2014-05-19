@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;

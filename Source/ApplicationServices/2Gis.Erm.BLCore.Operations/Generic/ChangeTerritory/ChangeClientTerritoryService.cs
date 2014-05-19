@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Clients;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Mime;
 
-using DoubleGis.Erm.BLCore.Aggregates.LocalMessages;
+using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;

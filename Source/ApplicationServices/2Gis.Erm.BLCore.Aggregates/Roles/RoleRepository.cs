@@ -2,6 +2,9 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Roles;
+using DoubleGis.Erm.BLCore.API.Aggregates.Roles.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -253,42 +256,4 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
                                            }).AsEnumerable();
         }
     }
-
-    #region Dto
-
-    public sealed class PrivilegeName
-    {
-        public long PrivilegeId { get; set; }
-        public string Name { get; set; }
-        public string EntityType { get; set; }
-        public bool IsFunctional { get; set; }
-    }
-
-    public sealed class EntityPrivilegeInfo
-    {
-        public EntityName EntityName { get; set; }
-        public string EntityNameLocalized { get; set; }
-
-        public IEnumerable<PrivilegeDto> PrivilegeInfoList { get; set; }
-    }
-
-    public sealed class PrivilegeDto
-    {
-        public long PrivilegeId { get; set; }
-        public EntityAccessTypes Operation { get; set; }
-        public string NameLocalized { get; set; }
-
-        public EntityPrivilegeDepthState PrivilegeDepthMask { get; set; }
-    }
-
-    public sealed class FunctionalPrivilegeInfo
-    {
-        public long PrivilegeId { get; set; }
-        public string NameLocalized { get; set; }
-
-        public int Mask { get; set; }
-        public byte Priority { get; set; }
-    }
-
-    #endregion
 }

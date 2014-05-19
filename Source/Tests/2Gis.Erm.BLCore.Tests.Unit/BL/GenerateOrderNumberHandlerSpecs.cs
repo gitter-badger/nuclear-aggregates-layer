@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;

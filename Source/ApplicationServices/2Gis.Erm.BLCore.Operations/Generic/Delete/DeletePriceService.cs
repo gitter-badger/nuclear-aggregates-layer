@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -43,15 +43,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 
                 var isPricePublished = _priceReadModel.IsPricePublished(entityId);
                 if (isPricePublished)
-                {
-                    throw new ArgumentException(BLResources.PriceInActionCannotBeDeactivated);
-                }
+                    {
+                        throw new ArgumentException(BLResources.PriceInActionCannotBeDeactivated);
+                    }
 
                 var isPriceLinked = _priceReadModel.IsPriceLinked(entityId);
                 if (isPriceLinked)
-                {
-                    throw new ArgumentException(BLResources.PriceIsLinkedWithActiveOrdersAndCannotBeDeleted);
-                }
+                    {
+                        throw new ArgumentException(BLResources.PriceIsLinkedWithActiveOrdersAndCannotBeDeleted);
+                    }
 
                 var allPriceDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(entityId);
 

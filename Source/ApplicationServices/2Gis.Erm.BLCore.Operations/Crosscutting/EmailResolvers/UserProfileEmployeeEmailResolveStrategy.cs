@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Users;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.Common.Logging;
 

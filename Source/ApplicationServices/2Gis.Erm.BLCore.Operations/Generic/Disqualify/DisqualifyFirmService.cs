@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Firms;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

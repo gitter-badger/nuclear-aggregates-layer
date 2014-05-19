@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Dictionary;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;

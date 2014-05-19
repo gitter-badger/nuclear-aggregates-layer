@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.BLCore.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals.Settings;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

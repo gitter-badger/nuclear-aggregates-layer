@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

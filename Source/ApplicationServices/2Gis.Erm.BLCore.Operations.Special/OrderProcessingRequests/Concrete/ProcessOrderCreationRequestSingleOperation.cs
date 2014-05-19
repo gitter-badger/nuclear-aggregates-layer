@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;

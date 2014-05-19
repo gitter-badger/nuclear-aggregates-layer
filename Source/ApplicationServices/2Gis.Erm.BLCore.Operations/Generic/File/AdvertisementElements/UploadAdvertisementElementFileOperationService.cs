@@ -1,7 +1,7 @@
 ﻿using System.IO;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

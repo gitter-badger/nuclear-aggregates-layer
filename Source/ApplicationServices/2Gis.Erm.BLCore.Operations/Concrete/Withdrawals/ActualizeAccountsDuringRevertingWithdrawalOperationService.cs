@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;

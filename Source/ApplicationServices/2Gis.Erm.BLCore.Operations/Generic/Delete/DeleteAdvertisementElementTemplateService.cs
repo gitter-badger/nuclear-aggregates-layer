@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

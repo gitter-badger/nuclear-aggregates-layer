@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -16,47 +19,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 {
-    #region Dto Definitions
-
-    public sealed class PricePositionDto
-    {
-        public long Id { get; set; }
-        public long PositionId { get; set; }
-        public string PositionName { get; set; }
-        public long PriceId { get; set; }
-        public IEnumerable<IEnumerable<RelatedItemDto>> Groups { get; set; }
-        public IEnumerable<RelatedItemDto> DeniedPositions { get; set; }
-
-        public sealed class RelatedItemDto
-        {
-            public ObjectBindingType BindingCheckMode { get; set; }
-            public long PositionId { get; set; }
-
-            public override bool Equals(object obj)
-            {
-                if (obj == null)
-                {
-                    return false;
-                }
-
-                var dto = obj as RelatedItemDto;
-                if (dto == null)
-                {
-                    return false;
-                }
-
-                return PositionId == dto.PositionId && BindingCheckMode == dto.BindingCheckMode;
-            }
-
-            public override int GetHashCode()
-            {
-                return BindingCheckMode.GetHashCode() ^ PositionId.GetHashCode();
-            }
-        }
-    }
-
-    #endregion
-
     public class PriceRepository : IPriceRepository
     {
         private readonly IRepository<Price> _priceGenericRepository;
@@ -281,35 +243,35 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Price>())
             {
-                price.PublishDate = publishDate;
-                price.IsPublished = true;
+            price.PublishDate = publishDate;
+            price.IsPublished = true;
 
-                price.OrganizationUnitId = organizationUnitId;
-                price.BeginDate = beginDate;
+            price.OrganizationUnitId = organizationUnitId;
+            price.BeginDate = beginDate;
 
-                _priceGenericRepository.Update(price);
+            _priceGenericRepository.Update(price);
                 operationScope.Updated<Price>(price.Id);
 
-                _priceGenericRepository.Save();
+            _priceGenericRepository.Save();
 
                 operationScope.Complete();
             }
         }
 
         public void Unpublish(Price price)
-        {
+            {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Price>())
             {
-                price.IsPublished = false;
-                
-                _priceGenericRepository.Update(price);
+            price.IsPublished = false;
+
+            _priceGenericRepository.Update(price);
                 operationScope.Updated<Price>(price.Id);
 
-                _priceGenericRepository.Save();
+            _priceGenericRepository.Save();
 
                 operationScope.Complete();
             }
-        }
+            }
 
         public void CreateOrUpdate(AssociatedPositionsGroup associatedPositionGroup)
         {

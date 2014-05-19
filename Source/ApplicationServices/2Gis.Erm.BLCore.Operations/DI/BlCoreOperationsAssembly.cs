@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.DI;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
+using DoubleGis.Erm.BLCore.API.Operations.DI;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.DAL;
@@ -14,7 +15,9 @@ namespace DoubleGis.Erm.BLCore.Operations.DI
                                                    IContainsType<IOperation>,
                                                    IContainsType<IPersistenceService>,
                                                    IContainsType<IRequestHandler>,
-                                                   IContainsType<ISimplifiedModelConsumer>
+                                                   IContainsType<ISimplifiedModelConsumer>,
+                                                   IContainsType<IDeserializeServiceBusObjectService>,
+                                                   IContainsType<IImportServiceBusDtoService>
     {
     }
 }

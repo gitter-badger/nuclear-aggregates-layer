@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
@@ -31,9 +32,7 @@ using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 
 using Microsoft.Practices.Unity;
 

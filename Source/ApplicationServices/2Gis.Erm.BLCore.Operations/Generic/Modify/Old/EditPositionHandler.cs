@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

@@ -4,6 +4,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -19,46 +23,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 {
-    #region DTO definitions
-
-    public class DealLegalPersonDto
-    {
-        public LegalPersonDto LegalPerson { get; set; }
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public long ClientId { get; set; }
-        public long CurrencyId { get; set; }
-        public long OwnerCode { get; set; }
-
-        public long? MainFirmId { get; set; }
-
-        public class LegalPersonDto
-        {
-            public long Id { get; set; }
-            public string Name { get; set; }
-        }
-    }
-
-    public class ClientAndFirmForDealInfo
-    {
-        public Client Client { get; set; }
-        public Firm MainFirm { get; set; }
-    }
-
-    public class DealWithNonRejectedOrderInfos
-    {
-        public Deal Deal { get; set; }
-        public IEnumerable<OrderInfo> OrderInfos { get; set; }
-
-        public class OrderInfo
-        {
-            public long Id { get; set; }
-            public decimal AmountWithdrawn { get; set; }
-        }
-    }
-
-    #endregion
-
     public class DealRepository : IDealRepository
     {
         private readonly ISecureFinder _finder;

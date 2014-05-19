@@ -6,7 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BLCore.Aggregates.LocalMessages;
+using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
@@ -18,7 +18,6 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;

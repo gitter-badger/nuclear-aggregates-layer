@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             var entity = dto.Id == 0
                              ? new Operation()
-                             : _finder.Find(OperationSpecifications.Find.ById(dto.Id)).Single();
+                             : _finder.Find(Specs.Find.ById<Operation>(dto.Id)).Single();
 
             entity.Description = dto.Description;
             entity.FinishTime = dto.FinishTime;

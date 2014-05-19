@@ -4,6 +4,9 @@ using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -14,15 +17,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 {
-    #region Dto Definitions
-    public sealed class CategoryWithPositionsDto
-    {
-        public PositionCategory PositionCategory { get; set; }
-        public IEnumerable<Position> Positions { get; set; }
-    }
-    
-    #endregion
-
     public class PositionRepository : IPositionRepository
     {
         private readonly IFinder _finder;

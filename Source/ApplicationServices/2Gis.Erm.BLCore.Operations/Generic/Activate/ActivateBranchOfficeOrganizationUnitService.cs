@@ -1,7 +1,7 @@
 ﻿using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

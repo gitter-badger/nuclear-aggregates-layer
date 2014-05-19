@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 
-using DoubleGis.Erm.BLCore.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
