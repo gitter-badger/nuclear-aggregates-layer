@@ -2,8 +2,9 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Accounts;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.Aggregates.Dynamic.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;

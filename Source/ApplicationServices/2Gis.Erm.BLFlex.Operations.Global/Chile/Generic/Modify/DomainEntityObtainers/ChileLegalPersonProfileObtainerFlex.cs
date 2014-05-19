@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Dynamic.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;

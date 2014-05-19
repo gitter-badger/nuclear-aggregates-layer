@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.DTO;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DTO;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Simplified;
 

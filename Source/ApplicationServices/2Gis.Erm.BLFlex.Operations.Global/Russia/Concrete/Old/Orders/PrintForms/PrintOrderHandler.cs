@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;

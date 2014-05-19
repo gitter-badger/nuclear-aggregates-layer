@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

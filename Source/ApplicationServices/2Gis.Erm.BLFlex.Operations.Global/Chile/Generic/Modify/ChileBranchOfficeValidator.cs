@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

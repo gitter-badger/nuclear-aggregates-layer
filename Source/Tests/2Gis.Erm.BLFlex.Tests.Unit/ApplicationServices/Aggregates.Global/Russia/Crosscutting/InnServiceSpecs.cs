@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 
 using FluentAssertions;

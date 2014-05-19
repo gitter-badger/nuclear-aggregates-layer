@@ -1,8 +1,9 @@
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Firms;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

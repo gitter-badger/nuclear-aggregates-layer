@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.DictionaryEntity.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -46,13 +47,13 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
 
         public bool IsBankUsed(long bankId)
         {
-            return _finder.Find(BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadModel.DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Bank))
+            return _finder.Find(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Bank))
                           .Any(x => x.DictionaryEntityPropertyInstances.Any(y => y.PropertyId == BankIdIdentity.Instance.Id && y.NumericValue == bankId));
         }
 
         private IQueryable<DictionaryEntityInstanceDto> GetDictionaryEntityInstanceDto(long bankId)
         {
-            return _finder.Find<DictionaryEntityInstance, DictionaryEntityInstanceDto>(BLCore.Aggregates.SimplifiedModel.DictionaryEntity.ReadModel.DictionaryEntitySpecs.DictionaryEntity.Select.DictionaryEntityInstanceDto(),
+            return _finder.Find<DictionaryEntityInstance, DictionaryEntityInstanceDto>(DictionaryEntitySpecs.DictionaryEntity.Select.DictionaryEntityInstanceDto(),
                                                                                        Specs.Find.ById<DictionaryEntityInstance>(bankId));
         }
     }

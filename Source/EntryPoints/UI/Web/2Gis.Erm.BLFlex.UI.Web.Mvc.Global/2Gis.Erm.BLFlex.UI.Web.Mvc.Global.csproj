@@ -1125,6 +1125,10 @@
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
@@ -1136,10 +1140,6 @@
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
       <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
-      <Project>{b558aefd-8c80-4f81-98bc-dd3abe3e519e}</Project>
-      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>

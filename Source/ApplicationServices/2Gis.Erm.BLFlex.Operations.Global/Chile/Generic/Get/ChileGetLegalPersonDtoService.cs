@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

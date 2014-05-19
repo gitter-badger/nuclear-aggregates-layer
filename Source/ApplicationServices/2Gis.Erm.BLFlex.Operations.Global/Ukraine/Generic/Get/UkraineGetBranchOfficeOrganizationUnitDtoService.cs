@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;

@@ -1,4 +1,4 @@
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting
