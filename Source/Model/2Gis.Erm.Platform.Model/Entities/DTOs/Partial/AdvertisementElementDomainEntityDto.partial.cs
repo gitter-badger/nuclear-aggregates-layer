@@ -36,5 +36,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool NeedsValidation { get; set; }
         [DataMember]
         public bool CanUserChangeStatus { get; set; }
+        [DataMember]
+        public bool UserDoesntHaveRightsToEditFirm { get; set; }
     }
 }
