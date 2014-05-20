@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -16,11 +18,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
-        public GetAdvertisementElementDtoService(IUserContext userContext, ISecureFinder finder, ISecurityServiceFunctionalAccess securityServiceFunctionalAccess)
+        private readonly IFinder _unsecureFinder;
+        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
+
+        public GetAdvertisementElementDtoService(IUserContext userContext,
+                                                 ISecureFinder finder,
+                                                 ISecurityServiceFunctionalAccess securityServiceFunctionalAccess,
+                                                 IFinder unsecureFinder,
+                                                 ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
             _finder = finder;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
+            _unsecureFinder = unsecureFinder;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         protected override IDomainEntityDto<AdvertisementElement> GetDto(long entityId)
@@ -33,7 +44,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                  Id = entity.Id,
                                                  BeginDate = entity.BeginDate,
                                                  EndDate = entity.EndDate,
-                                                 AdvertisementElementTemplateRef = new EntityReference { Id = entity.AdvertisementElementTemplate.Id, Name = entity.AdvertisementElementTemplate.Name },
+                                                 AdvertisementElementTemplateRef =
+                                                     new EntityReference
+                                                         {
+                                                             Id = entity.AdvertisementElementTemplate.Id,
+                                                             Name = entity.AdvertisementElementTemplate.Name
+                                                         },
                                                  TemplateFileExtensionRestriction = entity.AdvertisementElementTemplate.FileExtensionRestriction,
                                                  TemplateImageDimensionRestriction = entity.AdvertisementElementTemplate.ImageDimensionRestriction,
                                                  TemplateFormattedText = entity.AdvertisementElementTemplate.FormattedText,
@@ -41,7 +57,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                  TemplateTextLengthRestriction = entity.AdvertisementElementTemplate.TextLengthRestriction,
                                                  TemplateMaxSymbolsInWord = entity.AdvertisementElementTemplate.MaxSymbolsInWord,
                                                  TemplateTextLineBreaksRestriction = entity.AdvertisementElementTemplate.TextLineBreaksCountRestriction,
-                                                 TemplateRestrictionType = (AdvertisementElementRestrictionType)entity.AdvertisementElementTemplate.RestrictionType,
+                                                 TemplateRestrictionType =
+                                                     (AdvertisementElementRestrictionType)entity.AdvertisementElementTemplate.RestrictionType,
                                                  Status = (AdvertisementElementStatus)entity.Status,
                                                  Error = (AdvertisementElementError)entity.Error,
 
@@ -51,8 +68,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                  FasCommentType = (FasComment)entity.FasCommentType,
                                                  PlainText = entity.Text,
                                                  FormattedText = entity.Text,
-                                                 FileId = entity.FileId, 
-                                                 FileName = entity.File != null ? entity.File.FileName : null, 
+                                                 FileId = entity.FileId,
+                                                 FileName = entity.File != null ? entity.File.FileName : null,
                                                  FileContentLength = entity.File != null ? entity.File.ContentLength : 0,
                                                  FileContentType = entity.File != null ? entity.File.ContentType : null,
                                                  OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
@@ -65,6 +82,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                              },
                                          Template = entity.AdvertisementElementTemplate
                                      }).Single();
+
+
+            var firmInfo = _unsecureFinder
+                .Find(Specs.Find.ById<AdvertisementElement>(entityId))
+                .Select(x => x.Advertisement.Firm)
+                .Select(x => new
+                    {
+                        Id = x.Id,
+                        OwnerCode = x.OwnerCode
+                    })
+                .SingleOrDefault();
+
+            if (firmInfo != null)
+            {
+                dtoInfo.Dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                           EntityName.Firm,
+                                                                                                           UserContext.Identity.Code,
+                                                                                                           firmInfo.Id,
+                                                                                                           firmInfo.OwnerCode,
+                                                                                                           firmInfo.OwnerCode);
+            }
 
             return dtoInfo.Dto;
         }
