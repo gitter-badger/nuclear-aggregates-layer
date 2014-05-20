@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -70,6 +69,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public AdvertisementElementStatus[] AvailableStates { get; set; }
 
+        public bool UserDoesntHaveRightsToEditFirm { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var advertisementElementDto = (AdvertisementElementDomainEntityDto)domainEntityDto;
@@ -96,6 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Timestamp = advertisementElementDto.Timestamp;
             NeedsValidation = advertisementElementDto.NeedsValidation;
             CanUserChangeStatus = advertisementElementDto.CanUserChangeStatus;
+            UserDoesntHaveRightsToEditFirm = advertisementElementDto.UserDoesntHaveRightsToEditFirm;
             Status = advertisementElementDto.Status;
             Error = advertisementElementDto.Error;
         }
