@@ -17,7 +17,5 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel
         long[] GetDependedOrderIds(IEnumerable<long> advertisementIds);
 
         AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId);
-
-        Firm GetFirmByAdvertisementElement(long advertisementElementId);
     }
 }

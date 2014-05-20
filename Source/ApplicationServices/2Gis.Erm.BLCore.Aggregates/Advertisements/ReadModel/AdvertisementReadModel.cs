@@ -112,10 +112,5 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
             return orderIds;
         }
-
-        public Firm GetFirmByAdvertisementElement(long advertisementElementId)
-        {
-            return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId)).Select(x => x.Advertisement.Firm).SingleOrDefault();
-        }
     }
 }
