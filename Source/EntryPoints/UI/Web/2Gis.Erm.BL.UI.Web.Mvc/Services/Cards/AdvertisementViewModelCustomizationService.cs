@@ -22,6 +22,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
             {
                 advertisementModel.ViewConfig.ReadOnly = true;
             }
+
+            advertisementModel.ViewConfig.ReadOnly |= advertisementModel.UserDoesntHaveRightsToEditFirm;
         }
     }
 }

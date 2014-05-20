@@ -45,6 +45,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
+        public bool UserDoesntHaveRightsToEditFirm { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var advDto = domainEntityDto as AdvertisementDomainEntityDto;
@@ -62,6 +64,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             AdvertisementTemplate = LookupField.FromReference(advDto.AdvertisementTemplateRef);
             HasAssignedOrder = advDto.HasAssignedOrder;
             IsReadOnlyTemplate = advDto.IsReadOnlyTemplate;
+            UserDoesntHaveRightsToEditFirm = advDto.UserDoesntHaveRightsToEditFirm;
 
             Timestamp = advDto.Timestamp;
         }
@@ -77,6 +80,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                     FirmRef = Firm.ToReference(),
                     AdvertisementTemplateRef = AdvertisementTemplate.ToReference(),
                     HasAssignedOrder = HasAssignedOrder,
+                    
                     // TODO: Выпилить OwnerCode
                     OwnerRef = Owner != null ? new EntityReference(Owner.Key.HasValue ? Owner.Key.Value : 0) : new EntityReference(),
                     Timestamp = Timestamp
