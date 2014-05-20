@@ -162,6 +162,7 @@
     <Content Include="Content\CRM4.css" />
     <Content Include="Content\DataList.css" />
     <Content Include="Content\debug.css" />
+    <Content Include="Content\dialogProxy.html" />
     <Content Include="Content\EditAccessSharingList.css" />
     <Content Include="Content\ErrorPage.css" />
     <Content Include="Content\ext-all.css" />
