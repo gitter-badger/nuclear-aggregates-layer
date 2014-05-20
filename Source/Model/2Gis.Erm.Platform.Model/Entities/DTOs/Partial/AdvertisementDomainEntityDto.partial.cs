@@ -10,5 +10,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool HasAssignedOrder { get; set; }
         [DataMember]
         public bool IsReadOnlyTemplate { get; set; }
+        [DataMember]
+        public bool UserDoesntHaveRightsToEditFirm { get; set; }
     }
 }
