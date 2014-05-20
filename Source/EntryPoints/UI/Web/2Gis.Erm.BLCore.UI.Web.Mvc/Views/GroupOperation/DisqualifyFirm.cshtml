@@ -37,13 +37,7 @@
         });
         Ext.onReady(function ()
         {
-            var ids;
-            if (window.dialogArguments) {
-                ids = window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments;
-            } else {
-                var queryParameters = Ext.urlDecode(window.location.search.substring(1));
-                ids = queryParameters.CrmIds.split(',');
-            }
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             var config = {
                 Entities: ids, // массив id сущностей

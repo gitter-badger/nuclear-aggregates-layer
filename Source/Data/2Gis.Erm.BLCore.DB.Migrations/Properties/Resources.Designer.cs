@@ -403,6 +403,58 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
+        ///        &lt;!-- 		Application Level Tool Bar, не удалять !		--&gt;
+        ///      &lt;/Root&gt;
+        ///      &lt;Entities&gt;
+        ///        &lt;Entity name=&quot;activitypointer&quot;&gt;
+        ///          &lt;Grid&gt;
+        ///            &lt;MenuBar&gt;
+        ///              &lt;ActionsMenu&gt;
+        ///                &lt;MenuItem JavaScript=&quot;window.showModalDialog(&apos;https://e [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_20377 {
+            get {
+                return ResourceManager.GetString("Customizations_20377", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
+        ///        &lt;!-- 		Application Level Tool Bar, не удалять !		--&gt;
+        ///      &lt;/Root&gt;
+        ///      &lt;Entities&gt;
+        ///        &lt;Entity name=&quot;activitypointer&quot;&gt;
+        ///          &lt;Grid&gt;
+        ///            &lt;MenuBar&gt;
+        ///              &lt;ActionsMenu&gt;
+        ///                &lt;MenuItem JavaScript=&quot;window.showModalDialog(&apos;https://e [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_20459 {
+            get {
+                return ResourceManager.GetString("Customizations_20459", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] DoubleGis_Erm_SqlClr {

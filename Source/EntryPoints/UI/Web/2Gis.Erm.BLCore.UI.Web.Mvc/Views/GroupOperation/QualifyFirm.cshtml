@@ -162,19 +162,16 @@
             EntityProcessingFail: function(entityId) {
             },
             ProcessingFinished: function() {
-                for (var i = 0; i < this.ClientCardsToOpen.length; i++) {
-                    Ext.DoubleGis.Global.Helpers.OpenEntity('Client', this.ClientCardsToOpen[i]);
+                if (!this.IsSingleEntityProcessing || this.ClientCardsToOpen.length != 1) {
+                    return;
                 }
+
+                Ext.DoubleGis.Global.Helpers.OpenEntity('Client', this.ClientCardsToOpen[0]);
             }
         });
         Ext.onReady(function() {
-            var ids;
-            if (window.dialogArguments) {
-                ids = window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments;
-            } else {
-                var queryParameters = Ext.urlDecode(window.location.search.substring(1));
-                ids = queryParameters.CrmIds.split(',');
-            }
+
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             var config = {
                 Entities: ids, // массив id сущностей

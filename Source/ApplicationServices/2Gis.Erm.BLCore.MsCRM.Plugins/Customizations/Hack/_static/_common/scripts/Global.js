@@ -392,6 +392,167 @@ typeof (dialogArguments.openerWindow) != "undefined" && !IsNull(dialogArguments.
     }
     return windowOpened;
 }
+// ---------------------------------------------------------------------------------------------
+// Отображение модального диалога с View возвращаемым в общем случае с другого домена.
+// Назначение - обход ограничение same origin policy на доступ к настройкам диалога: dialogArguments  и т.п. (Если вызывающая страница, и отбражаемая в диалоговом окне имеют разные origin). 
+function showCrossDomainModalDialog(sTargetUrl, vArguments, sOptions, onCloseHandler)
+{
+    var _dialogUrl = sTargetUrl;
+	var _dialogArguments = vArguments === null ? "" : vArguments;
+	var _dialogOptions = sOptions;
+	var _dialogOnCloseHandler = onCloseHandler;
+    
+    var parsedUrl = parseURL(sTargetUrl);
+    var _dialogProxyUrl = parsedUrl.protocol+'://'+parsedUrl.host+(parsedUrl.port ? ':'+parsedUrl.port: '') + "/Content/dialogProxy.html";
+
+    ensureJSONSerializerAvailability();
+    attachProxyListener();
+    var _proxyDialogFrame = attachProxyFrame();
+
+	function onProxyDialogMessageHandler(e)
+	{
+		var message = deserialize(e.data);
+        if (message.Type == 'ready') {
+			onProxyDialogReady();
+		} else if (message.Type == 'dialogClosed') {
+			onProxyDialogClosed(message.Value);
+		}
+	}
+
+	function onProxyDialogReady()
+	{
+		var message = {
+			Type: "dialogSettings",
+			Value: {
+				Url: _dialogUrl,
+				Args: _dialogArguments,
+				Options: _dialogOptions}
+		};
+
+        var strMessage = serialize(message);
+		_proxyDialogFrame.contentWindow.postMessage(strMessage, "*");
+	}
+
+	function onProxyDialogClosed(result)
+	{
+		detachProxyListener();
+		deattachProxyFrame();
+		_dialogOnCloseHandler(result);
+	}
+
+	function serialize(data)
+	{
+        return JSON.stringify(data); 
+	}
+
+	function deserialize(sData)
+	{
+        return JSON.parse(sData);
+	}
+
+	function attachProxyListener()
+	{
+		if (window.addEventListener) {
+		  window.addEventListener('message', onProxyDialogMessageHandler, false);
+		}
+		else { // IE8 or earlier
+		  window.attachEvent('onmessage', onProxyDialogMessageHandler, false);
+		}
+	}
+
+	function detachProxyListener()
+	{
+		if (window.addEventListener) {
+		  window.removeEventListener('message', onProxyDialogMessageHandler, false);
+		}
+		else { // IE8 or earlier
+		  window.detachEvent ('onmessage', onProxyDialogMessageHandler, false);
+		}
+	}
+
+	function attachProxyFrame()
+	{
+		// Add the iframe with a unique name
+	  var iframe = document.createElement("iframe");
+	  var uID = guid();
+	  document.body.appendChild(iframe);
+	  iframe.style.display = "none";
+	  iframe.contentWindow.name = uID;
+	  iframe.src = _dialogProxyUrl;
+	  return iframe;
+	}
+
+	function deattachProxyFrame()
+	{
+        document.body.removeChild(_proxyDialogFrame);
+	}
+
+    function ensureJSONSerializerAvailability()
+    {
+        if (!window.JSON) {
+          window.JSON = {
+            parse: function (sJSON) { return eval("(" + sJSON + ")"); },
+            stringify: function (vContent) {
+              if (vContent instanceof Object) {
+                var sOutput = "";
+                if (vContent.constructor === Array) {
+                  for (var nId = 0; nId < vContent.length; sOutput += this.stringify(vContent[nId]) + ",", nId++);
+                    return "[" + sOutput.substr(0, sOutput.length - 1) + "]";
+                }
+                if (vContent.toString !== Object.prototype.toString) { 
+                  return "\"" + vContent.toString().replace(/"/g, "\\$&") + "\"";
+                }
+                for (var sProp in vContent) { 
+                  sOutput += "\"" + sProp.replace(/"/g, "\\$&") + "\":" + this.stringify(vContent[sProp]) + ",";
+                }
+                return "{" + sOutput.substr(0, sOutput.length - 1) + "}";
+             }
+             return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
+            }
+          };
+        }
+    }
+
+    function parseURL(url) {
+        var a =  document.createElement('a');
+        a.href = url;
+        return {
+            source: url,
+            protocol: a.protocol.replace(':',''),
+            host: a.hostname,
+            port: a.port,
+            query: a.search,
+            params: (function(){
+                var ret = {},
+                    seg = a.search.replace(/^\?/,'').split('&'),
+                    len = seg.length, i = 0, s;
+                for (;i<len;i++) {
+                    if (!seg[i]) { continue; }
+                    s = seg[i].split('=');
+                    ret[s[0]] = s[1];
+                }
+                return ret;
+            })(),
+            file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+            hash: a.hash.replace('#',''),
+            path: a.pathname.replace(/^([^\/])/,'/$1'),
+            relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+            segments: a.pathname.replace(/^\//,'').split('/')
+        };
+    }
+
+    function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+                   .toString(16)
+                   .substring(1);
+      }
+
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+               s4() + '-' + s4() + s4() + s4();
+  }
+}
+//---------------------------------------------------------------------------------------------------
 function safeWindowShowModalDialog(sUrl, vArguments, sFeatures)
 {
     // Make sure the dialog arguments are set.

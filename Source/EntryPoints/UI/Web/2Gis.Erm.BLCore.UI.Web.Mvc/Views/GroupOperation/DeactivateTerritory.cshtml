@@ -71,13 +71,7 @@
         Ext.onReady(function() {
             //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);
 
-            var ids;
-            if (window.dialogArguments) {
-                ids = window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments;
-            } else {
-                var queryParameters = Ext.urlDecode(window.location.search.substring(1));
-                ids = queryParameters.CrmIds.split(',');
-            }
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             Ext.getDom('PageContentCell').style["vertical-align"] = "top";
             var config = {
