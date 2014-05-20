@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,11 +16,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetAdvertisementDtoService : GetDomainEntityDtoServiceBase<Advertisement>
     {
         private readonly ISecureFinder _finder;
+        private readonly IFinder _unsecureFinder;
+        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
 
-        public GetAdvertisementDtoService(IUserContext userContext, ISecureFinder finder)
+        public GetAdvertisementDtoService(IUserContext userContext,
+                                          ISecureFinder finder,
+                                          IFinder unsecureFinder,
+                                          ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
             _finder = finder;
+            _unsecureFinder = unsecureFinder;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         protected override IDomainEntityDto<Advertisement> GetDto(long entityId)
@@ -49,22 +59,44 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      Timestamp = entity.Timestamp
                                  })
                              .Single();
+
+            if (dto.FirmRef.Id.HasValue)
+            {
+                var firmInfo = GetFirm(dto.FirmRef.Id.Value);
+
+                dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                   EntityName.Firm,
+                                                                                                   UserContext.Identity.Code,
+                                                                                                   firmInfo.Id,
+                                                                                                   firmInfo.OwnerCode,
+                                                                                                   firmInfo.OwnerCode);
+            }
+
             return dto;
         }
 
         protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var dto = new AdvertisementDomainEntityDto();
+            dto.UserDoesntHaveRightsToEditFirm = false;
 
             switch (parentEntityName)
             {
                 case EntityName.Firm:
                 {
+                    var firmInfo = GetFirm(parentEntityId.Value);
                     dto.FirmRef = new EntityReference
                         {
                             Id = parentEntityId.Value,
-                            Name = _finder.Find<Firm>(x => x.Id == parentEntityId).Select(x => x.Name).SingleOrDefault()
+                            Name = firmInfo.Name
                         };
+
+                    dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                   EntityName.Firm,
+                                                                                                   UserContext.Identity.Code,
+                                                                                                   firmInfo.Id,
+                                                                                                   firmInfo.OwnerCode,
+                                                                                                   firmInfo.OwnerCode);
 
                     break;
                 }
@@ -75,11 +107,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     if (!string.IsNullOrEmpty(extendedInfo) &&
                         long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
                     {
+                        var firmInfo = GetFirm(firmId);
                         dto.FirmRef = new EntityReference
                             {
                                 Id = firmId,
-                                Name = _finder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                                Name = firmInfo.Name
                             };
+
+                        dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                                   EntityName.Firm,
+                                                                                                   UserContext.Identity.Code,
+                                                                                                   firmInfo.Id,
+                                                                                                   firmInfo.OwnerCode,
+                                                                                                   firmInfo.OwnerCode);
                     }
 
                     long advertisementTemplateId;
@@ -124,6 +164,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 dto.IsReadOnlyTemplate = true;
             }
+        }
+
+        private FirmInfo GetFirm(long firmId)
+        {
+            return _unsecureFinder
+                .Find(Specs.Find.ById<Firm>(firmId))
+                .Select(x => new FirmInfo
+                    {
+                        Id = x.Id,
+                        OwnerCode = x.OwnerCode,
+                        Name = x.Name
+                    })
+                .Single();
+        }
+
+        private class FirmInfo
+        {
+            public long Id { get; set; }
+            public long OwnerCode { get; set; }
+            public string Name { get; set; }
         }
     }
 }
