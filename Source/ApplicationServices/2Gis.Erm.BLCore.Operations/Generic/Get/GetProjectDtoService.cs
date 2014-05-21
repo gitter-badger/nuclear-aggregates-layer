@@ -25,20 +25,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return _finder.Find<Project>(x => x.Id == entityId)
                           .Select(x => new ProjectDomainEntityDto
                               {
-                              Id = x.Id,
-                              Code = x.Code,
-                              DisplayName = x.DisplayName,
-                              NameLat = x.NameLat,
-                              IsActive = x.IsActive,
-                              DefaultLang = x.DefaultLang,
-                              OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = x.OrganizationUnit.Name },
-
-                              CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },
-                              CreatedOn = x.CreatedOn,
-                              ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
-                              ModifiedOn = x.ModifiedOn,
-                              Timestamp = x.Timestamp
-                          })
+                                  Id = x.Id,
+                                  DisplayName = x.DisplayName,
+                                  NameLat = x.NameLat,
+                                  IsActive = x.IsActive,
+                                  DefaultLang = x.DefaultLang,
+                                  OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = x.OrganizationUnit.Name },
+                                  CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },
+                                  CreatedOn = x.CreatedOn,
+                                  ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
+                                  ModifiedOn = x.ModifiedOn,
+                                  Timestamp = x.Timestamp
+                              })
                           .Single();
         }
 

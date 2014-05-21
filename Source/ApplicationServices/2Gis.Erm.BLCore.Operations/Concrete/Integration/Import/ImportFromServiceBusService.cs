@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus;
+using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
@@ -67,11 +68,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                             }
 
                             _logger.InfoFormatEx("Импорт объектов из потока {0} - загружено {1} объектов из шины", flowName, package.Length);
-                            if (package.Length != 0)
+
+                            if (package.Length == 0)
                             {
-                                var groupedObjects = ParseAndGroupByObjectType(package);
-                                var deserializedObjects = DeserializeObjects(groupedObjects, flowName);
+                                brokerApiReceiver.Acknowledge();
+                                continue;
+                            }
+
+                            var groupedObjects = ParseAndGroupByObjectType(package);
+                            var deserializedObjects = DeserializeObjects(groupedObjects, flowName);
+                            try
+                            {
                                 ProcessObjects(deserializedObjects, flowName);
+                            }
+                            catch (NonBlockingImportErrorException e)
+                            {
+                                _logger.ErrorFormatEx(e, "Неблокирующая ошибка при импорте объектов из потока {0} - {1}", flowName, e.Message);
                             }
 
                             brokerApiReceiver.Acknowledge();

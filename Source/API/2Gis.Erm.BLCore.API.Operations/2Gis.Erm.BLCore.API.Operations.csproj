@@ -87,11 +87,13 @@
     <Compile Include="Concrete\Integration\Dto\PhoneZones\CityPhoneZoneServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Rubrics\RubricServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Stickers\HotClientServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Dto\Billing\ChargesInfoServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Export\FlowDescription.cs" />
     <Compile Include="Concrete\Integration\Export\IExportableEntityDto.cs" />
     <Compile Include="Concrete\Integration\Export\IOperationsProcessingsStoreService.cs" />
     <Compile Include="Concrete\Integration\Export\IOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Flows\FlowBilling.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowCards.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowCardsForErm.cs" />
     <Compile Include="Concrete\Integration\Flows\FlowFinancialData1C.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Concrete\Integration\Flows\FlowStickers.cs" />
     <Compile Include="Concrete\Integration\Import\IDeserializeServiceBusObjectService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportedFromBusEntitiesRegistration.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportChargesInfoService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportFlowCardsForErmOperationService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -168,6 +171,7 @@
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeOrdersDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeOrdersDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
@@ -246,7 +250,6 @@
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ReplicateEntitiesToCrmRequest.cs" />
-
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\WriteDataForAutoMailerToServiceBusRequest.cs" />
@@ -473,6 +476,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Concrete\Integration\Import\FlowBilling\" />
     <Folder Include="Concrete\Old\PricePositions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

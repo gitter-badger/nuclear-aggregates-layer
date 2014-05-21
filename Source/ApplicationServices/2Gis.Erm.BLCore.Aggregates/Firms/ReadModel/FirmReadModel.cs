@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                                      .Where(p => p.IsActive)
                                                      .Select(p => new ProjectDto
                                                          {
-                                                             Code = p.Code,
+                                                             Code = p.Id,
                                                              Name = p.DisplayName
                                                          }).FirstOrDefault()
 
