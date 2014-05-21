@@ -1264,6 +1264,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return sourceVat;
         }
 
+        public long GetOrderOwnerCode(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
+        }
+
         private IEnumerable<LinkingObjectsSchemaDto.ThemeDto> FindThemesCanBeUsedWithOrder(Order order)
         {
             var themes = _finder.Find(Specs.Find.ById<OrganizationUnit>(order.DestOrganizationUnitId))
