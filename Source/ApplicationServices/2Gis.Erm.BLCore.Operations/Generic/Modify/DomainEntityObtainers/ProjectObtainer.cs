@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
@@ -22,10 +23,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (ProjectDomainEntityDto)domainEntityDto;
 
-            var entity =
-                dto.Id == 0
-                    ? new Project()
-                    : _finder.Find(Specs.Find.ById<Project>(dto.Id)).Single();
+            if (dto.Id == 0)
+            {
+                throw new NotSupportedException("Project creation is not supported");
+            }
+
+            var entity = _finder.Find(Specs.Find.ById<Project>(dto.Id)).Single();
 
             entity.OrganizationUnitId = dto.OrganizationUnitRef.Id;
 

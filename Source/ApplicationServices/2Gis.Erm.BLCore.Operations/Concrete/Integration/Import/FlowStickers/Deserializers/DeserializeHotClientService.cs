@@ -98,9 +98,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowSticke
             return hotClientRequest;
         }
 
-        public bool Validate(XElement xml, out string errorsMessage)
+        public bool Validate(XElement xml, out string error)
         {
-            errorsMessage = null;
+            error = null;
             return true;
         }
 

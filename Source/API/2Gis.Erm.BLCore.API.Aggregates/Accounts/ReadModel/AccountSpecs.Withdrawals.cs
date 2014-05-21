@@ -1,5 +1,9 @@
-﻿using DoubleGis.Erm.Platform.API.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
@@ -18,6 +22,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                 public static FindSpecification<WithdrawalInfo> ForPeriod(TimePeriod period)
                 {
                     return new FindSpecification<WithdrawalInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
+                }
+
+                public static FindSpecification<WithdrawalInfo> ExceptStates(params WithdrawalStatus[] states)
+                {
+                    return new FindSpecification<WithdrawalInfo>(x => !states.Contains((WithdrawalStatus)x.Status));
                 }
             }
 
