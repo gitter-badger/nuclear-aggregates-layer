@@ -1,5 +1,5 @@
 ﻿
-@model Models.OrderFileViewModel
+@model OrderFileViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -45,9 +45,11 @@
         }
 
         window.InitPage = function() {
-            this.on("afterbuild", function() {
+            this.on("afterbuild", function () {
+                var readOnly = window.Ext.getDom("ViewConfig_ReadOnly").checked;
                 var u = new Ext.ux.AsyncFileUpload(
                     {
+                        readOnly: readOnly,
                         applyTo: 'FileId',
                         uploadUrl: '/Upload/OrderFile',
                         downloadUrl: Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/OrderFile/{0}',
