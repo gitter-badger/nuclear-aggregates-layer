@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         protected override OrdinaryTestResult ExecuteWithModel(Project modelEntity)
         {
             modelEntity.DisplayName = "Test";
-            _projectService.CreateOrUpdate(modelEntity);
+            _projectService.Update(modelEntity);
 
             // Кейс работает только в TaskService
             //modelEntity.ResetToNew();
