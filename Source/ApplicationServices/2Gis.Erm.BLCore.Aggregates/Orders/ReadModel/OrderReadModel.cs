@@ -1269,7 +1269,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public bool TryAcquireOrderPositions(long projectId,
                                              TimePeriod timePeriod,
                                              IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
-                                             out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
+                                             out IReadOnlyDictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto> acquiredOrderPositions,
                                              out string report)
         {
             report = null;
@@ -1297,12 +1297,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                  .Select(x => new
                                                      {
                                                          FirmId = x.Order.FirmId,
+                                                         SourceOrganizationUnitId = x.Order.SourceOrganizationUnitId,
                                                          OrderPositions = x.Order.OrderPositions.Where(op => op.IsActive && !op.IsDeleted),
                                                      })
                                                  .Where(x => firmIds.Contains(x.FirmId))
                                                  .SelectMany(x => x.OrderPositions.Select(op => new OrderPositionBatchItem
                                                      {
                                                          OrderPositionId = op.Id,
+                                                         SourceOrganizationUnitId = x.SourceOrganizationUnitId,
                                                          FirmId = x.FirmId,
                                                          PositionId = op.PricePosition.PositionId,
                                                          CategoryIds = op.OrderPositionAdvertisements.Select(opa => opa.CategoryId).Distinct()
@@ -1327,7 +1329,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                          string.Join(", ", itemsWithMultipleCategoreis.AsEnumerable())));
             }
 
-            var result = new Dictionary<OrderPositionChargeInfo, long>();
+            var result = new Dictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto>();
 
             // TODO {a.tukaev, 30.04.2014}: Попробовать заменить на join
             foreach (var orderPositionChargeInfo in orderPositionChargeInfos)
@@ -1350,7 +1352,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                     continue;
                 }
 
-                result.Add(chargeInfo, appropriateOrderPositions[0].OrderPositionId);
+                var appropriateOrderPosition = appropriateOrderPositions[0];
+                result.Add(chargeInfo,
+                           new OrderPositionWithSourceOrgUnitDto
+                               {
+                                   OrderPositionId = appropriateOrderPosition.OrderPositionId,
+                                   SourceOrganizationUnitId = appropriateOrderPosition.SourceOrganizationUnitId
+                               });
             }
 
             if (errors.Any())
@@ -1430,11 +1438,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         }
     }
 
-    public class OrderPositionBatchItem
+    internal class OrderPositionBatchItem
     {
         public long OrderPositionId { get; set; }
         public long FirmId { get; set; }
         public long PositionId { get; set; }
         public IEnumerable<long?> CategoryIds { get; set; }
+        public long SourceOrganizationUnitId { get; set; }
     }
 }
