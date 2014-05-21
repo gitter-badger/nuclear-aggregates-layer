@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="87">
+      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="108">
         <edmx:EntityTypeShape EntityType="ErmModel.CurrencyRate" Width="1.5" PointX="3" PointY="80.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.MessageType" Width="1.5" PointX="8.25" PointY="101.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPositionsGroup" Width="1.5" PointX="18" PointY="77.125" IsExpanded="true" />
@@ -87,7 +87,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.AdditionalFirmService" Width="1.5" PointX="32.25" PointY="87.75" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ThemeCategory" Width="1.5" PointX="42.75" PointY="92.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ThemeOrganizationUnit" Width="1.5" PointX="13.5" PointY="93.625" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.Theme" Width="1.5" PointX="37.5" PointY="78.375" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="ErmModel.Theme" Width="1.5" PointX="37.5" PointY="78.5" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ThemeTemplate" Width="1.5" PointX="35.25" PointY="79" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.CategoryGroup" Width="1.5" PointX="8.25" PointY="66.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Project" Width="1.5" PointX="7.5" PointY="133.375" IsExpanded="true" />
@@ -273,6 +273,8 @@
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrdersInvoice" Width="1.5" PointX="15.375" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceList" Width="2.75" PointX="15.375" PointY="10.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" Width="2.625" PointX="10.375" PointY="15.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.Charge" Width="1.5" PointX="15.375" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ChargesHistory" Width="1.5" PointX="17.375" PointY="13.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

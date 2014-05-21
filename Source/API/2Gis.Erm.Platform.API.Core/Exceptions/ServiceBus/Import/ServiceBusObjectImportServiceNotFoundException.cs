@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus
+namespace DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import
 {
     public class ServiceBusObjectImportServiceNotFoundException : ServiceBusIntegrationException
     {

@@ -149,6 +149,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Deal = 199
         public const int GenerateDealNameIdentity = 19901;
 
+        // EntityName.Charge = 226
+        public const int ImportChargesInfoIdentity = 22601;
+        public const int DeleteChargesForPeriodAndProjectIdentity = 22602;
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
         public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;

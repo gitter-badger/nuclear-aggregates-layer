@@ -101,7 +101,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.FirmAddressService, typeof(FirmAddressService) },
             { EntityName.ReleaseValidationResult, typeof(ReleaseValidationResult) },
             { EntityName.ReleasesWithdrawalsPosition, typeof(ReleasesWithdrawalsPosition) },
-                { EntityName.Building, typeof(Building) },
+            { EntityName.Charge, typeof(Charge) },
+            { EntityName.ChargesHistory, typeof(ChargesHistory) },
+            { EntityName.Building, typeof(Building) },
 
             // Activity subsystem
             { EntityName.ActivityInstance, typeof(ActivityInstance) },
