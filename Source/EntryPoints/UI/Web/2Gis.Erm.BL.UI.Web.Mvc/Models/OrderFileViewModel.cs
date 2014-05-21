@@ -24,6 +24,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public override byte[] Timestamp { get; set; }
 
+        public bool UserDoesntHaveRightsToEditOrder { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (OrderFileDomainEntityDto)domainEntityDto;
@@ -36,6 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             FileKind = modelDto.FileKind;
             Comment = modelDto.Comment;
             Timestamp = modelDto.Timestamp;
+            UserDoesntHaveRightsToEditOrder = modelDto.UserDoesntHaveRightsToEditOrder;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

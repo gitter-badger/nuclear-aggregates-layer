@@ -5,15 +5,18 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
-    public class OrderFileViewService : GenericEntityGridViewService<Order>
+    public class OrderFileViewService : GenericEntityGridViewService<OrderFile>
     {
         private readonly IOrderReadModel _orderReadModel;
+        private readonly ISecurityServiceEntityAccessInternal _entityAccessService;
+        private readonly IUserContext _userContext;
 
         public OrderFileViewService(IUIConfigurationService configurationService,
                                     ISecurityServiceEntityAccessInternal entityAccessService,
@@ -23,6 +26,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             : base(configurationService, entityAccessService, functionalAccessService, userContext)
         {
             _orderReadModel = orderReadModel;
+            _entityAccessService = entityAccessService;
+            _userContext = userContext;
         }
 
         protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
@@ -33,14 +38,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             if (parentEntityName == EntityName.Order && parentEntityId.HasValue)
             {
                 var order = _orderReadModel.GetOrder(parentEntityId.Value);
-                if (!order.IsActive || order.IsDeleted || order.IsTerminated)
-                {
-                    var createButtons =
-                        gridViewSettings.DataViews.SelectMany(x => x.ToolbarItems.Where(y => y.Name == "Create")).ToArray();
+                var hasUserRightsToEditOrder = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                    EntityName.Order,
+                                                                                    _userContext.Identity.Code,
+                                                                                    order.Id,
+                                                                                    order.OwnerCode,
+                                                                                    order.OwnerCode);
 
-                    foreach (var createButton in createButtons)
+                if (!order.IsActive || order.IsDeleted || order.IsTerminated || !hasUserRightsToEditOrder)
+                {
+                    var buttonsToDisable =
+                        gridViewSettings.DataViews.SelectMany(x => x.ToolbarItems.Where(y => y.Name == "Create" || y.Name == "Delete")).ToArray();
+
+                    foreach (var button in buttonsToDisable)
                     {
-                        createButton.Disabled = true;
+                        button.Disabled = true;
                     }
                 }
             }
