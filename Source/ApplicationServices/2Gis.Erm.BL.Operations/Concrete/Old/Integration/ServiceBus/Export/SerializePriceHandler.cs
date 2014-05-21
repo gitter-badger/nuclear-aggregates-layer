@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                                                                     
                     // Олег подтвердил, что берем первый код, даже если у отделения несколько проектов. 
                     ProjectCode =
-                        x.OrganizationUnit.Projects.Select(y => y.Code).FirstOrDefault(),
+                        x.OrganizationUnit.Projects.Select(y => y.Id).FirstOrDefault(),
                     CurrencyName = x.Currency.Symbol,
                     IsHidden = !x.IsActive,
                     IsDeleted = x.IsDeleted
