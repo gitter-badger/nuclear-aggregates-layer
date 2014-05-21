@@ -10,5 +10,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long FileContentLength { get; set; }
         [DataMember]
         public string FileContentType { get; set; }
+        [DataMember]
+        public bool UserDoesntHaveRightsToEditOrder { get; set; }
     }
 }
