@@ -145,7 +145,7 @@
     <value>Se ha producido un error al intentar modificar el estado de la sesión</value>
   </data>
   <data name="ListingCantGetResultForEntityList" xml:space="preserve">
-    <value>No se ha logrado recuperar la lista de esencias de tipo "{0}"</value>
+    <value>No se ha logrado recuperar la lista de esencias de tipo &quot;{0}&quot;</value>
   </data>
   <data name="NotificationsContextualTitle" xml:space="preserve">
     <value>Contextuales</value>

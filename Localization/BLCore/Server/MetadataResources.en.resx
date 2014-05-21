@@ -418,7 +418,7 @@
     <value>Assessment of prospects</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Code of client's legal entity</value>
+    <value>Code of client&apos;s legal entity</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Required</value>
@@ -856,7 +856,7 @@
     <value>Order classification</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Profile of client's legal entity</value>
+    <value>Profile of client&apos;s legal entity</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Short name</value>
@@ -1336,7 +1336,7 @@
     <value>Bank name</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>Representative's RUT</value>
+    <value>Representative&apos;s RUT</value>
 </data>
   <data name="Rut" xml:space="preserve">
   <value>RUT</value>
@@ -1345,18 +1345,18 @@
     <value>Business area</value>
 </data>
   <data name="Egrpou" xml:space="preserve">
-    <value>ЕГРПОУ</value>
+    <value>EGRPOU (Unified State Register of Enterprises and Organizations of Ukraine)</value>
   </data>
   <data name="Ipn" xml:space="preserve">
-    <value>ИПН</value>
+    <value>IPN (Taxpayer Identification Number)</value>
   </data>
   <data name="TaxationType" xml:space="preserve">
-    <value>Тип налогообложения</value>
+    <value>Taxation type</value>
   </data>
   <data name="Mfo" xml:space="preserve">
-    <value>МФО</value>
+    <value>MFO (Bank Sort Code)</value>
   </data>
   <data name="OrderPosition" xml:space="preserve">
-    <value>Позиция заказа</value>
+    <value>Order item</value>
   </data>
 </root>
