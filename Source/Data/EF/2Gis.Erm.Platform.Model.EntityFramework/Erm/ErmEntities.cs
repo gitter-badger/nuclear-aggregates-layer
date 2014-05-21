@@ -47,6 +47,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(CategoryFirmAddress),
     		typeof(CategoryGroup),
     		typeof(CategoryOrganizationUnit),
+    		typeof(Charge),
+    		typeof(ChargesHistory),
     		typeof(CityPhoneZone),
     		typeof(Client),
     		typeof(Contact),

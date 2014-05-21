@@ -21,7 +21,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         IStateTrackingEntity
     {
         public long Id { get; set; }
-        public int Code { get; set; }
         public Nullable<long> OrganizationUnitId { get; set; }
         public string NameLat { get; set; }
         public string DisplayName { get; set; }

@@ -24,16 +24,32 @@ using DoubleGis.Erm.Model.Entities.Enums;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ExportFailedEntityDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.ExportFailedEntity>
+    public partial class ChargesHistoryDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.ChargesHistory>
     {
     	[DataMember]
         public long Id { get; set; }
     	[DataMember]
-        public int EntityName { get; set; }
+        public EntityReference ProjectRef { get; set; }
     	[DataMember]
-        public EntityReference EntityRef { get; set; }
+        public System.DateTime PeriodStartDate { get; set; }
     	[DataMember]
-        public EntityReference ProcessorRef { get; set; }
+        public System.DateTime PeriodEndDate { get; set; }
+    	[DataMember]
+        public string Message { get; set; }
+    	[DataMember]
+        public int Status { get; set; }
+    	[DataMember]
+        public string Comment { get; set; }
+    	[DataMember]
+        public EntityReference SessionRef { get; set; }
+    	[DataMember]
+        public EntityReference CreatedByRef { get; set; }
+    	[DataMember]
+        public System.DateTime CreatedOn { get; set; }
+    	[DataMember]
+        public EntityReference ModifiedByRef { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     }
 }
 

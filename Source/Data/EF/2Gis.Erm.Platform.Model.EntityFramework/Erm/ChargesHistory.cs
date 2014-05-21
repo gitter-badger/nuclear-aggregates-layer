@@ -13,14 +13,23 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class ExportFailedEntity : 
+    public sealed partial class ChargesHistory : 
         IEntity, 
-        IEntityKey
+        IEntityKey, 
+        IAuditableEntity
     {
         public long Id { get; set; }
-        public int EntityName { get; set; }
-        public long EntityId { get; set; }
-        public int ProcessorId { get; set; }
+        public long ProjectId { get; set; }
+        public System.DateTime PeriodStartDate { get; set; }
+        public System.DateTime PeriodEndDate { get; set; }
+        public string Message { get; set; }
+        public int Status { get; set; }
+        public string Comment { get; set; }
+        public System.Guid SessionId { get; set; }
+        public long CreatedBy { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public Nullable<long> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     
     	public override bool Equals(object obj)
         {

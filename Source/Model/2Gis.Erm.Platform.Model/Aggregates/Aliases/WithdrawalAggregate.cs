@@ -6,6 +6,8 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
     {
         WithdrawalInfo = EntityName.WithdrawalInfo,
         ReleaseWithdrawal = EntityName.ReleaseWithdrawal,
-        ReleaseWithdrawalPosition = EntityName.ReleasesWithdrawalsPosition
+        ReleaseWithdrawalPosition = EntityName.ReleasesWithdrawalsPosition,
+        Charge = EntityName.Charge,
+        ChargesHistory = EntityName.ChargesHistory
     }
 }
