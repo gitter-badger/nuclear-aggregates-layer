@@ -83,7 +83,7 @@
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.ConflictResolvers.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
-	<Compile Include="DI\Infrastructure\ConstructorParameterOverride.cs" />
+    <Compile Include="DI\Infrastructure\ConstructorParameterOverride.cs" />
     <Compile Include="DI\Infrastructure\InjectionConstructorPart.cs" />
     <Compile Include="DI\MassProcessing\IntegrationTestsMassProcessor.cs" />
     <Compile Include="DI\Zones\IntegrationTestsZone.cs" />
@@ -110,6 +110,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowFinancialData1CTest.cs" />
@@ -511,6 +512,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowBilling.ChargesInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCards.Card.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
