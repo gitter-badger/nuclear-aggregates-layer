@@ -679,17 +679,18 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     
     ShowDialogWindowForOneOrMoreEntities: function (url, dialogParams) {
         if (!this.EnsureOneOrMoreSelected()) {
-            return;
+            return undefined;
         }
 
-        this.ShowDialogWindow(url, dialogParams, true);
+        return this.ShowDialogWindow(url, dialogParams, true);
     },
-    
+
     ShowDialogWindow: function (url, dialogParams, appendSelectedItemsIds, donotRefresh) {
-        window.showModalDialog(url, appendSelectedItemsIds == true ? this.GetSelectedItems() : null, dialogParams);
+        var result = window.showModalDialog(url, appendSelectedItemsIds == true ? this.GetSelectedItems() : null, dialogParams);
         if (!donotRefresh) {
             this.refresh();
         }
+        return result;
     },
     
     Activate: function ()
