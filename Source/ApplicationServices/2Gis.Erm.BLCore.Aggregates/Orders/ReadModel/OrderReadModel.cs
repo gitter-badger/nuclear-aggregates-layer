@@ -1269,7 +1269,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public bool TryAcquireOrderPositions(long projectId,
                                              TimePeriod timePeriod,
                                              IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
-                                             out IReadOnlyDictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto> acquiredOrderPositions,
+                                             out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
                                              out string report)
         {
             report = null;
@@ -1297,14 +1297,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                  .Select(x => new
                                                      {
                                                          FirmId = x.Order.FirmId,
-                                                         SourceOrganizationUnitId = x.Order.SourceOrganizationUnitId,
                                                          OrderPositions = x.Order.OrderPositions.Where(op => op.IsActive && !op.IsDeleted),
                                                      })
                                                  .Where(x => firmIds.Contains(x.FirmId))
                                                  .SelectMany(x => x.OrderPositions.Select(op => new OrderPositionBatchItem
                                                      {
                                                          OrderPositionId = op.Id,
-                                                         SourceOrganizationUnitId = x.SourceOrganizationUnitId,
                                                          FirmId = x.FirmId,
                                                          PositionId = op.PricePosition.PositionId,
                                                          CategoryIds = op.OrderPositionAdvertisements.Select(opa => opa.CategoryId).Distinct()
@@ -1329,36 +1327,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                          string.Join(", ", itemsWithMultipleCategoreis.AsEnumerable())));
             }
 
-            var result = new Dictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto>();
+            var result = new Dictionary<OrderPositionChargeInfo, long>();
 
             // TODO {a.tukaev, 30.04.2014}: Попробовать заменить на join
             foreach (var orderPositionChargeInfo in orderPositionChargeInfos)
             {
                 var chargeInfo = orderPositionChargeInfo;
-                var appropriateOrderPositions = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
+                var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
                                                                                    x.PositionId == chargeInfo.PositionId &&
-                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId).ToArray();
-                if (appropriateOrderPositions.Length == 0)
+                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
+                                                                       .Select(x => x.OrderPositionId)
+                                                                       .ToArray();
+                if (appropriateOrderPositionIds.Length == 0)
                 {
                     errors.Add(string.Format("Cant't find appropriate order position for charge [{0}]", chargeInfo));
                     continue;
                 }
 
-                if (appropriateOrderPositions.Length > 1)
+                if (appropriateOrderPositionIds.Length > 1)
                 {
                     errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}]",
                                              chargeInfo,
-                                             string.Join(", ", appropriateOrderPositions.Select(x => x.OrderPositionId))));
+                                             string.Join(", ", appropriateOrderPositionIds)));
                     continue;
                 }
 
-                var appropriateOrderPosition = appropriateOrderPositions[0];
-                result.Add(chargeInfo,
-                           new OrderPositionWithSourceOrgUnitDto
-                               {
-                                   OrderPositionId = appropriateOrderPosition.OrderPositionId,
-                                   SourceOrganizationUnitId = appropriateOrderPosition.SourceOrganizationUnitId
-                               });
+                result.Add(chargeInfo, appropriateOrderPositionIds[0]);
             }
 
             if (errors.Any())

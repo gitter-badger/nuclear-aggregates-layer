@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -29,20 +30,43 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
             return _finder.Find<Charge>(x => x.ProjectId == projectId && x.PeriodStartDate == timePeriod.Start && x.PeriodEndDate == timePeriod.End).ToArray();
         }
 
-        public bool CanCreateCharges(IEnumerable<long> organizationUnitIds, TimePeriod timePeriod, out string error)
+        public bool CanCreateCharges(long projectId, TimePeriod timePeriod, out string error)
         {
             error = null;
-            var withdrawalInfos = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(timePeriod) &&
-                                               AccountSpecs.Withdrawals.Find.ExceptStates(WithdrawalStatus.Error, WithdrawalStatus.Reverted) &&
-                                               AccountSpecs.Withdrawals.Find.ForOrganizationUnit(organizationUnitIds))
-                                         .Select(x => new { OrgUnitId = x.OrganizationUnitId, OrgUnitName = x.OrganizationUnit.Name })
-                                         .Distinct()
-                                         .ToArray();
 
-            if (withdrawalInfos.Any())
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(projectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+            if (organizationUnitId == null)
+            {
+                error = string.Format("Can't find appropriate organization unit for project with id = {0}", projectId);
+                return false;
+            }
+
+            var allowedWithdrawalStates = new[] { (int)WithdrawalStatus.Error, (int)WithdrawalStatus.Reverted };
+
+            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(timePeriod));
+            var blockingWithdrawals = _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+                                                   AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, timePeriod))
+                                             .Select(x => x.Order.SourceOrganizationUnit)
+                                             .GroupJoin(withdrawalInfosQuery,
+                                                        ou => ou.Id,
+                                                        wi => wi.OrganizationUnitId,
+                                                        (ou, wi) => new
+                                                            {
+                                                                OrganizationUnit = ou,
+                                                                LastWithdrawal = wi.OrderBy(x => x.StartDate).FirstOrDefault()
+                                                            })
+                                             .Where(x => x.LastWithdrawal != null && !allowedWithdrawalStates.Contains(x.LastWithdrawal.Status))
+                                             .Select(x => new
+                                                 {
+                                                     OrgUnitId = x.OrganizationUnit.Id,
+                                                     OrgUnitName = x.OrganizationUnit.Name
+                                                 })
+                                             .ToArray();
+
+            if (blockingWithdrawals.Any())
             {
                 error = string.Format("Can't create charges. The following organization units have succeeded or in-progress withdrawal: {0}",
-                                      string.Join(", ", withdrawalInfos.Select(x => string.Format("[{0} - {1}]", x.OrgUnitId, x.OrgUnitName))));
+                                      string.Join(", ", blockingWithdrawals.Select(x => string.Format("[{0} - {1}]", x.OrgUnitId, x.OrgUnitName))));
                 return false;
             }
 

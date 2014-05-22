@@ -89,7 +89,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             {
                 var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
 
-                IReadOnlyDictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto> acquiredOrderPositions;
+                string error;
+                if (!_withdrawalInfoReadModel.CanCreateCharges(chargesInfo.BranchCode, timePeriod, out error))
+                {
+                    throw new CannotCreateChargesException(error);
+                }
+
+                IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions;
                 string report;
                 if (!_orderReadModel.TryAcquireOrderPositions(chargesInfo.BranchCode,
                                                               timePeriod,
@@ -100,13 +106,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     // FIXME {a.tukaev, 15.05.2014}: Та же тема, есть в нескольких местах. Лучше выкидывать проблемноориентированные (о_О) исключения, а дальше их оборачивать для логирования/UI
                     // DONE {d.ivanov, 20.05.2014}: +1
                     throw new CannotAcquireOrderPositionsForChargesException(report);
-                }
-
-                var sourceOrganizationUnitIds = acquiredOrderPositions.Select(x => x.Value.SourceOrganizationUnitId).Distinct().ToArray();
-                string error;
-                if (!_withdrawalInfoReadModel.CanCreateCharges(sourceOrganizationUnitIds, timePeriod, out error))
-                {
-                    throw new CannotCreateChargesException(error);
                 }
 
                 _deleteChargesService.Delete(chargesInfo.BranchCode, timePeriod, chargesInfo.SessionId);
@@ -124,13 +123,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         }
 
         private static List<ChargeDto> CreateCharges(Dictionary<OrderPositionChargeInfo, ChargeBusDto> dtoToBusObjectsMap,
-                                                     IReadOnlyDictionary<OrderPositionChargeInfo, OrderPositionWithSourceOrgUnitDto> acquiredOrderPositions)
+                                                     IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions)
         {
             var chargesToCreate = new List<ChargeDto>();
             foreach (var item in dtoToBusObjectsMap)
             {
                 var chargeInfo = item.Value;
-                var orderPositionId = acquiredOrderPositions[item.Key].OrderPositionId;
+                var orderPositionId = acquiredOrderPositions[item.Key];
 
                 var dto = new ChargeDto
                     {
