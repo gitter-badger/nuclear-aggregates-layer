@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActivityInstances">
           <Key>
             <PropertyRef Name="Id" />
@@ -359,6 +359,39 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="Charges">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="OrderPositionId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectId" Type="bigint" Nullable="false" />
+          <Property Name="PositionId" Type="bigint" Nullable="false" />
+          <Property Name="PeriodStartDate" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="PeriodEndDate" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="SessionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+        </EntityType>
+        <EntityType Name="ChargesHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="ProjectId" Type="bigint" Nullable="false" />
+          <Property Name="PeriodStartDate" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="PeriodEndDate" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="Message" Type="xml" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="SessionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+        </EntityType>
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="Id" />
@@ -655,8 +688,9 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="OrderPositionId" Type="bigint" Nullable="true" />
           <Property Name="PriceId" Type="bigint" Nullable="false" />
+          <Property Name="OrderPositionId" Type="bigint" />
+          <Property Name="ChargeSessionId" Type="uniqueidentifier" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -1096,7 +1130,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" />
           <Property Name="NameLat" Type="nvarchar" MaxLength="160" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="160" Nullable="false" />
@@ -1908,7 +1941,7 @@
           <Property Name="Parent" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwSecurityAccelerator">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1920,7 +1953,7 @@ warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have 
           <Property Name="DepartmentRightBorder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUsersDescendants">
           <Key>
             <PropertyRef Name="Id" />
@@ -1931,7 +1964,7 @@ warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a p
           <Property Name="Level" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUserTerritoriesOrganizationUnits">
           <Key>
             <PropertyRef Name="UserId" />
@@ -3835,6 +3868,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="BranchOfficeOrganizationUnits" EntityType="Self.BranchOfficeOrganizationUnits" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="BranchOffices" EntityType="Self.BranchOffices" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="Charges" EntityType="Self.Charges" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="ChargesHistory" EntityType="Self.ChargesHistory" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ContributionTypes" EntityType="Self.ContributionTypes" Schema="Billing" store:Type="Tables" />
@@ -5367,6 +5402,8 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           </AssociationSet>
           <EntitySet Name="ExportFlowPriceListsPriceLists" EntityType="ErmModel.ExportFlowPriceListsPriceList" />
           <EntitySet Name="ExportFlowPriceListsPriceListPositions" EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" />
+          <EntitySet Name="Charges" EntityType="ErmModel.Charge" />
+          <EntitySet Name="ChargesHistories" EntityType="ErmModel.ChargesHistory" />
           <EntitySet Name="ExportFlowOrdersInvoices" EntityType="ErmModel.ExportFlowOrdersInvoice" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -6011,6 +6048,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <NavigationProperty Name="Lock" Relationship="ErmModel.FK_LockDetails_Locks" FromRole="LockDetail" ToRole="Lock" />
         <NavigationProperty Name="Price" Relationship="ErmModel.FK_LockDetails_Prices" FromRole="LockDetail" ToRole="Price" />
+          <Property Name="ChargeSessionId" Type="Guid" />
       </EntityType>
       <EntityType Name="Lock">
         <Key>
@@ -9007,7 +9045,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <PropertyRef Name="Id" />
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int32" Name="Code" Nullable="false" />
         <Property Type="Int64" Name="OrganizationUnitId" />
         <Property Type="String" Name="NameLat" MaxLength="160" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="160" FixedLength="false" Unicode="true" />
@@ -9507,6 +9544,39 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
+        <EntityType Name="Charge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="OrderPositionId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectId" Type="Int64" Nullable="false" />
+          <Property Name="PositionId" Type="Int64" Nullable="false" />
+          <Property Name="PeriodStartDate" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="PeriodEndDate" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="SessionId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+        </EntityType>
+        <EntityType Name="ChargesHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ProjectId" Type="Int64" Nullable="false" />
+          <Property Name="PeriodStartDate" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="PeriodEndDate" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SessionId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+        </EntityType>
         <EntityType Name="ExportFlowOrdersInvoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -9882,7 +9952,8 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <EntitySetMapping Name="LockDetails">
           <EntityTypeMapping TypeName="ErmModel.LockDetail">
             <MappingFragment StoreEntitySet="LockDetails">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              <ScalarProperty Name="ChargeSessionId" ColumnName="ChargeSessionId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
               <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -11275,7 +11346,6 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
               <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
               <ScalarProperty Name="NameLat" ColumnName="NameLat" />
               <ScalarProperty Name="OrganizationUnitId" ColumnName="OrganizationUnitId" />
-              <ScalarProperty Name="Code" ColumnName="Code" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
           </EntityTypeMapping>
@@ -11407,7 +11477,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <EntityTypeMapping TypeName="ErmModel.ExportFailedEntity">
             <MappingFragment StoreEntitySet="ExportFailedEntities">
               <ScalarProperty Name="ProcessorId" ColumnName="ProcessorId" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+              <ScalarProperty Name="EntityId" ColumnName="EntityId" />
               <ScalarProperty Name="EntityName" ColumnName="EntityName" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
@@ -11569,6 +11639,41 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
             <EntityTypeMapping TypeName="ErmModel.ExportFlowPriceListsPriceListPosition">
               <MappingFragment StoreEntitySet="ExportFlowPriceLists_PriceListPosition">
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Charges">
+            <EntityTypeMapping TypeName="ErmModel.Charge">
+              <MappingFragment StoreEntitySet="Charges">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="PeriodEndDate" ColumnName="PeriodEndDate" />
+                <ScalarProperty Name="PeriodStartDate" ColumnName="PeriodStartDate" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="OrderPositionId" ColumnName="OrderPositionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChargesHistories">
+            <EntityTypeMapping TypeName="ErmModel.ChargesHistory">
+              <MappingFragment StoreEntitySet="ChargesHistory">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PeriodEndDate" ColumnName="PeriodEndDate" />
+                <ScalarProperty Name="PeriodStartDate" ColumnName="PeriodStartDate" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

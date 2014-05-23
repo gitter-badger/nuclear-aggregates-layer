@@ -24,16 +24,12 @@ using DoubleGis.Erm.Model.Entities.Enums;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ExportFailedEntityDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.ExportFailedEntity>
+    public partial class ExportFlowOrdersInvoiceDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.ExportFlowOrdersInvoice>
     {
     	[DataMember]
         public long Id { get; set; }
     	[DataMember]
-        public int EntityName { get; set; }
-    	[DataMember]
-        public EntityReference EntityRef { get; set; }
-    	[DataMember]
-        public EntityReference ProcessorRef { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }
 

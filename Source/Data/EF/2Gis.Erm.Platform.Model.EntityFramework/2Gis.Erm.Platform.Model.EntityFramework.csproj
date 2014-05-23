@@ -51,6 +51,11 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="EFDomainContextMetadataProvider.cs" />
+    <Compile Include="Erm\Erm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Erm.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="ErmSecurity\ErmSecurity.edmx" />

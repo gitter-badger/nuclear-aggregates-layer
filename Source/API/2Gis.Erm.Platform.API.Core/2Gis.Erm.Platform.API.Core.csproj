@@ -57,9 +57,13 @@
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\ErmCommunicationException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotAcquireOrderPositionsForChargesException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotCreateChargesException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\NonBlockingImportErrorException.cs" />
     <Compile Include="Exceptions\ServiceBus\ServiceBusIntegrationException.cs" />
-    <Compile Include="Exceptions\ServiceBus\ServiceBusObjectDeserializerNotFoundException.cs" />
-    <Compile Include="Exceptions\ServiceBus\ServiceBusObjectImportServiceNotFoundException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectDeserializerNotFoundException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectImportServiceNotFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />

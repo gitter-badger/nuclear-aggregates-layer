@@ -29,8 +29,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public long Id { get; set; }
     	[DataMember]
-        public int Code { get; set; }
-    	[DataMember]
         public EntityReference OrganizationUnitRef { get; set; }
     	[DataMember]
         public string NameLat { get; set; }

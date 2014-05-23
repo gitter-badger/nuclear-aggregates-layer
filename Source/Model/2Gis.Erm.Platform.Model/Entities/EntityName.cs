@@ -84,6 +84,8 @@
         ThemeCategory = 223,
         ThemeOrganizationUnit = 224,
         ReleasesWithdrawalsPosition = 225,
+        Charge = 226,
+        ChargesHistory = 227,
 
         ActionsHistory = 230, 
         ActionsHistoryDetail = 242, 
