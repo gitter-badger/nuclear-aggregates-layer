@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     if (_accountReadModel.AnyLockDetailsCreated(lastSucceededId))
                     {
                         throw new CannotCreateChargesException(
-                            string.Format("Can't create charges. Charges with sessionId = {0} has been used for lock details creation.", lastSucceededId));
+                            string.Format("Can't create charges. Charges with sessionId = {0} have been used for lock details creation.", lastSucceededId));
                     }
                 }
 
