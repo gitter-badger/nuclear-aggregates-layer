@@ -4908,15 +4908,6 @@
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value />
   </data>
-  <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DeletedBusinessManWithSpecifiedInnExist" xml:space="preserve">
-    <value />
-  </data>
-  <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value />
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value />
   </data>
