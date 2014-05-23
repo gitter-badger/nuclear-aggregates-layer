@@ -32,7 +32,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
 
         public bool CanCreateCharges(long projectId, TimePeriod timePeriod, out string error)
         {
+            // FIXME {all, 23.05.2014}: Проверка отключена, требования уточняются
             error = null;
+            return true;
 
             var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(projectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
             if (organizationUnitId == null)
