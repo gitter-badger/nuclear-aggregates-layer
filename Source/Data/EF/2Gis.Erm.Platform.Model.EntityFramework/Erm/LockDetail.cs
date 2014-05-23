@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public System.DateTime CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
+        public Nullable<System.Guid> ChargeSessionId { get; set; }
     
         public Lock Lock { get; set; }
         public Price Price { get; set; }

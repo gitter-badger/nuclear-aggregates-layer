@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActivityInstances">
           <Key>
             <PropertyRef Name="Id" />
@@ -690,6 +690,7 @@
           <Property Name="Amount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="PriceId" Type="bigint" Nullable="false" />
           <Property Name="OrderPositionId" Type="bigint" />
+          <Property Name="ChargeSessionId" Type="uniqueidentifier" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -1940,7 +1941,7 @@
           <Property Name="Parent" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwSecurityAccelerator">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1952,7 +1953,7 @@ warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have 
           <Property Name="DepartmentRightBorder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUsersDescendants">
           <Key>
             <PropertyRef Name="Id" />
@@ -1963,7 +1964,7 @@ warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a p
           <Property Name="Level" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm07.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUserTerritoriesOrganizationUnits">
           <Key>
             <PropertyRef Name="UserId" />
@@ -6047,6 +6048,7 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <NavigationProperty Name="Lock" Relationship="ErmModel.FK_LockDetails_Locks" FromRole="LockDetail" ToRole="Lock" />
         <NavigationProperty Name="Price" Relationship="ErmModel.FK_LockDetails_Prices" FromRole="LockDetail" ToRole="Price" />
+          <Property Name="ChargeSessionId" Type="Guid" />
       </EntityType>
       <EntityType Name="Lock">
         <Key>
@@ -9950,7 +9952,8 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
         <EntitySetMapping Name="LockDetails">
           <EntityTypeMapping TypeName="ErmModel.LockDetail">
             <MappingFragment StoreEntitySet="LockDetails">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              <ScalarProperty Name="ChargeSessionId" ColumnName="ChargeSessionId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
               <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
