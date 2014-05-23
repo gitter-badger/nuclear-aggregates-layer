@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import
     {
         bool CanDeserialize(XElement xml);
         IServiceBusDto Deserialize(XElement xml);
-        bool Validate(XElement xml, out string errorsMessage);
+        bool Validate(XElement xml, out string error);
     }
 
     // ReSharper disable once UnusedTypeParameter

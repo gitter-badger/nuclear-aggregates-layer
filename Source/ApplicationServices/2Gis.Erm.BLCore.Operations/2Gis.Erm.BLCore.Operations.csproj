@@ -83,6 +83,8 @@
     <Compile Include="Concrete\Integration\Import\Infrastructure\ImportMetadataProvider.cs" />
     <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusFlowDescriptor.cs" />
     <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusObjectDescriptor.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowBilling\Processors\ImportChargesInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowBilling\Deserializers\DeserializeChargesInfoService.cs" />
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\DeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
     <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />

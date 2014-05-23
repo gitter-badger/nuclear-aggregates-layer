@@ -288,5 +288,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .Select(unit => unit.ShortLegalName)
                           .SingleOrDefault();
         }
+
+        public bool AnyLockDetailsCreated(Guid chargeSessionId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<LockDetail>() && AccountSpecs.LockDetails.Find.ForChargeSessionId(chargeSessionId)).Any();
+        }
     }
 }

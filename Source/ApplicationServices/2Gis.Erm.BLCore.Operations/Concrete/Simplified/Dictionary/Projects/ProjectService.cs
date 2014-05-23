@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
@@ -7,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Project
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -39,20 +41,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
 
         public Project GetProjectByCode(long projectCode)
         {
-            return _finder.Find(ProjectSpecs.Find.ByCode(projectCode)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Project>(projectCode)).SingleOrDefault();
         }
 
-        public void CreateOrUpdate(Project project)
+        public void Update(Project project)
         {
-            if (project.IsNew())
-            {
-                _identityProvider.SetFor(project);
-                _projectGenericRepository.Add(project);
-            }
-            else
-            {
-                _projectGenericRepository.Update(project);
-            }
+          _projectGenericRepository.Update(project);
 
             _projectGenericRepository.Save();
         }
@@ -61,9 +55,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
         {
             foreach (var projectDto in projects)
             {
-                var dto = projectDto;
-                var project = _finder.Find<Project>(x => x.Code == dto.Code).SingleOrDefault() ??
-                              new Project { Code = projectDto.Code };
+                var project = _finder.Find(Specs.Find.ById<Project>(projectDto.Code)).SingleOrDefault() ??
+                              new Project { Id = projectDto.Code };
 
                 project.DisplayName = projectDto.DisplayName;
                 project.NameLat = projectDto.NameLat;
@@ -74,7 +67,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
                 {
                     using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Project>())
                     {
-                        _identityProvider.SetFor(project);
                         _projectGenericRepository.Add(project);
                         scope.Added<Project>(project.Id)
                              .Complete();

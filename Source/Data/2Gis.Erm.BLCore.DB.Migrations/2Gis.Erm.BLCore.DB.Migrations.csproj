@@ -222,6 +222,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5549 altering BusinessDirectory.vwTerritories.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.05.23 rev. 20638 - create ChargeSessionId column in Billing.LockDetails.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20154 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20151 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20148 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
@@ -696,6 +697,8 @@
     <Compile Include="2.1\2014.05.19 rev. 20435 - Alter ImportCardsFromXml.cs" />
     <Compile Include="2.1\2014.05.20 rev. 20459 - fix bug ERM-3992 ArgumentException.cs" />
     <Compile Include="2.1\2014.05.16 rev. 20377 - Update MSCRM cross domain modal dialog usage.cs" />
+    <Compile Include="2.1\2014.04.21 rev. 19977 - create ChargesInfo infrastructure.cs" />
+    <Compile Include="2.1\2014.05.15 rev. 20306 - merge Id and Code in Billing.Porjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />

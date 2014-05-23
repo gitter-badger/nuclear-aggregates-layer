@@ -63,14 +63,14 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
                         {
                             OrganizationUnitId = 1,
                             DisplayName = "ProjectWithOrganizationUnit",
-                            Code = ProjectWithOrganizationUnitId
+                            Id = ProjectWithOrganizationUnitId
                         };
 
                     ProjectWithoutOrganizationUnit = new Project
                         {
                             OrganizationUnitId = null,
                             DisplayName = "ProjectWithoutOrganizationUnit",
-                            Code = ProjectWithoutOrganizationUnitId,
+                            Id = ProjectWithoutOrganizationUnitId,
                         };
 
                     projects = new[]
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
 
                     ProjectServiceMock = new Mock<IProjectService>();
                     ProjectServiceMock.Setup(x => x.GetProjectByCode(Moq.It.IsAny<long>()))
-                                      .Returns((long x) => projects.Single(y => y.Code == x));
+                                      .Returns((long x) => projects.Single(y => y.Id == x));
 
                     FirmRepositoryMock = new Mock<IFirmRepository>();
                     FirmRepositoryMock.Setup(x => x.GetFirm(Moq.It.IsAny<long>())).Returns(FakeFirm);

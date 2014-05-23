@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
         {
-            var organizationUnitIds = _finder.Find<Project>(project => project.Code == projectCode && project.OrganizationUnitId.HasValue)
+            var organizationUnitIds = _finder.Find<Project>(project => project.Id == projectCode && project.OrganizationUnitId.HasValue)
                                             .Select(project => project.OrganizationUnitId.Value)
                                             .ToArray();
             return organizationUnitIds;

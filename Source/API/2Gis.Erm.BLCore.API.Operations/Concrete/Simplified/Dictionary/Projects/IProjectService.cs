@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Pro
 {
     public interface IProjectService : ISimplifiedModelConsumer
     {
-        void CreateOrUpdate(Project project);
+        void Update(Project project);
         void CreateOrUpdate(IEnumerable<BranchServiceBusDto> projects);
 
         // TODO {d.ivanov, 03.12.2013}: ReadModel

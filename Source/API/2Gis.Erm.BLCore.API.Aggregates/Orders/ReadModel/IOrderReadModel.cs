@@ -90,5 +90,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         Order GetOrderUnsecure(long orderId);
         IEnumerable<SubPositionDto> GetSelectedSubPositions(long orderPositionId);
         decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat);
+
+        bool TryAcquireOrderPositions(long projectId,
+                                      TimePeriod timePeriod,
+                                      IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
+                                      out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
+                                      out string message);
+        long GetOrderOwnerCode(long orderId);
     }
 }

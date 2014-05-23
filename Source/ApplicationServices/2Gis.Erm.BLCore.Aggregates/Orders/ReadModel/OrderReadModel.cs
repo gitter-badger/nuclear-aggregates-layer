@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
@@ -1264,6 +1266,113 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return sourceVat;
         }
 
+        public bool TryAcquireOrderPositions(long projectId,
+                                             TimePeriod timePeriod,
+                                             IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
+                                             out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
+                                             out string message)
+        {
+            message = null;
+            acquiredOrderPositions = null;
+            var errors = new List<string>();
+
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(projectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+
+            if (organizationUnitId == null)
+            {
+                message = string.Format("Can't find appropriate organization unit for project with id = {0}.", projectId);
+                return false;
+            }
+
+            const int ChunkSize = 512;
+            var orderPositionsForCharge = new List<OrderPositionBatchItem>();
+            for (int position = 0; position < orderPositionChargeInfos.Count; position += ChunkSize)
+            {
+                var chargeInfoQuery = orderPositionChargeInfos.Skip(position).Take(ChunkSize);
+                var firmIds = chargeInfoQuery.Select(x => x.FirmId).Distinct().ToArray();
+                var positionIds = chargeInfoQuery.Select(x => x.PositionId).Distinct().ToArray();
+
+                var orderPositionsBatch = _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
+                                                       AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, timePeriod))
+                                                 .Select(x => new
+                                                     {
+                                                         FirmId = x.Order.FirmId,
+                                                         OrderPositions = x.Order.OrderPositions.Where(op => op.IsActive && !op.IsDeleted),
+                                                     })
+                                                 .Where(x => firmIds.Contains(x.FirmId))
+                                                 .SelectMany(x => x.OrderPositions.Select(op => new OrderPositionBatchItem
+                                                     {
+                                                         OrderPositionId = op.Id,
+                                                         FirmId = x.FirmId,
+                                                         PositionId = op.PricePosition.PositionId,
+                                                         CategoryIds = op.OrderPositionAdvertisements.Select(opa => opa.CategoryId).Distinct()
+                                                     }))
+                                                 .Where(x => positionIds.Contains(x.PositionId))
+                                                 .ToArray();
+
+                orderPositionsForCharge.AddRange(orderPositionsBatch);
+            }
+
+            var itemsWithNoCategory = orderPositionsForCharge.Where(x => !x.CategoryIds.Any(y => y.HasValue)).ToArray();
+            if (itemsWithNoCategory.Any())
+            {
+                errors.Add(string.Format("Order positions for following charges have no category: [{0}].",
+                                         string.Join(", ", itemsWithNoCategory.AsEnumerable())));
+            }
+
+            var itemsWithMultipleCategoreis = orderPositionsForCharge.Where(x => x.CategoryIds.Skip(1).Any()).ToArray();
+            if (itemsWithMultipleCategoreis.Any())
+            {
+                errors.Add(string.Format("Order positions for following charges have more than one category: [{0}].",
+                                         string.Join(", ", itemsWithMultipleCategoreis.AsEnumerable())));
+            }
+
+            var result = new Dictionary<OrderPositionChargeInfo, long>();
+
+            // TODO {a.tukaev, 30.04.2014}: Попробовать заменить на join
+            foreach (var orderPositionChargeInfo in orderPositionChargeInfos)
+            {
+                var chargeInfo = orderPositionChargeInfo;
+                var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
+                                                                                   x.PositionId == chargeInfo.PositionId &&
+                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
+                                                                       .Select(x => x.OrderPositionId)
+                                                                       .ToArray();
+                if (appropriateOrderPositionIds.Length == 0)
+                {
+                    errors.Add(string.Format("Cant't find appropriate order position for charge [{0}].", chargeInfo));
+                    continue;
+                }
+
+                if (appropriateOrderPositionIds.Length > 1)
+                {
+                    errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}].",
+                                             chargeInfo,
+                                             string.Join(", ", appropriateOrderPositionIds)));
+                    continue;
+                }
+
+                result.Add(chargeInfo, appropriateOrderPositionIds[0]);
+            }
+
+            if (errors.Any())
+            {
+                message = string.Join(Environment.NewLine, errors);
+                return false;
+            }
+
+            acquiredOrderPositions = result;
+            return true;
+        }
+
+
+
+
+        public long GetOrderOwnerCode(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
+        }
+
         private IEnumerable<LinkingObjectsSchemaDto.ThemeDto> FindThemesCanBeUsedWithOrder(Order order)
         {
             var themes = _finder.Find(Specs.Find.ById<OrganizationUnit>(order.DestOrganizationUnitId))
@@ -1321,5 +1430,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);
         }
+    }
+
+    internal class OrderPositionBatchItem
+    {
+        public long OrderPositionId { get; set; }
+        public long FirmId { get; set; }
+        public long PositionId { get; set; }
+        public IEnumerable<long?> CategoryIds { get; set; }
+        public long SourceOrganizationUnitId { get; set; }
     }
 }
