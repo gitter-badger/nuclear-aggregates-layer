@@ -1,9 +1,9 @@
 ﻿@using System.Globalization
-@using BLCore.UI.Web.Mvc.Settings
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
 @using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 
 
-@model Models.Russia.OrderViewModel
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.OrderViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -99,6 +99,7 @@
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
+                                                                                ShowReadOnlyCard = true,
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}"
                                                                             })
             @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" })
