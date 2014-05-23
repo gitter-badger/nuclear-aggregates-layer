@@ -1,0 +1,7 @@
+<ChargesInfo StartDate="2014-05-01T00:00:00" EndDate="2014-05-31T23:59:59" BranchCode="1">
+	<Charges>
+		<Charge RubricCode="390" FirmCode="141274359962264" NomenclatureElementCode="325467662160285128" NomenclatureElementToChargeCode="325467662160285128"/>
+		<Charge RubricCode="207" FirmCode="141274359270305" NomenclatureElementCode="326474756767656136" NomenclatureElementToChargeCode="325467662160285128"/>
+		<Charge RubricCode="390" FirmCode="141274359429849" NomenclatureElementCode="325467662160285128" NomenclatureElementToChargeCode="325469270593062856"/>
+	</Charges>
+</ChargesInfo>

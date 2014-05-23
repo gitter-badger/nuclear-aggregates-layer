@@ -24,7 +24,10 @@
             },
             
             ChangeClient : function() {
-                this.ShowDialogWindowForOneOrMoreEntities("/GroupOperation/ChangeClient/" + this.EntityName, "dialogWidth:450px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ");
+                var result = this.ShowDialogWindowForOneOrMoreEntities("/GroupOperation/ChangeClient/" + this.EntityName, "dialogWidth:450px; dialogHeight:230px; status:yes; scroll:no; resizable:no; ");
+                if (result == true && this.ParentId != null) {
+                    window.parent.location.reload();
+                }
             }
         });
     });
