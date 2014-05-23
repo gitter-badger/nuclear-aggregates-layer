@@ -28,10 +28,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                 {
                     return new FindSpecification<WithdrawalInfo>(x => !states.Contains((WithdrawalStatus)x.Status));
                 }
-            }
-
-            public static class Select
-            {
+                
+                public static FindSpecification<WithdrawalInfo> ForOrganizationUnit(IEnumerable<long> orgUnits)
+                {
+                    return new FindSpecification<WithdrawalInfo>(x => orgUnits.Contains(x.OrganizationUnitId));
+                }
             }
         }
     }

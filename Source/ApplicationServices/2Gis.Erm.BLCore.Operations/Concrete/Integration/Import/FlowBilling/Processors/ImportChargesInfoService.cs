@@ -78,12 +78,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 
         private void ProcessChargesInfo(ChargesInfoServiceBusDto chargesInfo)
         {
-            string error;
-            if (!_withdrawalInfoReadModel.CanCreateCharges(chargesInfo.BranchCode, new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate), out error))
-            {
-                throw new CannotCreateChargesException(error);
-            }
-
             var orderPositionChargesInfoToDtoMap = chargesInfo.Charges.ToDictionary(x => new OrderPositionChargeInfo
                 {
                     CategoryId = x.RubricCode,
@@ -94,6 +88,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             using (var scope = _scopeFactory.CreateNonCoupled<ImportChargesInfoIdentity>())
             {
                 var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
+
+                string error;
+                if (!_withdrawalInfoReadModel.CanCreateCharges(chargesInfo.BranchCode, timePeriod, out error))
+                {
+                    throw new CannotCreateChargesException(error);
+                }
 
                 IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions;
                 string report;

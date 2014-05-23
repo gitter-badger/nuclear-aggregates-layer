@@ -693,6 +693,7 @@
     <Compile Include="2.1\2014.04.21 rev. 19787 - drop BudgetType column from Billing.Orders.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19802 - create OrderPositionId column in Billing.LockDetails.cs" />
     <Compile Include="2.1\2014.04.18 rev. 19680 - Add column ProcessorId to ExportFailedEntities.cs" />
+    <Compile Include="2.1\2014.05.19 rev. 20435 - Alter ImportCardsFromXml.cs" />
     <Compile Include="2.1\2014.05.20 rev. 20459 - fix bug ERM-3992 ArgumentException.cs" />
     <Compile Include="2.1\2014.05.16 rev. 20377 - Update MSCRM cross domain modal dialog usage.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19977 - create ChargesInfo infrastructure.cs" />
@@ -995,6 +996,7 @@
     <Content Include="Resources\2014.02.14 rev. 19684\UpdateBuildings.sql" />
     <Content Include="Resources\2014.05.16 rev. 20459\Customizations_20459.xml" />
     <Content Include="Resources\2014.05.16 rev. 20377\Customizations_20377.xml" />
+    <Content Include="Resources\2014.05.19 rev. 20435\ImportCardsFromXml.sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />

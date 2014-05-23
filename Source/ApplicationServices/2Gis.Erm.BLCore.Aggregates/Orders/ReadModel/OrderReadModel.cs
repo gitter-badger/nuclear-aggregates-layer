@@ -1333,24 +1333,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             foreach (var orderPositionChargeInfo in orderPositionChargeInfos)
             {
                 var chargeInfo = orderPositionChargeInfo;
-                var appropriateOrderPositions = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
+                var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
                                                                                    x.PositionId == chargeInfo.PositionId &&
-                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId).ToArray();
-                if (appropriateOrderPositions.Length == 0)
+                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
+                                                                       .Select(x => x.OrderPositionId)
+                                                                       .ToArray();
+                if (appropriateOrderPositionIds.Length == 0)
                 {
                     errors.Add(string.Format("Cant't find appropriate order position for charge [{0}]", chargeInfo));
                     continue;
                 }
 
-                if (appropriateOrderPositions.Length > 1)
+                if (appropriateOrderPositionIds.Length > 1)
                 {
                     errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}]",
                                              chargeInfo,
-                                             string.Join(", ", appropriateOrderPositions.Select(x => x.OrderPositionId))));
+                                             string.Join(", ", appropriateOrderPositionIds)));
                     continue;
                 }
 
-                result.Add(chargeInfo, appropriateOrderPositions[0].OrderPositionId);
+                result.Add(chargeInfo, appropriateOrderPositionIds[0]);
             }
 
             if (errors.Any())
@@ -1430,11 +1432,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         }
     }
 
-    public class OrderPositionBatchItem
+    internal class OrderPositionBatchItem
     {
         public long OrderPositionId { get; set; }
         public long FirmId { get; set; }
         public long PositionId { get; set; }
         public IEnumerable<long?> CategoryIds { get; set; }
+        public long SourceOrganizationUnitId { get; set; }
     }
 }
