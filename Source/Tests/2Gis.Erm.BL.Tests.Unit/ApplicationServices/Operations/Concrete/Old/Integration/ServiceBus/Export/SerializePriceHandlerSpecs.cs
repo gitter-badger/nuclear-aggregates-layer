@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                             Currency = RubCurrency,
                             OrganizationUnit = new OrganizationUnit
                                 {
-                                    Projects = new[] { new Project { Code = 1 } }
+                                    Projects = new[] { new Project { Id = 1 } }
                                 }
                         };
 
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                                 new XAttribute("PublishedDate", price.PublishDate),
                                 new XAttribute("BeginingDate", price.BeginDate),
                                 new XAttribute("IsPublished", price.IsPublished),
-                                new XAttribute("BranchCode", price.OrganizationUnit.Projects.Select(x => x.Code).FirstOrDefault()),
+                                new XAttribute("BranchCode", price.OrganizationUnit.Projects.Select(x => x.Id).FirstOrDefault()),
                                 new XAttribute("Currency", price.Currency.Symbol),
                                 new XAttribute("IsHidden", !price.IsActive),
                                 new XAttribute("IsDeleted", price.IsDeleted)

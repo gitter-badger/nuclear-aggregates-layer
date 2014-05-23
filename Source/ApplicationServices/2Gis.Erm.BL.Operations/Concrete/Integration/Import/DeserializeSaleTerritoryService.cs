@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
             return territoryDto;
         }
 
-        public bool Validate(XElement xml, out string errorsMessage)
+        public bool Validate(XElement xml, out string error)
         {
             var errors = new List<string>();
 
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
                 }
             }
 
-            errorsMessage = string.Join("; ", errors);
+            error = string.Join("; ", errors);
 
             return !errors.Any();
         }

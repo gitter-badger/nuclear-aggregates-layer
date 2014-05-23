@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
             return buildingDto;
         }
 
-        public bool Validate(XElement xml, out string errorsMessage)
+        public bool Validate(XElement xml, out string error)
         {
             var errors = new List<string>();
 
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
                 errors.Add("Не найден обязательный атрибут Code");
             }
 
-            errorsMessage = string.Join("; ", errors);
+            error = string.Join("; ", errors);
 
             return !errors.Any();
         }

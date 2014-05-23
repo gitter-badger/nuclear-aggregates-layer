@@ -235,7 +235,7 @@
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "'clientId={ClientId}'", ShowReadOnlyCard = true})
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", ShowReadOnlyCard = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.StartReason, FieldFlex.lone, new Dictionary<string, object>{{"disabled", "disabled"}}, EnumResources.ResourceManager)
