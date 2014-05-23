@@ -32,11 +32,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
 
         public bool TryGetLastChargeHistoryId(long projectId, TimePeriod period, ChargesHistoryStatus status, out Guid id)
         {
-            id = _finder.Find<ChargesHistory>(x => x.ProjectId == projectId && x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End &&
-                                                   x.Status == (int)status).OrderBy(x => x.CreatedOn).Select(x => (Guid?)x.SessionId)
-                        .FirstOrDefault() ?? Guid.Empty;
+            id = _finder.Find<ChargesHistory>(x => x.ProjectId == projectId && x.PeriodStartDate == period.Start &&
+                                                   x.PeriodEndDate == period.End && x.Status == (int)status)
+                        .OrderBy(x => x.CreatedOn)
+                        .Select(x => x.SessionId)
+                        .FirstOrDefault();
 
-            return id == Guid.Empty;
+            return id != default(Guid);
         }
 
         public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
