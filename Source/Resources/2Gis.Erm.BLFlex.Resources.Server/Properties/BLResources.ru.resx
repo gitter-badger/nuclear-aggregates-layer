@@ -204,10 +204,10 @@ SWIFT {5}
     <value>na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
     <value>Jmeno a prijmeni:</value>
@@ -305,10 +305,10 @@ SWIFT {5}
     <value>, na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
     <value>Юр. лицо клиента с указанным T.I.C. уже существует</value>
