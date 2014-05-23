@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
                                                         (ou, wi) => new
                                                             {
                                                                 OrganizationUnit = ou,
-                                                                LastWithdrawal = wi.OrderBy(x => x.StartDate).FirstOrDefault()
+                                                                LastWithdrawal = wi.OrderByDescending(x => x.StartDate).FirstOrDefault()
                                                             })
                                              .Where(x => x.LastWithdrawal != null && !allowedWithdrawalStates.Contains(x.LastWithdrawal.Status))
                                              .Select(x => new
