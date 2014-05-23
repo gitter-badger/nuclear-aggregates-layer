@@ -4920,15 +4920,6 @@
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
     <value>Существует скрытое физ. лицо с указанными серией и номером паспорта</value>
   </data>
-  <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value>Индивидуальный предприниматель с указанным ИНН уже существует</value>
-  </data>
-  <data name="DeletedBusinessManWithSpecifiedInnExist" xml:space="preserve">
-    <value>Существует удаленный Индивидуальный предприниматель с указанным ИНН</value>
-  </data>
-  <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value>Существует скрытый Индивидуальный предприниматель с указанным ИНН</value>
-  </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>В позиции {0} оформлена реклама API, хотя у фирмы нет адреса в проекте города размещения заказа</value>
   </data>

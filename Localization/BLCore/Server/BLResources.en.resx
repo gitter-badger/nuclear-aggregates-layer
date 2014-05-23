@@ -4884,49 +4884,40 @@ Contact: {1}</value>
     <value>Invalid address selected for the item: &quot;{0}&quot;</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
-    <value>The Customer&apos;s legal entity with the specified T.I.C. already exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
-    <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
-    <value>The hidden legal entity of the Customer with the specified T.I.C. exists </value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. and KPP already exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
     <value>An individual with the specified passport number already exists</value>
   </data>
   <data name="ActiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
-    <value>An individual with the specified passport series and number already exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
-    <value>A deleted legal entity of the Customer with the specified T.I.C. and KPP exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
     <value>A deleted individual with the specified passport number exists</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
-    <value>A deleted individual with the specified passport number and series exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
-    <value>A hidden legal entity of the Customer with the specified T.I.C. and KPP exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
     <value>A hidden individual with the specified passport number exists</value>
   </data>
   <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
-    <value>A hidden individual with the specified passport number and series exists</value>
-  </data>
-  <data name="ActiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value>A Sole Proprietorship with the specified T.I.C. already exists</value>
-  </data>
-  <data name="DeletedBusinessManWithSpecifiedInnExist" xml:space="preserve">
-    <value>A deleted Sole Proprietorship with the specified T.I.C. exists</value>
-  </data>
-  <data name="InactiveBusinessmanWithSpecifiedInnExist" xml:space="preserve">
-    <value>A hidden Sole Proprietorship with the specified T.I.C. exists</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="RegionalApiError" xml:space="preserve">
     <value>API advertising is registered in the item {0}, even though the company does not have an address in the city of order placement</value>
