@@ -30,49 +30,49 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
             return _finder.Find<Charge>(x => x.ProjectId == projectId && x.PeriodStartDate == timePeriod.Start && x.PeriodEndDate == timePeriod.End).ToArray();
         }
 
-        public bool CanCreateCharges(long projectId, TimePeriod timePeriod, out string error)
+        public bool TryGetLastChargeHistoryId(long projectId, TimePeriod period, ChargesHistoryStatus status, out Guid id)
         {
-            // FIXME {all, 23.05.2014}: Проверка отключена, требования уточняются
-            error = null;
-            return true;
+            id = _finder.Find<ChargesHistory>(x => x.ProjectId == projectId && x.PeriodStartDate == period.Start &&
+                                                   x.PeriodEndDate == period.End && x.Status == (int)status)
+                        .OrderBy(x => x.CreatedOn)
+                        .Select(x => x.SessionId)
+                        .FirstOrDefault();
 
-            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(projectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+            return id != default(Guid);
+        }
+
+        public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
+        {
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
             if (organizationUnitId == null)
             {
-                error = string.Format("Can't find appropriate organization unit for project with id = {0}", projectId);
-                return false;
+                return new WithdrawalInfoDto[0];
             }
 
-            var allowedWithdrawalStates = new[] { (int)WithdrawalStatus.Error, (int)WithdrawalStatus.Reverted };
+            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(period) &&
+                                                    AccountSpecs.Withdrawals.Find.InStates(WithdrawalStatus.InProgress,
+                                                                                           WithdrawalStatus.Withdrawing,
+                                                                                           WithdrawalStatus.Reverting));
 
-            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(timePeriod));
-            var blockingWithdrawals = _finder.Find(Specs.Find.NotDeleted<Lock>() &&
-                                                   AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, timePeriod))
-                                             .Select(x => x.Order.SourceOrganizationUnit)
-                                             .GroupJoin(withdrawalInfosQuery,
-                                                        ou => ou.Id,
-                                                        wi => wi.OrganizationUnitId,
-                                                        (ou, wi) => new
-                                                            {
-                                                                OrganizationUnit = ou,
-                                                                LastWithdrawal = wi.OrderByDescending(x => x.StartDate).FirstOrDefault()
-                                                            })
-                                             .Where(x => x.LastWithdrawal != null && !allowedWithdrawalStates.Contains(x.LastWithdrawal.Status))
-                                             .Select(x => new
-                                                 {
-                                                     OrgUnitId = x.OrganizationUnit.Id,
-                                                     OrgUnitName = x.OrganizationUnit.Name
-                                                 })
-                                             .ToArray();
-
-            if (blockingWithdrawals.Any())
-            {
-                error = string.Format("Can't create charges. The following organization units have succeeded or in-progress withdrawal: {0}",
-                                      string.Join(", ", blockingWithdrawals.Select(x => string.Format("[{0} - {1}]", x.OrgUnitId, x.OrgUnitName))));
-                return false;
-            }
-
-            return true;
+            return _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+                                AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, period))
+                          .Select(x => x.Order.SourceOrganizationUnit)
+                          .GroupJoin(withdrawalInfosQuery,
+                                     ou => ou.Id,
+                                     wi => wi.OrganizationUnitId,
+                                     (ou, wi) => new
+                                         {
+                                             OrganizationUnit = ou,
+                                             LastWithdrawal = wi.OrderByDescending(x => x.StartDate).FirstOrDefault()
+                                         })
+                          .Where(x => x.LastWithdrawal != null)
+                          .Select(x => new WithdrawalInfoDto
+                              {
+                                  OrganizationUnitId = x.OrganizationUnit.Id,
+                                  OrganizationUnitName = x.OrganizationUnit.Name,
+                                  WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
+                              })
+                          .ToArray();
         }
     }
 }

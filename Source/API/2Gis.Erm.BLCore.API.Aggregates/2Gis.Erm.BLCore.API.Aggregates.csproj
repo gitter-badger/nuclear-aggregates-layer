@@ -278,6 +278,7 @@
     <Compile Include="Withdrawals\Operations\IBulkDeleteChargesAggregateService.cs" />
     <Compile Include="Withdrawals\Operations\ICreateChargesHistoryAggregateService.cs" />
     <Compile Include="Withdrawals\ReadModel\IWithdrawalInfoReadModel.cs" />
+    <Compile Include="Withdrawals\Dto\WithdrawalInfoDto.cs" />
     <Compile Include="Withdrawals\WithdrawalInfoSpecifications.cs" />
   </ItemGroup>
   <ItemGroup>

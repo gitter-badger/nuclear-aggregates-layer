@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                       TimePeriod timePeriod,
                                       IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
                                       out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
-                                      out string report);
+                                      out string message);
         long GetOrderOwnerCode(long orderId);
     }
 }

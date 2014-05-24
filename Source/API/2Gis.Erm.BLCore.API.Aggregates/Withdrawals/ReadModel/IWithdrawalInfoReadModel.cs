@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
     {
         string GetChargesHistoryMessage(Guid sessionId, ChargesHistoryStatus status);
         IReadOnlyCollection<Charge> GetChargesToDelete(long projectId, TimePeriod timePeriod);
-        bool CanCreateCharges(long projectId, TimePeriod timePeriod, out string error);
+        IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period);
+        bool TryGetLastChargeHistoryId(long projectId, TimePeriod period, ChargesHistoryStatus status, out Guid id);
     }
 }

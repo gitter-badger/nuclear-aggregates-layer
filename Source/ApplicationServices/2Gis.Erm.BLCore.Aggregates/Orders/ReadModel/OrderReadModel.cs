@@ -1270,9 +1270,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                              TimePeriod timePeriod,
                                              IReadOnlyCollection<OrderPositionChargeInfo> orderPositionChargeInfos,
                                              out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
-                                             out string report)
+                                             out string message)
         {
-            report = null;
+            message = null;
             acquiredOrderPositions = null;
             var errors = new List<string>();
 
@@ -1280,7 +1280,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             if (organizationUnitId == null)
             {
-                report = string.Format("Can't find appropriate organization unit for project with id = {0}", projectId);
+                message = string.Format("Can't find appropriate organization unit for project with id = {0}.", projectId);
                 return false;
             }
 
@@ -1316,14 +1316,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var itemsWithNoCategory = orderPositionsForCharge.Where(x => !x.CategoryIds.Any(y => y.HasValue)).ToArray();
             if (itemsWithNoCategory.Any())
             {
-                errors.Add(string.Format("Order positions for following charges have no category: [{0}]",
+                errors.Add(string.Format("Order positions for following charges have no category: [{0}].",
                                          string.Join(", ", itemsWithNoCategory.AsEnumerable())));
             }
 
             var itemsWithMultipleCategoreis = orderPositionsForCharge.Where(x => x.CategoryIds.Skip(1).Any()).ToArray();
             if (itemsWithMultipleCategoreis.Any())
             {
-                errors.Add(string.Format("Order positions for following charges have more than one category: [{0}]",
+                errors.Add(string.Format("Order positions for following charges have more than one category: [{0}].",
                                          string.Join(", ", itemsWithMultipleCategoreis.AsEnumerable())));
             }
 
@@ -1340,13 +1340,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                        .ToArray();
                 if (appropriateOrderPositionIds.Length == 0)
                 {
-                    errors.Add(string.Format("Cant't find appropriate order position for charge [{0}]", chargeInfo));
+                    errors.Add(string.Format("Cant't find appropriate order position for charge [{0}].", chargeInfo));
                     continue;
                 }
 
                 if (appropriateOrderPositionIds.Length > 1)
                 {
-                    errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}]",
+                    errors.Add(string.Format("Multiple appropriate order positions are found for charge [{0}] - [{1}].",
                                              chargeInfo,
                                              string.Join(", ", appropriateOrderPositionIds)));
                     continue;
@@ -1357,7 +1357,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             if (errors.Any())
             {
-                report = string.Join(Environment.NewLine, errors);
+                message = string.Join(Environment.NewLine, errors);
                 return false;
             }
 

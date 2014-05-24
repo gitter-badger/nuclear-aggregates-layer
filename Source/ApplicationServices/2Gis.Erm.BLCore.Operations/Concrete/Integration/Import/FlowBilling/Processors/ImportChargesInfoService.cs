@@ -7,8 +7,10 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations;
 using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -29,27 +31,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 {
     public class ImportChargesInfoService : IImportChargesInfoService
     {
+        private readonly IAccountReadModel _accountReadModel;
         private readonly IBulkCreateChargesAggregateService _bulkCreateChargesAggregateService;
         private readonly ICreateChargesHistoryAggregateService _createChargesHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
         private readonly ICommonLog _logger;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPositionReadModel _positionReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IWithdrawalInfoReadModel _withdrawalInfoReadModel;
 
-        public ImportChargesInfoService(IBulkCreateChargesAggregateService bulkCreateChargesAggregateService,
+        public ImportChargesInfoService(IAccountReadModel accountReadModel,
+                                        IBulkCreateChargesAggregateService bulkCreateChargesAggregateService,
                                         ICreateChargesHistoryAggregateService createChargesHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
                                         ICommonLog logger,
                                         IOrderReadModel orderReadModel,
+                                        IPositionReadModel positionReadModel,
                                         IOperationScopeFactory scopeFactory,
                                         IWithdrawalInfoReadModel withdrawalInfoReadModel)
         {
+            _accountReadModel = accountReadModel;
             _bulkCreateChargesAggregateService = bulkCreateChargesAggregateService;
             _createChargesHistoryAggregateService = createChargesHistoryAggregateService;
             _deleteChargesService = deleteChargesService;
             _logger = logger;
             _orderReadModel = orderReadModel;
+            _positionReadModel = positionReadModel;
             _scopeFactory = scopeFactory;
             _withdrawalInfoReadModel = withdrawalInfoReadModel;
         }
@@ -58,25 +66,44 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         {
             foreach (var dto in dtos)
             {
-                try
-                {
-                    ProcessChargesInfo((ChargesInfoServiceBusDto)dto);
-                }
-                catch (Exception e)
-                {
-                    _logger.ErrorEx(e, e.Message);
-                    using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
-                    {
-                        LogImportStatus((ChargesInfoServiceBusDto)dto, ChargesHistoryStatus.Error, e.Message);
-                        transaction.Complete();
-                    }
-
-                    throw new NonBlockingImportErrorException("An error occurred during charges import", e);
-                }
+                ProcessChargesInfo((ChargesInfoServiceBusDto)dto);
             }
         }
 
         private void ProcessChargesInfo(ChargesInfoServiceBusDto chargesInfo)
+        {
+            var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
+
+            var blockingWithdrawal = _withdrawalInfoReadModel.GetBlockingWithdrawals(chargesInfo.BranchCode, timePeriod);
+            if (blockingWithdrawal.Any())
+            {
+                throw new CannotCreateChargesException(
+                    string.Format("Can't create charges. The following organization units have in-progress or reverting withdrawals: {0}.",
+                                  string.Join(", ",
+                                              blockingWithdrawal.Select(x => string.Format("[{0} - {1} - {2}]",
+                                                                                           x.OrganizationUnitId,
+                                                                                           x.OrganizationUnitName,
+                                                                                           x.WithdrawalStatus)))));
+            }
+
+            try
+            {
+                ProcessInScope(chargesInfo, timePeriod);
+            }
+            catch (Exception e)
+            {
+                _logger.ErrorEx(e, e.Message);
+                using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
+                {
+                    LogImportStatus(chargesInfo, ChargesHistoryStatus.Error, e.Message);
+                    transaction.Complete();
+                }
+
+                throw new NonBlockingImportErrorException("An error occurred during charges import.", e);
+            }
+        }
+
+        private void ProcessInScope(ChargesInfoServiceBusDto chargesInfo, TimePeriod timePeriod)
         {
             var orderPositionChargesInfoToDtoMap = chargesInfo.Charges.ToDictionary(x => new OrderPositionChargeInfo
                 {
@@ -87,30 +114,41 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportChargesInfoIdentity>())
             {
-                var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
-
-                string error;
-                if (!_withdrawalInfoReadModel.CanCreateCharges(chargesInfo.BranchCode, timePeriod, out error))
+                Guid lastSucceededId;
+                if (_withdrawalInfoReadModel.TryGetLastChargeHistoryId(chargesInfo.BranchCode,
+                                                                       timePeriod,
+                                                                       ChargesHistoryStatus.Succeeded,
+                                                                       out lastSucceededId))
                 {
-                    throw new CannotCreateChargesException(error);
+                    if (_accountReadModel.AnyLockDetailsCreated(lastSucceededId))
+                    {
+                        throw new CannotCreateChargesException(
+                            string.Format("Can't create charges. Charges with sessionId = {0} have been used for lock details creation.", lastSucceededId));
+                    }
                 }
 
                 IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions;
-                string report;
+                string message;
                 if (!_orderReadModel.TryAcquireOrderPositions(chargesInfo.BranchCode,
                                                               timePeriod,
                                                               orderPositionChargesInfoToDtoMap.Keys.ToArray(),
                                                               out acquiredOrderPositions,
-                                                              out report))
+                                                              out message))
                 {
                     // FIXME {a.tukaev, 15.05.2014}: Та же тема, есть в нескольких местах. Лучше выкидывать проблемноориентированные (о_О) исключения, а дальше их оборачивать для логирования/UI
                     // DONE {d.ivanov, 20.05.2014}: +1
-                    throw new CannotAcquireOrderPositionsForChargesException(report);
+                    throw new CannotAcquireOrderPositionsForChargesException(message);
                 }
 
                 _deleteChargesService.Delete(chargesInfo.BranchCode, timePeriod, chargesInfo.SessionId);
 
                 var chargesToCreate = CreateCharges(orderPositionChargesInfoToDtoMap, acquiredOrderPositions);
+
+                if (!_positionReadModel.PositionsExist(chargesToCreate.Select(x => x.PositionId).Distinct().ToArray(), out message))
+                {
+                    throw new CannotCreateChargesException(string.Format("Can't create charges. {0}", message));
+                }
+
                 _bulkCreateChargesAggregateService.Create(chargesInfo.BranchCode,
                                                           chargesInfo.StartDate,
                                                           chargesInfo.EndDate,

@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.API.Core;
+﻿using System;
+
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -27,6 +29,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                     return new FindSpecification<Lock>(x => x.PeriodStartDate == period.Start &&
                                                             x.PeriodEndDate == period.End &&
                                                             x.Order.DestOrganizationUnitId == destinationOrganizationUnitId);
+                }
+            }
+        }
+
+        public static class LockDetails
+        {
+            public static class Find
+            {
+                public static FindSpecification<LockDetail> ForChargeSessionId(Guid chargeSessionId)
+                {
+                    return new FindSpecification<LockDetail>(x => x.ChargeSessionId == chargeSessionId);
                 }
             }
         }

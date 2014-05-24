@@ -222,6 +222,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.12.06 rev. 5549 altering BusinessDirectory.vwTerritories.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.05.23 rev. 20638 - create ChargeSessionId column in Billing.LockDetails.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20154 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20151 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
     <Compile Include="2.1\2014.05.07 rev. 20148 - Alter BusinessOperationsServices for ExportFlowOrders_Order.cs" />
