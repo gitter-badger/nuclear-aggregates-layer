@@ -48,7 +48,7 @@
             @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id", ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
