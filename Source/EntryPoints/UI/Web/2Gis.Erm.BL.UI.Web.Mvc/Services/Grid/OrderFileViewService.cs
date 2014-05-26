@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
                                                                                     order.OwnerCode,
                                                                                     order.OwnerCode);
 
-                if (!order.IsActive || order.IsDeleted || order.IsTerminated || !hasUserRightsToEditOrder)
+                if (!hasUserRightsToEditOrder)
                 {
                     var buttonsToDisable =
                         gridViewSettings.DataViews.SelectMany(x => x.ToolbarItems.Where(y => y.Name == "Create" || y.Name == "Delete")).ToArray();
@@ -61,6 +61,4 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
         }
     }
 }
-
-
 

@@ -416,7 +416,7 @@ WriteLiteral("            ");
 
             
             #line 238 "..\..\Views\CreateOrUpdate\Deal.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
