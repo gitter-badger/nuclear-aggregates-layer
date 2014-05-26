@@ -90,8 +90,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [StringLengthLocalized(256)]
         public string RecipientName { get; set; }
 
-        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value != 'PostOnly'")]
-        [Dependency(DependencyType.ReadOnly, "DocumentsDeliveryAddress", "this.value == 'PostOnly'")]
+        [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'DeliveryByManager'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
 
         [SanitizedString]
