@@ -19,13 +19,12 @@ using log4net.Repository.Hierarchy;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {
-    static class Program
+    internal static class Program
     {
         [STAThread]
         public static void Main(string[] args)
         {
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
-            
             var logger = CreateLogger();
 
             logger.InfoEx("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
@@ -62,7 +61,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         {
             var sb = 
                 new StringBuilder()
-                    .AppendLine("")
+                    .AppendLine(string.Empty)
                     .AppendFormat("Test suite {0} finished. Results:\n", Assembly.GetExecutingAssembly().GetName().Name)
                     .AppendLine("\tAll=" + testResults.TotalCount)
                     .AppendLine("\tSucceeded=" + testResults.Succeeded.Count)
@@ -113,7 +112,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
 
             patternLayout.ActivateOptions();
 
-            var consoleAppender = new ConsoleAppender{ Name = "Console", Layout = patternLayout, Threshold = Level.All };
+            var consoleAppender = new ConsoleAppender { Name = "Console", Layout = patternLayout, Threshold = Level.All };
             consoleAppender.ActivateOptions();
 
             var logger = LogManager.GetLogger(LoggerConstants.Erm);
