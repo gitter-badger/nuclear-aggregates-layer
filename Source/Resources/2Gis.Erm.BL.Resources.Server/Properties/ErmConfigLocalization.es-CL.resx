@@ -1813,16 +1813,16 @@
     <value>Comunas</value>
   </data>
   <data name="DFieldEndPeriodDate" xml:space="preserve">
-    <value>Дата окончания периода</value>
+    <value>Fecha de finalización del periodo</value>
   </data>
   <data name="DFieldStartPeriodDate" xml:space="preserve">
-    <value>Дата начала периода</value>
+    <value>Fecha de inicio del periodo</value>
   </data>
   <data name="DFieldEgrpou" xml:space="preserve">
-    <value>ЕГРПОУ</value>
+    <value>Registro Estatal Único de Empresas y Organizaciones de Ucrania</value>
   </data>
   <data name="DFieldIpn" xml:space="preserve">
-    <value>ИПН</value>
+    <value>Número de Identificación Fiscal</value>
   </data>
   <data name="ControlPrintNewSalesModelBargainAction" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>

@@ -913,12 +913,12 @@
     <value>Numero de factura</value>
   </data>
   <data name="IncomingMessages" xml:space="preserve">
-    <value>Входящие сообщения</value>
+    <value>Mensajes entrantes</value>
   </data>
   <data name="OutgoingMessages" xml:space="preserve">
-    <value>Исходящие сообщения</value>
+    <value>Mensajes salientes</value>
   </data>
   <data name="SelectMessageToSave" xml:space="preserve">
-    <value>Выберите сообщения для сохранения</value>
+    <value>Seleccione mensajes para guardar</value>
   </data>
 </root>
