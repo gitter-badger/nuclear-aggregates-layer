@@ -177,5 +177,11 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Building = 241
         public const int ImportBuildingIdentity = 24101;
+
+
+        // EntityName.Lock = 159
+        public const int CreateLockDetailsDuringWithdrawalIdentity = 15901;
+
+        public const int DeleteLockDetailsDuringRevertingWithdrawalIdentity = 15902;
     }
 }

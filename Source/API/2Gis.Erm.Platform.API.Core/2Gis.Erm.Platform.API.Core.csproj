@@ -63,6 +63,9 @@
     <Compile Include="Exceptions\ServiceBus\ServiceBusIntegrationException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectDeserializerNotFoundException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectImportServiceNotFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\InactualChargesForPlannedPositionsException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
