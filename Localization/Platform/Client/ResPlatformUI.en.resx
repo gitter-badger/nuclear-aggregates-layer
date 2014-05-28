@@ -145,7 +145,7 @@
     <value>Error encountered during changing of the session state</value>
   </data>
   <data name="ListingCantGetResultForEntityList" xml:space="preserve">
-    <value>Can't get listing view for entities of type "{0}"</value>
+    <value>Can&apos;t get listing view for entities of type &quot;{0}&quot;</value>
   </data>
   <data name="NotificationsContextualTitle" xml:space="preserve">
     <value>Context</value>
