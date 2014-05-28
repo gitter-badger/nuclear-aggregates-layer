@@ -171,7 +171,9 @@
     <Compile Include="Concrete\Withdrawals\IActualizeDealsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeOrdersDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IActualizeOrdersDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ICreateLockDetailsDuringWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IDeleteChargesForPeriodAndProjectOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\IDeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
@@ -268,8 +270,6 @@
     <Compile Include="Generic\Modify\Old\EditNoteRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesResponse.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\CalculatePositionPricesWithDiscountDistributionRequest.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\CalculatePositionPricesWithDiscountDistributionResponse.cs" />
     <Compile Include="Concrete\Old\OrderPositions\ChangeBindingObjectsRequest.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderPositionRequest.cs" />

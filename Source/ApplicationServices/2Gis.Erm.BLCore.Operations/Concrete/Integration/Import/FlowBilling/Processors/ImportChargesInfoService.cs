@@ -4,13 +4,13 @@ using System.Linq;
 using System.Transactions;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -25,7 +25,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
 using ChargeBusDto = DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing.ChargeDto;
-using ChargeDto = DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations.ChargeDto;
+using ChargeDto = DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto.ChargeDto;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBilling.Processors
 {

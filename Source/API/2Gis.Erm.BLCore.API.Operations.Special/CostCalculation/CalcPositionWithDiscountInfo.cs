@@ -4,5 +4,6 @@
     {
         public ICalcPositionInfo PositionInfo { get; set; }
         public DiscountInfo DiscountInfo { get; set; }
+        public decimal CategoryRate { get; set; }
     }
 }

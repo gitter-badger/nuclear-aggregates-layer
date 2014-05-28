@@ -26,6 +26,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId);
         string GetLegalPersonShortName(long legalPersonId);
         string GetBranchOfficeOrganizationUnitName(long branchOfficeOrganizationUnitId);
+        IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period);
         bool AnyLockDetailsCreated(Guid chargeSessionId);
     }
 }
