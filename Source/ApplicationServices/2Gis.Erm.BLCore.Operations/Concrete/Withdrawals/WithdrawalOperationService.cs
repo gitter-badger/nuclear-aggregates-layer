@@ -37,9 +37,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
+        private readonly ICreateLockDetailsDuringWithdrawalOperationService _createLockDetailsDuringWithdrawalOperationService;
 
         public WithdrawalOperationService(
             IAccountReadModel accountReadModel,
+            ICreateLockDetailsDuringWithdrawalOperationService createLockDetailsDuringWithdrawalOperationService,
             IActualizeAccountsDuringWithdrawalOperationService actualizeAccountsDuringWithdrawalOperationService, 
             IActualizeOrdersDuringWithdrawalOperationService actualizeOrdersDuringWithdrawalOperationService,
             IActualizeDealsDuringWithdrawalOperationService actualizeDealsDuringWithdrawalOperationService,
@@ -66,6 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
             _logger = logger;
+            _createLockDetailsDuringWithdrawalOperationService = createLockDetailsDuringWithdrawalOperationService;
         }
 
         public WithdrawalProcessingResult Withdraw(long organizationUnitId, TimePeriod period)
@@ -131,6 +134,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
         }
 
+        private static bool CanExecuteWithdrawing(WithdrawalInfo withdrawal, out string report)
+        {
+            report = null;
+
+            if (withdrawal == null || withdrawal.Status == (int)WithdrawalStatus.Error || withdrawal.Status == (int)WithdrawalStatus.Reverted)
+            {
+                return true;
+            }
+
+            report = "Forbidden previous withdrawal status " + (WithdrawalStatus)withdrawal.Status;
+            return false;
+        }
+
         private bool LockSuccessfullyAcquired(WithdrawalInfo acquiredWithdrawal)
         {
             var lockedWithdrawal =
@@ -147,6 +163,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             using (var scope = _scopeFactory.CreateNonCoupled<WithdrawalIdentity>())
             {
+                _logger.InfoFormatEx("Withdrawing. Organization unit {0}. {1}. Starting lock details creation process",
+                                     organizationUnitId,
+                                     period);
+                _createLockDetailsDuringWithdrawalOperationService.CreateLockDetails(organizationUnitId, period);
+
                 var withdrawalInfos = _accountReadModel.GetInfoForWithdrawal(organizationUnitId, period);
 
                 _logger.InfoFormatEx(
@@ -258,19 +279,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     acquiredWithdrawal.Id);
 
             return true;
-        }
-
-        private static bool CanExecuteWithdrawing(WithdrawalInfo withdrawal, out string report)
-        {
-            report = null;
-
-            if (withdrawal == null || withdrawal.Status == (int)WithdrawalStatus.Error || withdrawal.Status == (int)WithdrawalStatus.Reverted)
-            {
-                return true;
-            }
-
-            report = "Forbidden previous withdrawal status " + (WithdrawalStatus)withdrawal.Status;
-            return false;
         }
     }
 }

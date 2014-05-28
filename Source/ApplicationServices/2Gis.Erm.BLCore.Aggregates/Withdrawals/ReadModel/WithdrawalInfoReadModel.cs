@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -42,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
         }
 
         public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
-        {
+            {
             var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
             if (organizationUnitId == null)
             {
@@ -67,11 +69,71 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
                                          })
                           .Where(x => x.LastWithdrawal != null)
                           .Select(x => new WithdrawalInfoDto
-                              {
+            {
                                   OrganizationUnitId = x.OrganizationUnit.Id,
                                   OrganizationUnitName = x.OrganizationUnit.Name,
                                   WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
                               })
+                          .ToArray();
+        }
+
+        public IReadOnlyDictionary<long, Guid?> GetActualChargesByProject(TimePeriod period)
+        {
+            var chargesHistoryQuery = _finder.Find<ChargesHistory>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
+
+            return _finder.Find(Specs.Find.Active<Project>() && new FindSpecification<Project>(x => x.OrganizationUnitId != null))
+                          .GroupJoin(chargesHistoryQuery,
+                                     p => p.Id,
+                                     ch => ch.ProjectId,
+                                     (p, items) => new
+                                         {
+                                             ProjectId = p.Id,
+                                             ActualChargeId = items.Where(x => x.Status == (int)ChargesHistoryStatus.Succeeded)
+                                                                   .OrderByDescending(x => x.CreatedOn)
+                                                                   .Select(x => (Guid?)x.SessionId)
+                                                                   .FirstOrDefault()
+                                         })
+                          .ToDictionary(x => x.ProjectId, x => x.ActualChargeId);
+        }
+
+        public IReadOnlyCollection<OrderPositionWithChargeInfoDto> GetPlannedOrderPositionsWithChargesInfo(long organizationUnitId, TimePeriod period)
+        {
+            var chargesQuery = _finder.Find<Charge>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
+                                AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
+                          .SelectMany(x => x.Order.OrderPositions.Select(op => new { OrderPosition = op, x.Order, Lock = x }))
+                          .Where(x => x.OrderPosition.IsActive && !x.OrderPosition.IsDeleted &&
+                                      x.OrderPosition.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision)
+                          .GroupJoin(chargesQuery,
+                                     opWithlock => opWithlock.OrderPosition.Id,
+                                     charge => charge.OrderPositionId,
+                                     (x, charges) => new OrderPositionWithChargeInfoDto
+                                         {
+                                             OrderInfo = new OrderInfoDto
+                                                 {
+                                                     OrderType = (OrderType)x.Order.OrderType,
+                                                     ReleaseCountFact = x.Order.ReleaseCountFact,
+                                                     SourceOrganizationUnitId = x.Order.SourceOrganizationUnitId,
+                                                     DestOrganizationUnitId = x.Order.DestOrganizationUnitId
+                                                 },
+                                             OrderPositionInfo = new OrderPositionInfoDto
+                                                 {
+                                                     PriceId = x.OrderPosition.PricePosition.PriceId,
+                                                     CategoryRate = x.OrderPosition.CategoryRate,
+                                                     Amount = x.OrderPosition.Amount,
+                                                     DiscountSum = x.OrderPosition.DiscountSum,
+                                                     DiscountPercent = x.OrderPosition.DiscountPercent,
+                                                     CalculateDiscountViaPercent = x.OrderPosition.CalculateDiscountViaPercent,
+                                                     OrderPositionId = x.OrderPosition.Id
+                                                 },
+                                             Lock = x.Lock,
+                                             ChargeInfo = charges.Select(c => new ChargeInfoDto
+                                                 {
+                                                     PositionId = c.PositionId,
+                                                     ProjectId = c.ProjectId,
+                                                     SessionId = c.SessionId
+                                                 }).FirstOrDefault()
+                                         })
                           .ToArray();
         }
     }

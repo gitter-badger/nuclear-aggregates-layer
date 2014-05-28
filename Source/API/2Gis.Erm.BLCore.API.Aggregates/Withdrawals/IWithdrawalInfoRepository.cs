@@ -9,7 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals
     {
         int Create(IEnumerable<ReleasesWithdrawalsPosition> releaseWithdrawalPosition);
         int Create(IEnumerable<ReleaseWithdrawal> releaseWithdrawals);
-        int CreateOrUpdate(WithdrawalInfo withdrawal);
 
         int Delete(IEnumerable<ReleaseWithdrawal> releaseWithdrawals);
         decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take);

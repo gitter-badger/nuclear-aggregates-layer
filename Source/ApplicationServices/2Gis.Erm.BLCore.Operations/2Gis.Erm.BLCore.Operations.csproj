@@ -186,7 +186,6 @@
     <Compile Include="Concrete\Old\LocalMessages\ReprocessLocalMessagesHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\SaveLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesHandler.cs" />
-    <Compile Include="Concrete\Old\OrderPositions\CalculatePositionPricesWithDiscountDistributionHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\ChangeBindingObjectsHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
@@ -247,7 +246,12 @@
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
+    <Compile Include="Concrete\Withdrawals\CreateLockDetailsDuringWithdrawalOperationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Concrete\Withdrawals\DeleteChargesForPeriodAndProjectOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\DeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
     <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
     <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
@@ -259,7 +263,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\DynamicDictionaryEntityService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
     <Compile Include="Concrete\Simplified\HotClientRequestService.cs" />
     <Compile Include="Concrete\Simplified\MS CRM\CrmTaskFactory.cs" />
     <Compile Include="Concrete\Simplified\MS CRM\MsCrmInteractionService.cs" />
@@ -430,6 +433,7 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
@@ -531,7 +535,6 @@
     <Compile Include="Generic\Modify\Old\EditThemeTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditUserHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditUserProfileHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditWithdrawalInfoHandler.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyAccountUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifyAdvertisementUsingHandlerService.cs" />

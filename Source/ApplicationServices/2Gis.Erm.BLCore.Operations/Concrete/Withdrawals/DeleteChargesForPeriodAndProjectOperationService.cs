@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal.Operations;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
