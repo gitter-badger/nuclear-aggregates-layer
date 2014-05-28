@@ -913,12 +913,12 @@
     <value>Cislo faktury</value>
   </data>
   <data name="IncomingMessages" xml:space="preserve">
-    <value>Входящие сообщения</value>
+    <value>Příchozí zprávy</value>
   </data>
   <data name="OutgoingMessages" xml:space="preserve">
-    <value>Исходящие сообщения</value>
+    <value>Odchozí zprávy</value>
   </data>
   <data name="SelectMessageToSave" xml:space="preserve">
-    <value>Выберите сообщения для сохранения</value>
+    <value>Vyberte zprávy pro uložení</value>
   </data>
 </root>
