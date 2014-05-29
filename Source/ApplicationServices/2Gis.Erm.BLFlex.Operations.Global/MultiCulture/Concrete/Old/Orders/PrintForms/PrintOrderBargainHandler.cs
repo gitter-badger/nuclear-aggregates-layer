@@ -30,42 +30,39 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var printData =
+            var data =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                       .Select(
-                           order =>
-                           new
-                               {
-                                   order.Bargain,
-                                   order.LegalPerson,
-                                   Profile =
-                               order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                   y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
-                                   OrganizationUnitName = order.DestOrganizationUnit.Name,
-                                   order.BranchOfficeOrganizationUnit,
-                                   order.BranchOfficeOrganizationUnit.BranchOffice,
-                                   CurrencyIsoCode = order.Currency.ISOCode,
-                                   LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                                   order.BranchOfficeOrganizationUnitId,
-                                   OperatesOnTheBasisInGenitive = string.Empty
-                               })
-                       .AsEnumerable()
-                       .Select(
-                           x =>
-                           new
-                               {
-                                   x.Bargain,
-                                   x.LegalPerson,
-                                   x.Profile,
-                                   x.OrganizationUnitName,
-                                   x.BranchOfficeOrganizationUnit,
-                                   x.BranchOffice,
-                                   x.CurrencyIsoCode,
-                                   x.LegalPersonType,
-                                   x.BranchOfficeOrganizationUnitId,
-                                   OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(x.Profile, x.LegalPersonType),
-                               })
+                       .Select(order => new
+                           {
+                               order.Bargain,
+                               order.LegalPersonId,
+                               ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value).Id,
+                               OrganizationUnitName = order.DestOrganizationUnit.Name,
+                               order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                               CurrencyIsoCode = order.Currency.ISOCode,
+                               order.BranchOfficeOrganizationUnitId,
+                           })
                        .Single();
+
+            var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
+                                                   ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
+                                                   : null;
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            var printData = new
+                {
+                    data.Bargain,
+                    LegalPerson = legalPerson,
+                    Profile = legalPersonProfile,
+                    data.OrganizationUnitName,
+                    BranchOfficeOrganizationUnit = branchOfficeOrganizationUnit,
+                    BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId)),
+                    data.CurrencyIsoCode,
+                    LegalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum,
+                    data.BranchOfficeOrganizationUnitId,
+                    OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(legalPersonProfile, (LegalPersonType)legalPerson.LegalPersonTypeEnum),
+                };
 
             return
                 _requestProcessor.HandleSubRequest(

@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
             return _printOrderHelper.GetOrderPositions(orderQuery, orderPositionsQuery);
         }
 
-        public PrintData GetUngrouppedFields(IQueryable<Order> query, LegalPersonProfile profile)
+        public PrintData GetUngrouppedFields(IQueryable<Order> query, LegalPerson legalPerson, LegalPersonProfile profile)
         {
             var bargain = query
                 .Select(x => x.Bargain)
@@ -120,22 +120,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                     order.DestOrganizationUnit.ElectronicMedia,
                     SourceElectronicMedia = order.SourceOrganizationUnit.ElectronicMedia,
                     FirmName = order.Firm.Name,
-                    order.LegalPerson,
+                    order.LegalPersonId,
                     order.PaymentMethod,
                 })
-                .AsEnumerable()
-                .Select(x => new PrintData
-                    {
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate) },
-                        { "ClientRequisitesParagraph", GetClientRequisitesParagraph(x.LegalPerson, profile) },
-                        { "ElectronicMedia", x.ElectronicMedia },
-                        { "Firm.Name", x.FirmName },
-                        { "PaymentMethod", ((PaymentMethod)x.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
-                        { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
-                    })
                 .Single();
 
-            return PrintData.Concat(categories, stuff);
+            var parintData = new PrintData
+                {
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
+                    { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
+                    { "ElectronicMedia", stuff.ElectronicMedia },
+                    { "Firm.Name", stuff.FirmName },
+                    { "PaymentMethod", ((PaymentMethod)stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
+                    { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
+                };
+
+            return PrintData.Concat(categories, parintData);
         }
 
         private string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)

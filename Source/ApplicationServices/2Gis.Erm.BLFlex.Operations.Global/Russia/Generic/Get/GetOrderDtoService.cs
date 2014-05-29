@@ -368,12 +368,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             orderDto.DealCurrencyId = dealInfo.CurrencyId;
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<Order> domainEntityDto,
-                                                 long entityId,
-                                                 bool readOnly,
-                                                 long? parentEntityId,
-                                                 EntityName parentEntityName,
-                                                 string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<Order> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
         {
             var dto = (OrderDomainEntityDto)domainEntityDto;
             if (!dto.IsNew())

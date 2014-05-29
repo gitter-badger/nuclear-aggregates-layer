@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -44,7 +45,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         public string PhoneNumber { get; set; }
 
-        [RequiredLocalized]
         public bool IsPrimary { get; set; }
 
         public bool IsPrimaryForRegionalSales { get; set; }
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [Dependency(DependencyType.Hidden, "boinfo", "this.value==''||this.value=='0'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlName", "this.value!=''&&this.value!='0'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlLegalAddress", "this.value!=''&&this.value!='0'")]
-        [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlInn", "this.value!=''&&this.value!='0'")]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlTic", "this.value!=''&&this.value!='0'")]
         public long? BranchOfficeAddlId { get; set; }
 
         [DisplayNameLocalized("Name")]
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         public string BranchOfficeAddlLegalAddress { get; set; }
 
         [DisplayNameLocalized("Tic")]
-        public string BranchOfficeAddlInn { get; set; }
+        public string BranchOfficeAddlTic { get; set; }
 
         public string SyncCode1C { get; set; }
 
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
+            var modelDto = (CyprusBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             Email = modelDto.Email;
 
             BranchOfficeAddlId = modelDto.BranchOfficeAddlId;
-            BranchOfficeAddlInn = modelDto.BranchOfficeAddlInn;
+            BranchOfficeAddlTic = modelDto.BranchOfficeAddlTic;
             BranchOfficeAddlLegalAddress = modelDto.BranchOfficeAddlLegalAddress;
             BranchOfficeAddlName = modelDto.BranchOfficeAddlName;
             PaymentEssentialElements = modelDto.PaymentEssentialElements;
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeOrganizationUnitDomainEntityDto
+            return new CyprusBranchOfficeOrganizationUnitDomainEntityDto
                 {
                     Id = Id,
                     OrganizationUnitRef = OrganizationUnit.ToReference(),
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     Email = Email,
 
                     BranchOfficeAddlId = BranchOfficeAddlId.Value,
-                    BranchOfficeAddlInn = BranchOfficeAddlInn,
+                    BranchOfficeAddlTic = BranchOfficeAddlTic,
                     BranchOfficeAddlLegalAddress = BranchOfficeAddlLegalAddress,
                     BranchOfficeAddlName = BranchOfficeAddlName,
                     PaymentEssentialElements = PaymentEssentialElements,

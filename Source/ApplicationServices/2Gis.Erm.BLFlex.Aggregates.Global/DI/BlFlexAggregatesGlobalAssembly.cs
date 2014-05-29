@@ -9,7 +9,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.DI
                                                          IZoneAnchor<AggregatesZone>,
                                                          IContainsType<IAggregateReadModel>,
                                                          IContainsType<IAggregateRepository>,
-                                                         IContainsType<ISimplifiedModelConsumerReadModel>
+                                                         IContainsType<ISimplifiedModelConsumerReadModel>,
+                                                         IContainsType<ISimplifiedModelConsumer>
     {
     }
 }

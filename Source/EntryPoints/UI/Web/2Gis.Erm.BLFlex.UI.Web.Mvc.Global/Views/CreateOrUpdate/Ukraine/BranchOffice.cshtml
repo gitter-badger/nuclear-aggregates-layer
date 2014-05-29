@@ -10,8 +10,6 @@
 
 @section CardBody
 {
-    @Html.HiddenFor(m => m.IsActive)
-    @Html.HiddenFor(m => m.IsDeleted)
     @Html.HiddenFor(m => m.IdentityServiceUrl)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
@@ -30,14 +28,6 @@
         <div class="row-wrapper">
             @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true})
             @Html.TemplateField(m => m.ContributionType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.ContributionType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true })
-        </div>
-    </div>
-    <div class="Tab" id="AnnotationTab" title="@BLResources.Notes">
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.UsnNotificationText, FieldFlex.lone, new Dictionary<string, object>{{"rows", "10"}})
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.Annotation, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })
         </div>
     </div>
 }

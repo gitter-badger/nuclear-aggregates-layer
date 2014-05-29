@@ -59,12 +59,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         Order = order,
                         order.Bargain,
                         order.LegalPerson,
-                        Profile =
-                                     order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                         y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
+                        ProfileId = order.LegalPerson.LegalPersonProfiles
+                                         .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
+                                         .Id,
                         OrganizationUnitName = order.LegalPerson.Client.Territory.OrganizationUnit.Name,
-                        order.BranchOfficeOrganizationUnit,
-                        order.BranchOfficeOrganizationUnit.BranchOffice,
+                        order.BranchOfficeOrganizationUnit.BranchOfficeId,
                         CurrencyISOCode = order.Currency.ISOCode,
                         LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
                         order.BranchOfficeOrganizationUnitId,
@@ -72,35 +71,41 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 .AsEnumerable()
 
                 // in-memory transformations
-                .Select(x => new
+                .Select(x =>
                     {
-                        x.Order,
-                        RelatedBargainInfo = (x.Bargain != null) ?
-                                                                     string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn)) : null,
-                        NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
-                        x.LegalPerson,
-                        x.Profile,
-                        x.OrganizationUnitName,
-                        x.BranchOfficeOrganizationUnit,
-                        x.BranchOffice,
-                        x.CurrencyISOCode,
-                        x.LegalPersonType,
-                        x.BranchOfficeOrganizationUnitId,
-                        OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(x.Profile, x.LegalPersonType)
+                        var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId));
+                        return new
+                            {
+                                x.Order,
+                                RelatedBargainInfo = (x.Bargain != null)
+                                                         ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
+                                                         : null,
+                                NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
+                                x.LegalPerson,
+                                Profile = profile,
+                                x.OrganizationUnitName,
+                                BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
+                                                                   ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
+                                                                   : null,
+                                BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
+                                x.CurrencyISOCode,
+                                x.LegalPersonType,
+                                x.BranchOfficeOrganizationUnitId,
+                                OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(profile, x.LegalPersonType)
+                            };
                     })
                 .Single();
 
-            return
-                _requestProcessor.HandleSubRequest(
-                    new PrintDocumentRequest
-                        {
-                            CurrencyIsoCode = printData.CurrencyISOCode,
-                            BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
-                            TemplateCode = GetTemplateCode(printData.LegalPersonType),
-                            FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, printData.Order.Number),
-                            PrintData = printData
-                        },
-                    Context);
+            var printRequest = new PrintDocumentRequest
+                {
+                    CurrencyIsoCode = printData.CurrencyISOCode,
+                    BranchOfficeOrganizationUnitId = printData.BranchOfficeOrganizationUnitId,
+                    TemplateCode = GetTemplateCode(printData.LegalPersonType),
+                    FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, printData.Order.Number),
+                    PrintData = printData
+                };
+
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType)

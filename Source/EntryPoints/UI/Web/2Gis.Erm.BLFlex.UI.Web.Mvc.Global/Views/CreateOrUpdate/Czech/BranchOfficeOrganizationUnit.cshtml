@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Czech.CzechBranchOfficeOrganizationUnitViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech.CzechBranchOfficeOrganizationUnitViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -37,8 +36,8 @@
             @Html.TemplateField(m => m.PhoneNumber, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ChiefNameInNominative, FieldFlex.twins)
-            @Html.TemplateField(m => m.ChiefNameInGenitive, FieldFlex.twins)
+            @Html.TemplateField(m => m.FullNameInNominative, FieldFlex.twins)
+            @Html.TemplateField(m => m.FullNameInGenitive, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.PositionInNominative, FieldFlex.twins)
@@ -69,7 +68,7 @@
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.BranchOfficeAddlIc, FieldFlex.twins)
-                @Html.TemplateField(m => m.BranchOfficeAddlInn, FieldFlex.twins)
+                @Html.TemplateField(m => m.BranchOfficeAddlDic, FieldFlex.twins)
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.BranchOfficeAddlLegalAddress, FieldFlex.lone)

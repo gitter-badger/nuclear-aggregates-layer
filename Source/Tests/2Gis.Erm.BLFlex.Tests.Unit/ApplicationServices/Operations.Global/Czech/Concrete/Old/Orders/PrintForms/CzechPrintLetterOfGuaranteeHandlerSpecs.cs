@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
+using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-using It = Machine.Specifications.It;
-
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
     public static class CzechPrintLetterOfGuaranteeHandlerSpecs
     {
+        [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:ElementsMustBeOrderedByAccess", Justification = "It's a test")]
         class TestableCzechPrintLetterOfGuaranteeHandler : CzechPrintLetterOfGuaranteeHandler
         {
             public TestableCzechPrintLetterOfGuaranteeHandler() 
@@ -51,15 +52,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "Order.Number",
                                 "PersonPrefix",
                                 "Profile.ChiefNameInGenitive",
-                                "Profile.ChiefNameInNominative",
+                                "Profile.ChiefNameInNominative"
                             }
                     }
                 }; 
             #endregion
 
+            static readonly string[] Expected = PrintFormFields.SelectMany(pair => pair.Value).Distinct().ToArray();
             static PrintData Data;
             static TestableCzechPrintLetterOfGuaranteeHandler Handler;
-            static readonly string[] Expected = PrintFormFields.SelectMany(pair => pair.Value).Distinct().ToArray();
 
             Establish context = () => Handler = new TestableCzechPrintLetterOfGuaranteeHandler();
             Because of = () => Data = Handler.GetPrintData();

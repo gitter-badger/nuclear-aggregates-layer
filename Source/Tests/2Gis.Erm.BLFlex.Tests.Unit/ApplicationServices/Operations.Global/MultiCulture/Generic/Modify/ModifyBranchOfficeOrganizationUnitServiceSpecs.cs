@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
@@ -28,33 +28,47 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             protected static IBranchOfficeReadModel ReadModel;
             protected static IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit> Obtainer;
-            protected static ICreatePartableEntityAggregateService<BranchOffice, BranchOfficeOrganizationUnit> CreateService;
-            protected static IUpdatePartableEntityAggregateService<BranchOffice, BranchOfficeOrganizationUnit> UpdateService;
+            protected static ICreateAggregateRepository<BranchOfficeOrganizationUnit> CreateService;
+            protected static IUpdateAggregateRepository<BranchOfficeOrganizationUnit> UpdateService;
             protected static IPartableEntityValidator<BranchOfficeOrganizationUnit> Validator;
+            protected static Mock<IBranchOfficeReadModel> BranchOfficeReadModelMock;
+            protected static Mock<IOrganizationUnitReadModel> OrganizationUnitReadModelMock;
 
             protected static IDomainEntityDto DomainEntityDto;
 
             protected static ModifyBranchOfficeOrganizationUnitService ModifyBranchOfficeOrganizationUnitService;
 
             protected static BranchOfficeOrganizationUnit Entity;
-            protected static IEnumerable<BusinessEntityInstanceDto> PartDtos;
 
             Establish context = () =>
                 {
                     Entity = new BranchOfficeOrganizationUnit { Id = ENTITY_ID };
-                    PartDtos = new BusinessEntityInstanceDto[0];
 
                     DomainEntityDto = Mock.Of<IDomainEntityDto>();
 
-                    ReadModel = Mock.Of<IBranchOfficeReadModel>(x => x.GetBusinessEntityInstanceDto(Entity) == PartDtos);
+                    BranchOfficeReadModelMock = new Mock<IBranchOfficeReadModel>();
+                    BranchOfficeReadModelMock.Setup(x => x.GetBranchOffice(Moq.It.IsAny<long>()))
+                                             .Returns(new BranchOffice() { IsActive = true, IsDeleted = false });
+
+                    BranchOfficeReadModelMock.Setup(x => x.GetPrimaryBranchOfficeOrganizationUnits(Moq.It.IsAny<long>()))
+                                             .Returns(new PrimaryBranchOfficeOrganizationUnits() { });
+
+                    OrganizationUnitReadModelMock = new Mock<IOrganizationUnitReadModel>();
+                    OrganizationUnitReadModelMock.Setup(x => x.GetOrganizationUnit(Moq.It.IsAny<long>()))
+                                                 .Returns(new OrganizationUnit() { IsActive = true, IsDeleted = false });
+
                     Obtainer = Mock.Of<IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit>>(x => x.ObtainBusinessModelEntity(DomainEntityDto) == Entity);
-                    CreateService = Mock.Of<ICreatePartableEntityAggregateService<BranchOffice, BranchOfficeOrganizationUnit>>();
-                    UpdateService = Mock.Of<IUpdatePartableEntityAggregateService<BranchOffice, BranchOfficeOrganizationUnit>>();
+                    CreateService = Mock.Of<ICreateAggregateRepository<BranchOfficeOrganizationUnit>>();
+                    UpdateService = Mock.Of<IUpdateAggregateRepository<BranchOfficeOrganizationUnit>>();
                     Validator = Mock.Of<IPartableEntityValidator<BranchOfficeOrganizationUnit>>();
 
-                    ModifyBranchOfficeOrganizationUnitService = new ModifyBranchOfficeOrganizationUnitService(ReadModel, Obtainer, CreateService, UpdateService, Validator);
+                    ModifyBranchOfficeOrganizationUnitService = new ModifyBranchOfficeOrganizationUnitService(Obtainer,
+                                                                                                              CreateService,
+                                                                                                              UpdateService,
+                                                                                                              Validator,
+                                                                                                              BranchOfficeReadModelMock.Object,
+                                                                                                              OrganizationUnitReadModelMock.Object);
                 };
-
         }
 
         public abstract class ModifyBranchOfficeOrganizationUnitServiceResultContext : ModifyBranchOfficeOrganizationUnitServiceContext
@@ -73,10 +87,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Because of = () => Catch.Exception(() => ModifyBranchOfficeOrganizationUnitService.Modify(DomainEntityDto));
 
             It should_not_calls_create_service = () => Mock.Get(CreateService).Verify(x => 
-                x.Create(Moq.It.IsAny<BranchOfficeOrganizationUnit>(), Moq.It.IsAny<IEnumerable<BusinessEntityInstanceDto>>()), Times.Never);
+                x.Create(Moq.It.IsAny<BranchOfficeOrganizationUnit>()), Times.Never);
 
             It should_not_calls_update_service = () => Mock.Get(UpdateService).Verify(x => 
-                x.Update(Moq.It.IsAny<BranchOfficeOrganizationUnit>(), Moq.It.IsAny<IEnumerable<BusinessEntityInstanceDto>>()), Times.Never);
+                x.Update(Moq.It.IsAny<BranchOfficeOrganizationUnit>()), Times.Never);
         }
 
         [Tags("ModifyService")]
@@ -85,10 +99,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         {
             It should_calls_validator = () => Mock.Get(Validator).Verify(x => x.Check(Entity), Times.Once);
 
-            It should_calls_create_service = () => Mock.Get(CreateService).Verify(x => x.Create(Entity, PartDtos), Times.Once);
+            It should_calls_create_service = () => Mock.Get(CreateService).Verify(x => x.Create(Entity), Times.Once);
 
             It should_not_calls_update_service = () => Mock.Get(UpdateService).Verify(x =>
-                x.Update(Moq.It.IsAny<BranchOfficeOrganizationUnit>(), Moq.It.IsAny<IEnumerable<BusinessEntityInstanceDto>>()), Times.Never);
+                x.Update(Moq.It.IsAny<BranchOfficeOrganizationUnit>()), Times.Never);
 
             It should_returns_entity_id = () => Result.Should().Be(ENTITY_ID);
         }
@@ -102,10 +116,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             It should_calls_validator = () => Mock.Get(Validator).Verify(x => x.Check(Entity), Times.Once);
 
             It should_calls_create_service = () => Mock.Get(CreateService).Verify(x =>
-                x.Create(Moq.It.IsAny<BranchOfficeOrganizationUnit>(), Moq.It.IsAny<IEnumerable<BusinessEntityInstanceDto>>()), Times.Never);
+                x.Create(Moq.It.IsAny<BranchOfficeOrganizationUnit>()), Times.Never);
 
             It should_not_calls_update_service = () => Mock.Get(UpdateService).Verify(x =>
-                x.Update(Entity, PartDtos), Times.Once);
+                x.Update(Entity), Times.Once);
 
             It should_returns_entity_id = () => Result.Should().Be(ENTITY_ID);
         }

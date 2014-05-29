@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
@@ -21,6 +22,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly ILegalPersonRepository _legalPersonRepository;
+        private readonly IUpdateAggregateRepository<LegalPerson> _updateLegalPersonRepository;
+        private readonly ICreateAggregateRepository<LegalPerson> _createLegalPersonRepository;
         private readonly ICheckInnService _checkInnService;
         private readonly IOperationScopeFactory _scopeFactory;
 
@@ -28,12 +31,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             ISubRequestProcessor subRequestProcessor, 
             ILegalPersonRepository legalPersonRepository,
             ICheckInnService checkInnService,
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            IUpdateAggregateRepository<LegalPerson> updateLegalPersonRepository,
+            ICreateAggregateRepository<LegalPerson> createLegalPersonRepository)
         {
             _subRequestProcessor = subRequestProcessor;
             _legalPersonRepository = legalPersonRepository;
             _checkInnService = checkInnService;
             _scopeFactory = scopeFactory;
+            _updateLegalPersonRepository = updateLegalPersonRepository;
+            _createLegalPersonRepository = createLegalPersonRepository;
         }
 
         protected override EmptyResponse Handle(EditRequest<LegalPerson> request)
@@ -125,14 +132,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 {
                     var isNewLegalPerson = request.Entity.IsNew();
 
-                    _legalPersonRepository.CreateOrUpdate(request.Entity);
-
                     if (isNewLegalPerson)
                     {
+                        _createLegalPersonRepository.Create(request.Entity);
                         operationScope.Added<LegalPerson>(request.Entity.Id);
                     }
                     else
                     {
+                        _updateLegalPersonRepository.Update(request.Entity);
                         operationScope.Updated<LegalPerson>(request.Entity.Id);
                     }
 

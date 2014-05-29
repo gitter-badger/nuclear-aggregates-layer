@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Cyprus.CyprusBranchOfficeOrganizationUnitViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusBranchOfficeOrganizationUnitViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -65,7 +64,7 @@
             @Html.SectionHead("lpinfo", BLResources.BranchOfficeInfo)
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.BranchOfficeAddlName, FieldFlex.twins)
-                @Html.TemplateField(m => m.BranchOfficeAddlInn, FieldFlex.twins)
+                @Html.TemplateField(m => m.BranchOfficeAddlTic, FieldFlex.twins)
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.BranchOfficeAddlLegalAddress, FieldFlex.lone)

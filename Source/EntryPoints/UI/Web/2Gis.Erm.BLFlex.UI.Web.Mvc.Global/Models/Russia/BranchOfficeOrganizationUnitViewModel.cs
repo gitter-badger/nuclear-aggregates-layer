@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -54,7 +54,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public string PhoneNumber { get; set; }
 
-        [RequiredLocalized]
         public bool IsPrimary { get; set; }
 
         public bool IsPrimaryForRegionalSales { get; set; }
@@ -87,7 +86,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
+            var modelDto = (RussiaBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
@@ -121,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeOrganizationUnitDomainEntityDto
+            return new RussiaBranchOfficeOrganizationUnitDomainEntityDto
                 {
                     Id = Id,
                     OrganizationUnitRef = OrganizationUnit.ToReference(),

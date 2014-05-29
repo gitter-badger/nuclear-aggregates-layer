@@ -1,11 +1,12 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms
 {
@@ -21,15 +22,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
         public static PrintData BranchOfficeFields(BranchOffice branchOffice)
         {
-            var branchOfficePart = branchOffice.UkrainePart();
-            return 
-                new PrintData
-                    {
-                        { "Ipn", branchOfficePart.Ipn },
-                        { "Egrpou", branchOffice.Inn },
-                        { "LegalAddress", branchOffice.LegalAddress },
-                        { "Name", branchOffice.Name },
-                    };
+            return new PrintData
+                {
+                    { "Ipn", branchOffice.Within<UkraineBranchOfficePart>().GetPropertyValue(part => part.Ipn) },
+                    { "Egrpou", branchOffice.Inn },
+                    { "LegalAddress", branchOffice.LegalAddress },
+                    { "Name", branchOffice.Name },
+                };
         }
 
         public static PrintData BranchOfficeOrganizationUnitFields(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
@@ -62,11 +61,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
         public static PrintData LegalPersonFields(LegalPerson legalPerson)
         {
-            var part = legalPerson.UkrainePart();
-
             return new PrintData
                 {
-                    { "Egrpou", part.Egrpou },
+                    { "Egrpou", legalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(part => part.Egrpou) },
                     { "Ipn", legalPerson.Inn },
                     { "LegalAddress", legalPerson.LegalAddress },
                     { "LegalName", legalPerson.LegalName },
@@ -75,8 +72,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
         public static PrintData LegalPersonProfileFields(LegalPersonProfile profile)
         {
-            var part = profile.UkrainePart();
-
             return new PrintData
                 {
                     { "ChiefNameInGenitive", profile.ChiefNameInGenitive },
@@ -92,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                         ((PaymentMethod)profile.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
                     },
                     { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
-                    { "Mfo", part.Mfo },
+                    { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
                 };
         }
 

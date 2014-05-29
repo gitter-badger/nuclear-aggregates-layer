@@ -103,14 +103,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
             return _printOrderHelper.GetOrderPositions(orderQuery, query);
         }
 
-        public PrintData GetUngrouppedFields(IQueryable<Order> query, LegalPersonProfile legalPersonProfile, TemplateCode templateCode)
+        public PrintData GetUngrouppedFields(IQueryable<Order> query, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile legalPersonProfile, TemplateCode templateCode)
         {
-            var stuff = query
+            var data = query
                 .Select(order => new
                 {
                     order.BeginDistributionDate,
-                    order.BranchOfficeOrganizationUnit,
-                    order.LegalPerson,
+                    order.LegalPersonId,
                     order.DestOrganizationUnit.ElectronicMedia,
                     Bargain = new[] { order.Bargain }.Where(b => b != null).Select(b => new { b.Number, b.CreatedOn }).FirstOrDefault(),
                     SourceElectronicMedia = order.SourceOrganizationUnit.ElectronicMedia,
@@ -121,22 +120,20 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
 
                     discountSum = order.DiscountSum.HasValue ? order.DiscountSum.Value : 0,
                 })
-                .AsEnumerable()
-                .Select(x => new PrintData
-                    {
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate) },
-                        { "BeginContractParagraph", GetBeginContractParagraph(x.BranchOfficeOrganizationUnit, x.LegalPerson, legalPersonProfile) },
-                        { "ClientRequisitesParagraph", GetClientRequisitesParagraph(x.LegalPerson, legalPersonProfile) },
-                        { "ElectronicMedia", x.ElectronicMedia },
-                        { "RelatedBargainInfo", x.Bargain != null ? GetRelatedBargainInfo(x.Bargain.Number, x.Bargain.CreatedOn) : null },
-                        { "SourceElectronicMedia", x.SourceElectronicMedia },
-                        { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(x.Order, x.TerminatedOrder, templateCode) },
-                        { "DiscountSum", x.discountSum },
-                        { "PriceWithoutDiscount", x.discountSum + x.PayablePlan },
-                    })
                 .Single();
 
-            return stuff;
+            return new PrintData
+                {
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate) },
+                    { "BeginContractParagraph", GetBeginContractParagraph(branchOfficeOrganizationUnit, legalPerson, legalPersonProfile) },
+                    { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, legalPersonProfile) },
+                    { "ElectronicMedia", data.ElectronicMedia },
+                    { "RelatedBargainInfo", data.Bargain != null ? GetRelatedBargainInfo(data.Bargain.Number, data.Bargain.CreatedOn) : null },
+                    { "SourceElectronicMedia", data.SourceElectronicMedia },
+                    { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(data.Order, data.TerminatedOrder, templateCode) },
+                    { "DiscountSum", data.discountSum },
+                    { "PriceWithoutDiscount", data.discountSum + data.PayablePlan },
+                };
         }
 
         private string GetRelatedBargainInfo(string bargainNumber, DateTime createdOn)

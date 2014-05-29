@@ -42,10 +42,6 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CyprusLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, NullLegalPersonObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, NullLegalPersonProfileObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton)
                         .ConfigureCyprusSpecificNumberServices();
         }
 

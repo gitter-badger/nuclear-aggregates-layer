@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
-        private readonly ILegalPersonRepository _legalPersonRepository;
+        private readonly IUpdateAggregateRepository<LegalPerson> _legalPersonUpdateRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IFinder _finder;
 
@@ -33,14 +33,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
             ISubRequestProcessor subRequestProcessor,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
-            ILegalPersonRepository legalPersonRepository,
+            IUpdateAggregateRepository<LegalPerson> legalPersonRepository,
             IOperationScopeFactory scopeFactory,
             IFinder finder)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _legalPersonRepository = legalPersonRepository;
+            _legalPersonUpdateRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _finder = finder;
         }
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
                 throw new NotificationException(BLResources.AccessDenied);
             }
 
-            var entity = _finder.Find(Specs.Find.ById<LegalPerson>(request.LegalPersonId)).First();
+            var entity = _finder.FindOne(Specs.Find.ById<LegalPerson>(request.LegalPersonId));
             var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
 
             // три стратегии замены реквизитов для трех разных типов юрлиц
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())
             {
                 _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity }, Context);
-                _legalPersonRepository.CreateOrUpdate(entity);
+                _legalPersonUpdateRepository.Update(entity);
 
                 operationScope
                     .Updated<LegalPerson>(entity.Id)

@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -74,10 +75,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                 throw new SecurityException(BLResources.AccessDenied);
             }
 
-            var legalPerson1 = _finder.Find<LegalPerson>(c => c.Id == masterId && !c.IsDeleted && c.IsActive).Single();
+            var legalPerson1 = _finder.FindOne(Specs.Find.ById<LegalPerson>(masterId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
             var legalPerson2 = subordinateId.HasValue
-                                   ? _finder.Find<LegalPerson>(
-                                       c => c.Id == subordinateId && !c.IsDeleted && c.IsActive).Single()
+                                   ? _finder.FindOne(Specs.Find.ById<LegalPerson>(subordinateId.Value) && Specs.Find.ActiveAndNotDeleted<LegalPerson>())
                                    : null;
 
             var model = new MergeLegalPersonsViewModel

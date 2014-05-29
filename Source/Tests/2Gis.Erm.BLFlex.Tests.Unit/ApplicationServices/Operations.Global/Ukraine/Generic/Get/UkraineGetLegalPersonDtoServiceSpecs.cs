@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -26,7 +29,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         {
             protected static UkraineGetLegalPersonDtoService UkraineGetLegalPersonDtoService;
             protected static IUserContext UserContext;
-            protected static ILegalPersonReadModel ReadModel;
+            protected static IClientReadModel ClientReadModel;
+            protected static ILegalPersonReadModel LegalPersonReadModel;
             protected static ISecureFinder SecureFinder;
             protected static IDomainEntityDto Result;
 
@@ -38,11 +42,12 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             Establish context = () =>
                 {
-                    ReadModel = Mock.Of<ILegalPersonReadModel>();
-                    UserContext = Mock.Of<IUserContext>();
+                    ClientReadModel = Mock.Of<IClientReadModel>();
+                    LegalPersonReadModel = Mock.Of<ILegalPersonReadModel>();
+                    UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     SecureFinder = Mock.Of<ISecureFinder>();
 
-                    UkraineGetLegalPersonDtoService = new UkraineGetLegalPersonDtoService(UserContext, ReadModel, SecureFinder);
+                    UkraineGetLegalPersonDtoService = new UkraineGetLegalPersonDtoService(UserContext, ClientReadModel, LegalPersonReadModel);
                 };
 
             Because of = () =>
@@ -51,11 +56,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 };
         }
 
+        [Obsolete("Test must be actualized")]
         [Tags("GetDtoServie")]
         [Subject(typeof(UkraineGetLegalPersonDtoService))]
         class When_requested_existing_entity : UkraineGetLegalPersonDtoServiceContext
         {
-            protected static UkraineLegalPersonDomainEntityDto Dto;
             protected static LegalPerson LegalPerson;
             protected static UkraineLegalPersonPart UkraineLegalPersonPart;
 
@@ -66,13 +71,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
                 {
                     EntityId = entityId; // C Id != 0 мы получим Dto из хранилища
-                    Dto = new UkraineLegalPersonDomainEntityDto();
 
                     UkraineLegalPersonPart = new UkraineLegalPersonPart { Egrpou = TestEgrpou, TaxationType = TestTaxationType };
-                    LegalPerson = new LegalPerson { Parts = new[] { UkraineLegalPersonPart } };
+                    LegalPerson = new LegalPerson { Parts = new[] { UkraineLegalPersonPart }, Timestamp = new byte[0] }; // Timestamp != null показывает, что LegalPerson не новая сущность
 
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPersonDto<UkraineLegalPersonDomainEntityDto>(entityId)).Returns(Dto);
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPerson(EntityId)).Returns(LegalPerson);
+                    Mock.Get(LegalPersonReadModel).Setup(x => x.GetLegalPerson(EntityId)).Returns(LegalPerson);
                 };
 
             It should_be_UkraineLegalPersonDomainEntityDto = () => Result.Should().BeOfType<UkraineLegalPersonDomainEntityDto>();
@@ -85,14 +88,9 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(UkraineGetLegalPersonDtoService))]
         class When_requested_new_entity : UkraineGetLegalPersonDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
-
             Establish context = () =>
             {
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             It should_be_UkraineLegalPersonDomainEntityDto = () => Result.Should().BeOfType<UkraineLegalPersonDomainEntityDto>();

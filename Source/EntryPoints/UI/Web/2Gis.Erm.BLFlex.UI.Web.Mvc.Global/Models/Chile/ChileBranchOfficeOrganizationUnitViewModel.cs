@@ -89,8 +89,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
 
-            RepresentativeName = modelDto.ChiefNameInNominative;
-            RepresentativePosition = modelDto.PositionInNominative;
+            RepresentativeName = modelDto.RepresentativeName;
+            RepresentativePosition = modelDto.RepresentativePosition;
             RepresentativeRut = modelDto.RepresentativeRut;
             
             PhoneNumber = modelDto.PhoneNumber;
@@ -118,8 +118,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     OrganizationUnitRef = OrganizationUnit.ToReference(),
                     BranchOfficeRef = BranchOffice.ToReference(),
 
-                    ChiefNameInNominative = RepresentativeName,
-                    PositionInNominative = RepresentativePosition,
+                    RepresentativeName = RepresentativeName,
+                    RepresentativePosition = RepresentativePosition,
                     RepresentativeRut = RepresentativeRut,
 
                     IsPrimary = IsPrimary,

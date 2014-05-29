@@ -37,10 +37,19 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureChileSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
+                        
+                        // Удалить
                         .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonPart>, BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
                         .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
                         .RegisterType<IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
                         .RegisterType<IDictionaryEntityPropertiesConverter<Bank>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
+
+                        // Добавить
+                        .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
+                        .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
+                        .RegisterType<IDynamicEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
+                        .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
+                        .RegisterType<IDynamicEntityPropertiesConverter<Commune, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Commune>>(Lifetime.Singleton)
 
                         .RegisterType<IFormatterFactory, ChileFormatterFactory>(Lifetime.Singleton)
                         .RegisterType<ICheckInnService, ChileRutService>(Lifetime.Singleton)
@@ -49,10 +58,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IValidateBillsService, ChileValidateBillsService>(Lifetime.PerResolve)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, ChileLegalPersonObtainerFlex>(Lifetime.PerResolve)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, ChileLegalPersonProfileObtainerFlex>(Lifetime.PerResolve)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, NullBranchOfficeObtainerFlex>(Lifetime.Singleton)
-                        .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.PerResolve)
+
                         .ConfigureChileSpecificNumberServices();
         }
 

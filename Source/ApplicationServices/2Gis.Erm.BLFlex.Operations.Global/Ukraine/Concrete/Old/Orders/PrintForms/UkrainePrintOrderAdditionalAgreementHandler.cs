@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                            {
                                Order = order,
                                LegalPersonId = order.LegalPersonId.Value,
-                               order.BranchOfficeOrganizationUnit,
+                               order.BranchOfficeOrganizationUnitId,
                                order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                order.Bargain,
                                order.RejectionDate,
@@ -81,11 +81,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModelReadModel.GetBranchOffice(orderInfo.BranchOfficeId);
+            var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
+                : null;
 
             var printData =  new PrintData
                 {
                     { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(orderInfo.BranchOfficeOrganizationUnit) },
+                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
                     { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
                     { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
                     { "Order", UkrainePrintHelper.OrderFields(orderInfo.Order) },
@@ -98,7 +101,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var printRequest = new PrintDocumentRequest
                 {
                     CurrencyIsoCode = orderInfo.CurrencyISOCode,
-                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnit.Id,
+                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
                     TemplateCode = GetTemplateCode(orderInfo.LegalPersonType),
                     FileName = string.Format(BLResources.PrintAdditionalAgreementFileNameFormat, orderInfo.OrderNumber),
                     PrintData = printData
