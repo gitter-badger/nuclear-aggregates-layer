@@ -41,5 +41,15 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             throw new NotImplementedException();
         }
+
+        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey
+        {
+            return Storage.OfType<TEntity>().Where(findSpecification.Predicate.Compile()).ToArray();
+        }
     }
 }

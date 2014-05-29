@@ -1,47 +1,47 @@
-using System.Collections.Generic;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
-    public class DeleteBranchOfficeAggregateService : IDeletePartableEntityAggregateService<BranchOffice, BranchOffice>
+    public class DeleteBranchOfficeAggregateService : IAggregateRootRepository<BranchOffice>, IDeleteAggregateRepository<BranchOffice>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<BranchOffice> _branchOfficeRepository;
-        private readonly IDeleteDynamicAggregateRepository<BusinessEntityInstance, BusinessEntityPropertyInstance> _deleteDynamicAggregateRepository;
+        private readonly IBranchOfficeReadModel _officeReadModel;
         
         public DeleteBranchOfficeAggregateService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<BranchOffice> branchOfficeRepository,
-            IDeleteDynamicAggregateRepository<BusinessEntityInstance, BusinessEntityPropertyInstance> deleteDynamicAggregateRepository)
+            IBranchOfficeReadModel officeReadModel)
         {
             _operationScopeFactory = operationScopeFactory;
             _branchOfficeRepository = branchOfficeRepository;
-            _deleteDynamicAggregateRepository = deleteDynamicAggregateRepository;
+            _officeReadModel = officeReadModel;
         }
 
-        public void Delete(BranchOffice entity, IEnumerable<BusinessEntityInstanceDto> entityInstanceDtos)
+        public int Delete(BranchOffice entity)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, BranchOffice>())
             {
-                foreach (var entityInstanceDto in entityInstanceDtos)
-                {
-                    _deleteDynamicAggregateRepository.Delete(entityInstanceDto.EntityInstance, entityInstanceDto.PropertyInstances);
-                }
-
                 _branchOfficeRepository.Delete(entity);
                 operationScope.Deleted<BranchOffice>(entity.Id);
 
-                _branchOfficeRepository.Save();
+                var count = _branchOfficeRepository.Save();
 
                 operationScope.Complete();
+
+                return count;
             }
+            }
+
+        public int Delete(long entityId)
+        {
+            return Delete(_officeReadModel.GetBranchOffice(entityId));
         }
     }
 }

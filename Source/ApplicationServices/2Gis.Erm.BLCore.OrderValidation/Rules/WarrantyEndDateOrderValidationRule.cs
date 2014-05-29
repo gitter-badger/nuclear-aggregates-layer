@@ -26,33 +26,31 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         {
             var badOrders =
                 _finder.Find(filterPredicate)
-                      .Select(
-                          x =>
-                          new
-                              {
-                                  Order = x,
-                                  Profiles =
-                              x.LegalPerson.LegalPersonProfiles.Where(
-                                  y =>
-                                  y.IsActive && !y.IsDeleted && y.OperatesOnTheBasisInGenitive != null
-                                  && (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty && y.WarrantyEndDate != null
-                                  && y.WarrantyEndDate < x.SignupDate)
-                              })
-                      .Where(x => x.Profiles.Any())
-                      .ToArray();
+                       .Select(x => new
+                           {
+                               Order = x,
+                               ProfileNames = x.LegalPerson.LegalPersonProfiles
+                                               .Where(y => y.IsActive && !y.IsDeleted
+                                                           && y.OperatesOnTheBasisInGenitive != null
+                                                           && (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty
+                                                           && y.WarrantyEndDate != null 
+                                                           && y.WarrantyEndDate < x.SignupDate)
+                                               .Select(profile => profile.Name)
+                           })
+                       .Where(x => x.ProfileNames.Any())
+                       .ToArray();
 
             foreach (var orderInfo in badOrders)
             {
-                foreach (var profile in orderInfo.Profiles)
+                foreach (var profileName in orderInfo.ProfileNames)
                 {
-                    messages.Add(
-                        new OrderValidationMessage
-                            {
-                                Type = MessageType.Info,
-                                OrderId = orderInfo.Order.Id,
-                                OrderNumber = orderInfo.Order.Number,
-                                MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profile.Name)
-                            });
+                    messages.Add(new OrderValidationMessage
+                        {
+                            Type = MessageType.Info,
+                            OrderId = orderInfo.Order.Id,
+                            OrderNumber = orderInfo.Order.Number,
+                            MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profileName)
+                        });
                 }
             }
         }

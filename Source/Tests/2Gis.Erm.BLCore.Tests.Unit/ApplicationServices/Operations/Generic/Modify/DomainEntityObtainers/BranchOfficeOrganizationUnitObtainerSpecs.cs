@@ -24,7 +24,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
         public abstract class BranchOfficeOrganizationUnitObtainerContext
         {
             protected static IFinder Finder;
-            protected static IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit> FlexBehaviour;
             protected static BranchOfficeOrganizationUnitDomainEntityDto DomainEntityDto;
 
             protected static BranchOfficeOrganizationUnitObtainer BranchOfficeOrganizationUnitObtainer;
@@ -45,9 +44,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                 };
 
                 Finder = Mock.Of<IFinder>();
-                FlexBehaviour = Mock.Of<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>>();
 
-                BranchOfficeOrganizationUnitObtainer = new BranchOfficeOrganizationUnitObtainer(Finder, FlexBehaviour);
+                BranchOfficeOrganizationUnitObtainer = new BranchOfficeOrganizationUnitObtainer(Finder);
             };
         }
 
@@ -68,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             {
                 BranchOfficeOrganizationUnit.Timestamp = new byte[0]; // not null
 
-                Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(Q(BranchOfficeOrganizationUnit));
+                Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(BranchOfficeOrganizationUnit);
             };
 
             Because of = () => catchedException = Catch.Exception(() => BranchOfficeOrganizationUnitObtainer.ObtainBusinessModelEntity(DomainEntityDto));
@@ -140,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                 DomainEntityDto.SyncCode1C = SYNC_1C_CODE;
                 DomainEntityDto.Timestamp = TIMESTAMP;
 
-                Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(Q(BranchOfficeOrganizationUnit));
+                Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(BranchOfficeOrganizationUnit);
             };
 
             It should_returns_expected_ShortLegalName = () => Result.ShortLegalName.Should().Be(SHORT_LEGAL_NAME);
@@ -180,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
 
             private Establish context = () =>
             {
-                Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(Q(BranchOfficeOrganizationUnit));
+                Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>())).Returns(BranchOfficeOrganizationUnit);
 
                 DomainEntityDto.CreatedByRef = TestCreatedBy;
                 DomainEntityDto.ModifiedByRef = TestModifiedBy;

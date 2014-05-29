@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new PricePositionDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<PricePosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<PricePosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
         {
             long priceId;
             var modelDto = (PricePositionDomainEntityDto)domainEntityDto;

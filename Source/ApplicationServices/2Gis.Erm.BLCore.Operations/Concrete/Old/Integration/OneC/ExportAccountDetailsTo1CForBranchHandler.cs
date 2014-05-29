@@ -20,6 +20,7 @@ using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -68,11 +69,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override IntegrationResponse Handle(ExportAccountDetailsTo1CForBranchRequest request)
         {
-            var isBranchAndMovedToErm = _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null).Select(x => new
-            {
-                PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
-            })
-            .Any(x => x.PrimaryBranchOfficeOrganizationUnit != null && x.PrimaryBranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
+            var isBranchAndMovedToErm =
+                _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null)
+                       .Select(x => new
+                           {
+                               PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+                           })
+                       .Any(x => x.PrimaryBranchOfficeOrganizationUnit != null && x.PrimaryBranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
 
             if (!isBranchAndMovedToErm)
             {
@@ -88,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var nonAllowedPlatforms = new[] { PlatformEnum.Api, PlatformEnum.Online };
 
-            var all = (from @lock in _finder.FindAll<Lock>()
+            var allWithoutLegalPerson = (from @lock in _finder.FindAll<Lock>()
                        let type = @lock.Order.SourceOrganizationUnitId == request.OrganizationUnitId
                                 ? ExportOrderType.LocalAndOutgoing
                                 : @lock.Order.DestOrganizationUnitId == request.OrganizationUnitId
@@ -113,7 +116,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                Type = type
                            }).Select(x =>
                            x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                               ? new AccountDetailDto
+                               ? new {
+                                   AccountDetailDto = new AccountDetailDto
                                      {
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
@@ -128,12 +132,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
-                                                 Type = x.Type,
-                                     }
+                                         Type = x.Type,
+                                     },
+                                   LegalPersonId = x.Lock.Account.LegalPersonId
+                               }
 
                                // ExportOrderType.IncomingFromFranchiseesClient
-                               : new AccountDetailDto
+                               : new {
+                                   AccountDetailDto = new AccountDetailDto
                                      {
                                          BargainTypeSyncCode1C = string.Empty,
                                          BranchOfficeOrganizationUnitSyncCode1C = string.Empty,
@@ -148,9 +154,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
-                                                 Type = x.Type,
-                                     }).ToArray();
+                                         Type = x.Type,
+                                     },
+                                     LegalPersonId = x.Lock.Account.LegalPersonId
+                               }).ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(allWithoutLegalPerson.Select(x => x.LegalPersonId)))
+                                      .ToDictionary(x => x.Id, x => x);
+            var all = allWithoutLegalPerson.Select(x =>
+                                                   {
+                                                       x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId];
+                                                       return x.AccountDetailDto;
+                                                   })
+                                           .ToArray();
 
             var orderIds = all.Select(x => x.OrderId).Distinct().ToArray();
 

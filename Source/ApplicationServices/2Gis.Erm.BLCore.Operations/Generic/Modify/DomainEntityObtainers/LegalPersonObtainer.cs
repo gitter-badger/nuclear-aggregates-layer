@@ -15,12 +15,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
     public class LegalPersonObtainer : IBusinessModelEntityObtainer<LegalPerson>, IAggregateReadModel<LegalPerson>
     {
         private readonly IFinder _finder;
-        private readonly IBusinessModelEntityObtainerFlex<LegalPerson> _flexBehaviour;
 
-        public LegalPersonObtainer(IFinder finder, IBusinessModelEntityObtainerFlex<LegalPerson> flexBehaviour)
+        public LegalPersonObtainer(IFinder finder)
         {
             _finder = finder;
-            _flexBehaviour = flexBehaviour;
         }
 
         public LegalPerson ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
@@ -29,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             var legalPerson = dto.Id == 0
                                   ? new LegalPerson { IsActive = true }
-                                  : _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).Single();
+                                  : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
 
             if (!dto.IsInSyncWith1C)
             {
@@ -52,10 +50,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPerson.PassportIssuedBy = dto.PassportIssuedBy.Ensure—leanness();
             legalPerson.Timestamp = dto.Timestamp;
             legalPerson.CardNumber = dto.CardNumber.Ensure—leanness();
-
-            legalPerson.Parts = _flexBehaviour.GetEntityParts(legalPerson);
-
-            _flexBehaviour.CopyPartFields(legalPerson, dto);
 
             return legalPerson;
         }

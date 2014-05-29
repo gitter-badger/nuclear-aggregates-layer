@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetAdvertisementElementDtoService : GetDomainEntityDtoServiceBase<AdvertisementElement>
     {
+        private readonly IUserContext _userContext;
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly IFinder _unsecureFinder;
@@ -28,6 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                  ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
+            _userContext = userContext;
             _finder = finder;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
             _unsecureFinder = unsecureFinder;
@@ -98,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 dtoInfo.Dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                            EntityName.Firm,
-                                                                                                           UserContext.Identity.Code,
+                                                                                                           _userContext.Identity.Code,
                                                                                                            firmInfo.Id,
                                                                                                            firmInfo.OwnerCode,
                                                                                                            firmInfo.OwnerCode);
@@ -112,12 +114,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new AdvertisementElementDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
         {
             var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
 
-            dto.CanUserChangeStatus = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification,
-                                                                                                     UserContext.Identity.Code);
+            dto.CanUserChangeStatus = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, currentUserCode);
         }
     }
 }

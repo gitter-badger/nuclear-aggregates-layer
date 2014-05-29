@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        };
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<OrderPosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<OrderPosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
         {
             var modelDto = (OrderPositionDomainEntityDto)domainEntityDto;
 

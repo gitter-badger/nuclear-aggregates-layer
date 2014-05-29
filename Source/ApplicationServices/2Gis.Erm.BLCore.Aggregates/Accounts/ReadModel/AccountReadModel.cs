@@ -261,9 +261,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId)
         {
-            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
-                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(organizationUnitId))
-                          .FirstOrDefault();
+            return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(organizationUnitId));
         }
 
         public Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId)

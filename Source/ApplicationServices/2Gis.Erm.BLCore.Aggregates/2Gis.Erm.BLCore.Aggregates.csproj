@@ -82,6 +82,7 @@
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\ActivityAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
+    <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
     <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
     <Compile Include="BranchOffices\Operations\CreateBranchOfficeAggregateService.cs" />
     <Compile Include="BranchOffices\Operations\DeleteBranchOfficeAggregateService.cs" />
@@ -97,9 +98,6 @@
     <Compile Include="BranchOffices\ReadModel\BranchOfficeReadModel.cs" />
     <Compile Include="Clients\ClientRepository.cs" />
     <Compile Include="Common\Crosscutting\AggregateServiceIsolator.cs" />
-    <Compile Include="Common\Generics\CreateDynamicAggregateRepository.cs" />
-    <Compile Include="Common\Generics\DeleteDynamicAggregateRepository.cs" />
-    <Compile Include="Common\Generics\UpdateDynamicAggregateRepository.cs" />
     <Compile Include="Common\Crosscutting\CheckOperationPeriodService.cs" />
     <Compile Include="Common\Crosscutting\AssignedEntityProvider.cs" />
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
@@ -143,7 +141,6 @@
     <Compile Include="OrganizationUnits\ReadModel\OrganizationUnitReadModel.cs" />
     <Compile Include="Positions\ReadModel\PositionReadModel.cs" />
     <Compile Include="Prices\AssociatedPositionSpecifications.cs" />
-    <Compile Include="Prices\DeniedPositionSpecifications.cs" />
     <Compile Include="Prices\Operations\ActivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkActivateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkActivatePricePositionsAggregateService.cs" />
@@ -163,7 +160,6 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecification.cs" />
     <Compile Include="Prices\PositionSpecifications.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
@@ -180,6 +176,7 @@
     <Compile Include="Roles\RoleRepository.cs" />
     <Compile Include="Settings\DebtProcessingSettingsAspect.cs" />
     <Compile Include="SimplifiedModel\ReadModel\BargainTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\ContributionTypeReadModel.cs" />
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
@@ -252,9 +249,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dynamic\Operations\" />
-  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

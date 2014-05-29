@@ -26,7 +26,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
         private readonly IEnumerable<string> _elementsToIgnore;
         private readonly IFinder _finder;
 
-        public LogWebRequestHandler(ICommonLog logger, IActionLogger actionLogger, EntityName entityType, CompareObjectMode compareObjectMode, IEnumerable<string> elementsToIgnore, IFinder finder)
+        public LogWebRequestHandler(ICommonLog logger,
+                                    IActionLogger actionLogger,
+                                    EntityName entityType,
+                                    CompareObjectMode compareObjectMode,
+                                    IEnumerable<string> elementsToIgnore,
+                                    IFinder finder)
             : base(logger)
         {
             _actionLogger = actionLogger;
@@ -79,6 +84,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
         private IEntityKey GetEntity(IEntityViewModelBase viewModel)
         {
+            // FIXME {a.rechkalov, 21.05.2014}: Давай будем пользоваться FindOne, если требуесть получить одну сущность, вне зависимости от ее типа. Текущая реализация вызывает вопросы "почему для Order используется Find, а для LegalPerson - FindOne"
             switch (_entityType)
             {
                 case EntityName.Order:
@@ -88,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                     return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
 
                 case EntityName.LegalPerson:
-                    return _finder.Find(Specs.Find.ById<LegalPerson>(viewModel.Id)).Single();
+                    return _finder.FindOne(Specs.Find.ById<LegalPerson>(viewModel.Id));
 
                 case EntityName.Deal:
                     return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();

@@ -24,7 +24,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
         public abstract class BranchOfficeObtainerContext
         {
             protected static IFinder Finder;
-            protected static IBusinessModelEntityObtainerFlex<BranchOffice> FlexBehaviour;
             protected static BranchOfficeDomainEntityDto DomainEntityDto;
 
             protected static BranchOfficeObtainer BranchOfficeObtainer;
@@ -45,9 +44,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                         };
 
                     Finder = Mock.Of<IFinder>();
-                    FlexBehaviour = Mock.Of<IBusinessModelEntityObtainerFlex<BranchOffice>>();
 
-                    BranchOfficeObtainer = new BranchOfficeObtainer(Finder, FlexBehaviour);
+                    BranchOfficeObtainer = new BranchOfficeObtainer(Finder);
                 };
         }
 
@@ -68,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                 {
                     BranchOffice.Timestamp = new byte[0]; // not null
 
-                    Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<BranchOffice>>())).Returns(Q(BranchOffice));
+                    Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<BranchOffice>>())).Returns(BranchOffice);
                 };
 
             Because of = () => catchedException = Catch.Exception(() => BranchOfficeObtainer.ObtainBusinessModelEntity(DomainEntityDto));
@@ -149,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
 
             private Establish context = () =>
             {
-                Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<BranchOffice>>())).Returns(Q(BranchOffice));
+                Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<BranchOffice>>())).Returns(BranchOffice);
 
                 DomainEntityDto.CreatedByRef = TestCreatedBy;
                 DomainEntityDto.ModifiedByRef = TestModifiedBy;

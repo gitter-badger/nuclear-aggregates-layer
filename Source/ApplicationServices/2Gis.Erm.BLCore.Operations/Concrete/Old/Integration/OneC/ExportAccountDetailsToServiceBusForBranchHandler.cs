@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Common.Xml;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -283,7 +284,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         {
             var accountDetailsQuery = _finder.FindAll<AccountDetail>();
 
-            return (from @lock in _finder.FindAll<Lock>()
+            var allWithoutLegalPerson = (from @lock in _finder.FindAll<Lock>()
                     let type = @lock.Order.SourceOrganizationUnitId == organizationUnitId
                                    ? ExportOrderType.LocalAndOutgoing
                                    : @lock.Order.DestOrganizationUnitId == organizationUnitId &&
@@ -310,7 +311,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                         })
                 .Select(x => x.Type == ExportOrderType.LocalAndOutgoing ||
                              x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                                 ? new AccountDetailDto
+                                 ? new 
+                                 {
+                                     AccountDetailDto = new AccountDetailDto
                                      {
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
@@ -330,12 +333,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                        .FirstOrDefault(),
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                          Type = x.Type,
-                                     }
+                                     },
+
+                                     LegalPersonId = x.Lock.Account.LegalPersonId,
+                                 }
 
                                  // ExportOrderType.IncomingFromFranchiseesClient
-                                 : new AccountDetailDto
+                                 : new 
+                                 {
+                                     AccountDetailDto = new AccountDetailDto
                                      {
                                          // Поля заполняются ниже из extension 
                                          BranchOfficeOrganizationUnitSyncCode1C = string.Empty,
@@ -351,10 +358,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                        .FirstOrDefault(),
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                          Type = x.Type,
-                                     })
-                .Where(x => x.DebitAccountDetailAmount > 0)
+                                     },
+
+                                     LegalPersonId = x.Lock.Account.LegalPersonId,
+                                 })
+                .Where(x => x.AccountDetailDto.DebitAccountDetailAmount > 0)
+                .ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(allWithoutLegalPerson.Select(x => x.LegalPersonId)))
+                                      .ToDictionary(x => x.Id, x => x);
+
+            return allWithoutLegalPerson
+                .Select(x => { x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId]; return x.AccountDetailDto; })
                 .ToArray();
         }
 

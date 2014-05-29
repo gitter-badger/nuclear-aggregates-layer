@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
@@ -16,19 +14,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
     public sealed class BranchOfficeOrganizationUnitObtainer : IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit>, IAggregateReadModel<BranchOffice>
     {
         private readonly IFinder _finder;
-        private readonly IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit> _flexBehaviour;
 
-        public BranchOfficeOrganizationUnitObtainer(IFinder finder, IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit> flexBehaviour)
+        public BranchOfficeOrganizationUnitObtainer(IFinder finder)
         {
             _finder = finder;
-            _flexBehaviour = flexBehaviour;
         }
 
         public BranchOfficeOrganizationUnit ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (BranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)).SingleOrDefault() ??
+            var entity = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)) ??
                          new BranchOfficeOrganizationUnit { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)
@@ -54,10 +50,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.RegistrationCertificate = dto.RegistrationCertificate;
             entity.Email = dto.Email;
             entity.Timestamp = dto.Timestamp;
-
-            entity.Parts = _flexBehaviour.GetEntityParts(entity);
-
-            _flexBehaviour.CopyPartFields(entity, dto);
 
             return entity;
         }

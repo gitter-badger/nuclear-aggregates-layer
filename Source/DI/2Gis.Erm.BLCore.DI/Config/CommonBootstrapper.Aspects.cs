@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -22,11 +23,14 @@ using DoubleGis.Erm.Platform.Core.UseCases;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
+using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
+using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
@@ -77,12 +81,36 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IModifiableDomainContextProvider, ModifiableDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IFinderBaseProvider, FinderBaseProvider>(Lifetime.PerResolve)
 
-                        .RegisterType<IFinder, Finder>(Lifetime.PerResolve)
-                        .RegisterType<ISecureFinder, SecureFinder>(Lifetime.PerResolve)
+                        .RegisterType<IDynamicPropertiesConverterFactory, UnityDynamicPropertiesConverterFactory>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IDynamicEntityMetadataProvider, DynamicEntityMetadataProvider>(Lifetime.Singleton)
+
+                        .RegisterType<IFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentFinderDecorator>(new DependencyOverride<IFinder>(typeof(Finder)))))
+                        .RegisterType<ISecureFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentSecureFinderDecorator>(new DependencyOverride<ISecureFinder>(typeof(SecureFinder)))))
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
+
+                        .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
+
+                        // TODO {y.baranihin, 25.04.2014}: пропылесосить
+                        .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<BusinessEntityInstance>, EFGenericRepository<BusinessEntityInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+
+                        .RegisterTypeWithDependencies<IRepository<DictionaryEntityPropertyInstance>, EFGenericRepository<DictionaryEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<DictionaryEntityInstance>, EFGenericRepository<DictionaryEntityInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+
+                        .RegisterTypeWithDependencies<IRepository<LegalPerson>, EFGenericRepository<LegalPerson>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<LegalPersonProfile>, EFGenericRepository<LegalPersonProfile>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<BranchOffice>, EFGenericRepository<BranchOffice>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<BranchOfficeOrganizationUnit>, EFGenericRepository<BranchOfficeOrganizationUnit>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+
+                        .RegisterTypeWithDependencies<IRepository<LegalPerson>, ConsistentRepositoryDecorator<LegalPerson>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<LegalPersonProfile>, ConsistentRepositoryDecorator<LegalPersonProfile>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<BranchOffice>, ConsistentRepositoryDecorator<BranchOffice>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<BranchOfficeOrganizationUnit>, ConsistentRepositoryDecorator<BranchOfficeOrganizationUnit>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }
 
