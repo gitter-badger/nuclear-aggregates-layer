@@ -162,8 +162,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             using (var scope = _unitOfWork.CreateScope())
             {
                 var withdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
-                var orderRepository = scope.CreateRepository<IOrderRepository>();
-
                 var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(_orderReadModel, orderInfo.OrderPositions);
                 withdrawalRepository.Create(releaseWithdrawalPositions);
                 operationScope.Added<ReleasesWithdrawalsPosition>(releaseWithdrawalPositions.Select(position => position.Id).ToArray());
