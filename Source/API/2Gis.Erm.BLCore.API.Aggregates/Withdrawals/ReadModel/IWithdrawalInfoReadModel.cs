@@ -38,6 +38,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel
 
     public class OrderPositionInfoDto
     {
+        public long PurchasedPositionId { get; set; }
+        public decimal AmountToWithdraw { get; set; }
         public long PriceId { get; set; }
         public decimal CategoryRate { get; set; }
         public int Amount { get; set; }

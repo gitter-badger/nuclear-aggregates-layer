@@ -118,6 +118,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
                                                  },
                                              OrderPositionInfo = new OrderPositionInfoDto
                                                  {
+                                                     PurchasedPositionId = x.OrderPosition.PricePosition.PositionId,
+                                                     AmountToWithdraw = x.OrderPosition.ReleasesWithdrawals.Where(rw =>
+                                                                                                            rw.ReleaseBeginDate == period.Start &&
+                                                                                                            rw.ReleaseEndDate == period.End)
+                                                                                 .Select(rw => rw.AmountToWithdraw)
+                                                                                 .FirstOrDefault(),
                                                      PriceId = x.OrderPosition.PricePosition.PriceId,
                                                      CategoryRate = x.OrderPosition.CategoryRate,
                                                      Amount = x.OrderPosition.Amount,

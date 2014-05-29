@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal.Operations;
@@ -14,9 +15,10 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
-    public class CreateLockDetailsDuringWithdrawalOperationService : ICreateLockDetailsDuringWithdrawalOperationService
+    public sealed class CreateLockDetailsDuringWithdrawalOperationService : ICreateLockDetailsDuringWithdrawalOperationService
     {
         private readonly IBulkCreateLockDetailsAggregateService _bulkCreateLockDetailsAggregateService;
+        private readonly IPaymentsDistributor _paymentsDistributor;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IWithdrawalInfoReadModel _withdrawalReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -24,11 +26,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         public CreateLockDetailsDuringWithdrawalOperationService(IWithdrawalInfoReadModel withdrawalReadModel,
                                                                  ICalculateOrderPositionCostService calculateOrderPositionCostService,
                                                                  IBulkCreateLockDetailsAggregateService bulkCreateLockDetailsAggregateService,
+                                                                 IPaymentsDistributor paymentsDistributor,
                                                                  IOperationScopeFactory scopeFactory)
         {
             _withdrawalReadModel = withdrawalReadModel;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
             _bulkCreateLockDetailsAggregateService = bulkCreateLockDetailsAggregateService;
+            _paymentsDistributor = paymentsDistributor;
             _scopeFactory = scopeFactory;
         }
 
@@ -69,23 +73,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var lockDetailsToCreate = new List<CreateLockDetailDto>();
                 foreach (var orderPosition in plannedOrderPositionsWithCharges)
                 {
-                    var calculationResult = _calculateOrderPositionCostService
-                        .CalculateOrderPositionCostWithRate(orderPosition.OrderInfo.OrderType,
-                                                            orderPosition.OrderInfo.ReleaseCountFact,
-                                                            orderPosition.ChargeInfo.PositionId,
-                                                            orderPosition.OrderPositionInfo.PriceId,
-                                                            orderPosition.OrderPositionInfo.CategoryRate,
-                                                            orderPosition.OrderPositionInfo.Amount,
-                                                            orderPosition.OrderInfo.SourceOrganizationUnitId,
-                                                            orderPosition.OrderInfo.DestOrganizationUnitId,
-                                                            orderPosition.OrderPositionInfo.DiscountSum,
-                                                            orderPosition.OrderPositionInfo.DiscountPercent,
-                                                            orderPosition.OrderPositionInfo.CalculateDiscountViaPercent);
+                    decimal paymentForSingleDistributionSlot;
+
+                    // если приобретенная позиция совпадает с фактически предоставленной, то используем для списание сумму из 
+                    // releasewithdrawals (т.е. также как и для позиций с гарантированным размещением),
+                    // иначе расчитываем стоимость оказанной фактически услуги.
+                    // За стоимость оказанной услуги принимается стоимость позиции за первый период размещения (т.е. теоритически меньшая величина, 
+                    // чем за последний период в которой добавляются копейки для защиты от ошибок округления)
+                    if (IsPurchasedAndFactPositionAreEqual(orderPosition))
+                    {
+                        paymentForSingleDistributionSlot = orderPosition.OrderPositionInfo.AmountToWithdraw;
+                    }
+                    else
+                    {
+                        var calculationResult = _calculateOrderPositionCostService
+                                                    .CalculateOrderPositionCostWithRate(orderPosition.OrderInfo.OrderType,
+                                                                                        orderPosition.OrderInfo.ReleaseCountFact,
+                                                                                        orderPosition.ChargeInfo.PositionId,
+                                                                                        orderPosition.OrderPositionInfo.PriceId,
+                                                                                        orderPosition.OrderPositionInfo.CategoryRate,
+                                                                                        orderPosition.OrderPositionInfo.Amount,
+                                                                                        orderPosition.OrderInfo.SourceOrganizationUnitId,
+                                                                                        orderPosition.OrderInfo.DestOrganizationUnitId,
+                                                                                        orderPosition.OrderPositionInfo.DiscountSum,
+                                                                                        orderPosition.OrderPositionInfo.DiscountPercent,
+                                                                                        orderPosition.OrderPositionInfo.CalculateDiscountViaPercent);
+
+                        paymentForSingleDistributionSlot = _paymentsDistributor.DistributePayment(orderPosition.OrderInfo.ReleaseCountFact,
+                                                                                                  calculationResult.PayablePlan)
+                                                                               .First();
+                    }
+                    
 
                     lockDetailsToCreate.Add(new CreateLockDetailDto
                         {
                             Lock = orderPosition.Lock,
-                            Amount = calculationResult.PayablePlan,
+                            Amount = paymentForSingleDistributionSlot,
                             OrderPositionId = orderPosition.OrderPositionInfo.OrderPositionId,
                             PriceId = orderPosition.OrderPositionInfo.PriceId,
                             ChargeSessionId = orderPosition.ChargeInfo.SessionId
@@ -96,6 +119,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 scope.Complete();
             }
+        }
+
+        private bool IsPurchasedAndFactPositionAreEqual(OrderPositionWithChargeInfoDto positionWithChargeInfoDto)
+        {
+            return positionWithChargeInfoDto.OrderPositionInfo.PurchasedPositionId == positionWithChargeInfoDto.ChargeInfo.PositionId;
         }
 
         private bool IsActual(IReadOnlyDictionary<long, Guid?> actualCharges, long projectId, Guid chargeSessionId)
