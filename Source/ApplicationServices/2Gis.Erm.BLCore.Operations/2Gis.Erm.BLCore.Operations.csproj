@@ -191,7 +191,6 @@
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />

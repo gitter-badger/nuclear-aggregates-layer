@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
     // TODO:подозреваю, что это не должно быть хэндлером
-    public class DistributeBillPaymentsHandler : RequestHandler<DistributeBillPaymentsRequest, DistributeBillPaymentsResponse>
+    public sealed class DistributeBillPaymentsHandler : RequestHandler<DistributeBillPaymentsRequest, DistributeBillPaymentsResponse>
     {
+        private readonly IPaymentsDistributor _paymentsDistributor;
+
+        public DistributeBillPaymentsHandler(IPaymentsDistributor paymentsDistributor)
+        {
+            _paymentsDistributor = paymentsDistributor;
+        }
+
         protected override DistributeBillPaymentsResponse Handle(DistributeBillPaymentsRequest request)
         {
             var payments = new List<DistributeBillPaymentsResponse.BillPayment>();
@@ -29,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             }
             else
             {
-                var regularPayments = PaymentsDistributor.DistributePayment(request.OrderReleaseCount, request.OrderPayablePlan);
+                var regularPayments = _paymentsDistributor.DistributePayment(request.OrderReleaseCount, request.OrderPayablePlan);
 
                 for (int i = 0; i < request.PaymentAmount; i++)
                 {
