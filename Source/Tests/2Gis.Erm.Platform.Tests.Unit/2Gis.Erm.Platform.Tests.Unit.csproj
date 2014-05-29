@@ -53,11 +53,11 @@
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.5.17.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.8.2\lib\net45\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications.Clr4, Version=0.5.17.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
+    <Reference Include="Machine.Specifications.Clr4, Version=0.8.0.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.5.17\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.8.2\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -77,6 +77,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,6 +124,7 @@
     <Compile Include="DAL\EFGenericRepositorySpecs.cs" />
     <Compile Include="DAL\EFSecureGenericRepositorySpecs.cs" />
     <Compile Include="DAL\FinderSpecs.cs" />
+    <Compile Include="DAL\FindSpecificationParserSpecs.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\EntityTypes\ErmScopeEntity1.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\EntityTypes\ErmScopeEntity2.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\EntityTypes\ErmScopeSecureEntity1.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="DAL\SpecFlow\UnitOfWorkSteps.cs" />
     <Compile Include="Core\Services\Operations\Metadata\Security\OperationSecurityRegistryTestFixture.cs" />
     <Compile Include="StubEntityEntry.cs" />
+    <Compile Include="DAL\WrappedQuerySpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
@@ -175,6 +178,10 @@
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{dae94b56-59e8-4907-a2bb-6372707c0b3b}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

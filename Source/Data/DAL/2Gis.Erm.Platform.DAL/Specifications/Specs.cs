@@ -85,7 +85,12 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
             public static FindSpecification<TEntity> Custom<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
             {
                 return new FindSpecification<TEntity>(expression);
-            } 
+            }
+
+            public static FindSpecification<TEntity> ExceptById<TEntity>(long id) where TEntity : class, IEntity, IEntityKey
+            {
+                return new FindSpecification<TEntity>(x => x.Id != id);
+            }
         }
 
         public static class Select

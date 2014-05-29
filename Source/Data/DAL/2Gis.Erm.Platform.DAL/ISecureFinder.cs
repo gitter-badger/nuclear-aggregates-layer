@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -23,5 +24,17 @@ namespace DoubleGis.Erm.Platform.DAL
         /// Find the Entity object(s) based on user supplied lambda expression.
         /// </summary>
         IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity;
+
+        /// <summary>
+        /// Find and select IPartable object with all its parts.
+        /// </summary>
+        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey;
+
+        /// <summary>
+        /// Find and select collection of IPartable object with all its parts.
+        /// </summary>
+        IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey;
     }
 }

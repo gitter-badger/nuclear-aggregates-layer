@@ -6,5 +6,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public partial class ActivityPropertyInstance : IDynamicEntityPropertyInstance
     {
+        // TODO {all, 30.04.2014}: Изменить в будущем структуру БД
+        public long EntityInstanceId 
+        {
+            get { return ActivityId; }
+            set { ActivityId = value; }
+        }
     }
 }

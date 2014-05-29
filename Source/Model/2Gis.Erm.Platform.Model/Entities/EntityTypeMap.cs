@@ -171,7 +171,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             Type type;
             if (!entityName.TryGetEntityType(out type))
             {
-                throw new ArgumentException(string.Format("Cannot find type mapped to EntityName {0}", entityName));
+                throw new ArgumentException(string.Format("Cannot find type mapped to EntityName {0}", entityName.ToString()));
             }
 
             return type;
