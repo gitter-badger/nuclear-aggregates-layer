@@ -191,6 +191,7 @@
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
     <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />
@@ -751,7 +752,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Concrete\Old\PricePositions\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
