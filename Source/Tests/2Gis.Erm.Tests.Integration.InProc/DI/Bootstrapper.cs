@@ -264,10 +264,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
                 .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                .RegisterType<IDictionaryEntityPropertiesConverter<Bank>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonPart>, BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
+                    DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
