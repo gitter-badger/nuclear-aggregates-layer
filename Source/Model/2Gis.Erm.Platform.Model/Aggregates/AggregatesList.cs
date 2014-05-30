@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
                 AccountAggregate.Account.ToDescriptor(), 
                 AdvertisementAggregate.Advertisement.ToDescriptor(),
                 BranchOfficeAggregate.BranchOffice.ToDescriptor(),
+                ChargeAggregate.Charge.ToDescriptor(), /* агрегат billing - бизнес смысл - учет откруток и т.п., пока ничего кроме charge не нашлось*/
                 ClientAggregate.Client.ToDescriptor(),
                 FirmAggregate.Firm.ToDescriptor(),
                 LegalPersonAggregate.LegalPerson.ToDescriptor(),
