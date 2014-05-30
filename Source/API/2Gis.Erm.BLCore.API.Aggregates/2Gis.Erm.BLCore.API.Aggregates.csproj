@@ -94,6 +94,10 @@
     <Compile Include="BranchOffices\IBranchOfficeRepository.cs" />
     <Compile Include="BranchOffices\ReadModel\BranchOfficeSpecs.BranchOffice.cs" />
     <Compile Include="BranchOffices\ReadModel\IBranchOfficeReadModel.cs" />
+    <Compile Include="Charges\Dto\ChargeInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderPositionInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderPositionWithChargeInfoDto.cs" />
     <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
     <Compile Include="Clients\IClientRepository.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
@@ -271,16 +275,16 @@
     <Compile Include="Users\ReadModel\UserSpecs.UserProfiles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserRoles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Users.cs" />
-    <Compile Include="Withdrawals\Dto\ChargeDto.cs" />
-    <Compile Include="Withdrawals\Dto\ChargesHistoryDto.cs" />
+    <Compile Include="Charges\Dto\ChargeDto.cs" />
+    <Compile Include="Charges\Dto\ChargesHistoryDto.cs" />
     <Compile Include="Withdrawals\IWithdrawalInfoRepository.cs" />
-    <Compile Include="Withdrawals\Dto\CreateLockDetailDto.cs" />
-    <Compile Include="Withdrawals\Operations\IBulKCreateChargesAggregateService.cs" />
+    <Compile Include="Charges\Dto\CreateLockDetailDto.cs" />
+    <Compile Include="Charges\Operations\IChargeBulkCreateAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkCreateLockDetailsAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\IBulkDeleteChargesAggregateService.cs" />
+    <Compile Include="Charges\Operations\IChargeBulkDeleteAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountBulkDeleteLockDetailsAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\ICreateChargesHistoryAggregateService.cs" />
-    <Compile Include="Withdrawals\ReadModel\IWithdrawalInfoReadModel.cs" />
+    <Compile Include="Charges\Operations\IChargeCreateHistoryAggregateService.cs" />
+    <Compile Include="Charges\ReadModel\IChargeReadModel.cs" />
     <Compile Include="Accounts\DTO\WithdrawalInfoDto.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,7 +330,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Charges\" />
     <Folder Include="Common\Integration\Import\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

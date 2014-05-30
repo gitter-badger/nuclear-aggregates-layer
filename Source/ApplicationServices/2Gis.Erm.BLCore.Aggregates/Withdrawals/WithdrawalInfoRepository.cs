@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals
 {
-    public class WithdrawalInfoRepository : IWithdrawalInfoRepository
+    public sealed class WithdrawalInfoRepository : IWithdrawalInfoRepository
     {
         private readonly IFinder _finder;
         private readonly IRepository<ReleaseWithdrawal> _releaseWithdrawalGenericRepository;

@@ -184,11 +184,11 @@
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLockDetailsAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\BulkDeleteChargesAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\BulkCreateChargesAggregateService.cs" />
+    <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
+    <Compile Include="Charges\Operations\ChargeBulkCreateAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkDeleteLockDetailsAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\CreateChargesHistoryAggregateService.cs" />
-    <Compile Include="Withdrawals\ReadModel\WithdrawalInfoReadModel.cs" />
+    <Compile Include="Charges\Operations\ChargeCreateHistoryAggregateService.cs" />
+    <Compile Include="Charges\ReadModel\ChargeReadModel.cs" />
     <Compile Include="Withdrawals\WithdrawalInfoRepository.cs" />
   </ItemGroup>
   <ItemGroup>

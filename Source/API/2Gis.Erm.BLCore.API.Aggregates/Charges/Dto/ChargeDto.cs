@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto
+﻿namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto
 {
     public class ChargeDto
     {
