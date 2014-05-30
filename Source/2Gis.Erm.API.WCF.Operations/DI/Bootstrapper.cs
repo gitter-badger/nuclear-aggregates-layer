@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -33,6 +34,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -151,6 +153,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             Expression<Action<IDeactivateEntityService>> deactivateOperation = x => x.Deactivate(0, 0);
             Expression<Action<IQualifyEntityService>> qualifyOperation = x => x.Qualify(0, 0, default(long?));
             Expression<Action<IDisqualifyEntityService>> disqualifyOperation = x => x.Disqualify(0, default(bool));
+            Expression<Action<IModifyDomainEntityService>> modifyOperation = x => x.Modify(null);
 
             var config = new Dictionary<LambdaExpression, IEnumerable<IOperationServiceInterceptionDescriptor<IOperation>>>
                 {
@@ -183,6 +186,12 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         disqualifyOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
                                 new OperationServiceInterceptionDescriptor<DisqualifyClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
+                            }
+                    },
+                    {
+                        modifyOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
+                            {
+                                new OperationServiceInterceptionDescriptor<ModifyAdvertisementElementOperationService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
                             }
                     }
                 };
