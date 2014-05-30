@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
@@ -272,7 +273,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(CustomLifetime.PerOperationContext)
                      // crosscutting
-                     .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>()
+                     .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
+                     .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>(Lifetime.Singleton)
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
                      .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)

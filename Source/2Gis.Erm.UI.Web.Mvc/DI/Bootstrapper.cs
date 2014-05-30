@@ -301,6 +301,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
                 // crosscutting
+                .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
                 .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                 .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
