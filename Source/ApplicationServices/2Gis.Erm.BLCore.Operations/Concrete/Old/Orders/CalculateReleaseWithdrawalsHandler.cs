@@ -280,15 +280,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         }
 
         private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositionsForSimplePosition(OrderPositionDto orderPosition)
-            {
+        {
             return orderPosition.ReleaseWithdrawals
                                 .Select(releaseWithdrawal => new ReleasesWithdrawalsPosition
-                    {
-                        AmountToWithdraw = releaseWithdrawal.AmountToWithdraw,
-                        PlatformId = orderPosition.PlatformId,
-                        PositionId = orderPosition.PositionId,
-                        ReleasesWithdrawalId = releaseWithdrawal.Id,
-                        Vat = releaseWithdrawal.Vat
+                                    {
+                                        AmountToWithdraw = releaseWithdrawal.AmountToWithdraw,
+                                        PlatformId = orderPosition.PlatformId,
+                                        PositionId = orderPosition.PositionId,
+                                        ReleasesWithdrawalId = releaseWithdrawal.Id,
+                                        Vat = releaseWithdrawal.Vat
                                     })
                                 .ToArray();
         }
