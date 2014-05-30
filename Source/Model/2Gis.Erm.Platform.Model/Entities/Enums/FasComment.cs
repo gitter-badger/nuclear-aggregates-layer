@@ -4,10 +4,8 @@
     {
         Alcohol = 0,
         Supplements = 1,
-        Smoke = 2,
         Drugs = 3,
         DrugsAndService = 4,
-        Abortion = 5,
         NewFasComment = 6,
 
         // TODO {d.ivanov, a.tukaev, 10.03.2014}: Либо реализовать возможность расширения enum-ов на уровне компонентов (Core и BLFlex), либо отказаться от enum-а и сделать для комментария ФАС полноценный справочник
