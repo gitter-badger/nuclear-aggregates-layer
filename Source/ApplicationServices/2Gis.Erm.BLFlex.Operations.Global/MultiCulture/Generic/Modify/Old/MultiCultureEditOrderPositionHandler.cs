@@ -29,7 +29,7 @@ using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderV
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
-    // FIXME {all, 13.11.2013}: приехало из 1.0 - больше похоже на почти полную копипасту (нет сделок и т.п.) - необходимо проверить на соблюдение целостности BusinessModel
+    // FIXME {all, 13.11.2013}: приехало из 1.0 - больше похоже на почти полную копипасту EditOrderPositionHandler (нет сделок и т.п.) - необходимо проверить на соблюдение целостности BusinessModel
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
     {
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
