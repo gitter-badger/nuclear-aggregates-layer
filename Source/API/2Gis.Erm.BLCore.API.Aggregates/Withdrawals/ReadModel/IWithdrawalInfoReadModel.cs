@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -13,7 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel
     {
         string GetChargesHistoryMessage(Guid sessionId, ChargesHistoryStatus status);
         IReadOnlyCollection<Charge> GetChargesToDelete(long projectId, TimePeriod timePeriod);
-        IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period);
         bool TryGetLastChargeHistoryId(long projectId, TimePeriod period, ChargesHistoryStatus status, out Guid id);
    
         IReadOnlyDictionary<long, Guid?> GetActualChargesByProject(TimePeriod period);
@@ -55,5 +53,5 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel
         public short ReleaseCountFact { get; set; }
         public long SourceOrganizationUnitId { get; set; }
         public long DestOrganizationUnitId { get; set; }
-         }
+    }
 }

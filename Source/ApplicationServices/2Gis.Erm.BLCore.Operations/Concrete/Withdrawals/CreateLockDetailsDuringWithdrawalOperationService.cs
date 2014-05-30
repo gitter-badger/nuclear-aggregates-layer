@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
     public sealed class CreateLockDetailsDuringWithdrawalOperationService : ICreateLockDetailsDuringWithdrawalOperationService
     {
-        private readonly IBulkCreateLockDetailsAggregateService _bulkCreateLockDetailsAggregateService;
+        private readonly IAccountBulkCreateLockDetailsAggregateService _accountBulkCreateLockDetailsAggregateService;
         private readonly IPaymentsDistributor _paymentsDistributor;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
         private readonly IWithdrawalInfoReadModel _withdrawalReadModel;
@@ -25,13 +26,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         public CreateLockDetailsDuringWithdrawalOperationService(IWithdrawalInfoReadModel withdrawalReadModel,
                                                                  ICalculateOrderPositionCostService calculateOrderPositionCostService,
-                                                                 IBulkCreateLockDetailsAggregateService bulkCreateLockDetailsAggregateService,
+                                                                 IAccountBulkCreateLockDetailsAggregateService accountBulkCreateLockDetailsAggregateService,
                                                                  IPaymentsDistributor paymentsDistributor,
                                                                  IOperationScopeFactory scopeFactory)
         {
             _withdrawalReadModel = withdrawalReadModel;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
-            _bulkCreateLockDetailsAggregateService = bulkCreateLockDetailsAggregateService;
+            _accountBulkCreateLockDetailsAggregateService = accountBulkCreateLockDetailsAggregateService;
             _paymentsDistributor = paymentsDistributor;
             _scopeFactory = scopeFactory;
         }
@@ -115,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         });
                 }
 
-                _bulkCreateLockDetailsAggregateService.Create(lockDetailsToCreate);
+                _accountBulkCreateLockDetailsAggregateService.Create(lockDetailsToCreate);
 
                 scope.Complete();
             }

@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         {
             var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
 
-            var blockingWithdrawal = _withdrawalInfoReadModel.GetBlockingWithdrawals(chargesInfo.BranchCode, timePeriod);
+            var blockingWithdrawal = _accountReadModel.GetBlockingWithdrawals(chargesInfo.BranchCode, timePeriod);
             if (blockingWithdrawal.Any())
             {
                 throw new CannotCreateChargesException(

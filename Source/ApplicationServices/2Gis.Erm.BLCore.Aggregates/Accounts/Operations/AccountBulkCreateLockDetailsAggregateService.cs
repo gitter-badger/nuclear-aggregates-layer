@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -9,16 +10,16 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations
+namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
-    public class BulkCreateLockDetailsAggregateService : IBulkCreateLockDetailsAggregateService
+    public sealed class AccountBulkCreateLockDetailsAggregateService : IAccountBulkCreateLockDetailsAggregateService
     {
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BulkCreateLockDetailsAggregateService(IRepository<Lock> lockRepository,
+        public AccountBulkCreateLockDetailsAggregateService(IRepository<Lock> lockRepository,
                                                      IRepository<LockDetail> lockDetailRepository,
                                                      IIdentityProvider identityProvider,
                                                      IOperationScopeFactory scopeFactory)

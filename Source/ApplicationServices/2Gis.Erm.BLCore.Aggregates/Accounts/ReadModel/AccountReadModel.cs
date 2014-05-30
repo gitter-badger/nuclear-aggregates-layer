@@ -178,6 +178,40 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                         .Single();
         }
 
+        public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
+        {
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+            if (organizationUnitId == null)
+            {
+                return new WithdrawalInfoDto[0];
+            }
+
+            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(period) &&
+                                                    AccountSpecs.Withdrawals.Find.InStates(WithdrawalStatus.InProgress,
+                                                                                           WithdrawalStatus.Withdrawing,
+                                                                                           WithdrawalStatus.Reverting));
+
+            return _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+                                AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, period))
+                          .Select(x => x.Order.SourceOrganizationUnit)
+                          .GroupJoin(withdrawalInfosQuery,
+                                     ou => ou.Id,
+                                     wi => wi.OrganizationUnitId,
+                                     (ou, wi) => new
+                                     {
+                                         OrganizationUnit = ou,
+                                         LastWithdrawal = wi.OrderByDescending(x => x.StartDate).FirstOrDefault()
+                                     })
+                          .Where(x => x.LastWithdrawal != null)
+                          .Select(x => new WithdrawalInfoDto
+                          {
+                              OrganizationUnitId = x.OrganizationUnit.Id,
+                              OrganizationUnitName = x.OrganizationUnit.Name,
+                              WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
+                          })
+                          .ToArray();
+        }
+
         public WithdrawalDto[] GetInfoForWithdrawal(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&

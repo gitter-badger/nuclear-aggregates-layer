@@ -276,12 +276,12 @@
     <Compile Include="Withdrawals\IWithdrawalInfoRepository.cs" />
     <Compile Include="Withdrawals\Dto\CreateLockDetailDto.cs" />
     <Compile Include="Withdrawals\Operations\IBulKCreateChargesAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\IBulkCreateLockDetailsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkCreateLockDetailsAggregateService.cs" />
     <Compile Include="Withdrawals\Operations\IBulkDeleteChargesAggregateService.cs" />
-    <Compile Include="Withdrawals\Operations\IBulkDeleteLockDetailsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkDeleteLockDetailsAggregateService.cs" />
     <Compile Include="Withdrawals\Operations\ICreateChargesHistoryAggregateService.cs" />
     <Compile Include="Withdrawals\ReadModel\IWithdrawalInfoReadModel.cs" />
-    <Compile Include="Withdrawals\Dto\WithdrawalInfoDto.cs" />
+    <Compile Include="Accounts\DTO\WithdrawalInfoDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -326,6 +326,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Charges\" />
     <Folder Include="Common\Integration\Import\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
