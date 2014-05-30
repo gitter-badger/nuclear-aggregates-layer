@@ -1,12 +1,10 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
     // TODO {all, 07.04.2014}: какой-то перебор с маркерными интерфейсами у T 
-    public class BusinessEntityPropertiesConverter<T> : DynamicEntityPropertiesConverter<T, BusinessEntityInstance, BusinessEntityPropertyInstance>,
-                                                        IBusinessEntityPropertiesConverter<T>
+    public class BusinessEntityPropertiesConverter<T> : DynamicEntityPropertiesConverter<T, BusinessEntityInstance, BusinessEntityPropertyInstance>
         where T : class, IEntity, IEntityPart, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity, new()
     {
         protected override T CreateEntity(BusinessEntityInstance dynamicEntityInstance)

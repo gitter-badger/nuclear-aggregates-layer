@@ -1,12 +1,10 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
     public sealed class DictionaryEntityEntityPropertiesConverter<T> :
-        DynamicEntityPropertiesConverter<T, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
-        IDictionaryEntityPropertiesConverter<T>
+        DynamicEntityPropertiesConverter<T, DictionaryEntityInstance, DictionaryEntityPropertyInstance>
         where T : class, IEntity, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity, new()
     {
         protected override T CreateEntity(DictionaryEntityInstance dynamicEntityInstance)
