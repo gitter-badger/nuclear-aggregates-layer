@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                                                         orderPosition.OrderInfo.DestOrganizationUnitId,
                                                                                         orderPosition.OrderPositionInfo.DiscountSum,
                                                                                         orderPosition.OrderPositionInfo.DiscountPercent,
-                                                                                        orderPosition.OrderPositionInfo.CalculateDiscountViaPercent);
+                                                                                        true);
 
                         paymentForSingleDistributionSlot = _paymentsDistributor.DistributePayment(orderPosition.OrderInfo.ReleaseCountFact,
                                                                                                   calculationResult.PayablePlan)
