@@ -124,8 +124,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
                                                             plainText,
                                                             formattedText);
 
-            // TODO {i.maslennikov, 04.03.2014}: Не нужно ли выполнять обновление и инвалидацию кэша проверок заказов транзакционно?
-            // DONE {d.ivanov, 05.03.2014}: транзакционность обеспечена вызывающим методом
             _advertisementUpdateElementAggregateService.Update(new[] { entity }, advertisementElementInfo.ElementTemplate, plainText, formattedText);
 
             var orderIds = _advertisementReadModel.GetDependedOrderIds(new[] { entity.AdvertisementId });
@@ -171,8 +169,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
                                                             plainText,
                                                             formattedText);
 
-            // TODO {i.maslennikov, 04.03.2014}: Не нужно ли выполнять обновление и инвалидацию кэша проверок заказов транзакционно?
-            // DONE {d.ivanov, 05.03.2014}: транзакционность обеспечена вызывающим методом
             _advertisementUpdateElementAggregateService.Update(allRelatedDummies, advertisementElementInfo.ElementTemplate, plainText, formattedText);
 
             var orderIds = _advertisementReadModel.GetDependedOrderIds(allRelatedDummies.Select(x => x.AdvertisementId));
