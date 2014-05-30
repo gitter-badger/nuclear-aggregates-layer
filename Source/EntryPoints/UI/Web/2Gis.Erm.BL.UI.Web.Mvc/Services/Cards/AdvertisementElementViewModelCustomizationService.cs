@@ -17,15 +17,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
     public class AdvertisementElementViewModelCustomizationService : IGenericViewModelCustomizationService<AdvertisementElement>
     {
-
         private static readonly Dictionary<FasComment, Func<string>> FasCommentToDisplayTextMapping = new Dictionary<FasComment, Func<string>>
             {
                 { FasComment.Alcohol, () => EnumResources.FasCommentDisplayTextAlcohol },
                 { FasComment.Supplements, () => EnumResources.FasCommentDisplayTextSupplements },
-                { FasComment.Smoke, () => EnumResources.FasCommentDisplayTextSmoke },
                 { FasComment.Drugs, () => EnumResources.FasCommentDisplayTextDrugs },
                 { FasComment.DrugsAndService, () => EnumResources.FasCommentDisplayTextDrugsAndService },
-                { FasComment.Abortion, () => EnumResources.FasCommentDisplayTextAbortion },
                 { FasComment.NewFasComment, () => EnumResources.FasCommentNone },
                 { FasComment.AlcoholAdvertising, () => EnumResources.FasCommentDisplayTextAlcoholAdvertising },
 
