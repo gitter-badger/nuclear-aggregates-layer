@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'DeliveryByManager' || this.value == 'ByCourier'")]
         [Dependency(DependencyType.Required, "EmailForAccountingDocuments", "this.value == 'ByEmail'")]
+        [Dependency(DependencyType.Required, "PostAddress", "this.value == 'PostOnly'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
         
         [RequiredLocalized]
