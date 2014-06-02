@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -31,6 +32,7 @@ using SaveOptions = System.Xml.Linq.SaveOptions;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ExportAccountDetailsToServiceBusForBranchHandler : RequestHandler<ExportAccountDetailsToServiceBusForBranchRequest, IntegrationResponse>
     {
         private const string RussianhOf = "оф";
@@ -48,13 +50,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IBusinessModelSettings _businessModelSettings;
+        private readonly IUseCaseTuner _useCaseTuner;
 
-        public ExportAccountDetailsToServiceBusForBranchHandler(IFinder finder,
-                                                                ISubRequestProcessor subRequestProcessor,
-                                                                IClientProxyFactory clientProxyFactory,
-                                                                IOrderReadModel orderReadModel,
-                                                                IGlobalizationSettings globalizationSettings,
-                                                                IBusinessModelSettings businessModelSettings)
+        public ExportAccountDetailsToServiceBusForBranchHandler(
+            IFinder finder,
+            ISubRequestProcessor subRequestProcessor,
+            IClientProxyFactory clientProxyFactory,
+            IOrderReadModel orderReadModel,
+            IGlobalizationSettings globalizationSettings,
+            IBusinessModelSettings businessModelSettings, 
+            IUseCaseTuner useCaseTuner)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
@@ -62,6 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
             _businessModelSettings = businessModelSettings;
+            _useCaseTuner = useCaseTuner;
         }
 
         private enum ExportOrderType
@@ -74,6 +80,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override IntegrationResponse Handle(ExportAccountDetailsToServiceBusForBranchRequest request)
         {
+            _useCaseTuner.AlterDuration<ExportAccountDetailsToServiceBusForBranchHandler>();
+            
             var period = new TimePeriod(request.StartPeriodDate, request.EndPeriodDate);
 
             var organizationUnitSyncCode1C = _finder.FindAll<OrganizationUnit>()
