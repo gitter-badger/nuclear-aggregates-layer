@@ -681,6 +681,7 @@
       <Link>Entities\Erm\WithdrawalInfo.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="Aggregates\Aliases\ChargeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
