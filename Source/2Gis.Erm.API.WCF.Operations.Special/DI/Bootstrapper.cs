@@ -8,6 +8,7 @@ using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -15,6 +16,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -176,7 +178,8 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            container.RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope)
+            container.RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
+                     .RegisterTypeWithDependencies<IGetPositionsByOrderService, GetPositionsByOrderService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(
                          CustomLifetime.PerOperationContext,
                          MappingScope)
