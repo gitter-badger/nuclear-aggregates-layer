@@ -154,7 +154,7 @@
     <value>Temporary refusal. Other (specify)</value>
   </data>
   <data name="CloseDealReasonReason6" xml:space="preserve">
-    <value>Flat refusal. Client's negativity</value>
+    <value>Flat refusal. Client&apos;s negativity</value>
   </data>
   <data name="CloseDealReasonReason7" xml:space="preserve">
     <value>Flat refusal.  Inappropriate target audience</value>
@@ -187,13 +187,13 @@
     <value>Service</value>
   </data>
   <data name="ReasonForNewDealClientCall" xml:space="preserve">
-    <value>Client's initiative Call</value>
+    <value>Client&apos;s initiative Call</value>
   </data>
   <data name="ReasonForNewDealClientEmail" xml:space="preserve">
-    <value>Client's initiative E-mail</value>
+    <value>Client&apos;s initiative E-mail</value>
   </data>
   <data name="ReasonForNewDealClientVisit" xml:space="preserve">
-    <value>Client's initiative Visit</value>
+    <value>Client&apos;s initiative Visit</value>
   </data>
   <data name="DocumentsDeliveryMethodPostOnly" xml:space="preserve">
     <value>By post</value>
@@ -271,10 +271,10 @@
     <value>Subject (pl.)</value>
   </data>
   <data name="ReasonForNewDealManagerCall" xml:space="preserve">
-    <value>Sale Representative's initiative Call</value>
+    <value>Sale Representative&apos;s initiative Call</value>
   </data>
   <data name="ReasonForNewDealManagerVisit" xml:space="preserve">
-    <value>Sale Representative's initiative Visit</value>
+    <value>Sale Representative&apos;s initiative Visit</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
     <value>Warm Lead</value>
@@ -631,7 +631,7 @@
     <value>There are contra-indications; consult a specialist.</value>
   </data>
   <data name="OrderFileKindLetterOfGuaranteeScan" xml:space="preserve">
-    <value>Client's letter of guarantee</value>
+    <value>Client&apos;s letter of guarantee</value>
   </data>
   <data name="OrderFileKindOrderScan" xml:space="preserve">
     <value>Invoice</value>
@@ -1021,7 +1021,7 @@
     <value>User role</value>
   </data>
   <data name="EntityNameUserTerritory" xml:space="preserve">
-    <value>User's territory</value>
+    <value>User&apos;s territory</value>
   </data>
   <data name="EntityNameUserOrganizationUnit" xml:space="preserve">
     <value>Company division of user</value>
@@ -1108,7 +1108,7 @@
     <value>Changing client for a legal entity </value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonChangeRequisites" xml:space="preserve">
-    <value>Changing requisites of a client's legal entity</value>
+    <value>Changing requisites of a client&apos;s legal entity</value>
   </data>
   <data name="FunctionalPrivilegeNameOrderCreationForFuture" xml:space="preserve">
     <value>Extended selection of the order placement period</value>
@@ -1156,7 +1156,7 @@
     <value>Changing order type</value>
   </data>
   <data name="FunctionalPrivilegeNameChangeFirmTerritory" xml:space="preserve">
-    <value>Changing company's territory</value>
+    <value>Changing company&apos;s territory</value>
   </data>
   <data name="FunctionalPrivilegeNameMergeLegalPersons" xml:space="preserve">
     <value>Merging legal entities</value>
@@ -1168,7 +1168,7 @@
     <value>Processing hot leads</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
+    <value>Processing hot leads of the category 5 (franchisee)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Not available</value>
@@ -1282,13 +1282,13 @@
     <value>Contract indebtedness</value>
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
-    <value>Profile of client's legal entity</value>
+    <value>Profile of client&apos;s legal entity</value>
   </data>
   <data name="EntityNameAdditionalFirmService" xml:space="preserve">
     <value>Add. services for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
-    <value>Removing the profile of Client's legal entity</value>
+    <value>Removing the profile of Client&apos;s legal entity</value>
   </data>
   <data name="OperatesOnTheBasisTypeCertificate" xml:space="preserve">
     <value>of Certificate</value>
@@ -1453,7 +1453,7 @@
     <value>Russian</value>
   </data>
   <data name="FunctionalPrivilegeNameCascadeLegalPersonAssign" xml:space="preserve">
-    <value>Cascade change of the legal entity's owners</value>
+    <value>Cascade change of the legal entity&apos;s owners</value>
   </data>
   <data name="LanguageAbbreviationCs" xml:space="preserve">
     <value>Czech</value>
@@ -1720,7 +1720,7 @@
     <value>Power of Attorney</value>
   </data>
   <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
-    <value>Customer's sworn statement</value>
+    <value>Customer&apos;s sworn statement</value>
   </data>
   <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
     <value>Not available</value>
@@ -1795,7 +1795,7 @@
     <value>Verification of whether an AM template is published</value>
   </data>
   <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
-    <value>Verification of the required AM's presence</value>
+    <value>Verification of the required AM&apos;s presence</value>
   </data>
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Action</value>
@@ -1882,18 +1882,18 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TaxationTypeNotSet" xml:space="preserve">
-    <value>Не задано</value>
+    <value>Not set</value>
   </data>
   <data name="TaxationTypeWithoutVat" xml:space="preserve">
-    <value>без НДС</value>
+    <value>excluding VAT</value>
   </data>
   <data name="TaxationTypeWithVat" xml:space="preserve">
-    <value>с НДС</value>
+    <value>including VAT</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+    <value>Processing hot leads of the category 5 (branch)</value>
   <comment></comment></data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
-    <value>Договор (новая модель продаж)</value>
+    <value>Agreement (new sales model)</value>
   <comment></comment></data>
 </root>

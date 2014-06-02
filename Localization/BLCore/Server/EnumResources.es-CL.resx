@@ -1168,7 +1168,7 @@
     <value>Procesar clientes interesados</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
+    <value>Procesar a los clientes interesados de quinta categoría (franquicia)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>No tiene</value>
@@ -1882,18 +1882,18 @@
 	  <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TaxationTypeNotSet" xml:space="preserve">
-    <value>Не задано</value>
+    <value>No se ha asignado</value>
   </data>
   <data name="TaxationTypeWithoutVat" xml:space="preserve">
-    <value>без НДС</value>
+    <value>sin IVA</value>
   </data>
   <data name="TaxationTypeWithVat" xml:space="preserve">
-    <value>с НДС</value>
+    <value>con IVA</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+    <value>Procesar a los clientes interesados de quinta categoría (sucursal)</value>
   <comment></comment></data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
-    <value>Договор (новая модель продаж)</value>
+    <value>Acuerdo (nuevo modelo de ventas)</value>
   <comment></comment></data>
 </root>
