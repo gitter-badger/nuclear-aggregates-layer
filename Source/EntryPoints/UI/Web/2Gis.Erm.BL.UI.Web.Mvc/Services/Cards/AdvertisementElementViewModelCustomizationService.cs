@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
-            advertisementElementModel.ViewConfig.ReadOnly |= advertisementElementModel.UserDoesntHaveRightsToEditFirm;
+            advertisementElementModel.ViewConfig.ReadOnly |= advertisementElementModel.DisableEdit;
 
             advertisementElementModel.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
         }
