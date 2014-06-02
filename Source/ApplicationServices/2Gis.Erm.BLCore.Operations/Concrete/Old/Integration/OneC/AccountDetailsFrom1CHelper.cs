@@ -61,7 +61,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return clientProxy.Execute(service => service.ExportAccountDetailsToServiceBus(organizationUnitId, startDate, endDate));
         }
 
-
         private static string TrimAndReplaceEmptyString(string input)
         {
             var result = input.Trim();

@@ -751,7 +751,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Concrete\Old\PricePositions\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

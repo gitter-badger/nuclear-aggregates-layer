@@ -48,24 +48,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IBusinessModelSettings _businessModelSettings;
 
         public ExportAccountDetailsToServiceBusForBranchHandler(IFinder finder,
                                                                 ISubRequestProcessor subRequestProcessor,
                                                                 IClientProxyFactory clientProxyFactory,
                                                                 IOrderReadModel orderReadModel,
-                                                                IGlobalizationSettings globalizationSettings)
+                                                                IGlobalizationSettings globalizationSettings,
+                                                                IBusinessModelSettings businessModelSettings)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
+            _businessModelSettings = businessModelSettings;
         }
 
         private enum ExportOrderType
         {
             None = 0, 
-
             LocalAndOutgoing = 1, 
             IncomingFromFranchiseesClient = 2, 
             IncomingFromFranchiseesDgpp = 3
@@ -99,14 +101,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var totalProcessedByModiCount = modiResponse.ProcessedWithoutErrors + modiResponse.BlockingErrorsAmount + modiResponse.NonBlockingErrorsAmount;
             if (!accountDetailDtos.Any() && totalProcessedByModiCount == 0)
-                           {
+            {
                 throw new NotificationException(string.Format(BLResources.NoDebitsForSpecifiedPeriod, period.Start, period.End));
-                                     }
+            }
 
             var orderIds = accountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
             var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
             foreach (var accountDetailDto in accountDetailDtos)
-                                     {
+            {
                 accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
             }
 
@@ -125,12 +127,41 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                              debitInfoDto.Debits.Length,
                                              debitsStream);
             return response;
-                        }
+        }
 
-        private static DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
+        private static MemoryStream CreateDebitsStream(XElement debitsXml, byte[] regionalDebitsStream)
+        {
+            var result = debitsXml.ConcatBy(XElement.Load(new MemoryStream(regionalDebitsStream)), "RegionalDebits");
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(result.ToString(SaveOptions.None)));
+            return stream;
+        }
+
+        private static DataTable GetErrorsDataTable(IEnumerable<ErrorDto> blockingErrors, IEnumerable<ErrorDto> nonBlockingErrors)
+        {
+            const int AttributesCount = 4;
+            var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
+            for (var i = 0; i < AttributesCount; i++)
+            {
+                dataTable.Columns.Add(string.Empty);
+            }
+
+            foreach (var error in blockingErrors)
+            {
+                dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.BlockingError, error.ErrorMessage);
+            }
+
+            foreach (var error in nonBlockingErrors)
+            {
+                dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.NonBlockingError, error.ErrorMessage);
+            }
+
+            return dataTable;
+        }
+
+        private DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
                                                            TimePeriod period,
                                                            IEnumerable<AccountDetailDto> accountDetailDtos)
-                {
+        {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
                         {
@@ -190,7 +221,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 };
         }
 
-        private static decimal GetAccountDetailAmount(AccountDetailDto accountDetailDto)
+        private decimal GetAccountDetailAmount(AccountDetailDto accountDetailDto)
         {
             const decimal FranchiseesAmountFactor = 0.4m;
             const decimal VatMultiplier = 0.18m;
@@ -206,14 +237,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             // - клиентский БЗ созданный в ERM либо ДГПП (номер заказа НЕ начинается на "ОФ")
             // -> Списание берём 40% из соответствующей операции с лицевым 
             // счётом и добавляем к этой сумме НДС;
-            return Math.Round(FranchiseesAmountFactor * accountDetailDto.DebitAccountDetailAmount * VatMultiplier, 2, MidpointRounding.ToEven);
-        }
-
-        private static MemoryStream CreateDebitsStream(XElement debitsXml, byte[] regionalDebitsStream)
-        {
-            var result = debitsXml.ConcatBy(XElement.Load(new MemoryStream(regionalDebitsStream)), "RegionalDebits");
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(result.ToString(SaveOptions.None)));
-            return stream;
+            return Math.Round(FranchiseesAmountFactor * accountDetailDto.DebitAccountDetailAmount * VatMultiplier, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
         }
 
         private IntegrationResponse ConstructResponse(int processedWithoutErrors,
@@ -258,28 +282,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return response;
         }
 
-        private static DataTable GetErrorsDataTable(IEnumerable<ErrorDto> blockingErrors, IEnumerable<ErrorDto> nonBlockingErrors)
-        {
-            const int AttributesCount = 4;
-            var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
-            for (var i = 0; i < AttributesCount; i++)
-            {
-                dataTable.Columns.Add(string.Empty);
-            }
-
-            foreach (var error in blockingErrors)
-            {
-                dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.BlockingError, error.ErrorMessage);
-            }
-
-            foreach (var error in nonBlockingErrors)
-            {
-                dataTable.Rows.Add(error.LegalPersonId, error.SyncCode1C, BLResources.NonBlockingError, error.ErrorMessage);
-            }
-
-            return dataTable;
-        }
-
         private AccountDetailDto[] GetAccountDetailDtos(long organizationUnitId, TimePeriod period)
         {
             var accountDetailsQuery = _finder.FindAll<AccountDetail>();
@@ -315,6 +317,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                  {
                                      AccountDetailDto = new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision = 
+                                                x.Lock.Order.OrderPositions.Any(op => op.IsActive 
+                                                    && !op.IsDeleted 
+                                                    && op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision),
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
                                          ProfileCode = x.Lock.Order.LegalPersonProfileId != null
@@ -344,6 +350,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                  {
                                      AccountDetailDto = new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision = false,
+
                                          // Поля заполняются ниже из extension 
                                          BranchOfficeOrganizationUnitSyncCode1C = string.Empty,
                                          AccountCode = 0,
@@ -422,7 +430,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     }
                 }
 
-                if (Math.Abs(accountDetailDto.DebitAccountDetailAmount - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= Accuracy)
+                if (!accountDetailDto.OrderHasPositionsWithPlannedProvision // для операций списания по заказам, в которых есть позиции с негарантированным размещением проверку не выполняем (см. https://jira.2gis.ru/browse/ERM-4102)
+                        && Math.Abs(accountDetailDto.DebitAccountDetailAmount - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= Accuracy)
                 {
                     blockingErrors.Add(new ErrorDto
                     {
@@ -486,6 +495,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private sealed class AccountDetailDto
         {
+            public bool OrderHasPositionsWithPlannedProvision { get; set; }
             public long OrderId { get; set; }
             public LegalPerson LegalPerson { get; set; }
             public string BranchOfficeOrganizationUnitSyncCode1C { get; set; }

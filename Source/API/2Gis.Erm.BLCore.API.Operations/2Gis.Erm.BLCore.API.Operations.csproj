@@ -177,6 +177,7 @@
     <Compile Include="Concrete\Withdrawals\IRevertWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\IWithdrawalOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
+    <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />

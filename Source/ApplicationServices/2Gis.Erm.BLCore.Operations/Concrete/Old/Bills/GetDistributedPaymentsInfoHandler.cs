@@ -4,8 +4,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -15,10 +15,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
     public sealed class GetDistributedPaymentsInfoHandler : RequestHandler<GetDistributedPaymentsInfoRequest, GetDistributedPaymentsInfoResponse>
     {
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPaymentsDistributor _paymentsDistributor;
 
-        public GetDistributedPaymentsInfoHandler(IOrderReadModel orderReadModel)
+        public GetDistributedPaymentsInfoHandler(IOrderReadModel orderReadModel, IPaymentsDistributor paymentsDistributor)
         {
             _orderReadModel = orderReadModel;
+            _paymentsDistributor = paymentsDistributor;
         }
 
         protected override GetDistributedPaymentsInfoResponse Handle(GetDistributedPaymentsInfoRequest request)
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
             CheckDates(request.InitPaymentsInfos, orderInfo.BeginDistributionDate, orderInfo.EndDistributionDatePlan);
 
             // вычисляем платежи по выпускам (месячные)
-            var orderPayablePlanDistributedPayments = PaymentsDistributor.DistributePayment(orderInfo.ReleaseCountPlan, orderInfo.PayablePlan);
+            var orderPayablePlanDistributedPayments = _paymentsDistributor.DistributePayment(orderInfo.ReleaseCountPlan, orderInfo.PayablePlan);
 
             var distributedPaymentsInfos = new List<DistributedPaymentsInfo>(request.InitPaymentsInfos);
             var distributedPaymentIndex = 0;

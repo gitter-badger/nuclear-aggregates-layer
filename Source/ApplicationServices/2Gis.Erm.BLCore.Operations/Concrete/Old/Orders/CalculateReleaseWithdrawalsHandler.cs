@@ -10,8 +10,8 @@ using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -25,12 +25,14 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 {
+    // TODO {all, 29.05.2014}: при рефакторинге ApplicationService учесть наличие клона MultiCulture - нужно их максимально объединить
     public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, IRussiaAdapted
     {
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPaymentsDistributor _paymentsDistributor;
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -39,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                                                   IUnitOfWork unitOfWork,
                                                   IOrderRepository orderRepository,
                                                   IOrderReadModel orderReadModel,
+                                                  IPaymentsDistributor paymentsDistributor,
                                                   IClientProxyFactory clientProxyFactory,
                                                   IPublicService publicService,
                                                   IOperationScopeFactory scopeFactory)
@@ -47,6 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             _unitOfWork = unitOfWork;
             _orderRepository = orderRepository;
             _orderReadModel = orderReadModel;
+            _paymentsDistributor = paymentsDistributor;
             _clientProxyFactory = clientProxyFactory;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
@@ -56,14 +60,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         {
             using (var scope = _scopeFactory.CreateNonCoupled<CalculateReleaseWithdrawalsIdentity>())
             {
-            if (request.UpdateAmountToWithdrawOnly)
-            {
+                if (request.UpdateAmountToWithdrawOnly)
+                {
                     UpdateOrderAmountToWithdrawOnly(request.Order, scope);
-            }
-            else
-            {
+                }
+                else
+                {
                     CalculateReleaseWithdrawals(request.Order, scope);
-            }
+                }
 
                 scope.Complete();
             }
@@ -162,8 +166,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             using (var scope = _unitOfWork.CreateScope())
             {
                 var withdrawalRepository = scope.CreateRepository<IWithdrawalInfoRepository>();
-                var orderRepository = scope.CreateRepository<IOrderRepository>();
-
                 var releaseWithdrawalPositions = CreateReleaseWithdrawalPositions(_orderReadModel, orderInfo.OrderPositions);
                 withdrawalRepository.Create(releaseWithdrawalPositions);
                 operationScope.Added<ReleasesWithdrawalsPosition>(releaseWithdrawalPositions.Select(position => position.Id).ToArray());
@@ -278,15 +280,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         }
 
         private IEnumerable<ReleasesWithdrawalsPosition> CreateReleaseWithdrawalPositionsForSimplePosition(OrderPositionDto orderPosition)
-            {
+        {
             return orderPosition.ReleaseWithdrawals
                                 .Select(releaseWithdrawal => new ReleasesWithdrawalsPosition
-                    {
-                        AmountToWithdraw = releaseWithdrawal.AmountToWithdraw,
-                        PlatformId = orderPosition.PlatformId,
-                        PositionId = orderPosition.PositionId,
-                        ReleasesWithdrawalId = releaseWithdrawal.Id,
-                        Vat = releaseWithdrawal.Vat
+                                    {
+                                        AmountToWithdraw = releaseWithdrawal.AmountToWithdraw,
+                                        PlatformId = orderPosition.PlatformId,
+                                        PositionId = orderPosition.PositionId,
+                                        ReleasesWithdrawalId = releaseWithdrawal.Id,
+                                        Vat = releaseWithdrawal.Vat
                                     })
                                 .ToArray();
         }
@@ -296,8 +298,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             var result = new List<ReleasesWithdrawalsPosition>();
             foreach (var releaseWithdrawal in orderPosition.ReleaseWithdrawals)
             {
-                var positionsPaymentDistributions = PaymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.AmountToWithdraw);
-                var vatPositionsPaymentDistributions = PaymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.Vat);
+                var positionsPaymentDistributions = _paymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.AmountToWithdraw);
+                var vatPositionsPaymentDistributions = _paymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.Vat);
 
                 for (int subPositionIndex = 0; subPositionIndex < subPositions.Count(); subPositionIndex++)
                 {
@@ -339,8 +341,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 payablePlans.Add(costInfo, response.PayablePlan);
                 vats.Add(costInfo, response.PayablePlan - response.PayablePlanWoVat);
 
-                var positionsPaymentDistributions = PaymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), payablePlans[costInfo]);
-                var vatPositionsPaymentDistributions = PaymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), vats[costInfo]);
+                var positionsPaymentDistributions = _paymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), payablePlans[costInfo]);
+                var vatPositionsPaymentDistributions = _paymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), vats[costInfo]);
 
                 payablePlansDistributions.Add(costInfo, positionsPaymentDistributions);
                 vatsDistributions.Add(costInfo, vatPositionsPaymentDistributions);
@@ -372,8 +374,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             Order order,
             OrderPositionDto orderPosition)
         {
-            var paymentPlanDistribution = PaymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan);
-            var vatDistribution = PaymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan - orderPosition.PayablePlanWoVat);
+            var paymentPlanDistribution = _paymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan);
+            var vatDistribution = _paymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan - orderPosition.PayablePlanWoVat);
 
             var releaseWithdrawals = new List<ReleaseWithdrawal>();
 

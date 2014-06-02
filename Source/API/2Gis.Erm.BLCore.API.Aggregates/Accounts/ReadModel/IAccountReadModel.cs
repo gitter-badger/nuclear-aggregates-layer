@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         long ResolveDebitForOrderPaymentOperationTypeId();
         WithdrawalInfo GetLastWithdrawal(long organizationUnitId, TimePeriod period);
         WithdrawalDto[] GetInfoForWithdrawal(long organizationUnitId, TimePeriod period);
+        IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period);
         RevertWithdrawalDto[] GetInfoForRevertWithdrawal(long organizationUnitId, TimePeriod period);
         BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId);
         Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId);

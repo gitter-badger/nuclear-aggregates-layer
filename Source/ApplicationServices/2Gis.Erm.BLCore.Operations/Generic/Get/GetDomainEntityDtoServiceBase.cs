@@ -17,9 +17,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             _userContext = userContext;
         }
 
+        protected IUserContext UserContext
+        {
+            get { return _userContext; }
+        }
+
         public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var currentUserCode = _userContext.Identity.Code;
+            var currentUserCode = UserContext.Identity.Code;
 
             IDomainEntityDto<TEntity> domainEntityDto;
             if (entityId == 0)
@@ -51,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 domainEntityDto = GetDto(entityId);
             }
 
-            SetDtoProperties(domainEntityDto, entityId, readOnly, parentEntityId, parentEntityName, extendedInfo, currentUserCode);
+            SetDtoProperties(domainEntityDto, entityId, readOnly, parentEntityId, parentEntityName, extendedInfo);
             return domainEntityDto;
         }
 
@@ -63,8 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                 bool readOnly,
                                                 long? parentEntityId,
                                                 EntityName parentEntityName,
-                                                string extendedInfo,
-                                                long currentUserCode)
+                                                string extendedInfo)
         {
             // do nothing
         }

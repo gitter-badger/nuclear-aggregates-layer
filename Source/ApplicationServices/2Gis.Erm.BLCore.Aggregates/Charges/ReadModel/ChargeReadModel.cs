@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
+namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
 {
-    public class WithdrawalInfoReadModel : IWithdrawalInfoReadModel
+    public sealed class ChargeReadModel : IChargeReadModel
     {
         private readonly IFinder _finder;
 
-        public WithdrawalInfoReadModel(IFinder finder)
+        public ChargeReadModel(IFinder finder)
         {
             _finder = finder;
         }
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
         }
 
         public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
-            {
+        {
             var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
             if (organizationUnitId == null)
             {
@@ -118,6 +119,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel
                                                  },
                                              OrderPositionInfo = new OrderPositionInfoDto
                                                  {
+                                                     PurchasedPositionId = x.OrderPosition.PricePosition.PositionId,
+                                                     AmountToWithdraw = x.OrderPosition.ReleasesWithdrawals.Where(rw =>
+                                                                                                            rw.ReleaseBeginDate == period.Start &&
+                                                                                                            rw.ReleaseEndDate == period.End)
+                                                                                 .Select(rw => rw.AmountToWithdraw)
+                                                                                 .FirstOrDefault(),
                                                      PriceId = x.OrderPosition.PricePosition.PriceId,
                                                      CategoryRate = x.OrderPosition.CategoryRate,
                                                      Amount = x.OrderPosition.Amount,

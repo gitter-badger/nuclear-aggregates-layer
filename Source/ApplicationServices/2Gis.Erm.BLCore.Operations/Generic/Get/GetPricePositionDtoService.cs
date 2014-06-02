@@ -12,8 +12,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetPricePositionDtoService : GetDomainEntityDtoServiceBase<PricePosition>
     {
-        private readonly ISecureFinder _finder;
-
         private static readonly PositionBindingObjectType[] AllowedPositionBindingObjectTypes =
             {
                 PositionBindingObjectType.CategorySingle,
@@ -25,6 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 PositionBindingObjectType.CategoryMultipleAsterix,
                 PositionBindingObjectType.Firm
             };
+
+        private readonly ISecureFinder _finder;
 
         public GetPricePositionDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
         {
@@ -66,7 +66,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new PricePositionDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<PricePosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
+        protected override void SetDtoProperties(
+            IDomainEntityDto<PricePosition> domainEntityDto, 
+            long entityId, 
+            bool readOnly, 
+            long? parentEntityId, 
+            EntityName parentEntityName, 
+            string extendedInfo)
         {
             long priceId;
             var modelDto = (PricePositionDomainEntityDto)domainEntityDto;

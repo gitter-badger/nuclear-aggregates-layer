@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations
+namespace DoubleGis.Erm.BLCore.Aggregates.Charges.Operations
 {
-    public class BulkCreateChargesAggregateService : IBulkCreateChargesAggregateService
+    public sealed class ChargeBulkCreateAggregateService : IChargeBulkCreateAggregateService
     {
         private readonly IRepository<Charge> _chargeRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BulkCreateChargesAggregateService(IRepository<Charge> chargeRepository, IIdentityProvider identityProvider, IOperationScopeFactory scopeFactory)
+        public ChargeBulkCreateAggregateService(IRepository<Charge> chargeRepository, IIdentityProvider identityProvider, IOperationScopeFactory scopeFactory)
         {
             _chargeRepository = chargeRepository;
             _identityProvider = identityProvider;

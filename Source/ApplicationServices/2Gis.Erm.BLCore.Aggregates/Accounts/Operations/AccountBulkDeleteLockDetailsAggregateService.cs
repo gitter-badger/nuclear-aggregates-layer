@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations
+namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
-    public class BulkDeleteLockDetailsAggregateService : IBulkDeleteLockDetailsAggregateService
+    public sealed class AccountBulkDeleteLockDetailsAggregateService : IAccountBulkDeleteLockDetailsAggregateService
     {
         private readonly IRepository<Lock> _lockRepository;
         private readonly IRepository<LockDetail> _lockDetailRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BulkDeleteLockDetailsAggregateService(IRepository<Lock> lockRepository,
+        public AccountBulkDeleteLockDetailsAggregateService(IRepository<Lock> lockRepository,
                                                      IRepository<LockDetail> lockDetailRepository,
                                                      IOperationScopeFactory scopeFactory)
         {

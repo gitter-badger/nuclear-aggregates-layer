@@ -183,10 +183,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
                             EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
                         };
-                }
-
                     break;
-
+                }
                 case ContributionTypeEnum.Franchisees:
                 {
                     exportRequest = new ExportAccountDetailsToServiceBusForFranchiseesRequest
@@ -195,10 +193,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
                             EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth()
                         };
-                }
-
                     break;
-
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -218,7 +214,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
 
             switch (contributionType)
             {
-                            case ContributionTypeEnum.Branch:
+                case ContributionTypeEnum.Branch:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForBranchRequest
                         {
@@ -226,11 +222,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
                             EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
                         };
-                }
-
                     break;
-
-                            case ContributionTypeEnum.Franchisees:
+                }
+                case ContributionTypeEnum.Franchisees:
                 {
                     exportRequest = new ExportAccountDetailsTo1CForFranchiseesRequest
                         {
@@ -238,10 +232,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             StartPeriodDate = request.PeriodStart.GetFirstDateOfMonth(),
                             EndPeriodDate = request.PeriodStart.GetEndPeriodOfThisMonth(),
                         };
-                }
-
                     break;
-
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

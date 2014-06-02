@@ -15,7 +15,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetAdvertisementDtoService : GetDomainEntityDtoServiceBase<Advertisement>
     {
-        private readonly IUserContext _userContext;
         private readonly ISecureFinder _finder;
         private readonly IFinder _unsecureFinder;
         private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
@@ -26,7 +25,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                           ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
-            _userContext = userContext;
             _finder = finder;
             _unsecureFinder = unsecureFinder;
             _securityServiceEntityAccess = securityServiceEntityAccess;
@@ -68,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
                 dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                    EntityName.Firm,
-                                                                                                   _userContext.Identity.Code,
+                                                                                                   UserContext.Identity.Code,
                                                                                                    firmInfo.Id,
                                                                                                    firmInfo.OwnerCode,
                                                                                                    firmInfo.OwnerCode);
@@ -95,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
                     dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                    EntityName.Firm,
-                                                                                                   _userContext.Identity.Code,
+                                                                                                   UserContext.Identity.Code,
                                                                                                    firmInfo.Id,
                                                                                                    firmInfo.OwnerCode,
                                                                                                    firmInfo.OwnerCode);
@@ -118,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
                         dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                    EntityName.Firm,
-                                                                                                   _userContext.Identity.Code,
+                                                                                                   UserContext.Identity.Code,
                                                                                                    firmInfo.Id,
                                                                                                    firmInfo.OwnerCode,
                                                                                                    firmInfo.OwnerCode);
@@ -158,7 +156,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<Advertisement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
+        protected override void SetDtoProperties(
+            IDomainEntityDto<Advertisement> domainEntityDto, 
+            long entityId, 
+            bool readOnly, 
+            long? parentEntityId, 
+            EntityName parentEntityName, 
+            string extendedInfo)
         {
             var dto = (AdvertisementDomainEntityDto)domainEntityDto;
 

@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals.Dto
+namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto
 {
     public class CreateLockDetailDto
     {

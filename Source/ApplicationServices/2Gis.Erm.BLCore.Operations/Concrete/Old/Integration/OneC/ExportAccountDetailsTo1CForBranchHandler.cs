@@ -119,6 +119,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                ? new {
                                    AccountDetailDto = new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision =
+                                                x.Lock.Order.OrderPositions.Any(op => op.IsActive
+                                                    && !op.IsDeleted
+                                                    && op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision),
+
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
 
@@ -141,6 +146,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                : new {
                                    AccountDetailDto = new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision = false,
                                          BargainTypeSyncCode1C = string.Empty,
                                          BranchOfficeOrganizationUnitSyncCode1C = string.Empty,
 
@@ -179,7 +185,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var blockingErrors = new List<ErrorDto>();
 
-            const decimal accuracy = 1M;
+            const decimal Accuracy = 1M;
 
             foreach (var accountDetailDto in all.Where(x => x.DebitAccountDetailAmount.HasValue))
             {
@@ -253,7 +259,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 }
                 else
                 {
-                    if (Math.Abs(accountDetailDto.DebitAccountDetailAmount.Value - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= accuracy)
+                    if (!accountDetailDto.OrderHasPositionsWithPlannedProvision // для операций списания по заказам, в которых есть позиции с негарантированным размещением проверку не выполняем (см. https://jira.2gis.ru/browse/ERM-4102)
+                        && Math.Abs(accountDetailDto.DebitAccountDetailAmount.Value - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= Accuracy)
                     {
                         blockingErrors.Add(new ErrorDto
                             {
@@ -290,7 +297,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
-                {
+            {
                 response.FileName = errorsFileName;
                 response.ContentType = MediaTypeNames.Application.Octet;
                 response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent));
@@ -324,9 +331,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private static DataTable GetErrorsDataTable(IEnumerable<ErrorDto> blockingErrors, IEnumerable<ErrorDto> nonBlockingErrors)
         {
-            const int attributesCount = 4;
+            const int AttributesCount = 4;
             var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
-            for (var i = 0; i < attributesCount; i++)
+            for (var i = 0; i < AttributesCount; i++)
             {
                 dataTable.Columns.Add(string.Empty);
             }
@@ -405,6 +412,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private sealed class AccountDetailDto
         {
+            public bool OrderHasPositionsWithPlannedProvision { get; set; }
             public long OrderId { get; set; }
             public LegalPerson LegalPerson { get; set; }
             public string BargainTypeSyncCode1C { get; set; }
