@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public AdvertisementElementStatus[] AvailableStates { get; set; }
 
-        public bool UserDoesntHaveRightsToEditFirm { get; set; }
+        public bool DisableEdit { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             Timestamp = advertisementElementDto.Timestamp;
             NeedsValidation = advertisementElementDto.NeedsValidation;
             CanUserChangeStatus = advertisementElementDto.CanUserChangeStatus;
-            UserDoesntHaveRightsToEditFirm = advertisementElementDto.UserDoesntHaveRightsToEditFirm;
+            DisableEdit = advertisementElementDto.DisableEdit;
             Status = advertisementElementDto.Status;
             Error = advertisementElementDto.Error;
         }
