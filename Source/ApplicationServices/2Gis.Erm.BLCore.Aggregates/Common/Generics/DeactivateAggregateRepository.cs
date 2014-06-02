@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Deactivate(long entityId)
         {
-            var entity = _finder.Find<T>(x => x.Id == entityId).Single();
+            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
             entity.IsActive = false;
             _repository.Update(entity);
             return _repository.Save();
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Deactivate(long entityId)
         {
-            var entity = _finder.Find<T>(x => x.Id == entityId).Single();
+            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
             entity.IsActive = false;
             _secureRepository.Update(entity);
             return _secureRepository.Save();

@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Assign(long entityId, long ownerCode)
         {
-            var entity = _finder.Find<T>(x => x.Id == entityId).Single();
+            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
             entity.OwnerCode = ownerCode;
             _secureRepository.Update(entity);
             return _secureRepository.Save();
