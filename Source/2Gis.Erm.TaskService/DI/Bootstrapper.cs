@@ -165,6 +165,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
 
+                .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Mapping.Erm, Lifetime.PerScope)
                 .RegisterTypeWithDependencies<ISupportedCategoriesChecker, SupportedCategoriesChecker>(Mapping.Erm, Lifetime.PerScope)
 
