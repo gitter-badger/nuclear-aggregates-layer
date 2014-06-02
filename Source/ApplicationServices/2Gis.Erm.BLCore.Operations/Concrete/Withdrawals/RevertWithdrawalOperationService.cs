@@ -37,12 +37,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _logger;
+        private readonly IDeleteLockDetailsDuringRevertingWithdrawalOperationService _deleteLockDetailsDuringRevertingWithdrawalOperationService;
 
         public RevertWithdrawalOperationService(
             IAccountReadModel accountReadModel,
-            IActualizeAccountsDuringRevertingWithdrawalOperationService actualizeAccountsDuringRevertingWithdrawalOperationService, 
+            IActualizeAccountsDuringRevertingWithdrawalOperationService actualizeAccountsDuringRevertingWithdrawalOperationService,
             IActualizeOrdersDuringRevertingWithdrawalOperationService actualizeOrdersDuringRevertingWithdrawalOperationService,
             IActualizeDealsDuringRevertingWithdrawalOperationService actualizeDealsDuringRevertingWithdrawalOperationService,
+            IDeleteLockDetailsDuringRevertingWithdrawalOperationService deleteLockDetailsDuringRevertingWithdrawalOperationService,
             IAccountWithdrawalChangeStatusAggregateService withdrawalChangeStatusAggregateService,
             ICheckOperationPeriodService checkOperationPeriodService,
             IAggregateServiceIsolator aggregateServiceIsolator,
@@ -64,6 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             _scopeFactory = scopeFactory;
             _useCaseTuner = useCaseTuner;
             _logger = logger;
+            _deleteLockDetailsDuringRevertingWithdrawalOperationService = deleteLockDetailsDuringRevertingWithdrawalOperationService;
         }
 
         public WithdrawalProcessingResult Revert(long organizationUnitId, TimePeriod period, string comment)
@@ -184,6 +187,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                         .Where(dto => dto.Order.DealId.HasValue)
                         .Select(dto => dto.Order.DealId.Value)
                         .Distinct());
+
+                _logger.InfoFormatEx("Reverting withdrawal. Organization unit {0}. {1}. Starting locks actualization process for planned positions",
+                                     organizationUnitId,
+                                     period);
+                _deleteLockDetailsDuringRevertingWithdrawalOperationService.DeleteLockDetails(organizationUnitId, period);
 
                 _withdrawalChangeStatusAggregateService.ChangeStatus(acquiredWithdrawal, WithdrawalStatus.Reverted, null);
                 _logger.InfoFormatEx(

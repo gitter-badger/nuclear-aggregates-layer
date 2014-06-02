@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -26,6 +27,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ExportAccountDetailsTo1CForBranchHandler : RequestHandler<ExportAccountDetailsTo1CForBranchRequest, IntegrationResponse>
     {
         private const string NskTimeZoneId = "N. Central Asia Standard Time";
@@ -39,14 +41,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IUseCaseTuner _useCaseTuner;
 
-        public ExportAccountDetailsTo1CForBranchHandler(IFinder finder,
-                                                        ISubRequestProcessor subRequestProcessor,
-                                                        ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-                                                        ICommonLog logger,
-                                                        IClientProxyFactory clientProxyFactory,
-                                                        IOrderReadModel orderReadModel,
-                                                        IGlobalizationSettings globalizationSettings)
+        public ExportAccountDetailsTo1CForBranchHandler(
+            IFinder finder,
+            ISubRequestProcessor subRequestProcessor,
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+            ICommonLog logger,
+            IClientProxyFactory clientProxyFactory,
+            IOrderReadModel orderReadModel,
+            IGlobalizationSettings globalizationSettings,
+            IUseCaseTuner useCaseTuner)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
@@ -55,6 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
+            _useCaseTuner = useCaseTuner;
         }
 
         private enum ExportOrderType
@@ -68,6 +74,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override IntegrationResponse Handle(ExportAccountDetailsTo1CForBranchRequest request)
         {
+            _useCaseTuner.AlterDuration<ExportAccountDetailsTo1CForBranchHandler>();
+
             var isBranchAndMovedToErm = _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null).Select(x => new
             {
                 PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
@@ -115,6 +123,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                            x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
                                ? new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision =
+                                                x.Lock.Order.OrderPositions.Any(op => op.IsActive
+                                                    && !op.IsDeleted
+                                                    && op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision),
+
                                          BargainTypeSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.BranchOffice.BargainType.SyncCode1C,
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
 
@@ -135,6 +148,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                // ExportOrderType.IncomingFromFranchiseesClient
                                : new AccountDetailDto
                                      {
+                                         OrderHasPositionsWithPlannedProvision = false,
                                          BargainTypeSyncCode1C = string.Empty,
                                          BranchOfficeOrganizationUnitSyncCode1C = string.Empty,
 
@@ -163,7 +177,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var blockingErrors = new List<ErrorDto>();
 
-            const decimal accuracy = 1M;
+            const decimal Accuracy = 1M;
 
             foreach (var accountDetailDto in all.Where(x => x.DebitAccountDetailAmount.HasValue))
             {
@@ -237,7 +251,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 }
                 else
                 {
-                    if (Math.Abs(accountDetailDto.DebitAccountDetailAmount.Value - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= accuracy)
+                    if (!accountDetailDto.OrderHasPositionsWithPlannedProvision // для операций списания по заказам, в которых есть позиции с негарантированным размещением проверку не выполняем (см. https://jira.2gis.ru/browse/ERM-4102)
+                        && Math.Abs(accountDetailDto.DebitAccountDetailAmount.Value - accountDetailDto.PlatformDistributions.Sum(y => y.Value)) >= Accuracy)
                     {
                         blockingErrors.Add(new ErrorDto
                             {
@@ -274,7 +289,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
-                {
+            {
                 response.FileName = errorsFileName;
                 response.ContentType = MediaTypeNames.Application.Octet;
                 response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent));
@@ -308,9 +323,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private static DataTable GetErrorsDataTable(IEnumerable<ErrorDto> blockingErrors, IEnumerable<ErrorDto> nonBlockingErrors)
         {
-            const int attributesCount = 4;
+            const int AttributesCount = 4;
             var dataTable = new DataTable { Locale = CultureInfo.InvariantCulture };
-            for (var i = 0; i < attributesCount; i++)
+            for (var i = 0; i < AttributesCount; i++)
             {
                 dataTable.Columns.Add(string.Empty);
             }
@@ -389,6 +404,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private sealed class AccountDetailDto
         {
+            public bool OrderHasPositionsWithPlannedProvision { get; set; }
             public long OrderId { get; set; }
             public LegalPerson LegalPerson { get; set; }
             public string BargainTypeSyncCode1C { get; set; }

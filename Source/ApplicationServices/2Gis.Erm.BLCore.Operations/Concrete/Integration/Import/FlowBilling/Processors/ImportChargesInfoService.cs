@@ -4,10 +4,10 @@ using System.Linq;
 using System.Transactions;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
@@ -25,41 +25,41 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
 using ChargeBusDto = DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing.ChargeDto;
-using ChargeDto = DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations.ChargeDto;
+using ChargeDto = DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto.ChargeDto;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBilling.Processors
 {
     public class ImportChargesInfoService : IImportChargesInfoService
     {
         private readonly IAccountReadModel _accountReadModel;
-        private readonly IBulkCreateChargesAggregateService _bulkCreateChargesAggregateService;
-        private readonly ICreateChargesHistoryAggregateService _createChargesHistoryAggregateService;
+        private readonly IChargeBulkCreateAggregateService _chargeBulkCreateAggregateService;
+        private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
         private readonly ICommonLog _logger;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IWithdrawalInfoReadModel _withdrawalInfoReadModel;
+        private readonly IChargeReadModel _chargeReadModel;
 
         public ImportChargesInfoService(IAccountReadModel accountReadModel,
-                                        IBulkCreateChargesAggregateService bulkCreateChargesAggregateService,
-                                        ICreateChargesHistoryAggregateService createChargesHistoryAggregateService,
+                                        IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
+                                        IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
                                         ICommonLog logger,
                                         IOrderReadModel orderReadModel,
                                         IPositionReadModel positionReadModel,
                                         IOperationScopeFactory scopeFactory,
-                                        IWithdrawalInfoReadModel withdrawalInfoReadModel)
+                                        IChargeReadModel chargeReadModel)
         {
             _accountReadModel = accountReadModel;
-            _bulkCreateChargesAggregateService = bulkCreateChargesAggregateService;
-            _createChargesHistoryAggregateService = createChargesHistoryAggregateService;
+            _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
+            _chargeCreateHistoryAggregateService = chargeCreateHistoryAggregateService;
             _deleteChargesService = deleteChargesService;
             _logger = logger;
             _orderReadModel = orderReadModel;
             _positionReadModel = positionReadModel;
             _scopeFactory = scopeFactory;
-            _withdrawalInfoReadModel = withdrawalInfoReadModel;
+            _chargeReadModel = chargeReadModel;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         {
             var timePeriod = new TimePeriod(chargesInfo.StartDate, chargesInfo.EndDate);
 
-            var blockingWithdrawal = _withdrawalInfoReadModel.GetBlockingWithdrawals(chargesInfo.BranchCode, timePeriod);
+            var blockingWithdrawal = _accountReadModel.GetBlockingWithdrawals(chargesInfo.BranchCode, timePeriod);
             if (blockingWithdrawal.Any())
             {
                 throw new CannotCreateChargesException(
@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
             using (var scope = _scopeFactory.CreateNonCoupled<ImportChargesInfoIdentity>())
             {
                 Guid lastSucceededId;
-                if (_withdrawalInfoReadModel.TryGetLastChargeHistoryId(chargesInfo.BranchCode,
+                if (_chargeReadModel.TryGetLastChargeHistoryId(chargesInfo.BranchCode,
                                                                        timePeriod,
                                                                        ChargesHistoryStatus.Succeeded,
                                                                        out lastSucceededId))
@@ -149,7 +149,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     throw new CannotCreateChargesException(string.Format("Can't create charges. {0}", message));
                 }
 
-                _bulkCreateChargesAggregateService.Create(chargesInfo.BranchCode,
+                _chargeBulkCreateAggregateService.Create(chargesInfo.BranchCode,
                                                           chargesInfo.StartDate,
                                                           chargesInfo.EndDate,
                                                           chargesToCreate,
@@ -194,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     Comment = comment
                 };
 
-            _createChargesHistoryAggregateService.Create(chargesHistoryDto);
+            _chargeCreateHistoryAggregateService.Create(chargesHistoryDto);
         }
     }
 }

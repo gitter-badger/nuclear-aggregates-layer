@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations
+namespace DoubleGis.Erm.BLCore.Aggregates.Charges.Operations
 {
-    public class BulkDeleteChargesAggregateService : IBulkDeleteChargesAggregateService
+    public sealed class ChargeBulkDeleteAggregateService : IChargeBulkDeleteAggregateService
     {
         private readonly IRepository<Charge> _chargeRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BulkDeleteChargesAggregateService(IRepository<Charge> chargeRepository, IOperationScopeFactory scopeFactory)
+        public ChargeBulkDeleteAggregateService(IRepository<Charge> chargeRepository, IOperationScopeFactory scopeFactory)
         {
             _chargeRepository = chargeRepository;
             _scopeFactory = scopeFactory;

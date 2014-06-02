@@ -5,30 +5,26 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals
 {
-    public class WithdrawalInfoRepository : IWithdrawalInfoRepository
+    public sealed class WithdrawalInfoRepository : IWithdrawalInfoRepository
     {
         private readonly IFinder _finder;
         private readonly IRepository<ReleaseWithdrawal> _releaseWithdrawalGenericRepository;
-        private readonly IRepository<WithdrawalInfo> _withdrawalInfoGenericRepository;
         private readonly IRepository<ReleasesWithdrawalsPosition> _releaseWithdrawalPositionGenericRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public WithdrawalInfoRepository(IFinder finder,
-                                        IRepository<WithdrawalInfo> withdrawalInfoGenericRepository,
                                         IRepository<ReleaseWithdrawal> releaseWithdrawalGenericRepository,
                                         IRepository<ReleasesWithdrawalsPosition> releaseWithdrawalPositionGenericRepository,
                                         IIdentityProvider identityProvider,
                                         IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
-            _withdrawalInfoGenericRepository = withdrawalInfoGenericRepository;
             _releaseWithdrawalGenericRepository = releaseWithdrawalGenericRepository;
             _releaseWithdrawalPositionGenericRepository = releaseWithdrawalPositionGenericRepository;
             _identityProvider = identityProvider;
@@ -73,31 +69,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals
             }
 
             return cnt;
-        }
-
-        public int CreateOrUpdate(WithdrawalInfo withdrawal)
-        {
-            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(withdrawal))
-            {
-                if (withdrawal.IsNew())
-                {
-                    _identityProvider.SetFor(withdrawal);
-                    _withdrawalInfoGenericRepository.Add(withdrawal);
-
-                    scope.Added<WithdrawalInfo>(withdrawal.Id);
-                }
-                else
-                {
-                    _withdrawalInfoGenericRepository.Update(withdrawal);
-
-                    scope.Updated<WithdrawalInfo>(withdrawal.Id);
-                }
-
-                var cnt = _withdrawalInfoGenericRepository.Save();
-                scope.Complete();
-
-                return cnt;
-            }
         }
 
         public int Delete(IEnumerable<ReleaseWithdrawal> releaseWithdrawals)

@@ -17,21 +17,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetAdvertisementElementDtoService : GetDomainEntityDtoServiceBase<AdvertisementElement>
     {
         private readonly ISecureFinder _finder;
+        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly IFinder _unsecureFinder;
-        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
 
         public GetAdvertisementElementDtoService(IUserContext userContext,
                                                  ISecureFinder finder,
+                                                 ISecurityServiceEntityAccessInternal securityServiceEntityAccess,
                                                  ISecurityServiceFunctionalAccess securityServiceFunctionalAccess,
-                                                 IFinder unsecureFinder,
-                                                 ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
-            : base(userContext)
+                                                 IFinder unsecureFinder) : base(userContext)
         {
             _finder = finder;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
             _unsecureFinder = unsecureFinder;
-            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         protected override IDomainEntityDto<AdvertisementElement> GetDto(long entityId)
@@ -64,7 +63,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
                                                  // заглушки не верифицируем
                                                  NeedsValidation = entity.AdvertisementElementTemplate.NeedsValidation && entity.Advertisement.FirmId != null,
-
                                                  FasCommentType = (FasComment)entity.FasCommentType,
                                                  PlainText = entity.Text,
                                                  FormattedText = entity.Text,
@@ -83,26 +81,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                          Template = entity.AdvertisementElementTemplate
                                      }).Single();
 
+            var firmInfo = _unsecureFinder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
+                                          .Select(x => x.Advertisement.Firm)
+                                          .Where(x => x != null)
+                                          .Select(x => new
+                                              {
+                                                  x.Id,
+                                                  x.OwnerCode
+                                              })
+                                          .SingleOrDefault();
 
-            var firmInfo = _unsecureFinder
-                .Find(Specs.Find.ById<AdvertisementElement>(entityId))
-                .Select(x => x.Advertisement.Firm)
-                .Select(x => new
-                    {
-                        Id = x.Id,
-                        OwnerCode = x.OwnerCode
-                    })
-                .SingleOrDefault();
-
-            if (firmInfo != null)
-            {
-                dtoInfo.Dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                           EntityName.Firm,
-                                                                                                           UserContext.Identity.Code,
-                                                                                                           firmInfo.Id,
-                                                                                                           firmInfo.OwnerCode,
-                                                                                                           firmInfo.OwnerCode);
-            }
+            // для заглушек вместо прав на фирму проверяем функциональную привилегию
+            dtoInfo.Dto.DisableEdit = firmInfo != null
+                                          ? !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                          EntityName.Firm,
+                                                                                          UserContext.Identity.Code,
+                                                                                          firmInfo.Id,
+                                                                                          firmInfo.OwnerCode,
+                                                                                          firmInfo.OwnerCode)
+                                          : !_securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditDummyAdvertisement,
+                                                                                                            UserContext.Identity.Code);
 
             return dtoInfo.Dto;
         }
@@ -112,7 +110,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new AdvertisementElementDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto,
+                                                 long entityId,
+                                                 bool readOnly,
+                                                 long? parentEntityId,
+                                                 EntityName parentEntityName,
+                                                 string extendedInfo)
         {
             var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
 

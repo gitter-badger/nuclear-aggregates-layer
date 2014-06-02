@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Dto;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations;
-using DoubleGis.Erm.BLCore.Aggregates.Withdrawals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal.Operations;
@@ -15,27 +15,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 {
     public class DeleteChargesForPeriodAndProjectOperationService : IDeleteChargesForPeriodAndProjectOperationService
     {
-        private readonly IBulkDeleteChargesAggregateService _bulkDeleteChargesAggregateService;
-        private readonly ICreateChargesHistoryAggregateService _createChargesHistoryAggregateService;
+        private readonly IChargeBulkDeleteAggregateService _chargeBulkDeleteAggregateService;
+        private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IWithdrawalInfoReadModel _withdrawalInfoReadModel;
+        private readonly IChargeReadModel _chargeReadModel;
 
-        public DeleteChargesForPeriodAndProjectOperationService(IBulkDeleteChargesAggregateService bulkDeleteChargesAggregateService,
-                                                                ICreateChargesHistoryAggregateService createChargesHistoryAggregateService,
+        public DeleteChargesForPeriodAndProjectOperationService(IChargeBulkDeleteAggregateService chargeBulkDeleteAggregateService,
+                                                                IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                                                 IOperationScopeFactory scopeFactory,
-                                                                IWithdrawalInfoReadModel withdrawalInfoReadModel)
+                                                                IChargeReadModel chargeReadModel)
         {
-            _bulkDeleteChargesAggregateService = bulkDeleteChargesAggregateService;
-            _createChargesHistoryAggregateService = createChargesHistoryAggregateService;
+            _chargeBulkDeleteAggregateService = chargeBulkDeleteAggregateService;
+            _chargeCreateHistoryAggregateService = chargeCreateHistoryAggregateService;
             _scopeFactory = scopeFactory;
-            _withdrawalInfoReadModel = withdrawalInfoReadModel;
+            _chargeReadModel = chargeReadModel;
         }
 
         public void Delete(long projectId, TimePeriod timePeriod, Guid sessionId)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<DeleteChargesForPeriodAndProjectIdentity>())
             {
-                var chargesToDelete = _withdrawalInfoReadModel.GetChargesToDelete(projectId, timePeriod);
+                var chargesToDelete = _chargeReadModel.GetChargesToDelete(projectId, timePeriod);
                 if (chargesToDelete.Any())
                 {
                     var deletedSessionIds = chargesToDelete.Select(x => x.SessionId).Distinct().ToArray();
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                                        projectId));
                     }
 
-                    _bulkDeleteChargesAggregateService.Delete(chargesToDelete);
+                    _chargeBulkDeleteAggregateService.Delete(chargesToDelete);
 
                     LogDeleted(projectId, timePeriod, deletedSessionIds[0], sessionId);
                 }
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
         private void LogDeleted(long projectId, TimePeriod timePeriod, Guid deletedSessionId, Guid currentSessionId)
         {
-            var deletedMessage = _withdrawalInfoReadModel.GetChargesHistoryMessage(deletedSessionId, ChargesHistoryStatus.Succeeded);
+            var deletedMessage = _chargeReadModel.GetChargesHistoryMessage(deletedSessionId, ChargesHistoryStatus.Succeeded);
             var chargesHistoryDto = new ChargesHistoryDto
                 {
                     ProjectId = projectId,
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     SessionId = currentSessionId
                 };
 
-            _createChargesHistoryAggregateService.Create(chargesHistoryDto);
+            _chargeCreateHistoryAggregateService.Create(chargesHistoryDto);
         }
     }
 }

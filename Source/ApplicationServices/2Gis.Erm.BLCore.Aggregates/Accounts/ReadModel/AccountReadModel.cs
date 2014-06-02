@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices;
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
@@ -30,7 +26,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         /// <summary>
         /// Выбрать все лимиты (активные и т.п.), относящиеся к указанной сборке, которые подлежат закрытию.
-        /// Исключаем лимиты по лицевым счетам, для которых есть заказы выходящие в других отделениях организации, по которым ещё не было финальной сборки за период
+        /// Исключаем лимиты по лицевым счетам, для которых есть заказы выходящие в других отделениях организации, по которым ещё
+        /// не было финальной сборки за период
         /// </summary>
         public IEnumerable<Limit> GetLimitsForRelease(long releasingOrganizationUnitId, TimePeriod period)
         {
@@ -181,6 +178,40 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                         .Single();
         }
 
+        public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
+        {
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+            if (organizationUnitId == null)
+            {
+                return new WithdrawalInfoDto[0];
+            }
+
+            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(period) &&
+                                                    AccountSpecs.Withdrawals.Find.InStates(WithdrawalStatus.InProgress,
+                                                                                           WithdrawalStatus.Withdrawing,
+                                                                                           WithdrawalStatus.Reverting));
+
+            return _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+                                AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, period))
+                          .Select(x => x.Order.SourceOrganizationUnit)
+                          .GroupJoin(withdrawalInfosQuery,
+                                     ou => ou.Id,
+                                     wi => wi.OrganizationUnitId,
+                                     (ou, wi) => new
+                                     {
+                                         OrganizationUnit = ou,
+                                         LastWithdrawal = wi.OrderByDescending(x => x.StartDate).FirstOrDefault()
+                                     })
+                          .Where(x => x.LastWithdrawal != null)
+                          .Select(x => new WithdrawalInfoDto
+                          {
+                              OrganizationUnitId = x.OrganizationUnit.Id,
+                              OrganizationUnitName = x.OrganizationUnit.Name,
+                              WithdrawalStatus = (WithdrawalStatus)x.LastWithdrawal.Status
+                          })
+                          .ToArray();
+        }
+
         public WithdrawalDto[] GetInfoForWithdrawal(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
@@ -190,11 +221,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                             Lock = x,
                                             LockDetails = x.LockDetails.Where(y => !y.IsDeleted && y.IsActive),
                                             CalculatedLockBalance = x.LockDetails.Where(y => !y.IsDeleted && y.IsActive).Sum(y => (decimal?)y.Amount) ?? 0M,
-                                            Account = x.Account,
+                                            x.Account,
                                             AccountBalanceBeforeWithdrawal = x.Account.AccountDetails
                                                                             .Where(y => !y.IsDeleted && y.IsActive)
                                                                             .Sum(y => (decimal?)(y.OperationType.IsPlus ? y.Amount : -y.Amount)) ?? 0M,
-                                            Order = x.Order,
+                                            x.Order,
                                             TargetWithdrawalReleaseNumber = x.Order.BeginReleaseNumber + x.Order.Locks.Count(l => !l.IsActive && !l.IsDeleted) + 1,
                                        })
                                    .Select(x => new WithdrawalDto
@@ -225,12 +256,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                        Lock = x,
                                        LockDetails = x.LockDetails.Where(y => !y.IsDeleted && !y.IsActive),
                                        CalculatedLockBalance = x.LockDetails.Where(y => !y.IsDeleted && !y.IsActive).Sum(y => (decimal?)y.Amount) ?? 0M,
-                                       Account = x.Account,
+                                       x.Account,
                                        DebitAccountDetail = x.AccountDetail,
                                        AccountBalanceBeforeRevertWithdrawal = x.Account.AccountDetails
                                                                        .Where(y => !y.IsDeleted && y.IsActive)
                                                                        .Sum(y => (decimal?)(y.OperationType.IsPlus ? y.Amount : -y.Amount)) ?? 0M,
-                                       Order = x.Order,
+                                       x.Order,
                                        TargetWithdrawalReleaseNumber = x.Order.BeginReleaseNumber + x.Order.Locks.Count(l => !l.IsActive && !l.IsDeleted) - 1,
                                    })
                                    .Select(x => new RevertWithdrawalDto
@@ -292,6 +323,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public bool AnyLockDetailsCreated(Guid chargeSessionId)
         {
             return _finder.Find(Specs.Find.NotDeleted<LockDetail>() && AccountSpecs.LockDetails.Find.ForChargeSessionId(chargeSessionId)).Any();
+        }
+
+        public IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period)
+        {
+            var orderPositionsQuery = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() && AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId, period))
+                          .Select(l => new
+                              {
+                                  Lock = l,
+                                  LockDetails = l.LockDetails
+                                                 .Where(ld => ld.IsActive && !ld.IsDeleted)
+                                                 .Join(orderPositionsQuery,
+                                                       ld => ld.OrderPositionId,
+                                                       op => op.Id,
+                                                       (ld, op) => new
+                                                           {
+                                                               LockDetail = ld,
+                                                               IsPlannedProvision = op.PricePosition.Position.AccountingMethodEnum ==
+                                                                                    (int)PositionAccountingMethod.PlannedProvision
+                                                           })
+                                                 .Where(x => x.IsPlannedProvision)
+                                                 .Select(x => x.LockDetail)
+                              })
+                          .Where(x => x.LockDetails.Any())
+                          .Select(x => new LockDto { Lock = x.Lock, Details = x.LockDetails })
+                          .ToArray();
         }
     }
 }

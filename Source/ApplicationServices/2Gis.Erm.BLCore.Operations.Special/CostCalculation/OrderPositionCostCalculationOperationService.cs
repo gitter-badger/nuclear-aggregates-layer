@@ -24,14 +24,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
     // FIXME {all, 17.02.2014}: OperationService использует DAL напрямую (finder)
     public class OrderPositionCostCalculationOperationService : ICalculateOrderPositionCostService
     {
-        private readonly IFinder _finder;
-        private readonly ICostCalculator _costCalculator;
-        private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly IOrderReadModel _orderReadModel;
-        private readonly IFirmRepository _firmRepository;
-        private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IProjectService _projectService;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
+        private readonly IClientProxyFactory _clientProxyFactory;
+        private readonly ICostCalculator _costCalculator;
+        private readonly IFinder _finder;
+        private readonly IFirmRepository _firmRepository;
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IProjectService _projectService;
+        private readonly IOperationScopeFactory _scopeFactory;
 
         public OrderPositionCostCalculationOperationService(
             IFinder finder,
@@ -168,18 +168,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 
                 for (var i = 0; i < positionInfos.Count(); i++)
                 {
-                    positionCalcs[i] = CalculateOrderPositionCost(orderType,
-                                                                  orderReleaseCount,
-                                                                  firmId,
-                                                                  categoryId,
-                                                                  positionInfos[i].PositionInfo.PositionId,
-                                                                  priceId,
-                                                                  positionInfos[i].PositionInfo.Amount,
-                                                                  vatRate,
-                                                                  showVat,
-                                                                  positionInfos[i].DiscountInfo.Sum,
-                                                                  positionInfos[i].DiscountInfo.Percent,
-                                                                  positionInfos[i].DiscountInfo.CalculateDiscountViaPercent);
+                    positionCalcs[i] = CalculateOrderPositionCostInternal(orderType,
+                                                                          orderReleaseCount,
+                                                                          firmId,
+                                                                          categoryId,
+                                                                          null,
+                                                                          positionInfos[i].PositionInfo.PositionId,
+                                                                          priceId,
+                                                                          positionInfos[i].PositionInfo.Amount,
+                                                                          vatRate,
+                                                                          showVat,
+                                                                          positionInfos[i].DiscountInfo.Sum,
+                                                                          positionInfos[i].DiscountInfo.Percent,
+                                                                          positionInfos[i].DiscountInfo.CalculateDiscountViaPercent);
                 }
 
                 var result = _costCalculator.GetTotalResult(positionCalcs);
@@ -214,22 +215,80 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             return result.PositionCalcs.Single();
         }
 
+        public CalculationResult CalculateOrderPositionCostWithRate(OrderType orderType,
+                                                                    int orderReleaseCount,
+                                                                    long positionId,
+                                                                    long priceId,
+                                                                    decimal specifiedRate,
+                                                                    int amount,
+                                                                    long sourceOrganizationUnitId,
+                                                                    long destOrganizationUnitId,
+                                                                    decimal discountSum,
+                                                                    decimal discountPercent,
+                                                                    bool calculateDiscountViaPercent)
+        {
+            bool showVat;
+            var vatRate = _orderReadModel.GetVatRate(sourceOrganizationUnitId, destOrganizationUnitId, out showVat);
+
+            return CalculateOrderPositionCostInternal(orderType,
+                                                      orderReleaseCount,
+                                                      null,
+                                                      null,
+                                                      specifiedRate,
+                                                      positionId,
+                                                      priceId,
+                                                      amount,
+                                                      vatRate,
+                                                      showVat,
+                                                      discountSum,
+                                                      discountPercent,
+                                                      calculateDiscountViaPercent);
+        }
+
+        public CalculationResult CalculateOrderPositionCost(OrderType orderType,
+                                                            int orderReleaseCount,
+                                                            long? firmId,
+                                                            long? categoryId,
+                                                            long positionId,
+                                                            long priceId,
+                                                            int amount,
+                                                            decimal vatRate,
+                                                            bool showVat,
+                                                            decimal discountSum,
+                                                            decimal discountPercent,
+                                                            bool calculateDiscountViaPercent)
+        {
+            return CalculateOrderPositionCostInternal(orderType,
+                                                      orderReleaseCount,
+                                                      firmId,
+                                                      categoryId,
+                                                      null,
+                                                      positionId,
+                                                      priceId,
+                                                      amount,
+                                                      vatRate,
+                                                      showVat,
+                                                      discountSum,
+                                                      discountPercent,
+                                                      calculateDiscountViaPercent);
+        }
+
         /// <summary>
         /// Рассчитывает стоимость отдельной позиции заказа
         /// </summary>
-        public CalculationResult CalculateOrderPositionCost(
-            OrderType orderType,
-            int orderReleaseCount,
-            long? firmId,
-            long? categoryId,
-            long positionId,
-            long priceId,
-            int amount,
-            decimal vatRate,
-            bool showVat,
-            decimal discountSum,
-            decimal discountPercent,
-            bool calculateDiscountViaPercent)
+        private CalculationResult CalculateOrderPositionCostInternal(OrderType orderType,
+                                                                     int orderReleaseCount,
+                                                                     long? firmId,
+                                                                     long? categoryId,
+                                                                     decimal? specifiedRate,
+                                                                     long positionId,
+                                                                     long priceId,
+                                                                     int amount,
+                                                                     decimal vatRate,
+                                                                     bool showVat,
+                                                                     decimal discountSum,
+                                                                     decimal discountPercent,
+                                                                     bool calculateDiscountViaPercent)
         {
             var pricePositionInfo = _finder.Find(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId) &&
                 Specs.Find.ActiveAndNotDeleted<PricePosition>())
@@ -238,7 +297,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                    x.Id,
                                                    x.Cost,
                                                    x.RateType,
-                                                   x.Position.IsComposite,
+                                                   x.Position.IsComposite
                                                })
                                            .SingleOrDefault();
 
@@ -253,7 +312,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             var nullCostOrder = orderType == OrderType.SelfAds || orderType == OrderType.SocialAds;
 
             // FIXME {all, 25.03.2014}: Нужно проанализировать этот usecase - выглядит довольно странно override для логики расчета CategoryRate, если цивилизованно не удается избавиться от firmId.HasValue (изменеив CalculateCategoryRate), стоит наверное добавить в PriceReadModel.GetDefaultRate - вообщем избавиться от magic number
-            var categoryRate = firmId.HasValue ? _calculateCategoryRateOperationService.CalculateCategoryRate(firmId.Value, pricePositionInfo.Id, categoryId, true) : 1m;
+            var categoryRate = specifiedRate ?? (firmId.HasValue
+                                                     ? _calculateCategoryRateOperationService.CalculateCategoryRate(firmId.Value,
+                                                                                                                    pricePositionInfo.Id,
+                                                                                                                    categoryId,
+                                                                                                                    true)
+                                                     : 1m);
 
             if (pricePositionInfo.IsComposite)
             {
@@ -265,18 +329,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                 if (positionCosts.Any())
                 {
                     var subpositionCalcRequests = positionCosts.Select(x => new CalcPositionRequest
-                    {
-                        Amount = amount,
-                        PriceCost = nullCostOrder ? decimal.Zero : x.Cost,
-                        Rate = categoryRate,
-                        PositionId = x.PositionId,
-                        PriceId = priceId,
-                        ReleaseCount = orderReleaseCount,
-                        ShowVat = showVat,
-                        VatRate = vatRate,
+                        {
+                            Amount = amount,
+                            PriceCost = nullCostOrder ? decimal.Zero : x.Cost,
+                            Rate = categoryRate,
+                            PositionId = x.PositionId,
+                            PriceId = priceId,
+                            ReleaseCount = orderReleaseCount,
+                            ShowVat = showVat,
+                            VatRate = vatRate,
 
-                        // Заполнять информацию о скидках не имеет смысла т.к, будет использована скидка пакета
-                    }).ToArray();
+                            // Заполнять информацию о скидках не имеет смысла т.к, будет использована скидка пакета
+                        }).ToArray();
 
                     var packageCalculation = CalculateWithDiscountDistribution(discountSum,
                                                                                discountPercent,
@@ -289,19 +353,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             }
 
             return _costCalculator.Calculate(new CalcPositionRequest
-            {
-                Amount = amount,
-                CalculateDiscountViaPercent = calculateDiscountViaPercent,
-                DiscountPercent = discountPercent,
-                DiscountSum = discountSum,
-                PriceCost = nullCostOrder ? decimal.Zero : pricePositionInfo.Cost,
-                Rate = categoryRate,
-                PositionId = positionId,
-                PriceId = priceId,
-                ReleaseCount = orderReleaseCount,
-                ShowVat = showVat,
-                VatRate = vatRate
-            });
+                {
+                    Amount = amount,
+                    CalculateDiscountViaPercent = calculateDiscountViaPercent,
+                    DiscountPercent = discountPercent,
+                    DiscountSum = discountSum,
+                    PriceCost = nullCostOrder ? decimal.Zero : pricePositionInfo.Cost,
+                    Rate = categoryRate,
+                    PositionId = positionId,
+                    PriceId = priceId,
+                    ReleaseCount = orderReleaseCount,
+                    ShowVat = showVat,
+                    VatRate = vatRate
+                });
         }
 
         /// <summary>

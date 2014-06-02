@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DoubleGis.Erm.BLCore.Aggregates.Withdrawals.Operations
+﻿namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto
 {
     public class ChargeDto
     {
