@@ -36,7 +36,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _queryable.GetEnumerator();
+            var expression = _queryable.Expression.Unwrap();
+            var queryable = expression == _queryable.Expression
+                                ? _queryable
+                                : Provider.CreateQuery(expression);
+            _queryable.Expression.Check();
+            return queryable.GetEnumerator();
         }
 
         public IQueryable Unwrap()
@@ -58,7 +63,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         public IEnumerator<T> GetEnumerator()
         {
-            return _queryable.GetEnumerator();
+            var expression = _queryable.Expression.Unwrap();
+            var queryable = expression == _queryable.Expression
+                                ? _queryable
+                                : (IQueryable<T>)Provider.CreateQuery(expression);
+            _queryable.Expression.Check();
+            return queryable.GetEnumerator();
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="EAV\DynamicStorageFinderWrapper.cs" />
     <Compile Include="EAV\DynamicStorageRepositoryDecorator.cs" />
     <Compile Include="EAV\EntityPartConverterHost.cs" />
+    <Compile Include="EAV\ExpressionExtensions.cs" />
     <Compile Include="EAV\IDynamicEntityMetadataProvider.cs" />
     <Compile Include="EAV\IEntityPartConverterHost.cs" />
     <Compile Include="EAV\ConsistentFinderDecorator.cs" />
