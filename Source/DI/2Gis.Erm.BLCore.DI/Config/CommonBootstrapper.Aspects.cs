@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IDynamicEntityMetadataProvider, DynamicEntityMetadataProvider>(Lifetime.Singleton)
 
                         .RegisterType<IFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentFinderDecorator>(new DependencyOverride<IFinder>(typeof(Finder)))))
-                        .RegisterType<ISecureFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentSecureFinderDecorator>(new DependencyOverride<ISecureFinder>(typeof(SecureFinder)))))
+                        .RegisterType<ISecureFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentSecureFinderDecorator>(new DependencyOverride<ISecureFinder>(typeof(SecureFinder)), new DependencyOverride<IFinder>(typeof(Finder)))))
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
