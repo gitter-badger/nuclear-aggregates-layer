@@ -14,10 +14,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCultu
                 {
                     FasComment.Alcohol,
                     FasComment.Supplements,
-                    FasComment.Smoke,
                     FasComment.Drugs,
                     FasComment.DrugsAndService,
-                    FasComment.Abortion,
                     FasComment.NewFasComment
                 };
         }

@@ -9,8 +9,8 @@ using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -23,11 +23,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders
 {
+    // TODO {all, 29.05.2014}: при рефакторинге ApplicationService учесть наличие клона MultiCulture - нужно их максимально объединить
     public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
     {
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPublicService _publicService;
+        private readonly IPaymentsDistributor _paymentsDistributor;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderReadModel _orderReadModel;
 
@@ -35,12 +37,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             IFinder finder,
             IUnitOfWork unitOfWork,
             IPublicService publicService,
+            IPaymentsDistributor paymentsDistributor,
             IOperationScopeFactory scopeFactory,
             IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _unitOfWork = unitOfWork;
             _publicService = publicService;
+            _paymentsDistributor = paymentsDistributor;
             _scopeFactory = scopeFactory;
             _orderReadModel = orderReadModel;
         }
@@ -290,8 +294,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             var result = new List<ReleasesWithdrawalsPosition>();
             foreach (var releaseWithdrawal in orderPosition.ReleaseWithdrawals)
             {
-                var positionsPaymentDistributions = PaymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.AmountToWithdraw);
-                var vatPositionsPaymentDistributions = PaymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.Vat);
+                var positionsPaymentDistributions = _paymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.AmountToWithdraw);
+                var vatPositionsPaymentDistributions = _paymentsDistributor.DistributePayment(subPositions.Count(), releaseWithdrawal.Vat);
 
                 for (int subPositionIndex = 0; subPositionIndex < subPositions.Count(); subPositionIndex++)
                 {
@@ -333,8 +337,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                 payablePlans.Add(costInfo, response.PayablePlan);
                 vats.Add(costInfo, response.PayablePlan - response.PayablePlanWoVat);
 
-                var positionsPaymentDistributions = PaymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), payablePlans[costInfo]);
-                var vatPositionsPaymentDistributions = PaymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), vats[costInfo]);
+                var positionsPaymentDistributions = _paymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), payablePlans[costInfo]);
+                var vatPositionsPaymentDistributions = _paymentsDistributor.DistributePayment(orderPosition.ReleaseWithdrawals.Count(), vats[costInfo]);
 
                 payablePlansDistributions.Add(costInfo, positionsPaymentDistributions);
                 vatsDistributions.Add(costInfo, vatPositionsPaymentDistributions);
@@ -366,8 +370,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             Order order,
             OrderPositionDto orderPosition)
         {
-            var paymentPlanDistribution = PaymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan);
-            var vatDistribution = PaymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan - orderPosition.PayablePlanWoVat);
+            var paymentPlanDistribution = _paymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan);
+            var vatDistribution = _paymentsDistributor.DistributePayment(order.ReleaseCountPlan, orderPosition.PayablePlan - orderPosition.PayablePlanWoVat);
 
             var releaseWithdrawals = new List<ReleaseWithdrawal>();
 

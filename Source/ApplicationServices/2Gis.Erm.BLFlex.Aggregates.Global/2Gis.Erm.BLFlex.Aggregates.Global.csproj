@@ -61,7 +61,7 @@
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
-    <Compile Include="MultiCulture\Orders\DTO\MulticultureOrderGridViewDto.cs" />
+    <Compile Include="MultiCulture\LegalPersonAggregate\MultiCultureLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
