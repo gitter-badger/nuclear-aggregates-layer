@@ -41,7 +41,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderReferencesReadModel _referencesReadModel;
-        private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;
 
         public GetOrderDtoService(IUserContext userContext,
@@ -68,7 +67,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             _userRepository = userRepository;
             _costCalculator = costCalculator;
             _referencesReadModel = new OrderReferencesReadModel(finder);
-            _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
@@ -152,7 +150,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                      .SingleOrDefault();
             if (accountInfo != null)
             {
-                if (_userContext.Identity.SkipEntityAccessCheck)
+                if (UserContext.Identity.SkipEntityAccessCheck)
                 {
                     dto.CanSwitchToAccount = true;
                 }
@@ -160,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 {
                     dto.CanSwitchToAccount = _entityAccessService.HasEntityAccess(EntityAccessTypes.Read,
                                                                                   EntityName.Account,
-                                                                                  _userContext.Identity.Code,
+                                                                                  UserContext.Identity.Code,
                                                                                   accountInfo.Id,
                                                                                   accountInfo.OwnerCode,
                                                                                   null);
@@ -195,9 +193,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Order> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var currentUserCode = _userContext.Identity.Code;
             Func<FunctionalPrivilegeName, bool> functionalPrivilegeValidator =
-                privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, currentUserCode);
+                privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, UserContext.Identity.Code);
 
             if (parentEntityName == EntityName.None ||
                 parentEntityName == EntityName.Client ||
@@ -254,13 +251,35 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             return resultDto;
         }
 
+        protected override void SetDtoProperties(
+            IDomainEntityDto<Order> domainEntityDto,
+            long entityId,
+            bool readOnly,
+            long? parentEntityId,
+            EntityName parentEntityName,
+            string extendedInfo)
+        {
+            var dto = (OrderDomainEntityDto)domainEntityDto;
+            if (!dto.IsNew())
+            {
+                return;
+            }
+
+            if (dto.DealRef != null && dto.DealRef.Id.HasValue)
+            {
+                var ownerId = _finder.Find(Specs.Find.ById<Deal>(dto.DealRef.Id.Value))
+                                     .Select(deal => deal.OwnerCode)
+                                     .Single();
+
+                dto.OwnerRef = new EntityReference(ownerId);
+            }
+        }
+
         private OrderDomainEntityDto CreateOrderDto(long? dealId)
         {
             const int ReleaseCount = 4;
 
             var utcNow = DateTime.UtcNow;
-            var currentUserCode = _userContext.Identity.Code;
-
             var orderDto = new OrderDomainEntityDto
                 {
                     IsActive = true,
@@ -279,7 +298,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             orderDto.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;
 
             // если создали заказ не из сделки, то пытаемся определить город назначения как город текущего пользователя
-            var organizationUnitDto = _userRepository.GetSingleOrDefaultOrganizationUnit(currentUserCode);
+            var organizationUnitDto = _userRepository.GetSingleOrDefaultOrganizationUnit(UserContext.Identity.Code);
             if (organizationUnitDto != null)
             {
                 // у пользователя должно быть одно отделение организации для подстановки, а если больше - то пусть сам ручками заполняет.
@@ -366,24 +385,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             orderDto.DealRef = new EntityReference { Id = dealInfo.Id, Name = dealInfo.Name };
 
             orderDto.DealCurrencyId = dealInfo.CurrencyId;
-        }
-
-        protected override void SetDtoProperties(IDomainEntityDto<Order> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo, long currentUserCode)
-        {
-            var dto = (OrderDomainEntityDto)domainEntityDto;
-            if (!dto.IsNew())
-            {
-                return;
-            }
-
-            if (dto.DealRef != null && dto.DealRef.Id.HasValue)
-            {
-                var ownerId = _finder.Find(Specs.Find.ById<Deal>(dto.DealRef.Id.Value))
-                                     .Select(deal => deal.OwnerCode)
-                                     .Single();
-
-                dto.OwnerRef = new EntityReference(ownerId);
-            }
         }
     }
 }

@@ -29,24 +29,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPublicService _publicService;
-        private readonly IPaymentsDistributor _paymentsDistributor;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPaymentsDistributor _paymentsDistributor;
 
         public CalculateReleaseWithdrawalsHandler(
             IFinder finder,
             IUnitOfWork unitOfWork,
             IPublicService publicService,
-            IPaymentsDistributor paymentsDistributor,
             IOperationScopeFactory scopeFactory,
-            IOrderReadModel orderReadModel)
+            IOrderReadModel orderReadModel,
+            IPaymentsDistributor paymentsDistributor)
         {
             _finder = finder;
             _unitOfWork = unitOfWork;
             _publicService = publicService;
-            _paymentsDistributor = paymentsDistributor;
             _scopeFactory = scopeFactory;
             _orderReadModel = orderReadModel;
+            _paymentsDistributor = paymentsDistributor;
         }
 
         protected override EmptyResponse Handle(CalculateReleaseWithdrawalsRequest request)
