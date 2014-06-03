@@ -1,11 +1,12 @@
-using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 
         public void Check(BranchOffice entity)
         {
-            var ipn = entity.UkrainePart().Ipn;
+            var ipn = entity.Within<UkraineBranchOfficePart>().GetPropertyValue(part => part.Ipn);
 
             if (_bargainTypeReadModel.GetVatRate(entity.BargainTypeId.Value) > 0 && string.IsNullOrWhiteSpace(ipn))
             {

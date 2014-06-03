@@ -38,39 +38,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
-            var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                       .Select(
-                           order =>
-                           new
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                                   .Select(order => new
                            {
                                order.Bargain,
                                LegalPersonId = order.LegalPersonId.Value,
                                OrganizationUnitName = order.DestOrganizationUnit.Name,
-                               BranchOfficeOrganizationUnit = order.BranchOfficeOrganizationUnit,
+                                           order.BranchOfficeOrganizationUnitId,
                                order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                CurrencyIsoCode = order.Currency.ISOCode,
                                LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
                            })
-                       .AsEnumerable()
-                       .Select(
-                           x =>
-                           new
-                           {
-                               x.Bargain,
-                               x.LegalPersonId,
-                               x.OrganizationUnitName,
-                               x.BranchOfficeOrganizationUnit,
-                               x.BranchOfficeId,
-                               x.CurrencyIsoCode,
-                               x.LegalPersonType,
-                           })
                        .Single();
 
-
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(orderInfo.BranchOfficeId);
+            var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
+                : null;
 
             var printData = new PrintData
                 {
@@ -78,7 +64,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
                     { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
                     { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(orderInfo.BranchOfficeOrganizationUnit) },
+                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
                     { "OperatesOnTheBasisInGenitive", _ukrainePrintHelper.GetOperatesOnTheBasisInGenitive(profile) },
                     { "OrganizationUnitName", orderInfo.OrganizationUnitName },
                 };
@@ -88,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     new PrintDocumentRequest
                     {
                         CurrencyIsoCode = orderInfo.CurrencyIsoCode,
-                        BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnit.Id,
+                        BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
                         TemplateCode = GetTemplateCode(orderInfo.LegalPersonType),
                         FileName = orderInfo.Bargain.Number,
                         PrintData = printData

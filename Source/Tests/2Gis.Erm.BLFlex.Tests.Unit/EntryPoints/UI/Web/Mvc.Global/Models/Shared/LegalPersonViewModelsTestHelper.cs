@@ -37,15 +37,37 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
 
         public static void FillUkraineLegalPersonDtoWithTestData(UkraineLegalPersonDomainEntityDto entityDto)
         {
-            FillLegalPersonDtoWithData(entityDto);
-            
+            entityDto.Id = TestId;
+            entityDto.LegalName = TestLegalName;
+            entityDto.ClientRef = TestClient;
+            entityDto.Inn = TestInn;
+            entityDto.LegalAddress = TestLegalAddress;
+            entityDto.Comment = TestComment;
+            entityDto.HasProfiles = TestHasProfiles;
+            entityDto.Timestamp = TestTimestamp;
+            entityDto.LegalPersonTypeEnum = TestLegalPersonType;
+            entityDto.PassportSeries = TestPassportSeries;
+            entityDto.PassportNumber = TestPassportNumber;
+            entityDto.PassportIssuedBy = TestPassportIssuedBy;
+            entityDto.RegistrationAddress = TestRegistrationAddress;
             entityDto.TaxationType = TestTaxationType;
         }
 
         public static void FillChileLegalPersonDtoWithTestData(ChileLegalPersonDomainEntityDto entityDto)
         {
-            FillLegalPersonDtoWithData(entityDto);
-
+            entityDto.Id = TestId;
+            entityDto.LegalName = TestLegalName;
+            entityDto.ClientRef = TestClient;
+            entityDto.Rut = TestInn;
+            entityDto.LegalAddress = TestLegalAddress;
+            entityDto.Comment = TestComment;
+            entityDto.HasProfiles = TestHasProfiles;
+            entityDto.Timestamp = TestTimestamp;
+            entityDto.LegalPersonTypeEnum = TestLegalPersonType;
+            entityDto.PassportSeries = TestPassportSeries;
+            entityDto.PassportNumber = TestPassportNumber;
+            entityDto.PassportIssuedBy = TestPassportIssuedBy;
+            entityDto.RegistrationAddress = TestRegistrationAddress;
             entityDto.OperationsKind = TestOperationsKind;
             entityDto.CommuneRef = TestCommune;
         }

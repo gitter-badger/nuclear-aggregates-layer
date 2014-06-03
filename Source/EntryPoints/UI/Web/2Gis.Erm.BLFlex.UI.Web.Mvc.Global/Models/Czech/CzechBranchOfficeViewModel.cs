@@ -1,6 +1,6 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -22,8 +22,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         [RequiredLocalized]
         [StringLengthLocalized(12)]
-        [DisplayNameLocalized("Dic")]
-        public string Inn { get; set; }
+        public string Dic { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(8, MinimumLength = 8)]
@@ -35,44 +34,34 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [RequiredLocalized]
         public LookupField ContributionType { get; set; }
 
-        public string Annotation { get; set; }
-
-        public string UsnNotificationText { get; set; }
-
         public override byte[] Timestamp { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeDomainEntityDto)domainEntityDto;
+            var modelDto = (CzechBranchOfficeDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            DgppId = modelDto.DgppId;
             Name = modelDto.Name;
-            Inn = modelDto.Inn;
+            Dic = modelDto.Dic;
             Ic = modelDto.Ic;
-            Annotation = modelDto.Annotation;
             BargainType = LookupField.FromReference(modelDto.BargainTypeRef);
             ContributionType = LookupField.FromReference(modelDto.ContributionTypeRef);
             LegalAddress = modelDto.LegalAddress;
-            UsnNotificationText = modelDto.UsnNotificationText;
             Timestamp = modelDto.Timestamp;
             IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeDomainEntityDto
+            return new CzechBranchOfficeDomainEntityDto
                 {
                     Id = Id,
-                    DgppId = DgppId,
                     Name = Name,
-                    Inn = Inn,
+                    Dic = Dic,
                     Ic = Ic,
-                    Annotation = Annotation,
                     BargainTypeRef = BargainType.ToReference(),
                     ContributionTypeRef = ContributionType.ToReference(),
                     LegalAddress = LegalAddress,
-                    UsnNotificationText = UsnNotificationText,
                     Timestamp = Timestamp
                 };
         }

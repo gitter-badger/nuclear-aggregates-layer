@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -18,25 +17,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete
     public sealed class ModifyLegalPersonProfileService : IModifyBusinessModelEntityService<LegalPersonProfile>
     {
         private readonly ILegalPersonProfileConsistencyRuleContainer _legalPersonProfileConsistencyRuleContainer;
-        private readonly ICreatePartableEntityAggregateService<LegalPerson, LegalPersonProfile> _createService;
-        private readonly IUpdatePartableEntityAggregateService<LegalPerson, LegalPersonProfile> _updateService;
+        private readonly ICreateAggregateRepository<LegalPersonProfile> _createRepository;
+        private readonly IUpdateAggregateRepository<LegalPersonProfile> _updateRepository;
         private readonly IBusinessModelEntityObtainer<LegalPersonProfile> _entityObtainer;
         private readonly ILegalPersonRepository _legalPersonRepository;
-        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public ModifyLegalPersonProfileService(
             ILegalPersonProfileConsistencyRuleContainer legalPersonProfileConsistencyRuleContainer,
-            ICreatePartableEntityAggregateService<LegalPerson, LegalPersonProfile> createService, 
-            IUpdatePartableEntityAggregateService<LegalPerson, LegalPersonProfile> updateService,
             IBusinessModelEntityObtainer<LegalPersonProfile> entityObtainer,
             ILegalPersonRepository legalPersonRepository,
-            ILegalPersonReadModel legalPersonReadModel)
+            ICreateAggregateRepository<LegalPersonProfile> createRepository,
+            IUpdateAggregateRepository<LegalPersonProfile> updateRepository)
         {
             _entityObtainer = entityObtainer;
             _legalPersonRepository = legalPersonRepository;
-            _legalPersonReadModel = legalPersonReadModel;
-            _createService = createService;
-            _updateService = updateService;
+            _createRepository = createRepository;
+            _updateRepository = updateRepository;
             _legalPersonProfileConsistencyRuleContainer = legalPersonProfileConsistencyRuleContainer;
         }
 
@@ -70,15 +66,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete
 
             try
             {
-                var partDtos = _legalPersonReadModel.GetBusinessEntityInstanceDto(entity).ToArray();
-
                 if (entity.IsNew())
                 {
-                    _createService.Create(entity, partDtos);
+                    _createRepository.Create(entity);
                 }
                 else
                 {
-                    _updateService.Update(entity, partDtos);
+                    _updateRepository.Update(entity);
                 }
             }
             catch (Exception ex)

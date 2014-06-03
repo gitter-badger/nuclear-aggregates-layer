@@ -3,14 +3,11 @@ using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Operations.Generic;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -21,7 +18,6 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
 {
@@ -30,34 +26,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly ILegalPersonRepository _legalPersonRepository;
-        private readonly ILegalPersonReadModel _readModel;
-        private readonly IDeletePartableEntityAggregateService<LegalPerson, LegalPerson> _deleteLegalPersonSerice;
+        private readonly IDeleteAggregateRepository<LegalPerson> _deleteLegalPersonRepository;
         private readonly ICacheAdapter _cacheAdapter;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IOperationScopeFactory _operationScopeFactory;
 
         public DeleteLegalPersonService(
             IUserContext userContext,
             IFinder finder,
             ILegalPersonRepository legalPersonRepository,
-            ILegalPersonReadModel readModel,
-            IDeletePartableEntityAggregateService<LegalPerson, LegalPerson> deleteLegalPersonSerice,
             ICacheAdapter cacheAdapter,
             ISecurityServiceEntityAccess entityAccessService,
             ISecurityServiceFunctionalAccess functionalAccessService, 
-            IOperationScopeFactory operationScopeFactory)
+            IDeleteAggregateRepository<LegalPerson> deleteLegalPersonRepository)
         {
             _userContext = userContext;
             _finder = finder;
             _legalPersonRepository = legalPersonRepository;
-            _readModel = readModel;
-            _deleteLegalPersonSerice = deleteLegalPersonSerice;
             _cacheAdapter = cacheAdapter;
             _entityAccessService = entityAccessService;
             _functionalAccessService = functionalAccessService;
-            _operationScopeFactory = operationScopeFactory;
-           
+            _deleteLegalPersonRepository = deleteLegalPersonRepository;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -66,13 +55,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
             var deleteSession = OperationSession.GetSession(_cacheAdapter, BusinessOperation.Delete, entityId, currentIdentity.Code);
             try
             {
-                using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, LegalPerson>())
-                {
                     // TODO {v.lapeev, 20.02.2014}: перевести всю валидацию на ReadModel
+                // COMMENT {all, 21.05.2014}: ReadModel не должна заниматься валидацией, ее ответственность в консистентом получении требуемых данных из хранилища
+                //                            Валидацией должен заниматься либо сервис операции сам, либо делегировать это отдельной абстракции - валидатору. Что выбрать - определяется сложностью сервиса операции
+                var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
                     var findResult = _finder.Find(Specs.Find.ById<LegalPerson>(entityId))
                         .Select(x => new
                             {
-                                LegalPerson = x,
                                 IsLinkedWithActiveOrders = x.Orders.Any(y => y.IsActive && !y.IsDeleted),
                                 HasAccounts = x.Accounts.Any(a => !a.IsDeleted && a.IsActive)
                             })
@@ -82,11 +71,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     {
                         throw new NotificationException(BLResources.CantDeleteObjectLinkedWithActiveOrders);
                     }
-                    if (findResult.LegalPerson.IsDeleted)
+                if (legalPerson.IsDeleted)
                     {
                         throw new NotificationException(BLResources.LegalPersonIsDeletedAlready);
                     }
-                    if (findResult.LegalPerson.IsInSyncWith1C)
+                if (legalPerson.IsInSyncWith1C)
                     {
                         throw new NotificationException(BLResources.CantDeleteLegalPersonWhenItIsSyncedWith1C);
                     }
@@ -98,16 +87,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     var checkAggregateForDebtsRepository = _legalPersonRepository as ICheckAggregateForDebtsRepository<LegalPerson>;
                     checkAggregateForDebtsRepository.CheckForDebts(entityId, _userContext.Identity.Code, deleteSession.CanProceedWithAccountDebts);
 
-                    var legalPerson = _readModel.GetLegalPerson(entityId);
-
-                    var dtos = _readModel.GetBusinessEntityInstanceDto(legalPerson);
-
-                    _deleteLegalPersonSerice.Delete(findResult.LegalPerson, dtos);
-
-                    operationScope.Updated<LegalPerson>(entityId);
-                    operationScope.Complete();
+                _deleteLegalPersonRepository.Delete(entityId);
                 }
-            }
             catch (ProcessAccountsWithDebtsException ex)
             {
                 var hasProcessAccountsWithDebtsPermissionGranted =
@@ -128,10 +109,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
 
         public DeleteConfirmationInfo GetConfirmation(long entityId)
         {
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
             var findResult = _finder.Find(Specs.Find.ById<LegalPerson>(entityId))
                 .Select(x => new
                     {
-                        LegalPerson = x,
                         IsLinkedWithActiveOrders = x.Orders.Any(y => x.IsActive && !y.IsDeleted)
                     })
                 .SingleOrDefault();
@@ -145,7 +126,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     };
             }
 
-            var legalPerson = findResult.LegalPerson;
             var entityPrivileges = _entityAccessService.RestrictEntityAccess(EntityName.LegalPerson,
                                                                              EntityAccessTypes.All,
                                                                              _userContext.Identity.Code,
@@ -159,7 +139,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
             {
                 return new DeleteConfirmationInfo
                     {
-                        EntityCode = findResult.LegalPerson.LegalName,
+                        EntityCode = legalPerson.LegalName,
                         IsDeleteAllowed = false,
                         DeleteDisallowedReason = BLResources.EntityAccessDenied
                     };
@@ -169,33 +149,33 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
             {
                 return new DeleteConfirmationInfo
                     {
-                        EntityCode = findResult.LegalPerson.LegalName,
+                        EntityCode = legalPerson.LegalName,
                         IsDeleteAllowed = false,
                         DeleteDisallowedReason = BLResources.CantDeleteObjectLinkedWithActiveOrders
                     };
             }
             // уже удален
-            if (findResult.LegalPerson.IsDeleted)
+            if (legalPerson.IsDeleted)
             {
                 return new DeleteConfirmationInfo
                     {
-                        EntityCode = findResult.LegalPerson.LegalName,
+                        EntityCode = legalPerson.LegalName,
                         IsDeleteAllowed = false,
                         DeleteDisallowedReason = BLResources.OrderIsAlreadyDeleted
                     };
             }
-            if (findResult.LegalPerson.IsInSyncWith1C)
+            if (legalPerson.IsInSyncWith1C)
             {
                 return new DeleteConfirmationInfo
                     {
-                        EntityCode = findResult.LegalPerson.LegalName,
+                        EntityCode = legalPerson.LegalName,
                         IsDeleteAllowed = false,
                         DeleteDisallowedReason = BLResources.CantDeleteLegalPersonWhenItIsSyncedWith1C
                     };
             }
             return new DeleteConfirmationInfo
                 {
-                    EntityCode = findResult.LegalPerson.ShortName, 
+                    EntityCode = legalPerson.ShortName, 
                     IsDeleteAllowed = true, 
                     DeleteConfirmation = string.Empty
                 };

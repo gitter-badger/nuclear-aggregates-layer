@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
@@ -22,23 +21,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
         private readonly IPublicService _publicService;
         private readonly ILegalPersonReadModel _readModel;
         private readonly IBusinessModelEntityObtainer<LegalPerson> _obtainer;
-        private readonly ICreatePartableEntityAggregateService<LegalPerson, LegalPerson> _createService;
-        private readonly IUpdatePartableEntityAggregateService<LegalPerson, LegalPerson> _updateService;
+        private readonly ICreateAggregateRepository<LegalPerson> _createRepository;
+        private readonly IUpdateAggregateRepository<LegalPerson> _updateRepository;
         private readonly ICheckInnService _checkRutService;
 
         public ModifyLegalPersonService(
             IPublicService publicService,
             ILegalPersonReadModel readModel,
             IBusinessModelEntityObtainer<LegalPerson> obtainer,
-            ICreatePartableEntityAggregateService<LegalPerson, LegalPerson> createService,
-            IUpdatePartableEntityAggregateService<LegalPerson, LegalPerson> updateService,
+            ICreateAggregateRepository<LegalPerson> createRepository,
+            IUpdateAggregateRepository<LegalPerson> updateRepository,
             ICheckInnService checkRutService)
         {
             _readModel = readModel;
             _publicService = publicService;
             _obtainer = obtainer;
-            _createService = createService;
-            _updateService = updateService;
+            _createRepository = createRepository;
+            _updateRepository = updateRepository;
             _checkRutService = checkRutService;
         }
 
@@ -78,15 +77,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
 
             try
             {
-                var dtos = _readModel.GetBusinessEntityInstanceDto(entity).ToArray();
-
                 if (entity.IsNew())
                 {
-                    _createService.Create(entity, dtos);
+                    _createRepository.Create(entity);
                 }
                 else
                 {
-                    _updateService.Update(entity, dtos);
+                    _updateRepository.Update(entity);
                 }
             }
             catch (Exception ex)

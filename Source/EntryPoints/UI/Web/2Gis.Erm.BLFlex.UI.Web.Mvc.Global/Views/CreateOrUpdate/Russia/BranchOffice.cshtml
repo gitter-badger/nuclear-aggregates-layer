@@ -1,5 +1,4 @@
-﻿
-@model Models.Russia.BranchOfficeViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.BranchOfficeViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -11,8 +10,6 @@
 
 @section CardBody
 {
-    @Html.HiddenFor(m => m.IsActive)
-    @Html.HiddenFor(m => m.IsDeleted)
     @Html.HiddenFor(m => m.IdentityServiceUrl)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">

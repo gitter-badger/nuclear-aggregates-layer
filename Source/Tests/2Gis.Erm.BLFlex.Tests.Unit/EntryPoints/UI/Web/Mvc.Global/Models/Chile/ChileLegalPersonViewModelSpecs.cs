@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.C
             It should_have_expected_id = () => DomainEntityDto.Id.Should().Be(LegalPersonViewModelsTestHelper.TestId);
             It should_have_expected_LegalName = () => DomainEntityDto.LegalName.Should().Be(LegalPersonViewModelsTestHelper.TestLegalName);
             It should_have_expected_ClientId = () => DomainEntityDto.ClientRef.Id.Should().Be(LegalPersonViewModelsTestHelper.TestClient.Id);
-            It should_have_expected_Inn = () => DomainEntityDto.Inn.Should().Be(LegalPersonViewModelsTestHelper.TestInn);
+            It should_have_expected_Inn = () => DomainEntityDto.Rut.Should().Be(LegalPersonViewModelsTestHelper.TestInn);
             It should_have_expected_OperationsKind = () => DomainEntityDto.OperationsKind.Should().Be(LegalPersonViewModelsTestHelper.TestOperationsKind);
             It should_have_expected_CommuneId = () => DomainEntityDto.CommuneRef.Id.Should().Be(LegalPersonViewModelsTestHelper.TestCommune.Id);
             It should_have_expected_LegalAddress = () => DomainEntityDto.LegalAddress.Should().Be(LegalPersonViewModelsTestHelper.TestLegalAddress);

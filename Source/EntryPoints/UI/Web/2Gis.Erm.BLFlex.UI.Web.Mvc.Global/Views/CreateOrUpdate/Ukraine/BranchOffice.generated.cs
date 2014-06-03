@@ -73,28 +73,6 @@ WriteLiteral("    ");
 
             
             #line 13 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-Write(Html.HiddenFor(m => m.IsActive));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 14 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-Write(Html.HiddenFor(m => m.IsDeleted));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 15 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
 Write(Html.HiddenFor(m => m.IdentityServiceUrl));
 
             
@@ -106,14 +84,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 361), Tuple.Create("\"", 397)
+WriteAttribute("title", Tuple.Create(" title=\"", 284), Tuple.Create("\"", 320)
             
-            #line 16 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-, Tuple.Create(Tuple.Create("", 369), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 14 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+, Tuple.Create(Tuple.Create("", 292), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 369), false)
+, 292), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -125,7 +103,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 18 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 16 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.EditableId(m => m.Id));
 
             
@@ -140,7 +118,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 21 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 19 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.lone));
 
             
@@ -155,7 +133,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 24 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 22 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
 
             
@@ -170,7 +148,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 27 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 25 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.Ipn, FieldFlex.twins));
 
             
@@ -181,7 +159,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 28 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.Egrpou, FieldFlex.twins));
 
             
@@ -196,7 +174,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 31 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 29 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true}));
 
             
@@ -207,54 +185,8 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
        Write(Html.TemplateField(m => m.ContributionType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.ContributionType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n    </div>\r\n    <div");
-
-WriteLiteral(" class=\"Tab\"");
-
-WriteLiteral(" id=\"AnnotationTab\"");
-
-WriteAttribute("title", Tuple.Create(" title=\"", 1376), Tuple.Create("\"", 1402)
-            
-            #line 35 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-, Tuple.Create(Tuple.Create("", 1384), Tuple.Create<System.Object, System.Int32>(BLResources.Notes
-            
-            #line default
-            #line hidden
-, 1384), false)
-);
-
-WriteLiteral(">\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 37 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-       Write(Html.TemplateField(m => m.UsnNotificationText, FieldFlex.lone, new Dictionary<string, object>{{"rows", "10"}}));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 40 "..\..\Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml"
-       Write(Html.TemplateField(m => m.Annotation, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } }));
 
             
             #line default

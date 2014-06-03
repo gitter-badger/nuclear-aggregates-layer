@@ -1,7 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DictionaryEntity;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -10,30 +9,28 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
 {
     public class ModifyBankService : IModifySimplifiedModelEntityService<Bank>
     {
-        private readonly IDynamicDictionaryEntityService _dynamicDictionaryEntityService;
         private readonly ISimplifiedModelEntityObtainer<Bank> _bankObtainer;
-        private readonly IBankReadModel _bankReadModel;
+        private readonly IBankService _bankService;
 
-        public ModifyBankService(IDynamicDictionaryEntityService dynamicDictionaryEntityService,
-                                 ISimplifiedModelEntityObtainer<Bank> bankObtainer,
-                                 IBankReadModel bankReadModel)
+        public ModifyBankService(ISimplifiedModelEntityObtainer<Bank> bankObtainer,
+                                 IBankService bankService)
         {
-            _dynamicDictionaryEntityService = dynamicDictionaryEntityService;
             _bankObtainer = bankObtainer;
-            _bankReadModel = bankReadModel;
+            _bankService = bankService;
         }
 
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var bank = _bankObtainer.ObtainSimplifiedModelEntity(domainEntityDto);
-            var dictionaryEntityInstanceDto = _bankReadModel.GetDictionaryEntityInstanceDto(bank);
             if (bank.IsNew())
             {
-                return _dynamicDictionaryEntityService.Create(dictionaryEntityInstanceDto.DictionaryEntityInstance,
-                                                              dictionaryEntityInstanceDto.DictionaryEntityPropertyInstances);
+                _bankService.Create(bank);
+            }
+            else
+            {
+                _bankService.Update(bank);
             }
 
-            _dynamicDictionaryEntityService.Update(dictionaryEntityInstanceDto.DictionaryEntityInstance, dictionaryEntityInstanceDto.DictionaryEntityPropertyInstances);
             return bank.Id;
         }
     }

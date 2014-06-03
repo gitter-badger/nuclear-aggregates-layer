@@ -15,6 +15,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
         PrintData GetBranchOffice(IQueryable<BranchOffice> query);
         PrintData GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit boou);
         PrintData GetOrderPositions(IQueryable<Order> orderQuery, IQueryable<OrderPosition> orderPositionsQuery);
-        PrintData GetUngrouppedFields(IQueryable<Order> query, LegalPersonProfile profile);
+        PrintData GetUngrouppedFields(IQueryable<Order> query, LegalPerson legalPerson, LegalPersonProfile profile);
     }
 }

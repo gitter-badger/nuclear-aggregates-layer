@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                                           Bill = bill,
                                           bill.Order,
 
-                                          bill.Order.BranchOfficeOrganizationUnit,
+                                          bill.Order.BranchOfficeOrganizationUnitId,
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                           bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                           LegalPersonId = bill.Order.LegalPersonId.Value,
@@ -67,11 +67,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
             var orderVatRate = (billInfo.OrderVatRate == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
+            var branchOfficeOrganizationUnit = billInfo.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value))
+                : null;
 
             var printData = new PrintData
                 {
                     { "BranchOffice", UkrainePrintHelper.BranchOfficeFields(branchOffice) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(billInfo.BranchOfficeOrganizationUnit) },
+                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
                     { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
                     { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
                     { "Order", UkrainePrintHelper.OrderFields(billInfo.Order) },
@@ -85,7 +88,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                     {
                         CurrencyIsoCode = billInfo.CurrencyISOCode,
                         FileName = billInfo.Bill.BillNumber,
-                        BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnit.Id,
+                        BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                         PrintData = printData,
                         TemplateCode = GetTemplateCode((LegalPersonType)billInfo.LegalPersonTypeEnum)
                     },

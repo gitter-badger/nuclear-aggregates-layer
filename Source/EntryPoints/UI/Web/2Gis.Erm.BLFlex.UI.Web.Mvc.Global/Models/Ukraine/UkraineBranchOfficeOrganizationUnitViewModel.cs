@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             BranchOfficeAddlId = modelDto.BranchOfficeAddlId;
             BranchOfficeAddlIpn = modelDto.BranchOfficeAddlIpn;
-            BranchOfficeAddlEgrpou = modelDto.BranchOfficeAddlInn;
+            BranchOfficeAddlEgrpou = modelDto.BranchOfficeAddlEgrpou;
             BranchOfficeAddlLegalAddress = modelDto.BranchOfficeAddlLegalAddress;
             BranchOfficeAddlName = modelDto.BranchOfficeAddlName;
             PaymentEssentialElements = modelDto.PaymentEssentialElements;
@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
                     BranchOfficeAddlId = BranchOfficeAddlId.Value,
                     BranchOfficeAddlIpn = BranchOfficeAddlIpn,
-                    BranchOfficeAddlInn = BranchOfficeAddlEgrpou,
+                    BranchOfficeAddlEgrpou = BranchOfficeAddlEgrpou,
                     BranchOfficeAddlLegalAddress = BranchOfficeAddlLegalAddress,
                     BranchOfficeAddlName = BranchOfficeAddlName,
                     PaymentEssentialElements = PaymentEssentialElements,

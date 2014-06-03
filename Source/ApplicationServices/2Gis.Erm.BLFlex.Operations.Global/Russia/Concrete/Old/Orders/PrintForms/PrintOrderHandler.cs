@@ -81,6 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order, TemplateCode templateCode)
         {
             var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : order.MainLegalPersonProfileId;
+            var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
 
@@ -93,7 +94,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                     _orderPrintFormDataExtractor.GetOrder(orderQuery),
                                     _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery),
                                     _orderPrintFormDataExtractor.GetPaymentSchedule(billQuery),
-                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, profile, templateCode),
+                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile, templateCode),
                                     _orderPrintFormDataExtractor.GetBranchOfficeOrganizationUnit(boou),
                                     _orderPrintFormDataExtractor.GetLegalPersonProfile(profile));
         }

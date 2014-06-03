@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -78,28 +79,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
         {
-            return
-                _finder.Find(Specs.Find.ById<Order>(orderId))
-                       .Select(order => new
-                           {
-                               Order = order,
-                               order.LegalPerson,
-                               Profile = order.LegalPerson.LegalPersonProfiles
-                                              .FirstOrDefault(y => y.Id == legalPersonProfileId),
-                               order.BranchOfficeOrganizationUnit,
-                               order.BranchOfficeOrganizationUnit.BranchOffice,
-                           })
-                       .AsEnumerable()
-                       .Select(x => new PrintData
-                           {
-                               { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
-                               { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForAdditionalAgreement(x.BranchOfficeOrganizationUnit) },
-                               { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
-                               { "Profile", CzechPrintHelper.LegalPersonProfileFieldsForAdditionalAgreement(x.Profile) },
-                               { "Order", CzechPrintHelper.OrderFields(x.Order) },
-                               { "OperatesOnTheBasis", GetOperatesOnTheBasisString(x.Profile) },
-                           })
-                       .Single();
+            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      order.LegalPersonId,
+                                      ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == legalPersonProfileId).Id,
+                                      order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                  })
+                              .Single();
+
+            var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            return new PrintData
+                {
+                    { "BranchOffice", CzechPrintHelper.BranchOfficeFields(_finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId))) },
+                    { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForAdditionalAgreement(branchOfficeOrganizationUnit) },
+                    { "LegalPerson", CzechPrintHelper.LegalPersonFields(legalPerson) },
+                    { "Profile", CzechPrintHelper.LegalPersonProfileFieldsForAdditionalAgreement(legalPersonProfile) },
+                    { "Order", CzechPrintHelper.OrderFields(data.Order) },
+                    { "OperatesOnTheBasis", GetOperatesOnTheBasisString(legalPersonProfile) },
+                };
         }
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)

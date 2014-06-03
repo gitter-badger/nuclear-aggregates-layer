@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            Order = order,
                                            order.EndDistributionDateFact,
                                            LegalPersonId = order.LegalPersonId.Value,
-                                           order.BranchOfficeOrganizationUnit,
+                                           order.BranchOfficeOrganizationUnitId,
                                            CurrencyISOCode = order.Currency.ISOCode,
                                            LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum
                                        })
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            x.OrderState,
                                            TerminationDate = x.EndDistributionDateFact.AddDays(1),
                                            x.LegalPersonId,
-                                           x.BranchOfficeOrganizationUnit,
+                                           x.BranchOfficeOrganizationUnitId,
                                            x.CurrencyISOCode,
                                            x.LegalPersonType
                                        })
@@ -71,13 +71,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
+                : null;
 
             var printData = new PrintData
                 {
                     { "LegalPerson", UkrainePrintHelper.LegalPersonFields(legalPerson) },
                     { "Profile", UkrainePrintHelper.LegalPersonProfileFields(profile) },
                     { "Order", UkrainePrintHelper.OrderFields(orderInfo.Order) },
-                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(orderInfo.BranchOfficeOrganizationUnit) },
+                    { "BranchOfficeOrganizationUnit", UkrainePrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
                     { "TerminationDate", orderInfo.TerminationDate },
                 };
 
@@ -87,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                         CurrencyIsoCode = orderInfo.CurrencyISOCode,
                         TemplateCode = GetTemplateCode(orderInfo.LegalPersonType),
                         FileName = string.Format(BLResources.PrintTerminationNoticeFileNameFormat, orderInfo.Order.Number),
-                        BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnit.Id,
+                        BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
                         PrintData = printData
                     },
                 Context);

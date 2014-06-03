@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                                           DataExtractor.GetOrder(Query(Order)),
                                           DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition)),
                                           DataExtractor.GetPaymentSchedule(Query(Bill)),
-                                          DataExtractor.GetUngrouppedFields(Query(Order), LegalPersonProfile, TemplateCode.OrderWithoutVatWithoutDiscount),
+                                          DataExtractor.GetUngrouppedFields(Query(Order), BranchOfficeOrganizationUnit, LegalPerson, LegalPersonProfile, TemplateCode.OrderWithoutVatWithoutDiscount),
                                           DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),
                                           DataExtractor.GetLegalPersonProfile(LegalPersonProfile));
             };

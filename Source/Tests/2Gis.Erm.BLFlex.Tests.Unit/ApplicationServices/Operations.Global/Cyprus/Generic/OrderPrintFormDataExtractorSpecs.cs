@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                                     DataExtractor.GetBranchOffice(Query(BranchOffice)),
                                     DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),
                                     DataExtractor.GetOrderPositions(Query(Order), Query(OrderPosition)),
-                                    DataExtractor.GetUngrouppedFields(Query(Order), LegalPersonProfile));
+                                    DataExtractor.GetUngrouppedFields(Query(Order), LegalPerson, LegalPersonProfile));
             };
 
             It should_contain_certain_data_set_for_root = () => Result.Select(pair => pair.Key).Should().Contain(RootFieldSet);

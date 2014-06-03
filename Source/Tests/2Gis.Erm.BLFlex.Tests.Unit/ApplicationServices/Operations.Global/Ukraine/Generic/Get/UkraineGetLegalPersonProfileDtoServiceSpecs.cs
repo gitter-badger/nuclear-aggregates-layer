@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -29,8 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         {
             protected static UkraineGetLegalPersonProfileDtoService UkraineGetLegalPersonProfileDtoService;
             protected static IUserContext UserContext;
-            protected static ILegalPersonReadModel ReadModel;
-            protected static ISecureFinder SecureFinder;
+            protected static ILegalPersonReadModel LegalPersonReadModel;
             protected static IDomainEntityDto Result;
 
             protected static long EntityId;
@@ -41,19 +39,18 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             Establish context = () =>
                 {
-                    ReadModel = Mock.Of<ILegalPersonReadModel>();
-                    UserContext = Mock.Of<IUserContext>();
-                    SecureFinder = Mock.Of<ISecureFinder>();
+                    LegalPersonReadModel = Mock.Of<ILegalPersonReadModel>();
+                    UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
 
-                    UkraineGetLegalPersonProfileDtoService = new UkraineGetLegalPersonProfileDtoService(UserContext, SecureFinder, ReadModel);
+                    UkraineGetLegalPersonProfileDtoService = new UkraineGetLegalPersonProfileDtoService(UserContext, LegalPersonReadModel);
                 };
         }
 
+        [Obsolete("Test must be actualized")]
         [Tags("GetDtoServie")]
         [Subject(typeof(UkraineGetLegalPersonProfileDtoService))]
         class When_requested_existing_entity : UkraineGetLegalPersonProfileDtoServiceContext
         {
-            protected static UkraineLegalPersonProfileDomainEntityDto Dto;
             protected static LegalPersonProfile LegalPersonProfile;
             protected static UkraineLegalPersonProfilePart UkraineLegalPersonProfilePart;
 
@@ -64,13 +61,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
                 {
                     EntityId = entityId; // C Id != 0 мы получим Dto из хранилища
-                    Dto = new UkraineLegalPersonProfileDomainEntityDto();
 
-                    UkraineLegalPersonProfilePart = new UkraineLegalPersonProfilePart { Mfo = TestMfo};
-                    LegalPersonProfile = new LegalPersonProfile { Parts = new[] { UkraineLegalPersonProfilePart } };
+                    UkraineLegalPersonProfilePart = new UkraineLegalPersonProfilePart { Mfo = TestMfo };
+                    LegalPersonProfile = new LegalPersonProfile { Parts = new[] { UkraineLegalPersonProfilePart }, Timestamp = new byte[0] };  // Timestamp != null показывает, что LegalPerson не новая сущность
 
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPersonProfileDto<UkraineLegalPersonProfileDomainEntityDto>(entityId)).Returns(Dto);
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPersonProfile(EntityId)).Returns(LegalPersonProfile);
+                    Mock.Get(LegalPersonReadModel).Setup(x => x.GetLegalPersonProfile(EntityId)).Returns(LegalPersonProfile);
                 };
 
             Because of = () =>
@@ -87,12 +82,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(UkraineGetLegalPersonProfileDtoService))]
         class When_requested_new_entity : UkraineGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
-            static LegalPerson ParenLegalPerson;
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
+            static LegalPerson ParentLegalPerson;
 
             Establish context = () =>
                 {
@@ -100,15 +93,13 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     ParentEntityId = 1;
                     ParentEntityName = EntityName.LegalPerson;
 
-                    ParenLegalPerson = new LegalPerson
+                    ParentLegalPerson = new LegalPerson
                         {
                             Id = ParentEntityId.Value,
                             LegalName = TestLegalPersonName,
                         };
 
-                    _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                    Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
-                    Mock.Get(SecureFinder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<LegalPerson>>())).Returns(Q(ParenLegalPerson));
+                    Mock.Get(LegalPersonReadModel).Setup(x => x.GetLegalPersonName(ParentEntityId.Value)).Returns(TestLegalPersonName);
                 };
 
             Because of = () =>
@@ -122,20 +113,17 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             It should_have_default_DocumentsDeliveryMethod =
                 () => ((UkraineLegalPersonProfileDomainEntityDto)Result).DocumentsDeliveryMethod.Should().Be(DefaultDocumentsDeliveryMethod);
 
-            It should_have_expected_LegalPersonId = () => ((UkraineLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Id.Should().Be(ParenLegalPerson.Id);
+            It should_have_expected_LegalPersonId = () => ((UkraineLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Id.Should().Be(ParentLegalPerson.Id);
 
             It should_have_expected_LegalPersonName =
-                () => ((UkraineLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Name.Should().Be(ParenLegalPerson.LegalName);
+                () => ((UkraineLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Name.Should().Be(ParentLegalPerson.LegalName);
         }
 
         [Tags("GetDtoServie")]
         [Subject(typeof(UkraineGetLegalPersonProfileDtoService))]
         class When_requested_new_entity_but_parentId_is_not_set : UkraineGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
-            static LegalPerson ParenLegalPerson;
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
             static Exception catchedException;
@@ -145,9 +133,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = null;
                 ParentEntityName = EntityName.LegalPerson;
-
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             Because of = () => catchedException = Catch.Exception(() => UkraineGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));
@@ -159,10 +144,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(UkraineGetLegalPersonProfileDtoService))]
         class When_requested_new_entity_and_parent_entity_is_not_a_LegalPerson : UkraineGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
-            static LegalPerson ParenLegalPerson;
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
             static Exception catchedException;
@@ -172,9 +154,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = 1;
                 ParentEntityName = EntityName.Order;
-
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             Because of = () => catchedException = Catch.Exception(() => UkraineGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));

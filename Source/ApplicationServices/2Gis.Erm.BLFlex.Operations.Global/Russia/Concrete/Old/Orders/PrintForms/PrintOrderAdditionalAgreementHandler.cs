@@ -53,42 +53,47 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 throw new NotificationException(BLResources.OrderRejectDateFieldIsNotFilled);
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var data = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
-                                 {
-                                     Order = order,
-                                     order.Bargain,
-                                     order.LegalPerson,
-                                     Profile =
-                                     order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                         y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
-                                     OrganizationUnitName = order.LegalPerson.Client.Territory.OrganizationUnit.Name,
-                                     order.BranchOfficeOrganizationUnit,
-                                     order.BranchOfficeOrganizationUnit.BranchOffice,
-                                     CurrencyISOCode = order.Currency.ISOCode,
-                                     LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                                     order.BranchOfficeOrganizationUnitId,
-                                 })
-                .AsEnumerable()
-
-                // in-memory transformations
-                .Select(x => new
-                             {
-                                 x.Order,
-                                 RelatedBargainInfo = (x.Bargain != null) ?
-                                    string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn)) : null,
-                                 NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
-                                 x.LegalPerson,
-                                 x.Profile,
-                                 x.OrganizationUnitName,
-                                 x.BranchOfficeOrganizationUnit,
-                                 x.BranchOffice,
-                                 x.CurrencyISOCode,
-                                 x.LegalPersonType,
-                                 x.BranchOfficeOrganizationUnitId,
-                                 OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(x.Profile, x.LegalPersonType)
-                             })
+                    {
+                        Order = order,
+                        order.Bargain,
+                        order.LegalPersonId,
+                        ProfileId = order.LegalPerson.LegalPersonProfiles
+                                         .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
+                                         .Id,
+                        OrganizationUnitName = order.LegalPerson.Client.Territory.OrganizationUnit.Name,
+                        order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                        CurrencyISOCode = order.Currency.ISOCode,
+                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                        order.BranchOfficeOrganizationUnitId,
+                    })
                 .Single();
+
+            var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
+                : null;
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId));
+
+            var printData = new
+                {
+                    data.Order,
+                    RelatedBargainInfo = (data.Bargain != null) 
+                        ? string.Format(BLResources.RelatedToBargainInfoTemplate, data.Bargain.Number, _longDateFormatter.Format(data.Bargain.CreatedOn)) 
+                        : null,
+                    NextReleaseDate = data.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
+                    LegalPerson = legalPerson,
+                    Profile = profile,
+                    data.OrganizationUnitName,
+                    BranchOfficeOrganizationUnit = branchOfficeOrganizationUnit,
+                    BranchOffice = branchOffice,
+                    data.CurrencyISOCode,
+                    data.LegalPersonType,
+                    data.BranchOfficeOrganizationUnitId,
+                    OperatesOnTheBasisInGenitive = GetOperatesOnTheBasisInGenitive(profile, data.LegalPersonType)
+                };
 
             return
                 _requestProcessor.HandleSubRequest(

@@ -1,7 +1,7 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -11,8 +11,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
     public sealed class ChileBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IChileAdapted
     {
-        public long? DgppId { get; set; }
-
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         public string Name { get; set; }
@@ -35,12 +33,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeDomainEntityDto)domainEntityDto;
+            var modelDto = (ChileBranchOfficeDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            DgppId = modelDto.DgppId;
             Name = modelDto.Name;
-            Rut = modelDto.Inn;
+            Rut = modelDto.Rut;
             BargainType = LookupField.FromReference(modelDto.BargainTypeRef);
             ContributionType = LookupField.FromReference(modelDto.ContributionTypeRef);
             LegalAddress = modelDto.LegalAddress;
@@ -50,12 +47,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeDomainEntityDto
+            return new ChileBranchOfficeDomainEntityDto
                 {
                     Id = Id,
-                    DgppId = DgppId,
                     Name = Name,
-                    Inn = Rut,
+                    Rut = Rut,
                     BargainTypeRef = BargainType.ToReference(),
                     ContributionTypeRef = ContributionType.ToReference(),
                     LegalAddress = LegalAddress,

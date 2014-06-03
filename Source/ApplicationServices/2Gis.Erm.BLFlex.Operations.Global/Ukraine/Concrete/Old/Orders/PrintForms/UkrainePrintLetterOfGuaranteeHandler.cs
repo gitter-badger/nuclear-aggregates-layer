@@ -47,27 +47,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
 
         protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
         {
-            return
-                _finder.Find(Specs.Find.ById<Order>(orderId))
-                       .Select(order => new
-                           {
-                               Order = order,
-                               Profile = order.LegalPerson.LegalPersonProfiles
-                                              .FirstOrDefault(y => y.Id == legalPersonProfileId),
-                               order.LegalPerson,
-                               order.BranchOfficeOrganizationUnit,
-                           })
-                       .AsEnumerable()
-                       .Select(x => new PrintData
-                           {
-                               { "BranchOfficeOrganizationUnitName", x.BranchOfficeOrganizationUnit.ShortLegalName },
-                               {
-                                   "LegalPersonName", x.LegalPerson.LegalName
-                               },
-                               { "Order", GetOrderData(x.Order) },
-                               { "Profile", GetProfileData(x.Profile) }
-                           })
-                       .Single();
+            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == legalPersonProfileId).Id,
+                                      LegalPersonName = order.LegalPerson.LegalName,
+                                      BranchOfficeOrganizationUnitName = order.BranchOfficeOrganizationUnit.ShortLegalName,
+                                  })
+                              .Single();
+
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            return new PrintData
+                {
+                    { "BranchOfficeOrganizationUnitName", data.BranchOfficeOrganizationUnitName },
+                    { "LegalPersonName", data.LegalPersonName },
+                    { "Order", GetOrderData(data.Order) },
+                    { "Profile", GetProfileData(legalPersonProfile) }
+                };
         }
 
         private PrintData GetOrderData(Order order)

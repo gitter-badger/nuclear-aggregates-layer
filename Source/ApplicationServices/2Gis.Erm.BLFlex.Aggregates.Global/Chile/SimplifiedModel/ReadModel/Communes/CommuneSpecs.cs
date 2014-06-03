@@ -41,9 +41,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
                                 IsActive = entity.IsActive,
                                 IsDeleted = entity.IsDeleted,
                                 Timestamp = entity.Timestamp,
-                                Name =
-                                    entity.DictionaryEntityPropertyInstances.FirstOrDefault(
-                                        instance => instance.PropertyId == IdentityBase<NameIdentity>.Instance.Id).TextValue,
+                                Name = entity.DictionaryEntityPropertyInstances
+                                             .FirstOrDefault(instance => instance.PropertyId == NameIdentity.Instance.Id).TextValue,
                             });
                 }
             }

@@ -1,6 +1,6 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -29,11 +29,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [RequiredLocalized]
         public string PositionInNominative { get; set; }
 
-        [DisplayNameLocalized("FullNameInNominative")]
-        public string ChiefNameInNominative { get; set; }
+        [RequiredLocalized]
+        public string FullNameInNominative { get; set; }
 
-        [DisplayNameLocalized("FullNameInGenitive")]
-        public string ChiefNameInGenitive { get; set; }
+        [RequiredLocalized]
+        public string FullNameInGenitive { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(150)]
@@ -51,7 +51,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         public string PhoneNumber { get; set; }
 
-        [RequiredLocalized]
         public bool IsPrimary { get; set; }
 
         public bool IsPrimaryForRegionalSales { get; set; }
@@ -59,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [Dependency(DependencyType.Hidden, "boinfo", "this.value==''||this.value=='0'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlName", "this.value!=''&&this.value!='0'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlLegalAddress", "this.value!=''&&this.value!='0'")]
-        [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlInn", "this.value!=''&&this.value!='0'")]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlDic", "this.value!=''&&this.value!='0'")]
         [Dependency(DependencyType.ReadOnly, "BranchOfficeAddlIc", "this.value!=''&&this.value!='0'")]
         public long? BranchOfficeAddlId { get; set; }
 
@@ -71,7 +70,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public string BranchOfficeAddlLegalAddress { get; set; }
 
         [DisplayNameLocalized("Dic")]
-        public string BranchOfficeAddlInn { get; set; }
+        public string BranchOfficeAddlDic { get; set; }
 
         [DisplayNameLocalized("Ic")]
         public string BranchOfficeAddlIc { get; set; }
@@ -86,13 +85,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
+            var modelDto = (CzechBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             OrganizationUnit = LookupField.FromReference(modelDto.OrganizationUnitRef);
             BranchOffice = LookupField.FromReference(modelDto.BranchOfficeRef);
-            ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
-            ChiefNameInNominative = modelDto.ChiefNameInNominative;
+            FullNameInGenitive = modelDto.FullNameInGenitive;
+            FullNameInNominative = modelDto.FullNameInNominative;
             Registered = modelDto.Registered;
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
@@ -106,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             Email = modelDto.Email;
 
             BranchOfficeAddlId = modelDto.BranchOfficeAddlId;
-            BranchOfficeAddlInn = modelDto.BranchOfficeAddlInn;
+            BranchOfficeAddlDic = modelDto.BranchOfficeAddlDic;
             BranchOfficeAddlIc = modelDto.BranchOfficeAddlIc;
             BranchOfficeAddlLegalAddress = modelDto.BranchOfficeAddlLegalAddress;
             BranchOfficeAddlName = modelDto.BranchOfficeAddlName;
@@ -119,13 +118,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeOrganizationUnitDomainEntityDto
+            return new CzechBranchOfficeOrganizationUnitDomainEntityDto
                 {
                     Id = Id,
                     OrganizationUnitRef = OrganizationUnit.ToReference(),
                     BranchOfficeRef = BranchOffice.ToReference(),
-                    ChiefNameInGenitive = ChiefNameInGenitive,
-                    ChiefNameInNominative = ChiefNameInNominative,
+                    FullNameInGenitive = FullNameInGenitive,
+                    FullNameInNominative = FullNameInNominative,
                     Registered = Registered,
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
@@ -139,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     Email = Email,
 
                     BranchOfficeAddlId = BranchOfficeAddlId.Value,
-                    BranchOfficeAddlInn = BranchOfficeAddlInn,
+                    BranchOfficeAddlDic = BranchOfficeAddlDic,
                     BranchOfficeAddlIc = BranchOfficeAddlIc,
                     BranchOfficeAddlLegalAddress = BranchOfficeAddlLegalAddress,
                     BranchOfficeAddlName = BranchOfficeAddlName,
