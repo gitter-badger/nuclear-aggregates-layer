@@ -58,5 +58,15 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             var f = expression.Compile();
             return FindAll<TEntity>().Where(e => f(e)).AsQueryable();
         }
+
+        public TPartableEntity FindOne<TPartableEntity>(IFindSpecification<TPartableEntity> findSpecification) where TPartableEntity : class, IEntity, IEntityKey
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotImplementedException();
+        }
     }
 }
