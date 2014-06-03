@@ -36,6 +36,18 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             };
 
         /// <summary>
+        /// Список значений EntityName динамических сущностей
+        /// </summary>
+        public static readonly EntityName[] DynamicEntities =
+            {
+                EntityName.Bank,
+                EntityName.Commune,
+                EntityName.Appointment,
+                EntityName.Task,
+                EntityName.Phonecall
+            };
+
+        /// <summary>
         /// Список типов ERM существующих только на уровне persistance, используемых только в DAL и не используемых в более высокоуровневых слоях, чем агрегирующие репозитории 
         /// </summary>
         public static readonly HashSet<Type> PersistenceOnlyEntities = new HashSet<Type>
@@ -127,6 +139,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool IsPart(this EntityName entityName)
         {
             return EntityParts.Contains(entityName);
+        }
+
+        public static bool IsDynamic(this EntityName entityName)
+        {
+            return DynamicEntities.Contains(entityName);
         }
 
         public static bool IsPersistenceOnly(this Type checkingType)

@@ -261,10 +261,6 @@
       <Link>Entities\Erm\BusinessEntityPropertyInstance.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessOperationService.cs">
       <Link>Entities\Erm\BusinessOperationService.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -360,10 +356,6 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstance.cs">
       <Link>Entities\Erm\DictionaryEntityPropertyInstance.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmEntities.cs">
       <Link>Entities\Erm\ErmEntities.cs</Link>
@@ -693,9 +685,9 @@
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
-    <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoUtils.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
+    <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />
     <Compile Include="Entities\Enums\ChargesHistoryStatus.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
@@ -742,6 +734,7 @@
     <Compile Include="Entities\Interfaces\Integration\IIntegrationProcessorState.cs" />
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
+    <Compile Include="IBoundedContext.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementValidationStatusChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
@@ -790,6 +783,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\DeleteLockDetailsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\RevertWithdrawFromAccountsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawFromAccountsIdentity.cs" />
+    <Compile Include="ModelIndicators.Boundaries.cs" />
     <Compile Include="ModelIndicators.Simplified.cs" />
     <Compile Include="DI\PlatformModelAssembly.cs" />
     <Compile Include="Entities\DTOs\AppointmentDomainEntityDto.cs" />

@@ -6,21 +6,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.EAV
 {
-    public interface IBusinessEntityPropertiesConverter<TEntity> :
-        IDynamicEntityPropertiesConverter<TEntity, BusinessEntityInstance, BusinessEntityPropertyInstance>
-        where TEntity : IEntity
-    {
-    }
-
     // TODO {all, 07.04.2014}: кроме данной абстракции остальные чисто инфраструртурные, эта же заточена на вполне конкретный вид сущностей - нужно перенести
     public interface IActivityPropertiesConverter<TEntity> :
         IDynamicEntityPropertiesConverter<TEntity, ActivityInstance, ActivityPropertyInstance>
-        where TEntity : IEntity
-    {
-    }
-
-    public interface IDictionaryEntityPropertiesConverter<TEntity> :
-        IDynamicEntityPropertiesConverter<TEntity, DictionaryEntityInstance, DictionaryEntityPropertyInstance>
         where TEntity : IEntity
     {
     }

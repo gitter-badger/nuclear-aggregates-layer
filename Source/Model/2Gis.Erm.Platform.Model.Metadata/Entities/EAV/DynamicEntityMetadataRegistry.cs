@@ -66,6 +66,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                             {
                                 NameIdentity.Instance
                             }
+                    },
+                    {
+                        typeof(Commune), new IEntityPropertyIdentity[]
+                            {
+                                NameIdentity.Instance
+                            }
                     }
                 };
 
