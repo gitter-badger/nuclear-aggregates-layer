@@ -15,53 +15,54 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
     public class DeleteLegalPersonProfileService : IDeleteGenericEntityService<LegalPersonProfile>
     {
         private readonly ILegalPersonReadModel _readModel;
-        private readonly IDeleteAggregateRepository<LegalPersonProfile> _deleteRepository;
+        private readonly IDeactivateAggregateRepository<LegalPersonProfile> _deactivateRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
 
         public DeleteLegalPersonProfileService(ILegalPersonReadModel readModel,
                                                ISecurityServiceFunctionalAccess functionalAccessService,
                                                IUserContext userContext,
-                                               IDeleteAggregateRepository<LegalPersonProfile> deleteRepository)
+                                               IDeactivateAggregateRepository<LegalPersonProfile> deactivateRepository)
         {
             _readModel = readModel;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _deleteRepository = deleteRepository;
+            _deactivateRepository = deactivateRepository;
         }
 
         public DeleteConfirmation Delete(long entityId)
         {
             try
             {
-                    var legalPersonProfile = _readModel.GetLegalPersonProfile(entityId);
+                var legalPersonProfile = _readModel.GetLegalPersonProfile(entityId);
 
-                    if (legalPersonProfile == null)
-                    {
-                        throw new NotificationException(BLResources.EntityNotFound);
-                    }
+                if (legalPersonProfile == null)
+                {
+                    throw new NotificationException(BLResources.EntityNotFound);
+                }
 
-                    var isDeleteAllowed = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.DeleteLegalPersonProfile,
-                                                                                                 _userContext.Identity.Code);
+                var isDeleteAllowed = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.DeleteLegalPersonProfile,
+                                                                                             _userContext.Identity.Code);
 
-                    if (!isDeleteAllowed)
-                    {
-                        throw new NotificationException(BLResources.AccessDenied);
-                    }
+                if (!isDeleteAllowed)
+                {
+                    throw new NotificationException(BLResources.AccessDenied);
+                }
 
-                    if (legalPersonProfile.IsDeleted || !legalPersonProfile.IsActive)
-                    {
-                        throw new NotificationException(BLResources.LegalPersonProfileIsDeletedAlready);
-                    }
+                if (legalPersonProfile.IsDeleted || !legalPersonProfile.IsActive)
+                {
+                    throw new NotificationException(BLResources.LegalPersonProfileIsDeletedAlready);
+                }
 
-                    if (legalPersonProfile.IsMainProfile)
-                    {
-                        throw new NotificationException(BLResources.CantDeleteMainLegalPersonProfile);
-                    }
+                if (legalPersonProfile.IsMainProfile)
+                {
+                    throw new NotificationException(BLResources.CantDeleteMainLegalPersonProfile);
+                }
 
-                _deleteRepository.Delete(entityId);
+                // Профиль юр. лица при удалении не удаляется, а... wait for it... деактивируется: https://confluence.2gis.ru/pages/viewpage.action?pageId=93160525
+                _deactivateRepository.Deactivate(entityId);
 
-                    // FIXME {all, 28.10.2013}: По факту профиль не удаляется, а деактивируется
+                // FIXME {all, 28.10.2013}: По факту профиль не удаляется, а деактивируется
                 // COMMENT {all, 25.04.2014}: такие требования
             }
             catch (SecurityException ex)
@@ -79,10 +80,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
             if (legalPersonProfile == null)
             {
                 return new DeleteConfirmationInfo
-                {
-                    IsDeleteAllowed = false,
-                    DeleteDisallowedReason = BLResources.EntityNotFound
-                };
+                    {
+                        IsDeleteAllowed = false,
+                        DeleteDisallowedReason = BLResources.EntityNotFound
+                    };
             }
 
             var isDeleteAllowed = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.DeleteLegalPersonProfile,
@@ -91,40 +92,40 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
             if (!isDeleteAllowed)
             {
                 return new DeleteConfirmationInfo
-                {
-                    EntityCode = legalPersonProfile.Name,
-                    IsDeleteAllowed = false,
-                    DeleteDisallowedReason = BLResources.EntityAccessDenied
-                };
+                    {
+                        EntityCode = legalPersonProfile.Name,
+                        IsDeleteAllowed = false,
+                        DeleteDisallowedReason = BLResources.EntityAccessDenied
+                    };
             }
 
             // уже удален
             if (legalPersonProfile.IsDeleted)
             {
                 return new DeleteConfirmationInfo
-                {
-                    EntityCode = legalPersonProfile.Name,
-                    IsDeleteAllowed = false,
-                    DeleteDisallowedReason = BLResources.LegalPersonProfileIsDeletedAlready
-                };
+                    {
+                        EntityCode = legalPersonProfile.Name,
+                        IsDeleteAllowed = false,
+                        DeleteDisallowedReason = BLResources.LegalPersonProfileIsDeletedAlready
+                    };
             }
 
             if (legalPersonProfile.IsMainProfile)
             {
                 return new DeleteConfirmationInfo
-                {
-                    EntityCode = legalPersonProfile.Name,
-                    IsDeleteAllowed = false,
-                    DeleteDisallowedReason = BLResources.CantDeleteMainLegalPersonProfile
-                };
+                    {
+                        EntityCode = legalPersonProfile.Name,
+                        IsDeleteAllowed = false,
+                        DeleteDisallowedReason = BLResources.CantDeleteMainLegalPersonProfile
+                    };
             }
 
             return new DeleteConfirmationInfo
-            {
-                EntityCode = legalPersonProfile.LegalPerson.ShortName,
-                IsDeleteAllowed = true,
-                DeleteConfirmation = string.Empty
-            };
+                {
+                    EntityCode = legalPersonProfile.LegalPerson.ShortName,
+                    IsDeleteAllowed = true,
+                    DeleteConfirmation = string.Empty
+                };
         }
     }
 }
