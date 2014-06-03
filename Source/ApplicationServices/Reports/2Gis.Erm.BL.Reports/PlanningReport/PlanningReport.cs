@@ -101,14 +101,15 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             currentRowRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
             currentRowRange.Style.Fill.BackgroundColor.SetColor(Color.Yellow);
 
-            MakeCoefficientCell(worksheet.Cells[rowIndex, 9], 1.00);
+            MakeCoefficientCell(worksheet.Cells[rowIndex, 12], 1.00);
+            MakeCoefficientCell(worksheet.Cells[rowIndex, 13], 1.00);
 
             if (rowIndex == 2)
             {
-                MakeCoefficientCell(worksheet.Cells[rowIndex, 25], 2.50);
-                MakeCoefficientCell(worksheet.Cells[rowIndex, 26], 1.00);
-                MakeCoefficientCell(worksheet.Cells[rowIndex, 28], 1.00);
-                MakeCoefficientCell(worksheet.Cells[rowIndex, 32], 1.00);
+                MakeCoefficientCell(worksheet.Cells[rowIndex, 37], 2.50);
+                MakeCoefficientCell(worksheet.Cells[rowIndex, 38], 1.00);
+                MakeCoefficientCell(worksheet.Cells[rowIndex, 40], 1.00);
+                MakeCoefficientCell(worksheet.Cells[rowIndex, 44], 1.00);
             }
         }
 
@@ -140,25 +141,37 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             sheet.Cells[1, ++i].Value = "Квалификация";
             sheet.Cells[1, ++i].Value = "Плановое количество рабочих дней";
             sheet.Cells[1, ++i].Value = "Текущее размещение (гарантированный объем)";
+            sheet.Cells[1, ++i].Value = "Текущее размещение (гарантированный объем) по прайс-листу";
             sheet.Cells[1, ++i].Value = "Гарантированные отгрузки (объем в выпуск, справочно)";
             sheet.Cells[1, ++i].Value = "К продлению в выпуск (справочно из CRM)";
+            sheet.Cells[1, ++i].Value = "К продлению в выпуск (справочно из CRM) по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по продлениям в выпуск";
+            sheet.Cells[1, ++i].Value = "План по продлениям в выпуск по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по продлениям в выпуск с коэффициентом";
+            sheet.Cells[1, ++i].Value = "План по продлениям в выпуск с коэффициентом по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по оплаченному объему продлений в выпуск";
             sheet.Cells[1, ++i].Value = "Кол-во работ к продлению";
             sheet.Cells[1, ++i].Value = "Кол-во новых продаж в шт";
             sheet.Cells[1, ++i].Value = "Средний чек по новым продажам";
+            sheet.Cells[1, ++i].Value = "Средний чек по новым продажам по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по новым продажам в выпуск";
+            sheet.Cells[1, ++i].Value = "План по новым продажам в выпуск по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по оплаченному объему по новым в выпуск";
             sheet.Cells[1, ++i].Value = "Кол-во прочих продаж в шт";
             sheet.Cells[1, ++i].Value = "Средний чек по прочим продажам";
+            sheet.Cells[1, ++i].Value = "Средний чек по прочим продажам по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по прочим продажам в выпуск";
+            sheet.Cells[1, ++i].Value = "План по прочим продажам в выпуск по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по оплаченному объему по прочим в выпуск";
             sheet.Cells[1, ++i].Value = "Объем рекламы в выпуск от продления и увеличения";
+            sheet.Cells[1, ++i].Value = "Объем рекламы в выпуск от продления и увеличения по прайс-листу";
             sheet.Cells[1, ++i].Value = "План по оплаченному объему рекламы в выпуск от продления и увеличения";
             sheet.Cells[1, ++i].Value = "Итого объем рекламы в выпуск";
+            sheet.Cells[1, ++i].Value = "Итого объем рекламы в выпуск по прайс-листу";
             sheet.Cells[1, ++i].Value = "Прогноз";
+            sheet.Cells[1, ++i].Value = "Прогноз по прайс-листу";
             sheet.Cells[1, ++i].Value = "Увеличение объема рекламы в выпуск от прогноза";
+            sheet.Cells[1, ++i].Value = "Увеличение объема рекламы в выпуск от прогноза по прайс-листу";
             sheet.Cells[1, ++i].Value = "Предоплата по новым";
             sheet.Cells[1, ++i].Value = "Предоплата по прочим";
             sheet.Cells[1, ++i].Value = "Предоплата по продлениям ";
@@ -184,8 +197,8 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             headerRange.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(192, 192, 192));
             headerRange.Style.WrapText = true;
             headerRange.Style.Font.Size = 8;
-            sheet.Cells[1, 21].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(215, 228, 188));
-            sheet.Cells[1, 33].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(215, 228, 188));
+            sheet.Cells[1, 30].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(215, 228, 188));
+            sheet.Cells[1, 45].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(215, 228, 188));
 
             var groups = new List<Group>();
 
@@ -230,94 +243,129 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 4].Value = 20;
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 5].Formula = String.Format("SUMIF(Текущие!B:B,B{0},Текущие!J:J)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 5].Formula = String.Format("SUMIF(Текущие!B:B,B{0},Текущие!K:K)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 6].Formula = String.Format("SUMIF('Гарантированные отгрузки'!A:A,B{0},'Гарантированные отгрузки'!H:H)", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 7].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!I:I)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 6].Formula = String.Format("SUMIF(Текущие!B:B,B{0},Текущие!L:L)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 8].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!L:L)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 7].Formula = String.Format("SUMIF('Гарантированные отгрузки'!A:A,B{0},'Гарантированные отгрузки'!H:H)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 9].Formula = String.Format("H{0}*$I${1}", currentRow, currentRow - ordinal);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 10].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!Q:Q)", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 11].Formula = String.Format("COUNTIF('Продление'!A:A,B{0})", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 14].Formula = String.Format("L{0}*M{0}", currentRow);
+                sheet.Cells[currentRow, currentColumn = 8].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!J:J)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 15].Formula = String.Format("IF(N{0}=0,0,IF(Y{0}<=N{0},Y{0},N{0}))", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 18].Formula = String.Format("P{0}*Q{0}", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 19].Formula = String.Format("IF(R{0}=0,0,IF(Z{0}<=R{0},Z{0},R{0}))", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 20].Formula = String.Format("I{0}+N{0}+R{0}", currentRow);
+                sheet.Cells[currentRow, currentColumn = 9].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!K:K)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 21].Formula = String.Format("J{0}+O{0}+S{0}", currentRow);
+                sheet.Cells[currentRow, currentColumn = 10].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!N:N)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 11].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!O:O)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 12].Formula = String.Format("J{0}*$L${1}", currentRow, currentRow - ordinal);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 13].Formula = String.Format("K{0}*$M${1}", currentRow, currentRow - ordinal);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+             
+                sheet.Cells[currentRow, currentColumn = 14].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!T:T)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 15].Formula = String.Format("COUNTIF('Продление'!A:A,B{0})", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 19].Formula = String.Format("P{0}*Q{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 20].Formula = String.Format("P{0}*R{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 21].Formula = String.Format("IF(S{0}=0,0,IF(AK{0}<=S{0},AK{0},S{0}))", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 25].Formula = String.Format("V{0}*W{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 26].Formula = String.Format("V{0}*X{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 27].Formula = String.Format("IF(Y{0}=0,0,IF(AL{0}<=Y{0},AL{0},Y{0}))", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 28].Formula = String.Format("L{0}+S{0}+Y{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 29].Formula = String.Format("M{0}+T{0}+Z{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 30].Formula = String.Format("N{0}+U{0}+AA{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGreenBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 22].Formula = String.Format("E{0}+T{0}", currentRow);
+                sheet.Cells[currentRow, currentColumn = 31].Formula = String.Format("E{0}+AB{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 23].Formula = String.Format("E{0}+G{0}", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 24].Formula = String.Format("V{0}-W{0}", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 25].Formula = String.Format("N{0}*$Y$2", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 26].Formula = String.Format("R{0}*$Z$2", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 27].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!N:N)", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 28].Formula = String.Format("AA{0}*$AB$2", currentRow);
-                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
-
-                sheet.Cells[currentRow, currentColumn = 29].Formula = String.Format("SUMIF('Оплаты по ДЗ до 01.12'!A:A,B{0},'Оплаты по ДЗ до 01.12'!F:F)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 32].Formula = String.Format("F{0}+AC{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 30].Formula = String.Format("SUMIF('Рассрочки'!A:A,B{0},'Рассрочки'!G:G)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 33].Formula = String.Format("E{0}+H{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 31].Formula = String.Format("SUMIF('Поступления по ДЗ'!A:A,B{0},'Поступления по ДЗ'!E:E)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 34].Formula = String.Format("F{0}+I{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 32].Formula = String.Format("AE{0}*$AF$2", currentRow);
+                sheet.Cells[currentRow, currentColumn = 35].Formula = String.Format("AE{0}-AG{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 33].Formula = String.Format("Y{0}+AB{0}+AD{0}+AF{0}+Z{0}+AC{0}", currentRow);
+                sheet.Cells[currentRow, currentColumn = 36].Formula = String.Format("AF{0}-AH{0}", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 37].Formula = String.Format("S{0}*$AK$2", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 38].Formula = String.Format("Y{0}*$AL$2", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 39].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!T:T)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 40].Formula = String.Format("AM{0}*$AN$2", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 41].Formula = String.Format("SUMIF('Оплаты по ДЗ до 01.12'!A:A,B{0},'Оплаты по ДЗ до 01.12'!F:F)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 42].Formula = String.Format("SUMIF('Рассрочки'!A:A,B{0},'Рассрочки'!G:G)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 43].Formula = String.Format("SUMIF('Поступления по ДЗ'!A:A,B{0},'Поступления по ДЗ'!E:E)", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 44].Formula = String.Format("AQ{0}*$AR$2", currentRow);
+                StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
+
+                sheet.Cells[currentRow, currentColumn = 45].Formula = String.Format("AK{0}+AN{0}+AP{0}+AR{0}+AL{0}+AO{0}", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGreenBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 34].Formula = String.Format("SUMIF('Полная ДЗ (справочно)'!A:A,B{0},'Полная ДЗ (справочно)'!C:C)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 46].Formula = String.Format("SUMIF('Полная ДЗ (справочно)'!A:A,B{0},'Полная ДЗ (справочно)'!C:C)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 35].Formula = String.Format("SUMIF('ДЗ накопленная с 01.12'!C:C,B{0},'ДЗ накопленная с 01.12'!D:D)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 47].Formula = String.Format("SUMIF('ДЗ накопленная с 01.12'!C:C,B{0},'ДЗ накопленная с 01.12'!D:D)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
             }
@@ -358,15 +406,20 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 StyleBorder(sheet.Cells[currentRow, 1, currentRow, headerRange.End.Column]);
 
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 5]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 7]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 14]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 6]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 8]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 9]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 19]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 20]);
-                StyleGreenBckGrnd(sheet.Cells[currentRow, 21]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 22]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 28]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 29]);
-                StyleGreenBckGrnd(sheet.Cells[currentRow, 33]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 34]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 35]);
+                StyleGreenBckGrnd(sheet.Cells[currentRow, 30]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 31]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 32]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 41]);
+                StyleGreenBckGrnd(sheet.Cells[currentRow, 45]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 46]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 47]);
 
                 lastMemberRow += group.CountMembers + 1;
             }
@@ -386,15 +439,20 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 StyleBorder(sheet.Cells[currentRow, 1, currentRow, headerRange.End.Column]);
 
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 5]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 7]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 14]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 6]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 8]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 9]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 19]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 20]);
-                StyleGreenBckGrnd(sheet.Cells[currentRow, 21]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 22]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 28]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, 29]);
-                StyleGreenBckGrnd(sheet.Cells[currentRow, 33]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 34]);
-                StyleGrayBckGrnd(sheet.Cells[currentRow, 35]);
+                StyleGreenBckGrnd(sheet.Cells[currentRow, 30]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 31]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 32]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 41]);
+                StyleGreenBckGrnd(sheet.Cells[currentRow, 45]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 46]);
+                StyleGrayBckGrnd(sheet.Cells[currentRow, 47]);
             }
 
             sheet.Cells[sheet.Dimension.Address].Style.Font.Name = "Arial";
@@ -448,14 +506,14 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             var totalsRow = workbook.Worksheets["Служебная"].Dimension.End.Row;
 
             sheet.Cells[4, 2].Formula = String.Format("Служебная!E{0}", totalsRow);
-            sheet.Cells[5, 2].Formula = String.Format("Служебная!G{0}", totalsRow);
-            sheet.Cells[6, 2].Formula = String.Format("Служебная!N{0}", totalsRow);
-            sheet.Cells[7, 2].Formula = String.Format("Служебная!T{0}", totalsRow);
-            sheet.Cells[8, 2].Formula = String.Format("Служебная!U{0}", totalsRow);
-            sheet.Cells[9, 2].Formula = String.Format("Служебная!V{0}", totalsRow);
-            sheet.Cells[10, 2].Formula = String.Format("Служебная!AC{0}", totalsRow);
-            sheet.Cells[11, 2].Formula = String.Format("Служебная!AG{0}", totalsRow);
-            sheet.Cells[12, 2].Formula = String.Format("Служебная!AH{0}", totalsRow);
+            sheet.Cells[5, 2].Formula = String.Format("Служебная!H{0}", totalsRow);
+            sheet.Cells[6, 2].Formula = String.Format("Служебная!S{0}", totalsRow);
+            sheet.Cells[7, 2].Formula = String.Format("Служебная!AB{0}", totalsRow);
+            sheet.Cells[8, 2].Formula = String.Format("Служебная!AD{0}", totalsRow);
+            sheet.Cells[9, 2].Formula = String.Format("Служебная!AE{0}", totalsRow);
+            sheet.Cells[10, 2].Formula = String.Format("Служебная!AO{0}", totalsRow);
+            sheet.Cells[11, 2].Formula = String.Format("Служебная!AS{0}", totalsRow);
+            sheet.Cells[12, 2].Formula = String.Format("Служебная!AT{0}", totalsRow);
 
             var usedRange = sheet.Cells[sheet.Dimension.Address];
             usedRange.Style.Font.Name = "Verdana";
@@ -490,11 +548,12 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             table = FillSheetFromMssql(package.Workbook, "Продление", @"PlanningReport.Лист_Продление.sql");
             usedRange = table.GetDataRange();
 
-            usedRange.Intersect("L:L").Style.Numberformat.Format = "#,##0.00\"р.\"";
             usedRange.Intersect("N:N").Style.Numberformat.Format = "#,##0.00\"р.\"";
-            usedRange.Intersect("O:O").FormulaR1C1 = "IF(RC[-3]=0,0,RC[-1]/RC[-3])";
-            usedRange.Intersect("P:P").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-5])";
-            usedRange.Intersect("Q:Q").FormulaR1C1 = "IF(RC[-5]=0,0,IF(RC[-3]<=RC[-5],RC[-3],RC[-5]))";
+            usedRange.Intersect("O:O").Style.Numberformat.Format = "#,##0.00\"р.\"";
+            usedRange.Intersect("Q:Q").Style.Numberformat.Format = "#,##0.00\"р.\"";
+            usedRange.Intersect("R:R").FormulaR1C1 = "IF(RC[-4]=0,0,RC[-1]/RC[-4])";
+            usedRange.Intersect("S:S").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-6])";
+            usedRange.Intersect("T:T").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-4]<=RC[-6],RC[-4],RC[-6]))";
 
             table = FillSheetFromMssql(package.Workbook, "Оплаты по ДЗ до 01.12", @"PlanningReport.Лист_Оплаты_по_ДЗ_до_01_12.sql");
             table.WorkSheet.Column(3).Hidden = true;
