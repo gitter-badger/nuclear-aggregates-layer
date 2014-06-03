@@ -22,10 +22,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         private readonly IFinder _unsecureFinder;
 
         public GetAdvertisementElementDtoService(IUserContext userContext,
+                                                 IFinder unsecureFinder,
                                                  ISecureFinder finder,
                                                  ISecurityServiceEntityAccessInternal securityServiceEntityAccess,
-                                                 ISecurityServiceFunctionalAccess securityServiceFunctionalAccess,
-                                                 IFinder unsecureFinder) : base(userContext)
+                                                 ISecurityServiceFunctionalAccess securityServiceFunctionalAccess) : base(userContext)
         {
             _finder = finder;
             _securityServiceEntityAccess = securityServiceEntityAccess;
@@ -82,22 +82,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      }).Single();
 
             var firmInfo = _unsecureFinder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
-                                          .Select(x => x.Advertisement.Firm)
+                .Select(x => x.Advertisement.Firm)
                                           .Where(x => x != null)
-                                          .Select(x => new
-                                              {
+                .Select(x => new
+                    {
                                                   x.Id,
                                                   x.OwnerCode
-                                              })
-                                          .SingleOrDefault();
+                    })
+                .SingleOrDefault();
 
             // для заглушек вместо прав на фирму проверяем функциональную привилегию
             dtoInfo.Dto.DisableEdit = firmInfo != null
                                           ? !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                          EntityName.Firm,
-                                                                                          UserContext.Identity.Code,
-                                                                                          firmInfo.Id,
-                                                                                          firmInfo.OwnerCode,
+                                                                                                           EntityName.Firm,
+                                                                                                           UserContext.Identity.Code,
+                                                                                                           firmInfo.Id,
+                                                                                                           firmInfo.OwnerCode,
                                                                                           firmInfo.OwnerCode)
                                           : !_securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditDummyAdvertisement,
                                                                                                             UserContext.Identity.Code);
@@ -110,17 +110,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new AdvertisementElementDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto,
-                                                 long entityId,
-                                                 bool readOnly,
-                                                 long? parentEntityId,
-                                                 EntityName parentEntityName,
-                                                 string extendedInfo)
+        protected override void SetDtoProperties(
+            IDomainEntityDto<AdvertisementElement> domainEntityDto, 
+            long entityId, 
+            bool readOnly, 
+            long? parentEntityId, 
+            EntityName parentEntityName, 
+            string extendedInfo)
         {
             var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
-
-            dto.CanUserChangeStatus = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification,
-                                                                                                     UserContext.Identity.Code);
+            dto.CanUserChangeStatus = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, UserContext.Identity.Code);
         }
     }
 }

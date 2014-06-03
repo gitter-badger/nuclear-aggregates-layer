@@ -25,28 +25,30 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             var badOrders = _finder.Find(filterPredicate)
-                .Select(x => new
-                    {
-                        Order = x,
-                            Profiles = x.LegalPerson.LegalPersonProfiles
-                                            .Where(y => y.IsActive && !y.IsDeleted && y.OperatesOnTheBasisInGenitive != null && 
-                                                        (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Bargain && 
-                                                        y.BargainEndDate != null && 
-                                                        y.BargainEndDate < x.SignupDate)
-                        })
-                .Where(x => x.Profiles.Any())
-                .ToArray();
+                                   .Select(x => new
+                                       {
+                                           Order = x,
+                                           ProfileNames = x.LegalPerson.LegalPersonProfiles
+                                                       .Where(y => y.IsActive && !y.IsDeleted &&
+                                                                   y.OperatesOnTheBasisInGenitive != null &&
+                                                                   (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Bargain &&
+                                                                   y.BargainEndDate != null &&
+                                                                   y.BargainEndDate < x.SignupDate)
+                                                       .Select(y => y.Name)
+                                       })
+                                   .Where(x => x.ProfileNames.Any())
+                                   .ToArray();
 
             foreach (var orderInfo in badOrders)
             {
-                foreach (var profile in orderInfo.Profiles)
+                foreach (var profileName in orderInfo.ProfileNames)
                 {
                     messages.Add(new OrderValidationMessage
                     {
                         Type = MessageType.Info,
                         OrderId = orderInfo.Order.Id,
                         OrderNumber = orderInfo.Order.Number,
-                        MessageText = string.Format(BLResources.ProfileBargainEndDateIsLessThanSignDate, profile.Name)
+                        MessageText = string.Format(BLResources.ProfileBargainEndDateIsLessThanSignDate, profileName)
                     });
                 }
             }

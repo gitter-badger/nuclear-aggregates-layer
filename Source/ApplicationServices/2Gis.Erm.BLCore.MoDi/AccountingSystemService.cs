@@ -20,6 +20,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -247,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     .Where(x => (x.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman)
                         ? x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == null
                         : x.LegalPerson.Inn == legalPerson.BranchOfficeInn && x.LegalPerson.Kpp == legalPerson.Kpp)
-                    .Select(x => new { x.LegalPerson, x.LegalPesonSyncCode1C })
+                    .Select(x => new { x.LegalPersonId, x.LegalPesonSyncCode1C })
                     .SingleOrDefault();
 
                 if (accountInfo == null)
@@ -267,20 +268,22 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     continue;
                 }
 
-                ValidateLegalPerson(accountInfo.LegalPerson, accountInfo.LegalPesonSyncCode1C, blockingErrors, nonBlockingErrors);
+                var accountLegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(accountInfo.LegalPersonId));
+
+                ValidateLegalPerson(accountLegalPerson, accountInfo.LegalPesonSyncCode1C, blockingErrors, nonBlockingErrors);
 
                 outputs.Add(new OneCOutput
                 {
                     BargainType = branchOffice.BranchOfficeBargainTypeSyncCode1C,
                     BranchOfficeOUCode = branchOffice.SyncCode1C,
                     LegalPersonSynCode = accountInfo.LegalPesonSyncCode1C,
-                    Inn = accountInfo.LegalPerson.Inn,
-                    Kpp = accountInfo.LegalPerson.Kpp,
+                    Inn = accountLegalPerson.Inn,
+                    Kpp = accountLegalPerson.Kpp,
                     Number = CreateOrderNumber(legalPerson.OrganizationUnitSyncCode1C, branchOffice.OrganizationUnitSyncCode1C, startDate),
                     SignupDate = orderInfo.SignupDate.ToString("dd.MM.yy"),
                     Sum = Math.Round(totalOrderCost, 2, MidpointRounding.ToEven).ToString(),
-                    LegalName = accountInfo.LegalPerson.LegalName,
-                    ShortName = accountInfo.LegalPerson.ShortName,
+                    LegalName = accountLegalPerson.LegalName,
+                    ShortName = accountLegalPerson.ShortName,
                     OwnerDisplayName = _userIdentifierService.GetUserInfo(orderInfo.LegalPersonOwnerCode).DisplayName,
                     ElectronicMedia = orderInfo.ElectronicMedia,
                     DgppId = orderInfo.PlatformDgppId,
@@ -516,7 +519,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     .Select(x => new
                     {
                         x.Id,
-                        x.LegalPerson,
+                        x.LegalPersonId,
                         x.LegalPesonSyncCode1C,
                         ProfileCode = x.LegalPerson.LegalPersonProfiles.Where(p => !p.IsDeleted && p.IsMainProfile).Select(p => p.Id).FirstOrDefault()
                     })
@@ -538,8 +541,9 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
                     continue;
                 }
-
-                ValidateLegalPerson(accountInfo.LegalPerson, accountInfo.LegalPesonSyncCode1C, blockingErrors, nonBlockingErrors);
+                
+                var accountLegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(accountInfo.LegalPersonId));
+                ValidateLegalPerson(accountLegalPerson, accountInfo.LegalPesonSyncCode1C, blockingErrors, nonBlockingErrors);
 
                 debits.Add(new DebitDto
                 {

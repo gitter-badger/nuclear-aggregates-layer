@@ -8,9 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
 {
-    public interface ILegalPersonRepository : IAggregateRootRepository<LegalPerson>,
-                                              IDeleteAggregateRepository<LegalPerson>,
-                                              IDeleteAggregateRepository<LegalPersonProfile>,
+    public interface ILegalPersonRepository : IAggregateRootRepository<LegalPerson>, 
                                               IActivateAggregateRepository<LegalPerson>,
                                               IAssignAggregateRepository<LegalPerson>,
                                               IDeactivateAggregateRepository<LegalPerson>,
@@ -24,15 +22,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         void ChangeNaturalRequisites(LegalPerson legalPerson, string passportSeries, string passportNumber, string registrationAddress);
         int Deactivate(LegalPerson legalPerson);
 
-        [Obsolete("Use IDeletePartableEntityAggregateService<LegalPerson>.Create")]
-        int Delete(LegalPerson legalPerson);
-
-        int Delete(LegalPersonProfile legalPersonProfile);
-
-        [Obsolete("Use ICreatePartableEntityAggregateService<LegalPerson>.Create or IUpdatePartableEntityAggregateService<LegalPerson>.Update")]
-        void CreateOrUpdate(LegalPerson legalPerson);
-
-        void CreateOrUpdate(LegalPersonProfile legalPersonProfile);
         void SyncWith1C(IEnumerable<LegalPerson> legalPersons);
         LegalPersonForMergeDto GetInfoForMerging(long legalPersonId);
         CheckForDublicatesResultDto CheckIfExistsInnDuplicate(long legalPersonId, string inn);
@@ -43,13 +32,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
 
         [Obsolete("Use ILegalPersonReadModel.GetLegalPerson")]
         LegalPerson FindLegalPerson(long entityId);
-
+        
         void SetProfileAsMain(long profileId);
 
         // FIXME {d.ivanov, 03.02.2014}: Метод не учитывает дополнения LegalPersonWithProfile. Перенести в ILegalPersonReadModel + учесть разные бизнес-модели
         [Obsolete("Перенести в ILegalPersonReadModel + учесть разные бизнес-модели")]
         LegalPersonWithProfiles GetLegalPersonWithProfiles(long legalPersonId);
-
+        
         LegalPerson FindLegalPersonByProfile(long profileId);
         LegalPerson FindLegalPerson(string syncCodeWith1C, string inn, string kpp);
         IEnumerable<LegalPerson> FindLegalPersonsByInnAndKpp(string inn, string kpp);

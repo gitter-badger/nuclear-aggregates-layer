@@ -286,7 +286,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                             LegalEntityBranchCode1C = a.BranchOfficeOrganizationUnit.SyncCode1C, 
                         }), 
 
-                    LegalPerson = lp, 
+                    LegalPerson = new LegalPersonFieldsDto 
+                    {
+                        Inn = lp.Inn,
+                        Kpp = lp.Kpp,
+                        LegalAddress = lp.LegalAddress,
+                        PassportSeries = lp.PassportSeries,
+                        PassportNumber = lp.PassportNumber,
+                        PassportIssuedBy = lp.PassportIssuedBy,
+                        RegistrationAddress = lp.RegistrationAddress,
+                        Id = lp.Id,
+                        OwnerCode = lp.OwnerCode,
+                    }, 
                     Code = lp.Id, 
                     Name = lp.LegalName, 
                     ShortName = lp.ShortName, 
@@ -299,13 +310,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         #region nested types
 
+        public sealed class LegalPersonFieldsDto
+        {
+            public string Inn { get; set; }
+            public string Kpp { get; set; }
+            public string LegalAddress { get; set; }
+            public string PassportSeries { get; set; }
+            public string PassportNumber { get; set; }
+            public string PassportIssuedBy { get; set; }
+            public string RegistrationAddress { get; set; }
+            public long Id { get; set; }
+            public long OwnerCode { get; set; }
+        }
+
         public sealed class LegalPersonDto : IExportableEntityDto
         {
             private const string TagName = "LegalEntity";
 
             public long Id { get; set; }
 
-            public LegalPerson LegalPerson { get; set; }
+            public LegalPersonFieldsDto LegalPerson { get; set; }
 
             /// <summary>
             /// Стабильный идентификатор юридического лица клиента. Required

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,12 +18,11 @@ using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic.Modify.DomainEntityObtainers
 {
-    public class LegalPersonProfileObtainerFlexSpecs
+    public class LegalPersonProfileObtainerSpecs
     {
         public abstract class LegalPersonProfileObtainerContext
         {
             protected static IFinder Finder;
-            protected static IBusinessModelEntityObtainerFlex<LegalPersonProfile> FlexBehaviour;
             protected static LegalPersonProfileDomainEntityDto DomainEntityDto;
 
             protected static LegalPersonProfileObtainer LegalPersonProfileObtainer;
@@ -42,9 +40,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
                         };
 
                     Finder = Mock.Of<IFinder>();
-                    FlexBehaviour = Mock.Of<IBusinessModelEntityObtainerFlex<LegalPersonProfile>>();
 
-                    LegalPersonProfileObtainer = new LegalPersonProfileObtainer(Finder, FlexBehaviour);
+                    LegalPersonProfileObtainer = new LegalPersonProfileObtainer(Finder);
                 };
         }
 
@@ -86,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
 
             private Establish context = () =>
                 {
-                    Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<LegalPersonProfile>>())).Returns(Q(LegalPersonProfile));
+                    Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<IFindSpecification<LegalPersonProfile>>())).Returns(LegalPersonProfile);
 
                     DomainEntityDto.Id = 1; // Id != 0 => сущность создадим не на new, а возьмем из хранилища
 

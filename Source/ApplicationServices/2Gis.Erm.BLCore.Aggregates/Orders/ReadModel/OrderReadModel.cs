@@ -821,7 +821,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                        y.OrderPositionAdvertisements
                                                                                         .Any(z => z.Position.PlatformId == apiPlatformId)),
                                                       BranchOfficeOrganizationUnit =
-                                                               x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+                                                               x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits
+                                                                .Where(y => y.IsPrimary)
+                                                                .Select(y => new { y.ChiefNameInGenitive, y.Email })
+                                                                .FirstOrDefault(),
                                                       x.Firm.OwnerCode,
                                                   })
                                               .ToArray()
@@ -857,7 +860,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                           y.OrderPositionAdvertisements
                                                                                            .Any(z => z.Position.PlatformId == apiPlatformId)),
                                                          BranchOfficeOrganizationUnit =
-                                                                  x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+                                                                  x.Firm.OrganizationUnit.BranchOfficeOrganizationUnits
+                                                                   .Where(y => y.IsPrimary)
+                                                                   .Select(y => new { y.ChiefNameInGenitive, y.Email })
+                                                                   .FirstOrDefault(),
                                                          x.Firm.OwnerCode,
                                                      })
                                                  .ToArray()
@@ -1424,7 +1430,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                       OrgUnitId = x.Id,
                                       ContributionType = x.BranchOfficeOrganizationUnits
                                                           .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
-                                                          .Select(boou => boou.BranchOffice.ContributionTypeId).FirstOrDefault()
+                                                          .Select(boou => boou.BranchOffice.ContributionTypeId)
+                                                          .FirstOrDefault()
                                   })
                               .ToArray();
 

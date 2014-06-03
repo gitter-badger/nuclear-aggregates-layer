@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -18,6 +19,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel
         public decimal GetVatRate(long bargainTypeId)
         {
             return _finder.Find(Specs.Find.ById<BargainType>(bargainTypeId)).Single().VatRate;
+        }
+
+        public string GetBargainTypeName(long bargainTypeId)
+        {
+            return _finder.Find(Specs.Find.ById<BargainType>(bargainTypeId)).Select(x => x.Name).Single();
         }
     }
 }

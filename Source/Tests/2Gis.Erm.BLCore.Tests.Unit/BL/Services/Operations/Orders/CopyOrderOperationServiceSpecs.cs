@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;

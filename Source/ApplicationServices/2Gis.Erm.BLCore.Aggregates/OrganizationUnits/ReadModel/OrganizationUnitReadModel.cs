@@ -18,6 +18,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
             _finder = finder;
         }
 
+        public OrganizationUnit GetOrganizationUnit(long organizationUnitId)
+        {
+            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Single();
+        }
+
         public string GetName(long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.Name).Single();

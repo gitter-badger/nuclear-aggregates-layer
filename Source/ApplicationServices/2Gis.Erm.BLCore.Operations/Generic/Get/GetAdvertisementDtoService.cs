@@ -156,7 +156,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override void SetDtoProperties(IDomainEntityDto<Advertisement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override void SetDtoProperties(
+            IDomainEntityDto<Advertisement> domainEntityDto, 
+            long entityId, 
+            bool readOnly, 
+            long? parentEntityId, 
+            EntityName parentEntityName, 
+            string extendedInfo)
         {
             var dto = (AdvertisementDomainEntityDto)domainEntityDto;
 

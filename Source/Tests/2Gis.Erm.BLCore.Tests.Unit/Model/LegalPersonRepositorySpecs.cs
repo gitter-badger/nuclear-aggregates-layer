@@ -16,22 +16,20 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model
     {
         public abstract class LegalPersonRepositoryContext
         {
-            Establish context = () => LegalPersonRepository = new LegalPersonRepository(null,
-                                                                                        null,
-                                                                                        Mock.Of<ISecureRepository<LegalPerson>>(),
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null,
-                                                                                        null);
+            private Establish context = () => LegalPersonRepository = new LegalPersonRepository(null,
+                                                                                                null,
+                                                                                                Mock.Of<ISecureRepository<LegalPerson>>(),
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null,
+                                                                                                null);
 
-            protected static LegalPersonRepository LegalPersonRepository { get; private set; }
-             
+            protected static LegalPersonRepository LegalPersonRepository { get; private set; }   
         }
 
         [Tags("Model")]

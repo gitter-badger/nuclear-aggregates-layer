@@ -16,20 +16,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
     public sealed class BranchOfficeObtainer : IBusinessModelEntityObtainer<BranchOffice>, IAggregateReadModel<BranchOffice>
     {
         private readonly IFinder _finder;
-        private readonly IBusinessModelEntityObtainerFlex<BranchOffice> _flexBehaviour;
 
-        public BranchOfficeObtainer(IFinder finder, IBusinessModelEntityObtainerFlex<BranchOffice> flexBehaviour)
+        public BranchOfficeObtainer(IFinder finder)
         {
             _finder = finder;
-            _flexBehaviour = flexBehaviour;
         }
 
         public BranchOffice ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (BranchOfficeDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.Find(Specs.Find.ById<BranchOffice>(dto.Id)).SingleOrDefault() ??
-                new BranchOffice { IsActive = true, Id = dto.Id };
+            var entity = _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id))
+                ?? new BranchOffice { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)
             {
@@ -46,10 +44,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.LegalAddress = dto.LegalAddress;
             entity.UsnNotificationText = dto.UsnNotificationText;
             entity.Timestamp = dto.Timestamp;
-
-            entity.Parts = _flexBehaviour.GetEntityParts(entity);
-
-            _flexBehaviour.CopyPartFields(entity, dto);
 
             return entity;
         }

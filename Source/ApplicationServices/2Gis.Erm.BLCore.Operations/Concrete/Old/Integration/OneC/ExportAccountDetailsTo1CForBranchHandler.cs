@@ -21,6 +21,7 @@ using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -45,11 +46,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportAccountDetailsTo1CForBranchHandler(
             IFinder finder,
-            ISubRequestProcessor subRequestProcessor,
-            ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-            ICommonLog logger,
-            IClientProxyFactory clientProxyFactory,
-            IOrderReadModel orderReadModel,
+                                                        ISubRequestProcessor subRequestProcessor,
+                                                        ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+                                                        ICommonLog logger,
+                                                        IClientProxyFactory clientProxyFactory,
+                                                        IOrderReadModel orderReadModel,
             IGlobalizationSettings globalizationSettings,
             IUseCaseTuner useCaseTuner)
         {
@@ -75,8 +76,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         protected override IntegrationResponse Handle(ExportAccountDetailsTo1CForBranchRequest request)
         {
             _useCaseTuner.AlterDuration<ExportAccountDetailsTo1CForBranchHandler>();
-
-            var isBranchAndMovedToErm = _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null).Select(x => new
+            var isBranchAndMovedToErm =
+                _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null)
+                       .Select(x => new
             {
                 PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
             })
@@ -96,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var nonAllowedPlatforms = new[] { PlatformEnum.Api, PlatformEnum.Online };
 
-            var all = (from @lock in _finder.FindAll<Lock>()
+            var allWithoutLegalPerson = (from @lock in _finder.FindAll<Lock>()
                        let type = @lock.Order.SourceOrganizationUnitId == request.OrganizationUnitId
                                 ? ExportOrderType.LocalAndOutgoing
                                 : @lock.Order.DestOrganizationUnitId == request.OrganizationUnitId
@@ -121,7 +123,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                Type = type
                            }).Select(x =>
                            x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                               ? new AccountDetailDto
+                               ? new {
+                                   AccountDetailDto = new AccountDetailDto
                                      {
                                          OrderHasPositionsWithPlannedProvision =
                                                 x.Lock.Order.OrderPositions.Any(op => op.IsActive
@@ -141,12 +144,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                                  Type = x.Type,
+                                     },
+                                   LegalPersonId = x.Lock.Account.LegalPersonId
                                      }
 
                                // ExportOrderType.IncomingFromFranchiseesClient
-                               : new AccountDetailDto
+                               : new {
+                                   AccountDetailDto = new AccountDetailDto
                                      {
                                          OrderHasPositionsWithPlannedProvision = false,
                                          BargainTypeSyncCode1C = string.Empty,
@@ -162,9 +167,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                                  Type = x.Type,
+                                     },
+                                     LegalPersonId = x.Lock.Account.LegalPersonId
                                      }).ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(allWithoutLegalPerson.Select(x => x.LegalPersonId)))
+                                      .ToDictionary(x => x.Id, x => x);
+            var all = allWithoutLegalPerson.Select(x =>
+                                                   {
+                                                       x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId];
+                                                       return x.AccountDetailDto;
+                                                   })
+                                           .ToArray();
 
             var orderIds = all.Select(x => x.OrderId).Distinct().ToArray();
 
@@ -289,7 +304,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
-            {
+                {
                 response.FileName = errorsFileName;
                 response.ContentType = MediaTypeNames.Application.Octet;
                 response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent));

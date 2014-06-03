@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;

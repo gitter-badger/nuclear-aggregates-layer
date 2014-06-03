@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;

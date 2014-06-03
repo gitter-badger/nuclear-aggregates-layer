@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             switch (parentEntityName)
             {
                 case EntityName.LegalPerson:
-                    return new[] { _finder.Find(Platform.DAL.Specifications.Specs.Find.ById<LegalPerson>(parentId)).Single() };
+                    return new[] { _finder.FindOne(Platform.DAL.Specifications.Specs.Find.ById<LegalPerson>(parentId)) };
 
                 default:
                     return new LegalPerson[0];

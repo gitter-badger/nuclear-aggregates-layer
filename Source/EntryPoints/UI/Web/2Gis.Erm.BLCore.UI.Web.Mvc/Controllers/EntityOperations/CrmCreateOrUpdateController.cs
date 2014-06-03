@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using Newtonsoft.Json;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var sharings = _securityServiceSharings.GetAccessSharingsForEntity(typeof(TEntity).AsEntityName(), id);
 
             // privileges
-            var entity = _secureFinder.Find<TEntity>(x => x.Id == id).Single();
+            var entity = _secureFinder.FindOne<TEntity>(Specs.Find.ById<TEntity>(id));
             var entitySecure = (ICuratedEntity)entity;
             var entityPrivileges = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
                                                                              EntityAccessTypes.All,

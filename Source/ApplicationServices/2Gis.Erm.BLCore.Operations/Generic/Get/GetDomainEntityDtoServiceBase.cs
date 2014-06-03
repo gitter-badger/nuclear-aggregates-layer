@@ -17,19 +17,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             _userContext = userContext;
         }
 
-        public IUserContext UserContext
+        protected IUserContext UserContext
         {
             get { return _userContext; }
         }
 
         public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
+            var currentUserCode = UserContext.Identity.Code;
+
             IDomainEntityDto<TEntity> domainEntityDto;
             if (entityId == 0)
             {
                 domainEntityDto = CreateDto(parentEntityId, parentEntityName, extendedInfo);
-
-                var currentUserCode = UserContext.Identity.Code;
 
                 if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
                 {
@@ -62,7 +62,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected abstract IDomainEntityDto<TEntity> GetDto(long entityId);
         protected abstract IDomainEntityDto<TEntity> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo);
-        protected virtual void SetDtoProperties(IDomainEntityDto<TEntity> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+
+        protected virtual void SetDtoProperties(IDomainEntityDto<TEntity> domainEntityDto,
+                                                long entityId,
+                                                bool readOnly,
+                                                long? parentEntityId,
+                                                EntityName parentEntityName,
+                                                string extendedInfo)
         {
             // do nothing
         }

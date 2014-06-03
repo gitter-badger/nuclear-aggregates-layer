@@ -1,28 +1,30 @@
-﻿using System.Collections.Generic;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
 {
-    public class DeleteLegalPersonProfileAggregateService : IDeletePartableEntityAggregateService<LegalPerson, LegalPersonProfile>
+    public class DeleteLegalPersonProfileAggregateService : IAggregateRootRepository<LegalPerson>, IDeleteAggregateRepository<LegalPersonProfile>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<LegalPersonProfile> _legalPersonProfileSecureRepository;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public DeleteLegalPersonProfileAggregateService(
             IOperationScopeFactory operationScopeFactory,
-            ISecureRepository<LegalPersonProfile> legalPersonProfileSecureRepository)
+            ISecureRepository<LegalPersonProfile> legalPersonProfileSecureRepository,
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _operationScopeFactory = operationScopeFactory;
             _legalPersonProfileSecureRepository = legalPersonProfileSecureRepository;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
-        public void Delete(LegalPersonProfile entity, IEnumerable<BusinessEntityInstanceDto> entityInstanceDtos)
+        public int Delete(LegalPersonProfile entity)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, LegalPersonProfile>())
             {
@@ -31,10 +33,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
                 _legalPersonProfileSecureRepository.Update(entity);
                 operationScope.Updated<LegalPersonProfile>(entity.Id);
 
-                _legalPersonProfileSecureRepository.Save();
+                var count = _legalPersonProfileSecureRepository.Save();
 
                 operationScope.Complete();
+
+                return count;
             }
+            }
+
+        public int Delete(long entityId)
+        {
+            return Delete(_legalPersonReadModel.GetLegalPersonProfile(entityId));
         }
     }
 }

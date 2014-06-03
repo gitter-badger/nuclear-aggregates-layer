@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetOrderFileDtoService : GetDomainEntityDtoServiceBase<OrderFile>
     {
+        private readonly IUserContext _userContext;
         private readonly ISecureFinder _finder;
         private readonly IOrderReadModel _orderReadModel;
         private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
@@ -22,8 +23,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         public GetOrderFileDtoService(IUserContext userContext,
                                       ISecureFinder finder,
                                       IOrderReadModel orderReadModel,
-                                      ISecurityServiceEntityAccessInternal securityServiceEntityAccess) : base(userContext)
+                                      ISecurityServiceEntityAccessInternal securityServiceEntityAccess) 
+            : base(userContext)
         {
+            _userContext = userContext;
             _finder = finder;
             _orderReadModel = orderReadModel;
             _securityServiceEntityAccess = securityServiceEntityAccess;
@@ -57,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             dto.UserDoesntHaveRightsToEditOrder = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                 EntityName.Order,
-                                                                                                UserContext.Identity.Code,
+                                                                                                _userContext.Identity.Code,
                                                                                                 dto.OrderId,
                                                                                                 orderOwnerCode,
                                                                                                 orderOwnerCode);

@@ -118,9 +118,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private long? GetMainLegalPersonProfile(long legalPersonId)
         {
-            var mainLegalPersonProfile = _secureFinder
-                .Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
-                .FirstOrDefault();
+            var mainLegalPersonProfile = _secureFinder.FindMany(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId))
+                                                      .FirstOrDefault();
 
             return mainLegalPersonProfile == null ? null : (long?)mainLegalPersonProfile.Id;
         }

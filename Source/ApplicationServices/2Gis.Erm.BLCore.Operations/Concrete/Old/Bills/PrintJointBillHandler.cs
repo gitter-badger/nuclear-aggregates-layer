@@ -31,26 +31,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         protected override Response Handle(PrintJointBillRequest request)
         {
             var commonInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                .Select(x => new
-                {
-                    BillsBeginDistributionDate = x.BeginDistributionDate,
-                    BillsEndDistributionDate = x.EndDistributionDate,
-                    x.BillDate,
-                    x.PaymentDatePlan,
-                    OrderReleaseCountPlan = x.Order.ReleaseCountPlan,
-                    x.Order.BranchOfficeOrganizationUnit,
-                    x.Order.BranchOfficeOrganizationUnit.BranchOffice,
-                    x.Order.LegalPerson,
-                    CurrencyISOCode = x.Order.Currency.ISOCode,
-                    LegalPersonType = (LegalPersonType)x.Order.LegalPerson.LegalPersonTypeEnum,
-                    x.Order.BranchOfficeOrganizationUnitId,
-                    Profile =
-                x.Order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value),
-                })
-                .FirstOrDefault();
+                                    .Select(x => new
+                                        {
+                                            BillsBeginDistributionDate = x.BeginDistributionDate,
+                                            BillsEndDistributionDate = x.EndDistributionDate,
+                                            x.BillDate,
+                                            x.PaymentDatePlan,
+                                            OrderReleaseCountPlan = x.Order.ReleaseCountPlan,
+                                            x.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                            x.Order.LegalPersonId,
+                                            CurrencyISOCode = x.Order.Currency.ISOCode,
+                                            LegalPersonType = (LegalPersonType)x.Order.LegalPerson.LegalPersonTypeEnum,
+                                            x.Order.BranchOfficeOrganizationUnitId,
+                                            ProfileId = x.Order.LegalPerson.LegalPersonProfiles
+                                                         .FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value)
+                                                         .Id,
+                                        })
+                                    .FirstOrDefault();
 
             if (commonInfo == null || commonInfo.BranchOfficeOrganizationUnitId == null)
                 throw new NotificationException(BLResources.CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified);
+
+            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(commonInfo.LegalPersonId.Value));
 
             var billsInfo = _finder.Find<Bill>(bill => bill.IsActive && !bill.IsDeleted &&
                                                        (bill.Id == request.BillId ||
@@ -96,10 +100,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
             var printData = new
             {
-                commonInfo.BranchOfficeOrganizationUnit,
-                commonInfo.BranchOffice,
-                commonInfo.LegalPerson,
-                commonInfo.Profile,
+                BranchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(commonInfo.BranchOfficeOrganizationUnitId.Value)),
+                BranchOffice = branchOffice,
+                LegalPerson = legalPerson,
+                Profile = legalPersonProfile,
                 commonInfo.CurrencyISOCode,
                 BillDate = DateTime.Now,
                 commonInfo.PaymentDatePlan,

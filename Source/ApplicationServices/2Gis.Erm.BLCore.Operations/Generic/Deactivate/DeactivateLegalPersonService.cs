@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -48,19 +49,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         {
             var currentUserIdentity = _userContext.Identity;
 
-            // TODO {all, 06.08.2013}: вопрос что быдет с такими сессиями при отключении привязки сессии к node 
-            // TODO {all, 27.11.2013}: а ещё вопрос, что будет, если сюда заинжетить реализацию NullObjectCacheAdapter
+            // COMMENT {all, 06.08.2013}: вопрос что быдет с такими сессиями при отключении привязки сессии к node 
+            // COMMENT {all, 21.05.2014}: Нет никакой привязки сессии к ноде, есть *локальное* хранилище сессий в памями каждой веб-ноды. Этот вопрос решается распределенным кэшем на основе AppFabric
             var deactivateSession = OperationSession.GetSession(_cacheAdapter, BusinessOperation.Deactivate, entityId, currentUserIdentity.Code);
 
             try
             {
                 using (var operationScope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, LegalPerson>())
                 {
-                    var findResult = _finder.Find<LegalPerson>(x => x.Id == entityId)
+                    var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
+                    var findResult = _finder.Find(Specs.Find.ById<LegalPerson>(entityId))
                         .Select(x => new
                             {
-                                LegalPerson = x,
-
                                 IsLinkedWithActiveOrders = x.Orders
                                          .Any(y => y.IsActive && !y.IsDeleted &&
                                                    y.WorkflowStepId != (int)OrderState.Archive && y.WorkflowStepId != (int)OrderState.Rejected),
@@ -78,12 +78,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                         throw new NotificationException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
                     }
 
-                    if (!findResult.LegalPerson.IsActive)
+                    if (!legalPerson.IsActive)
                     {
                         throw new NotificationException(BLResources.LegalPersonIsInactiveAlready);
                     }
 
-                    if (findResult.LegalPerson.IsInSyncWith1C)
+                    if (legalPerson.IsInSyncWith1C)
                     {
                         throw new NotificationException(BLResources.CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem);
                     }
@@ -98,17 +98,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 
                     if (!deactivateSession.CanProceedWithArchiveOrClosedOrders && findResult.IsLinkedWithArchivedOrRejectedOrders)
                     {
-                        var message = string.Format(BLResources.DeactivateLegalPersonConfirmation, findResult.LegalPerson.LegalName);
+                        var message = string.Format(BLResources.DeactivateLegalPersonConfirmation, legalPerson.LegalName);
 
                         deactivateSession.CanProceedWithArchiveOrClosedOrders = true;
                         return new DeactivateConfirmation {ConfirmationMessage = message, Id = entityId};
                     }
 
-                    _legalPersonRepository.Deactivate(findResult.LegalPerson);
+                    _legalPersonRepository.Deactivate(legalPerson);
 
 
                     operationScope
-                        .Updated<LegalPerson>(findResult.LegalPerson.Id)
+                        .Updated<LegalPerson>(legalPerson.Id)
                         .Complete();
                 }
             }

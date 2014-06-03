@@ -5,6 +5,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel
 {
     public interface IOrganizationUnitReadModel : IAggregateReadModel<OrganizationUnit>
     {
+        OrganizationUnit GetOrganizationUnit(long organizationUnitId);
         string GetName(long organizationUnitId);
         long GetCurrencyId(long organizationUnitId);
     }
