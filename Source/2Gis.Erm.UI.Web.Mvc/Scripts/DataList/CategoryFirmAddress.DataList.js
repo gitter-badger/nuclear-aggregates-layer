@@ -30,7 +30,7 @@
 
                 var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl('Category', val, queryString);
                 window.open(sUrl, "_blank", params);
-            },
+            }
         });
     });
     
