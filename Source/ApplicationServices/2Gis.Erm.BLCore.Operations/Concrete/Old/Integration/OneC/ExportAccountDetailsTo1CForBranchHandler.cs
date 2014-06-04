@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -27,6 +28,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ExportAccountDetailsTo1CForBranchHandler : RequestHandler<ExportAccountDetailsTo1CForBranchRequest, IntegrationResponse>
     {
         private const string NskTimeZoneId = "N. Central Asia Standard Time";
@@ -40,14 +42,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
+        private readonly IUseCaseTuner _useCaseTuner;
 
-        public ExportAccountDetailsTo1CForBranchHandler(IFinder finder,
+        public ExportAccountDetailsTo1CForBranchHandler(
+            IFinder finder,
                                                         ISubRequestProcessor subRequestProcessor,
                                                         ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                                         ICommonLog logger,
                                                         IClientProxyFactory clientProxyFactory,
                                                         IOrderReadModel orderReadModel,
-                                                        IGlobalizationSettings globalizationSettings)
+            IGlobalizationSettings globalizationSettings,
+            IUseCaseTuner useCaseTuner)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
@@ -56,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
+            _useCaseTuner = useCaseTuner;
         }
 
         private enum ExportOrderType
@@ -69,13 +75,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override IntegrationResponse Handle(ExportAccountDetailsTo1CForBranchRequest request)
         {
+            _useCaseTuner.AlterDuration<ExportAccountDetailsTo1CForBranchHandler>();
             var isBranchAndMovedToErm =
                 _finder.FindAll<OrganizationUnit>().Where(x => x.Id == request.OrganizationUnitId && x.ErmLaunchDate != null)
                        .Select(x => new
-                           {
-                               PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
-                           })
-                       .Any(x => x.PrimaryBranchOfficeOrganizationUnit != null && x.PrimaryBranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
+            {
+                PrimaryBranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary),
+            })
+            .Any(x => x.PrimaryBranchOfficeOrganizationUnit != null && x.PrimaryBranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
 
             if (!isBranchAndMovedToErm)
             {
@@ -137,10 +144,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         Type = x.Type,
+                                                 Type = x.Type,
                                      },
                                    LegalPersonId = x.Lock.Account.LegalPersonId
-                               }
+                                     }
 
                                // ExportOrderType.IncomingFromFranchiseesClient
                                : new {
@@ -160,10 +167,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          PlatformId = x.Lock.Order.Platform.DgppId,
                                          OrderId = x.Lock.OrderId,
-                                         Type = x.Type,
+                                                 Type = x.Type,
                                      },
                                      LegalPersonId = x.Lock.Account.LegalPersonId
-                               }).ToArray();
+                                     }).ToArray();
 
             var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(allWithoutLegalPerson.Select(x => x.LegalPersonId)))
                                       .ToDictionary(x => x.Id, x => x);
@@ -297,7 +304,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
 
             if (blockingErrors.Any() || modiResponse.BlockingErrorsAmount > 0)
-            {
+                {
                 response.FileName = errorsFileName;
                 response.ContentType = MediaTypeNames.Application.Octet;
                 response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent));

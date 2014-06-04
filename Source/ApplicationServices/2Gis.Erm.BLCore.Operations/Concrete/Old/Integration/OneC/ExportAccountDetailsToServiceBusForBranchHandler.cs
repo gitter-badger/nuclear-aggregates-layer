@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -32,6 +33,7 @@ using SaveOptions = System.Xml.Linq.SaveOptions;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
+    [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ExportAccountDetailsToServiceBusForBranchHandler : RequestHandler<ExportAccountDetailsToServiceBusForBranchRequest, IntegrationResponse>
     {
         private const string RussianhOf = "оф";
@@ -49,13 +51,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IBusinessModelSettings _businessModelSettings;
+        private readonly IUseCaseTuner _useCaseTuner;
 
-        public ExportAccountDetailsToServiceBusForBranchHandler(IFinder finder,
+        public ExportAccountDetailsToServiceBusForBranchHandler(
+            IFinder finder,
                                                                 ISubRequestProcessor subRequestProcessor,
                                                                 IClientProxyFactory clientProxyFactory,
                                                                 IOrderReadModel orderReadModel,
-                                                                IGlobalizationSettings globalizationSettings,
-                                                                IBusinessModelSettings businessModelSettings)
+            IGlobalizationSettings globalizationSettings,
+            IBusinessModelSettings businessModelSettings, 
+            IUseCaseTuner useCaseTuner)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
@@ -63,6 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
             _businessModelSettings = businessModelSettings;
+            _useCaseTuner = useCaseTuner;
         }
 
         private enum ExportOrderType
@@ -75,6 +81,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         protected override IntegrationResponse Handle(ExportAccountDetailsToServiceBusForBranchRequest request)
         {
+            _useCaseTuner.AlterDuration<ExportAccountDetailsToServiceBusForBranchHandler>();
+            
             var period = new TimePeriod(request.StartPeriodDate, request.EndPeriodDate);
 
             var organizationUnitSyncCode1C = _finder.FindAll<OrganizationUnit>()
@@ -101,14 +109,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var totalProcessedByModiCount = modiResponse.ProcessedWithoutErrors + modiResponse.BlockingErrorsAmount + modiResponse.NonBlockingErrorsAmount;
             if (!accountDetailDtos.Any() && totalProcessedByModiCount == 0)
-            {
+                           {
                 throw new NotificationException(string.Format(BLResources.NoDebitsForSpecifiedPeriod, period.Start, period.End));
-            }
+                                     }
 
             var orderIds = accountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
             var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
             foreach (var accountDetailDto in accountDetailDtos)
-            {
+                                     {
                 accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
             }
 
@@ -127,7 +135,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                              debitInfoDto.Debits.Length,
                                              debitsStream);
             return response;
-        }
+                        }
 
         private static MemoryStream CreateDebitsStream(XElement debitsXml, byte[] regionalDebitsStream)
         {
@@ -161,7 +169,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
                                                            TimePeriod period,
                                                            IEnumerable<AccountDetailDto> accountDetailDtos)
-        {
+                {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
                         {
@@ -314,7 +322,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 .Select(x => x.Type == ExportOrderType.LocalAndOutgoing ||
                              x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
                                  ? new 
-                                 {
+                                     {
                                      AccountDetailDto = new AccountDetailDto
                                      {
                                          OrderHasPositionsWithPlannedProvision = 
@@ -343,7 +351,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                      },
 
                                      LegalPersonId = x.Lock.Account.LegalPersonId,
-                                 }
+                                     }
 
                                  // ExportOrderType.IncomingFromFranchiseesClient
                                  : new 
@@ -370,7 +378,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                      },
 
                                      LegalPersonId = x.Lock.Account.LegalPersonId,
-                                 })
+                                     })
                 .Where(x => x.AccountDetailDto.DebitAccountDetailAmount > 0)
                 .ToArray();
 
