@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         public void Update(TEntity entity)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, TEntity>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, TEntity>())
             {
                 _dynamicStorageRepository.Update(entity);
                 scope.Updated<TEntity>(entity.Id)
