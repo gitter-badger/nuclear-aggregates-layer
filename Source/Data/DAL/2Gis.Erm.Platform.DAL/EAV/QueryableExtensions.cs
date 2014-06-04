@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
@@ -6,6 +7,15 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     {
         internal static IQueryable ValidateQueryCorrectness(this IQueryable queryable)
         {
+            var queryableType = queryable.GetType().GetInterfaces()
+                                         .FirstOrDefault(type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>));
+            if (queryableType != null)
+            {
+                var entityType = queryableType.GetGenericArguments().Single();
+                var resultType = typeof(WrappedQuery<>).MakeGenericType(entityType);
+                return (WrappedQuery)Activator.CreateInstance(resultType, queryable, new WrappedQueryProvider(queryable.Provider));
+            }
+
             return new WrappedQuery(queryable, new WrappedQueryProvider(queryable.Provider));
         }
 
