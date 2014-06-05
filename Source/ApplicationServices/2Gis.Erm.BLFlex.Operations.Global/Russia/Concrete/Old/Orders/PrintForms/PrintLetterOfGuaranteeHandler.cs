@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                    order.LegalPersonId, 
                                    order.BranchOfficeOrganizationUnitId, 
                                })
-                       .AsEnumerable()
+                       .ToArray()
                        .Select(
                            x =>
                            new

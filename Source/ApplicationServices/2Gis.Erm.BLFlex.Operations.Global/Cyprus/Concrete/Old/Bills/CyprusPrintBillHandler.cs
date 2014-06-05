@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                                            .Id,
                                            CurrencyISOCode = bill.Order.Currency.ISOCode
                                        })
-                                   .AsEnumerable()
+                                   .ToArray()
                                    .Select(x => new
                                        {
                                            x.Bill,

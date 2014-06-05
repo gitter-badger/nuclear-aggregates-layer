@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
                         order.BranchOfficeOrganizationUnitId,
                     })
-                .AsEnumerable()
+                .ToArray()
 
                 // in-memory transformations
                 .Select(x =>
