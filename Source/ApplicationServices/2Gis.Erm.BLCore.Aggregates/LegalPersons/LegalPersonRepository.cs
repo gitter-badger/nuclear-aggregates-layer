@@ -126,29 +126,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public LegalPersonForMergeDto GetInfoForMerging(long legalPersonId)
         {
-            var data = _finder.Find<LegalPerson>(x => x.Id == legalPersonId && !x.IsDeleted && x.IsActive)
-                              .Select(x => new
-                                  {
-                                      LegalPerson = x,
-                                      Accounts = x.Accounts,
-                                      AccountDetails = x.Accounts.SelectMany(y => y.AccountDetails.Where(z => z.IsActive && !z.IsDeleted)),
-                                      Orders = x.Orders,
-                                      Bargains = x.Bargains,
-                                      ProfileIds = x.LegalPersonProfiles.Select(profile => profile.Id)
-                                  })
-                              .SingleOrDefault();
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
+            if (legalPerson == null)
+            {
+                return null;
+            }
 
-            return data == null
-                       ? null
-                       : new LegalPersonForMergeDto
-                           {
-                               LegalPerson = data.LegalPerson,
-                               Accounts = data.Accounts,
-                               AccountDetails = data.AccountDetails,
-                               Orders = data.Orders,
-                               Bargains = data.Bargains,
-                               Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(data.ProfileIds))
-                           };
+            var relatedEntities = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                                         .Select(x => new
+                                             {
+                                                 x.Accounts,
+                                                 AccountDetails = x.Accounts.SelectMany(y => y.AccountDetails.Where(z => z.IsActive && !z.IsDeleted)),
+                                                 x.Orders,
+                                                 x.Bargains,
+                                                 ProfileIds = x.LegalPersonProfiles.Select(profile => profile.Id)
+                                             })
+                                         .Single();
+
+            return new LegalPersonForMergeDto
+                {
+                    LegalPerson = legalPerson,
+                    Accounts = relatedEntities.Accounts,
+                    AccountDetails = relatedEntities.AccountDetails,
+                    Orders = relatedEntities.Orders,
+                    Bargains = relatedEntities.Bargains,
+                    Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.ProfileIds))
+                };
         }
 
         public int Deactivate(LegalPerson legalPerson)
