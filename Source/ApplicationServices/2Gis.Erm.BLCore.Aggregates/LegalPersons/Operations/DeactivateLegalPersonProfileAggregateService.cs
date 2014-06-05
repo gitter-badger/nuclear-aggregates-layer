@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
 
         int IDeactivateAggregateRepository<LegalPersonProfile>.Deactivate(long entityId)
         {
-            return Deactivate(_secureFinder.Find(Specs.Find.ById<LegalPersonProfile>(entityId)).Single());
+            return Deactivate(_secureFinder.FindOne(Specs.Find.ById<LegalPersonProfile>(entityId)));
         }
 
         private int Deactivate(LegalPersonProfile entity)
