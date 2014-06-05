@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                     {
                         Order = order,
                         order.Bargain,
-                        order.LegalPerson,
+                        order.LegalPersonId,
                         ProfileId = order.LegalPerson.LegalPersonProfiles
                                          .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
                                          .Id,
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                                          ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                          : null,
                                 NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
-                                x.LegalPerson,
+                                LegalPerson = x.LegalPersonId.HasValue ? _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)) : null,
                                 Profile = profile,
                                 x.OrganizationUnitName,
                                 BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue

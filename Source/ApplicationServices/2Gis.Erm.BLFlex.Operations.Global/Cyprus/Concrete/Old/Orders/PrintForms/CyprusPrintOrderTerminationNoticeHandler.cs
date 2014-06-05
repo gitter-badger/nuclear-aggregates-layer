@@ -61,10 +61,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                       CurrencyISOCode = order.Currency.ISOCode,
                                       LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
                                       order.BranchOfficeOrganizationUnitId,
-                                      order.BranchOfficeOrganizationUnit.BranchOffice
+                                      BranchOfficeId = (long?)order.BranchOfficeOrganizationUnit.BranchOfficeId
                                   })
                               .Single();
 
+            var branchOffice = data.BranchOfficeId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId.Value))
+                : null;
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
                 : null;
@@ -84,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                     data.CurrencyISOCode,
                     data.LegalPersonType,
                     data.BranchOfficeOrganizationUnitId,
-                    data.BranchOffice
+                    BranchOffice = branchOffice
                 };
 
             return _requestProcessor.HandleSubRequest(new PrintDocumentRequest
