@@ -78,7 +78,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 restrictForMergeId =>
                     {
                         var restrictedLegalPerson =
-                            query.SingleOrDefault(x => x.Id == restrictForMergeId);
+                            query.Where(x => x.Id == restrictForMergeId).Select(x => new
+                                {
+                                    LegalPersonTypeEnum = x.LegalPersonTypeEnum,
+                                    Inn = x.Inn,
+                                    Kpp = x.Kpp,
+                                    PassportNumber = x.PassportNumber,
+                                    PassportSeries = x.PassportSeries
+                                }).SingleOrDefault();
                         if (restrictedLegalPerson != null)
                         {
                             var legalPersonType =
