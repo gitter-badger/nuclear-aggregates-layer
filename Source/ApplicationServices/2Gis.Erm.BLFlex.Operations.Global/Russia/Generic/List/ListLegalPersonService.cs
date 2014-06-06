@@ -78,14 +78,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 restrictForMergeId =>
                     {
                         var restrictedLegalPerson =
-                            query.Where(x => x.Id == restrictForMergeId).Select(x => new
-                                {
-                                    LegalPersonTypeEnum = x.LegalPersonTypeEnum,
-                                    Inn = x.Inn,
-                                    Kpp = x.Kpp,
-                                    PassportNumber = x.PassportNumber,
-                                    PassportSeries = x.PassportSeries
-                                }).SingleOrDefault();
+                            query.Where(x => x.Id == restrictForMergeId)
+                                 .Select(x => new
+                                     {
+                                         LegalPersonTypeEnum = x.LegalPersonTypeEnum,
+                                         Inn = x.Inn,
+                                         Kpp = x.Kpp,
+                                         PassportNumber = x.PassportNumber,
+                                         PassportSeries = x.PassportSeries
+                                     }).SingleOrDefault();
                         if (restrictedLegalPerson != null)
                         {
                             var legalPersonType =
@@ -97,18 +98,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                                         x =>
                                         x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
                                         x.Inn == restrictedLegalPerson.Inn &&
-                                        x.Kpp == restrictedLegalPerson.Kpp;
+                                        x.Kpp == restrictedLegalPerson.Kpp && 
+                                        x.LegalPersonTypeEnum == restrictedLegalPerson.LegalPersonTypeEnum;
                                 case LegalPersonType.Businessman:
                                     return
                                         x =>
                                         x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
-                                        x.Inn == restrictedLegalPerson.Inn;
+                                        x.Inn == restrictedLegalPerson.Inn &&
+                                        x.LegalPersonTypeEnum == restrictedLegalPerson.LegalPersonTypeEnum;
                                 case LegalPersonType.NaturalPerson:
                                     return
                                         x =>
                                         x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
                                         x.PassportNumber == restrictedLegalPerson.PassportNumber &&
-                                        x.PassportSeries == restrictedLegalPerson.PassportSeries;
+                                        x.PassportSeries == restrictedLegalPerson.PassportSeries &&
+                                        x.LegalPersonTypeEnum == restrictedLegalPerson.LegalPersonTypeEnum;
                             }
                         }
 
