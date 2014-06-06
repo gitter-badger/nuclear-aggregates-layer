@@ -52,22 +52,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
-                "restrictForMergeId",
-                restrictForMergeId =>
-                {
-                    var restrictedLegalPerson =
-                        query.SingleOrDefault(x => x.Id == restrictForMergeId);
-                    if (restrictedLegalPerson != null)
-                    {
-                        return x =>
-                               x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
-                               x.Inn == restrictedLegalPerson.Inn;
-                    }
-
-                    return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
-                });
-
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt", info =>
             {
                 var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
@@ -98,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
             });
 
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
                 // FIXME {y.baranihin, 19.03.2014}: Эта выборка точно нужна? Ниже, в join снова выбираются поля в анонимный объект.
                 // DONE {a.rechkalov, 20.03.2014}: убрал
                 .Join(dynamicObjectsQuery,

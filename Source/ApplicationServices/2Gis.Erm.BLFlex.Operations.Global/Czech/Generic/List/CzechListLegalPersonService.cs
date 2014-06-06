@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -74,41 +73,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                 return x => x.OwnerCode != userId;
             });
 
-            var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
-                "restrictForMergeId",
-                restrictForMergeId =>
-                {
-                    var restrictedLegalPerson =
-                        query.SingleOrDefault(x => x.Id == restrictForMergeId);
-                    if (restrictedLegalPerson != null)
-                    {
-                        var legalPersonType =
-                            (LegalPersonType)restrictedLegalPerson.LegalPersonTypeEnum;
-                        switch (legalPersonType)
-                        {
-                            case LegalPersonType.LegalPerson:
-                                return
-                                    x =>
-                                    x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
-                                    x.Inn == restrictedLegalPerson.Inn;
-                            case LegalPersonType.Businessman:
-                                return
-                                    x =>
-                                    x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
-                                    x.Inn == restrictedLegalPerson.Inn;
-                            case LegalPersonType.NaturalPerson:
-                                return
-                                    x =>
-                                    x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
-                                    x.PassportNumber == restrictedLegalPerson.PassportNumber;
-                        }
-                    }
-
-                    return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
-                });
-
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
                 .Select(x => new CzechListLegalPersonDto
                 {
                     Id = x.Id,
