@@ -219,10 +219,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                                      where clientPrevOwner == null || legalPerson.OwnerCode == clientPrevOwner
                                                                      select new
                                                                      {
-                                                                         LegalPerson = legalPerson,
+                                                                         LegalPersonId = legalPerson.Id,
                                                                          Accounts = legalPerson.Accounts.Where(x => (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)),
                                                                          Bargains = legalPerson.Bargains.Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)),
-                                                                         Profiles = legalPerson.LegalPersonProfiles.Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)),
+                                                                         ProfileIds = legalPerson.LegalPersonProfiles.Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)).Select(x => x.Id),
                                                                          Limits = from acc in legalPerson.Accounts
                                                                                   from limit in acc.Limits
                                                                                   where limit.IsActive && !limit.IsDeleted && (clientPrevOwner == null || limit.OwnerCode == clientPrevOwner)
@@ -257,26 +257,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _firmGenericRepository.Save();
 
-                foreach (var legalPersonsWithRelated in relatedEntities.LegalPersonsWithRelated)
+                var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonsWithRelated.Select(x => x.LegalPersonId)));
+                foreach (var legalPerson in legalPersons)
                 {
-                    var legalPerson = legalPersonsWithRelated.LegalPerson;
-
                     legalPerson.OwnerCode = ownerCode;
                     _legalPersonGenericRepository.Update(legalPerson);
                     operationScope.Updated<LegalPerson>(legalPerson.Id);
+                }
 
+                var legalPersonProfiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.LegalPersonsWithRelated.SelectMany(x => x.ProfileIds)));
+                foreach (var profile in legalPersonProfiles)
+                {
+                    profile.OwnerCode = ownerCode;
+                    _legalPersonProfileGenericRepository.Update(profile);
+                    operationScope.Updated<LegalPersonProfile>(profile.Id);
+                }
+
+                foreach (var legalPersonsWithRelated in relatedEntities.LegalPersonsWithRelated)
+                {
                     foreach (var account in legalPersonsWithRelated.Accounts)
                     {
                         account.OwnerCode = ownerCode;
                         _accountGenericRepository.Update(account);
                         operationScope.Updated<Account>(account.Id);
-                    }
-
-                    foreach (var profile in legalPersonsWithRelated.Profiles)
-                    {
-                        profile.OwnerCode = ownerCode;
-                        _legalPersonProfileGenericRepository.Update(profile);
-                        operationScope.Updated<LegalPersonProfile>(profile.Id);
                     }
 
                     foreach (var limit in legalPersonsWithRelated.Limits)
@@ -505,8 +508,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 if (assignAllObjects)
                 {
-                    // Сначала прокинем куратора в сущности добавляемого клиента
-                    AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
+                // Сначала прокинем куратора в сущности добавляемого клиента
+                AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
                 }
                 else
                 {
@@ -514,64 +517,66 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 }
 
                 var relatedEntities = _secureFinder.Find(Specs.Find.ById<Client>(appendedClient.Id))
-                                                   .Select(x => new
-                                                       {
-                                                           Deals = x.Deals.Where(y => !y.IsDeleted),
-                                                           Firms = x.Firms.Where(y => !y.IsDeleted),
-                                                           Contacts = x.Contacts.Where(y => !y.IsDeleted),
-                                                           LegalPersons = x.LegalPersons.Where(y => !y.IsDeleted),
-                                                       })
-                                                   .Single();
+                .Select(x => new
+                {
+                    Deals = x.Deals.Where(y => !y.IsDeleted),
+                    Firms = x.Firms.Where(y => !y.IsDeleted),
+                    Contacts = x.Contacts.Where(y => !y.IsDeleted),
+                                                           LegalPersonIds = x.LegalPersons.Where(y => !y.IsDeleted).Select(y => y.Id),
+                })
+                .Single();
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Deal>())
                 {
-                    foreach (var deal in relatedEntities.Deals)
-                    {
-                        deal.ClientId = mainClient.Id;
-                        _dealGenericRepository.Update(deal);
+                foreach (var deal in relatedEntities.Deals)
+                {
+                    deal.ClientId = mainClient.Id;
+                    _dealGenericRepository.Update(deal);
                         operationScope.Updated<Deal>(deal.Id);
-                    }
+                }
 
-                    _dealGenericRepository.Save();
+                _dealGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Contact>())
                 {
-                    foreach (var contact in relatedEntities.Contacts)
-                    {
-                        contact.ClientId = mainClient.Id;
-                        _contactGenericRepository.Update(contact);
+                foreach (var contact in relatedEntities.Contacts)
+                {
+                    contact.ClientId = mainClient.Id;
+                    _contactGenericRepository.Update(contact);
                         operationScope.Updated<Contact>(contact.Id);
-                    }
+                }
 
-                    _contactGenericRepository.Save();
+                _contactGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Firm>())
                 {
-                    foreach (var firm in relatedEntities.Firms)
-                    {
-                        firm.ClientId = mainClient.Id;
-                        _firmGenericRepository.Update(firm);
+                foreach (var firm in relatedEntities.Firms)
+                {
+                    firm.ClientId = mainClient.Id;
+                    _firmGenericRepository.Update(firm);
                         operationScope.Updated<Firm>(firm.Id);
-                    }
+                }
 
-                    _firmGenericRepository.Save();
+                _firmGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, LegalPerson>())
                 {
-                    foreach (var legalPerson in relatedEntities.LegalPersons)
-                    {
-                        legalPerson.ClientId = mainClient.Id;
-                        _legalPersonGenericRepository.Update(legalPerson);
-                        operationScope.Updated<LegalPerson>(legalPerson.Id);
-                    }
+                    var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonIds));
 
-                    _legalPersonGenericRepository.Save();
+                    foreach (var legalPerson in legalPersons)
+                {
+                    legalPerson.ClientId = mainClient.Id;
+                    _legalPersonGenericRepository.Update(legalPerson);
+                        operationScope.Updated<LegalPerson>(legalPerson.Id);
+                }
+
+                _legalPersonGenericRepository.Save();
                     operationScope.Complete();
                 }
 
@@ -581,7 +586,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 _clientGenericSecureRepository.Update(mainClient);
                 _clientGenericSecureRepository.Save();
 
-                transaction.Complete();
+                transaction.Complete(); 
             }
 
             return new Tuple<Client, Client>(mainClient, appendedClient);

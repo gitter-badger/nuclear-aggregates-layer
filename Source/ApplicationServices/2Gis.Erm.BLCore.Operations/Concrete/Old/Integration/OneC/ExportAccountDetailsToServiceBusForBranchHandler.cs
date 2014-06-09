@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Common.Xml;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -54,9 +55,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportAccountDetailsToServiceBusForBranchHandler(
             IFinder finder,
-            ISubRequestProcessor subRequestProcessor,
-            IClientProxyFactory clientProxyFactory,
-            IOrderReadModel orderReadModel,
+                                                                ISubRequestProcessor subRequestProcessor,
+                                                                IClientProxyFactory clientProxyFactory,
+                                                                IOrderReadModel orderReadModel,
             IGlobalizationSettings globalizationSettings,
             IBusinessModelSettings businessModelSettings, 
             IUseCaseTuner useCaseTuner)
@@ -108,14 +109,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
             var totalProcessedByModiCount = modiResponse.ProcessedWithoutErrors + modiResponse.BlockingErrorsAmount + modiResponse.NonBlockingErrorsAmount;
             if (!accountDetailDtos.Any() && totalProcessedByModiCount == 0)
-            {
+                           {
                 throw new NotificationException(string.Format(BLResources.NoDebitsForSpecifiedPeriod, period.Start, period.End));
-            }
+                                     }
 
             var orderIds = accountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
             var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
             foreach (var accountDetailDto in accountDetailDtos)
-            {
+                                     {
                 accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
             }
 
@@ -134,7 +135,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                              debitInfoDto.Debits.Length,
                                              debitsStream);
             return response;
-        }
+                        }
 
         private static MemoryStream CreateDebitsStream(XElement debitsXml, byte[] regionalDebitsStream)
         {
@@ -168,7 +169,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
                                                            TimePeriod period,
                                                            IEnumerable<AccountDetailDto> accountDetailDtos)
-        {
+                {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
                         {
@@ -293,7 +294,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         {
             var accountDetailsQuery = _finder.FindAll<AccountDetail>();
 
-            return (from @lock in _finder.FindAll<Lock>()
+            var allWithoutLegalPerson = (from @lock in _finder.FindAll<Lock>()
                     let type = @lock.Order.SourceOrganizationUnitId == organizationUnitId
                                    ? ExportOrderType.LocalAndOutgoing
                                    : @lock.Order.DestOrganizationUnitId == organizationUnitId &&
@@ -320,7 +321,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                         })
                 .Select(x => x.Type == ExportOrderType.LocalAndOutgoing ||
                              x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                                 ? new AccountDetailDto
+                                 ? new 
+                                     {
+                                     AccountDetailDto = new AccountDetailDto
                                      {
                                          OrderHasPositionsWithPlannedProvision = 
                                                 x.Lock.Order.OrderPositions.Any(op => op.IsActive 
@@ -344,12 +347,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                        .FirstOrDefault(),
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                          Type = x.Type,
+                                     },
+
+                                     LegalPersonId = x.Lock.Account.LegalPersonId,
                                      }
 
                                  // ExportOrderType.IncomingFromFranchiseesClient
-                                 : new AccountDetailDto
+                                 : new 
+                                 {
+                                     AccountDetailDto = new AccountDetailDto
                                      {
                                          OrderHasPositionsWithPlannedProvision = false,
 
@@ -367,10 +374,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                        .FirstOrDefault(),
                                          ElectronicMedia = x.Lock.Order.DestOrganizationUnit.ElectronicMedia,
                                          OrderId = x.Lock.OrderId,
-                                         LegalPerson = x.Lock.Account.LegalPerson,
                                          Type = x.Type,
+                                     },
+
+                                     LegalPersonId = x.Lock.Account.LegalPersonId,
                                      })
-                .Where(x => x.DebitAccountDetailAmount > 0)
+                .Where(x => x.AccountDetailDto.DebitAccountDetailAmount > 0)
+                .ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(allWithoutLegalPerson.Select(x => x.LegalPersonId)))
+                                      .ToDictionary(x => x.Id, x => x);
+
+            return allWithoutLegalPerson
+                .Select(x => { x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId]; return x.AccountDetailDto; })
                 .ToArray();
         }
 

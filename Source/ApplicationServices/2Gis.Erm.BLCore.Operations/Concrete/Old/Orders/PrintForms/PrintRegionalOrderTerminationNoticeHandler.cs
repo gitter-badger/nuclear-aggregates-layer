@@ -70,54 +70,62 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
 
             var contributionTypeSpecificStrategies = GetContributionTypeSpecificStratagies(orderInfo.SourceOrganizationUnitId, orderInfo.DestOrganizationUnitId);
 
-            var printData = (from order in _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                             let sourceBranchOfficeOrganizationUnit = order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(boou => boou.IsPrimaryForRegionalSales)
-                             let destinationBranchOfficeOrganizationUnit = order.DestOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(boou => boou.IsPrimaryForRegionalSales)
+            var data = (from order in _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                             let sourceBOOU = order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(boou => boou.IsPrimaryForRegionalSales)
+                             let destinationBOOU = order.DestOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(boou => boou.IsPrimaryForRegionalSales)
                              select new
                                     {
                                         Order = order,
-                                        SourceBranchOfficeOrganizationUnit = sourceBranchOfficeOrganizationUnit,
-                                        SourceBranchOffice = sourceBranchOfficeOrganizationUnit.BranchOffice,
-                                        DestinationBranchOfficeOrganizationUnit = destinationBranchOfficeOrganizationUnit,
-                                        VatRateForDestination = destinationBranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                        VatRateForSource = sourceBranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                        SourceBranchOfficeOrganizationUnitId = sourceBOOU.Id,
+                                        SourceBranchOfficeId = sourceBOOU.BranchOfficeId,
+                                        DestinationBranchOfficeOrganizationUnitId = destinationBOOU.Id,
+                                        VatRateForDestination = destinationBOOU.BranchOffice.BargainType.VatRate,
+                                        VatRateForSource = sourceBOOU.BranchOffice.BargainType.VatRate,
                                         order.Bargain,
                                         order.EndDistributionDateFact,
-                                        order.LegalPerson,
-                                        LegalPersonProfile = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value),
+                                        order.LegalPersonId,
+                                        LegalPersonProfileId = order.LegalPerson.LegalPersonProfiles
+                                                                    .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
+                                                                    .Id,
                                         order.Firm,
-                                        order.BranchOfficeOrganizationUnit,
                                         CurrencyISOCode = order.Currency.ISOCode,
                                     })
-                .AsEnumerable()
-                .Select(x => new
-                             {
-                                 NotificationDate = DateTime.Now,
-                                 OrderProcessedPayableFact = contributionTypeSpecificStrategies.PayableFactEvaluator(x.Order,
-                                     GetValue(contributionTypeSpecificStrategies.UseSourceBranchVat ? x.VatRateForSource : x.VatRateForDestination)),
-                                 OrderProcessedNumber = contributionTypeSpecificStrategies.OrderNumberSelector(x.Order),
-                                 x.Order,
-                                 x.SourceBranchOfficeOrganizationUnit,
-                                 x.DestinationBranchOfficeOrganizationUnit,
-                                 x.SourceBranchOffice,
-                                 TerminationReleaseNumber = x.Order.EndReleaseNumberFact + 1,
-                                 TerminationDate = x.EndDistributionDateFact.AddDays(1),
-                                 x.LegalPerson,
-                                 x.LegalPersonProfile,
-                                 x.Firm,
-                                 x.CurrencyISOCode,
-                             })
                 .Single();
 
-            return _requestProcessor.HandleSubRequest(new PrintDocumentRequest
-                                                   {
-                                                       CurrencyIsoCode = printData.CurrencyISOCode,
-                                                       BranchOfficeOrganizationUnitId = printData.Order.BranchOfficeOrganizationUnitId,
-                                                       TemplateCode = contributionTypeSpecificStrategies.TemplateCode,
-                                                       FileName = string.Format(BLResources.NotificationAboutRegionalTermination, printData.OrderProcessedNumber),
-                                                       PrintData = printData
-            },
-            Context);
+            var sourceBranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.SourceBranchOfficeId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.LegalPersonProfileId));
+            var sourceBranchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.SourceBranchOfficeOrganizationUnitId));
+            var destinationBranchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.DestinationBranchOfficeOrganizationUnitId));
+
+            var printData = new
+                {
+                    NotificationDate = DateTime.Now,
+                    OrderProcessedPayableFact = contributionTypeSpecificStrategies.PayableFactEvaluator(data.Order,
+                        GetValue(contributionTypeSpecificStrategies.UseSourceBranchVat ? data.VatRateForSource : data.VatRateForDestination)),
+                    OrderProcessedNumber = contributionTypeSpecificStrategies.OrderNumberSelector(data.Order),
+                    data.Order,
+                    SourceBranchOfficeOrganizationUnit = sourceBranchOfficeOrganizationUnit,
+                    DestinationBranchOfficeOrganizationUnit = destinationBranchOfficeOrganizationUnit,
+                    SourceBranchOffice = sourceBranchOffice,
+                    TerminationReleaseNumber = data.Order.EndReleaseNumberFact + 1,
+                    TerminationDate = data.EndDistributionDateFact.AddDays(1),
+                    LegalPerson = legalPerson,
+                    LegalPersonProfile = legalPersonProfile,
+                    data.Firm,
+                    data.CurrencyISOCode,
+                };
+
+            var printRequest = new PrintDocumentRequest
+                {
+                    CurrencyIsoCode = printData.CurrencyISOCode,
+                    BranchOfficeOrganizationUnitId = printData.Order.BranchOfficeOrganizationUnitId,
+                    TemplateCode = contributionTypeSpecificStrategies.TemplateCode,
+                    FileName = string.Format(BLResources.NotificationAboutRegionalTermination, printData.OrderProcessedNumber),
+                    PrintData = printData
+                };
+
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
         private static decimal GetValue(decimal? val)

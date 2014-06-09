@@ -196,8 +196,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             var clients = _finder.Find(Specs.Find.Owned<Client>(userId)).ToArray();
             var firms = _finder.Find(Specs.Find.Owned<Firm>(userId)).ToArray();
             var deals = _finder.Find(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>()).ToArray();
-            var legalPersons = _finder.Find(Specs.Find.Owned<LegalPerson>(userId)).ToArray();
-            var legalPersonProfiles = _finder.Find(Specs.Find.Owned<LegalPersonProfile>(userId)).ToArray();
+            var legalPersons = _finder.FindMany(Specs.Find.Owned<LegalPerson>(userId));
+            var legalPersonProfiles = _finder.FindMany(Specs.Find.Owned<LegalPersonProfile>(userId));
             var accounts = _finder.Find(Specs.Find.Owned<Account>(userId)).ToArray();
             var limits = _finder.Find(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>()).ToArray();
             var bargains = _finder.Find(Specs.Find.Owned<Bargain>(userId)).ToArray();

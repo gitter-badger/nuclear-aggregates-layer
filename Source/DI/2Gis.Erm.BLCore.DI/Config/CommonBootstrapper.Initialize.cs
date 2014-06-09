@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             ContainerUtils.AddParameterResolver(OnPersistenceServiceDependencyResolver);
             ContainerUtils.AddParameterResolver(OnOperationServicesDependencyResolver);
             ContainerUtils.AddParameterResolver(OnCrosscuttingDependencyResolver);
+            ContainerUtils.AddParameterResolver(OnDynamicEntitiesRepositoriesDependencyResolver);
         }
         
         private static bool OnAggregateReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
@@ -164,6 +165,21 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                             constructorParameter.ParameterType,
                                             type);
                 throw new InvalidOperationException(message);
+            }
+
+            return false;
+        }
+
+        private static bool OnDynamicEntitiesRepositoriesDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
+        {
+            var repositoryMarker = typeof(IRepository<>);
+            var dynamicEntityRepositoryMarker = typeof(IDynamicEntityRepository);
+            resolvedParameter = null;
+
+            if (constructorParameter.ParameterType.IsGenericType && constructorParameter.ParameterType.GetGenericTypeDefinition() == repositoryMarker && dynamicEntityRepositoryMarker.IsAssignableFrom(type))
+            {
+                resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.DynamicEntitiesRepositoriesScope);
+                return true;
             }
 
             return false;

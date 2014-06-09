@@ -1,0 +1,10 @@
+﻿using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
+{
+    public interface IClientReadModel : IAggregateReadModel<Client>
+    {
+        string GetClientName(long clientId);
+    }
+}

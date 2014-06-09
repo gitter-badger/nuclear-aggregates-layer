@@ -694,6 +694,7 @@
     <Compile Include="2.1\2014.04.18 rev. 19684 - Alter UpdateBuildings.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19787 - drop BudgetType column from Billing.Orders.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19802 - create OrderPositionId column in Billing.LockDetails.cs" />
+    <Compile Include="2.1\2014.04.29 rev. 20010 - Changу EntityPropertyInstance primary key.cs" />
     <Compile Include="2.1\2014.04.18 rev. 19680 - Add column ProcessorId to ExportFailedEntities.cs" />
     <Compile Include="2.1\2014.05.19 rev. 20435 - Alter ImportCardsFromXml.cs" />
     <Compile Include="2.1\2014.05.20 rev. 20459 - fix bug ERM-3992 ArgumentException.cs" />

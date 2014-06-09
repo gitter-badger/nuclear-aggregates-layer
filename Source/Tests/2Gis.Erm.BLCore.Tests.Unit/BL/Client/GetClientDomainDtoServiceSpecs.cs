@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -47,7 +48,9 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<Expression<Func<Platform.Model.Entities.Erm.Client, bool>>>()))
                               .Returns(new[] { Client }.AsQueryable());
 
-                    GetDtoService = new GetClientDtoService(Mock.Of<IUserContext>(), FinderMock.Object);
+                    var userContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
+                    
+                    GetDtoService = new GetClientDtoService(userContext, FinderMock.Object);
                 };
 
             protected static Mock<ISecureFinder> FinderMock { get; private set; }

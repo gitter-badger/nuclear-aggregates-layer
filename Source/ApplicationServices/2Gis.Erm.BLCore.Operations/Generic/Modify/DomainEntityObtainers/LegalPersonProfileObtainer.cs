@@ -14,12 +14,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
     public sealed class LegalPersonProfileObtainer : IBusinessModelEntityObtainer<LegalPersonProfile>, IAggregateReadModel<LegalPerson>
     {
         private readonly IFinder _finder;
-        private readonly IBusinessModelEntityObtainerFlex<LegalPersonProfile> _flexBehaviour;
 
-        public LegalPersonProfileObtainer(IFinder finder, IBusinessModelEntityObtainerFlex<LegalPersonProfile> flexBehaviour)
+        public LegalPersonProfileObtainer(IFinder finder)
         {
             _finder = finder;
-            _flexBehaviour = flexBehaviour;
         }
 
         public LegalPersonProfile ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
@@ -29,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var legalPersonProfile =
                 dto.Id == 0
                     ? new LegalPersonProfile { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).Single();
+                    : _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id));
 
             legalPersonProfile.Name = dto.Name;
             legalPersonProfile.PositionInGenitive = dto.PositionInGenitive;
@@ -68,10 +66,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.BargainEndDate = dto.BargainEndDate;
             legalPersonProfile.BargainNumber = dto.BargainNumber;
             legalPersonProfile.Timestamp = dto.Timestamp;
-
-            legalPersonProfile.Parts = _flexBehaviour.GetEntityParts(legalPersonProfile);
-
-            _flexBehaviour.CopyPartFields(legalPersonProfile, dto);
 
             return legalPersonProfile;
         }

@@ -84,8 +84,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 string accountOwnerEmail;
                 if (_employeeEmailResolver.TryResolveEmail(account.OwnerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
                 {
-                    var legalPerson = _legalPersonReadModel.GetLegalPerson(account.LegalPersonId);
-                    if (legalPerson == null)
+                    var legalPersonName = _legalPersonReadModel.GetLegalPersonName(account.LegalPersonId);
+                    if (string.IsNullOrEmpty(legalPersonName))
                     {
                         _logger.ErrorEx("Can't find legal person with id: " + account.LegalPersonId);
                         return;
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                                                     BLResources.PaymentReceivedSubject,
                                                     string.Format(BLResources.PaymentReceivedBodyTemplate,
                                                                   account.Id,
-                                                                  legalPerson.LegalName,
+                                                                  legalPersonName,
                                                                   branchOffice.ShortLegalName,
                                                                   accountDetail.Amount,
                                                                   accountDetail.TransactionDate.ToString(_localizationSettings.ApplicationCulture)));

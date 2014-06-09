@@ -18,8 +18,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices
         int Deactivate(BranchOffice branchOffice);
         int Deactivate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit);
 
-        void CreateOrUpdate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit);
-        void CreateOrUpdate(BranchOffice branchOffice);
         void SetPrimaryBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId);
         void SetPrimaryForRegionalSalesBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId);
 

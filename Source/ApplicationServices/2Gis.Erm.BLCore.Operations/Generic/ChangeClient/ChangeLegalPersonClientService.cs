@@ -23,22 +23,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
     {
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 
-        public ChangeLegalPersonClientService(
-            IUserContext userContext, 
+        public ChangeLegalPersonClientService(IUserContext userContext,
             IOperationScopeFactory scopeFactory, 
-            ILegalPersonReadModel legalPersonReadModel,
             ILegalPersonRepository legalPersonRepository,
             ISecurityServiceFunctionalAccess functionalAccessService,
             ISecurityServiceUserIdentifier userIdentifierService)
         {
             _userContext = userContext;
             _scopeFactory = scopeFactory;
-            _legalPersonReadModel = legalPersonReadModel;
             _legalPersonRepository = legalPersonRepository;
             _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
@@ -94,12 +90,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
                         throw new ArgumentException(firstDomainError);
                     }
 
-                    var person = _legalPersonReadModel.GetLegalPerson(entityId);
                     changeAggregateClientRepository.ChangeClient(entityId, clientId, _userContext.Identity.Code, bypassValidation);
 
                     operationScope
                         .Updated<LegalPerson>(entityId)
-                        .Updated<Client>(clientId, person.ClientId.Value)
+                        .Updated<Client>(clientId)
                         .Complete();
                 }
 

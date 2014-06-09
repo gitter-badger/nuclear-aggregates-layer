@@ -15,7 +15,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -37,6 +36,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         private readonly IDebtProcessingSettings _debtProcessingSettings;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
+        
         private readonly ISecureRepository<LegalPerson> _legalPersonGenericRepository;
         private readonly ISecureRepository<Account> _accountGenericRepository;
         private readonly ISecureRepository<Bargain> _bargainGenericRepository;
@@ -45,7 +45,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         private readonly IRepository<LegalPersonProfile> _legalPersonProfileGenericRepository;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public LegalPersonRepository(
@@ -60,7 +59,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             ISecureRepository<Bargain> bargainGenericRepository,
             ISecureRepository<Account> accountGenericRepository, 
             ISecureFinder secureFinder, 
-            IIdentityProvider identityProvider, 
             IOperationScopeFactory scopeFactory)
         {
             _debtProcessingSettings = debtProcessingSettings;
@@ -74,7 +72,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             _bargainGenericRepository = bargainGenericRepository;
             _accountGenericRepository = accountGenericRepository;
             _secureFinder = secureFinder;
-            _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
         }
 
@@ -82,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var profiles = _finder.Find<LegalPersonProfile>(profile => profile.LegalPersonId == legalPerson.Id).ToArray();
+                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id));
                 foreach (var legalPersonProfile in profiles)
                 {
                     legalPersonProfile.IsActive = true;
@@ -129,24 +126,39 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public LegalPersonForMergeDto GetInfoForMerging(long legalPersonId)
         {
-            return _finder.Find<LegalPerson>(x => x.Id == legalPersonId && !x.IsDeleted && x.IsActive)
-                .Select(x => new LegalPersonForMergeDto
-                                        {
-                                            LegalPerson = x,
-                                            Accounts = x.Accounts,
-                        AccountDetails = x.Accounts.SelectMany(y => y.AccountDetails.Where(z => z.IsActive && !z.IsDeleted)),
-                                            Orders = x.Orders,
-                                            Bargains = x.Bargains,
-                                            Profiles = x.LegalPersonProfiles
-                    })
-                .SingleOrDefault();
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
+            if (legalPerson == null)
+            {
+                return null;
+            }
+
+            var relatedEntities = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                                         .Select(x => new
+                                             {
+                                                 x.Accounts,
+                                                 AccountDetails = x.Accounts.SelectMany(y => y.AccountDetails.Where(z => z.IsActive && !z.IsDeleted)),
+                                                 x.Orders,
+                                                 x.Bargains,
+                                                 ProfileIds = x.LegalPersonProfiles.Select(profile => profile.Id)
+                                             })
+                                         .Single();
+
+            return new LegalPersonForMergeDto
+                {
+                    LegalPerson = legalPerson,
+                    Accounts = relatedEntities.Accounts,
+                    AccountDetails = relatedEntities.AccountDetails,
+                    Orders = relatedEntities.Orders,
+                    Bargains = relatedEntities.Bargains,
+                    Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.ProfileIds))
+                };
         }
 
         public int Deactivate(LegalPerson legalPerson)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, LegalPerson>())
             {
-                var profiles = _finder.Find<LegalPersonProfile>(x => x.LegalPersonId == legalPerson.Id).ToArray();
+                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id));
                 foreach (var profile in profiles)
                 {
                     profile.IsActive = false;
@@ -164,44 +176,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 operationScope.Complete();
                 return count;
             }
-        }
-
-        public int Delete(LegalPerson legalPerson)
-        {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, LegalPerson>())
-            {
-                var profiles = _finder.Find<LegalPersonProfile>(x => x.LegalPersonId == legalPerson.Id).ToArray();
-                foreach (var profile in profiles)
-                {
-                    profile.IsActive = false;
-                    _legalPersonProfileGenericRepository.Update(profile);
-                    operationScope.Updated<LegalPersonProfile>(profile.Id);
-                }
-
-                _legalPersonProfileGenericRepository.Save();
-
-                _legalPersonGenericRepository.Delete(legalPerson);
-                var count = _legalPersonGenericRepository.Save();
-
-                operationScope.Deleted<LegalPerson>(legalPerson.Id);
-                operationScope.Complete();
-                return count;
-            }
-        }
-
-        public void CreateOrUpdate(LegalPerson legalPerson)
-        {
-            if (legalPerson.IsNew())
-            {
-                _identityProvider.SetFor(legalPerson);
-                _legalPersonGenericRepository.Add(legalPerson);
-            }
-            else
-            {
-                _legalPersonGenericRepository.Update(legalPerson);
-            }
-
-            _legalPersonGenericRepository.Save();
         }
 
         public void SyncWith1CDeferred(LegalPerson legalPerson)
@@ -222,10 +196,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public CheckForDublicatesResultDto CheckIfExistsInnDuplicate(long legalPersonId, string inn)
         {
-            var dublicateEntities = _finder.Find<LegalPerson>(x => x.Id != legalPersonId)
-                                           .Where(x => x.Inn.Trim().Equals(inn, StringComparison.OrdinalIgnoreCase))
-                                           .ToArray();
-
+            var dublicateEntities = _finder.FindMany(Specs.Find.ExceptById<LegalPerson>(legalPersonId) &&
+                                                     LegalPersonSpecs.LegalPersons.Find.ByInnTrimmed(inn));
             var result = new CheckForDublicatesResultDto
                 {
                     ActiveDublicateExists = dublicateEntities.Any(x => x.IsActive && !x.IsDeleted),
@@ -238,13 +210,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public CheckForDublicatesResultDto CheckIfExistsInnAndKppDuplicate(long legalPersonId, string inn, string kpp)
         {
-            var dublicateEntities = _finder.Find<LegalPerson>(x => x.Id != legalPersonId)
-                                           .Where(x => x.Inn.Trim().Equals(inn, StringComparison.OrdinalIgnoreCase) &&
-                                                       x.Kpp.Trim().Equals(kpp, StringComparison.OrdinalIgnoreCase))
-                                           .ToArray();
-
+            var dublicateEntities = _finder.FindMany(Specs.Find.ExceptById<LegalPerson>(legalPersonId) &&
+                                                     LegalPersonSpecs.LegalPersons.Find.ByInnAndKppTrimmed(inn, kpp));
             var result = new CheckForDublicatesResultDto
-        {
+                {
                     ActiveDublicateExists = dublicateEntities.Any(x => x.IsActive && !x.IsDeleted),
                     InactiveDublicateExists = dublicateEntities.Any(x => !x.IsActive && !x.IsDeleted),
                     DeletedDublicateExists = dublicateEntities.Any(x => x.IsDeleted)
@@ -255,30 +224,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public CheckForDublicatesResultDto CheckIfExistsInnOrIcDuplicate(long legalPersonId, string dic, string ic)
         {
-            var dublicateEntities = _finder.Find<LegalPerson>(x => x.Id != legalPersonId)
-                                           .Where(x => x.Inn.Trim().Equals(dic, StringComparison.OrdinalIgnoreCase) ||
-                                                       x.Ic.Trim().Equals(ic, StringComparison.OrdinalIgnoreCase))
-                                           .ToArray();
+            var dublicateEntities = _finder.FindMany(Specs.Find.ExceptById<LegalPerson>(legalPersonId) &&
+                                                     LegalPersonSpecs.LegalPersons.Find.ByIcOrDicTrimmed(ic, dic));
 
             var result = new CheckForDublicatesResultDto
-        {
-                ActiveDublicateExists = dublicateEntities.Any(x => x.IsActive && !x.IsDeleted),
-                InactiveDublicateExists = dublicateEntities.Any(x => !x.IsActive && !x.IsDeleted),
-                DeletedDublicateExists = dublicateEntities.Any(x => x.IsDeleted)
-            };
+                {
+                    ActiveDublicateExists = dublicateEntities.Any(x => x.IsActive && !x.IsDeleted),
+                    InactiveDublicateExists = dublicateEntities.Any(x => !x.IsActive && !x.IsDeleted),
+                    DeletedDublicateExists = dublicateEntities.Any(x => x.IsDeleted)
+                };
 
             return result;
         }
 
         public CheckForDublicatesResultDto CheckIfExistsPassportDuplicate(long legalPersonId, string passportSeries, string passportNumber)
         {
-            var dublicateEntities = _finder.Find<LegalPerson>(x => x.Id != legalPersonId)
-                                           .Where(x => x.PassportSeries.Trim().Equals(passportSeries, StringComparison.OrdinalIgnoreCase) &&
-                                                       x.PassportNumber.Trim().Equals(passportNumber, StringComparison.OrdinalIgnoreCase))
-                                           .ToArray();
+            var dublicateEntities = _finder.FindMany(Specs.Find.ExceptById<LegalPerson>(legalPersonId) &&
+                                                     LegalPersonSpecs.LegalPersons.Find.ByPassportTrimmed(passportSeries, passportNumber));
 
             var result = new CheckForDublicatesResultDto
-        {
+                {
                     ActiveDublicateExists = dublicateEntities.Any(x => x.IsActive && !x.IsDeleted),
                     InactiveDublicateExists = dublicateEntities.Any(x => !x.IsActive && !x.IsDeleted),
                     DeletedDublicateExists = dublicateEntities.Any(x => x.IsDeleted)
@@ -298,38 +263,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public LegalPerson FindLegalPerson(long entityId)
         {
-            return _secureFinder.Find<LegalPerson>(l => l.Id == entityId).SingleOrDefault();
-        }
-
-        public void CreateOrUpdate(LegalPersonProfile legalPersonProfile)
-        {
-            if (legalPersonProfile.IsNew())
-            {
-                _identityProvider.SetFor(legalPersonProfile);
-                _legalPersonProfileGenericRepository.Add(legalPersonProfile);
-            }
-            else
-            {
-                _legalPersonProfileGenericRepository.Update(legalPersonProfile);
-            }
-
-            _legalPersonProfileGenericRepository.Save();
-        }
-
-        public int Delete(LegalPersonProfile legalPersonProfile)
-        {
-            legalPersonProfile.IsActive = false;
-            _legalPersonProfileGenericRepository.Update(legalPersonProfile);
-            return _legalPersonProfileGenericRepository.Save();
+            return _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
         }
 
         public void SetProfileAsMain(long profileId)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, LegalPersonProfile>())
             {
-                var legalPersonProfiles = _finder.Find(Specs.Find.ById<LegalPersonProfile>(profileId))
-                                                 .SelectMany(x => x.LegalPerson.LegalPersonProfiles)
-                                                 .ToArray();
+                var legalPersonId = _finder.Find(Specs.Find.ById<LegalPersonProfile>(profileId)).Select(profile => profile.LegalPersonId).Single();
+                var legalPersonProfiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId));
 
                 foreach (var profile in legalPersonProfiles)
                 {
@@ -347,73 +289,67 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         [Obsolete("Перенести в ILegalPersonReadModel + учесть разные бизнес-модели")]
         public LegalPersonWithProfiles GetLegalPersonWithProfiles(long legalPersonId)
         {
-            return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                          .Select(x => new LegalPersonWithProfiles
-                              {
-                                  LegalPerson = x,
-                                  Profiles = x.LegalPersonProfiles.Where(y => y.IsActive && !y.IsDeleted)
-                              })
-                          .SingleOrDefault();
+            return new LegalPersonWithProfiles
+                {
+                    LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId)),
+                    Profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) & Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
+                };
         }
 
         public LegalPerson FindLegalPersonByProfile(long profileId)
         {
-            return _finder.Find(Specs.Find.ById<LegalPersonProfile>(profileId)).Select(x => x.LegalPerson).SingleOrDefault();
-        }
-
-        public LegalPerson FindLegalPerson(string syncCodeWith1C, string innOrPassportSeries, string kppOrPassportNumber)
-        {
-            var legalPersons = _finder.Find<LegalPerson>(x =>
-            x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson ? (x.Inn == innOrPassportSeries && x.Kpp == kppOrPassportNumber) :
-            x.LegalPersonTypeEnum == (int)LegalPersonType.Businessman ? (x.Inn == innOrPassportSeries) :
-            x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson && (x.PassportSeries == innOrPassportSeries && x.PassportNumber == kppOrPassportNumber))
-            .Where(x => x.Accounts.Any(y => y.LegalPesonSyncCode1C == syncCodeWith1C))
-            .ToArray();
-
-            if (legalPersons.Length == 0)
+            var ids = _finder.Find(Specs.Find.ById<LegalPersonProfile>(profileId)).Select(x => x.LegalPersonId).ToArray();
+            if (ids.Length != 1)
             {
                 return null;
             }
 
-            if (legalPersons.Length > 1)
+            return _finder.FindOne(Specs.Find.ById<LegalPerson>(ids.Single()));
+        }
+
+        public LegalPerson FindLegalPerson(string syncCodeWith1C, string innOrPassportSeries, string kppOrPassportNumber)
+        {
+            var accountIds = _finder.Find<Account>(y => y.LegalPesonSyncCode1C == syncCodeWith1C).Select(y => y.LegalPersonId).ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(accountIds) &&
+                                                (LegalPersonSpecs.LegalPersons.Find.LegalPersonByInnAndKpp(innOrPassportSeries, kppOrPassportNumber) ||
+                                                 LegalPersonSpecs.LegalPersons.Find.BusinessmanByInn(innOrPassportSeries) ||
+                                                 LegalPersonSpecs.LegalPersons.Find.NaturalPersonByPassport(innOrPassportSeries, kppOrPassportNumber)));
+
+            if (legalPersons.Count() > 1)
             {
                 throw new ApplicationException(string.Format("Найдено несколько юр. лиц клиентов с SyncCode1C='{0}', InnOrPassport='{1}', KppOrPassport='{2}'", syncCodeWith1C, innOrPassportSeries, kppOrPassportNumber));
             }
 
-            return legalPersons[0];
+            return legalPersons.SingleOrDefault();
         }
 
         public IEnumerable<LegalPerson> FindLegalPersonsByInnAndKpp(string inn, string kpp)
         {
-            return _finder
-                        .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>() && LegalPersonSpecs.LegalPersons.Find.ByInnAndKpp(inn, kpp))
-                        .ToArray();
+            return _finder.FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>() && LegalPersonSpecs.LegalPersons.Find.ByInnAndKpp(inn, kpp));
         }
 
         public IEnumerable<LegalPerson> FindBusinessmenByInn(string inn)
         {
-            return _finder
-                        .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
-                                && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.Businessman)
-                                && LegalPersonSpecs.LegalPersons.Find.ByInn(inn))
-                        .ToArray();
+            return _finder.FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                    && LegalPersonSpecs.LegalPersons.Find.BusinessmanByInn(inn));
         }
 
         public IEnumerable<LegalPerson> FindNaturalPersonsByPassport(string passportSeries, string passportNumber)
         {
-            return _finder
-                        .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
-                                && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.NaturalPerson)
-                                && LegalPersonSpecs.LegalPersons.Find.ByPassport(passportSeries, passportNumber))
-                        .ToArray();
+            return _finder.FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                    && LegalPersonSpecs.LegalPersons.Find.NaturalPersonByPassport(passportSeries, passportNumber));
         }
 
         public IEnumerable<LegalPerson> FindLegalPersons(string syncCodeWith1C, long branchOfficeOrganizationUnitId)
         {
-            return _finder.Find<Account>(
-                x => x.IsActive && !x.IsDeleted && x.LegalPesonSyncCode1C == syncCodeWith1C &&
-                     x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)
-                          .Select(x => x.LegalPerson).ToArray();
+            var ids = _finder.Find<Account>(x => x.IsActive && !x.IsDeleted
+                                              && x.LegalPesonSyncCode1C == syncCodeWith1C
+                                              && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)
+                          .Select(x => x.LegalPersonId)
+                          .ToArray();
+
+            return _finder.FindMany(Specs.Find.ByIds<LegalPerson>(ids));
         }
 
         public LegalPersonName GetLegalPersonNameByClientId(long clientId)
@@ -421,7 +357,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             var legalPersonInfos = _finder.Find(Specs.Find.ById<Client>(clientId) && Specs.Find.ActiveAndNotDeleted<Client>())
                                           .SelectMany(client => client.LegalPersons)
                                           .Where(Specs.Find.ActiveAndNotDeleted<LegalPerson>())
-                .Select(x => new LegalPersonName { Id = x.Id, Name = x.LegalName })
+                                          .Select(x => new LegalPersonName { Id = x.Id, Name = x.LegalName })
                                           .Take(2)
                                           .ToArray();
 
@@ -435,19 +371,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod)
         {
-            return _finder.Find<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&
-                                                         x.IsMainProfile &&
-                                                         x.LegalPerson.IsActive && !x.LegalPerson.IsDeleted &&
-                                                         (x.LegalPerson.ModifiedOn >= startPeriod || x.ModifiedOn >= startPeriod))
-                          .SelectMany(x => x.LegalPerson.Accounts
-                                            .Where(y => y.IsActive && !y.IsDeleted && y.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId)
-                                            .Select(z => new LegalPersonFor1CExportDto
-                                                {
-                                                    Profile = x,
-                                                    LegalPerson = x.LegalPerson,
-                                                    LegalPersonSyncCode1C = z.LegalPesonSyncCode1C,
-                                                }))
-                          .ToArray();
+            var data = _finder.Find<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&
+                                                             x.IsMainProfile &&
+                                                             x.LegalPerson.IsActive && !x.LegalPerson.IsDeleted &&
+                                                             (x.LegalPerson.ModifiedOn >= startPeriod || x.ModifiedOn >= startPeriod))
+                              .SelectMany(x => x.LegalPerson.Accounts
+                                                .Where(y => y.IsActive && !y.IsDeleted && y.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId)
+                                                .Select(z => new
+                                                    {
+                                                        ProfileId = x.Id,
+                                                        LegalPersonId = x.LegalPersonId,
+                                                        LegalPersonSyncCode1C = z.LegalPesonSyncCode1C,
+                                                    }))
+                              .ToArray();
+
+            var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(data.Select(x => x.LegalPersonId)))
+                                      .ToDictionary(x => x.Id, x => x);
+            var legalPersonProfiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(data.Select(x => x.ProfileId)))
+                                      .ToDictionary(x => x.Id, x => x);
+
+            return data.Select(x => new LegalPersonFor1CExportDto
+                {
+                    LegalPerson = legalPersons[x.LegalPersonId],
+                    Profile = legalPersonProfiles[x.ProfileId],
+                    LegalPersonSyncCode1C = x.LegalPersonSyncCode1C,
+                });
         }
 
         public int AssignWithRelatedEntities(long legalPersonId, long ownerCode, bool isPartialAssign)
@@ -512,34 +460,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             }
         }
 
-        int IDeleteAggregateRepository<LegalPerson>.Delete(long entityId)
-        {
-            var entity = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
-            return Delete(entity);
-        }
-
         int IAssignAggregateRepository<LegalPerson>.Assign(long entityId, long ownerCode)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
             return Assign(entity, ownerCode);
         }
 
         int IActivateAggregateRepository<LegalPerson>.Activate(long entityId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
             return Activate(entity);
         }
 
         int IDeactivateAggregateRepository<LegalPerson>.Deactivate(long entityId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
             return Deactivate(entity);
-        }
-
-        int IDeleteAggregateRepository<LegalPersonProfile>.Delete(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<LegalPersonProfile>(entityId)).Single();
-            return Delete(entity);
         }
 
         void ICheckAggregateForDebtsRepository<LegalPerson>.CheckForDebts(long entityId, long currentUserCode, bool bypassValidation)
@@ -610,7 +546,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var legalPerson = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+                var legalPerson = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
                 var clientOwnerCode = _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.OwnerCode).Single();
 
                 if (legalPerson.OwnerCode != clientOwnerCode)
@@ -622,7 +558,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 }
 
                 // Подтягиваем измененную сущность.
-                legalPerson = _secureFinder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+                legalPerson = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
 
                 legalPerson.ClientId = clientId;
                 _legalPersonGenericRepository.Update(legalPerson);
@@ -636,23 +572,35 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         private LegalPersonWithRelatedEntitiesForAssignDto GetLegalPersonWithRelatedEntitiesForAssign(long legalPersonId, bool isPartialAssign)
         {
-            return (from legalPerson in _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                    let legalPersonPrevOwner = isPartialAssign ? legalPerson.OwnerCode : (long?)null
-                    select new LegalPersonWithRelatedEntitiesForAssignDto
-                        {
-                            LegalPerson = legalPerson,
-                            Accounts = legalPerson.Accounts.Where(x => (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
-                            Bargains = legalPerson.Bargains.Where(x => x.IsActive && (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
-                            Orders = legalPerson.Orders.Where(x => x.IsActive && !x.IsDeleted &&
-                                                                   (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
-                            Profiles = legalPerson.LegalPersonProfiles.Where(x => x.IsActive &&
-                                                                                  (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
-                            Limits = from acc in legalPerson.Accounts
-                                     from limit in acc.Limits
-                                     where limit.IsActive && !limit.IsDeleted && (legalPersonPrevOwner == null || limit.OwnerCode == legalPersonPrevOwner)
-                                     select limit
-                        })
+            var data = (from legalPerson in _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                        let legalPersonPrevOwner = isPartialAssign ? legalPerson.OwnerCode : (long?)null
+                        select new
+                            {
+                                LegalPersonId = legalPerson.Id,
+                                Accounts = legalPerson.Accounts.Where(x => (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
+                                Bargains = legalPerson.Bargains.Where(x => x.IsActive && (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
+                                Orders = legalPerson.Orders.Where(x => x.IsActive && !x.IsDeleted &&
+                                                                       (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner)),
+                                ProfilesIds = legalPerson.LegalPersonProfiles
+                                                      .Where(x => x.IsActive && (legalPersonPrevOwner == null || x.OwnerCode == legalPersonPrevOwner))
+                                                      .Select(x => x.Id),
+                                Limits = from acc in legalPerson.Accounts
+                                         from limit in acc.Limits
+                                         where limit.IsActive && !limit.IsDeleted && (legalPersonPrevOwner == null || limit.OwnerCode == legalPersonPrevOwner)
+                                         select limit
+                            })
                 .Single();
+
+            return new LegalPersonWithRelatedEntitiesForAssignDto
+                {
+                    LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId)),
+                    Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(data.ProfilesIds)),
+
+                    Accounts = data.Accounts,
+                    Bargains = data.Bargains,
+                    Orders = data.Orders,
+                    Limits = data.Limits,
+                };
         }
 
         private class LegalPersonWithRelatedEntitiesForAssignDto

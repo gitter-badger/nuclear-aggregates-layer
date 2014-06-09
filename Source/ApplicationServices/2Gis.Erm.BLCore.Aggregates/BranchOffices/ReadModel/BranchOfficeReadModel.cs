@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
@@ -30,99 +28,46 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
 
         public virtual BranchOffice GetBranchOffice(long branchOfficeId)
         {
-            return _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeId)).Single();
+            return _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeId));
         }
 
         public virtual BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
             {
-            return _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId)).Single();
+            return _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
         }
 
         public virtual BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(string syncCode1C)
         {
-            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BySyncCode1C(syncCode1C)).Single();
+            return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BySyncCode1C(syncCode1C));
         }
 
-        // FIXME {all, 07.04.2014}: какое-то слишком абстрактное название дляметодов - readmodel это набор методов, являющихся wrapper над спецификациями, разной толщины - но все они usecase специфичны. Т.о. либо метод должен быть более конкретным, либо тип в которомон находиться более абстрактным
-        public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(BranchOffice branchOffice)
+        public PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
-            return Enumerable.Empty<BusinessEntityInstanceDto>();
-            }
-
-        // FIXME {all, 07.04.2014}: какое-то слишком абстрактное название дляметодов - readmodel это набор методов, являющихся wrapper над спецификациями, разной толщины - но все они usecase специфичны. Т.о. либо метод должен быть более конкретным, либо тип в которомон находиться более абстрактным
-        public virtual IEnumerable<BusinessEntityInstanceDto> GetBusinessEntityInstanceDto(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
+            var primary = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId));
+            var primaryForRegionalSales = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId));
+            return new PrimaryBranchOfficeOrganizationUnits
         {
-            return Enumerable.Empty<BusinessEntityInstanceDto>();
+                    Primary = primary,
+                    PrimaryForRegionalSales = primaryForRegionalSales
+                };
         }
 
-        public T GetBranchOfficeDto<T>(long entityId)
-            where T : BranchOfficeDomainEntityDto, new()
+        public BranchOfficeOrganizationUnitNamesDto GetBranchOfficeOrganizationUnitDuplicate(long organizationUnitId,
+                                                                                             long branchOfficeId,
+                                                                                             long branchOfficeOrganizationUnitId)
         {
-            return _secureFinder.Find<BranchOffice>(x => x.Id == entityId)
-                                .Select(entity => new T
-            {
-                                        Id = entity.Id,
-                                        DgppId = entity.DgppId,
-                                        Name = entity.Name,
-                                        Inn = entity.Inn,
-                                        Ic = entity.Ic,
-                                        Annotation = entity.Annotation,
-                                        BargainTypeRef = new EntityReference { Id = entity.BargainTypeId, Name = entity.BargainType.Name },
-                                        ContributionTypeRef = new EntityReference { Id = entity.ContributionTypeId, Name = entity.ContributionType.Name },
-                                        LegalAddress = entity.LegalAddress,
-                                        UsnNotificationText = entity.UsnNotificationText,
-                                        Timestamp = entity.Timestamp,
-                                        CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                        CreatedOn = entity.CreatedOn,
-                                        IsActive = entity.IsActive,
-                                        IsDeleted = entity.IsDeleted,
-                                        ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                        ModifiedOn = entity.ModifiedOn
-                                    })
-                                .Single();
+            var findSpec = Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                           BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.DuplicatesByOrganizationUnitAndBranchOffice(organizationUnitId,
+                                                                                                                            branchOfficeId,
+                                                                                                                            branchOfficeOrganizationUnitId);
+
+            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Select.BranchOfficeAndOrganizationUnitNames(), findSpec)
+                          .FirstOrDefault();
         }
 
-        public T GetBranchOfficeOrganizationUnitDto<T>(long entityId)
-            where T : BranchOfficeOrganizationUnitDomainEntityDto, new()
-        {
-            return _secureFinder.Find<BranchOfficeOrganizationUnit>(x => x.Id == entityId)
-                                .Select(entity => new T
-        {
-                                        Id = entity.Id,
-                                        OrganizationUnitRef = new EntityReference { Id = entity.OrganizationUnitId, Name = entity.OrganizationUnit.Name },
-                                        BranchOfficeRef = new EntityReference { Id = entity.BranchOfficeId, Name = entity.BranchOffice.Name },
-                                        ChiefNameInGenitive = entity.ChiefNameInGenitive,
-                                        ChiefNameInNominative = entity.ChiefNameInNominative,
-                                        Registered = entity.Registered,
-                                        IsPrimary = entity.IsPrimary,
-                                        IsPrimaryForRegionalSales = entity.IsPrimaryForRegionalSales,
-                                        OperatesOnTheBasisInGenitive = entity.OperatesOnTheBasisInGenitive,
-                                        Kpp = entity.Kpp,
-                                        PhoneNumber = entity.PhoneNumber,
-                                        Email = entity.Email,
-                                        PositionInGenitive = entity.PositionInGenitive,
-                                        PositionInNominative = entity.PositionInNominative,
-                                        ShortLegalName = entity.ShortLegalName,
-                                        ActualAddress = entity.ActualAddress,
-                                        PostalAddress = entity.PostalAddress,
-                                        BranchOfficeAddlId = entity.BranchOffice.Id,
-                                        BranchOfficeAddlIc = entity.BranchOffice.Ic,
-                                        BranchOfficeAddlInn = entity.BranchOffice.Inn,
-                                        BranchOfficeAddlLegalAddress = entity.BranchOffice.LegalAddress,
-                                        BranchOfficeAddlName = entity.BranchOffice.Name,
-                                        PaymentEssentialElements = entity.PaymentEssentialElements,
-                                        SyncCode1C = entity.SyncCode1C,
-                                        RegistrationCertificate = entity.RegistrationCertificate,
-                                        OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
-                                        CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                        CreatedOn = entity.CreatedOn,
-                                        IsActive = entity.IsActive,
-                                        IsDeleted = entity.IsDeleted,
-                                        ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                        ModifiedOn = entity.ModifiedOn,
-                                        Timestamp = entity.Timestamp
-                                    })
-                                .Single();
+        public string GetBranchOfficeName(long branchOfficeId)
+                                    {
+            return _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeId)).Select(x => x.Name).Single();
         }
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
