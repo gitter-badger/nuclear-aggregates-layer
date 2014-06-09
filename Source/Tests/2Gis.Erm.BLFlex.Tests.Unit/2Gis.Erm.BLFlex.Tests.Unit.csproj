@@ -70,11 +70,6 @@
     </Compile>
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonObtainerFlexSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\Get\CyprusGetLegalPersonDtoServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Cyprus\Generic\Get\CyprusGetLegalPersonProfileDtoServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\Get\CzechGetLegalPersonProfileDtoServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\Get\CzechGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
@@ -85,9 +80,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetBranchOfficeDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Get\UkraineGetBranchOfficeOrganizationUnitDtoServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeOrganizationUnitObtainerFlexSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Modify\DomainEntityObtainers\UkraineLegalPersonObtainerFlexSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Ukraine\Generic\Modify\DomainEntityObtainers\UkraineBranchOfficeObtainerFlexSpecs.cs" />
     <Compile Include="ApplicationServices\Aggregates.Global\Chile\Crosscutting\RutServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Aggregates.Global\Russia\Crosscutting\InnServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\OrderPrintFormDataExtractorSpecs.cs" />
@@ -211,7 +203,9 @@
       <Name>2Gis.Erm.BLFlex.DI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ApplicationServices\Operations.Global\Chile\Generic\Modify\DomainEntityObtainers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

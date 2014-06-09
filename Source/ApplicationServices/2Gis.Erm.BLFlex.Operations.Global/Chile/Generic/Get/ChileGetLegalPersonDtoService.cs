@@ -1,71 +1,37 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 {
-    public class ChileGetLegalPersonDtoService : GetDomainEntityDtoServiceBase<LegalPerson>, IChileAdapted
+    public class ChileGetLegalPersonDtoService : GetLegalPersonDtoServiceBase<ChileLegalPersonDomainEntityDto>, IChileAdapted
     {
-        private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IChileLegalPersonReadModel _chileLegalPersonReadModel;
-        private readonly ISecureFinder _finder;
 
-        public ChileGetLegalPersonDtoService(
-            ISecureFinder finder,
+        public ChileGetLegalPersonDtoService(IClientReadModel clientReadModel,
             ILegalPersonReadModel legalPersonReadModel,
             IChileLegalPersonReadModel chileLegalPersonReadModel,
             IUserContext userContext)
-            : base(userContext)
+            : base(userContext, clientReadModel, legalPersonReadModel)
         {
-            _legalPersonReadModel = legalPersonReadModel;
             _chileLegalPersonReadModel = chileLegalPersonReadModel;
-            _finder = finder;
         }
 
-        protected override IDomainEntityDto<LegalPerson> GetDto(long entityId)
+        protected override IProjectSpecification<LegalPerson, ChileLegalPersonDomainEntityDto> GetProjectSpecification()
         {
-            var dto = _legalPersonReadModel.GetLegalPersonDto<ChileLegalPersonDomainEntityDto>(entityId);
-
-            var legalPerson = _legalPersonReadModel.GetLegalPerson(entityId);
-            var entityPart = legalPerson.ChilePart();
-
-            var communeReference = _chileLegalPersonReadModel.GetCommuneReference(entityId);
-
-            dto.OperationsKind = entityPart.OperationsKind;
-            dto.CommuneRef = communeReference;
-
-            return dto;
+            return LegalPersonFlexSpecs.LegalPersons.Chile.Project.DomainEntityDto();
         }
 
-        protected override IDomainEntityDto<LegalPerson> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
-        {
-            var dto = new ChileLegalPersonDomainEntityDto();
-            long clientId = 0;
-            if (parentEntityName == EntityName.Client && parentEntityId.HasValue)
+        protected override void SetSpecificPropertyValues(ChileLegalPersonDomainEntityDto dto)
             {
-                clientId = parentEntityId.Value;
-            }
-            else if (!string.IsNullOrEmpty(extendedInfo))
-            {
-                long.TryParse(Regex.Match(extendedInfo, @"ClientId=(\d+)").Groups[1].Value, out clientId);
-            }
-
-            dto.ClientRef = clientId > 0
-                ? new EntityReference { Id = clientId, Name = _finder.Find<Client>(x => x.Id == clientId).Select(x => x.Name).Single() }
-                : new EntityReference();
-
-            return dto;
+            dto.CommuneRef = _chileLegalPersonReadModel.GetCommuneReference(dto.Id);
         }
     }
 }

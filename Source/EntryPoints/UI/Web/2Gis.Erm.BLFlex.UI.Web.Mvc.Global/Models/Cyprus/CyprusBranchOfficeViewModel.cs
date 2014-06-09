@@ -1,6 +1,6 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -22,8 +22,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         [RequiredLocalized]
         [StringLengthLocalized(11, MinimumLength = 11)]
-        [DisplayNameLocalized("Tic")]
-        public string Inn { get; set; }
+        public string Tic { get; set; }
 
         [RequiredLocalized]
         public LookupField BargainType { get; set; }
@@ -31,42 +30,32 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [RequiredLocalized]
         public LookupField ContributionType { get; set; }
 
-        public string Annotation { get; set; }
-
-        public string UsnNotificationText { get; set; }
-
         public override byte[] Timestamp { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BranchOfficeDomainEntityDto)domainEntityDto;
+            var modelDto = (CyprusBranchOfficeDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            DgppId = modelDto.DgppId;
             Name = modelDto.Name;
-            Inn = modelDto.Inn;
-            Annotation = modelDto.Annotation;
+            Tic = modelDto.Tic;
             BargainType = LookupField.FromReference(modelDto.BargainTypeRef);
             ContributionType = LookupField.FromReference(modelDto.ContributionTypeRef);
             LegalAddress = modelDto.LegalAddress;
-            UsnNotificationText = modelDto.UsnNotificationText;
             Timestamp = modelDto.Timestamp;
             IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BranchOfficeDomainEntityDto
+            return new CyprusBranchOfficeDomainEntityDto
                 {
                     Id = Id,
-                    DgppId = DgppId,
                     Name = Name,
-                    Inn = Inn,
-                    Annotation = Annotation,
+                    Tic = Tic,
                     BargainTypeRef = BargainType.ToReference(),
                     ContributionTypeRef = ContributionType.ToReference(),
                     LegalAddress = LegalAddress,
-                    UsnNotificationText = UsnNotificationText,
                     Timestamp = Timestamp
                 };
         }

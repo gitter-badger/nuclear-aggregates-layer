@@ -35,15 +35,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                            order =>
                            new
                                {
-                                   Order = order, 
-                                   Profile =
-                                       order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                           y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId), 
-                                   order.LegalPerson, 
-                                   order.BranchOfficeOrganizationUnit, 
+                                   Order = order,
+                                   ProfileId = order.LegalPerson.LegalPersonProfiles
+                                                    .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
+                                                    .Id,
+                                   order.LegalPersonId, 
                                    order.BranchOfficeOrganizationUnitId, 
                                })
-                       .AsEnumerable()
+                       .ToArray()
                        .Select(
                            x =>
                            new
@@ -51,9 +50,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                    x.Order,
                                    SignupDate = _longDateFormatter.Format(x.Order.SignupDate),
                                    ChangeDate = _longDateFormatter.Format(DateTime.Now.GetNextMonthFirstDate()),
-                                   x.Profile, 
-                                   x.LegalPerson, 
-                                   x.BranchOfficeOrganizationUnit, 
+                                   Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId)), 
+                                   LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)), 
+                                   BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
+                                        ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
+                                        : null,
                                    x.BranchOfficeOrganizationUnitId
                                })
                        .Single();

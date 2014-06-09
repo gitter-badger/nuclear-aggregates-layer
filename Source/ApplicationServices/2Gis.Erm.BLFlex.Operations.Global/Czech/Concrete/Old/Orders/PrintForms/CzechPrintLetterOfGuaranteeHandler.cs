@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -52,30 +53,33 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
         {
-            return
-                _finder.Find(Specs.Find.ById<Order>(orderId))
-                       .Select(order => new
-                           {
-                               Order = order,
-                               Profile = order.LegalPerson.LegalPersonProfiles
-                                              .FirstOrDefault(y => y.Id == legalPersonProfileId),
-                               order.LegalPerson,
-                               order.BranchOfficeOrganizationUnit,
-                               order.BranchOfficeOrganizationUnit.BranchOffice
-                           })
-                       .AsEnumerable()
-                       .Select(x => new PrintData
-                           {
-                               { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
-                               { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFields(x.BranchOfficeOrganizationUnit) },
-                               { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
-                               { "Order", CzechPrintHelper.OrderFieldsForLetterOfGuarantee(x.Order) },
-                               { "Profile", CzechPrintHelper.LegalPersonProfileFields(x.Profile) },
-                               { "LegalAddressPrefix", GetLegalAddressPrefix((LegalPersonType)x.LegalPerson.LegalPersonTypeEnum) },
-                               { "PersonPrefix", GetPersonPrefix((LegalPersonType)x.LegalPerson.LegalPersonTypeEnum) },
-                               { "OperatesOnTheBasis", GetOperatesOnTheBasisString(x.Profile) },
-                           })
-                       .Single();
+            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      ProfileId = order.LegalPerson.LegalPersonProfiles
+                                                       .FirstOrDefault(y => y.Id == legalPersonProfileId)
+                                                       .Id,
+                                      order.LegalPersonId,
+                                      order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                  })
+                              .Single();
+
+            var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            return new PrintData
+                {
+                    { "BranchOffice", CzechPrintHelper.BranchOfficeFields(_finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId))) },
+                    { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
+                    { "LegalPerson", CzechPrintHelper.LegalPersonFields(legalPerson) },
+                    { "Order", CzechPrintHelper.OrderFieldsForLetterOfGuarantee(data.Order) },
+                    { "Profile", CzechPrintHelper.LegalPersonProfileFields(legalPersonProfile) },
+                    { "LegalAddressPrefix", GetLegalAddressPrefix((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
+                    { "PersonPrefix", GetPersonPrefix((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
+                    { "OperatesOnTheBasis", GetOperatesOnTheBasisString(legalPersonProfile) },
+                };
         }
 
         private static string GetPersonPrefix(LegalPersonType legalPersonType)

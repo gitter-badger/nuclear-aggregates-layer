@@ -1,14 +1,11 @@
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.Operations;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -17,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -27,29 +25,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
         private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
-        private readonly IUpdatePartableEntityAggregateService<LegalPerson, LegalPerson> _updatePartsService;
+        private readonly IUpdateAggregateRepository<LegalPerson> _updateRepository;
         private readonly ICheckInnService _checkRutService;
 
-        public ChileChangeLegalPersonRequisitesHandler(
-            ISubRequestProcessor subRequestProcessor,
+        public ChileChangeLegalPersonRequisitesHandler(ISubRequestProcessor subRequestProcessor,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
-            ILegalPersonRepository legalPersonRepository,
             IOperationScopeFactory scopeFactory, 
             ILegalPersonReadModel legalPersonReadModel, 
-            IUpdatePartableEntityAggregateService<LegalPerson, LegalPerson> updatePartsService, 
+                                                       IUpdateAggregateRepository<LegalPerson> updateRepository,
             ICheckInnService checkRutService)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _legalPersonReadModel = legalPersonReadModel;
-            _updatePartsService = updatePartsService;
+            _updateRepository = updateRepository;
             _checkRutService = checkRutService;
         }
 
@@ -76,18 +70,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
                 entity.LegalAddress = request.LegalAddress;
                 entity.Inn = request.Rut;
 
-                var chileLegalPersonPart = entity.ChilePart();
-                chileLegalPersonPart.CommuneId = request.CommuneId;
-                chileLegalPersonPart.OperationsKind = request.OperationsKind;
+                entity.Within<ChileLegalPersonPart>().SetPropertyValue(part => part.CommuneId, request.CommuneId);
+                entity.Within<ChileLegalPersonPart>().SetPropertyValue(part => part.OperationsKind, request.OperationsKind);
             }
 
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())
             {
                 _subRequestProcessor.HandleSubRequest(new ValidatePaymentRequisitesIsUniqueRequest { Entity = entity }, Context);
-                _legalPersonRepository.CreateOrUpdate(entity);
-
-                var chileLegalPersonParts = _legalPersonReadModel.GetBusinessEntityInstanceDto(entity).ToArray();
-                _updatePartsService.Update(entity, chileLegalPersonParts);
+                _updateRepository.Update(entity);
 
                 operationScope
                     .Updated<LegalPerson>(entity.Id)

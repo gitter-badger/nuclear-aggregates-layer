@@ -1,10 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
@@ -12,12 +10,10 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
@@ -40,9 +36,10 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureUkraineSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonPart>, BusinessEntityPropertiesConverter<UkraineLegalPersonPart>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>, BusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<UkraineBranchOfficePart>, BusinessEntityPropertiesConverter<UkraineBranchOfficePart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<UkraineLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<UkraineLegalPersonPart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<UkraineLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<UkraineLegalPersonProfilePart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<UkraineBranchOfficePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<UkraineBranchOfficePart>>(Lifetime.Singleton)
+                
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, UkraineLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, UkraineFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, UkraineIpnService>(Lifetime.Singleton)
@@ -50,10 +47,6 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, UkraineBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
                 .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                 .RegisterType<IUkraineOrderPrintFormDataExtractor, UkraineOrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                .RegisterType<IBusinessModelEntityObtainerFlex<LegalPerson>, UkraineLegalPersonObtainerFlex>(Lifetime.PerResolve)
-                .RegisterType<IBusinessModelEntityObtainerFlex<LegalPersonProfile>, UkraineLegalPersonProfileObtainerFlex>(Lifetime.PerResolve)
-                .RegisterType<IBusinessModelEntityObtainerFlex<BranchOffice>, UkraineBranchOfficeObtainerFlex>(Lifetime.PerResolve)
-                .RegisterType<IBusinessModelEntityObtainerFlex<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitObtainerFlex>(Lifetime.Singleton)
                 .ConfigureUkraineSpecificNumberServices();
         }
 

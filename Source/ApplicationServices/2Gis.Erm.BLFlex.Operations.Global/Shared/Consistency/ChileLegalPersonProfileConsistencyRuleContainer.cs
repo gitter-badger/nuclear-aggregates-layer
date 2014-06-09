@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
@@ -23,8 +24,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
                 ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
                 ConsistencyRule.CreateFormat(entity => entity.Parts.OfType<ChileLegalPersonProfilePart>(), chileParts => chileParts.Count() != 1, BLFlexResources.ChilePartableExtensionMustBeApplied),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChilePart().RepresentativeRut, BLResources.RequiredFieldMessage, MetadataResources.Rut),
-                new InnConsistencyRule<LegalPersonProfile, ChileRutService>(entity => entity.ChilePart().RepresentativeRut),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeRut), BLResources.RequiredFieldMessage, MetadataResources.Rut),
+                new InnConsistencyRule<LegalPersonProfile, ChileRutService>(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeRut)),
                 ConsistencyRule.CreateEnumValuesRestriction(
                     entity => (PaymentMethod)entity.PaymentMethod.Value,
                     string.Format(BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod),
@@ -45,11 +46,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Warranty)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeAuthorityDocumentIssuedOn), BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
                         },
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Charter)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().RepresentativeAuthorityDocumentIssuedOn, BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.RepresentativeAuthorityDocumentIssuedOn), BLResources.RequiredFieldMessage, MetadataResources.RepresentativeDocumentIssuedOn)
                         }
                 };
 
@@ -58,40 +59,40 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.BankTransaction)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().BankId, BLResources.RequiredFieldMessage, MetadataResources.BankName),
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.BankId), BLResources.RequiredFieldMessage, MetadataResources.BankName),
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => entity.ChilePart().AccountType,
+                                entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.AccountType),
                                 string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.CreditCard)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().BankId, BLResources.RequiredFieldMessage, MetadataResources.BankName),
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.BankId), BLResources.RequiredFieldMessage, MetadataResources.BankName),
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => entity.ChilePart().AccountType,
+                                entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.AccountType),
                                 string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.DebitCard)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().BankId, BLResources.RequiredFieldMessage, MetadataResources.BankName),
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.BankId), BLResources.RequiredFieldMessage, MetadataResources.BankName),
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => entity.ChilePart().AccountType,
+                                entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.AccountType),
                                 string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),
                         },
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.BankChequePayment)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.ChilePart().BankId, BLResources.RequiredFieldMessage, MetadataResources.BankName),
+                            ConsistencyRule.CreateNonNull(entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.BankId), BLResources.RequiredFieldMessage, MetadataResources.BankName),
                             ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
                             ConsistencyRule.CreateEnumValuesRestriction(
-                                entity => entity.ChilePart().AccountType,
+                                entity => entity.Within<ChileLegalPersonProfilePart>().GetPropertyValue(part => part.AccountType),
                                 string.Format(BLResources.RequiredFieldMessage, MetadataResources.BankAccountType),
                                 AccountType.CurrentAccount,
                                 AccountType.SavingsAccount),

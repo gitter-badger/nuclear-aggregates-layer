@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Activate
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var restoringLegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+                var restoringLegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
 
                 if (restoringLegalPerson.IsActive)
                 {
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Activate
 
                 if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                 {
-                   var dublicateLegalPerson = _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                   var dublicateLegalPerson = _finder.FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                                         && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
                                                   .FirstOrDefault();
 

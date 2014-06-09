@@ -3,10 +3,11 @@
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Boundaries;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global
 {
-    public interface IOrderPrintFormReadModel : IAggregateReadModel<Order>
+    public interface IOrderPrintFormReadModel : IPrintingBoundedContext, IAggregateReadModel<Order>
     {
         OrderRelationsDto GetOrderRelationsDto(long orderId);
         decimal GetOrderDicount(long orderId);

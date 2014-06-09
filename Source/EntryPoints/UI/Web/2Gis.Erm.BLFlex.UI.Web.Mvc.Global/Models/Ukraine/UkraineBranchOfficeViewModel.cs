@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
@@ -33,10 +31,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         [RequiredLocalized]
         public LookupField ContributionType { get; set; }
 
-        public string Annotation { get; set; }
-
-        public string UsnNotificationText { get; set; }
-
         public override byte[] Timestamp { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
@@ -46,12 +40,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             Id = modelDto.Id;
             Name = modelDto.Name;
             Ipn = modelDto.Ipn;
-            Egrpou = modelDto.Inn; // дада, ЕГРПОУ хранится в Inn, т.к. именно он обязательный и по факту является идентификационным номером
-            Annotation = modelDto.Annotation;
+            Egrpou = modelDto.Egrpou;
             BargainType = LookupField.FromReference(modelDto.BargainTypeRef);
             ContributionType = LookupField.FromReference(modelDto.ContributionTypeRef);
             LegalAddress = modelDto.LegalAddress;
-            UsnNotificationText = modelDto.UsnNotificationText;
             Timestamp = modelDto.Timestamp;
             IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
@@ -62,13 +54,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
                 {
                     Id = Id,
                     Name = Name,
-                    Inn = Egrpou, // дада, ЕГРПОУ хранится в Inn, т.к. именно он обязательный и по факту является идентификационным номером
+                    Egrpou = Egrpou, 
                     Ipn = Ipn,
-                    Annotation = Annotation,
                     BargainTypeRef = BargainType.ToReference(),
                     ContributionTypeRef = ContributionType.ToReference(),
                     LegalAddress = LegalAddress,
-                    UsnNotificationText = UsnNotificationText,
                     Timestamp = Timestamp
                 };
         }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -29,8 +28,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         {
             protected static UkraineGetBranchOfficeOrganizationUnitDtoService UkraineGetBranchOfficeOrganizationUnitDtoService;
             protected static IUserContext UserContext;
-            protected static ISecureFinder SecureFinder;
-            protected static IBranchOfficeReadModel ReadModel;
+            protected static IOrganizationUnitReadModel OrganizationUnitReadModel;
+            protected static IBranchOfficeReadModel BranchOfficeReadModel;
             protected static IAPIIdentityServiceSettings IdentityServiceSettings;
             protected static UkraineBranchOfficeOrganizationUnitDomainEntityDto Result;
 
@@ -48,12 +47,12 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     ParentEntityName = 0;
                     ExtendedInfo = null;
 
-                    ReadModel = Mock.Of<IBranchOfficeReadModel>();
-                    SecureFinder = Mock.Of<ISecureFinder>();
-                    UserContext = Mock.Of<IUserContext>();
+                    BranchOfficeReadModel = Mock.Of<IBranchOfficeReadModel>();
+                    OrganizationUnitReadModel = Mock.Of<IOrganizationUnitReadModel>();
+                    UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     IdentityServiceSettings = Mock.Of<IAPIIdentityServiceSettings>();
 
-                    UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, SecureFinder, ReadModel, IdentityServiceSettings);
+                    UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, OrganizationUnitReadModel, BranchOfficeReadModel, IdentityServiceSettings);
                 };
 
             Because of = () =>
@@ -64,48 +63,41 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         }
 
         [Tags("GetDtoServie")]
-        [Subject(typeof(UkraineGetBranchOfficeDtoService))]
+        [Subject(typeof(UkraineGetBranchOfficeOrganizationUnitDtoService))]
         class When_requested_existing_entity : UkraineGetBranchOfficeOrganizationUnitDtoServiceContext
         {
             const long ENTITY_ID = 1;
             const long BRANCH_OFFICE_ADDL_ID = 2;
             const string IPN = "TestIPN";
 
-            protected static UkraineBranchOfficeOrganizationUnitDomainEntityDto Dto;
-            protected static BranchOffice BranchOffice;
-            protected static UkraineBranchOfficePart UkraineBranchOfficePart;
+            static BranchOfficeOrganizationUnit BranchOfficeOrganizationUnit;
+            static BranchOffice BranchOffice;
 
             Establish context = () =>
                 {
                     EntityId = ENTITY_ID;
 
-                    Dto = new UkraineBranchOfficeOrganizationUnitDomainEntityDto { BranchOfficeAddlId = BRANCH_OFFICE_ADDL_ID };
-                    UkraineBranchOfficePart = new UkraineBranchOfficePart { Ipn = IPN };
-                    BranchOffice = new BranchOffice { Parts = new[] { UkraineBranchOfficePart } };
+                    BranchOffice = new BranchOffice { Parts = new[] { new UkraineBranchOfficePart { Ipn = IPN } } };
+                    BranchOfficeOrganizationUnit = new BranchOfficeOrganizationUnit { BranchOfficeId = BRANCH_OFFICE_ADDL_ID };
 
-                    Mock.Get(ReadModel).Setup(x => x.GetBranchOfficeOrganizationUnitDto<UkraineBranchOfficeOrganizationUnitDomainEntityDto>(ENTITY_ID)).Returns(Dto);
-                    Mock.Get(ReadModel).Setup(x => x.GetBranchOffice(BRANCH_OFFICE_ADDL_ID)).Returns(BranchOffice);
+                    Mock.Get(BranchOfficeReadModel).Setup(x => x.GetBranchOfficeOrganizationUnit(ENTITY_ID)).Returns(BranchOfficeOrganizationUnit);
+                    Mock.Get(BranchOfficeReadModel).Setup(x => x.GetBranchOffice(BRANCH_OFFICE_ADDL_ID)).Returns(BranchOffice);
                 };
 
-            It should_has_expected_EGRPOU = () => Result.BranchOfficeAddlIpn.Should().Be(IPN);
+            It should_has_expected_IPN = () => Result.BranchOfficeAddlIpn.Should().Be(IPN);
         }
 
         [Tags("GetDtoServie")]
-        [Subject(typeof(UkraineGetBranchOfficeDtoService))]
+        [Subject(typeof(UkraineGetBranchOfficeOrganizationUnitDtoService))]
         class When_requested_new_entity : UkraineGetBranchOfficeOrganizationUnitDtoServiceContext
         {
             static readonly Uri RestUrl = new Uri("http://2gis.ru");
-            static IUserIdentity _userIdentity;
-            const long USER_CODE = 1;
 
             Establish context = () =>
             {
                 EntityId = 0;
 
                 Mock.Get(IdentityServiceSettings).Setup(x => x.RestUrl).Returns(RestUrl);
-
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == USER_CODE);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             It should_be_UkraineBranchOfficeDomainEntityDto = () => Result.Should().BeOfType<UkraineBranchOfficeOrganizationUnitDomainEntityDto>();
@@ -114,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         }
 
         [Tags("GetDtoServie")]
-        [Subject(typeof(UkraineGetBranchOfficeDtoService))]
+        [Subject(typeof(UkraineGetBranchOfficeOrganizationUnitDtoService))]
         class When_requested_new_entity_for_branch_office : When_requested_new_entity
         {
             protected static BranchOffice BranchOffice;
@@ -129,7 +121,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
                     BranchOffice = new BranchOffice { Name = BRANCH_OFFICE_NAME };
 
-                    Mock.Get(ReadModel).Setup(x => x.GetBranchOffice(PARENT_ENTITY_ID)).Returns(BranchOffice);
+                    Mock.Get(BranchOfficeReadModel).Setup(x => x.GetBranchOffice(PARENT_ENTITY_ID)).Returns(BranchOffice);
+                    Mock.Get(BranchOfficeReadModel).Setup(x => x.GetBranchOfficeName(PARENT_ENTITY_ID)).Returns(BRANCH_OFFICE_NAME);
                 };
 
             It should_has_expected_branch_office_ref_name = () => Result.BranchOfficeRef.Name.Should().Be(BRANCH_OFFICE_NAME);
@@ -140,11 +133,9 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         }
 
         [Tags("GetDtoServie")]
-        [Subject(typeof(UkraineGetBranchOfficeDtoService))]
+        [Subject(typeof(UkraineGetBranchOfficeOrganizationUnitDtoService))]
         class When_requested_new_entity_for_organization_unit : When_requested_new_entity
         {
-            protected static OrganizationUnit OrganizationUnit;
-
             const long PARENT_ENTITY_ID = 1;
             const string ORGANIZATION_UNIT_NAME = "TestName";
 
@@ -153,9 +144,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 ParentEntityId = PARENT_ENTITY_ID;
                 ParentEntityName = EntityName.OrganizationUnit;
 
-                OrganizationUnit = new OrganizationUnit { Name = ORGANIZATION_UNIT_NAME };
-
-                Mock.Get(SecureFinder).Setup(x => x.Find(Moq.It.IsAny<Expression<Func<OrganizationUnit, bool>>>())).Returns(Q(OrganizationUnit));
+                Mock.Get(OrganizationUnitReadModel).Setup(x => x.GetName(PARENT_ENTITY_ID)).Returns(ORGANIZATION_UNIT_NAME);
             };
 
             It should_has_expected_org_unit_ref_name = () => Result.OrganizationUnitRef.Name.Should().Be(ORGANIZATION_UNIT_NAME);

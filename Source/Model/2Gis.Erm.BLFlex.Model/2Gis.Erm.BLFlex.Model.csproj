@@ -48,7 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\DTOs\BankDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ChileBranchOfficeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CyprusBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CyprusBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CzechBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CzechBranchOfficeOrganizationUnitDomainEntityDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\DTOs\RussiaBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\RussiaBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\UkraineBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\UkraineBranchOfficeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\UkraineLegalPersonProfileDomainEntityDto.cs" />

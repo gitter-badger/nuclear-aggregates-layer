@@ -63,13 +63,61 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
 
         public static void FillUkraineLegalPersonProfileDtoWithTestData(UkraineLegalPersonProfileDomainEntityDto entityDto)
         {
-            FillEntityDtoWithData(entityDto);
+            entityDto.Id = TestId;
+            entityDto.Name = TestName;
+            entityDto.LegalPersonRef = TestLegalPerson;
+            entityDto.DocumentsDeliveryAddress = TestDocumentsDeliveryAddress;
+            entityDto.RecipientName = TestRecipientName;
+            entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
+            entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
+            entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
+            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.PostAddress = TestPostAddress;
+            entityDto.PaymentMethod = TestPaymentMethod;
+            entityDto.AccountNumber = TestAccountNumber;
+            entityDto.BankName = TestBankName;
+            entityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
+            entityDto.Phone = TestPhone;
+            entityDto.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
+            entityDto.PositionInGenitive = TestPositionInGenitive;
+            entityDto.PositionInNominative = TestPositionInNominative;
+            entityDto.ChiefNameInNominative = TestChiefNameInNominative;
+            entityDto.ChiefNameInGenitive = TestChiefNameInGenitive;
+            entityDto.CertificateNumber = TestCertificateNumber;
+            entityDto.CertificateDate = TestCertificateDate;
+            entityDto.WarrantyNumber = TestWarrantyNumber;
+            entityDto.WarrantyBeginDate = TestWarrantyBeginDate;
+            entityDto.WarrantyEndDate = TestWarrantyEndDate;
+            entityDto.Timestamp = TestTimestamp;
+            entityDto.LegalPersonType = TestLegalPersonType;
+            entityDto.IsMainProfile = TestIsMainProfile;
+            entityDto.PaymentEssentialElements = TestPaymentEssentialElements;
             entityDto.Mfo = TestMfo;    
         }
 
         public static void FillChileLegalPersonProfileDtoWithTestData(ChileLegalPersonProfileDomainEntityDto entityDto)
         {
-            FillEntityDtoWithData(entityDto);
+            entityDto.Id = TestId;
+            entityDto.Name = TestName;
+            entityDto.LegalPersonRef = TestLegalPerson;
+            entityDto.DocumentsDeliveryAddress = TestDocumentsDeliveryAddress;
+            entityDto.RecipientName = TestRecipientName;
+            entityDto.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
+            entityDto.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
+            entityDto.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
+            entityDto.AdditionalEmail = TestAdditionalEmail;
+            entityDto.PostAddress = TestPostAddress;
+            entityDto.PaymentMethod = TestPaymentMethod;
+            entityDto.AccountNumber = TestAccountNumber;
+            entityDto.AdditionalPaymentElements = TestAdditionalPaymentElements;
+            entityDto.Phone = TestPhone;
+            entityDto.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
+            entityDto.PositionInGenitive = TestPositionInGenitive;
+            entityDto.PositionInNominative = TestPositionInNominative;
+            entityDto.ChiefNameInNominative = TestChiefNameInNominative;
+            entityDto.ChiefNameInGenitive = TestChiefNameInGenitive;
+            entityDto.Timestamp = TestTimestamp;
+            entityDto.IsMainProfile = TestIsMainProfile;
             entityDto.AccountType = TestAccountType;
             entityDto.BankRef = TestBank;
             entityDto.RepresentativeRut = TestRepresentativeRut;

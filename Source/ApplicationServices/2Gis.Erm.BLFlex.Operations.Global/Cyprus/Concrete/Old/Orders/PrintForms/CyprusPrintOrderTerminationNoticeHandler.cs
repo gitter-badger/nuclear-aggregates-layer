@@ -48,40 +48,47 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                                   .Select(order => new
-                                       {
-                                           Order = order,
-                                           order.Bargain,
-                                           order.EndDistributionDateFact,
-                                           order.LegalPerson,
-                                           Profile = order.LegalPerson.LegalPersonProfiles
-                                                          .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
-                                           order.BranchOfficeOrganizationUnit,
-                                           CurrencyISOCode = order.Currency.ISOCode,
-                                           LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                                           order.BranchOfficeOrganizationUnitId,
-                                           order.BranchOfficeOrganizationUnit.BranchOffice
-                                       })
-                                   .AsEnumerable()
-                                   .Select(x => new
-                                       {
-                                           x.Order,
-                                           RelatedBargainInfo = x.Bargain != null
-                                                                    ? string.Format(BLResources.RelatedToBargainInfoTemplate,
-                                                                                    x.Bargain.Number,
-                                                                                    _longDateFormatter.Format(x.Bargain.CreatedOn))
-                                                                    : null,
-                                           TerminationDate = x.EndDistributionDateFact.AddDays(1),
-                                           x.LegalPerson,
-                                           x.Profile,
-                                           x.BranchOfficeOrganizationUnit,
-                                           x.CurrencyISOCode,
-                                           x.LegalPersonType,
-                                           x.BranchOfficeOrganizationUnitId,
-                                           x.BranchOffice
-                                       })
-                                   .Single();
+            var data = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      order.Bargain,
+                                      order.EndDistributionDateFact,
+                                      order.LegalPersonId,
+                                      ProfileId = order.LegalPerson.LegalPersonProfiles
+                                                       .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
+                                                       .Id,
+                                      CurrencyISOCode = order.Currency.ISOCode,
+                                      LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                                      order.BranchOfficeOrganizationUnitId,
+                                      BranchOfficeId = (long?)order.BranchOfficeOrganizationUnit.BranchOfficeId
+                                  })
+                              .Single();
+
+            var branchOffice = data.BranchOfficeId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId.Value))
+                : null;
+            var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
+                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
+                : null;
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            var printData = new
+                {
+                    data.Order,
+                    RelatedBargainInfo = data.Bargain != null
+                                             ? string.Format(BLResources.RelatedToBargainInfoTemplate, data.Bargain.Number, _longDateFormatter.Format(data.Bargain.CreatedOn))
+                                             : null,
+                    TerminationDate = data.EndDistributionDateFact.AddDays(1),
+                    LegalPerson = legalPerson,
+                    Profile = profile,
+                    BranchOfficeOrganizationUnit = branchOfficeOrganizationUnit,
+                    data.CurrencyISOCode,
+                    data.LegalPersonType,
+                    data.BranchOfficeOrganizationUnitId,
+                    BranchOffice = branchOffice
+                };
 
             return _requestProcessor.HandleSubRequest(new PrintDocumentRequest
                 {

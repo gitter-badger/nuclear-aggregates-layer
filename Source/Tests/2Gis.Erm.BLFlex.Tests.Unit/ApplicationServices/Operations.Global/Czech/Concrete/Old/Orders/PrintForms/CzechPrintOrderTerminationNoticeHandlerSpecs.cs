@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
+using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-using It = Machine.Specifications.It;
-
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
 {
     public static class CzechPrintOrderTerminationNoticeHandlerSpecs
     {
+        [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:ElementsMustBeOrderedByAccess", Justification = "It's a test.")]
         class TestableCzechPrintOrderTerminationNoticeHandler : CzechPrintOrderTerminationNoticeHandler
         {
             public TestableCzechPrintOrderTerminationNoticeHandler()
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.LegalAddress",
                                 "LegalPerson.LegalName",
                                 "Order.Number",
-                                "Order.SignupDate",
+                                "Order.SignupDate"
                             }
                     },
                     {
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.LegalAddress",
                                 "LegalPerson.LegalName",
                                 "Order.Number",
-                                "Order.SignupDate",
+                                "Order.SignupDate"
                             }
                     },
                     {
@@ -87,7 +88,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.LegalAddress",
                                 "LegalPerson.LegalName",
                                 "Order.Number",
-                                "Order.SignupDate",
+                                "Order.SignupDate"
                             }
                     },
                     {
@@ -106,7 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.LegalAddress",
                                 "LegalPerson.LegalName",
                                 "Order.Number",
-                                "Order.SignupDate",
+                                "Order.SignupDate"
                             }
                     },
                     {
@@ -123,7 +124,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.Ic",
                                 "LegalPerson.Inn",
                                 "LegalPerson.LegalAddress",
-                                "LegalPerson.LegalName",
+                                "LegalPerson.LegalName"
                             }
                     },
                     {
@@ -140,7 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.Ic",
                                 "LegalPerson.Inn",
                                 "LegalPerson.LegalAddress",
-                                "LegalPerson.LegalName",
+                                "LegalPerson.LegalName"
                             }
                     },
                     {
@@ -157,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.Ic",
                                 "LegalPerson.Inn",
                                 "LegalPerson.LegalAddress",
-                                "LegalPerson.LegalName",
+                                "LegalPerson.LegalName"
                             }
                     },
                     {
@@ -174,16 +175,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                 "LegalPerson.Ic",
                                 "LegalPerson.Inn",
                                 "LegalPerson.LegalAddress",
-                                "LegalPerson.LegalName",
+                                "LegalPerson.LegalName"
                             }
                     },
                 };
             
             #endregion
 
+            static readonly string[] Expected = PrintFormFields.SelectMany(pair => pair.Value).Distinct().ToArray();
             static PrintData Data;
             static TestableCzechPrintOrderTerminationNoticeHandler Handler;
-            static readonly string[] Expected = PrintFormFields.SelectMany(pair => pair.Value).Distinct().ToArray();
 
             Establish context = () => Handler = new TestableCzechPrintOrderTerminationNoticeHandler();
             Because of = () => Data = Handler.GetPrintData();

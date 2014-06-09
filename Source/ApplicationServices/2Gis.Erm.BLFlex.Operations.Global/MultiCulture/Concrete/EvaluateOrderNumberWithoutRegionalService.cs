@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete

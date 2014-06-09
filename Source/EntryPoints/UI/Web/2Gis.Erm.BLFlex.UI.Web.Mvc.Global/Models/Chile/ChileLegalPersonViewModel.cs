@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             LegalName = modelDto.LegalName;
             LegalPersonType = modelDto.LegalPersonTypeEnum;
             LegalAddress = modelDto.LegalAddress;
-            Rut = modelDto.Inn;
+            Rut = modelDto.Rut;
             OperationsKind = modelDto.OperationsKind;
             Client = LookupField.FromReference(modelDto.ClientRef);
             Commune = LookupField.FromReference(modelDto.CommuneRef);
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     LegalName = LegalName,
                     LegalPersonTypeEnum = LegalPersonType,
                     LegalAddress = LegalAddress,
-                    Inn = Rut,
+                    Rut = Rut,
                     OperationsKind = OperationsKind,
                     CommuneRef = Commune.ToReference(),
                     ClientRef = Client.ToReference(),

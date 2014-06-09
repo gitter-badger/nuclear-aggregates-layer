@@ -86,6 +86,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public IQueryable<BranchOffice> GetBranchOfficeQuery(long orderId)
         {
+            // COMMENT {all, 13.05.2014}: Тут Partable не опасен
+            // COMMENT {a.rechkalov, 21.05.2014}: Отдавая наружу IQueryable нельзя быть в этом уверенным
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(order => order.BranchOfficeOrganizationUnit.BranchOffice);
         }

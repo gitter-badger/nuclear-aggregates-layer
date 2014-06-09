@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -30,9 +29,8 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         {
             protected static ChileGetLegalPersonProfileDtoService ChileGetLegalPersonProfileDtoService;
             protected static IUserContext UserContext;
-            protected static ILegalPersonReadModel ReadModel;
+            protected static ILegalPersonReadModel LegalPersonReadModel;
             protected static IBankReadModel BankReadModel;
-            protected static ISecureFinder SecureFinder;
             protected static IDomainEntityDto Result;
 
             protected static long EntityId;
@@ -43,12 +41,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             Establish context = () =>
                 {
-                    ReadModel = Mock.Of<ILegalPersonReadModel>();
+                    LegalPersonReadModel = Mock.Of<ILegalPersonReadModel>();
                     BankReadModel = Mock.Of<IBankReadModel>();
-                    UserContext = Mock.Of<IUserContext>();
-                    SecureFinder = Mock.Of<ISecureFinder>();
+                    UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
 
-                    ChileGetLegalPersonProfileDtoService = new ChileGetLegalPersonProfileDtoService(UserContext, SecureFinder, ReadModel, BankReadModel);
+                    ChileGetLegalPersonProfileDtoService = new ChileGetLegalPersonProfileDtoService(UserContext, LegalPersonReadModel, BankReadModel);
                 };
         }
 
@@ -56,26 +53,19 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(ChileGetLegalPersonProfileDtoService))]
         class When_requested_existing_entity : ChileGetLegalPersonProfileDtoServiceContext
         {
-            protected static ChileLegalPersonProfileDomainEntityDto Dto;
             protected static LegalPersonProfile LegalPersonProfile;
             protected static ChileLegalPersonProfilePart ChileLegalPersonProfilePart;
-            protected static Bank TestBank;
-
 
             const long TestBankId = 2;
             const string TestBankName = "TestBankName";
             const AccountType TestAccountType = AccountType.SavingsAccount;
             const string TestRepresentativeRut = "TestRepresentativeRut";
-            static readonly DateTime TestRepresentativeAuthorityDocumentIssuedOn = DateTime.UtcNow;
             const string TestRepresentativeAuthorityDocumentIssuedBy = "TestRepresentativeAuthorityDocumentIssuedBy";
-
-            const long entityId = 1;
+            static readonly DateTime TestRepresentativeAuthorityDocumentIssuedOn = DateTime.UtcNow;
 
             Establish context = () =>
                 {
-                    EntityId = entityId; // C Id != 0 мы получим Dto из хранилища
-                    Dto = new ChileLegalPersonProfileDomainEntityDto();
-                    TestBank = new Bank { Id = TestBankId, Name = TestBankName };
+                    EntityId = 1; // C Id != 0 мы получим Dto из хранилища
 
                     ChileLegalPersonProfilePart = new ChileLegalPersonProfilePart
                         {
@@ -86,11 +76,10 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                             RepresentativeAuthorityDocumentIssuedBy = TestRepresentativeAuthorityDocumentIssuedBy
                         };
 
-                    LegalPersonProfile = new LegalPersonProfile { Parts = new[] { ChileLegalPersonProfilePart } };
+                    LegalPersonProfile = new LegalPersonProfile { Parts = new[] { ChileLegalPersonProfilePart }, Timestamp = new byte[0] }; // Timestamp != null указывает, что объект не новый
 
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPersonProfileDto<ChileLegalPersonProfileDomainEntityDto>(entityId)).Returns(Dto);
-                    Mock.Get(ReadModel).Setup(x => x.GetLegalPersonProfile(EntityId)).Returns(LegalPersonProfile);
-                    Mock.Get(BankReadModel).Setup(x => x.GetBank(Moq.It.IsAny<long>())).Returns(TestBank);
+                    Mock.Get(LegalPersonReadModel).Setup(x => x.GetLegalPersonProfile(EntityId)).Returns(LegalPersonProfile);
+                    Mock.Get(BankReadModel).Setup(x => x.GetBankName(TestBankId)).Returns(TestBankName);
                 };
 
             Because of = () =>
@@ -118,12 +107,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(ChileGetLegalPersonProfileDtoService))]
         class When_requested_new_entity : ChileGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
             const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
-            static LegalPerson ParenLegalPerson;
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
+            static LegalPerson ParentLegalPerson;
 
             Establish context = () =>
                 {
@@ -131,15 +119,15 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     ParentEntityId = 1;
                     ParentEntityName = EntityName.LegalPerson;
 
-                    ParenLegalPerson = new LegalPerson
+                    ParentLegalPerson = new LegalPerson
                         {
                             Id = ParentEntityId.Value,
                             LegalName = TestLegalPersonName,
                         };
 
-                    _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                    Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
-                    Mock.Get(SecureFinder).Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<LegalPerson>>())).Returns(Q(ParenLegalPerson));
+                    var userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
+                    Mock.Get(UserContext).Setup(x => x.Identity).Returns(userIdentity);
+                    Mock.Get(LegalPersonReadModel).Setup(x => x.GetLegalPersonName(ParentEntityId.Value)).Returns(TestLegalPersonName);
                 };
 
             Because of = () =>
@@ -153,18 +141,16 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             It should_have_default_DocumentsDeliveryMethod =
                 () => ((ChileLegalPersonProfileDomainEntityDto)Result).DocumentsDeliveryMethod.Should().Be(DefaultDocumentsDeliveryMethod);
 
-            It should_have_expected_LegalPersonId = () => ((ChileLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Id.Should().Be(ParenLegalPerson.Id);
+            It should_have_expected_LegalPersonId = () => ((ChileLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Id.Should().Be(ParentLegalPerson.Id);
 
             It should_have_expected_LegalPersonName =
-                () => ((ChileLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Name.Should().Be(ParenLegalPerson.LegalName);
+                () => ((ChileLegalPersonProfileDomainEntityDto)Result).LegalPersonRef.Name.Should().Be(ParentLegalPerson.LegalName);
         }
 
         [Tags("GetDtoServie")]
         [Subject(typeof(ChileGetLegalPersonProfileDtoService))]
         class When_requested_new_entity_but_parentId_is_not_set : ChileGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
@@ -175,9 +161,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = null;
                 ParentEntityName = EntityName.LegalPerson;
-
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             Because of = () => catchedException = Catch.Exception(() => ChileGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));
@@ -189,8 +172,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         [Subject(typeof(ChileGetLegalPersonProfileDtoService))]
         class When_requested_new_entity_and_parent_entity_is_not_a_LegalPerson : ChileGetLegalPersonProfileDtoServiceContext
         {
-            static IUserIdentity _userIdentity;
-            const long userCode = 2;
             const string TestLegalPersonName = "TestLegalPersonName";
             const PaymentMethod DefaultPaymentMethod = PaymentMethod.BankTransaction;
             const DocumentsDeliveryMethod DefaultDocumentsDeliveryMethod = DocumentsDeliveryMethod.Undefined;
@@ -201,9 +182,6 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = 1;
                 ParentEntityName = EntityName.Order;
-
-                _userIdentity = Mock.Of<IUserIdentity>(x => x.Code == userCode);
-                Mock.Get(UserContext).Setup(x => x.Identity).Returns(_userIdentity);
             };
 
             Because of = () => catchedException = Catch.Exception(() => ChileGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));

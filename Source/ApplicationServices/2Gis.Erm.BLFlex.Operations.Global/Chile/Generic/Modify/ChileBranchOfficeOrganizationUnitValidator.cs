@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
 {
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
 
         public void Check(BranchOfficeOrganizationUnit entity)
         {
-            var rut = entity.ChilePart().RepresentativeRut;
+            var rut = entity.Within<ChileBranchOfficeOrganizationUnitPart>().GetPropertyValue(part => part.RepresentativeRut);
 
             string rutError;
             if (_checkRutService.TryGetErrorMessage(rut, out rutError))

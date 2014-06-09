@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -59,7 +58,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                BargainSignedOn = order.Bargain.SignedOn,
                                BargainNumber = order.Bargain.Number,
                                CurrencyIsoCode = order.Currency.ISOCode,
-                               order.BranchOfficeOrganizationUnit.BranchOffice,
+                               BranchOfficeName = order.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                               BranchOfficeLegalAddress = order.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
+                               BranchOfficeInn = order.BranchOfficeOrganizationUnit.BranchOffice.Inn,
                            })
                        .Single();
 
@@ -102,9 +103,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
                 BranchOffice = new
                 {
-                    orderData.BranchOffice.Name,
-                    orderData.BranchOffice.LegalAddress,
-                    orderData.BranchOffice.Inn,
+                    orderData.BranchOfficeName,
+                    orderData.BranchOfficeLegalAddress,
+                    orderData.BranchOfficeInn,
                 },
 
                 BranchOfficeOrganizationUnit = new 

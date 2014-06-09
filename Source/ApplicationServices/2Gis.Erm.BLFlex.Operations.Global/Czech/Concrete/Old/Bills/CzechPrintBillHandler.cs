@@ -72,34 +72,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                                    bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                                },
                                            bill.Order.Bargain,
-                                           bill.Order.BranchOfficeOrganizationUnit,
-                                           bill.Order.BranchOfficeOrganizationUnit.BranchOffice,
-                                           bill.Order.LegalPerson,
-                                           Profile =
-                                                       bill.Order.LegalPerson.LegalPersonProfiles.FirstOrDefault(
-                                                           y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId),
+                                           bill.Order.BranchOfficeOrganizationUnitId,
+                                           bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                           bill.Order.LegalPersonId,
+                                           ProfileId = bill.Order.LegalPerson.LegalPersonProfiles
+                                                           .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId)
+                                                           .Id,
                                            CurrencyISOCode = bill.Order.Currency.ISOCode
                                        })
-                                   .AsEnumerable()
+                                   .ToArray()
                                    .Select(x => new
                                        {
                                            x.Bill,
                                            BillNumberDigits = GetBillDigitsOnly(x.Bill.BillNumber),
                                            OrderVatRate = (x.Order.VatRate == default(decimal)) ? (decimal?)null : x.Order.VatRate,
                                            x.Order,
-                                           PaymentMethod =
-                                                    ((PaymentMethod)x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager,
-                                                                                                             CultureInfo.CurrentCulture),
+                                           PaymentMethod = ((PaymentMethod)x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
                                            RelatedBargainInfo = (x.Bargain != null)
-                                                                    ? string.Format(BLResources.RelatedToBargainInfoTemplate,
-                                                                                    x.Bargain.Number,
-                                                                                    _longDateFormatter.Format(x.Bargain.CreatedOn))
-                                                                    : null,
+                                               ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
+                                               : null,
                                            billInfo.OrderReleaseCountPlan,
-                                           x.BranchOfficeOrganizationUnit,
-                                           x.BranchOffice,
-                                           x.LegalPerson,
-                                           x.Profile,
+                                           BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
+                                               ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
+                                               : null,
+                                           BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
+                                           LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)),
+                                           Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId)),
                                            x.CurrencyISOCode
                                        })
                                    .Single();

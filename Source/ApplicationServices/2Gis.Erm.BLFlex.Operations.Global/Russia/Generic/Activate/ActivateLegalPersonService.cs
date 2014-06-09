@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var restoringLegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(entityId)).Single();
+                var restoringLegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
 
                 if (restoringLegalPerson.IsActive)
                 {
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
                         {
                             dublicateLegalPerson = 
                                 _finder
-                                    .Find(
+                                    .FindMany(
                                         Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.LegalPerson)
                                             && LegalPersonSpecs.LegalPersons.Find.ByInnAndKpp(restoringLegalPerson.Inn, restoringLegalPerson.Kpp))
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
                         {
                             dublicateLegalPerson = 
                                 _finder
-                                    .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                    .FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.Businessman)
                                             && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
                                     .FirstOrDefault();
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
                         {
                             dublicateLegalPerson = 
                                 _finder
-                                    .Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                    .FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.NaturalPerson)
                                             && LegalPersonSpecs.LegalPersons.Find.ByPassport(restoringLegalPerson.PassportSeries, restoringLegalPerson.PassportNumber))
                                     .FirstOrDefault();

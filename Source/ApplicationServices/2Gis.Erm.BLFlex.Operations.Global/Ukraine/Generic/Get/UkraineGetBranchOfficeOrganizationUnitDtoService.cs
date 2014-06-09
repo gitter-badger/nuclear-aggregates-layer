@@ -1,70 +1,48 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
+using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
 {
-    public class UkraineGetBranchOfficeOrganizationUnitDtoService : GetDomainEntityDtoServiceBase<BranchOfficeOrganizationUnit>, IUkraineAdapted
+    public class UkraineGetBranchOfficeOrganizationUnitDtoService : GetBranchOfficeOrganizationUnitDtoServiceBase<UkraineBranchOfficeOrganizationUnitDomainEntityDto>, IUkraineAdapted
     {
-        private readonly ISecureFinder _finder;
-        private readonly IBranchOfficeReadModel _readModel;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public UkraineGetBranchOfficeOrganizationUnitDtoService(IUserContext userContext,
-                                                                ISecureFinder finder,
-                                                                IBranchOfficeReadModel readModel,
+                                                                IOrganizationUnitReadModel organizationUnitReadModel,
+                                                                IBranchOfficeReadModel branchOfficeReadModel,
                                                                 IAPIIdentityServiceSettings identityServiceSettings)
-            : base(userContext)
+            : base(userContext, branchOfficeReadModel, organizationUnitReadModel, identityServiceSettings)
         {
-            _finder = finder;
-            _readModel = readModel;
-            _identityServiceSettings = identityServiceSettings;
+            _branchOfficeReadModel = branchOfficeReadModel;
         }
 
-        protected override IDomainEntityDto<BranchOfficeOrganizationUnit> GetDto(long entityId)
+        protected override void SetSpecificPropertyValues(UkraineBranchOfficeOrganizationUnitDomainEntityDto dto)
         {
-            var dto = _readModel.GetBranchOfficeOrganizationUnitDto<UkraineBranchOfficeOrganizationUnitDomainEntityDto>(entityId);
-
-            var branchOffice = _readModel.GetBranchOffice(dto.BranchOfficeAddlId);
-            var part = branchOffice.UkrainePart();
-
-            dto.BranchOfficeAddlIpn = part.Ipn;
-            return dto;
-        }
-
-        protected override IDomainEntityDto<BranchOfficeOrganizationUnit> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
-        {
-            var dto = new UkraineBranchOfficeOrganizationUnitDomainEntityDto
+            if (dto.BranchOfficeRef.Id.HasValue)
             {
-                IdentityServiceUrl = _identityServiceSettings.RestUrl
-            };
+                var branchOffice = _branchOfficeReadModel.GetBranchOffice(dto.BranchOfficeRef.Id.Value);
 
-            switch (parentEntityName)
-            {
-                case EntityName.BranchOffice:
-                    var branchOffice = _readModel.GetBranchOffice(parentEntityId.Value);
-
-                    dto.BranchOfficeRef = new EntityReference { Id = parentEntityId.Value, Name = branchOffice.Name };
-                    dto.ShortLegalName = dto.BranchOfficeRef.Name;
-
-                    break;
-                case EntityName.OrganizationUnit:
-                    dto.OrganizationUnitRef = new EntityReference { Id = parentEntityId.Value, Name = _finder.Find<OrganizationUnit>(x => x.Id == parentEntityId).Select(x => x.Name).SingleOrDefault() };
-                    
-                    break;
+                dto.BranchOfficeAddlId = branchOffice.Id;
+                dto.BranchOfficeAddlLegalAddress = branchOffice.LegalAddress;
+                dto.BranchOfficeAddlName = branchOffice.Name;
+                dto.BranchOfficeAddlEgrpou = branchOffice.Inn;
+                dto.BranchOfficeAddlIpn = branchOffice.Within<UkraineBranchOfficePart>().GetPropertyValue(part => part.Ipn);
             }
+        }
 
-            return dto;
+        protected override IProjectSpecification<BranchOfficeOrganizationUnit, UkraineBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
+            {
+            return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Ukraine.Project.DomainEntityDto();
         }
     }
 }

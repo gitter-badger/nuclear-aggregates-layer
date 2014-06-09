@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -64,24 +65,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected PrintData GetPrintData(long orderId)
         {
-            return
-                _finder.Find(Specs.Find.ById<Order>(orderId))
-                .Select(order => new
-                    {
-                        Order = order,
-                        order.LegalPerson,
-                        order.BranchOfficeOrganizationUnit,
-                        order.BranchOfficeOrganizationUnit.BranchOffice
-                    })
-                .AsEnumerable()
-                   .Select(x => new PrintData
-                    {
-                           { "BranchOffice", CzechPrintHelper.BranchOfficeFields(x.BranchOffice) },
-                           { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForTerminationNotice(x.BranchOfficeOrganizationUnit) },
-                           { "LegalPerson", CzechPrintHelper.LegalPersonFields(x.LegalPerson) },
-                           { "Order", CzechPrintHelper.OrderFields(x.Order) }
-                    })
-                .Single();
+            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      order.LegalPersonId,
+                                      order.BranchOfficeOrganizationUnit.BranchOfficeId
+                                  })
+                              .Single();
+
+            var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+
+            return new PrintData
+                {
+                    { "BranchOffice", CzechPrintHelper.BranchOfficeFields(_finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId))) },
+                    { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForTerminationNotice(branchOfficeOrganizationUnit) },
+                    { "LegalPerson", CzechPrintHelper.LegalPersonFields(legalPerson) },
+                    { "Order", CzechPrintHelper.OrderFields(data.Order) }
+                };
         }
 
         private static TemplateCode GetTemplateCode(LegalPersonType legalPersonType, bool withoutReason, bool terminationBargain)

@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
     public interface IBankReadModel : ISimplifiedModelConsumerReadModel
     {
         Bank GetBank(long bankId);
-        DictionaryEntityInstanceDto GetDictionaryEntityInstanceDto(Bank bank);
+        string GetBankName(long bankId);
         bool IsBankUsed(long bankId);
     }
 }

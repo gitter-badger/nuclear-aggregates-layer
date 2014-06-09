@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
@@ -25,6 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ILegalPersonRepository _legalPersonRepository;
+        private readonly IUpdateAggregateRepository<LegalPersonProfile> _updateProfileRepository; 
         private readonly IOrderRepository _orderRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IBargainRepository _bargainRepository;
@@ -36,11 +38,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             IAccountRepository accountRepository,
             IBargainRepository bargainRepository,
             IUserContext userContext, 
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            IUpdateAggregateRepository<LegalPersonProfile> updateProfileRepository)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
+            _updateProfileRepository = updateProfileRepository;
             _legalPersonRepository = legalPersonRepository;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
@@ -205,7 +209,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                 {
                     profile.IsMainProfile = false;
                     profile.LegalPersonId = mainLegalPerson.LegalPerson.Id;
-                    _legalPersonRepository.CreateOrUpdate(profile);
+                    _updateProfileRepository.Update(profile);
                 }
 
                 _legalPersonRepository.Deactivate(appendedLegalPerson.LegalPerson);
