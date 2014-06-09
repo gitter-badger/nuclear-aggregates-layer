@@ -6,6 +6,7 @@ using DoubleGis.Erm.API.WCF.Releasing.Config;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.DI.Config;
+using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Releasing.Release;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

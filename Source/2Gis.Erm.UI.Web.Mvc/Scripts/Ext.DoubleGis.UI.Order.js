@@ -212,7 +212,6 @@ window.InitPage = function () {
                 PrintWithoutProfileChoosing: function (methodName, profileId) {
                     var entityId = Ext.getDom('Id').value;
                     url = '/Order/' + methodName + '/' + entityId + '?profileId=' + profileId + '&__dc=' + Ext.util.Format.cacheBuster();
-                    this.Items.Toolbar.disable();
 
                     var iframe;
                     iframe = document.getElementById("hiddenDownloader");
@@ -232,7 +231,6 @@ window.InitPage = function () {
                     }
 
                     iframe.src = url;
-                    this.recalcToolbarButtonsAvailability();
                 },
                 PrintWithProfileChoosing: function (methodName, profileId) {
                     var entityId = Ext.getDom('Id').value;

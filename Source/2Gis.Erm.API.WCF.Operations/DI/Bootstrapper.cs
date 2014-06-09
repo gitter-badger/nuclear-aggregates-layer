@@ -297,8 +297,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
                 .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                .RegisterType<IDictionaryEntityPropertiesConverter<Bank>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
-                .RegisterType<IBusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
+                    DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
 
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
