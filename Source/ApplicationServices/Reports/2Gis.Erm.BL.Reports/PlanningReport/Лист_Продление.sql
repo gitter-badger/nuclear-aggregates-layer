@@ -8,19 +8,23 @@ SELECT
 	, t.[Город назначения]
 	, t.[№ Бланк-заказа]
 	, t.[К оплате (план)]
+	, t.[К оплате (план) по прайс-листу]
 	, t.[Начало размещения]
 	, t.[Окончание размещения]
 	, t.[На срок]
 	, t.[К оплате(план)/срок]
+	, t.[К оплате(план)/срок по прайс-листу]
 	, [Сумма по выставленному счету (первый платеж)] = ISNULL(t.PayablePlan, 0)
 	, [Количество предоплаченных месяцев (первый платеж)] = 
 						CASE WHEN ISNULL(t.[К оплате (план)], 0) = 0 THEN 0 ELSE CAST(ISNULL(t.PayablePlan, 0) / t.[К оплате(план)/срок] AS INT) END
 	, [Корректировка РГ] = CAST(0 AS MONEY)
+	, [Корректировка РГ по прайс-листу] = NULL
 	, [Примечание] = NULL
 	, [Сумма предоплаты] = CAST(0 AS MONEY)
 	, [Планируемое количество предоплаченных месяцев (первый платеж)] = CAST(NULL AS INT)
 	, [Сравнение] = CAST(NULL AS INT)
 	, [Оплаченный объем по продлениям (план)] = CAST(2 AS MONEY)
+	, t.[Платформа]
 	, [ППС: Письмо-сервис] = NULL
 	, [ППС: Письмо-уведомление о поступлении денег] = NULL
 	, [ППС: Письмо-поздравление с проф. праздником] = NULL
@@ -42,11 +46,16 @@ FROM
 			, [Начало размещения] = o.BeginDistributionDate
 			, [Окончание размещения] = o.EndDistributionDatePlan
 			, [На срок] = o.ReleaseCountPlan
+			, [К оплате(план)/срок по прайс-листу] = o.PayablePrice/o.ReleaseCountPlan
+			, [К оплате (план) по прайс-листу] = o.PayablePrice
 			, [К оплате(план)/срок] = ot.AmountToWithdraw
+			, [Платформа] = p.Name
 			, ROW_NUMBER() OVER (PARTITION BY o.Id ORDER BY b.PaymentDatePlan ASC) rnk
 			, b.PayablePlan
 		FROM
 			Billing.Orders o with(nolock)
+			JOIN billing.Platforms AS p  with(nolock) ON 
+				p.Id = o.PlatformId
 			JOIN Billing.OrderReleaseTotals ot with(nolock) ON
 				ot.OrderId = o.Id
 			LEFT JOIN Billing.Bills b with(nolock) ON

@@ -5,10 +5,13 @@
 	, [Город назначения] = OU.Name
 	, [№ Бланк-заказа] = o.Number
 	, [К оплате (план)] = o.PayablePlan
+	, [К оплате (план) по прайс-листу] = o.PayablePrice
 	, [Начало размещения] = o.BeginDistributionDate
 	, [Окончание размещения] = o.EndDistributionDatePlan
 	, [На срок] = o.ReleaseCountPlan
 	, [К оплате(план)/срок] = ot.AmountToWithdraw
+	, [К оплате(план)/срок по прайс-листу] = o.PayablePrice/o.ReleaseCountPlan
+	, [Платформа] = p.Name
 	, [ППС: Письмо-сервис] = NULL
 	, [ППС: Письмо-уведомление о поступлении денег] = NULL
 	, [ППС: Письмо-поздравление с проф. праздником] = NULL
@@ -22,6 +25,8 @@
 	, [ППС: Встреча(звонок)-мобильная версия] = NULL
 FROM
 	Billing.Orders o with(nolock)
+	JOIN billing.Platforms AS p  with(nolock) ON 
+		p.Id = o.PlatformId
 	LEFT JOIN ##Users u ON
 		u.UserId = o.OwnerCode
 	JOIN Security.Users mgrs with(nolock) ON
