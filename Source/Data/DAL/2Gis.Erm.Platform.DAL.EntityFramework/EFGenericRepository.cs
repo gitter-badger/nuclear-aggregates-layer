@@ -70,8 +70,15 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             SetEntityAuditableInfo(entity, true);
 
             Set().Add(entity);
-            
-            _changesRegistryProvider.ChangesRegistry.Added<TEntity>(entity.GetId());
+
+            // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
+            // COMMENT {y.baranihin, 15.05.2014}: Зачем? Изменения в таких регистрируются как изменения родительского объекта.
+            // COMMENT {a.rechkalov; y.baranihin, 21.05.2014}: Тут скорее важнее получить знание, что должно было быть изменено бизнес-логикой при выполнении операции, чтобы сравнить эти ожидания с реальными изменениями на уровне доступа к данным
+            var entityKey = entity as IEntityKey;
+            if (entityKey != null)
+            {
+                _changesRegistryProvider.ChangesRegistry.Added<TEntity>(entityKey.Id);
+            }
         }
 
         void IRepositoryProxy<TEntity>.AddRange(IEnumerable<TEntity> entities)
@@ -86,7 +93,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
                 SetEntityAuditableInfo(entity, true);
 
-                entityIds.Add(entity.GetId());
+                // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
+                var entityKey = entity as IEntityKey;
+                if (entityKey != null)
+                {
+                    entityIds.Add(entityKey.Id);
+                }
             }
 
             Set().AddRange(castedEntities);
@@ -112,7 +124,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 entry.SetAsModified();
             }
 
-            _changesRegistryProvider.ChangesRegistry.Updated<TEntity>(entity.GetId());
+            // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
+            var entityKey = entity as IEntityKey;
+            if (entityKey != null)
+            {
+                _changesRegistryProvider.ChangesRegistry.Updated<TEntity>(entityKey.Id);
+            }
         }
 
         void IRepositoryProxy<TEntity>.Delete(TEntity entity, IDomainEntityEntryAccessor<TEntity> domainEntityEntryAccessor)
@@ -142,7 +159,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 Set().Remove(entity);
             }
 
-            _changesRegistryProvider.ChangesRegistry.Deleted<TEntity>(entity.GetId());
+            // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
+            var entityKey = entity as IEntityKey;
+            if (entityKey != null)
+            {
+                _changesRegistryProvider.ChangesRegistry.Deleted<TEntity>(entityKey.Id);
+            }
         }
 
         void IRepositoryProxy<TEntity>.DeleteRange(IEnumerable<TEntity> entities, IDomainEntityEntryAccessor<TEntity> domainEntityEntryAccessor)
@@ -175,7 +197,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                     entitiesToDeletePhysically.Add(entity);
                 }
 
-                entityIds.Add(entity.GetId());
+                // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
+                var entityKey = entity as IEntityKey;
+                if (entityKey != null)
+                {
+                    entityIds.Add(entityKey.Id);
+                }
             }
 
             Set().RemoveRange(entitiesToDeletePhysically);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -76,6 +77,18 @@ namespace DoubleGis.Erm.Platform.DAL
             return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(expression));
         }
 
+        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
+        }
+
         public IQueryable FindAll(Type entityType)
         {
             if (entityType == null)
@@ -91,7 +104,8 @@ namespace DoubleGis.Erm.Platform.DAL
             return (IQueryable<TEntity>)FindAll(typeof(TEntity));
         }
 
-        private T RestrictQueryWhenAccessCheck<T>(IQueryable querySource)
+        private TQueryable RestrictQueryWhenAccessCheck<TQueryable>(IQueryable querySource)
+            where TQueryable : IQueryable
         {
             if (querySource == null)
             {
@@ -100,10 +114,10 @@ namespace DoubleGis.Erm.Platform.DAL
 
             if (!_userContext.Identity.SkipEntityAccessCheck)
             {
-                return (T)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
+                return (TQueryable)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
             }
 
-            return (T)querySource;
+            return (TQueryable)querySource;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
 {
-    public interface IAdapted
+    public interface IAdapted : IBoundedContext
     {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -64,15 +65,6 @@ namespace DoubleGis.Erm.Platform.DAL
             return queryableSource.Where(findSpecification.Predicate).Select(selectSpecification.Selector);
         }
 
-        public TOutput Find<TEntity, TQuery, TOutput>(ISelectSpecification<TQuery, TOutput> selectSpecifications, 
-            IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity
-            where TQuery : IQueryable<TEntity>
-        {
-            // TODO {d.ivanov, 29.07.2013}: Пока не знаю как реализовать
-            throw new NotImplementedException();
-        }
-
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) 
             where TEntity : class, IEntity
         {
@@ -83,6 +75,18 @@ namespace DoubleGis.Erm.Platform.DAL
 
             var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
             return queryableSource.Where(expression);
+        }
+
+        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotSupportedException("ConsistentFinderDecorator should be used");
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey
+        {
+            throw new NotSupportedException("ConsistentFinderDecorator should be used");
         }
     }
 }

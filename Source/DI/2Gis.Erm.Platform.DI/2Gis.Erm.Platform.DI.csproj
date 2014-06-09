@@ -64,8 +64,8 @@
     <Compile Include="Config\MassProcessing\MetadataSourcesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\PersistenceServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\SimplifiedModelConsumersProcessor.cs" />
-    <Compile Include="Config\MassProcessing\Validation\CheckApplicationServicesConventionsMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\Validation\CheckDomainModelEntitiesСlassificationMassProcessor.cs" />
+    <Compile Include="EAV\UnityDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Factories\UnityDomainContextFactory.cs" />
     <Compile Include="Factories\UnityTransactedOperationScopeFactory.cs" />
     <Compile Include="Factories\UnityUnitOfWork.cs" />

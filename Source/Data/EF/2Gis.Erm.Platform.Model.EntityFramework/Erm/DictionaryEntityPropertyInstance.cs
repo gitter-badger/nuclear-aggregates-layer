@@ -14,10 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed partial class DictionaryEntityPropertyInstance : 
-        IEntity, 
-        IEntityKey
+        IEntity
     {
-        public long Id { get; set; }
         public long EntityInstanceId { get; set; }
         public int PropertyId { get; set; }
         public string TextValue { get; set; }
@@ -43,18 +41,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
                 return true;
             }
     
-    		var entityKey = obj as IEntityKey;
-    		if (entityKey != null)
-    		{
-    			return Id == entityKey.Id;
-    		}
-    		
     		return false;
         }
     
     	override public int GetHashCode()
     	{
-    		return Id.GetHashCode();
+    		return base.GetHashCode();
     	}
     }
 }

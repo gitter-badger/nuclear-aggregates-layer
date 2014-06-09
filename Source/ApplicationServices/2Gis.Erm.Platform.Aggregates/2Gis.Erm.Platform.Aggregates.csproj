@@ -49,12 +49,24 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="EAV\ActivityPropertiesConverter.cs" />
+    <Compile Include="EAV\BusinessEntitySpecs.cs" />
+    <Compile Include="EAV\DictionaryEntitySpecs.cs" />
+    <Compile Include="EAV\DynamicEntityMetadataProvider.cs" />
     <Compile Include="EAV\DynamicEntityPropertiesConverter.cs" />
     <Compile Include="EAV\ActivityDynamicPropertiesConverter.cs" />
     <Compile Include="EAV\DictionaryEntityPropertiesConverter.cs" />
     <Compile Include="EAV\BusinessEntityPropertiesConverter.cs" />
+    <Compile Include="EAV\PartableEntityAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>

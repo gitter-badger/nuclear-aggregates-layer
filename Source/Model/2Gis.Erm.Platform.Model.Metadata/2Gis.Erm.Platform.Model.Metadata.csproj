@@ -55,6 +55,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+	<Compile Include="Boundaries\IPrintingBoundedContext.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />

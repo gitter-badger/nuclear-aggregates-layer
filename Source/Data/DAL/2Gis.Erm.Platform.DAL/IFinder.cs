@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -23,15 +24,20 @@ namespace DoubleGis.Erm.Platform.DAL
             where TEntity : class, IEntity;
         
         /// <summary>
-        /// Find the Entity object(s) based on findSpecification, executes the query and returns the result based on selectSpecification.
-        /// </summary>
-        TOutput Find<TEntity, TQuery, TOutput>(ISelectSpecification<TQuery, TOutput> selectSpecification, IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity
-            where TQuery : IQueryable<TEntity>;
-
-        /// <summary>
         /// Find the Entity object(s) based on user supplied lambda expression.
         /// </summary>
         IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity;
+
+        /// <summary>
+        /// Find and select IPartable object with all its parts.
+        /// </summary>
+        TPartableEntity FindOne<TPartableEntity>(IFindSpecification<TPartableEntity> findSpecification)
+            where TPartableEntity : class, IEntity, IEntityKey;
+
+        /// <summary>
+        /// Find and select collection of IPartable object with all its parts.
+        /// </summary>
+        IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity, IEntityKey;
     }
 }

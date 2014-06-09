@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using FluentAssertions;
+
 using Machine.Specifications;
 
 using Moq;
@@ -88,9 +90,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             protected static EntityAccessTypes _deniedAccess;
             protected static Exception _exception;
 
-            It should_fail_as_SecurityAccessDeniedException = () => _exception.ShouldBeOfType<SecurityAccessDeniedException>();
-            It should_fail_with_access_type = () => _exception.Message.ShouldContain(_deniedAccess.ToString());
-            It should_fail_with_entity_type_name = () => _exception.Message.ShouldContain(Entity.GetType().Name);
+            It should_fail_as_SecurityAccessDeniedException = () => _exception.Should().BeOfType<SecurityAccessDeniedException>();
+            It should_fail_with_access_type = () => _exception.Message.Should().Contain(_deniedAccess.ToString());
+            It should_fail_with_entity_type_name = () => _exception.Message.Should().Contain(Entity.GetType().Name);
         }
 
         /// <summary>

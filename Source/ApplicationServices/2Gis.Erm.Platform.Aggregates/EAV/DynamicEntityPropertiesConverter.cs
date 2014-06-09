@@ -17,13 +17,21 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         where TEntityInstance : class, IDynamicEntityInstance
         where TEntityPropertyInstace : class, IDynamicEntityPropertyInstance
     {
-        private Action<TEntity, ICollection<TEntityPropertyInstace>> _converterFromPersistence;
-        private Action<TEntity, long, ICollection<TEntityPropertyInstace>, BusinessModel> _converterToPersistence;
-        
+        private readonly Action<TEntity, ICollection<TEntityPropertyInstace>> _converterFromPersistence;
+        private readonly Action<TEntity, long, ICollection<TEntityPropertyInstace>, BusinessModel> _converterToPersistence;
+
+        protected DynamicEntityPropertiesConverter()
+        {
+            _converterFromPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
+                                                                     .BuildValueGettersExpression<TEntity, TEntityPropertyInstace>(GetPropertyValue)
+                                                                     .Compile();
+            _converterToPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
+                                                                   .BuildValueSettersExpression<TEntity, TEntityPropertyInstace>(SetPropertyValue)
+                                                                   .Compile();
+        }
+
         public TEntity ConvertFromDynamicEntityInstance(TEntityInstance dynamicEntityInstance, ICollection<TEntityPropertyInstace> propertyInstances)
         {
-            EnsureConverterFromPersistenceInitialized();
-
             var entity = CreateEntity(dynamicEntityInstance);
             _converterFromPersistence(entity, propertyInstances);
 
@@ -41,8 +49,6 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             ICollection<TEntityPropertyInstace> propertyInstances, 
             long? referencedEntityId)
         {
-            EnsureConverterToPersistenceInitialized();
-
             var businessModel = typeof(TEntity).IsAdapted() ? typeof(TEntity).AsAdapted().AsBusinessModel() : BusinessModel.NotSetted;
             var dynamicEntityInstance = CreateEntityInstance(entity, referencedEntityId);
             _converterToPersistence(entity, dynamicEntityInstance.Id, propertyInstances, businessModel);
@@ -82,25 +88,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         {
             target.Timestamp = source.Timestamp;
         }
-
-        private void EnsureConverterFromPersistenceInitialized()
-        {
-            if (_converterFromPersistence == null)
-            {
-                _converterFromPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
-                    .BuildValueGettersExpression<TEntity, TEntityPropertyInstace>(GetPropertyValue).Compile();
-            }
-        }
-
-        private void EnsureConverterToPersistenceInitialized()
-        {
-            if (_converterToPersistence == null)
-            {
-                _converterToPersistence = DynamicEntityMetadataRegistry.GetPropertyIdentities<TEntity>()
-                    .BuildValueSettersExpression<TEntity, TEntityPropertyInstace>(SetPropertyValue).Compile();
-            }
-        }
-
+        
         private static object GetPropertyValue(IEnumerable<TEntityPropertyInstace> propertyInstances, int propertyId, Type propertyType)
         {
             var property = propertyInstances.FirstOrDefault(x => x.PropertyId == propertyId);

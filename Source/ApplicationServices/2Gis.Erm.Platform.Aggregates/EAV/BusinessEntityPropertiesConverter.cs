@@ -1,19 +1,18 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
     // TODO {all, 07.04.2014}: какой-то перебор с маркерными интерфейсами у T 
-    public class BusinessEntityPropertiesConverter<T> : DynamicEntityPropertiesConverter<T, BusinessEntityInstance, BusinessEntityPropertyInstance>, 
-                                                        IBusinessEntityPropertiesConverter<T>
-        where T : class, IEntity, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity, new()
+    public class BusinessEntityPropertiesConverter<T> : DynamicEntityPropertiesConverter<T, BusinessEntityInstance, BusinessEntityPropertyInstance>
+        where T : class, IEntity, IEntityPart, IEntityKey, IAuditableEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity, new()
     {
         protected override T CreateEntity(BusinessEntityInstance dynamicEntityInstance)
         {
             return new T
                 {
-                    Id = dynamicEntityInstance.Id
+                    Id = dynamicEntityInstance.Id,
+                    EntityId = dynamicEntityInstance.EntityId.Value,
                 };
         }
 
@@ -28,7 +27,11 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
 
         protected override BusinessEntityPropertyInstance CreateEntityPropertyInstace(long entityId, int propertyId)
         {
-            return new BusinessEntityPropertyInstance { PropertyId = propertyId };
+            return new BusinessEntityPropertyInstance
+                {
+                    EntityInstanceId = entityId,
+                    PropertyId = propertyId
+                };
         }
     }
 }

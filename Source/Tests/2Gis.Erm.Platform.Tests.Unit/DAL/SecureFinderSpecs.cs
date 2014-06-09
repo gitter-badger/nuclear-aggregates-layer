@@ -99,7 +99,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _securityAccess = new Mock<ISecurityServiceEntityAccessInternal>();
 
                     _moqUserContext = new MoqUserContext();
-                    Target = new SecureFinder(Finder.Object, _moqUserContext.Object, _securityAccess.Object);
+
+                    Target = new SecureFinder(Finder.Object,
+                                              _moqUserContext.Object,
+                                              _securityAccess.Object);
                 };
 
             protected static Mock<IFinder> Finder { get; private set; }

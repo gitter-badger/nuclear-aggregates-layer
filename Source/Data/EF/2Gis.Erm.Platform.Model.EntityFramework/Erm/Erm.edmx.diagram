@@ -265,9 +265,11 @@
         <edmx:EntityTypeShape EntityType="ErmModel.OrderProcessingRequestMessage" Width="2.5" PointX="34" PointY="73.75" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderProcessingRequestMessages_OrderProcessingRequests" />
         <edmx:EntityTypeShape EntityType="ErmModel.BusinessEntityInstance" Width="1.5" PointX="15.375" PointY="6" />
-        <edmx:EntityTypeShape EntityType="ErmModel.BusinessEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="6.375" />
         <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityInstance" Width="1.5" PointX="15.375" PointY="1" />
-        <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="1.375" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceList" Width="2.75" PointX="15.375" PointY="10.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" Width="2.625" PointX="10.375" PointY="15.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.BusinessEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="6.5" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DictionaryEntityPropertyInstance" Width="1.5" PointX="17.625" PointY="1.5" />
         <edmx:AssociationConnector Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" />
         <edmx:AssociationConnector Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrdersInvoice" Width="1.5" PointX="15.375" PointY="10.75" />
