@@ -1,6 +1,6 @@
 ﻿--DECLARE
---	@IssueDate date = '20120401'
---	, @City int = 2
+--	@IssueDate date = '20140601'
+--	, @City int = 6
 
 SELECT
 	[Куратор] = u.DisplayName
@@ -35,7 +35,7 @@ JOIN (	SELECT t.AccountId
 				GROUP BY o.Id, o.AccountId) t
 		GROUP BY t.AccountId) bills ON a.Id = bills.AccountId AND bills.IsPlaced = 1
 LEFT JOIN(	SELECT ad.AccountId
-					, [Balance] = SUM(CASE WHEN ad.TransactionDate < @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END)--баланс, считаемый как сумма операций до начала прогнозируемого месяца
+					, [Balance] = SUM(CASE WHEN ad.TransactionDate < @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END) - SUM(CASE WHEN ad.TransactionDate between @IssueDate and dateadd(dd, 7 ,  @IssueDate) AND ot.Id = 7 THEN ad.Amount ELSE 0 END)--баланс, считаемый как сумма операций до начала прогнозируемого месяца
 					, [Balance2] = SUM( CASE WHEN ot.Id = 7 AND l.PeriodStartDate <= @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) WHEN ot.Id <> 7 AND ad.TransactionDate < @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END) --баланс, считаемый как сумма операций до начала прогнозируемого месяца плюс списания за прогнозируемый месяц
 			FROM Billing.Accounts a with(nolock)
 			JOIN Billing.AccountDetails ad with(nolock) ON ad.AccountId = a.Id AND ad.IsDeleted = 0
@@ -46,7 +46,7 @@ LEFT JOIN(	SELECT ad.AccountId
 LEFT JOIN(	SELECT l.AccountId
 					, [Amount] = SUM(l.PlannedAmount)
 			FROM Billing.Locks l with(nolock)
-			WHERE l.PeriodEndDate < DATEADD(m, 1, @IssueDate)
+			WHERE l.PeriodStartDate <= DATEADD(m, 1, @IssueDate)
 				AND l.IsDeleted = 0
 				AND l.IsActive = 1
 		GROUP BY l.AccountId) locks ON a.Id = locks.AccountId
