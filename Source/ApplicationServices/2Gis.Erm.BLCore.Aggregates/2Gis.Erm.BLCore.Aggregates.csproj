@@ -121,6 +121,7 @@
     <Compile Include="LegalPersons\LegalPersonRepository.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonProfileAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\DeactivateLegalPersonProfileAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\DeleteLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonProfileAggregateService.cs" />
