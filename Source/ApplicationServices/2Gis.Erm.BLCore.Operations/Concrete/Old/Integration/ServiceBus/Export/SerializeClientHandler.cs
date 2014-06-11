@@ -74,6 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                              IsHidden = contact.IsFired || !contact.IsActive,
                                          }),
                     Name = client.Name,
+                    IsAdvertisingAgency = client.IsAdvertisingAgency,
                     IsHidden = !client.IsActive,
                     IsDeleted = client.IsDeleted,
                     OwnerCode = client.OwnerCode,
@@ -94,6 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 new XAttribute("Code", dto.Id),
                 new XAttribute("Name", dto.Name),
                 dto.DefaultFirmCode.HasValue ? new XAttribute("DefaultFirmCode", dto.DefaultFirmCode) : null,
+                new XAttribute("IsAdvertisingAgency", dto.IsAdvertisingAgency),
                 new XAttribute("CuratorLogin", userInfo.Account),
                 new XAttribute("IsHidden", dto.IsHidden),
                 new XAttribute("IsDeleted", dto.IsDeleted));
@@ -154,6 +156,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public bool IsDeleted { get; set; }
             public long OwnerCode { get; set; }
             public long? DefaultFirmCode { get; set; }
+            public bool IsAdvertisingAgency { get; set; }
         }
 
         public class FirmDto
