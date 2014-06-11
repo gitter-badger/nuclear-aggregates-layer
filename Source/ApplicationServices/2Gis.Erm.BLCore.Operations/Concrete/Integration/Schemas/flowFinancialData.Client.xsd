@@ -115,6 +115,13 @@
         <xs:documentation>Логин (из AD) куратора клиента</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+
+    <xs:attribute name="IsAdvertisingAgency" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Признак клиент - рекламное агентство</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
     <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>
@@ -130,9 +137,9 @@
           Если атрибут пришел со значением true, то считаем, что клиент удален.
         </xs:documentation>
       </xs:annotation>
-    </xs:attribute> 
+    </xs:attribute>
   </xs:complexType>
-  
+
   <xs:element name="Client" type="FinancialDataClient">
     <xs:annotation>
       <xs:documentation>Поток передачи клиентов</xs:documentation>
