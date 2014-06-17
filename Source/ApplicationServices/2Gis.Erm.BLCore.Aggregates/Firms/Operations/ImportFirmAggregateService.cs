@@ -52,14 +52,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private IEnumerable<long> GetFirmIdsFromParsedDto(IEnumerable<FirmServiceBusDto> dtos)
         {
-            var firmNodeName = XName.Get("Firm", string.Empty);
-            var firmIdAttributeName = XName.Get("Code", string.Empty);
-
-            return dtos.SelectMany(element => element.Content.Nodes()
-                                                     .OfType<XElement>()
-                                                     .Where(node => node.Name == firmNodeName)
-                                                     .Select(node => node.Attribute(firmIdAttributeName))
-                                                     .Select(node => long.Parse(node.Value)))
+            return dtos.Where(x => x.Content.Name == "Firm")
+                       .Select(x => (long)x.Content.Attribute("Code"))
                        .ToArray();
         }
     }
