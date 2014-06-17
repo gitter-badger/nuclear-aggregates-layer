@@ -67,6 +67,7 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
+    <Compile Include="Operations\Logging\OperationScopeUtils.cs" />
     <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
