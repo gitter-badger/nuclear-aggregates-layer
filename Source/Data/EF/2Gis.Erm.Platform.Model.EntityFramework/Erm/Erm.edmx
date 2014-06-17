@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActivityInstances">
           <Key>
             <PropertyRef Name="Id" />
@@ -1604,6 +1604,20 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExportFlowNomenclatures_NomenclatureElement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExportFlowNomenclatures_NomenclatureElementRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExportFlowOrders_AdvMaterial">
           <Key>
             <PropertyRef Name="Id" />
@@ -1941,7 +1955,7 @@
           <Property Name="Parent" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm07.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwSecurityAccelerator">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1953,7 +1967,7 @@ warning 6002: The table/view 'Erm07.Security.vwSecurityAccelerator' does not hav
           <Property Name="DepartmentRightBorder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm07.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwUsersDescendants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUsersDescendants">
           <Key>
             <PropertyRef Name="Id" />
@@ -1964,7 +1978,7 @@ warning 6002: The table/view 'Erm07.Security.vwUsersDescendants' does not have a
           <Property Name="Level" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Erm07.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwUserTerritoriesOrganizationUnits">
           <Key>
             <PropertyRef Name="UserId" />
@@ -3936,6 +3950,8 @@ warning 6002: The table/view 'Erm07.Security.vwUserTerritoriesOrganizationUnits'
           <EntitySet Name="ExportFlowCardExtensions_CardCommercial" EntityType="Self.ExportFlowCardExtensions_CardCommercial" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowFinancialData_Client" EntityType="Self.ExportFlowFinancialData_Client" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowFinancialData_LegalEntity" EntityType="Self.ExportFlowFinancialData_LegalEntity" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="Self.ExportFlowNomenclatures_NomenclatureElement" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="ExportFlowNomenclatures_NomenclatureElementRelation" EntityType="Self.ExportFlowNomenclatures_NomenclatureElementRelation" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_AdvMaterial" EntityType="Self.ExportFlowOrders_AdvMaterial" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Invoice" EntityType="Self.ExportFlowOrders_Invoice" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Order" EntityType="Self.ExportFlowOrders_Order" Schema="Integration" store:Type="Tables" />
@@ -3966,26 +3982,26 @@ warning 6002: The table/view 'Erm07.Security.vwUserTerritoriesOrganizationUnits'
           <EntitySet Name="PerformedBusinessOperations" EntityType="Self.PerformedBusinessOperations" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="vwSecurityAccelerator" EntityType="Self.vwSecurityAccelerator" store:Type="Views" store:Schema="Security">
             <DefiningQuery>SELECT 
-[vwSecurityAccelerator].[UserId] AS [UserId], 
-[vwSecurityAccelerator].[DepartmentId] AS [DepartmentId], 
-[vwSecurityAccelerator].[DepartmentLeftBorder] AS [DepartmentLeftBorder], 
-[vwSecurityAccelerator].[DepartmentRightBorder] AS [DepartmentRightBorder]
-FROM [Security].[vwSecurityAccelerator] AS [vwSecurityAccelerator]</DefiningQuery>
+    [vwSecurityAccelerator].[UserId] AS [UserId], 
+    [vwSecurityAccelerator].[DepartmentId] AS [DepartmentId], 
+    [vwSecurityAccelerator].[DepartmentLeftBorder] AS [DepartmentLeftBorder], 
+    [vwSecurityAccelerator].[DepartmentRightBorder] AS [DepartmentRightBorder]
+    FROM [Security].[vwSecurityAccelerator] AS [vwSecurityAccelerator]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwUsersDescendants" EntityType="Self.vwUsersDescendants" store:Type="Views" store:Schema="Security">
             <DefiningQuery>SELECT 
-[vwUsersDescendants].[Id] AS [Id], 
-[vwUsersDescendants].[AncestorId] AS [AncestorId], 
-[vwUsersDescendants].[DescendantId] AS [DescendantId], 
-[vwUsersDescendants].[Level] AS [Level]
-FROM [Security].[vwUsersDescendants] AS [vwUsersDescendants]</DefiningQuery>
+    [vwUsersDescendants].[Id] AS [Id], 
+    [vwUsersDescendants].[AncestorId] AS [AncestorId], 
+    [vwUsersDescendants].[DescendantId] AS [DescendantId], 
+    [vwUsersDescendants].[Level] AS [Level]
+    FROM [Security].[vwUsersDescendants] AS [vwUsersDescendants]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwUserTerritoriesOrganizationUnits" EntityType="Self.vwUserTerritoriesOrganizationUnits" store:Type="Views" store:Schema="Security">
             <DefiningQuery>SELECT 
-[vwUserTerritoriesOrganizationUnits].[UserId] AS [UserId], 
-[vwUserTerritoriesOrganizationUnits].[OrganizationUnitId] AS [OrganizationUnitId], 
-[vwUserTerritoriesOrganizationUnits].[TerritoryId] AS [TerritoryId]
-FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrganizationUnits]</DefiningQuery>
+    [vwUserTerritoriesOrganizationUnits].[UserId] AS [UserId], 
+    [vwUserTerritoriesOrganizationUnits].[OrganizationUnitId] AS [OrganizationUnitId], 
+    [vwUserTerritoriesOrganizationUnits].[TerritoryId] AS [TerritoryId]
+    FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrganizationUnits]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AccociatedPosiotionsGroups_PricePositions" Association="Self.FK_AccociatedPosiotionsGroups_PricePositions">
             <End Role="PricePositions" EntitySet="PricePositions" />
@@ -5405,6 +5421,8 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           </AssociationSet>
           <EntitySet Name="Charges" EntityType="ErmModel.Charge" />
           <EntitySet Name="ChargesHistories" EntityType="ErmModel.ChargesHistory" />
+          <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" />
+          <EntitySet Name="ExportFlowNomenclatures_NomenclatureElementRelation" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -9584,6 +9602,20 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
+        <EntityType Name="ExportFlowNomenclatures_NomenclatureElement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+        </EntityType>
+        <EntityType Name="ExportFlowNomenclatures_NomenclatureElementRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+        </EntityType>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -11679,6 +11711,22 @@ FROM [Security].[vwUserTerritoriesOrganizationUnits] AS [vwUserTerritoriesOrgani
           <EntitySetMapping Name="ExportFlowOrdersInvoices">
             <EntityTypeMapping TypeName="ErmModel.ExportFlowOrdersInvoice">
               <MappingFragment StoreEntitySet="ExportFlowOrders_Invoice">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExportFlowNomenclatures_NomenclatureElement">
+            <EntityTypeMapping TypeName="ErmModel.ExportFlowNomenclatures_NomenclatureElement">
+              <MappingFragment StoreEntitySet="ExportFlowNomenclatures_NomenclatureElement">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExportFlowNomenclatures_NomenclatureElementRelation">
+            <EntityTypeMapping TypeName="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation">
+              <MappingFragment StoreEntitySet="ExportFlowNomenclatures_NomenclatureElementRelation">
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

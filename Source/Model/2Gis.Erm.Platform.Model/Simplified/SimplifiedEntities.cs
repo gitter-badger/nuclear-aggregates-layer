@@ -45,6 +45,8 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
             EntityName.ExportFlowFinancialDataClient,
             EntityName.ExportFlowPriceListsPriceList,
             EntityName.ExportFlowPriceListsPriceListPosition,
+            EntityName.ExportFlowNomenclaturesNomenclatureElement,
+            EntityName.ExportFlowNomenclaturesNomenclatureElementRelation,
             EntityName.ImportedFirmAddress,
             EntityName.ExportFailedEntity,
             EntityName.HotClientRequest,

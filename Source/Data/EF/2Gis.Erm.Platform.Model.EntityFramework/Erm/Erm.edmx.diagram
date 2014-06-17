@@ -273,10 +273,10 @@
         <edmx:AssociationConnector Association="ErmModel.FK_BusinessEntityPropertyInstances_BusinessEntityInstances" />
         <edmx:AssociationConnector Association="ErmModel.FK_DictionaryEntityPropertyInstances_DictionaryEntityInstances" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrdersInvoice" Width="1.5" PointX="15.375" PointY="10.75" />
-        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceList" Width="2.75" PointX="15.375" PointY="10.75" />
-        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowPriceListsPriceListPosition" Width="2.625" PointX="10.375" PointY="15.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.Charge" Width="1.5" PointX="15.375" PointY="13.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ChargesHistory" Width="1.5" PointX="17.375" PointY="13.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" Width="1.5" PointX="14.375" PointY="17.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" Width="1.5" PointX="5.375" PointY="18.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
