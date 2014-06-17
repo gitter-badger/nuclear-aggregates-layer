@@ -1,34 +1,35 @@
-﻿using System.Transactions;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 {
     public class ActivatePositionService : IActivateGenericEntityService<Position>
     {
         private readonly IPositionRepository _positionRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public ActivatePositionService(IPositionRepository positionRepository)
+        public ActivatePositionService(IPositionRepository positionRepository, IOperationScopeFactory scopeFactory)
         {
             _positionRepository = positionRepository;
+            _scopeFactory = scopeFactory;
         }
 
         public int Activate(long entityId)
         {
-            int result = 0;
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<ActivateIdentity, Position>())
             {
                 var activateAggregateRepository = _positionRepository as IActivateAggregateRepository<Position>;
-                result = activateAggregateRepository.Activate(entityId);
+                var result = activateAggregateRepository.Activate(entityId);
 
-                transaction.Complete();
+                scope.Updated<Position>(entityId)
+                     .Complete();
+
+                return result;
             }
-
-            return result;
         }
     }
 }

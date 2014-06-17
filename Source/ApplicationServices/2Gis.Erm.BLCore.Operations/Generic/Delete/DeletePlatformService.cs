@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Platforms;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {
-    public class DeletePlatformService : IDeleteGenericEntityService<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>
+    public class DeletePlatformService : IDeleteGenericEntityService<Platform.Model.Entities.Erm.Platform>
     {
-        private readonly IPositionRepository _positionRepository;
         private readonly IPlatformService _platformService;
+        private readonly IPositionRepository _positionRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public DeletePlatformService(IPlatformService platformService, IPositionRepository positionRepository)
+        public DeletePlatformService(IPlatformService platformService, IPositionRepository positionRepository, IOperationScopeFactory scopeFactory)
         {
             _platformService = platformService;
             _positionRepository = positionRepository;
+            _scopeFactory = scopeFactory;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -34,18 +36,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 throw new ArgumentException(BLResources.EntityNotFound);
             }
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Platform.Model.Entities.Erm.Platform>())
             {
                 foreach (var position in platformInfo.Positions)
                 {
-                    var positionClosure = position;
-                    positionClosure.Platform = null;
-                    _positionRepository.CreateOrUpdate(positionClosure);
+                    position.Platform = null;
+                    _positionRepository.CreateOrUpdate(position);
+                    scope.Updated(position);
                 }
 
                 _platformService.Delete(platformInfo.Platform);
+                scope.Deleted(platformInfo.Platform);
 
-                transaction.Complete();
+                scope.Complete();
                 return null;
             }
         }
@@ -60,11 +63,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
             }
 
             return new DeleteConfirmationInfo
-                   {
-                       EntityCode = platformInfo.Name,
-                       IsDeleteAllowed = true,
-                       DeleteConfirmation = string.Empty
-                   };
+                {
+                    EntityCode = platformInfo.Name,
+                    IsDeleteAllowed = true,
+                    DeleteConfirmation = string.Empty
+                };
         }
     }
 }

@@ -1,21 +1,22 @@
-﻿using System.Transactions;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {
     public class DeletePositionCategoryService : IDeleteGenericEntityService<PositionCategory>
     {
         private readonly IPositionRepository _positionRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public DeletePositionCategoryService(IPositionRepository positionRepository)
+        public DeletePositionCategoryService(IPositionRepository positionRepository, IOperationScopeFactory scopeFactory)
         {
             _positionRepository = positionRepository;
+            _scopeFactory = scopeFactory;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -27,19 +28,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 throw new NotificationException(BLResources.EntityNotFound);
             }
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<DetachIdentity, Position, Category>())
             {
                 foreach (var position in categoryInfo.Positions)
                 {
-                    var positionClosure = position;
-                    positionClosure.Platform = null;
-                    _positionRepository.CreateOrUpdate(positionClosure);
+                    position.Platform = null;
+                    _positionRepository.CreateOrUpdate(position);
+                    scope.Updated(position);
                 }
 
                 _positionRepository.Delete(categoryInfo.PositionCategory);
 
-                transaction.Complete();
+                scope.Deleted(categoryInfo.PositionCategory)
+                     .Complete();
             }
+
             return null;
         }
 
@@ -53,11 +56,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
             }
 
             return new DeleteConfirmationInfo
-            {
-                EntityCode = categoryInfo.PositionCategory.Name,
-                IsDeleteAllowed = true,
-                DeleteConfirmation = string.Empty
-            };
+                {
+                    EntityCode = categoryInfo.PositionCategory.Name,
+                    IsDeleteAllowed = true,
+                    DeleteConfirmation = string.Empty
+                };
         }
     }
 }

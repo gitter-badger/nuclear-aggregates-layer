@@ -52,9 +52,10 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\BlCoreDalPersistenceServicesAssembly.cs" />
+    <Compile Include="Export\ExportMetadata.PositionChildren.cs" />
+    <Compile Include="Export\ExportMetadata.Position.cs" />
     <Compile Include="Export\ExportMetadata.Price.cs" />
     <Compile Include="Export\ExportMetadata.PricePosition.cs" />
-
     <Compile Include="Reports\DTO\GreaterOrEqualThanDefinitionDto.cs" />
     <Compile Include="Reports\DTO\DependencyDefinitionDto.cs" />
     <Compile Include="Reports\DTO\ReportDto.cs" />

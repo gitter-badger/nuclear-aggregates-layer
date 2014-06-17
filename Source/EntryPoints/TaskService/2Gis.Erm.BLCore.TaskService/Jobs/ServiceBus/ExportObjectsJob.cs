@@ -136,6 +136,26 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                             IntegrationEntityName = EntityName.ExportFlowOrdersInvoice
                         }
                 },
+                {
+                    "flownomenclatures.nomenclatureelement",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.Position,
+                            FlowName = "flowNomenclatures",
+                            SchemaResourceName = "flowNomenclatures_NomenclatureElement",
+                            IntegrationEntityName = EntityName.ExportFlowNomenclaturesNomenclatureElement
+                        }
+                },
+                {
+                    "flownomenclatures.nomenclatureelementrelation",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.PositionChildren,
+                            FlowName = "flowNomenclatures",
+                            SchemaResourceName = "flowNomenclatures_NomenclatureElementRelation",
+                            IntegrationEntityName = EntityName.ExportFlowNomenclaturesNomenclatureElementRelation
+                        }
+                },
             };
 
         private readonly IOperationServicesManager _servicesManager;

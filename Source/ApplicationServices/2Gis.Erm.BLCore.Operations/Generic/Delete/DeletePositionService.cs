@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Linq;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {
     public class DeletePositionService : IDeleteGenericEntityService<Position>
     {
         private readonly IPositionRepository _positionRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public DeletePositionService(IPositionRepository positionRepository)
+        public DeletePositionService(IPositionRepository positionRepository, IOperationScopeFactory scopeFactory)
         {
             _positionRepository = positionRepository;
+            _scopeFactory = scopeFactory;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -32,18 +34,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
             var masterPositionNames = _positionRepository.GetMasterPositionNames(position);
             if (masterPositionNames.Any())
             {
-                throw new ArgumentException(string.Format(BLResources.PositionIsUsedInCompositePosition, masterPositionNames.First())); 
+                throw new ArgumentException(string.Format(BLResources.PositionIsUsedInCompositePosition, masterPositionNames.First()));
             }
+
             if (_positionRepository.IsInPublishedPrices(entityId))
             {
                 throw new ArgumentException(BLResources.ErrorCantDeletePositionInPublishedPrice);
             }
 
             // todo: иногда мне кажется, что логично было бы обработать транзакцию внутри метода TransactionScope, но это почему-то не пока принято.
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Position>())
             {
                 _positionRepository.DeleteWithSubentities(position);
-                transaction.Complete();
+
+                scope.Deleted<Position>(entityId)
+                     .Complete();
             }
 
             return null;
@@ -65,10 +70,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
             if (masterPositionNames.Any())
             {
                 return new DeleteConfirmationInfo
-                       {
-                           IsDeleteAllowed = false,
-                           DeleteDisallowedReason = string.Format(BLResources.PositionIsUsedInCompositePosition, masterPositionNames.First())
-                       };
+                    {
+                        IsDeleteAllowed = false,
+                        DeleteDisallowedReason = string.Format(BLResources.PositionIsUsedInCompositePosition, masterPositionNames.First())
+                    };
             }
 
             return new DeleteConfirmationInfo
