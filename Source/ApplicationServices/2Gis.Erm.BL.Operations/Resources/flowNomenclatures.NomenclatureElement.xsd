@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://tempuri.org/XMLSchema.xsd" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:mstns="http://tempuri.org XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+  <xs:element name="NomenclatureElement" type="Nomenclature">
+    <xs:annotation>
+      <xs:documentation>Элемент номенклатуры</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="Nomenclature">
+
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Код номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Название номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PlatformCode" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Код платформы номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак активности элемента номенклатуры.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак удаленного элемента номенклатуры.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+</xs:schema>
