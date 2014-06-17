@@ -287,5 +287,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName ExportFlowPriceListsPriceListPosition = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowPriceLists_PriceListPosition");
         public static readonly SchemaQualifiedObjectName Charges = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Charges");
         public static readonly SchemaQualifiedObjectName ChargesHistory = new SchemaQualifiedObjectName(ErmSchemas.Billing, "ChargesHistory");
+        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElement = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowNomenclatures_NomenclatureElement");
+        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElementRelation = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowNomenclatures_NomenclatureElementRelation");
     }
 }

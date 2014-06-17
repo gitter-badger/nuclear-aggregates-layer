@@ -12,11 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
                                            IDeleteAggregateRepository<PositionChildren>,
                                            IDeleteAggregateRepository<PositionCategory>
     {
-        int Activate(Position position);
-        int Deactivate(Position position);
-
-        int Delete(Position position);
-        int Delete(PositionChildren link);
         int Delete(PositionCategory positionCategory);
         int DeleteWithSubentities(Position position);
 

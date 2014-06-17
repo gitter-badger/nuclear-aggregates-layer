@@ -8,59 +8,44 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 {
     public class PositionRepository : IPositionRepository
     {
         private readonly IFinder _finder;
-
-        private readonly IRepository<Position> _positionGenericRepository;
-        private readonly IRepository<PositionChildren> _positionChildrenGenericRepository;
-        private readonly IRepository<PositionCategory> _positionCategoryGenericRepository;
         private readonly IIdentityProvider _identityProvider;
 
-        public PositionRepository(IFinder finder, IRepository<Position> positionGenericRepository, IRepository<PositionChildren> positionChildrenGenericRepository, IRepository<PositionCategory> positionCategoryGenericRepository, IIdentityProvider identityProvider)
+        private readonly IRepository<PositionCategory> _positionCategoryGenericRepository;
+        private readonly IRepository<PositionChildren> _positionChildrenGenericRepository;
+        private readonly IRepository<Position> _positionGenericRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
+
+        public PositionRepository(IFinder finder,
+                                  IIdentityProvider identityProvider,
+                                  IRepository<PositionCategory> positionCategoryGenericRepository,
+                                  IRepository<PositionChildren> positionChildrenGenericRepository,
+                                  IRepository<Position> positionGenericRepository,
+                                  IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
-            _positionGenericRepository = positionGenericRepository;
-            _positionChildrenGenericRepository = positionChildrenGenericRepository;
-            _positionCategoryGenericRepository = positionCategoryGenericRepository;
             _identityProvider = identityProvider;
-        }
-
-        public int Activate(Position position)
-        {
-            if (IsInPublishedPrices(position.Id))
-            {
-                throw new ArgumentException(BLResources.CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition);
-            }
-
-            position.IsActive = true;
-            _positionGenericRepository.Update(position);
-            return _positionGenericRepository.Save();
-        }
-
-        public int Delete(Position position)
-        {
-            _positionGenericRepository.Delete(position);
-            return _positionGenericRepository.Save();
+            _positionCategoryGenericRepository = positionCategoryGenericRepository;
+            _positionChildrenGenericRepository = positionChildrenGenericRepository;
+            _positionGenericRepository = positionGenericRepository;
+            _scopeFactory = scopeFactory;
         }
 
         int IDeleteAggregateRepository<Position>.Delete(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<Position>(entityId)).Single();
             return Delete(entity);
-        }
-
-        public int Delete(PositionChildren link)
-        {
-            _positionChildrenGenericRepository.Delete(link);
-            return _positionChildrenGenericRepository.Save();
         }
 
         int IDeleteAggregateRepository<PositionChildren>.Delete(long entityId)
@@ -71,8 +56,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public int Delete(PositionCategory entity)
         {
-            _positionCategoryGenericRepository.Delete(entity);
-            return _positionCategoryGenericRepository.Save();
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, PositionCategory>())
+            {
+                _positionCategoryGenericRepository.Delete(entity);
+                var cnt = _positionCategoryGenericRepository.Save();
+
+                scope.Deleted(entity)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         int IDeleteAggregateRepository<PositionCategory>.Delete(long entityId)
@@ -83,33 +76,46 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public int DeleteWithSubentities(Position position)
         {
-            var positionChildrens = position.IsComposite ?
-                _finder.Find<PositionChildren>(pc => !pc.IsDeleted && pc.MasterPositionId == position.Id) :
-                _finder.Find<PositionChildren>(pc => !pc.IsDeleted && pc.ChildPositionId == position.Id);
+            var positionChildrenQuery = position.IsComposite
+                                            ? _finder.Find<PositionChildren>(pc => !pc.IsDeleted && pc.MasterPositionId == position.Id)
+                                            : _finder.Find<PositionChildren>(pc => !pc.IsDeleted && pc.ChildPositionId == position.Id);
 
-            foreach (var link in positionChildrens)
+            var positionChildrenCollection = positionChildrenQuery.ToArray();
+
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Position>())
             {
-                _positionChildrenGenericRepository.Delete(link);
-            }
+                foreach (var link in positionChildrenCollection)
+                {
+                    _positionChildrenGenericRepository.Delete(link);
+                }
 
-            _positionGenericRepository.Delete(position);
-            return _positionGenericRepository.Save() + _positionChildrenGenericRepository.Save();
+                _positionGenericRepository.Delete(position);
+
+                var cnt = _positionChildrenGenericRepository.Save();
+                cnt += _positionGenericRepository.Save();
+
+                scope.Deleted(positionChildrenCollection.AsEnumerable())
+                     .Deleted(position)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         public string[] GetMasterPositionNames(Position position)
         {
             return _finder.Find<Position>(p => !p.IsDeleted && p.Id == position.Id)
-                .SelectMany(p => p.MasterPositions)
-                .Select(children => children.MasterPosition.Name)
-                .ToArray();
+                          .SelectMany(p => p.MasterPositions)
+                          .Select(children => children.MasterPosition.Name)
+                          .ToArray();
         }
 
         public bool IsReadOnlyAdvertisementTemplate(long positionId)
         {
             return _finder.Find<Position>(x => x.Id == positionId)
-                .SelectMany(x => x.OrderPositionAdvertisements)
-                .Select(x => x.OrderPosition)
-                .Any(x => x.IsActive && !x.IsDeleted);
+                          .SelectMany(x => x.OrderPositionAdvertisements)
+                          .Select(x => x.OrderPosition)
+                          .Any(x => x.IsActive && !x.IsDeleted);
         }
 
         public Position GetPosition(long entityId)
@@ -120,64 +126,120 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         public CategoryWithPositionsDto GetCategoryWithPositions(long entityId)
         {
             return _finder.Find(Specs.Find.ById<PositionCategory>(entityId))
-                .Select(category => new CategoryWithPositionsDto
-                                    {
-                                        PositionCategory = category,
-                                        Positions = category.Positions
-                                    })
-                .SingleOrDefault();
+                          .Select(category => new CategoryWithPositionsDto
+                              {
+                                  PositionCategory = category,
+                                  Positions = category.Positions
+                              })
+                          .SingleOrDefault();
         }
 
         public bool IsInPublishedPrices(long positionId)
         {
-            var childPositions = _finder.Find<Position>(x => x.Id == positionId).SelectMany(x => x.ChildPositions).Where(x => x.IsActive && !x.IsDeleted).Select(x => x.ChildPosition);
+            var masterPositions = _finder.Find(Specs.Find.ById<Position>(positionId))
+                                         .SelectMany(x => x.MasterPositions)
+                                         .Where(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
+                                         .Select(x => x.MasterPosition);
 
-            var isInPublishedPrices = _finder.Find<Position>(x => x.Id == positionId).Union(childPositions)
-                                      .SelectMany(x => x.PricePositions)
-                                      .Where(x => !x.IsDeleted)
-                                      .Select(x => x.Price)
-                                      .Distinct()
-                                      .Any(x => x.IsPublished);
+            var isInPublishedPrices = _finder.Find(Specs.Find.ById<Position>(positionId)).Union(masterPositions)
+                                             .SelectMany(x => x.PricePositions)
+                                             .Where(Specs.Find.NotDeleted<PricePosition>())
+                                             .Select(x => x.Price)
+                                             .Distinct()
+                                             .Any(x => x.IsPublished);
             return isInPublishedPrices;
-        }
-
-        public int Deactivate(Position position)
-        {
-            var isUsedAsChildElement = _finder.Find(PositionSpecifications.Find.UsedAsChildElement(position.Id)).Any();
-            if (isUsedAsChildElement)
-            {
-                var masterElementName = _finder.Find(Specs.Find.ById<Position>(position.Id))
-                    .SelectMany(x => x.MasterPositions)
-                    .Select(x => x.MasterPosition.Name)
-                    .First();
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, BLResources.PositionIsUsedInCompositePosition, masterElementName));
-            }
-
-            if (IsInPublishedPrices(position.Id))
-            {
-                throw new ArgumentException(BLResources.ErrorCantDeletePositionInPublishedPrice);
-            }
-
-            position.IsActive = false;
-            _positionGenericRepository.Update(position);
-            return _positionGenericRepository.Save();
         }
 
         int IActivateAggregateRepository<Position>.Activate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Position>(entityId)).Single();
-            return Activate(entity);
+            if (IsInPublishedPrices(entityId))
+            {
+                throw new ArgumentException(BLResources.CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition);
+            }
+
+            var positionInfo = _finder.Find(Specs.Find.ById<Position>(entityId))
+                          .Select(x => new
+                          {
+                              Position = x,
+                              ChildPositions = x.ChildPositions.Where(cp => !cp.IsActive && !cp.IsDeleted)
+                          })
+                          .Single();
+
+            using (var scope = _scopeFactory.CreateSpecificFor<ActivateIdentity, Position>())
+            {
+                foreach (var childPosition in positionInfo.ChildPositions)
+                {
+                    childPosition.IsActive = true;
+                    _positionChildrenGenericRepository.Update(childPosition);
+                }
+
+                positionInfo.Position.IsActive = true;
+                _positionGenericRepository.Update(positionInfo.Position);
+
+                var cnt = _positionChildrenGenericRepository.Save();
+                cnt += _positionGenericRepository.Save();
+
+                scope.Updated(positionInfo.Position)
+                     .Updated(positionInfo.ChildPositions)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         int IDeactivateAggregateRepository<Position>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Position>(entityId)).Single();
-            return Deactivate(entity);
+            var isUsedAsChildElement = _finder.Find(PositionSpecifications.Find.UsedAsChildElement(entityId)).Any();
+            if (isUsedAsChildElement)
+            {
+                var masterElementName = _finder.Find(Specs.Find.ById<Position>(entityId))
+                                               .SelectMany(x => x.MasterPositions)
+                                               .Select(x => x.MasterPosition.Name)
+                                               .First();
+
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, BLResources.PositionIsUsedInCompositePosition, masterElementName));
+            }
+
+            if (IsInPublishedPrices(entityId))
+            {
+                throw new ArgumentException(BLResources.ErrorCantDeletePositionInPublishedPrice);
+            }
+
+            var positionInfo = _finder.Find(Specs.Find.ById<Position>(entityId))
+                                      .Select(x => new
+                                          {
+                                              Position = x,
+                                              ChildPositions = x.ChildPositions.Where(cp => cp.IsActive && !cp.IsDeleted)
+                                          })
+                                      .Single();
+
+            using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, Position>())
+            {
+                foreach (var childPosition in positionInfo.ChildPositions)
+                {
+                    childPosition.IsActive = false;
+                    _positionChildrenGenericRepository.Update(childPosition);
+                }
+
+                positionInfo.Position.IsActive = false;
+                _positionGenericRepository.Update(positionInfo.Position);
+
+                var cnt = _positionChildrenGenericRepository.Save();
+                cnt += _positionGenericRepository.Save();
+
+                scope.Updated(positionInfo.Position)
+                     .Updated(positionInfo.ChildPositions)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         public void CreateOrUpdate(Position position)
         {
-            var isAlreadyExist = _finder.Find<Position>(x => x.Name == position.Name && x.PlatformId == position.PlatformId && x.Id != position.Id && x.IsActive && !x.IsDeleted).Any();
+            var isAlreadyExist =
+                _finder.Find<Position>(x => x.Name == position.Name && x.PlatformId == position.PlatformId && x.Id != position.Id && x.IsActive && !x.IsDeleted)
+                       .Any();
             if (isAlreadyExist)
             {
                 throw new NotificationException(BLResources.PositionAlreadyExist);
@@ -228,28 +290,35 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 }
             }
 
-            if (position.IsNew())
+            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(position))
             {
-                _positionGenericRepository.Add(position);
-            }
-            else
-            {
-                _positionGenericRepository.Update(position);
-            }
+                if (position.IsNew())
+                {
+                    _positionGenericRepository.Add(position);
+                    scope.Added(position);
+                }
+                else
+                {
+                    _positionGenericRepository.Update(position);
+                    scope.Updated(position);
+                }
 
-            _positionGenericRepository.Save();
+                _positionGenericRepository.Save();
+
+                scope.Complete();
+            }
         }
 
         public void CreateOrUpdate(PositionChildren positionChildren)
         {
             var childPositionInfo = _finder.Find<Position>(x => x.Id == positionChildren.ChildPositionId)
-            .Select(x => new
-            {
-                x.AccountingMethodEnum,
-                x.IsComposite,
-                x.PlatformId,
-            })
-            .Single();
+                                           .Select(x => new
+                                               {
+                                                   x.AccountingMethodEnum,
+                                                   x.IsComposite,
+                                                   x.PlatformId,
+                                               })
+                                           .Single();
 
             if (childPositionInfo.IsComposite)
             {
@@ -257,9 +326,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             }
 
             var isAccountingMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
-                          x.MasterPositionId == positionChildren.MasterPositionId &&
-                          x.ChildPosition.AccountingMethodEnum != childPositionInfo.AccountingMethodEnum)
-                          .Any();
+                                                                                   x.MasterPositionId == positionChildren.MasterPositionId &&
+                                                                                   x.ChildPosition.AccountingMethodEnum !=
+                                                                                   childPositionInfo.AccountingMethodEnum)
+                                                      .Any();
             if (isAccountingMethodNotMatched)
             {
                 throw new NotificationException(BLResources.CantAddChildPositionWithDifferentAccountingMethod);
@@ -271,52 +341,88 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.PositionViolatesPlatformRestriction);
             }
 
-            if (positionChildren.IsNew())
+            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(positionChildren))
             {
-                _identityProvider.SetFor(positionChildren);
-                _positionChildrenGenericRepository.Add(positionChildren);
-            }
-            else
-            {
-                _positionChildrenGenericRepository.Update(positionChildren);                
-            }
+                if (positionChildren.IsNew())
+                {
+                    _identityProvider.SetFor(positionChildren);
+                    _positionChildrenGenericRepository.Add(positionChildren);
+                    scope.Added(positionChildren);
+                }
+                else
+                {
+                    _positionChildrenGenericRepository.Update(positionChildren);
+                    scope.Updated(positionChildren);
+                }
 
-            _positionChildrenGenericRepository.Save();
+                _positionChildrenGenericRepository.Save();
+
+                scope.Complete();
+            }
         }
 
         public void CreateOrUpdate(PositionCategory category)
         {
-            if (category.IsNew())
+            using (var scope = _scopeFactory.CreateOrUpdateOperationFor(category))
             {
-                _positionCategoryGenericRepository.Add(category);
-            }
-            else
-            {
-                _positionCategoryGenericRepository.Update(category);
-            }
+                if (category.IsNew())
+                {
+                    _positionCategoryGenericRepository.Add(category);
+                    scope.Added(category);
+                }
+                else
+                {
+                    _positionCategoryGenericRepository.Update(category);
+                    scope.Updated(category);
+                }
 
-            _positionCategoryGenericRepository.Save();
+                _positionCategoryGenericRepository.Save();
+
+                scope.Complete();
+            }
         }
 
-        public int Update(PositionCategory position)
+        public int Delete(Position position)
         {
-            _positionCategoryGenericRepository.Update(position);
-            return _positionCategoryGenericRepository.Save();
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Position>())
+            {
+                _positionGenericRepository.Delete(position);
+                var cnt = _positionGenericRepository.Save();
+
+                scope.Deleted(position)
+                     .Complete();
+
+                return cnt;
+            }
+        }
+
+        private int Delete(PositionChildren link)
+        {
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, PositionChildren>())
+            {
+                _positionChildrenGenericRepository.Delete(link);
+                var cnt = _positionChildrenGenericRepository.Save();
+
+                scope.Deleted(link)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         private bool ChildPositionViolatesPlatformRestriction(Position position)
         {
             return _finder.Find<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.ChildPositionId == position.Id)
-                   .Select(link => link.MasterPosition)
-                   .Any(masterPosition => masterPosition.RestrictChildPositionPlatforms
-                       && masterPosition.PlatformId != position.PlatformId);
+                          .Select(link => link.MasterPosition)
+                          .Any(masterPosition => masterPosition.RestrictChildPositionPlatforms
+                                                 && masterPosition.PlatformId != position.PlatformId);
         }
 
         private bool PositionHasDifferentChildPositionPlatforms(Position position)
         {
             return _finder.Find<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.MasterPositionId == position.Id)
-                   .Select(link => link.ChildPosition)
-                   .Any(childPosition => childPosition.PlatformId != position.PlatformId);
+                          .Select(link => link.ChildPosition)
+                          .Any(childPosition => childPosition.PlatformId != position.PlatformId);
         }
     }
 }
