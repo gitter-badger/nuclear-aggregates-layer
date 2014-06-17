@@ -117,6 +117,9 @@
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,
         ExportFlowOrdersInvoice = 264,
+        
+        ExportFlowNomenclaturesNomenclatureElement = 265,
+        ExportFlowNomenclaturesNomenclatureElementRelation = 266,
 
         // security
         User = 53,

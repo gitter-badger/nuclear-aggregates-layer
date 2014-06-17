@@ -377,8 +377,20 @@
       <Link>Entities\Erm\ExportFlowFinancialDataLegalEntity.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElement.cs">
+      <Link>Entities\Erm\ExportFlowNomenclatures_NomenclatureElement.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementRelation.cs">
+      <Link>Entities\Erm\ExportFlowNomenclatures_NomenclatureElementRelation.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersAdvMaterial.cs">
       <Link>Entities\Erm\ExportFlowOrdersAdvMaterial.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersInvoice.cs">
+      <Link>Entities\Erm\ExportFlowOrdersInvoice.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersInvoiceDomainEntityDto.cs">
@@ -537,10 +549,6 @@
       <Link>Entities\DTOs\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersInvoice.cs">
-      <Link>Entities\Erm\ExportFlowOrdersInvoice.cs</Link>
-      <DependentUpon>ErmPOCO.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessage.cs">
       <Link>Entities\Erm\OrderProcessingRequestMessage.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -697,6 +705,8 @@
     <Compile Include="Entities\Enums\TaxationType.cs" />
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElement.cs" />
     <Compile Include="Entities\Erm\Parts\Chile\ChileBranchOfficeOrganizationUnitPart.cs" />
     <Compile Include="Entities\Erm\Parts\Chile\ChileLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\Commune.cs" />
