@@ -52,9 +52,11 @@
     <Compile Include="Concrete\Integration\Import\IImportSaleTerritoryService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportBuildingService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionChildrenHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionHandler.cs" />
     <Compile Include="DI\BlOperationsAssembly.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializePriceHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializePricePositionHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePriceHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePricePositionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -108,13 +110,20 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\flowPriceLists PriceList.xsd">
+    <None Include="Resources\flowNomenclatures.NomenclatureElement.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\flowPriceLists PriceListPosition.xsd">
+    <None Include="Resources\flowNomenclatures.NomenclatureElementRelation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\flowPriceLists.PriceList.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\flowPriceLists.PriceListPosition.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
