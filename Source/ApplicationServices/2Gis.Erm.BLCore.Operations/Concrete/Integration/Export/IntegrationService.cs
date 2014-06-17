@@ -18,6 +18,8 @@
         ExportFlowFinancialDataClient = 11,
         ExportFlowPriceListsPriceList = 12,
         ExportFlowPriceListsPriceListPosition = 13,
-        ExportFlowOrdersInvoice = 14
+        ExportFlowOrdersInvoice = 14,
+        ExportFlowNomenclaturesNomenclatureElement = 15,
+        ExportFlowNomenclaturesNomenclatureElementRelation = 16
     }
 }

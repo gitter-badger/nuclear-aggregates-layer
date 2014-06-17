@@ -17,12 +17,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public class GetPositionDtoService : GetDomainEntityDtoServiceBase<Position>
     {
         private readonly ISecureFinder _finder;
-        private readonly IPositionRepository _positionRepository;
-        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
+        private readonly IPositionRepository _positionRepository;
         private readonly IUserContext _userContext;
 
-        public GetPositionDtoService(IUserContext userContext, ISecureFinder finder, IPositionRepository positionRepository, IAPIIdentityServiceSettings identityServiceSettings, ISecurityServiceFunctionalAccess functionalAccessService) : base(userContext)
+        public GetPositionDtoService(IUserContext userContext,
+                                     ISecureFinder finder,
+                                     IPositionRepository positionRepository,
+                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     ISecurityServiceFunctionalAccess functionalAccessService) : base(userContext)
         {
             _finder = finder;
             _positionRepository = positionRepository;
@@ -47,7 +51,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      IsControlledByAmount = entity.IsControlledByAmount,
                                      PlatformRef = new EntityReference { Id = entity.PlatformId, Name = entity.Platform.Name },
                                      CategoryRef = new EntityReference { Id = entity.CategoryId, Name = entity.PositionCategory.Name },
-                                     AdvertisementTemplateRef = new EntityReference { Id = entity.AdvertisementTemplateId, Name = entity.AdvertisementTemplate.Name },
+                                     AdvertisementTemplateRef =
+                                         new EntityReference { Id = entity.AdvertisementTemplateId, Name = entity.AdvertisementTemplate.Name },
                                      Timestamp = entity.Timestamp,
                                      CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
                                      CreatedOn = entity.CreatedOn,
@@ -60,7 +65,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                              .Single();
 
             dto.IsPublished = _positionRepository.IsInPublishedPrices(dto.Id);
-            dto.RestrictChildPositionPlatformsCanBeChanged = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code);
+            dto.RestrictChildPositionPlatformsCanBeChanged =
+                _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code);
 
             return dto;
         }
@@ -70,7 +76,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new PositionDomainEntityDto
                 {
                     IdentityServiceUrl = _identityServiceSettings.RestUrl,
-                    RestrictChildPositionPlatformsCanBeChanged = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code),
+                    RestrictChildPositionPlatformsCanBeChanged =
+                        _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.PositionAdministrationCode, _userContext.Identity.Code),
                     AccountingMethodEnum = PositionAccountingMethod.GuaranteedProvision
                 };
         }

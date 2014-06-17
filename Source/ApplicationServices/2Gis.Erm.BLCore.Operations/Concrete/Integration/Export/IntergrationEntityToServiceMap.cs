@@ -22,6 +22,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 { EntityName.ExportToMsCrmHotClients, IntegrationService.CreateHotClientTask },
                 { EntityName.ImportedFirmAddress, IntegrationService.ImportFirmAddressNames },
                 { EntityName.ExportFlowOrdersInvoice, IntegrationService.ExportFlowOrdersInvoice },
+                { EntityName.ExportFlowNomenclaturesNomenclatureElement, IntegrationService.ExportFlowNomenclaturesNomenclatureElement },
+                { EntityName.ExportFlowNomenclaturesNomenclatureElementRelation, IntegrationService.ExportFlowNomenclaturesNomenclatureElementRelation },
             };
 
         public static IntegrationService AsIntegrationService(this EntityName entityName)

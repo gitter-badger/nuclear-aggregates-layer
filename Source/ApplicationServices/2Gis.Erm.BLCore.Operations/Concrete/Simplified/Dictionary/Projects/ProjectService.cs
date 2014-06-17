@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.GeoClassifier;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -18,19 +15,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
     public class ProjectService : IProjectService
     {
         private readonly IFinder _finder;
-        private readonly IIdentityProvider _identityProvider;
         private readonly IRepository<Project> _projectGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public ProjectService(
             IRepository<Project> projectRepository,
             IFinder finder,
-            IIdentityProvider identityProvider,
             IOperationScopeFactory scopeFactory)
         {
             _projectGenericRepository = projectRepository;
             _finder = finder;
-            _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
         }
 
