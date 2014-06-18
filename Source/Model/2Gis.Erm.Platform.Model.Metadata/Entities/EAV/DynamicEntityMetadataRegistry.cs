@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
@@ -72,7 +73,16 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                             {
                                 NameIdentity.Instance
                             }
-                    }
+                    },
+                    {
+                        typeof(AcceptanceReportsJournalRecord), new IEntityPropertyIdentity[]
+                            {
+                                OrganizationUnitIdIdentity.Instance,
+                                EndDistributionDateIdentity.Instance,
+                                DocumentsAmountIdentity.Instance,
+                                AuthorIdIdentity.Instance
+                            }
+                    },
                 };
 
         private static readonly Dictionary<Type, IEnumerable<IEntityPropertyIdentity>> BusinessEntityPropertiesMapping =
@@ -119,7 +129,39 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                             {
                                 IpnIdentity.Instance
                             }
-                    }
+                    },
+                    {
+                        typeof(EmiratesClientPart), new IEntityPropertyIdentity[]
+                            {
+                                PoBoxIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(EmiratesLegalPersonPart), new IEntityPropertyIdentity[]
+                            {
+                                CommercialLicenseBeginDateIdentity.Instance,
+                                CommercialLicenseEndDateIdentity.Instance,
+                            }
+                    },
+                    {
+                        typeof(EmiratesLegalPersonProfilePart), new IEntityPropertyIdentity[]
+                            {
+                                PhoneIdentity.Instance,
+                                FaxIdentity.Instance                                
+                            }
+                    },
+                    {
+                        typeof(EmiratesBranchOfficeOrganizationUnitPart), new IEntityPropertyIdentity[]
+                            {
+                                FaxIdentity.Instance                                
+                            }
+                    },
+                    {
+                        typeof(EmiratesFirmAddressPart), new IEntityPropertyIdentity[]
+                            {
+                                PoBoxIdentity.Instance
+                            }
+                    },
                 };
 
 

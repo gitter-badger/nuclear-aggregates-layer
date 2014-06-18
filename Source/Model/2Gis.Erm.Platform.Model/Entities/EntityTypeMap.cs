@@ -5,6 +5,7 @@ using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -18,9 +19,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.Deal, typeof(Deal) },
             { EntityName.BranchOfficeOrganizationUnit, typeof(BranchOfficeOrganizationUnit) },
             { EntityName.ChileBranchOfficeOrganizationUnitPart, typeof(ChileBranchOfficeOrganizationUnitPart) },
+            { EntityName.EmiratesBranchOfficeOrganizationUnitPart, typeof(EmiratesBranchOfficeOrganizationUnitPart) },
             { EntityName.LegalPerson, typeof(LegalPerson) },
             { EntityName.ChileLegalPersonPart, typeof(ChileLegalPersonPart) },
             { EntityName.UkraineLegalPersonPart, typeof(UkraineLegalPersonPart) },
+            { EntityName.EmiratesLegalPersonPart, typeof(EmiratesLegalPersonPart) },
             { EntityName.OperationType, typeof(OperationType) },
             { EntityName.Order, typeof(Order) },
             { EntityName.OrderPosition, typeof(OrderPosition) }, 
@@ -31,12 +34,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.Price, typeof(Price) },
             { EntityName.Firm, typeof(Firm) },
             { EntityName.FirmAddress, typeof(FirmAddress) },
+            { EntityName.EmiratesFirmAddressPart, typeof(EmiratesFirmAddressPart) },
             { EntityName.FirmContact, typeof(FirmContact) },
             { EntityName.BranchOffice, typeof(BranchOffice) },
             { EntityName.UkraineBranchOfficePart, typeof(UkraineBranchOfficePart) },
             { EntityName.OrganizationUnit, typeof(OrganizationUnit) },
             { EntityName.Project, typeof(Project) },
             { EntityName.Client, typeof(Client) },
+            { EntityName.EmiratesClientPart, typeof(EmiratesClientPart) },
             { EntityName.Bargain, typeof(Bargain) },
             { EntityName.BargainType, typeof(BargainType) },
             { EntityName.BargainFile, typeof(BargainFile) },
@@ -84,6 +89,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.LegalPersonProfile, typeof(LegalPersonProfile) },
             { EntityName.ChileLegalPersonProfilePart, typeof(ChileLegalPersonProfilePart) },
             { EntityName.UkraineLegalPersonProfilePart, typeof(UkraineLegalPersonProfilePart) },
+            { EntityName.EmiratesLegalPersonProfilePart, typeof(EmiratesLegalPersonProfilePart) },
             { EntityName.AdditionalFirmService, typeof(AdditionalFirmService) },
             { EntityName.Theme, typeof(Theme) },
             { EntityName.ThemeCategory, typeof(ThemeCategory) },
@@ -153,7 +159,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             { EntityName.UserEntity, typeof(UserEntity) },
             { EntityName.Bank, typeof(Bank) },
             { EntityName.Commune, typeof(Commune) },
-
+            { EntityName.AcceptanceReportsJournalRecord, typeof(AcceptanceReportsJournalRecord) },
             // Dynamic Storage
             { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
             { EntityName.DictionaryEntityPropertyInstance, typeof(DictionaryEntityPropertyInstance) },

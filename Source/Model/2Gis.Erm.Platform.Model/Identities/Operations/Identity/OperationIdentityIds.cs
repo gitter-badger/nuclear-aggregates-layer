@@ -88,9 +88,13 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
+        public const int ImportFirmAddressFromServiceBusIdentity = 16402;
 
         // EntityName.LegalPerson = 147
         public const int ChangeLegalPersonRequisitesIdentity = 14701;
+
+        // EntityName.Client = 200
+        public const int CreateClientByFirmIdentity = 20001;
 
         // EntityName.LegalPersonProfile = 219
         public const int SetAsMainLegalPersonProfileIdentity = 21901;
@@ -175,9 +179,17 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Category = 160
         public const int ImportRubricIdentity = 16001;
 
+        // EntityName.FirmContact = 165
+        public const int ImportFirmContactFromServiceBusIdentity = 16501;
+
+        // EntityName.CategoryFirmAddress = 166
+        public const int ImportCategoryFirmAddressFromServiceBusIdentity = 16601;
+
+        // EntityName.DepCard = 240
+        public const int ImportDepCardFromServiceBusIdentity = 24001;
+
         // EntityName.Building = 241
         public const int ImportBuildingIdentity = 24101;
-
 
         // EntityName.Lock = 159
         public const int CreateLockDetailsDuringWithdrawalIdentity = 15901;

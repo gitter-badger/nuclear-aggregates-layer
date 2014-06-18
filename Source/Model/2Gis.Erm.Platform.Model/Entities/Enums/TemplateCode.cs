@@ -6,6 +6,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 
         // договор
         BargainLegalPerson = 10,
+        BargainLegalPersonAlternativeLanguage = 14,
         BargainBusinessman = 11,
         BargainNaturalPerson = 12,
         BargainNewSalesModel = 13,
@@ -56,6 +57,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 
         // Гарантийное письмо
         LetterOfGuarantee = 110,
-        LetterOfGuaranteeAdvMaterial = 111
+        LetterOfGuaranteeAdvMaterial = 111,
+
+        // AcceptanceReport
+        AcceptanceReport = 120
     }
 }

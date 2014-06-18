@@ -27,5 +27,14 @@
         public const int MfoPropertyId = 23;
         public const int TaxationTypePropertyId = 24;
         public const int IpnPropertyId = 25;
+        public const int PoBoxPropertyId = 26;
+        public const int CommercialLicenseBeginDatePropertyId = 27;
+        public const int CommercialLicenseEndDatePropertyId = 28;
+        public const int FaxPropertyId = 29;
+        public const int PhonePropertyId = 30;
+        public const int OrganizationUnitIdPropertyId = 31;
+        public const int EndDistributionDatePropertyId = 32;
+        public const int AuthorIdPropertyId = 33;
+        public const int DocumentsAmountPropertyId = 34;
     }
 }
