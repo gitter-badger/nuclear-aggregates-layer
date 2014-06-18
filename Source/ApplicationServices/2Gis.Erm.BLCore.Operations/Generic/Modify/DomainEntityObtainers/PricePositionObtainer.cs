@@ -23,9 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PricePositionDomainEntityDto)domainEntityDto;
 
-            var pricePosition = dto.Id == 0
-                                    ? new PricePosition { IsActive = true }
-                                    : _finder.Find(Specs.Find.ById<PricePosition>(dto.Id)).Single();
+            var pricePosition = _finder.FindOne(Specs.Find.ById<PricePosition>(dto.Id)) 
+                ?? new PricePosition { IsActive = true };
 
             pricePosition.PriceId = dto.PriceRef.Id.Value;
             pricePosition.PositionId = dto.PositionRef.Id.Value;

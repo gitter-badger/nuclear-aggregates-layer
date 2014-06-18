@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 
         public bool ShouldBeProcessed(Type type)
         {
-            return !type.IsAbstract;
+            return !type.IsInterface;
         }
 
         private static string GetFlowName(Type type)

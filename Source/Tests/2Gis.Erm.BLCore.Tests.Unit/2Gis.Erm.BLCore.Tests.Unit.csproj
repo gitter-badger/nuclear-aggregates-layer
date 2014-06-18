@@ -105,18 +105,6 @@
     <Compile Include="BL\Client\ClientObtainerSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BL\Client\ClientVewModelSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BL\Client\ClientViewModelCustomizationServiceSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BL\Client\CyprusClientVewModelSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BL\Client\CzechClientVewModelSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="BL\Client\GetClientDomainDtoServiceSpecs.cs">
       <SubType>Code</SubType>
     </Compile>

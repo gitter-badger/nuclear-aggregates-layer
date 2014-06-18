@@ -24,10 +24,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LegalPersonProfileDomainEntityDto)domainEntityDto;
 
-            var legalPersonProfile =
-                dto.Id == 0
-                    ? new LegalPersonProfile { IsActive = true }
-                    : _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id)) 
+                ?? new LegalPersonProfile { IsActive = true };
 
             legalPersonProfile.Name = dto.Name;
             legalPersonProfile.PositionInGenitive = dto.PositionInGenitive;

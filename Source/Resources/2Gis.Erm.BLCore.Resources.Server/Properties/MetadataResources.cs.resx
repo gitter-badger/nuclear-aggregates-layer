@@ -1359,4 +1359,19 @@
   <data name="Mfo" xml:space="preserve">
     <value>МФО</value>
   </data>
+  <data name="CommercialLicense" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="CommercialLicenseBeginDate" xml:space="preserve">
+    <value>Дата начала действия лицензии</value>
+  </data>
+  <data name="CommercialLicenseEndDate" xml:space="preserve">
+    <value>Дата окончания действия лицензии</value>
+  </data>
+  <data name="PoBox" xml:space="preserve">
+    <value>P.O.Box</value>
+  </data>
+  <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
+    <value>Сформировать Acceptance Report</value>
+  </data>
 </root>

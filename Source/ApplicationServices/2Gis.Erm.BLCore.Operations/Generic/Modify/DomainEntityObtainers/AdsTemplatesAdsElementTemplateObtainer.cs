@@ -23,10 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AdsTemplatesAdsElementTemplateDomainEntityDto)domainEntityDto;
 
-            var entity =
-                dto.Id == 0
-                    ? new AdsTemplatesAdsElementTemplate()
-                    : _finder.Find(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(dto.Id)).Single();
+            var entity = _finder.FindOne(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(dto.Id)) 
+                ?? new AdsTemplatesAdsElementTemplate();
 
             entity.AdsTemplateId = dto.AdsTemplateRef.Id.Value;
             entity.AdsElementTemplateId = dto.AdsElementTemplateRef.Id.Value;

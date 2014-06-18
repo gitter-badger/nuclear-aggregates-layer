@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.API.Core;
@@ -109,6 +110,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                 public static FindSpecification<Order> ForLegalPerson(long legalPersonId)
                 {
                     return new FindSpecification<Order>(x => x.LegalPersonId == legalPersonId);
+                }
+
+                public static FindSpecification<Order> BySourceOrganizationUnit(long sourceOrganizationUnitId)
+                {
+                    return new FindSpecification<Order>(x => x.SourceOrganizationUnitId == sourceOrganizationUnitId);
+                }
+
+                public static FindSpecification<Order> ByEndDistributionDateFact(DateTime endDistributionDate)
+                {
+                    return new FindSpecification<Order>(x => x.EndDistributionDateFact == endDistributionDate);
                 }
 
                 public static FindSpecification<Order> ForOrganizationUnitsPair(long sourceOrganizationUnitId, long destOrganizationUnitId)

@@ -23,10 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AssociatedPositionDomainEntityDto)domainEntityDto;
 
-            var associatedPosition =
-                dto.Id == 0
-                    ? new AssociatedPosition { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<AssociatedPosition>(dto.Id)).Single();
+            var associatedPosition = _finder.FindOne(Specs.Find.ById<AssociatedPosition>(dto.Id)) 
+                ?? new AssociatedPosition { IsActive = true };
 
             associatedPosition.PositionId = dto.PositionRef.Id.Value;
             associatedPosition.AssociatedPositionsGroupId = dto.AssociatedPositionsGroupRef.Id.Value;

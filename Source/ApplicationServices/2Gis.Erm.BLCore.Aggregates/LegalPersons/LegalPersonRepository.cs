@@ -5,9 +5,6 @@ using System.Security;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
@@ -23,7 +20,6 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -122,36 +118,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             legalPerson.RegistrationAddress = registrationAddress;
             _legalPersonGenericRepository.Update(legalPerson);
             _legalPersonGenericRepository.Save();
-        }
-
-        public LegalPersonForMergeDto GetInfoForMerging(long legalPersonId)
-        {
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
-            if (legalPerson == null)
-            {
-                return null;
-            }
-
-            var relatedEntities = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                                         .Select(x => new
-                                             {
-                                                 x.Accounts,
-                                                 AccountDetails = x.Accounts.SelectMany(y => y.AccountDetails.Where(z => z.IsActive && !z.IsDeleted)),
-                                                 x.Orders,
-                                                 x.Bargains,
-                                                 ProfileIds = x.LegalPersonProfiles.Select(profile => profile.Id)
-                                             })
-                                         .Single();
-
-            return new LegalPersonForMergeDto
-                {
-                    LegalPerson = legalPerson,
-                    Accounts = relatedEntities.Accounts,
-                    AccountDetails = relatedEntities.AccountDetails,
-                    Orders = relatedEntities.Orders,
-                    Bargains = relatedEntities.Bargains,
-                    Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.ProfileIds))
-                };
         }
 
         public int Deactivate(LegalPerson legalPerson)

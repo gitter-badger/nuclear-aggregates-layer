@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ChangeTerritory;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -11,11 +12,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeTerritory
     {
         private readonly IClientRepository _clientRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IClientReadModel _clientReadModel;
 
-        public ChangeClientTerritoryService(IClientRepository clientRepository, IOperationScopeFactory operationScopeFactory)
+        public ChangeClientTerritoryService(IClientRepository clientRepository, IOperationScopeFactory operationScopeFactory, IClientReadModel clientReadModel)
         {
             _clientRepository = clientRepository;
             _operationScopeFactory = operationScopeFactory;
+            _clientReadModel = clientReadModel;
         }
 
         public void ChangeTerritory(long entityId, long territoryId)
@@ -25,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeTerritory
                 // TODO: Refactor for UserRepository usage
                 // _publicService.Handle(new ValidateTerritoryAvailabilityRequest { TerritoryId = territoryId });
 
-                var client = _clientRepository.GetClient(entityId);
+                var client = _clientReadModel.GetClient(entityId);
                 var changeAggregateTerritoryRepository = _clientRepository as IChangeAggregateTerritoryRepository<Client>;
                 changeAggregateTerritoryRepository.ChangeTerritory(entityId, territoryId);
 

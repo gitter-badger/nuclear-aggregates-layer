@@ -4,9 +4,7 @@ using System.Linq;
 using System.Security;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
@@ -110,17 +108,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
         }
 
-        public void Update(FirmAddress firmAddress)
-        {
-            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddress>())
-            {
-                _firmAddressGenericRepository.Update(firmAddress);
-                _firmAddressGenericRepository.Save();
-                scope.Updated<FirmAddress>(firmAddress.Id)
-                     .Complete();
-            }
-        }
-
         public int Qualify(Firm firm, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
             if (firm == null)
@@ -186,14 +173,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public Client PerformDisqualificationChecks(long firmId, long currentUserCode)
         {
-            var client = _secureFinder.Find(Specs.Find.ById<Firm>(firmId))
-                                      .Select(x => x.Client)
+            var clientId = _secureFinder.Find(Specs.Find.ById<Firm>(firmId))
+                                      .Select(x => x.ClientId)
                                       .SingleOrDefault();
 
-            if (client == null)
+            if (clientId == null)
             {
                 throw new ArgumentException(BLResources.DisqualifyCantFindFirmClient);
             }
+
+            var client = _secureFinder.FindOne(Specs.Find.ById<Client>(clientId.Value));
 
             var hasClientPrivileges = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
                                                                            EntityName.Client,
@@ -269,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public Client GetFirmClient(long firmId)
         {
-            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.Client).SingleOrDefault();
+            return _finder.FindOne(ClientSpecs.Clients.Find.ByFirm(firmId));
         }
 
         public int SetFirmClient(Firm firm, long clientId)
@@ -557,7 +546,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 }
 
                 // Не указанные в сообщении адреса помечаются удалёнными, равно как и всё с ними связанное.
-                var addressesToDelete = _finder.Find<Firm>(f => f.Id == dto.DgppId)
+                var addressIdsToDelete = _finder.Find<Firm>(f => f.Id == dto.DgppId)
                                                .SelectMany(f => f.FirmAddresses)
                                                .Where(f => !f.IsDeleted)
                                                .Where(f => !addressDgppIds.Contains(f.Id))
@@ -565,19 +554,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                                                        f =>
                                                        new
                                                            {
-                                                               Address = f,
+                                                               AddressId = f.Id,
                                                                CategoryFirmAddresses = f.CategoryFirmAddresses.Where(category => !category.IsDeleted)
                                                            })
                                                .ToArray();
 
-                foreach (var addressToDelete in addressesToDelete)
+                var addressesToDelete = _finder.FindMany(Specs.Find.ByIds<FirmAddress>(addressIdsToDelete.Select(x => x.AddressId)));
+
+                foreach (var addressToDelete in addressIdsToDelete)
                 {
                     foreach (var categoryFirmAddress in addressToDelete.CategoryFirmAddresses)
                     {
                         _categoryFirmAddressGenericRepository.Delete(categoryFirmAddress);
                     }
+                }
 
-                    _firmAddressGenericRepository.Delete(addressToDelete.Address);
+                foreach (var address in addressesToDelete)
+                {
+                    _firmAddressGenericRepository.Delete(address);
                 }
 
                 _categoryFirmAddressGenericRepository.Save();
@@ -978,39 +972,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         }
 
         // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
-        public IDictionary<long, IEnumerable<FirmContact>> GetFirmContacts(long firmId)
-        {
-            var firmAddresses = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                                       .SelectMany(firm => firm.FirmAddresses)
-                                       .Select(address => address.Id)
-                                       .ToArray();
-
-            return firmAddresses.ToDictionary(id => id, id => GetContacts(id));
-        }
+        // DONE {all, 13.05.2014}:done
 
         // TODO {a.rechkalov, 19.03.2014}: Перенести в Read-model
-        public IEnumerable<FirmContact> GetContacts(long firmAddressId)
-        {
-            var depCardsQuery = _finder.Find<DepCard>(x => !x.IsHiddenOrArchived);
-
-            var cardRelations = _finder.FindAll<CardRelation>()
-                                       .Where(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted)
-                                       .OrderBy(cardRelation => cardRelation.OrderNo)
-                                       .Join(depCardsQuery,
-                                             cardRelation => cardRelation.DepCardCode,
-                                             depCard => depCard.Id,
-                                             (cardRelation, depCard) => depCard)
-                                       .SelectMany(depCard => depCard.FirmContacts)
-                                       .OrderBy(contact => contact.SortingPosition)
-                                       .ToArray();
-
-            var firmAddressContacts = _finder.FindAll<FirmContact>()
-                                             .Where(contact => contact.FirmAddressId == firmAddressId)
-                                             .OrderBy(contact => contact.SortingPosition)
-                                             .ToArray();
-
-            return firmAddressContacts.Union(cardRelations).ToArray();
-        }
+        // DONE {all, 13.05.2014}:done
 
         int IQualifyAggregateRepository<Firm>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {

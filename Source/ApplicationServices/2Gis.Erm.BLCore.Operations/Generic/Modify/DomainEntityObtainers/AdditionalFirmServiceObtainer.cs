@@ -22,10 +22,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AdditionalFirmServiceDomainEntityDto)domainEntityDto;
 
-            var entity = dto.Id == 0
-                             ? new AdditionalFirmService()
-                             : _finder.Find(Specs.Find.ById<AdditionalFirmService>(dto.Id)).Single();
-
+            var entity = _finder.FindOne(Specs.Find.ById<AdditionalFirmService>(dto.Id)) 
+                ?? new AdditionalFirmService();
+            
             entity.IsManaged = dto.IsManaged;
             entity.ServiceCode = dto.ServiceCode;
             entity.Description = dto.Description;

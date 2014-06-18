@@ -5155,18 +5155,33 @@
     <value />
   </data>
   <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="Errors" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="File" xml:space="preserve">
-     <value></value>
+    <value />
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value />
   </data>
   <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDateMustntBeLessThanBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeToRestoreIsAlreadyActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotActivateBranchOfficeSinceThereIsADuplicate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConnotCreateClientForFirmSinceItAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
     <value />
   </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.CardsForErm;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -14,9 +15,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
         public IServiceBusDto Deserialize(XElement xml)
         {
             var contacts = new List<ContactDto>();
-            var rubrics = new List<CardRubricDto>();
+            var rubrics = new List<ImportCategoryFirmAddressDto>();
             var schedule = new ScheduleDto();
             var payment = new PaymentDto();
+
+            var cardCode = (long)xml.Attribute("Code");
+            var cardType = (CardType)Enum.Parse(typeof(CardType), (string)xml.Attribute("Type"), true);
 
             var contactsElement = xml.Element("Contacts");
             if (contactsElement != null)
@@ -40,13 +44,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
             }
 
             var rubricsElement = xml.Element("Rubrics");
-            if (rubricsElement != null)
+            if (rubricsElement != null && cardType == CardType.Pos)
             {
                 foreach (var rubricElement in rubricsElement.Elements())
                 {
-                    rubrics.Add(new CardRubricDto
+                    rubrics.Add(new ImportCategoryFirmAddressDto
                         {
-                            Code = (int)rubricElement.Attribute("Code"),
+                            FirmAddressId = cardCode,
+                            CategoryId = (int)rubricElement.Attribute("Code"),
                             IsPrimary = (bool?)rubricElement.Attribute("IsPrimary") ?? false,
                             SortingPosition = (int)rubricElement.Attribute("SortingPosition")
                         });
@@ -79,9 +84,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
 
             return new CardForErmServiceBusDto
                 {
-                    Code = (long)xml.Attribute("Code"),
+                    Code = cardCode,
                     FirmCode = (long)xml.Attribute("FirmCode"),
-                    Type = (CardType)Enum.Parse(typeof(CardType), (string)xml.Attribute("Type"), true),
+                    Type = cardType,
                     BranchCode = (int)xml.Attribute("BranchCode"),
                     IsActive = (bool)xml.Attribute("IsActive"),
                     ClosedForAscertainment = (bool)xml.Attribute("ClosedForAscertainment"),
