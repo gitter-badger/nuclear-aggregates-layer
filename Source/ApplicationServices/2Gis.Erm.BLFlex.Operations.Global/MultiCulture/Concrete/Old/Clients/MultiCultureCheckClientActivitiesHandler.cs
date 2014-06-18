@@ -8,9 +8,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Clients
 {
-    // TODO {v.lapeev, 11.02.2014}: кандидат на MultiCulture
-    // DONE {y.baranihin, 26.03.2014}: поддерживаю
-    public class MultiCultureCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted,
+                                                            ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IActivityReadModel _activityReadModel;
 

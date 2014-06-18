@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -24,13 +24,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
         {
             var dto = (ChileLegalPersonDomainEntityDto)domainEntityDto;
 
-            var legalPersonProfile = dto.IsNew()
-                                         ? new LegalPerson { IsActive = true, Parts = new[] { new ChileLegalPersonPart() } }
-                                         : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
+            var legalPerson = dto.IsNew()
+                                  ? new LegalPerson { IsActive = true, Parts = new[] { new ChileLegalPersonPart() } }
+                                  : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
 
-            LegalPersonFlexSpecs.LegalPersons.Chile.Assign.Entity().Assign(dto, legalPersonProfile);
+            LegalPersonFlexSpecs.LegalPersons.Chile.Assign.Entity().Assign(dto, legalPerson);
 
-            return legalPersonProfile;
+            return legalPerson;
         }
     }
 }

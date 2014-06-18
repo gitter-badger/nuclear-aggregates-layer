@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted, IUkraineAdapted
+    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         #region Meaningful data
 
@@ -41,10 +41,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public override bool IsSecurityRoot
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         #endregion

@@ -18,5 +18,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
         IQueryable<Order> GetOrderQuery(long orderId);
         IQueryable<FirmAddress> GetFirmAddressQuery(long orderId);
         IQueryable<BranchOffice> GetBranchOfficeQuery(long orderId);
+        Bargain GetOrderBargain(long orderId);
     }
 }

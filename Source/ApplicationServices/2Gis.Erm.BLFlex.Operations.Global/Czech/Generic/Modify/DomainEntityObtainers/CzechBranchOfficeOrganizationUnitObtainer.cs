@@ -1,22 +1,33 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Modify;
-using DoubleGis.Erm.Platform.Core.EntityProjection;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.DomainEntityObtainers
 {
-    public class CzechBranchOfficeOrganizationUnitObtainer : BranchOfficeOrganizationUnitObtainerBase<CzechBranchOfficeOrganizationUnitDomainEntityDto>, ICzechAdapted
+    public class CzechBranchOfficeOrganizationUnitObtainer : IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit>, IAggregateReadModel<BranchOffice>, ICzechAdapted
     {
+        private readonly IFinder _finder;
+
         public CzechBranchOfficeOrganizationUnitObtainer(IFinder finder)
-            : base(finder)
         {
+            _finder = finder;
         }
 
-        protected override IAssignSpecification<CzechBranchOfficeOrganizationUnitDomainEntityDto, BranchOfficeOrganizationUnit> GetAssignSpecification()
+        public BranchOfficeOrganizationUnit ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
-            return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Czech.Assign.Entity();
+            var dto = (CzechBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
+
+            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)) 
+                ?? new BranchOfficeOrganizationUnit { IsActive = true };
+
+            BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Czech.Assign.Entity().Assign(dto, branchOfficeOrganizationUnit);
+
+            return branchOfficeOrganizationUnit;
         }
     }
 }

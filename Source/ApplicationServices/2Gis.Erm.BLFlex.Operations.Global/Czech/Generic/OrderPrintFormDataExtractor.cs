@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
 
         public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
         {
-            return _printOrderHelper.GetFirmAddresses(query, contacts);
+            return _printOrderHelper.GetFirmAddresses(query, contacts, CultureInfo.CurrentCulture);
         }
 
         public PrintData GetBranchOffice(IQueryable<BranchOffice> query)

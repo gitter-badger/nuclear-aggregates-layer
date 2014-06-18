@@ -807,6 +807,7 @@
       <DataList NameLocaleResourceId="DListClients" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Client.gif">
         <Scripts>
           <Script FileName="DataList/Client.DataList.js" />
+          <Script FileName="MultiCulture/DataList/Client.DataList.js" />
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="en_ico_16_Client.gif" SecurityPrivelegeFlag="0" />
@@ -1359,7 +1360,7 @@
     <DataLists>
       <DataList NameLocaleResourceId="DListLegalPersons" DefaultSortField="LegalName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="LegalName" Icon="en_ico_16_Default.gif">
         <Scripts>
-          <Script FileName="Cyprus/DataList/LegalPerson.DataList.js" />
+          <Script FileName="MultiCulture/DataList/LegalPerson.DataList.js" />
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
@@ -1760,6 +1761,7 @@
     <DataLists>
       <DataList NameLocaleResourceId="DListActiveOrders" DefaultSortField="CreatedOn" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="OrderNumber" Icon="en_ico_16_Order.gif">
         <Scripts>
+          <Script FileName="MultiCulture/DataList/Order.DataList.js" />
           <Script FileName="DataList/Order.DataList.js" />
         </Scripts>
         <ToolbarItems>

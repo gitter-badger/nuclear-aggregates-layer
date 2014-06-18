@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCulture
 {
-    public class MultiCultureActivityPurposeEnumCustomization : EnumCustomizationBase<ActivityPurpose>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureActivityPurposeEnumCustomization : EnumCustomizationBase<ActivityPurpose>, IChileAdapted, ICyprusAdapted, ICzechAdapted,
+                                                                IUkraineAdapted, IEmiratesAdapted
     {
         protected override IEnumerable<ActivityPurpose> GetRequiredEnumValues()
         {

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Ukraine
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Ukraine/Client.cshtml")]
-    public partial class Client : System.Web.Mvc.WebViewPage<BL.UI.Web.Mvc.Models.ClientViewModel>
+    public partial class Client : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureClientViewModel>
     {
         public Client()
         {
@@ -55,8 +55,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Ukraine
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
         }
     }
 }

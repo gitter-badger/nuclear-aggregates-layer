@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
 
         public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
         {
-            return _printOrderHelper.GetFirmAddresses(query, contacts);
+            return _printOrderHelper.GetFirmAddresses(query, contacts, CultureInfo.CreateSpecificCulture("en"));
         }
 
         public PrintData GetBranchOffice(IQueryable<BranchOffice> query)

@@ -11,7 +11,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
-    public class ListLegalPersonProfileService : ListEntityDtoServiceBase<LegalPersonProfile, ListLegalPersonProfileDto>, IRussiaAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
+    public class ListLegalPersonProfileService : ListEntityDtoServiceBase<LegalPersonProfile, ListLegalPersonProfileDto>, IRussiaAdapted, ICyprusAdapted,
+                                                 IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
@@ -19,7 +20,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 
         public ListLegalPersonProfileService(
             ISecurityServiceUserIdentifier userIdentifierService,
-            IFinder finder, FilterHelper filterHelper)
+            IFinder finder,
+            FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -27,29 +29,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
         }
 
         protected override IEnumerable<ListLegalPersonProfileDto> List(QuerySettings querySettings,
-            out int count)
+                                                                       out int count)
         {
             var query = _finder.FindAll<LegalPersonProfile>();
 
             return query
                 .Select(x => new ListLegalPersonProfileDto
-                            {
-                                Id = x.Id,
-                                Name = x.Name,
-                                IsMainProfile = x.IsMainProfile,
-                                OwnerCode = x.OwnerCode,
-                                CreatedOn = x.CreatedOn,
-                                IsDeleted = x.IsDeleted,
-                    IsActive = x.IsActive,
-                    LegalPersonId = x.LegalPersonId,
-                    OwnerName = null,
-                })
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IsMainProfile = x.IsMainProfile,
+                        OwnerCode = x.OwnerCode,
+                        CreatedOn = x.CreatedOn,
+                        IsDeleted = x.IsDeleted,
+                        IsActive = x.IsActive,
+                        LegalPersonId = x.LegalPersonId,
+                        OwnerName = null,
+                    })
                 .QuerySettings(_filterHelper, querySettings, out count)
                 .Select(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                            });
+                    {
+                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                        return x;
+                    });
         }
     }
 }

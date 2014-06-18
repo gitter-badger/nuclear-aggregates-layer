@@ -8,8 +8,6 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.LegalPersonAggregate.ReadMo
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -20,20 +18,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Activate
 {
     public sealed class UkraineActivateLegalPersonService : IActivateGenericEntityService<LegalPerson>, IUkraineAdapted
     {
-        private readonly IFinder _finder;
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IUkraineLegalPersonReadModel _ukraineLegalPersonReadModel;
 
         public UkraineActivateLegalPersonService(
-            IFinder finder,
             ILegalPersonReadModel legalPersonReadModel,
             IUkraineLegalPersonReadModel ukraineLegalPersonReadModel,
             ILegalPersonRepository legalPersonRepository,
             IOperationScopeFactory scopeFactory)
         {
-            _finder = finder;
             _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _legalPersonReadModel = legalPersonReadModel;
@@ -52,14 +47,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Activate
 
                 if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                 {
-                    var dublicateLegalPerson = _finder.FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
-                                                                && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
-                                                      .FirstOrDefault();
+                    var duplicateLegalPersonName = _legalPersonReadModel.GetActiveLegalPersonNameWithSpecifiedInn(restoringLegalPerson.Inn);
 
-                    if (dublicateLegalPerson != null)
-                    {
-                        throw new NotificationException(string.Format(BLResources.ActivateLegalPersonError, dublicateLegalPerson.LegalName));
-                    }
+                    if (duplicateLegalPersonName != null)
+                   {
+                        throw new NotificationException(string.Format(BLResources.ActivateLegalPersonError, duplicateLegalPersonName));
+                   }
                 }
 
                 var egrpou = restoringLegalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(part => part.Egrpou);
@@ -67,7 +60,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Activate
                 {
                     throw new NotificationException(GetEgrpouDuplicateMessage((LegalPersonType)restoringLegalPerson.LegalPersonTypeEnum));
                 }
-
 
                 var result = _legalPersonRepository.Activate(entityId);
 

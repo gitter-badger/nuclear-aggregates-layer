@@ -13,9 +13,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
+namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IFinder _finder;
         private readonly IActivityReadModel _activityReadModel;

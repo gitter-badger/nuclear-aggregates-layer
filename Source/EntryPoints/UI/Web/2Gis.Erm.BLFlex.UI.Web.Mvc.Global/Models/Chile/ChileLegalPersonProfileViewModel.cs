@@ -3,7 +3,7 @@ using System;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
         [EmailLocalized]
         [StringLengthLocalized(64)]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [StringLengthLocalized(512)]
         public string PostAddress { get; set; }
@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            AdditionalEmail = modelDto.AdditionalEmail;
+            Email = modelDto.AdditionalEmail;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
@@ -155,7 +155,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = AdditionalEmail.Ensure—leanness(),
+                    AdditionalEmail = Email.Ensure—leanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.Ensure—leanness(),
                     PaymentMethod = PaymentMethod,
                     AccountNumber = AccountNumber.Ensure—leanness(),

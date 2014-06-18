@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureAccountViewModel : EntityViewModelBase<Account>, ICzechAdapted, IChileAdapted, IUkraineAdapted
+    public sealed class MultiCultureAccountViewModel : EntityViewModelBase<Account>, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         // ёридическое лицо отделени€ организации
         [RequiredLocalized]

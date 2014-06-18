@@ -1,0 +1,68 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates.EmiratesBranchOfficeOrganizationUnitViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.BranchOfficeOrganizationUnit.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <style type="text/css">
+        DIV.label-wrapper
+        {
+            width: 150px !important;
+        }
+    </style>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    @Html.HiddenFor(m => m.BranchOfficeAddlId)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.SectionHead("ouinfo", BLResources.BranchOfficeOrgUnitInfo)
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ShortLegalName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            @Html.TemplateField(m => m.PhoneNumber, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ChiefNameInNominative, FieldFlex.twins)
+            @Html.TemplateField(m => m.Fax, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PositionInNominative, FieldFlex.twins)
+            @Html.TemplateField(m => m.Email, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ActualAddress, FieldFlex.twins)
+            @Html.TemplateField(m => m.PostalAddress, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PaymentEssentialElements, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsPrimary, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
+            @Html.TemplateField(m => m.IsPrimaryForRegionalSales, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
+        </div>
+        <div class="row-wrapper" id="boinfo">
+            @Html.SectionHead("lpinfo", BLResources.BranchOfficeInfo)
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.BranchOfficeAddlName, FieldFlex.twins)
+                @Html.TemplateField(m => m.BranchOfficeAddlCommercialLicense, FieldFlex.twins)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.BranchOfficeAddlLegalAddress, FieldFlex.lone)
+            </div>
+        </div>
+    </div>
+}
