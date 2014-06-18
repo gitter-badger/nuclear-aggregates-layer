@@ -282,6 +282,8 @@ public void EndNamespace(CodeGenerationTools code)
 public void WriteEqualsAndGetHashCodeOverrides(IEnumerable<EdmProperty> simpleProperties)
 {
     var hasIdentity = simpleProperties.Any(p => p.Name == "Id");
+	if (hasIdentity)
+	{
 #>
 	public override bool Equals(object obj)
     {
@@ -300,21 +302,17 @@ public void WriteEqualsAndGetHashCodeOverrides(IEnumerable<EdmProperty> simplePr
             return true;
         }
 
-<#+	
-	if (hasIdentity)
-	{
-#>
 		var entityKey = obj as IEntityKey;
 		if (entityKey != null)
 		{
 			return Id == entityKey.Id;
 		}
 		
+		return false;
+    }
 <#+
 	}
 #>
-		return false;
-    }
 
 	override public int GetHashCode()
 	{

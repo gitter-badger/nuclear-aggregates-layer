@@ -26,15 +26,13 @@ namespace DoubleGis.Erm.Platform.DAL
         IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity;
 
         /// <summary>
-        /// Find and select IPartable object with all its parts.
+        /// Find one entity object based on findSpecification.
         /// </summary>
-        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey;
+        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey;
 
         /// <summary>
-        /// Find and select collection of IPartable object with all its parts.
+        /// Find and select collection of entity objects based on findSpecification.
         /// </summary>
-        IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey;
+        IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey;
     }
 }

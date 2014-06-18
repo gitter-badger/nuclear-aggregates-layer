@@ -32,7 +32,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.ChileBranchOfficeOrganizationUnitPart,
                 EntityName.UkraineBranchOfficePart,
                 EntityName.ChileLegalPersonProfilePart,
-                EntityName.UkraineLegalPersonProfilePart
+                EntityName.UkraineLegalPersonProfilePart,
+                EntityName.EmiratesBranchOfficeOrganizationUnitPart,
+                EntityName.EmiratesClientPart,
+                EntityName.EmiratesLegalPersonPart,
+                EntityName.EmiratesLegalPersonProfilePart,
+                EntityName.EmiratesFirmAddressPart,
             };
 
         /// <summary>
@@ -52,7 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         /// </summary>
         public static readonly HashSet<Type> PersistenceOnlyEntities = new HashSet<Type>
             {
-                typeof(FunctionalPrivilegeDepth), 
+                typeof(FunctionalPrivilegeDepth),
                 typeof(OrganizationUnitDto),
                 typeof(Privilege),
                 typeof(TerritoryDto),

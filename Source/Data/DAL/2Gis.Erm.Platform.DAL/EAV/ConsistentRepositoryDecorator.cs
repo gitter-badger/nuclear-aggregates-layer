@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Transactions;
 
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
@@ -16,15 +17,18 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         private readonly IRepository<TEntity> _entityRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly DynamicStorageRepository<BusinessEntityInstance, BusinessEntityPropertyInstance> _dynamicStorageRepository;
+        private readonly IIdentityProvider _identityProvider;
 
         public ConsistentRepositoryDecorator(IRepository<TEntity> entityRepository,
                                              IRepository<BusinessEntityInstance> entityInstanceRepository,
                                              IRepository<BusinessEntityPropertyInstance> propertyInstanceRepository,
                                              IOperationScopeFactory operationScopeFactory,
-                                             IDynamicPropertiesConverterFactory dynamicPropertiesConvertersFactory)
+                                             IDynamicPropertiesConverterFactory dynamicPropertiesConvertersFactory,
+                                             IIdentityProvider identityProvider)
         {
             _entityRepository = entityRepository;
             _operationScopeFactory = operationScopeFactory;
+            _identityProvider = identityProvider;
             _dynamicStorageRepository = new DynamicStorageRepository<BusinessEntityInstance, BusinessEntityPropertyInstance>(entityInstanceRepository,
                                                                                                                              propertyInstanceRepository,
                                                                                                                              dynamicPropertiesConvertersFactory);
@@ -35,9 +39,9 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, TEntity>())
             {
                 _entityRepository.Add(entity);
-
                 foreach (var part in entity.Parts)
                 {
+                    _identityProvider.SetFor(part);
                     part.EntityId = entity.Id;
                     _dynamicStorageRepository.Add(part);
                     scope.Added<BusinessEntityInstance>(part.Id);
@@ -55,9 +59,9 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 foreach (var entity in entities)
                 {
                     _entityRepository.Add(entity);
-
                     foreach (var part in entity.Parts)
                     {
+                        _identityProvider.SetFor(part);
                         part.EntityId = entity.Id;
                         _dynamicStorageRepository.Add(part);
                         scope.Added<BusinessEntityInstance>(part.Id);

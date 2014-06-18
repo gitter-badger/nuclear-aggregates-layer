@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\EntityNotLinkedException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\ErmCommunicationException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotAcquireOrderPositionsForChargesException.cs" />
