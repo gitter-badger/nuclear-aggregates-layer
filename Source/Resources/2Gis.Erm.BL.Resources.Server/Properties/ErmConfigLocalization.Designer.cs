@@ -63,9 +63,27 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AcceptanceReportsJournal {
+            get {
+                return ResourceManager.GetString("AcceptanceReportsJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AdditionalFirmServices {
             get {
                 return ResourceManager.GetString("AdditionalFirmServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AuthorName {
+            get {
+                return ResourceManager.GetString("AuthorName", resourceCulture);
             }
         }
         
@@ -2001,6 +2019,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DFileName {
             get {
                 return ResourceManager.GetString("DFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListAcceptanceReport {
+            get {
+                return ResourceManager.GetString("DListAcceptanceReport", resourceCulture);
             }
         }
         
@@ -4050,6 +4077,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DocumentsAmount {
+            get {
+                return ResourceManager.GetString("DocumentsAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DStartTime {
             get {
                 return ResourceManager.GetString("DStartTime", resourceCulture);
@@ -5031,6 +5067,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NavGroupAcceptanceReportsJournal {
+            get {
+                return ResourceManager.GetString("NavGroupAcceptanceReportsJournal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NavGroupAccounts {
             get {
                 return ResourceManager.GetString("NavGroupAccounts", resourceCulture);
@@ -5187,6 +5232,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string NavOrderProcessingRequest {
             get {
                 return ResourceManager.GetString("NavOrderProcessingRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderPayableFact {
+            get {
+                return ResourceManager.GetString("OrderPayableFact", resourceCulture);
             }
         }
     }

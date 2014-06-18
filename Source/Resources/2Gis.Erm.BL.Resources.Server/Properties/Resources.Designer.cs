@@ -124,6 +124,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ms..
+        /// </summary>
+        public static string SalutationToFemaleEmirates {
+            get {
+                return ResourceManager.GetString("SalutationToFemaleEmirates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Estimado.
         /// </summary>
         public static string SalutationToMaleChile {
@@ -165,6 +174,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string SalutationToMaleUkraine {
             get {
                 return ResourceManager.GetString("SalutationToMaleUkraine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mr..
+        /// </summary>
+        public static string SalutationToMaleEmirates {
+            get {
+                return ResourceManager.GetString("SalutationToMaleEmirates", resourceCulture);
             }
         }
     }
