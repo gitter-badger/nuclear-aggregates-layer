@@ -140,6 +140,15 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj">
+      <Name>2Gis.Erm.BLFlex.API.Aggregates.Global</Name>
+      <Project>{3dbca11c-c295-4a54-8e64-60473575eff8}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
       <Name>2Gis.Erm.BLFlex.Model</Name>
       <Project>{47edc4ec-654b-4219-9099-3394db6c65db}</Project>
@@ -486,7 +495,7 @@
     <Content Include="Variables.Edu.Ukraine.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
-    <Content Include="Variables.Edu.UAE.wxi">
+    <Content Include="Variables.Edu.Emirates.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Expl.Cyprus.wxi">
@@ -525,7 +534,7 @@
     <Content Include="Variables.Production.Czech.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
-    <Content Include="Variables.Production.UAE.wxi">
+    <Content Include="Variables.Production.Emirates.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Production.Ukraine.wxi">
@@ -622,6 +631,15 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.402.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.501.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.502.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.503.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.wxi" />

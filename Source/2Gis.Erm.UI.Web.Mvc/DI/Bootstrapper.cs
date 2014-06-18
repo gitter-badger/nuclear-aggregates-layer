@@ -56,6 +56,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -185,13 +186,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
             interception = interception
                             .SetInterceptorFor<MakeRegionalAdsDocsHandler>(Mapping.Erm, new VirtualMethodInterceptor())
-
-                            .SetVirtualInterceptorForMethod<ClientController, LogControllerCallHandler>(
-                                controller => controller.Merge(default(ClientViewModel)),
-                                Policy.ClientInterception,
-                                Policy.ClientInterception,
-                                Lifetime.PerResolve,
-                            new InjectionConstructor(resolvedParametersCreator()))
                 .SetInterceptorForOperations<LogOperationServiceCallHandler>(config, () => Lifetime.PerResolve, resolvedParametersCreator);
 
             return interception.Container;

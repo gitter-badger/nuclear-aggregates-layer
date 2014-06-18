@@ -23,7 +23,10 @@ Ext.ux.MergeClientsUtility = Ext.extend(Object,
                     {
                         Ext.Ajax.request(
                             {
-                                url: "/Client/MergeClientsGetData",
+                                // FIXME {y.baranihin, 16.06.2014}: Давай все же будем использовать ООП. Пусть будет некий объект в этом scope (MergeClientsUtility), в не глобальная функция
+                                // или как вариант, функция getClientsData должна принимать объект со свойствами, значения кооторых инициализируются в адаптированной вьюхе
+                                // То же относится к юр лицам, заказам, позициям заказов, то есть везде, где применены глобальные функции
+                                url: GetMergeDataProviderUrl,
                                 scope: this,
                                 params: { masterId: Ext.getCmp("Client1").getValue().id, subordinateId: Ext.getCmp("Client2").getValue().id },
                                 success: this.getClientsDataSuccess,

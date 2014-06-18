@@ -98,7 +98,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=cr/Expression/@EntryValue">list("FIXME,TODO,DONE,COMMENT")</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=cr/Order/@EntryValue">0</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,v.lapeev,f.zaharov,all")</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,f.zaharov,s.pomadin,all")</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Order/@EntryValue">1</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=message/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=message/Order/@EntryValue">2</s:Int64>

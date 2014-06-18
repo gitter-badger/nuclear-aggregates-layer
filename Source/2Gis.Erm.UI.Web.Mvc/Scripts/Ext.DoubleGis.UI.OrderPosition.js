@@ -29,11 +29,41 @@ window.Ext.DoubleGis.CustomValidatorRegistry["validatePayablePlan"] = function (
     return (Number.parseFromLocal(value) >= 0);
 };
 
-window.Ext.DoubleGis.CustomValidatorRegistry["validatePricePerUnitWithVat"] = function (value, context)
-{
+window.Ext.DoubleGis.CustomValidatorRegistry["validatePricePerUnitWithVat"] = function (value, context) {
     var number = Number.parseFromLocal(value);
     return (number >= 0);
 };
+
+// FIXME {y.baranihin, 16.06.2014}: Давай все же будем использовать ООП. Пусть будет некий объект в этом scope, в не глобальная функция
+function RegisterBusinessLogicDomElements(businessLogic, pricePositionLookup) {
+    businessLogic.registerDomElements({
+        AdvertisementsJson: window.Ext.get('AdvertisementsJson'),
+        DiscountPercent: window.Ext.get('DiscountPercent'),
+        DiscountSum: window.Ext.get('DiscountSum')
+    }, {
+        Amount: window.Ext.get('Amount'),
+        Platform: window.Ext.get('Platform'),
+        ShipmentPlan: window.Ext.get('ShipmentPlan'),
+        SnapObjectType: window.Ext.get('SnapObjectType'),
+        PricePerUnit: window.Ext.get('PricePerUnit'),
+        PricePerUnitWithVat: window.Ext.get('PricePerUnitWithVat'),
+        PayablePrice: window.Ext.get('PayablePrice'),
+        PayablePlan: window.Ext.get('PayablePlan'),
+        DiscountPercent: window.Ext.get('DiscountPercentText'),
+        DiscountSum: window.Ext.get('DiscountSumText')
+    }, {
+        CalculateDiscountViaPercentFalse: window.Ext.get('CalculateDiscountViaPercentFalse'),
+        CalculateDiscountViaPercentTrue: window.Ext.get('CalculateDiscountViaPercentTrue')
+    }, {
+        DiscountSumOuter: window.Ext.get('discountSumOuter'),
+        DiscountPercentOuter: window.Ext.get('discountPercentOuter')
+    }, {
+        PricePosition: pricePositionLookup
+    },
+    {
+        DecimalDigits: window.Ext.get('MoneySignificantDigitsNumber').getValue()
+    });
+}
 
 window.InitPage = function ()
 {
@@ -75,33 +105,7 @@ window.InitPage = function ()
         
         this.BusinessLogic = new window.Ext.DoubleGis.UI.OrderPosition.BusinessLogic();
 
-        this.BusinessLogic.registerDomElements({
-            AdvertisementsJson: window.Ext.get('AdvertisementsJson'),
-            DiscountPercent: window.Ext.get('DiscountPercent'),
-            DiscountSum: window.Ext.get('DiscountSum')
-        }, {
-            Amount: window.Ext.get('Amount'),
-            Platform: window.Ext.get('Platform'),
-            ShipmentPlan: window.Ext.get('ShipmentPlan'),
-            SnapObjectType: window.Ext.get('SnapObjectType'),
-            PricePerUnit: window.Ext.get('PricePerUnit'),
-            PricePerUnitWithVat: window.Ext.get('PricePerUnitWithVat'),
-            PayablePrice: window.Ext.get('PayablePrice'),
-            PayablePlan: window.Ext.get('PayablePlan'),
-            DiscountPercent: window.Ext.get('DiscountPercentText'),
-            DiscountSum: window.Ext.get('DiscountSumText')
-        }, {
-            CalculateDiscountViaPercentFalse: window.Ext.get('CalculateDiscountViaPercentFalse'),
-            CalculateDiscountViaPercentTrue: window.Ext.get('CalculateDiscountViaPercentTrue')
-        }, {
-            DiscountSumOuter: window.Ext.get('discountSumOuter'),
-            DiscountPercentOuter: window.Ext.get('discountPercentOuter')
-        }, {
-            PricePosition: pricePositionLookup
-        },
-        {
-            DecimalDigits: window.Ext.get('MoneySignificantDigitsNumber').getValue()
-        });
+        RegisterBusinessLogicDomElements(this.BusinessLogic, pricePositionLookup);
 
         this.BusinessLogic.registerToolbar(this.Items.Toolbar);
 
@@ -173,3 +177,6 @@ window.InitPage = function ()
         setTimeout(function () { self.BusinessLogic.setupAmountFieldAvailability(); });
     });
 }
+
+
+

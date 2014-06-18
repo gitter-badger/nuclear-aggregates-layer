@@ -406,6 +406,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Edu.Chile.config = Environments\Erm.Edu.Chile.config
 		Environments\Erm.Edu.Cyprus.config = Environments\Erm.Edu.Cyprus.config
 		Environments\Erm.Edu.Czech.config = Environments\Erm.Edu.Czech.config
+		Environments\Erm.Edu.Emirates.config = Environments\Erm.Edu.Emirates.config
 		Environments\Erm.Edu.Russia.config = Environments\Erm.Edu.Russia.config
 		Environments\Erm.Edu.Ukraine.config = Environments\Erm.Edu.Ukraine.config
 		Environments\Erm.Expl.Cyprus.config = Environments\Erm.Expl.Cyprus.config
@@ -418,8 +419,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Production.Chile.config = Environments\Erm.Production.Chile.config
 		Environments\Erm.Production.Cyprus.config = Environments\Erm.Production.Cyprus.config
 		Environments\Erm.Production.Czech.config = Environments\Erm.Production.Czech.config
+		Environments\Erm.Production.Emirates.config = Environments\Erm.Production.Emirates.config
 		Environments\Erm.Production.Russia.config = Environments\Erm.Production.Russia.config
 		Environments\Erm.Production.Ukraine.config = Environments\Erm.Production.Ukraine.config
+		Environments\Erm.Test.06.config = Environments\Erm.Test.06.config
 		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
 	EndProjectSection
 EndProject
@@ -428,6 +431,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Environments\Templates\Erm.Test.Chile.config = Environments\Templates\Erm.Test.Chile.config
 		Environments\Templates\Erm.Test.Cyprus.config = Environments\Templates\Erm.Test.Cyprus.config
 		Environments\Templates\Erm.Test.Czech.config = Environments\Templates\Erm.Test.Czech.config
+		Environments\Templates\Erm.Test.Emirates.config = Environments\Templates\Erm.Test.Emirates.config
 		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
 		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
 		Environments\Templates\Erm.Test.Ukraine.config = Environments\Templates\Erm.Test.Ukraine.config
@@ -483,6 +487,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B20F2E1E-1CC9-49B1-8B14-2ED9A40F2CB4}"
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "2Gis.Erm.Build", "Buildscript\2Gis.Erm.Build.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.API.Aggregates.Global", "..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj", "{3DBCA11C-C295-4A54-8E64-60473575EFF8}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -954,7 +960,6 @@ Global
 		SccProjectTopLevelParentUniqueName116 = 2GIS.ERM.VS2012.sln
 		SccProjectName116 = ../../BL/Source/ApplicationServices/Reports/2Gis.Erm.BL.Reports.UI
 		SccLocalPath116 = ..\\..\\BL\\Source\\ApplicationServices\\Reports\\2Gis.Erm.BL.Reports.UI
-
 		SccProjectUniqueName117 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.Aggregates\\2Gis.Erm.BLCore.API.Aggregates.csproj
 		SccProjectTopLevelParentUniqueName117 = 2GIS.ERM.VS2012.sln
 		SccProjectName117 = ../../BLCore/Source/API/2Gis.Erm.BLCore.API.Aggregates
@@ -968,6 +973,10 @@ Global
 		SccProjectTopLevelParentUniqueName119 = 2GIS.ERM.VS2012.sln
 		SccProjectName119 = Buildscript
 		SccLocalPath119 = Buildscript
+		SccProjectUniqueName120 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Aggregates.Global\\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj
+		SccProjectTopLevelParentUniqueName120 = 2GIS.ERM.VS2012.sln
+		SccProjectName120 = ../../BLFlex/Source/API/2Gis.Erm.BLFlex.API.Aggregates.Global
+		SccLocalPath120 = ..\\..\\BLFlex\\Source\\API\\2Gis.Erm.BLFlex.API.Aggregates.Global
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2168,6 +2177,16 @@ Global
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2288,6 +2307,7 @@ Global
 		{7E9F6503-D5C7-4FD1-8043-CB381EF8887C} = {E0093632-F2A7-4720-8F4C-1E35DF8FE5C9}
 		{60D0D089-7A06-4B9F-A162-3EEBF516311D} = {7E9F6503-D5C7-4FD1-8043-CB381EF8887C}
 		{A012AC28-EBEB-4D9A-963A-7CEB72F54266} = {C885CBC2-B3A0-47CF-AA3C-F22122FD1EDE}
+		{3DBCA11C-C295-4A54-8E64-60473575EFF8} = {C885CBC2-B3A0-47CF-AA3C-F22122FD1EDE}
 		{F4FB1C82-F644-45C6-A351-8B9A994EE3DD} = {46CEBE23-C116-43B2-8C31-C4EFDE48C6F4}
 		{5FC26F81-5100-43B5-B55B-E470308338D2} = {46CEBE23-C116-43B2-8C31-C4EFDE48C6F4}
 		{946C96BF-A7BD-46C1-879C-C80E3223334B} = {F90FA8E8-EFFB-48F8-A342-E2A791959047}
