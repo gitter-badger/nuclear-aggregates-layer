@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine;
 
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.U
             It should_have_expected_DocumentsDeliveryMethod = () => Target.DocumentsDeliveryMethod.Should().Be(LegalPersonViewProfileModelsTestHelper.TestDocumentsDeliveryMethod);
             It should_have_expected_PersonResponsibleForDocuments = () => Target.PersonResponsibleForDocuments.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPersonResponsibleForDocuments);
             It should_have_expected_EmailForAccountingDocuments = () => Target.EmailForAccountingDocuments.Should().Be(LegalPersonViewProfileModelsTestHelper.TestEmailForAccountingDocuments);
-            It should_have_expected_AdditionalEmail = () => Target.AdditionalEmail.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalEmail);
+            It should_have_expected_AdditionalEmail = () => Target.Email.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAdditionalEmail);
             It should_have_expected_PostAddress = () => Target.PostAddress.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPostAddress);
             It should_have_expected_PaymentMethod = () => Target.PaymentMethod.Should().Be(LegalPersonViewProfileModelsTestHelper.TestPaymentMethod);
             It should_have_expected_AccountNumber = () => Target.AccountNumber.Should().Be(LegalPersonViewProfileModelsTestHelper.TestAccountNumber);

@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [RequiredLocalized]
         public PaymentMethod PaymentMethod { get; set; }
 
-        [StringLengthLocalized(16)]
+        [StringLengthLocalized(10)]
         public string AccountNumber { get; set; }
 
         [StringLengthLocalized(4)]
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
         [EmailLocalized]
         [StringLengthLocalized(64)]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [StringLengthLocalized(256)]
         [RequiredLocalized]
@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            AdditionalEmail = modelDto.AdditionalEmail;
+            Email = modelDto.AdditionalEmail;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                 {
                     Id = Id,
                     Name = Name.Ensure—leanness(),
-                    AdditionalEmail = AdditionalEmail.Ensure—leanness(),
+                    AdditionalEmail = Email.Ensure—leanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.Ensure—leanness(),
                     ChiefNameInNominative = ChiefNameInNominative.Ensure—leanness(),
                     Registered = Registered.Ensure—leanness(),

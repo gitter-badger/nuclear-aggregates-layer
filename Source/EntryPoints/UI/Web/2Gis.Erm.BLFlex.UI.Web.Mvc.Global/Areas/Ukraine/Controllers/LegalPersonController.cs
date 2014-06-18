@@ -10,8 +10,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -22,6 +22,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -58,7 +59,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Ukraine.Controllers
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(id);
-            var part = legalPerson.UkrainePart();
 
             // TODO {01.02.2013}: Убрать получение DTO-объекта в агрегирующий репозиторий
             var model = new UkraineChangeLegalPersonRequisitesViewModel
@@ -69,13 +69,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Ukraine.Controllers
                     LegalName = legalPerson.LegalName,
                     LegalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum,
                     Timestamp = legalPerson.Timestamp,
-                    TaxationType = part.TaxationType,
+                    TaxationType = legalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(x => x.TaxationType),
                     LegalPersonP =
                         GetMaxAccess(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.LegalPersonChangeRequisites,
                                                                                      UserContext.Identity.Code))
                 };
 
-            model.SetEgrpou(part.Egrpou);
+            model.SetEgrpou(
+                legalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(x => x.Egrpou));
 
             return View(model);
         }

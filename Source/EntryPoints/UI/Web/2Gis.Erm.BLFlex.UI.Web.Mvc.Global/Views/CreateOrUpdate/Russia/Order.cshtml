@@ -1,9 +1,9 @@
 ﻿@using System.Globalization
-@using BLCore.UI.Web.Mvc.Settings
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
 @using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 
 
-@model Models.Russia.OrderViewModel
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.OrderViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -48,6 +48,7 @@
 {
     <div style="display: none">
         @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.DgppId)
         @Html.HiddenFor(m => m.IsTerminated)
         @Html.HiddenFor(m => m.WorkflowStepId)
         @Html.HiddenFor(m => m.PreviousWorkflowStepId)
@@ -72,7 +73,6 @@
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
         @Html.HiddenFor(m => m.LegalPersonProfileId)
-
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />

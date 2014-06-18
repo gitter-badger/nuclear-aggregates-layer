@@ -1,5 +1,5 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -17,25 +17,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
     public sealed class CyprusPrintOrderHandler : RequestHandler<PrintOrderRequest, StreamResponse>, ICyprusAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IFirmRepository _firmAggregateRepository;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
+        private readonly IFirmReadModel _firmReadModel;
 
         public CyprusPrintOrderHandler(ISubRequestProcessor requestProcessor,
-                                       IFirmRepository firmAggregateRepository,
                                        ILegalPersonReadModel legalPersonReadModel,
                                        IBranchOfficeReadModel branchOfficeReadModel,
                                        IOrderPrintFormReadModel orderPrintFormReadModel,
-                                       IOrderPrintFormDataExtractor orderPrintFormDataExtractor)
+                                       IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
+                                       IFirmReadModel firmReadModel)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
-            _firmAggregateRepository = firmAggregateRepository;
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
+            _firmReadModel = firmReadModel;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
-            var contacts = _firmAggregateRepository.GetFirmContacts(order.FirmId);
+            var contacts = _firmReadModel.GetFirmContactsByAddresses(order.FirmId);
 
             var billQuery = _orderPrintFormReadModel.GetBillQuery(request.OrderId);
             var orderQuery = _orderPrintFormReadModel.GetOrderQuery(request.OrderId);

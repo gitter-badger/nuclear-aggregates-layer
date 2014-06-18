@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCulture
 {
-    public class MultiCultureFasCommentCustomization : EnumCustomizationBase<FasComment>, IRussiaAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
+    public class MultiCultureFasCommentCustomization : EnumCustomizationBase<FasComment>, IRussiaAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted,
+                                                       IEmiratesAdapted
     {
         protected override IEnumerable<FasComment> GetRequiredEnumValues()
         {

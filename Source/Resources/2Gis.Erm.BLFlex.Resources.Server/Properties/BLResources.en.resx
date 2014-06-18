@@ -362,4 +362,37 @@ Bank Name: {7}
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанным номером коммерческой лицензии уже существует</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>Введен неверный номер коммерчиской лицензии</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение IBAN</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение SWIFT</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным номером лицензии</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>В данной бизнес-модели отсутствует НДС. Необходимо выбрать тип договора без НДС.</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>Формирование Acceptance Report</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report для заказа с номером {0}, т.к. для него не определен профиль юр. лица </value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report, т.к. для следующих заказов не определен профиль юр. лица: {0}</value>
+  </data>
 </root>

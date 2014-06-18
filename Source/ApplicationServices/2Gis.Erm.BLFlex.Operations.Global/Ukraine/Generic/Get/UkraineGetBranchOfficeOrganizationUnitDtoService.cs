@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
         protected override void SetSpecificPropertyValues(UkraineBranchOfficeOrganizationUnitDomainEntityDto dto)
         {
             if (dto.BranchOfficeRef.Id.HasValue)
-            {
+        {
                 var branchOffice = _branchOfficeReadModel.GetBranchOffice(dto.BranchOfficeRef.Id.Value);
 
                 dto.BranchOfficeAddlId = branchOffice.Id;
@@ -37,11 +37,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
                 dto.BranchOfficeAddlName = branchOffice.Name;
                 dto.BranchOfficeAddlEgrpou = branchOffice.Inn;
                 dto.BranchOfficeAddlIpn = branchOffice.Within<UkraineBranchOfficePart>().GetPropertyValue(part => part.Ipn);
-            }
+        }
         }
 
         protected override IProjectSpecification<BranchOfficeOrganizationUnit, UkraineBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
-            {
+        {
             return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Ukraine.Project.DomainEntityDto();
         }
     }

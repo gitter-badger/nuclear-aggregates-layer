@@ -1,35 +1,34 @@
-﻿using System;
-using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Modify;
-using DoubleGis.Erm.Platform.Core.EntityProjection;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEntityObtainers
 {
-    public class ChileBranchOfficeOrganizationUnitObtainer : 
-        DynamicBranchOfficeOrganizationUnitObtainerBase<ChileBranchOfficeOrganizationUnitDomainEntityDto, ChileBranchOfficeOrganizationUnitPart>,
-        IChileAdapted
+    public class ChileBranchOfficeOrganizationUnitObtainer : IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit>, IAggregateReadModel<BranchOffice>, IChileAdapted
     {
+        private readonly IFinder _finder;
+
         public ChileBranchOfficeOrganizationUnitObtainer(IFinder finder)
-            : base(finder)
         {
+            _finder = finder;
         }
 
-        protected override BranchOfficeOrganizationUnit CreateEntity()
+        public BranchOfficeOrganizationUnit ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
-            return new BranchOfficeOrganizationUnit { IsActive = true, Parts = new[] { new ChileBranchOfficeOrganizationUnitPart() } };
-        }
+            var dto = (ChileBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
-        protected override IAssignSpecification<ChileBranchOfficeOrganizationUnitDomainEntityDto, BranchOfficeOrganizationUnit> GetAssignSpecification()
-        {
-            return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Chile.Assign.Entity();
+            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id))
+                ?? new BranchOfficeOrganizationUnit { IsActive = true, Parts = new[] { new ChileBranchOfficeOrganizationUnitPart() } };
+
+            BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Chile.Assign.Entity().Assign(dto, branchOfficeOrganizationUnit);
+
+            return branchOfficeOrganizationUnit;
         }
     }
 }

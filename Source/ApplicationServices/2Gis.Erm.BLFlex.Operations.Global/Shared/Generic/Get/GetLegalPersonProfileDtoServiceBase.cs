@@ -11,7 +11,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
-    // TODO {v.lapeev, 21.05.2014}: см. комментарии к GetLegalPersonDtoServiceBase
+    // FIXME {d.ivanov, 17.06.2014}: Убрать этот базовый класс, см. комментарии к GetLegalPersonDtoServiceBase
+    [Obsolete]
     public abstract class GetLegalPersonProfileDtoServiceBase<TDto> : GetDomainEntityDtoServiceBase<LegalPersonProfile>
         where TDto : IDomainEntityDto<LegalPersonProfile>
     {

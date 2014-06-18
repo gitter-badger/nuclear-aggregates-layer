@@ -30,7 +30,8 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class MultiCultureOrderViewModelCustomizationService : IGenericViewModelCustomizationService<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
+    public class MultiCultureOrderViewModelCustomizationService : IGenericViewModelCustomizationService<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted,
+                                                                  IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;
@@ -41,12 +42,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
         private readonly IPublicService _publicService;
 
         public MultiCultureOrderViewModelCustomizationService(IUserContext userContext,
-                                                  IAPIOrderValidationServiceSettings orderValidationServiceSettings,
-                                                  ISecurityServiceFunctionalAccess functionalAccessService,
-                                                  ISecurityServiceUserIdentifier userIdentifierService,
-                                                  ISecureFinder secureFinder,
-                                                  IReleaseReadModel releaseReadModel,
-                                                  IPublicService publicService)
+                                                              IAPIOrderValidationServiceSettings orderValidationServiceSettings,
+                                                              ISecurityServiceFunctionalAccess functionalAccessService,
+                                                              ISecurityServiceUserIdentifier userIdentifierService,
+                                                              ISecureFinder secureFinder,
+                                                              IReleaseReadModel releaseReadModel,
+                                                              IPublicService publicService)
         {
             _userContext = userContext;
             _orderValidationServiceSettings = orderValidationServiceSettings;
@@ -65,21 +66,29 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 
             var entityViewModel = (MultiCultureOrderViewModel)viewModel;
 
-            modelState.SetModelValue("WorkflowStepId", new ValueProviderResult(entityViewModel.PreviousWorkflowStepId, entityViewModel.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture), null));
+            modelState.SetModelValue("WorkflowStepId",
+                                     new ValueProviderResult(entityViewModel.PreviousWorkflowStepId,
+                                                             entityViewModel.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture),
+                                                             null));
 
             entityViewModel.OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
 
             entityViewModel.CurrenctUserCode = currentUserCode;
             entityViewModel.Inspector.Value = _userIdentifierService.GetUserInfo(entityViewModel.Inspector.Key).DisplayName;
-            entityViewModel.AvailableSteps = GetAvailableSteps(entityViewModel.Id, entityViewModel.IsNew, (OrderState)entityViewModel.WorkflowStepId, entityViewModel.SourceOrganizationUnit.Key);
+            entityViewModel.AvailableSteps = GetAvailableSteps(entityViewModel.Id,
+                                                               entityViewModel.IsNew,
+                                                               (OrderState)entityViewModel.WorkflowStepId,
+                                                               entityViewModel.SourceOrganizationUnit.Key);
 
             // Проверить функциональные разрешения
             entityViewModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
+            entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection =
+                functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
             entityViewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
 
-            entityViewModel.HasOrderDocumentsDebtChecking = _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
+            entityViewModel.HasOrderDocumentsDebtChecking =
+                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
 
             // Если есть права и нет сборки в настоящий момент 
             entityViewModel.HasOrderDocumentsDebtChecking &= !entityViewModel.IsWorkflowLocked;
@@ -119,7 +128,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                     throw new NotificationException("Destination organization unit should be specified");
                 }
 
-                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(entityViewModel.DestinationOrganizationUnit.Key.Value, new TimePeriod(entityViewModel.BeginDistributionDate, entityViewModel.EndDistributionDateFact));
+                var isReleaseInProgress = _releaseReadModel.HasFinalReleaseInProgress(entityViewModel.DestinationOrganizationUnit.Key.Value,
+                                                                                      new TimePeriod(entityViewModel.BeginDistributionDate,
+                                                                                                     entityViewModel.EndDistributionDateFact));
                 if (isReleaseInProgress)
                 {
                     LockToolbar(entityViewModel);
@@ -137,16 +148,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             if (hasLocks)
             {
                 var bargainButtons = entityViewModel.ViewConfig.CardSettings.CardToolbar
-                    .Where(x => string.Equals(x.Name, "CreateBargain", StringComparison.OrdinalIgnoreCase) || string.Equals(x.Name, "RemoveBargain", StringComparison.OrdinalIgnoreCase))
-                    .ToArray();
+                                                    .Where(
+                                                        x =>
+                                                        string.Equals(x.Name, "CreateBargain", StringComparison.OrdinalIgnoreCase) ||
+                                                        string.Equals(x.Name, "RemoveBargain", StringComparison.OrdinalIgnoreCase))
+                                                    .ToArray();
                 Array.ForEach(bargainButtons, item => item.Disabled = true);
             }
 
-            {   // restrict printing of termination notice and additional agreement
-                var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated || !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination || entityViewModel.WorkflowStepId == (int)OrderState.Archive);
+            {
+                // restrict printing of termination notice and additional agreement
+                var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated ||
+                                                            !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination ||
+                                                              entityViewModel.WorkflowStepId == (int)OrderState.Archive);
                 if (isActionDisabledBasedOnWorkflowStepId)
                 {
-                    entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
+                    entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction", false);
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction", false);
                 }
 
@@ -159,7 +176,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 }
             }
 
-            var disableCheckOrder = !(entityViewModel.WorkflowStepId == (int)OrderState.OnApproval || entityViewModel.WorkflowStepId == (int)OrderState.Approved || entityViewModel.WorkflowStepId == (int)OrderState.OnRegistration);
+            var disableCheckOrder =
+                !(entityViewModel.WorkflowStepId == (int)OrderState.OnApproval || entityViewModel.WorkflowStepId == (int)OrderState.Approved ||
+                  entityViewModel.WorkflowStepId == (int)OrderState.OnRegistration);
             if (disableCheckOrder)
             {
                 entityViewModel.ViewConfig.DisableCardToolbarItem("CheckOrder");
@@ -183,19 +202,19 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             if (!isNew)
             {
                 var response = (AvailableTransitionsResponse)_publicService.Handle(new AvailableTransitionsRequest
-                {
-                    OrderId = orderId,
-                    CurrentState = currentState,
-                    SourceOrganizationUnitId = sourceOrganizationUnitId
-                });
+                    {
+                        OrderId = orderId,
+                        CurrentState = currentState,
+                        SourceOrganizationUnitId = sourceOrganizationUnitId
+                    });
                 resultList.AddRange(response.AvailableTransitions);
             }
 
             return JsonConvert.SerializeObject(resultList.ConvertAll(state => new
-            {
-                Value = state.ToString("D"),
-                Text = state.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
-            }));
+                {
+                    Value = state.ToString("D"),
+                    Text = state.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                }));
         }
     }
 }

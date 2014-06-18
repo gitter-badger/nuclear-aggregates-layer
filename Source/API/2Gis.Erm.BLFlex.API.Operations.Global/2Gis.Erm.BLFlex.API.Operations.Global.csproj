@@ -56,6 +56,12 @@
     <Compile Include="Chile\Operations\Generic\List\ChileListCommuneDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListBankDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\AcceptanceReportPrintingException.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\EmiratesPrintAcceptanceReportRequest.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\EmiratesPrintAcceptanceReportsRequest.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\OrderToPrintAcceptanceReportDoesntHaveSpecifiedProfileException.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\SomeOrdersToPrintAcceptanceReportDontHaveSpecifiedProfileException.cs" />
+    <Compile Include="MultiCulture\Operations\Concrete\Integration\Dto\Cards\MultiCultureCardServiceBusDto.cs" />
     <Compile Include="MultiCulture\Operations\Generic\List\MultiCultureListOrderDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonProfileDto.cs" />
     <Compile Include="Cyprus\Operations\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesRequest.cs" />
@@ -68,8 +74,23 @@
     <Compile Include="Ukraine\Operations\Concrete\Old\LegalPersons\UkraineChangeLegalPersonRequisitesRequest.cs" />
     <Compile Include="Ukraine\Operations\Generic\List\UkraineListBranchOfficeDto.cs" />
     <Compile Include="Ukraine\Operations\Generic\List\UkraineListLegalPersonDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\BreakDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\ContactDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\DayLabel.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\DayScheduleDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\ScheduleDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\EmiratesDepCardServiceBusDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\Dto\Cards\EmiratesPosCardServiceBusDto.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\IPaymentMethodFormatter.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Integration\IPhoneNumbersFormatter.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\LegalPersons\EmiratesChangeLegalPersonRequisitesRequest.cs" />
+    <Compile Include="Emirates\Operations\Generic\List\EmiratesListAcceptanceReportsJournalRecordDto.cs" />
+    <Compile Include="Emirates\Operations\Generic\List\EmiratesListBranchOfficeDto.cs" />
+    <Compile Include="Emirates\Operations\Generic\List\EmiratesListLegalPersonDto.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DI\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>

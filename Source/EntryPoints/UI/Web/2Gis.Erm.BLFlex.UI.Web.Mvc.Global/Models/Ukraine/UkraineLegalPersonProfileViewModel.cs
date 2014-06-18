@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         [SanitizedString]
         [EmailLocalized]
         [StringLengthLocalized(64)]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [SanitizedString]
         [StringLengthLocalized(512)]
@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            AdditionalEmail = modelDto.AdditionalEmail;
+            Email = modelDto.AdditionalEmail;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
@@ -187,7 +187,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             {
                 Id = Id,
                 Name = Name.EnsureСleanness(),
-                AdditionalEmail = AdditionalEmail.EnsureСleanness(),
+                AdditionalEmail = Email.EnsureСleanness(),
                 DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                 PaymentMethod = PaymentMethod,
                 AccountNumber = AccountNumber.EnsureСleanness(),

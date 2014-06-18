@@ -230,7 +230,7 @@ WriteLiteral("            ");
 
             
             #line 55 "..\..\Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml"
-       Write(Html.TemplateField(m => m.AdditionalEmail, FieldFlex.lone));
+       Write(Html.TemplateField(m => m.Email, FieldFlex.lone));
 
             
             #line default

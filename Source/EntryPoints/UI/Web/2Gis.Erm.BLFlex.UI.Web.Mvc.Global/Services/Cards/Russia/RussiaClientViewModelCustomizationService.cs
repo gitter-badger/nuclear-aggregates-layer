@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             if (entityViewModel.IsNew)
             {
                 // При создании нового клиента должна проставляться дата взятия из резерва, но не дата возвращения в резерв.
+                // TODO {all, 17.06.2014}: вероятно, этой логике место в сервисе получения DomainEntityDto
                 entityViewModel.LastQualifyTime = DateTime.UtcNow.Date;
             }
         }

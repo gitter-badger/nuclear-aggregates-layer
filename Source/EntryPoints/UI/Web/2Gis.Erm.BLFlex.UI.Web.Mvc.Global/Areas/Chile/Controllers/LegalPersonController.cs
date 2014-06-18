@@ -11,8 +11,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -21,9 +21,8 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -33,7 +32,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IPublicService _publicService;
-        private readonly IFinder _finder;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IChileLegalPersonReadModel _chileLegalPersonReadModel;
 
@@ -44,14 +42,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
                                      IPublicService publicService,
-                                     IFinder finder,
                                      ILegalPersonReadModel legalPersonReadModel,
                                      IChileLegalPersonReadModel chileLegalPersonReadModel)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
-            _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _chileLegalPersonReadModel = chileLegalPersonReadModel;
         }
@@ -72,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
                 new ChileChangeLegalPersonRequisitesViewModel
                     {
                         Id = legalPerson.Id,
-                        OperationsKind = legalPerson.ChilePart().OperationsKind,
+                        OperationsKind = legalPerson.Within<ChileLegalPersonPart>().GetPropertyValue(x => x.OperationsKind),
                         Rut = legalPerson.Inn,
                         LegalAddress = legalPerson.LegalAddress,
                         LegalName = legalPerson.LegalName,

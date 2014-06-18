@@ -40,6 +40,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -60,11 +62,15 @@
     <Compile Include="Chile\LegalPersonAggregate\ReadModel\IChileLegalPersonReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
+    <Compile Include="Emirates\Orders\EmiratesOrderReadModel.cs" />
+    <Compile Include="Emirates\SimplifiedModel\CreateAcceptanceReportsJournalRecordService.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
+    <Compile Include="MultiCulture\Firms\Operations\MultiCultureImportCardAggregateService.cs" />
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
     <Compile Include="MultiCulture\Crosscutting\NullValidateBillsService.cs" />
+    <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
     <Compile Include="Chile\BranchOfficesAggregate\ReadModel\ChileBranchOfficeReadModel.cs" />
@@ -74,15 +80,25 @@
     <Compile Include="Ukraine\Crosscutting\UkraineIpnService.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\IUkraineLegalPersonReadModel.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\UkraineLegalPersonReadModel.cs" />
+    <Compile Include="Emirates\Crosscutting\EmiratesInnService.cs" />
+    <Compile Include="Emirates\SimplifiedModel\ReadModel\AcceptanceReportsJournal\AcceptanceReportsJournalSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
       <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
@@ -104,6 +120,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
       <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
@@ -119,6 +139,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj">
+      <Project>{3DBCA11C-C295-4A54-8E64-60473575EFF8}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Aggregates.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
       <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
@@ -137,6 +161,10 @@
     <Folder Include="Chile\Orders\DTO\" />
     <Folder Include="Cyprus\Orders\DTO\" />
     <Folder Include="Czech\Orders\DTO\" />
+    <Folder Include="Emirates\Clients\Operations\" />
+    <Folder Include="Emirates\Firms\Operations\" />
+    <Folder Include="MultiCulture\Clients\Operations\" />
+    <Folder Include="MultiCulture\LegalPersonAggregate\" />
     <Folder Include="Russia\Orders\DTO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

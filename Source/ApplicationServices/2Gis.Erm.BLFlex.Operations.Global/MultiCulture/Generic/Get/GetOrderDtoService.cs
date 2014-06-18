@@ -27,7 +27,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ICostCalculator _costCalculator;

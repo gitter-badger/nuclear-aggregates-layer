@@ -1,6 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
@@ -156,7 +157,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             model.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             model.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            model.AdditionalEmail = TestAdditionalEmail;
+            model.Email = TestAdditionalEmail;
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.AccountNumber = TestAccountNumber;
@@ -187,7 +188,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             model.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             model.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            model.AdditionalEmail = TestAdditionalEmail;
+            model.Email = TestAdditionalEmail;
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.BankAccountType = TestAccountType;
@@ -214,7 +215,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             model.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             model.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            model.AdditionalEmail = TestAdditionalEmail;
+            model.Email = TestAdditionalEmail;
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.AccountNumber = TestAccountNumber;
@@ -251,7 +252,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             model.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             model.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            model.AdditionalEmail = TestAdditionalEmail;
+            model.Email = TestAdditionalEmail;
             model.PostAddress = TestPostAddress;
             model.Phone = TestPhone;
             model.OperatesOnTheBasisInGenitive = TestOperatesOnTheBasisType;
@@ -281,7 +282,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.S
             model.DocumentsDeliveryMethod = TestDocumentsDeliveryMethod;
             model.PersonResponsibleForDocuments = TestPersonResponsibleForDocuments;
             model.EmailForAccountingDocuments = TestEmailForAccountingDocuments;
-            model.AdditionalEmail = TestAdditionalEmail;
+            model.Email = TestAdditionalEmail;
             model.PostAddress = TestPostAddress;
             model.PaymentMethod = TestPaymentMethod;
             model.AccountNumber = TestAccountNumber;

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -36,7 +36,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                     {
                                         Id = x.Id,
                                         LegalName = x.LegalName,
-                                        ShortName = x.ShortName,
                                         LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
                                         LegalAddress = x.LegalAddress,
                                         PassportSeries = x.PassportSeries,
@@ -73,7 +72,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                 {
                                     legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
                                     legalPerson.LegalName = dto.LegalName;
-                                    legalPerson.ShortName = dto.ShortName;
                                     legalPerson.LegalAddress = dto.LegalAddress;
                                     legalPerson.PassportNumber = dto.PassportNumber;
                                     legalPerson.RegistrationAddress = dto.RegistrationAddress;

@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.MultiCultureFirmViewModel
+﻿@model  DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureFirmViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -13,10 +12,8 @@
 @section CardBody
 {
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ReplicationCode)
 
     @* used to create dynamics crm activities *@
-    @Html.HiddenFor(m=>m.ClientReplicationCode)
     @Html.HiddenFor(m=>m.ClientName)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">

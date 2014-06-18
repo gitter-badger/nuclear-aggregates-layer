@@ -241,7 +241,7 @@ WriteLiteral("            ");
 
             
             #line 56 "..\..\Views\CreateOrUpdate\Cyprus\LegalPersonProfile.cshtml"
-       Write(Html.TemplateField(m => m.AdditionalEmail, FieldFlex.lone));
+       Write(Html.TemplateField(m => m.Email, FieldFlex.lone));
 
             
             #line default

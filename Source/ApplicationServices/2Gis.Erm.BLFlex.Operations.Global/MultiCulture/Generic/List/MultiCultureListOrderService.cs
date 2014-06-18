@@ -18,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 {
-    public sealed class MultiCultureListOrderService : ListEntityDtoServiceBase<Order, MultiCultureListOrderDto>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted
+    public sealed class MultiCultureListOrderService : ListEntityDtoServiceBase<Order, MultiCultureListOrderDto>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private static readonly Func<MultiCultureListOrderDto, ISecurityServiceUserIdentifier, IUserContext, MultiCultureListOrderDto> ListDataSelectFunc =
             (order, userIdentifierService, userContext) =>

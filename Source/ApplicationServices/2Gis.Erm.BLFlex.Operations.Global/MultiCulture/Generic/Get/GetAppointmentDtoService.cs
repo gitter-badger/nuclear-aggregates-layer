@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IFinder _finder;
         private readonly IActivityReadModel _activityReadModel;

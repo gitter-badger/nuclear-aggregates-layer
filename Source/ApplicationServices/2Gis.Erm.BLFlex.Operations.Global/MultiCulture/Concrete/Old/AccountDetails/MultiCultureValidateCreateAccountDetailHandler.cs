@@ -6,7 +6,9 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.AccountDetails
 {
-    public sealed class MultiCultureValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCultureValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>,
+                                                                         ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted,
+                                                                         IEmiratesAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAccountRepository _accountRepository;
@@ -21,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Accou
         {
             var response = new ValidateCreateAccountDetailResponse();
 
-            // В кипрской, чешской, чилийской, украинской версии не проверяем, что л/с - из франчайзи
+            // В кипрской, чешской, чилийской, украинской, ОАЭ версии не проверяем, что л/с - из франчайзи
             response.Validated = _accountRepository.IsCreateAccountDetailValid(request.AccountId, _userContext.Identity.Code, false);
             return response;
         }

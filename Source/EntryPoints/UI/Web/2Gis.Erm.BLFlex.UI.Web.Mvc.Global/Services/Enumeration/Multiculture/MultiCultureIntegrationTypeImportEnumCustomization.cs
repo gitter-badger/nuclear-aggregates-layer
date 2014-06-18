@@ -8,9 +8,10 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.MultiCulture
 {
-    public sealed class MultiCultureIntegrationTypeImportEnumCustomization : EnumCustomizationBase<IntegrationTypeImport>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCultureIntegrationTypeImportEnumCustomization : EnumCustomizationBase<IntegrationTypeImport>, IChileAdapted, ICyprusAdapted,
+                                                                             ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private readonly IntegrationTypeImport[] _integrationTypes1C = 
+        private readonly IntegrationTypeImport[] _integrationTypes1C =
             {
                 IntegrationTypeImport.AccountDetailsFrom1C,
             };

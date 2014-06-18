@@ -47,23 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\DTOs\BankDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\ChileBranchOfficeDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\CyprusBranchOfficeDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\CyprusBranchOfficeOrganizationUnitDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\CzechBranchOfficeDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\CzechBranchOfficeOrganizationUnitDomainEntityDto.cs">
+    <Compile Include="Entities\DTOs\Chile\BankDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Chile\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\MultiCulture\MultiCultureClientDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesFirmAddressDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesLegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesClientDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesLegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Ukraine\UkraineBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Ukraine\UkraineBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Ukraine\UkraineLegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Ukraine\UkraineLegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Chile\ChileLegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Chile\ChileLegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Chile\ChileBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Cyprus\CyprusBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Cyprus\CyprusBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Czech\CzechBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Czech\CzechBranchOfficeOrganizationUnitDomainEntityDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\DTOs\RussiaBranchOfficeDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\RussiaBranchOfficeOrganizationUnitDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\UkraineBranchOfficeOrganizationUnitDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\UkraineBranchOfficeDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\UkraineLegalPersonProfileDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\UkraineLegalPersonDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\ChileLegalPersonDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\ChileLegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Russia\RussiaBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Russia\RussiaBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +83,7 @@
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

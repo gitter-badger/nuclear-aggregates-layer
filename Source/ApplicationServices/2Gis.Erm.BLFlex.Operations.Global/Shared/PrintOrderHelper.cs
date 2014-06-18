@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             return beginDistributionDate.AddMonths(-1).AddDays(Day - 1);
         }
 
-        public string FormatAddress(int addressNumber, AddressDto address, IEnumerable<FirmContact> contacts)
+        public string FormatAddress(int addressNumber, AddressDto address, IEnumerable<FirmContact> contacts, CultureInfo targetCulture)
         {
             var stringBuilder = new StringBuilder();
 
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             // WorkingTime
             if (!string.IsNullOrEmpty(address.WorkingTime))
             {
-                var localizedWorkingTime = FirmWorkingTimeLocalizer.LocalizeWorkingTime(address.WorkingTime, CultureInfo.CurrentCulture);
+                var localizedWorkingTime = FirmWorkingTimeLocalizer.LocalizeWorkingTime(address.WorkingTime, targetCulture);
                 stringBuilder.Append(MetadataResources.WorkingTime).Append(": ").AppendLine(localizedWorkingTime);
             }
 
@@ -185,7 +185,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             return new PrintData { { "OrderPositions", orderPositions } };
         }
 
-        public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
+        public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts, CultureInfo targetCulture)
         {
             var addresses = query
                 .Select(y => new AddressDto
@@ -199,7 +199,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
                 .ToArray();
 
             var printAddresses = Enumerable.Range(1, int.MaxValue)
-                .Zip(addresses, (index, address) => new PrintData { { "FirmAddressInfo", FormatAddress(index, address, contacts[address.Id]) } })
+                .Zip(addresses, (index, address) => new PrintData { { "FirmAddressInfo", FormatAddress(index, address, contacts[address.Id], targetCulture) } })
                 .ToArray();
 
             return new PrintData

@@ -11,7 +11,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class MultiCultureAccountViewModelCustomizationService : IGenericViewModelCustomizationService<Account>, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureAccountViewModelCustomizationService : IGenericViewModelCustomizationService<Account>, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
