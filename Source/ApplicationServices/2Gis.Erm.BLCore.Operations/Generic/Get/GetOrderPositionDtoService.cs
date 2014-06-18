@@ -14,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+// COMMENT {d.ivanov, 03.06.2014}: По-хорошему - эта штука должна лежать в BLFlex, и еще много чего должно быть зафлексино касательно позиции заказа. 
+// C учетом компромисса, на который мы пошли, этот сервис будет лежать в Core и мы обойдемся только разными вариантами вьюх и тем, что Ндс в Dubai будет = 0.
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetOrderPositionDtoService : GetDomainEntityDtoServiceBase<OrderPosition>
@@ -103,13 +105,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        };
         }
 
-        protected override void SetDtoProperties(
-            IDomainEntityDto<OrderPosition> domainEntityDto, 
-            long entityId, 
-            bool readOnly, 
-            long? parentEntityId, 
-            EntityName parentEntityName, 
-            string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<OrderPosition> domainEntityDto,
+                                                 long entityId,
+                                                 bool readOnly,
+                                                 long? parentEntityId,
+                                                 EntityName parentEntityName,
+                                                 string extendedInfo)
         {
             var modelDto = (OrderPositionDomainEntityDto)domainEntityDto;
 
@@ -149,7 +150,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             modelDto.RequiredPlatformId = orderInfo.OrderPositionCount > (modelDto.Id == 0 ? 0 : 1) ? orderInfo.PlatformId : null;
 
             // Сборка в статусе "InProgress" за период, который пересекается с периодом размещения заказа или заказ в Архиве 
-            var response = (CheckOrderReleasePeriodResponse)_publicService.Handle(new CheckOrderReleasePeriodRequest { OrderId = modelDto.OrderId, InProgressOnly = true });
+            var response =
+                (CheckOrderReleasePeriodResponse)_publicService.Handle(new CheckOrderReleasePeriodRequest { OrderId = modelDto.OrderId, InProgressOnly = true });
             modelDto.IsBlockedByRelease = !response.Success;
             modelDto.OrderWorkflowStepId = orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&

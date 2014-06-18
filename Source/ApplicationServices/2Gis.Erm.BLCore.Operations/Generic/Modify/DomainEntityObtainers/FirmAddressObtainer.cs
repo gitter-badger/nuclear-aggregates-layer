@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -23,10 +21,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (FirmAddressDomainEntityDto)domainEntityDto;
 
-            var entity =
-                dto.Id == 0
-                    ? new FirmAddress { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<FirmAddress>(dto.Id)).Single();
+            var entity = _finder.FindOne(Specs.Find.ById<FirmAddress>(dto.Id)) 
+                ?? new FirmAddress { IsActive = true };
 
             entity.Timestamp = dto.Timestamp;
 

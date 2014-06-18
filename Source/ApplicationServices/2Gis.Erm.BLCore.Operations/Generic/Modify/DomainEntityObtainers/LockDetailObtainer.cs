@@ -23,11 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LockDetailDomainEntityDto)domainEntityDto;
 
-            var lockDetail =
-                dto.Id == 0
-                    ? new LockDetail { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<LockDetail>(dto.Id)).Single();
-
+            var lockDetail = _finder.FindOne(Specs.Find.ById<LockDetail>(dto.Id)) 
+                ?? new LockDetail { IsActive = true };
 
             lockDetail.Id = dto.Id;
             lockDetail.PriceId = dto.PriceRef.Id.Value;

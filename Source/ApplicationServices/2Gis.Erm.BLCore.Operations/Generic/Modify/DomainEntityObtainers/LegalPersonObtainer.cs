@@ -1,5 +1,3 @@
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
@@ -11,7 +9,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 {
-    // TODO {all, 07.04.2014}: в  целом по obtainers см. коммент к IBusinessModelEntityObtainerFlex, до выработки болееменее четкой идеологии дальнейшего развития предлагаю пока дальше obtainers такого типа не масштабировать/клонировать
     public class LegalPersonObtainer : IBusinessModelEntityObtainer<LegalPerson>, IAggregateReadModel<LegalPerson>
     {
         private readonly IFinder _finder;
@@ -25,9 +22,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LegalPersonDomainEntityDto)domainEntityDto;
 
-            var legalPerson = dto.Id == 0
-                                  ? new LegalPerson { IsActive = true }
-                                  : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
+            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id)) 
+                ?? new LegalPerson { IsActive = true };
 
             if (!dto.IsInSyncWith1C)
             {

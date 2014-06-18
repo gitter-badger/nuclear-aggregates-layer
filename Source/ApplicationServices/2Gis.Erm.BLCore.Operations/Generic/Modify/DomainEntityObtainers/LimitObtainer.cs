@@ -24,10 +24,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LimitDomainEntityDto)domainEntityDto;
 
-            var limit =
-                dto.Id == 0
-                    ? new Limit { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<Limit>(dto.Id)).Single();
+            var limit = _finder.FindOne(Specs.Find.ById<Limit>(dto.Id)) 
+                ?? new Limit { IsActive = true };
 
             limit.AccountId = dto.AccountRef.Id.Value;
             limit.CloseDate = dto.CloseDate;

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -13,6 +14,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
             public static FindSpecification<OrganizationUnit> ByDgppId(long organizationUnitDgppId)
             {
                 return new FindSpecification<OrganizationUnit>(x => x.DgppId == organizationUnitDgppId);
+            }
+
+            public static FindSpecification<OrganizationUnit> ByDgppIds(IEnumerable<int> organizationUnitDgppIds)
+            {
+                return new FindSpecification<OrganizationUnit>(x => x.DgppId.HasValue && organizationUnitDgppIds.Contains(x.DgppId.Value));
             }
         }
 

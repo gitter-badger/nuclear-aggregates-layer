@@ -3,13 +3,13 @@ using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -30,15 +30,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IPublicService _publicService;
         private readonly ICommonLog _logger;
+        private readonly IClientReadModel _clientReadModel;
 
-        public DisqualifyClientService(IUserContext userContext, 
-            IClientRepository clientRepository, 
-            ISecurityServiceUserIdentifier userIdentifierService, 
-            ISecurityServiceFunctionalAccess functionalAccessService, 
-            IOperationScopeFactory scopeFactory,
-            IPublicService publicService, 
-            ICommonLog logger, 
-            ISecurityServiceEntityAccess securityServiceEntityAccess)
+        public DisqualifyClientService(IUserContext userContext,
+                                       IClientRepository clientRepository,
+                                       ISecurityServiceUserIdentifier userIdentifierService,
+                                       ISecurityServiceFunctionalAccess functionalAccessService,
+                                       IPublicService publicService,
+                                       ICommonLog logger,
+                                       ISecurityServiceEntityAccess securityServiceEntityAccess,
+                                       IClientReadModel clientReadModel)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
@@ -47,11 +48,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             _publicService = publicService;
             _logger = logger;
             _securityServiceEntityAccess = securityServiceEntityAccess;
+            _clientReadModel = clientReadModel;
         }
 
         public virtual DisqualifyResult Disqualify(long entityId, bool bypassValidation)
         {
-            var client = _clientRepository.GetClient(entityId);
+            var client = _clientReadModel.GetClient(entityId);
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                               EntityName.Client,
                                                               _userContext.Identity.Code,

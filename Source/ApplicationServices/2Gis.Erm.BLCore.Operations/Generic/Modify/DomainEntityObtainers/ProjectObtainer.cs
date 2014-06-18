@@ -22,13 +22,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         public Project ObtainSimplifiedModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (ProjectDomainEntityDto)domainEntityDto;
+            var entity = _finder.FindOne(Specs.Find.ById<Project>(dto.Id));
 
-            if (dto.Id == 0)
+            if (entity == null)
             {
                 throw new NotSupportedException("Project creation is not supported");
             }
-
-            var entity = _finder.Find(Specs.Find.ById<Project>(dto.Id)).Single();
 
             entity.OrganizationUnitId = dto.OrganizationUnitRef.Id;
 

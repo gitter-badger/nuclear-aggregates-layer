@@ -1,7 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -17,25 +18,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
     {
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
-        private readonly IClientRepository _clientRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICommonLog _logger;
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly ICreateClientByFirmOperationService _createClientByFirmAggregateService;
+        private readonly IClientReadModel _clientReadModel;
 
         public QualifyFirmService(
             IUserContext userContext,
             IFirmRepository firmRepository,
-            IClientRepository clientRepository,
-            ISecurityServiceUserIdentifier userIdentifierService, 
+            ISecurityServiceUserIdentifier userIdentifierService,
             ICommonLog logger,
-            IOperationScopeFactory operationScopeFactory)
+            IOperationScopeFactory operationScopeFactory,
+            ICreateClientByFirmOperationService createClientByFirmAggregateService,
+            IClientReadModel clientReadModel)
         {
             _userContext = userContext;
             _firmRepository = firmRepository;
-            _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _logger = logger;
             _operationScopeFactory = operationScopeFactory;
+            _createClientByFirmAggregateService = createClientByFirmAggregateService;
+            _clientReadModel = clientReadModel;
         }
 
         public virtual QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
@@ -58,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
                 if (relatedEntityId != null)
                 {
                     var clientId = relatedEntityId.Value;
-                    client = _clientRepository.GetClient(clientId);
+                    client = _clientReadModel.GetClient(clientId);
                     if (client == null)
                     {
                         throw new ArgumentException(string.Format(BLResources.CouldNotFindClient, clientId));
@@ -73,14 +77,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
                     {
                         throw new ArgumentException(BLResources.QualifyCurrentUserIsNotOwnerForClient);
                     }
+
+                    _firmRepository.SetFirmClient(firm, client.Id);
+                    operationScope.Updated<Firm>(firm.Id);
                 }
                 else
                 {
-                    client = _clientRepository.CreateFromFirm(firm, ownerCode);
+                    client = _createClientByFirmAggregateService.CreateByFirm(firm, ownerCode);
                     operationScope.Added<Client>(client.Id);
                 }
-
-                _firmRepository.SetFirmClient(firm, client.Id);
 
                 operationScope.Updated<Firm>(entityId);
                 operationScope.Complete();

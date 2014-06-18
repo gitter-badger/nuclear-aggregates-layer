@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         int Assign(Firm firm, long ownerCode);
         Firm GetFirm(long firmId);
         void Update(Firm firm);
-        void Update(FirmAddress firmAddress);
         int Qualify(Firm firm, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate);
         Client PerformDisqualificationChecks(long firmId, long currentUserCode);
         int Disqualify(Firm firm, long currentUserCode, long reserveCode, DateTime disqualifyDate);
@@ -57,13 +56,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         IEnumerable<AdditionalServicesDto> GetFirmAddressAdditionalServices(long firmAddressId);
         void SetFirmAddressAdditionalServices(long firmAddressId, IEnumerable<AdditionalServicesDto> additionalServices);
 
-        IEnumerable<FirmContact> GetContacts(long firmAddressId);
-        IDictionary<long, IEnumerable<FirmContact>> GetFirmContacts(long firmId);
-
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
 
         // TODO {d.ivanov, 19.12.2013}: IReadModel
-        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
+        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds); 
 
         // todo {d.ivanov, 2013-11-21}: IReadModel
         long GetFirmAddressOrganizationUnitId(long cardCode);

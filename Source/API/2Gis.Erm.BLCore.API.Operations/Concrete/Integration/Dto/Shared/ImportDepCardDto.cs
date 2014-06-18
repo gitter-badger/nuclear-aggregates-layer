@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.CardsForErm
+﻿namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared
 {
     public class ImportDepCardDto
     {

@@ -104,12 +104,19 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IRepository<LegalPersonProfile>, EFGenericRepository<LegalPersonProfile>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
                         .RegisterTypeWithDependencies<IRepository<BranchOffice>, EFGenericRepository<BranchOffice>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
                         .RegisterTypeWithDependencies<IRepository<BranchOfficeOrganizationUnit>, EFGenericRepository<BranchOfficeOrganizationUnit>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<Client>, EFGenericRepository<Client>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
+                        .RegisterTypeWithDependencies<IRepository<FirmAddress>, EFGenericRepository<FirmAddress>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
 
                         .RegisterTypeWithDependencies<IRepository<LegalPerson>, ConsistentRepositoryDecorator<LegalPerson>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<LegalPersonProfile>, ConsistentRepositoryDecorator<LegalPersonProfile>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<BranchOffice>, ConsistentRepositoryDecorator<BranchOffice>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<BranchOfficeOrganizationUnit>, ConsistentRepositoryDecorator<BranchOfficeOrganizationUnit>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<Client>, ConsistentRepositoryDecorator<Client>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<FirmAddress>, ConsistentRepositoryDecorator<FirmAddress>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>,
+                            DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }

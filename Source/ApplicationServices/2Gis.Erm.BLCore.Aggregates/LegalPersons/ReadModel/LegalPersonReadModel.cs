@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -33,12 +30,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
                           .SingleOrDefault();
         }
 
+        public string GetActiveLegalPersonNameWithSpecifiedInn(string inn)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                && LegalPersonSpecs.LegalPersons.Find.ByInn(inn))
+                          .Select(x => x.LegalName)
+                          .FirstOrDefault();
+        }
+
         public LegalPersonType GetLegalPersonType(long legalPersonId)
         {
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                           .Select(x => (LegalPersonType)x.LegalPersonTypeEnum)
                           .SingleOrDefault();
-        }
+            }
 
 
         public LegalPerson GetLegalPerson(long legalPersonId)
@@ -57,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         }
 
         public bool HasAnyLegalPersonProfiles(long legalPersonId)
-                          {
+        {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId)).Any();
         }
     }

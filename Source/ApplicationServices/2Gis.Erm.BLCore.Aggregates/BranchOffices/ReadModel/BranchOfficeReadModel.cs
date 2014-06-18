@@ -11,13 +11,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
 {
-    // FIXME {all, 07.04.2014}: к именно текущему состоянию данного типа вопросов не очень много, но предлагаю пока взять timeout на дальнейшее масштабирование практики переопределения readmodel в зависимости от business model через наследование
-    // т.к. у нас в приложении в перспективе будет на уровне метаданных полная информация в какой бизнесмодели какие свойства к каким сущностям подцепленны, возможно не придется этим заниматься на уровне императивного кода в readmodel
-    // Сам подход partable (расширяемых, возможно лучше было использовать что-то вроде extensibility) сущностей был ориентирован на то, чтобы минимизировать необходимость в создании Chile***Service_Model и т.п. 
-    // Итого - до согласования подхода работы с расширяемыми сущностями (EAV и т.п.) пока подход с abstract классом и business model specific подкласами заморожен.
     public abstract class BranchOfficeReadModel : IBranchOfficeReadModel
     {
         private readonly IFinder _finder;
+        // FIXME {y.baranihin, 04.06.2014}: Верно, что _secureFinder не используется?
         private readonly ISecureFinder _secureFinder;
 
         protected BranchOfficeReadModel(IFinder finder, ISecureFinder secureFinder)
@@ -39,6 +36,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         public virtual BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(string syncCode1C)
         {
             return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BySyncCode1C(syncCode1C));
+        }
+
+        public string GetNameOfActiveDuplicateByInn(long branchOfficeId, string inn)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOffice>()
+                               && BranchOfficeSpecs.BranchOffices.Find.DuplicatesByInn(branchOfficeId, inn))
+                         .Select(x => x.Name)
+                         .FirstOrDefault();
+        }
+
+        public bool AreThereAnyActiveInnDuplicates(long branchOfficeId, string inn)
+        {
+            return _finder.Find(BranchOfficeSpecs.BranchOffices.Find.DuplicatesByInn(branchOfficeId, inn) &&
+                                Specs.Find.ActiveAndNotDeleted<BranchOffice>())
+                          .Any();
         }
 
         public PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
@@ -66,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         }
 
         public string GetBranchOfficeName(long branchOfficeId)
-                                    {
+        {
             return _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeId)).Select(x => x.Name).Single();
         }
 

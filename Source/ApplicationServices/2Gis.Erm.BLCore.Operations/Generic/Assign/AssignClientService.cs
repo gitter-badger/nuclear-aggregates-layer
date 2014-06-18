@@ -3,6 +3,7 @@ using System.ServiceModel.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
@@ -27,14 +28,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
+        private readonly IClientReadModel _clientReadModel;
 
         public AssignClientService(
-            IPublicService publicService, 
+            IPublicService publicService,
             IClientRepository clientRepository,
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext, 
+            IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger)
+            ICommonLog logger,
+            IClientReadModel clientReadModel)
         {
             _publicService = publicService;
             _clientRepository = clientRepository;
@@ -42,6 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _userContext = userContext;
             _scopeFactory = scopeFactory;
             _logger = logger;
+            _clientReadModel = clientReadModel;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -94,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             }
             catch (SecurityAccessDeniedException ex)
             {
-                var clientName = _clientRepository.GetClientName(entityId);
+                var clientName = _clientReadModel.GetClientName(entityId);
                 if (clientName != null)
                 {
                     throw new SecurityException(string.Format(BLResources.AccessToClientIsDenied, clientName), ex.InnerException);

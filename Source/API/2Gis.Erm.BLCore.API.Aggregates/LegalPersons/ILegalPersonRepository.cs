@@ -23,7 +23,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         int Deactivate(LegalPerson legalPerson);
 
         void SyncWith1C(IEnumerable<LegalPerson> legalPersons);
-        LegalPersonForMergeDto GetInfoForMerging(long legalPersonId);
         CheckForDublicatesResultDto CheckIfExistsInnDuplicate(long legalPersonId, string inn);
         CheckForDublicatesResultDto CheckIfExistsInnAndKppDuplicate(long legalPersonId, string inn, string kpp);
         CheckForDublicatesResultDto CheckIfExistsInnOrIcDuplicate(long legalPersonId, string inn, string kpp);

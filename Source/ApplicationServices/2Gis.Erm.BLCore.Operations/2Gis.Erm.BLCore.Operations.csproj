@@ -81,6 +81,10 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmContactsService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportDepCardsService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportCategoryFirmAddressService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmAddressService.cs" />
     <Compile Include="Concrete\Integration\Import\Infrastructure\IImportMetadataProvider.cs" />
     <Compile Include="Concrete\Integration\Import\Infrastructure\ImportMetadataProvider.cs" />
     <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusFlowDescriptor.cs" />
@@ -150,11 +154,9 @@
     <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Processors\ImportCardForErmService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserealizeReferenceItemService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeCardRelationService.cs" />
-    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeCardService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeFirmService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeReferenceService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardRelationService.cs" />
-    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportFirmService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceItemService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceService.cs" />
@@ -394,7 +396,6 @@
     <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryOrganizationUnitDtoService.cs" />
-    <Compile Include="Generic\Get\GetClientDtoService.cs" />
     <Compile Include="Generic\Get\GetContactDtoService.cs" />
     <Compile Include="Generic\Get\GetContributionTypeDtoService.cs" />
     <Compile Include="Generic\Get\GetCoutryDtoService.cs" />
@@ -404,7 +405,6 @@
     <Compile Include="Generic\Get\GetDeniedPositionDtoService.cs" />
     <Compile Include="Generic\Get\GetDepartmentDtoSerivce.cs" />
     <Compile Include="Generic\Get\GetDomainEntityDtoServiceBase.cs" />
-    <Compile Include="Generic\Get\GetFirmAddressDtoService.cs" />
     <Compile Include="Generic\Get\GetFirmContactDtoService.cs" />
     <Compile Include="Generic\Get\GetFirmDtoService.cs" />
     <Compile Include="Generic\Get\GetGenericDomainEntityDtoService.cs" />
@@ -455,7 +455,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\ClientObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ContactObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ContributionTypeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CountryObtainer.cs" />

@@ -24,9 +24,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (ContactDomainEntityDto)domainEntityDto;
 
-            var contact = dto.Id == 0
-                              ? new Contact { IsActive = true }
-                              : _finder.Find(Specs.Find.ById<Contact>(dto.Id)).Single();
+            var contact = _finder.FindOne(Specs.Find.ById<Contact>(dto.Id)) 
+                ?? new Contact { IsActive = true };
 
             contact.Id = dto.Id;
             contact.FirstName = dto.FirstName;

@@ -1887,4 +1887,11 @@
 	<data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
     <value>Договор (новая модель продаж)</value>
   </data>
+  <data name="TemplateCodeAcceptanceReport" xml:space="preserve">
+    <value>AcceptanceReport</value>
+  </data>
+  <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
+    <value>Договор для юр. лица (дополнительный язык)</value>
+    <comment>Арабский-английский для договора в Эмиратах</comment>
+  </data>
 </root>

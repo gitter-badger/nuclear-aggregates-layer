@@ -7,14 +7,10 @@ using System.Text;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
@@ -118,16 +114,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _contactGenericSecureRepository = contactGenericSecureRepository;
         }
 
-        public string GetClientName(long clientId)
-        {
-            return _secureFinder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).SingleOrDefault();
-        }
-
-        public Client GetClient(long clientId)
-        {
-            return _secureFinder.Find(Specs.Find.ById<Client>(clientId)).SingleOrDefault();
-        }
-
         public ClientReplicationDto GetClientReplicationData(long clientId)
         {
             return _finder.Find(Specs.Find.ById<Client>(clientId))
@@ -137,56 +123,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                   FirmReplicationCodes = x.Firms.Where(f => f.IsActive && !f.IsDeleted).Select(f => f.ReplicationCode)
                               })
                           .Single();
-        }
-
-        public Client CreateFromFirm(Firm firm, long ownerCode)
-        {
-            if (!firm.LastQualifyTime.HasValue)
-            {
-                throw new ArgumentException(BLResources.FirmHasNotLastQualifyTime);
-            }
-
-            var client = new Client
-                {
-                    MainFirmId = firm.Id,
-                    Name = firm.Name,
-                    TerritoryId = firm.TerritoryId,
-                    InformationSource = (int)InformationSource.SalesDepartment,
-                    OwnerCode = ownerCode,
-                    LastQualifyTime = firm.LastQualifyTime.Value,
-                    IsActive = true
-                };
-
-            var firmAddresses = _finder.Find(Specs.Find.ById<Firm>(firm.Id))
-                .Select(x => x.FirmAddresses.Where(y => y.IsActive && !y.IsDeleted))
-                .Single();
-            foreach (var firmAddress in firmAddresses)
-            {
-                var firmContacts = GetFirmContacts(firmAddress.Id);
-                
-                var contacts = firmContacts as FirmContact[] ?? firmContacts.ToArray();
-                if (contacts.Any())
-                {
-                    if (string.IsNullOrEmpty(client.MainAddress))
-                    {
-                        client.MainAddress = firmAddress.Address + ((firmAddress.ReferencePoint == null) ? string.Empty : " — " + firmAddress.ReferencePoint);
-                    }
-
-                    FillClientPropertiesFromFirmContacts(contacts, client);
-                    break;
-                }
-            }
-
-            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Client>())
-            {
-                _identityProvider.SetFor(client);
-                _clientGenericSecureRepository.Add(client);
-                _clientGenericSecureRepository.Save();
-                scope.Added<Client>(client.Id)
-                     .Complete();
-            }
-
-            return client;
         }
 
         public int SetMainFirm(Client client, long? mainFirmId)
@@ -211,7 +147,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                        let clientPrevOwner = isPartialAssign ? client.OwnerCode : (long?)null
                                        select new
                                        {
-                                           Client = client,
                                            Firms = client.Firms.Where(x => clientPrevOwner == null || x.OwnerCode == clientPrevOwner),
                                            Deals = client.Deals.Where(x => !x.IsDeleted && x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)),
                                            Contacts = client.Contacts.Where(x => !x.IsDeleted && x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner)),
@@ -242,9 +177,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                        })
                                       .Single();
 
-                relatedEntities.Client.OwnerCode = ownerCode;
-                _clientGenericSecureRepository.Update(relatedEntities.Client);
-                operationScope.Updated<Client>(relatedEntities.Client.Id);
+                var clientToAssign = _finder.FindOne(Specs.Find.ById<Client>(clientId));
+                clientToAssign.OwnerCode = ownerCode;
+                _clientGenericSecureRepository.Update(clientToAssign);
+                operationScope.Updated<Client>(clientToAssign.Id);
 
                 var count = _clientGenericSecureRepository.Save();
 
@@ -495,8 +431,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient, bool assignAllObjects)
         {
-            var mainClient = _finder.Find(Specs.Find.ById<Client>(mainClientId)).Single();
-            var appendedClient = _finder.Find(Specs.Find.ById<Client>(appendedClientId)).Single();
+            var mainClient = _finder.FindOne(Specs.Find.ById<Client>(mainClientId));
+            var appendedClient = _finder.FindOne(Specs.Find.ById<Client>(appendedClientId));
 
             ValidateOwnerIsNotReserve(mainClient);
             ValidateOwnerIsNotReserve(appendedClient);
@@ -508,8 +444,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 if (assignAllObjects)
                 {
-                // Сначала прокинем куратора в сущности добавляемого клиента
-                AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
+                    // Сначала прокинем куратора в сущности добавляемого клиента
+                    AssignWithRelatedEntities(appendedClient.Id, masterClient.OwnerCode, false);
                 }
                 else
                 {
@@ -517,51 +453,51 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 }
 
                 var relatedEntities = _secureFinder.Find(Specs.Find.ById<Client>(appendedClient.Id))
-                .Select(x => new
-                {
-                    Deals = x.Deals.Where(y => !y.IsDeleted),
-                    Firms = x.Firms.Where(y => !y.IsDeleted),
-                    Contacts = x.Contacts.Where(y => !y.IsDeleted),
+                                                   .Select(x => new
+                                                       {
+                                                           Deals = x.Deals.Where(y => !y.IsDeleted),
+                                                           Firms = x.Firms.Where(y => !y.IsDeleted),
+                                                           Contacts = x.Contacts.Where(y => !y.IsDeleted),
                                                            LegalPersonIds = x.LegalPersons.Where(y => !y.IsDeleted).Select(y => y.Id),
-                })
-                .Single();
+                                                       })
+                                                   .Single();
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Deal>())
                 {
-                foreach (var deal in relatedEntities.Deals)
-                {
-                    deal.ClientId = mainClient.Id;
-                    _dealGenericRepository.Update(deal);
+                    foreach (var deal in relatedEntities.Deals)
+                    {
+                        deal.ClientId = mainClient.Id;
+                        _dealGenericRepository.Update(deal);
                         operationScope.Updated<Deal>(deal.Id);
-                }
+                    }
 
-                _dealGenericRepository.Save();
+                    _dealGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Contact>())
                 {
-                foreach (var contact in relatedEntities.Contacts)
-                {
-                    contact.ClientId = mainClient.Id;
-                    _contactGenericRepository.Update(contact);
+                    foreach (var contact in relatedEntities.Contacts)
+                    {
+                        contact.ClientId = mainClient.Id;
+                        _contactGenericRepository.Update(contact);
                         operationScope.Updated<Contact>(contact.Id);
-                }
+                    }
 
-                _contactGenericRepository.Save();
+                    _contactGenericRepository.Save();
                     operationScope.Complete();
                 }
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Firm>())
                 {
-                foreach (var firm in relatedEntities.Firms)
-                {
-                    firm.ClientId = mainClient.Id;
-                    _firmGenericRepository.Update(firm);
+                    foreach (var firm in relatedEntities.Firms)
+                    {
+                        firm.ClientId = mainClient.Id;
+                        _firmGenericRepository.Update(firm);
                         operationScope.Updated<Firm>(firm.Id);
-                }
+                    }
 
-                _firmGenericRepository.Save();
+                    _firmGenericRepository.Save();
                     operationScope.Complete();
                 }
 
@@ -570,13 +506,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonIds));
 
                     foreach (var legalPerson in legalPersons)
-                {
-                    legalPerson.ClientId = mainClient.Id;
-                    _legalPersonGenericRepository.Update(legalPerson);
+                    {
+                        legalPerson.ClientId = mainClient.Id;
+                        _legalPersonGenericRepository.Update(legalPerson);
                         operationScope.Updated<LegalPerson>(legalPerson.Id);
-                }
+                    }
 
-                _legalPersonGenericRepository.Save();
+                    _legalPersonGenericRepository.Save();
                     operationScope.Complete();
                 }
 
@@ -586,7 +522,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 _clientGenericSecureRepository.Update(mainClient);
                 _clientGenericSecureRepository.Save();
 
-                transaction.Complete(); 
+                transaction.Complete();
             }
 
             return new Tuple<Client, Client>(mainClient, appendedClient);
@@ -624,34 +560,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         {
             // timeout should be increased due to long sql updates (60 min = 3600 sec)
             _clientPersistenceService.CalculateClientPromising(_userContext.Identity.Code, 3600, false);
-        }
-
-        public void CreateOrUpdate(Client client)
-        {
-            if (client.MainFirmId != null)
-            {
-                var mainFirmExists = _finder.Find<Client>(x => x.Id == client.Id)
-                                    .SelectMany(x => x.Firms)
-                                    .Where(x => !x.IsDeleted && x.IsActive)
-                                    .Select(x => x.Id)
-                                    .Contains(client.MainFirmId.Value);
-                if (!mainFirmExists)
-                {
-                    throw new NotificationException(BLResources.EditClientMainFirmDoesNotExists);
-                }
-            }
-
-            if (client.IsNew())
-            {
-                _identityProvider.SetFor(client);
-                _clientGenericSecureRepository.Add(client);
-            }
-            else
-            {
-                _clientGenericSecureRepository.Update(client);
-            }
-
-            _clientGenericSecureRepository.Save();
         }
 
         public void CreateOrUpdate(Contact contact)
@@ -698,7 +606,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         int IAssignAggregateRepository<Client>.Assign(long entityId, long ownerCode)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
             return Assign(entity, ownerCode);
         }
 
@@ -712,13 +620,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         int IQualifyAggregateRepository<Client>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
             return Qualify(entity, currentUserCode, reserveCode, ownerCode, qualifyDate);
         }
 
         int IDisqualifyAggregateRepository<Client>.Disqualify(long entityId, long currentUserCode, long reserveCode, bool bypassValidation, DateTime disqualifyDate)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
             return Disqualify(entity, currentUserCode, reserveCode, bypassValidation, disqualifyDate);
         }
 
@@ -761,13 +669,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         
         int IChangeAggregateTerritoryRepository<Client>.ChangeTerritory(long entityId, long territoryId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).Single();
+            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
             return ChangeTerritory(entity, territoryId);
         }
 
         public int HideFirm(long firmId)
         {
-            var clients = _finder.Find<Client>(client => client.MainFirmId == firmId).ToArray();
+            var clients = _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirm(firmId)).ToArray();
             var deals = _finder.Find<Deal>(deal => deal.MainFirmId == firmId).ToArray();
 
             foreach (var client in clients)
@@ -800,60 +708,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             clientTo.InformationSource = clientFrom.InformationSource;
             clientTo.MainFirmId = clientFrom.MainFirmId;
             clientTo.TerritoryId = clientFrom.TerritoryId;
-        }
-
-        private static void FillClientPropertiesFromFirmContacts(IEnumerable<FirmContact> firmContacts, Client client)
-        {
-            foreach (var firmContact in firmContacts)
-            {
-                switch ((FirmAddressContactType)firmContact.ContactType)
-                {
-                    case FirmAddressContactType.Phone:
-                        {
-                            if (string.IsNullOrEmpty(client.MainPhoneNumber))
-                            {
-                                // MainPhoneNumber
-                                client.MainPhoneNumber = firmContact.Contact;
-                            }
-                            else if (string.IsNullOrEmpty(client.AdditionalPhoneNumber1))
-                            {
-                                // AdditionalPhoneNumber1
-                                client.AdditionalPhoneNumber1 = firmContact.Contact;
-                            }
-                            else if (string.IsNullOrEmpty(client.AdditionalPhoneNumber2))
-                            {
-                                // AdditionalPhoneNumber2
-                                client.AdditionalPhoneNumber2 = firmContact.Contact;
-                            }
-                        }
-
-                        break;
-                    case FirmAddressContactType.Fax:
-                        if (string.IsNullOrEmpty(client.Fax))
-                        {
-                            // Fax
-                            client.Fax = firmContact.Contact;
-                        }
-
-                        break;
-                    case FirmAddressContactType.Email:
-                        if (string.IsNullOrEmpty(client.Email))
-                        {
-                            // Email
-                            client.Email = firmContact.Contact;
-                        }
-
-                        break;
-                    case FirmAddressContactType.Website:
-                        if (string.IsNullOrEmpty(client.Website))
-                        {
-                            // Website
-                            client.Website = firmContact.Contact;
-                        }
-
-                        break;
-                }
-            }
         }
 
         private static ReserveAccess GetMaxAccessForReserve(int[] accesses)
@@ -889,30 +743,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             return priorities[maxPriority];
         }
 
-        private IEnumerable<FirmContact> GetFirmContacts(long firmAddressId)
-        {
-            // TODO {all, 29.07.2013}: полная копия FirmRepository.GetContacts(long firmAddressId) - подумать как исключить такое дублирование кода
-            // hofal
-            var cardRelationsQuery = _finder.FindAll<CardRelation>();
-            var depCardsQuery = _finder.Find<DepCard>(x => !x.IsHiddenOrArchived);
-
-            var firmContacts = (from firmAddress in _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                join cardRelation in cardRelationsQuery on firmAddress.Id equals cardRelation.PosCardCode into cardRelations
-                                select new
-                                    {
-                                        FirmAddressContacts = firmAddress.FirmContacts.OrderBy(y => y.SortingPosition),
-                                        CardRelations = cardRelations
-                                                            .Where(y => !y.IsDeleted)
-                                                            .OrderBy(y => y.OrderNo)
-                                                            .Join(depCardsQuery,
-                                                                  cr => cr.DepCardCode,
-                                                                  dc => dc.Id,
-                                                                  (cr, dc) => dc.FirmContacts.OrderBy(z => z.SortingPosition)),
-                                    })
-                .Single();
-
-            return firmContacts.FirmAddressContacts.Union(firmContacts.CardRelations.SelectMany(x => x)).ToArray();
-        }
+        // TODO {all, 29.07.2013}: полная копия FirmRepository.GetContacts(long firmAddressId) - подумать как исключить такое дублирование кода
+        // DONE {all, 13.05.2014}: код перенесен в Read-model
 
         private void PerformSecurityChecks(Client mainClient, ICuratedEntity appendedClient)
         {

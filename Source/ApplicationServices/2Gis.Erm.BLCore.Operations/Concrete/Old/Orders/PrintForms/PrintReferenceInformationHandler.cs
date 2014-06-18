@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
@@ -37,20 +37,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly IUserContext _userContext;
-        private readonly IFirmRepository _firmAggregateRepository;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
+        private readonly IFirmReadModel _firmReadModel;
 
         public PrintReferenceInformationHandler(ISubRequestProcessor requestProcessor,
             IFinder finder,
             IUserContext userContext,
-            IFirmRepository firmAggregateRepository,
-            ISecurityServiceUserIdentifier securityServiceUserIdentifier)
+            ISecurityServiceUserIdentifier securityServiceUserIdentifier, IFirmReadModel firmReadModel)
         {
             _requestProcessor = requestProcessor;
             _userContext = userContext;
             _finder = finder;
-            _firmAggregateRepository = firmAggregateRepository;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
+            _firmReadModel = firmReadModel;
         }
 
         protected override StreamResponse Handle(PrintReferenceInformationRequest request)
@@ -151,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
             addressBuilder.AppendLine(address);
 
             // Contacts
-            foreach (var contact in _firmAggregateRepository.GetContacts(firmAddressDto.Id).ToLookup(x => x.ContactType, x => x.Contact))
+            foreach (var contact in _firmReadModel.GetContacts(firmAddressDto.Id).ToLookup(x => x.ContactType, x => x.Contact))
             {
                 var template = FirmAddressContactTypePlural[contact.Key];
                 addressBuilder.Append(template).Append(": ").AppendLine(string.Join("; ", contact));

@@ -17,5 +17,29 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         bool HasFirmClient(long firmId);
         IEnumerable<CategoryGroup> GetFirmAddressCategoryGroups(long firmAddressId);
         FirmAndClientDto GetFirmAndClientByFirmAddress(long firmAddressCode);
+        IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId);
+        IEnumerable<FirmContact> GetContacts(long firmAddressId);
+        IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId);
+        string GetFirmName(long firmId);
+        string GetTerritoryName(long territoryId);
+        bool DoesFirmBelongToClient(long firmId, long clientId);
+        Firm GetFirm(long firmId);
+        FirmAddress GetFirmAddress(long firmAddressId);
+        CategoryFirmAddress GetCategoryFirmAddress(long categoryFirmAddressId);
+        IEnumerable<CategoryFirmAddress> GetCategoryFirmAddressesByFirmAddresses(IEnumerable<long> firmAddressIds);
+        IEnumerable<FirmContact> GetFirmContactsByFirmAddresses(IEnumerable<long> firmAddressIds);
+        IEnumerable<FirmContact> GetFirmContactsByDepCards(IEnumerable<long> depCardIds);
+        Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds);
+        Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds);
+        Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds);
+        IEnumerable<RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase);
+        FirmContact GetFirmContact(long firmContactId);
+            
+        // COMMENT {all, 23.05.2014}: Телефонные коды городов, справочники и элементы справочника относятся к агрегату фирмы.
+        // Это немного странно.
+        // Если эти сущности уйдут из этого агрегата, например, в SimlifiedModel, то следующие методы можно будет смело переместить.
+        Dictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds);
+        Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
+        Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
     }
 }
