@@ -166,10 +166,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Není možné vytvořit objednávku pro typ právnické osoby &apos;{0}&apos; uvedený v profilu</value>
+    <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Právnická osoba typu &apos;{0}&apos; uvedená v profilu nemůže jednat na základě {1}</value>
+    <value>Právnická osoba typu '{0}' uvedená v profilu nemůže jednat na základě {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
@@ -184,10 +184,10 @@
     <value>na základě {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
     <value>Jméno a příjmení:</value>
@@ -283,10 +283,10 @@
     <value>, na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -349,6 +349,39 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
 </root>
