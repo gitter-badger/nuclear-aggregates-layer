@@ -391,7 +391,6 @@
     <Compile Include="Generic\Get\GetAssociatedPositionsGroupDtoService.cs" />
     <Compile Include="Generic\Get\GetBargainDtoService.cs" />
     <Compile Include="Generic\Get\GetBargainFileDtoService.cs" />
-    <Compile Include="Generic\Get\GetBargainTypeDtoService.cs" />
     <Compile Include="Generic\Get\GetBillDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
@@ -450,7 +449,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BargainTypeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />

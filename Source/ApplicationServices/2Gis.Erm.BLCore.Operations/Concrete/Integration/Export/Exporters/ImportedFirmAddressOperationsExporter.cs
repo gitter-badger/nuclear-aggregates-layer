@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.PostIntegrationActivities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -77,10 +78,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 
         private IEnumerable<FirmAddress> GetAddressesByFirm(IEnumerable<long> entityIds)
         {
-            return _finder.Find(Specs.Find.ByIds<Firm>(entityIds))
-                          .SelectMany(firm => firm.FirmAddresses)
-                          .Where(address => address.IsActive && !address.IsDeleted && !address.ClosedForAscertainment && address.AddressCode != null)
-                          .ToArray();
+            return
+                _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmIds(entityIds) && Specs.Find.ActiveAndNotDeleted<FirmAddress>() &&
+                                 FirmSpecs.Addresses.Find.NotClosed() && FirmSpecs.Addresses.Find.WithAddressCode());
         }
     }
 }
