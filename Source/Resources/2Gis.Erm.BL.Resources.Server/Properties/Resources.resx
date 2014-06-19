@@ -173,4 +173,7 @@
     <value>Mr.</value>
     <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
   </data>
+  <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
+    <value>Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу.</value>
+  </data>
 </root>
