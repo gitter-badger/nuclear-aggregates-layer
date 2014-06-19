@@ -395,4 +395,7 @@ Bank Name: {7}
   <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
     <value>Нельзя распечатать Acceptance Report, т.к. для следующих заказов не определен профиль юр. лица: {0}</value>
   </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>По указанным параметрам заказов не найдено</value>
+  </data>
 </root>

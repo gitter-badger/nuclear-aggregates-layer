@@ -384,4 +384,7 @@
   <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>По указанным параметрам заказов не найдено</value>
+  </data>
 </root>

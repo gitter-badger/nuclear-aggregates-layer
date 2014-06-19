@@ -44,6 +44,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Acceptanc
         {
             var orderDtos = _orderReadModel.GetOrdersToGenerateAcceptanceReports(request.Month, request.OrganizationUnitId).ToArray();
 
+            if (!orderDtos.Any())
+            {
+                throw new ThereIsNoOrdersToPrintException(BLResources.NoOrdersFound);
+            }
+
             var ordersWithoutProfile = orderDtos.Where(x => !x.ProfileId.HasValue).ToArray();
 
             if (ordersWithoutProfile.Any())
