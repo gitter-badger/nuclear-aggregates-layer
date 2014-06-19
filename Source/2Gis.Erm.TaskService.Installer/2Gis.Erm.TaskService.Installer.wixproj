@@ -627,6 +627,9 @@
     <Content Include="Variables.Test.302.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.320.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Test.401.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
