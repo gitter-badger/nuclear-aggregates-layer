@@ -217,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 DateTime rawValue;
                 if (DateTime.TryParse(valueProviderResult.AttemptedValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out rawValue))
                 {
-                    valueProviderResult = new ValueProviderResult(rawValue, valueProviderResult.AttemptedValue, valueProviderResult.Culture);
+                    valueProviderResult = new ValueProviderResult(rawValue, valueProviderResult.AttemptedValue, CultureInfo.InvariantCulture);
                     bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
                     return rawValue;
                 }
