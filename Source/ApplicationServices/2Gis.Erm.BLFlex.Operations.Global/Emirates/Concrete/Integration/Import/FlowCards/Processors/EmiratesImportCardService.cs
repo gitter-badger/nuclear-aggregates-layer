@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
 
             var phonesAndFaxes = depCards.SelectMany(x => x.Contacts)
                                          .Where(x => x.ContactType == ContactType.Phone || x.ContactType == ContactType.Fax)
-                                         .Union(posCards.SelectMany(x => x.Contacts)
+                                         .Concat(posCards.SelectMany(x => x.Contacts)
                                                         .Where(x => x.ContactType == ContactType.Phone || x.ContactType == ContactType.Fax))
                                          .ToArray();
 
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
                 var posCardContactsToImport = posCards.SelectMany(x => x.Contacts
                                                                         .Select(y => ToImportFirmContact(y, x.Code, null)));
 
-                _importFirmContactsService.Import(depCardContactsToImport.Union(posCardContactsToImport),
+                _importFirmContactsService.Import(depCardContactsToImport.Concat(posCardContactsToImport),
                                                   posCards.Select(x => x.Code).Distinct(),
                                                   depCards.Select(x => x.Code).Distinct());
 
