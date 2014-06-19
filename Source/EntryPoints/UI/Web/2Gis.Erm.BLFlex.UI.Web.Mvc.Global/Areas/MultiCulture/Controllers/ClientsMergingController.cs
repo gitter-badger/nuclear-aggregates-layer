@@ -20,7 +20,6 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -91,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         {
             var result = new MultiCultureMergeClientsViewModel();
 
-            var domainEntityDto = (ClientDomainEntityDto)model.TransformToDomainEntityDto();
+            var domainEntityDto = (MultiCultureClientDomainEntityDto)model.TransformToDomainEntityDto();
             domainEntityDto.OwnerRef = model.Owner.ToReference();
 
             var entity = _clientObtainer.ObtainBusinessModelEntity(domainEntityDto);
