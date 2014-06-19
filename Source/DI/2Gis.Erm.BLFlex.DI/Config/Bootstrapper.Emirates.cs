@@ -88,7 +88,6 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.SourceOrganizationUnitName,
                 x => x.LegalPersonName);
             FilteredFieldMetadata.RegisterFilteredFields<EmiratesListAcceptanceReportsJournalRecordDto>(
-                x => x.AuthorName,
                 x => x.OrganizationUnitName);
 
             DefaultFilterMetadata.RegisterFilter<EmiratesListLegalPersonDto>("DListLegalPersons", x => x.IsActive && !x.IsDeleted);

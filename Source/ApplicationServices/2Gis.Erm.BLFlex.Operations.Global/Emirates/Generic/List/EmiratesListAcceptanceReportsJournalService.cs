@@ -30,6 +30,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
         {
             var organizationUnitsQuery = _finder.FindAll<OrganizationUnit>();
 
+            // хак для сортировки по Ответственному
+            if (string.Equals(querySettings.SortOrder, "AuthorName"))
+            {
+                querySettings.SortOrder = "AuthorId";
+            }
+
             return _finder.Find(AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords,
                                 AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords)
                           .Select(x => new
@@ -57,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                         AuthorId = x.AuthorId,
                                         CreatedOn = x.CreatedOn,
                                         IsActive = x.IsActive,
-                                        IsDeleted = x.IsDeleted,
+                                        IsDeleted = x.IsDeleted
                                     })
                           .QuerySettings(_filterHelper, querySettings, out count)
                           .Select(x =>
