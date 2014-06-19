@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -127,8 +128,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
             }
 
             var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.Client);
-            var masterClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
-            var subordinateClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
+            var masterClientDto = (MultiCultureClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
+            var subordinateClientDto = (MultiCultureClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
 
             var masterClientModel = new MultiCultureClientViewModel
                 {
