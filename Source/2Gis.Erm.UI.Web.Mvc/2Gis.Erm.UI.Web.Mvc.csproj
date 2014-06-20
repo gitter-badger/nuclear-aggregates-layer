@@ -151,6 +151,7 @@
     <Compile Include="DI\Bootstrapper.Cyprus.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Czech.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Global.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Emirates.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Ukraine.Mvc.Interception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DI\WebMvcRoot.cs" />
@@ -650,8 +651,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.BillPayments.js" />
-    <Content Include="Scripts\Cyprus\DataList\LegalPerson.DataList.js" />
-    <Content Include="Scripts\Czech\DataList\LegalPerson.DataList.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.LegalPerson.Chile.js" />
+    <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.LegalPerson.Cyprus.js" />
+    <Content Include="Scripts\Czech\Ext.DoubleGis.UI.LegalPerson.Czech.js" />
+    <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
+    <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.LegalPerson.js" />
+    <Content Include="Scripts\Ext.LocalizedResources.ar.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
+    <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.CzechOrder.js" />
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.CyprusOrder.js" />
@@ -694,6 +705,12 @@
     <Content Include="Scripts\Ext.ux.TimeComboBox.js" />
     <Content Include="Scripts\DataList\Bargain.DataList.js" />
     <Content Include="Scripts\DataList\Account.DataList.js" />
+    <Content Include="Scripts\MultiCulture\DataList\Order.DataList.js" />
+    <Content Include="Scripts\MultiCulture\Ext.DoubleGis.UI.Client.MultiCulture.js" />
+    <Content Include="Scripts\MultiCulture\MergeClients.MultiCulture.js" />
+    <Content Include="Scripts\Russia\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.Client.Russia.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.LegalPerson.Russia.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaActivityBase.js" />
     <Content Include="Scripts\Ext.ux.IdField.js" />
     <Content Include="Scripts\DataList\CategoryFirmAddress.DataList.js" />
@@ -730,7 +747,6 @@
     <Content Include="Scripts\Ext.DoubleGis.Order.CheckManager.js" />
     <Content Include="Scripts\Ext.DoubleGis.Order.CheckResultWindow.js" />
     <Content Include="Scripts\Ext.DoubleGis.Order.CopyOrderDialog.js" />
-    <Content Include="Scripts\Ext.DoubleGis.Order.UpgradeResultWindow.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.BillPayments.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.BindingObject.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Firm.js" />
@@ -772,7 +788,7 @@
     <Content Include="Scripts\Ext.ux.TreeGridNodeUI.js" />
     <Content Include="Scripts\Ext.ux.TreeGridSorter.js" />
     <Content Include="Scripts\DataList\Firm.DataList.js" />
-    <Content Include="Scripts\DataList\LegalPerson.DataList.js" />
+    <Content Include="Scripts\Russia\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\DataList\Limit.DataList.js" />
     <Content Include="Scripts\DataList\LocalMessage.DataList.js" />
     <Content Include="Scripts\LocalMessage.ProcessMessages.js" />
@@ -781,6 +797,7 @@
     <Content Include="Scripts\DataList\Order.DataList.js" />
     <Content Include="Scripts\DataList\ReleaseInfo.DataList.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaOrder.js" />
+    <Content Include="Scripts\Russia\MergeClients.Russia.js" />
     <Content Include="Scripts\Silverlight.js" />
     <Content Include="Scripts\tinymce\langs\cs.js" />
     <Content Include="Scripts\tinymce\langs\el.js" />
@@ -1094,7 +1111,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Ukraine\Ext.DoubleGis.UI.LegalPerson.Ukraine.js" />
     <Content Include="Scripts\Ukraine\Ext.DoubleGis.UI.UkraineOrder.js" />
+    <Content Include="Scripts\Emirates\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.LegalPerson.Emirates.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.EmiratesOrder.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1200,6 +1221,10 @@
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj">
+      <Project>{3033cfd9-fcdc-41f5-8448-8555336acd4a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -1264,6 +1289,10 @@
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{b12c39b4-050b-476f-9c80-e5757226b926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
@@ -1306,6 +1335,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Card\" />
+    <Folder Include="Scripts\Cyprus\DataList\" />
+    <Folder Include="Scripts\Czech\DataList\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>

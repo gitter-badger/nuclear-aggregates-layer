@@ -52,6 +52,8 @@ Ext.DoubleGis.CustomValidatorRegistry["validateDiscountPercent"] = function () {
 window.InitPage = function () {
     this.renderHeader = false;
     
+    // COMMENT {y.baranihin, 16.06.2014}: Вот же один из вариантов кастомизовать состояние и поведение в разных бизнес-моделях. 
+    // Он, конечно, хардкорый, но лучше глобальных функций, т.к. есть управление scope-ами 
     Ext.apply(this, CultureSpecificOrder);
     
     Ext.apply(this,
