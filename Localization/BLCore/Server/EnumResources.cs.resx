@@ -1156,7 +1156,7 @@
     <value>Zpracování potenciálních zákazníků</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
+    <value>Zpracování potenciálních zákazníků 5. třídy (franchisant)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Chybí</value>
@@ -1870,25 +1870,25 @@
     <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
   </data>
   <data name="TaxationTypeNotSet" xml:space="preserve">
-    <value>Не задано</value>
+    <value>Nezadáno</value>
   </data>
   <data name="TaxationTypeWithoutVat" xml:space="preserve">
-    <value>без НДС</value>
+    <value>bez DPH</value>
   </data>
   <data name="TaxationTypeWithVat" xml:space="preserve">
-    <value>с НДС</value>
+    <value>vč. DPH</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+    <value>Zpracování potenciálních zákazníků 5. třídy (pobočka)</value>
   </data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
-    <value>Договор (новая модель продаж)</value>
+    <value>Smlouva (nový model prodejů)</value>
   </data>
   <data name="TemplateCodeAcceptanceReport" xml:space="preserve">
     <value>AcceptanceReport</value>
   </data>
   <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
-    <value>Договор для юр. лица (дополнительный язык)</value>
+    <value>Smlouva pro právnickou osobu (dodatečný jazyk)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
 </root>
