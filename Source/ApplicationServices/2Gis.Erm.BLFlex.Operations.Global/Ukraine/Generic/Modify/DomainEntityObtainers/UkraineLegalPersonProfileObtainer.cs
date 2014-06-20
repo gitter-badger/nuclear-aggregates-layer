@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -24,13 +24,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify.DomainEn
         {
             var dto = (UkraineLegalPersonProfileDomainEntityDto)domainEntityDto;
 
-            var legalPerson = dto.IsNew()
-                                  ? new LegalPersonProfile { IsActive = true, Parts = new[] { new UkraineLegalPersonProfilePart() } }
+            var legalPersonProfile = dto.IsNew()
+                                  ? new LegalPersonProfile
+                                      {
+                                          IsActive = true,
+                                          Parts = new[]
+                                              {
+                                                  new UkraineLegalPersonProfilePart
+                                                      {
+                                                          IsActive = true
+                                                      }
+                                              }
+                                      }
                                   : _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id));
 
-            LegalPersonFlexSpecs.LegalPersonProfiles.Ukraine.Assign.Entity().Assign(dto, legalPerson);
+            LegalPersonFlexSpecs.LegalPersonProfiles.Ukraine.Assign.Entity().Assign(dto, legalPersonProfile);
 
-            return legalPerson;
+            return legalPersonProfile;
         }
     }
 }

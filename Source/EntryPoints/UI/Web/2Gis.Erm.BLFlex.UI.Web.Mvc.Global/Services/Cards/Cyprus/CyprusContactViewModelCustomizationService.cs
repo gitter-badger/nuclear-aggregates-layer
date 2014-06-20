@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-
-using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using BLResources = DoubleGis.Erm.BL.Resources.Server.Properties.Resources;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 {
@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
             entityViewModel.BusinessModelArea = BusinessModel.Cyprus.ToString();
             entityViewModel.AvailableSalutations = new Dictionary<string, string[]>
                 {
-                    { "Male", new[] { string.Empty, Resources.SalutationCyprus } },
-                    { "Female", new[] { string.Empty, Resources.SalutationCyprus } },
+                    { "Male", new[] { string.Empty, BLResources.SalutationCyprus } },
+                    { "Female", new[] { string.Empty, BLResources.SalutationCyprus } },
                 };
         }
     }

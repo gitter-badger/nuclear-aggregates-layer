@@ -91,5 +91,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
             return _finder.Find(Specs.Find.ById<Order>(orderId))
                           .Select(order => order.BranchOfficeOrganizationUnit.BranchOffice);
         }
+
+        public Bargain GetOrderBargain(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.Bargain)
+                          .Single();
+        }
     }
 }

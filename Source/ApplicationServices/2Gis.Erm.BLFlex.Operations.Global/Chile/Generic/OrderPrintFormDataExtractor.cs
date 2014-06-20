@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
 
         public PrintData GetFirmAddresses(IQueryable<FirmAddress> query, IDictionary<long, IEnumerable<FirmContact>> contacts)
         {
-            return _printOrderHelper.GetFirmAddresses(query, contacts);
+            return _printOrderHelper.GetFirmAddresses(query, contacts, CultureInfo.CurrentCulture);
         }
 
         public PrintData GetBranchOffice(IQueryable<BranchOffice> query)

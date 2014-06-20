@@ -5177,12 +5177,27 @@ Doba zveřejnění: {3}.</value>
     <value>Chyby</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>Soubor</value>
+    <value>Soubor</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>Není možné aktivovat položku ze zveřejněného ceníku</value>
   </data>
   <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
     <value>Skrytá ceníková položka pro vybraný prvek nomenklaturního seznamu je již vytvořena</value>
+  </data>
+  <data name="EndDateMustntBeLessThanBeginDate" xml:space="preserve">
+    <value>Datum ukončení nemůže být stanoveno před datem začátku</value>
+  </data>
+  <data name="BranchOfficeToRestoreIsAlreadyActive" xml:space="preserve">
+    <value>Obnovovaná právnická osoba {0} je již aktivní</value>
+  </data>
+  <data name="CannotActivateBranchOfficeSinceThereIsADuplicate" xml:space="preserve">
+    <value>Není možné obnovit tuto právnickou osobu, protože existuje identická právnická osoba: {0}</value>
+  </data>
+  <data name="ConnotCreateClientForFirmSinceItAlreadyExists" xml:space="preserve">
+    <value>Není možné vytvořit klienta pro firmu, protože již má přiděleného klienta.</value>
+  </data>
+  <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
+    <value>Právnická osoba {0} má několik hlavních profilů</value>
   </data>
 </root>

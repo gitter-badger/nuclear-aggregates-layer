@@ -362,4 +362,40 @@ Bank Name: {7}
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Client&apos;s legal entity with the specified commercial license number already exists</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>A deleted legal entity of the Client with the specified commercial license number exists</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>Incorrect commercial license number</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>A hidden legal entity of the Client with the specified commercial license number exists</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>Incorrect IBAN value</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>Incorrect SWIFT value</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>A legal entity with the specified license number exists</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>VAT is not used in this business model. An agreement type without VAT must be selected.</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>Generating Acceptance Report</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>Cannot print Acceptance Report for order number {0}, since the legal entity profile is not defined for it </value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>Cannot print Acceptance Report, since the legal entity profile is not defined for the following orders: {0}</value>
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>No orders found for the specified criteria</value>
+  </data>
 </root>

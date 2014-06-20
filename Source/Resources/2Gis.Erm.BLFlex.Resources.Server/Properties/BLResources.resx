@@ -348,4 +348,40 @@
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value />
   </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value />
+  </data>
 </root>

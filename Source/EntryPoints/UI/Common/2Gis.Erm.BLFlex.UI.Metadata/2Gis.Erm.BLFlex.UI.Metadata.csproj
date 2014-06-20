@@ -77,7 +77,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Cyprus.xml" />
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Cyprus.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Czech.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -110,6 +112,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Ukraine.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Emirates.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Emirates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

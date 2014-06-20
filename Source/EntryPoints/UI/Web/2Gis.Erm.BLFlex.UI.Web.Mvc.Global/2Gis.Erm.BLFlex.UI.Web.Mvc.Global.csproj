@@ -130,7 +130,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Emirates\Controllers\AcceptanceReportController.cs" />
+    <Compile Include="Areas\Emirates\Views\AcceptanceReport\Generate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Generate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Views\ClientsMerging\Merge.generated.cs">
+      <DependentUpon>Merge.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\MultiCulture\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Russia\Views\ClientsMerging\Merge.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Merge.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Ukraine\AreaRegistrator.cs" />
     <Compile Include="Areas\Ukraine\Controllers\LegalPersonController.cs" />
     <Compile Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
@@ -138,9 +167,40 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Areas\Emirates\AreaRegistrator.cs" />
+    <Compile Include="Areas\Emirates\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Emirates\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Emirates\Views\ClientsMerging\Merge.generated.cs">
+      <DependentUpon>Merge.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Emirates\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Emirates\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\Chile\CommuneViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesGenerateAcceptanceReportViewModel.cs" />
+    <Compile Include="Models\MultiCultureMergeClientsViewModel.cs" />
+    <Compile Include="Models\MultiCultureClientViewModel.cs" />
+    <Compile Include="Models\MultiCultureFirmAddressViewModel.cs" />
+    <Compile Include="Models\MultiCultureOrderPositionViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBargainTypeViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesMergeClientsViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesFirmAddressViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesClientViewModel.cs" />
     <Compile Include="Models\MultiCultureCreateBillViewModel.cs" />
     <Compile Include="Areas\Chile\Views\CreateBill\Create.generated.cs">
       <AutoGen>True</AutoGen>
@@ -173,9 +233,12 @@
     <Compile Include="Models\Russia\ChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\Russia\FirmViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Russia\MergeClientsViewModel.cs" />
+    <Compile Include="Models\Russia\ClientViewModel.cs" />
     <Compile Include="Models\Russia\OrderViewModel.cs" />
     <Compile Include="Models\Russia\PhonecallViewModel.cs" />
     <Compile Include="Models\Russia\TaskViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesLegalPersonViewModel.cs" />
     <Compile Include="Models\Ukraine\Extensions.cs" />
     <Compile Include="Models\Ukraine\UkraineChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineBranchOfficeOrganizationUnitViewModel.cs" />
@@ -183,6 +246,7 @@
     <Compile Include="Models\Ukraine\UkraineContactViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonViewModel.cs" />
+    <Compile Include="Services\Cards\MultiCultureOrderPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\RussiaContactViewModelCustomizationService.cs" />
@@ -205,6 +269,10 @@
     <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
@@ -223,6 +291,7 @@
     <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeExportEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeImportEnumCustomization.cs" />
     <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
@@ -301,6 +370,41 @@
     <Compile Include="Services\Enumeration\Ukraine\UkraineLegalPersonTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkrainePaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkraineDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Views\CreateOrUpdate\Chile\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\MultiCultureBargainType.generated.cs">
       <DependentUpon>MultiCultureBargainType.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -333,6 +437,91 @@
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Chile\BargainType.generated.cs">
       <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureFirmAddress.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureFirmAddress.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureOrderPosition.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureOrderPosition.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Bill.generated.cs">
+      <DependentUpon>Bill.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BranchOffice.generated.cs">
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -696,6 +885,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Ukraine\Client.generated.cs">
       <DependentUpon>Client.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -736,10 +930,48 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <None Include="App.Config" />
     <None Include="Areas\Chile\Views\CreateBill\Create.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\AcceptanceReport\Generate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Generate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml" />
+    <None Include="Areas\MultiCulture\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
     </None>
     <None Include="Areas\MultiCulture\Views\CreateBill\Create.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -749,11 +981,55 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
     </None>
+    <None Include="Areas\Russia\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
     </None>
+    <None Include="Areas\Emirates\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\Web.config" />
+    <None Include="Views\CreateOrUpdate\Chile\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\MultiCultureBargainType.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MultiCultureBargainType.generated.cs</LastGenOutput>
@@ -781,6 +1057,74 @@
     <None Include="Views\CreateOrUpdate\Chile\BargainType.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureFirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureOrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Ukraine\BargainType.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1090,6 +1434,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Ukraine\Client.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Client.generated.cs</LastGenOutput>
@@ -1119,6 +1467,26 @@
       <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Ukraine\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Task.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
@@ -1169,6 +1537,10 @@
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
@@ -1200,6 +1572,10 @@
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
       <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
       <Name>2Gis.Erm.BLFlex.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

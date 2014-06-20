@@ -1,6 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-
-@model BL.UI.Web.Mvc.Models.ClientViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureClientViewModel
 @{
     Layout = "../Shared/_CardLayout.cshtml";
 }
@@ -8,15 +6,12 @@
 @section CardScripts
 {
     <script src="/Scripts/Ext.DoubleGis.UI.Client.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/MultiCulture/Ext.DoubleGis.UI.Client.MultiCulture.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
 }
 
 @section CardBody
 {
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ReplicationCode)
-    @Html.HiddenFor(m => m.PromisingScore)
-    @Html.HiddenFor(m => m.CanEditIsAdvertisingAgency)
-    @Html.HiddenFor(m => m.IsAdvertisingAgency)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.lone)

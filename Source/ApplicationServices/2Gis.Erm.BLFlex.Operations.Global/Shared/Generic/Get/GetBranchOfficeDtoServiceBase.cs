@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
@@ -12,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
+    // FIXME {d.ivanov, 17.06.2014}: Убрать этот базовый класс, см. комментарии к GetLegalPersonDtoServiceBase
+    [Obsolete]
     public abstract class GetBranchOfficeDtoServiceBase<TDto> : GetDomainEntityDtoServiceBase<BranchOffice>
         where TDto : IDomainEntityDto<BranchOffice>, new()
     {

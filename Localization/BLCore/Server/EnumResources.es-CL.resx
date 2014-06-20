@@ -1855,34 +1855,34 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextAlcoholAdvertising" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsMultiple" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsSingle" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextDietarySupplement" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextSpecialNutrition" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextChildNutrition" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextFinancilaServices" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextMedsTraditional" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="FasCommentDisplayTextBiocides" xml:space="preserve">
-	  <value>[Not defined for current business model and language]</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TaxationTypeNotSet" xml:space="preserve">
-    <value>No se ha asignado</value>
+    <value>No definido</value>
   </data>
   <data name="TaxationTypeWithoutVat" xml:space="preserve">
     <value>sin IVA</value>
@@ -1892,8 +1892,15 @@
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
     <value>Procesar a los clientes interesados de quinta categoría (sucursal)</value>
-  <comment></comment></data>
+  </data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
     <value>Acuerdo (nuevo modelo de ventas)</value>
-  <comment></comment></data>
+  </data>
+  <data name="TemplateCodeAcceptanceReport" xml:space="preserve">
+    <value>AcceptanceReport</value>
+  </data>
+  <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
+    <value>Acuerdo para la persona jurídica (idioma adicional)</value>
+    <comment>Арабский-английский для договора в Эмиратах</comment>
+  </data>
 </root>

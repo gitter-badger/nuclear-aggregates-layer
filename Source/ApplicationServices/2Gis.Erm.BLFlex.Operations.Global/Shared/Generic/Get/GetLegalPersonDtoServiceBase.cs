@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -22,6 +24,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
     //                              Использование строк-названий навязано ограничением "DomainEntityDto должен реализовывать только интерфейс IDomainEntityDto". 
     //                              Строковые названия исторически используются в базовой реализации GetDomainEntityDtoServiceBase. 
     //                              От них можно было бы избавиться, если выделить интерфейс или разрешить иерархию для Dto, но...
+    // FIXME {d.ivanov, 17.06.2014}: Убрать этот базовый класс
+    [Obsolete]
     public abstract class GetLegalPersonDtoServiceBase<TDto> : GetDomainEntityDtoServiceBase<LegalPerson>
         where TDto : IDomainEntityDto<LegalPerson>
     {

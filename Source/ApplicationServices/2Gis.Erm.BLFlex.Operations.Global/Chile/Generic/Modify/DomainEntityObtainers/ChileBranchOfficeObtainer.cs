@@ -1,22 +1,33 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Modify;
-using DoubleGis.Erm.Platform.Core.EntityProjection;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEntityObtainers
 {
-    public class ChileBranchOfficeObtainer : BranchOfficeObtainerBase<ChileBranchOfficeDomainEntityDto, BranchOffice>, IChileAdapted
+    public class ChileBranchOfficeObtainer : IBusinessModelEntityObtainer<BranchOffice>, IAggregateReadModel<BranchOffice>, IChileAdapted
     {
+        private readonly IFinder _finder;
+
         public ChileBranchOfficeObtainer(IFinder finder)
-            : base(finder)
         {
+            _finder = finder;
         }
 
-        protected override IAssignSpecification<ChileBranchOfficeDomainEntityDto, BranchOffice> GetAssignSpecification()
+        public BranchOffice ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
-            return BranchOfficeFlexSpecs.BranchOffices.Chile.Assign.Entity();
+            var dto = (ChileBranchOfficeDomainEntityDto)domainEntityDto;
+
+            var branchOffice =  _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id)) 
+                ?? new BranchOffice { IsActive = true };
+
+            BranchOfficeFlexSpecs.BranchOffices.Chile.Assign.Entity().Assign(dto, branchOffice);
+
+            return branchOffice;
         }
     }
 }

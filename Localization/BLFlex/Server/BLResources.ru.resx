@@ -204,10 +204,10 @@ SWIFT {5}
     <value>na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
     <value>Jmeno a prijmeni:</value>
@@ -275,19 +275,19 @@ SWIFT {5}
     <value>Индивидуальный предприниматель с указанным ИПН уже существует</value>
   </data>
   <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
-    <value>Юр. лицо клиента с указанными ИПН уже существует</value>
+    <value>Юр. лицо клиента с указанным ИПН уже существует</value>
   </data>
   <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
     <value>Существует удаленный Индивидуальный предприниматель с указанным ИПН</value>
   </data>
   <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
-    <value>Существует удаленное юр. лицо клиента с указанными ИПН</value>
+    <value>Существует удаленное юр. лицо клиента с указанным ИПН</value>
   </data>
   <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
     <value>Существует скрытый Индивидуальный предприниматель с указанным ИПН</value>
   </data>
   <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
-    <value>Существует скрытое юр. лицо клиента с указанными ИПН</value>
+    <value>Существует скрытое юр. лицо клиента с указанным ИПН</value>
   </data>
   <data name="UkraineInvalidIpn" xml:space="preserve">
     <value>ИПН должен быть длиной {0} символов</value>
@@ -305,10 +305,10 @@ SWIFT {5}
     <value>, na zaklade {0} ze dne {1}</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
-    <value>zastoupen</value>
+    <value>zastoupena</value>
   </data>
   <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
-    <value>jednající</value>
+    <value>zastoupena</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
     <value>Юр. лицо клиента с указанным T.I.C. уже существует</value>
@@ -372,5 +372,41 @@ SWIFT {5}
   </data>
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value>Существует юр. лицо с указанным ИПН</value>
+  </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанным номером коммерческой лицензии уже существует</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>Введен неверный номер коммерчиской лицензии</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение IBAN</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение SWIFT</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным номером лицензии</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>В данной бизнес-модели отсутствует НДС. Необходимо выбрать тип договора без НДС.</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>Формирование Acceptance Report</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report для заказа с номером {0}, т.к. для него не определен профиль юр. лица </value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report, т.к. для следующих заказов не определен профиль юр. лица: {0}</value>
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>По указанным параметрам заказов не найдено</value>
   </data>
 </root>

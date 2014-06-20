@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class CyprusPhonecallObtainer : IBusinessModelEntityObtainer<Phonecall>, IAggregateReadModel<ActivityBase>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted
+    public sealed class CyprusPhonecallObtainer : IBusinessModelEntityObtainer<Phonecall>, IAggregateReadModel<ActivityBase>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;

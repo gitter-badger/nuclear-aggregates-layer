@@ -4884,7 +4884,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: &quot;{0}&quot;</value>
   </data>
-    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -5157,7 +5157,7 @@ Periodo de la publicación: {3}.</value>
     <value>Cerrar por ser rechazado</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>No es posible crear la posición de la orden con el cálculo del coeficiente [{0}] en la ciudad de destino seleccionada y en la categoría [{1}] </value>
+    <value>No es posible crear la posición de la orden con el método de cálculo del coeficiente [{0}] en la ciudad de destino seleccionada y en la categoría [{1}]</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>
@@ -5178,12 +5178,27 @@ Periodo de la publicación: {3}.</value>
     <value>Errores</value>
   </data>
   <data name="File" xml:space="preserve">
-     <value>Archivo</value>
+    <value>Archivo</value>
   </data>
   <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
     <value>No se puede activar una posición de la lista de precios publicada</value>
   </data>
   <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
     <value>Ya se ha creado una posición oculta de la lista de precios para el elemento seleccionado del directorio de nomenclaturas</value>
+  </data>
+  <data name="EndDateMustntBeLessThanBeginDate" xml:space="preserve">
+    <value>Fecha de finalización no puede ser anterior a la fecha de inicio</value>
+  </data>
+  <data name="BranchOfficeToRestoreIsAlreadyActive" xml:space="preserve">
+    <value>La persona jurídica en restauración {0} ya está activa</value>
+  </data>
+  <data name="CannotActivateBranchOfficeSinceThereIsADuplicate" xml:space="preserve">
+    <value>Imposible restaurar la persona jurídica, ya que hay un duplicado de la persona jurídica: {0}</value>
+  </data>
+  <data name="ConnotCreateClientForFirmSinceItAlreadyExists" xml:space="preserve">
+    <value>No puede crear el cliente para la empresa, ya que dicha empresa ya tiene el cliente establecido.</value>
+  </data>
+  <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
+    <value>La persona jurídica {0} tiene varios perfiles principales</value>
   </data>
 </root>

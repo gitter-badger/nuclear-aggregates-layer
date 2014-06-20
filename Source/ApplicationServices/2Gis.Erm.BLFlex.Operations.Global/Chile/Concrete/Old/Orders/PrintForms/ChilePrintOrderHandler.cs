@@ -1,9 +1,8 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -24,27 +23,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
     {
         private readonly IBankReadModel _bankReadModel;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IFirmRepository _firmAggregateRepository;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
+        private readonly IFirmReadModel _firmReadModel;
 
         public ChilePrintOrderHandler(IBankReadModel bankReadModel,
                                       ISubRequestProcessor requestProcessor,
-                                      IFirmRepository firmAggregateRepository,
                                       ILegalPersonReadModel legalPersonReadModel,
                                       IBranchOfficeReadModel branchOfficeReadModel,
                                       IOrderPrintFormReadModel orderPrintFormReadModel,
-                                      IOrderPrintFormDataExtractor orderPrintFormDataExtractor)
+                                      IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
+                                      IFirmReadModel firmReadModel)
         {
             _bankReadModel = bankReadModel;
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
-            _firmAggregateRepository = firmAggregateRepository;
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
+            _firmReadModel = firmReadModel;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
@@ -78,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();
             var bank = profilePart.BankId.HasValue ? _bankReadModel.GetBank(profilePart.BankId.Value) : null;
-            var contacts = _firmAggregateRepository.GetFirmContacts(order.FirmId);
+            var contacts = _firmReadModel.GetFirmContactsByAddresses(order.FirmId);
 
             var billQuery = _orderPrintFormReadModel.GetBillQuery(request.OrderId);
             var orderQuery = _orderPrintFormReadModel.GetOrderQuery(request.OrderId);

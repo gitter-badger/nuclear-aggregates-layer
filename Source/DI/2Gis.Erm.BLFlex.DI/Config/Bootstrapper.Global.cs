@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     { BusinessModel.Czech, ConfigureCzechSpecific },
                     { BusinessModel.Chile, ConfigureChileSpecific },
                     { BusinessModel.Ukraine, ConfigureUkraineSpecific },
+                    { BusinessModel.Emirates, ConfigureEmiratesSpecific },
                 };
 
         private static readonly IReadOnlyDictionary<BusinessModel, Action>
@@ -27,6 +28,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     { BusinessModel.Czech, ConfigureCzechListingMetadata },
                     { BusinessModel.Chile, ConfigureChileListingMetadata },
                     { BusinessModel.Ukraine, ConfigureUkraineListingMetadata },
+                    { BusinessModel.Emirates, ConfigureEmiratesListingMetadata },
                 };
 
         public static IUnityContainer ConfigureGlobal(this IUnityContainer container, IGlobalizationSettings globalizationSettings)

@@ -1,0 +1,84 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates.EmiratesGenerateAcceptanceReportViewModel
+
+@{
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources.EmiratesGenerateAcceptanceReport }
+@section TopBarTitle { @DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources.EmiratesGenerateAcceptanceReport }
+@section TopBarMessage {  }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Ext.ux.DetailedProgressWindow.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.ux.DetailedProgressWindow.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function() {
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() != "") {
+                Ext.get("Notifications").addClass("Notifications");
+            } else {
+                Ext.get("Notifications").removeClass("Notifications");
+            }
+
+            Ext.get("Cancel").on("click", function() {
+                window.close();
+            });
+
+            Ext.get("OK").on("click", function () {
+
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {
+
+                    var organizationUnitId = Ext.getCmp("OrganizationUnit").getValue().id;
+                    var month = Ext.getCmp("Month").getValue().format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
+
+                    url = '/Emirates/AcceptanceReport/Print?organizationUnitId=' + organizationUnitId + '&month=' + month + '&__dc=' + Ext.util.Format.cacheBuster();
+
+                    Ext.getDom("OK").disabled = true;
+                    Ext.getDom("Cancel").disabled = true;
+
+                    var iframe;
+                    iframe = document.getElementById("hiddenDownloader");
+                    if (iframe === null) {
+                        iframe = document.createElement('iframe');
+                        iframe.id = "hiddenDownloader";
+                        iframe.style.visibility = 'hidden';
+
+                        var iframeEl = new Ext.Element(iframe);
+                        iframeEl.on("load", function () {
+                            var iframeContent = iframe.contentWindow.document.documentElement.innerText;
+                            if (iframeContent != "") {
+                                alert(iframeContent);
+                            }
+                        });
+                        document.body.appendChild(iframe);
+                    }
+
+                    iframe.src = url;
+                    Ext.getDom("OK").disabled = false;
+                    Ext.getDom("Cancel").disabled = false;
+                }
+            });
+        });
+
+    </script>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="Tab">
+            @Html.HiddenFor(m=>m.UserId)
+            <div style="height: 18px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Month, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId })
+            </div>
+        </div>
+    }
+}

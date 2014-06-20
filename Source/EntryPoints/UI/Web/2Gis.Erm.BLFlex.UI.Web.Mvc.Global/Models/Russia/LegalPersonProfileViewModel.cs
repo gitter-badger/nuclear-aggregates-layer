@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [SanitizedString]
         [EmailLocalized]
         [StringLengthLocalized(64)]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
 
         [SanitizedString]
         [StringLengthLocalized(256)]
@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            AdditionalEmail = modelDto.AdditionalEmail;
+            Email = modelDto.AdditionalEmail;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -179,7 +179,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),
-                    AdditionalEmail = AdditionalEmail.EnsureСleanness(),
+                    AdditionalEmail = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),

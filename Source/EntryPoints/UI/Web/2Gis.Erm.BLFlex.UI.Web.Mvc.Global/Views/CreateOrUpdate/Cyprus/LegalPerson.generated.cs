@@ -61,63 +61,35 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
+WriteAttribute("src", Tuple.Create(" src=\"", 184), Tuple.Create("\"", 265)
+, Tuple.Create(Tuple.Create("", 190), Tuple.Create("/Scripts/Ext.DoubleGis.UI.LegalPerson.js?", 190), true)
+            
+            #line 9 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+, Tuple.Create(Tuple.Create("", 231), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 231), false)
+);
+
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        window.InitPage = function() {\r\n            window.Card.on(\"beforebuil" +
-"d\", function(card) {\r\n                Ext.apply(this, {\r\n                    Cha" +
-"ngeLegalPersonClient: function() {\r\n                        var params = \"dialog" +
-"Width:\" + 500 + \"px; dialogHeight:\" + 250 + \"px; status:yes; scroll:no;resizable" +
-":no;\";\r\n                        var url = \'/GroupOperation/ChangeClient/LegalPer" +
-"son\';\r\n                        window.showModalDialog(url, [Ext.getDom(\"Id\").val" +
-"ue], params);\r\n                        this.refresh();\r\n                    },\r\n" +
-"\r\n                    ChangeLegalPersonRequisites: function() {\r\n               " +
-"         var params = \"dialogWidth:\" + 700 + \"px; dialogHeight:\" + 330 + \"px; st" +
-"atus:yes; scroll:no;resizable:no;\";\r\n                        var url = \'/Cyprus/" +
-"LegalPerson/ChangeLegalPersonRequisites/\' + Ext.getDom(\"Id\").value;\r\n           " +
-"             var result = window.showModalDialog(url, null, params);\r\n          " +
-"              if (result == \'OK\') {\r\n                            this.refresh();" +
-"\r\n                        }\r\n                    }\r\n                });\r\n\r\n     " +
-"       });\r\n            window.Card.on(\"afterbuild\", function(card) {\r\n         " +
-"       if (window.Ext.getDom(\"ViewConfig_Id\").value && window.Ext.getDom(\"ViewCo" +
-"nfig_Id\").value != \"0\") {\r\n                    this.Items.TabPanel.add(\r\n       " +
-"                 {\r\n                            xtype: \"actionshistorytab\",\r\n   " +
-"                         pCardInfo:\r\n                            {\r\n            " +
-"                    pTypeName: this.Settings.EntityName,\r\n                      " +
-"          pId: window.Ext.getDom(\"ViewConfig_Id\").value\r\n                       " +
-"     }\r\n                        });\r\n                }\r\n            });\r\n\r\n     " +
-"       Ext.apply(this, {\r\n\r\n                buildProfilesList: function () {\r\n  " +
-"                  if (this.form.Id.value != 0) {\r\n                        var cn" +
-"t = Ext.getCmp(\'ContentTab_holder\');\r\n                        var tp = Ext.getCm" +
-"p(\'TabWrapper\');\r\n\r\n                        tp.anchor = \"100%, 60%\";\r\n          " +
-"              delete tp.anchorSpec;\r\n                        cnt.add(new Ext.Pan" +
-"el({\r\n                            id: \'profileFrame_holder\',\r\n                  " +
-"          anchor: \'100%, 40%\',\r\n                            html: \'<iframe id=\"p" +
-"rofileFrame_frame\"></iframe>\'\r\n                        }));\r\n                   " +
-"     cnt.doLayout();\r\n                        var mask = new window.Ext.LoadMask" +
-"(window.Ext.get(\"profileFrame_holder\"));\r\n                        mask.show();\r\n" +
-"                        var iframe = Ext.get(\'profileFrame_frame\');\r\n\r\n         " +
-"               iframe.dom.src = \'/Grid/View/LegalPersonProfile/LegalPerson/{0}/{" +
-"1}?extendedInfo=filterToParent%3Dtrue\'.replace(/\\{0\\}/g, this.form.Id.value).rep" +
-"lace(/\\{1\\}/g, this.ReadOnly ? \'Inactive\' : \'Active\');\r\n                        " +
-"iframe.on(\'load\', function (evt, el) {\r\n                            el.height = " +
-"Ext.get(el.parentElement).getComputedHeight();\r\n                            el.w" +
-"idth = Ext.get(el.parentElement).getComputedWidth();\r\n                          " +
-"  el.style.height = \"100%\";\r\n                            el.style.width = \"100%\"" +
-";\r\n                            el.contentWindow.Ext.onReady(function () {\r\n     " +
-"                           el.contentWindow.IsBottomOrderPositionDataList = true" +
-";\r\n                            });\r\n                            this.hide();\r\n  " +
-"                      }, mask);\r\n                        cnt.doLayout();\r\n\r\n    " +
-"                }\r\n                }\r\n            });\r\n\r\n            this.on(\"af" +
-"terbuild\", this.buildProfilesList, this);\r\n            this.on(\"afterrelatedlist" +
-"ready\", function(card, details) {\r\n                var dataListName = details.da" +
-"taList.currentSettings.Name;\r\n\r\n                if (dataListName === \'LegalPerso" +
-"nProfile\') {\r\n                    var dataListWindow = details.dataList.ContentC" +
-"ontainer.container.dom.document.parentWindow;\r\n                    if (dataListW" +
-"indow.IsBottomOrderPositionDataList) {\r\n                        dataListWindow.E" +
-"xt.getDom(\'Toolbar\').style.display = \'none\';\r\n                        details.da" +
-"taList.Items.Grid.getBottomToolbar().hide();\r\n                        details.da" +
-"taList.ContentContainer.doLayout();\r\n                    }\r\n                }\r\n " +
-"           }, this);\r\n        };\r\n    </script>\r\n    <style");
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 312), Tuple.Create("\"", 407)
+, Tuple.Create(Tuple.Create("", 318), Tuple.Create("/Scripts/Cyprus/Ext.DoubleGis.UI.LegalPerson.Cyprus.js?", 318), true)
+            
+            #line 10 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+, Tuple.Create(Tuple.Create("", 373), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 373), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n\r\n    <style");
 
 WriteLiteral(" type=\"text/css\"");
 
@@ -135,7 +107,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 105 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 21 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
 Write(Html.HiddenFor(m => m.Id));
 
             
@@ -146,7 +118,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 106 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 22 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
 Write(Html.HiddenFor(m => m.HasProfiles));
 
             
@@ -158,14 +130,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 4833), Tuple.Create("\"", 4869)
+WriteAttribute("title", Tuple.Create(" title=\"", 701), Tuple.Create("\"", 737)
             
-            #line 108 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
-, Tuple.Create(Tuple.Create("", 4841), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 24 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+, Tuple.Create(Tuple.Create("", 709), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 4841), false)
+, 709), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -177,7 +149,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 110 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalName, FieldFlex.twins));
 
             
@@ -188,7 +160,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 111 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -203,7 +175,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 114 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
 
             
@@ -218,7 +190,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 117 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Inn, FieldFlex.twins));
 
             
@@ -229,7 +201,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 118 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.BusinessmanInn, FieldFlex.twins));
 
             
@@ -240,7 +212,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 119 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.VAT, FieldFlex.twins));
 
             
@@ -255,7 +227,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 122 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.PassportNumber, FieldFlex.twins));
 
             
@@ -266,7 +238,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 123 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 39 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.PassportIssuedBy, FieldFlex.twins));
 
             
@@ -281,7 +253,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 126 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 42 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.CardNumber, FieldFlex.twins));
 
             
@@ -292,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 127 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.RegistrationAddress, FieldFlex.twins));
 
             
@@ -307,7 +279,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 130 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 46 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.LegalAddress, FieldFlex.lone));
 
             
@@ -322,7 +294,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 133 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } }));
 
             

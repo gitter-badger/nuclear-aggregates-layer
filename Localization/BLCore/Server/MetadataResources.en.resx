@@ -1337,13 +1337,13 @@
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
     <value>Representative&apos;s RUT</value>
-</data>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
     <value>Business area</value>
-</data>
+  </data>
   <data name="Egrpou" xml:space="preserve">
     <value>EGRPOU (Unified State Register of Enterprises and Organizations of Ukraine)</value>
   </data>
@@ -1358,5 +1358,20 @@
   </data>
   <data name="OrderPosition" xml:space="preserve">
     <value>Order item</value>
+  </data>
+  <data name="CommercialLicense" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="CommercialLicenseBeginDate" xml:space="preserve">
+    <value>License start date</value>
+  </data>
+  <data name="CommercialLicenseEndDate" xml:space="preserve">
+    <value>License end date</value>
+  </data>
+  <data name="PoBox" xml:space="preserve">
+    <value>P.O.Box</value>
+  </data>
+  <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
+    <value>Generate Acceptance Report</value>
   </data>
 </root>

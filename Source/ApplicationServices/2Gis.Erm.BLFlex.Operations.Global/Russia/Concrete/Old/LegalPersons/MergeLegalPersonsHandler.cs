@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Russia.LegalPersons.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -30,6 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
         private readonly IOrderRepository _orderRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IBargainRepository _bargainRepository;
+        private readonly IRussiaLegalPersonReadModel _legalPersonReadModel;
 
         public MergeLegalPersonsHandler(
             ISecurityServiceFunctionalAccess functionalAccessService,
@@ -37,14 +39,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IBargainRepository bargainRepository,
-            IUserContext userContext, 
+            IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            IUpdateAggregateRepository<LegalPersonProfile> updateProfileRepository)
+            IUpdateAggregateRepository<LegalPersonProfile> updateProfileRepository,
+            IRussiaLegalPersonReadModel legalPersonReadModel)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
             _updateProfileRepository = updateProfileRepository;
+            _legalPersonReadModel = legalPersonReadModel;
             _legalPersonRepository = legalPersonRepository;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
@@ -66,8 +70,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                 throw new NotificationException(BLResources.MergeLegalPersonsAccessDeniedError);
             }
 
-            var mainLegalPerson = _legalPersonRepository.GetInfoForMerging(request.MainLegalPersonId);
-            var appendedLegalPerson = _legalPersonRepository.GetInfoForMerging(request.AppendedLegalPersonId);
+            var mainLegalPerson = _legalPersonReadModel.GetInfoForMerge(request.MainLegalPersonId);
+            var appendedLegalPerson = _legalPersonReadModel.GetInfoForMerge(request.AppendedLegalPersonId);
 
             if (mainLegalPerson == null)
             {
@@ -77,6 +81,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             if (appendedLegalPerson == null)
             {
                 throw new NotificationException(BLResources.MergeLegalPersonsAppendedNotFoundError);
+            }
+
+            // У юр. лиц не должно быть более 1 основного профиля
+            if (mainLegalPerson.Profiles.Count(x => x.IsMainProfile && x.IsActive && !x.IsDeleted) > 1)
+            {
+                throw new NotificationException(string.Format(BLResources.LegalPersonHasSeveralMainProfiles, mainLegalPerson.LegalPerson.LegalName));
+            }
+
+            if (appendedLegalPerson.Profiles.Count(x => x.IsMainProfile && x.IsActive && !x.IsDeleted) > 1)
+            {
+                throw new NotificationException(string.Format(BLResources.LegalPersonHasSeveralMainProfiles, appendedLegalPerson.LegalPerson.LegalName));
             }
 
             // Проверим, указаны ли ИНН,КПП, серия, номер паспорта в зависимости от типа юр. лица
@@ -204,10 +219,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
 
                 operationScope.Updated<Bargain>(appendedLegalPerson.Bargains.Select(x => x.Id));
 
+                var mainLegalPersonHasMainProfile = mainLegalPerson.Profiles.Any(x => x.IsMainProfile && x.IsActive && !x.IsDeleted);
+
                 // Профили юр. лиц (LegalPersonProfiles.LegalPersonId)
                 foreach (var profile in appendedLegalPerson.Profiles)
                 {
-                    profile.IsMainProfile = false;
+                    profile.IsMainProfile = !mainLegalPersonHasMainProfile && profile.IsMainProfile;
                     profile.LegalPersonId = mainLegalPerson.LegalPerson.Id;
                     _updateProfileRepository.Update(profile);
                 }

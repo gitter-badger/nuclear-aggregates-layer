@@ -1,7 +1,6 @@
-﻿@using BLCore.UI.Web.Mvc.Settings
-@using BLCore.UI.Web.Mvc.Utils
+﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
 @using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
-@model Models.MultiCultureOrderViewModel
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -46,6 +45,7 @@
 {
     <div style="display: none">
         @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.DgppId)
         @Html.HiddenFor(m => m.IsTerminated)
         @Html.HiddenFor(m => m.WorkflowStepId)
         @Html.HiddenFor(m => m.PreviousWorkflowStepId)

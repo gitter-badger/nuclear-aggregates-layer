@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCulturePhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCulturePhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "Purpose", "this.value != 'NotSet'")]
