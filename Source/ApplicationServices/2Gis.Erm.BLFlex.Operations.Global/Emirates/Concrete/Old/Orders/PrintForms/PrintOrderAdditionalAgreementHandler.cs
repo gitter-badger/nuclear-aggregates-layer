@@ -153,44 +153,46 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         {
             var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
             var data = _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => new
-                          {
-                              Order = new 
-                              {
-                                  order.Number,
-                                  order.SignupDate,
-                                  order.RejectionDate
-                              },
+                              .Select(order => new
+                                  {
+                                      Order = new
+                                          {
+                                              order.Number,
+                                              order.SignupDate,
+                                              order.RejectionDate
+                                          },
 
-                              UseBargain = order.BargainId.HasValue,
+                                      UseBargain = order.BargainId.HasValue,
 
-                              Bargain = new
-                              {
-                                  order.Bargain.Number,
-                                  order.Bargain.SignedOn,
-                              },
+                                      Bargain = order.Bargain == null
+                                                    ? null
+                                                    : new
+                                                        {
+                                                            order.Bargain.Number,
+                                                            order.Bargain.SignedOn,
+                                                        },
 
-                              BranchOfficeOrganizationUnit = new
-                              {
-                                  order.BranchOfficeOrganizationUnit.ShortLegalName,
-                                  order.BranchOfficeOrganizationUnit.PostalAddress,
-                                  order.BranchOfficeOrganizationUnit.PhoneNumber,
-                                  order.BranchOfficeOrganizationUnit.PaymentEssentialElements,
-                                  order.BranchOfficeOrganizationUnit.ChiefNameInNominative,
-                              },
+                                      BranchOfficeOrganizationUnit = new
+                                          {
+                                              order.BranchOfficeOrganizationUnit.ShortLegalName,
+                                              order.BranchOfficeOrganizationUnit.PostalAddress,
+                                              order.BranchOfficeOrganizationUnit.PhoneNumber,
+                                              order.BranchOfficeOrganizationUnit.PaymentEssentialElements,
+                                              order.BranchOfficeOrganizationUnit.ChiefNameInNominative,
+                                          },
 
-                              BranchOffice = new
-                              {
-                                  order.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
-                              },
+                                      BranchOffice = new
+                                          {
+                                              order.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
+                                          },
 
-                              LegalPerson = new
-                              {
-                                  order.LegalPerson.LegalName,
-                                  order.LegalPerson.LegalAddress,
-                              },
-                          })
-                          .Single();
+                                      LegalPerson = new
+                                          {
+                                              order.LegalPerson.LegalName,
+                                              order.LegalPerson.LegalAddress,
+                                          },
+                                  })
+                              .Single();
 
             return new
             {
