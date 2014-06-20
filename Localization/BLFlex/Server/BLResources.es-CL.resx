@@ -386,6 +386,6 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="NoOrdersFound" xml:space="preserve">
-    <value>По указанным параметрам заказов не найдено</value>
+    <value>No se han encontrado órdenes según parámetros indicados</value>
   </data>
 </root>

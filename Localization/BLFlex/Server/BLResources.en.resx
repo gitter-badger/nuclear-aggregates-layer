@@ -396,6 +396,6 @@ Bank Name: {7}
     <value>Cannot print Acceptance Report, since the legal entity profile is not defined for the following orders: {0}</value>
   </data>
   <data name="NoOrdersFound" xml:space="preserve">
-    <value>По указанным параметрам заказов не найдено</value>
+    <value>No orders found for the specified criteria</value>
   </data>
 </root>
