@@ -391,7 +391,6 @@
     <Compile Include="Generic\Get\GetAssociatedPositionsGroupDtoService.cs" />
     <Compile Include="Generic\Get\GetBargainDtoService.cs" />
     <Compile Include="Generic\Get\GetBargainFileDtoService.cs" />
-    <Compile Include="Generic\Get\GetBargainTypeDtoService.cs" />
     <Compile Include="Generic\Get\GetBillDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
     <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
@@ -450,7 +449,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BargainTypeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
@@ -623,6 +621,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>

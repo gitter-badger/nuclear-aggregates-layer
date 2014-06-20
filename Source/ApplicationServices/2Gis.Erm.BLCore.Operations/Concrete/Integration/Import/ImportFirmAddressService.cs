@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Exceptions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -65,12 +66,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                         var addressToUpdate = addressesToImport[id].FirmAddress;
                         var existingAddress = existingAddresses[id];
 
+                        addressToUpdate.ReplicationCode = existingAddress.ReplicationCode;
+                        addressToUpdate.CreatedBy = existingAddress.CreatedBy;
+                        addressToUpdate.CreatedOn = existingAddress.CreatedOn;
                         addressToUpdate.Timestamp = existingAddress.Timestamp;
-                        if (addressToUpdate.Parts.Any())
-                        {
-                            addressToUpdate.Parts.Single().Id = existingAddress.Parts.Single().Id;
-                            addressToUpdate.Parts.Single().Timestamp = existingAddress.Parts.Single().Timestamp;
-                        }
+
+                        addressToUpdate.Within().SyncPropertyValue(x => x.Id, existingAddress);
+                        addressToUpdate.Within().SyncPropertyValue(x => x.EntityId, existingAddress);
+                        addressToUpdate.Within().SyncPropertyValue(x => x.Timestamp, existingAddress);
 
                         _updateFirmAddressService.Update(addressToUpdate);
 
