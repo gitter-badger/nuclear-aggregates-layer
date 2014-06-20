@@ -6,17 +6,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO
 {
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public class LegalPersonForMergeDto
-    {
-        public LegalPerson LegalPerson { get; set; }
-        public IEnumerable<Account> Accounts { get; set; }
-        public IEnumerable<AccountDetail> AccountDetails { get; set; }
-        public IEnumerable<Order> Orders { get; set; }
-        public IEnumerable<Bargain> Bargains { get; set; }
-        public IEnumerable<LegalPersonProfile> Profiles { get; set; }
-    }
-
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public class LegalPersonWithProfiles
     {
         public LegalPerson LegalPerson { get; set; }

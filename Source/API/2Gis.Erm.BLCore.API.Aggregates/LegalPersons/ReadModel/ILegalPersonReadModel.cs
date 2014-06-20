@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -12,6 +11,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         string GetLegalPersonName(long legalPersonId);
         bool HasAnyLegalPersonProfiles(long legalPersonId);
         PaymentMethod? GetPaymentMethod(long legalPersonId);
+        string GetActiveLegalPersonNameWithSpecifiedInn(string inn);
         LegalPersonType GetLegalPersonType(long legalPersonId);
 
         LegalPerson GetLegalPerson(long legalPersonId);

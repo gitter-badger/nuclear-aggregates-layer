@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 // ReSharper disable CheckNamespace
+
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 // ReSharper restore CheckNamespace
 {
@@ -58,7 +59,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                     Id = x.Id,
                     ShortLegalName = x.ShortLegalName,
                 })
-                .SingleOrDefault() ?? new BranchOfficeOrganizationShortInformationDto(); // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
+                          .SingleOrDefault() ?? new BranchOfficeOrganizationShortInformationDto();
+                // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
         }
 
         public int Deactivate(BranchOffice branchOffice)
@@ -228,6 +230,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                     PrimaryForRegionalSales =
                         _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
                 };
+        }
+
+        int IActivateAggregateRepository<BranchOffice>.Activate(long entityId)
+        {
+            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(entityId));
+
+            return Activate(branchOffice);
+        }
+
+        private int Activate(BranchOffice branchOffice)
+        {
+            branchOffice.IsActive = true;
+            _branchOfficeGenericRepository.Update(branchOffice);
+
+            return _branchOfficeGenericRepository.Save();
         }
     }
 }

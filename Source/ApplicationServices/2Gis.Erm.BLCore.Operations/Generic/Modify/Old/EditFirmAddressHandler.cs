@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -8,17 +8,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 {
     public sealed class EditFirmAddressHandler : RequestHandler<EditRequest<FirmAddress>, EmptyResponse>
     {
-        private readonly IFirmRepository _firmRepository;
+        private readonly IUpdateAggregateRepository<FirmAddress> _updateFirmAddressService;
 
-        public EditFirmAddressHandler(IFirmRepository firmRepository)
+        public EditFirmAddressHandler(IUpdateAggregateRepository<FirmAddress> updateFirmAddressService)
         {
-            _firmRepository = firmRepository;
+            _updateFirmAddressService = updateFirmAddressService;
         }
 
         protected override EmptyResponse Handle(EditRequest<FirmAddress> request)
         {
-            _firmRepository.Update(request.Entity);
+            _updateFirmAddressService.Update(request.Entity);
             return Response.Empty;
         }
-   }
+    }
 }

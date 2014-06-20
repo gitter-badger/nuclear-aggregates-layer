@@ -15,24 +15,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetAdvertisementDtoService : GetDomainEntityDtoServiceBase<Advertisement>
     {
-        private readonly ISecureFinder _finder;
+        private readonly IUserContext _userContext;
         private readonly IFinder _unsecureFinder;
+        private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
 
         public GetAdvertisementDtoService(IUserContext userContext,
-                                          ISecureFinder finder,
+                                          ISecureFinder secureFinder,
                                           IFinder unsecureFinder,
                                           ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
             : base(userContext)
         {
-            _finder = finder;
+            _userContext = userContext;
+            _secureFinder = secureFinder;
             _unsecureFinder = unsecureFinder;
             _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         protected override IDomainEntityDto<Advertisement> GetDto(long entityId)
         {
-            var dto = _finder.Find<Advertisement>(x => x.Id == entityId)
+            var dto = _secureFinder.Find<Advertisement>(x => x.Id == entityId)
                              .Select(entity => new AdvertisementDomainEntityDto
                                  {
                                      Id = entity.Id,
@@ -129,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                         dto.AdvertisementTemplateRef = new EntityReference
                             {
                                 Id = advertisementTemplateId,
-                                Name = _finder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
+                                Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
                             };
                     }
 
@@ -145,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                         dto.FirmRef = new EntityReference
                             {
                                 Id = firmId,
-                                Name = _finder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                                Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
                             };
                     }
 
@@ -174,6 +176,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         private FirmInfo GetFirm(long firmId)
         {
+            // В данном случае необходимо использовать небезопасную версию файндера
             return _unsecureFinder
                 .Find(Specs.Find.ById<Firm>(firmId))
                 .Select(x => new FirmInfo

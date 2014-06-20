@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices
 {
     public interface IBranchOfficeRepository : IAggregateRootRepository<BranchOffice>,
+                                               IActivateAggregateRepository<BranchOffice>,
                                                IActivateAggregateRepository<BranchOfficeOrganizationUnit>,
                                                IDeactivateAggregateRepository<BranchOffice>,
                                                IDeactivateAggregateRepository<BranchOfficeOrganizationUnit>

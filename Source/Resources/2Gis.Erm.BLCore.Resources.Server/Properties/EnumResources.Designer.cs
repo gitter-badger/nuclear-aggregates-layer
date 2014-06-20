@@ -4831,6 +4831,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AcceptanceReport.
+        /// </summary>
+        public static string TemplateCodeAcceptanceReport {
+            get {
+                return ResourceManager.GetString("TemplateCodeAcceptanceReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Доп. соглашение для ИП.
         /// </summary>
         public static string TemplateCodeAdditionalAgreementBusinessman {
@@ -4890,6 +4899,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TemplateCodeBargainLegalPerson {
             get {
                 return ResourceManager.GetString("TemplateCodeBargainLegalPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Договор для юр. лица (дополнительный язык).
+        /// </summary>
+        public static string TemplateCodeBargainLegalPersonAlternativeLanguage {
+            get {
+                return ResourceManager.GetString("TemplateCodeBargainLegalPersonAlternativeLanguage", resourceCulture);
             }
         }
         

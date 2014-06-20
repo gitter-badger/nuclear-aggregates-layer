@@ -22,9 +22,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (OperationDomainEntityDto)domainEntityDto;
 
-            var entity = dto.Id == 0
-                             ? new Operation()
-                             : _finder.Find(Specs.Find.ById<Operation>(dto.Id)).Single();
+            var entity = _finder.FindOne(Specs.Find.ById<Operation>(dto.Id)) 
+                ?? new Operation();
 
             entity.Description = dto.Description;
             entity.FinishTime = dto.FinishTime;

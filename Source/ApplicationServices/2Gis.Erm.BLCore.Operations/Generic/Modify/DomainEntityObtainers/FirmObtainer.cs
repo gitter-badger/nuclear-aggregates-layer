@@ -25,9 +25,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             // do not set Territory to entity
             // do not set ClosedForAscertainment to entity
-            var firm = dto.Id == 0
-                           ? new Firm { IsActive = true }
-                           : _finder.Find(Specs.Find.ById<Firm>(dto.Id)).Single();
+            var firm = _finder.FindOne(Specs.Find.ById<Firm>(dto.Id)) 
+                ?? new Firm { IsActive = true };
 
             firm.Id = dto.Id;
             firm.ReplicationCode = dto.ReplicationCode;

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
@@ -151,11 +149,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public ClientAndFirmForDealInfo GetClientAndFirmForDealInfo(Deal deal)
         {
-            return _finder.Find<Client>(x => !x.IsDeleted && x.IsActive && x.Id == deal.ClientId).Select(x => new ClientAndFirmForDealInfo
-                {
-                Client = x,
-                MainFirm = x.Firms.FirstOrDefault(y => !y.IsDeleted && y.IsActive && y.Id == deal.MainFirmId),
-            }).SingleOrDefault();
+            var clientInfo = _finder.Find(Specs.Find.ById<Client>(deal.ClientId) && Specs.Find.ActiveAndNotDeleted<Client>())
+                                    .Select(x => new
+                                        {
+                                            ClientId = x.Id,
+                                            MainFirm = x.Firms.FirstOrDefault(y => !y.IsDeleted && y.IsActive && y.Id == deal.MainFirmId),
+                                        })
+                                    .SingleOrDefault();
+
+            return clientInfo != null
+                       ? new ClientAndFirmForDealInfo
+                           {
+                               Client = _finder.FindOne(Specs.Find.ById<Client>(clientInfo.ClientId)),
+                               MainFirm = clientInfo.MainFirm
+                           }
+                       : null;
         }
 
         public void ReopenDeal(Deal deal)

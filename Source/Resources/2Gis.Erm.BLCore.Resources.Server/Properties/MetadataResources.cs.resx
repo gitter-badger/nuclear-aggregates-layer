@@ -1345,18 +1345,33 @@
     <value>Druh činnosti</value>
   </data>
   <data name="OrderPosition" xml:space="preserve">
-    <value>Позиция заказа</value>
+    <value>Položka objednávky</value>
   </data>
   <data name="Egrpou" xml:space="preserve">
-    <value>ЕГРПОУ</value>
+    <value>Jednotný státní rejstřík podniků a organizací Ukrajiny</value>
   </data>
   <data name="Ipn" xml:space="preserve">
-    <value>ИПН</value>
+    <value>DIČ</value>
   </data>
   <data name="TaxationType" xml:space="preserve">
-    <value>Тип налогообложения</value>
+    <value>Typ zdanění</value>
   </data>
   <data name="Mfo" xml:space="preserve">
-    <value>МФО</value>
+    <value>BIC</value>
+  </data>
+  <data name="CommercialLicense" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="CommercialLicenseBeginDate" xml:space="preserve">
+    <value>Datum začátku platnosti licence</value>
+  </data>
+  <data name="CommercialLicenseEndDate" xml:space="preserve">
+    <value>Datum ukončení platnosti licence</value>
+  </data>
+  <data name="PoBox" xml:space="preserve">
+    <value>P.O.Box</value>
+  </data>
+  <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
+    <value>Vytvořit Acceptance Report</value>
   </data>
 </root>

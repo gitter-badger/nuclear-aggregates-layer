@@ -23,9 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PriceDomainEntityDto)domainEntityDto;
 
-            var price = dto.Id == 0
-                            ? new Price { IsActive = true }
-                            : _finder.Find(Specs.Find.ById<Price>(dto.Id)).Single();
+            var price = _finder.FindOne(Specs.Find.ById<Price>(dto.Id)) 
+                ?? new Price { IsActive = true };
 
             price.CreateDate = dto.CreateDate;
             price.BeginDate = dto.BeginDate.AddDays(1 - dto.BeginDate.Day);

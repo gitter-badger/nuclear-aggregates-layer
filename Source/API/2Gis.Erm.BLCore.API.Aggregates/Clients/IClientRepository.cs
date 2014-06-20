@@ -16,10 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients
                                          ICheckAggregateForDebtsRepository<Client>,
                                          IChangeAggregateTerritoryRepository<Client>
     {
-        string GetClientName(long clientId);
-        Client GetClient(long clientId);
         ClientReplicationDto GetClientReplicationData(long clientId);
-        Client CreateFromFirm(Firm firm, long ownerCode);
         int SetMainFirm(Client client, long? mainFirmId);
         int Assign(Client client, long ownerCode);
         int AssignWithRelatedEntities(long clientId, long ownerCode, bool isPartialAssign);
@@ -31,7 +28,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients
         Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient, bool assignAllObjects);
         void CalculatePromising();
         IEnumerable<Client> GetClientsByTerritory(long territoryId);
-        void CreateOrUpdate(Client client);
         void CreateOrUpdate(Contact contact);
         int HideFirm(long firmId);
     }

@@ -77,5 +77,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                 }
             }
         }
+
+        public static class BranchOffices
+        {
+            public static class Find
+            {
+                public static FindSpecification<BranchOffice> DuplicatesByInn(long entityId, string inn)
+                {
+                    return new FindSpecification<BranchOffice>(x => x.Id != entityId && x.Inn == inn);
+                }
+            }
+        }
     }
 }

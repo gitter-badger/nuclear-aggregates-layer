@@ -14,6 +14,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
 
         BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId);
         BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(string syncCode1C);
+        string GetNameOfActiveDuplicateByInn(long branchOfficeId, string inn);
+
+        bool AreThereAnyActiveInnDuplicates(long branchOfficeId, string inn);
 
         IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode);
         ContributionTypeEnum GetOrganizationUnitContributionType(long organizationUnitId);
