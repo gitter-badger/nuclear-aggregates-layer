@@ -125,6 +125,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 () => Queryable.Invoking(q => q.ToArray()).ShouldThrow<ArgumentException>();
             It shoud_not_allow_use_partable_queryable_directly_when_taking_one =
                 () => Queryable.Invoking(q => q.FirstOrDefault()).ShouldThrow<ArgumentException>();
+            It shoud_not_allow_use_partable_queryable_with_simple_select =
+                () => Queryable.Invoking(q => q.Select(x => true).ToArray()).ShouldThrow<ArgumentException>();
         }
 
         [Tags("DAL")]

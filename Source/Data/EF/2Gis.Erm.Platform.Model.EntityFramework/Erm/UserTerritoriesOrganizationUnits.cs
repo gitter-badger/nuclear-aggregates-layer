@@ -23,25 +23,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public OrganizationUnit OrganizationUnit { get; set; }
         public Territory Territory { get; set; }
     
-    	public override bool Equals(object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-    
-            if (GetType() != obj.GetType())
-            {
-                return false;
-            }
-    
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-    
-    		return false;
-        }
     
     	override public int GetHashCode()
     	{

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -20,6 +20,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
                 { typeof(UkraineLegalPersonProfilePart), typeof(IUkraineAdapted) },
                 { typeof(ChileBranchOfficeOrganizationUnitPart), typeof(IChileAdapted) },
                 { typeof(UkraineBranchOfficePart), typeof(IUkraineAdapted) },
+                { typeof(EmiratesLegalPersonPart), typeof(IEmiratesAdapted) },
+                { typeof(EmiratesLegalPersonProfilePart), typeof(IEmiratesAdapted) },
+                { typeof(EmiratesClientPart), typeof(IEmiratesAdapted) },
+                { typeof(EmiratesBranchOfficeOrganizationUnitPart), typeof(IEmiratesAdapted) },
+                { typeof(EmiratesFirmAddressPart), typeof(IEmiratesAdapted) },
             };
 
         public static bool IsAdapted(this Type type)

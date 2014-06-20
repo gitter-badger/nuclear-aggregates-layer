@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.Globalization
                     { new CultureInfo("el-GR"), new CultureInfo("el") },
                     { new CultureInfo("cs-CZ"), new CultureInfo("cs") },
                     { new CultureInfo("es-CL"), new CultureInfo("es") },
+                    { new CultureInfo("ar-AE"), new CultureInfo("ar") },
                 };
 
         internal static readonly CultureInfo[] FallbackOnlySupportedCultures = { new CultureInfo("el"), new CultureInfo("el-GR") };
