@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -19,18 +19,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
-        private readonly IFirmRepository _firmRepository;
         private readonly FilterHelper _filterHelper;
+        private readonly IFirmReadModel _firmReadModel;
 
         public ListFirmContactService(
             IFinder finder,
             IUserContext userContext,
-            IFirmRepository firmRepository, FilterHelper filterHelper)
+            FilterHelper filterHelper,
+            IFirmReadModel firmReadModel)
         {
             _finder = finder;
             _userContext = userContext;
-            _firmRepository = firmRepository;
             _filterHelper = filterHelper;
+            _firmReadModel = firmReadModel;
         }
 
         protected override IEnumerable<ListFirmContactDto> List(QuerySettings querySettings, out int count)
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             IQueryable<FirmContact> query;
             if (querySettings.ParentEntityName == EntityName.FirmAddress && querySettings.ParentEntityId != null)
             {
-                query = _firmRepository.GetContacts(querySettings.ParentEntityId.Value).AsQueryable();
+                query = _firmReadModel.GetContacts(querySettings.ParentEntityId.Value).AsQueryable();
             }
             else
             {
