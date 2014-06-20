@@ -146,18 +146,18 @@
     <value>Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Medios de comunicación: &quot;{0}&quot; (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
+    <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
 2. Plataforma web 2gis.сl.
 3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Plataforma web con la dirección 2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>
@@ -167,10 +167,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Imposible crear la orden de compra para la persona jurídica &apos;{0}&apos; especificada en el perfil</value>
+    <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
+    <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
@@ -351,5 +351,41 @@
   </data>
   <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>По указанным параметрам заказов не найдено</value>
   </data>
 </root>

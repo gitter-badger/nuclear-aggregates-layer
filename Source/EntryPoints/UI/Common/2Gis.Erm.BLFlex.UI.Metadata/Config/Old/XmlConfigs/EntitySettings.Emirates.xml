@@ -1775,8 +1775,8 @@
           <ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
           <ToolbarItem ParentName="Actions" DisableOnEmpty="true" Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <!--<ToolbarItem ParentName="Actions" DisableOnEmpty="true" Name="CloseWithDenial" NameLocaleResourceId="ControlCloseWithDenial" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CloseWithDenial" Icon="Delete.gif" SecurityPrivelegeFlag="0" />-->
-          <ToolbarItem ParentName="Actions" Name="GenerateAcceptanceReports" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlGenerateAcceptanceReports" ControlType="TextButton" LockOnInactive="true" Action="scope.GenerateAcceptanceReports" Icon="en_ico_16_Binding.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem ParentName="Actions" Name="CheckOrdersReadinessForRelease" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlCheckOrdersReadinessForRelease" ControlType="TextButton" LockOnInactive="true" Action="scope.CheckOrdersReadinessForRelease" Icon="en_ico_16_Binding.gif" SecurityPrivelegeFlag="0" />
+          <ToolbarItem ParentName="Actions" Name="GenerateAcceptanceReports" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlGenerateAcceptanceReports" ControlType="TextButton" LockOnInactive="true" Action="scope.GenerateAcceptanceReports" Icon="en_ico_16_Binding.gif" SecurityPrivelegeFlag="0" />
           <!--<ToolbarItem ParentName="Actions" Name="MakeRegionalAdsDocs" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlMakeRegionalAdsDocs" ControlType="ImageButton" LockOnInactive="true" Action="scope.MakeRegionalAdsDocs" Icon="en_ico_16_DataListToolbar.gif" SecurityPrivelegeFlag="0" />-->
         </ToolbarItems>
         <Fields>

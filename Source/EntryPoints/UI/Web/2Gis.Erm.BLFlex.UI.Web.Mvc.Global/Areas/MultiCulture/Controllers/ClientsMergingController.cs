@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -19,7 +20,6 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         {
             var result = new MultiCultureMergeClientsViewModel();
 
-            var domainEntityDto = (ClientDomainEntityDto)model.TransformToDomainEntityDto();
+            var domainEntityDto = (MultiCultureClientDomainEntityDto)model.TransformToDomainEntityDto();
             domainEntityDto.OwnerRef = model.Owner.ToReference();
 
             var entity = _clientObtainer.ObtainBusinessModelEntity(domainEntityDto);
@@ -127,8 +127,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
             }
 
             var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.Client);
-            var masterClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
-            var subordinateClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
+            var masterClientDto = (MultiCultureClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
+            var subordinateClientDto = (MultiCultureClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
 
             var masterClientModel = new MultiCultureClientViewModel
                 {

@@ -1309,8 +1309,8 @@
     <value>Является рекламным агентством</value>
   </data>
   <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-		<value>Ошибка</value>
-	</data>
+    <value>Ошибка</value>
+  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Представитель</value>
   </data>
@@ -1336,14 +1336,14 @@
     <value>Название банка</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-  <value>RUT представителя</value>
-</data>
+    <value>RUT представителя</value>
+  </data>
   <data name="Rut" xml:space="preserve">
-  <value>RUT</value>
-</data>
+    <value>RUT</value>
+  </data>
   <data name="OperationsKind" xml:space="preserve">
-  <value>Вид деятельности</value>
-</data>
+    <value>Вид деятельности</value>
+  </data>
   <data name="Egrpou" xml:space="preserve">
     <value>ЕГРПОУ</value>
   </data>
@@ -1358,5 +1358,20 @@
   </data>
   <data name="OrderPosition" xml:space="preserve">
     <value>Позиция заказа</value>
+  </data>
+  <data name="CommercialLicense" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="CommercialLicenseBeginDate" xml:space="preserve">
+    <value>Дата начала действия лицензии</value>
+  </data>
+  <data name="CommercialLicenseEndDate" xml:space="preserve">
+    <value>Дата окончания действия лицензии</value>
+  </data>
+  <data name="PoBox" xml:space="preserve">
+    <value>P.O.Box</value>
+  </data>
+  <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
+    <value>Сформировать Acceptance Report</value>
   </data>
 </root>

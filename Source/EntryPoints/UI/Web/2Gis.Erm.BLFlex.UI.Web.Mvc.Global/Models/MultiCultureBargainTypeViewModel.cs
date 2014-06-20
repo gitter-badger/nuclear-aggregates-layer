@@ -1,6 +1,6 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
-            var modelDto = (BargainTypeDomainEntityDto)domainEntityDto;
+            var modelDto = (MultiCultureBargainTypeDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
             Name = modelDto.Name;
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            return new BargainTypeDomainEntityDto
+            return new MultiCultureBargainTypeDomainEntityDto
                 {
                     Id = Id,
                     Name = Name,

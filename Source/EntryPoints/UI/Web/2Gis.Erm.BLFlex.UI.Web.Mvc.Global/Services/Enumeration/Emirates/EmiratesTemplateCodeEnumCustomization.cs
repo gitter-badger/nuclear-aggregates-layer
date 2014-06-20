@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Emirates
                     TemplateCode.BargainLegalPersonAlternativeLanguage,
                     TemplateCode.AdditionalAgreementLegalPerson,
                     TemplateCode.BargainAdditionalAgreementLegalPerson,
+                    TemplateCode.AcceptanceReport,
                 };
         }
     }

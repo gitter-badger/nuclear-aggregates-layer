@@ -348,17 +348,11 @@
   <data name="FasCommentNewFasComment" xml:space="preserve">
     <value>Nové upozornění.</value>
   </data>
-  <data name="FasCommentAbortion" xml:space="preserve">
-    <value>Reklama zdravotních služeb na umělé přerušení těhotenství.</value>
-  </data>
   <data name="FasCommentAlcohol" xml:space="preserve">
     <value>Reklama na alkoholické výrobky.</value>
   </data>
   <data name="FasCommentDrugsAndService" xml:space="preserve">
     <value>Reklama na léčiva, zdravotnickou techniku, zdravotnické prostředky a zdravotní služby včetně způsobů léčby.</value>
-  </data>
-  <data name="FasCommentSmoke" xml:space="preserve">
-    <value>Reklama na tabák, tabákové výrobky a kuřácké potřeby.</value>
   </data>
   <data name="ProductTypeMass" xml:space="preserve">
     <value>Spotřební služby</value>
@@ -612,17 +606,11 @@
   <data name="OrderTypeSocialAds" xml:space="preserve">
     <value>Sociální reklama</value>
   </data>
-  <data name="FasCommentDisplayTextAbortion" xml:space="preserve">
-    <value>Existují kontraindikace, je třeba se poradit s odborným lékařem. Umělé přerušení těhotenství může zapříčinit neplodnost a poškodit zdravotní stav ženy.</value>
-  </data>
   <data name="FasCommentDisplayTextAlcohol" xml:space="preserve">
     <value>Nadměrné užívání alkoholu škodí Vašemu zdraví. Propagované alkoholické výrobky s obsahem maximálně pěti procent ethylalkoholu v objemu hotových výrobků.</value>
   </data>
   <data name="FasCommentDisplayTextDrugs" xml:space="preserve">
     <value>Existují kontraindikace, je třeba si přečíst návod k použití.</value>
-  </data>
-  <data name="FasCommentDisplayTextSmoke" xml:space="preserve">
-    <value>Kouření škodí zdraví.</value>
   </data>
   <data name="FasCommentDrugs" xml:space="preserve">
     <value>Reklama na léčiva, zdravotnickou techniku, zdravotnické prostředky.</value>
@@ -1168,7 +1156,7 @@
     <value>Zpracování potenciálních zákazníků</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
-    <value>Zpracování potenciálních zákazníků 5. třídy (franchisant)</value>
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Chybí</value>
@@ -1477,7 +1465,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Šek</value>
@@ -1513,103 +1501,103 @@
     <value>Nezadáno</value>
   </data>
   <data name="FirmAddressContactTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="CloseDealReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="DealStageNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="InformationSourceNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ReasonForNewDealNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FasCommentNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ProductTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="MarketTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="UsingOtherMediaOptionNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AccountRoleNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FamilyStatusNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="GenderNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderDiscountReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderTerminationReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionAccountingMethodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionCalculationMethodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="TemplateCodeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="BudgetTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="GeolocationNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="InCityBranchesAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="OutCityBranchesAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="StaffAmountNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AllOrdersReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ObjectBindingTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AccountsReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="SalesReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="BusinessOperationTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
     <value>Zveřejnění šablony RM</value>
@@ -1618,7 +1606,7 @@
     <value>Zrušení zveřejnění šablony RM</value>
   </data>
   <data name="ESalesPointTypeNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
     <value>Pobočka</value>
@@ -1633,7 +1621,7 @@
     <value>ŘS</value>
   </data>
   <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
     <value>Místní reklama na pobočce</value>
@@ -1819,7 +1807,7 @@
     <value>Podle prodané rubriky</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
-    <value />
+    <value></value>
   </data>
   <data name="AccountTypeCurrentAccount" xml:space="preserve">
     <value>Běžný účet</value>
@@ -1882,18 +1870,25 @@
     <value>Používejte biocidní přípravky bezpečně. Před použitím si vždy přečtěte údaje na obalu a připojené informace o přípravku.</value>
   </data>
   <data name="TaxationTypeNotSet" xml:space="preserve">
-    <value>Nezadáno</value>
+    <value>Не задано</value>
   </data>
   <data name="TaxationTypeWithoutVat" xml:space="preserve">
-    <value>bez DPH</value>
+    <value>без НДС</value>
   </data>
   <data name="TaxationTypeWithVat" xml:space="preserve">
-    <value>vč. DPH</value>
+    <value>с НДС</value>
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
-    <value>Zpracování potenciálních zákazníků 5. třídy (pobočka)</value>
-  <comment></comment></data>
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+  </data>
   <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
-    <value>Smlouva (nový model prodejů)</value>
-  <comment></comment></data>
+    <value>Договор (новая модель продаж)</value>
+  </data>
+  <data name="TemplateCodeAcceptanceReport" xml:space="preserve">
+    <value>AcceptanceReport</value>
+  </data>
+  <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
+    <value>Договор для юр. лица (дополнительный язык)</value>
+    <comment>Арабский-английский для договора в Эмиратах</comment>
+  </data>
 </root>

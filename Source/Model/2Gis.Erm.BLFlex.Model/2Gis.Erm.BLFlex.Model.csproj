@@ -50,6 +50,8 @@
     <Compile Include="Entities\DTOs\Chile\BankDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Chile\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Emirates\EmiratesBargainTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\MultiCulture\MultiCultureBargainTypeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\MultiCulture\MultiCultureClientDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesFirmAddressDomainEntityDto.cs" />

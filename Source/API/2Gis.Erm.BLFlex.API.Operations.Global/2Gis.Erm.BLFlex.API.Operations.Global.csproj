@@ -60,6 +60,7 @@
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\EmiratesPrintAcceptanceReportRequest.cs" />
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\EmiratesPrintAcceptanceReportsRequest.cs" />
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\OrderToPrintAcceptanceReportDoesntHaveSpecifiedProfileException.cs" />
+    <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\ThereIsNoOrdersToPrintException.cs" />
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\SomeOrdersToPrintAcceptanceReportDontHaveSpecifiedProfileException.cs" />
     <Compile Include="MultiCulture\Operations\Concrete\Integration\Dto\Cards\MultiCultureCardServiceBusDto.cs" />
     <Compile Include="MultiCulture\Operations\Generic\List\MultiCultureListOrderDto.cs" />
