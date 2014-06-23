@@ -5,9 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -193,21 +190,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void AssignUserRelatedEntites(long userId, long newOwnerCode)
         {
-            var clients = _finder.Find(Specs.Find.Owned<Client>(userId)).ToArray();
-            var firms = _finder.Find(Specs.Find.Owned<Firm>(userId)).ToArray();
-            var deals = _finder.Find(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>()).ToArray();
+            var clients = _finder.FindMany(Specs.Find.Owned<Client>(userId));
+            var firms = _finder.FindMany(Specs.Find.Owned<Firm>(userId));
+            var deals = _finder.FindMany(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>());
             var legalPersons = _finder.FindMany(Specs.Find.Owned<LegalPerson>(userId));
             var legalPersonProfiles = _finder.FindMany(Specs.Find.Owned<LegalPersonProfile>(userId));
-            var accounts = _finder.Find(Specs.Find.Owned<Account>(userId)).ToArray();
-            var limits = _finder.Find(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>()).ToArray();
-            var bargains = _finder.Find(Specs.Find.Owned<Bargain>(userId)).ToArray();
-            var contacts = _finder.Find(Specs.Find.Owned<Contact>(userId)).ToArray();
+            var accounts = _finder.FindMany(Specs.Find.Owned<Account>(userId));
+            var limits = _finder.FindMany(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>());
+            var bargains = _finder.FindMany(Specs.Find.Owned<Bargain>(userId));
+            var contacts = _finder.FindMany(Specs.Find.Owned<Contact>(userId));
 
             // Критерии поиска заказов учитываются при экспорте. Если меняешь - меняй и там.
             var ordersWithPositions = _finder.Find(Specs.Find.Owned<Order>(userId) &&
                                                    Specs.Find.ActiveAndNotDeleted<Order>() &&
                                                    OrderSpecs.Orders.Find.NotInArchive())
-                                             .Select(o => new { Order = o, o.OrderPositions }).ToArray();
+                                             .Select(o => new { Order = o, o.OrderPositions })
+                                             .ToArray();
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Client>())
             {
@@ -861,7 +859,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(Territory territory)
         {
-
             using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(territory))
             {
                 if (territory.IsNew())
