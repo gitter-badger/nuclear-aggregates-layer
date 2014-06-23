@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
@@ -11,6 +10,8 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using FluentAssertions;
 
 using Machine.Specifications;
 
@@ -145,7 +146,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private Because of = () => exception = Catch.Exception(() => Service.CreateOrderProlongationRequest(ORDER_ID, RELEASE_COUNT_PLAN, null));
 
-            private It should_throwns_business_logic_exception = () => exception.ShouldBeOfType<BusinessLogicException>();
+            private It should_throwns_business_logic_exception = () => exception.Should().BeOfType<BusinessLogicException>();
 
             private It should_mocks_verified_successfully = () => Mocks.VerifyAll();
         }

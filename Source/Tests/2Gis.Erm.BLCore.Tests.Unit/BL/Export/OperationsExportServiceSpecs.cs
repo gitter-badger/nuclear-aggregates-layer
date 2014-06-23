@@ -4,11 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+
+using FluentAssertions;
 
 using Machine.Specifications;
 
@@ -126,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
         private It should_take_each_record_once = () =>
         {
             var eachRecordProcessedOnce = recordsWasRequested.Count == recordsWasRequested.Distinct().Count();
-            eachRecordProcessedOnce.ShouldBeTrue();
+            eachRecordProcessedOnce.Should().BeTrue();
         };
 
         private It should_take_next_batch_in_the_same_job_iteration = () =>
@@ -136,13 +137,13 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         private It should_process_all_queue = () =>
         {
-            recordsToProcess.All(entity => recordsWasRequested.Contains(entity)).ShouldBeTrue();
+            recordsToProcess.All(entity => recordsWasRequested.Contains(entity)).Should().BeTrue();
         };
 
         private It should_not_remove_any_record_from_queue = () =>
         {
-            recordsToProcess.Count.ShouldEqual(QueueSize);
-            recordsWasRemovedFromQueue.Count.ShouldEqual(0);
+            recordsToProcess.Count.ShouldBeEquivalentTo(QueueSize);
+            recordsWasRemovedFromQueue.Count.ShouldBeEquivalentTo(0);
         };
     }
 
@@ -192,8 +193,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
 
         private It should_remove_all_records_from_queue = () =>
         {
-            recordsToProcess.Count.ShouldEqual(0);
-            recordsWasRemovedFromQueue.Count.ShouldEqual(QueueSize);
+            recordsToProcess.Count.ShouldBeEquivalentTo(0);
+            recordsWasRemovedFromQueue.Count.ShouldBeEquivalentTo(QueueSize);
         };
     }
 }
