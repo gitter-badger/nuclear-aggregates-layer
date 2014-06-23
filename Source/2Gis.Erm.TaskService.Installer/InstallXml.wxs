@@ -86,15 +86,19 @@
       </Component>
 
       <Component Id="Quartz.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2.1\lib\net40\Quartz.dll" />
+        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2.3\lib\net40\Quartz.dll" />
       </Component>
 
       <Component Id="Common.Logging.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll" />
+        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.2.2.0\lib\net40\Common.Logging.dll" />
+      </Component>
+
+      <Component Id="Common.Logging.Core.dll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Common.Logging.Core.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll" />
       </Component>
 
       <Component Id="Common.Logging.Log4Net1211.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Log4Net1211.2.1.2\lib\net40\Common.Logging.Log4Net1211.dll" />
+        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Log4Net1211.2.2.0\lib\net40\Common.Logging.Log4Net1211.dll" />
       </Component>
 
       <Component Id="log4net.dll" Directory="INSTALLFOLDER" Guid="*">
@@ -142,7 +146,7 @@
       </Component>
       
       <Component Id="Newtonsoft.Json.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll" />
+        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
       </Component>
 
       <Component Id="EntityFramework.dll" Directory="INSTALLFOLDER" Guid="*">
