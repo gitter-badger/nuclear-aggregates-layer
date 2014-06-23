@@ -546,7 +546,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     }
                 };
 
-            It should_not_have_pobox_value = () => ((EmiratesPosCardServiceBusDto)result).PoBox.Should().BeBlank();
+            It should_not_have_pobox_value = () => ((EmiratesPosCardServiceBusDto)result).PoBox.Should().BeNullOrEmpty();
         }
 
         [Tags("Deserializer")]
@@ -806,7 +806,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             It should_empty_proper_errors_description =
                 () => errorsResult
                           .Should()
-                          .BeBlank();
+                          .BeNullOrEmpty();
         }
 
         [Tags("Deserializer")]

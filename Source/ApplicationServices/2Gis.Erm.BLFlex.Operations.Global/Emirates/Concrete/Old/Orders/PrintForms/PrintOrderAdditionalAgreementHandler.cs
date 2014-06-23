@@ -162,8 +162,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                                               order.RejectionDate
                                           },
 
-                                      UseBargain = order.BargainId.HasValue,
-
                                       Bargain = order.Bargain == null
                                                     ? null
                                                     : new
@@ -194,27 +192,44 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                                   })
                               .Single();
 
-            return new
-            {
-                DateToday = TimeZoneInfo.ConvertTime(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo),
-                data.Order,
-                data.UseBargain,
-                data.Bargain,
-                data.BranchOfficeOrganizationUnit,
-                data.BranchOffice,
-                data.LegalPerson,
+            var bargain = data.Bargain != null
+                              ? new PrintData
+                                  {
+                                      { "Number", data.Bargain.Number },
+                                      { "SignedOn", data.Bargain.SignedOn },
+                                  }
+                              : null;
 
-                Profile = new
+            return new PrintData
                 {
-                    legalPersonProfile.PostAddress,
-                    legalPersonProfile.Parts.OfType<EmiratesLegalPersonProfilePart>().Single().Phone,
-                    legalPersonProfile.BankName,
-                    legalPersonProfile.SWIFT,
-                    legalPersonProfile.IBAN,
-                    legalPersonProfile.AdditionalPaymentElements,
-                    legalPersonProfile.ChiefNameInNominative,
-                }
-            };
+                    { "DateToday", TimeZoneInfo.ConvertTime(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo) },
+
+                    { "Order.Number", data.Order.Number },
+                    { "Order.SignupDate", data.Order.SignupDate },
+                    { "Order.RejectionDate", data.Order.RejectionDate },
+
+                    { "UseBargain", bargain != null },
+                    { "Bargain", bargain },
+
+                    { "BranchOfficeOrganizationUnit.ShortLegalName", data.BranchOfficeOrganizationUnit.ShortLegalName },
+                    { "BranchOfficeOrganizationUnit.PostalAddress", data.BranchOfficeOrganizationUnit.PostalAddress },
+                    { "BranchOfficeOrganizationUnit.PhoneNumber", data.BranchOfficeOrganizationUnit.PhoneNumber },
+                    { "BranchOfficeOrganizationUnit.PaymentEssentialElements", data.BranchOfficeOrganizationUnit.PaymentEssentialElements },
+                    { "BranchOfficeOrganizationUnit.ChiefNameInNominative", data.BranchOfficeOrganizationUnit.ChiefNameInNominative },
+
+                    { "BranchOffice.LegalAddress", data.BranchOffice.LegalAddress },
+
+                    { "LegalPerson.LegalName", data.LegalPerson.LegalName },
+                    { "LegalPerson.LegalAddress", data.LegalPerson.LegalAddress },
+
+                    { "Profile.PostAddress", legalPersonProfile.PostAddress },
+                    { "Profile.Phone", legalPersonProfile.Parts.OfType<EmiratesLegalPersonProfilePart>().Single().Phone },
+                    { "Profile.BankName", legalPersonProfile.BankName },
+                    { "Profile.SWIFT", legalPersonProfile.SWIFT },
+                    { "Profile.IBAN", legalPersonProfile.IBAN },
+                    { "Profile.AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "Profile.ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
+                };
         }
     }
 }
