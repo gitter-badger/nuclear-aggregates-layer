@@ -10,7 +10,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
         internal const string CreateOrUpdateRoute = "CreateOrUpdateRoute";
 
         private const string GetEntityNotesRoute = "GetEntityNotesRoute";
-        private const string PrintOrderRoute = "PrintOrderRoute";
         private const string ViewAndSearchRoute = "ViewAndSearchRoute";
         private const string EditRoute = "EditRoute";
         private const string UploadFileRoute = "UploadFileRoute";
@@ -40,14 +39,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start
                                     controller = "Note",
                                     action = "GetEntityNotes",
                                     entityType = EntityName.None,
-                                });
-
-            routes.MapRoute(PrintOrderRoute,
-                            "Order/Print/{printOrderType}/{orderId}",
-                            new
-                                {
-                                    controller = "Order",
-                                    action = "Print"
                                 });
 
             routes.MapRoute(ViewAndSearchRoute,
