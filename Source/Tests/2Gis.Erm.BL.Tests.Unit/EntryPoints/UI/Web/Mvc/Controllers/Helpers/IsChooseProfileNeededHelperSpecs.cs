@@ -3,11 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -26,7 +25,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:FieldNamesMustNotContainUnderscore", Justification = "It's a test")]
     public class IsChooseProfileNeededHelperSpecs
     {
-        class IsChooseProfileNeededHelperContext
+        abstract class IsChooseProfileNeededHelperContext
         {
             protected const long OrderId = 1;
             protected const long LegalPersonId = 2;
@@ -38,164 +37,75 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
             protected static LegalPersonWithProfiles LegalPersonWithProfiles;
 
             protected static IOrderReadModel OrderReadModel;
-            protected static ILegalPersonRepository LegalPersonRepository;
-            protected static IsChooseProfileNeededHelper Helper;
+            protected static ILegalPersonReadModel LegalPersonReadModel;
+            protected static ProfileChooseHelper Helper;
 
             Establish context = () =>
                 {
                     Order = new Order { Id = OrderId };
-                    OrderReadModel = Mock.Of<IOrderReadModel>(x => x.GetOrder(OrderId) == Order);
+                    OrderReadModel = Create.OrderReadModel(Order);
 
-                    LegalPersonRepository = Mock.Of<ILegalPersonRepository>();
+                    LegalPersonReadModel = Mock.Of<ILegalPersonReadModel>();
 
-                    Helper = new IsChooseProfileNeededHelper(OrderReadModel, LegalPersonRepository);
+                    Helper = new ProfileChooseHelper(OrderReadModel, LegalPersonReadModel, Mock.Of<ISecurityServiceEntityAccess>());
 
-                    Mock.Get(LegalPersonRepository)
-                        .Setup(x => x.GetLegalPersonWithProfiles(LegalPersonId))
-                        .Returns(() => new LegalPersonWithProfiles { LegalPerson = LegalPerson, Profiles = LegalPersonProfiles });
+                    Mock.Get(LegalPersonReadModel)
+                        .Setup(x => x.GetLegalPersonProfileIds(LegalPersonId))
+                        .Returns(() => LegalPersonProfiles.Select(p => p.Id));
                 };
-
-            protected static void CheckAllNeededPrintOrderTypes(Action<PrintOrderType> shouldAction, PrintOrderType[] PrintOrderTypesToExclude)
-            {
-                var printOrderTypes = Enum.GetValues(typeof(PrintOrderType)).Cast<PrintOrderType>().Where(x => !PrintOrderTypesToExclude.Contains(x));
-
-                foreach (var printOrderType in printOrderTypes)
-                {
-                    shouldAction(printOrderType);
-                }
-            }
-        }
-
-        class OrderHasNoProfileButHasLegalPersonContext : IsChooseProfileNeededHelperContext
-        {
-            Establish context = () =>
-                {
-                    LegalPerson = new LegalPerson { Id = LegalPersonId };
-                    Order.LegalPersonId = LegalPerson.Id;
-                };
-        }
-
-        class OrderHasLegalPersonAndProfileContext : OrderHasNoProfileButHasLegalPersonContext
-        {
-            Establish context = () => { Order.LegalPersonProfileId = LegalPersonProfileId; };
         }
 
         [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
-        class When_order_has_legal_person_with_single_profile : OrderHasNoProfileButHasLegalPersonContext
+        [Subject(typeof(ProfileChooseHelper))]
+        class When_order_has_legal_person_with_single_profile : IsChooseProfileNeededHelperContext
         {
-            static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
-
+            static ProfileChooseHelper.ChooseProfileDialogState Result;
             static LegalPersonProfile LegalPersonProfile;
 
             Establish context = () =>
                 {
+                    LegalPerson = new LegalPerson { Id = LegalPersonId };
+                    Order.LegalPersonId = LegalPerson.Id;
                     LegalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
                     LegalPersonProfiles = new[] { LegalPersonProfile };
                 };
 
-            Because of = () => Result = Helper.GetChooseProfileDialogState(OrderId, 0); 
+            Because of = () => Result = Helper.GetChooseProfileDialogStateForOrder(OrderId); 
 
             It should_returns_not_need_choose_profile = () => Result.IsChooseProfileNeeded.Should().BeFalse();
             It should_returns_order_profile_id = () => Result.LegalPersonProfileId.Should().Be(LegalPersonProfileId);
         }
 
         [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
-        class When_order_has_natural_legal_person_with_many_profiles : OrderHasNoProfileButHasLegalPersonContext
-        {
-            static PrintOrderType[] PrintOrderTypesToExclude =
-                {
-                    PrintOrderType.PrintOrder, 
-                    PrintOrderType.PrintBargain, 
-                    PrintOrderType.PrintReferenceInformation
-                };
-
-            Establish context = () =>
-                {
-                    LegalPersonProfiles = new[] { new LegalPersonProfile(), new LegalPersonProfile() };
-                    LegalPerson.LegalPersonTypeEnum = (int)LegalPersonType.NaturalPerson;
-                };
-
-            It should_returns_not_needed_choose_profile = () => CheckAllNeededPrintOrderTypes(
-                printOrderType =>
-                    {
-                        var result = Helper.GetChooseProfileDialogState(OrderId, printOrderType);
-                        result.IsChooseProfileNeeded.Should().BeFalse();
-                        result.LegalPersonProfileId.Should().Be(null);
-                    }, 
-                PrintOrderTypesToExclude);
-        }
-
-        [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
+        [Subject(typeof(ProfileChooseHelper))]
         class When_order_has_not_legal_person_and_profile : IsChooseProfileNeededHelperContext
         {
-            static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
+            static ProfileChooseHelper.ChooseProfileDialogState Result;
 
-            Because of = () => Result = Helper.GetChooseProfileDialogState(OrderId, 0);
+            Because of = () => Result = Helper.GetChooseProfileDialogStateForOrder(OrderId);
 
             It should_returns_need_choose_profile = () => Result.IsChooseProfileNeeded.Should().BeTrue();
             It should_returns_null_profile_id = () => Result.LegalPersonProfileId.Should().Be(null);
         }
 
-        [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
-        class When_print_not_order_and_order_has_profile : OrderHasLegalPersonAndProfileContext
+        class PrintBillContext : IsChooseProfileNeededHelperContext
         {
-            static PrintOrderType[] PrintOrderTypesToExclude = { PrintOrderType.PrintOrder };
+            protected const long BillId = 8;
 
             private Establish context = () =>
                 {
-                    Order.LegalPersonProfileId = LegalPersonProfileId;
-                    Order.LegalPerson = LegalPerson;
+                    LegalPerson = new LegalPerson { Id = LegalPersonId };
                     Order.LegalPersonId = LegalPerson.Id;
-
-                    LegalPersonProfiles = new[] { new LegalPersonProfile { Id = LegalPersonProfileId } };
-                    LegalPerson.LegalPersonProfiles = LegalPersonProfiles;
+                    Mock.Get(OrderReadModel).Setup(x => x.GetOrderByBill(BillId)).Returns(Order);
                 };
-
-            It should_choose_profile_not_needed = () => CheckAllNeededPrintOrderTypes(
-                printOrderType =>
-                    {
-                        var result = Helper.GetChooseProfileDialogState(OrderId, printOrderType);
-                        result.IsChooseProfileNeeded.Should().BeFalse();
-                        result.LegalPersonProfileId.Should().Be(LegalPersonProfileId);
-                    }, 
-                PrintOrderTypesToExclude);
         }
 
         [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
-        class When_print_order_with_single_legal_profile : OrderHasLegalPersonAndProfileContext
-        {
-            static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
-            static LegalPersonProfile LegalPersonProfile;
-
-            Establish context = () =>
-                {
-                    LegalPersonProfile = new LegalPersonProfile { Id = LegalPersonProfileId };
-                    LegalPersonProfiles = new[] { LegalPersonProfile };
-                };
-
-            Because of = () => Result = Helper.GetChooseProfileDialogState(OrderId, PrintOrderType.PrintOrder);
-
-            It should_returns_not_need_choose_profile = () => Result.IsChooseProfileNeeded.Should().BeFalse();
-            It should_returns_order_profile_id = () => Result.LegalPersonProfileId.Should().Be(LegalPersonProfileId);
-        }
-
-        class PrintBillContext : OrderHasNoProfileButHasLegalPersonContext
-        {
-            protected const long BillId = 8;
-            Establish context = () => Mock.Get(OrderReadModel).Setup(x => x.GetOrderByBill(BillId)).Returns(Order);
-        }
-
-        [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
+        [Subject(typeof(ProfileChooseHelper))]
         class When_print_bill_and_legal_person_has_single_profile : PrintBillContext
         {
             static LegalPersonProfile LegalPersonProfile;
-            static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
+            static ProfileChooseHelper.ChooseProfileDialogState Result;
 
             Establish context = () => 
             {
@@ -203,14 +113,14 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
                 LegalPersonProfiles = new[] { LegalPersonProfile };
             };
 
-            Because of = () => Result = Helper.GetChooseProfileDialogState(BillId);
+            Because of = () => Result = Helper.GetChooseProfileDialogStateForBill(BillId);
 
             It should_returns_not_need_choose_profile = () => Result.IsChooseProfileNeeded.Should().BeFalse();
             It should_returns_order_profile_id = () => Result.LegalPersonProfileId.Should().Be(LegalPersonProfileId);
         }
 
         [Tags("ControllerHelper")]
-        [Subject(typeof(IsChooseProfileNeededHelper))]
+        [Subject(typeof(ProfileChooseHelper))]
         class When_print_bill_and_legal_person_has_many_profile : PrintBillContext
         {
             protected const long LegalPersonProfileId_1 = 3;
@@ -218,7 +128,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
 
             static LegalPersonProfile LegalPersonProfile_1;
             static LegalPersonProfile LegalPersonProfile_2;
-            static IsChooseProfileNeededHelper.ChooseProfileDialogState Result;
+            static ProfileChooseHelper.ChooseProfileDialogState Result;
 
             Establish context = () =>
             {
@@ -227,7 +137,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
                 LegalPersonProfiles = new[] { LegalPersonProfile_1, LegalPersonProfile_2 };
             };
 
-            Because of = () => Result = Helper.GetChooseProfileDialogState(BillId);
+            Because of = () => Result = Helper.GetChooseProfileDialogStateForBill(BillId);
 
             It should_returns_need_choose_profile = () => Result.IsChooseProfileNeeded.Should().BeTrue();
             It should_returns_order_profile_id = () => Result.LegalPersonProfileId.Should().Be(null);

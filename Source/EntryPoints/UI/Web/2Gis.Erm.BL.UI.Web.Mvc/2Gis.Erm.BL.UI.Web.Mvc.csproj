@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Attributes\RutValidationAttribute.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="DI\BlUiWebMvcAssembly.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdditionalFirmServiceController.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Controllers\CategoryGroupsMembershipController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\DealController.cs" />
-    <Compile Include="Controllers\Helpers\IsChooseProfileNeededHelper.cs" />
+    <Compile Include="Controllers\Helpers\ProfileChooseHelper.cs" />
     <Compile Include="Controllers\LegalPersonProfileController.cs" />
     <Compile Include="Controllers\LimitController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
@@ -194,7 +195,7 @@
     <Compile Include="Models\PrintFormTemplateViewModel.cs" />
     <Compile Include="Models\PrintLimitsViewModel.cs" />
     <Compile Include="Models\PrintOrderType.cs" />
-    <Compile Include="Models\PrintOrderViewModel.cs" />
+    <Compile Include="Models\ChooseProfileViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\PublishPriceViewModel.cs" />
@@ -298,11 +299,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeleteAll.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Bill\Print.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Print.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\BranchOfficeOrganizationUnit\SetAsPrimary.generated.cs">
       <AutoGen>True</AutoGen>
@@ -594,15 +590,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GetOrdersWithDummyAdvertisementDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\PrepareJointBill.generated.cs">
+    <Compile Include="Views\Print\ChooseProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChooseProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Print\PrepareJointBill.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PrepareJointBill.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Order\Print.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Print.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\PricePosition\Copy.generated.cs">
       <AutoGen>True</AutoGen>
@@ -776,10 +772,6 @@
     <None Include="Views\Bill\DeleteAll.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DeleteAll.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Bill\Print.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Print.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\BranchOfficeOrganizationUnit\SetAsPrimary.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1013,13 +1005,13 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>GetOrdersWithDummyAdvertisementDialog.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Order\PrepareJointBill.cshtml">
+    <None Include="Views\Print\PrepareJointBill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PrepareJointBill.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Order\Print.cshtml">
+    <None Include="Views\Print\ChooseProfile.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Print.generated.cs</LastGenOutput>
+      <LastGenOutput>ChooseProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\PricePosition\Copy.cshtml">
       <Generator>RazorGenerator</Generator>
