@@ -61,6 +61,7 @@
     <Compile Include="ApplicationServices\Operations\Concrete\Old\Integration\ServiceBus\Export\SerializePriceHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations\Concrete\Old\Integration\ServiceBus\Export\SerializePricePositionHandlerSpecs.cs.cs" />
     <Compile Include="ApplicationServices\Operasions.Special\CostCalculator\CostCalculatorSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\Create.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\IsChooseProfileNeededHelperSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc\Controllers\Helpers\IsChooseProfileNeededHelperSpecs_ERM_3879.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

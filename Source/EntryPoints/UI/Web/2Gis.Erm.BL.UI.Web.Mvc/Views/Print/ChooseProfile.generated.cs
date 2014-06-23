@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Bill
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Print
 {
     using System;
     using System.Collections.Generic;
@@ -40,16 +40,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Bill
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Bill/Print.cshtml")]
-    public partial class Print : System.Web.Mvc.WebViewPage<PrintOrderViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Print/ChooseProfile.cshtml")]
+    public partial class ChooseProfile : System.Web.Mvc.WebViewPage<ChooseProfileViewModel>
     {
-        public Print()
+        public ChooseProfile()
         {
         }
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Bill\Print.cshtml"
+            #line 3 "..\..\Views\Print\ChooseProfile.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -63,7 +63,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 7 "..\..\Views\Bill\Print.cshtml"
+            #line 7 "..\..\Views\Print\ChooseProfile.cshtml"
             Write(BLResources.ChooseLegalPersonProfileDialogTitle);
 
             
@@ -78,7 +78,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\Bill\Print.cshtml"
+            #line 8 "..\..\Views\Print\ChooseProfile.cshtml"
                   Write(BLResources.ChooseLegalPersonProfileDialogTitle);
 
             
@@ -93,7 +93,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Bill\Print.cshtml"
+            #line 9 "..\..\Views\Print\ChooseProfile.cshtml"
                     Write(BLResources.ChooseLegalPersonProfile);
 
             
@@ -112,7 +112,7 @@ WriteLiteral("\r\n    <script");
 WriteAttribute("src", Tuple.Create(" src=\"", 335), Tuple.Create("\"", 395)
 , Tuple.Create(Tuple.Create("", 341), Tuple.Create("/Scripts/Tooltip.js?", 341), true)
             
-            #line 13 "..\..\Views\Bill\Print.cshtml"
+            #line 13 "..\..\Views\Print\ChooseProfile.cshtml"
 , Tuple.Create(Tuple.Create("", 361), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
@@ -127,7 +127,7 @@ WriteLiteral("></script>\r\n    <script");
 WriteAttribute("src", Tuple.Create(" src=\"", 442), Tuple.Create("\"", 523)
 , Tuple.Create(Tuple.Create("", 448), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 448), true)
             
-            #line 14 "..\..\Views\Bill\Print.cshtml"
+            #line 14 "..\..\Views\Print\ChooseProfile.cshtml"
 , Tuple.Create(Tuple.Create("", 489), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
@@ -137,42 +137,48 @@ WriteAttribute("src", Tuple.Create(" src=\"", 442), Tuple.Create("\"", 523)
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n\r\n    <script");
+WriteLiteral("></script>\r\n    \r\n\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function() {\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", " +
-"function() { window.close(); });\r\n            Ext.get(\"OK\").on(\"click\", function" +
-"() {\r\n                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {\r\n\r" +
-"\n                    var billId = Ext.getDom(\'OrderId\').value;\r\n                " +
-"    var profileId = Ext.getCmp(\"LegalPersonProfile\").getValue().id;\r\n\r\n         " +
-"           url = \'/Bill/PrintBill/\' + billId + \'?profileId=\' + profileId + \'&__d" +
-"c=\' + Ext.util.Format.cacheBuster();\r\n\r\n                    Ext.getDom(\"OK\").dis" +
-"abled = true;\r\n                    Ext.getDom(\"Cancel\").disabled = true;\r\n\r\n    " +
-"                var iframe;\r\n                    iframe = document.getElementByI" +
-"d(\"hiddenDownloader\");\r\n                    if (iframe === null) {\r\n            " +
-"            iframe = document.createElement(\'iframe\');\r\n                        " +
-"iframe.id = \"hiddenDownloader\";\r\n                        iframe.style.visibility" +
-" = \'hidden\';\r\n\r\n                        var iframeEl = new Ext.Element(iframe);\r" +
-"\n                        iframeEl.on(\"load\", function() {\r\n                     " +
-"       var iframeContent = iframe.contentWindow.document.documentElement.innerTe" +
-"xt;\r\n                            if (iframeContent != \"\") {\r\n                   " +
-"             alert(iframeContent);\r\n                            }\r\n             " +
-"           });\r\n                        document.body.appendChild(iframe);\r\n    " +
-"                }\r\n\r\n                    iframe.src = url;\r\n                    " +
-"Ext.getDom(\"OK\").disabled = false;\r\n                    Ext.getDom(\"Cancel\").dis" +
-"abled = false;\r\n                }\r\n            });\r\n        });\r\n    </script>\r\n" +
-"\r\n");
+WriteLiteral(@">
+        Ext.onReady(function() {
+
+            Ext.getCmp(""LegalPersonProfile"").on('change', function() {
+                var profile = Ext.getCmp(""LegalPersonProfile"").getValue();
+                var profileId = profile ? profile.id : undefined;
+                var defaultProfileId = Ext.getDom(""DefaultLegalPersonProfileId"").value;
+                if (profileId != defaultProfileId && profileId != undefined) {
+                    Ext.getDom(""warning"").style.visibility = 'visible';
+                } else {
+                    Ext.getDom(""warning"").style.visibility = 'hidden';
+                }
+            });
+
+            Ext.get(""Cancel"").on(""click"", function() { 
+                window.close();
+            });
+
+            Ext.get(""OK"").on(""click"", function() {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {
+                    window.returnValue = Ext.getCmp(""LegalPersonProfile"").getValue().id;
+                    window.close();
+                }
+            });
+        });
+    </script>
+    
+");
 
             
-            #line 56 "..\..\Views\Bill\Print.cshtml"
+            #line 44 "..\..\Views\Print\ChooseProfile.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 56 "..\..\Views\Bill\Print.cshtml"
-     using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+            #line 44 "..\..\Views\Print\ChooseProfile.cshtml"
+     using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> {{"id", "EntityForm"}}))
     {
 
             
@@ -205,26 +211,26 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create("\r\n                             onmouseover=\"", 2768), Tuple.Create("\"", 2839)
-, Tuple.Create(Tuple.Create("", 2812), Tuple.Create("AddTooltip(", 2812), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 2150), Tuple.Create("\"", 2222)
+, Tuple.Create(Tuple.Create("", 2195), Tuple.Create("AddTooltip(", 2195), true)
             
-            #line 67 "..\..\Views\Bill\Print.cshtml"
-, Tuple.Create(Tuple.Create("", 2823), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 55 "..\..\Views\Print\ChooseProfile.cshtml"
+, Tuple.Create(Tuple.Create("", 2206), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 2823), false)
-, Tuple.Create(Tuple.Create("", 2837), Tuple.Create(");", 2837), true)
+, 2206), false)
+, Tuple.Create(Tuple.Create("", 2220), Tuple.Create(");", 2220), true)
 );
 
-WriteLiteral("\r\n                             onmouseout=\"RemoveTooltip();\"");
+WriteLiteral(" \r\n                             onmouseout=\"RemoveTooltip();\"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                            ");
 
             
-            #line 69 "..\..\Views\Bill\Print.cshtml"
+            #line 57 "..\..\Views\Print\ChooseProfile.cshtml"
                        Write(Model.Message);
 
             
@@ -241,7 +247,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 75 "..\..\Views\Bill\Print.cshtml"
+            #line 63 "..\..\Views\Print\ChooseProfile.cshtml"
                                                                           Write(BLResources.PrintWithLegalPersonProfile);
 
             
@@ -263,8 +269,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 80 "..\..\Views\Bill\Print.cshtml"
-                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly}));
+            #line 68 "..\..\Views\Print\ChooseProfile.cshtml"
+                                   Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.lone, new LookupSettings {EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId", ReadOnly = Model.IsCardReadOnly}));
 
             
             #line default
@@ -274,6 +280,19 @@ WriteLiteral(@"
                                 </tr>
                             </tbody>
                         </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div");
+
+WriteLiteral(" id=\"warning\"");
+
+WriteLiteral(" style=\"visibility: hidden; color: red\"");
+
+WriteLiteral(@">
+                            Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -291,41 +310,57 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 97 "..\..\Views\Bill\Print.cshtml"
+            #line 92 "..\..\Views\Print\ChooseProfile.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Bill\Print.cshtml"
+            #line 92 "..\..\Views\Print\ChooseProfile.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Bill\Print.cshtml"
+            #line 92 "..\..\Views\Print\ChooseProfile.cshtml"
                                        
         
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Bill\Print.cshtml"
+            #line 93 "..\..\Views\Print\ChooseProfile.cshtml"
    Write(Html.HiddenFor(m => m.LegalPersonId));
 
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Bill\Print.cshtml"
+            #line 93 "..\..\Views\Print\ChooseProfile.cshtml"
                                              
+        
+            
+            #line default
+            #line hidden
+            
+            #line 94 "..\..\Views\Print\ChooseProfile.cshtml"
+   Write(Html.HiddenFor(m => m.DefaultLegalPersonProfileId));
+
+            
+            #line default
+            #line hidden
+            
+            #line 94 "..\..\Views\Print\ChooseProfile.cshtml"
+                                                           
     }
 
             
             #line default
             #line hidden
 });
+
+WriteLiteral("\r\n");
 
         }
     }

@@ -3,20 +3,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Copy;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
@@ -33,7 +27,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -47,8 +40,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
-using Newtonsoft.Json;
-
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
@@ -59,8 +50,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICopyOrderOperationService _copyOrderOperationService;
         private readonly IFinder _finder;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly ILegalPersonReadModel _legalPersonReadModel;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IOperationService _operationService;
 
         private readonly IProcessOrderCreationRequestSingleOperation _orderCreationOperation;
@@ -73,7 +62,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IReplicationCodeConverter _replicationCodeConverter;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -90,14 +78,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IBranchOfficeRepository branchOfficeRepository,
                                IOrderReadModel orderReadModel,
                                IOrderRepository orderRepository,
-                               ILegalPersonRepository legalPersonRepository,
-                               ILegalPersonReadModel legalPersonReadModel,
                                IOperationService operationService,
                                IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
-                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
-                               ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
+                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -110,14 +95,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _branchOfficeRepository = branchOfficeRepository;
             _orderReadModel = orderReadModel;
             _orderRepository = orderRepository;
-            _legalPersonRepository = legalPersonRepository;
-            _legalPersonReadModel = legalPersonReadModel;
             _operationService = operationService;
             _orderProlongationOperation = orderProlongationOperation;
             _orderCreationOperation = orderCreationOperation;
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
-            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         #region Ajax methods
@@ -615,19 +597,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new JsonNetResult(new { Messages = response });
         }
 
-        private ActionResult TryPrintDocument(Request request)
-        {
-            try
-            {
-                var response = (StreamResponse)_publicService.Handle(request);
-                return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
-            }
-            catch (Exception ex)
-            {
-                return new ContentResult { Content = ex.Message };
-            }
-        }
-
         #region Change State
 
         [HttpGet]
@@ -755,222 +724,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             return CloseWithDenial(_replicationCodeConverter.ConvertToEntityId(EntityName.Order, crmIds[0]));
-        }
-
-        #endregion
-
-        #region printing
-
-        [HttpGet]
-        public ActionResult PrintOrder(long id, long profileId)
-        {
-            try
-            {
-                _publicService.Handle(new ChangeOrderLegalPersonProfileRequest { OrderId = id, LegalPersonProfileId = profileId });
-            }
-            catch (Exception ex)
-            {
-                return new ContentResult { Content = ex.Message };
-            }
-
-            return TryPrintDocument(new PrintOrderWithGuarateeRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintReferenceInformation(long id, long profileId)
-        {
-            return
-                TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintRegionalOrder(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintRegionalOrderRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintBargain(long id, long? profileId)
-        {
-            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintNewSalesModelBargain(long id, long? profileId)
-        {
-            return TryPrintDocument(new PrintNewSalesModelBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintBill(long id, long? profileId)
-        {
-            return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintLetterOfGuarantee(long id, long? profileId)
-        {
-            return TryPrintDocument(new PrintLetterOfGuaranteeRequest { OrderId = id, LegalPersonProfileId = profileId, IsChangingAdvMaterial = true });
-        }
-
-        [HttpPost]
-        public JsonNetResult GetRelatedOrdersInfoForPrintJointBill(long id)
-        {
-            var orderInfo = _secureFinder.Find<Order>(o => o.Id == id && o.IsActive && !o.IsDeleted).FirstOrDefault();
-            if (orderInfo == null)
-            {
-                return new JsonNetResult(null);
-            }
-
-            var response =
-                (GetRelatedOrdersForPrintJointBillResponse)_publicService.Handle(new GetRelatedOrdersForPrintJointBillRequest { OrderId = orderInfo.Id });
-            return new JsonNetResult(response.Orders);
-        }
-
-        [HttpGet]
-        public ActionResult PrepareJointBill(long id, long? profileId)
-        {
-            var model = new PrepareJointBillViewModel
-                {
-                    EntityId = id,
-                    EntityName = typeof(Order).AsEntityName(),
-                    ProfileId = profileId,
-                    IsMassBillCreateAvailable = false
-                };
-
-            var orderInfo = _secureFinder.Find<Order>(o => o.Id == id && o.IsActive && !o.IsDeleted).FirstOrDefault();
-            if (orderInfo != null)
-            {
-                var response =
-                    (GetRelatedOrdersForPrintJointBillResponse)_publicService.Handle(new GetRelatedOrdersForPrintJointBillRequest { OrderId = orderInfo.Id });
-                model.IsMassBillCreateAvailable = response.Orders != null && response.Orders.Length > 0;
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult PrintJointBill(long id, string relatedOrders, long? profileId)
-        {
-            var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
-
-            if (orders != null && orders.Length > 0)
-            {
-                return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders, LegalPersonProfile = profileId });
-            }
-
-            return new EmptyResult();
-        }
-
-        [HttpGet]
-        public ActionResult PrintTerminationNotice(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintTerminationNoticeWithoutReason(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, WithoutReason = true });
-        }
-
-        [HttpGet]
-        public ActionResult PrintTerminationBargainNotice(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, TerminationBargain = true });
-        }
-
-        [HttpGet]
-        public ActionResult PrintTerminationBargainNoticeWithoutReason(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest
-                    {
-                        OrderId = id,
-                        LegalPersonProfileId = profileId,
-                        WithoutReason = true,
-                        TerminationBargain = true
-                    });
-        }
-
-        [HttpGet]
-        public ActionResult PrintRegionalTerminationNotice(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult PrintAdditionalAgreement(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderAdditionalAgreementRequest
-                    {
-                        OrderId = id,
-                        LegalPersonProfileId = profileId,
-                        PrintType = PrintAdditionalAgreementTarget.Order
-                    });
-        }
-
-        [HttpGet]
-        public ActionResult PrintBargainAdditionalAgreement(long id, long? profileId)
-        {
-            return
-                TryPrintDocument(new PrintOrderAdditionalAgreementRequest
-                    {
-                        OrderId = id,
-                        LegalPersonProfileId = profileId,
-                        PrintType = PrintAdditionalAgreementTarget.Bargain
-                    });
-        }
-
-        public ActionResult Print(PrintOrderType printOrderType, long orderId, long? profileId)
-        {
-            var order = _orderReadModel.GetOrder(orderId);
-            if (!order.LegalPersonId.HasValue)
-            {
-                throw new ArgumentException("LegalPersonId");
-            }
-
-            var printOrderModel = new PrintOrderViewModel
-                {
-                    LegalPersonId = order.LegalPersonId.Value,
-                    OrderId = orderId,
-                    PrintOrderType = printOrderType,
-                    DefaultLegalPersonProfileId = profileId,
-                    LegalPersonProfile = profileId.HasValue
-                                             ? new LookupField
-                                                 {
-                                                     Key = profileId,
-                                                     Value = _legalPersonReadModel.GetLegalPersonProfile(profileId.Value).Name
-                                                 }
-                                             : null,
-                    IsCardReadOnly =
-                        !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                     EntityName.Order,
-                                                                     UserContext.Identity.Code,
-                                                                     orderId,
-                                                                     order.OwnerCode,
-                                                                     order.OwnerCode)
-                };
-
-            return View(printOrderModel);
-        }
-
-        public JsonNetResult IsChooseProfileNeeded(long orderId, PrintOrderType printOrderType)
-        {
-            var chooseProfileDialogState = new IsChooseProfileNeededHelper(_orderReadModel, _legalPersonRepository)
-                .GetChooseProfileDialogState(orderId, printOrderType);
-
-            return new JsonNetResult(new
-                {
-                    chooseProfileDialogState.IsChooseProfileNeeded,
-                    chooseProfileDialogState.LegalPersonProfileId
-                });
         }
 
         #endregion

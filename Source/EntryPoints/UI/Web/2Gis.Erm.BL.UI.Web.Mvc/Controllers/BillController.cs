@@ -1,22 +1,24 @@
 using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -43,8 +45,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 };
 
         private readonly IPublicService _publicService;
-        private readonly IOrderReadModel _orderReadModel;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ISecureFinder _finder;
 
         public BillController(IMsCrmSettings msCrmSettings,
@@ -53,14 +53,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
-                              IOrderReadModel orderReadModel,
-                              ILegalPersonRepository legalPersonRepository,
                               ISecureFinder finder)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
-            _orderReadModel = orderReadModel;
-            _legalPersonRepository = legalPersonRepository;
             _finder = finder;
         }
 
@@ -89,19 +85,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public JsonNetResult GetRelatedOrdersInfoForCreateBill(long orderId)
         {
             var response = (GetRelatedOrdersForCreateBillResponse)_publicService.Handle(new GetRelatedOrdersForCreateBillRequest { OrderId = orderId });
-            return new JsonNetResult(response.Orders);
-        }
-
-        [HttpPost]
-        public JsonNetResult GetRelatedOrdersInfoForPrintJointBill(long id)
-        {
-            var billInfo = _finder.Find<Bill>(b => b.Id == id && b.IsActive && !b.IsDeleted).FirstOrDefault();
-            if (billInfo == null)
-            {
-                return new JsonNetResult(null);
-            }
-
-            var response = (GetRelatedOrdersForPrintJointBillResponse)_publicService.Handle(new GetRelatedOrdersForPrintJointBillRequest { OrderId = billInfo.OrderId });
             return new JsonNetResult(response.Orders);
         }
 
@@ -162,51 +145,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     });
                 }
             }
-        }
-
-        [HttpGet]
-        public ActionResult PrintBill(long id, long? profileId)
-        {
-            try
-            {
-                var response =
-                    (StreamResponse)
-                    _publicService.Handle(new PrintBillRequest { Id = id, LegalPersonProfileId = profileId });
-                return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
-            }
-            catch (Exception ex)
-            {
-                return new ContentResult { Content = ex.Message };
-            }
-        }
-
-        public JsonNetResult IsChooseProfileNeeded(long billId)
-        {
-            var chooseProfileDialogState = new IsChooseProfileNeededHelper(_orderReadModel, _legalPersonRepository)
-                .GetChooseProfileDialogState(billId);
-
-            return new JsonNetResult(new
-            {
-                IsChooseProfileNeeded = chooseProfileDialogState.IsChooseProfileNeeded,
-                LegalPersonProfileId = chooseProfileDialogState.LegalPersonProfileId
-            });
-        }
-
-        public ActionResult Print(long id)
-        {
-            var order = _orderReadModel.GetOrderByBill(id);
-            if (order == null || !order.LegalPersonId.HasValue)
-            {
-                throw new ArgumentException("LegalPersonId");
-            }
-
-            var printOrderModel = new PrintOrderViewModel
-            {
-                LegalPersonId = order.LegalPersonId.Value,
-                OrderId = id
-            };
-
-            return View(printOrderModel);
         }
     }
 }

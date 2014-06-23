@@ -1,4 +1,4 @@
-﻿@model Models.PrepareJointBillViewModel
+﻿@model PrepareJointBillViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -12,7 +12,7 @@
 {
     <script src="/Scripts/Ext.grid.CheckColumn.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    
+   
     <script type="text/javascript">
         Ext.namespace('Ext.DoubleGis.UI.Bill');
         Ext.DoubleGis.UI.Bill.JointBill = Ext.extend(Object, {
@@ -40,8 +40,8 @@
             {
                 Ext.Ajax.request({
                     timeout: 1200000,
-                    method: 'POST',
-                    url: '/' + this.Config.EntityName + '/GetRelatedOrdersInfoForPrintJointBill',
+                    method: 'GET',
+                    url: '/Print/GetRelatedOrdersInfoForPrintJointBill',
                     params: { id: this.Config.EntityId, profileId: this.Config.ProfileId },
                     success: function (xhr, options)
                     {
@@ -78,7 +78,7 @@
                     window.Ext.Ajax.request({
                         scope: this,
                         method: 'POST',
-                        url: '/' + this.Config.EntityName + '/PrintJointBill',
+                        url: '/Print/PrintJointBill',
                         params: {
                             id: this.Config.EntityId,
                             relatedOrders: Ext.encode(this.RelatedOrders),
