@@ -677,6 +677,7 @@
     <Content Include="Scripts\Ext.DoubleGis.UI.BranchOfficeOrganizationUnit.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.OrderProcessingRequest.js" />
     <Compile Include="DI\Bootstrapper.Russia.Mvc.Interception.cs" />
+    <Content Include="Scripts\Ext.DoubleGis.Print.js" />
     <None Include="Scripts\JsResourcesGeneration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JsResourcesGeneration.log</LastGenOutput>

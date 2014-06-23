@@ -55,6 +55,7 @@ window.InitPage = function () {
     // COMMENT {y.baranihin, 16.06.2014}: Вот же один из вариантов кастомизовать состояние и поведение в разных бизнес-моделях. 
     // Он, конечно, хардкорый, но лучше глобальных функций, т.к. есть управление scope-ами 
     Ext.apply(this, CultureSpecificOrder);
+    Ext.apply(this, PrintLogic);
     
     Ext.apply(this,
             {
@@ -192,53 +193,29 @@ window.InitPage = function () {
                         });
                     }
 
-                    if (entityId != '' && entityId != 0 && legalPersonId != '') {
-                        var url = '/Order/IsChooseProfileNeeded/' + entityId + '/?printOrderType=' + methodName + '&__dc=' + Ext.util.Format.cacheBuster();
-                        Ext.Ajax.request(
-                            {
-                                url: url,
-                                method: 'POST',
-                                extinstance: this,
-                                success: function (result, opts) {
-                                    var jsonData = Ext.decode(result.responseText);
-                                    if (!jsonData.IsChooseProfileNeeded) {
-                                        opts.extinstance.PrintWithoutProfileChoosing(methodName, jsonData.LegalPersonProfileId);
-                                    } else {
-                                        opts.extinstance.PrintWithProfileChoosing(methodName, jsonData.LegalPersonProfileId);
-                                    }
-                                },
-                                params: { orderId: entityId }
-                            });
-                    }
-                },
-                PrintWithoutProfileChoosing: function (methodName, profileId) {
-                    var entityId = Ext.getDom('Id').value;
-                    url = '/Order/' + methodName + '/' + entityId + '?profileId=' + profileId + '&__dc=' + Ext.util.Format.cacheBuster();
-
-                    var iframe;
-                    iframe = document.getElementById("hiddenDownloader");
-                    if (iframe === null) {
-                        iframe = document.createElement('iframe');
-                        iframe.id = "hiddenDownloader";
-                        iframe.style.visibility = 'hidden';
-
-                        var iframeEl = new Ext.Element(iframe);
-                        iframeEl.on("load", function () {
-                            var iframeContent = iframe.contentWindow.document.documentElement.innerText;
-                            if (iframeContent != "") {
-                                alert(iframeContent);
-                            }
-                        });
-                        document.body.appendChild(iframe);
+                    if (entityId == '' || entityId == 0) {
+                        return;
                     }
 
-                    iframe.src = url;
+                    var callback = function (profileId) {
+                        this.PrintWithoutProfileChoosing(methodName, entityId, profileId);
+                    };
+
+                    this.ChooseProfile({ orderId: entityId }, callback);
                 },
-                PrintWithProfileChoosing: function (methodName, profileId) {
-                    var entityId = Ext.getDom('Id').value;
-                    url = '/Order/Print/' + methodName + '/' + entityId + '?profileId=' + profileId + '&__dc=' + Ext.util.Format.cacheBuster();
-                    var params = "dialogWidth:500px; dialogHeight:250px; status:yes; scroll:no;resizable:no;";
-                    window.showModalDialog(url, null, params);
+                PrepareJointBill: function () {
+                    var entityId = {
+                        orderId: Ext.getDom('Id').value
+                    };
+
+                    var callback = function (profileId) {
+                        var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value + '&profileId=' + profileId;
+                        var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
+                        window.showModalDialog(url, null, params);
+                        this.refresh();
+                    };
+
+                    this.ChooseProfile(entityId, callback);
                 },
                 PrintOrder: function () {
                     this.Print('PrintOrder');
@@ -252,33 +229,8 @@ window.InitPage = function () {
                 PrintNewSalesModelBargain: function () {
                     this.Print('PrintNewSalesModelBargain');
                 },
-                PrintBill: function () {
-                    this.Print('PrintBill');
-                },
-                PrepareJointBill: function () {
-                    var entityId = Ext.getDom('Id').value;
-                    var url = '/Order/IsChooseProfileNeeded/' + entityId + '/?printOrderType=PrepareJointBill&__dc=' + Ext.util.Format.cacheBuster();
-                    Ext.Ajax.request(
-                        {
-                            url: url,
-                            method: 'POST',
-                            extinstance: this,
-                            success: function (result, opts) {
-                                var jsonData = Ext.decode(result.responseText);
-                                if (!jsonData.IsChooseProfileNeeded) {
-                                    opts.extinstance.PrepareJointBillWithoutProfileChoosing(jsonData.LegalPersonProfileId);
-                                } else {
-                                    alert('Пожалуйста, распечатайте бланк заказа для определения профиля пользователя.');
-                                }
-                            },
-                            params: { orderId: entityId }
-                        });
-                },
-                PrepareJointBillWithoutProfileChoosing: function (profileId) {
-                    var url = "/Order/PrepareJointBill/?id=" + Ext.getDom('Id').value + '&profileId=' + profileId;
-                    var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
-                    window.showModalDialog(url, null, params);
-                    this.refresh();
+                PrintOrderBills: function () {
+                    this.Print('PrintOrderBills');
                 },
                 PrintTerminationNotice: function () {
                     this.Print('PrintTerminationNotice');
