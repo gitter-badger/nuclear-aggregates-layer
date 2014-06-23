@@ -165,6 +165,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 {
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction", false);
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction", false);
+                    entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction", false);
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction", false);
                 }
 
