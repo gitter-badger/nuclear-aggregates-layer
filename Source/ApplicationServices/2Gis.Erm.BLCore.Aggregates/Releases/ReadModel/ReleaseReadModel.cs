@@ -64,6 +64,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                 .ToDictionary(info => info.OrderId, info => info);
         }
 
+        public int GetCountryCode(long organizationUnitId)
+        {
+            var countyIsoCode = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+                                       .Select(x => x.Country.IsoCode)
+                                       .SingleOrDefault();
+            return !string.IsNullOrEmpty(countyIsoCode) ? int.Parse(countyIsoCode) : 0;
+        }
+
         public bool IsReleaseMustBeLaunchedThroughExport(long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.ErmLaunchDate != null).Single();

@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations
 {
     public interface IReleaseStartAggregateService : IAggregateSpecificOperation<ReleaseInfo, CreateIdentity>
     {
-        ReleaseInfo Start(long organizationUnitId, TimePeriod period, bool isBeta, ReleaseStatus targetStatus);
+        ReleaseInfo Start(int countryCode, long organizationUnitId, TimePeriod period, bool isBeta, ReleaseStatus targetStatus);
     }
 }
