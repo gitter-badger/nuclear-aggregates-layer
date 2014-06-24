@@ -21,5 +21,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
         ReleaseInfo GetReleaseInfo(long releaseInfoId);
         IEnumerable<ReleaseProcessingMessage> GetReleaseValidationResults(long releaseInfoId);
         Dictionary<long, ValidationReportLine> GetOrderValidationLines(IEnumerable<long> orderIds);
+        int GetCountryCode(long organizationUnitId);
     }
 }

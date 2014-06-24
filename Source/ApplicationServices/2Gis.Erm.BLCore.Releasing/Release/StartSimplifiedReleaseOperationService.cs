@@ -27,14 +27,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
 
-        public StartSimplifiedReleaseOperationService(
-            IOrderReadModel orderReadModel,
-            IReleaseReadModel releaseReadModel,
-            IReleaseStartAggregateService releaseStartAggregateService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext,
-            IOperationScopeFactory scopeFactory, 
-            ICommonLog logger)
+        public StartSimplifiedReleaseOperationService(IOrderReadModel orderReadModel,
+                                                      IReleaseReadModel releaseReadModel,
+                                                      IReleaseStartAggregateService releaseStartAggregateService,
+                                                      ISecurityServiceFunctionalAccess functionalAccessService,
+                                                      IUserContext userContext,
+                                                      IOperationScopeFactory scopeFactory,
+                                                      ICommonLog logger)
         {
             _orderReadModel = orderReadModel;
             _releaseReadModel = releaseReadModel;
@@ -52,37 +51,42 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             using (var scope = _scopeFactory.CreateNonCoupled<StartSimplifiedReleaseIdentity>())
             {
-                _logger.InfoFormatEx(
-                    "Starting releasing (simplified mode) for organization unit with id {0} by period {1} is beta {2}. Release initiator user id {3}", 
-                    organizationUnitId, 
-                    period, 
-                    isBeta, 
-                    releaseInitiator);
+                _logger.InfoFormatEx("Starting releasing (simplified mode) for organization unit with id {0} by period {1} is beta {2}. " +
+                                     "Release initiator user id {3}",
+                                     organizationUnitId,
+                                     period,
+                                     isBeta,
+                                     releaseInitiator);
 
+                int countryCode;
                 string report;
-                if (!CanStartRelease(organizationUnitId, period, out report))
+                if (!CanStartRelease(organizationUnitId, period, out countryCode, out report))
                 {
-                    _logger.ErrorFormatEx(
-                        "Can't start simlified releasing for organization unit with id {0} by period {1} is beta {2}. Release initiator user id {3}. Error: {4}", 
-                        organizationUnitId, 
-                        period, 
-                        isBeta,
-                        releaseInitiator,
-                        report);
+                    _logger.ErrorFormatEx("Can't start simlified releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                                          "Release initiator user id {3}. Error: {4}",
+                                          organizationUnitId,
+                                          period,
+                                          isBeta,
+                                          releaseInitiator,
+                                          report);
                     throw new NotificationException(report);
                 }
 
-                var startedRelease = _releaseStartAggregateService.Start(organizationUnitId, period, isBeta, ReleaseStatus.InProgressWaitingExternalProcessing);
+                var startedRelease = _releaseStartAggregateService.Start(countryCode,
+                                                                         organizationUnitId,
+                                                                         period,
+                                                                         isBeta,
+                                                                         ReleaseStatus.InProgressWaitingExternalProcessing);
                 releaseDescriptor.ReleaseId = startedRelease.Id;
                 releaseDescriptor.Succeed = true;
 
-                _logger.InfoFormatEx(
-                    "Simplified release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. Release initiator user id {4}",
-                    startedRelease.Id,
-                    organizationUnitId, 
-                    period, 
-                    isBeta, 
-                    releaseInitiator);
+                _logger.InfoFormatEx("Simplified release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
+                                     "Release initiator user id {4}",
+                                     startedRelease.Id,
+                                     organizationUnitId,
+                                     period,
+                                     isBeta,
+                                     releaseInitiator);
 
                 scope.Complete();
             }
@@ -90,13 +94,22 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return releaseDescriptor;
         }
 
-        private bool CanStartRelease(long organizationUnitId, TimePeriod period, out string report)
+        private bool CanStartRelease(long organizationUnitId, TimePeriod period, out int countryCode, out string report)
         {
+            countryCode = 0;
             report = null;
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ReleaseAccess, _userContext.Identity.Code))
             {
                 report = "User doesn't have sufficient privileges for managing releasing in simplified mode";
+                return false;
+            }
+
+            countryCode = _releaseReadModel.GetCountryCode(organizationUnitId);
+            if (countryCode == 0)
+            {
+                report = string.Format("Can't continue release (simplified mode). Country code for organization unit with id {0} not found",
+                                       organizationUnitId);
                 return false;
             }
 
