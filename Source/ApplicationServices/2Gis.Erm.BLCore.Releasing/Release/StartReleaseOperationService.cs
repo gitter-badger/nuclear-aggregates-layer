@@ -189,6 +189,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
+                var countryCode = _releaseReadModel.GetCountryCode(organizationUnitId);
+                if (countryCode == 0)
+                {
+                    report = string.Format("Can't continue release. Country code for organization unit with id {0} not found. " +
+                                           "Release detail: {1} is beta {2}. Can ignore blocking errors: {3}",
+                                           organizationUnitId,
+                                           period,
+                                           isBeta,
+                                           canIgnoreBlockingErrors);
+                    _logger.ErrorEx(report);
+                    return false;
+                }
+
                 if (!IsValidReleaseStartArgs(period, isBeta, canIgnoreBlockingErrors, out report))
                 {
                     report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta {2}. " +
@@ -227,7 +240,8 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                          isBeta,
                                          canIgnoreBlockingErrors);
 
-                    acquiredRelease = _releaseStartAggregateService.Start(organizationUnitId,
+                    acquiredRelease = _releaseStartAggregateService.Start(countryCode,
+                                                                          organizationUnitId,
                                                                           period,
                                                                           isBeta,
                                                                           ReleaseStatus.InProgressInternalProcessingStarted);
