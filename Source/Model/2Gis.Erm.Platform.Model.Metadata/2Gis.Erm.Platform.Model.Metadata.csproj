@@ -55,7 +55,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-	<Compile Include="Boundaries\IPrintingBoundedContext.cs" />
+    <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
@@ -254,6 +254,7 @@
     <Compile Include="Enums\DisplayStyle.cs" />
     <Compile Include="Enums\FlowGeographyObject.cs" />
     <Compile Include="Enums\PeriodType.cs" />
+    <Compile Include="Globalization\BusinessModelCountryMapping.cs" />
     <Compile Include="Globalization\BusinessModels.cs" />
     <Compile Include="Globalization\BusinessModelsIndicators.cs" />
     <Compile Include="Globalization\BusinessModelsUtils.cs" />
