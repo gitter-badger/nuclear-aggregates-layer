@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.DI;
+﻿using DoubleGis.Erm.BL.Aggregates.DI;
+using DoubleGis.Erm.BLCore.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.MoDi.DI;
 using DoubleGis.Erm.BLCore.API.Operations.DI;
@@ -22,6 +23,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 return CompositionRoot.Config
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
+                                          .UseAnchor<BlAggregatesAssembly>()
                                           .UseAnchor<BlFlexAggregatesGlobalAssembly>()
                                       .RequireZone<MoDiZone>()
                                           .UseAnchor<BlCoreApiModiAssembly>()
