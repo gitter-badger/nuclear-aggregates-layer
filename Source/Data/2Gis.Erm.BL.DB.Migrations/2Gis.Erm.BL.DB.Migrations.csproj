@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
+    <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
     <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
