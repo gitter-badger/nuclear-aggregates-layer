@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</ProjectGuid>
+    <ProjectGuid>{0645CAB5-47BE-4D67-BA49-751BCBEF1241}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubleGis.Erm.BL.Operations.Special</RootNamespace>
-    <AssemblyName>2Gis.Erm.BL.Operations.Special</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>DoubleGis.Erm.BL.Aggregates</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.Aggregates</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -39,46 +39,50 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DI\BlOperationsSpecialAssembly.cs" />
-    <Compile Include="Concrete\Old\Reports\PlanningReportHandler.cs" />
-    <Compile Include="Concrete\Old\Reports\PlanningReportRequest.cs" />
-    <Compile Include="CostCalculation\CostCalculator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\BlAggregatesAssembly.cs" />
+    <Compile Include="DomainEntityObtainers\DenialReasonObtainer.cs" />
+    <Compile Include="SimplifiedModel\CreateDenialReasonService.cs" />
+    <Compile Include="SimplifiedModel\DeactivateDenialReasonService.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\DenialReasonReadModel.cs" />
+    <Compile Include="SimplifiedModel\UpdateDenialReasonService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
-      <Project>{dd4d387b-5ed9-482d-a704-d664ee16e9ef}</Project>
-      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
-      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
-      <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
-      <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
-      <Name>2Gis.Erm.BLCore.Common</Name>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
-      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
-      <Name>2Gis.Erm.BL.Reports</Name>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
