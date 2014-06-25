@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BL.Operations.Special.DI;
+﻿using DoubleGis.Erm.BL.Aggregates.DI;
+using DoubleGis.Erm.BL.Operations.DI;
+using DoubleGis.Erm.BL.Operations.Special.DI;
 using DoubleGis.Erm.BL.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Aggregates.DI;
@@ -37,10 +39,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                           .UseAnchor<PlatformUiWebMvcAssembly>()
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
+                                          .UseAnchor<BlAggregatesAssembly>()
                                           .UseAnchor<BlFlexAggregatesGlobalAssembly>()
                                       .RequireZone<OperationsZone>()
                                           .UseAnchor<BlCoreApiOperationsAssembly>()
                                           .UseAnchor<BlCoreOperationsAssembly>()
+                                          .UseAnchor<BlOperationsAssembly>()
                                           .UseAnchor<BlFlexOperationsGlobalAssembly>()
                                       .RequireZone<OperationsSpecialZone>()
                                           .UseAnchor<BlCoreApiOperationsSpecialAssembly>()

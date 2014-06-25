@@ -194,9 +194,17 @@
       <Project>{e6c3d53f-231b-483a-b7b6-bdff284ad763}</Project>
       <Name>2Gis.Erm.BLQuerying.WCF.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{0645CAB5-47BE-4D67-BA49-751BCBEF1241}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>

@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BL.Operations.Special.DI;
+﻿using DoubleGis.Erm.BL.Aggregates.DI;
+using DoubleGis.Erm.BL.Operations.DI;
+using DoubleGis.Erm.BL.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Operations.DI;
@@ -22,9 +24,11 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 return CompositionRoot.Config
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
+                                          .UseAnchor<BlAggregatesAssembly>()
                                       .RequireZone<OperationsZone>()
                                           .UseAnchor<BlCoreApiOperationsAssembly>()
                                           .UseAnchor<BlCoreOperationsAssembly>()
+                                          .UseAnchor<BlOperationsAssembly>()
                                       .RequireZone<OperationsSpecialZone>()
                                           .UseAnchor<BlCoreApiOperationsSpecialAssembly>()
                                           .UseAnchor<BlCoreOperationsSpecialAssembly>()
