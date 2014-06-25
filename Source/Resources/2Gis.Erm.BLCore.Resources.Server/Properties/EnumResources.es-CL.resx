@@ -1903,4 +1903,13 @@
     <value>Acuerdo para la persona jurídica (idioma adicional)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="DenialReasonTypeInternalRules" xml:space="preserve">
+    <value>Внутренние правила</value>
+  </data>
+  <data name="DenialReasonTypeLaw" xml:space="preserve">
+    <value>Закон о рекламе</value>
+  </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Причины отклонения РМ</value>
+  </data>
 </root>

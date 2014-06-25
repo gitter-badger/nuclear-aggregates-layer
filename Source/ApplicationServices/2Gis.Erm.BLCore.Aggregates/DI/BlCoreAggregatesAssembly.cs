@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.DI
                                                    IZoneAnchor<AggregatesZone>,
                                                    IContainsType<IAggregateReadModel>,
                                                    IContainsType<IAggregateRepository>,
+                                                   IContainsType<ISimplifiedModelConsumer>,
                                                    IContainsType<ISimplifiedModelConsumerReadModel>
     {
     }

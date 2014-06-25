@@ -754,6 +754,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
+    <Folder Include="Generic\Modify\SimplifiedModel\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

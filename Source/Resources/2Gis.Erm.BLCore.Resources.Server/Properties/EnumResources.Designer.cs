@@ -547,6 +547,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Внутренние правила.
+        /// </summary>
+        public static string DenialReasonTypeInternalRules {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeInternalRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе.
+        /// </summary>
+        public static string DenialReasonTypeLaw {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLaw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проверка соответсвия шаблона РМ шаблону, указанному в номенклатурной позиции .
         /// </summary>
         public static string AdvertisementValidationRuleAdvertisementTemplateMatchesPositionTemplate {
@@ -1272,6 +1290,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string EntityNameAdvertisement {
             get {
                 return ResourceManager.GetString("EntityNameAdvertisement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Причины отклонения РМ.
+        /// </summary>
+        public static string EntityNameDenialReason {
+            get {
+                return ResourceManager.GetString("EntityNameDenialReason", resourceCulture);
             }
         }
         
