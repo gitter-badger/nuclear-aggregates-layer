@@ -42,7 +42,7 @@
                     timeout: 1200000,
                     method: 'GET',
                     url: '/Print/GetRelatedOrdersInfoForPrintJointBill',
-                    params: { id: this.Config.EntityId, profileId: this.Config.ProfileId },
+                    params: { orderId: this.Config.EntityId, profileId: this.Config.ProfileId },
                     success: function (xhr, options)
                     {
                         var relatedOrders = Ext.decode(xhr.responseText);
