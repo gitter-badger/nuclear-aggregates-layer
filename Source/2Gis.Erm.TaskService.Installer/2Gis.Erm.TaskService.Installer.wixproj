@@ -158,6 +158,24 @@
       <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
+      <Project>{ee2770e5-5ec2-4d4a-84ee-81301e6c81df}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+      <Project>{f5c50f83-8c4f-42f9-ad37-03740ab78416}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
       <Name>2Gis.Erm.BL.Operations</Name>
       <Project>{247fae89-d1e0-4c16-bfef-667e1d3655d1}</Project>
