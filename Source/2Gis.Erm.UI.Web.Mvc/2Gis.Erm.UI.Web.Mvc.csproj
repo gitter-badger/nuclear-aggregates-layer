@@ -1163,6 +1163,14 @@
       <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
       <Name>2Gis.Erm.BLCore.Releasing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{0645CAB5-47BE-4D67-BA49-751BCBEF1241}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Name>2Gis.Erm.BL.Reports</Name>
