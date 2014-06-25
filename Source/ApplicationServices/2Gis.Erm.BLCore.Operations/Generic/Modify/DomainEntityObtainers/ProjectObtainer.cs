@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;

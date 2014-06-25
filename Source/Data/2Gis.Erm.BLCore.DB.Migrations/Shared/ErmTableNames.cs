@@ -212,6 +212,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName MessageTypes = new SchemaQualifiedObjectName(ErmSchemas.Shared, "MessageTypes");
 
+        public static readonly SchemaQualifiedObjectName DenialReasons = new SchemaQualifiedObjectName(ErmSchemas.Billing, "DenialReasons");
+
         public static readonly SchemaQualifiedObjectName AdvertisementElements = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElements");
 
         public static readonly SchemaQualifiedObjectName Accounts = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Accounts");

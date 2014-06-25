@@ -1374,4 +1374,25 @@
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
     <value>Generar Acceptance Report</value>
   </data>
+  <data name="DenialReasonDescription" xml:space="preserve">
+    <value>Краткое описание</value>
+  </data>
+  <data name="DenialReasonName" xml:space="preserve">
+    <value>Заголовок пункта правил</value>
+  </data>
+  <data name="DenialReasonProofLink" xml:space="preserve">
+    <value>Ссылка на параграф правил</value>
+  </data>
+  <data name="DenialReasonType" xml:space="preserve">
+    <value>Тип причины отклонения</value>
+  </data>
+  <data name="DListDenialReason" xml:space="preserve">
+    <value>Причины отклонения РМ</value>
+  </data>
+  <data name="EnDenialReason" xml:space="preserve">
+    <value>Причина отклонения РМ</value>
+  </data>
+  <data name="DListInactiveDenialReason" xml:space="preserve">
+    <value>Скрытые причины отклонения РМ</value>
+  </data>
 </root>

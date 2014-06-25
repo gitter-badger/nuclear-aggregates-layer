@@ -395,6 +395,7 @@
     <Compile Include="Generic\Modify\IModifyDomainEntityService.cs" />
     <Compile Include="Generic\Modify\IModifySimplifiedModelEntityService.cs" />
     <Compile Include="Generic\Modify\Old\EditRequest.cs" />
+    <Compile Include="Generic\Modify\SimplifiedModel\DenialReasonNameIsNotUniqueException.cs" />
     <Compile Include="Generic\Old\ValidateOwnerIsNotReserveRequest.cs" />
     <Compile Include="Generic\Qualify\IQualifyEntityService.cs" />
     <Compile Include="Generic\Qualify\IQualifyGenericEntityService.cs" />

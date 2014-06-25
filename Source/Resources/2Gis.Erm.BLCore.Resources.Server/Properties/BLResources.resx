@@ -5184,4 +5184,10 @@
   <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
     <value />
   </data>
+  <data name="AdministrationPage_DenialReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DenialReasonNameIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
 </root>
