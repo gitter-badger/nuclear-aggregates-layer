@@ -104,6 +104,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Theme),
                 typeof(UserProfile),
                 typeof(Project),
+                typeof(DenialReason),
             };
 
         /// <summary>

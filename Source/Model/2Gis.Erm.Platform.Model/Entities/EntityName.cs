@@ -154,6 +154,7 @@
         Bank = 310,
         Commune = 311,
         AcceptanceReportsJournalRecord = 312,
+        DenialReason = 313,
 
         // Ambivalent
         FileWithContent = 400,

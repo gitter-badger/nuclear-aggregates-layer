@@ -261,6 +261,10 @@
       <Link>Entities\Erm\BusinessEntityPropertyInstance.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessOperationService.cs">
       <Link>Entities\Erm\BusinessOperationService.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -333,6 +337,14 @@
       <Link>Entities\Erm\Deal.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenialReason.cs">
+      <Link>Entities\Erm\DenialReason.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenialReasonDomainEntityDto.cs">
+      <Link>Entities\DTOs\DenialReasonDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPosition.cs">
       <Link>Entities\Erm\DeniedPosition.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -356,6 +368,10 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstance.cs">
       <Link>Entities\Erm\DictionaryEntityPropertyInstance.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstanceDomainEntityDto.cs">
+      <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ErmEntities.cs">
       <Link>Entities\Erm\ErmEntities.cs</Link>
@@ -381,9 +397,17 @@
       <Link>Entities\Erm\ExportFlowNomenclatures_NomenclatureElement.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowNomenclatures_NomenclatureElementDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementRelation.cs">
       <Link>Entities\Erm\ExportFlowNomenclatures_NomenclatureElementRelation.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementRelationDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowNomenclatures_NomenclatureElementRelationDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersAdvMaterial.cs">
       <Link>Entities\Erm\ExportFlowOrdersAdvMaterial.cs</Link>
@@ -693,10 +717,12 @@
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
+    <Compile Include="Entities\DTOs\Partial\DenialReasonDomainEntityDto.partial.cs" />
     <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />
+    <Compile Include="Entities\Enums\DenialReasonType.cs" />
     <Compile Include="Entities\Enums\ChargesHistoryStatus.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />

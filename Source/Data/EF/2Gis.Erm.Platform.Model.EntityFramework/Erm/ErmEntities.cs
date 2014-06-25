@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(Currency),
     		typeof(CurrencyRate),
     		typeof(Deal),
+    		typeof(DenialReason),
     		typeof(DeniedPosition),
     		typeof(DepCard),
     		typeof(DictionaryEntityInstance),
