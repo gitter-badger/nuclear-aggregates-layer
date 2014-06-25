@@ -18,6 +18,7 @@
         if (!bargain) {
             this.getMenuItem('Actions', 'RemoveBargain').disable();
             this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintBargainAction').disable();
+            this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintBargainAdditionalAgreementAction').disable();
         }
     },
 
