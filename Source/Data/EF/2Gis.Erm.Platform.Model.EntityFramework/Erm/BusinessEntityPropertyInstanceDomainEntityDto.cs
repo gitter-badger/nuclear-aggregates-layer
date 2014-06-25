@@ -23,22 +23,6 @@ using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
-    [DataContract]
-    public partial class BusinessEntityPropertyInstanceDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.BusinessEntityPropertyInstance>
-    {
-    	[DataMember]
-        public long Id { get; set; }
-    	[DataMember]
-        public EntityReference EntityInstanceRef { get; set; }
-    	[DataMember]
-        public EntityReference PropertyRef { get; set; }
-    	[DataMember]
-        public string TextValue { get; set; }
-    	[DataMember]
-        public Nullable<decimal> NumericValue { get; set; }
-    	[DataMember]
-        public Nullable<System.DateTime> DateTimeValue { get; set; }
-    }
 }
 
 // ReSharper enable RedundantUsingDirective
