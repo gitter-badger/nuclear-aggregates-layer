@@ -1,0 +1,36 @@
+﻿
+@model DenialReasonViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{  
+}
+
+@section CardBody
+{    
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>    
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Type, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+        
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ProofLink, FieldFlex.lone)
+        </div>
+    
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>   
+    </div>
+}

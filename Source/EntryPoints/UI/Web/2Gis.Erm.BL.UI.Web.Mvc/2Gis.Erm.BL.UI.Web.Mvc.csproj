@@ -205,6 +205,7 @@
     <Compile Include="Models\PrintLimitsViewModel.cs" />
     <Compile Include="Models\PrintOrderType.cs" />
     <Compile Include="Models\ChooseProfileViewModel.cs" />
+    <Compile Include="Models\DenialReasonViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\PublishPriceViewModel.cs" />
@@ -503,6 +504,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintFormTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\DenialReason.generated.cs">
+      <DependentUpon>DenialReason.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Project.generated.cs">
       <AutoGen>True</AutoGen>
@@ -938,6 +944,10 @@
     <None Include="Views\CreateOrUpdate\PrintFormTemplate.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PrintFormTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\DenialReason.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DenialReason.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Project.cshtml">
       <Generator>RazorGenerator</Generator>
