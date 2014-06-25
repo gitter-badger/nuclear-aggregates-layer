@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="DI\BlQueryingApiOperationsListingAssembly.cs" />
     <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementDenialReasonDto.cs" />
     <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
     <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
