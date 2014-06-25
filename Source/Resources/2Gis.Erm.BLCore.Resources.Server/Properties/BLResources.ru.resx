@@ -5201,4 +5201,10 @@
   <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
     <value>У юр. лица {0} несколько основных профилей</value>
   </data>
+  <data name="AdministrationPage_DenialReason" xml:space="preserve">
+    <value>Причины отклонения РМ</value>
+  </data>
+  <data name="DenialReasonNameIsNotUnique" xml:space="preserve">
+    <value>Уже существует причина отклонения РМ с заголовком "{0}"</value>
+  </data>
 </root>
