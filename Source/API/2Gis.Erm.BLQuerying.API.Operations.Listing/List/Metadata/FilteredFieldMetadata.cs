@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListAdsTemplatesAdsElementTemplateDto>(
                 x => x.AdsTemplateName,
                 x => x.AdsElementTemplateName)
-            .RegisterFilteredFields<ListAdvertisementDenialReasonDto>(
+            .RegisterFilteredFields<ListDenialReasonDto>(
                 x => x.Name)
             .RegisterFilteredFields<ListAdvertisementTemplateDto>(
                 x => x.Name)

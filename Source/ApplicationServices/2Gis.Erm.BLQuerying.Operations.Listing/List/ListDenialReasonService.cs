@@ -13,13 +13,13 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListAdvertisementDenialReasonService : ListEntityDtoServiceBase<AdvertisementDenialReason, ListAdvertisementDenialReasonDto>
+    public sealed class ListDenialReasonService : ListEntityDtoServiceBase<DenialReason, ListDenialReasonDto>
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly IUserContext _userContext;
 
-        public ListAdvertisementDenialReasonService(
+        public ListDenialReasonService(
             IFinder finder,
             FilterHelper filterHelper,
             IUserContext userContext)
@@ -29,16 +29,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userContext = userContext;
         }
 
-        protected override IEnumerable<ListAdvertisementDenialReasonDto> List(QuerySettings querySettings, out int count)
+        protected override IEnumerable<ListDenialReasonDto> List(QuerySettings querySettings, out int count)
         {
-            var query = _finder.FindAll<AdvertisementDenialReason>();
+            var query = _finder.FindAll<DenialReason>();
 
             return query
-                .Select(x => new ListAdvertisementDenialReasonDto
+                .Select(x => new ListDenialReasonDto
                     {
                         Id = x.Id,
                         Name = x.Name,
-                        TypeEnum = (AdvertisementRestrictionType)x.Type,
+                        TypeEnum = (DenialReasonType)x.Type,
                         CreatedOn = x.CreatedOn,
                         IsActive = x.IsActive
                     })
