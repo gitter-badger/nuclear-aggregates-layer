@@ -91,6 +91,22 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="DenialReasons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProofLink" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <EntityType Name="AdvertisementElements">
           <Key>
             <PropertyRef Name="Id" />
@@ -3869,6 +3885,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="AccountDetails" EntityType="Self.AccountDetails" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdsTemplatesAdsElementTemplates" EntityType="Self.AdsTemplatesAdsElementTemplates" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="DenialReasons" EntityType="Self.DenialReasons" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdvertisementElements" EntityType="Self.AdvertisementElements" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdvertisementElementTemplates" EntityType="Self.AdvertisementElementTemplates" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Advertisements" EntityType="Self.Advertisements" Schema="Billing" store:Type="Tables" />
@@ -5423,6 +5440,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ChargesHistories" EntityType="ErmModel.ChargesHistory" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElementRelation" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" />
+          <EntitySet Name="DenialReasons" EntityType="ErmModel.DenialReason" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -9616,6 +9634,22 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
+        <EntityType Name="DenialReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProofLink" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -11728,6 +11762,23 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <EntityTypeMapping TypeName="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation">
               <MappingFragment StoreEntitySet="ExportFlowNomenclatures_NomenclatureElementRelation">
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DenialReasons">
+            <EntityTypeMapping TypeName="ErmModel.DenialReason">
+              <MappingFragment StoreEntitySet="DenialReasons">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ProofLink" ColumnName="ProofLink" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

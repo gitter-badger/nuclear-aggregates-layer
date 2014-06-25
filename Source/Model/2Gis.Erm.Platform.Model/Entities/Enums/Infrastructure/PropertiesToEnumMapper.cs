@@ -7,7 +7,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
 {
-    // 2+: Platform\Source\Model\2Gis.Erm.Platform.Model\Entities\Enums\Infrastructure\PropertiesToEnumMapper.cs
     public static class PropertiesToEnumMapper
     {
         public static readonly IReadOnlyDictionary<string, Type> Map = new Dictionary<string, Type>
@@ -63,7 +62,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<OrderProcessingRequest>(entity => entity.State), typeof(OrderProcessingRequestState) },
                 { CreateKey<OrderProcessingRequestMessage>(entity => entity.MessageType), typeof(RequestMessageType) },
                 { CreateKey<OrderProcessingRequest>(entity => entity.RequestType), typeof(OrderProcessingRequestType) },
-                { CreateKey<PricePosition>(entity => entity.RateType), typeof(PricePositionRateType) }
+                { CreateKey<PricePosition>(entity => entity.RateType), typeof(PricePositionRateType) },
+                { CreateKey<DenialReason>(entity => entity.Type), typeof(DenialReasonType) }
             };
 
         private static string CreateKey<TEntity>(Expression<Func<TEntity, object>> propertyExpression)

@@ -277,6 +277,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.ChargesHistory" Width="1.5" PointX="17.375" PointY="13.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" Width="1.5" PointX="14.375" PointY="17.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" Width="1.5" PointX="5.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DenialReason" Width="1.5" PointX="7.375" PointY="18.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
