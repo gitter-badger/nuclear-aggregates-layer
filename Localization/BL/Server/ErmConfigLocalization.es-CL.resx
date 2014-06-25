@@ -1828,21 +1828,21 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DListAcceptanceReport" xml:space="preserve">
-    <value>Акты выполненных работ</value>
+    <value>Actos de trabajos realizados</value>
   </data>
   <data name="NavGroupAcceptanceReportsJournal" xml:space="preserve">
-    <value>Журнал Acceptance Report</value>
+    <value>Historial Acceptance Report</value>
   </data>
   <data name="OrderPayableFact" xml:space="preserve">
-    <value>Сумма заказа</value>
+    <value>Importe total de la orden</value>
   </data>
   <data name="AcceptanceReportsJournal" xml:space="preserve">
-    <value>Журнал Acceptance Report</value>
+    <value>Historial Acceptance Report</value>
   </data>
   <data name="AuthorName" xml:space="preserve">
-    <value>Ответственный</value>
+    <value>Responsable</value>
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
-    <value>Количество документов</value>
+    <value>Número de documentos</value>
   </data>
 </root>

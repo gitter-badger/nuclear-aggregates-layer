@@ -1345,33 +1345,33 @@
     <value>Actividad</value>
   </data>
   <data name="Egrpou" xml:space="preserve">
-    <value>ЕГРПОУ</value>
+    <value>Registro Estatal Único de Empresas y Organizaciones de Ucrania</value>
   </data>
   <data name="Ipn" xml:space="preserve">
-    <value>ИПН</value>
+    <value>Número de Identificación Fiscal</value>
   </data>
   <data name="TaxationType" xml:space="preserve">
-    <value>Тип налогообложения</value>
+    <value>Tipo de imposición fiscal</value>
   </data>
   <data name="Mfo" xml:space="preserve">
-    <value>МФО</value>
+    <value>Código de Transacciones entre Sucursales</value>
   </data>
   <data name="OrderPosition" xml:space="preserve">
-    <value>Позиция заказа</value>
+    <value>Posición de la orden</value>
   </data>
   <data name="CommercialLicense" xml:space="preserve">
-    <value>Лицензия</value>
+    <value>Licencia</value>
   </data>
   <data name="CommercialLicenseBeginDate" xml:space="preserve">
-    <value>Дата начала действия лицензии</value>
+    <value>Fecha de comienzo de validez de la licencia</value>
   </data>
   <data name="CommercialLicenseEndDate" xml:space="preserve">
-    <value>Дата окончания действия лицензии</value>
+    <value>Fecha de vencimiento de la licencia</value>
   </data>
   <data name="PoBox" xml:space="preserve">
     <value>P.O.Box</value>
   </data>
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
-    <value>Сформировать Acceptance Report</value>
+    <value>Generar Acceptance Report</value>
   </data>
 </root>

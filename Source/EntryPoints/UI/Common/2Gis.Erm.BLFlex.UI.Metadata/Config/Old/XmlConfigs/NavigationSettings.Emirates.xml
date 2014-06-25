@@ -24,8 +24,8 @@
       <Items Name="NavGroupErmAdministration" RequestUrl="/Administration/Administration" />
       <Items Name="NavGroupSecurityAdministration" RequestUrl="/Administration/SecurityAdministration" />
       <Items Name="NavGroupCatalogueManagement" RequestUrl="/Administration/CatalogueManagement" />
-      <Items Name="NavGroupAcceptanceReportsJournal" RequestUrl="/Grid/View/AcceptanceReportsJournalRecord" />
       <Items Name="NavGroupMessageQueueManagement" RequestUrl="/Administration/MessageQueueManagement" />
+      <Items Name="NavGroupAcceptanceReportsJournal" RequestUrl="/Grid/View/AcceptanceReportsJournalRecord" />
     </Items>
     <Items Name="NavGroupSecurity">
       <Items Name="NavGroupUsers" Icon="en_ico_16_UserAccount.gif" RequestUrl="/Grid/View/User" />

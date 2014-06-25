@@ -143,10 +143,10 @@ Bank Name: {7}
 {8}</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
-    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as "Customer", represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
-    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as "Customer", represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
+    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5}, on the other hand, have signed the present Invoice to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
     <value>Total discount: {0} - {1} ({2}).
@@ -156,18 +156,18 @@ Bank Name: {7}
     <value>Internet-sites and Web-applications specified in Price-list as of date of advertisement placement</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Mass media: "{0}" (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
+    <value>1. Mass media: &quot;{0}&quot; (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
 2. Internet-site 2gis.com.cy.
 3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: &quot;{0}&quot; (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internet-site at maps.2gis.ru</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Mass media: "{0}" (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: &quot;{0}&quot; (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
@@ -177,10 +177,10 @@ Bank Name: {7}
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Cannot create an Invoice for legal entity of the type '{0}' specified in the profile</value>
+    <value>Cannot create an Invoice for legal entity of the type &apos;{0}&apos; specified in the profile</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Legal entities of the type '{0}' specified in the profile cannot act act on the basis of {1}</value>
+    <value>Legal entities of the type &apos;{0}&apos; specified in the profile cannot act act on the basis of {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
@@ -300,7 +300,7 @@ Bank Name: {7}
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The Customer's legal entity with the specified T.I.C. already exists</value>
+    <value>The Customer&apos;s legal entity with the specified T.I.C. already exists</value>
   </data>
   <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
     <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
@@ -363,39 +363,39 @@ Bank Name: {7}
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
-    <value>Юр. лицо клиента с указанным номером коммерческой лицензии уже существует</value>
+    <value>Client&apos;s legal entity with the specified commercial license number already exists</value>
   </data>
   <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
-    <value>Существует удаленное юр. лицо клиента с указанным номером коммерческой лицензии</value>
+    <value>A deleted legal entity of the Client with the specified commercial license number exists</value>
   </data>
   <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
-    <value>Введен неверный номер коммерчиской лицензии</value>
+    <value>Incorrect commercial license number</value>
   </data>
   <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
-    <value>Существует скрытое юр. лицо клиента с указанным номером коммерческой лицензии</value>
+    <value>A hidden legal entity of the Client with the specified commercial license number exists</value>
   </data>
   <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
-    <value>Указано некорректное значение IBAN</value>
+    <value>Incorrect IBAN value</value>
   </data>
   <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
-    <value>Указано некорректное значение SWIFT</value>
+    <value>Incorrect SWIFT value</value>
   </data>
   <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
-    <value>Существует юр. лицо с указанным номером лицензии</value>
+    <value>A legal entity with the specified license number exists</value>
   </data>
   <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
-    <value>В данной бизнес-модели отсутствует НДС. Необходимо выбрать тип договора без НДС.</value>
+    <value>VAT is not used in this business model. An agreement type without VAT must be selected.</value>
   </data>
   <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
-    <value>Формирование Acceptance Report</value>
+    <value>Generating Acceptance Report</value>
   </data>
   <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
-    <value>Нельзя распечатать Acceptance Report для заказа с номером {0}, т.к. для него не определен профиль юр. лица </value>
+    <value>Cannot print Acceptance Report for order number {0}, since the legal entity profile is not defined for it </value>
   </data>
   <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
-    <value>Нельзя распечатать Acceptance Report, т.к. для следующих заказов не определен профиль юр. лица: {0}</value>
+    <value>Cannot print Acceptance Report, since the legal entity profile is not defined for the following orders: {0}</value>
   </data>
   <data name="NoOrdersFound" xml:space="preserve">
-    <value>По указанным параметрам заказов не найдено</value>
+    <value>No orders found for the specified criteria</value>
   </data>
 </root>

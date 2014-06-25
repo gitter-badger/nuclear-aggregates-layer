@@ -117,6 +117,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
                             FirmId = posCard.FirmCode,
                             ReferencePoint = posCard.ReferencePoint,
                             Address = posCard.Address,
+                            AddressCode = posCard.AddressCode,
                             BuildingCode = posCard.BuildingCode,
                             ClosedForAscertainment = posCard.ClosedForAscertainment,
                             IsActive = posCard.IsActive,

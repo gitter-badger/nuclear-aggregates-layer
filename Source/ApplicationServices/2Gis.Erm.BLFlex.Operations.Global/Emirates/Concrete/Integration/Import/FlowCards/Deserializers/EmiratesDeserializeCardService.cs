@@ -168,7 +168,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
                     Schedule = schedulesElement != null ? ParseSchedule(schedulesElement.Element(ScheduleElementName)) : null,
                     PoBox = ParsePoBox(xml.Element(FieldsElementName)),
                     IsLinkedToTheMap = addressElement.Attribute(BuildingCodeAttributeName) != null &&
-                                       (addressElement.Attribute(IsLocalAttributeName) == null || (bool)addressElement.Attribute(IsLocalAttributeName))
+                                       (xml.Attribute(IsLocalAttributeName) == null || (bool)xml.Attribute(IsLocalAttributeName))
                 };
 
             return result;
