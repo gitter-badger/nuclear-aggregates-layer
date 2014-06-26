@@ -1,5 +1,5 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 
@@ -9,7 +9,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     {
         private readonly IOperationScope _operationScope;
         private readonly EntityChangesContext _scopeChanges = new EntityChangesContext();
-        private readonly ConcurrentBag<OperationScopeNode> _childs = new ConcurrentBag<OperationScopeNode>();
+
+        private readonly object _childsSync = new object();
+        private readonly IList<OperationScopeNode> _childs = new List<OperationScopeNode>();
  
         public OperationScopeNode(IOperationScope operationScope)
         {
@@ -27,13 +29,22 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         }
         
         public IEnumerable<OperationScopeNode> Childs
-        {
-            get { return _childs; }
+        { 
+            get 
+            {
+                lock (_childsSync)
+                {
+                    return _childs.ToArray();
+                }
+            }
         }
 
         public void AddChild(OperationScopeNode childNode)
         {
-            _childs.Add(childNode);
+            lock (_childsSync)
+            {
+                _childs.Add(childNode);
+            }
         }
     }
 }

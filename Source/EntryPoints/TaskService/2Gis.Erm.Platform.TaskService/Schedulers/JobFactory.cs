@@ -13,6 +13,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
 {
     public sealed class JobFactory : PropertySettingJobFactory
     {
+        private readonly object _containerMapSync = new object();
         private readonly Dictionary<IJob, IUnityContainer> _containerMap = new Dictionary<IJob, IUnityContainer>();
 
         private readonly IUnityContainer _container;
@@ -37,7 +38,10 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 var job = (IJob)childContainer.Resolve(bundle.JobDetail.JobType);
                 SetObjectProperties(job, jobDataMap);
 
-                _containerMap.Add(job, childContainer);
+                lock (_containerMapSync)
+                {
+                    _containerMap.Add(job, childContainer);
+                }
                 
                 _logger.DebugEx(string.Format("Создание задачи [{0}]", bundle.JobDetail.JobType));
                 return job;
@@ -51,8 +55,13 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
 
         public override void ReturnJob(IJob job)
         {
-            var childContainer = _containerMap[job];
-            _containerMap.Remove(job);
+            IUnityContainer childContainer;
+
+            lock (_containerMapSync)
+            {
+                childContainer = _containerMap[job];
+                _containerMap.Remove(job);
+            }
 
             childContainer.Dispose();
         }
