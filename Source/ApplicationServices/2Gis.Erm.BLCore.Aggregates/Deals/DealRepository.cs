@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -275,8 +276,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         int IChangeAggregateClientRepository<Deal>.ChangeClient(long entityId, long clientId, long currentUserCode, bool bypassValidation)
         {
-            var deal = _finder.Find(Specs.Find.ById<Deal>(entityId)).Single();
-            var firms = _finder.Find<Firm>(x => x.ClientId == clientId).ToArray();
+            var deal = _finder.FindOne(Specs.Find.ById<Deal>(entityId));
+            var firms = _finder.FindMany(FirmSpecs.Firms.Find.ByClient(clientId)).ToArray();
             if (firms.Length == 1)
             {
                 deal.MainFirmId = firms[0].Id;
@@ -286,7 +287,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                 deal.MainFirmId = null;
             }
 
-            var client = _finder.Find<Client>(x => x.Id == clientId).SingleOrDefault();
+            var client = _finder.FindOne(Specs.Find.ById<Client>(clientId));
             if (client == null)
             {
                 throw new ArgumentException(BLResources.EntityNotFound, "clientId");
