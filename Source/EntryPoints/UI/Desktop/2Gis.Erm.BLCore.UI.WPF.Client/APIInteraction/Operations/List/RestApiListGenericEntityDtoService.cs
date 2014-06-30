@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -17,9 +19,10 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
 
         #region Implementation of IListEntityService
 
-        public override ListResult List(SearchListModel searchListModel)
+        public override IRemoteCollection List(SearchListModel searchListModel)
         {
-            return GetList(searchListModel);
+            var list = (EntityDtoListResult)GetList(searchListModel);
+            return new RemoteCollection<TEntityDto>(list.Data.Cast<TEntityDto>().ToList(), list.RowCount);
         }
 
         #endregion

@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             {
                 errorText = !string.IsNullOrWhiteSpace(exception.Message) ? exception.Message : BLResources.ErrorDuringOperation;
             }
-            else if (exceptionType.IsSubclassOf(typeof(BusinessLogicException)))
+            else if (typeof(BusinessLogicException).IsAssignableFrom(exceptionType))
             {
                 errorText = !string.IsNullOrWhiteSpace(exception.Message) ? exception.Message : BLResources.ApplicationError;
             }

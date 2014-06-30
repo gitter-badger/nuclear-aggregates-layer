@@ -1,11 +1,11 @@
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 
@@ -40,13 +40,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
             {
                 case ListResultType.Dto:
                 {
-                    EntityName entityName;
-                    if (!listResultDescriptor.ListResultJObject.TryGetEnumValue(PropertyNames.EntityDtosListEntityType, out entityName))
-                    {
-                        throw new InvalidOperationException("Can't get entity name from list result");
-                    }
-
-                    var entityType = entityName.AsEntityType();
                     var dtoTypeString = listResultDescriptor.ListResultJObject[PropertyNames.EntityDtosListDtoType].Value<string>();
                     if (string.IsNullOrEmpty(dtoTypeString))
                     {
@@ -64,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                         throw new InvalidOperationException("Can't resolve dto type from string value: " + dtoTypeString);
                     }
 
-                    var realResultType = typeof(EntityDtoListResult<,>).MakeGenericType(entityType, dtoType);
+                    var realResultType = typeof(EntityDtoListResult);
                     var dataProperty = realResultType.GetProperty(PropertyNames.Data);
                     if (dataProperty == null)
                     {
@@ -245,11 +238,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
                 ResultType = ExtractPropertyName<ListResult, ListResultType>(t => t.ResultType);
                 RowCount = ExtractPropertyName<ListResult, int>(t => t.RowCount);
                 MainAttribute = ExtractPropertyName<ListResult, string>(t => t.MainAttribute);
-                EntityDtosData = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, ListFakeEntityDto[]>(t => t.Data);
+                EntityDtosData = ExtractPropertyName<EntityDtoListResult, ICollection>(t => t.Data);
 
                 Data = EntityDtosData;
-
-                EntityDtosListEntityType = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, EntityName>(t => t.EntityType);
                 //EntityDtosListDtoType = ExtractPropertyName<EntityDtoListResult<FakeEntity, ListFakeEntityDto>, Type>(t => t.DtoType);
             }
 
@@ -258,7 +249,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
             public static string MainAttribute { get; private set; }
             private static string EntityDtosData { get; set; }
             public static string Data { get; private set; }
-            public static string EntityDtosListEntityType { get; private set; }
             public static string EntityDtosListDtoType { get; private set; }
         }
 
