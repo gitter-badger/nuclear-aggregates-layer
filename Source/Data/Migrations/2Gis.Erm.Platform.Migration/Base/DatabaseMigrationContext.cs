@@ -5,7 +5,7 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace DoubleGis.Erm.Platform.Migration.Base
 {
-    internal class DatabaseMigrationContext : IMigrationContext
+    public class DatabaseMigrationContext : IMigrationContext
     {
         private readonly string _connectionString;
         private readonly bool _isCaptureMode;
