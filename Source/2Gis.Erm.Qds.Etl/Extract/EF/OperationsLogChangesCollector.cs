@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -32,17 +33,29 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
             if (fromRecordIdState == null)
                 throw new NotSupportedException(fromState.GetType().FullName);
 
-            var operations = _finder.Find<PerformedBusinessOperation>(pbo => pbo.Id > fromRecordIdState.RecordId);
             var changes = new List<PboChangeDescriptor>();
 
-            var newId = fromRecordIdState.RecordId;
+            if (fromRecordIdState.RecordId == null)
+            {
+                var pbo = _finder.FindAll<PerformedBusinessOperation>().OrderByDescending(x => x.Date).FirstOrDefault();
+                if (pbo != null)
+                {
+                    _currentState = new RecordIdState("0", pbo.Id.ToString());
+                }
+
+                return changes;
+            }
+
+            var fromRecordIdStateParsed = long.Parse(fromRecordIdState.RecordId);
+            var operations = _finder.Find<PerformedBusinessOperation>(pbo => pbo.Id > fromRecordIdStateParsed);
+            var maxId = fromRecordIdStateParsed;
             foreach (var operation in operations)
             {
-                newId = operation.Id;
+                maxId = operation.Id;
                 changes.Add(new PboChangeDescriptor(operation));
             }
 
-            _currentState = newId != fromRecordIdState.RecordId ? new RecordIdState(0, newId) : fromRecordIdState;
+            _currentState = maxId == fromRecordIdStateParsed ? fromRecordIdState : new RecordIdState("0", maxId.ToString());
 
             return changes;
         }

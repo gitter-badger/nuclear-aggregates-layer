@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using System.Collections.Generic;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListUserOrganizationUnitDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<UserOrganizationUnit>();
 
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     UserIsActive = x.User.IsActive,
                     UserIsDeleted = x.User.IsDeleted,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                .QuerySettings(_filterHelper, querySettings);
 
             return data;
         }

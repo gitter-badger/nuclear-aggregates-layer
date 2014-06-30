@@ -1,6 +1,7 @@
 using System;
+using System.Linq;
 
-using DoubleGis.Erm.Qds;
+using DoubleGis.Erm.Qds.Common;
 
 using Nest;
 
@@ -15,14 +16,19 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("response");
             }
 
-            if (response.IsValid)
-                return;
+            if (!response.IsValid)
+                throw new ElasticException(response.ConnectionStatus.ToString(), response.ConnectionStatus.OriginalException);
 
-            var result = response.ConnectionStatus.Result;
+            ThrowWhenBulkError(response as IBulkResponse);
+        }
 
-            var message = !string.IsNullOrEmpty(result) ? result : response.ConnectionStatus.Error.ExceptionMessage;
-
-            throw new ElasticException(message, response.ConnectionStatus.Error.OriginalException);
+        void ThrowWhenBulkError(IBulkResponse bulkResponse)
+        {
+            if (bulkResponse != null && bulkResponse.Errors)
+            {
+                var errorItem = bulkResponse.Items.First(x => !string.IsNullOrEmpty(x.Error));
+                throw new ElasticException(string.Format("{0} - {1}", errorItem.Operation, errorItem.Error));
+            }
         }
     }
 }

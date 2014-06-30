@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -23,8 +23,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListCategoryDto> List(QuerySettings querySettings,
-                                                                    out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Category>();
 
@@ -120,8 +119,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 if (!querySettings.TryGetExtendedProperty("OrganizationUnitId", out organizationUnitId) ||
                     !NewSalesModelRestrictions.SupportedOrganizationUnitIds.Contains(organizationUnitId))
                 {
-                    count = 0;
-                    return Enumerable.Empty<ListCategoryDto>();
+                    return new RemoteCollection<ListCategoryDto>(new ListCategoryDto[0], 0);
                 }
             }
 
@@ -149,7 +147,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

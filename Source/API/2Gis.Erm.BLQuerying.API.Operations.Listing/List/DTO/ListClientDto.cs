@@ -25,6 +25,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime? LastDisqualifyTime { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public InformationSource InformationSource { get; set; }
+        public InformationSource InformationSourceEnum { get; set; }
     }
 }

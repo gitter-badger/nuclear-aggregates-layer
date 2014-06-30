@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 
             foreach (var doc in docs)
             {
-                doc.Id = user.Id;
+                doc.Id = user.Id.ToString();
                 doc.Name = user.DisplayName;
             }
         }

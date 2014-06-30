@@ -1,44 +1,40 @@
 using System;
 
+using DoubleGis.Erm.BLQuerying.DI;
+using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Transform.Docs;
-using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
-using Moq;
+using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
     class IndexationFacadeContext
     {
-        public const string DocIdFieldName = "Id";
+        public const string DocIdFieldName = "id";
 
         Establish context = () =>
             {
-                EnumLocalizer = new Mock<IEnumLocalizer>();
                 DocsStorage = new MockDocsStorage();
-                var queryDsl = new MockDocsStorage.QueryDsl();
+                DocsStorage.Add(new RecordIdState("0", "42"), DocIdFieldName, "0");
 
-                var trackerState = new DocsStorageChangesTrackerState(DocsStorage, queryDsl);
-                DocsStorage.Add(new RecordIdState(0, 42), DocsStorageChangesTrackerState.IdFieldName, (long)0);
+                var container = new UnityContainer();
 
-                var clientQds = new ClientGridDocQdsComponent(DocsStorage, EnumLocalizer.Object, queryDsl);
-                var userQds = new UserDocQdsComponent(DocsStorage, queryDsl);
-                var territoryQds = new TerritoryDocQdsComponent(DocsStorage, queryDsl);
+                container.RegisterInstance<IEnumLocalizer>(new ResourcesEnumLocalizer());
+                container.RegisterInstance<IDocsStorage>(DocsStorage);
+                container.RegisterInstance<IElasticApi>(DocsStorage); // FIXME {m.pashuk, 29.04.2014}: По задумке тут не должно быть зависимости от Elastic. IDocsStorage - это и есть та грань которая отделяет индексацию от реального мира
 
-                // TODO Сделать класс 
-                var qdsFactory = new Mock<IQdsComponentsFactory>();
-                qdsFactory.Setup(q => q.CreateQdsComponents()).Returns(new IQdsComponent[] { clientQds, userQds, territoryQds });
+                container.RegisterType<IQueryDsl, MockDocsStorage.CursorQueryDsl>();
+                container.RegisterType<IQdsComponentsFactory, UnityQdsComponentsFactory>();
+                container.RegisterType<IDocumentRelationsRegistry>(Lifetime.Singleton, new InjectionFactory(x => new UnityDocumentRelationsRegistry(x).RegisterAllDocumentParts(() => Lifetime.Singleton)));
 
-                Target = new IndexationFacade(DocsStorage, trackerState, qdsFactory.Object);
+                Target = container.Resolve<IndexationFacade>();
             };
-
-        protected static Mock<IEnumLocalizer> EnumLocalizer { get; private set; }
-        protected static IndexationFacade Target { get; private set; }
-        protected static MockDocsStorage DocsStorage;
 
         protected static void AddToDocsStorage<TDoc>(TDoc doc, string fieldName, object value) where TDoc : IDoc
         {
@@ -52,5 +48,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
                        .And
                        .Contain(doc => doc is TDoc && checkDoc((TDoc)doc));
         }
+
+        protected static IndexationFacade Target { get; private set; }
+        protected static MockDocsStorage DocsStorage { get; private set; }
     }
 }

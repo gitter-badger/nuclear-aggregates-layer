@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 
         protected static void ContainDocumentOfSpecifiedTypeWithExpectedId()
         {
-            DocsStorage.NewPublishedDocs.Should().Contain(d => d.Id == ChangedEntityId && d is TDoc);
+            DocsStorage.NewPublishedDocs.Should().Contain(d => d.Id == ChangedEntityId.ToString() && d is TDoc);
         }
 
         protected static long ChangedEntityId;

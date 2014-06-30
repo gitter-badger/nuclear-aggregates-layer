@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
+using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
@@ -80,6 +82,13 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.MainFirmName,
                 x => x.TerritoryName,
                 x => x.MainPhoneNumber)
+            .RegisterFilteredFields<ClientGridDoc>(
+                x => x.Name,
+                x => x.MainAddress,
+                x => x.MainFirmName,
+                x => x.TerritoryName,
+                x => x.MainPhoneNumber,
+                x => x.OwnerName)
             .RegisterFilteredFields<ListContactDto>(
                 x => x.FullName,
                 x => x.WorkAddress,
@@ -109,6 +118,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.Name,
                 x => x.ClientName,
                 x => x.OrganizationUnitName)
+            .RegisterFilteredFields<FirmGridDoc>(
+                x => x.Name,
+                x => x.ClientName,
+                x => x.OrganizationUnitName,
+                x => x.OwnerName)
             .RegisterFilteredFields<ListFirmAddressDto>(
                 x => x.Address)
             .RegisterFilteredFields<ListFirmContactDto>(
@@ -147,6 +161,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.SourceOrganizationUnitName,
                 x => x.BargainNumber,
                 x => x.LegalPersonName)
+            .RegisterFilteredFields<OrderGridDoc>(
+                x => x.Number,
+                x => x.WorkflowStep)
             .RegisterFilteredFields<ListOrderProcessingRequestDto>(
                 x => x.Title,
                 x => x.BaseOrderNumber,
@@ -230,32 +247,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             return map;
         }
 
-        private static PropertyInfo GetPropertyInfo(LambdaExpression lambdaExpression)
-        {
-            var body = lambdaExpression.Body;
-
-            // Convert(expr) => expr
-            var unaryExpression = body as UnaryExpression;
-            if (unaryExpression != null)
-            {
-                body = unaryExpression.Operand;
-            }
-
-            var memberExpression = body as MemberExpression;
-            if (memberExpression == null)
-            {
-                throw new ArgumentException("Property call expression must be implemented");
-            }
-
-            var propertyInfo = memberExpression.Member as PropertyInfo;
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException("Property call expression must be implemented");
-            }
-
-            return propertyInfo;
-        }
-
         // может вызываться несколько раз, поэтому есть ContainsKey
         public static void RegisterFilteredFields<TDocument>(params Expression<Func<TDocument, object>>[] expressions)
         {
@@ -267,82 +258,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             }
         }
 
-        public static bool TryGetFieldFilter<TDocument>(string phrase, out Expression expression)
+        public static bool TryGetFieldFilter<TDocument>(out LambdaExpression[] lambdaExpressions)
         {
-            expression = null;
-
-            LambdaExpression[] lambdaExpressions;
-            if (FilteredFieldsMap.TryGetValue(typeof(TDocument), out lambdaExpressions))
-            {
-                var parameterExpression = Expression.Parameter(typeof(TDocument), "x");
-
-                foreach (var lambdaExpression in lambdaExpressions)
-                {
-                    var propertyInfo = GetPropertyInfo(lambdaExpression);
-
-                    if (propertyInfo.PropertyType == typeof(string))
-                    {
-                        MethodInfo methodInfo;
-                        string phraseTrimmed;
-
-                        if (phrase.IndexOf('*') == 0)
-                        {
-                            phraseTrimmed = phrase.Trim('*');
-                            methodInfo = MethodInfos.String.ContainsMethodInfo;
-                        }
-                        else
-                        {
-                            phraseTrimmed = phrase;
-                            methodInfo = MethodInfos.String.StartsWithMethodInfo;
-                        }
-
-                        var phraseExpression = Expression.Constant(phraseTrimmed);
-                        var memberExpression = Expression.Property(parameterExpression, propertyInfo);
-                        var fieldFilterExpression = Expression.Call(memberExpression, methodInfo, phraseExpression);
-
-                        if (expression != null)
-                        {
-                            expression = Expression.Or(expression, fieldFilterExpression);
-                        }
-                        else
-                        {
-                            expression = fieldFilterExpression;
-                        }
-                    }
-                    else if (propertyInfo.PropertyType == typeof(short) ||
-                            propertyInfo.PropertyType == typeof(int) ||
-                            propertyInfo.PropertyType == typeof(long))
-                    {
-                        long phraseParsed;
-                        if (long.TryParse(phrase, out phraseParsed))
-                        {
-                            var phraseExpression = Expression.Constant(phraseParsed);
-                            var memberExpression = Expression.Property(parameterExpression, propertyInfo);
-                            var convertExpression = Expression.Convert(memberExpression, typeof(long));
-                            var fieldFilterExpression = Expression.Equal(convertExpression, phraseExpression);
-
-                            if (expression != null)
-                            {
-                                expression = Expression.Or(expression, fieldFilterExpression);
-                            }
-                            else
-                            {
-                                expression = fieldFilterExpression;
-                            }
-                        }
-                    }
-                }
-
-                if (expression == null)
-                {
-                    throw new ArgumentException();
-                }
-                expression = Expression.Lambda(expression, parameterExpression);
-
-                return true;
-            }
-
-            return false;
+            var key = typeof(TDocument);
+            return FilteredFieldsMap.TryGetValue(key, out lambdaExpressions);
         }
     }
 }

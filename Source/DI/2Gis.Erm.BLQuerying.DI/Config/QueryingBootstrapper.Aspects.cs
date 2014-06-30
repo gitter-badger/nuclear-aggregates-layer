@@ -4,18 +4,23 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List;
+using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.API.Operations.Indexers.Raw;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Common.ElasticClient;
 using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Operations;
 using DoubleGis.Erm.Qds.Operations.Indexers;
 using DoubleGis.Erm.Qds.Operations.Indexers.Raw;
@@ -29,34 +34,55 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
         public static IUnityContainer ConfigureListing(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
         {
             container.ConfigureQdsListing(entryPointSpecificLifetimeManagerFactory);
+            container.ConfigureQdsIndexing(entryPointSpecificLifetimeManagerFactory);
 
             return container;
         }
 
         private static IUnityContainer ConfigureQdsListing(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
+            var searchSettings = new NestSettingsAspect(new ConnectionStringsSettingsAspect());
+
             // TODO: заменить на правильное
             container
                 .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton);
 
             container
+                .RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton)
+                .RegisterInstance<INestSettings>(searchSettings, Lifetime.Singleton)
+                .RegisterType<UnityElasticApiFactory>(Lifetime.Singleton)
+                .RegisterType<IElasticApi>(lifetime(), new InjectionFactory(x => container.Resolve<UnityElasticApiFactory>().CreateElasticApi(lifetime)))
+                .RegisterType<IElasticManagementApi>(lifetime(), new InjectionFactory(x => (IElasticManagementApi)container.Resolve<IElasticApi>()));
+
+            return container;
+        }
+
+        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        {
+            container
                 .RegisterType<IEntityIndexer<User>, UserIndexer>(lifetime())
                 .RegisterType<IEntityIndexerIndirect<User>, UserIndexer>(lifetime())
+
+                .RegisterType<IEntityIndexer<Territory>, TerritoryIndexer>(lifetime())
+                .RegisterType<IEntityIndexerIndirect<Territory>, TerritoryIndexer>(lifetime())
+
                 .RegisterType<IEntityIndexer<Client>, ClientIndexer>(lifetime())
                 .RegisterType<IEntityIndexerIndirect<Client>, ClientIndexer>(lifetime())
 
+                .RegisterType<IEntityIndexer<Order>, OrderIndexer>(lifetime())
+                .RegisterType<IEntityIndexerIndirect<Order>, OrderIndexer>(lifetime())
+
+                .RegisterType<IEntityIndexer<Firm>, FirmIndexer>(lifetime())
+                .RegisterType<IEntityIndexerIndirect<Firm>, FirmIndexer>(lifetime())
+
                 .RegisterType<IDocumentIndexer<UserDoc>, UserIndexer>(lifetime())
+                .RegisterType<IDocumentIndexer<TerritoryDoc>, TerritoryIndexer>(lifetime())
                 .RegisterType<IDocumentIndexer<ClientGridDoc>, ClientIndexer>(lifetime())
-                .RegisterType<IRawDocumentIndexer, RawDocumentIndexer>(lifetime())
+                .RegisterType<IDocumentIndexer<OrderGridDoc>, OrderIndexer>(lifetime())
+                .RegisterType<IDocumentIndexer<FirmGridDoc>, FirmIndexer>(lifetime())
+                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
+
                 .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime());
-
-            container
-                .RegisterInstance<ISearchSettings>(new SearchSettingsAspect(new ConnectionStringsSettingsAspect()), Lifetime.Singleton);
-
-            container
-                .RegisterType<IElasticClientFactory, ElasticClientFactory>(Lifetime.Singleton)
-                .RegisterType<IElasticConnectionSettingsFactory, ElasticConnectionSettingsFactory>(Lifetime.Singleton)
-                .RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);
 
             return container;
         }
@@ -68,13 +94,18 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 return null;
             }
 
-            //if (entitySet.Entities.Contains(EntityName.Client))
-            //{
-            //    return candidates.Single(x => x.Assembly == typeof(QdsListClientService).Assembly);
-            //}
+            if (entitySet.Entities.Contains(EntityName.Order))
+            {
+                var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;
+                if (businessModel == BusinessModel.Russia)
+                {
+                    return candidates.Single(x => x.Assembly == typeof(QdsListOrderService).Assembly);
+                }
+
+                return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
+            }
 
             return candidates.Single(x => x.Assembly == typeof(ListClientService).Assembly);
         }
-
     }
 }

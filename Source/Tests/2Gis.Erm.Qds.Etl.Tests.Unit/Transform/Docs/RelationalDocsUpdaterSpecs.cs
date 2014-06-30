@@ -24,19 +24,18 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.Docs
             {
                 TestEntity = new TestEntity();
 
-                DocCatalog.Setup(s => s.FindDocsByRelatedPart<TestDoc>(TestEntity)).Returns(new TestDoc[0]);
                 QdsComponent.Setup(f => f.CreateNewDoc(TestEntity)).Returns((IDoc)null);
 
-                Entities = new IEntityKey[] { TestEntity };
+                Entities = new IEntityKey[] { TestEntity }.AsQueryable();
             };
 
-            Because of = () => Target.UpdateDocuments(Entities).ToArray();
+            Because of = () => Target.UpdateDocuments(Entities).ToArray(); // TODO {f.zaharov, 04.04.2014}: Надо бы проверять результат (состояние), а не вызов метода (поведение)
 
             It should_call_update_with_empty_docs_list = () =>
                 DocMapper.Verify(m => m.UpdateDocByEntity(Moq.It.Is<IEnumerable<TestDoc>>(docs => !docs.Any()), TestEntity));
 
             static TestEntity TestEntity;
-            static IEnumerable<IEntityKey> Entities { get; set; }
+            static IQueryable<IEntityKey> Entities { get; set; }
         }
 
 
@@ -51,10 +50,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.Docs
                 DocCatalog.Setup(s => s.FindDocsByRelatedPart<TestDoc>(TestEntity)).Returns(new TestDoc[0]);
                 QdsComponent.Setup(f => f.CreateNewDoc(TestEntity)).Returns(ExpectedDoc);
 
-                Entities = new IEntityKey[] { TestEntity };
+                Entities = new IEntityKey[] { TestEntity }.AsQueryable();
             };
 
-            Because of = () => Target.UpdateDocuments(Entities).ToArray();
+            Because of = () => Target.UpdateDocuments(Entities).ToArray(); // TODO {f.zaharov, 04.04.2014}: Надо бы проверять результат (состояние), а не вызов метода (поведение)
 
             It should_update_new_doc = () =>
                 DocMapper.Verify(m => m.UpdateDocByEntity(Moq.It.Is<IEnumerable<TestDoc>>(docs => docs.Contains(ExpectedDoc)), TestEntity));
@@ -62,7 +61,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.Docs
             static TestDoc ExpectedDoc;
             static TestEntity TestEntity;
 
-            static IEnumerable<IEntityKey> Entities { get; set; }
+            static IQueryable<IEntityKey> Entities { get; set; }
         }
 
         [Subject(typeof(RelationalDocsUpdater<>))]
@@ -79,23 +78,20 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.Docs
                     DocCatalog.Setup(s => s.FindDocsByRelatedPart<TestDoc>(TestEntity)).Returns(ExpectedDocs);
                     DocCatalog.Setup(s => s.FindDocsByRelatedPart<TestDoc>(AnotherTestEntity)).Returns(ExpectedAnotherDocs);
 
-                    Entities = new IEntityKey[] { TestEntity, AnotherTestEntity };
+                    Entities = new IEntityKey[] { TestEntity, AnotherTestEntity }.AsQueryable();
                 };
 
-            Because of = () => Target.UpdateDocuments(Entities).ToArray();
+            Because of = () => Target.UpdateDocuments(Entities).ToArray(); // TODO {f.zaharov, 04.04.2014}: Надо бы проверять результат (состояние), а не вызов метода (поведение)
 
-            It should_map_each_entity_to_docs = () =>
-                {
-                    DocMapper.Verify(m => m.UpdateDocByEntity(ExpectedDocs, TestEntity));
-                    DocMapper.Verify(m => m.UpdateDocByEntity(ExpectedAnotherDocs, AnotherTestEntity));
-                };
+            It should_map_entity_to_docs = () => DocMapper.Verify(m => m.UpdateDocByEntity(ExpectedDocs, TestEntity));
+            It should_map_another_entity_to_docs = () => DocMapper.Verify(m => m.UpdateDocByEntity(ExpectedAnotherDocs, AnotherTestEntity));
 
             static IEnumerable<TestDoc> ExpectedDocs;
             private static IEnumerable<TestDoc> ExpectedAnotherDocs;
             private static TestEntity TestEntity;
             private static AnotherTestEntity AnotherTestEntity;
 
-            static IEnumerable<IEntityKey> Entities { get; set; }
+            static IQueryable<IEntityKey> Entities { get; set; }
         }
 
         [Subject(typeof(RelationalDocsUpdater<>))]

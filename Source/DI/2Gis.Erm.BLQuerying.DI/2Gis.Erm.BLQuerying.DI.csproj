@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net.Connection.Thrift">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.Connection.Thrift.1.0.0-beta1\lib\Elasticsearch.Net.Connection.Thrift.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -45,6 +51,20 @@
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="NetReflector, Version=1.1.2009.1214, Culture=neutral, PublicKeyToken=2f4dd8b32acbcd8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NetReflector.1.1.2009\lib\net20\NetReflector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,6 +77,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\QueryingBootstrapper.Aspects.cs" />
+    <Compile Include="UnityDocumentRelationsRegistry.cs" />
+    <Compile Include="UnityElasticApiFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,17 +108,21 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
+      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
+      <Name>2Gis.Erm.Qds.Etl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
       <Name>2Gis.Erm.Qds</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
-      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
-      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
       <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>

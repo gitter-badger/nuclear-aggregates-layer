@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
     class UserDocIndexationFacadeSpecs
     {
+        [Ignore("Cut for ERM-4267")]
         [Subject(typeof(IndexationFacade))]
         class When_user_entity_changed : EntityChangedContext<User, UserDoc>
         {

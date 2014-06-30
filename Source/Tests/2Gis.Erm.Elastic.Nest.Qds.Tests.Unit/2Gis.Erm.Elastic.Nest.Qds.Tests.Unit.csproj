@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\FluentAssertions.3.0.107\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -54,7 +58,8 @@
     </Reference>
     <Reference Include="Nest, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.Signed.0.12.0.0\lib\NET4\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -69,17 +74,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElasticApiSpecs.cs" />
     <Compile Include="ElasticDocsStorageSpecs.cs" />
-    <Compile Include="ElasticMetaSpecs.cs" />
-    <Compile Include="MockElasticClientFactory.cs" />
+    <Compile Include="SearchDescriptorPagingSpecs.cs" />
     <Compile Include="NestQueryDslSpecs.cs" />
+    <Compile Include="ElasticResponseHandlerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NestSettingsSpecs.cs" />
+    <Compile Include="StubElasticsearchResponse.cs" />
     <Compile Include="TestDoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -99,6 +111,10 @@
     <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
       <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
+      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
+      <Name>2Gis.Erm.Qds.API.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

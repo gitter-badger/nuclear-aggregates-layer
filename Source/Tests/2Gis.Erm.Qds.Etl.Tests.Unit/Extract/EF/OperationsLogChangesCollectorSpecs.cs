@@ -33,11 +33,11 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
 
                 };
 
-            Because of = () => Result = Target.LoadChanges(new RecordIdState(0, _lastId));
+            Because of = () => Result = Target.LoadChanges(new RecordIdState("0", _lastId.ToString()));
 
             It should_return_new_records = () => Result.Should().OnlyContain(cr => ((PboChangeDescriptor)cr).Operation == _expectedOperation);
             It should_pass_expected_pbo_for_query_expression = () => _expression.Compile()(_expectedOperation).Should().Be(true);
-            It should_return_new_state = () => Target.CurrentState.As<RecordIdState>().RecordId.Should().Be(_expectedOperation.Id);
+            It should_return_new_state = () => Target.CurrentState.As<RecordIdState>().RecordId.Should().Be(_expectedOperation.Id.ToString());
 
             static PerformedBusinessOperation _expectedOperation;
             static long _lastId;

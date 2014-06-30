@@ -1,10 +1,8 @@
-﻿using DoubleGis.Erm.Qds.Etl.Transform.Docs;
-
-namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
+﻿namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
 {
     internal class AnotherTestDoc : IDoc
     {
+        public string Id { get; set; }
         public string PropertyTwoDoc { get; set; }
-        public long Id { get; set; }
     }
 }

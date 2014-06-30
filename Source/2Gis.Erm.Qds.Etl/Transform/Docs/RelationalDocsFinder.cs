@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -38,15 +37,6 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
             var docsQuery = relation.GetByPartQuery(part);
 
             return _docsStorage.Find<TDoc>(docsQuery);
-        }
-
-        public IEnumerable<TDoc> FindDocsByIndirectRelationPart<TDoc>(IEntityKey part) where TDoc : class, IDoc
-        {
-            var relation = _qdsComponent.IndirectDocRelations.FirstOrDefault(r => r.GetDocType() == typeof(TDoc));
-            if (relation == null)
-                throw new NotSupportedException(string.Format("No link for '{0}'.", typeof(TDoc).FullName));
-
-            return _docsStorage.Find<TDoc>(relation.GetByPartQuery(part));
         }
     }
 }

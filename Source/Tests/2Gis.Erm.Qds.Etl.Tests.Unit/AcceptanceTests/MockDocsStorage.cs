@@ -2,11 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
+
+using Moq;
+
+using Nest;
 
 namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
-    class MockDocsStorage : IDocsStorage
+    class MockDocsStorage : IDocsStorage, IElasticApi
     {
         private readonly List<Tuple<IDoc, string, object>> _data = new List<Tuple<IDoc, string, object>>();
         readonly List<IDoc> _newPublishedDocs = new List<IDoc>();
@@ -18,12 +23,21 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
                    select (TDoc)tuple.Item1;
         }
 
+        public TDoc GetById<TDoc>(string id) where TDoc : class, IDoc
+        {
+            return Find<TDoc>(new CursorQueryDsl().ByFieldValue("id", id)).Single();
+        }
+
         public void Update(IEnumerable<IDoc> documents)
         {
             var docs = documents.ToArray();
 
             TryUpdateRecordIdStateDoc((RecordIdState)docs.FirstOrDefault(d => d is RecordIdState));
             _newPublishedDocs.AddRange(docs);
+        }
+
+        public void Flush()
+        {
         }
 
         private void TryUpdateRecordIdStateDoc(RecordIdState newState)
@@ -38,16 +52,16 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 
         }
 
-        public IDoc[] NewPublishedDocs
+        public List<IDoc> NewPublishedDocs
         {
-            get { return _newPublishedDocs.ToArray(); }
+            get { return _newPublishedDocs; }
         }
 
         private bool IsPassesCondition(Type type, IDocsQuery docsQuery, Tuple<IDoc, string, object> tuple)
         {
-            var q = (DocsQuery)docsQuery;
+            var q = (CursorFilterDocsQuey)docsQuery;
 
-            return tuple.Item1.GetType() == type && q.DocFieldName == tuple.Item2 && tuple.Item3.Equals(q.Value);
+            return tuple.Item1.GetType() == type && q.IsChecked(tuple.Item2, tuple.Item3);
         }
 
         public void Add<TDoc>(TDoc doc, string fieldName, object value) where TDoc : IDoc
@@ -60,24 +74,118 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             _newPublishedDocs.Clear();
         }
 
-        public class QueryDsl : IQueryDsl
+        public class CursorQueryDsl : IQueryDsl
         {
-            public IDocsQuery ByFieldValue(string docFieldName, object value)
+            public IDocsQuery ByFieldValue(string docFieldName, object docValue)
             {
-                return new DocsQuery(docFieldName, value);
+                return new CursorFilterDocsQuey((path, value) => path.Contains(docFieldName) && docValue.Equals(value));
+            }
+
+            public IDocsQuery ByNestedObjectQuery(string nestedObjectName, IDocsQuery nestedQuery)
+            {
+                return new CursorFilterDocsQuey((path, value) =>
+                    {
+                        return path.Contains(nestedObjectName) && ((CursorFilterDocsQuey)nestedQuery).IsChecked(path, value);
+                    });
+            }
+
+            public IDocsQuery Or(IDocsQuery leftQuery, IDocsQuery rightQuery)
+            {
+                var left = ((CursorFilterDocsQuey)leftQuery);
+                var right = ((CursorFilterDocsQuey)rightQuery);
+
+                return new CursorFilterDocsQuey((path, value) => left.IsChecked(path, value) || right.IsChecked(path, value));
             }
         }
 
-        class DocsQuery : IDocsQuery
+        class CursorFilterDocsQuey : IDocsQuery
         {
-            public string DocFieldName { get; private set; }
-            public object Value { get; private set; }
+            readonly Func<string, object, bool> _filter;
 
-            public DocsQuery(string docFieldName, object value)
+            public CursorFilterDocsQuey(Func<string, object, bool> filter)
             {
-                DocFieldName = docFieldName;
-                Value = value;
+                _filter = filter;
+            }
+
+            public bool IsChecked(string fieldPath, object value)
+            {
+                return _filter(fieldPath, value);
             }
         }
+
+        # region IElasticApi implementation
+
+        T IElasticApi.Get<T>(string id)
+        {
+            var document = _data.SingleOrDefault(x => x.Item1.GetType() == typeof(T) && x.Item2 == "Id" && x.Item3.ToString() == id);
+            if (document == null)
+            {
+                return null;
+            }
+
+            return (T)document.Item1;
+        }
+
+        void IElasticApi.Delete<T>(Func<Nest.DeleteDescriptor<T>, Nest.DeleteDescriptor<T>> deleteSelector)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IElasticApi.Index(object @object, Type type, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IElasticApi.Index<T>(T @object, Func<Nest.IndexDescriptor<T>, Nest.IndexDescriptor<T>> indexSelector)
+        {
+            throw new NotImplementedException();
+        }
+
+        Nest.ISearchResponse<T> IElasticApi.Search<T>(Func<Nest.SearchDescriptor<T>, Nest.SearchDescriptor<T>> searcher)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IHit<T>> Scroll2<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        void IElasticApi.Bulk(IEnumerable<Func<Nest.BulkDescriptor, Nest.BulkDescriptor>> bulkDescriptors)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IElasticApi.Refresh(Func<Nest.RefreshDescriptor, Nest.RefreshDescriptor> refreshSelector)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        {
+            var documents = _data.Where(x => x.Item1 is T).Select(x => (T)x.Item1);
+            return documents;
+        }
+
+        public ICollection<IMultiGetHit<T>> MultiGet<T>(ICollection<string> ids) where T : class
+        {
+            var documents = _data.Where(x => x.Item1 is T).Select(x =>
+            {
+                var mock = new Mock<IMultiGetHit<T>>();
+                mock.SetupGet(y => y.Id).Returns(x.Item1.Id);
+                mock.SetupGet(y => y.Source).Returns((T)x.Item1);
+
+                return mock.Object;
+            }).ToArray();
+
+            return documents;
+        }
+
+        public IEnumerable<ICollection<T>> CreateBatches<T>(IEnumerable<T> items)
+        {
+            return new[] { items.ToArray() };
+        }
+
+        # endregion
     }
 }

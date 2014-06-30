@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
 
             It should_return_same_instance = () => Result.Should().Be(Target);
 
-            It should_contains_initial_doc_type = () => Result.GetDocType().Should().Be(_initialDocType);
+            It should_contains_initial_doc_type = () => Result.DocType.Should().Be(_initialDocType);
 
             It should_contains_initial_and_added_entity_types = () =>
                 Result.GetPartTypes().Should().Contain(new[] { _initialEntityType, _addedEntityType });
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                     new Link(_expectedAnotherEntityType, Mock.Of<IDocsQueryBuilder>()));
 
             It should_return_doc_type = () =>
-                Target.GetDocType().Should().Be(typeof(TestDoc));
+                Target.DocType.Should().Be(typeof(TestDoc));
 
             It should_return_part_types = () =>
                 Target.GetPartTypes().Should().Contain(new[] { _expectedEntityType, _expectedAnotherEntityType });
@@ -109,7 +110,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                     CreateTarget(_expectedDocType, new Link[0]);
                 };
 
-            Because of = () => Result = Target.GetDocType();
+            Because of = () => Result = Target.DocType;
 
             It should_return_type_passed_to_constructor = () =>
                 Result.Should().Be(_expectedDocType);
@@ -134,7 +135,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             It should_return_types_form_all_links = () =>
                 Result.Should().Contain(new[] { _expectedEntityType, _expectedAnotherEntityType });
 
-            static Type[] Result;
+            static IEnumerable<Type> Result;
             static Type _expectedEntityType;
             static Type _expectedAnotherEntityType;
         }

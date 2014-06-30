@@ -1,34 +1,26 @@
 ﻿using System;
-using System.Linq;
 
 namespace DoubleGis.Erm.Qds.Etl.Extract.EF
 {
     public class DocsStorageChangesTrackerState : IChangesTrackerState
     {
         readonly IDocsStorage _docsStorage;
-        readonly IQueryDsl _queryDsl;
-        public const string IdFieldName = "id";
-        public const long StateRecordId = 0;
+        public const string StateRecordId = "0";
 
-        public DocsStorageChangesTrackerState(IDocsStorage docsStorage, IQueryDsl queryDsl)
+        public DocsStorageChangesTrackerState(IDocsStorage docsStorage)
         {
             if (docsStorage == null)
             {
                 throw new ArgumentNullException("docsStorage");
             }
 
-            if (queryDsl == null)
-            {
-                throw new ArgumentNullException("queryDsl");
-            }
-
             _docsStorage = docsStorage;
-            _queryDsl = queryDsl;
         }
 
         public ITrackState GetState()
         {
-            return _docsStorage.Find<RecordIdState>(_queryDsl.ByFieldValue(IdFieldName, StateRecordId)).Single();
+            var document = _docsStorage.GetById<RecordIdState>(StateRecordId);
+            return document ?? new RecordIdState(null, null);
         }
 
         public void SetState(ITrackState state)
@@ -41,9 +33,9 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
             var newState = (RecordIdState)state;
             var currState = GetState() as RecordIdState;
 
-            if (currState!=null && currState.RecordId != newState.RecordId)
+            if (currState != null && currState.RecordId != newState.RecordId)
             {
-                _docsStorage.Update(new[] { newState, });
+                _docsStorage.Update(new[] { newState });
             }
         }
     }

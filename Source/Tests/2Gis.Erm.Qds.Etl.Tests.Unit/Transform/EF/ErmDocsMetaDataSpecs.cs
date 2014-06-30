@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
@@ -24,7 +25,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                     var docType = typeof(TestDoc);
                     var docTypeTwo = typeof(AnotherTestDoc);
 
-                    DocsMapping.Setup(dm => dm.GetRelatedDocTypes(EntityType)).Returns(new[] { docType, docTypeTwo });
+                    var result = (IEnumerable<Type>)new[] { docType, docTypeTwo };
+                    DocsMapping.Setup(dm => dm.TryGetRelatedDocTypes(EntityType, out result)).Returns(true);
 
                     ExpectedUpdater = Mock.Of<IDocsUpdater>();
                     ExpectedUpdaterTwo = Mock.Of<IDocsUpdater>();
@@ -41,7 +43,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             static Type EntityType;
             static IDocsUpdater ExpectedUpdater;
             static IDocsUpdater ExpectedUpdaterTwo;
-            static IDocsUpdater[] Result { get; set; }
+            static IEnumerable<IDocsUpdater> Result { get; set; }
         }
 
         class ErmDocsMetaDataContext

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
+using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {

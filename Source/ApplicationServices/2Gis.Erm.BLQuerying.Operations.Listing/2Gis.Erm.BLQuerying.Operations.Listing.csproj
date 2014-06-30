@@ -160,6 +160,10 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
@@ -169,9 +173,7 @@
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="List\Metadata\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

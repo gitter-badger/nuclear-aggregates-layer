@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Flow;
 using DoubleGis.Erm.Qds.Etl.Publish;
+using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using Moq;
@@ -22,23 +23,23 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         readonly Mock<IOperationContextParser> _contextParser;
         readonly IChangesTrackerState _trackerState;
 
-        public IndexationFacade(IDocsStorage docsStorage, IChangesTrackerState trackerState, IQdsComponentsFactory qdsFactory)
+        public IndexationFacade(IDocsStorage docsStorage, IQdsComponentsFactory qdsFactory, IQueryDsl queryDsl)
         {
             if (docsStorage == null)
             {
                 throw new ArgumentNullException("docsStorage");
             }
 
-            if (trackerState == null)
-            {
-                throw new ArgumentNullException("trackerState");
-            }
             if (qdsFactory == null)
             {
                 throw new ArgumentNullException("qdsFactory");
             }
+            if (queryDsl == null)
+            {
+                throw new ArgumentNullException("queryDsl");
+            }
 
-            _trackerState = trackerState;
+            _trackerState = new DocsStorageChangesTrackerState(docsStorage);
             _contextParser = new Mock<IOperationContextParser>();
 
             var docUpdatersRegistry = new DictionaryDocUpdatersRegistry();
@@ -56,7 +57,9 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         public long LogChangesForEntity<TEntity>(TEntity entity) where TEntity : class, IEntityKey, IEntity
         {
             var state = (RecordIdState)_trackerState.GetState();
-            var newId = state.RecordId + 1;
+
+            var recordIdLong = long.Parse(state.RecordId);
+            var newId = recordIdLong + 1;
 
             var operation = new PerformedBusinessOperation { Context = DateTime.Now.ToString(), Descriptor = DateTime.Now.Millisecond, Operation = DateTime.Now.Millisecond, Id = newId };
             _finder.Add(operation);

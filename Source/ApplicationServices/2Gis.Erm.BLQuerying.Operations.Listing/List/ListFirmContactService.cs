@@ -1,16 +1,17 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using System.Collections.Generic;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _firmReadModel = firmReadModel;
         }
 
-        protected override IEnumerable<ListFirmContactDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             IQueryable<FirmContact> query;
             if (querySettings.ParentEntityName == EntityName.FirmAddress && querySettings.ParentEntityId != null)
@@ -56,8 +57,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 FirmAddressId = x.FirmAddressId,
                 ContactType = null,
             })
-            .QuerySettings(_filterHelper, querySettings, out count)
-            .Select(x =>
+            .QuerySettings(_filterHelper, querySettings)
+            .Transform(x =>
             {
                 x.ContactType = x.ContactTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                 return x;

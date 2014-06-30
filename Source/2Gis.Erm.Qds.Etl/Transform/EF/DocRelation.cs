@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
     public class DocRelation : IDocRelation
     {
-        private readonly Type _docType;
+        public Type DocType { get; private set; }
         private readonly List<Link> _links;
 
         public DocRelation(Type docType, params Link[] links)
@@ -18,19 +18,13 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
                 throw new ArgumentNullException("docType");
             }
 
-            _docType = docType;
-            _links = links.ToList();
+            DocType = docType;
+            _links = new List<Link>(links);
         }
 
-        public Type[] GetPartTypes()
+        public IEnumerable<Type> GetPartTypes()
         {
-            return (from l in _links
-                    select l.PartType).ToArray();
-        }
-
-        public Type GetDocType()
-        {
-            return _docType;
+            return _links.Select(x => x.PartType);
         }
 
         public DocRelation LinkPart<TPart>(IDocsQueryBuilder queryBuilder)
@@ -61,7 +55,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 
             var link = _links.FirstOrDefault(l => l.PartType == type);
             if (link == null)
-                throw new NotSupportedException(string.Format("No link between '{0}' and '{1}'.", _docType.FullName, type.FullName));
+                throw new NotSupportedException(string.Format("No link between '{0}' and '{1}'.", DocType.FullName, type.FullName));
 
             return link.QueryBuilder.CreateQuery(part);
         }

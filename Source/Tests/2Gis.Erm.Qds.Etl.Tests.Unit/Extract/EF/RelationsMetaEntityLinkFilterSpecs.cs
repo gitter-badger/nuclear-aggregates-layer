@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
         [Subject(typeof(RelationsMetaEntityLinkFilter))]
         class When_is_supported_for_not_supported_entity : RelationsMetaEntityLinkFilterContext
         {
-            Establish context = () => SetupTransformRelations(TestEntityName, new Type[0]);
+            Establish context = () => SetupTransformRelations(TestEntityName, false);
 
             It should_not_be_supported = () => Target.IsSupported(new EntityLink(TestEntityName, 42)).Should().Be(false);
         }
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
         [Subject(typeof(RelationsMetaEntityLinkFilter))]
         class When_is_supported_for_supported_entity : RelationsMetaEntityLinkFilterContext
         {
-            Establish context = () => SetupTransformRelations(TestEntityName, Mock.Of<Type>());
+            Establish context = () => SetupTransformRelations(TestEntityName, true, Mock.Of<Type>());
 
             It should_be_supported = () => Target.IsSupported(new EntityLink(TestEntityName, 42)).Should().Be(true);
         }
@@ -41,9 +42,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                     Target = new RelationsMetaEntityLinkFilter(TransformRelations.Object);
                 };
 
-            protected static void SetupTransformRelations(EntityName entityName, params Type[] relatedDocTypes)
+            protected static void SetupTransformRelations(EntityName entityName, bool success, params Type[] relatedDocTypes)
             {
-                TransformRelations.Setup(t => t.GetRelatedDocTypes(entityName.AsEntityType())).Returns(relatedDocTypes);
+                var relatedDocTypesEnumerable = (IEnumerable<Type>)relatedDocTypes;
+                TransformRelations.Setup(t => t.TryGetRelatedDocTypes(entityName.AsEntityType(), out relatedDocTypesEnumerable)).Returns(success);
             }
 
             protected static Mock<ITransformRelations> TransformRelations { get; private set; }
