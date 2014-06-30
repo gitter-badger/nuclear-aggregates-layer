@@ -24,6 +24,9 @@ using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Microsoft.Practices.Unity;
@@ -142,15 +145,15 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
             DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
 
-            DefaultFilterMetadata.RegisterFilter<ListFirmDto>("DListReservedFirmsLefkosia", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == 133);
-            DefaultFilterMetadata.RegisterFilter<ListFirmDto>("DListReservedFirmsLemesos", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == 122);
+            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLefkosia", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "133");
+            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLemesos", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "122");
 
-            RelationalMetadata.RegisterRelatedFilter<CyprusListLegalPersonDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<CyprusListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
         }
     }
 }

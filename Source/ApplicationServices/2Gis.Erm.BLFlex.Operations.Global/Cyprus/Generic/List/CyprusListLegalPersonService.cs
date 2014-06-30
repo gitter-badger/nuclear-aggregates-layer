@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -33,8 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
             _debtProcessingSettings = debtProcessingSettings;
         }
 
-        protected override IEnumerable<CyprusListLegalPersonDto> List(QuerySettings querySettings,
-            out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<LegalPerson>();
 
@@ -93,12 +93,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                     IsActive = x.IsActive,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
-                    {
-                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                        return x;
-                    });
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
+                {
+                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                    return x;
+                });
         }
     }
 }

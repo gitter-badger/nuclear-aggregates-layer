@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadModel.AcceptanceReportsJournal;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
             _userIdentifierService = userIdentifierService;
         }
 
-        protected override IEnumerable<EmiratesListAcceptanceReportsJournalRecordDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var organizationUnitsQuery = _finder.FindAll<OrganizationUnit>();
 
@@ -65,8 +66,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                         IsActive = x.IsActive,
                                         IsDeleted = x.IsDeleted
                                     })
-                          .QuerySettings(_filterHelper, querySettings, out count)
-                          .Select(x =>
+                          .QuerySettings(_filterHelper, querySettings)
+                          .Transform(x =>
                               {
                                   x.AuthorName = _userIdentifierService.GetUserInfo(x.AuthorId).DisplayName;
                                   return x;

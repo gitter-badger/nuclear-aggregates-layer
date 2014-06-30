@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Communes;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ChileListCommuneDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             // FIXME {all, 10.04.2014}: при рефаторинге EAV попытаться свести просто к FindAll<Commune> и т.п. - то что bank это EAV нужно запрятать куда-то (finder)
             return _finder.Find<DictionaryEntityInstance, Commune>(CommuneSpecs.Select.Communes, CommuneSpecs.Find.OnlyCommunes)
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                         IsDeleted = x.IsDeleted,
                         IsActive = x.IsActive,
                     })
-                    .QuerySettings(_filterHelper, querySettings, out count);
+                    .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -28,30 +29,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListLegalPersonProfileDto> List(QuerySettings querySettings,
-                                                                       out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<LegalPersonProfile>();
 
             return query
                 .Select(x => new ListLegalPersonProfileDto
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        IsMainProfile = x.IsMainProfile,
-                        OwnerCode = x.OwnerCode,
-                        CreatedOn = x.CreatedOn,
-                        IsDeleted = x.IsDeleted,
-                        IsActive = x.IsActive,
-                        LegalPersonId = x.LegalPersonId,
-                        OwnerName = null,
-                    })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
-                    {
-                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                        return x;
-                    });
+                            {
+                                Id = x.Id,
+                                Name = x.Name,
+                                IsMainProfile = x.IsMainProfile,
+                                OwnerCode = x.OwnerCode,
+                                CreatedOn = x.CreatedOn,
+                                IsDeleted = x.IsDeleted,
+                    IsActive = x.IsActive,
+                    LegalPersonId = x.LegalPersonId,
+                    OwnerName = null,
+                })
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
+                {
+                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                    return x;
+                            });
         }
     }
 }
