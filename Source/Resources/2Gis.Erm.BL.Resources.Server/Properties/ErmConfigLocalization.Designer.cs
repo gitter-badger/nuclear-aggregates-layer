@@ -3528,6 +3528,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DListOrdersFast {
+            get {
+                return ResourceManager.GetString("DListOrdersFast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DListOrdersForSubordinates {
             get {
                 return ResourceManager.GetString("DListOrdersForSubordinates", resourceCulture);
