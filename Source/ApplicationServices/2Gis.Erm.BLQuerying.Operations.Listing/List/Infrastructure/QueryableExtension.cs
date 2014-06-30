@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
@@ -14,12 +14,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return filterHelper.Filter(query, expressions);
         }
 
-        public static IEnumerable<TDocument> QuerySettings<TDocument>(this IQueryable<TDocument> query,
+        public static RemoteCollection<TDocument> QuerySettings<TDocument>(this IQueryable<TDocument> query,
                                                                       FilterHelper filterHelper,
-                                                                      QuerySettings querySettings,
-                                                                      out int total)
+                                                                      QuerySettings querySettings)
         {
-            return filterHelper.QuerySettings(query, querySettings, out total);
+            return filterHelper.QuerySettings(query, querySettings);
         }
     }
 }

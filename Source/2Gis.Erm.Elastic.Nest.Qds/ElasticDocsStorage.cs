@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Odbc;
 using System.Linq;
 using System.Reflection;
 
 using DoubleGis.Erm.Qds;
-using DoubleGis.Erm.Qds.Common.ElasticClient;
+using DoubleGis.Erm.Qds.Common;
 
 using Nest;
 
@@ -13,30 +12,25 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
     public class ElasticDocsStorage : IDocsStorage
     {
-        private readonly IElasticClientFactory _elasticClientFactory;
-        private readonly IElasticMeta _elasticMeta;
-        private readonly IElasticResponseHandler _responseHandler;
+        private readonly IElasticApi _elasticApi;
+        private readonly ISearchDescriptorPaging _searchDescriptorPaging;
 
-        public ElasticDocsStorage(IElasticClientFactory elasticClientFactory, IElasticMeta elasticMeta, IElasticResponseHandler responseHandler)
+        public ElasticDocsStorage(IElasticApi elasticApi, ISearchDescriptorPaging searchDescriptorPaging)
         {
-            if (elasticClientFactory == null)
+            if (elasticApi == null)
             {
-                throw new ArgumentNullException("elasticClientFactory");
+                throw new ArgumentNullException("elasticApi");
             }
-            if (elasticMeta == null)
+            if (searchDescriptorPaging == null)
             {
-                throw new ArgumentNullException("elasticMeta");
-            }
-            if (responseHandler == null)
-            {
-                throw new ArgumentNullException("responseHandler");
+                throw new ArgumentNullException("searchDescriptorPaging");
             }
 
-            _elasticClientFactory = elasticClientFactory;
-            _elasticMeta = elasticMeta;
-            _responseHandler = responseHandler;
+            _elasticApi = elasticApi;
+            _searchDescriptorPaging = searchDescriptorPaging;
         }
 
+        // FIXME {f.zaharov, 11.04.2014}: надо заменить на использование scroll
         public IEnumerable<TDoc> Find<TDoc>(IDocsQuery query) where TDoc : class, IDoc
         {
             if (query == null)
@@ -44,21 +38,25 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 throw new ArgumentNullException("query");
             }
 
-            var searchDescriptor = _elasticMeta.CreatePage<TDoc>(query);
+            var searchDescriptor = _searchDescriptorPaging.CreatePage<TDoc>(query);
 
             while (searchDescriptor != null)
             {
-                var sd = searchDescriptor;
-                var response = _elasticClientFactory.UsingElasticClient(ec => ec.Search(sd.SearchDescriptor));
-                _responseHandler.ThrowWhenError(response);
+                var response = _elasticApi.Search(searchDescriptor.SearchDescriptor);
 
                 foreach (var doc in response.Documents)
                 {
                     yield return doc;
                 }
 
-                searchDescriptor = _elasticMeta.NextPage(searchDescriptor, response);
+                searchDescriptor = _searchDescriptorPaging.NextPage(searchDescriptor, response);
             }
+        }
+
+        public TDoc GetById<TDoc>(string id) where TDoc : class, IDoc
+        {
+            var document = _elasticApi.MultiGet<TDoc>(new[] { id }).Where(x => x.Found).Select(x => x.Source).FirstOrDefault();
+            return document;
         }
 
         /// <summary>
@@ -77,15 +75,10 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
                 // TODO ERM-3449 Группировать по типу и вызывать Bulk
 
                 IDoc d = doc;
-                var type = d.GetType();
+                var documentType = d.GetType();
 
-                var indexResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Index(d, _elasticMeta.GetIndexName(type), _elasticMeta.GetTypeName(type)));
-                _responseHandler.ThrowWhenError(indexResponse);
+                _elasticApi.Index(d, documentType, d.Id);
             }
-
-            // TODO ERM-3449 Вызывать рефреш индекса только если были изменения + Test не забыть
-            var shardResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Refresh());
-            _responseHandler.ThrowWhenError(shardResponse);
         }
 
         /// <summary>
@@ -93,7 +86,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
         /// Данная реализация использует рефлекшин, чтобы вызвать Bulk индексацию по типу документа.
         /// Данный подход обладает ограничением в районе 100к документов, падает.
         /// </summary>
-        public void UpdateWithBulkDraft(IEnumerable<IDoc> docs)
+        private void UpdateWithBulkDraft(IEnumerable<IDoc> docs)
         {
             if (docs == null)
             {
@@ -104,38 +97,37 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             if (docsArray.Length == 0)
                 return;
 
-            var descr = new BulkDescriptor();
-            Type docType = null;
-            MethodInfo mi = null;
-
-            foreach (var doc in docsArray)
+            Func<BulkDescriptor, BulkDescriptor> func = x =>
             {
-                var curDocType = doc.GetType();
-                if (docType != curDocType)
+                Type docType = null;
+                MethodInfo mi = null;
+
+                foreach (var doc in docsArray)
                 {
-                    docType = curDocType;
-                    var method = typeof(ElasticDocsStorage).GetMethod("DescrIndex", BindingFlags.NonPublic | BindingFlags.Instance);
-                    mi = method.MakeGenericMethod(docType);
+                    var curDocType = doc.GetType();
+                    if (docType != curDocType)
+                    {
+                        docType = curDocType;
+                        var method = typeof(ElasticDocsStorage).GetMethod("DescrIndex", BindingFlags.NonPublic | BindingFlags.Instance);
+                        mi = method.MakeGenericMethod(docType);
+                    }
+
+                    mi.Invoke(this, new object[] { x, doc });
                 }
+                return x;
+            };
 
-                mi.Invoke(this, new object[] { descr, doc });
-            }
-
-            var response = _elasticClientFactory.UsingElasticClient(ec => ec.Bulk(descr));
-            _responseHandler.ThrowWhenError(response);
-
-            var shardResponse = _elasticClientFactory.UsingElasticClient(ec => ec.Refresh());
-            _responseHandler.ThrowWhenError(shardResponse);
+            _elasticApi.Bulk(new[] { func });
         }
 
         void DescrIndex<T>(BulkDescriptor descr, T doc) where T : class
         {
-            var type = typeof(T);
-
-            descr.Index<T>(d => d.Object(doc)
-                                    .Index(_elasticMeta.GetIndexName(type))
-                                    .Type(_elasticMeta.GetTypeName(type)));
+            descr.Index<T>(d => d.Object(doc));
         }
 
+        public void Flush()
+        {
+            _elasticApi.Refresh();
+        }
     }
 }

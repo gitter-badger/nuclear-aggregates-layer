@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Transform;
@@ -40,13 +39,9 @@ namespace DoubleGis.Erm.Qds.Etl.Publish
                 throw new ArgumentException(string.Format("Тип параметра должен быть {0}.", typeof(DenormalizedTransformedData)), "transformedData");
             }
 
-            Publish(documents.Documents);
+            _docsStorage.Update(documents.Documents);
             _changesTrackerState.SetState(documents.State);
-        }
-
-        void Publish(IEnumerable<IDoc> docs)
-        {
-            _docsStorage.Update(docs);
+            _docsStorage.Flush();
         }
     }
 }

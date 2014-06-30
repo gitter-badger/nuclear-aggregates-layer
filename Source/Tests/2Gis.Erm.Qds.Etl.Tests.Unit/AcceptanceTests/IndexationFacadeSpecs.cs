@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
     class IndexationFacadeSpecs
     {
-        // TODO Тест про облновление состояния
+        // FIXME {f.zaharov, 23.04.2014}: Тест, что обновилось состояние последней обработанной операции
 
         [Subject(typeof(IndexationFacade))]
         class When_continously_execute_etl_flow_without_changes : IndexationFacadeContext

@@ -1,9 +1,12 @@
-﻿namespace DoubleGis.Erm.Qds.Docs
+﻿using System.Collections.Generic;
+
+namespace DoubleGis.Erm.Qds.Docs
 {
-    public class UserDoc : IAuthorizationDoc
+    public sealed class UserDoc : IDoc
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public DocumentAuthorization Authorization { get; set; }
+
+        public IEnumerable<OperationPermission> Permissions { get; set; }
     }
 }

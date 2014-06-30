@@ -1,272 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-
-using DoubleGis.Erm.Elastic.Nest.Qds;
-using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Qds.Common.Extensions;
+﻿using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Qds.Migrations.Base;
-using DoubleGis.Erm.Qds.Migrations.Extensions;
 
 using Nest;
-using Nest.Resolvers;
 
 namespace DoubleGis.Erm.Qds.Migrations
 {
     [Migration(13546, "Создание поисковой инфраструктуры", "m.pashuk")]
     public sealed class Migration13546 : ElasticSearchMigration
     {
-        static readonly ElasticResponseHandler _elasticResponseHandler = new ElasticResponseHandler();
-
         public override void Apply(IElasticSearchMigrationContext context)
         {
-            TryCreateMetadataIndex(context);
+            context.NestSettings.RegisterType<MigrationDoc13546>("Metadata.13546", "MigrationDoc");
+            context.ElasticManagementApi.CreateIndex<MigrationDoc13546>(GetMetadataIndexDescriptor(), "Metadata");
+
             PutMigrationsMapping(context);
-            PutUserDocMapping(context);
-            IndexAllUserDoc(context);
+            PutReplicationQueueMapping(context);
 
-            TryCreateDataIndex(context);
-            PutClientGridDocMapping(context);
-            IndexAllClientGridDoc(context);
+            PutRecordIdStateMapping(context);
         }
 
-        private static void IndexAllClientGridDoc(IElasticSearchMigrationContext context)
+        private static void PutReplicationQueueMapping(IElasticSearchMigrationContext context)
         {
-            context.RawDocumentIndexer.IndexAllDocuments("clientgriddoc");
+            context.NestSettings.RegisterType<ReplicationQueue13546>("Metadata.13546", "ReplicationQueue");
+
+            context.ElasticManagementApi.Map<ReplicationQueue13546>(m => m
+                .Dynamic(DynamicMappingOption.strict)
+                .DateDetection(false)
+                .NumericDetection(false)
+                .AllField(a => a.Enabled(false))
+
+                .Properties(p => p
+                    .String(s => s.Name(n => n.DocumentType).Index(FieldIndexOption.no))
+                )
+            );
         }
 
-        private static void IndexAllUserDoc(IElasticSearchMigrationContext context)
+        private void PutRecordIdStateMapping(IElasticSearchMigrationContext context)
         {
-            context.RawDocumentIndexer.IndexAllDocuments("userdoc");
-        }
+            context.NestSettings.RegisterType<RecordIdState13546>("Metadata.13546", "RecordIdState");
 
-        private static void PutClientGridDocMapping(IElasticSearchMigrationContext context)
-        {
-            var indexName = context.GetIndexName("data");
+            context.ElasticManagementApi.Map<RecordIdState13546>(m => m
+                .Dynamic(DynamicMappingOption.strict)
+                .DateDetection(false)
+                .NumericDetection(false)
+                .AllField(a => a.Enabled(false))
 
-            var mapping = new RootObjectMapping
-            {
-                Dynamic = DynamicMappingOption.strict,
-                DateDetection = false,
-                NumericDetection = false,
-                AllFieldMapping = new AllFieldMapping().SetDisabled(),
-                TypeNameMarker = "ClientGridDoc".MakePlural().ToLowerInvariant(),
-                Properties = new Dictionary<string, IElasticType>
-                {
-                    { "Id".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
-                    { "ReplicationCode".ToCamelCase(), new StringMapping { Index = FieldIndexOption.no } },
-                    {
-                        "Name".ToCamelCase(), new MultiFieldMapping
-                        {
-                            Fields = new Dictionary<string, IElasticCoreType>
-                            {
-                                {
-                                    "Name".ToCamelCase(),
-                                    new StringMapping
-                                        {
-                                            Index = FieldIndexOption.analyzed,
-                                            IndexAnalyzer = "ru_searching",
-                                            SearchAnalyzer = "ru_searching"
-                                        }
-                                },
-                                {
-                                    "Name".ToCamelCase() + ".sort",
-                                    new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
-                                },
-                            }
-                        }
-                    },
-                    {
-                        "MainAddress".ToCamelCase(), new MultiFieldMapping
-                        {
-                            Fields = new Dictionary<string, IElasticCoreType>
-                            {
-                                {
-                                    "MainAddress".ToCamelCase() + ".sort",
-                                    new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
-                                },
-                            }
-                        }
-                    },
-                    { "TerritoryId".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
-                    {
-                        "TerritoryName".ToCamelCase(), new MultiFieldMapping
-                        {
-                            Fields = new Dictionary<string, IElasticCoreType>
-                            {
-                                {
-                                    "TerritoryName".ToCamelCase() + ".sort",
-                                    new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
-                                },
-                            }
-                        }
-                    },
-                    { "OwnerCode".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
-                    {
-                        "OwnerName".ToCamelCase(), new MultiFieldMapping
-                        {
-                            Fields = new Dictionary<string, IElasticCoreType>
-                            {
-                                {
-                                    "OwnerName".ToCamelCase() + ".sort",
-                                    new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
-                                },
-                            },
-                        }
-                    },
-                    { "IsActive".ToCamelCase(), new BooleanMapping() },
-                    { "IsDeleted".ToCamelCase(), new BooleanMapping() },
-                    { "CreatedOn".ToCamelCase(), new DateMapping() },
-                    {
-                        "InformationSource".ToCamelCase(), new MultiFieldMapping
-                        {
-                            Fields = new Dictionary<string, IElasticCoreType>
-                            {
-                                {
-                                    "InformationSource".ToCamelCase() + ".sort",
-                                    new StringMapping { Index = FieldIndexOption.analyzed, IndexAnalyzer = "ru_sorting" }
-                                },
-                            }
-                        }
-                    },
-                    {
-                        "Authorization".ToCamelCase(), new ObjectMapping
-                        {
-                            Dynamic = DynamicMappingOption.strict,
-                            Properties = new Dictionary<string, IElasticType>
-                            {
-                                { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } }
-                            },
-                        }
-                    },
-                },
-            };
-
-            var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            _elasticResponseHandler.ThrowWhenError(response);
-        }
-
-        private static void TryCreateDataIndex(IElasticSearchMigrationContext context)
-        {
-            var indexName = context.GetIndexName("data");
-
-            var getResponse = context.ElasticClient.GetIndexSettings(indexName);
-            if (getResponse.IsValid)
-            {
-                return;
-            }
-
-            var indexSettings = new IndexSettings
-            {
-                { "number_of_shards", 1 },
-                { "number_of_replicas", 1 },
-                { "refresh_interval", -1 },
-            };
-
-            var tokenFilters = indexSettings.Analysis.TokenFilters;
-            tokenFilters.Add("ru_icu_collation", new IcuTokenFilter { Language = "ru" });
-            tokenFilters.Add(
-            "whitespace_regex",
-            new PatternReplaceTokenFilter
-            {
-                Pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,\\'""\-]*",
-                Replacement = " ",
-            });
-
-            var charFilters = indexSettings.Analysis.CharFilters;
-            charFilters.Add("ru_charfilter", new MappingCharFilter { Mappings = new[] { "Ё=>Е", "ё=>е" } });
-
-            var analyzers = indexSettings.Analysis.Analyzers;
-            analyzers.Add(
-            "ru_sorting",
-            new CustomAnalyzer
-            {
-                Tokenizer = "keyword",
-                Filter = new[] { "whitespace_regex", "trim", "ru_icu_collation" },
-            });
-            analyzers.Add(
-            "ru_searching",
-            new CustomAnalyzer
-            {
-                Tokenizer = "keyword",
-                Filter = new[] { "lowercase" },
-                CharFilter = new[] { "ru_charfilter" },
-            });
-
-            var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            _elasticResponseHandler.ThrowWhenError(response);
-        }
-
-        private static void PutUserDocMapping(IElasticSearchMigrationContext context)
-        {
-            var indexName = context.GetIndexName("metadata");
-
-            var mapping = new RootObjectMapping
-            {
-                Dynamic = DynamicMappingOption.strict,
-                DateDetection = false,
-                NumericDetection = false,
-                AllFieldMapping = new AllFieldMapping().SetDisabled(),
-
-                TypeNameMarker = "UserDoc".MakePlural().ToLowerInvariant(),
-                Properties = new Dictionary<string, IElasticType>
-                {
-                    { "Name".ToCamelCase(), new StringMapping { Index = FieldIndexOption.no } },
-                    { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } },
-                    { "Id".ToCamelCase(), new NumberMapping { Type = NumberType.@long.ToString() } },
-                    {
-                        "Authorization".ToCamelCase(), new ObjectMapping
-                        {
-                            Dynamic = DynamicMappingOption.strict,
-                            Properties = new Dictionary<string, IElasticType>
-                            {
-                                { "Tags".ToCamelCase(), new StringMapping { Index = FieldIndexOption.not_analyzed } }
-                            },
-                        }
-                    },
-                },
-            };
-
-            var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            _elasticResponseHandler.ThrowWhenError(response);
+                .Properties(p => p
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                    .String(s => s.Name(n => n.RecordId).Index(FieldIndexOption.no))
+                )
+            );
         }
 
         private static void PutMigrationsMapping(IElasticSearchMigrationContext context)
         {
-            var indexName = context.GetIndexName("metadata");
+            context.ElasticManagementApi.Map<MigrationDoc13546>(m => m
+                .Dynamic(DynamicMappingOption.strict)
+                .DateDetection(false)
+                .NumericDetection(false)
+                .AllField(a => a.Enabled(false))
 
-            var mapping = new RootObjectMapping
-            {
-                Dynamic = DynamicMappingOption.strict,
-                DateDetection = false,
-                NumericDetection = false,
-                AllFieldMapping = new AllFieldMapping().SetDisabled(),
-
-                TypeNameMarker = "MigrationDoc".MakePlural().ToLowerInvariant(),
-            };
-
-            var response = context.ElasticClient.Map(mapping, indexName, null, false);
-            _elasticResponseHandler.ThrowWhenError(response);
+                .Properties(p => p
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                )
+            );
         }
 
-        private static void TryCreateMetadataIndex(IElasticSearchMigrationContext context)
+        private sealed class ReplicationQueue13546
         {
-            var indexName = context.GetIndexName("metadata");
+            public string DocumentType { get; set; }
+        }
 
-            var getResponse = context.ElasticClient.GetIndexSettings(indexName);
-            if (getResponse.IsValid)
-            {
-                return;
-            }
+        private sealed class MigrationDoc13546
+        {
+            public string Id { get; set; }
+        }
 
-            var indexSettings = new IndexSettings
-            {
-                { "number_of_shards", 1 },
-                { "number_of_replicas", 1 },
-                { "refresh_interval", -1 },
-            };
-
-            var response = context.ElasticClient.CreateIndex(indexName, indexSettings);
-            _elasticResponseHandler.ThrowWhenError(response);
+        private sealed class RecordIdState13546
+        {
+            public string Id { get; set; }
+            public string RecordId { get; private set; }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
@@ -18,5 +20,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
         public EntityName ParentEntityName { get; set; }
         public long? ParentEntityId { get; set; }
+        public SearchListModel SearchListModel { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
             Mapper = mapper;
         }
 
-        public virtual IEnumerable<IDoc> UpdateDocuments(IEnumerable<IEntityKey> entities)
+        public virtual IEnumerable<IDoc> UpdateDocuments(IQueryable<IEntityKey> entities)
         {
             if (entities == null)
             {
@@ -35,10 +35,10 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 
             foreach (var entity in entities)
             {
-                // TODO ERM-3449 Без этого ToArray() после апдейта происходит загрузка старых документов и они отправляются на индексацию
+                // FIXME {f.zaharov, 23.04.2014}: ERM-3449 Без этого ToArray() после апдейта происходит загрузка старых документов и они отправляются на индексацию
                 var docs = RelationalDocsFinder.FindDocsByRelatedPart<TDoc>(entity).ToArray();
 
-                if (!docs.Any()) // TODO Подумать, как правильно делегировать создание документа и ваааще подумать, что-то как-то тут все не так-то почему-то.
+                if (!docs.Any()) // FIXME {f.zaharov, 23.04.2014}: Подумать, как правильно делегировать создание документа и ваааще подумать, что-то как-то тут все не так-то почему-то.
                 {
                     var newDoc = (TDoc)QdsComponent.CreateNewDoc(entity);
                     if (newDoc != null)

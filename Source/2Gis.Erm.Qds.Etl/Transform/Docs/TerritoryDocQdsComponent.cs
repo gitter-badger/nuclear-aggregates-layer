@@ -25,8 +25,6 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
 
             PartsDocRelation = DocRelation.ForDoc<TerritoryDoc>()
                                      .LinkPart<Territory>(new FieldsEqualsDocsQueryBuilder<TerritoryDoc, Territory>(d => d.Id, u => u.Id, queryDsl));
-
-            IndirectDocRelations = new IDocRelation[0];
         }
 
         public IDocsUpdater CreateDocUpdater()
@@ -35,8 +33,6 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
         }
 
         public IDocRelation PartsDocRelation { get; private set; }
-
-        public IDocRelation[] IndirectDocRelations { get; private set; }
 
         public IDoc CreateNewDoc(object part)
         {

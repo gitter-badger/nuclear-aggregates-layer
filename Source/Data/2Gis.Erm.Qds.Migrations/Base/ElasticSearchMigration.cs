@@ -2,6 +2,8 @@
 
 using DoubleGis.Erm.Platform.Migration.Base;
 
+using Nest;
+
 namespace DoubleGis.Erm.Qds.Migrations.Base
 {
     public abstract class ElasticSearchMigration : IContextedMigration<IElasticSearchMigrationContext>
@@ -10,7 +12,14 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
 
         public void Revert(IElasticSearchMigrationContext context)
         {
-            throw new NotImplementedException();
+        }
+
+        public static Func<CreateIndexDescriptor, CreateIndexDescriptor> GetMetadataIndexDescriptor()
+        {
+            return x => x
+            .NumberOfShards(1)
+            .NumberOfReplicas(2)
+            .Settings(s => s.Add("refresh_interval", "1s"));
         }
     }
 }

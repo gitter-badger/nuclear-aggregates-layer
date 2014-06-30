@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListThemeDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Theme>();
             var themeOrganizationUnits = _finder.FindAll<ThemeOrganizationUnit>();
@@ -66,25 +67,25 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             // distinct без учёта OrganizationUnitName
             var data = allDtosQuery
-                        .Select(x => new ListThemeDto
-                        {
-                            Id = x.Id,
-                            Name = x.Name,
-                            BeginDistribution = x.BeginDistribution,
-                            EndDistribution = x.EndDistribution,
-                            TemplateCodeEnum = (ThemeTemplateCode)x.TemplateCode,
-                            Description = x.Description,
-                            IsActive = x.IsActive,
-                            IsDeleted = x.IsDeleted,
-                            TemplateCode = null,
-                        })
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings, out count)
-                        .Select(x =>
-                        {
-                            x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                            return x;
-                        });
+            .Select(x => new ListThemeDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                BeginDistribution = x.BeginDistribution,
+                EndDistribution = x.EndDistribution,
+                TemplateCodeEnum = (ThemeTemplateCode)x.TemplateCode,
+                Description = x.Description,
+                IsActive = x.IsActive,
+                IsDeleted = x.IsDeleted,
+                TemplateCode = null,
+            })
+            .Distinct()
+            .QuerySettings(_filterHelper, querySettings)
+            .Transform(x =>
+            {
+                x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                return x;
+            });
 
             return data;
         }

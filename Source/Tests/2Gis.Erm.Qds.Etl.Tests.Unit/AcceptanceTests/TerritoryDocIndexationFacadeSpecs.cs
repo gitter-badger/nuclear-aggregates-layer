@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
     class TerritoryDocIndexationFacadeSpecs
     {
+        [Ignore("Cut for ERM-4267")]
         [Subject(typeof(IndexationFacade))]
         class When_territory_entity_changed : EntityChangedContext<Territory, TerritoryDoc>
         {

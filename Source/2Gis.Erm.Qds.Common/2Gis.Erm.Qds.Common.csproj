@@ -36,33 +36,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nest, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.Signed.0.12.0.0\lib\NET4\Nest.dll</HintPath>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Nest.Connection.Thrift, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Nest.Connection.Thrift.Signed.0.12.0.0\lib\NET4\Nest.Connection.Thrift.dll</HintPath>
+    <Reference Include="Nest">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="NetReflector">
       <HintPath>..\..\..\CompositionRoots\Source\packages\NetReflector.1.1.2009\lib\net20\NetReflector.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElasticClient\ElasticConnectionSettingsFactory.cs" />
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="DocumentRelation.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
-    <Compile Include="ElasticClient\ElasticClientFactory.cs" />
-    <Compile Include="ElasticClient\IElasticConnectionSettingsFactory.cs" />
-    <Compile Include="ElasticClient\IElasticClientFactory.cs" />
+    <Compile Include="IDocumentRelationsRegistry.cs" />
     <Compile Include="IElasticApi.cs" />
     <Compile Include="ElasticApi.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IElasticResponseHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -73,17 +75,9 @@
       <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
       <Name>2Gis.Erm.Qds</Name>
     </ProjectReference>
-    <ProjectReference Include="..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
-      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
-      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
-      <Project>{9e27f95a-5b1a-426b-9f72-ad2240fe8026}</Project>
+      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
       <Name>2Gis.Erm.Qds.API.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
-      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
-      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +85,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

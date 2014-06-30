@@ -19,13 +19,15 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Publish
 {
     public class DocsPublisherSpecs
     {
+        // TODO {f.zaharov, 20.06.2014}: Тест на вызов Flush после
+
         [Subject(typeof(DocsPublisher))]
         public class When_publish_data : DocsPublisherContext
         {
             Establish context = () =>
             {
                 _expectedDoc = Mock.Of<IDoc>();
-                _expectedState = new RecordIdState(0, 0);
+                _expectedState = new RecordIdState("0", "0");
             };
 
             Because of = () => Target.Publish(new DenormalizedTransformedData(new[] { _expectedDoc }, _expectedState));

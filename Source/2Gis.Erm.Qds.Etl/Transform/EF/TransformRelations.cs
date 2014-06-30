@@ -5,17 +5,19 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
     public class TransformRelations : ITransformRelations
     {
-        private readonly IDictionary<Type, Type[]> _dictionary = new Dictionary<Type, Type[]>();
+        private readonly Dictionary<Type, List<Type>> _dictionary = new Dictionary<Type, List<Type>>();
 
-        public Type[] GetRelatedDocTypes(Type entityType)
+        public bool TryGetRelatedDocTypes(Type entityType, out IEnumerable<Type> docTypes)
         {
-            if (entityType == null)
+            List<Type> docTypesList;
+            if (_dictionary.TryGetValue(entityType, out docTypesList))
             {
-                throw new ArgumentNullException("entityType");
+                docTypes = docTypesList;
+                return true;
             }
 
-            Type[] docTypes;
-            return !_dictionary.TryGetValue(entityType, out docTypes) ? new Type[0] : docTypes;
+            docTypes = null;
+            return false;
         }
 
         public void RegisterRelation(IDocRelation docRelation)
@@ -26,28 +28,22 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
             }
 
             var entityTypes = docRelation.GetPartTypes();
-            var docType = docRelation.GetDocType();
-
             foreach (var entityType in entityTypes)
             {
-                UnionMapping(entityType, docType);
+                UnionMapping(entityType, docRelation.DocType);
             }
         }
 
         private void UnionMapping(Type entityType, Type docType)
         {
-            var newMapping = new[] { docType };
-            if (_dictionary.ContainsKey(entityType))
+            List<Type> docTypes;
+            if (!_dictionary.TryGetValue(entityType, out docTypes))
             {
-                var oldMapping = _dictionary[entityType];
-                newMapping = new Type[oldMapping.Length + 1];
-
-                oldMapping.CopyTo(newMapping, 0);
-
-                newMapping[newMapping.Length - 1] = docType;
+                docTypes = new List<Type>();
+                _dictionary.Add(entityType, docTypes);
             }
 
-            _dictionary[entityType] = newMapping;
+            docTypes.Add(docType);
         }
     }
 }

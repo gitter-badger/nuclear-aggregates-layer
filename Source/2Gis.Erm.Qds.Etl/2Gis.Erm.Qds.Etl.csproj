@@ -16,6 +16,8 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,23 +36,29 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Extract\EF\TrackerStateException.cs" />
     <Compile Include="Extract\EF\DocsStorageChangesTrackerState.cs" />
     <Compile Include="Extract\EF\EntityLink.cs" />
     <Compile Include="Extract\EF\ChangesReferencesBuilder.cs" />
@@ -78,14 +86,19 @@
     <Compile Include="Publish\DocsPublisher.cs" />
     <Compile Include="Transform\Docs\ClientGridDocQdsComponent.cs" />
     <Compile Include="Transform\Docs\ClientGridDocMapper.cs" />
+    <Compile Include="Transform\Docs\ExpressionDocsQueryBuilder.cs" />
+    <Compile Include="Transform\Docs\IEnumLocalizer.cs" />
+    <Compile Include="Transform\Docs\NestedDocsQueryBuilder.cs" />
+    <Compile Include="Transform\Docs\OrderGridDocMapper.cs" />
+    <Compile Include="Transform\Docs\OrderGridDocQdsComponent.cs" />
+    <Compile Include="Transform\Docs\OrDocsQueryBuilder.cs" />
     <Compile Include="Transform\Docs\RelationalDocsUpdater.cs" />
-    <Compile Include="Transform\Docs\EnumResourcesEnumLocalizer.cs" />
     <Compile Include="Transform\Docs\RelationalDocsFinder.cs" />
     <Compile Include="Transform\Docs\FieldsEqualsDocsQueryBuilder.cs" />
     <Compile Include="Transform\Docs\IDocMapper.cs" />
-    <Compile Include="Transform\Docs\IEnumLocalizer.cs" />
     <Compile Include="Transform\Docs\IRelationalDocsFinder.cs" />
     <Compile Include="Transform\Docs\IQdsComponent.cs" />
+    <Compile Include="Transform\Docs\ResourcesEnumLocalizer.cs" />
     <Compile Include="Transform\Docs\TerritoryDocMapper.cs" />
     <Compile Include="Transform\Docs\TerritoryDocQdsComponent.cs" />
     <Compile Include="Transform\Docs\UserDocQdsComponent.cs" />
@@ -93,25 +106,24 @@
     <Compile Include="Transform\EF\DictionaryDocUpdatersRegistry.cs" />
     <Compile Include="Transform\EF\IDocRelation.cs" />
     <Compile Include="Transform\EF\IMetadataBinder.cs" />
-    <Compile Include="Transform\EF\IQdsComponentsFactory.cs" />
+    <Compile Include="Transform\Docs\IQdsComponentsFactory.cs" />
     <Compile Include="Transform\EF\Link.cs" />
     <Compile Include="Transform\EF\DocRelation.cs" />
     <Compile Include="Transform\EF\MetadataBinder.cs" />
     <Compile Include="Transform\EF\TransformRelations.cs" />
-    <Compile Include="Transform\EF\DocsSource.cs" />
     <Compile Include="Transform\EF\ErmEntitiesDenormalizer.cs" />
     <Compile Include="Transform\EF\ITransformRelations.cs" />
     <Compile Include="Transform\EF\IDocsUpdater.cs" />
     <Compile Include="Transform\EF\IDocsMetaData.cs" />
     <Compile Include="Transform\EF\ErmDocsMetaData.cs" />
     <Compile Include="Transform\EF\IDocUpdatersRegistry.cs" />
+    <Compile Include="Transform\Docs\UnityQdsComponentsFactory.cs" />
     <Compile Include="Transform\ITransformation.cs" />
     <Compile Include="Extract\IData.cs" />
     <Compile Include="Extract\IDataConsumer.cs" />
     <Compile Include="Publish\IPublisher.cs" />
     <Compile Include="Transform\ITransformedData.cs" />
     <Compile Include="Transform\ITransformedDataConsumer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transform\EF\DenormalizerTransformation.cs" />
     <Compile Include="Transform\EF\DenormalizedTransformedData.cs" />
   </ItemGroup>
@@ -136,13 +148,17 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
+      <Name>2Gis.Erm.Qds.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
       <Name>2Gis.Erm.Qds</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="2Gis.Erm.PublicKey.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

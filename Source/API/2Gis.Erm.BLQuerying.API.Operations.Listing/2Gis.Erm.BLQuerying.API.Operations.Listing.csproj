@@ -36,16 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2Gis.Erm.Qds.Etl">
+      <HintPath>..\..\..\..\CompositionRoots\Source\2Gis.Erm.API.WCF.Operations\Bin\2Gis.Erm.Qds.Etl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -57,6 +55,8 @@
     <Compile Include="DI\BlQueryingApiOperationsListingAssembly.cs" />
     <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
     <Compile Include="List\DTO\ListDenialReasonDto.cs" />
+    <Compile Include="List\DTO\ListClientDto.cs" />
+    <Compile Include="List\DTO\ListFirmDto.cs" />
     <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
     <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
@@ -90,14 +90,12 @@
     <Compile Include="List\DTO\ListBillDto.cs" />
     <Compile Include="List\DTO\ListCategoryDto.cs" />
     <Compile Include="List\DTO\ListCategoryFirmAddressDto.cs" />
-    <Compile Include="List\DTO\ListClientDto.cs" />
     <Compile Include="List\DTO\ListContactDto.cs" />
     <Compile Include="List\DTO\ListCurrencyRateDto.cs" />
     <Compile Include="List\DTO\ListDealDto.cs" />
     <Compile Include="List\DTO\ListDeniedPositionDto.cs" />
     <Compile Include="List\DTO\ListFirmAddressDto.cs" />
     <Compile Include="List\DTO\ListFirmContactDto.cs" />
-    <Compile Include="List\DTO\ListFirmDto.cs" />
     <Compile Include="List\DTO\ListLegalPersonDto.cs" />
     <Compile Include="List\DTO\ListLegalPersonProfileDto.cs" />
     <Compile Include="List\DTO\ListLimitDto.cs" />
@@ -125,6 +123,7 @@
     <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
+    <Compile Include="List\Metadata\DocToEntityMappingMetadata.cs" />
     <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
     <Compile Include="List\Metadata\FilteredFieldMetadata.cs" />
     <Compile Include="List\Metadata\DefaultFilterMetadata.cs" />
@@ -133,9 +132,11 @@
     <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
     <Compile Include="List\Metadata\RelationalMetadata.cs" />
     <Compile Include="DI\QueryingZone.cs" />
+    <Compile Include="RemoteCollectionExtensions.cs" />
     <Compile Include="Remote\List\IListApplicationRestService.cs" />
     <Compile Include="Remote\List\IListApplicationService.cs" />
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
+    <Compile Include="SearchListModelExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
@@ -145,10 +146,6 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
-      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
-      <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -162,8 +159,11 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DoubleGis.Erm.Qds.Etl.Extract.EF
 {
@@ -57,16 +58,11 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
 
         IEnumerable<EntityLink> TrackChanges(IEnumerable<IChangeDescriptor> changes)
         {
-            foreach (var descriptor in changes)
+            return changes.SelectMany(descriptor =>
             {
-                foreach (var link in _entityLinkBuilder.CreateEntityLinks(descriptor))
-                {
-                    if (_entityLinkFilter.IsSupported(link))
-                    {
-                        yield return link;
-                    }
-                }
-            }
+                var links = _entityLinkBuilder.CreateEntityLinks(descriptor);
+                return links.Where(link => _entityLinkFilter.IsSupported(link));
+            });
         }
     }
 }
