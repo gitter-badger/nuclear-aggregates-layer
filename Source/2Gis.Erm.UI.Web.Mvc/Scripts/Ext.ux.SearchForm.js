@@ -8,9 +8,10 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
         this.addEvents("beforebuild", "afterbuild", "beforecreate", "beforeedit", "beforerefresh");
         this.extendedInfo = config.extendedInfo;
         this.entityModel = config.searchFormSettings;
-        this.currentSettings = config.searchFormSettings.DataViews[0];
-        this.currentSettings.ReadOnly = this.currentSettings.ReadOnly || config.readOnly;
+        this.currentSettings = this.findDataView(config.nameLocaleResourceId);
+        this.currentSettings.ReadOnly |= config.readOnly;
         this.existingItem = config.existingItem;
+
 
         this.initColumnSet();
         this.initStore();
@@ -133,6 +134,19 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
         window.Ext.ux.SearchForm.superclass.constructor.call(this, config);
 
         this.fireEvent("afterbuild", this);
+    },
+    findDataView: function(nameLocaleResourceId) {
+        if (nameLocaleResourceId) {
+            for (var index in this.entityModel.DataViews) {
+                var dataView = this.entityModel.DataViews[index];
+                if (dataView.NameLocaleResourceId === nameLocaleResourceId) {
+                    return dataView;
+                }
+            }
+            Logger.HandleError("Can't find data view " + nameLocaleResourceId, window.location, 0);
+        }
+
+        return this.entityModel.DataViews[0];
     },
     initHotKeys: function (cmp)
     {

@@ -14,13 +14,13 @@
   
   <?ifndef EnvironmentName ?>
     <?define EnvironmentName = "Dev" ?>
-    <?include Variables.wxi ?>
     <?define QuartzConfigFileName = "quartz.config" ?>
+    <?include Variables.wxi ?>
   <?else ?>
-    <?include Variables.$(var.EnvironmentName).wxi ?>
     <?define QuartzConfigFileName = "quartz.$(var.EnvironmentName).config" ?>
+    <?include Variables.$(var.EnvironmentName).wxi ?>
   <?endif ?>
-  
+
   <?ifndef ServiceName ?>
     <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
   <?endif ?>
@@ -30,9 +30,9 @@
 
   <!-- detect platform -->
   <?if $(var.Platform) = x64 ?>
-    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
   <?else ?>
-    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
 
   <Product
@@ -59,116 +59,99 @@
     <!-- directories -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="$(var.PlatformProgramFilesFolder)">
-        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)">
-          <Directory Id="DIR_x86" Name="x86" />
-          <Directory Id="DIR_x64" Name="x64" />
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)" />
         </Directory>
       </Directory>
-    </Directory>
 
     <!-- third party components -->
-    <ComponentGroup Id="ThirdPartyComponents">
-
-      <Component Id="x86_7z.dll" Directory="DIR_x86" Guid="*">
-        <File Id="x86_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip9.22\x86\7z.dll" />
+    <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
+    <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
+    <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER" >
+      <Component>
+        <File Source="$(var.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
-
-      <Component Id="x64_7z.dll" Directory="DIR_x64" Guid="*">
-        <File Id="x64_7z.dll" Name="7z.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\7-Zip9.22\x64\7z.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
       </Component>
-
-      <Component Id="SevenZipSharp.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Quartz.2.2.3\lib\net40\Quartz.dll" />
       </Component>
-
-      <Component Id="Microsoft.Practices.ServiceLocation.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Common.Logging.2.2.0\lib\net40\Common.Logging.dll" />
       </Component>
-
-      <Component Id="Quartz.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Quartz.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Quartz.2.2.3\lib\net40\Quartz.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll" />
       </Component>
-
-      <Component Id="Common.Logging.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.2.2.0\lib\net40\Common.Logging.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Common.Logging.Log4Net1211.2.2.0\lib\net40\Common.Logging.Log4Net1211.dll" />
       </Component>
-
-      <Component Id="Common.Logging.Core.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.Core.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\log4net.2.0.3\lib\net40-full\log4net.dll" />
       </Component>
-
-      <Component Id="Common.Logging.Log4Net1211.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Common.Logging.Log4Net1211.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Common.Logging.Log4Net1211.2.2.0\lib\net40\Common.Logging.Log4Net1211.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
-
-      <Component Id="log4net.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="log4net.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\log4net.2.0.3\lib\net40-full\log4net.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
       </Component>
-
-      <Component Id="DocumentFormat.OpenXml.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="DocumentFormat.OpenXml.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
-
-      <Component Id="Microsoft.Practices.Unity.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
-
-      <Component Id="Microsoft.Practices.Unity.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
       </Component>
-
-      <Component Id="Microsoft.Practices.Unity.Interception.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Interception.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
-
-      <Component Id="Microsoft.Practices.Unity.Interception.Configuration.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Practices.Unity.Interception.Configuration.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+      <Component>
+        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
       </Component>
-
-      <Component Id="RabbitMQ.Client.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="RabbitMQ.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
+      <Component>
+        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
       </Component>
-
-      <Component Id="Microsoft.Xrm.Client.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Xrm.Client.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
+      <Component>
+        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
       </Component>
-
-      <Component Id="Microsoft.Crm.Sdk.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Crm.Sdk.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
+      <Component>
+        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
       </Component>
-
-      <Component Id="Microsoft.Crm.SdkTypeProxy.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Crm.SdkTypeProxy.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\NEST.1.0.0-beta1\lib\Nest.dll" />
       </Component>
-
-      <Component Id="Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" KeyPath="yes" Source="$(var.ProjectDir)..\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.0-beta1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       
-      <Component Id="Newtonsoft.Json.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
       </Component>
 
-      <Component Id="EntityFramework.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="EntityFramework.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
       </Component>
 
-      <Component Id="EntityFramework.SqlServer.dll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="EntityFramework.SqlServer.dll" KeyPath="yes" Source="$(var.ProjectDir)..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
+      <Component>
+        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
       </Component>
-
     </ComponentGroup>
 
+    <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
+
     <!-- NT service -->
-    <Component Id="_2Gis.Erm.TaskService.exe" Directory="INSTALLFOLDER" Guid="*">
+      <Component>
 
-      <File Id="_2Gis.Erm.TaskService.exe" KeyPath="yes" Vital="yes" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe" />
-      <File Id="_2Gis.Erm.TaskService.pdb" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.pdb" />
-      <File Id="_2Gis.Erm.TaskService.exe.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe.config" />
+        <File Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe" />
+        <File Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.pdb" />
 
-      <!-- configs -->
-      <File Id="log4net.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\log4net.config" />
-      <File Id="quartz.config" Name="quartz.config" KeyPath="no" Source="$(var.2Gis.Erm.TaskService.TargetDir)\$(var.QuartzConfigFileName)" />
+        <!-- Config files -->
+        <File Source="$(var.2Gis.Erm.TaskService.TargetDir)2Gis.Erm.TaskService.exe.config" />
+        <File Source="$(var.2Gis.Erm.TaskService.TargetDir)log4net.config" />
 
       <ServiceInstall
 				Id="Service1"
@@ -193,15 +176,27 @@
 				Wait="yes"
 			/>
 
+      </Component>
+
+      <ComponentGroupRef Id="QuartzConfigs" />
+      
+    </ComponentGroup>
+
+    <ComponentGroup Id="QuartzConfigs" Directory="INSTALLFOLDER">
+      <Component>
+        <File Name="quartz.config" Source="$(var.2Gis.Erm.TaskService.ProjectDir)$(var.QuartzConfigFileName)" />
     </Component>
+    </ComponentGroup>
+
 
     <Feature Id="ProductFeature" Title="$(var.ProductLongNameWithVersion)" Level="1">
 
-      <ComponentRef Id="_2Gis.Erm.TaskService.exe" />
-      <ComponentGroupRef Id="ThirdPartyComponents" />
+      <ComponentGroupRef Id="TaskService" />
+      <ComponentGroupRef Id="ThirdParty" />
 
       <!-- pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
+      
     </Feature>
 
     <!-- newer versions overwrites older versions -->

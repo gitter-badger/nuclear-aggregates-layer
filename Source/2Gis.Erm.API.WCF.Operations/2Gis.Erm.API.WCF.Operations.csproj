@@ -186,6 +186,10 @@
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj">
+      <Project>{cd6c5329-f9ea-41a0-8446-2b26fb92720e}</Project>
+      <Name>2Gis.Erm.Qds.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\DI\2Gis.Erm.BLQuerying.DI\2Gis.Erm.BLQuerying.DI.csproj">
       <Project>{48a5c193-6a10-4188-9b82-90fdadc95c16}</Project>
       <Name>2Gis.Erm.BLQuerying.DI</Name>

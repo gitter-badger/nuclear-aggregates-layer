@@ -96,6 +96,10 @@
       <Project>{29068fb9-201b-409d-9a63-a7e06ac9dfef}</Project>
       <Name>2Gis.Erm.BLCore.DB.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\Data\2Gis.Erm.Qds.Migrations\2Gis.Erm.Qds.Migrations.csproj">
+      <Project>{e4ab3155-046e-432e-bf3b-093c15ed2c36}</Project>
+      <Name>2Gis.Erm.Qds.Migrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
