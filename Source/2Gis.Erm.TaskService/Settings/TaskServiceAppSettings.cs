@@ -10,9 +10,11 @@ using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.TaskService.Settings;
+using DoubleGis.Erm.Qds.API.Core.Settings;
 
 namespace DoubleGis.Erm.TaskService.Settings
 {
@@ -24,7 +26,8 @@ namespace DoubleGis.Erm.TaskService.Settings
         INotificationProcessingSettings,
         IIntegrationLocalizationSettings,
         IDBCleanupSettings,
-        ITaskServiceProcesingSettings
+        ITaskServiceProcesingSettings,
+        IBatchIndexingSettings
     {
         private const int LogSizeInDaysDefault = 60;
         private const string MailSenderUserNameDefault = "TEST";
@@ -48,6 +51,9 @@ namespace DoubleGis.Erm.TaskService.Settings
         private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
         private readonly StringSetting _regionalTerritoryLocaleSpecificWord = ConfigFileSetting.String.Required("RegionalTerritoryLocaleSpecificWord");
 
+        private readonly IntSetting _batchIndexingSleep = ConfigFileSetting.Int.Optional("BatchIndexingSleep", 50);
+        private readonly IntSetting _batchIndexingStopTimeout = ConfigFileSetting.Int.Optional("BatchIndexingStopTimeout", 1000);
+
         public TaskServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
             Aspects
@@ -57,9 +63,20 @@ namespace DoubleGis.Erm.TaskService.Settings
                .Use<IntegrationSettingsAspect>()
                .Use<NotificationsSettingsAspect>()
                .Use<CachingSettingsAspect>()
+               .Use(new NestSettingsAspect(new ConnectionStringsSettingsAspect()))
                .Use(RequiredServices
                        .Is<APIIdentityServiceSettingsAspect>()
                        .Is<APIMoDiServiceSettingsAspect>());
+        }
+
+        TimeSpan IBatchIndexingSettings.SleepTime
+        {
+            get { return TimeSpan.FromMilliseconds(_batchIndexingSleep.Value); }
+        }
+
+        TimeSpan IBatchIndexingSettings.StopTimeout
+        {
+            get { return TimeSpan.FromMilliseconds(_batchIndexingStopTimeout.Value); }
         }
 
         string IIntegrationLocalizationSettings.BasicLanguage
