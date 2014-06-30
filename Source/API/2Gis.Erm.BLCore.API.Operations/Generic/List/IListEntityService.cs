@@ -6,10 +6,9 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
 {
     public interface IListEntityService : IOperation<ListIdentity>
     {
-        ListResult List(SearchListModel searchListModel);
+        IRemoteCollection List(SearchListModel searchListModel);
     }
 
-    // TODO: entityName -> SearchListModel?
     public interface IListNonGenericEntityService : IOperation<ListNonGenericIdentity>
     {
         ListResult List(EntityName entityName, SearchListModel searchListModel);

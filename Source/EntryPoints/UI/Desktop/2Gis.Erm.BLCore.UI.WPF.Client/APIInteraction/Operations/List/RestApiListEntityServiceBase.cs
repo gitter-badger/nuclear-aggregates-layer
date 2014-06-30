@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.List
         {
         }
 
-        public abstract ListResult List(SearchListModel searchListModel);
+        public abstract IRemoteCollection List(SearchListModel searchListModel);
 
         protected ListResult GetList(SearchListModel searchListModel)
         {
