@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
             _debtProcessingSettings = debtProcessingSettings;
         }
 
-        protected override IEnumerable<EmiratesListLegalPersonDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<LegalPerson>();
 
@@ -126,8 +127,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted
                     })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
                     {
                         x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                         return x;
