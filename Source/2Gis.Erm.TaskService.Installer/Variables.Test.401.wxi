@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   <?define UpgradeCode = "87BB7A3D-1D98-4202-9583-2C37BFAD8725" ?>
-  <?define ServiceStartType = "demand" ?>
+  <?define ServiceStartType = "auto" ?>
 </Include>

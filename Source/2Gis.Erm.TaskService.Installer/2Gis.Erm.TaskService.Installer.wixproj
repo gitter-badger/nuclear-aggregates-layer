@@ -140,6 +140,105 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+      <Project>{5b72fce8-04d5-4c60-9939-587fd1c01e5f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Name>2Gis.Erm.Qds.Common</Name>
+      <Project>{7d920b28-ca75-4f54-8605-aa1e57388326}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
+      <Name>2Gis.Erm.Qds.Etl</Name>
+      <Project>{b3ee2e70-cb56-454d-a4ee-8e9b663aceca}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Name>2Gis.Erm.Qds</Name>
+      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
+      <Name>2Gis.Erm.Qds.API.Core</Name>
+      <Project>{9e27f95a-5b1a-426b-9f72-ad2240fe8026}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
+      <Project>{a2ec52a5-720b-4f42-9615-006e6b5fb49a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj">
+      <Name>2Gis.Erm.Qds.Operations</Name>
+      <Project>{cd6c5329-f9ea-41a0-8446-2b26fb92720e}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\DI\2Gis.Erm.BLQuerying.DI\2Gis.Erm.BLQuerying.DI.csproj">
+      <Name>2Gis.Erm.BLQuerying.DI</Name>
+      <Project>{48a5c193-6a10-4188-9b82-90fdadc95c16}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Name>2Gis.Erm.BLFlex.Model</Name>
+      <Project>{47edc4ec-654b-4219-9099-3394db6c65db}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\EntryPoints\TaskService\2Gis.Erm.BLQuerying.TaskService\2Gis.Erm.BLQuerying.TaskService.csproj">
+      <Name>2Gis.Erm.BLQuerying.TaskService</Name>
+      <Project>{3f72e975-adc6-43dd-ac1d-3f90abfbb97d}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Name>2Gis.Erm.BL.Operations</Name>
+      <Project>{247fae89-d1e0-4c16-bfef-667e1d3655d1}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj">
       <Name>2Gis.Erm.BLFlex.API.Aggregates.Global</Name>
       <Project>{3dbca11c-c295-4a54-8e64-60473575eff8}</Project>
@@ -236,7 +335,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
@@ -245,7 +344,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
@@ -254,7 +353,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
@@ -263,7 +362,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
@@ -272,12 +371,21 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
       <Project>{03a5edfb-6e8b-4f9f-8cd9-986f18fd6b9b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
@@ -299,7 +407,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -308,7 +416,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
@@ -317,7 +425,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
@@ -326,7 +434,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
@@ -335,7 +443,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj">
@@ -344,7 +452,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
@@ -353,7 +461,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
@@ -362,12 +470,21 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
       <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
       <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
@@ -389,7 +506,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
@@ -398,7 +515,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
@@ -407,7 +524,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
@@ -416,7 +533,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
@@ -425,7 +542,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
@@ -434,7 +551,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
@@ -443,7 +560,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
@@ -452,7 +569,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
@@ -461,7 +578,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
@@ -470,7 +587,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
@@ -488,7 +605,7 @@
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.TaskService\2Gis.Erm.TaskService.csproj">
@@ -496,7 +613,7 @@
       <Project>{25a08d41-8c0f-4da6-9979-0e8dbdb75f48}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>

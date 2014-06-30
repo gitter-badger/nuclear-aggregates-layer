@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
+using DoubleGis.Erm.Qds.Operations.DI;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                       .RequireZone<QueryingZone>()
                                           .UseAnchor<BlQueryingApiOperationsListingAssembly>()
                                           .UseAnchor<BlQueryingOperationsListingAssembly>()
-                                          //.UseAnchor<QdsOperationsAssembly>()
+                                          .UseAnchor<QdsOperationsAssembly>()
                                       .RequireZone<MetadataZone>()
                                           .UseAnchor<PlatformModelMetadataAssembly>();
             }

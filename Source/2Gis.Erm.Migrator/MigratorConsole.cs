@@ -8,6 +8,7 @@ using System.Reflection;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Migration.CRM;
 using DoubleGis.Erm.Platform.Migration.Runner;
 
 using NDesk.Options;
@@ -22,6 +23,7 @@ namespace DoubleGis.Erm.Migrator
             {
                 "2Gis.Erm.BLCore.DB.Migrations.dll",
                 "2Gis.Erm.BL.DB.Migrations.dll",
+                "2Gis.Erm.Qds.Migrations.dll"
             };
 
         public MigrationConsole(params string[] args)
@@ -284,6 +286,8 @@ namespace DoubleGis.Erm.Migrator
 
             return migrationDescriptorsProvider.MigrationDescriptors
                                                .Where(x => !alreadyAppliedMigrations.Contains(x.Version))
+                                               .Where(x => typeof(IContextedMigration<ICrmMigrationContext>).IsAssignableFrom(x.Type) ||
+                                                           typeof(IContextedMigration<IMigrationContext>).IsAssignableFrom(x.Type))
                                                .OrderBy(x => x.Version)
                                                .ToArray();
         }
