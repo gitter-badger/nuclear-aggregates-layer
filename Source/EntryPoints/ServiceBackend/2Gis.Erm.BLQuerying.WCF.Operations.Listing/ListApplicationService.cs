@@ -163,6 +163,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 // lookup case
                 dataListStructure = gridSettings.DataViews.First();
                 searchListModel.Sort = dataListStructure.DefaultSortField;
+                searchListModel.Dir = dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC";
             }
 
             if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
