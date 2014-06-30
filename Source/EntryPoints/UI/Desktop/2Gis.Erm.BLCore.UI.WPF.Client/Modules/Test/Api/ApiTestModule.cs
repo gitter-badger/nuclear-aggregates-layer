@@ -28,6 +28,7 @@ using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;
@@ -146,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 
         private void ListFirms()
         {
-            var service = _container.Resolve<IListGenericEntityDtoService<Firm, ListFirmDto>>();
+            var service = _container.Resolve<IListGenericEntityDtoService<Firm, FirmGridDoc>>();
             var searchModel = new SearchListModel { Start = 0, Limit = 20, Sort = "Id", Dir = "DESC" };
             var result = service.List(searchModel);
             var searchModel2 = new SearchListModel { Start = 20, Limit = 20, Sort = "Id", Dir = "DESC" };

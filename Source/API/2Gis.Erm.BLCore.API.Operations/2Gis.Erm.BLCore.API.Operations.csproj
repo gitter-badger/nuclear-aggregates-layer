@@ -198,6 +198,7 @@
     <Compile Include="Generic\File\UploadFileResult.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
     <Compile Include="Crosscutting\ISupportedCategoriesChecker.cs" />
+    <Compile Include="Generic\List\RemoteCollection.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
     <Compile Include="Generic\List\IListGenericEntityDtoService.cs" />
