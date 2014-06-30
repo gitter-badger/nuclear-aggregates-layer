@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -36,8 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             _userContext = userContext;
         }
 
-        protected override IEnumerable<ChileListLegalPersonDto> List(QuerySettings querySettings,
-            out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<LegalPerson>();
 
@@ -91,8 +90,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                     Rut = x.Inn,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
                 {
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     return x;

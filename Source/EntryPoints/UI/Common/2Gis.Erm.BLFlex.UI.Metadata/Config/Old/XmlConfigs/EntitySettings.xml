@@ -1957,6 +1957,19 @@
 			<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListNonTechnicalTerminatedOrders" HideInCardRelatedGrid="*"/>
 			<!--Все отклоненные мною заказы, которые сейчас в статусе На оформлении-->
 			<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListRejectedByMeOrdersOnRegistration" HideInCardRelatedGrid="*" />
+      <DataList NameLocaleResourceId="DListOrdersFast" DefaultSortField="CreatedOn" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="OrderNumber" Icon="en_ico_16_Order.gif" HideInCardRelatedGrid="*">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="Number" NameLocaleResourceId="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="BeginDistributionDate" NameLocaleResourceId="BeginReleaseDate" Width="130" FieldType="Period" ExtTypeName="Date" />
+          <Field Name="EndDistributionDatePlan" NameLocaleResourceId="EndPlanReleaseDate" Width="130" FieldType="Period" ExtTypeName="Date" />
+          <Field Name="WorkflowStep" NameLocaleResourceId="DFieldWorkflowStep" Width="150" FieldType="String" ExtTypeName="String" />
+          <Field Name="PayablePlan" Width="150" FieldType="Money" ExtTypeName="Float" />
+          <Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="150" FieldType="Money" ExtTypeName="Float" />
+          <Field Name="ModifiedOn" NameLocaleResourceId="DFieldModifiedOn" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+        </Fields>
+      </DataList>
 		</DataLists>
 	</Entity>
   <Entity Name="OrderProcessingRequest">

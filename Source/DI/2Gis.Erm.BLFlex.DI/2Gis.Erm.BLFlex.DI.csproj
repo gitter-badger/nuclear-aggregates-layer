@@ -85,6 +85,10 @@
       <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
       <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>

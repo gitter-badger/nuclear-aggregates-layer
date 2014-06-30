@@ -141,13 +141,13 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
             DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
 
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityName.LegalPerson, x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
         }
     }
 }

@@ -155,13 +155,13 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             DefaultFilterMetadata.RegisterFilter<UkraineListBranchOfficeDto>("DListBranchOfficeActive", x => x.IsActive && !x.IsDeleted);
             DefaultFilterMetadata.RegisterFilter<UkraineListBranchOfficeDto>("DListBranchOfficeInactive", x => !x.IsActive && !x.IsDeleted);
 
-            RelationalMetadata.RegisterRelatedFilter<ListLegalPersonProfileDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<UkraineListLegalPersonDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, parentId => x => x.AccountId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, parentId => x => x.ClientId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, parentId => x => x.DealId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, parentId => x => x.FirmId == parentId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, parentId => x => x.LegalPersonId == parentId);
+            RelationalMetadata.RegisterRelatedFilter<ListLegalPersonProfileDto>(EntityName.LegalPerson, x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<UkraineListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
         }
     }
 }
