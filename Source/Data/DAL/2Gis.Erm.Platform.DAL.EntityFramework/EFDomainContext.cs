@@ -21,11 +21,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private const string StoredProcedurePrefix = "Replicate";
 
         private static readonly List<Type> DeferredReplicationTypes = new List<Type>
-            {
-                typeof(Firm),
-                typeof(Territory),
-                typeof(FirmAddress),
-            };
+        {
+            typeof(Firm),
+            typeof(Territory),
+            typeof(FirmAddress),
+        };
 
         private readonly HashSet<IEntityKey> _replicableHashSet = new HashSet<IEntityKey>();
         private readonly IProcessingContext _processingContext;
@@ -57,16 +57,16 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public bool AnyPendingChanges
         {
             get 
-            {
+            { 
                 try
                 {
                     return _dbContext.HasChanges();
-                }
+            }
                 catch (InvalidOperationException)
                 {
                     // object context is already disposed
                     return false;
-                }
+        }
             }
         }
         
