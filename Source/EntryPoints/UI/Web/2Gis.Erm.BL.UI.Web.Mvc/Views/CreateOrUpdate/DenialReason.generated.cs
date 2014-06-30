@@ -76,7 +76,7 @@ WriteLiteral("    ");
 
             
             #line 14 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
-Write(Html.HiddenFor(m => m.IdentityServiceUrl));
+Write(Html.HiddenFor(m => m.Id));
 
             
             #line default
@@ -87,17 +87,17 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 230), Tuple.Create("\"", 266)
+WriteAttribute("title", Tuple.Create(" title=\"", 214), Tuple.Create("\"", 250)
             
             #line 16 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
-, Tuple.Create(Tuple.Create("", 238), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 222), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 238), false)
+, 222), false)
 );
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">   \r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -107,21 +107,6 @@ WriteLiteral("            ");
 
             
             #line 18 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
-       Write(Html.EditableId(m => m.Id));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>    \r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("            ");
-
-            
-            #line 21 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.lone));
 
             
@@ -136,7 +121,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 25 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
+            #line 22 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
        Write(Html.TemplateField(m => m.Type, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -151,7 +136,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
        Write(Html.TemplateField(m => m.ProofLink, FieldFlex.lone));
 
             
@@ -166,7 +151,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\DenialReason.cshtml"
        Write(Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             

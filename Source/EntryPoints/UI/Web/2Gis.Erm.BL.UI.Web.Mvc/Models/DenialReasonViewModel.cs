@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class DenialReasonViewModel : EditableIdEntityViewModelBase<DenialReason>
+    public sealed class DenialReasonViewModel : EntityViewModelBase<DenialReason>
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -38,7 +38,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             ProofLink = modelDto.ProofLink;
             Type = modelDto.Type;
             Timestamp = modelDto.Timestamp;
-            IdentityServiceUrl = modelDto.IdentityServiceUrl;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
