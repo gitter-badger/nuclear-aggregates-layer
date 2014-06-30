@@ -1719,6 +1719,9 @@
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Mnou zamítnuté objednávky, které jsou nyní ve stavu „Vyřizuje se“</value>
   </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Úkoly zpracování potenciálních klientů</value>
   </data>

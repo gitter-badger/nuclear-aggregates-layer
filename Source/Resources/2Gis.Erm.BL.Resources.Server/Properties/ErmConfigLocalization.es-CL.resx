@@ -1719,6 +1719,9 @@
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Órdenes rechazadas por mí que están en estado En trámite de formalización</value>
   </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Tareas con clientes interesados</value>
   </data>

@@ -1719,6 +1719,9 @@
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value />
   </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value />
+  </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value />
   </data>

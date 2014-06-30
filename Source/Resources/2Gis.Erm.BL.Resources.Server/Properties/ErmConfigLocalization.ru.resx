@@ -1719,6 +1719,9 @@
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Отклоненные мною заказы, которые сейчас в статусе "На оформлении"</value>
   </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>Быстрый поиск заказов</value>
+  </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Задачи по теплым клиентам</value>
   </data>

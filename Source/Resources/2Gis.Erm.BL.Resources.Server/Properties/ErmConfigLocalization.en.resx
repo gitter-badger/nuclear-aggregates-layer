@@ -1719,6 +1719,9 @@
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Orders rejected by me that currently have &quot;Preparation&quot; status</value>
   </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Tasks related to Warm Leads</value>
   </data>
