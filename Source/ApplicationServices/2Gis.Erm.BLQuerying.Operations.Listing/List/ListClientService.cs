@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -47,8 +48,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _finder = finder;
         }
 
-        protected override IEnumerable<ListClientDto> List(QuerySettings querySettings,
-            out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
 
@@ -73,7 +73,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var debtFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithDebt", info =>
             {
                 var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
-                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Accounts.Any(z => !z.IsDeleted && z.IsActive && z.Balance < minDebtAmount));
+                return x => x.LegalPersons.Where(y => y.IsActive && !y.IsDeleted)
+                          .SelectMany(y => y.Accounts).Where(y => y.IsActive && !y.IsDeleted)
+                          .Any(y => y.Balance < minDebtAmount);
             });
 
             var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithBarterOrders", info =>
@@ -119,13 +121,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter, reserveFilter, myFilter);
 
-            IEnumerable<ListClientDto> clients;
-            if (TryGetClientsRestrictedByUser(query, querySettings, out clients, out count))
+            RemoteCollection<ListClientDto> clients;
+            if (TryGetClientsRestrictedByUser(query, querySettings, out clients))
             {
                 return clients;
             }
 
-            if (TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, out clients, out count))
+            if (TryGetClientsRestrictedByMergeClientPrivilege(query, querySettings, out clients))
             {
                 return clients;
             }
@@ -186,17 +188,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , dealFilter
                     , firmFilter
                     , todayFilter)
-                    , querySettings, out count);
+                    , querySettings);
         }
 
         private bool TryGetClientsRestrictedByUser(
             IQueryable<Client> query,
             QuerySettings querySettings,
-            out IEnumerable<ListClientDto> clients,
-            out int count)
+            out RemoteCollection<ListClientDto> clients)
         {
             clients = null;
-            count = 0;
 
             var currentUserFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "filterToCurrentUser",
@@ -215,7 +215,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .Filter(_filterHelper, userFilter, currentUserFilter)
-                                    , querySettings, out count);
+                                    , querySettings);
                 return true;
             }
 
@@ -225,11 +225,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private bool TryGetClientsRestrictedByMergeClientPrivilege(
             IQueryable<Client> query,
             QuerySettings querySettings,
-            out IEnumerable<ListClientDto> clients,
-            out int count)
+            out RemoteCollection<ListClientDto> clients)
         {
             clients = null;
-            count = 0;
 
             var currentIdentity = _userContext.Identity;
 
@@ -268,7 +266,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 clients = SelectClients(query
                                     .Where(x => !x.IsDeleted)
                                     .Filter(_filterHelper, restrictForMergeIdFilter)
-                                    , querySettings, out count);
+                                    , querySettings);
 
                 return true;
             }
@@ -296,7 +294,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return priorities[maxPriority];
         }
 
-        private IEnumerable<ListClientDto> SelectClients(IQueryable<Client> clients, QuerySettings querySettings, out int count)
+        private RemoteCollection<ListClientDto> SelectClients(IQueryable<Client> clients, QuerySettings querySettings)
         {
             return clients.Select(x => new ListClientDto
             {
@@ -315,12 +313,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 CreatedOn = x.CreatedOn,
-                InformationSource = (InformationSource)x.InformationSource,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
+                InformationSourceEnum = (InformationSource)x.InformationSource,
                 OwnerName = null,
             })
-            .QuerySettings(_filterHelper, querySettings, out count)
-            .Select(x =>
+            .QuerySettings(_filterHelper, querySettings)
+            .Transform(x =>
             {
                 x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                 return x;

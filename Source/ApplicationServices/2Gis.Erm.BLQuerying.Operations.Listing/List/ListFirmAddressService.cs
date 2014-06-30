@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListFirmAddressDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<FirmAddress>();
 
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsDeleted = x.IsDeleted,
                     ClosedForAscertainment = x.ClosedForAscertainment,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
@@ -19,11 +20,15 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
         [Subject(typeof(TransformRelations))]
         class When_get_related_doc_types_for_not_supported_entity_type : TransformRelationsContext
         {
-            Because of = () => Result = Target.GetRelatedDocTypes(Mock.Of<Type>());
+            Because of = () =>
+            {
+                IEnumerable<Type> docTypes;
+                Result = Target.TryGetRelatedDocTypes(Mock.Of<Type>(), out docTypes);
+            };
 
-            It should_return_empty_array = () => Result.Should().BeEmpty();
+            It should_return_false = () => Result.ShouldBeEquivalentTo(false);
 
-            static Type[] Result;
+            static bool Result;
         }
 
         [Subject(typeof(TransformRelations))]
@@ -40,7 +45,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                 Target.RegisterRelation(new DocRelation(_expectedAnotherDocType, new Link(_entityType, Mock.Of<IDocsQueryBuilder>())));
             };
 
-            Because of = () => Result = Target.GetRelatedDocTypes(_entityType);
+            Because of = () => Target.TryGetRelatedDocTypes(_entityType, out Result);
 
             It should_return_all_mapped_doc_types = () =>
                 Result.Should().Contain(new[] { _expectedDocType, _expectedAnotherDocType });
@@ -49,7 +54,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             static Type _entityType;
             static Type _expectedAnotherDocType;
 
-            static Type[] Result { get; set; }
+            static IEnumerable<Type> Result;
         }
 
         [Subject(typeof(TransformRelations))]
@@ -67,10 +72,18 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             Because of = () => Target.RegisterRelation(DocRelation);
 
             It should_return_mapped_doc_type_by_entity_type = () =>
-                Target.GetRelatedDocTypes(_entityType).Should().OnlyContain(t => t == _expectedDocType);
+                {
+                    IEnumerable<Type> docTypes;
+                    Target.TryGetRelatedDocTypes(_entityType, out docTypes);
+                    docTypes.Should().OnlyContain(t => t == _expectedDocType);
+                };
 
             It should_return_mapped_doc_type_by_another_entity_type = () =>
-                Target.GetRelatedDocTypes(_anotherEntityType).Should().OnlyContain(t => t == _expectedDocType);
+                {
+                    IEnumerable<Type> docTypes;
+                    Target.TryGetRelatedDocTypes(_anotherEntityType, out docTypes);
+                    docTypes.Should().OnlyContain(t => t == _expectedDocType);
+                };
 
             private static Type _expectedDocType;
             private static Type _entityType;

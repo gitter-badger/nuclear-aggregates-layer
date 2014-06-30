@@ -36,11 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Nest, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.Signed.0.12.0.0\lib\NET4\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,28 +58,35 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Extensions\ByteExtensions.cs" />
-    <Compile Include="Extensions\LinqExtensions.cs" />
-    <Compile Include="Indexers\Raw\RawDocumentIndexer.cs" />
+    <Compile Include="DI\QdsOperationsAssembly.cs" />
+    <Compile Include="Indexers\DefferedDocumentUpdater.cs" />
+    <Compile Include="Indexers\FirmIndexer.cs" />
+    <Compile Include="Indexers\OrderIndexer.cs" />
     <Compile Include="Indexers\Raw\RawEntityIndexer.cs" />
-    <Compile Include="Indexers\RecordIdStateIndexer.cs" />
     <Compile Include="Indexers\TerritoryIndexer.cs" />
     <Compile Include="Indexers\UserIndexer.cs" />
     <Compile Include="Indexers\ClientIndexer.cs" />
     <Compile Include="Infrastructure\FilterHelper.cs" />
+    <Compile Include="Metadata\QdsDefaultFilterMetadata.cs" />
+    <Compile Include="QdsListFirmService.cs" />
     <Compile Include="QdsListClientService.cs" />
+    <Compile Include="QdsListOrderService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
-      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
-      <Name>2Gis.Erm.BLCore.Operations</Name>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
-      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -95,9 +105,17 @@
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
@@ -132,7 +150,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Metadata\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

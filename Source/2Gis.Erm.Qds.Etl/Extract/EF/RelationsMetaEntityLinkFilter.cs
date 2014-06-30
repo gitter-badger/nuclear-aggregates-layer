@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
@@ -7,7 +8,7 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
 {
     public class RelationsMetaEntityLinkFilter : IEntityLinkFilter
     {
-        readonly ITransformRelations _ralations;
+        readonly ITransformRelations _relations;
 
         public RelationsMetaEntityLinkFilter(ITransformRelations ralations)
         {
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
                 throw new ArgumentNullException("ralations");
             }
 
-            _ralations = ralations;
+            _relations = ralations;
         }
 
         public bool IsSupported(EntityLink link)
@@ -26,8 +27,9 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
                 throw new ArgumentNullException("link");
             }
 
-            var docTypes = _ralations.GetRelatedDocTypes(link.Name.AsEntityType());
-            return docTypes != null && docTypes.Length > 0;
+            var key = link.Name.AsEntityType();
+            IEnumerable<Type> docTypes;
+            return _relations.TryGetRelatedDocTypes(key, out docTypes);
         }
     }
 }

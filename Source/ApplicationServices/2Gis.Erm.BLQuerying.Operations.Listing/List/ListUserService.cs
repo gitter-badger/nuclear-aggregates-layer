@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListUserDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<User>();
 
@@ -99,7 +100,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                .QuerySettings(_filterHelper, querySettings);
         }
 
         private static Expression<Func<User, bool>> GetSubordinatesFilter(IQueryable<User> query, Expression<Func<User, bool>> subordinatesFilter)

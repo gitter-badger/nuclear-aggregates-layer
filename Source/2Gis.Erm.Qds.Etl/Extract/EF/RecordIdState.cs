@@ -2,13 +2,13 @@
 {
     public class RecordIdState : ITrackState, IDoc
     {
-        public RecordIdState(long id, long recordId)
+        public RecordIdState(string id, string recordId)
         {
             Id = id;
             RecordId = recordId;
         }
 
-        public long Id { get; set; }
-        public long RecordId { get; private set; }
+        public string Id { get; set; }
+        public string RecordId { get; private set; }
     }
 }

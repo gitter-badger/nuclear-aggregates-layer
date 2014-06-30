@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DoubleGis.Erm.Qds.Etl.Transform.EF
 {
@@ -23,28 +25,21 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
             _transformRelations = transformRelations;
         }
 
-        public IDocsUpdater[] GetDocsUpdaters(Type partType)
+        public IEnumerable<IDocsUpdater> GetDocsUpdaters(Type partType)
         {
             if (partType == null)
             {
                 throw new ArgumentNullException("partType");
             }
 
-            var docTypes = GetDocTypesByEntityType(partType);
-
-            var modifiers = new IDocsUpdater[docTypes.Length];
-            for (int i = 0; i < docTypes.Length; i++)
+            IEnumerable<Type> docTypes;
+            if (!_transformRelations.TryGetRelatedDocTypes(partType, out docTypes))
             {
-                var docType = docTypes[i];
-                modifiers[i] = _docUpdatersRegistry.GetUpdater(docType);
+                throw new ArgumentNullException("partType"); // FIXME {all, 24.04.2014}: Непонятно, почему argumentnullexception? Нет теста на это исключение
             }
 
-            return modifiers;
-        }
-
-        private Type[] GetDocTypesByEntityType(Type entityType)
-        {
-            return _transformRelations.GetRelatedDocTypes(entityType);
+            var updaters = docTypes.Select(x => _docUpdatersRegistry.GetUpdater(x));
+            return updaters;
         }
     }
 }

@@ -17,19 +17,38 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
     class DocsStorageChangesTrackerStateSpecs
     {
         [Subject(typeof(DocsStorageChangesTrackerState))]
+        class When_get_by_id_throws_exception : DocsStorageChangesTrackerStateContext
+        {
+            Establish context = () =>
+                {
+                    ExpectedInner = new Exception();
+                    DocsStorage.Setup(d => d.GetById<RecordIdState>(DocsStorageChangesTrackerState.StateRecordId))
+                        .Throws(ExpectedInner);
+                };
+
+            Because of = () => Result = Catch.Exception(() => Target.GetState());
+
+            It should_throw_specified_exception = () => Result.Should().BeOfType<TrackerStateException>();
+            It should_contains_original_exception_as_inner = () => Result.InnerException.Should().Be(ExpectedInner);
+
+            static Exception Result;
+            static Exception ExpectedInner;
+        }
+
+        [Subject(typeof(DocsStorageChangesTrackerState))]
         class When_set_state_with_same_id : DocsStorageChangesTrackerStateContext
         {
             Establish context = () =>
                 {
-                    _oldRecordId = 42;
-                    SetupDocStorageByState(new RecordIdState(0, _oldRecordId));
+                    _oldRecordId = "42";
+                    SetupDocStorageByState(new RecordIdState("0", _oldRecordId));
                 };
 
-            Because of = () => Target.SetState(new RecordIdState(0, _oldRecordId));
+            Because of = () => Target.SetState(new RecordIdState("0", _oldRecordId));
 
             It should_not_update_state = () => DocsStorage.Verify(s => s.Update(Moq.It.IsAny<IEnumerable<IDoc>>()), Times.Never);
 
-            static long _oldRecordId;
+            static string _oldRecordId;
         }
 
         [Subject(typeof(DocsStorageChangesTrackerState))]
@@ -37,10 +56,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
         {
             Establish context = () =>
             {
-                var oldState = new RecordIdState(0, 0);
+                var oldState = new RecordIdState("0", "0");
                 SetupDocStorageByState(oldState);
 
-                _expectedState = new RecordIdState(0, 123);
+                _expectedState = new RecordIdState("0", "123");
             };
 
             Because of = () => Target.SetState(_expectedState);
@@ -55,8 +74,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
         {
             Establish context = () =>
                 {
-                    _expectedState = new RecordIdState(0, 123);
-                    SetupDocStorageByState(_expectedState);
+                    _expectedState = new RecordIdState("0", "123");
+                    DocsStorage.Setup(d => d.GetById<RecordIdState>("0")).Returns(_expectedState);
                 };
 
             Because of = () => _result = Target.GetState();
@@ -70,12 +89,11 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
         class DocsStorageChangesTrackerStateContext
         {
             Establish context = () =>
-                {
-                    DocsStorage = new Mock<IDocsStorage>();
-                    QueryDsl = new Mock<IQueryDsl>();
+            {
+                DocsStorage = new Mock<IDocsStorage>();
 
-                    Target = new DocsStorageChangesTrackerState(DocsStorage.Object, QueryDsl.Object);
-                };
+                Target = new DocsStorageChangesTrackerState(DocsStorage.Object);
+            };
 
             protected static void SetupDocStorageByState(RecordIdState state)
             {
@@ -83,17 +101,12 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                 {
                     throw new ArgumentNullException("state");
                 }
-
                 var query = Mock.Of<IDocsQuery>();
 
-                QueryDsl.Setup(dsl => dsl.ByFieldValue(DocsStorageChangesTrackerState.IdFieldName, DocsStorageChangesTrackerState.StateRecordId)).Returns(query);
-                DocsStorage.Setup(s => s.Find<RecordIdState>(query)).Returns(new[] { state });
+                DocsStorage.Setup(s => s.GetById<RecordIdState>(DocsStorageChangesTrackerState.StateRecordId)).Returns(state);
             }
 
-            protected static Mock<IQueryDsl> QueryDsl { get; private set; }
-
             protected static Mock<IDocsStorage> DocsStorage { get; private set; }
-
             protected static DocsStorageChangesTrackerState Target { get; private set; }
         }
     }

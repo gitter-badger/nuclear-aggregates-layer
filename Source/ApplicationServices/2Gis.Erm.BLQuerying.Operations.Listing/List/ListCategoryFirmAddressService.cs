@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -25,8 +26,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userContext = userContext;
             _filterHelper = filterHelper;
         }
-        
-        protected override IEnumerable<ListCategoryFirmAddressDto> List(QuerySettings querySettings, out int count)
+
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<CategoryFirmAddress>();
 
@@ -110,11 +111,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 });
             }
 
-            return data.QuerySettings(_filterHelper, querySettings, out count).Select(x =>
-            {
-                x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
-                return x;
-            });
+            return data
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
+                {
+                    x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
+                    return x;
+                });
         }
     }
 }

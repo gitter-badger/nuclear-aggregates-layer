@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListLimitDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Limit>();
 
@@ -102,15 +103,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Status = null,
                     InspectorName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
                 {
                     x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     x.InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName;
 
                     return x;
-                    });
+                });
         }
     }
 }

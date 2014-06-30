@@ -16,6 +16,8 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,25 +36,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Docs\AccountDoc.cs" />
+    <Compile Include="Docs\LegalPersonDoc.cs" />
+    <Compile Include="Docs\MigrationDoc.cs" />
+    <Compile Include="Docs\FirmGridDoc.cs" />
     <Compile Include="Docs\ClientGridDoc.cs" />
     <Compile Include="Docs\DocumentAuthorization.cs" />
     <Compile Include="Docs\IAuthorizationDoc.cs" />
+    <Compile Include="Docs\OperationPermission.cs" />
+    <Compile Include="Docs\OrderGridDoc.cs" />
+    <Compile Include="Docs\ReplicationQueue.cs" />
     <Compile Include="Docs\TerritoryDoc.cs" />
     <Compile Include="Docs\UserDoc.cs" />
     <Compile Include="IDoc.cs" />
@@ -60,15 +64,15 @@
     <Compile Include="IDocsQueryBuilder.cs" />
     <Compile Include="IDocsStorage.cs" />
     <Compile Include="IQueryDsl.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="2Gis.Erm.PublicKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

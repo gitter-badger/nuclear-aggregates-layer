@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Docs;
-using DoubleGis.Erm.Qds.Operations.Extensions;
 
 using Nest;
 
@@ -25,14 +21,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
         private readonly IFinder _finder;
         private readonly IEntityIndexerIndirect<Client> _clientIndexer;
         private readonly IElasticApi _elasticApi;
-        private readonly ISearchSettings _searchSettings;
 
-        public TerritoryIndexer(IFinder finder, IEntityIndexerIndirect<Client> clientIndexer, IElasticApi elasticApi, ISearchSettings searchSettings)
+        public TerritoryIndexer(IFinder finder, IEntityIndexerIndirect<Client> clientIndexer, IElasticApi elasticApi)
         {
             _finder = finder;
             _clientIndexer = clientIndexer;
             _elasticApi = elasticApi;
-            _searchSettings = searchSettings;
         }
 
         void IEntityIndexer<Territory>.IndexEntities(params long[] ids)
@@ -56,11 +50,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
         void IDocumentIndexer<TerritoryDoc>.IndexAllDocuments()
         {
             var allEntities = _finder.FindAll<Territory>();
-            var result = GetTerritoryDoc(allEntities, true);
-            _elasticApi.BulkExclusive<TerritoryDoc>(result);
+            var result = GetTerritoryDoc(allEntities);
+            _elasticApi.Bulk(result);
+            _elasticApi.Refresh(x => x.Index<TerritoryDoc>());
         }
 
-        private IEnumerable<BulkDescriptor> GetTerritoryDoc(IQueryable<Territory> query, bool indirectly = false)
+        private IEnumerable<Func<BulkDescriptor, BulkDescriptor>> GetTerritoryDoc(IQueryable<Territory> query, bool indirectly = false)
         {
             var dtos = query.Select(x => new
             {
@@ -69,28 +64,20 @@ namespace DoubleGis.Erm.Qds.Operations.Indexers
                 x.Timestamp,
             });
 
-            var indexDescriptors = dtos
+            var bulkDescriptors = dtos
                 .AsEnumerable()
-                .Select(x => new BulkIndexDescriptor<TerritoryDoc>()
-                .Id(x.Id.ToString(CultureInfo.InvariantCulture))
-                .Version(x.Timestamp, indirectly)
-                .Object(new TerritoryDoc
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                }));
+                .Select(x => new Func<BulkDescriptor, BulkDescriptor>(bulkDescriptor => bulkDescriptor
+                    .Index<TerritoryDoc>(bulkIndexDescriptor => bulkIndexDescriptor
+                        .Id(x.Id.ToString(CultureInfo.InvariantCulture))
+                        .Object(new TerritoryDoc
+                        {
+                            Id = x.Id.ToString(),
+                            Name = x.Name,
+                        })
+                    ))
+            );
 
-            return indexDescriptors.Batch(_searchSettings.BatchSize).Select(batch =>
-            {
-                var bulkDescriptor = new BulkDescriptor();
-                foreach (var iterator in batch)
-                {
-                    var indexDescriptor = iterator;
-                    bulkDescriptor.Index<TerritoryDoc>(x => indexDescriptor);
-                }
-
-                return bulkDescriptor;
-            });
+            return bulkDescriptors;
         }
     }
 }

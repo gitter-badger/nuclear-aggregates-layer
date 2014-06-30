@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -148,37 +149,35 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                     ParentEntityName = parentType
                 };
 
-            var listResult = listService.List(searchListModel);
+            var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
 
-            listResult.MainAttribute = GetMainAtribute(entityName, nameLocaleResourceId);
-
-            return listResult;
-        }
-
-        // TODO Зарефакторить, list service не должен знать ничего о UI метаданных
-        private string GetMainAtribute(EntityName entityName, string nameLocaleResourceId)
-        {
-            try
+            DataListStructure dataListStructure;
+            if (!string.IsNullOrEmpty(nameLocaleResourceId))
             {
-                var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-                var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
-
-                var dataListStructure = !string.IsNullOrEmpty(nameLocaleResourceId)
-                                            ? gridSettings.DataViews.Single(
-                                                x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase))
-                                            : gridSettings.DataViews.First();
-
-                if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
-                {
-                    throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
-                }
-
-                return dataListStructure.MainAttribute;
+                dataListStructure = gridSettings.DataViews.Single(
+                    x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase));
             }
-            catch
+            else
             {
-                return null;
+                // lookup case
+                dataListStructure = gridSettings.DataViews.First();
+                searchListModel.Sort = dataListStructure.DefaultSortField;
             }
+
+            if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
+            {
+                throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
+            }
+
+            var remoteCollection = listService.List(searchListModel);
+
+            return new EntityDtoListResult
+            {
+                Data = remoteCollection,
+                RowCount = remoteCollection.TotalCount,
+                MainAttribute = dataListStructure.MainAttribute,
+            };
         }
     }
 }

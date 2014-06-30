@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.Qds;
+using DoubleGis.Erm.Qds.Common;
 
 using FluentAssertions;
 
@@ -19,6 +19,31 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
     class ElasticDocsStorageSpecs
     {
         [Subject(typeof(ElasticDocsStorage))]
+        class When_get_by_id : ElasticDocsStorageContext
+        {
+            Establish context = () =>
+                {
+                    ExpectedDoc = new TestDoc { Id = "42" };
+                    ElasticApi.Setup(api => api.Get<TestDoc>("42")).Returns(ExpectedDoc);
+                };
+
+            Because of = () => Result = Target.GetById<TestDoc>("42");
+
+            It should_refresh_elastic_api = () => Result.Should().Be(ExpectedDoc);
+
+            static TestDoc ExpectedDoc;
+            static TestDoc Result;
+        }
+
+        [Subject(typeof(ElasticDocsStorage))]
+        class When_flush : ElasticDocsStorageContext
+        {
+            Because of = () => Target.Flush();
+
+            It should_refresh_elastic_api = () => ElasticApi.Verify(es => es.Refresh(null), Times.Once);
+        }
+
+        [Subject(typeof(ElasticDocsStorage))]
         class When_find : ElasticDocsStorageContext
         {
             Establish context = () =>
@@ -27,13 +52,14 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
                 FirstExpectedDoc = new TestDoc();
                 SecondExpectedDoc = new TestDoc();
 
-                IQueryResponse<TestDoc> firstResponse;
+                ISearchResponse<TestDoc> firstResponse;
                 var firstPageDescriptor = SetupPageSearchDescriptor(FirstExpectedDoc, out firstResponse);
 
-                IQueryResponse<TestDoc> secondResponse;
+                ISearchResponse<TestDoc> secondResponse;
                 var secondPageDescriptor = SetupPageSearchDescriptor(SecondExpectedDoc, out secondResponse);
 
                 ElasticMeta.Setup(em => em.CreatePage<TestDoc>(Query)).Returns(firstPageDescriptor);
+
                 ElasticMeta.Setup(em => em.NextPage(firstPageDescriptor, firstResponse)).Returns(secondPageDescriptor);
                 ElasticMeta.Setup(em => em.NextPage(secondPageDescriptor, secondResponse)).Returns<PagedSearchDescriptor<TestDoc>>(null);
             };
@@ -42,16 +68,18 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             It should_return_docs_for_each_result = () => Result.Should().BeEquivalentTo(new object[] { FirstExpectedDoc, SecondExpectedDoc });
 
-            static PagedSearchDescriptor<TestDoc> SetupPageSearchDescriptor(TestDoc expectedDoc, out IQueryResponse<TestDoc> queryResponse)
+            static PagedSearchDescriptor<TestDoc> SetupPageSearchDescriptor(TestDoc expectedDoc, out ISearchResponse<TestDoc> queryResponse)
             {
-                var mockQueryResponse = new Mock<IQueryResponse<TestDoc>>();
+                var mockQueryResponse = new Mock<ISearchResponse<TestDoc>>();
                 mockQueryResponse.SetupGet(q => q.Documents).Returns(new[] { expectedDoc });
                 queryResponse = mockQueryResponse.Object;
 
-                var searchDescriptor = new PagedSearchDescriptor<TestDoc>(new SearchDescriptor<TestDoc>(), 0, 40);
-                ElasticClient.Setup(e => e.Search(searchDescriptor.SearchDescriptor)).Returns(queryResponse);
+                var sd = new SearchDescriptor<TestDoc>();
 
-                return searchDescriptor;
+                var pagedSearchDescriptor = new PagedSearchDescriptor<TestDoc>(x => sd, 0, 42);
+                ElasticApi.Setup(e => e.Search(Moq.It.Is<Func<SearchDescriptor<TestDoc>, SearchDescriptor<TestDoc>>>(f => f(null) == sd))).Returns(queryResponse);
+
+                return pagedSearchDescriptor;
             }
 
             static IEnumerable<TestDoc> Result;
@@ -60,61 +88,18 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
             static IDocsQuery Query;
         }
 
-        [Subject(typeof(ElasticDocsStorage))]
-        class When_find_and_serach_response_is_not_valid : ElasticDocsStorageContext
-        {
-            Establish context = () =>
-            {
-                var invalidResponse = Mock.Of<IQueryResponse<TestDoc>>();
-                ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<ElasticException>();
-
-                ElasticClient.Setup(e => e.Search(Moq.It.IsAny<SearchDescriptor<TestDoc>>())).Returns(invalidResponse);
-
-                ElasticMeta.Setup(m => m.CreatePage<TestDoc>(Moq.It.IsAny<IDocsQuery>()))
-                    .Returns(new PagedSearchDescriptor<TestDoc>(new SearchDescriptor<TestDoc>(), 0, 40));
-            };
-
-            Because of = () => Result = Catch.Exception(() => Target.Find<TestDoc>(Mock.Of<IDocsQuery>()).ToArray());
-
-            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<ElasticException>();
-
-            static Exception Result;
-        }
-
-        [Subject(typeof(ElasticDocsStorage))]
-        class When_update_and_index_response_is_not_valid : ElasticDocsStorageContext
-        {
-            Establish context = () =>
-                {
-                    TestDoc = Mock.Of<IDoc>();
-                    var invalidResponse = Mock.Of<IndexResponse>();
-                    ElasticClient.Setup(e => e.Index(TestDoc, Moq.It.IsAny<string>(), Moq.It.IsAny<string>())).Returns(invalidResponse);
-
-                    ResponseHandler.Setup(h => h.ThrowWhenError(invalidResponse)).Throws<ElasticException>();
-                };
-
-            Because of = () => Result = Catch.Exception(() => Target.Update(new[] { TestDoc }));
-
-            It should_throw_docs_storage_exception = () => Result.Should().NotBeNull().And.BeOfType<ElasticException>();
-
-            static Exception Result;
-            static IDoc TestDoc;
-        }
-
         class ElasticDocsStorageContext
         {
             Establish context = () =>
                 {
-                    ElasticClient = new Mock<IElasticClient>();
-                    ElasticMeta = new Mock<IElasticMeta>();
-                    ResponseHandler = new Mock<IElasticResponseHandler>();
+                    ElasticApi = new Mock<IElasticApi>();
+                    ElasticMeta = new Mock<ISearchDescriptorPaging>();
 
-                    Target = new ElasticDocsStorage(new MockElasticClientFactory(ElasticClient.Object), ElasticMeta.Object, ResponseHandler.Object);
+                    Target = new ElasticDocsStorage(ElasticApi.Object, ElasticMeta.Object);
                 };
 
-            protected static Mock<IElasticResponseHandler> ResponseHandler { get; private set; }
-            protected static Mock<IElasticClient> ElasticClient { get; private set; }
-            protected static Mock<IElasticMeta> ElasticMeta { get; private set; }
+            protected static Mock<IElasticApi> ElasticApi { get; private set; }
+            protected static Mock<ISearchDescriptorPaging> ElasticMeta { get; private set; }
             protected static ElasticDocsStorage Target { get; private set; }
         }
     }

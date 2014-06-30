@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userContext = userContext;
         }
 
-        protected override IEnumerable<ListFirmDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Firm>();
 
@@ -130,8 +131,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         ClosedForAscertainment = x.ClosedForAscertainment,
                         OwnerName = null,
                     })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
                 {
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     return x;

@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Клиенты в резерве на моей территории
             .RegisterFilter<ListClientDto>("DListReservedClientsOnMyTerritory", x => x.IsActive && !x.IsDeleted)
             // Мои теплые клиенты
-            .RegisterFilter<ListClientDto>("DListMyWarmClients", x => x.IsActive && !x.IsDeleted && x.InformationSource == InformationSource.WarmClient)
+            .RegisterFilter<ListClientDto>("DListMyWarmClients", x => x.IsActive && !x.IsDeleted && x.InformationSourceEnum == InformationSource.WarmClient)
             // Клиенты, у которых есть заказы с типом Бартер
             .RegisterFilter<ListClientDto>("DListClientsWithBarter", x => x.IsActive && !x.IsDeleted)
             // Мои клиенты без ЛПР
@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Клиенты по моим подчиненным
             .RegisterFilter<ListClientDto>("DListClientsForSubordinates", x => x.IsActive && !x.IsDeleted)
             // Теплые клиенты моих подчиненных
-            .RegisterFilter<ListClientDto>("DListWarmClientsForSubordinates", x => x.IsActive && !x.IsDeleted && x.InformationSource == InformationSource.WarmClient)
+            .RegisterFilter<ListClientDto>("DListWarmClientsForSubordinates", x => x.IsActive && !x.IsDeleted && x.InformationSourceEnum == InformationSource.WarmClient)
             // Клиенты моих подчиненных, у которых есть заказы с типом Бартер
             .RegisterFilter<ListClientDto>("DListClientsWithBarterForSubordinates", x => x.IsActive && !x.IsDeleted)
             // Клиенты моих подчиненных без ЛПР
@@ -181,7 +181,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои фирмы
             .RegisterFilter<ListFirmDto>("DListMyFirms", x => x.IsActive && !x.IsDeleted)
             // Фирмы в резерве на моей территории
-            .RegisterFilter<ListFirmDto>("DListReservedFirmsOnMyTerritories", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2 ))
+            .RegisterFilter<ListFirmDto>("DListReservedFirmsOnMyTerritories", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2))
             // Новые фирмы моей территории
             .RegisterFilter<ListFirmDto>("DListNewFirmsOnMyTerritories", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment)
             // Все фирмы по филиалу
@@ -403,7 +403,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 return true;
             }
 
-            return FilterMap.TryGetValue(Tuple.Create(typeof(TDocument), filterName), out expression);
+            var key = Tuple.Create(typeof(TDocument), filterName);
+            return FilterMap.TryGetValue(key, out expression);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
             _docsModifierRegistry = docsModifierRegistry;
         }
 
-        public void DenormalizeByType(Type entityType, IEnumerable<IEntityKey> entities)
+        public void DenormalizeByType(Type entityType, IQueryable<IEntityKey> entities)
         {
             if (entityType == null)
             {
@@ -32,11 +32,11 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.EF
                 throw new ArgumentNullException("entities");
             }
 
-            var array = entities.ToArray();
-
-            foreach (var modifier in _docsModifierRegistry.GetDocsUpdaters(entityType))
+            var updaters = _docsModifierRegistry.GetDocsUpdaters(entityType);
+            foreach (var updater in updaters)
             {
-                _list.AddRange(modifier.UpdateDocuments(array));
+                var documents = updater.UpdateDocuments(entities);
+                _list.AddRange(documents);
             }
         }
 

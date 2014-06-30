@@ -46,12 +46,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="DocumentMetadata.cs" />
-    <Compile Include="Documents\MigrationDoc.cs" />
+    <Compile Include="IDefferedDocumentUpdater.cs" />
     <Compile Include="Indexers\IDocumentIndexer.cs" />
     <Compile Include="Indexers\IEntityIndexer.cs" />
     <Compile Include="Indexers\IEntityIndexerIndirect.cs" />
-    <Compile Include="Indexers\Raw\IRawDocumentIndexer.cs" />
     <Compile Include="Indexers\Raw\IRawEntityIndexer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,18 +57,12 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
-      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
-      <Name>2Gis.Erm.Qds.Etl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
       <Name>2Gis.Erm.Qds</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Authorization\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

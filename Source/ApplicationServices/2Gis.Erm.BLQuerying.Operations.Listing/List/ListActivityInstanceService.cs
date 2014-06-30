@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListActivityInstanceDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<ActivityInstance>();
 
@@ -131,8 +132,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Priority = null,
                     Status = null,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count)
-                .Select(x =>
+                .QuerySettings(_filterHelper, querySettings)
+                .Transform(x =>
                 {
                     x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        protected override IEnumerable<ListOperationTypeDto> List(QuerySettings querySettings, out int count)
+        protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<OperationType>();
 
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Name = x.Name,
                     OperationTypeName = x.IsPlus ? BLResources.Charge : BLResources.Withdrawal,
                 })
-                .QuerySettings(_filterHelper, querySettings, out count);
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

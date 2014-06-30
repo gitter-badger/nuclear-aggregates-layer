@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
         {
             Establish context = () =>
             {
-                var entityKeys = new [] {Mock.Of<IEntityKey>()};
+                var entityKeys = new [] {Mock.Of<IEntityKey>()}.AsQueryable();
 
                 Updater = CreateUpdaterFor(entityKeys, new[] { Mock.Of<IDoc>() });
                 DocumentsMetaDataSetupGetModifiers(Updater.Object);
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
         {
             Establish context = () =>
             {
-                var entityKeys = new[] { Mock.Of<IEntityKey>() };
+                var entityKeys = new[] { Mock.Of<IEntityKey>() }.AsQueryable();
 
                 ExpectedDocOne = Mock.Of<IDoc>();
                 var modifierOne = CreateUpdaterFor(entityKeys, ExpectedDocOne);
@@ -96,9 +96,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
         {
             Establish context = () =>
                 {
+                    var entityKeys = new[] { Mock.Of<IEntityKey>() }.AsQueryable();
                     Updater = new Mock<IDocsUpdater>();
                     DocumentsMetaDataSetupGetModifiers(Updater.Object, Updater.Object);
-                    FillExtractedData(NewTypedEntitySet<IEntityKey>(Mock.Of<IEntityKey>()));
+                    FillExtractedData(NewTypedEntitySet<IEntityKey>(entityKeys));
                 };
 
             Because of = () => TargetTransform(ExtractedData);
@@ -153,7 +154,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
             protected static ErmData ExtractedData { get; private set; }
             protected static DenormalizedTransformedData Result { get; private set; }
 
-            protected static Mock<IDocsUpdater> CreateUpdaterFor(IEnumerable<IEntityKey> entities, params IDoc[] documents)
+            protected static Mock<IDocsUpdater> CreateUpdaterFor(IQueryable<IEntityKey> entities, params IDoc[] documents)
             {
                 var modifier = new Mock<IDocsUpdater>();
                 modifier.Setup(m => m.UpdateDocuments(entities)).Returns(documents);
@@ -161,7 +162,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
                 return modifier;
             }
 
-            protected static TypedEntitySet NewTypedEntitySet<T>(params IEntityKey[] entityKeys)
+            protected static TypedEntitySet NewTypedEntitySet<T>(IQueryable<IEntityKey> entityKeys)
             {
                 return new TypedEntitySet(typeof(T), entityKeys);
             }

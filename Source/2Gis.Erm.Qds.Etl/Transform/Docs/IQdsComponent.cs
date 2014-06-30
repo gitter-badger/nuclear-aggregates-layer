@@ -7,7 +7,6 @@ namespace DoubleGis.Erm.Qds.Etl.Transform.Docs
         IDocsUpdater CreateDocUpdater();
 
         IDocRelation PartsDocRelation { get; }
-        IDocRelation[] IndirectDocRelations { get; }
 
         IDoc CreateNewDoc(object part);
     }
