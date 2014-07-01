@@ -56,6 +56,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="2.0\2014.07.01 rev. 21813 - Add FastSearch button to MSCRM2.cs" />
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
     <Compile Include="2.0\Migration13546.cs" />
     <Compile Include="2.0\Migration15468.cs" />
@@ -133,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\2014.06.17 rev. 21201\AddFastFindButton.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.07.01 rev. 21813\AddFastFindButton.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
