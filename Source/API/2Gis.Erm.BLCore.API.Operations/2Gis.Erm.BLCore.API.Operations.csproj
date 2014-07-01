@@ -352,7 +352,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\DTO\PlatwormWithPositionsDto.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\IPlatformService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Projects\IProjectService.cs" />
-    <Compile Include="Concrete\Simplified\IHotClientRequestService.cs" />
     <Compile Include="Concrete\Simplified\INoteService.cs" />
     <Compile Include="Concrete\Simplified\IOperationService.cs" />
     <Compile Include="Concrete\Simplified\IPrintFormTemplateService.cs" />

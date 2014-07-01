@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Stickers;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -13,13 +14,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowSticke
 {
     public class ImportHotClientService : IImportHotClientService
     {
-        private readonly IHotClientRequestService _hotClientRequestService;
+        private readonly ICreateHotClientRequestAggregateService _createHotClientRequestAggregateService;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public ImportHotClientService(IOperationScopeFactory operationScopeFactory, IHotClientRequestService hotClientRequestService)
+        public ImportHotClientService(ICreateHotClientRequestAggregateService createHotClientRequestAggregateService,
+                                      IOperationScopeFactory operationScopeFactory)
         {
+            _createHotClientRequestAggregateService = createHotClientRequestAggregateService;
             _operationScopeFactory = operationScopeFactory;
-            _hotClientRequestService = hotClientRequestService;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -31,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowSticke
                 foreach (var request in hotClientServiceBusDtos)
                 {
                     var entity = CreateHotClientRequest(request);
-                    _hotClientRequestService.CreateOrUpdate(entity);
+                    _createHotClientRequestAggregateService.Create(entity);
                 }
 
                 operationScope.Complete();

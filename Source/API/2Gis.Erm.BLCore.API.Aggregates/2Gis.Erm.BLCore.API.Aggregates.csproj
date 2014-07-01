@@ -102,6 +102,8 @@
     <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
     <Compile Include="Clients\IClientRepository.cs" />
     <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\IBindCrmTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />

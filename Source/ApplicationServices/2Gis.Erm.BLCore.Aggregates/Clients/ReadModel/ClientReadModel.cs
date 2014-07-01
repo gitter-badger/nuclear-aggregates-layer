@@ -25,5 +25,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).Single();
         }
+
+        public HotClientRequest GetHotClientRequest(long hotClientRequestId)
+        {
+            return _finder.Find(Specs.Find.ById<HotClientRequest>(hotClientRequestId)).Single();
+        }
     }
 }

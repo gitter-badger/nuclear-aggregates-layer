@@ -83,6 +83,8 @@
     <Compile Include="Activities\ActivityAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
     <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
