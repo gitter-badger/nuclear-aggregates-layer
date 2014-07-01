@@ -16,5 +16,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         OrderPosition = EntityName.OrderPosition, //
         Contact = EntityName.Contact, 
         ActivityInstance = EntityName.ActivityInstance, //
+        HotClientRequest = EntityName.HotClientRequest
     }
 }
