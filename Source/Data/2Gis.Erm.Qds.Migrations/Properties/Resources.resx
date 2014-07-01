@@ -121,4 +121,7 @@
   <data name="Migration_21201" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.06.17 rev. 21201\AddFastFindButton.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Migration_21813" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.01 rev. 21813\AddFastFindButton.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>
