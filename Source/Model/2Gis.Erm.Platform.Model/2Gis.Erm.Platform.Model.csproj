@@ -797,6 +797,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmAddressIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportReferenceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportReferenceItemIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\BindCrmTaskToHotClientRequestIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
