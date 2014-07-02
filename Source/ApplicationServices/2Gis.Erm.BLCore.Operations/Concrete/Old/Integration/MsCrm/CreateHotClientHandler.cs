@@ -5,11 +5,12 @@ using System.Linq;
 using System.Net;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.HotClient;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -32,37 +33,40 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         private const long TelesaleCategoryGroupId = 1;
         private const long DefaultCategoryRate = 1;
 
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+        private readonly ICrmTaskFactory _crmTaskFactory;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly IBindCrmTaskToHotClientRequestAggregateService _bindCrmTaskToHotClientRequestAggregateService;
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IUserReadModel _userReadModel;
-        private readonly IFirmReadModel _firmReadModel;
-        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
-        private readonly IHotClientRequestService _hotClientRequestService;
-        private readonly ICrmTaskFactory _crmTaskFactory;
 
-        public CreateHotClientHandler(IMsCrmSettings msCrmSettings,
-                                      IUserReadModel userReadModel,
+        public CreateHotClientHandler(IBranchOfficeReadModel branchOfficeReadModel,
+                                      ICrmTaskFactory crmTaskFactory,
                                       IFirmReadModel firmReadModel,
-                                      IBranchOfficeReadModel branchOfficeReadModel,
-                                      IHotClientRequestService hotClientRequestService,
-                                      ICrmTaskFactory crmTaskFactory)
+                                      IBindCrmTaskToHotClientRequestAggregateService bindCrmTaskToHotClientRequestAggregateService,
+                                      IMsCrmSettings msCrmSettings,
+                                      IUserReadModel userReadModel)
         {
+            _branchOfficeReadModel = branchOfficeReadModel;
+            _crmTaskFactory = crmTaskFactory;
+            _firmReadModel = firmReadModel;
+            _bindCrmTaskToHotClientRequestAggregateService = bindCrmTaskToHotClientRequestAggregateService;
             _msCrmSettings = msCrmSettings;
             _userReadModel = userReadModel;
-            _firmReadModel = firmReadModel;
-            _branchOfficeReadModel = branchOfficeReadModel;
-            _hotClientRequestService = hotClientRequestService;
-            _crmTaskFactory = crmTaskFactory;
         }
 
         /// <summary>
         /// Cоздаёт задачу для определённого пользователя в MS Dynamics, соответвующую указаному запросу HotClientRequest.
         /// </summary>
-        /// <exception cref="BusinessLogicException">Когда сущность не найдена, не определён исполнитель зазачи или MS Dynamics не создал для нас задачу</exception>
+        /// <exception cref="BusinessLogicException">
+        /// Когда сущность не найдена, не определён исполнитель зазачи или MS Dynamics не
+        /// создал для нас задачу
+        /// </exception>
         /// <exception cref="ErmCommunicationException">При ошибках, связанных со взаимодействием с MS Dynamics</exception>
         /// <returns>Success = true, если интеграция включена, false иначе.</returns>
         protected override CreateHotClientResponse Handle(CreateHotClientRequest request)
         {
-            var hotClientRequest = _hotClientRequestService.GetHotClientRequest(request.Id);
+            var hotClientRequest = _firmReadModel.GetHotClientRequest(request.Id);
             if (hotClientRequest == null)
             {
                 throw new BusinessLogicException(BLResources.EntityNotFound);
@@ -94,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
 
             if (taskId != Guid.Empty)
             {
-                _hotClientRequestService.LinkWithCrmTask(requestEntity.Id, taskId);
+                _bindCrmTaskToHotClientRequestAggregateService.BindWithCrmTask(requestEntity, taskId);
             }
             else
             {
@@ -119,20 +123,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         private TaskCreationDto CreateTaskDto(HotClientRequest requestEntity)
         {
             var hotClientDto = new HotClientRequestDto
-            {
-                Id = requestEntity.Id,
-                ContactName = requestEntity.ContactName,
-                ContactPhone = requestEntity.ContactPhone,
-                CreationDate = requestEntity.CreationDate,
-                Description = requestEntity.Description,
-            };
+                {
+                    Id = requestEntity.Id,
+                    ContactName = requestEntity.ContactName,
+                    ContactPhone = requestEntity.ContactPhone,
+                    CreationDate = requestEntity.CreationDate,
+                    Description = requestEntity.Description,
+                };
 
             if (requestEntity.CardCode != null)
             {
                 var firmCategoryGroups = _firmReadModel.GetFirmAddressCategoryGroups(requestEntity.CardCode.Value);
 
-                var mostExpensiveCategoryGroup = firmCategoryGroups.OrderByDescending(categoryGroup => categoryGroup != null ? categoryGroup.GroupRate : DefaultCategoryRate)
-                                                                   .FirstOrDefault();
+                var mostExpensiveCategoryGroup =
+                    firmCategoryGroups.OrderByDescending(categoryGroup => categoryGroup != null ? categoryGroup.GroupRate : DefaultCategoryRate)
+                                      .FirstOrDefault();
 
                 var isTelesaleTask = mostExpensiveCategoryGroup != null && mostExpensiveCategoryGroup.Id == TelesaleCategoryGroupId;
 
@@ -166,70 +171,72 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         private TaskCreationDto CreateForBranch(HotClientRequestDto hotClientDto, long branchCode)
         {
             return new TaskCreationDto
-            {
-                HotClientDto = hotClientDto,
-                Regarding = null,
-                Strategies = new List<StrategyDto> { ForProjectDirector(branchCode) },
-            };
+                {
+                    HotClientDto = hotClientDto,
+                    Regarding = null,
+                    Strategies = new List<StrategyDto> { ForProjectDirector(branchCode) },
+                };
         }
 
         private TaskCreationDto CreateForClient(HotClientRequestDto hotClientDto, Client client, long firmOrganizationUnitId, bool isTelesaleTask)
         {
             return new TaskCreationDto
-            {
-                HotClientDto = hotClientDto,
-                Regarding = new RegardingObject
                 {
-                    EntityName = EntityName.account.ToString(),
-                    ReplicationCode = client.ReplicationCode,
-                },
-                Strategies = isTelesaleTask
-                                 ? new List<StrategyDto>
+                    HotClientDto = hotClientDto,
+                    Regarding = new RegardingObject
+                        {
+                            EntityName = EntityName.account.ToString(),
+                            ReplicationCode = client.ReplicationCode,
+                        },
+                    Strategies = isTelesaleTask
+                                     ? new List<StrategyDto>
                                          {
                                              ForOrganizationUnitTelesales(firmOrganizationUnitId),
                                              ForOrganizationUnitDirector(firmOrganizationUnitId),
                                          }
-                                 : new List<StrategyDto>
+                                     : new List<StrategyDto>
                                          {
                                              ForClientOwner(client.OwnerCode),
                                              ForOrganizationUnitDirector(firmOrganizationUnitId),
                                          },
-            };
+                };
         }
 
         private TaskCreationDto CreateForFirm(HotClientRequestDto hotClientDto, Firm firm, bool isTelesaleTask)
         {
             return new TaskCreationDto
-            {
-                HotClientDto = hotClientDto,
-                Regarding = new RegardingObject
                 {
-                    EntityName = "dg_firm",
-                    ReplicationCode = firm.ReplicationCode
-                },
-                Strategies = isTelesaleTask
-                                 ? new List<StrategyDto>
+                    HotClientDto = hotClientDto,
+                    Regarding = new RegardingObject
+                        {
+                            EntityName = "dg_firm",
+                            ReplicationCode = firm.ReplicationCode
+                        },
+                    Strategies = isTelesaleTask
+                                     ? new List<StrategyDto>
                                          {
                                              ForOrganizationUnitTelesales(firm.OrganizationUnitId),
                                              ForOrganizationUnitDirector(firm.OrganizationUnitId),
                                          }
-                                 : new List<StrategyDto>
+                                     : new List<StrategyDto>
                                          {
                                              ForFirmOwner(firm.OwnerCode),
                                              ForOrganizationUnitDirector(firm.OrganizationUnitId),
                                          },
-            };
+                };
         }
 
         private UserDto FindOrganizationUnitFranchiseeTelesaleManager(long organizationUnit)
         {
-            var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientTelemarketingProcessingFranchisee);
+            var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit },
+                                                                            FunctionalPrivilegeName.HotClientTelemarketingProcessingFranchisee);
             return GetUserDto(telemarketingUser, user => user != null);
         }
 
         private UserDto FindOrganizationUnitBranchTelesaleManager(long organizationUnit)
         {
-            var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientTelemarketingProcessingBranch);
+            var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit },
+                                                                            FunctionalPrivilegeName.HotClientTelemarketingProcessingBranch);
             return GetUserDto(telemarketingUser, user => user != null);
         }
 
@@ -289,7 +296,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                 case ContributionTypeEnum.Branch:
                     return new StrategyDto("по телепродажам (филиал) OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitBranchTelesaleManager);
                 case ContributionTypeEnum.Franchisees:
-                    return new StrategyDto("по телепродажам (франчайзи) OrganizationUnit.Id = {0}", organizationUnitId, FindOrganizationUnitFranchiseeTelesaleManager);
+                    return new StrategyDto("по телепродажам (франчайзи) OrganizationUnit.Id = {0}",
+                                           organizationUnitId,
+                                           FindOrganizationUnitFranchiseeTelesaleManager);
                 default:
                     throw new InvalidEnumArgumentException("organizationUnitId", (int)contributionType, typeof(ContributionTypeEnum));
             }
@@ -302,9 +311,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
 
         private sealed class StrategyDto
         {
+            private readonly Func<long, UserDto> _strategy;
             private readonly string _strategyDescriptionTemplate;
             private readonly long _strategyParameter;
-            private readonly Func<long, UserDto> _strategy;
 
             public StrategyDto(string strategyDescriptionTemplate, long strategyParameter, Func<long, UserDto> strategy)
             {

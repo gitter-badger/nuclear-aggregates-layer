@@ -263,6 +263,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return GetReferenceItems(paymentMethodCodes, "PaymentMethod");
         }
 
+        public HotClientRequest GetHotClientRequest(long hotClientRequestId)
+        {
+            return _unsecureFinder.FindOne(Specs.Find.ById<HotClientRequest>(hotClientRequestId));
+        }
+
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
         {
             return _unsecureFinder
