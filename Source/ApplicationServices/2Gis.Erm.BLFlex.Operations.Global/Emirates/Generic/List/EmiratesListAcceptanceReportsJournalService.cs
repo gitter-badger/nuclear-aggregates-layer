@@ -31,12 +31,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
         {
             var organizationUnitsQuery = _finder.FindAll<OrganizationUnit>();
 
-            // хак для сортировки по Ответственному
-            if (string.Equals(querySettings.SortOrder, "AuthorName"))
-            {
-                querySettings.SortOrder = "AuthorId";
-            }
-
             return _finder.Find(AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords,
                                 AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords)
                           .Select(x => new
