@@ -750,16 +750,25 @@
     <Content Include="Variables.Test.202.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.208.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Test.101.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.102.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content> 
+    <Content Include="Variables.Test.108.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.301.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.302.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.308.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.320.wxi">
@@ -771,6 +780,9 @@
     <Content Include="Variables.Test.402.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.408.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Test.501.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
@@ -778,6 +790,9 @@
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.503.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.508.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.wxi" />
