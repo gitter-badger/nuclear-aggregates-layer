@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         private const long DefaultCategoryRate = 1;
 
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
-        private readonly IClientReadModel _clientReadModel;
         private readonly ICrmTaskFactory _crmTaskFactory;
         private readonly IFirmReadModel _firmReadModel;
         private readonly IBindCrmTaskToHotClientRequestAggregateService _bindCrmTaskToHotClientRequestAggregateService;
@@ -42,7 +41,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         private readonly IUserReadModel _userReadModel;
 
         public CreateHotClientHandler(IBranchOfficeReadModel branchOfficeReadModel,
-                                      IClientReadModel clientReadModel,
                                       ICrmTaskFactory crmTaskFactory,
                                       IFirmReadModel firmReadModel,
                                       IBindCrmTaskToHotClientRequestAggregateService bindCrmTaskToHotClientRequestAggregateService,
@@ -50,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
                                       IUserReadModel userReadModel)
         {
             _branchOfficeReadModel = branchOfficeReadModel;
-            _clientReadModel = clientReadModel;
             _crmTaskFactory = crmTaskFactory;
             _firmReadModel = firmReadModel;
             _bindCrmTaskToHotClientRequestAggregateService = bindCrmTaskToHotClientRequestAggregateService;
@@ -69,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.MsCrm
         /// <returns>Success = true, если интеграция включена, false иначе.</returns>
         protected override CreateHotClientResponse Handle(CreateHotClientRequest request)
         {
-            var hotClientRequest = _clientReadModel.GetHotClientRequest(request.Id);
+            var hotClientRequest = _firmReadModel.GetHotClientRequest(request.Id);
             if (hotClientRequest == null)
             {
                 throw new BusinessLogicException(BLResources.EntityNotFound);

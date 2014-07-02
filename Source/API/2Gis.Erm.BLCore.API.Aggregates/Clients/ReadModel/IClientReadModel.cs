@@ -7,6 +7,5 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
     {
         Client GetClient(long clientId);
         string GetClientName(long clientId);
-        HotClientRequest GetHotClientRequest(long hotClientRequestId);
     }
 }

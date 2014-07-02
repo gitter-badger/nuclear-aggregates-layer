@@ -41,5 +41,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         Dictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds);
         Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
         Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
+
+
+        HotClientRequest GetHotClientRequest(long hotClientRequestId);
     }
 }
