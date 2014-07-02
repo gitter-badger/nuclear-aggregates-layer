@@ -10,6 +10,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             public static readonly MethodInfo WhereMethodInfo = typeof(System.Linq.Queryable).GetMethods().First(x => x.Name == "Where");
             public static readonly MethodInfo OrderByMethodInfo = typeof(System.Linq.Queryable).GetMethods().First(x => x.Name == "OrderBy");
             public static readonly MethodInfo OrderByDescendingMethodInfo = typeof(System.Linq.Queryable).GetMethods().First(x => x.Name == "OrderByDescending");
+            public static readonly MethodInfo ThenByMethodInfo = typeof(System.Linq.Queryable).GetMethods().First(x => x.Name == "ThenBy");
+            public static readonly MethodInfo ThenByDescendingMethodInfo = typeof(System.Linq.Queryable).GetMethods().First(x => x.Name == "ThenByDescending");
         }
 
         public static class Enumerable

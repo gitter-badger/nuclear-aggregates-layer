@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.ServiceModel.Security;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -268,29 +269,51 @@ namespace DoubleGis.Erm.Qds.Operations.Infrastructure
             }
         }
 
+        private static PropertyInfo GetPropertyInfo(Type documentType, PropertyInfo[] properties, string propertyName)
+        {
+            var propertyInfo = Array.Find(properties, x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException(string.Format("Для типа {0} не определено сортировочное поле {1}", documentType.Name, propertyName));
+            }
+
+            return propertyInfo;
+        }
+
         private static SearchDescriptor<TDocument> SortedPaged(SearchDescriptor<TDocument> searchDescriptor, QuerySettings querySettings)
         {
+            var documentType = typeof(TDocument);
+            var properties = documentType.GetProperties();
+
             // sorting
-            if (!string.IsNullOrEmpty(querySettings.SortOrder))
+            var sortFuncs = querySettings.Sort
+            .Select(x =>
             {
-                var propertyInfo = typeof(TDocument).GetProperty(querySettings.SortOrder);
-                if (propertyInfo == null)
+                var propertyInfo = GetPropertyInfo(documentType, properties, x.PropertyName);
+
+                var propertyName = propertyInfo.PropertyType == typeof(string) ?
+                    x.PropertyName.ToCamelCase() + ".sort" :
+                    x.PropertyName.ToCamelCase();
+
+                Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> sortFunc;
+                switch (x.Direction)
                 {
-                    throw new ArgumentException();
+                    case SortDirection.Ascending:
+                        sortFunc = y => y.SortAscending(propertyName);
+                        break;
+                    case SortDirection.Descending:
+                        sortFunc = y => y.SortDescending(propertyName);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
-                var sortOrder = propertyInfo.PropertyType == typeof(string) ?
-                    querySettings.SortOrder.ToCamelCase() + ".sort" :
-                    querySettings.SortOrder.ToCamelCase();
+                return sortFunc;
+            });
 
-                if (string.Equals(querySettings.SortDirection, "desc", StringComparison.OrdinalIgnoreCase))
-                {
-                    searchDescriptor = searchDescriptor.SortDescending(sortOrder);
-                }
-                else
-                {
-                    searchDescriptor = searchDescriptor.SortAscending(sortOrder);
-                }
+            foreach (var sortFunc in sortFuncs)
+            {
+                sortFunc(searchDescriptor);
             }
 
             // paging
