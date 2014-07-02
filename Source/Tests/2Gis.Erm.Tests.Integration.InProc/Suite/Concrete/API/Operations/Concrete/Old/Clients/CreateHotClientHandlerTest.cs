@@ -25,11 +25,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override FindSpecification<HotClientRequest> ModelEntitySpec
         {
-            get { return new FindSpecification<HotClientRequest>(hcr => hcr.TaskId == null); }
+            get { return base.ModelEntitySpec && new FindSpecification<HotClientRequest>(hcr => hcr.TaskId == null); }
         }
 
         protected override bool TryCreateRequest(HotClientRequest modelEntity, out CreateHotClientRequest request)
         {
+            if (!_msCrmSettings.EnableReplication)
+            {
+                request = null;
+                return false;
+            }
+
             request = new CreateHotClientRequest
                 {
                     Id = modelEntity.Id
@@ -41,7 +47,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override IResponseAsserter<CreateHotClientResponse> ResponseAsserter
         {
-            get { return _msCrmSettings.EnableReplication ? new DelegateResponseAsserter<CreateHotClientResponse>(Assert) : base.ResponseAsserter; }
+            get { return new DelegateResponseAsserter<CreateHotClientResponse>(Assert); }
         }
 
         private OrdinaryTestResult Assert(CreateHotClientResponse response)
