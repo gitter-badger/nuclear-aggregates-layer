@@ -52,9 +52,11 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="SimplifiedModel\ICreateBirthdayCongratulationService.cs" />
     <Compile Include="SimplifiedModel\ICreateDenialReasonService.cs" />
     <Compile Include="SimplifiedModel\IDeactivateDenialReasonService.cs" />
     <Compile Include="SimplifiedModel\IUpdateDenialReasonService.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\BirthdayCongratulationSpecs.cs" />
     <Compile Include="SimplifiedModel\ReadModel\DenialReasonSpecs.cs" />
     <Compile Include="SimplifiedModel\ReadModel\IDenialReasonReadModel.cs" />
   </ItemGroup>

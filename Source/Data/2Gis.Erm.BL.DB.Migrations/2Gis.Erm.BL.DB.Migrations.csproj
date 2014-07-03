@@ -66,6 +66,9 @@
     <Compile Include="bb-s2\2014.04.10 rev. 18055 - Remove rows from BusinessOperationServices to export Prices and PricePositions.cs" />
     <Compile Include="bb-s2\2014.04.09 rev. 18054 - Add rows to BusinessOperationServices to export Prices and PricePositions.cs" />
     <Compile Include="bb-s2\2014.04.15 rev. 19343 - Remove and add rows from BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="2.1\2014.06.24 rev. 21516 - Create ExportBirthdaysRequest table.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21517 - Insert a record into BusinessOperationServices.cs" />
+    <Compile Include="2.1\2014.06.23 rev. 21515 - Create ExportFlowDeliveryData_LetterSendRequest table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
