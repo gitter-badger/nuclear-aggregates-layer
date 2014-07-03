@@ -278,6 +278,8 @@
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" Width="1.5" PointX="14.375" PointY="17.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" Width="1.5" PointX="5.375" PointY="18.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.DenialReason" Width="1.5" PointX="7.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.BirthdayCongratulation" Width="1.5" PointX="7.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowDeliveryData_LetterSendRequest" Width="1.5" PointX="9.375" PointY="18.75" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

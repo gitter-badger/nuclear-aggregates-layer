@@ -1606,6 +1606,13 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExportFlowDeliveryData_LetterSendRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExportFlowFinancialData_Client">
           <Key>
             <PropertyRef Name="Id" />
@@ -1741,6 +1748,13 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ReferenceId" Type="bigint" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BirthdayCongratulations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="CongratulationDate" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
         <EntityType Name="ActionsHistory">
           <Key>
@@ -3965,6 +3979,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="DepCards" EntityType="Self.DepCards" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFailedEntities" EntityType="Self.ExportFailedEntities" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowCardExtensions_CardCommercial" EntityType="Self.ExportFlowCardExtensions_CardCommercial" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="ExportFlowDeliveryData_LetterSendRequest" EntityType="Self.ExportFlowDeliveryData_LetterSendRequest" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowFinancialData_Client" EntityType="Self.ExportFlowFinancialData_Client" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowFinancialData_LegalEntity" EntityType="Self.ExportFlowFinancialData_LegalEntity" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="Self.ExportFlowNomenclatures_NomenclatureElement" Schema="Integration" store:Type="Tables" />
@@ -3982,6 +3997,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ImportedFirmAddresses" EntityType="Self.ImportedFirmAddresses" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="Reference" EntityType="Self.Reference" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ReferenceItems" EntityType="Self.ReferenceItems" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="BirthdayCongratulations" EntityType="Self.BirthdayCongratulations" Schema="Journal" store:Type="Tables" />
           <EntitySet Name="ActionsHistory" EntityType="Self.ActionsHistory" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="ActionsHistoryDetails" EntityType="Self.ActionsHistoryDetails" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="BusinessOperationServices" EntityType="Self.BusinessOperationServices" Schema="Shared" store:Type="Tables" />
@@ -5440,6 +5456,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ChargesHistories" EntityType="ErmModel.ChargesHistory" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElement" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElementRelation" EntityType="ErmModel.ExportFlowNomenclatures_NomenclatureElementRelation" />
+          <EntitySet Name="BirthdayCongratulations" EntityType="ErmModel.BirthdayCongratulation" />
+          <EntitySet Name="ExportFlowDeliveryData_LetterSendRequest" EntityType="ErmModel.ExportFlowDeliveryData_LetterSendRequest" />
           <EntitySet Name="DenialReasons" EntityType="ErmModel.DenialReason" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -9634,6 +9652,20 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
+        <EntityType Name="BirthdayCongratulation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="CongratulationDate" Type="DateTime" Nullable="false" Precision="2" />
+        </EntityType>
+        <EntityType Name="ExportFlowDeliveryData_LetterSendRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+        </EntityType>
         <EntityType Name="DenialReason">
           <Key>
             <PropertyRef Name="Id" />
@@ -11779,6 +11811,22 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="ProofLink" ColumnName="ProofLink" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BirthdayCongratulations">
+            <EntityTypeMapping TypeName="ErmModel.BirthdayCongratulation">
+              <MappingFragment StoreEntitySet="BirthdayCongratulations">
+                <ScalarProperty Name="CongratulationDate" ColumnName="CongratulationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExportFlowDeliveryData_LetterSendRequest">
+            <EntityTypeMapping TypeName="ErmModel.ExportFlowDeliveryData_LetterSendRequest">
+              <MappingFragment StoreEntitySet="ExportFlowDeliveryData_LetterSendRequest">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -237,6 +237,14 @@
       <Link>Entities\Erm\Bill.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BirthdayCongratulation.cs">
+      <Link>Entities\Erm\BirthdayCongratulation.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BirthdayCongratulationDomainEntityDto.cs">
+      <Link>Entities\DTOs\BirthdayCongratulationDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOffice.cs">
       <Link>Entities\Erm\BranchOffice.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -384,6 +392,14 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowCardExtensionsCardCommercial.cs">
       <Link>Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowDeliveryData_LetterSendRequest.cs">
+      <Link>Entities\Erm\ExportFlowDeliveryData_LetterSendRequest.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowDeliveryData_LetterSendRequestDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowDeliveryData_LetterSendRequestDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataClient.cs">
       <Link>Entities\Erm\ExportFlowFinancialDataClient.cs</Link>
@@ -732,6 +748,7 @@
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\AcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElement.cs" />
     <Compile Include="Entities\Erm\Partial\FirmAddress.cs" />
@@ -786,6 +803,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CreateClientByFirmIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardForErmIdentity.cs" />
