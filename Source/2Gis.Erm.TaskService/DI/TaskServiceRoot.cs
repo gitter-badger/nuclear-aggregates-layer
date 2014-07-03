@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.BL.Operations.DI;
+﻿using DoubleGis.Erm.BL.Aggregates.DI;
+using DoubleGis.Erm.BL.Operations.DI;
 using DoubleGis.Erm.BL.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.Aggregates.DI;
@@ -29,6 +30,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                           .UseAnchor<BlCoreTaskServiceAssembly>()
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
+                                          .UseAnchor<BlAggregatesAssembly>()
                                           .UseAnchor<BlFlexAggregatesGlobalAssembly>()
                                       .RequireZone<OperationsZone>()
                                           .UseAnchor<BlCoreApiOperationsAssembly>()

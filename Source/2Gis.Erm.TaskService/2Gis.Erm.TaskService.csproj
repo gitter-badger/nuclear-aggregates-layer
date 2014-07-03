@@ -226,6 +226,10 @@
       <Project>{3f72e975-adc6-43dd-ac1d-3f90abfbb97d}</Project>
       <Name>2Gis.Erm.BLQuerying.TaskService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{0645CAB5-47BE-4D67-BA49-751BCBEF1241}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
