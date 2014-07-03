@@ -483,6 +483,10 @@
       <DependentUpon>quartz.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="quartz.Test.208.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="quartz.Test.301.config">
       <DependentUpon>quartz.config</DependentUpon>
     </None>
@@ -513,6 +517,10 @@
     </None>
     <None Include="quartz.Test.503.config">
       <DependentUpon>quartz.config</DependentUpon>
+    </None>
+    <None Include="quartz.Test.508.config">
+      <DependentUpon>quartz.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="quartz.Test.508.config">
       <DependentUpon>quartz.config</DependentUpon>
