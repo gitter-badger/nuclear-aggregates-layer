@@ -127,6 +127,9 @@
         
         ExportFlowNomenclaturesNomenclatureElement = 265,
         ExportFlowNomenclaturesNomenclatureElementRelation = 266,
+        ExportFlowDeliveryDataLetterSendRequest = 267,
+
+        ExportFlowOrdersDenialReason = 268,
 
         // security
         User = 53,
@@ -155,6 +158,7 @@
         Commune = 311,
         AcceptanceReportsJournalRecord = 312,
         DenialReason = 313,
+        BirthdayCongratulation = 314,
 
         // Ambivalent
         FileWithContent = 400,
