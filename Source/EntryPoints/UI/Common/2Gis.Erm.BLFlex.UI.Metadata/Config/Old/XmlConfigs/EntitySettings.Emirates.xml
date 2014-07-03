@@ -1,7 +1,7 @@
 ﻿<Entities>
   <Entity Name="AcceptanceReportsJournalRecord">
     <DataLists>
-      <DataList NameLocaleResourceId="AcceptanceReportsJournal" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="AcceptanceReportsJournal" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_Default.gif">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="OrganizationUnitId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
