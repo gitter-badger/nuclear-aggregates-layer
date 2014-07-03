@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21672 - Create flowOrders_DenialReason table.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21673 - Insert a records into BusinessOperationServices.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />

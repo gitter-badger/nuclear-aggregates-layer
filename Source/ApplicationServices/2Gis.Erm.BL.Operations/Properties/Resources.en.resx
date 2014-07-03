@@ -130,6 +130,9 @@
   <data name="flowNomenclatures_NomenclatureElementRelation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\flownomenclatures.nomenclatureelementrelation.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="flowOrders_DenialReason" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flowOrders.DenialReason.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="flowPriceLists_PriceList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flowPriceLists.PriceList.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

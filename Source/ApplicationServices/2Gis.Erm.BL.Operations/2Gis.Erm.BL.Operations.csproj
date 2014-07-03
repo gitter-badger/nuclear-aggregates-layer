@@ -56,6 +56,7 @@
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionChildrenHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionHandler.cs" />
     <Compile Include="Concrete\Simplified\RequestBirthdayCongratulationOperationService.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowOrders\SerializeDenialReasonHandler.cs" />
     <Compile Include="DI\BlOperationsAssembly.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePriceHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePricePositionHandler.cs" />
@@ -157,6 +158,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\flowNomenclatures.NomenclatureElementRelation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\flowOrders.DenialReason.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\flowPriceLists.PriceList.xsd">

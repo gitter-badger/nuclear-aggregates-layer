@@ -48,6 +48,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Modify.SimplifiedModel
                 using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DenialReason>())
                 {
                     _createService.Create(entity);
+                    operationScope.Added<DenialReason>(entity.Id);
                     operationScope.Complete();
                 }
             }
@@ -56,6 +57,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Modify.SimplifiedModel
                 using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, DenialReason>())
                 {
                     _updateService.Update(entity);
+                    operationScope.Updated<DenialReason>(entity.Id);
                     operationScope.Complete();
                 }
             }
