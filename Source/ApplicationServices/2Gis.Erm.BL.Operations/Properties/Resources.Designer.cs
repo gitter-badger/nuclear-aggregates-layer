@@ -61,6 +61,50 @@ namespace DoubleGis.Erm.BL.Operations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+        ///
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///&lt;center&gt;&lt;table width=&quot;600&quot; height=&quot;561&quot; border=&quot;0&quot;&gt;
+        ///  &lt;tr&gt;
+        ///    &lt;td&gt;&lt;img src=&quot;http://info.2gis.ru/assets/mail/images/work.jpg&quot; width=&quot;600&quot; height=&quot;561&quot; alt=&quot;&quot;/&gt;&lt;/td&gt;
+        ///  &lt;/tr&gt;
+        ///&lt;/table&gt;
+        ///&lt;/center&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string BirthdayLetter {
+            get {
+                return ResourceManager.GetString("BirthdayLetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///
+        ///  &lt;xs:complexType name=&quot;LetterSendRequest&quot;&gt;
+        ///    &lt;xs:sequence&gt;
+        ///      &lt;xs:element name=&quot;Recipients&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot;&gt;
+        ///        &lt;xs:annotation&gt;
+        ///          &lt;xs:documentation&gt;Информация о получателях рассылки&lt;/xs:documentation&gt;
+        ///        &lt;/xs:annotation&gt;
+        ///        &lt;xs:complexType&gt;
+        ///          &lt;xs:sequence&gt;
+        ///            &lt;xs:element name=&quot;Recipient&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;&gt;
+        ///              &lt;xs:co [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string flowDeliveryData_LetterSendRequest {
+            get {
+                return ResourceManager.GetString("flowDeliveryData_LetterSendRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xs:schema targetNamespace=&quot;http://tempuri.org/XMLSchema.xsd&quot; elementFormDefault=&quot;qualified&quot; xmlns=&quot;http://tempuri.org/XMLSchema.xsd&quot; xmlns:mstns=&quot;http://tempuri.org XMLSchema.xsd&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; &gt;
         ///
@@ -95,6 +139,25 @@ namespace DoubleGis.Erm.BL.Operations.Properties {
         internal static string flowNomenclatures_NomenclatureElementRelation {
             get {
                 return ResourceManager.GetString("flowNomenclatures_NomenclatureElementRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;xs:complexType name=&quot;DenialReason&quot;&gt;
+        ///    &lt;xs:attribute name=&quot;Code&quot; type=&quot;xs:long&quot; use=&quot;required&quot;&gt;
+        ///      &lt;xs:annotation&gt;
+        ///        &lt;xs:documentation&gt;Id причины отклонения РМ.&lt;/xs:documentation&gt;
+        ///      &lt;/xs:annotation&gt;
+        ///    &lt;/xs:attribute&gt;
+        ///    &lt;xs:attribute name=&quot;Name&quot; type=&quot;xs:string&quot; use=&quot;required&quot;&gt;
+        ///      &lt;xs:annotation&gt;
+        ///        &lt;xs:document [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string flowOrders_DenialReason {
+            get {
+                return ResourceManager.GetString("flowOrders_DenialReason", resourceCulture);
             }
         }
         

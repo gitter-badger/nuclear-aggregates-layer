@@ -52,8 +52,11 @@
     <Compile Include="Concrete\Integration\Import\IImportSaleTerritoryService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportBuildingService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\ExportFlowDeliveryData\SerializeBirthdayCongratulationHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionChildrenHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionHandler.cs" />
+    <Compile Include="Concrete\Simplified\RequestBirthdayCongratulationOperationService.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowOrders\SerializeDenialReasonHandler.cs" />
     <Compile Include="DI\BlOperationsAssembly.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePriceHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowPriceLists\SerializePricePositionHandler.cs" />
@@ -129,6 +132,10 @@
       <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
       <Name>2Gis.Erm.BL.API.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BL.API.Operations\2Gis.Erm.BL.API.Operations.csproj">
+      <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
+      <Name>2Gis.Erm.BL.API.Operations</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
@@ -144,10 +151,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\flowDeliveryData.LetterSendRequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\flowNomenclatures.NomenclatureElement.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\flowNomenclatures.NomenclatureElementRelation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\flowOrders.DenialReason.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\flowPriceLists.PriceList.xsd">
@@ -156,6 +169,9 @@
     <None Include="Resources\flowPriceLists.PriceListPosition.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BirthdayLetter.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

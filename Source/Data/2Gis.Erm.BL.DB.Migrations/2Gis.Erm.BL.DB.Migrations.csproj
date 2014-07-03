@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21672 - Create flowOrders_DenialReason table.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21673 - Insert a records into BusinessOperationServices.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
@@ -66,6 +68,9 @@
     <Compile Include="bb-s2\2014.04.10 rev. 18055 - Remove rows from BusinessOperationServices to export Prices and PricePositions.cs" />
     <Compile Include="bb-s2\2014.04.09 rev. 18054 - Add rows to BusinessOperationServices to export Prices and PricePositions.cs" />
     <Compile Include="bb-s2\2014.04.15 rev. 19343 - Remove and add rows from BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="2.1\2014.06.24 rev. 21516 - Create ExportBirthdaysRequest table.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21517 - Insert a record into BusinessOperationServices.cs" />
+    <Compile Include="2.1\2014.06.23 rev. 21515 - Create ExportFlowDeliveryData_LetterSendRequest table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
