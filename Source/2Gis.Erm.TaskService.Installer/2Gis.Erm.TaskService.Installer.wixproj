@@ -741,7 +741,16 @@
     <Content Include="Variables.Test.21.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.22.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Test.23.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.24.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.25.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.201.wxi">
