@@ -39,6 +39,16 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                         }
                 },
                 {
+                    "floworders.denialreason",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.DenialReason,
+                            FlowName = "flowOrders",
+                            SchemaResourceName = "flowOrders_DenialReason",
+                            IntegrationEntityName = EntityName.ExportFlowOrdersDenialReason
+                        }
+                },
+                {
                     "flowfinancialdata.legalentity",
                     new FlowDescription
                         {
