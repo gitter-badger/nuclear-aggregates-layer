@@ -129,6 +129,8 @@
         ExportFlowNomenclaturesNomenclatureElementRelation = 266,
         ExportFlowDeliveryDataLetterSendRequest = 267,
 
+        ExportFlowOrdersDenialReason = 268,
+
         // security
         User = 53,
         UserRole = 56,

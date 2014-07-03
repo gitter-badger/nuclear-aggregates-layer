@@ -70,6 +70,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(ExportFlowFinancialDataLegalEntity),
     		typeof(ExportFlowNomenclatures_NomenclatureElement),
     		typeof(ExportFlowNomenclatures_NomenclatureElementRelation),
+    		typeof(ExportFlowOrders_DenialReason),
     		typeof(ExportFlowOrdersAdvMaterial),
     		typeof(ExportFlowOrdersInvoice),
     		typeof(ExportFlowOrdersOrder),

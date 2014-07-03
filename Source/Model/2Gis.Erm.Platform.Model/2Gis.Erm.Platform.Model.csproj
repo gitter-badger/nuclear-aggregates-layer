@@ -453,6 +453,10 @@
       <Link>Entities\Erm\ExportFlowOrdersThemeBranch.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrders_DenialReason.cs">
+      <Link>Entities\Erm\ExportFlowOrders_DenialReason.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClients.cs">
       <Link>Entities\Erm\ExportToMsCrm_HotClients.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -751,6 +755,7 @@
     <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElement.cs" />
+    <Compile Include="Entities\Erm\Partial\ExportFlowOrders_DenialReason.cs" />
     <Compile Include="Entities\Erm\Partial\FirmAddress.cs" />
     <Compile Include="Entities\Erm\Partial\Client.cs" />
     <Compile Include="Entities\Erm\Parts\Chile\ChileBranchOfficeOrganizationUnitPart.cs" />
