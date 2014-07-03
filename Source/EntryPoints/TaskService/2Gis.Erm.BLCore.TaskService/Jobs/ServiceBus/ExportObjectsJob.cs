@@ -156,10 +156,19 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                             IntegrationEntityName = EntityName.ExportFlowNomenclaturesNomenclatureElementRelation
                         }
                 },
+                {
+                    "flowdeliverydata.lettersendrequest",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.BirthdayCongratulation,
+                            FlowName = "flowDeliveryData",
+                            SchemaResourceName = "flowDeliveryData_LetterSendRequest",
+                            IntegrationEntityName = EntityName.ExportFlowDeliveryDataLetterSendRequest
+                        }
+                },
             };
 
         private readonly IOperationServicesManager _servicesManager;
-        
 
         public ExportObjectsJob(ICommonLog logger,
                                 ISignInService signInService,

@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 { EntityName.ExportFlowOrdersInvoice, IntegrationService.ExportFlowOrdersInvoice },
                 { EntityName.ExportFlowNomenclaturesNomenclatureElement, IntegrationService.ExportFlowNomenclaturesNomenclatureElement },
                 { EntityName.ExportFlowNomenclaturesNomenclatureElementRelation, IntegrationService.ExportFlowNomenclaturesNomenclatureElementRelation },
+                { EntityName.ExportFlowDeliveryDataLetterSendRequest, IntegrationService.ExportFlowDeliveryDataLetterSendRequest },
             };
 
         public static IntegrationService AsIntegrationService(this EntityName entityName)

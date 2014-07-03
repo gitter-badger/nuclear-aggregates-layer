@@ -20,6 +20,7 @@
         ExportFlowPriceListsPriceListPosition = 13,
         ExportFlowOrdersInvoice = 14,
         ExportFlowNomenclaturesNomenclatureElement = 15,
-        ExportFlowNomenclaturesNomenclatureElementRelation = 16
+        ExportFlowNomenclaturesNomenclatureElementRelation = 16,
+        ExportFlowDeliveryDataLetterSendRequest = 17
     }
 }
