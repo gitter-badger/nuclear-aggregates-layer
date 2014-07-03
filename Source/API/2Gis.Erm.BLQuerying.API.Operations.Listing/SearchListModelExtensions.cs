@@ -15,14 +15,22 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
             {
                 SkipCount = searchListModel.Start,
                 TakeCount = searchListModel.Limit,
-                SortDirection = searchListModel.Dir,
-                SortOrder = searchListModel.Sort,
+                Sort = new List<QuerySettingsSort>(),
                 ParentEntityName = searchListModel.ParentEntityName,
                 ParentEntityId = searchListModel.ParentEntityId,
                 UserInputFilter = searchListModel.FilterInput,
                 FilterName = searchListModel.NameLocaleResourceId,
                 SearchListModel = searchListModel,
             };
+
+            if (!string.IsNullOrEmpty(searchListModel.Sort))
+            {
+                querySettings.Sort.Add(new QuerySettingsSort
+                {
+                    PropertyName = searchListModel.Sort,
+                    Direction = GetSortDirection(searchListModel.Dir),
+                });
+            }
 
             var extendedInfo = searchListModel.ExtendedInfo;
 
@@ -49,6 +57,21 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
             }
 
             return querySettings;
+        }
+
+        private static SortDirection GetSortDirection(string sortDirection)
+        {
+            if (string.IsNullOrEmpty(sortDirection) || string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
+            {
+                return SortDirection.Ascending;
+            }
+
+            if (string.Equals(sortDirection, "DESC", StringComparison.OrdinalIgnoreCase))
+            {
+                return SortDirection.Descending;
+            }
+
+            throw new ArgumentException();
         }
     }
 }

@@ -9,8 +9,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
     {
         public int SkipCount { get; set; }
         public int TakeCount { get; set; }
-        public string SortOrder { get; set; }
-        public string SortDirection { get; set; }
+        public ICollection<QuerySettingsSort> Sort { get; set; }
 
         public string FilterName { get; set; }
 
@@ -21,5 +20,17 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
         public EntityName ParentEntityName { get; set; }
         public long? ParentEntityId { get; set; }
         public SearchListModel SearchListModel { get; set; }
+    }
+
+    public enum SortDirection
+    {
+        Ascending,
+        Descending,
+    }
+
+    public sealed class QuerySettingsSort
+    {
+        public string PropertyName { get; set; }
+        public SortDirection Direction { get; set; }
     }
 }

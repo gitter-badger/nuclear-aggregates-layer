@@ -198,61 +198,102 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return propertyInfo;
         }
 
+        private static PropertyInfo GetPropertyInfo(Type documentType, PropertyInfo[] properties, string propertyName)
+        {
+            // хак для сортировки по Ответственному
+            if (string.Equals(propertyName, "AuthorName"))
+            {
+                propertyName = "AuthorId";
+            }
+
+            // хак для сортировки по имени пользователя
+            if (string.Equals(propertyName, "OwnerName"))
+            {
+                propertyName = "OwnerCode";
+            }
+            else
+            {
+                // хак для сортировки по enum
+                var enumPropertyName = propertyName + "Enum";
+                var enumPropertyInfo = Array.Find(properties, x => x.Name.Equals(enumPropertyName, StringComparison.OrdinalIgnoreCase));
+                if (enumPropertyInfo != null)
+                {
+                    return enumPropertyInfo;
+                }
+            }
+
+            var propertyInfo = Array.Find(properties, x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException(string.Format("Для типа {0} не определено поле для сортировки {1}", documentType.Name, propertyName));
+            }
+
+            return propertyInfo;
+        }
+
         private static RemoteCollection<TDocument> SortedPaged<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             var documentType = typeof(TDocument);
+            var properties = documentType.GetProperties();
 
-            PropertyInfo propertyInfo;
-            if (!string.IsNullOrEmpty(querySettings.SortOrder))
+            var sorts1 = querySettings.Sort
+            .Select(x => new
             {
-                // хак для сортировки по имени пользователя
-                if (string.Equals(querySettings.SortOrder, "OwnerName"))
+                PropertyInfo = GetPropertyInfo(documentType, properties, x.PropertyName),
+                x.Direction,
+            })
+            .ToList();
+
+            // дополнительная сортировка по Id
+            var hasidPropertyInfo = sorts1.Any(x => string.Equals(x.PropertyInfo.Name, "Id", StringComparison.OrdinalIgnoreCase));
+            if (!hasidPropertyInfo)
+            {
+                sorts1.Add(new
                 {
-                    querySettings.SortOrder = "OwnerCode";
+                    PropertyInfo = GetPropertyInfo(documentType, properties, "Id"),
+                    Direction = SortDirection.Ascending,
+                });
+            }
+
+            var sorts2 = sorts1.Select((x, index) =>
+            {
+                MethodInfo methodInfo;
+                switch (x.Direction)
+                {
+                    case SortDirection.Ascending:
+                        methodInfo = (index == 0) ?
+                            MethodInfos.Queryable.OrderByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType) :
+                            MethodInfos.Queryable.ThenByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
+                        break;
+                    case SortDirection.Descending:
+                        methodInfo = (index == 0) ?
+                            MethodInfos.Queryable.OrderByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType) :
+                            MethodInfos.Queryable.ThenByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
-                // хак для сортировки по enum
-                var sortOrderEnum = querySettings.SortOrder + "Enum";
-                if (documentType.GetProperty(sortOrderEnum) != null)
-                {
-                    propertyInfo = documentType.GetProperty(sortOrderEnum);
-                }
-                else
-                {
-                    propertyInfo = documentType.GetProperty(querySettings.SortOrder);
-                }
-            }
-            else
-            {
-                propertyInfo = documentType.GetProperty("Id");
-            }
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException(string.Format("Для типа {0} не определены сортировочные поля", documentType.Name));
-            }
+                var parameterExpression = Expression.Parameter(documentType, "x");
+                var propertyExpression = Expression.Property(parameterExpression, x.PropertyInfo);
+                var lambdaExpression = Expression.Lambda(propertyExpression, parameterExpression);
 
-            MethodInfo methodInfo;
-            if (string.IsNullOrEmpty(querySettings.SortDirection) || string.Equals(querySettings.SortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
-            {
-                methodInfo = MethodInfos.Queryable.OrderByMethodInfo.MakeGenericMethod(documentType, propertyInfo.PropertyType);
-            }
-            else if (string.Equals(querySettings.SortDirection, "DESC", StringComparison.OrdinalIgnoreCase))
-            {
-                methodInfo = MethodInfos.Queryable.OrderByDescendingMethodInfo.MakeGenericMethod(documentType, propertyInfo.PropertyType);
-            }
-            else
-            {
-                throw new ArgumentException();
-            }
+                return new
+                {
+                    LambdaExpression = lambdaExpression,
+                    MethodInfo = methodInfo,
+                };
+            });
 
-            var parameterExpression = Expression.Parameter(documentType, "x");
-            var propertyExpression = Expression.Property(parameterExpression, propertyInfo);
-            var lambdaExpression = Expression.Lambda(propertyExpression, parameterExpression);
-            var callExpression = Expression.Call(methodInfo, query.Expression, lambdaExpression);
+            var querySorted = query;
+            foreach (var sort2 in sorts2)
+            {
+                var callExpression = Expression.Call(sort2.MethodInfo, querySorted.Expression, sort2.LambdaExpression);
+                querySorted = querySorted.Provider.CreateQuery<TDocument>(callExpression);
+            }
 
             var totalCount = query.Count();
 
-            var querySorted = query.Provider.CreateQuery<TDocument>(callExpression);
             var querySortedPaged = querySorted
                 .Skip(querySettings.SkipCount)
                 .Take(querySettings.TakeCount)
