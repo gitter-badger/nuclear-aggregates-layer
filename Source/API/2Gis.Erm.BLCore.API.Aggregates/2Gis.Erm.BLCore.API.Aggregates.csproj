@@ -104,6 +104,7 @@
     <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\IBindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\ReadModel\ClientSpecs.Contacts.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
     <Compile Include="SimplifiedModel\ReadModel\IBargainTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\IBirthdayCongratulationReadModel.cs" />
     <Compile Include="SimplifiedModel\ReadModel\IContributionTypeReadModel.cs" />
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
     <Compile Include="Themes\DTO\ThemeUsageDto.cs" />

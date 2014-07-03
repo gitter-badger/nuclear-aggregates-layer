@@ -179,6 +179,25 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             index.Create();
         }
 
+        public static void CreateUniqueIndex(this Table table, string indexColumnName, params string[] indexColumnNames)
+        {
+            var indexTitle = new StringBuilder(string.Format("UQ_{0}_{1}", table.Name, indexColumnName));
+            foreach (var columnName in indexColumnNames)
+            {
+                indexTitle.AppendFormat("_{0}", columnName);
+            }
+
+            var index = new Index(table, indexTitle.ToString()) { IndexKeyType = IndexKeyType.DriUniqueKey };
+
+            index.IndexedColumns.Add(new IndexedColumn(index, indexColumnName));
+            foreach (var columnName in indexColumnNames)
+            {
+                index.IndexedColumns.Add(new IndexedColumn(index, columnName));
+            }
+
+            index.Create();
+        }
+
         public static void InsertAndSetNonNullableColumn(this Table table, IMigrationContext context, InsertedColumnDefinition columnDefinition, string columnName, string columnValue)
         {
             var columnsToInsert = new[] { columnDefinition };

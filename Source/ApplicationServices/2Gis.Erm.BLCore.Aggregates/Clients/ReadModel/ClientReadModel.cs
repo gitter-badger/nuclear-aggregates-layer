@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
@@ -25,5 +26,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).Single();
         }
+
+        public IEnumerable<string> GetContactEmailsByBirthDate(int month, int day)
+        {
+            return
+                _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() && ClientSpecs.Contacts.Find.WithWorkEmail() &&
+                             ClientSpecs.Contacts.Find.ByBirthDate(month, day))
+                       .Select(x => x.WorkEmail)
+                       .ToArray();
+        }
+
     }
 }

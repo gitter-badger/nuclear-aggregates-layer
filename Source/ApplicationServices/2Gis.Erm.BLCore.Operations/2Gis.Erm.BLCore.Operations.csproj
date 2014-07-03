@@ -58,6 +58,8 @@
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionChildrenOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionOperationsExportService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\PriceOperationsExportService.cs" />
