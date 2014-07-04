@@ -1,89 +1,44 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Identities;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public sealed class OperationLogger : IOperationLogger
     {
-        private readonly IRepository<PerformedBusinessOperation> _repository;
-        private readonly IIdentityProvider _identityProvider;
+        private readonly IEnumerable<IOperationLoggingStrategy> _loggingStrategies;
+        private readonly ICommonLog _logger;
 
-        public OperationLogger(IRepository<PerformedBusinessOperation> repository, IIdentityProvider identityProvider)
+        public OperationLogger(
+            // ReSharper disable ParameterTypeCanBeEnumerable.Local // unity registrations 1..*
+            IOperationLoggingStrategy[] loggingStrategies,
+            // ReSharper restore ParameterTypeCanBeEnumerable.Local
+            ICommonLog logger)
         {
-            _repository = repository;
-            _identityProvider = identityProvider;
+            _loggingStrategies = loggingStrategies;
+            _logger = logger;
         }
 
-        public void Log(OperationScopeNode scopesHierarchy)
+        public void Log(OperationScopeNode scopeNode)
         {
-            var queue = new Queue<Tuple<OperationScopeNode, long?>>();
-            queue.Enqueue(Tuple.Create(scopesHierarchy, (long?)null));
-
-            while (queue.Count > 0)
+            var useCase = new TrackedUseCase
             {
-                var queueElement = queue.Dequeue();
+                Description = string.Empty,
+                RootNode = scopeNode
+            };
 
-                var operation = CreateOperationInstance(queueElement.Item1, queueElement.Item2);
-
-                _repository.Add(operation);
-
-                foreach (var childScope in queueElement.Item1.Childs)
-                {
-                    queue.Enqueue(Tuple.Create(childScope, (long?)operation.Id));
-                }
-            }
-
-            _repository.Save();
-        }
-
-        private PerformedBusinessOperation CreateOperationInstance(OperationScopeNode scopesHierarchy, long? parentOperationId)
-        {
-            var operation = new PerformedBusinessOperation
-                {
-                    Operation = scopesHierarchy.Scope.OperationIdentity.OperationIdentity.Id,
-                    Descriptor = EntityNameUtils.EvaluateEntitiesHash(scopesHierarchy.Scope.OperationIdentity.Entities),
-                    Context = SerializeOperationChanges(scopesHierarchy),
-                    Date = DateTime.UtcNow,
-                    Parent = parentOperationId
-                };
-
-            _identityProvider.SetFor(operation);
-
-            return operation;
-        }
-
-        // FIXME {all, 24.09.2013}: в 1.1 нужно добавить поддержку логирования самого факта операции, т.е. когда scope есть, но изменения никакие не задекларированы, т.о. контекст пустой
-        // DONE {i.maslennikov, 17.01.2014}: Готово
-        private string SerializeOperationChanges(OperationScopeNode declaredChanges)
-        {
-            var context = new XElement("context");
-
-            SerializeOperationChanges(context, declaredChanges.ScopeChanges.AddedChanges, ChangesType.Added);
-            SerializeOperationChanges(context, declaredChanges.ScopeChanges.UpdatedChanges, ChangesType.Updated);
-            SerializeOperationChanges(context, declaredChanges.ScopeChanges.DeletedChanges, ChangesType.Deleted);
-
-            return context.ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-        }
-
-        private static void SerializeOperationChanges(XContainer context, IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> changes, ChangesType changesType)
-        {
-            foreach (var change in changes)
+            foreach (var strategy in _loggingStrategies)
             {
-                var changedEntityName = (int)change.Key.AsEntityName();
-                foreach (var id in change.Value)
+                string report;
+
+                // TODO {all, 05.12.2013}: подумать, возможно, нужно добавить компенсационную логику, для уже успешно отработавших стратегий, возможно logging scope с rollback, complete, пока оставлен простой вариант
+                if (!strategy.TryLogUseCase(useCase, out report))
                 {
-                    var entity = new XElement("entity",
-                                              new XAttribute("change", (int)changesType),
-                                              new XAttribute("type", changedEntityName), // Строковое представление было бы более читаемым, но не устойчивым к рефакторингу
-                                              new XAttribute("id", id.Key));
-                    context.Add(entity);
+                    string msg = string.Format("Can't log usecase {0}, using strategy {1}", useCase, strategy.GetType().Name);
+                    _logger.FatalEx(msg);
+                    throw new InvalidOperationException(msg);
                 }
             }
         }

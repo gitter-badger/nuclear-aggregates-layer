@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
         private static IEnumerable<ISettingsAspect> UsuallyRequiredFor(IEnumerable<Type> supportedBusinessModelIndicators)
         {
             var connectionStrings = new ConnectionStringsSettingsAspect();
+
             return new ISettingsAspect[]
                 {
                     connectionStrings,

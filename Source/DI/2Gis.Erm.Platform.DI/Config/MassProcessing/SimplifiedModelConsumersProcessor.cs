@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                     consumerImplementation,
                                                     Mapping.SimplifiedModelConsumerScope,
                                                     Lifetime.PerResolve,
-                                                    new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                                                    InjectionFactories.SimplifiedModelConsumer);
                         }
 
                         // closed generic
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 consumerImplementation,
                                                 Mapping.SimplifiedModelConsumerScope,
                                                 Lifetime.PerResolve,
-                                                new InjectionFactory(SimplifiedModelConsumerInjectionFactory));
+                                                InjectionFactories.SimplifiedModelConsumer);
                     }
                 }
             }
@@ -105,12 +105,6 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
         {
             var factory = container.Resolve<ISimplifiedModelConsumerRuntimeFactory>();
             return factory.CreateAggregateReadModel(consumerType);
-        }
-
-        private static object SimplifiedModelConsumerInjectionFactory(IUnityContainer container, Type consumerType, string registrationName)
-        {
-            var factory = container.Resolve<ISimplifiedModelConsumerRuntimeFactory>();
-            return factory.CreateConsumer(consumerType);
         }
     }
 }

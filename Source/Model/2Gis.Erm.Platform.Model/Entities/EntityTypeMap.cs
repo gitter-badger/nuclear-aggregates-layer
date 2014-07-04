@@ -140,6 +140,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.FileWithContent, typeof(FileWithContent) },
                 { EntityName.HotClientRequest, typeof(HotClientRequest) },
                 { EntityName.PerformedBusinessOperation, typeof(PerformedBusinessOperation) },
+            { EntityName.PerformedOperationPrimaryProcessing, typeof(PerformedOperationPrimaryProcessing) },
+            { EntityName.PerformedOperationFinalProcessing, typeof(PerformedOperationFinalProcessing) },
                 { EntityName.ExportFlowCardExtensionsCardCommercial, typeof(ExportFlowCardExtensionsCardCommercial) },
                 { EntityName.ExportFlowFinancialDataLegalEntity, typeof(ExportFlowFinancialDataLegalEntity) },
                 { EntityName.ExportFlowOrdersAdvMaterial, typeof(ExportFlowOrdersAdvMaterial) },
@@ -154,7 +156,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ExportFlowOrdersInvoice, typeof(ExportFlowOrdersInvoice) },
                 { EntityName.ExportFlowNomenclaturesNomenclatureElement, typeof(ExportFlowNomenclatures_NomenclatureElement) },
                 { EntityName.ExportFlowNomenclaturesNomenclatureElementRelation, typeof(ExportFlowNomenclatures_NomenclatureElementRelation) },
-            { EntityName.ExportFlowDeliveryDataLetterSendRequest, typeof(ExportFlowDeliveryData_LetterSendRequest) },
+                { EntityName.ExportFlowDeliveryDataLetterSendRequest, typeof(ExportFlowDeliveryData_LetterSendRequest) },
                 { EntityName.ExportFlowOrdersDenialReason, typeof(ExportFlowOrders_DenialReason) },
                 { EntityName.ExportFailedEntity, typeof(ExportFailedEntity) },
                 { EntityName.ImportedFirmAddress, typeof(ImportedFirmAddress) },
@@ -164,7 +166,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.AcceptanceReportsJournalRecord, typeof(AcceptanceReportsJournalRecord) },
                 { EntityName.DenialReason, typeof(DenialReason) },
 
-            { EntityName.BirthdayCongratulation, typeof(BirthdayCongratulation) },
+                { EntityName.BirthdayCongratulation, typeof(BirthdayCongratulation) },
                 // Dynamic Storage
                 { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
                 { EntityName.DictionaryEntityPropertyInstance, typeof(DictionaryEntityPropertyInstance) },

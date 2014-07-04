@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -48,6 +49,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\PlatformAggregatesAssembly.cs" />
     <Compile Include="EAV\ActivityPropertiesConverter.cs" />
     <Compile Include="EAV\BusinessEntitySpecs.cs" />
     <Compile Include="EAV\DictionaryEntitySpecs.cs" />
@@ -57,11 +59,23 @@
     <Compile Include="EAV\DictionaryEntityPropertiesConverter.cs" />
     <Compile Include="EAV\BusinessEntityPropertiesConverter.cs" />
     <Compile Include="EAV\PartableEntityAccessor.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OpeationsFinalProcessingBulkCreateAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsFinalProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\PerformedOperationsProcessingReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
+      <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
+      <Name>2Gis.Erm.Platform.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
@@ -76,6 +90,7 @@
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

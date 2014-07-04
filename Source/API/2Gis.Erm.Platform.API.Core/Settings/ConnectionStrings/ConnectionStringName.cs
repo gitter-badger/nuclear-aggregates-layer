@@ -13,5 +13,6 @@
         ErmRabbitMq,
         ErmValidation,
         ErmSearch,
+        ErmPerformedOperationsServiceBus
     }
 }

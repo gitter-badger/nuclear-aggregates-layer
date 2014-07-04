@@ -7,7 +7,9 @@ using DoubleGis.Erm.Platform.Common;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Settings;
 
+using Quartz;
 using Quartz.Impl;
+using Quartz.Impl.Matchers;
 using Quartz.Plugin.Xml;
 using Quartz.Simpl;
 using Quartz.Spi;
@@ -79,6 +81,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 if (scheduler == null)
                 {
                     throw new ApplicationException("Не найден scheduler");
+                }
+
+                var matcher = GroupMatcher<JobKey>.AnyGroup();
+                foreach (var jobKey in scheduler.GetJobKeys(matcher))
+                {
+                    scheduler.Interrupt(jobKey);
                 }
 
                 scheduler.Shutdown(false);

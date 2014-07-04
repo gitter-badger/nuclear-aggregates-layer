@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace DoubleGis.Erm.Platform.DAL.AdoNet
 {
@@ -7,21 +8,16 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
     {
         // Использовать для хранимок, в которых результат возвращается через return.
         // В этих хранимках тип возвращаемого результата ограничен числовыми типами и не может быть Null.
-        T ExecuteProcedureWithReturnValue<T>(string procedureName, params Tuple<string, object>[] inputParameters);
-        T ExecuteProcedureWithReturnValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
-
-        // Использовать для хранимок, в которых результат возвращается через select.
-        T ExecuteProcedureWithSelectValue<T>(string procedureName, params Tuple<string, object>[] inputParameters);
-        T ExecuteProcedureWithSelectValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
+        T ExecuteProcedureWithResultSingleValue<T>(string procedureName, params Tuple<string, object>[] inputParameters);
+        T ExecuteProcedureWithResultSingleValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
 
         // Для хранимок, которые возвращают массив результатов
-        IEnumerable<T> ExecuteProcedureWithSelectListOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
-        IEnumerable<T> ExecuteProcedureWithPreeneratedIdsAndSelectListOf<T>(string procedureName, int? commandTimeout, IEnumerable<long> pregeneratedIds, params Tuple<string, object>[] inputParameters);
-
-        Tuple<string, object>[] ExecuteProcedureWithOutputParameter(string procedureName, Tuple<string, object>[] inputParameters, Tuple<string, Type>[] outputParameterName);
+        IEnumerable<T> ExecuteProcedureWithResultSequenceOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
+        
+        Tuple<string, object>[] ExecuteProcedureWithResultOutputParameters(string procedureName, Tuple<string, object>[] inputParameters, Tuple<string, Type>[] outputParameters);
         void ExecuteProcedure(string procedureName, params Tuple<string, object>[] inputParameters);
         void ExecuteProcedure(string procedureName, int commandTimeout, params Tuple<string, object>[] inputParameters);
-        IList<IList<object>> ExecuteTableProcedure(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
-        void ExecuteSqlString(string queryString);
+        DataTable ExecuteProcedureWithResultTable(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
+        void ExecuteRawSql(string queryString);
     }
 }

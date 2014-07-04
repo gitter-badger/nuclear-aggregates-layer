@@ -52,6 +52,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Phonecall
             };
 
+        public static readonly Type[] Async2MsCrmReplicatedEntities =
+            {
+                typeof(Firm),
+                typeof(FirmAddress),
+                typeof(Territory)
+            };
+
         /// <summary>
         /// Список типов ERM существующих только на уровне persistance, используемых только в DAL и не используемых в более высокоуровневых слоях, чем агрегирующие репозитории 
         /// </summary>
@@ -205,6 +212,16 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         {
             Type entityType = entityName.AsEntityType();
             return typeof(IEntityFile).IsAssignableFrom(entityType) || typeof(IEntityFileOptional).IsAssignableFrom(entityType);
+        }
+
+        public static bool IsAsync2MsCrmReplicated(this Type entityType)
+        {
+            if (!entityType.IsEntity())
+            {
+                throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
+            }
+
+            return Async2MsCrmReplicatedEntities.Contains(entityType);
         }
 
         public static string EntitiesToString(this EntityName[] entityNames)
