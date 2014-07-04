@@ -35,11 +35,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
         public RemoteCollection<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
-            query = DefaultFilter(query, querySettings);
-            query = RelativeFilter(query, querySettings);
-            query = FieldFilter(query, querySettings);
+            var query1 = DefaultFilter(query, querySettings);
+            var query2 = RelativeFilter(query1, querySettings);
+            var query3 = FieldFilter(query2, querySettings);
 
-            return SortedPaged(query, querySettings);
+            return SortedPaged(query3, querySettings);
         }
 
         public IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
@@ -70,10 +70,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
                 throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, typeof(TDocument).Name));
             }
 
-            var bodyExpression = lambdaExpression.Body;
+            var castExpression = (UnaryExpression)lambdaExpression.Body;
+            var propertyExpression = castExpression.Operand;
+            var parentEntityIdExpression = Expression.Constant(querySettings.ParentEntityId, propertyExpression.Type);
+            var equalsExpression = Expression.Equal(propertyExpression, parentEntityIdExpression);
             var parameterExpression = lambdaExpression.Parameters.Single();
-            var parentEntityIdExpression = Expression.Constant(querySettings.ParentEntityId, typeof(object));
-            var equalsExpression = Expression.Equal(bodyExpression, parentEntityIdExpression);
             lambdaExpression = Expression.Lambda(equalsExpression, parameterExpression);
 
             var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
