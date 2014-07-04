@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
 
         public long GenerateNextBargainUniqueNumber()
         {
-            var objectResult = _databaseCaller.ExecuteProcedureWithReturnValue<long?>(GenerateIndexProcedureName,
+            var objectResult = _databaseCaller.ExecuteProcedureWithResultSingleValue<long?>(GenerateIndexProcedureName,
                               new Tuple<string, object>(GenerateIndexParameterName,
                                                         GenerateIndexBargainGlobalIndex));
             return objectResult.HasValue ? objectResult.Value : 0L;

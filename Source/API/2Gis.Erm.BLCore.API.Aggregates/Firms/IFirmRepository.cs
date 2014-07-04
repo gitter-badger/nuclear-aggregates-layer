@@ -40,9 +40,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         IDictionary<int, long> GetOrganizationUnits();
         IEnumerable<long> GetCategoriesOfOrganizationUnit(long organizationUnitId);
         Firm ImportFirmFromDgpp(ImportFirmDto firm, FirmImportContext context);
+        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         IEnumerable<FirmAddress> ImportFirmAddresses(Firm firm, ImportFirmDto dto, FirmImportContext context);
-        void ImportAddressContacts(FirmAddress firmAddress, ImportFirmAddressDto dto);
-        void ImportAddressCategories(FirmAddress firmAddress, ImportFirmAddressDto dto, FirmImportContext context);
+        void ImportAddressContacts(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto);
+        void ImportAddressCategories(FirmAddress firmAddress, DTO.ImportFirmAddressDto dto, FirmImportContext context);
+        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         void DeleteFirmRelatedObjects(Firm firm);
 
         void ImportFirmPromisingValues(long userId);
@@ -59,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
 
         // TODO {d.ivanov, 19.12.2013}: IReadModel
-        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds); 
+        IEnumerable<string> GetAddressesNames(IEnumerable<long> firmAddressIds);
 
         // todo {d.ivanov, 2013-11-21}: IReadModel
         long GetFirmAddressOrganizationUnitId(long cardCode);

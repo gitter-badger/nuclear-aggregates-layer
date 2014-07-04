@@ -84,5 +84,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName GetNonExportedOrdersCount =
             new SchemaQualifiedObjectName(ErmSchemas.Integration, "GetNonExportedOrdersCount");
+
+        public static readonly SchemaQualifiedObjectName ReplicateEntitiesToCrm =
+            new SchemaQualifiedObjectName(ErmSchemas.Shared, "ReplicateEntitiesToCrm");
     }
 }

@@ -16,18 +16,18 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
         private readonly IDictionary<StrictOperationIdentity, HashSet<long>> _entityNameToIds;
         private readonly IFinder _finder;
         private readonly QueryRuleContainer<TEntity> _container;
-        private readonly IOperationContextParser _operationContextParser;
+        private readonly IOldOperationContextParser _oldOperationContextParser;
 
         public OperationsQueryBuilder(IFinder finder,
                                       IEnumerable<PerformedBusinessOperation> operations,
                                       QueryRuleContainer<TEntity> container,
-                                      IOperationContextParser operationContextParser)
+                                      IOldOperationContextParser oldOperationContextParser)
         {
             var performedBusinessOperations = operations as PerformedBusinessOperation[] ?? operations.ToArray();
 
             _finder = finder;
             _container = container;
-            _operationContextParser = operationContextParser;
+            _oldOperationContextParser = oldOperationContextParser;
             _entityNameToIds = GetEntityNameToIds(performedBusinessOperations);
         }
 
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             var operationsToIds = new Dictionary<StrictOperationIdentity, HashSet<long>>();
 
             var groupedIds = performedBusinessOperations
-                .Select(operation => _operationContextParser.GetGroupedIdsFromContext(operation.Context,
+                .Select(operation => _oldOperationContextParser.GetGroupedIdsFromContext(operation.Context,
                                                                                       operation.Operation,
                                                                                       operation.Descriptor))
                 .SelectMany(x => x)

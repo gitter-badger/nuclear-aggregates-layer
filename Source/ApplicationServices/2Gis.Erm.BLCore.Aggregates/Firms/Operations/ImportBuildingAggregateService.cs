@@ -7,6 +7,9 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Georgaphy;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
@@ -16,10 +19,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
         private const int ImportCommandTimeout = 900;
 
         private readonly IFirmPersistenceService _firmPersistanceService;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public ImportBuildingAggregateService(IFirmPersistenceService firmPersistanceService)
+        public ImportBuildingAggregateService(IFirmPersistenceService firmPersistanceService, IOperationScopeFactory scopeFactory)
         {
             _firmPersistanceService = firmPersistanceService;
+            _scopeFactory = scopeFactory;
         }
 
         public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos,
@@ -39,7 +44,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             if (activeBuildingDtos.Any())
             {
                 var xml = SerializeBuildingDtos(activeBuildingDtos, "buildings", "building");
-                _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication);
+
+                using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Building>())
+                {
+                    var updatedFirms = _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication);
+
+                    scope.Updated<Firm>(updatedFirms)
+                         .Complete();
+                }
             }
 
             // Обработка удалённых зданий

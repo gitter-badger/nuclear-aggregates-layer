@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Common.Xml;
+using DoubleGis.Erm.Platform.Common.Utils.Xml;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
             string error;
             var xsd = Properties.Resources.ResourceManager.GetString(StaticReflection.GetMemberName(request.XsdSchemaResourceExpression));
-            var isValidXml = XmlValidator.Validate(data, xsd, out error);
+            var isValidXml = data.Validate(xsd, out error);
             if (!isValidXml)
             {
                 _logger.FatalEx(error);

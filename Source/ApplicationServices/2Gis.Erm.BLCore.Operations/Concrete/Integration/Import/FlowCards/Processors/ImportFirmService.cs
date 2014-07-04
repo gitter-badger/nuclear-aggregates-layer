@@ -45,13 +45,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCards.
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportFirmIdentity>())
             {
-                var firmIds = _importFirmAggregateService.ImportFirms(firmServiceBusDtos,
+                var importFirmChanges = _importFirmAggregateService.ImportFirms(
+                                                        firmServiceBusDtos,
                                                         _userContext.Identity.Code,
                                                         _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
                                                         _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
                                                         _msCrmSettings.EnableReplication);
 
-                scope.Updated<Firm>(firmIds).Complete();
+                scope.ApplyChanges<Firm>(importFirmChanges)
+                     .ApplyChanges<FirmAddress>(importFirmChanges)
+                     .Complete();
             }
         } 
     }

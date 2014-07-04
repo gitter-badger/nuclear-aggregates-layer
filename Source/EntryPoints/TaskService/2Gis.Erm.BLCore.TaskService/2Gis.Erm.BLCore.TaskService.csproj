@@ -72,13 +72,15 @@
     <Compile Include="Jobs\LocalMessages\ReprocessLocalMessages.cs" />
     <Compile Include="Jobs\Olap\CalculateClientPromising.cs" />
     <Compile Include="Jobs\Olap\ImportFirmPromising.cs" />
+    <Compile Include="Jobs\PerformedOperationsProcessing\PerformedOperationsFinalProcessingJob.cs" />
+    <Compile Include="Jobs\PerformedOperationsProcessing\PerformedOperationsPrimaryProcessingJob.cs" />
     <Compile Include="Jobs\PostIntegrationActivities\PostIntegrationActivitiesWithFirmsJob.cs" />
     <Compile Include="Jobs\ProcessNotifications.cs" />
+    <Compile Include="Jobs\PushFakeOperationsJob.cs" />
     <Compile Include="Jobs\RabbitMq\ImportLocalMessagesFromRabbitMq.cs" />
     <Compile Include="Jobs\DebugTestJob.cs" />
     <Compile Include="Jobs\OrderProcessingRequest\ProlongateOrdersJob.cs" />
     <Compile Include="Jobs\RequestBirthdaysCongratulationJob.cs" />
-    <Compile Include="Jobs\ReplicateEntitiesToCRMJob.cs" />
     <Compile Include="Jobs\ServiceBus\ExportObjectsJob.cs" />
     <Compile Include="Jobs\ServiceBus\ImportObjectsJob.cs" />
   </ItemGroup>

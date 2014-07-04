@@ -380,15 +380,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int Deactivate(Territory territory)
         {
-            var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
-            if (isLinkedWithUsers)
+            using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
             {
-                throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
+                var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
+                if (isLinkedWithUsers)
+                {
+                    throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
+                }
+
+                territory.IsActive = false;
+                _territoryGenericRepository.Update(territory);
+                _territoryGenericRepository.Save();
+                
+                scope.Updated<Territory>(territory.Id)
+                     .Complete();
             }
 
-            territory.IsActive = false;
-            _territoryGenericRepository.Update(territory);
-            return _territoryGenericRepository.Save();
+            return 1;
         }
 
         public int Deactivate(Department department)
@@ -871,11 +879,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                     _territoryGenericRepository.Update(territory);
                     scope.Updated<Territory>(territory.Id);
                 }
+                
+                _territoryGenericRepository.Save();
 
                 scope.Complete();
             }
-
-            _territoryGenericRepository.Save();
         }
 
         public Territory GetTerritory(long territoryId)

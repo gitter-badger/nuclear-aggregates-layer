@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
 
         public int CheckUserParentnessRecursion(long userId, long parentId)
         {
-            return _databaseCaller.ExecuteProcedureWithReturnValue<int>("Security.CheckUserParentnessRecursion",
+            return _databaseCaller.ExecuteProcedureWithResultSingleValue<int>("Security.CheckUserParentnessRecursion",
                                                                         new Tuple<string, object>("userId", userId),
                                                                         new Tuple<string, object>("proposedParentId", parentId));
         }

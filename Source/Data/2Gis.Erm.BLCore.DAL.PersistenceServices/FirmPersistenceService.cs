@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
 {
-    public class FirmPersistenceService : IFirmPersistenceService
+    public sealed class FirmPersistenceService : IFirmPersistenceService
     {
-        // fixme {all}: installation-depended string, НЕ должно быть ресурсом, поскольку не зависит от локали пользователя
-        // done {all, 10.10.2013}: вынес в конфиг
-
         private readonly IDatabaseCaller _databaseCaller;
 
         public FirmPersistenceService(IDatabaseCaller databaseCaller)
@@ -17,13 +16,13 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             _databaseCaller = databaseCaller;
         }
 
-        public void ImportFirmPromising(long organizationUnitDgppId, long modifiedBy, int timeout, bool enableReplication)
+        public IEnumerable<long> ImportFirmPromising(long organizationUnitDgppId, long modifiedBy, int timeout)
         {
-            _databaseCaller.ExecuteProcedure("Integration.ImportFirmPromising",
-                                             timeout,
-                                             new Tuple<string, object>("OrganizationUnitStableId", organizationUnitDgppId),
-                                             new Tuple<string, object>("ModifiedBy", modifiedBy),
-                                             new Tuple<string, object>("EnableReplication", enableReplication));
+            return _databaseCaller.ExecuteProcedureWithResultSequenceOf<long>(
+                                        "Integration.ImportFirmPromising",
+                                        timeout,
+                                        new Tuple<string, object>("OrganizationUnitStableId", organizationUnitDgppId),
+                                        new Tuple<string, object>("ModifiedBy", modifiedBy));
         }
 
         public void ReplicateObjectsAfterImportCards(int timeout)
@@ -31,53 +30,54 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             _databaseCaller.ExecuteProcedure("Integration.ReplicateObjectsAfterImportCards", timeout);
         }
 
-        public IEnumerable<long> ImportCardsFromXml(string cardsXml,
-                                                    long modifiedBy,
-                                                    long ownerCode,
-                                                    int timeout,
-                                                    long[] pregeneratedIds,
-                                                    string regionalTerritoryLocaleSpecificWord)
+        public EntityChangesContext ImportCardsFromXml(
+            string cardsXml, 
+            long modifiedBy, 
+            long ownerCode, 
+            int timeout,
+            long[] pregeneratedIds, 
+            string regionalTerritoryLocaleSpecificWord)
         {
-            return _databaseCaller.ExecuteProcedureWithPreeneratedIdsAndSelectListOf<long>("Integration.ImportCardsFromXml",
-                                                                                           timeout,
-                                                                                           pregeneratedIds,
-                                                                                           new Tuple<string, object>("Doc", cardsXml),
-                                                                                           new Tuple<string, object>("ModifiedBy", modifiedBy),
-                                                                                           new Tuple<string, object>("OwnerCode", ownerCode),
-                                                                                           new Tuple<string, object>("RegionalTerritoryLocalName",
-                                                                                                                     regionalTerritoryLocaleSpecificWord));
+            var changedEntitiesReport = _databaseCaller.ExecuteProcedureWithResultTable(
+                                                            "Integration.ImportCardsFromXml",
+                                                            timeout,
+                                                            new Tuple<string, object>("Doc", cardsXml),
+                                                            new Tuple<string, object>("ModifiedBy", modifiedBy),
+                                                            new Tuple<string, object>("OwnerCode", ownerCode),
+                                                            new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord),
+                                                            new Tuple<string, object>("PregenaratedIds", pregeneratedIds.ToIdsContainer()));
+            return changedEntitiesReport.ToEntityChanges();
         }
 
-        public void ImportFirmFromXml(string firmXml,
-                                      long modifiedBy,
-                                      long ownerCode,
-                                      int timeout,
-                                      bool enableReplication,
-                                      string regionalTerritoryLocaleSpecificWord)
+        public EntityChangesContext ImportFirmFromXml(string firmXml, long modifiedBy, long ownerCode, int timeout, bool enableReplication, string regionalTerritoryLocaleSpecificWord)
         {
-            _databaseCaller.ExecuteProcedure("Integration.ImportFirmFromXml",
-                                             timeout,
-                                             new Tuple<string, object>("Xml", firmXml),
-                                             new Tuple<string, object>("ModifiedBy", modifiedBy),
-                                             new Tuple<string, object>("OwnerCode", ownerCode),
-                                             new Tuple<string, object>("EnableReplication", enableReplication),
-                                             new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord));
+            var changedEntitiesReport = _databaseCaller.ExecuteProcedureWithResultTable(
+                                                            "Integration.ImportFirmFromXml",
+                                                            timeout,
+                                                            new Tuple<string, object>("Xml", firmXml),
+                                                            new Tuple<string, object>("ModifiedBy", modifiedBy),
+                                                            new Tuple<string, object>("OwnerCode", ownerCode),
+                                                            new Tuple<string, object>("EnableReplication", enableReplication),
+                                                            new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord));
+            return changedEntitiesReport.ToEntityChanges();
         }
 
-        public void UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication)
+        public IEnumerable<long> UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication)
         {
-            _databaseCaller.ExecuteProcedure("Integration.UpdateBuildings",
-                                             timeout,
-                                             new Tuple<string, object>("buildingsXml", buildingsXml),
-                                             new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord),
-                                             new Tuple<string, object>("EnableReplication", enableReplication));
+            return _databaseCaller.ExecuteProcedureWithResultSequenceOf<long>(
+                                        "Integration.UpdateBuildings",
+                                        timeout,
+                                        new Tuple<string, object>("buildingsXml", buildingsXml),
+                                        new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord),
+                                        new Tuple<string, object>("EnableReplication", enableReplication));
         }
 
         public void DeleteBuildings(string codesXml, int timeout)
         {
-            _databaseCaller.ExecuteProcedure("Integration.DeleteBuildings",
-                                             timeout,
-                                             new Tuple<string, object>("codesXml", codesXml));
+            _databaseCaller.ExecuteProcedure(
+                                "Integration.DeleteBuildings",
+                                timeout,
+                                new Tuple<string, object>("codesXml", codesXml));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Model.Simplified;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel
+namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.ReadModel
 {
     public interface IContributionTypeReadModel : ISimplifiedModelConsumerReadModel
     {
