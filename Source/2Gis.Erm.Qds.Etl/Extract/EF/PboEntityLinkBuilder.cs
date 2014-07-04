@@ -13,13 +13,13 @@ namespace DoubleGis.Erm.Qds.Etl.Extract.EF
     /// </summary>
     public class PboEntityLinkBuilder : IEntityLinkBuilder
     {
-        private readonly IOperationContextParser _contextParser;
+        private readonly IOldOperationContextParser _contextParser;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="contextParser">Парсер контекста операции.</param>
-        public PboEntityLinkBuilder(IOperationContextParser contextParser)
+        public PboEntityLinkBuilder(IOldOperationContextParser contextParser)
         {
             if (contextParser == null)
             {

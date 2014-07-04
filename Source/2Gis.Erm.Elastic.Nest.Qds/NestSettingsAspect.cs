@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data.Common;
 
-using DoubleGis.Erm.Elastic.Nest.Qds;
-using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Qds.API.Core.Settings;
 
 using Elasticsearch.Net.ConnectionPool;
 
@@ -11,21 +10,15 @@ using Nest;
 
 using Newtonsoft.Json;
 
-namespace DoubleGis.Erm.Qds.API.Core.Settings
+namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
     public sealed class NestSettingsAspect : ISettingsAspect, INestSettings
     {
         private readonly ConnectionSettings _connectionSettings;
-        public IConnectionSettingsValues ConnectionSettings { get { return _connectionSettings; } }
-
-        public Protocol Protocol { get; private set; }
-        public int BatchSize { get; private set; }
-        public string BatchTimeout { get; private set; }
         private readonly string _indexPrefix;
 
-        public NestSettingsAspect(IConnectionStringSettings connectionStringSettings)
+        public NestSettingsAspect(string connectionString)
         {
-            var connectionString = connectionStringSettings.GetConnectionString(ConnectionStringName.ErmSearch);
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
 
             Protocol = GetSettingValue(builder, "Protocol", Protocol.None);
@@ -39,6 +32,25 @@ namespace DoubleGis.Erm.Qds.API.Core.Settings
             {
                 RegisterType(indexNameMapping.Item1, indexNameMapping.Item2);
             }
+        }
+
+        public IConnectionSettingsValues ConnectionSettings
+        {
+            get { return _connectionSettings; }
+        }
+
+        public Protocol Protocol { get; private set; }
+        public int BatchSize { get; private set; }
+        public string BatchTimeout { get; private set; }
+        
+        public string GetIsolatedIndexName(string indexName)
+        {
+            return _indexPrefix + "." + indexName.ToLowerInvariant();
+        }
+
+        public void RegisterType<T>(string docIndexName, string docTypeName = null)
+        {
+            RegisterType(typeof(T), docIndexName, docTypeName);
         }
 
         private static T GetSettingValue<T>(DbConnectionStringBuilder builder, string key, T defaultValue)
@@ -61,28 +73,7 @@ namespace DoubleGis.Erm.Qds.API.Core.Settings
 
             return convertedValue;
         }
-
-        public string GetIsolatedIndexName(string indexName)
-        {
-            return _indexPrefix + "." + indexName.ToLowerInvariant();
-        }
-
-        public void RegisterType<T>(string docIndexName, string docTypeName = null)
-        {
-            RegisterType(typeof(T), docIndexName, docTypeName);
-        }
-
-        private void RegisterType(Type documentType, string docIndexName, string docTypeName = null)
-        {
-            var isolatedIndexName = string.Concat(_indexPrefix, ".", docIndexName.ToLowerInvariant());
-            _connectionSettings.MapDefaultTypeIndices(x => x.Add(documentType, isolatedIndexName));
-
-            if (docTypeName != null)
-            {
-                _connectionSettings.MapDefaultTypeNames(x => x.Add(documentType, docTypeName.ToLowerInvariant()));
-            }
-        }
-
+        
         private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder connectionStringBuilder)
         {
             var urisNonParsed = (string)connectionStringBuilder["Uris"];
@@ -107,6 +98,17 @@ namespace DoubleGis.Erm.Qds.API.Core.Settings
             connectionSettings.ExposeRawResponse();
 
             return connectionSettings;
+        }
+
+        private void RegisterType(Type documentType, string docIndexName, string docTypeName = null)
+        {
+            var isolatedIndexName = string.Concat(_indexPrefix, ".", docIndexName.ToLowerInvariant());
+            _connectionSettings.MapDefaultTypeIndices(x => x.Add(documentType, isolatedIndexName));
+
+            if (docTypeName != null)
+            {
+                _connectionSettings.MapDefaultTypeNames(x => x.Add(documentType, docTypeName.ToLowerInvariant()));
+            }
         }
     }
 }
