@@ -4,6 +4,9 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.MultiCulture.Firms.Operations;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Integration.Dto.Cards;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Firms.Operations
@@ -15,13 +18,15 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Firms.Operations
         private const int ImportCommandTimeout = 900;
 
         private readonly IFirmPersistenceService _firmPersistanceService;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public MultiCultureImportCardAggregateService(IFirmPersistenceService firmPersistanceService)
+        public MultiCultureImportCardAggregateService(IFirmPersistenceService firmPersistanceService, IOperationScopeFactory scopeFactory)
         {
             _firmPersistanceService = firmPersistanceService;
+            _scopeFactory = scopeFactory;
         }
 
-        public IEnumerable<long> ImportCards(IEnumerable<MultiCultureCardServiceBusDto> dtos,
+        public EntityChangesContext ImportCards(IEnumerable<MultiCultureCardServiceBusDto> dtos,
                                              long userId,
                                              long reserveUserId,
                                              long[] pregeneratedIds,
@@ -30,14 +35,21 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Firms.Operations
         {
             var cardsXml = string.Format("<Root>{0}</Root>", string.Concat(dtos.Select(x => x.Content.ToString())));
 
-            var updatedIds = _firmPersistanceService.ImportCardsFromXml(cardsXml,
-                                                                        userId,
-                                                                        reserveUserId,
-                                                                        ImportCommandTimeout,
-                                                                        pregeneratedIds,
-                                                                        regionalTerritoryLocaleSpecificWord);
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Firm>())
+            {
+                var changesContext = _firmPersistanceService.ImportCardsFromXml(cardsXml,
+                                                                            userId,
+                                                                            reserveUserId,
+                                                                            ImportCommandTimeout,
+                                                                            pregeneratedIds,
+                                                                            regionalTerritoryLocaleSpecificWord);
 
-            return updatedIds;
+                scope.ApplyChanges<Firm>(changesContext)
+                     .ApplyChanges<FirmAddress>(changesContext)
+                     .Complete();
+
+                return changesContext;
+            }
         }
     }
 }
