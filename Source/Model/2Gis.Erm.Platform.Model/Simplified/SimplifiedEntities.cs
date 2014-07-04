@@ -59,7 +59,8 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityName.Bank,
                 EntityName.Commune,
                 EntityName.AcceptanceReportsJournalRecord,
-                EntityName.DenialReason
+            EntityName.DenialReason,
+            EntityName.BirthdayCongratulation
             };
 
         private static readonly IDictionary<EntityName, Type> SimplifiedEntitiesMap = new Dictionary<EntityName, Type>();

@@ -186,6 +186,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.CategoryFirmAddress = 166
         public const int ImportCategoryFirmAddressFromServiceBusIdentity = 16601;
 
+        // EntityName.Contact = 206
+        public const int RequestBirthdayCongratulationsIdentity = 20601;
+
         // EntityName.DepCard = 240
         public const int ImportDepCardFromServiceBusIdentity = 24001;
 
