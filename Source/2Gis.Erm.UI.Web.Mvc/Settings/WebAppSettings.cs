@@ -10,10 +10,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Settings
 {
@@ -38,6 +40,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
                 .Use<NotificationsSettingsAspect>()
                 .Use<CachingSettingsAspect>()
                 .Use<ValidateFileSettingsAspect>()
+                .Use<OperationLoggingSettingsAspect>()
+                .IfRequiredUseOperationLogging2ServiceBus()
                 .Use(RequiredServices
                         .Is<APIIntrospectionServiceSettingsAspect>()
                         .Is<APIOrderValidationServiceSettingsAspect>()

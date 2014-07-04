@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(), 
                     new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
@@ -58,6 +59,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                                              c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                                                    settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    loggerContextManager))
                      .ConfigureServiceClient();
 
@@ -74,13 +76,14 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
             IEnvironmentSettings environmentSettings,
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(cachingSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata()

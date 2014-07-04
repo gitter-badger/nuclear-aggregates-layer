@@ -6,13 +6,18 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer.Settings;
 using DoubleGis.Erm.Platform.TaskService.Settings;
 using DoubleGis.Erm.Qds.API.Core.Settings;
 
@@ -63,7 +68,11 @@ namespace DoubleGis.Erm.TaskService.Settings
                .Use<IntegrationSettingsAspect>()
                .Use<NotificationsSettingsAspect>()
                .Use<CachingSettingsAspect>()
-               .Use(new NestSettingsAspect(new ConnectionStringsSettingsAspect()))
+               .UseElasticClientNestSettingsAspect()
+               .Use<OperationLoggingSettingsAspect>()
+               .IfRequiredUseOperationLogging2ServiceBus()
+               .Use<PerformedOperationsTransportSettingsAspect>()
+               .IfRequiredUsePerformedOperationsFromServiceBusAspect()
                .Use(RequiredServices
                        .Is<APIIdentityServiceSettingsAspect>()
                        .Is<APIMoDiServiceSettingsAspect>());

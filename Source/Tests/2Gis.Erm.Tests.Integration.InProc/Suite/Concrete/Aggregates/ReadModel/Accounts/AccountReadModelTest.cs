@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -12,22 +11,20 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
-using OrderEntity = DoubleGis.Erm.Platform.Model.Entities.Erm.Order;
-
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Account
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Accounts
 {
     public class AccountReadModelTest : IIntegrationTest
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider;
-        private readonly IAppropriateEntityProvider<OrderEntity> _orderProvider;
+        private readonly IAppropriateEntityProvider<Order> _orderProvider;
         private readonly IAppropriateEntityProvider<Lock> _lockProvider;
         private readonly IAppropriateEntityProvider<Limit> _limitProvider;
         private readonly IAppropriateEntityProvider<WithdrawalInfo> _withdrawalInfoProvider;
 
         public AccountReadModelTest(IAccountReadModel accountReadModel, 
             IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider,
-            IAppropriateEntityProvider<OrderEntity> orderProvider,
+            IAppropriateEntityProvider<Order> orderProvider,
             IAppropriateEntityProvider<Lock> lockProvider, 
             IAppropriateEntityProvider<Limit> limitProvider,
             IAppropriateEntityProvider<WithdrawalInfo> withdrawalInfoProvider)
@@ -43,7 +40,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
         public ITestResult Execute()
         {
             var activeLock = _lockProvider.Get(Specs.Find.ActiveAndNotDeleted<Lock>());
-            var activeLockOrder = _orderProvider.Get(Specs.Find.ById<OrderEntity>(activeLock.OrderId));
+            var activeLockOrder = _orderProvider.Get(Specs.Find.ById<Order>(activeLock.OrderId));
             var activeLockTimePeriod = new TimePeriod(activeLock.PeriodStartDate, activeLock.PeriodEndDate);
 
             var dateForHungLimits = DateTime.UtcNow.AddMonths(-2);
@@ -105,10 +102,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                             && o.IsActive && !o.IsDeleted && o.LegalPersonId != null)));
         }
 
-        private OrderEntity GetOrderWithLimitsForRelease(Limit limitForRelease)
+        private Order GetOrderWithLimitsForRelease(Limit limitForRelease)
         {
-            return _orderProvider.Get(Specs.Find.ActiveAndNotDeleted<OrderEntity>()
-                && new FindSpecification<OrderEntity>(o => o.Account.Limits.Any(l => l.Id == limitForRelease.Id)));
+            return _orderProvider.Get(Specs.Find.ActiveAndNotDeleted<Order>()
+                && new FindSpecification<Order>(o => o.Account.Limits.Any(l => l.Id == limitForRelease.Id)));
         }
 
         private OrganizationUnit GetOrgUnitWithWithdrawal(WithdrawalInfo withdrawal)

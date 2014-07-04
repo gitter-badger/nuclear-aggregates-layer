@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             var massProcessors = new IMassProcessor[]
             {
                 new CheckApplicationServicesConventionsMassProcessor(), 
-                new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                new CheckDomainModelEntitiesConsistencyMassProcessor(),
                 new MetadataSourcesMassProcessor(container),
                 new AggregatesLayerMassProcessor(container),
                 new SimplifiedModelConsumersProcessor(container), 
@@ -64,6 +65,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           loggerContextManager));
         }
 
@@ -73,6 +75,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
             IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings,
             ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -81,7 +84,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 .CreateSecuritySpecific()
                 .CreateErmSpecific()
                 .ConfigureCacheAdapter(cachingSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()

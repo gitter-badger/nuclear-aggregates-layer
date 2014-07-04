@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -30,7 +31,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             var unhandled = new Dictionary<IIntegrationTest, Exception>();
             var unresolved = new Dictionary<Type, Exception>();
 
-            foreach (var integrationTestType in _testSuite.TestTypes)
+            var orderedTests = _testSuite.TestTypes.OrderBy(x => x, new IntegrationTestsComparer());
+            foreach (var integrationTestType in orderedTests)
             {
                 _testStatusObserver.Started(integrationTestType);
 

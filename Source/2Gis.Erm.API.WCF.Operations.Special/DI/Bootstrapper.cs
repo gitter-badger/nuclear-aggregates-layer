@@ -20,6 +20,7 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
@@ -78,6 +79,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           loggerContextManager))
                             .ConfigureServiceClient();
         }
@@ -93,6 +95,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             IConnectionStringSettings connectionStringSettings,
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -100,7 +103,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(cachingSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureReadWriteModels()
