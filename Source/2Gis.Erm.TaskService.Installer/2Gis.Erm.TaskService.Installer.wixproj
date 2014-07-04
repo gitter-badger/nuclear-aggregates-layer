@@ -230,6 +230,15 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+      <Project>{0645cab5-47be-4d67-ba49-751bcbef1241}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Symbols;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
       <Name>2Gis.Erm.BL.Operations</Name>
       <Project>{247fae89-d1e0-4c16-bfef-667e1d3655d1}</Project>
@@ -741,7 +750,16 @@
     <Content Include="Variables.Test.21.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
+    <Content Include="Variables.Test.22.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
     <Content Include="Variables.Test.23.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.24.wxi">
+      <DependentUpon>Variables.wxi</DependentUpon>
+    </Content>
+    <Content Include="Variables.Test.25.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
     <Content Include="Variables.Test.201.wxi">
@@ -758,7 +776,7 @@
     </Content>
     <Content Include="Variables.Test.102.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
-    </Content> 
+    </Content>
     <Content Include="Variables.Test.108.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
