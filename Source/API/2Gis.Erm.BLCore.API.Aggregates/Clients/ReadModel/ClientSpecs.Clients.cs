@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
 {
-    public static class ClientSpecs
+    public static partial class ClientSpecs
     {
         public static class Clients
         {
