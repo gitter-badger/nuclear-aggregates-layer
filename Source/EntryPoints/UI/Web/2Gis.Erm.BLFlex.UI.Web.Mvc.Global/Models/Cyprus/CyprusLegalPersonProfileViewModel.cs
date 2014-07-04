@@ -106,12 +106,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [StringLengthLocalized(256)]
         public string RecipientName { get; set; }
 
+        [Dependency(DependencyType.Required, "EmailForAccountingDocuments", "this.value == 'ByEmail'")]
         [Dependency(DependencyType.Required, "DocumentsDeliveryAddress", "this.value == 'ByCourier'")]
         public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
 
         [EmailLocalized]
         [StringLengthLocalized(64)]
-        [RequiredLocalized]
         public string EmailForAccountingDocuments { get; set; }
 
         [EmailLocalized]
