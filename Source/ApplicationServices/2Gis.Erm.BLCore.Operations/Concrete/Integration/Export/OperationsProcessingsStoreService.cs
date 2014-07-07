@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,6 +20,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
     // COMMENT {i.maslennikov, 09.04.2014}: Думаю, стоит рассматривать экспорт объектов как отдельный bounded context и выделить в нем агрегаты
     //                                      Важно, что эти выденные агрегаты точно никак не связаны с агрегатами других bounded context-ов
     // TODO {d.ivanov,i.maslennikov, 09.04.2014}: Реализовать в ERM возможность существования нескольких bounded context-ов и некольких непересекающихся наборов агрегатов в них
+    [UseCase(Duration = UseCaseDuration.Long)]
     public sealed class OperationsProcessingsStoreService<TEntity, TProcessedOperationEntity> : IOperationsProcessingsStoreService<TEntity, TProcessedOperationEntity>
         where TEntity : class, IEntity, IEntityKey
         where TProcessedOperationEntity : class, IIntegrationProcessorState
@@ -27,6 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly EntityName _integrationProcessorStateEntityName = typeof(TProcessedOperationEntity).AsEntityName();
 
         private readonly IIdentityProvider _identityProvider;
+        private readonly IUseCaseTuner _useCaseTuner;
         private readonly IFinder _finder;
         private readonly IRepository<TProcessedOperationEntity> _processedOperationEntity;
         private readonly IRepository<ExportFailedEntity> _exportFailedRepository;
@@ -35,9 +38,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             IFinder finder,
             IRepository<TProcessedOperationEntity> processedOperationEntity,
             IRepository<ExportFailedEntity> exportFailedRepository,
-            IIdentityProvider identityProvider)
+            IIdentityProvider identityProvider,
+            IUseCaseTuner useCaseTuner)
         {
             _identityProvider = identityProvider;
+            _useCaseTuner = useCaseTuner;
             _finder = finder;
             _processedOperationEntity = processedOperationEntity;
             _exportFailedRepository = exportFailedRepository;
@@ -45,6 +50,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         public IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate)
         {
+            _useCaseTuner.AlterDuration<OperationsProcessingsStoreService<TEntity, TProcessedOperationEntity>>();
+
             var batchOfOperationsToProcess = GetBatchOfOperationsToProcessQuery(ignoreOperationsPrecedingDate);
             return batchOfOperationsToProcess.ToArray();
         }
@@ -52,6 +59,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         public IEnumerable<PerformedBusinessOperation> GetPendingOperations(DateTime ignoreOperationsPrecedingDate,
                                                                             int maxOperationCount)
         {
+            _useCaseTuner.AlterDuration<OperationsProcessingsStoreService<TEntity, TProcessedOperationEntity>>();
+
             var batchOfOperationsToProcess = GetBatchOfOperationsToProcessQuery(ignoreOperationsPrecedingDate);
             return batchOfOperationsToProcess.OrderBy(operation => operation.Date).Take(maxOperationCount).ToArray();
         }
