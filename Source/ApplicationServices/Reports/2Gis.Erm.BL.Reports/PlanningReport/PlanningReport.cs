@@ -338,7 +338,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 38].Formula = String.Format("Y{0}*$AL$2", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 39].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!T:T)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 39].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!Q:Q)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
                 sheet.Cells[currentRow, currentColumn = 40].Formula = String.Format("AM{0}*$AN$2", currentRow);
