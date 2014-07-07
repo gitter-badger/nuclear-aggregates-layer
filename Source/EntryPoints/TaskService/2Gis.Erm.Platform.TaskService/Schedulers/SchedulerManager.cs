@@ -83,13 +83,24 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                     throw new ApplicationException("Не найден scheduler");
                 }
 
-                var matcher = GroupMatcher<JobKey>.AnyGroup();
+                const string InterruptibleJobIndicatorSuffix = "Interruptable";
+                var matcher = GroupMatcher<JobKey>.GroupEndsWith(InterruptibleJobIndicatorSuffix);
                 foreach (var jobKey in scheduler.GetJobKeys(matcher))
                 {
-                    scheduler.Interrupt(jobKey);
+                    try
+                    {
+                        scheduler.Interrupt(jobKey);
+                    }
+                    catch (UnableToInterruptJobException ex)
+                    {
+                        const string MsgTemplate = "Can't interrupt job with key {0} and group {1}. " +
+                                                   "Only jobs that are implements {2} can be in group with \"{3}\" suffix. " +
+                                                   "Check quartz configuration.";
+                        _logger.ErrorFormatEx(ex, MsgTemplate, jobKey.Name,  jobKey.Group, typeof(IInterruptableJob), InterruptibleJobIndicatorSuffix);
+                    }
                 }
 
-                scheduler.Shutdown(false);
+                scheduler.Shutdown(true);
                 SchedulerRepository.Instance.Remove(SchedulerName);
 
                 _logger.DebugEx("Сервис успешно остановлен");
