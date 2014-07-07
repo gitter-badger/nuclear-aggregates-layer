@@ -18,9 +18,14 @@ namespace DoubleGis.Erm.Platform.Core.UseCases
         /// Указать ожидаемую длительность выполняющегося usecase.
         /// Значение длительности считывается из атрибута UseCase, которым должен быть помечен тип, который хочет указать длительность usecase
         /// </summary>
-        public void AlterDuration<THost>()
-            where THost : class
+        void IUseCaseTuner.AlterDuration<THost>()
         {   
+            var hostingType = typeof(THost);
+            AlterDuration(hostingType);
+        }
+
+        private void AlterDuration(Type hostingType)
+        {
             #region Замечания
             // Пока не поддерживаем возможность явно указывать duration в качестве аргумента AlterDuration или  выввод duration из метаданных чего либо, кроме host типа выполняющего usecase
             // Причина - наличие жесткого constraint - чтобы использовать AlterDuration, надо прописывать duration через атрибут UseCase - обеспечит нормальные метаданные usecase (пусть пока и в виде атрибутов в коде)
@@ -35,7 +40,6 @@ namespace DoubleGis.Erm.Platform.Core.UseCases
             //    Вывод - гемор превосходит профит.
             #endregion
 
-            var hostingType = typeof(THost);
             UseCaseDuration specifiedDuration;
             if (!hostingType.TryGetUseCaseDuration(out specifiedDuration))
             {
