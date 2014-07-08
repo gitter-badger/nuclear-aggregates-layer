@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ScopeChanges.Added<TEntity>(changedEntities);
+            ResolveScopeNode(targetScope.Id).ChangesContext.Added<TEntity>(changedEntities);
         }
 
         void IOperationScopeContextsStorage.Deleted<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities)
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ScopeChanges.Deleted<TEntity>(changedEntities);
+            ResolveScopeNode(targetScope.Id).ChangesContext.Deleted<TEntity>(changedEntities);
         }
 
         void IOperationScopeContextsStorage.Updated<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities)
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ScopeChanges.Updated<TEntity>(changedEntities);
+            ResolveScopeNode(targetScope.Id).ChangesContext.Updated<TEntity>(changedEntities);
         }
 
         void IOperationScopeRegistrar.RegisterRoot(IOperationScope rootScope)
@@ -66,10 +66,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             if (_rootScope != null)
             {
                 throw new InvalidOperationException(
-                    string.Format("Can't register scope with id {0} as root. Storage already contains root scope wit id {1}. Possibly info about flow marker was lost because of thread switching and etc.", rootScope.Id, _rootScope.Scope.Id));
+                    string.Format("Can't register scope with id {0} as root. Storage already contains root scope wit id {1}. Possibly info about flow marker was lost because of thread switching and etc.", rootScope.Id, _rootScope.ScopeId));
             }
 
-            _rootScope = new OperationScopeNode(rootScope);
+            _rootScope = new OperationScopeNode(rootScope.Id, rootScope.IsRoot, rootScope.OperationIdentity);
             _scopesMap.TryAdd(rootScope.Id, _rootScope);
 
             var flow = StartFlow();
@@ -132,7 +132,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 CloseFlowIfEmpty(currentFlow);
             }
 
-            if (scope.Id == _rootScope.Scope.Id && !_flowsMap.IsEmpty)
+            if (scope.Id == _rootScope.ScopeId && !_flowsMap.IsEmpty)
             {
                 throw new InvalidOperationException("Can't close root scope with active flows in map. Check child scope exits for correctness.");
             }
@@ -192,7 +192,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
         private OperationScopeNode RegisterNewScope(IOperationScope operationScope)
         {
-            var scopeNode = new OperationScopeNode(operationScope);
+            var scopeNode = new OperationScopeNode(operationScope.Id, operationScope.IsRoot, operationScope.OperationIdentity);
             if (!_scopesMap.TryAdd(operationScope.Id, scopeNode))
             {
                 throw new InvalidOperationException("Can't add same scope more than one times: " + operationScope.Id);

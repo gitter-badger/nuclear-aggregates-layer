@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
@@ -19,13 +20,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
     {
         private const string StoredProcedurePrefix = "Replicate";
-
-        private static readonly List<Type> DeferredReplicationTypes = new List<Type>
-        {
-            typeof(Firm),
-            typeof(Territory),
-            typeof(FirmAddress),
-        };
 
         private readonly HashSet<IEntityKey> _replicableHashSet = new HashSet<IEntityKey>();
         private readonly IProcessingContext _processingContext;
@@ -57,16 +51,16 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public bool AnyPendingChanges
         {
             get 
-            { 
+            {
                 try
                 {
                     return _dbContext.HasChanges();
-            }
+                }
                 catch (InvalidOperationException)
                 {
                     // object context is already disposed
                     return false;
-        }
+                }
             }
         }
         
@@ -175,7 +169,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return;
             }
 
-            if (DeferredReplicationTypes.Contains(entity.GetType()))
+            if (entity.GetType().IsAsync2MsCrmReplicated())
             {
                 return;
             }

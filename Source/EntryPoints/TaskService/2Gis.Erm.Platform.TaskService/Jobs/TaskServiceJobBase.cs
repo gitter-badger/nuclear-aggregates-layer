@@ -31,6 +31,11 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
         /// </summary>
         public string ErmUserImpersonateAs { get; set; }
 
+        protected ICommonLog Logger
+        {
+            get { return _logger; }
+        }
+
         public void Execute(IJobExecutionContext context)
         {
             var group = context.JobDetail.Key.Group;
@@ -80,15 +85,19 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs
             }
         }
 
+        // FIXME {all, 11.06.2014}: отказаться от использование этого wrapper метода, перейти к использованию ICommonLog напрямую, логирование на консоль, если оно нужно - реализовать добавив соответствующий appender + фильтры + возможно не для всех сред
+        [Obsolete]
         protected void LogInfo(string format, params object[] args)
         {
-            _logger.InfoFormatEx(format, args);
+            Logger.InfoFormatEx(format, args);
             Console.WriteLine(format, args);
         }
 
+        // FIXME {all, 11.06.2014}: отказаться от использование этого wrapper метода, перейти к использованию ICommonLog напрямую, логирование на консоль, если оно нужно - реализовать добавив соответствующий appender + фильтры + возможно не для всех сред
+        [Obsolete]
         protected void LogError(Exception e, string format, params object[] args)
         {
-            _logger.ErrorFormatEx(e, format, args);
+            Logger.ErrorFormatEx(e, format, args);
             Console.WriteLine(format, args);
         }
 
