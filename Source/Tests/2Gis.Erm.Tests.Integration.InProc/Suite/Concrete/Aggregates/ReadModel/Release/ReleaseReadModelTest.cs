@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -18,11 +17,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IAppropriateEntityProvider<OrganizationUnit> _organizationUnitProvider;
         private readonly IAppropriateEntityProvider<ReleaseInfo> _releaseInfoProvider;
-        private readonly IAppropriateEntityProvider<Platform.Model.Entities.Erm.Order> _orderEntityProvider; 
+        private readonly IAppropriateEntityProvider<Order> _orderEntityProvider; 
 
         public ReleaseReadModelTest(IReleaseReadModel releaseReadModel,
                                     IAppropriateEntityProvider<OrganizationUnit> organizationUnitProvider,
-                                    IAppropriateEntityProvider<ReleaseInfo> releaseInfoProvider, IAppropriateEntityProvider<Platform.Model.Entities.Erm.Order> orderEntityProvider)
+                                    IAppropriateEntityProvider<ReleaseInfo> releaseInfoProvider, 
+                                    IAppropriateEntityProvider<Order> orderEntityProvider)
         {
             _releaseReadModel = releaseReadModel;
             _organizationUnitProvider = organizationUnitProvider;
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 
             var releaseInfo = _releaseInfoProvider.Get(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() && ReleaseSpecs.Releases.Find.ForPeriod(timePeriod));
 
-            var orders = _orderEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Platform.Model.Entities.Erm.Order>(), 5);
+            var orders = _orderEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Order>(), 5);
 
             if (orgUnitForRelease == null || releaseInfo == null || !orders.Any())
             {

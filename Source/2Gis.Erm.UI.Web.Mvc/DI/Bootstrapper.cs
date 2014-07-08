@@ -83,7 +83,6 @@ using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
-using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
@@ -136,6 +135,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                    settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<IWebAppProcesingSettings>()))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
@@ -197,6 +197,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
             IWebAppProcesingSettings webAppProcesingSettings)
         {
             return container
@@ -206,7 +207,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .CreateDatabasebSyncChecker(connectionStringSettings)
                      .CreateSecuritySpecific(webAppProcesingSettings)
                      .ConfigureCacheAdapter(cachingSettings)
-                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
@@ -292,7 +293,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
+                .RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
                 // crosscutting
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)

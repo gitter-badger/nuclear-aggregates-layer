@@ -53,6 +53,9 @@ using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -67,7 +70,10 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
+using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
@@ -83,12 +89,18 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
+            Type[] explicitlyTypesSpecified = null;
+            //            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            Type[] explicitlyExcludedTypes = //null;
+            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+
+
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(),  
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(),  
                     new MetadataSourcesMassProcessor(container), 
-                    new IntegrationTestsMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
+                    new IntegrationTestsMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, explicitlyTypesSpecified, explicitlyExcludedTypes), 
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -120,7 +132,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 settingsContainer.AsSettings<IConnectionStringSettings>(),
                                 settingsContainer.AsSettings<IGlobalizationSettings>(),
                                 settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>()))
+                                settingsContainer.AsSettings<ICachingSettings>(),
+                                settingsContainer.AsSettings<IOperationLoggingSettings>()))
                      .ConfigureServiceClient()
                      .OverrideDependencies();
 
@@ -138,24 +151,24 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
-            ICachingSettings cachingSettings)
+            ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings)
         {
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                     .ConfigureIdentityInfrastructure()
-                    .ConfigureEAV()
                     .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .ConfigureExportMetadata()
                     .ConfigureMetadata()
-                    .ConfigureTestInfrastructure(environmentSettings);
-                    
+                    .ConfigureTestInfrastructure(environmentSettings)
+                    .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -200,7 +213,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            container.RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
+            container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                      .RegisterTypeWithDependencies<IPublicService, PublicService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
@@ -261,6 +274,20 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterTypeWithDependencies(typeof(IAppropriateEntityProvider<>), typeof(FinderAppropriateEntityProvider<>), Lifetime.PerResolve, null);
         }
 
+        private static IUnityContainer OverrideDependencies(this IUnityContainer container)
+        {
+            return container.RegisterType(typeof(IImportFromServiceBusService),
+                                          typeof(ImportFromServiceBusService),
+                                          new InjectionConstructorPart(new ConstructorParameterOverride(typeof(IClientProxyFactory),
+                                                                                                        typeof(FakeBrokerApiReceiverClientProxyFactory))));
+        }
+
+        private static IUnityContainer ConfigureTestsDependenciesExplicitly(this IUnityContainer container)
+        {
+            return container.ConfigureEAV()
+                            .ConfigureServiceBusInfrstructure();
+        }
+        
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
@@ -279,12 +306,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
 
-        private static IUnityContainer OverrideDependencies(this IUnityContainer container)
+        private static IUnityContainer ConfigureServiceBusInfrstructure(this IUnityContainer container)
         {
-            return container.RegisterType(typeof(IImportFromServiceBusService),
-                                          typeof(ImportFromServiceBusService),
-                                          new InjectionConstructorPart(new ConstructorParameterOverride(typeof(IClientProxyFactory),
-                                                                                                        typeof(FakeBrokerApiReceiverClientProxyFactory))));
+            return
+                container
+                // sender
+                    .RegisterTypeWithDependencies<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton, null);
+                // receiver                
         }
     }
 }

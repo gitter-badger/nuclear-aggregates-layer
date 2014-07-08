@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(), 
                     new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
@@ -70,6 +70,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           loggerContextManager))
                      .ConfigureServiceClient();
         }
@@ -85,6 +86,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings, 
             IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings,
+            IOperationLoggingSettings operationLoggingSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -92,7 +94,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(cachingSettings)
                 .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
@@ -175,7 +177,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 }
             }
 
-            return container.RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
+            return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                             .RegisterType<IFtpService, FtpService>(Lifetime.Singleton)
                             .RegisterType<IPublishOrdersForReleaseToFileStorage, PublishOrdersForFinalReleaseToFtp>(Lifetime.Singleton)
                             .RegisterType<IOrdersWithAdvertisementMaterialsSerializerFactory, OrdersWithAdvertisementMaterialsXmlSerializerFactory>(Lifetime.Singleton)

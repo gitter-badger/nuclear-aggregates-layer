@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Operations.DI;
 using DoubleGis.Erm.BL.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.Aggregates.DI;
-using DoubleGis.Erm.BLCore.API.Aggregates.DI;
 using DoubleGis.Erm.BLCore.API.MoDi.DI;
 using DoubleGis.Erm.BLCore.API.Operations.DI;
 using DoubleGis.Erm.BLCore.API.Operations.Special.DI;
@@ -16,6 +15,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
+using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
