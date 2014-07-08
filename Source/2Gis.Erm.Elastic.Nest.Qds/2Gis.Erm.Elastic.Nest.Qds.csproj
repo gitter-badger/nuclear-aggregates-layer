@@ -65,6 +65,7 @@
     <Compile Include="FieldInQuery.cs" />
     <Compile Include="FieldValueQuery.cs" />
     <Compile Include="ISearchDescriptorPaging.cs" />
+    <Compile Include="NestSettingsAspectUtils.cs" />
     <Compile Include="OrObjectQuery.cs" />
     <Compile Include="SearchDescriptorPaging.cs" />
     <Compile Include="NestedObjectQuery.cs" />

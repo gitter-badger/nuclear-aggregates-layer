@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -75,24 +77,26 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
                 opScope.SetupGet(os => os.OperationIdentity)
                        .Returns(new StrictOperationIdentity(opIdentity.Object, EntitySet.Create.NonCoupled));
 
-                var operationScopeNode = new OperationScopeNode(opScope.Object);
+                var operationScopeNode = new OperationScopeNode(opScope.Object.Id, opScope.Object.IsRoot, opScope.Object.OperationIdentity);
 
                 var repository = new Mock<IRepository<PerformedBusinessOperation>>();
                 repository.Setup(r => r.Add(Moq.It.IsAny<PerformedBusinessOperation>()))
                           .Callback((PerformedBusinessOperation pbo) => _testPbo = pbo);
 
-                var scopeChanges = operationScopeNode.ScopeChanges;
+                var scopeChanges = operationScopeNode.ChangesContext;
                 scopeChanges.Added<Client>(new long[] { _expectedClientIdFirst, _expectedClientIdSecond });
                 scopeChanges.Updated<Order>(new long[] { _expectedOrderId });
                 scopeChanges.Deleted<Firm>(new long[] { _expectedFirmId });
 
-                var operationLogger = new OperationLogger(repository.Object, Mock.Of<IIdentityProvider>());
+                var trackedUseCase2PboConverter = new TrackedUseCase2PerfomedBusinessOperationsConverter(Mock.Of<IIdentityProvider>());
+                var dbLoggingStrategy = new DirectDBLoggingStrategy(trackedUseCase2PboConverter, repository.Object);
+                var operationLogger = new OperationLogger(new IOperationLoggingStrategy[] { dbLoggingStrategy }, new NullLogger());
                 operationLogger.Log(operationScopeNode);
 
                 var operationIdentityRegistry = new Mock<IOperationIdentityRegistry>();
                 operationIdentityRegistry.Setup(oir => oir.GetIdentity(operationId)).Returns(opIdentity.Object);
 
-                Target = new PboEntityLinkBuilder(new OperationContextParser(operationIdentityRegistry.Object));
+                Target = new PboEntityLinkBuilder(new OldOperationContextParser(operationIdentityRegistry.Object));
             };
 
             Because of = () => Result = Target.CreateEntityLinks(new PboChangeDescriptor(_testPbo));
@@ -125,7 +129,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
             Establish context = () =>
                 {
                     Operations = new List<PerformedBusinessOperation>();
-                    ContextParser = new Mock<IOperationContextParser>();
+                    ContextParser = new Mock<IOldOperationContextParser>();
                     Target = new PboEntityLinkBuilder(ContextParser.Object);
                 };
 
@@ -155,7 +159,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Extract.EF
             }
 
             protected static List<PerformedBusinessOperation> Operations { get; private set; }
-            protected static Mock<IOperationContextParser> ContextParser { get; private set; }
+            protected static Mock<IOldOperationContextParser> ContextParser { get; private set; }
             protected static PboEntityLinkBuilder Target { get; private set; }
         }
     }

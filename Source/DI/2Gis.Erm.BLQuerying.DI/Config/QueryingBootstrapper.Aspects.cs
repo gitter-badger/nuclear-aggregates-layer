@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List;
 using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -20,7 +19,6 @@ using DoubleGis.Erm.Qds.API.Operations.Indexers;
 using DoubleGis.Erm.Qds.API.Operations.Indexers.Raw;
 using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Docs;
-using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Operations;
 using DoubleGis.Erm.Qds.Operations.Indexers;
 using DoubleGis.Erm.Qds.Operations.Indexers.Raw;
@@ -41,7 +39,10 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
 
         private static IUnityContainer ConfigureQdsListing(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
-            var searchSettings = new NestSettingsAspect(new ConnectionStringsSettingsAspect());
+            // FIXME {all, 02.07.2014}: убрать отсюда регистрацию settings - это происходит при обработке settingscontainer
+            var connectionStringsAspect = new ConnectionStringsSettingsAspect();
+            var searchConnectionString = connectionStringsAspect.GetConnectionString(ConnectionStringName.ErmSearch);
+            var searchSettings = new NestSettingsAspect(searchConnectionString);
 
             // TODO: заменить на правильное
             container
