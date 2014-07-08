@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.DI;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
+using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Simplified;
 using DoubleGis.Erm.Platform.Model.Zones;

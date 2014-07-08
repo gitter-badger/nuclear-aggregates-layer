@@ -57,14 +57,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportCardIdentity>())
             {
-                var firmIds = _importCardAggregateService.ImportCards(cardServiceBusDtos,
+                var changesContext = _importCardAggregateService.ImportCards(cardServiceBusDtos,
                                                                       _userContext.Identity.Code,
                                                                       _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
                                                                       ids,
                                                                       _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
                                                                       _msCrmSettings.EnableReplication);
 
-                scope.Updated<Firm>(firmIds)
+                scope.ApplyChanges<Firm>(changesContext)
+                     .ApplyChanges<FirmAddress>(changesContext)
                      .Complete();
             }
         }

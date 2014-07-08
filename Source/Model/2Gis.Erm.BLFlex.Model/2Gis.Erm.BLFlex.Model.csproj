@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="Entities\DTOs\Chile\BankDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Chile\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeDomainEntityDto.cs" />
@@ -73,7 +79,6 @@
     </Compile>
     <Compile Include="Entities\DTOs\Russia\RussiaBranchOfficeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Russia\RussiaBranchOfficeOrganizationUnitDomainEntityDto.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
