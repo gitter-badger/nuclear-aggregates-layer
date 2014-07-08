@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName PositionCategories = new SchemaQualifiedObjectName(ErmSchemas.Billing, "PositionCategories");
 
         public static readonly SchemaQualifiedObjectName PositionChildren = new SchemaQualifiedObjectName(ErmSchemas.Billing, "PositionChildren");
-
+        
         public static readonly SchemaQualifiedObjectName PricePositions = new SchemaQualifiedObjectName(ErmSchemas.Billing, "PricePositions");
 
         public static readonly SchemaQualifiedObjectName Projects = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Projects");
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName TimeZones = new SchemaQualifiedObjectName(ErmSchemas.Shared, "TimeZones");
 
         public static readonly SchemaQualifiedObjectName Files = new SchemaQualifiedObjectName(ErmSchemas.Shared, "Files");
-
+        
         public static readonly SchemaQualifiedObjectName Operations = new SchemaQualifiedObjectName(ErmSchemas.Shared, "Operations");
 
         public static readonly SchemaQualifiedObjectName ActionsHistory = new SchemaQualifiedObjectName(ErmSchemas.Shared, "ActionsHistory");
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName CrmReplicationInfo = new SchemaQualifiedObjectName(ErmSchemas.Shared, "CrmReplicationInfo");
 
         public static readonly SchemaQualifiedObjectName CrmReplicationDetails = new SchemaQualifiedObjectName(ErmSchemas.Shared, "CrmReplicationDetails");
-
+        
         public static readonly SchemaQualifiedObjectName AfterSaleServiceActivities = new SchemaQualifiedObjectName(
             ErmSchemas.Billing,
             "AfterSaleServiceActivities");
@@ -197,23 +197,23 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersResource = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                   "ExportFlowOrders_Resource");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersTheme = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowOrders_Theme");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersThemeBranch = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                      "ExportFlowOrders_ThemeBranch");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowFinancialDataLegalEntity = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                             "ExportFlowFinancialData_LegalEntity");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersOrder = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowOrders_Order");
 
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersInvoice = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                  "ExportFlowOrders_Invoice");
-
+        
         public static readonly SchemaQualifiedObjectName ExportToMsCrmHotClients = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                  "ExportToMsCrm_HotClients");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowCardExtensionsCardCommercial = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                                 "ExportFlowCardExtensions_CardCommercial");
 
@@ -299,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName ExportFlowFinancialDataClient = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                        "ExportFlowFinancialData_Client");
-
+        
         public static readonly SchemaQualifiedObjectName CityPhoneZone = new SchemaQualifiedObjectName(ErmSchemas.Integration, "CityPhoneZone");
 
         public static readonly SchemaQualifiedObjectName DepCards = new SchemaQualifiedObjectName(ErmSchemas.Integration, "DepCards");
@@ -328,12 +328,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName Charges = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Charges");
         public static readonly SchemaQualifiedObjectName ChargesHistory = new SchemaQualifiedObjectName(ErmSchemas.Billing, "ChargesHistory");
+        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElement = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowNomenclatures_NomenclatureElement");
+        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElementRelation = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowNomenclatures_NomenclatureElementRelation");
 
-        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElement = new SchemaQualifiedObjectName(ErmSchemas.Integration,
-                                                                                                                                    "ExportFlowNomenclatures_NomenclatureElement");
+        public static readonly SchemaQualifiedObjectName PerformedOperationPrimaryProcessings = new SchemaQualifiedObjectName(ErmSchemas.Shared, "PerformedOperationPrimaryProcessings");
 
-        public static readonly SchemaQualifiedObjectName ExportFlowNomenclaturesNomenclatureElementRelation =
-            new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowNomenclatures_NomenclatureElementRelation");
+        public static readonly SchemaQualifiedObjectName PerformedOperationFinalProcessings = new SchemaQualifiedObjectName(ErmSchemas.Shared, "PerformedOperationFinalProcessings");
 
         public static readonly SchemaQualifiedObjectName ExportFlowDeliveryDataLetterSendRequest = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                                  "ExportFlowDeliveryData_LetterSendRequest");

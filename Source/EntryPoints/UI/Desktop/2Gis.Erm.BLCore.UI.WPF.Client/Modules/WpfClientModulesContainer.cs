@@ -171,7 +171,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
             var massProcessors = new IMassProcessor[]
                 {
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(),
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new MetadataSourcesMassProcessor(_container), 
                     new OperationsServicesMassProcessor(
                         _container,

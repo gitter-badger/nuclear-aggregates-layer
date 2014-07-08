@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.BargainTypes.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel
+namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.BargainTypes.ReadModel
 {
     public class BargainTypeReadModel : IBargainTypeReadModel
     {

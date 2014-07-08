@@ -1,7 +1,8 @@
-﻿using DoubleGis.Erm.DB.Migration.Base;
-using DoubleGis.Erm.DB.Migration.Impl.Shared;
+﻿using DoubleGis.Erm.BLCore.DB.Migrations.Shared;
+using DoubleGis.Erm.Platform.Migration.Base;
+using DoubleGis.Erm.Platform.Migration.Core;
 
-namespace DoubleGis.Erm.DB.Migration.Impl._0._18
+namespace DoubleGis.Erm.BLCore.DB.Migrations._0._18
 {
     [Migration(10436, "Alter на UpdateBuildings")]
     public sealed class Migration10436 : TransactedMigration

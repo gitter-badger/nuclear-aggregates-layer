@@ -87,18 +87,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
         private ImportResponse UpdateTerritories(ImportTerritoriesHeaderDto header, IEnumerable<ImportTerritoryDto> territories)
         {
             var count = 0;
-            using (var operationScope = _operationScopeFactory.CreateNonCoupled<ImportTerritoriesFromDgppIdentity>())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<ImportTerritoriesIdentity>())
             {
-                var territoryIds = new List<long>();
                 foreach (var territory in territories)
                 {
                     var importedEntity = _firmRepository.ImportTerritory(header, territory);
-                    territoryIds.Add(importedEntity.Id);
+                    scope.Updated<Territory>(importedEntity.Id);
                     count += territory.Firms.Count();
                 }
 
-                operationScope.Updated<Territory>(territoryIds.ToArray());
-                operationScope.Complete();
+                scope.Complete();
             }
 
             return new ImportResponse { Processed = count, Total = count, OrganizationUnitId = header.OrganizationUnitId };

@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations
         {
             var orderPosition = ErmTableNames.OrderPositions;
             var table = context.Database.Tables[orderPosition.Name, orderPosition.Schema];
-            table.CreateIndex("PricePositionId", "IsActive", "IsDeleted");
+            table.CreateIndex(false, "PricePositionId", "IsActive", "IsDeleted");
         }
     }
 }

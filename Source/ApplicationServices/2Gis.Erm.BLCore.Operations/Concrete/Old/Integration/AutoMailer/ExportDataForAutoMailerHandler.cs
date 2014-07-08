@@ -14,7 +14,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Common.Xml;
+using DoubleGis.Erm.Platform.Common.Utils.Xml;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 {
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 
             string error;
             var xsd = Properties.Resources.ResourceManager.GetString("flowDeliveryData_SendingGroup");
-            var isValidXml = XmlValidator.Validate(xmlString, xsd, out error);
+            var isValidXml = xmlString.Validate(xsd, out error);
             if (!isValidXml)
             {
                 throw new BusinessLogicException(string.Format(BLResources.XSDValidationError, error));

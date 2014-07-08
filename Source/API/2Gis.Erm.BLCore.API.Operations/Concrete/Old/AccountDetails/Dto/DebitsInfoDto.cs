@@ -3,7 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.Platform.Common.Xml;
+using DoubleGis.Erm.Platform.Common.Utils.Xml;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 {

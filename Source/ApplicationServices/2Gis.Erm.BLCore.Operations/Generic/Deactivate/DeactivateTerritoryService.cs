@@ -38,12 +38,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             }
 
             var territory = _userRepository.GetTerritory(newTerritoryId);
-                if (territory == null)
-                {
-                    throw new ArgumentException(BLResources.EntityNotFound, "newTerritoryId");
-                }
+            if (territory == null)
+            {
+                throw new ArgumentException(BLResources.EntityNotFound, "newTerritoryId");
+            }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
             {
                 var firms = _firmRepository.GetFirmsByTerritory(deactivateTerritoryId);
                 _firmRepository.ChangeTerritory(firms, newTerritoryId);
@@ -57,8 +57,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 var deactivateAggregateRepository = _userRepository as IDeactivateAggregateRepository<Territory>;
                 deactivateAggregateRepository.Deactivate(deactivateTerritoryId);
 
-                operationScope.Updated<Territory>(deactivateTerritoryId);
-                operationScope.Complete();
+                scope.Updated<Territory>(deactivateTerritoryId)
+                     .Complete();
             }
 
             return null;

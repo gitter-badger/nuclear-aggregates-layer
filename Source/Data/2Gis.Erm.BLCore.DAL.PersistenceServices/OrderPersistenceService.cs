@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
             {
                 var objectResult =
-                    _databaseCaller.ExecuteProcedureWithReturnValue<long?>(GenerateIndexProcedureName,
+                    _databaseCaller.ExecuteProcedureWithResultSingleValue<long?>(GenerateIndexProcedureName,
                                                                            new Tuple<string, object>(GenerateIndexParameterName, GenerateIndexOrderGlobalIndex));
                 transaction.Complete();
             return objectResult.HasValue ? objectResult.Value : 0L;

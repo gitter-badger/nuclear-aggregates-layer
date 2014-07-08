@@ -13,7 +13,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
-    public class ImportSaleTerritoryAggregateService : IImportSaleTerritoryAggregateService
+    // FIXME {all, 26.05.2014}: нарушение соглашений для AggregateService - сам себе читает данные, требуется рефакторинг + учесть проблемы с импортом удаленных территорий + batch режим работы
+    public sealed class ImportSaleTerritoryAggregateService : IImportSaleTerritoryAggregateService
     {
         private readonly IFinder _finder;
         private readonly IRepository<Territory> _territoryRepository;
@@ -85,6 +86,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         // FIXME {all, 16.12.2013}: А как-же пользователи, фирмы и прочее, привязанное к этой территории? Нельзя просто так взять и деактивировать территорию. 
         //                          Мы так поступаем уже давно и решили не менять логику в рамках задачи по изменению схемы. Тем не менее когда-то это нужно сделать.
+        // COMMENT {all, 26.05.2014}: более правильным поведением было бы вызов из operationservice импорта территорий operationservice деактивации территорий (возможно, его batch вариант)
+        //                          однако, для использования operationservice деактивации территорий нужно знать на какую территорию переносить все сущности связанные с декактивированной -
+        //                          т.е. логичным выглядит изменить поток географий, также есть предложение убрать сервис деактивации терриорий из public API ERM - эта операция должна выполняться только в случае импорта 
         private void ProcessDeletedTerritory(SaleTerritoryServiceBusDto saleTerritoryDto)
         {
             var territory = _finder.Find<Territory>(t => t.Id == saleTerritoryDto.Code).SingleOrDefault();
@@ -93,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 return;
             }
 
-            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Territory>())
+            using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
             {
                 territory.IsActive = false;
                 _territoryRepository.Update(territory);

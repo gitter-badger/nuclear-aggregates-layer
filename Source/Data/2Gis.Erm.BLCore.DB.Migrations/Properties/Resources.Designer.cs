@@ -377,6 +377,110 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
+        ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL
+        ///-- 24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///-- 05.07.2013, a.rechkalov: слияние с версией из 0.18, из ветки пришло изменение: возврат идентификаторов фирм из хранимки вместо записи их в таблицу
+        ///-- 09.07.2013, v.sinitsyn: поправлен вызов STR(FirmCode): для больших значений возвращал &apos;*********************&apos;
+        ///-- 27.08.2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _20434_ImportCardsFromXml {
+            get {
+                return ResourceManager.GetString("_20434_ImportCardsFromXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   5.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   10.09.2013, y.baranihin: dgppid -&gt; id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   14.11.2013, a.tukaev: поддержка импорта flowCardsForERM 
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
+        ///ALTER PROCEDURE [Integration].[ImportFirmFromXml]
+        ///	@Xml [xml] = NULL,        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _20434_ImportFirmFromXml {
+            get {
+                return ResourceManager.GetString("_20434_ImportFirmFromXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   14.10.2013, y.baranihin: замена DgppId -&gt; Id
+        ///--   19.05.2014, i.maslennikov: поддержка асинхронной репликации
+        ///ALTER PROCEDURE [Integration].[ImportFirmPromising]
+        ///	@OrganizationUnitStableId [bigint] = NULL,
+        ///	@ModifiedBy [bigint] = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///
+        ///SET NOCOUNT ON;
+        ///SET XACT_ABORT ON;
+        ///
+        ///DECLARE @LatestSessionId bigint
+        ///DECLARE @FirmUpdatedIds TABLE(Id bigint PRIMARY KEY)
+        ///
+        ///-- FirmPromissingSessions.Status possible val [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _20434_ImportFirmPromising {
+            get {
+                return ResourceManager.GetString("_20434_ImportFirmPromising", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
+        ///--   10.09.2013, y.baranihin: dgppid-&gt;id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///--   14.02.2014, a.tuk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _20434_UpdateBuildings {
+            get {
+                return ResourceManager.GetString("_20434_UpdateBuildings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [ErmRU]
+        ///
+        ///DECLARE @OperationEntitiesMap table(
+        ///                 Descriptor int NOT NULL,
+        ///				 OperationEntities nvarchar(1024));
+        ///
+        ///DECLARE @UsedOperationEntitiesMap table(
+        ///        Descriptor int NOT NULL,
+        ///		OperationEntities nvarchar(1024));
+        ///
+        ///INSERT INTO @OperationEntitiesMap VALUES (-1543452685,N&apos;51&apos;)
+        ///,(-918089089,N&apos;53&apos;)
+        ///,(-612387088,N&apos;54&apos;)
+        ///,(4456568,N&apos;56&apos;)
+        ///,(-1572354967,N&apos;139&apos;)
+        ///,(251534804,N&apos;141&apos;)
+        ///,(-655314502,N&apos;142&apos;)
+        ///,(-316483042,N&apos;143&apos;)
+        ///,(1248629936,N&apos;144&apos;)
+        ///,(1570421516,N&apos;145&apos;)
+        ///,(6 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _21236_Fill_OperationsEntities_From_Descriptor {
+            get {
+                return ResourceManager.GetString("_21236_Fill_OperationsEntities_From_Descriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///  &lt;/Entities&gt;

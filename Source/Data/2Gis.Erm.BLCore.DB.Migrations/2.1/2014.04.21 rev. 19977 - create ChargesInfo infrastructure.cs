@@ -49,8 +49,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations
             table.Create();
 
             table.CreatePrimaryKey();
-            table.CreateIndex(ProjectId, PeriodStartDate, PeriodEndDate);
-            table.CreateIndex(OrderPositionId, PeriodStartDate, PeriodEndDate);
+            table.CreateIndex(false, ProjectId, PeriodStartDate, PeriodEndDate);
+            table.CreateIndex(false, OrderPositionId, PeriodStartDate, PeriodEndDate);
         }
 
         private static void CreateChargesHistory(IMigrationContext context)
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations
             table.Create();
 
             table.CreatePrimaryKey();
-            table.CreateIndex(SessionId, Status);
+            table.CreateIndex(false, SessionId, Status);
         }
     }
 }

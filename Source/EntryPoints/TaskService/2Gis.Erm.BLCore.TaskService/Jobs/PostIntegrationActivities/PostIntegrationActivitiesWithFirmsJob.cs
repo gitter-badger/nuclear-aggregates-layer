@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
                     EntityName = EntityName.FirmAddress,
                     IntegrationEntityName = EntityName.ImportedFirmAddress
                 };
+
             SetFlowDescriptionContext(flowDescription);
             var operationsExportService = _servicesManager.GetOperationsExportService(flowDescription.EntityName, flowDescription.IntegrationEntityName);
             while (true)

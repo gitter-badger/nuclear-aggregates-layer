@@ -264,7 +264,6 @@
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesRequest.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\ReplicateEntitiesToCrmRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\WriteDataForAutoMailerToServiceBusRequest.cs" />

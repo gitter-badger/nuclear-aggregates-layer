@@ -54,6 +54,8 @@
     <Compile Include="DI\BlCoreDalPersistenceServicesAssembly.cs" />
     <Compile Include="Export\ExportMetadata.PositionChildren.cs" />
     <Compile Include="Export\ExportMetadata.Position.cs" />
+    <Compile Include="Export\ExportMetadata.Territory.cs" />
+    <Compile Include="Export\ExportMetadata.Firm.cs" />
     <Compile Include="Export\ExportMetadata.Price.cs" />
     <Compile Include="Export\ExportMetadata.PricePosition.cs" />
     <Compile Include="Export\ExportMetadata.BirthdayCongratulation.cs" />
@@ -87,15 +89,17 @@
     <Compile Include="IClientPersistenceService.cs" />
     <Compile Include="IFirmPersistenceService.cs" />
     <Compile Include="IOrderPersistenceService.cs" />
-    <Compile Include="IReplicationPersistenceService.cs" />
     <Compile Include="Reports\IReportPersistenceService.cs" />
     <Compile Include="IUserPersistenceService.cs" />
     <Compile Include="OrderPersistenceService.cs" />
-    <Compile Include="ReplicationPersistenceService.cs" />
     <Compile Include="Reports\ReportsPersistenceService.cs" />
     <Compile Include="UserPersistenceService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
