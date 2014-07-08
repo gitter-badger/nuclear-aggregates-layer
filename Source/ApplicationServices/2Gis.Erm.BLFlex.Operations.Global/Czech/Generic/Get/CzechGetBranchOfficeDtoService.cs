@@ -1,6 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.BargainTypes.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
 using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
