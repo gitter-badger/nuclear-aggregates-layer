@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
     {
         private readonly EtlFlow _etlFlow;
         private readonly MockFinder _finder;
-        readonly Mock<IOperationContextParser> _contextParser;
+        readonly Mock<IOldOperationContextParser> _contextParser;
         readonly IChangesTrackerState _trackerState;
 
         public IndexationFacade(IDocsStorage docsStorage, IQdsComponentsFactory qdsFactory, IQueryDsl queryDsl)
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             }
 
             _trackerState = new DocsStorageChangesTrackerState(docsStorage);
-            _contextParser = new Mock<IOperationContextParser>();
+            _contextParser = new Mock<IOldOperationContextParser>();
 
             var docUpdatersRegistry = new DictionaryDocUpdatersRegistry();
             var transformRelations = new TransformRelations();

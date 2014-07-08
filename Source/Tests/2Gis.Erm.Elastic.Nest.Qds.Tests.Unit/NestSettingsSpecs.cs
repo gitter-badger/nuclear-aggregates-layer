@@ -1,11 +1,6 @@
-﻿using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Qds.API.Core.Settings;
-
-using FluentAssertions;
+﻿using FluentAssertions;
 
 using Machine.Specifications;
-
-using Moq;
 
 using Nest;
 
@@ -27,12 +22,8 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             Establish context = () =>
             {
-                // TODO {m.pashuk, 18.04.2014}: Подумать об абстракции над IConnectionStringSettings
-                var connectionStringSettings = new Mock<IConnectionStringSettings>();
-                var connectionString = "Uris=['http://localhost:9200'];IndexPrefix=" + IndexPrefix;
-                connectionStringSettings.Setup(x => x.GetConnectionString(ConnectionStringName.ErmSearch)).Returns(connectionString);
-
-                Target = new NestSettingsAspect(connectionStringSettings.Object);
+                const string ConnectionString = "Uris=['http://localhost:9200'];IndexPrefix=" + IndexPrefix;
+                Target = new NestSettingsAspect(ConnectionString);
                 Result = Target.ConnectionSettings;
             };
 
