@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
-using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
@@ -22,11 +21,11 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
@@ -410,11 +409,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     foreach (var firm in firmsToUpdate)
                     {
                         firm.TerritoryId = territory.Id;
-                        _firmGenericSecureRepository.Update(firm);
+                        _firmGenericRepository.Update(firm);
                         scope.Updated<Firm>(firm.Id);
                     }
 
-                    _firmGenericSecureRepository.Save();
+                    _firmGenericRepository.Save();
                     scope.Complete();
                 }
 
@@ -504,9 +503,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             return firm;
         }
 
+        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         public IEnumerable<FirmAddress> ImportFirmAddresses(Firm firm, ImportFirmDto dto, FirmImportContext context)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateNonCoupled<ImportFirmAddressesIdentity>())
             {
                 // Предварительная выборка модифицируемых адресов из базы данных для оптимизации обработки
                 var addressDgppIds = dto.Addresses.Select(addressDto => addressDto.DgppId).ToArray();
@@ -536,10 +536,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     if (firmAddress.IsNew())
                     {
                         _firmAddressGenericRepository.Add(firmAddress);
+                        scope.Added<FirmAddress>(firmAddress.Id);
                     }
                     else
                     {
                         _firmAddressGenericRepository.Update(firmAddress);
+                        scope.Updated<FirmAddress>(firmAddress.Id);
                     }
 
                     result.Add(firmAddress);
@@ -566,18 +568,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     foreach (var categoryFirmAddress in addressToDelete.CategoryFirmAddresses)
                     {
                         _categoryFirmAddressGenericRepository.Delete(categoryFirmAddress);
+                        scope.Deleted<CategoryFirmAddress>(categoryFirmAddress.Id);
                     }
                 }
 
                 foreach (var address in addressesToDelete)
                 {
                     _firmAddressGenericRepository.Delete(address);
+                    scope.Deleted<FirmAddress>(address.Id);
                 }
 
                 _categoryFirmAddressGenericRepository.Save();
                 _firmAddressGenericRepository.Save();
 
-                transaction.Complete();
+                scope.Complete();
 
                 return result;
             }
@@ -670,9 +674,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             _categoryFirmAddressGenericRepository.Save();
         }
 
+        [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
         public void DeleteFirmRelatedObjects(Firm firm)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, FirmAddress>())
             {
                 var addresses = _finder.Find<FirmAddress>(address => address.FirmId == firm.Id).Select(x => new { FirmAddress = x, x.CategoryFirmAddresses });
 
@@ -680,24 +685,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 {
                     var firmAddress = firmAddressInfo.FirmAddress;
 
-                    firmAddress.IsActive = false;
                     firmAddress.ClosedForAscertainment = true;
-                    firmAddress.IsDeleted = true;
-                    _firmAddressGenericRepository.Update(firmAddress);
+                    _firmAddressGenericRepository.Delete(firmAddress);
+                    scope.Deleted<FirmAddress>(firmAddress.Id);
 
                     foreach (var categoryFirmAddress in firmAddressInfo.CategoryFirmAddresses)
                     {
-                        categoryFirmAddress.IsActive = false;
-                        categoryFirmAddress.IsDeleted = true;
-
-                        _categoryFirmAddressGenericRepository.Update(categoryFirmAddress);
+                        _categoryFirmAddressGenericRepository.Delete(categoryFirmAddress);
+                        scope.Deleted<CategoryFirmAddress>(categoryFirmAddress.Id);
                     }
                 }
 
                 _firmAddressGenericRepository.Save();
                 _categoryFirmAddressGenericRepository.Save();
 
-                transaction.Complete();
+                scope.Complete();
             }
         }
 
@@ -709,7 +711,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             foreach (var organizationUnitDgppId in organizationUnitDgppIds)
             {
-                _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, ImportFirmPrimisingCommandTimeout, false);
+                using (var scope = _scopeFactory.CreateNonCoupled<ImportFirmPromisingIdentity>())
+                {
+                    var updatedFirms = _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, ImportFirmPrimisingCommandTimeout);
+
+                    scope.Updated<Firm>(updatedFirms);
+                    scope.Complete();
+                }
             }
         }
 

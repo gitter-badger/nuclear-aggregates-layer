@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations
             column.Rename(EntityIntanceIdColumnName);
             column.Alter();
 
-            table.CreateIndex(EntityIntanceIdColumnName);
+            table.CreateIndex(false, EntityIntanceIdColumnName);
             table.Alter();
         }
     }

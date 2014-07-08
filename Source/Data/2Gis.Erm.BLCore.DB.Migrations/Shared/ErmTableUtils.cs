@@ -160,22 +160,28 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             }
         }
 
-        public static void CreateIndex(this Table table, string indexColumnName, params string[] indexColumnNames)
+        public static void CreateIndex(this Table table, bool isClustered, params string[] indexColumnNames)
         {
-            var indexTitle = new StringBuilder(string.Format("IX_{0}_{1}", table.Name, indexColumnName));
+            string indexTitleTemplate = isClustered ? "CI_" : "NCI_";
+            var indexTitle = new StringBuilder(indexTitleTemplate + table.Name);
             foreach (var columnName in indexColumnNames)
             {
-                indexTitle.AppendFormat("_{0}", columnName);
+                indexTitle.Append("_" + columnName);
             }
 
-            var index = new Index(table, indexTitle.ToString()) { IndexKeyType = IndexKeyType.None };
-            
-            index.IndexedColumns.Add(new IndexedColumn(index, indexColumnName));
+            string indexName = indexTitle.ToString();
+            if (table.Indexes.Contains(indexName))
+            {
+                return;
+            }
+
+            var index = new Index(table, indexName) { IndexKeyType = IndexKeyType.None };
             foreach (var columnName in indexColumnNames)
             {
                 index.IndexedColumns.Add(new IndexedColumn(index, columnName));
             }
-            
+
+            index.IsClustered = isClustered;
             index.Create();
         }
 

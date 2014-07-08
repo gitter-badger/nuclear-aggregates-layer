@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
         }
 
         private static ImportFirmAddressDto ToImportFirmAddressDto(CardForErmServiceBusDto cardForErmServiceBusDto)
-        {
+                {
             return new ImportFirmAddressDto
                 {
                     FirmAddress = new FirmAddress
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
 
                     BranchCode = cardForErmServiceBusDto.BranchCode
                 };
-        }
+                }
 
         private static DepCard ToDepCard(CardForErmServiceBusDto cardForErmServiceBusDto)
         {
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
                                          cardForErmServiceBusDto.IsDeleted ||
                                          cardForErmServiceBusDto.ClosedForAscertainment
                 };
-        }
+                }
 
         private static CategoryFirmAddress ToCategoryFirmAddress(ImportCategoryFirmAddressDto cardRubricDto)
         {
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
                     IsPrimary = cardRubricDto.IsPrimary,
                     SortingPosition = cardRubricDto.SortingPosition
                 };
-        }
+            }
 
         private static FirmContact ToImportFirmContact(ContactDto contactDto, long? firmAddressId, long? cardId)
         {

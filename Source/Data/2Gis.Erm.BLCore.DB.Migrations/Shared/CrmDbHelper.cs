@@ -1,60 +1,49 @@
 ﻿using System;
 
-using DoubleGis.Erm.DB.Migration.Base;
-using DoubleGis.Erm.DB.Migration.Sql;
+using DoubleGis.Erm.Platform.Migration.Base;
+using DoubleGis.Erm.Platform.Migration.Sql;
 
-namespace DoubleGis.Erm.DB.Migration.Impl.Shared
+namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 {
-    public class CrmDbHelper
+    public static class CrmDbHelper
     {
-        public static InsertDataExpression GenerateNewCustomView(String name, String fetchxml, String layoutXml, 
-            Guid userId, Guid organizationId, Int32 returnedTypeCode)
+        public static InsertDataExpression GenerateNewCustomView(
+            string name, 
+            string fetchxml, 
+            string layoutXml, 
+            Guid userId, 
+            Guid organizationId, 
+            int returnedTypeCode)
         {
             return new InsertDataExpression(CrmTableNames.SavedQueryBase)
-            {
-                Rows = {
-                        new InsertionDataDefinition()
-                        .Add("SavedQueryId", Guid.NewGuid())
-                        .Add("Name", name)
-                        .Add("OrganizationId", organizationId)
-                        .Add("Description", null)
-                        .Add("QueryType", 0)
-                        .Add("IsDefault", false)
-                        .Add("ReturnedTypeCode", returnedTypeCode)
-                        .Add("IsUserDefined", true)
-                        .Add("FetchXml", fetchxml)
-                        .Add("IsCustomizable", false)
-                        .Add("IsQuickFindQuery", false)
-                        .Add("ColumnSetXml", null)
-                        .Add("LayoutXml", layoutXml)
-                        .Add("QueryAPI", String.Empty)
-                        .Add("CreatedBy", userId)
-                        .Add("CreatedOn", DateTime.Now)
-                        .Add("ModifiedBy", userId)
-                        .Add("ModifiedOn", DateTime.Now)
-                        .Add("IsPrivate", false)
-                        .Add("CustomizationLevel", 1)
-                        .Add("SavedQueryIdUnique", Guid.NewGuid())
-                        .Add("InProduction", true)
-                    }
-            };
-        }
-
-        public class FieldsForCustomView
-        {
-            public FieldsForCustomView(
-                Guid crmAdministratorId, 
-                Guid crmAdministratorOrganizationId,
-                Guid reserveUserId)
-            {
-                CrmAdministratorId = crmAdministratorId;
-                CrmAdministratorOrganizationId = crmAdministratorOrganizationId;
-                ReserveUserId = reserveUserId;
-            }
-
-            public Guid CrmAdministratorId { get; private set; }
-            public Guid CrmAdministratorOrganizationId { get; private set; }
-            public Guid ReserveUserId { get; private set; }
+                {
+                    Rows =
+                        {
+                            new InsertionDataDefinition()
+                                .Add("SavedQueryId", Guid.NewGuid())
+                                .Add("Name", name)
+                                .Add("OrganizationId", organizationId)
+                                .Add("Description", null)
+                                .Add("QueryType", 0)
+                                .Add("IsDefault", false)
+                                .Add("ReturnedTypeCode", returnedTypeCode)
+                                .Add("IsUserDefined", true)
+                                .Add("FetchXml", fetchxml)
+                                .Add("IsCustomizable", false)
+                                .Add("IsQuickFindQuery", false)
+                                .Add("ColumnSetXml", null)
+                                .Add("LayoutXml", layoutXml)
+                                .Add("QueryAPI", string.Empty)
+                                .Add("CreatedBy", userId)
+                                .Add("CreatedOn", DateTime.Now)
+                                .Add("ModifiedBy", userId)
+                                .Add("ModifiedOn", DateTime.Now)
+                                .Add("IsPrivate", false)
+                                .Add("CustomizationLevel", 1)
+                                .Add("SavedQueryIdUnique", Guid.NewGuid())
+                                .Add("InProduction", true)
+                        }
+                };
         }
 
         public static FieldsForCustomView GetFieldsForCustomView(IMigrationContext context)
@@ -86,6 +75,23 @@ namespace DoubleGis.Erm.DB.Migration.Impl.Shared
             }
 
             return new FieldsForCustomView(crmAdminId, organizationId, reserveUserId);
+        }
+
+        public class FieldsForCustomView
+        {
+            public FieldsForCustomView(
+                Guid crmAdministratorId,
+                Guid crmAdministratorOrganizationId,
+                Guid reserveUserId)
+            {
+                CrmAdministratorId = crmAdministratorId;
+                CrmAdministratorOrganizationId = crmAdministratorOrganizationId;
+                ReserveUserId = reserveUserId;
+            }
+
+            public Guid CrmAdministratorId { get; private set; }
+            public Guid CrmAdministratorOrganizationId { get; private set; }
+            public Guid ReserveUserId { get; private set; }
         }
     }
 }

@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
     <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
@@ -153,7 +159,6 @@
     <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
     <Compile Include="Deals\ReadModel\IDealReadModel.cs" />
     <Compile Include="Deals\ReleaseNumberUtils.cs" />
-    <Compile Include="DI\AggregatesZone.cs" />
     <Compile Include="Dynamic\ReadModel\EavFinderActivityExtensions.cs" />
     <Compile Include="Firms\DTO\ExportFirmsDTOs.cs" />
     <Compile Include="Firms\DTO\FirmInfo\CategoryDto.cs" />
@@ -244,7 +249,6 @@
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Releases\DTO\ValidationReportLine.cs" />
     <Compile Include="Releases\Operations\IReleaseAttachProcessingMessagesAggregateService.cs" />
     <Compile Include="Releases\Operations\IReleaseChangeStatusAggregateService.cs" />
@@ -259,9 +263,9 @@
     <Compile Include="Roles\RoleSpecifications.cs" />
     <Compile Include="Settings\IDebtProcessingSettings.cs" />
     <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
-    <Compile Include="SimplifiedModel\ReadModel\IBargainTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ReadModel\IBirthdayCongratulationReadModel.cs" />
-    <Compile Include="SimplifiedModel\ReadModel\IContributionTypeReadModel.cs" />
     <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
     <Compile Include="Themes\DTO\ThemeUsageDto.cs" />
     <Compile Include="Themes\IThemeRepository.cs" />

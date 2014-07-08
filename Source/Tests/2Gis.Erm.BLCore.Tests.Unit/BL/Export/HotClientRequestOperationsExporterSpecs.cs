@@ -40,24 +40,24 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Export
             protected static HotClientRequestOperationsExporter Exporter;
             protected static ICommonLog Logger;
             protected static IPublicService PublicService;
-            protected static IOperationContextParser OperationContextParser;
+            protected static IOldOperationContextParser OldOperationContextParser;
             protected static FlowDescription FlowDescription;
 
             Establish context = () =>
                 {
                     Logger = SetupLogger();
                     PublicService = SetupPublicService();
-                    OperationContextParser = SetupOperationContextParser();
+                    OldOperationContextParser = SetupOperationContextParser();
 
-                    Exporter = new HotClientRequestOperationsExporter(Logger, PublicService, OperationContextParser);
+                    Exporter = new HotClientRequestOperationsExporter(Logger, PublicService, OldOperationContextParser);
 
                     FlowDescription = new FlowDescription();
                     
                 };
 
-            private static IOperationContextParser SetupOperationContextParser()
+            private static IOldOperationContextParser SetupOperationContextParser()
             {
-                var operationContexParser = Mock.Of<IOperationContextParser>();
+                var operationContexParser = Mock.Of<IOldOperationContextParser>();
                 var operationIdentity = new StrictOperationIdentity(Mock.Of<IOperationIdentity>(), new EntitySet(EntityName.None));
 
                 Mock.Get(operationContexParser)

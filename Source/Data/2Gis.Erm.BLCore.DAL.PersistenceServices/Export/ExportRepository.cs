@@ -12,13 +12,13 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     public sealed class ExportRepository<TEntity> : IExportRepository<TEntity> where TEntity : class, IEntity, IEntityKey
     {
         private readonly IFinder _finder;
-        private readonly IOperationContextParser _operationContextParser;
+        private readonly IOldOperationContextParser _oldOperationContextParser;
         private readonly QueryRuleContainer<TEntity> _metadata;
 
-        public ExportRepository(IFinder finder, IExportMetadataProvider metadataProvider, IOperationContextParser operationContextParser)
+        public ExportRepository(IFinder finder, IExportMetadataProvider metadataProvider, IOldOperationContextParser oldOperationContextParser)
         {
             _finder = finder;
-            _operationContextParser = operationContextParser;
+            _oldOperationContextParser = oldOperationContextParser;
             _metadata = metadataProvider.GetMetadata<TEntity>();
         }
 
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 
         public IQueryBuilder<TEntity> GetBuilderForOperations(IEnumerable<PerformedBusinessOperation> operations)
         {
-            return new OperationsQueryBuilder<TEntity>(_finder, operations, _metadata, _operationContextParser);
+            return new OperationsQueryBuilder<TEntity>(_finder, operations, _metadata, _oldOperationContextParser);
         }
 
         public IEnumerable<TDto> GetEntityDtos<TDto>(IQueryBuilder<TEntity> queryBuilder,

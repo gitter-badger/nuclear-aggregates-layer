@@ -19,6 +19,8 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
 using DoubleGis.Erm.Platform.Core.UseCases;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
@@ -28,6 +30,7 @@ using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
@@ -149,7 +152,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         public static IUnityContainer ConfigureOperationLogging(
             this IUnityContainer container, 
             Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, 
-            IEnvironmentSettings environmentSettings)
+            IEnvironmentSettings environmentSettings,
+            IOperationLoggingSettings loggingSettings)
         {
             if (environmentSettings.Type == EnvironmentType.Production)
             {
@@ -160,12 +164,33 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IOperationConsistencyVerifier, OperationConsistencyVerifier>(Lifetime.Singleton);
             }
 
-            return container
-                        .RegisterType<IOperationSecurityRegistryReader, OperationSecurityRegistryReader>(new InjectionConstructor(new InjectionParameter(typeof(OperationSecurityRegistry))))
-                        .RegisterType<IOperationScopeFactory, UnityTransactedOperationScopeFactory>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterTypeWithDependencies<IOperationScopeLifetimeManager, OperationScopeLifetimeManager>(Lifetime.PerResolve, null)
-                        .RegisterType<IFlowMarkerManager, ControlFlowMarkerManager>(Lifetime.Singleton)
-                        .RegisterType<IPersistenceChangesRegistryProvider, PersistenceChangesRegistryProvider>(entryPointSpecificLifetimeManagerFactory());
+            container.RegisterType<IOperationSecurityRegistryReader, OperationSecurityRegistryReader>(new InjectionConstructor(new InjectionParameter(typeof(OperationSecurityRegistry))))
+                     .RegisterType<IOperationScopeFactory, UnityTransactedOperationScopeFactory>(entryPointSpecificLifetimeManagerFactory())
+                     .RegisterTypeWithDependencies<IOperationScopeLifetimeManager, OperationScopeLifetimeManager>(Lifetime.PerResolve, null)
+                     .RegisterType<IFlowMarkerManager, ControlFlowMarkerManager>(Lifetime.Singleton)
+                     .RegisterType<IPersistenceChangesRegistryProvider, PersistenceChangesRegistryProvider>(entryPointSpecificLifetimeManagerFactory());
+
+            container.RegisterTypeWithDependencies<IOperationLogger, OperationLogger>(entryPointSpecificLifetimeManagerFactory(), null);
+
+            if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.DB))
+            {
+                var typeOfDirectDBLoggingStrategy = typeof(DirectDBLoggingStrategy);
+                container.RegisterTypeWithDependencies(typeof(IOperationLoggingStrategy), typeOfDirectDBLoggingStrategy, typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), entryPointSpecificLifetimeManagerFactory(), (string)null, InjectionFactories.SimplifiedModelConsumer)
+                         .RegisterTypeWithDependencies<ITrackedUseCase2PerfomedBusinessOperationsConverter, TrackedUseCase2PerfomedBusinessOperationsConverter>(
+                                    Lifetime.Singleton, 
+                                    null);
+            }
+
+            if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
+            {
+                    container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusForWindowsServiceLoggingStrategy>(
+                                    Lifetime.Singleton)
+                             .RegisterTypeWithDependencies<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>( 
+                                    Lifetime.Singleton, 
+                                    null);
+            }
+
+            return container;
         }
 
         public static IUnityContainer ConfigureNotificationsSender(this IUnityContainer unityContainer, 

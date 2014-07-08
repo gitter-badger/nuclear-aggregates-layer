@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations
 
             table.CreatePrimaryKey();
             table.CreateForeignKey(EntityIdColumnName, relatedTableName, IdColumnName);
-            table.CreateIndex(EntityIdColumnName);
+            table.CreateIndex(false, EntityIdColumnName);
         }
     }
 }

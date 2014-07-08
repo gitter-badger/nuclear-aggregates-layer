@@ -16,13 +16,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
     {
         private readonly ICommonLog _logger;
         private readonly IPublicService _publicService;
-        private readonly IOperationContextParser _operationContextParser;
+        private readonly IOldOperationContextParser _oldOperationContextParser;
 
-        public HotClientRequestOperationsExporter(ICommonLog logger, IPublicService publicService, IOperationContextParser operationContextParser)
+        public HotClientRequestOperationsExporter(ICommonLog logger, IPublicService publicService, IOldOperationContextParser oldOperationContextParser)
         {
             _logger = logger;
             _publicService = publicService;
-            _operationContextParser = operationContextParser;
+            _oldOperationContextParser = oldOperationContextParser;
         }
 
         public void ExportOperations(FlowDescription flowDescription,
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             var failedEntitesBuffer = new List<IExportableEntityDto>();
             foreach (var operation in operations)
             {
-                var operationIdentityToIds = _operationContextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor);
+                var operationIdentityToIds = _oldOperationContextParser.GetGroupedIdsFromContext(operation.Context, operation.Operation, operation.Descriptor);
                 if (operationIdentityToIds.Count != 1)
                 {
                     failedEntites = Enumerable.Empty<IExportableEntityDto>();

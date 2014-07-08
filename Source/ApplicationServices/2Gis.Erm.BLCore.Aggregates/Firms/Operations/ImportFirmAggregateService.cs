@@ -6,26 +6,32 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
-    public class ImportFirmAggregateService : IImportFirmAggregateService
+    public sealed class ImportFirmAggregateService : IImportFirmAggregateService
     {
         // timeout should be increased due to long sql updates (15:00:00 min = 900 sec)
         private const int ImportCommandTimeout = 900;
 
         private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ICommonLog _logger;
 
-        public ImportFirmAggregateService(IFirmPersistenceService firmPersistenceService, IOperationScopeFactory scopeFactory)
+        public ImportFirmAggregateService(
+            IFirmPersistenceService firmPersistenceService, 
+            IOperationScopeFactory scopeFactory,
+            ICommonLog logger)
         {
             _firmPersistenceService = firmPersistenceService;
             _scopeFactory = scopeFactory;
+            _logger = logger;
         }
 
-        public IEnumerable<long> ImportFirms(IEnumerable<FirmServiceBusDto> dtos,
+        public EntityChangesContext ImportFirms(IEnumerable<FirmServiceBusDto> dtos,
                                              long userId,
                                              long reserveUserId,
                                              string regionalTerritoryLocaleSpecificWord,
@@ -35,22 +41,40 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
             using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Firm>())
             {
-                _firmPersistenceService.ImportFirmFromXml(firmsXml,
-                                                          userId,
-                                                          reserveUserId,
-                                                          ImportCommandTimeout,
-                                                          enableReplication,
-                                                          regionalTerritoryLocaleSpecificWord);
+                var importFirmChanges = _firmPersistenceService.ImportFirmFromXml(
+                                                                    firmsXml,
+                                                                    userId,
+                                                                    reserveUserId,
+                                                                    ImportCommandTimeout,
+                                                                    enableReplication,
+                                                                    regionalTerritoryLocaleSpecificWord);
 
-                var firmIds = GetFirmIdsFromParsedDto(dtos);
-                scope.Updated<Firm>(firmIds)
+                long[] firmIdsFromParsedDto = GetFirmIdsFromParsedDto(dtos);
+                IReadOnlyDictionary<ChangesType, IReadOnlyDictionary<long, int>> mergedImportFirmChanges;
+
+                scope.Updated<Firm>(firmIdsFromParsedDto)
+                     .ApplyChanges<Firm>(importFirmChanges, out mergedImportFirmChanges)
+                     .ApplyChanges<FirmAddress>(importFirmChanges)
                      .Complete();
 
-                return firmIds;
+                // TODO {all, 21.05.2014}: защитный код - если расхождений между списками фирм из DTO и от AggregateService не будет, то можно выпилить, также как firmIdsFromParsedDto
+                var diffParsedDtoAndAggregateService = firmIdsFromParsedDto.Except(
+                                                              mergedImportFirmChanges[ChangesType.Added].Keys
+                                                              .Union(mergedImportFirmChanges[ChangesType.Updated].Keys)
+                                                              .Union(mergedImportFirmChanges[ChangesType.Deleted].Keys))
+                                                              .ToArray();
+                if (diffParsedDtoAndAggregateService.Any())
+                {
+                    importFirmChanges.Updated<Firm>(diffParsedDtoAndAggregateService);
+                    _logger.WarnEx("There are different firm changes detected from parsed dto and reported by aggregate service. Divergent firm ids count: " + diffParsedDtoAndAggregateService.Length);
+                    _logger.DebugEx("Divergent firm ids (DiffParsedDtoAndAggregateService): " + string.Join(",", diffParsedDtoAndAggregateService));
+                }
+
+                return importFirmChanges;
             }
         }
 
-        private IEnumerable<long> GetFirmIdsFromParsedDto(IEnumerable<FirmServiceBusDto> dtos)
+        private long[] GetFirmIdsFromParsedDto(IEnumerable<FirmServiceBusDto> dtos)
         {
             return dtos.Where(x => x.Content.Name == "Firm")
                        .Select(x => (long)x.Content.Attribute("Code"))

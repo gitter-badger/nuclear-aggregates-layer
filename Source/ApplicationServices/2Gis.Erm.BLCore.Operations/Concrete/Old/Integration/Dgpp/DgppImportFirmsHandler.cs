@@ -9,8 +9,8 @@ using System.Xml;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
 {
+    [Obsolete("usecase оставлен просто для подстраховки - пока все города не откажутся от ДГПП, на практике он уже не используется")]
     public sealed class DgppImportFirmsHandler : RequestHandler<DgppImportFirmsRequest, ImportResponse>
     {
         private const string XmlHeader = "header";

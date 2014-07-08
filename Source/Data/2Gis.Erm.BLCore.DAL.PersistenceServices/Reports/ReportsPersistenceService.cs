@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -29,11 +30,11 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
 
         public IEnumerable<ReportDto> GetReportNames(long userId)
         {
-            var rows = _databaseCaller.ExecuteTableProcedure("ReportName",
+            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportName",
                                                          null,
                                                          new Tuple<string, object>("User", userId));
 
-            return rows.Select(row => new ReportDto
+            return resultTable.Rows.Cast<DataRow>().Select(row => new ReportDto
                         {
                             Id = Convert.ToInt32(row[0]),
                             DisplayName = Convert.ToString(row[1]),
@@ -48,12 +49,12 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
         public IEnumerable<ReportFieldDto> GetReportFields(long reportId, long userId)
         {
             var result = new List<ReportFieldDto>();
-            var rows = _databaseCaller.ExecuteTableProcedure("ReportField",
+            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportField",
                                                          null,
                                                          new Tuple<string, object>("ReportName", reportId),
                                                          new Tuple<string, object>("User", userId));
 
-            foreach (var row in rows)
+            foreach (DataRow row in resultTable.Rows)
             {
                 var fieldType = ParseFieldTypeXml(Convert.ToString(row[3]));
                 var attributes = ParseAttrubutes(Convert.ToString(row[7]));

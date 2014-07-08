@@ -356,7 +356,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 {
                     firm.LastQualifyTime = qualifyDate;
                     _firmGenericRepository.Update(firm);
-                    operationScope.Updated<Client>(firm.Id);
+                    operationScope.Updated<Firm>(firm.Id);
                 }
 
                 _firmGenericRepository.Save();
