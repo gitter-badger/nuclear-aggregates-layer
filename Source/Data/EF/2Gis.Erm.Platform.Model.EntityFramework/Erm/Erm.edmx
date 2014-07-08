@@ -1986,10 +1986,34 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
+          <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
+        </EntityType>
+        <EntityType Name="PerformedOperationFinalProcessings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="MessageFlowId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EntityTypeId" Type="int" Nullable="false" />
+          <Property Name="EntityId" Type="bigint" Nullable="false" />
+          <Property Name="Context" Type="xml" />
+          <Property Name="AttemptCount" Type="int" Nullable="false" />
+          <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerformedOperationPrimaryProcessings">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MessageFlowId" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="MessageFlowId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -4021,6 +4045,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="NotificationProcessings" EntityType="Self.NotificationProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedBusinessOperations" EntityType="Self.PerformedBusinessOperations" Schema="Shared" store:Type="Tables" />
+          <EntitySet Name="PerformedOperationFinalProcessings" EntityType="Self.PerformedOperationFinalProcessings" Schema="Shared" store:Type="Tables" />
+          <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="Self.PerformedOperationPrimaryProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="vwSecurityAccelerator" EntityType="Self.vwSecurityAccelerator" store:Type="Views" store:Schema="Security">
             <DefiningQuery>SELECT 
     [vwSecurityAccelerator].[UserId] AS [UserId], 
@@ -5467,6 +5493,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="BirthdayCongratulations" EntityType="ErmModel.BirthdayCongratulation" />
           <EntitySet Name="ExportFlowDeliveryData_LetterSendRequest" EntityType="ErmModel.ExportFlowDeliveryData_LetterSendRequest" />
           <EntitySet Name="DenialReasons" EntityType="ErmModel.DenialReason" />
+          <EntitySet Name="PerformedOperationFinalProcessings" EntityType="ErmModel.PerformedOperationFinalProcessing" />
+          <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="ErmModel.PerformedOperationPrimaryProcessing" />
           <EntitySet Name="ExportFlowOrders_DenialReason" EntityType="ErmModel.ExportFlowOrders_DenialReason" />
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -9400,6 +9428,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="Context" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="Parent" />
+          <Property Name="UseCaseId" Type="Guid" Nullable="false" />
+          <Property Name="OperationEntities" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
       </EntityType>
         <EntityType Name="SecurityAccelerator">
           <Key>
@@ -9690,6 +9720,28 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="PerformedOperationFinalProcessing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="EntityTypeId" Type="Int32" Nullable="false" />
+          <Property Name="EntityId" Type="Int64" Nullable="false" />
+          <Property Name="AttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="MessageFlowId" Type="Guid" Nullable="false" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OperationId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerformedOperationPrimaryProcessing">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MessageFlowId" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="MessageFlowId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="ExportFlowOrders_DenialReason">
           <Key>
@@ -11647,6 +11699,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="PerformedBusinessOperations">
           <EntityTypeMapping TypeName="ErmModel.PerformedBusinessOperation">
             <MappingFragment StoreEntitySet="PerformedBusinessOperations">
+              <ScalarProperty Name="OperationEntities" ColumnName="OperationEntities" />
+                <ScalarProperty Name="UseCaseId" ColumnName="UseCaseId" />
               <ScalarProperty Name="Parent" ColumnName="Parent" />
               <ScalarProperty Name="Date" ColumnName="Date" />
               <ScalarProperty Name="Context" ColumnName="Context" />
@@ -11795,6 +11849,29 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
               <MappingFragment StoreEntitySet="ExportFlowOrders_Invoice">
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerformedOperationFinalProcessings">
+            <EntityTypeMapping TypeName="ErmModel.PerformedOperationFinalProcessing">
+              <MappingFragment StoreEntitySet="PerformedOperationFinalProcessings">
+                <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="MessageFlowId" ColumnName="MessageFlowId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="AttemptCount" ColumnName="AttemptCount" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerformedOperationPrimaryProcessings">
+            <EntityTypeMapping TypeName="ErmModel.PerformedOperationPrimaryProcessing">
+              <MappingFragment StoreEntitySet="PerformedOperationPrimaryProcessings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MessageFlowId" ColumnName="MessageFlowId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

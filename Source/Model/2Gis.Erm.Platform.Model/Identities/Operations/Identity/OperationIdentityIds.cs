@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Firm = 146
         public const int ImportCardsFromServiceBusIdentity = 14601;
         public const int ImportFirmIdentity = 14602;
-        public const int ImportTerritoriesFromDgppIdentity = 14603;
+        public const int ImportTerritoriesIdentity = 14603;
         public const int ImportCardForErmIdentity = 14604;
         public const int ImportCardRelationIdentity = 14605;
 
@@ -199,5 +199,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CreateLockDetailsDuringWithdrawalIdentity = 15901;
 
         public const int DeleteLockDetailsDuringRevertingWithdrawalIdentity = 15902;
+
+        public const int ImportFirmPromising = 19905;
+        public const int ImportFirmAddresses = 19907;
     }
 }

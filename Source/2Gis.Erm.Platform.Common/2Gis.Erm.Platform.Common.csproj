@@ -127,6 +127,7 @@
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
     <Compile Include="Ftp\IFtpService.cs" />
+    <Compile Include="Utils\ExceptionUtils.cs" />
     <Compile Include="Utils\IncreasingSequenceGenerator.cs" />
     <Compile Include="Utils\KeyEqualityComparer.cs" />
     <Compile Include="Logging\ICommonLog.cs" />
@@ -154,10 +155,12 @@
     <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
     <Compile Include="Utils\Resources\ResourceUtils.cs" />
     <Compile Include="Utils\StaticReflection.cs" />
+    <Compile Include="Utils\StrictKeyEqualityComparer.cs" />
     <Compile Include="Utils\StringComparsionExtensions.cs" />
     <Compile Include="Utils\StringSanitizerExtensions.cs" />
-    <Compile Include="Xml\XElementGeneratorStaticExtensions.cs" />
-    <Compile Include="Xml\XmlValidator.cs" />
+    <Compile Include="Utils\Xml\XmlUtils.Generator.cs" />
+    <Compile Include="Utils\Xml\XmlUtils.cs" />
+    <Compile Include="Utils\Xml\XmlUtils.Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

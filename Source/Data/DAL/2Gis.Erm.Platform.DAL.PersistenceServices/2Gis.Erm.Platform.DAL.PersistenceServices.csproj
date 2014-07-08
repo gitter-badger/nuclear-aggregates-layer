@@ -39,6 +39,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\AssemblyInfo.Common.cs">
@@ -50,8 +52,19 @@
     <Compile Include="CleanupPersistenceService.cs" />
     <Compile Include="ICleanupPersistenceService.cs" />
     <Compile Include="DI\PlatformDalPersistenceServicesAssembly.cs" />
+    <Compile Include="IReplicationPersistenceService.cs" />
+    <Compile Include="ReplicationPersistenceService.cs" />
+    <Compile Include="Utils\DataUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>

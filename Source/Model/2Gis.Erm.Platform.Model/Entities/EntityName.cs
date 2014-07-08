@@ -109,6 +109,8 @@
         Building = 241,
 
         PerformedBusinessOperation = 244,
+        PerformedOperationPrimaryProcessing = 269,
+        PerformedOperationFinalProcessing = 270,
         ExportFlowCardExtensionsCardCommercial = 246,
         ExportFlowFinancialDataLegalEntity = 247,
         ExportFlowOrdersAdvMaterial = 248,
@@ -128,7 +130,6 @@
         ExportFlowNomenclaturesNomenclatureElement = 265,
         ExportFlowNomenclaturesNomenclatureElementRelation = 266,
         ExportFlowDeliveryDataLetterSendRequest = 267,
-
         ExportFlowOrdersDenialReason = 268,
 
         // security

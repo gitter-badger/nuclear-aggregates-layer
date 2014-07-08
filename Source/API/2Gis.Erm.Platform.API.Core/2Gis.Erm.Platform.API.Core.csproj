@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ServiceBus">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -45,6 +48,7 @@
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -68,7 +72,72 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\Flows\IMessageFlow.cs" />
+    <Compile Include="Messaging\MessageBase.cs" />
+    <Compile Include="Messaging\Processing\MessageProcessingContext.cs" />
+    <Compile Include="Messaging\Processing\Processors\IAsyncMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessorFactory.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessorSettings.cs" />
+    <Compile Include="Messaging\Flows\IMessageFlowRegistry.cs" />
+    <Compile Include="Messaging\Processing\MessageBatchProcessingContext.cs" />
+    <Compile Include="Messaging\Processing\Processors\ISyncMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\IMessageProcessingTopology.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\MessageProcessingTopologyBase.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\TopologyProcessingResults.cs" />
+    <Compile Include="Messaging\Processing\Stages\BatchStageResult.cs" />
+    <Compile Include="Messaging\Processing\Stages\IMessageProcessingStage.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageBase.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageActorContext.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageResultUtils.cs" />
+    <Compile Include="Messaging\Processing\Strategies\IMessageProcessingStrategy.cs" />
+    <Compile Include="Messaging\Processing\Strategies\IMessageProcessingStrategyFactory.cs" />
+    <Compile Include="Messaging\Processing\Strategies\MessageProcessingStrategyBase.cs" />
+    <Compile Include="Messaging\Processing\Transformers\MessageTransformerBase.cs" />
+    <Compile Include="Messaging\Processing\Validators\MessageValidatorBase.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiver.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiverFactory.cs" />
+    <Compile Include="Messaging\Processing\Transformers\IMessageTransformer.cs" />
+    <Compile Include="Messaging\Processing\Transformers\IMessageTransformerFactory.cs" />
+    <Compile Include="Messaging\Processing\Validators\IMessageValidator.cs" />
+    <Compile Include="Messaging\Processing\Validators\IMessageValidatorFactory.cs" />
+    <Compile Include="Messaging\Processing\IProcessingResultMessage.cs" />
+    <Compile Include="Messaging\Processing\Handlers\IMessageAggregatedProcessingResultsHandler.cs" />
+    <Compile Include="Messaging\Processing\Handlers\IMessageAggregatedProcessingResultsHandlerFactory.cs" />
+    <Compile Include="Messaging\Flows\ISourceMessageFlow.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiverSettings.cs" />
+    <Compile Include="Messaging\Flows\MessageFlowBase.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStage.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageResult.cs" />
+    <Compile Include="Messaging\Receivers\MessageReceiverBase.Dispose.cs" />
+    <Compile Include="Messaging\Receivers\MessageReceiverBase.cs" />
+    <Compile Include="Operations\Logging\ChangesType.cs" />
+    <Compile Include="Operations\Logging\EntityChangesContext.cs" />
+    <Compile Include="Operations\Logging\IOperationContextParser.cs" />
+    <Compile Include="Operations\Logging\IOperationLoggingSettings.cs" />
+    <Compile Include="Operations\Logging\IOperationLoggingStrategy.cs" />
+    <Compile Include="Operations\Logging\IOperationResolver.cs" />
+    <Compile Include="Operations\Logging\LoggingTargets.cs" />
+    <Compile Include="Operations\Logging\OperationLoggingSettingsAspect.cs" />
+    <Compile Include="Operations\Logging\OperationScopeNode.cs" />
     <Compile Include="Operations\Logging\OperationScopeUtils.cs" />
+    <Compile Include="Operations\Logging\TrackedUseCase.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMFinalProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
+    <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\IPerformedOperationsTransportSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\AllPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\FinalReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\IPerformedOperationsFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\PerformedOperationsTransportSettingsAspect.cs" />
+    <Compile Include="Operations\Processing\PerformedOperationsTransport.cs" />
     <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
@@ -113,7 +182,7 @@
     <Compile Include="Metadata\EndpointDescription.cs" />
     <Compile Include="Metadata\IServiceAvailabilityProvider.cs" />
     <Compile Include="Operations\IOperationProgressCallback.cs" />
-    <Compile Include="Operations\Logging\IOperationContextParser.cs" />
+    <Compile Include="Operations\Logging\IOldOperationContextParser.cs" />
     <Compile Include="Operations\Logging\IOperationScope.cs" />
     <Compile Include="Operations\Logging\IOperationScopeFactory.cs" />
     <Compile Include="Operations\Logging\OperationScopeFactoryUtils.cs" />

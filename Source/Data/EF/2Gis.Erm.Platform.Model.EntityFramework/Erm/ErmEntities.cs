@@ -116,6 +116,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(OrderValidationRuleGroupDetail),
     		typeof(OrganizationUnit),
     		typeof(PerformedBusinessOperation),
+    		typeof(PerformedOperationFinalProcessing),
+    		typeof(PerformedOperationPrimaryProcessing),
     		typeof(Platform),
     		typeof(Position),
     		typeof(PositionCategory),

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 
@@ -153,7 +154,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             ChangesType changesType,
             StringBuilder severalModificationsReport)
         {
-            var targetScopeChanges = declaredChangesExtractor(targetScopeContext.ScopeChanges);
+            var targetScopeChanges = declaredChangesExtractor(targetScopeContext.ChangesContext);
 
             ConcurrentDictionary<long, int> changedEntities;
             if (targetScopeChanges.TryGetValue(entityType, out changedEntities)

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -16,94 +15,55 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             _connectionString = connectionString;
         }
 
-        #region Implementation of IDatabaseCaller
-
-        public T ExecuteProcedureWithSelectValue<T>(string procedureName, params Tuple<string, object>[] inputParameters)
+        public void ExecuteProcedure(string procedureName, params Tuple<string, object>[] inputParameters)
         {
-            return ExecuteProcedureWithSelectValue<T>(procedureName, null, inputParameters);
+            ExecuteStoredProcedure(procedureName, null, inputParameters, null);
         }
 
-        public T ExecuteProcedureWithSelectValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public void ExecuteProcedure(string procedureName, int commandTimeout, params Tuple<string, object>[] inputParameters)
         {
-            var commandParametrs = inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToArray();
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand(procedureName, connection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddRange(commandParametrs);
-                if (commandTimeout.HasValue)
-                {
-                    command.CommandTimeout = commandTimeout.Value;
-                }
-
-                connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    var value = default(object);
-                    if (reader.Read())
-                    {
-                        value = reader.GetValue(0);
-                    }
-
-                    return Cast<T>(value);
-                }
-            }
+            ExecuteStoredProcedure(procedureName, commandTimeout, inputParameters, null);
         }
 
-        public IEnumerable<T> ExecuteProcedureWithSelectListOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, params Tuple<string, object>[] inputParameters)
         {
-            var commandParametrs = inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToArray();
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand(procedureName, connection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddRange(commandParametrs);
-                if (commandTimeout.HasValue)
-                {
-                    command.CommandTimeout = commandTimeout.Value;
-                }
-
-                connection.Open();
-
-                var list = new List<T>();
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var value = reader.GetValue(0);
-                        list.Add(Cast<T>(value));
-                    }
-                }
-
-                return list;
-            }
+            return ExecuteProcedureWithResultSingleValue<T>(procedureName, null, inputParameters);
         }
 
-        public IEnumerable<T> ExecuteProcedureWithPreeneratedIdsAndSelectListOf<T>(
-            string procedureName,
-            int? commandTimeout,
-            IEnumerable<long> pregeneratedIds,
-            params Tuple<string, object>[] inputParameters)
+        public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
         {
             try
             {
-                var idsTable = new DataTable("PregenaratedIds");
-                idsTable.Columns.Add("Id", typeof(long));
-                foreach (var id in pregeneratedIds)
-                {
-                    idsTable.Rows.Add(id);
-                }
-
-                var commandParametrs =
-                    inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToList();
-                commandParametrs.Add(new SqlParameter { ParameterName = "PregenaratedIds", Value = idsTable, Direction = ParameterDirection.Input });
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(procedureName, connection))
                 {
-
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddRange(commandParametrs.ToArray());
+                    FillInputParameters(command, inputParameters);
+                    if (commandTimeout.HasValue)
+                    {
+                        command.CommandTimeout = commandTimeout.Value;
+                    }
+
+                    connection.Open();
+
+                    return Cast<T>(command.ExecuteScalar());
+                }
+            }
+            catch (SqlException exception)
+            {
+                throw new ErmDataAccessException(_connectionString, procedureName, inputParameters, exception);
+            }
+        }
+
+        public IEnumerable<T> ExecuteProcedureWithResultSequenceOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                using (var command = new SqlCommand(procedureName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
                         command.CommandTimeout = commandTimeout.Value;
@@ -130,65 +90,52 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public T ExecuteProcedureWithReturnValue<T>(string procedureName, params Tuple<string, object>[] inputParameters)
-        {
-            return ExecuteProcedureWithReturnValue<T>(procedureName, null, inputParameters);
-        }
-
-        public T ExecuteProcedureWithReturnValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
-        {
-            var commandParametrs = inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToArray();
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand(procedureName, connection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddRange(commandParametrs);
-                if (commandTimeout.HasValue)
-                {
-                    command.CommandTimeout = commandTimeout.Value;
-                }
-
-                connection.Open();
-
-                return Cast<T>(command.ExecuteScalar());
-            }
-        }
-
-        public IList<IList<object>> ExecuteTableProcedure(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public DataTable ExecuteProcedureWithResultTable(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
         {
             try
             {
-                var commandParametrs = inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToArray();
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(procedureName, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
                         command.CommandTimeout = commandTimeout.Value;
                     }
 
-                    command.Parameters.AddRange(commandParametrs);
-
                     connection.Open();
 
-                    var result = new List<IList<object>>();
+                    DataTable resultSet = null;
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var row = new List<object>(reader.FieldCount);
-                            result.Add(row);
+                            if (resultSet == null)
+                            {
+                                resultSet = new DataTable();
+                                for (var i = 0; i < reader.FieldCount; i++)
+                                {
+                                    var column = new DataColumn(reader.GetName(i));
+                                    resultSet.Columns.Add(column);
+                                }
+                            }
+                            
+                            var newRow = resultSet.NewRow();
+                            var rowValues = new object[reader.FieldCount];
                             for (var i = 0; i < reader.FieldCount; i++)
                             {
                                 var value = reader.GetValue(i);
                                 var isNull = value is DBNull;
-                                row.Add(isNull ? null : value);
+                                rowValues[i] = isNull ? null : value;
                             }
+
+                            newRow.ItemArray = rowValues;
+                            resultSet.Rows.Add(newRow);
                         }
                     }
 
-                    return result;
+                    return resultSet ?? new DataTable();
                 }
             }
             catch (SqlException exception)
@@ -197,11 +144,11 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public Tuple<string, object>[] ExecuteProcedureWithOutputParameter(string procedureName, Tuple<string, object>[] inputParameters, Tuple<string, Type>[] outputParameterName)
+        public Tuple<string, object>[] ExecuteProcedureWithResultOutputParameters(string procedureName, Tuple<string, object>[] inputParameters, Tuple<string, Type>[] outputParameters)
         {
             var resultAccessor =
                 new ProcedureResultAccessor(
-                    outputParameterName.Select(
+                    outputParameters.Select(
                         x => new SqlParameter { ParameterName = x.Item1, Direction = ParameterDirection.Output }).ToArray());
             ExecuteStoredProcedure(procedureName, null, inputParameters, resultAccessor);
             return resultAccessor.ProcedureResult != null ?
@@ -209,17 +156,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                 : new Tuple<string, object>[0];
         }
 
-        public void ExecuteProcedure(string procedureName, params Tuple<string, object>[] inputParameters)
-        {
-            ExecuteStoredProcedure(procedureName, null, inputParameters, null);
-        }
-
-        public void ExecuteProcedure(string procedureName, int commandTimeout, params Tuple<string, object>[] inputParameters)
-        {
-            ExecuteStoredProcedure(procedureName, commandTimeout, inputParameters, null);
-        }
-
-        public void ExecuteSqlString(string queryString)
+        public void ExecuteRawSql(string queryString)
         {
             using (var connection = new SqlConnection(_connectionString))
             using (var sqlCommand = new SqlCommand(queryString, connection))
@@ -258,11 +195,31 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+        
+        private void FillInputParameters(SqlCommand command, IEnumerable<Tuple<string, object>> inputParameters)
+        {
+            foreach (var parameterDescriptor in inputParameters)
+            {
+                var sqlParameter = new SqlParameter
+                {
+                    ParameterName = parameterDescriptor.Item1,
+                    Value = parameterDescriptor.Item2,
+                    Direction = ParameterDirection.Input
+                };
+
+                if (parameterDescriptor.Item2 is DataTable)
+                {
+                    sqlParameter.SqlDbType = SqlDbType.Structured;
+                }
+
+                command.Parameters.Add(sqlParameter);
+            }
+        }
 
         private void ExecuteStoredProcedure(
             string procedureName,
             int? commandTimeout,
-            IEnumerable<Tuple<string, object>> inputParameters,
+            Tuple<string, object>[] inputParameters,
             ProcedureResultAccessor procedureResultAccessor)
         {
             try
@@ -272,15 +229,11 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     using (var command = new SqlCommand(procedureName, connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        FillInputParameters(command, inputParameters);
                         if (commandTimeout.HasValue)
                         {
                             command.CommandTimeout = commandTimeout.Value;
                         }
-
-                        var commandParametrs =
-                            inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input })
-                                           .ToArray();
-                        command.Parameters.AddRange(commandParametrs);
 
                         SqlParameter[] procedureResult = null;
                         if (procedureResultAccessor != null)
@@ -321,7 +274,5 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
 
             public SqlParameter[] ProcedureResult { get; set; }
         }
-
-        #endregion
     }
 }

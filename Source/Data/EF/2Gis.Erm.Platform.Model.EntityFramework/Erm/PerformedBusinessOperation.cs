@@ -23,6 +23,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string Context { get; set; }
         public System.DateTime Date { get; set; }
         public Nullable<long> Parent { get; set; }
+        public System.Guid UseCaseId { get; set; }
+        public string OperationEntities { get; set; }
     
     	public override bool Equals(object obj)
         {
