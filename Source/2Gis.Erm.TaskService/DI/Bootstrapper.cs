@@ -24,6 +24,13 @@ using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Validators;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -39,11 +46,17 @@ using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
+using DoubleGis.Erm.Platform.DI.Factories.Messaging;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
@@ -51,7 +64,6 @@ using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds;
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.TaskService.Config;
 using DoubleGis.Erm.Qds.Etl.Extract;
@@ -76,9 +88,9 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                {
+                { 
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
-                    new CheckDomainModelEntitiesСlassificationMassProcessor(), 
                     new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
@@ -92,15 +104,16 @@ namespace DoubleGis.Erm.TaskService.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    settingsContainer,
+                                                    massProcessors,
+                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>()))
-                     .ConfigureServiceClient();
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                          settingsContainer.AsSettings<ICachingSettings>(),
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>()))
+                            .ConfigureServiceClient();
 
             container.ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
             RegisterEtlComponents(container, EntryPointSpecificLifetimeManagerFactory);
@@ -156,23 +169,25 @@ namespace DoubleGis.Erm.TaskService.DI
             IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
-            ICachingSettings cachingSettings)
+            ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings)
         {
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
+                    .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings)
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureIdentityInfrastructure()
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .RegisterCorporateQueues(connectionStringSettings)
-                .ConfigureQuartz()
-                .ConfigureEAV();
+                    .ConfigureQuartz()
+                    .ConfigureEAV()
+                    .ConfigurePerformedOperationsProcessing();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -205,7 +220,7 @@ namespace DoubleGis.Erm.TaskService.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            return container.RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
+            return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                 // .RegisterTypeWithDependencies<IPublicService, PublicService>(mappingScope, Lifetime.PerScope)
                 // FIXME {d.ivanov, 28.08.2013}: IPublicService зарегистрирован в общем scope, чтобы работать с ним из SimplifiedModelConsumer-ов, см IOperationsExportService<,>
                 //                               Нужно вынести логику из наследников SerializeObjectsHandler в соответствующие OperationsExporter-ы
@@ -252,6 +267,29 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterTypeWithDependencies<IUserImpersonationService, UserImpersonationService>(Lifetime.PerScope, MappingScope);
         }
 
+        private static IUnityContainer ConfigurePerformedOperationsProcessing(this IUnityContainer container)
+        {
+            // до появления massprocessor, необходимо для правильной обработки зависимостей указанных типов
+            // primary
+            container.RegisterTypeWithDependencies(typeof(DBOnlinePerformedOperationsReceiver<>), Lifetime.PerScope, null)
+                     .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+            
+            // final
+            container.RegisterTypeWithDependencies(typeof(FinalProcessingQueueReceiver<>), Lifetime.PerScope, null)
+                     .RegisterTypeWithDependencies(typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+
+            return container.RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton)
+                            .RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope)
+
+                            .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
+                            .RegisterType<IOperationResolver, OperationResolver>(Lifetime.Singleton);
+        }
+
         private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
         {
             return container
@@ -267,12 +305,12 @@ namespace DoubleGis.Erm.TaskService.DI
 
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-        {
+            {
             return container
                 .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-
+                
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
     }

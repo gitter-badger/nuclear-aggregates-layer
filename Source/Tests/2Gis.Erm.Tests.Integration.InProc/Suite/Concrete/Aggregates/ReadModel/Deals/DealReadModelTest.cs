@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
-using DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Deal
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Deals
 {
     public class DealReadModelTest : IIntegrationTest
     {
         private readonly IDealReadModel _dealReadModel;
-        private readonly IAppropriateEntityProvider<Platform.Model.Entities.Erm.Deal> _dealEntityProvider;
+        private readonly IAppropriateEntityProvider<Deal> _dealEntityProvider;
 
-        public DealReadModelTest(IDealReadModel dealReadModel, IAppropriateEntityProvider<Platform.Model.Entities.Erm.Deal> dealEntityProvider)
+        public DealReadModelTest(IDealReadModel dealReadModel, IAppropriateEntityProvider<Deal> dealEntityProvider)
         {
             _dealReadModel = dealReadModel;
             _dealEntityProvider = dealEntityProvider;
@@ -27,8 +26,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
         {
             var date = DateTime.UtcNow.AddMonths(-1);
             var releaseNumber = date.ToAbsoluteReleaseNumber();
-            var dealsWithAfterSaleService = _dealEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Platform.Model.Entities.Erm.Deal>() &&
-                                                                   new FindSpecification<Platform.Model.Entities.Erm.Deal>(
+            var dealsWithAfterSaleService = _dealEntityProvider.Get(Specs.Find.ActiveAndNotDeleted<Deal>() &&
+                                                                   new FindSpecification<Deal>(
                                                                        x =>
                                                                        x.AfterSaleServiceActivities.Any(
                                                                            assa =>

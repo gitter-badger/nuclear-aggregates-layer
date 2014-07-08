@@ -6,18 +6,18 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Simplified.Dictionary.Currency
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Simplified.Dictionary.Currencies
 {
-    public class CurrencyServiceTest : UseModelEntityTestBase<Platform.Model.Entities.Erm.Currency>
+    public class CurrencyServiceTest : UseModelEntityTestBase<Currency>
     {
         private readonly ICurrencyService _currencyService;
 
-        public CurrencyServiceTest(IAppropriateEntityProvider<Platform.Model.Entities.Erm.Currency> appropriateEntityProvider, ICurrencyService currencyService) : base(appropriateEntityProvider)
+        public CurrencyServiceTest(IAppropriateEntityProvider<Currency> appropriateEntityProvider, ICurrencyService currencyService) : base(appropriateEntityProvider)
         {
             _currencyService = currencyService;
         }
 
-        protected override OrdinaryTestResult ExecuteWithModel(Platform.Model.Entities.Erm.Currency modelEntity)
+        protected override OrdinaryTestResult ExecuteWithModel(Currency modelEntity)
         {
             _currencyService.GetCurrencyWithRelations(modelEntity.Id);
 

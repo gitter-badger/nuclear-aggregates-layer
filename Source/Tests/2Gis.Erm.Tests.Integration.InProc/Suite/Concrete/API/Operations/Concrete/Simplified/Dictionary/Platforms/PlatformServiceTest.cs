@@ -8,17 +8,17 @@ using FluentAssertions;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Simplified.Dictionary.Platforms
 {
-    public class PlatformServiceTest : UseModelEntityTestBase<Platform.Model.Entities.Erm.Platform>
+    public class PlatformServiceTest : UseModelEntityTestBase<Erm.Platform.Model.Entities.Erm.Platform>
     {
         private readonly IPlatformService _platformService;
 
-        public PlatformServiceTest(IAppropriateEntityProvider<Platform.Model.Entities.Erm.Platform> appropriateEntityProvider, IPlatformService platformService)
+        public PlatformServiceTest(IAppropriateEntityProvider<Erm.Platform.Model.Entities.Erm.Platform> appropriateEntityProvider, IPlatformService platformService)
             : base(appropriateEntityProvider)
         {
             _platformService = platformService;
         }
 
-        protected override OrdinaryTestResult ExecuteWithModel(Platform.Model.Entities.Erm.Platform modelEntity)
+        protected override OrdinaryTestResult ExecuteWithModel(Erm.Platform.Model.Entities.Erm.Platform modelEntity)
         {
             modelEntity.MinPlacementPeriodEnum = (int)PositionPlatformMinPlacementPeriod.FourMonths;
             _platformService.CreateOrUpdate(modelEntity);
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
             _platformService.IsPlatformLinked(modelEntity.Id);
 
-            var newPlatform = new Platform.Model.Entities.Erm.Platform
+            var newPlatform = new Erm.Platform.Model.Entities.Erm.Platform
                 {
                     Id = 7777777,
                     DgppId = 8888888,

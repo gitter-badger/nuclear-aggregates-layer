@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings.Xml;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.Settings
 {
@@ -22,6 +24,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.Settings
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use(new OrderValidationSettingsAspect(AssociatedDeniedPositionsDescriptionsAccessor.GetPricePositionDescriptions()))
                .Use<CachingSettingsAspect>()
+               .Use<OperationLoggingSettingsAspect>()
+               .IfRequiredUseOperationLogging2ServiceBus()
                .Use(RequiredServices
                        .Is<APIIdentityServiceSettingsAspect>());
         }

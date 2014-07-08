@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements;
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -9,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Advertisement
+namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Advertisements
 {
     public class AdvertisementReadModelTest : IIntegrationTest
     {
