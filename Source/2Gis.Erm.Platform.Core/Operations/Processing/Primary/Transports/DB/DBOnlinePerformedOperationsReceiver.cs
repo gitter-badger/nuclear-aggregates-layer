@@ -7,10 +7,12 @@ using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB
 {
+    [UseCase(Duration = UseCaseDuration.Long)]
     public sealed class DBOnlinePerformedOperationsReceiver<TMessageFlow> :
         MessageReceiverBase<TMessageFlow, DBPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
@@ -18,19 +20,24 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
         private readonly TimeSpan _timeSafetyOffset = TimeSpan.FromDays(1);
         private readonly IPerformedOperationsProcessingReadModel _performedOperationsProcessingReadModel;
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
+        private readonly IUseCaseTuner _useCaseTuner;
 
         public DBOnlinePerformedOperationsReceiver(
             IPerformedOperationsReceiverSettings messageReceiverSettings,
             IPerformedOperationsProcessingReadModel performedOperationsProcessingReadModel,
-            IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService)
+            IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService,
+            IUseCaseTuner useCaseTuner)
             : base(messageReceiverSettings)
         {
             _performedOperationsProcessingReadModel = performedOperationsProcessingReadModel;
             _operationsPrimaryProcessingCompleteAggregateService = operationsPrimaryProcessingCompleteAggregateService;
+            _useCaseTuner = useCaseTuner;
         }
 
         protected override IEnumerable<DBPerformedOperationsMessage> Peek()
         {
+            _useCaseTuner.AlterDuration<DBOnlinePerformedOperationsReceiver<TMessageFlow>>();
+
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 var lastDatesMap = _performedOperationsProcessingReadModel.GetOperationPrimaryProcessedDateMap(new IMessageFlow[] { SourceMessageFlow });
@@ -48,6 +55,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
         protected override void Complete(IEnumerable<DBPerformedOperationsMessage> successfullyProcessedMessages, IEnumerable<DBPerformedOperationsMessage> failedProcessedMessages)
         {
+            _useCaseTuner.AlterDuration<DBOnlinePerformedOperationsReceiver<TMessageFlow>>();
+
             // TODO {i.maslennikov, 30.06.2014}: Особого смысла в транзакции здесь нет
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {

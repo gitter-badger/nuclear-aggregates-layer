@@ -50,7 +50,15 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         void ISyncMessageFlowProcessor.Process()
         {
-            Process();
+            try
+            {
+                Process();
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormatEx(ex, "Sync processing for message flow " + SourceMessageFlow + " failed");
+                throw;
+            }
         }
 
         void IAsyncMessageFlowProcessor.Start()
@@ -197,15 +205,14 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
             while (!_workerCTS.Token.IsCancellationRequested)
             {
-                int processedCount;
+                int processedCount = 0;
                 try
                 {
                     processedCount = Process();
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormatEx(ex, "Async processing for message flow " + SourceMessageFlow + " failed");
-                    throw;
+                    Logger.ErrorFormatEx(ex, "Async processing for message flow " + SourceMessageFlow + " failed. Processing will be continued after some delay");
                 }
 
                 if (processedCount > 0)
