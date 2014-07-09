@@ -79,6 +79,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                 dto.Name = Name;
                 dto.Text = Resources.BirthdayLetter;
                 dto.Emails = _clientReadModel.GetContactEmailsByBirthDate(dto.CongratulationDate.Month, dto.CongratulationDate.Day);
+                dto.IsAutoSend = true;
             }
 
             return entityDtos;
