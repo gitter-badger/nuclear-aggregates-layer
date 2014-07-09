@@ -30,31 +30,31 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
 
         public IEnumerable<ReportDto> GetReportNames(long userId)
         {
-            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportName",
-                                                         null,
-                                                         new Tuple<string, object>("User", userId));
+            var rows = _databaseCaller.ExecuteTableProcedure("ReportName",
+                                                        null,
+                                                        new Tuple<string, object>("User", userId));
 
-            return resultTable.Rows.Cast<DataRow>().Select(row => new ReportDto
-                        {
-                            Id = Convert.ToInt32(row[0]),
-                            DisplayName = Convert.ToString(row[1]),
-                            ReportName = Convert.ToString(row[2]),
-                            Timestamp = ToLong((byte[])row[3]),
-                            IsHidden = Convert.ToBoolean(row[4]),
-                            FormatParameter = Convert.ToString(row[5]),
-                        })
+            return rows.Select(row => new ReportDto
+            {
+                Id = Convert.ToInt32(row[0]),
+                DisplayName = Convert.ToString(row[1]),
+                ReportName = Convert.ToString(row[2]),
+                Timestamp = ToLong((byte[])row[3]),
+                IsHidden = Convert.ToBoolean(row[4]),
+                FormatParameter = Convert.ToString(row[5]),
+            })
                        .ToList();
         }
 
         public IEnumerable<ReportFieldDto> GetReportFields(long reportId, long userId)
         {
             var result = new List<ReportFieldDto>();
-            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportField",
+            var rows = _databaseCaller.ExecuteTableProcedure("ReportField",
                                                          null,
                                                          new Tuple<string, object>("ReportName", reportId),
                                                          new Tuple<string, object>("User", userId));
 
-            foreach (DataRow row in resultTable.Rows)
+            foreach (var row in rows)
             {
                 var fieldType = ParseFieldTypeXml(Convert.ToString(row[3]));
                 var attributes = ParseAttrubutes(Convert.ToString(row[7]));
