@@ -65,43 +65,15 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
         {
             var defaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
 
-            var performedOperations =
+            var performedUseCases =
                 _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate);
+                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate && o.Parent == null);
+
             var processedOperations =
                 _finder.FindAll<PerformedOperationPrimaryProcessing>()
                        .Where(o => o.MessageFlowId == sourceMessageFlow.Id && o.Date > ignoreOperationsPrecedingDate);
 
-            var performedOperations_rev2 = 
-                    performedOperations
-                        .GroupJoin(
-                            processedOperations,
-                            performedOperation => performedOperation.Id,
-                            processedOperation => processedOperation.Id,
-                            (performedOperation, performedOperationProcessings) => new
-                                {
-                                    TargetOperation = performedOperation,
-                                    Processing = performedOperationProcessings.FirstOrDefault()
-                                })
-                        .Where(performedOperationInfo => performedOperationInfo.Processing == null)
-                        .Select(performedOperationInfo => performedOperationInfo.TargetOperation)
-                        .GroupBy(
-                            pbo => pbo.UseCaseId, 
-                            (guid, pbos) => new
-                                {
-                                    Date = pbos.Min(operation => operation.Date),
-                                    Operations = pbos
-                                })
-                        .OrderBy(x => x.Date)
-                        .Take(maxUseCaseCount)
-                        .Select(x => x.Operations);
-
-            var performedOperations2 =
-                _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate && o.Parent == null);
-
-            var performedOperations_rev3 =
-                    performedOperations2
+            return performedUseCases
                         .GroupJoin(
                             processedOperations,
                             performedOperation => performedOperation.Id,
@@ -133,8 +105,6 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                             })
                         .OrderBy(useCase => useCase.Date)
                         .Select(useCase => useCase.Operations);
-
-            return performedOperations_rev3;
         }
 
         public IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsInitial(IMessageFlow sourceMessageFlow, int batchSize)
