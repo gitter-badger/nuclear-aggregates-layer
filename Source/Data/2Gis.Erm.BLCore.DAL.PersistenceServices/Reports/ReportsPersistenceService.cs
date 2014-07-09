@@ -33,32 +33,33 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
 
         public IEnumerable<ReportDto> GetReportNames(long userId)
         {
-            var rows = _databaseCaller.ExecuteTableProcedure("ReportName",
-                                                         null,
+            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportName",
+                                                        null,
                                                          new Tuple<string, object>("User", userId),
                                                          new Tuple<string, object>("BusinessModel", (int)_businessModelSettings.BusinessModel));
 
-            return rows.Select(row => new ReportDto
-                        {
-                            Id = Convert.ToInt32(row[0]),
-                            DisplayName = Convert.ToString(row[1]),
-                            ReportName = Convert.ToString(row[2]),
-                            Timestamp = ToLong((byte[])row[3]),
-                            IsHidden = Convert.ToBoolean(row[4]),
-                            FormatParameter = Convert.ToString(row[5]),
-                        })
+            return resultTable.Rows
+                        .Cast<DataRow>().Select(row => new ReportDto
+            {
+                Id = Convert.ToInt32(row[0]),
+                DisplayName = Convert.ToString(row[1]),
+                ReportName = Convert.ToString(row[2]),
+                Timestamp = ToLong((byte[])row[3]),
+                IsHidden = Convert.ToBoolean(row[4]),
+                FormatParameter = Convert.ToString(row[5]),
+            })
                        .ToList();
         }
 
         public IEnumerable<ReportFieldDto> GetReportFields(long reportId, long userId)
         {
             var result = new List<ReportFieldDto>();
-            var rows = _databaseCaller.ExecuteTableProcedure("ReportField",
+            var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportField",
                                                          null,
                                                          new Tuple<string, object>("ReportName", reportId),
                                                          new Tuple<string, object>("User", userId));
 
-            foreach (var row in rows)
+            foreach (DataRow row in resultTable.Rows)
             {
                 var fieldType = ParseFieldTypeXml(Convert.ToString(row[3]));
                 var attributes = ParseAttrubutes(Convert.ToString(row[7]));
@@ -72,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
                     ListValues = fieldType.ListValues,
                     IsRequired = !Convert.ToBoolean(row[4]),
                     DisplayOrder = Convert.ToInt32(row[5]),
-                    Default = (ReportFieldDefault)Convert.ToInt32(row[6] ?? 0),
+                    Default = (ReportFieldDefault)Convert.ToInt32(row.IsNull(6) ? 0 : row[6]),
                     Timestamp = ToLong((byte[])row[8]),
                     IsHidden = Convert.ToBoolean(row[9]),
                     Dependencies = attributes.Dependencies,
