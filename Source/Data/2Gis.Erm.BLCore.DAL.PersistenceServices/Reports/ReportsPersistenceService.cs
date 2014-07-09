@@ -7,6 +7,7 @@ using System.Xml;
 
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -22,27 +23,30 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
         }; 
 
         private readonly IDatabaseCaller _databaseCaller;
+        private readonly IBusinessModelSettings _businessModelSettings;
 
-        public ReportPersistenceService(IDatabaseCaller databaseCaller)
+        public ReportPersistenceService(IDatabaseCaller databaseCaller, IBusinessModelSettings businessModelSettings)
         {
             _databaseCaller = databaseCaller;
+            _businessModelSettings = businessModelSettings;
         }
 
         public IEnumerable<ReportDto> GetReportNames(long userId)
         {
             var rows = _databaseCaller.ExecuteTableProcedure("ReportName",
-                                                        null,
-                                                        new Tuple<string, object>("User", userId));
+                                                         null,
+                                                         new Tuple<string, object>("User", userId),
+                                                         new Tuple<string, object>("BusinessModel", (int)_businessModelSettings.BusinessModel));
 
             return rows.Select(row => new ReportDto
-            {
-                Id = Convert.ToInt32(row[0]),
-                DisplayName = Convert.ToString(row[1]),
-                ReportName = Convert.ToString(row[2]),
-                Timestamp = ToLong((byte[])row[3]),
-                IsHidden = Convert.ToBoolean(row[4]),
-                FormatParameter = Convert.ToString(row[5]),
-            })
+                        {
+                            Id = Convert.ToInt32(row[0]),
+                            DisplayName = Convert.ToString(row[1]),
+                            ReportName = Convert.ToString(row[2]),
+                            Timestamp = ToLong((byte[])row[3]),
+                            IsHidden = Convert.ToBoolean(row[4]),
+                            FormatParameter = Convert.ToString(row[5]),
+                        })
                        .ToList();
         }
 
