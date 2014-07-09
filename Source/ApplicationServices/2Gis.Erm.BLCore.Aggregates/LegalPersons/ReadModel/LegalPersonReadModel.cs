@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         }
 
         public bool HasAnyLegalPersonProfiles(long legalPersonId)
-                          {
+        {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId)).Any();
         }
 
@@ -71,6 +71,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
                           .Select(profile => profile.Id)
                           .ToArray();
+        }
+
+        public long? GetMainLegalPersonProfileId(long legalPersonId)
+        {
+            return
+                _finder.Find(LegalPersonSpecs.Profiles.Find.MainByLegalPersonId(legalPersonId)
+                             && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
+                       .Select(x => (long?)x.Id)
+                       .SingleOrDefault();
         }
     }
 }

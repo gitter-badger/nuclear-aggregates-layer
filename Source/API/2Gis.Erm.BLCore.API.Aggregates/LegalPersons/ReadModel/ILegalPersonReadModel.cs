@@ -18,5 +18,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         LegalPersonProfile GetLegalPersonProfile(long legalPersonProfileId);
         IEnumerable<LegalPersonProfile> GetProfilesByLegalPerson(long legalPersonId);
         IEnumerable<long> GetLegalPersonProfileIds(long value);
+        long? GetMainLegalPersonProfileId(long legalPersonId);
     }
 }
