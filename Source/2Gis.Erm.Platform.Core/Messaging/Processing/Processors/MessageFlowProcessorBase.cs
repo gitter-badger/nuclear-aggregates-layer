@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         private readonly CancellationTokenSource _workerCTS;
         private readonly Task _workerTask;
+        private AutoResetEvent _asyncWorkerSignal;
 
         protected MessageFlowProcessorBase(
             TMessageFlowProcessorSettings processorSettings,
@@ -56,13 +57,14 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormatEx(ex, "Sync processing for message flow " + SourceMessageFlow + " failed");
+                Logger.ErrorFormatEx(ex, "Failed sync processing for message flow " + SourceMessageFlow);
                 throw;
             }
         }
 
         void IAsyncMessageFlowProcessor.Start()
         {
+            _asyncWorkerSignal = new AutoResetEvent(false);
             _workerTask.Start();
         }
 
@@ -72,6 +74,12 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             {
                 _workerCTS.Cancel();
 
+                var asyncWorkerSignal = _asyncWorkerSignal;
+                if (asyncWorkerSignal != null)
+                {
+                    asyncWorkerSignal.Set();
+                }
+
                 try
                 {
                     _workerTask.Wait();
@@ -80,6 +88,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 {
                     Logger.ErrorEx(ex, "Can't stop async processor for flow " + SourceMessageFlow);
                     throw;
+                }
+                finally
+                {
+                    if (asyncWorkerSignal != null)
+                    {
+                        asyncWorkerSignal.Close();
+                    }
                 }
             }
         }
@@ -120,7 +135,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             {
                 stopwatch.Start();
 
-                Logger.DebugEx("Starting processing message flow. Receiving messages");
+                Logger.DebugFormatEx("Starting processing message flow {0}. Receiving messages", SourceMessageFlow);
+
                 try
                 {
                     flowMessages = messageReceiver.Peek()
@@ -130,6 +146,12 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 {
                     Logger.ErrorEx(ex, "Can't receive messages from flow " + SourceMessageFlow);
                     throw;
+                }
+
+                if (flowMessages == null || !flowMessages.Any())
+                {
+                    Logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
+                    return 0;
                 }
 
                 Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Length, SourceMessageFlow);
@@ -150,7 +172,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     }
                     catch (Exception nex)
                     {
-                        Logger.ErrorEx(nex, "Can't report failed messages");
+                        Logger.ErrorEx(nex, "Can't report failed messages, flow details: " + SourceMessageFlow);
                         throw;
                     }
 
@@ -165,7 +187,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 Logger.DebugEx(processingSummary);
                 if (topologyProcessingResults.Failed.Any())
                 {
-                    Logger.ErrorEx("Messages processing has failed elements. " + processingSummary);
+                    Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
 
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
@@ -199,32 +221,41 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         private void AsyncWorker()
         {
-            const int BaseDelayMs = 500;
+            const int BaseDelayMs = 0;
             const int DelayIncrementMs = 1000;
-            int currentDelay = BaseDelayMs;
+            const int DelayAfterFailure = 45000;
+            const int MaxDelayMs = 180000;
 
+            int currentDelay = BaseDelayMs;
             while (!_workerCTS.Token.IsCancellationRequested)
             {
-                int processedCount = 0;
+                int? processedCount = null;
                 try
                 {
                     processedCount = Process();
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormatEx(ex, "Async processing for message flow " + SourceMessageFlow + " failed. Processing will be continued after some delay");
+                    Logger.ErrorFormatEx(ex, "Failed async processing for message flow " + SourceMessageFlow + ". Processing will be continued after some delay");
                 }
 
-                if (processedCount > 0)
+                if (!processedCount.HasValue)
+                {
+                    currentDelay = DelayAfterFailure;
+                    Logger.InfoEx("Restoration delay after previous failure was applied ms: " + currentDelay);
+                }
+                else if (processedCount > 0)
                 {
                     currentDelay = BaseDelayMs;
+                    Logger.DebugFormatEx("{0} messages was handled during the last cycle. Delay has base value ms: {1}", processedCount, currentDelay);
                 }
                 else
                 {
-                    currentDelay += DelayIncrementMs;
+                    currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
+                    Logger.InfoEx("No one message was handled during the last cycle. Delay was incremented and has value ms: " + currentDelay);
                 }
 
-                Thread.Sleep(currentDelay);
+                _asyncWorkerSignal.WaitOne(currentDelay);
             }
         }
     }

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
         MessageReceiverBase<TMessageFlow, DBPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
     {
-        private readonly TimeSpan _timeSafetyOffset = TimeSpan.FromDays(1);
+        private readonly TimeSpan _timeSafetyOffset;
         private readonly IPerformedOperationsProcessingReadModel _performedOperationsProcessingReadModel;
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             IUseCaseTuner useCaseTuner)
             : base(messageReceiverSettings)
         {
+            _timeSafetyOffset = TimeSpan.FromHours(messageReceiverSettings.TimeSafetyOffsetHours);
             _performedOperationsProcessingReadModel = performedOperationsProcessingReadModel;
             _operationsPrimaryProcessingCompleteAggregateService = operationsPrimaryProcessingCompleteAggregateService;
             _useCaseTuner = useCaseTuner;

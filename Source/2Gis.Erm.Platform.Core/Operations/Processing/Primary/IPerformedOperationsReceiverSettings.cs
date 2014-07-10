@@ -4,5 +4,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
 {
     public interface IPerformedOperationsReceiverSettings : IMessageReceiverSettings
     {
+        int TimeSafetyOffsetHours { get; }
     }
 }
