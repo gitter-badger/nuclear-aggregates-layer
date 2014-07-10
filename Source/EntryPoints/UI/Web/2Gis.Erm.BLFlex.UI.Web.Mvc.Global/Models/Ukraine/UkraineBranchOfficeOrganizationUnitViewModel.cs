@@ -49,6 +49,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         [StringLengthLocalized(512)]
         public string PostalAddress { get; set; }
 
+        [StringLengthLocalized(50)]
         public string PhoneNumber { get; set; }
 
         public bool IsPrimary { get; set; }
