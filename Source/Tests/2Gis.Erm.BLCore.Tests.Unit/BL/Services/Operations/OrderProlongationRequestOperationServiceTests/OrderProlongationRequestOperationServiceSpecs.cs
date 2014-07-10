@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
@@ -62,9 +64,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     Service = new CreateOrderProlongationRequestOperationService(
                         OrderProcessingSettings.Object,
                         UserReadModel,
-                        SecureFinder,
                         OrderProcessingRequestService.Object,
-                        SecurityServiceUserIdentifier);
+                        SecurityServiceUserIdentifier,
+                        Mock.Of<IOrderReadModel>(),
+                        Mock.Of<ILegalPersonReadModel>());
                 };
 
             protected static MockRepository Mocks { get; private set; }
