@@ -62,10 +62,11 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                     if (timeOffset > threshold)
                     {
                         _logger.WarnFormatEx(
-                            "Last processing date {0} after time safety offset {1} is older than current date more than threshold value {2}, operation may be performance critical",
+                            "Last processing date {0} after time safety offset {1} is older than current date more than threshold value {2}, operation may be performance critical. Processing flow: {3}",
                             lastProcessingDate,
                             _timeSafetyOffset,
-                            threshold);
+                            threshold,
+                            SourceMessageFlow);
                     }
                 }
 

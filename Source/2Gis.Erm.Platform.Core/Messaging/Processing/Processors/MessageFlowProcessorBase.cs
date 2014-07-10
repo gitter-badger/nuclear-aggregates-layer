@@ -207,7 +207,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 var rateMsg = flowMessages == null || flowMessages.Length == 0
                                   ? "not measured 0 messages was provided by receiver"
                                   : (ProcessorSettings.MessageBatchSize / batchProcessingTime).ToString();
-                _logger.DebugEx("Processing rate msg/sec: " + rateMsg);
+                _logger.DebugFormatEx("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 
                 if (disposableMessageReceiver != null)
@@ -242,17 +242,17 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 if (!processedCount.HasValue)
                 {
                     currentDelay = DelayAfterFailure;
-                    Logger.InfoEx("Restoration delay after previous failure was applied ms: " + currentDelay);
+                    Logger.InfoFormatEx("Processing flow {0}. Restoration delay after previous failure was applied ms: {1}", SourceMessageFlow, currentDelay);
                 }
                 else if (processedCount > 0)
                 {
                     currentDelay = BaseDelayMs;
-                    Logger.DebugFormatEx("{0} messages was handled during the last cycle. Delay has base value ms: {1}", processedCount, currentDelay);
+                    Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Delay has base value ms: {2}", SourceMessageFlow, processedCount, currentDelay);
                 }
                 else
                 {
                     currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                    Logger.InfoEx("No one message was handled during the last cycle. Delay was incremented and has value ms: " + currentDelay);
+                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: ", SourceMessageFlow, currentDelay);
                 }
 
                 _asyncWorkerSignal.WaitOne(currentDelay);
