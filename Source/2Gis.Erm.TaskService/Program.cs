@@ -50,23 +50,32 @@ namespace DoubleGis.Erm.TaskService
 
             IIndexingProcess indexingProcess = null;
             if (ConfigFileSetting.Bool.Optional("StartIndexationProcess", false).Value)
+            {
                 indexingProcess = diContainer.Resolve<IIndexingProcess>();
+            }
 
             if (IsConsoleMode(args))
             {
                 schedulerManager.Start();
 
                 if (indexingProcess != null)
+                {
                     indexingProcess.Start();
+                }
 
                 Console.WriteLine("ERM сервис запущен.");
                 Console.WriteLine("Нажмите ENTER для останова...");
+
                 Console.ReadLine();
+
+                Console.WriteLine("ERM сервис останавливается...");
 
                 schedulerManager.Stop();
 
                 if (indexingProcess != null)
+                {
                     indexingProcess.Stop();
+                }
 
                 Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
                 Console.ReadLine();

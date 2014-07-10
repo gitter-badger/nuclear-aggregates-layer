@@ -248,7 +248,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
             return container.RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmReports, CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmReports)))
-                .RegisterType<IReportPersistenceService, ReportPersistenceService>(CustomLifetime.PerRequest, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmReports)))
+                .RegisterType<IReportPersistenceService, ReportPersistenceService>(CustomLifetime.PerRequest, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmReports), new ResolvedParameter<IBusinessModelSettings>()))
                 .RegisterType<IReportSimplifiedModel, ReportSimplifiedModel>(CustomLifetime.PerRequest);
         }
 
