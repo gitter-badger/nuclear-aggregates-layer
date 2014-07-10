@@ -252,7 +252,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 else
                 {
                     currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: ", SourceMessageFlow, currentDelay);
+                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: {1}", SourceMessageFlow, currentDelay);
                 }
 
                 _asyncWorkerSignal.WaitOne(currentDelay);
