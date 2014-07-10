@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 
         public int BatchSize { get; set; }
         public string Flow { get; set; }
+        public int? TimeSafetyOffsetHours { get; set; }
 
         private IAsyncMessageFlowProcessor MessageFlowProcessor
         {
@@ -86,15 +87,15 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 
             try
             {
-                MessageFlowProcessor =
-                    _messageFlowProcessorFactory.CreateAsync<IPerformedOperationsFlowProcessorSettings>(
-                           messageFlow,
-                            new PerformedOperationsFlowProcessorSettings
-                            {
-                                MessageBatchSize = BatchSize,
-                                AppropriatedStages = new[] { MessageProcessingStage.Transforming, MessageProcessingStage.Processing, MessageProcessingStage.Handle },
-                                IgnoreErrorsOnStage = new MessageProcessingStage[0]
-                            });
+                var processorSettings = new PerformedOperationsFlowProcessorSettings
+                    {
+                        MessageBatchSize = BatchSize,
+                        AppropriatedStages = new[] { MessageProcessingStage.Transforming, MessageProcessingStage.Processing, MessageProcessingStage.Handle },
+                        IgnoreErrorsOnStage = new MessageProcessingStage[0],
+                        TimeSafetyOffsetHours = TimeSafetyOffsetHours
+                    };
+
+                MessageFlowProcessor = _messageFlowProcessorFactory.CreateAsync<IPerformedOperationsFlowProcessorSettings>(messageFlow, processorSettings);
             }
             catch (Exception ex)
             {
