@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Flows
 
         public override string ToString()
         {
-            return string.Format("{0}. Id={1}. Description: {2}", GetType().Name, Id, Description);
+            return string.Format("{0}. Id={1}", GetType().Name, Id);
         }
 
         #region Implementation of IEquatable<IOperationIdentity>

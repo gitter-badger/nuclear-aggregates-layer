@@ -19,8 +19,5 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
         void ExecuteProcedure(string procedureName, int commandTimeout, params Tuple<string, object>[] inputParameters);
         DataTable ExecuteProcedureWithResultTable(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
         void ExecuteRawSql(string queryString);
-
-        [Obsolete]
-        IList<IList<object>> ExecuteTableProcedure(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters);
     }
 }

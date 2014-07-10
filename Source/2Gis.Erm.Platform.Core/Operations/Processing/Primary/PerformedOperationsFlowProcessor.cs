@@ -21,10 +21,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
 
         protected override IPerformedOperationsReceiverSettings ResolveReceiverSettings()
         {
-            return new PerformedOperationsReceiverSettings
+            var receiverSettings = new PerformedOperationsReceiverSettings { BatchSize = ProcessorSettings.MessageBatchSize };
+            if (ProcessorSettings.TimeSafetyOffsetHours.HasValue)
             {
-                BatchSize = ProcessorSettings.MessageBatchSize
-            };
+                receiverSettings.TimeSafetyOffsetHours = ProcessorSettings.TimeSafetyOffsetHours.Value;
+            }
+
+            return receiverSettings;
         }
     }
 }

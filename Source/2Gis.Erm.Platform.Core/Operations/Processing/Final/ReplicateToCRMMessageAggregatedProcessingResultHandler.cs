@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
             Tuple<Type, IEnumerable<long>> replicationFailedInfo;
             if (!TryReplicate(replicationTargets, out replicationFailedInfo))
             {
-                var msg = string.Format("Can't replication entity type {0} with ids: {1}", replicationFailedInfo.Item1, string.Join(";", replicationFailedInfo.Item2));
+                var msg = string.Format("Can't replicate entity type {0} with ids: {1}", replicationFailedInfo.Item1, string.Join(";", replicationFailedInfo.Item2));
                 _logger.ErrorEx(msg);
                 
                 throw new InvalidOperationException(msg);
