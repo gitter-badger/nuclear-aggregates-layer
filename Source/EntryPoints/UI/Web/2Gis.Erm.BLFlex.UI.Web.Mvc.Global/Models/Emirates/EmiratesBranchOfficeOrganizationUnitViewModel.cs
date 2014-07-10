@@ -40,6 +40,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         [StringLengthLocalized(512)]
         public string PostalAddress { get; set; }
 
+        [StringLengthLocalized(50)]
         public string PhoneNumber { get; set; }
 
         public string Fax { get; set; }

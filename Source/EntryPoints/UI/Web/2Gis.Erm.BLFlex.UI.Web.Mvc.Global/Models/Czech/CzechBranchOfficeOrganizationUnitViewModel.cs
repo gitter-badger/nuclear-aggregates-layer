@@ -1,6 +1,5 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -50,6 +49,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [StringLengthLocalized(512)]
         public string PostalAddress { get; set; }
 
+        [StringLengthLocalized(50)]
         public string PhoneNumber { get; set; }
 
         public bool IsPrimary { get; set; }
