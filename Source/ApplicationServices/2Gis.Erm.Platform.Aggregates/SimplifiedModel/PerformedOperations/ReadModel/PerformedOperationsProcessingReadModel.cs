@@ -21,41 +21,18 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             _finder = finder;
         }
 
-        public IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(
-            IMessageFlow[] messageFlows)
+        public IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(IMessageFlow[] messageFlows)
         {
             var messageFlowsIds = messageFlows.Select(x => x.Id);
-
-            var lastProcessingsMap = _finder.FindAll<PerformedOperationPrimaryProcessing>()
+            return _finder.FindAll<PerformedOperationPrimaryProcessing>()
                                            .Where(o => messageFlowsIds.Contains(o.MessageFlowId))
                                            .GroupBy(processing => processing.MessageFlowId)
                                            .Select(grouping => new
                                                {
                                                    Flow = grouping.Key,
-                                                   LastProcessing = grouping.OrderByDescending(processing => processing.Date).FirstOrDefault()
+                                                   LastProcessingDate = grouping.Max(processing => processing.Date)
                                                })
-                                           .Join(_finder.FindAll<PerformedBusinessOperation>(),
-                                                 processing => processing.LastProcessing.Id,
-                                                 performed => performed.Id,
-                                                 (processing, performed) => new
-                                                     {
-                                                         processing.Flow,
-                                                         LastProcessingDate = performed.Date
-                                                     })
                                            .ToDictionary(x => x.Flow, x => x.LastProcessingDate);
-
-            var defaultLastProcessing = DateTime.UtcNow;
-            foreach (var messageFlow in messageFlows)
-            {
-                if (lastProcessingsMap.ContainsKey(messageFlow.Id))
-                {
-                    continue;
-                }
-
-                lastProcessingsMap.Add(messageFlow.Id, defaultLastProcessing);
-            }
-
-            return lastProcessingsMap;
         }
 
         public IEnumerable<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(
