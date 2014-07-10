@@ -154,8 +154,8 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
         {
             // TODO {y.baranihin, 05.02.2014}: Перенести форматирование денег на клиент
             // если внезапно за значимыми знаками стоят не 0, то округлять не будем
-            var x = value * (int)Math.Pow(10, _businessModelSettings.SignificantDigitsNumber);
-            if ((x - (int)x) != 0)
+            var x = value * (long)Math.Pow(10, _businessModelSettings.SignificantDigitsNumber);
+            if ((x - (long)x) != 0)
             {
                 return value;
             }
