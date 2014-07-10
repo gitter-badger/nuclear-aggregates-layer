@@ -117,6 +117,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                                 for (var i = 0; i < reader.FieldCount; i++)
                                 {
                                     var column = new DataColumn(reader.GetName(i));
+                                    column.DataType = reader.GetFieldType(i);
                                     resultSet.Columns.Add(column);
                                 }
                             }
@@ -125,9 +126,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                             var rowValues = new object[reader.FieldCount];
                             for (var i = 0; i < reader.FieldCount; i++)
                             {
-                                var value = reader.GetValue(i);
-                                var isNull = value is DBNull;
-                                rowValues[i] = isNull ? null : value;
+                                rowValues[i] = reader.GetValue(i);
                             }
 
                             newRow.ItemArray = rowValues;
@@ -136,50 +135,6 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     }
 
                     return resultSet ?? new DataTable();
-                }
-            }
-            catch (SqlException exception)
-            {
-                throw new ErmDataAccessException(_connectionString, procedureName, inputParameters, exception);
-            }
-        }
-
-        [Obsolete]
-        public IList<IList<object>> ExecuteTableProcedure(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
-        {
-            try
-            {
-                var commandParametrs = inputParameters.Select(x => new SqlParameter { ParameterName = x.Item1, Value = x.Item2, Direction = ParameterDirection.Input }).ToArray();
-                using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand(procedureName, connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    if (commandTimeout.HasValue)
-                    {
-                        command.CommandTimeout = commandTimeout.Value;
-                    }
-
-                    command.Parameters.AddRange(commandParametrs);
-
-                    connection.Open();
-
-                    var result = new List<IList<object>>();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var row = new List<object>(reader.FieldCount);
-                            result.Add(row);
-                            for (var i = 0; i < reader.FieldCount; i++)
-                            {
-                                var value = reader.GetValue(i);
-                                var isNull = value is DBNull;
-                                row.Add(isNull ? null : value);
-                            }
-                        }
-                    }
-
-                    return result;
                 }
             }
             catch (SqlException exception)
