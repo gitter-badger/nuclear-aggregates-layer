@@ -49,6 +49,7 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
@@ -65,7 +66,6 @@ using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.TaskService.Config;
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Flow;
@@ -73,6 +73,7 @@ using DoubleGis.Erm.Qds.Etl.Publish;
 using DoubleGis.Erm.Qds.Etl.Transform;
 using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
+using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
