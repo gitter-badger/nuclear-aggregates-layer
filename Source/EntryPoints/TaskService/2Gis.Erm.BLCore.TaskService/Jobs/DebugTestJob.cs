@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -17,7 +18,9 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            Console.WriteLine("DebugTestJob, time: {0}", DateTime.UtcNow);
+            Console.WriteLine("Enter DebugTestJob, time: {0}", DateTime.UtcNow);
+            Thread.Sleep(5000);
+            Console.WriteLine("Exit DebugTestJob, time: {0}", DateTime.UtcNow);
         }
     }
 }

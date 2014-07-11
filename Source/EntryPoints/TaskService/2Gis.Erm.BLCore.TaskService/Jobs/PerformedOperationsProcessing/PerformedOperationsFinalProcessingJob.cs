@@ -35,7 +35,6 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 
         public int BatchSize { get; set; }
         public string Flows { get; set; }
-        public int Timeout { get; set; }
         public bool RecoveryMode { get; set; }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
@@ -77,8 +76,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
                        MessageBatchSize = BatchSize,
                        AppropriatedStages = new[] { MessageProcessingStage.Transforming, MessageProcessingStage.Processing, MessageProcessingStage.Handle },
                        IgnoreErrorsOnStage = new MessageProcessingStage[0],
-                       IsRecoveryMode = RecoveryMode,
-                       Timeout = Timeout
+                       IsRecoveryMode = RecoveryMode
                    });
             }
             catch (Exception ex)
