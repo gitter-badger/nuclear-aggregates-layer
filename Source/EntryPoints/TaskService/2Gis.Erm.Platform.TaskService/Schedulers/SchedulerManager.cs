@@ -84,6 +84,8 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 }
 
                 const string InterruptibleJobIndicatorSuffix = "Interruptable";
+
+                // COMMENT {all, 11.07.2014}: scheduler.GetCurrentlyExecutingJobs() is not cluster aware, но потенциально можно впилить, что-нибудь вида scheduler.GetCurrentlyExecutingJobs().Select(context =>  context.JobInstance).OfType<IInterruptableJob>()
                 var matcher = GroupMatcher<JobKey>.GroupEndsWith(InterruptibleJobIndicatorSuffix);
                 foreach (var jobKey in scheduler.GetJobKeys(matcher))
                 {

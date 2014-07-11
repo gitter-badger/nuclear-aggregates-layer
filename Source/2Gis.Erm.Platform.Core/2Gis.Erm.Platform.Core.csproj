@@ -128,6 +128,8 @@
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\MessageBodyType.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\OperationsLoggingServiceBusTransportUtils.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\BinaryEntireTrackedUseCase2BrokeredMessageConverter.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\AsyncMsCRMReplicationSettingsAspect.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\IAsyncMsCRMReplicationSettings.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\PerformedOperationsServiceBusTransportUtils.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\ServiceBusReceiverSettingsAspect.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\ServiceBusSenderSettingsAspect.cs">
@@ -146,7 +148,7 @@
     <Compile Include="Operations\Logging\VerifierContext.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCrmPerformedOperationsFinalProcessor.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessor.cs" />
-    <Compile Include="Operations\Processing\Final\ReplicateToCRMMessageAggregatedProcessingResultHandler.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiver.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\IFinalProcessingQueueReceiverSettings.cs" />
