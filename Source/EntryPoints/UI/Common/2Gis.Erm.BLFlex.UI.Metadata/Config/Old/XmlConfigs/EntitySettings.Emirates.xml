@@ -911,8 +911,6 @@
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" />
       <!--Клиенты моих подчиненных без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithoutMakeDecisionContactsForSubordinates" />
-      <!--Региональные клиенты моих подчиненных-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListRegionalClientsForSubordinates" />
       <!-- Все клиенты по филиалу -->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsAtMyBranch" />
       <!--Клиенты моих подчиненных с дебиторской задолженностью-->
@@ -1326,10 +1324,6 @@
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsForSubordinates" HideInCardRelatedGrid="*" />
       <!--Фирмы с заказами с типом Самореклама-->
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsWithSelfAds" HideInCardRelatedGrid="*" />
-      <!--Фирмы в резерве по городу Никосия-->
-      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListReservedFirmsLefkosia" HideInCardRelatedGrid="*" />
-      <!--Фирмы в резерве по городу Лимассол-->
-      <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListReservedFirmsLemesos" HideInCardRelatedGrid="*" />
     </DataLists>
   </Entity>
   <Entity Name="FirmAddress">
@@ -1781,7 +1775,7 @@
         <ToolbarItem ParentName="PrintActions" Name="PrintOrderAction" NameLocaleResourceId="ControlPrintOrderAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrder" />
         <ToolbarItem ParentName="PrintActions" Name="PrintActionsAdditional" NameLocaleResourceId="ControlPrintActionsAdditional" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargain" />
-        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBill" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBills" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="Actions" Name="CreateBargain" NameLocaleResourceId="ControlCreateBargain" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CreateBargain" SecurityPrivelegeFlag="34" />
