@@ -5,9 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Handlers;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;
 
