@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -19,11 +20,10 @@ using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
-using DoubleGis.Erm.BLQuerying.DI;
 using DoubleGis.Erm.BLQuerying.DI.Config;
-using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
@@ -32,6 +32,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Validators;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -48,9 +50,10 @@ using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
@@ -63,16 +66,9 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
-using DoubleGis.Erm.Qds;
-using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.TaskService.Config;
-using DoubleGis.Erm.Qds.Etl.Extract;
-using DoubleGis.Erm.Qds.Etl.Extract.EF;
-using DoubleGis.Erm.Qds.Etl.Flow;
-using DoubleGis.Erm.Qds.Etl.Publish;
-using DoubleGis.Erm.Qds.Etl.Transform;
-using DoubleGis.Erm.Qds.Etl.Transform.Docs;
-using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using Microsoft.Practices.Unity;
 
@@ -88,7 +84,7 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                { 
+                {
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
@@ -104,58 +100,20 @@ namespace DoubleGis.Erm.TaskService.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
-                                                    settingsContainer,
-                                                    massProcessors,
-                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>()))
-                            .ConfigureServiceClient();
+                     .ConfigureServiceClient();
 
-            container.ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
-            RegisterEtlComponents(container, EntryPointSpecificLifetimeManagerFactory);
+            container.ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
 
             return container;
-        }
-
-        private static void RegisterEtlComponents(IUnityContainer container, Func<LifetimeManager> lifetime)
-        {
-            container.RegisterType<IDocumentRelationsRegistry>(Lifetime.Singleton, new InjectionFactory(x => new UnityDocumentRelationsRegistry(x).RegisterAllDocumentParts(lifetime)));
-
-            container
-                .RegisterType<IIndexingProcess, BatchIndexingProcess>(Lifetime.Singleton)
-
-                .RegisterType<IEtlFlow, EtlFlow>(Lifetime.Singleton)
-
-                .RegisterType<IPublisher, DocsPublisher>(Lifetime.Singleton)
-                .RegisterType<IDocsStorage, ElasticDocsStorage>(Lifetime.Singleton)
-                .RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton)
-                .RegisterType<ISearchDescriptorPaging, SearchDescriptorPaging>(Lifetime.Singleton)
-
-                // ITransformation
-                .RegisterType<ITransformation, DenormalizerTransformation>(Lifetime.Singleton)
-                .RegisterType<ErmEntitiesDenormalizer>(Lifetime.Singleton)
-                .RegisterType<IDocsMetaData, ErmDocsMetaData>(Lifetime.Singleton)
-                .RegisterType<IDocUpdatersRegistry, DictionaryDocUpdatersRegistry>(Lifetime.Singleton)
-                .RegisterType<ITransformRelations, TransformRelations>(Lifetime.Singleton)
-
-                .RegisterType<IMetadataBinder, MetadataBinder>(Lifetime.Singleton)
-                .RegisterType<IQdsComponentsFactory, UnityQdsComponentsFactory>(Lifetime.Singleton)
-                .RegisterType<IEnumLocalizer, ResourcesEnumLocalizer>(Lifetime.Singleton)
-
-                // IExtractor
-                .RegisterType<IExtractor, ErmExtractor>(Lifetime.Singleton)
-
-                // IReferencesBuilder
-                .RegisterType<IReferencesBuilder, ChangesReferencesBuilder>(Lifetime.Singleton)
-                .RegisterType<IEntityLinkBuilder, PboEntityLinkBuilder>(Lifetime.Singleton)
-                .RegisterType<IChangesCollector, OperationsLogChangesCollector>(Lifetime.Singleton)
-                .RegisterType<IChangesTrackerState, DocsStorageChangesTrackerState>(Lifetime.Singleton)
-                .RegisterType<IQueryDsl, NestQueryDsl>(Lifetime.Singleton)
-                .RegisterType<IEntityLinkFilter, RelationsMetaEntityLinkFilter>(Lifetime.Singleton);
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
@@ -175,17 +133,17 @@ namespace DoubleGis.Erm.TaskService.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
+                .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure()
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureIdentityInfrastructure()
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .RegisterCorporateQueues(connectionStringSettings)
-                    .ConfigureQuartz()
+                .ConfigureQuartz()
                     .ConfigureEAV()
                     .ConfigurePerformedOperationsProcessing();
         }
@@ -283,8 +241,18 @@ namespace DoubleGis.Erm.TaskService.DI
                             .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
-                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope)
-                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope)
+                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope, new InjectionConstructor(container, new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
+                            {
+                                { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, (x, y) => typeof(ReplicateToCrmPerformedOperationsPrimaryProcessor) },
+                                { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, (x, y) => typeof(ReplicateToCrmPerformedOperationsFinalProcessor) },
+                                { ElasticRuntimeFlow.Instance, (x, y) => typeof(ReplicateToElasticSearchPerformedOperationsPrimaryProcessor) },
+                            }))
+                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope, new InjectionConstructor(container, new Dictionary<IMessageFlow, Func<Type>> 
+                            {
+                                { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler) },
+                                { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, () => typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler) },
+                                { PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance, () => typeof(ReplicateToElasticSearchMessageAggregatedProcessingResultHandler) },
+                            }))
 
                             .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                             .RegisterType<IOperationResolver, OperationResolver>(Lifetime.Singleton);
@@ -305,12 +273,12 @@ namespace DoubleGis.Erm.TaskService.DI
 
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-            {
+        {
             return container
                 .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
+
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
     }

@@ -5,6 +5,9 @@
     PrintBargainAdditionalAgreement: function () {
         this.Print('PrintBargainAdditionalAgreement');
     },
+    PrintOrderBills: function () {
+        this.Print('PrintOrderBills');
+    },
     refreshBargainButtons: function () {
         // Обновление договора после смены юр.лица клиента в зависимости от (юр.лица клиента & юр. лица отд. организации)
         var legalPerson = window.Ext.getCmp('LegalPerson').getValue();
