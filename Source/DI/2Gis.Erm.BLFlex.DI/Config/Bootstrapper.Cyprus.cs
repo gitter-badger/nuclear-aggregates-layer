@@ -145,8 +145,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
             DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
 
-            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLefkosia", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "133");
-            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLemesos", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "122");
+            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLefkosia", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "133");
+            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLemesos", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "122");
 
             RelationalMetadata.RegisterRelatedFilter<CyprusListLegalPersonDto>(EntityName.Client, x => x.ClientId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);
