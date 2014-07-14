@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages;
@@ -31,6 +32,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             var resolversMap = new Dictionary<IMessageFlow, Func<Type, Tuple<Type, Type>>>();
 
             AddMapping(resolversMap, PerformedOperations, PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance);
+            AddMapping(resolversMap, PerformedOperations, PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
             AddMapping(resolversMap, FinalProcessorCommonQueue, FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance);
             
             _resolversMap = resolversMap;

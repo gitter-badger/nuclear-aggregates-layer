@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
@@ -31,7 +32,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 
             _resolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
                 {
-                    { PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance, PerformedOperations }
+                    { PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance, PerformedOperations },
+                    { PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance, PerformedOperations },
                 };
         }
 

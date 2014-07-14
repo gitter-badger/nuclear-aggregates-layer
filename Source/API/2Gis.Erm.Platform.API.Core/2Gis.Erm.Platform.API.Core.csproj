@@ -132,6 +132,9 @@
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\IPerformedOperationsFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
