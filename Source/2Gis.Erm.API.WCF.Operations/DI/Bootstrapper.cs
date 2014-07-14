@@ -80,6 +80,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
+using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.WCF.BasicOperations.Config;
 
 using Microsoft.Practices.Unity;
@@ -124,6 +125,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                                                    settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                   settingsContainer.AsSettings<INestSettings>(),
                                                                    loggerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
@@ -212,6 +214,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            INestSettings nestSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -233,7 +236,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata()
-                .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
+                .ConfigureQds(EntryPointSpecificLifetimeManagerFactory, nestSettings);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)

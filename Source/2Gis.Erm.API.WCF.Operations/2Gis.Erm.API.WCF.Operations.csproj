@@ -178,9 +178,17 @@
       <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
       <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
+      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
+      <Name>2Gis.Erm.Qds.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>

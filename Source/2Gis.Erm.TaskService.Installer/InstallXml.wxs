@@ -60,13 +60,17 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="$(var.PlatformProgramFilesFolder)">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductLongNameWithVersion)" />
-        </Directory>
       </Directory>
+    </Directory>
 
     <!-- third party components -->
-    <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
-    <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
-    <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER" >
+    <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER">
+      <ComponentGroupRef Id="NugetThirdParty" />
+      <ComponentGroupRef Id="BinaryThirdParty" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="NugetThirdParty" Directory="INSTALLFOLDER">
+      <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
       <Component>
         <File Source="$(var.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
@@ -107,6 +111,27 @@
         <File Source="$(var.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
       <Component>
+        <File Source="$(var.PackagesDir)\NEST.1.0.0-beta1\lib\Nest.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.0-beta1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
+      <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
+      <Component>
         <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
       </Component>
       <Component>
@@ -117,27 +142,6 @@
       </Component>
       <Component>
         <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\NEST.1.0.0-beta1\lib\Nest.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.0-beta1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
-      </Component>
-      
-      <Component>
-        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
-      </Component>
-
-      <Component>
-        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
-      </Component>
-
-      <Component>
-        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
       </Component>
     </ComponentGroup>
 
@@ -187,7 +191,6 @@
         <File Name="quartz.config" Source="$(var.2Gis.Erm.TaskService.ProjectDir)$(var.QuartzConfigFileName)" />
     </Component>
     </ComponentGroup>
-
 
     <Feature Id="ProductFeature" Title="$(var.ProductLongNameWithVersion)" Level="1">
 

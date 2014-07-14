@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
+using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
@@ -30,6 +31,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.Settings
                 .Use<DebtProcessingSettingsAspect>()
                 .Use<NotificationsSettingsAspect>()
                 .Use<CachingSettingsAspect>()
+                .UseElasticClientNestSettingsAspect()
                 .Use<ValidateFileSettingsAspect>()
                 .Use<OperationLoggingSettingsAspect>()
                 .IfRequiredUseOperationLogging2ServiceBus()
