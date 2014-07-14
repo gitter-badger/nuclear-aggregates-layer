@@ -8,6 +8,5 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final
         public MessageProcessingStage[] AppropriatedStages { get; set; }
         public MessageProcessingStage[] IgnoreErrorsOnStage { get; set; }
         public bool IsRecoveryMode { get; set; }
-        public int Timeout { get; set; }
     }
 }

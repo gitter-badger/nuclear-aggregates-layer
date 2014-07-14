@@ -10,19 +10,29 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
+namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
     public sealed class ReplicateToCRMMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private const int ReplicationTimeout = 60;
         private readonly IReplicationPersistenceService _replicationPersistenceService;
+        private readonly IAsyncMsCRMReplicationSettings _asyncMsCRMReplicationSettings;
         private readonly ICommonLog _logger;
 
+        private readonly Type[] _replicationTypeSequence =
+            {
+                typeof(Territory), 
+                typeof(Firm), 
+                typeof(FirmAddress)
+            };
+
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
+            IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
             ICommonLog logger)
         {
+            _asyncMsCRMReplicationSettings = asyncMsCRMReplicationSettings;
             _logger = logger;
             _replicationPersistenceService = replicationPersistenceService;
         }
@@ -73,30 +83,36 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
             return new HashSet<IMessageFlow>(new[] { FinalReplicate2MsCRMPerformedOperationsFlow.Instance });
         }
 
-        private bool TryReplicate(IEnumerable<KeyValuePair<Type, List<long>>> replicationTargets, out Tuple<Type, IEnumerable<long>> replicateionFailed)
+        private bool TryReplicate(IReadOnlyDictionary<Type, List<long>> replicationTargets, out Tuple<Type, IEnumerable<long>> replicateionFailed)
         {
             replicateionFailed = null;
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                foreach (var replicationTargetsBucket in replicationTargets)
+                foreach (var replicationType in _replicationTypeSequence)
                 {
+                    List<long> entitiesList;
+                    if (!replicationTargets.TryGetValue(replicationType, out entitiesList))
+                    {
+                        continue;
+                    }
+
                     try
                     {
                         IEnumerable<long> failedReplication;
-                        _replicationPersistenceService.ReplicateToMscrm(replicationTargetsBucket.Key,
-                                                                        replicationTargetsBucket.Value,
-                                                                        ReplicationTimeout,
+                        _replicationPersistenceService.ReplicateToMscrm(replicationType,
+                                                                        entitiesList,
+                                                                        _asyncMsCRMReplicationSettings.ReplicationTimeoutSec,
                                                                         out failedReplication);
                         if (failedReplication != null && failedReplication.Any())
                         {
-                            replicateionFailed = new Tuple<Type, IEnumerable<long>>(replicationTargetsBucket.Key, failedReplication);
+                            replicateionFailed = new Tuple<Type, IEnumerable<long>>(replicationType, failedReplication);
                             return false;
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorFormatEx(ex, "Can't replicate {0} entities of type {1}", replicationTargetsBucket.Value.Count, replicationTargetsBucket.Key);
+                        _logger.ErrorFormatEx(ex, "Can't replicate {0} entities of type {1}", entitiesList.Count, replicationType);
                         throw;
                     }
                 }
