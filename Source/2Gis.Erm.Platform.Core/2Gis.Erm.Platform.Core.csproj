@@ -140,7 +140,6 @@
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusMessageSender.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\OperationIdentitySurrogate.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\ProtoBufTypeModelForTrackedUseCaseConfigurator.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\ProtoBufUtils.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\TrackedUseCaseMessageFormatVersion.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\TrackedUseCaseMessageIndicator.cs" />
     <Compile Include="Operations\Logging\VerifierContext.cs" />

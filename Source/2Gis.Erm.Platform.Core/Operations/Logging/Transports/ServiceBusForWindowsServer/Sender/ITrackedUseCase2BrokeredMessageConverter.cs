@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 {
     public interface ITrackedUseCase2BrokeredMessageConverter
     {
-        IEnumerable<BrokeredMessage> Convert(TrackedUseCase trackedUseCase);
+        IEnumerable<BrokeredMessage> Convert(TrackedUseCase useCase);
     }
 }

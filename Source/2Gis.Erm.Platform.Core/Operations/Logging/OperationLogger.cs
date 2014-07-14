@@ -21,14 +21,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _logger = logger;
         }
 
-        public void Log(OperationScopeNode scopeNode)
+        public void Log(TrackedUseCase useCase)
         {
-            var useCase = new TrackedUseCase
-            {
-                Description = string.Empty,
-                RootNode = scopeNode
-            };
-
             foreach (var strategy in _loggingStrategies)
             {
                 string report;

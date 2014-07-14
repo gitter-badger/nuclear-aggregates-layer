@@ -3,10 +3,10 @@
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     /// <summary>
-    /// Обеспечивает логирование набора изменений для указанной иерархии operationscopes
+    /// Обеспечивает логирование набора изменений для указанного uscase
     /// </summary>
     public interface IOperationLogger
     {
-        void Log(OperationScopeNode scopeNode);
+        void Log(TrackedUseCase useCase);
     }
 }

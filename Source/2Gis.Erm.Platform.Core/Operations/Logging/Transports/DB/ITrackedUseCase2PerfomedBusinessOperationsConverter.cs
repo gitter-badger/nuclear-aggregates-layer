@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 {
     public interface ITrackedUseCase2PerfomedBusinessOperationsConverter
     {
-        IEnumerable<PerformedBusinessOperation> Convert(TrackedUseCase trackedUseCase);
+        IEnumerable<PerformedBusinessOperation> Convert(TrackedUseCase useCase);
     }
 }

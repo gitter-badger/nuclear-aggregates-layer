@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public interface IOperationConsistencyContextsProvider
     {
-        IEnumerable<IVerifierContext> GetContexts(OperationScopeNode operationContextsRoot);
+        IEnumerable<IVerifierContext> GetContexts(TrackedUseCase useCase);
     }
 }

@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public interface IOperationScopeContextsStorage
     {
-        OperationScopeNode RootScope { get; }
+        TrackedUseCase UseCase { get; }
 
         void Added<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities) where TEntity : class, IEntity;
         void Deleted<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities) where TEntity : class, IEntity;

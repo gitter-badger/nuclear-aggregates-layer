@@ -21,55 +21,38 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             _identityProvider = identityProvider;
         }
 
-        public IEnumerable<PerformedBusinessOperation> Convert(TrackedUseCase trackedUseCase)
+        public IEnumerable<PerformedBusinessOperation> Convert(TrackedUseCase useCase)
         {
             var resultOperations = new List<PerformedBusinessOperation>();
 
-            var queue = new Queue<Tuple<OperationScopeNode, long?>>();
-            queue.Enqueue(Tuple.Create(trackedUseCase.RootNode, (long?)null));
+            var queue = new Queue<OperationNode2PerformedOperationMapping>();
+            queue.Enqueue(new OperationNode2PerformedOperationMapping(useCase.RootNode));
 
             while (queue.Count > 0)
             {
-                var queueElement = queue.Dequeue();
+                var currentMapping = queue.Dequeue();
+                var performedOperation = CreatePerformedOperation(currentMapping.OperationNode, useCase.RootNode.ScopeId, currentMapping.ParentPerformedOperationId);
+                resultOperations.Add(performedOperation);
 
-                var operation = CreateOperationInstance(queueElement.Item1, trackedUseCase.RootNode.ScopeId, queueElement.Item2);
-
-                resultOperations.Add(operation);
-
-                foreach (var childScope in queueElement.Item1.Childs)
+                var nestedOperations = useCase.GetNestedOperations(currentMapping.OperationNode.ScopeId);
+                foreach (var nestedOperation in nestedOperations)
                 {
-                    queue.Enqueue(Tuple.Create(childScope, (long?)operation.Id));
+                    queue.Enqueue(new OperationNode2PerformedOperationMapping(nestedOperation, performedOperation.Id));
                 }
             }
 
             return resultOperations;
         }
 
-        private static void SerializeOperationChanges(XContainer context, IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> changes, ChangesType changesType)
-        {
-            foreach (var change in changes)
-            {
-                var changedEntityName = (int)change.Key.AsEntityName();
-                foreach (var id in change.Value)
-                {
-                    var entity = new XElement("entity",
-                                              new XAttribute("change", (int)changesType),
-                                              new XAttribute("type", changedEntityName), // Строковое представление было бы более читаемым, но не устойчивым к рефакторингу
-                                              new XAttribute("id", id.Key));
-                    context.Add(entity);
-                }
-            }
-        }
-
-        private PerformedBusinessOperation CreateOperationInstance(OperationScopeNode scopesHierarchy, Guid rootScopeId, long? parentOperationId)
+        private PerformedBusinessOperation CreatePerformedOperation(OperationScopeNode operationNode, Guid rootScopeId, long? parentOperationId)
         {
             var operation = new PerformedBusinessOperation
             {
-                Operation = scopesHierarchy.OperationIdentity.OperationIdentity.Id,
-                OperationEntities = ResolveOperationEntitiesDescription(scopesHierarchy.OperationIdentity),
-                Descriptor = scopesHierarchy.OperationIdentity.Entities.EvaluateHash(),
+                Operation = operationNode.OperationIdentity.OperationIdentity.Id,
+                OperationEntities = ResolveOperationEntitiesDescription(operationNode.OperationIdentity),
+                Descriptor = operationNode.OperationIdentity.Entities.EvaluateHash(),
                 UseCaseId = rootScopeId,
-                Context = SerializeOperationChanges(scopesHierarchy),
+                Context = SerializeOperationChanges(operationNode),
                 Date = DateTime.UtcNow,
                 Parent = parentOperationId
             };
@@ -93,6 +76,44 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             SerializeOperationChanges(context, declaredChanges.ChangesContext.DeletedChanges, ChangesType.Deleted);
 
             return context.ToString(SaveOptions.DisableFormatting);
+        }
+        
+        private void SerializeOperationChanges(XContainer context, IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> changes, ChangesType changesType)
+        {
+            foreach (var change in changes)
+            {
+                var changedEntityName = (int)change.Key.AsEntityName();
+                foreach (var id in change.Value)
+                {
+                    var entity = new XElement("entity",
+                                              new XAttribute("change", (int)changesType),
+                                              new XAttribute("type", changedEntityName), // Строковое представление было бы более читаемым, но не устойчивым к рефакторингу
+                                              new XAttribute("id", id.Key));
+                    context.Add(entity);
+                }
+            }
+        }
+
+        private class OperationNode2PerformedOperationMapping
+        {
+            private readonly OperationScopeNode _operationNode;
+            private readonly long? _parentPerformedOperationId;
+
+            public OperationNode2PerformedOperationMapping(OperationScopeNode operationNode, long? parentPerformedOperationId = null)
+            {
+                _operationNode = operationNode;
+                _parentPerformedOperationId = parentPerformedOperationId;
+            }
+
+            public OperationScopeNode OperationNode
+            {
+                get { return _operationNode; }
+            }
+
+            public long? ParentPerformedOperationId
+            {
+                get { return _parentPerformedOperationId; }
+            }
         }
     }
 }

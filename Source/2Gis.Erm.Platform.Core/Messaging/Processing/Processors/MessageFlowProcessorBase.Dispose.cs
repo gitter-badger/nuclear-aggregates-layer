@@ -58,7 +58,11 @@
                 // теперь отрабатывает сам базовый класс
                 if (disposing)
                 {
-                    
+                    var asyncWorkerSignal = _asyncWorkerSignal;
+                    if (asyncWorkerSignal != null)
+                    {
+                        asyncWorkerSignal.Dispose();
+                    }
                 }
 
                 // Free your own state (unmanaged objects).

@@ -29,7 +29,16 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
         {
             Logger.DebugFormatEx("Starting stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
 
-            var actorContext = CreateContext(messageFlow, batchProcessingContext, targetMessageIds);
+            MessageProcessingStageActorContext<TInput> actorContext;
+            try
+            {
+                actorContext = CreateContext(messageFlow, batchProcessingContext, targetMessageIds);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormatEx(ex, "Can't create actor context for processing flow {0} executing stage {1}", messageFlow, Stage);
+                throw;
+            }
 
             IEnumerable<TActor> actors;
             try

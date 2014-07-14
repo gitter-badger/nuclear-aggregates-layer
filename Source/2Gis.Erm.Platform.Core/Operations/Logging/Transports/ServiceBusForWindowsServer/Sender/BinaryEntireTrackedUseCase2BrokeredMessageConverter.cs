@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             //_logger.DebugFormatEx("Configured schema for profobuf serialization infrastructure : {0}", configuredSchema);
         }
 
-        public IEnumerable<BrokeredMessage> Convert(TrackedUseCase trackedUseCase)
+        public IEnumerable<BrokeredMessage> Convert(TrackedUseCase useCase)
         {
             var messages = new List<BrokeredMessage>();
             Stream stream = null;
@@ -36,16 +36,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             try
             {
                 stream = new MemoryStream();
-                _protobufModel.Serialize(stream, trackedUseCase);
+                _protobufModel.Serialize(stream, useCase);
                 stream.Position = 0;
 
                 msg = new BrokeredMessage(stream, true);
                 msg.Properties.Add(TrackedUseCaseMessageProperties.Indicator.Name, TrackedUseCaseMessageProperties.Indicator.Value);
                 msg.Properties.Add(TrackedUseCaseMessageProperties.Names.MessageBodyType, (int)MessageBodyType.Binary);
                 msg.Properties.Add(TrackedUseCaseMessageProperties.Names.FormatVersion, (int)TrackedUseCaseMessageFormatVersion.V1Entire);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.Operation, trackedUseCase.RootNode.OperationIdentity.OperationIdentity.Id);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.EntitiesSetHash, trackedUseCase.RootNode.OperationIdentity.Entities.EvaluateHash());
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.UseCaseId, trackedUseCase.RootNode.ScopeId);
+                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.Operation, useCase.RootNode.OperationIdentity.OperationIdentity.Id);
+                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.EntitiesSetHash, useCase.RootNode.OperationIdentity.Entities.EvaluateHash());
+                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.UseCaseId, useCase.RootNode.ScopeId);
                 messages.Add(msg);
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
                 _logger.ErrorFormatEx(
                     ex, 
                     "Can't serialize tracked use case to brokered message. Use case description: {0}", 
-                    trackedUseCase);
+                    useCase);
 
                 if (stream != null)
                 {

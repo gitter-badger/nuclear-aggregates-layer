@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,6 +28,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         private readonly CancellationTokenSource _workerCTS;
         private readonly Task _workerTask;
+        private AutoResetEvent _asyncWorkerSignal;
 
         protected MessageFlowProcessorBase(
             TMessageFlowProcessorSettings processorSettings,
@@ -55,6 +57,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         void IAsyncMessageFlowProcessor.Start()
         {
+            _asyncWorkerSignal = new AutoResetEvent(false);
             _workerTask.Start();
         }
 
@@ -63,10 +66,12 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             if (!_workerTask.IsCompleted && !_workerTask.IsCanceled)
             {
                 _workerCTS.Cancel();
+                _asyncWorkerSignal.Set();
 
                 try
                 {
                     _workerTask.Wait();
+                    _asyncWorkerSignal.Close();
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +117,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             {
                 stopwatch.Start();
 
-                Logger.DebugEx("Starting processing message flow. Receiving messages");
+                Logger.DebugFormatEx("Starting processing message flow {0}. Receiving messages", SourceMessageFlow);
                 try
                 {
                     flowMessages = messageReceiver.Peek()
@@ -122,6 +127,12 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 {
                     Logger.ErrorEx(ex, "Can't receive messages from flow " + SourceMessageFlow);
                     throw;
+                }
+
+                if (flowMessages == null || !flowMessages.Any())
+                {
+                    _logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
+                    return 0;
                 }
 
                 Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Length, SourceMessageFlow);
@@ -142,7 +153,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     }
                     catch (Exception nex)
                     {
-                        Logger.ErrorEx(nex, "Can't report failed messages");
+                        Logger.ErrorEx(nex, "Can't report failed messages, flow details: " + SourceMessageFlow);
                         throw;
                     }
 
@@ -157,7 +168,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 Logger.DebugEx(processingSummary);
                 if (topologyProcessingResults.Failed.Any())
                 {
-                    Logger.ErrorEx("Messages processing has failed elements. " + processingSummary);
+                    Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
 
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
@@ -217,7 +228,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     currentDelay += DelayIncrementMs;
                 }
 
-                Thread.Sleep(currentDelay);
+                _asyncWorkerSignal.WaitOne(currentDelay);
             }
         }
     }

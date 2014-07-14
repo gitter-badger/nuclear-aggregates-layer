@@ -118,6 +118,7 @@
     <Compile Include="Operations\Logging\IOperationLoggingSettings.cs" />
     <Compile Include="Operations\Logging\IOperationLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\IOperationResolver.cs" />
+    <Compile Include="Operations\Logging\IUseCaseTracker.cs" />
     <Compile Include="Operations\Logging\LoggingTargets.cs" />
     <Compile Include="Operations\Logging\OperationLoggingSettingsAspect.cs" />
     <Compile Include="Operations\Logging\OperationScopeNode.cs" />

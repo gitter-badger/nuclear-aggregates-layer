@@ -23,12 +23,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             report = null;
             
             var operations = _trackedUseCase2PerfomedBusinessOperationsConverter.Convert(useCase);
-            foreach (var operation in operations)
-            {
-                _performedBusinessOperationRepository.Add(operation);
-            }
-
+            _performedBusinessOperationRepository.AddRange(operations);
             _performedBusinessOperationRepository.Save();
+
             return true;
         }
     }
