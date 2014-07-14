@@ -58,22 +58,28 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="WindowsAuthHttpConnection.cs" />
+    <Compile Include="Indexing\DocumentWrapper.cs" />
+    <Compile Include="Indexing\EntityToDocumentRelation.cs" />
+    <Compile Include="Indexing\DocumentRelationMappings.cs" />
+    <Compile Include="Indexing\EntityToDocumentRelationMappings.cs" />
     <Compile Include="DocumentMetadata.cs" />
-    <Compile Include="ElasticDocsStorage.cs" />
+    <Compile Include="Indexing\DocumentRelation.cs" />
+    <Compile Include="Indexing\DocumentRelationMetadataContainer.cs" />
     <Compile Include="ElasticException.cs" />
     <Compile Include="ElasticResponseHandler.cs" />
-    <Compile Include="FieldInQuery.cs" />
-    <Compile Include="FieldValueQuery.cs" />
-    <Compile Include="ISearchDescriptorPaging.cs" />
     <Compile Include="NestSettingsAspectUtils.cs" />
-    <Compile Include="OrObjectQuery.cs" />
-    <Compile Include="SearchDescriptorPaging.cs" />
-    <Compile Include="NestedObjectQuery.cs" />
-    <Compile Include="NestQueryDsl.cs" />
+    <Compile Include="Indexing\DocumentUpdater.cs" />
+    <Compile Include="Indexing\EntityToDocumentRelationMetadataContainer.cs" />
+    <Compile Include="Indexing\IDocumentRelation.cs" />
+    <Compile Include="Indexing\IEntityToDocumentRelation.cs" />
     <Compile Include="NestSettingsAspect.cs" />
-    <Compile Include="PagedSearchDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -81,6 +87,18 @@
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
@@ -97,10 +115,6 @@
     <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
       <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
       <Name>2Gis.Erm.Qds.API.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
-      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
-      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

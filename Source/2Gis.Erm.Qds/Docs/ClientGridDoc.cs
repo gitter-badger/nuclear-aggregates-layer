@@ -9,20 +9,19 @@ namespace DoubleGis.Erm.Qds.Docs
     {
         public LegalPersonDoc[] LegalPersons { get; set; }
         public string Id { get; set; }
-        public string ReplicationCode { get; set; }
         public string Name { get; set; }
         public string MainAddress { get; set; }
         public string TerritoryId { get; set; }
         public string TerritoryName { get; set; }
         public string OwnerCode { get; set; }
         public string OwnerName { get; set; }
-        public bool IsAdvertisingAgency { get; set; }
+        public bool? IsAdvertisingAgency { get; set; }
 
         public string MainFirmId { get; set; }
         public string MainFirmName { get; set; }
         public string MainPhoneNumber { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastQualifyTime { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public DateTime? LastQualifyTime { get; set; }
         public DateTime? LastDisqualifyTime { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

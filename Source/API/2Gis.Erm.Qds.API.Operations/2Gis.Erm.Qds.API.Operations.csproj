@@ -47,10 +47,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="IDefferedDocumentUpdater.cs" />
-    <Compile Include="Indexers\IDocumentIndexer.cs" />
-    <Compile Include="Indexers\IEntityIndexer.cs" />
-    <Compile Include="Indexers\IEntityIndexerIndirect.cs" />
-    <Compile Include="Indexers\Raw\IRawEntityIndexer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

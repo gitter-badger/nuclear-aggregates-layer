@@ -33,18 +33,17 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
             {
                 var migrationId = long.Parse(hit.Id, CultureInfo.InvariantCulture);
                 AppliedVersionsInfo.AddAppliedMigration(migrationId);
-            }
+            }         
         }
 
         public void DeleteVersion(long version)
         {
-            _elasticApi.Delete<MigrationDoc>(x => x.Id(version.ToString()));
+            _elasticApi.Delete<MigrationDoc>(version.ToString());
         }
 
         public void SaveVersionInfo(long version)
         {
-            var migrationId = version.ToString();
-            _elasticApi.Index(new MigrationDoc { Id = migrationId }, i => i.Id(migrationId));
+            _elasticApi.Index(new MigrationDoc(), i => i.Id(version.ToString()));
         }
     }
 }

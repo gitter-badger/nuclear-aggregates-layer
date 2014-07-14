@@ -35,14 +35,14 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
         It documents_empty = () => Documents.Should().BeEmpty();
 
-        private static IEnumerable<ElasticApiTestDoc> Documents { get; set; }
+        private static IEnumerable<IHit<ElasticApiTestDoc>> Documents { get; set; }
     }
 
     public class When_scroll_on_not_empty_data : ElasticApiContext
     {
         Establish context = () =>
         {
-            SampleData = new [] {new ElasticApiTestDoc(), new ElasticApiTestDoc()};
+            SampleData = new[] { new Mock<IHit<ElasticApiTestDoc>>().Object, new Mock<IHit<ElasticApiTestDoc>>().Object };
 
             // FIXME {m.pashuk, 14.05.2014}: Дублирование логики создания мока ISearchResponse. Можно сделать метод в базовом классе теста.
             var searchResponseMock = new Mock<ISearchResponse<ElasticApiTestDoc>>();
@@ -53,12 +53,12 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
             // FIXME {m.pashuk, 14.05.2014}: Дублирование логики создания мока ISearchResponse. Можно сделать метод в базовом классе теста.
             var scrollResponseMock1 = new Mock<ISearchResponse<ElasticApiTestDoc>>();
-            scrollResponseMock1.Setup(x => x.Documents).Returns(SampleData);
+            scrollResponseMock1.Setup(x => x.Hits).Returns(SampleData);
             scrollResponseMock1.Setup(x => x.ScrollId).Returns(Guid.NewGuid().ToString());
 
             // FIXME {m.pashuk, 14.05.2014}: Дублирование логики создания мока ISearchResponse. Можно сделать метод в базовом классе теста.
             var scrollResponseMock2 = new Mock<ISearchResponse<ElasticApiTestDoc>>();
-            scrollResponseMock2.Setup(x => x.Documents).Returns(Enumerable.Empty<ElasticApiTestDoc>());
+            scrollResponseMock2.Setup(x => x.Hits).Returns(Enumerable.Empty<IHit<ElasticApiTestDoc>>());
             scrollResponseMock2.Setup(x => x.ScrollId).Returns((string)null);
 
             var queue = new Queue<ISearchResponse<ElasticApiTestDoc>>();
@@ -72,8 +72,8 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         It returns_sample_data_count = () => Documents.Should().HaveSameCount(SampleData);
         It returns_sample_data = () => Documents.Should().BeEquivalentTo(SampleData);
 
-        private static IEnumerable<ElasticApiTestDoc> SampleData { get; set; }
-        private static IEnumerable<ElasticApiTestDoc> Documents { get; set; }
+        private static IEnumerable<IHit<ElasticApiTestDoc>> SampleData { get; set; }
+        private static IEnumerable<IHit<ElasticApiTestDoc>> Documents { get; set; }
     }
 
     [Subject(typeof(ElasticApi))]

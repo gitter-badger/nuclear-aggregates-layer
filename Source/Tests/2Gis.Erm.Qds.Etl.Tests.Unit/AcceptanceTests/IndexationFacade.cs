@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -9,7 +10,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 using DoubleGis.Erm.Qds.Etl.Flow;
 using DoubleGis.Erm.Qds.Etl.Publish;
-using DoubleGis.Erm.Qds.Etl.Transform.Docs;
 using DoubleGis.Erm.Qds.Etl.Transform.EF;
 
 using Moq;
@@ -18,22 +18,21 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 {
     public class IndexationFacade
     {
+        private readonly IEntityToDocumentRelationMetadataContainer _metadataContainer;
         private readonly EtlFlow _etlFlow;
         private readonly MockFinder _finder;
         readonly Mock<IOldOperationContextParser> _contextParser;
         readonly IChangesTrackerState _trackerState;
 
-        public IndexationFacade(IDocsStorage docsStorage, IQdsComponentsFactory qdsFactory, IQueryDsl queryDsl)
+        public IndexationFacade(IDocsStorage docsStorage, IQueryDsl queryDsl, IEntityToDocumentRelationMetadataContainer metadataContainer, IDocumentUpdaterFactory documentUpdaterFactory)
         {
+            _metadataContainer = metadataContainer;
+
             if (docsStorage == null)
             {
                 throw new ArgumentNullException("docsStorage");
             }
 
-            if (qdsFactory == null)
-            {
-                throw new ArgumentNullException("qdsFactory");
-            }
             if (queryDsl == null)
             {
                 throw new ArgumentNullException("queryDsl");
@@ -42,19 +41,13 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             _trackerState = new DocsStorageChangesTrackerState(docsStorage);
             _contextParser = new Mock<IOldOperationContextParser>();
 
-            var docUpdatersRegistry = new DictionaryDocUpdatersRegistry();
-            var transformRelations = new TransformRelations();
-
             _finder = new MockFinder();
 
-            var denTrans = new DenormalizerTransformation(new ErmEntitiesDenormalizer(new ErmDocsMetaData(docUpdatersRegistry, transformRelations)),
-                new MetadataBinder(docUpdatersRegistry, transformRelations), qdsFactory);
-
-            _etlFlow = new EtlFlow(new DocsPublisher(docsStorage, _trackerState), denTrans, new ErmExtractor(_finder), CreateReferencesBuilder(transformRelations));
-            _etlFlow.Init();
+            _etlFlow = new EtlFlow(new DocsPublisher(docsStorage, _trackerState), new DenormalizerTransformation(documentUpdaterFactory), new ErmExtractor(_finder), CreateReferencesBuilder(_metadataContainer));
         }
 
-        public long LogChangesForEntity<TEntity>(TEntity entity) where TEntity : class, IEntityKey, IEntity
+        public long LogChangesForEntity<TEntity>(TEntity entity)
+            where TEntity : class, IEntityKey, IEntity
         {
             var state = (RecordIdState)_trackerState.GetState();
 
@@ -77,18 +70,30 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             return newId;
         }
 
+        public TDocument ExpectDocument<TEntity, TDocument>(TDocument document)
+            where TDocument : class, IDoc, new()
+        {
+            var documentWrapper = new DocumentWrapper<TDocument> { Document = document };
+
+            var mock2 = new Mock<IEntityToDocumentRelationMetadata>();
+            mock2.SetupGet(x => x.DocumentType).Returns(typeof(TDocument));
+
+            _metadataContainer.RegisterMetadataOverride<TEntity, TDocument>(() => mock2.Object);
+            return document;
+        }
+
         public void ExecuteEtlFlow()
         {
             _etlFlow.Execute();
         }
 
-        IReferencesBuilder CreateReferencesBuilder(TransformRelations transformRelations)
+        IReferencesBuilder CreateReferencesBuilder(IEntityToDocumentRelationMetadataContainer metadataContainer)
         {
             return new ChangesReferencesBuilder(
                             new PboEntityLinkBuilder(_contextParser.Object),
                             new OperationsLogChangesCollector(_finder),
                             _trackerState,
-                            new RelationsMetaEntityLinkFilter(transformRelations));
+                            new RelationsMetaEntityLinkFilter(metadataContainer));
         }
     }
 }

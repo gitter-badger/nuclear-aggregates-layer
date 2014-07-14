@@ -99,24 +99,16 @@
     <Compile Include="Publish\DocsPublisherSpecs.cs" />
     <Compile Include="AcceptanceTests\TerritoryDocIndexationFacadeSpecs.cs" />
     <Compile Include="Transform\Docs\NestedDocsQueryBuilderSpecs.cs" />
-    <Compile Include="Transform\Docs\OrderGridDocMapperSpecs.cs" />
     <Compile Include="Transform\Docs\OrDocsQueryBuilderSpecs.cs" />
-    <Compile Include="Transform\Docs\RelationalDocsUpdaterSpecs.cs" />
-    <Compile Include="Transform\Docs\ClientGridDocMapperSpecs.cs" />
-    <Compile Include="Transform\Docs\RelationalDocsFinderSpecs.cs" />
     <Compile Include="Transform\Docs\FieldsEqualsDocsQueryBuilderSpecs.cs" />
-    <Compile Include="Transform\Docs\UserDocMapperSpecs.cs" />
     <Compile Include="Transform\EF\AnotherTestDoc.cs" />
     <Compile Include="Transform\EF\AnotherTestEntity.cs" />
     <Compile Include="Transform\EF\DenormalizerTransformationSpecs.cs" />
-    <Compile Include="Transform\EF\DictionaryDocUpdatersRegistrySpecs.cs" />
-    <Compile Include="Transform\EF\DocRelationSpecs.cs" />
-    <Compile Include="Transform\EF\MetadataBinderSpecs.cs" />
-    <Compile Include="Transform\EF\TransformRelationsSpecs.cs" />
-    <Compile Include="Transform\EF\ErmDocsMetaDataSpecs.cs" />
     <Compile Include="Transform\EF\TestDoc.cs" />
     <Compile Include="Transform\EF\TestEntity.cs" />
     <Compile Include="AcceptanceTests\UserDocIndexationFacadeSpecs.cs" />
+    <Compile Include="Transform\DocumentRelationSpecs.cs" />
+    <Compile Include="Transform\EF\TestDocPart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -149,6 +141,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
+      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
+      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>

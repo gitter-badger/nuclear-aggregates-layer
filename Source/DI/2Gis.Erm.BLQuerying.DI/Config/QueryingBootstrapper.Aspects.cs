@@ -3,89 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List;
 using DoubleGis.Erm.Elastic.Nest.Qds;
-using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.API.Operations;
-using DoubleGis.Erm.Qds.API.Operations.Indexers;
-using DoubleGis.Erm.Qds.API.Operations.Indexers.Raw;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Docs;
-using DoubleGis.Erm.Qds.Operations;
-using DoubleGis.Erm.Qds.Operations.Indexers;
-using DoubleGis.Erm.Qds.Operations.Indexers.Raw;
+using DoubleGis.Erm.Qds.Etl;
+using DoubleGis.Erm.Qds.Operations.Indexing;
+using DoubleGis.Erm.Qds.Operations.Listing;
+
+using Elasticsearch.Net.Connection;
+using Elasticsearch.Net.Connection.Thrift;
 
 using Microsoft.Practices.Unity;
+
+using Nest;
 
 namespace DoubleGis.Erm.BLQuerying.DI.Config
 {
     public static partial class QueryingBootstrapper
     {
-        public static IUnityContainer ConfigureListing(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory)
+        public static IUnityContainer ConfigureQds(this IUnityContainer container, Func<LifetimeManager> lifetime, INestSettings nestSettings)
         {
-            container.ConfigureQdsListing(entryPointSpecificLifetimeManagerFactory);
-            container.ConfigureQdsIndexing(entryPointSpecificLifetimeManagerFactory);
+            container
+                .ConfigureElasticApi(nestSettings)
+                .ConfigureQdsIndexing();
+
+            container.MassProcess();
 
             return container;
         }
 
-        private static IUnityContainer ConfigureQdsListing(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        private static IUnityContainer ConfigureElasticApi(this IUnityContainer container, INestSettings nestSettings)
         {
-            // FIXME {all, 02.07.2014}: убрать отсюда регистрацию settings - это происходит при обработке settingscontainer
-            var connectionStringsAspect = new ConnectionStringsSettingsAspect();
-            var searchConnectionString = connectionStringsAspect.GetConnectionString(ConnectionStringName.ErmSearch);
-            var searchSettings = new NestSettingsAspect(searchConnectionString);
+            switch (nestSettings.Protocol)
+            {
+                case Protocol.Http:
+                    {
+                        container.RegisterType<IConnection, WindowsAuthHttpConnection>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
+                    }
+                    break;
+                case Protocol.Thrift:
+                    {
+                        container.RegisterType<IConnection, ThriftConnection>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-            // TODO: заменить на правильное
-            container
-                .RegisterType<IUserProfile, NullUserProfile>(Lifetime.Singleton);
+            container.RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton);
+            container.RegisterType<INestSerializer, NestSerializer>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
+            container.RegisterType<IElasticClient, ElasticClient>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings, typeof(IConnection), typeof(INestSerializer)));
+            container.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);
+            container.RegisterType<IElasticManagementApi, ElasticApi>(Lifetime.Singleton);
+            return container;
+        }
 
+        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container)
+        {
             container
-                .RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton)
-                .RegisterInstance<INestSettings>(searchSettings, Lifetime.Singleton)
-                .RegisterType<UnityElasticApiFactory>(Lifetime.Singleton)
-                .RegisterType<IElasticApi>(lifetime(), new InjectionFactory(x => container.Resolve<UnityElasticApiFactory>().CreateElasticApi(lifetime)))
-                .RegisterType<IElasticManagementApi>(lifetime(), new InjectionFactory(x => (IElasticManagementApi)container.Resolve<IElasticApi>()));
+                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(Lifetime.Singleton)
+                .RegisterType<IDocumentUpdaterFactory, UnityDocumentUpdaterFactory>(Lifetime.Singleton)
+                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(Lifetime.Singleton)
+                .RegisterType(typeof(DocumentUpdater<,>), Lifetime.Singleton)
+                .RegisterType(typeof(IDocumentPartUpdater<>), typeof(DocumentPartUpdater<>), Lifetime.Singleton);
 
             return container;
         }
 
-        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        // TODO {m.pashuk, 16.05.2014}: поместить в правильное место
+        private static void MassProcess(this IUnityContainer container)
         {
-            container
-                .RegisterType<IEntityIndexer<User>, UserIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<User>, UserIndexer>(lifetime())
+            var entityToDocumentRelationMetadataMassProcessor = container.Resolve<EntityToDocumentRelationMetadataMassProcessor>();
+            entityToDocumentRelationMetadataMassProcessor.MassProcess();
 
-                .RegisterType<IEntityIndexer<Territory>, TerritoryIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<Territory>, TerritoryIndexer>(lifetime())
-
-                .RegisterType<IEntityIndexer<Client>, ClientIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<Client>, ClientIndexer>(lifetime())
-
-                .RegisterType<IEntityIndexer<Order>, OrderIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<Order>, OrderIndexer>(lifetime())
-
-                .RegisterType<IEntityIndexer<Firm>, FirmIndexer>(lifetime())
-                .RegisterType<IEntityIndexerIndirect<Firm>, FirmIndexer>(lifetime())
-
-                .RegisterType<IDocumentIndexer<UserDoc>, UserIndexer>(lifetime())
-                .RegisterType<IDocumentIndexer<TerritoryDoc>, TerritoryIndexer>(lifetime())
-                .RegisterType<IDocumentIndexer<ClientGridDoc>, ClientIndexer>(lifetime())
-                .RegisterType<IDocumentIndexer<OrderGridDoc>, OrderIndexer>(lifetime())
-                .RegisterType<IDocumentIndexer<FirmGridDoc>, FirmIndexer>(lifetime())
-                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
-
-                .RegisterType<IRawEntityIndexer, RawEntityIndexer>(lifetime());
-
-            return container;
+            var documentRelationMetadataMassProcessor = container.Resolve<DocumentRelationMetadataMassProcessor>();
+            documentRelationMetadataMassProcessor.MassProcess();
         }
 
         public static Type ListServiceConflictResolver(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
             }
 
-            return candidates.Single(x => x.Assembly == typeof(ListClientService).Assembly);
+            return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
         }
     }
 }

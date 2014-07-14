@@ -1,7 +1,7 @@
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Operations.Indexers;
+using DoubleGis.Erm.Qds.Operations.Indexing;
 
 namespace DoubleGis.Erm.Qds.Migrations.Base
 {

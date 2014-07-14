@@ -4,6 +4,7 @@ namespace DoubleGis.Erm.Qds.Docs
 {
     public sealed class DocumentAuthorization
     {
-        public IEnumerable<string> Tags { get; set; }
+        public ICollection<string> Operations { get; set; }
+        public ICollection<string> Tags { get; set; }
     }
 }
