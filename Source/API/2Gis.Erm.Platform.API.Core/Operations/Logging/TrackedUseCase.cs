@@ -20,11 +20,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
         private Guid? _rootNodeId;
         private bool _changesCompleted;
 
-        public TrackedUseCase()
-        {
-            SynchronizeAuxiliaryData();
-        }
-
         public override Guid Id
         {
             get
@@ -171,6 +166,31 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
             AttachToParent(parentOperationScopeId, childOperationScopeIds);
         }
 
+        void IUseCaseTracker.SynchronizeAuxiliaryData()
+        {
+            lock (_operationsSync)
+            {
+                EnsureUseCaseNotCompleted();
+
+                _operationsMap.Clear();
+                _identities2OperationsMap.Clear();
+
+                foreach (var operation in _operations)
+                {
+                    _operationsMap.Add(operation.ScopeId, operation);
+
+                    List<Guid> operationsList;
+                    if (!_identities2OperationsMap.TryGetValue(operation.OperationIdentity, out operationsList))
+                    {
+                        operationsList = new List<Guid>();
+                        _identities2OperationsMap.Add(operation.OperationIdentity, operationsList);
+                    }
+
+                    operationsList.Add(operation.ScopeId);
+                }
+            }
+        }
+
         void IUseCaseTracker.Complete()
         {
             lock (_operationsSync)
@@ -215,26 +235,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
                 {
                     childList.Add(childOperationScopeId);
                 }
-            }
-        }
-
-        private void SynchronizeAuxiliaryData()
-        {
-            var operationsMap = new Dictionary<Guid, OperationScopeNode>();
-            var identities2OperationsMap = new Dictionary<StrictOperationIdentity, List<Guid>>();
-
-            foreach (var operation in _operations)
-            {
-                operationsMap.Add(operation.ScopeId, operation);
-
-                List<Guid> operationsList;
-                if (!identities2OperationsMap.TryGetValue(operation.OperationIdentity, out operationsList))
-                {
-                    operationsList = new List<Guid>();
-                    identities2OperationsMap.Add(operation.OperationIdentity, operationsList);
-                }
-
-                operationsList.Add(operation.ScopeId);
             }
         }
     }

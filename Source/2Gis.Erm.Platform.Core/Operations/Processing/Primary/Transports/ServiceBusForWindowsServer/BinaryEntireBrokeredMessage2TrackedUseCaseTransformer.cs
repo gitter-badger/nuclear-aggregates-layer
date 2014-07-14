@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
                 messageBody.Position = 0;
 
                 var useCase = (TrackedUseCase)_protobufModel.Deserialize(messageBody, null, typeof(TrackedUseCase));
+                useCase.Tracker.SynchronizeAuxiliaryData();
                 useCase.Tracker.Complete();
                 return useCase;
             }

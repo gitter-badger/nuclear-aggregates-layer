@@ -46,7 +46,8 @@ namespace DoubleGis.Erm.Platform.Common.Settings
                 TSetting buffer;
                 if (Enum.TryParse(element, out buffer))
                 {
-                    accum = (accum.HasValue ? accum.Value : 0) | (ulong)Enum.ToObject(typeof(TSetting), buffer);
+                    ulong value = Convert.ToUInt64(buffer);
+                    accum = (accum.HasValue ? accum.Value : 0) | value;
                 }
             }
 

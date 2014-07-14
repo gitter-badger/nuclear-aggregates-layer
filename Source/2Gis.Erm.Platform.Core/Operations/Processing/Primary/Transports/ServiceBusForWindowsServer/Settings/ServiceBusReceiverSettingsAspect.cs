@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
 {
     public sealed class ServiceBusReceiverSettingsAspect : ISettingsAspect, IServiceBusMessageReceiverSettings
     {
-        private readonly StringSetting _transportEntityPath = ConfigFileSetting.String.Optional("TransportEntityPath", "queue-single");
+        private readonly StringSetting _transportEntityPath = ConfigFileSetting.String.Optional("TransportEntityPath", "performedoperaions.queue.main");
         private readonly IntSetting _connectionsCount = ConfigFileSetting.Int.Optional("ConnectionsCount", 1);
         private readonly BoolSetting _useTransactions = ConfigFileSetting.Bool.Optional("UseTransactions", true);
         private readonly string _connectionString;

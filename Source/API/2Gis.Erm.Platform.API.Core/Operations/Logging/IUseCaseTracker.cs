@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
         void AddOperation(OperationScopeNode operationScopeNode);
         void AttachToParent(Guid parentOperationScopeId, params Guid[] childOperationScopeId);
         void AttachToParent(Guid parentOperationScopeId, IEnumerable<Guid> childOperationScopeId);
+        void SynchronizeAuxiliaryData();
         void Complete();
     }
 }

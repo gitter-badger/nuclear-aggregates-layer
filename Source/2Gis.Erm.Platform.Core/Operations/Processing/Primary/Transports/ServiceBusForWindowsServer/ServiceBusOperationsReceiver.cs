@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         {
             try
             {
-                var receivedMessage = _queueClient.Receive(TimeSpan.FromMinutes(1));
+                var receivedMessage = _queueClient.Receive(TimeSpan.FromMinutes(3));
                 return new[] { new ServiceBusPerformedOperationsMessage(new[] { receivedMessage }) };
             }
             catch (Exception ex)
