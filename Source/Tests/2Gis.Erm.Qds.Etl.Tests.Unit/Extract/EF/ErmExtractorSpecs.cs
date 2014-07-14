@@ -7,7 +7,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Qds.Etl.Extract;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
-using DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF;
 
 using FluentAssertions;
 

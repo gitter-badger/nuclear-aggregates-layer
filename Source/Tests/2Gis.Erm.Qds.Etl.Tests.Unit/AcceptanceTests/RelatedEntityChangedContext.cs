@@ -8,11 +8,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         where TEntity : class, IEntityKey, IEntity, new()
         where TDoc : IDoc, new()
     {
-        static TDoc[] RelatedDocuments;
-
         protected static void AddRelatedDocuments(string linkedFieldName, long id, params TDoc[] docs)
         {
             RelatedDocuments = docs;
+
             foreach (var doc in docs)
             {
                 AddToDocsStorage(doc, linkedFieldName, id);
@@ -23,5 +22,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         {
             DocsStorage.NewPublishedDocs.Should().Contain(RelatedDocuments);
         }
+
+        static TDoc[] RelatedDocuments;
     }
 }

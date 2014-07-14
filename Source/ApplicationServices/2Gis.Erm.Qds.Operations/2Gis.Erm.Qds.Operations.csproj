@@ -59,18 +59,15 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\QdsOperationsAssembly.cs" />
-    <Compile Include="Indexers\DefferedDocumentUpdater.cs" />
-    <Compile Include="Indexers\FirmIndexer.cs" />
-    <Compile Include="Indexers\OrderIndexer.cs" />
-    <Compile Include="Indexers\Raw\RawEntityIndexer.cs" />
-    <Compile Include="Indexers\TerritoryIndexer.cs" />
-    <Compile Include="Indexers\UserIndexer.cs" />
-    <Compile Include="Indexers\ClientIndexer.cs" />
-    <Compile Include="Infrastructure\FilterHelper.cs" />
+    <Compile Include="Indexing\DefferedDocumentUpdater.cs" />
+    <Compile Include="Indexing\ReplicateToElasticSearchMessageAggregatedProcessingResultHandler.cs" />
+    <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessor.cs" />
+    <Compile Include="Indexing\ReplicationQueueHelper.cs" />
+    <Compile Include="Listing\FilterHelper.cs" />
     <Compile Include="Metadata\QdsDefaultFilterMetadata.cs" />
-    <Compile Include="QdsListFirmService.cs" />
-    <Compile Include="QdsListClientService.cs" />
-    <Compile Include="QdsListOrderService.cs" />
+    <Compile Include="Listing\QdsListFirmService.cs" />
+    <Compile Include="Listing\QdsListClientService.cs" />
+    <Compile Include="Listing\QdsListOrderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
@@ -149,9 +146,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

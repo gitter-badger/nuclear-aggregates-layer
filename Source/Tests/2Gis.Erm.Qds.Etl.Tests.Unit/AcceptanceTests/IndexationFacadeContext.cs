@@ -1,6 +1,8 @@
 using System;
 
 using DoubleGis.Erm.BLQuerying.DI;
+using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
@@ -22,6 +24,8 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             {
                 DocsStorage = new MockDocsStorage();
                 DocsStorage.Add(new RecordIdState("0", "42"), DocIdFieldName, "0");
+
+                var finderMock = new Mock<IFinder>();
 
                 var container = new UnityContainer();
 

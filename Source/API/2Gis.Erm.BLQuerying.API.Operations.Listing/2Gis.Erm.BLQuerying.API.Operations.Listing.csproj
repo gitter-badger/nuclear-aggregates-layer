@@ -123,7 +123,6 @@
     <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
-    <Compile Include="List\Metadata\DocToEntityMappingMetadata.cs" />
     <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
     <Compile Include="List\Metadata\FilteredFieldMetadata.cs" />
     <Compile Include="List\Metadata\DefaultFilterMetadata.cs" />
@@ -151,6 +150,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
@@ -158,6 +161,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
+      <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
       <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>

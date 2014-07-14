@@ -1,8 +1,6 @@
-﻿using DoubleGis.Erm.Qds;
-
-namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
+﻿namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 {
-    public class TestDoc : IDoc
+    public class TestDoc
     {
         public TestDoc()
         {
@@ -21,14 +19,14 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         public NestedDoc[] NestedDocs { get; set; }
     }
 
-    public class NestedDoc : IDoc
+    public class NestedDoc
     {
         public string Id { get; set; }
 
         public MoreNestedDoc[] MoreNestedDocs { get; set; }
     }
 
-    public class MoreNestedDoc : IDoc
+    public class MoreNestedDoc
     {
         public string Id { get; set; }
     }

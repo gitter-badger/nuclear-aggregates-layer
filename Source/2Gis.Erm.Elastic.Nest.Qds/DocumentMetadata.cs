@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Qds.Docs;
-using DoubleGis.Erm.Qds.Etl.Extract.EF;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
@@ -18,7 +17,6 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
 
             Tuple.Create(typeof(UserDoc), "Metadata"),
             Tuple.Create(typeof(TerritoryDoc), "Metadata"),
-            Tuple.Create(typeof(RecordIdState), "Metadata"),
 
             Tuple.Create(typeof(ClientGridDoc), "Data"),
             Tuple.Create(typeof(OrderGridDoc), "Data"),

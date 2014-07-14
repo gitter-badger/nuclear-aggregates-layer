@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ElasticTestConfigurator.cs" />
-    <Compile Include="ElasticDocsStorageSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTags.cs" />
   </ItemGroup>

@@ -7,7 +7,7 @@ using Nest;
 
 namespace DoubleGis.Erm.Elastic.Nest.Qds
 {
-    public class ElasticResponseHandler : IElasticResponseHandler
+    public sealed class ElasticResponseHandler : IElasticResponseHandler
     {
         public void ThrowWhenError(IResponse response)
         {
@@ -19,11 +19,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
             if (!response.IsValid)
                 throw new ElasticException(response.ConnectionStatus.ToString(), response.ConnectionStatus.OriginalException);
 
-            ThrowWhenBulkError(response as IBulkResponse);
-        }
-
-        void ThrowWhenBulkError(IBulkResponse bulkResponse)
-        {
+            var bulkResponse = response as IBulkResponse;
             if (bulkResponse != null && bulkResponse.Errors)
             {
                 var errorItem = bulkResponse.Items.First(x => !string.IsNullOrEmpty(x.Error));

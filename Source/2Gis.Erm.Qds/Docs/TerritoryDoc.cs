@@ -1,8 +1,8 @@
 ﻿namespace DoubleGis.Erm.Qds.Docs
 {
-    public class TerritoryDoc : IDoc
+    public class TerritoryDoc
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
     }
 }

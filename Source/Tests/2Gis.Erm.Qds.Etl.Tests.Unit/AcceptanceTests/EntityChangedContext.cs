@@ -14,6 +14,9 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             {
                 ChangedEntityId = 42;
                 ChangedEntity = new TEntity { Id = ChangedEntityId };
+
+
+
                 Target.LogChangesForEntity(ChangedEntity);
             };
 

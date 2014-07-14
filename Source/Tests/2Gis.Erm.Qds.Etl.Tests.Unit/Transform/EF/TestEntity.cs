@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.Transform.EF
 {
-    internal class TestEntity : IEntityKey, IEntity
+    public class TestEntity : IEntityKey, IEntity
     {
         public string PropertyOne { get; set; }
         public string PropertyTwo { get; set; }

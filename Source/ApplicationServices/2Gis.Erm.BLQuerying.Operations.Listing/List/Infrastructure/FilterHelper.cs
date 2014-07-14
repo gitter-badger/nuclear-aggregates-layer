@@ -246,8 +246,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             .ToList();
 
             // дополнительная сортировка по Id
-            var hasidPropertyInfo = sorts1.Any(x => string.Equals(x.PropertyInfo.Name, "Id", StringComparison.OrdinalIgnoreCase));
-            if (!hasidPropertyInfo)
+            var hasidProperty = sorts1.Any(x => string.Equals(x.PropertyInfo.Name, "Id", StringComparison.OrdinalIgnoreCase));
+            if (!hasidProperty)
             {
                 sorts1.Add(new
                 {
