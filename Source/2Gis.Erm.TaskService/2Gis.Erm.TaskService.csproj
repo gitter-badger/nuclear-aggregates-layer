@@ -114,7 +114,6 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="BatchIndexingProcess.cs" />
     <Compile Include="Config\ServiceClientConfig.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="ErmNtService.cs">
@@ -123,9 +122,7 @@
     <Compile Include="ErmNtService.Designer.cs">
       <DependentUpon>ErmNtService.cs</DependentUpon>
     </Compile>
-    <Compile Include="IIndexingProcess.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Settings\IBatchIndexingSettings.cs" />
     <Compile Include="Settings\TaskServiceAppSettings.cs" />
     <Compile Include="DI\TaskServiceRoot.cs" />
   </ItemGroup>
@@ -217,6 +214,10 @@
     <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
       <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
       <Name>2Gis.Erm.Qds.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj">
+      <Project>{CD6C5329-F9EA-41A0-8446-2B26FB92720E}</Project>
+      <Name>2Gis.Erm.Qds.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\DI\2Gis.Erm.BLQuerying.DI\2Gis.Erm.BLQuerying.DI.csproj">
       <Project>{48A5C193-6A10-4188-9B82-90FDADC95C16}</Project>

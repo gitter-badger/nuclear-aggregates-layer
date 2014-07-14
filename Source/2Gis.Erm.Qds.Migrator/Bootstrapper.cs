@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Qds.API.Core.Settings;
 
 using Microsoft.Practices.Unity;
 
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.Qds.Migrator
                         .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory,
                                       settingsContainer.AsSettings<IEnvironmentSettings>(),
                                       settingsContainer.AsSettings<IConnectionStringSettings>())
-                        .ConfigureListing(EntryPointSpecificLifetimeManagerFactory);
+                        .ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
