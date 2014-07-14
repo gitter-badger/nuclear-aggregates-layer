@@ -4,10 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Handlers;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;
 
 using Microsoft.Practices.Unity;
@@ -17,18 +14,12 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
     public sealed class UnityMessageAggregatedProcessingResultsHandlerFactory : IMessageAggregatedProcessingResultsHandlerFactory
     {
         private readonly IUnityContainer _unityContainer;
-
         private readonly IReadOnlyDictionary<IMessageFlow, Func<Type>> _resolversMap;
 
-        public UnityMessageAggregatedProcessingResultsHandlerFactory(IUnityContainer unityContainer)
+        public UnityMessageAggregatedProcessingResultsHandlerFactory(IUnityContainer unityContainer, IReadOnlyDictionary<IMessageFlow, Func<Type>> resolversMap)
         {
             _unityContainer = unityContainer;
-
-            _resolversMap = new Dictionary<IMessageFlow, Func<Type>> 
-                {
-                    { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, Use<PerformedOperationsMessageAggregatedProcessingResultHandler> },
-                    { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, Use<ReplicateToCRMMessageAggregatedProcessingResultHandler> }
-                };
+            _resolversMap = resolversMap;
         }
 
         public IMessageAggregatedProcessingResultsHandler[] Create(IEnumerable<IMessageFlow> sourceMessageFlows)
@@ -58,12 +49,6 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             }
 
             return resolver();
-        }
-
-        private Type Use<TMessageProcessingStrategy>()
-            where TMessageProcessingStrategy : class, IMessageAggregatedProcessingResultsHandler
-        {
-            return typeof(TMessageProcessingStrategy);
         }
 
         private Type DefaultType()
