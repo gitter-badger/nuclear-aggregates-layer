@@ -12,7 +12,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                     390, // Часы
                     15502, // Товары для творчества и рукоделия
                     207, // Аптеки
-                    526 // Сумки / кожгалантерея
+                    526, // Сумки / кожгалантерея
+                    405, // Автомойки
+                    508 // Ткани
                 };
 
         public static readonly IReadOnlyCollection<long> SupportedOrganizationUnitIds =
