@@ -4,6 +4,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.Docs;
 
+using FluentAssertions;
+
 using Machine.Specifications;
 
 namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
@@ -92,13 +94,10 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             {
                 ExpectedUserId = 444;
                 ChangedEntity.OwnerCode = ExpectedUserId;
-
-                AddRelatedDocuments("Id", ChangedEntityId, new ClientGridDoc());
             };
 
             Because of = () => Target.ExecuteEtlFlow();
 
-            It should_publish_related_document = () => PublishedDocsContainRelatedDocuments();
             It should_update_territory_id_field = () => PublishedDocsShouldContain<ClientGridDoc>(d => d.OwnerCode == ExpectedUserId.ToString());
 
             static long ExpectedUserId;
@@ -106,19 +105,16 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 
         [Ignore("Cut for ERM-4267")]
         [Subject(typeof(IndexationFacade))]
-        class When_client_raletion_changed_to_not_indexed_territory : RelatedEntityChangedContext<Client, ClientGridDoc>
+        class When_client_relation_changed_to_not_indexed_territory : EntityChangedContext<Client, ClientGridDoc>
         {
             Establish context = () =>
             {
                 ExpectedTerritoryId = 444;
                 ChangedEntity.TerritoryId = ExpectedTerritoryId;
-
-                AddRelatedDocuments("Id", ChangedEntityId, new ClientGridDoc());
             };
 
             Because of = () => Target.ExecuteEtlFlow();
 
-            It should_publish_related_document = () => PublishedDocsContainRelatedDocuments();
             It should_update_territory_id_field = () => PublishedDocsShouldContain<ClientGridDoc>(d => d.TerritoryId == ExpectedTerritoryId.ToString());
 
             static long ExpectedTerritoryId;
@@ -187,11 +183,17 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         [Subject(typeof(IndexationFacade))]
         class When_user_entity_changed_and_has_linked_clients : RelatedEntityChangedContext<User, ClientGridDoc>
         {
-            Establish context = () => AddRelatedDocuments("OwnerCode", ChangedEntityId, new ClientGridDoc(), new ClientGridDoc());
+            Establish context = () =>
+            {
+                ExpectedDoc = Target.ExpectDocument<User, UserDoc>(new UserDoc());
+                AddRelatedDocuments("OwnerCode", ChangedEntityId, new ClientGridDoc(), new ClientGridDoc());
+            };
 
             Because of = () => Target.ExecuteEtlFlow();
 
             It should_update_linked_documents = () => PublishedDocsContainRelatedDocuments();
+
+            static UserDoc ExpectedDoc;
         }
 
         [Ignore("Cut for ERM-4267")]

@@ -59,11 +59,6 @@
     <Compile Include="Docs\ReplicationQueue.cs" />
     <Compile Include="Docs\TerritoryDoc.cs" />
     <Compile Include="Docs\UserDoc.cs" />
-    <Compile Include="IDoc.cs" />
-    <Compile Include="IDocsQuery.cs" />
-    <Compile Include="IDocsQueryBuilder.cs" />
-    <Compile Include="IDocsStorage.cs" />
-    <Compile Include="IQueryDsl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

@@ -30,10 +30,9 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 
         public void Update(IEnumerable<IDoc> documents)
         {
-            var docs = documents.ToArray();
+            _newPublishedDocs.AddRange(documents);
 
-            TryUpdateRecordIdStateDoc((RecordIdState)docs.FirstOrDefault(d => d is RecordIdState));
-            _newPublishedDocs.AddRange(docs);
+            TryUpdateRecordIdStateDoc((RecordIdState)_newPublishedDocs.FirstOrDefault(d => d is RecordIdState));
         }
 
         public void Flush()
@@ -77,7 +76,7 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
         public class CursorQueryDsl : IQueryDsl
         {
             public IDocsQuery ByFieldValue(string docFieldName, object docValue)
-            {
+        {
                 return new CursorFilterDocsQuey((path, value) => path.Contains(docFieldName) && docValue.Equals(value));
             }
 
@@ -117,54 +116,13 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
 
         T IElasticApi.Get<T>(string id)
         {
-            var document = _data.SingleOrDefault(x => x.Item1.GetType() == typeof(T) && x.Item2 == "Id" && x.Item3.ToString() == id);
+            var document = _data.SingleOrDefault(x => x.Item1 is T && x.Item2 == "Id" && x.Item3.ToString() == id);
             if (document == null)
             {
                 return null;
             }
 
             return (T)document.Item1;
-        }
-
-        void IElasticApi.Delete<T>(Func<Nest.DeleteDescriptor<T>, Nest.DeleteDescriptor<T>> deleteSelector)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IElasticApi.Index(object @object, Type type, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IElasticApi.Index<T>(T @object, Func<Nest.IndexDescriptor<T>, Nest.IndexDescriptor<T>> indexSelector)
-        {
-            throw new NotImplementedException();
-        }
-
-        Nest.ISearchResponse<T> IElasticApi.Search<T>(Func<Nest.SearchDescriptor<T>, Nest.SearchDescriptor<T>> searcher)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IHit<T>> Scroll2<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-        void IElasticApi.Bulk(IEnumerable<Func<Nest.BulkDescriptor, Nest.BulkDescriptor>> bulkDescriptors)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IElasticApi.Refresh(Func<Nest.RefreshDescriptor, Nest.RefreshDescriptor> refreshSelector)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
-        {
-            var documents = _data.Where(x => x.Item1 is T).Select(x => (T)x.Item1);
-            return documents;
         }
 
         public ICollection<IMultiGetHit<T>> MultiGet<T>(ICollection<string> ids) where T : class
@@ -181,11 +139,60 @@ namespace DoubleGis.Erm.Qds.Etl.Tests.Unit.AcceptanceTests
             return documents;
         }
 
+        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        {
+            var documents = _data.Where(x => x.Item1 is T).Select(x =>
+        {
+                var mock = new Mock<IHit<T>>();
+                mock.SetupGet(y => y.Id).Returns(x.Item1.Id);
+                mock.SetupGet(y => y.Source).Returns((T)x.Item1);
+
+                return mock.Object;
+            });
+
+            return documents;
+        }
+
+        public void Delete<T>(Func<DeleteDescriptor<T>, DeleteDescriptor<T>> deleteSelector) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Index(object @object, Type type, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ICollection<T>> CreateBatches<T>(IEnumerable<T> items)
         {
             return new[] { items.ToArray() };
         }
 
+        void IElasticApi.Bulk(IEnumerable<Func<Nest.BulkDescriptor, Nest.BulkDescriptor>> bulkDescriptors)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Bulk(IEnumerable<Func<BulkDescriptor, BulkDescriptor>> selectors)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Refresh(Func<RefreshDescriptor, RefreshDescriptor> refreshSelector = null)
+        {
+        }
+
         # endregion
+
+
+        public ISearchResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        {
+            throw new NotImplementedException();
+        }
     }
 }

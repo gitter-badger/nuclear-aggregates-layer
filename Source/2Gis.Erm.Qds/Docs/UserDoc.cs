@@ -2,11 +2,14 @@
 
 namespace DoubleGis.Erm.Qds.Docs
 {
-    public sealed class UserDoc : IDoc
+    public sealed class UserDoc
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
+        public ICollection<string> TerritoryIds { get; set; }
+        public ICollection<string> OrganizationUnitIds { get; set; }
 
-        public IEnumerable<OperationPermission> Permissions { get; set; }
+        public ICollection<OperationPermission> Permissions { get; set; }
+        public ICollection<string> Tags { get; set; }
     }
 }

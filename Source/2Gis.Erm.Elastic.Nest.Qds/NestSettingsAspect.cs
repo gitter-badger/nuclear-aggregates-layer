@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds
 
             return convertedValue;
         }
-        
+
         private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder connectionStringBuilder)
         {
             var urisNonParsed = (string)connectionStringBuilder["Uris"];

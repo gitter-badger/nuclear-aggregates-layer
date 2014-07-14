@@ -31,11 +31,11 @@ namespace DoubleGis.Erm.Qds.Common
         {
             var batches = CreateBatches(selectors);
             var aggregatedFuncs = batches.Select(batch => new Func<BulkDescriptor, BulkDescriptor>(bulkDescriptor =>
-            {
+        {
                 foreach (var func in batch)
-                {
+            {
                     bulkDescriptor = func(bulkDescriptor);
-                }
+            }
 
                 return bulkDescriptor;
             }));
@@ -64,8 +64,8 @@ namespace DoubleGis.Erm.Qds.Common
                 {
                     yield return buffer;
                     buffer.Clear();
-                }
             }
+        }
 
             if (buffer.Count > 0)
             {
@@ -80,9 +80,9 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Delete<T>(Func<DeleteDescriptor<T>, DeleteDescriptor<T>> deleteSelector) where T : class
+        public void Delete<T>(string id) where T : class
         {
-            var response = _elasticClient.Delete(deleteSelector);
+            var response = _elasticClient.Delete<T>(x => x.Id(id));
             _responseHandler.ThrowWhenError(response);
         }
 
@@ -132,14 +132,26 @@ namespace DoubleGis.Erm.Qds.Common
                 return null;
             }
 
-            var getMappingResponse = _elasticClient.GetMapping(x => x.Index<T>().Type<T>());
-            _responseHandler.ThrowWhenError(getMappingResponse);
-            return getMappingResponse.Mapping;
+            var response = _elasticClient.GetMapping(x => x.Index<T>().Type<T>());
+            _responseHandler.ThrowWhenError(response);
+            return response.Mapping;
         }
 
-        public void Refresh(Func<RefreshDescriptor, RefreshDescriptor> refreshSelector = null)
+        public void DeleteMapping<T>() where T : class
         {
-            var response = _elasticClient.Refresh(refreshSelector);
+            var response = _elasticClient.DeleteMapping(x => x.Index<T>().Type<T>());
+            _responseHandler.ThrowWhenError(response);
+        }
+
+        public void Refresh<T>() where T : class
+        {
+            var response = _elasticClient.Refresh(x => x.Index<T>());
+            _responseHandler.ThrowWhenError(response);
+        }
+
+        public void Refresh(Type[] indexTypes)
+        {
+            var response = _elasticClient.Refresh(x => x.Indices(indexTypes));
             _responseHandler.ThrowWhenError(response);
         }
 
@@ -162,7 +174,7 @@ namespace DoubleGis.Erm.Qds.Common
             _responseHandler.ThrowWhenError(deleteIndexResponse);
         }
 
-        public void CreateIndex<T>(Func<CreateIndexDescriptor, CreateIndexDescriptor> createIndexSelector, string aliasName = null) where T : class
+        public void CreateIndex<T>(Func<CreateIndexDescriptor, CreateIndexDescriptor> createIndexSelector) where T : class
         {
             var indexExists = IndexExists<T>();
             if (indexExists)
@@ -179,13 +191,15 @@ namespace DoubleGis.Erm.Qds.Common
 
             var resultIndexSelector = createIndexSelector;
 
-            if (!string.IsNullOrEmpty(aliasName))
-            {
-                var isolatedAliasName = _nestSettings.GetIsolatedIndexName(aliasName);
-                resultIndexSelector = x => createIndexSelector(x).AddAlias(isolatedAliasName.ToLowerInvariant());
-            }
-
             var response = _elasticClient.CreateIndex(isolatedIndexName, resultIndexSelector);
+            _responseHandler.ThrowWhenError(response);
+        }
+
+        public void AddAlias<T>(string alias) where T : class
+        {
+            var isolatedIndexName = _nestSettings.GetIsolatedIndexName(alias);
+
+            var response = _elasticClient.Alias(x => x.Add(y => y.Index<T>().Alias(isolatedIndexName)));
             _responseHandler.ThrowWhenError(response);
         }
 
@@ -209,8 +223,8 @@ namespace DoubleGis.Erm.Qds.Common
             {
                 var type = indexType;
                 var response = _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(type));
-                _responseHandler.ThrowWhenError(response);
-            }
+            _responseHandler.ThrowWhenError(response);
+        }
 
             if (optimize)
             {
@@ -218,14 +232,9 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        public IEnumerable<T> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
         {
-            return new DelegateEnumerable<T>(() => new ScrollEnumerator<T>(this, searcher));
-        }
-
-        public IEnumerable<IHit<T>> Scroll2<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
-        {
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator2<T>(this, searcher));
+            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(this, searcher));
         }
 
         private sealed class DelegateEnumerable<TDocument> : IEnumerable<TDocument>
@@ -249,71 +258,7 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        private sealed class ScrollEnumerator<TDocument> : IEnumerator<TDocument>
-            where TDocument : class
-        {
-            private readonly ElasticApi _elasticApi;
-            private readonly Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> _searcher;
-            private string _scrollId;
-            private IEnumerator<TDocument> _internalEnumerator;
-
-            public ScrollEnumerator(ElasticApi elasticApi, Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> searcher)
-            {
-                const string FirstScrollTimeout = "1s";
-
-                _elasticApi = elasticApi;
-
-                _searcher = searchDescriptor =>
-                    searcher(searchDescriptor)
-                    .SearchType(SearchTypeOptions.Scan)
-                    .Scroll(FirstScrollTimeout)
-                    .Size(_elasticApi._nestSettings.BatchSize);
-            }
-
-            public TDocument Current { get { return _internalEnumerator.Current; } }
-            object IEnumerator.Current { get { return Current; } }
-
-            public bool MoveNext()
-            {
-                if (_scrollId == null)
-                {
-                    var response = _elasticApi.Search(_searcher);
-                    if (response.Total <= 0)
-                    {
-                        return false;
-                    }
-                    _scrollId = response.ScrollId;
-                }
-
-                if (_internalEnumerator == null || !_internalEnumerator.MoveNext())
-                {
-                    var response = _elasticApi.Scroll<TDocument>(x => x.Scroll(_elasticApi._nestSettings.BatchTimeout).ScrollId(_scrollId));
-                    _scrollId = response.ScrollId;
-                    _internalEnumerator = response.Documents.GetEnumerator();
-                    return _internalEnumerator.MoveNext();
-                }
-
-                return true;
-            }
-
-            public void Dispose()
-            {
-                if (_internalEnumerator != null)
-                {
-                    _internalEnumerator.Dispose();
-                    _internalEnumerator = null;
-                }
-
-                _scrollId = null;
-            }
-
-            public void Reset()
-            {
-                throw new NotSupportedException();
-            }
-        }
-
-        private sealed class ScrollEnumerator2<TDocument> : IEnumerator<IHit<TDocument>>
+        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
             where TDocument : class
         {
             private readonly ElasticApi _elasticApi;
@@ -321,7 +266,7 @@ namespace DoubleGis.Erm.Qds.Common
             private string _scrollId;
             private IEnumerator<IHit<TDocument>> _internalEnumerator;
 
-            public ScrollEnumerator2(ElasticApi elasticApi, Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> searcher)
+            public ScrollEnumerator(ElasticApi elasticApi, Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> searcher)
             {
                 const string FirstScrollTimeout = "1s";
 

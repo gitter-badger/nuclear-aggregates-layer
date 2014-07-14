@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.Qds.Docs
 {
-    public interface IAuthorizationDoc : IDoc
+    public interface IAuthorizationDoc
     {
         DocumentAuthorization Authorization { get; set; }
     }

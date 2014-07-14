@@ -58,8 +58,10 @@
     </Compile>
     <Compile Include="2.0\2014.07.01 rev. 21813 - Add FastSearch button to MSCRM2.cs" />
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
-    <Compile Include="2.0\Migration13546.cs" />
-    <Compile Include="2.0\Migration15468.cs" />
+    <Compile Include="2.0\2014.07.01 rev. 13546 - Создание поисковой инфраструктуры.cs" />
+    <Compile Include="2.0\2014.07.01 rev. 15468 - Первичная миграция данных.cs" />
+    <Compile Include="2.0\2014.07.09 rev. 22156 - Remove RecordIdState mapping.cs" />
+    <Compile Include="2.0\2014.07.01 rev. 21859 - OrderGridDoc, RecordIdState mappings.cs" />
     <Compile Include="Base\ElasticSearchMigration.cs">
       <SubType>Code</SubType>
     </Compile>

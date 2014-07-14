@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
                     IndexClientGridDocWithOwnerCode(id++, 3);
                     IndexClientGridDocWithOwnerCode(id, 33);
 
-                    ElasticApi.Refresh();
+                    ElasticApi.Refresh<ClientGridDoc>();
 
                     InUnion = new[] { "2", "1", "33" };
                 };
@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
                 };
 
                 ElasticApi.Index(client);
-                ElasticApi.Refresh();
+                ElasticApi.Refresh<ClientGridDoc>();
             }
         }
     }

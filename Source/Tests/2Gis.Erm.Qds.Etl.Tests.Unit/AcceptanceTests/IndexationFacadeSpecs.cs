@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Etl.Extract.EF;
 
 using FluentAssertions;

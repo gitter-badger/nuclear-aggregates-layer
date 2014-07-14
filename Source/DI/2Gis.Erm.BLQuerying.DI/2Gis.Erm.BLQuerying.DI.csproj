@@ -77,8 +77,10 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\QueryingBootstrapper.Aspects.cs" />
-    <Compile Include="UnityDocumentRelationsRegistry.cs" />
-    <Compile Include="UnityElasticApiFactory.cs" />
+    <Compile Include="DocumentRelationMetadataMassProcessor.cs" />
+    <Compile Include="UnityDocumentUpdaterFactory.cs" />
+    <Compile Include="EntityToDocumentRelationMetadataMassProcessor.cs" />
+    <Compile Include="UnityDocumentRelationFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

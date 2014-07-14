@@ -4,9 +4,9 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 
 namespace DoubleGis.Erm.Qds.Docs
 {
-    public class OrderGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
+    public sealed class OrderGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string Number { get; set; }
 
         public DateTime BeginDistributionDate { get; set; }
@@ -22,7 +22,6 @@ namespace DoubleGis.Erm.Qds.Docs
 
         public double PayablePlan { get; set; }
         public string WorkflowStep { get; set; }
-        public int WorkflowStepId { get; set; }
 
         public double AmountToWithdraw { get; set; }
         public double AmountWithdrawn { get; set; }

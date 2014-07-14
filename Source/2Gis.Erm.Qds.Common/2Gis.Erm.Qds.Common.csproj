@@ -59,9 +59,7 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="DocumentRelation.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
-    <Compile Include="IDocumentRelationsRegistry.cs" />
     <Compile Include="IElasticApi.cs" />
     <Compile Include="ElasticApi.cs" />
     <Compile Include="IElasticResponseHandler.cs" />
