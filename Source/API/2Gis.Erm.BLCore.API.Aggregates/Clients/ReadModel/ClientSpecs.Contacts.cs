@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
             {
                 public static FindSpecification<Contact> WithWorkEmail()
                 {
-                    return new FindSpecification<Contact>(x => x.WorkAddress != null);
+                    return new FindSpecification<Contact>(x => x.WorkEmail != null);
                 }
 
                 public static FindSpecification<Contact> ByBirthDate(int month, int day)

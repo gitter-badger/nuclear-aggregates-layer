@@ -7,6 +7,7 @@ using System.Xml;
 
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -22,27 +23,31 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
         }; 
 
         private readonly IDatabaseCaller _databaseCaller;
+        private readonly IBusinessModelSettings _businessModelSettings;
 
-        public ReportPersistenceService(IDatabaseCaller databaseCaller)
+        public ReportPersistenceService(IDatabaseCaller databaseCaller, IBusinessModelSettings businessModelSettings)
         {
             _databaseCaller = databaseCaller;
+            _businessModelSettings = businessModelSettings;
         }
 
         public IEnumerable<ReportDto> GetReportNames(long userId)
         {
             var resultTable = _databaseCaller.ExecuteProcedureWithResultTable("ReportName",
-                                                         null,
-                                                         new Tuple<string, object>("User", userId));
+                                                        null,
+                                                         new Tuple<string, object>("User", userId),
+                                                         new Tuple<string, object>("BusinessModel", (int)_businessModelSettings.BusinessModel));
 
-            return resultTable.Rows.Cast<DataRow>().Select(row => new ReportDto
-                        {
-                            Id = Convert.ToInt32(row[0]),
-                            DisplayName = Convert.ToString(row[1]),
-                            ReportName = Convert.ToString(row[2]),
-                            Timestamp = ToLong((byte[])row[3]),
-                            IsHidden = Convert.ToBoolean(row[4]),
-                            FormatParameter = Convert.ToString(row[5]),
-                        })
+            return resultTable.Rows
+                        .Cast<DataRow>().Select(row => new ReportDto
+            {
+                Id = Convert.ToInt32(row[0]),
+                DisplayName = Convert.ToString(row[1]),
+                ReportName = Convert.ToString(row[2]),
+                Timestamp = ToLong((byte[])row[3]),
+                IsHidden = Convert.ToBoolean(row[4]),
+                FormatParameter = Convert.ToString(row[5]),
+            })
                        .ToList();
         }
 
@@ -68,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports
                     ListValues = fieldType.ListValues,
                     IsRequired = !Convert.ToBoolean(row[4]),
                     DisplayOrder = Convert.ToInt32(row[5]),
-                    Default = (ReportFieldDefault)Convert.ToInt32(row[6] ?? 0),
+                    Default = (ReportFieldDefault)Convert.ToInt32(row.IsNull(6) ? 0 : row[6]),
                     Timestamp = ToLong((byte[])row[8]),
                     IsHidden = Convert.ToBoolean(row[9]),
                     Dependencies = attributes.Dependencies,
