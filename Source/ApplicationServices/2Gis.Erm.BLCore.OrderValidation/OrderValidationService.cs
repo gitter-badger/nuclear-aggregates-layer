@@ -51,7 +51,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 { 26, typeof(AdvertisementAmountOrderValidationRule) },
                 { 27, typeof(ContactDoesntContainSponsoredLinkOrderValidationRule) },
                 { 29, typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule) },
-                { 30, typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule) },
                 { 31, typeof(AdvertisementForCategoryAmountOrderValidationRule) },
                 { 32, typeof(CategoriesForFirmAmountOrderValidationRule) },
                 { 33, typeof(IsPositionSupportedByExportOrderValidationRule) },
@@ -66,8 +65,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 { 42, typeof(ThemePeriodOverlapsOrderPeriodValidationRule) },
                 { 43, typeof(ThemeCategoriesValidationRule) },
                 { 44, typeof(ThemePositionCountValidationRule) },
-                { 47, typeof(DummyAdvertisementOrderValidationRule) },
-                { 48, typeof(RegionalApiAdvertisementsOrderValidationRule) }
+                { 47, typeof(DummyAdvertisementOrderValidationRule) }
             };
 
         private static readonly Type[] CommonRules =
@@ -87,8 +85,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 typeof(ThemePeriodOverlapsOrderPeriodValidationRule),
                 typeof(DefaultThemeMustContainOnlySelfAdvValidationRule),
                 typeof(DummyAdvertisementOrderValidationRule),
-                typeof(CouponIsUniqueForFirmOrderValidationRule),
-                typeof(RegionalApiAdvertisementsOrderValidationRule)
+                typeof(CouponIsUniqueForFirmOrderValidationRule)
             };
 
         private static readonly Type[] SingleOrderValidationRules =
@@ -103,8 +100,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 typeof(ReleaseNotExistsOrderValidationRule),
                 typeof(ContactDoesntContainSponsoredLinkOrderValidationRule),
                 typeof(CategoriesForFirmAmountOrderValidationRule),
-                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
-                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
+                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule)
             };
 
         private static readonly Type[] NonManualRules =
@@ -145,8 +141,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                 typeof(ThemeCategoriesValidationRule),
                                 typeof(DefaultThemeMustBeSpecifiedValidationRule),
                                 typeof(CategoriesForFirmAmountOrderValidationRule),
-                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
-                                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
+                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule)
                             })
                         .ToArray()
                 },
@@ -175,8 +170,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                 typeof(ThemeCategoriesValidationRule),
                                 typeof(DefaultThemeMustBeSpecifiedValidationRule),
                                 typeof(CategoriesForFirmAmountOrderValidationRule),
-                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
-                                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
+                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule)
                             })
                         .ToArray()
                 },
@@ -190,8 +184,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                 typeof(ThemeCategoriesValidationRule),
                                 typeof(DefaultThemeMustBeSpecifiedValidationRule),
                                 typeof(CategoriesForFirmAmountOrderValidationRule),
-                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule),
-                                typeof(IsThereAdvantageousPurchasesRubricOrderValidationRule)
+                                typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule)
                             })
                         .ToArray()
                 }

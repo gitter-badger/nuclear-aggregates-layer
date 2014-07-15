@@ -130,7 +130,6 @@
     <Compile Include="BL\OrderValidations\AdvertisementTextFormattingOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRuleSpecs.cs" />
-    <Compile Include="BL\OrderValidations\RegionalApiAdvertisementsOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\SelfAdvertisementOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\ReleaseNumberUtilsSpecs.cs" />
     <Compile Include="BL\Services\Operations\OrderProlongationRequestOperationServiceTests\BasicOrderProlongationOperationLogicSpecs.cs" />

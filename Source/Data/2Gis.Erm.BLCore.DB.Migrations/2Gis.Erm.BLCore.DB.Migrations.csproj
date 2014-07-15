@@ -713,6 +713,7 @@
     <Compile Include="2.1\2014.05.15 rev. 20306 - merge Id and Code in Billing.Porjects.cs" />
     <Compile Include="2.1\2014.06.02 rev. 20911 - Create ExportFlowNomenclatures tables.cs" />
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
+    <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule - Copy 1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
