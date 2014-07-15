@@ -21,41 +21,18 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             _finder = finder;
         }
 
-        public IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(
-            IMessageFlow[] messageFlows)
+        public IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(IMessageFlow[] messageFlows)
         {
             var messageFlowsIds = messageFlows.Select(x => x.Id);
-
-            var lastProcessingsMap = _finder.FindAll<PerformedOperationPrimaryProcessing>()
+            return _finder.FindAll<PerformedOperationPrimaryProcessing>()
                                            .Where(o => messageFlowsIds.Contains(o.MessageFlowId))
                                            .GroupBy(processing => processing.MessageFlowId)
                                            .Select(grouping => new
                                                {
                                                    Flow = grouping.Key,
-                                                   LastProcessing = grouping.OrderByDescending(processing => processing.Date).FirstOrDefault()
+                                                   LastProcessingDate = grouping.Max(processing => processing.Date)
                                                })
-                                           .Join(_finder.FindAll<PerformedBusinessOperation>(),
-                                                 processing => processing.LastProcessing.Id,
-                                                 performed => performed.Id,
-                                                 (processing, performed) => new
-                                                     {
-                                                         processing.Flow,
-                                                         LastProcessingDate = performed.Date
-                                                     })
                                            .ToDictionary(x => x.Flow, x => x.LastProcessingDate);
-
-            var defaultLastProcessing = DateTime.UtcNow;
-            foreach (var messageFlow in messageFlows)
-            {
-                if (lastProcessingsMap.ContainsKey(messageFlow.Id))
-                {
-                    continue;
-                }
-
-                lastProcessingsMap.Add(messageFlow.Id, defaultLastProcessing);
-            }
-
-            return lastProcessingsMap;
         }
 
         public IEnumerable<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(
@@ -65,28 +42,46 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
         {
             var defaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
 
-            var performedBusinessOperations =
+            var performedUseCases =
                 _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate);
-            var processedBusinessOperations =
+                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate && o.Parent == null);
+
+            var processedOperations =
                 _finder.FindAll<PerformedOperationPrimaryProcessing>()
                        .Where(o => o.MessageFlowId == sourceMessageFlow.Id && o.Date > ignoreOperationsPrecedingDate);
 
-            var notProcessedOperations = from performedOperation in performedBusinessOperations
-                                         join processedOperation in processedBusinessOperations on performedOperation.Id equals processedOperation.Id
-                                             into joinedOperations
-                                         from joinedOperation in joinedOperations.DefaultIfEmpty()
-                                         where joinedOperation == null
-                                         select performedOperation;
-
-            var groupedByUseCaseOperations =
-                notProcessedOperations
-                    .GroupBy(pbo => pbo.UseCaseId, (guid, operations) => new { operations.FirstOrDefault(o => o.Parent == null).Date, operations })
-                    .OrderBy(x => x.Date)
-                    .Take(maxUseCaseCount)
-                    .Select(x => x.operations);
-
-            return groupedByUseCaseOperations;
+            return performedUseCases
+                        .GroupJoin(
+                            processedOperations,
+                            performedOperation => performedOperation.Id,
+                            processedOperation => processedOperation.Id,
+                            (performedOperation, performedOperationProcessings) => new
+                            {
+                                TargetOperation = performedOperation,
+                                Processing = performedOperationProcessings.FirstOrDefault()
+                            })
+                        .Where(performedOperationInfo => performedOperationInfo.Processing == null)
+                        .Select(performedOperationInfo => performedOperationInfo.TargetOperation)
+                        .GroupBy(
+                            pbo => pbo.UseCaseId,
+                            (guid, pbos) => new
+                            {
+                                Date = pbos.Min(operation => operation.Date),
+                                UseCaseId = guid
+                            })
+                        .OrderBy(x => x.Date)
+                        .Take(maxUseCaseCount)
+                        .GroupJoin(
+                            _finder.FindAll<PerformedBusinessOperation>().Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate),
+                            targetUseCase => targetUseCase.UseCaseId,
+                            performedOperation => performedOperation.UseCaseId,
+                            (targetUseCase, operations) => new
+                            {
+                                Operations = operations,
+                                Date = targetUseCase.Date
+                            })
+                        .OrderBy(useCase => useCase.Date)
+                        .Select(useCase => useCase.Operations);
         }
 
         public IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsInitial(IMessageFlow sourceMessageFlow, int batchSize)

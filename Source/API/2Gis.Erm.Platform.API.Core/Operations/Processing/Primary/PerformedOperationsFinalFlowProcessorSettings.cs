@@ -7,5 +7,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary
         public int MessageBatchSize { get; set; }
         public MessageProcessingStage[] AppropriatedStages { get; set; }
         public MessageProcessingStage[] IgnoreErrorsOnStage { get; set; }
+        public int? TimeSafetyOffsetHours { get; set; }
     }
 }

@@ -4,5 +4,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary
 {
     public interface IPerformedOperationsFlowProcessorSettings : IMessageFlowProcessorSettings
     {
+        int? TimeSafetyOffsetHours { get; }
     }
 }

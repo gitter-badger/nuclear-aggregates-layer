@@ -37,7 +37,8 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             catch (Exception ex)
             {
                 Logger.ErrorFormatEx(ex, "Can't create actor context for processing flow {0} executing stage {1}", messageFlow, Stage);
-                throw;
+
+                return new BatchStageResult(Stage) { Succeeded = false };
             }
 
             IEnumerable<TActor> actors;
@@ -47,13 +48,23 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             }
             catch (Exception ex)
             {
-                var msg = string.Format("Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
-                Logger.ErrorEx(ex, msg);
+                Logger.ErrorFormatEx(ex, "Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
 
                 return new BatchStageResult(Stage) { Succeeded = false };
             }
 
-            var result = Execute(actors, actorContext);
+            BatchStageResult result;
+            try
+            {
+                result = Execute(actors, actorContext);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormatEx(ex, "Actors execution failed for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
+
+                return new BatchStageResult(Stage) { Succeeded = false };
+            }
+
             SetStageResults(batchProcessingContext, result);
 
             Logger.DebugFormatEx("Finished stage. Flow: {0}. Stage: {1}", messageFlow, Stage);

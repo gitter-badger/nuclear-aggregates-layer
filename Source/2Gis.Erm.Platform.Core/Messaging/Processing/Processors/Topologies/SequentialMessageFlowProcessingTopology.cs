@@ -27,8 +27,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
         {
             var availableStages = StagesMap.Keys.OrderBy(x => x).ToArray();
 
-            Logger.InfoFormatEx("Starting processing message flow {0}. Acquired messages batch size: {0}.", SourceMessageFlow, messages.Length);
-            Logger.InfoFormatEx("Processing message flow {0} has available stages : {1}", SourceMessageFlow, string.Join(";", availableStages));
+            Logger.InfoFormatEx("Starting processing topology for message flow {0}. Acquired messages batch size: {1}.", SourceMessageFlow, messages.Length);
+            Logger.DebugFormatEx("Processing message flow {0} has available stages : {1}", SourceMessageFlow, string.Join(";", availableStages));
 
             int counter = -1;
             var processingContext = new MessageBatchProcessingContext(messages, availableStages);

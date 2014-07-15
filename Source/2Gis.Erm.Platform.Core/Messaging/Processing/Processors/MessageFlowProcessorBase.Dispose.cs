@@ -2,8 +2,6 @@
 {
     public abstract partial class MessageFlowProcessorBase<TMessageFlow, TMessageFlowProcessorSettings, TMessageReceiverSettings>
     {
-        #region Поддержка IDisposable
-
         private readonly object _disposeSync = new object();
 
         /// <summary>
@@ -62,7 +60,7 @@
                     if (asyncWorkerSignal != null)
                     {
                         asyncWorkerSignal.Dispose();
-                    }
+                    } 
                 }
 
                 // Free your own state (unmanaged objects).
@@ -72,7 +70,5 @@
                 _isDisposed = true;
             }
         }
-
-        #endregion
     }
 }

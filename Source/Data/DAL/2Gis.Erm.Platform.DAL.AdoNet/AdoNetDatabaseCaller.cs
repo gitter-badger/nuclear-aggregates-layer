@@ -117,6 +117,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                                 for (var i = 0; i < reader.FieldCount; i++)
                                 {
                                     var column = new DataColumn(reader.GetName(i));
+                                    column.DataType = reader.GetFieldType(i);
                                     resultSet.Columns.Add(column);
                                 }
                             }
@@ -125,9 +126,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                             var rowValues = new object[reader.FieldCount];
                             for (var i = 0; i < reader.FieldCount; i++)
                             {
-                                var value = reader.GetValue(i);
-                                var isNull = value is DBNull;
-                                rowValues[i] = isNull ? null : value;
+                                rowValues[i] = reader.GetValue(i);
                             }
 
                             newRow.ItemArray = rowValues;

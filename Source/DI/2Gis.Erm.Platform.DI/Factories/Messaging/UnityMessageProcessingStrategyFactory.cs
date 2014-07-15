@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;
 
 using Microsoft.Practices.Unity;
@@ -19,16 +16,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 
         private readonly IReadOnlyDictionary<IMessageFlow, Func<Type, IMessage, Type>> _resolversMap;
 
-        public UnityMessageProcessingStrategyFactory(IUnityContainer unityContainer)
+        public UnityMessageProcessingStrategyFactory(IUnityContainer unityContainer, IReadOnlyDictionary<IMessageFlow, Func<Type, IMessage, Type>> resolversMap)
         {
             _unityContainer = unityContainer;
-
-            _resolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
-                {
-                    { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, Use<ReplicateToCrmPerformedOperationsPrimaryProcessor> },
-
-                    { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, Use<ReplicateToCrmPerformedOperationsFinalProcessor> }
-                };
+            _resolversMap = resolversMap;
         }
 
         public IMessageProcessingStrategy Create(IMessageFlow messageFlow, IMessage message)
@@ -51,12 +42,6 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             }
 
             return resolver(messageFlowType, message);
-        }
-
-        private static Type Use<TMessageProcessingStrategy>(Type messageFlowType, IMessage message)
-            where TMessageProcessingStrategy : class, IMessageProcessingStrategy
-        {
-            return typeof(TMessageProcessingStrategy);
         }
     }
 }

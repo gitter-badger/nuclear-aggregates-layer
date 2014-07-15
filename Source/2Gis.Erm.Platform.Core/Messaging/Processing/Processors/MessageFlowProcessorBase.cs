@@ -52,7 +52,15 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         void ISyncMessageFlowProcessor.Process()
         {
+            try
+            {
             Process();
+        }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormatEx(ex, "Failed sync processing for message flow " + SourceMessageFlow);
+                throw;
+            }
         }
 
         void IAsyncMessageFlowProcessor.Start()
@@ -68,6 +76,12 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 _workerCTS.Cancel();
                 _asyncWorkerSignal.Set();
 
+                var asyncWorkerSignal = _asyncWorkerSignal;
+                if (asyncWorkerSignal != null)
+                {
+                    asyncWorkerSignal.Set();
+                }
+
                 try
                 {
                     _workerTask.Wait();
@@ -77,6 +91,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 {
                     Logger.ErrorEx(ex, "Can't stop async processor for flow " + SourceMessageFlow);
                     throw;
+                }
+                finally
+                {
+                    if (asyncWorkerSignal != null)
+                    {
+                        asyncWorkerSignal.Close();
+                    }
                 }
             }
         }
@@ -118,6 +139,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 stopwatch.Start();
 
                 Logger.DebugFormatEx("Starting processing message flow {0}. Receiving messages", SourceMessageFlow);
+
                 try
                 {
                     flowMessages = messageReceiver.Peek()
@@ -131,7 +153,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
                 if (flowMessages == null || !flowMessages.Any())
                 {
-                    _logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
+                    Logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
                     return 0;
                 }
 
@@ -188,7 +210,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 var rateMsg = flowMessages == null || flowMessages.Length == 0
                                   ? "not measured 0 messages was provided by receiver"
                                   : (flowMessages.Length / batchProcessingTime).ToString();
-                _logger.DebugEx("Processing rate msg/sec: " + rateMsg);
+                _logger.DebugFormatEx("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 
                 if (disposableMessageReceiver != null)
@@ -202,30 +224,38 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         private void AsyncWorker()
         {
-            const int BaseDelayMs = 500;
+            const int BaseDelayMs = 0;
             const int DelayIncrementMs = 1000;
-            int currentDelay = BaseDelayMs;
+            const int DelayAfterFailure = 45000;
+            const int MaxDelayMs = 180000;
 
+            int currentDelay = BaseDelayMs;
             while (!_workerCTS.Token.IsCancellationRequested)
             {
-                int processedCount;
+                int? processedCount = null;
                 try
                 {
                     processedCount = Process();
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormatEx(ex, "Async processing for message flow " + SourceMessageFlow + " failed");
-                    throw;
+                    Logger.ErrorFormatEx(ex, "Failed async processing for message flow " + SourceMessageFlow + ". Processing will be continued after some delay");
                 }
 
-                if (processedCount > 0)
+                if (!processedCount.HasValue)
+                {
+                    currentDelay = DelayAfterFailure;
+                    Logger.InfoFormatEx("Processing flow {0}. Restoration delay after previous failure was applied ms: {1}", SourceMessageFlow, currentDelay);
+                }
+                else if (processedCount > 0)
                 {
                     currentDelay = BaseDelayMs;
+                    Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Delay has base value ms: {2}", SourceMessageFlow, processedCount, currentDelay);
                 }
                 else
                 {
-                    currentDelay += DelayIncrementMs;
+                    currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
+                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: {1}", SourceMessageFlow, currentDelay);
                 }
 
                 _asyncWorkerSignal.WaitOne(currentDelay);

@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
                     results.Add(
                         processingResultsBucket.Key,
                         Stage.EmptyResult()
-                             .WithReport("Can't evaluate processing results for aggregateion. Orignial message id: " + processingResultsBucket.Key)
+                             .WithReport("Can't evaluate processing results for aggregation. Orignial message id: " + processingResultsBucket.Key)
                              .AsFailed());
                     continue;
                 }
