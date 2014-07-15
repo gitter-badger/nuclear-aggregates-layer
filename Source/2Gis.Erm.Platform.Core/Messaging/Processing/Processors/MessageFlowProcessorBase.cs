@@ -187,7 +187,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 var batchProcessingTime = stopwatch.ElapsedMilliseconds / 1000.0;
                 var rateMsg = flowMessages == null || flowMessages.Length == 0
                                   ? "not measured 0 messages was provided by receiver"
-                                  : (ProcessorSettings.MessageBatchSize / batchProcessingTime).ToString();
+                                  : (flowMessages.Length / batchProcessingTime).ToString();
                 _logger.DebugEx("Processing rate msg/sec: " + rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 

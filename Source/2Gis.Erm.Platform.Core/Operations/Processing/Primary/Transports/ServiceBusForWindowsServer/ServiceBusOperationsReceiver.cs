@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         where TMessageFlow : class, IMessageFlow, new()
     {
         private readonly ICommonLog _logger;
-        private readonly QueueClient _queueClient;
+        private readonly SubscriptionClient _messageReceiver;
 
         public ServiceBusOperationsReceiver(
             IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings,
@@ -26,15 +27,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
             _logger = logger;
 
             MessagingFactory messagingFactory = MessagingFactory.CreateFromConnectionString(serviceBusMessageReceiverSettings.ConnectionString);
-            _queueClient = messagingFactory.CreateQueueClient(serviceBusMessageReceiverSettings.TransportEntityPath, ReceiveMode.PeekLock);
+            _messageReceiver = 
+                messagingFactory.CreateSubscriptionClient(serviceBusMessageReceiverSettings.TransportEntityPath, SourceMessageFlow.Id.ToString(), ReceiveMode.PeekLock);
+            //_messageReceiver = messagingFactory.CreateQueueClient(serviceBusMessageReceiverSettings.TransportEntityPath, ReceiveMode.PeekLock);
         }
 
         protected override IEnumerable<ServiceBusPerformedOperationsMessage> Peek()
         {
             try
             {
-                var receivedMessage = _queueClient.Receive(TimeSpan.FromMinutes(3));
-                return new[] { new ServiceBusPerformedOperationsMessage(new[] { receivedMessage }) };
+                var receivedMessage = _messageReceiver.ReceiveBatch(MessageReceiverSettings.BatchSize);
+                return receivedMessage.Select(bm => new ServiceBusPerformedOperationsMessage(new[] { bm }));
             }
             catch (Exception ex)
             {
@@ -49,12 +52,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         {
             try
             {
-                foreach (var successfullyProcessedMessage in successfullyProcessedMessages)
+                if (successfullyProcessedMessages.Any())
                 {
-                    foreach (var operationMsg in successfullyProcessedMessage.Operations)
-                    {
-                        operationMsg.Complete();
-                    }
+                    var lockTokens = successfullyProcessedMessages.SelectMany(m => m.Operations).Select(bm => bm.LockToken);
+                    _messageReceiver.CompleteBatch(lockTokens);
                 }
 
                 foreach (var failedProcessedMessage in failedProcessedMessages)
@@ -74,10 +75,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
 
         protected override void OnDispose(bool disposing)
         {
-            var queueClient = _queueClient;
-            if (queueClient != null)
+            var messageReceiver = _messageReceiver;
+            if (messageReceiver != null)
             {
-                queueClient.Close();
+                messageReceiver.Close();
             }
         }
     }
