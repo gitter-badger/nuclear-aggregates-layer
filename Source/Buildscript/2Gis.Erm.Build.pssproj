@@ -37,8 +37,11 @@
   <ItemGroup>
     <Compile Include="default.ps1" />
     <Compile Include="dynamics.ps1" />
+    <Compile Include="Erm.Web.targets" />
+    <Compile Include="Erm.WPF.Shell.targets" />
     <Compile Include="fxcop.ps1" />
     <Content Include="fxcop.ruleset" />
+    <Compile Include="how to deploy.txt" />
     <Compile Include="integrationtests.ps1" />
     <Compile Include="migrations.ps1" />
     <Compile Include="modules\config.psm1" />

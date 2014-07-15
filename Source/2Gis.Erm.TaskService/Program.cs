@@ -48,32 +48,25 @@ namespace DoubleGis.Erm.TaskService
             var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
             var schedulerManager = diContainer.Resolve<ISchedulerManager>();
 
-            IIndexingProcess indexingProcess = null;
-            if (ConfigFileSetting.Bool.Optional("StartIndexationProcess", false).Value)
-                indexingProcess = diContainer.Resolve<IIndexingProcess>();
-
             if (IsConsoleMode(args))
             {
                 schedulerManager.Start();
 
-                if (indexingProcess != null)
-                    indexingProcess.Start();
-
                 Console.WriteLine("ERM сервис запущен.");
                 Console.WriteLine("Нажмите ENTER для останова...");
+
                 Console.ReadLine();
 
-                schedulerManager.Stop();
+                Console.WriteLine("ERM сервис останавливается...");
 
-                if (indexingProcess != null)
-                    indexingProcess.Stop();
+                schedulerManager.Stop();
 
                 Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
                 Console.ReadLine();
             }
             else
             {
-                using (var ermNtService = new ErmNtService(schedulerManager, indexingProcess))
+                using (var ermNtService = new ErmNtService(schedulerManager))
                 {
                     ServiceBase.Run(ermNtService);
                 }
