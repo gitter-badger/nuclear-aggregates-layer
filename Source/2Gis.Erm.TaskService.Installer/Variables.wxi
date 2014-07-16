@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
+  <?define ProductVersion = "0.0.0" ?>
+  <?define EnvironmentName = "Dev" ?>
+  <?define QuartzConfigFileName = "quartz.config" ?>
   <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
   <?define ServiceStartType = "auto" ?>
+  
+  <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
 </Include>
