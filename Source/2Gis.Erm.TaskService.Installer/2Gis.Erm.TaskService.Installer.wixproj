@@ -639,7 +639,6 @@
     <Content Include="Variables.Load.Russia.wxi">
       <DependentUpon>Variables.wxi</DependentUpon>
     </Content>
-    <Content Include="Variables.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

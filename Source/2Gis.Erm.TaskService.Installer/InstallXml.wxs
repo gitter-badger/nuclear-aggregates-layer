@@ -7,11 +7,14 @@
   <?define ManufacturerProjectName = "$(var.Manufacturer) ERM" ?>
   <?define PackageDescription = "Сервис выполнения задач по расписанию системы ERM" ?>
 
-  <?ifdef VariablesFileName ?>
-    <?include $(var.VariablesFileName) ?>
+  <?ifdef VariablesIncludeFileName ?>
+    <?include $(var.VariablesIncludeFileName) ?>
   <?else ?>
-    <!-- default values for parameters -->
-    <?include Variables.wxi ?>
+    <?define ProductVersion = "0.0.0" ?>
+    <?define EnvironmentName = "Dev" ?>
+    <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
+    <?define ServiceStartType = "auto" ?>
+    <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
   <?endif ?>
 
   <!-- calculated properties -->
@@ -176,9 +179,15 @@
     </ComponentGroup>
 
     <ComponentGroup Id="QuartzConfigs" Directory="INSTALLFOLDER">
-      <Component>
-        <File Name="quartz.config" Source="$(var.2Gis.Erm.TaskService.ProjectDir)$(var.QuartzConfigFileName)" />
-    </Component>
+     
+      <?ifdef QuartzIncludeFileName ?>
+        <?include $(var.QuartzIncludeFileName) ?>
+      <?else ?>
+        <Component>
+          <File Name="quartz.config" Source="$(var.2Gis.Erm.TaskService.ProjectDir)quartz.config" />
+        </Component>
+      <?endif ?>
+
     </ComponentGroup>
 
     <Feature Id="ProductFeature" Title="$(var.ProductLongNameWithVersion)" Level="1">
