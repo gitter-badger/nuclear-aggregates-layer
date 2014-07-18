@@ -28,7 +28,19 @@
       <xs:enumeration value="ThemeMultiple"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
+  <xs:simpleType name="OrderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sale"/>
+      <xs:enumeration value="SelfAds"/>
+      <xs:enumeration value="ProductAdsService"/>
+      <xs:enumeration value="AdsBarter"/>
+      <xs:enumeration value="ProductBarter"/>
+      <xs:enumeration value="ServiceBarter"/>
+      <xs:enumeration value="SocialAds"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:element name="Invoice" type="Invoice">
     <xs:annotation>
       <xs:documentation>Коммерческий заказ</xs:documentation>
@@ -56,6 +68,26 @@
     <xs:attribute name="Number" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>Номер бланка заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OrderType" type="OrderType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="UserCode" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Код пользователя куратора БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EndDatePlan" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата план окончания размещения БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FirmCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор фирмы</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="FirmName" type="xs:string" use="required">
@@ -170,13 +202,13 @@
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-      
+
     <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Код дочернего элемента номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    
+
   </xs:complexType>
 
   <xs:complexType name="LinkObject">
