@@ -7,7 +7,7 @@
             renderTarget.style.visibility = 'hidden';
             document.body.appendChild(renderTarget);
 
-            this.timepickerFormat = "H:i";
+            this.timepickerFormat = Ext.CultureInfo.DateTimeFormatInfo.PhpShortTimePattern;
 
             Ext.getCmp("ScheduledStart").on("change", this.scheduledStartChanged, this);
             Ext.getCmp("ScheduledEnd").on("change", this.scheduledEndChanged, this);

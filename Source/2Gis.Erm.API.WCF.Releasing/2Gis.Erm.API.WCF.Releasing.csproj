@@ -87,9 +87,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="exportIntegration.config" />
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-    </None>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
