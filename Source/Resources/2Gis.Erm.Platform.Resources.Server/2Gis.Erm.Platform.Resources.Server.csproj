@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ResPlatform.cs.resx" />
+    <EmbeddedResource Include="ResPlatform.ar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ResPlatform.en.resx" />
     <EmbeddedResource Include="ResPlatform.es-CL.resx" />
     <EmbeddedResource Include="ResPlatform.resx">
