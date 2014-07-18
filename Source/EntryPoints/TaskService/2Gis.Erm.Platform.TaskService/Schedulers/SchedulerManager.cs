@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.Common;
@@ -43,9 +44,13 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
                 var threadPool = new SimpleThreadPool(_processingSettings.MaxWorkingThreads, ThreadPriority.Normal);
                 threadPool.Initialize();
 
+                var directory = AppDomain.CurrentDomain.BaseDirectory;
+                var files = Directory.GetFiles(directory, "quartz*.config").OrderBy(x => x.Length);
+                var fileNames = string.Join(",", files);
+
                 var jobInitializationPlugin = new XMLSchedulingDataProcessorPlugin
                 {
-                    FileNames = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "quartz.config"),
+                    FileNames = fileNames,
                     FailOnFileNotFound = true,
                 };
 
