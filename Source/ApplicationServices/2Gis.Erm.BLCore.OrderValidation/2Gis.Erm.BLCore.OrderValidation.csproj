@@ -116,7 +116,6 @@
     <Compile Include="Rules\IsAdvertisementLinkedWithLocatedOnTheMapAddressOrderValidationRule.cs" />
     <Compile Include="Rules\IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule.cs" />
     <Compile Include="Rules\IsPositionSupportedByExportOrderValidationRule.cs" />
-    <Compile Include="Rules\IsThereAdvantageousPurchasesRubricOrderValidationRule.cs" />
     <Compile Include="Rules\LegalPersonProfilesOrderValidationRule.cs" />
     <Compile Include="Rules\LinkingObjectsOrderValidationRule.cs" />
     <Compile Include="Rules\LockNoExistsOrderValidationRule.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Rules\OrderPositionsRefereceCurrentPriceListOrderValidationRule.cs" />
     <Compile Include="Rules\OrdersAndBargainsScansExistOrderValidationRule.cs" />
     <Compile Include="Rules\PlatformTypeOrderValidationRule.cs" />
-    <Compile Include="Rules\RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="Rules\ReleaseNotExistsOrderValidationRule.cs" />
     <Compile Include="Rules\RequiredFieldsNotEmptyOrderValidationRule.cs" />
     <Compile Include="Rules\SameAdvertisementOrderValidationRule.cs" />
