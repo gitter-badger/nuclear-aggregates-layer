@@ -44,9 +44,7 @@
     <Compile Include="how to deploy.txt" />
     <Compile Include="integrationtests.ps1" />
     <Compile Include="migrations.ps1" />
-    <Compile Include="modules\config.psm1" />
     <Compile Include="modules\dynamics.psm1" />
-    <Compile Include="modules\envsettings.psm1" />
     <Compile Include="modules\metadata.psm1" />
     <Compile Include="modules\msbuild.psm1" />
     <Compile Include="modules\msdeploy.psm1" />

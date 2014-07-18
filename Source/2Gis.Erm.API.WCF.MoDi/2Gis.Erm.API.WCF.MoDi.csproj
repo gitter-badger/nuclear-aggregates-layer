@@ -108,9 +108,6 @@
     <Content Include="..\..\..\BLFlex\Templates\Региональный бланк заказа с НДС.dotx">
       <Link>Templates\Региональный бланк заказа с НДС.dotx</Link>
     </Content>
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-    </None>
     <Content Include="packagePositions.config" />
     <Content Include="packages.config" />
     <Content Include="Web.config" />

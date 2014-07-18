@@ -148,10 +148,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="2Gis.UI.WPF.Shell.pfx" />
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Scripts\StopXDesProc.cmd" />
