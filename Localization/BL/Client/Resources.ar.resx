@@ -1,0 +1,924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcquireOrderExtensionFailed" xml:space="preserve">
+    <value>Failed to obtain calculated values.</value>
+  </data>
+  <data name="ActionsHistory" xml:space="preserve">
+    <value>Change history</value>
+  </data>
+  <data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
+    <value>Action: {0}, Completed: {1} Date: {2}</value>
+  </data>
+  <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;change&quot; : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;changes&quot;:&quot;changes&quot;]})</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AdvertisementElements" xml:space="preserve">
+    <value>Components of advertising material</value>
+  </data>
+  <data name="Advertisements" xml:space="preserve">
+    <value>Advertising materials</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
+    <value>All existing payments will be deleted. Continue?</value>
+  </data>
+  <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
+    <value>All payment fields should be filled in.</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>April</value>
+  </data>
+  <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
+    <value>Delete contract?</value>
+  </data>
+  <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
+    <value>At least one reference object should be selected</value>
+  </data>
+  <data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
+    <value>At least one reference object should be selected in the following subitems: </value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>August</value>
+  </data>
+  <data name="AvailableRecords" xml:space="preserve">
+    <value>Available records</value>
+  </data>
+  <data name="BackColorText" xml:space="preserve">
+    <value>Change background color of selected text or abstract.</value>
+  </data>
+  <data name="BackColorTitle" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="BeginDistributionDate" xml:space="preserve">
+    <value>Start of placement</value>
+  </data>
+  <data name="BoldText" xml:space="preserve">
+    <value>Make selected text bold.</value>
+  </data>
+  <data name="BoldTitle" xml:space="preserve">
+    <value>Bold (Ctrl+B)</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CardIsDirtyAlert" xml:space="preserve">
+    <value>This action cannot be performed until all changes are saved. Please save changes or refresh the card to continue.</value>
+  </data>
+  <data name="CardIsNewAlert" xml:space="preserve">
+    <value>This action cannot be completed until the record is saved. Please save the record to continue.</value>
+  </data>
+  <data name="CardIsReadOnly" xml:space="preserve">
+    <value>This card is open in &quot;read-only&quot; mode.</value>
+  </data>
+  <data name="CardIsUndefined" xml:space="preserve">
+    <value>There is no card to edit for this entity.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
+    <value>Category {0} is already in the list.</value>
+  </data>
+  <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
+    <value>Checking. Please wait...</value>
+  </data>
+  <data name="CheckProducedTheFollowingErrors" xml:space="preserve">
+    <value>The following errors are detected during the check:</value>
+  </data>
+  <data name="ClickHereToAddNote" xml:space="preserve">
+    <value>Click here to add notes...</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseCardConfirmation" xml:space="preserve">
+    <value>Changes are not saved. To remain on the page and save changes, click &quot;Cancel&quot;.</value>
+  </data>
+  <data name="ContentIsEmpty" xml:space="preserve">
+    <value>Contents is unavailable</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateLinkText" xml:space="preserve">
+    <value>Create link from the selected text.</value>
+  </data>
+  <data name="CreateLinkTitle" xml:space="preserve">
+    <value>Insert hyperlink</value>
+  </data>
+  <data name="CreateText" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DatePickerMaxText" xml:space="preserve">
+    <value>This date is later than upper date limit</value>
+  </data>
+  <data name="DatePickerMinText" xml:space="preserve">
+    <value>This date is earlier than lower date limit</value>
+  </data>
+  <data name="DatePickerMonthYearText" xml:space="preserve">
+    <value>Month selection (Control+Up/Down to select a year)</value>
+  </data>
+  <data name="DatePickerNextText" xml:space="preserve">
+    <value>Next month (Control+Right)</value>
+  </data>
+  <data name="DatePickerPrevText" xml:space="preserve">
+    <value>Previous month (Control+Left)</value>
+  </data>
+  <data name="DatePickerToday" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="DatePickerTodayTip" xml:space="preserve">
+    <value>{0} (Space)</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>December</value>
+  </data>
+  <data name="DecreaseFontSizeText" xml:space="preserve">
+    <value>Decrease font size.</value>
+  </data>
+  <data name="DecreaseFontSizeTitle" xml:space="preserve">
+    <value>Decrease size</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteValue" xml:space="preserve">
+    <value>Delete value</value>
+  </data>
+  <data name="DisabledDatesText" xml:space="preserve">
+    <value>This date cannot be selected</value>
+  </data>
+  <data name="DisabledDaysText" xml:space="preserve">
+    <value>This date cannot be selected</value>
+  </data>
+  <data name="DisplayMsg" xml:space="preserve">
+    <value>Records from {0} up to {1} are displayed, total of {2}</value>
+  </data>
+  <data name="EmptyMsg" xml:space="preserve">
+    <value>No data to display</value>
+  </data>
+  <data name="EndDistributionDate" xml:space="preserve">
+    <value>End of placement</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorDuringOperation" xml:space="preserve">
+    <value>An error occurred during operation</value>
+  </data>
+  <data name="ErrorRetrievingDataFromServer" xml:space="preserve">
+    <value>Failed to receive data from the server</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>February</value>
+  </data>
+  <data name="FieldInvalidText" xml:space="preserve">
+    <value>Incorrect value</value>
+  </data>
+  <data name="FileUploadCompleteText" xml:space="preserve">
+    <value>Download complete</value>
+  </data>
+  <data name="FileUploadText" xml:space="preserve">
+    <value>Please wait until the file is uploaded to the server...</value>
+  </data>
+  <data name="FindMoreRecords" xml:space="preserve">
+    <value>Search for additional records</value>
+  </data>
+  <data name="ForeColorText" xml:space="preserve">
+    <value>Change text color.</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="GetDataError" xml:space="preserve">
+    <value>Failed to receive data from server.</value>
+  </data>
+  <data name="GridDDText" xml:space="preserve">
+    <value>{0} selected strings</value>
+  </data>
+  <data name="IncreaseFontSizeText" xml:space="preserve">
+    <value>Increase font size.</value>
+  </data>
+  <data name="IncreaseFontSizeTitle" xml:space="preserve">
+    <value>Increase size</value>
+  </data>
+  <data name="IndicatorText" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Main Information</value>
+  </data>
+  <data name="InsertOrderedListText" xml:space="preserve">
+    <value>Start a numbered list.</value>
+  </data>
+  <data name="InsertOrderedListTitle" xml:space="preserve">
+    <value>Numbering</value>
+  </data>
+  <data name="InsertUnorderedListText" xml:space="preserve">
+    <value>Start a bulleted list.</value>
+  </data>
+  <data name="InsertUnorderedListTitle" xml:space="preserve">
+    <value>Bullets</value>
+  </data>
+  <data name="InvalidDateText" xml:space="preserve">
+    <value>{0} is an incorrect date. The date format should be {1}</value>
+  </data>
+  <data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
+    <value>Before changing status, select a limit in the list</value>
+  </data>
+  <data name="ItalicText" xml:space="preserve">
+    <value>Make selected text italic.</value>
+  </data>
+  <data name="ItalicTitle" xml:space="preserve">
+    <value>Italic(Ctrl+I)</value>
+  </data>
+  <data name="ItsReadOnlyMode" xml:space="preserve">
+    <value>This list is viewed in &quot;read-only&quot; mode. Unable to create entity.</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>January</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>July</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>June</value>
+  </data>
+  <data name="JustifyCenterText" xml:space="preserve">
+    <value>Center text alignment.</value>
+  </data>
+  <data name="JustifyCenterTitle" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="JustifyLeftText" xml:space="preserve">
+    <value>Left text alignment.</value>
+  </data>
+  <data name="JustifyLeftTitle" xml:space="preserve">
+    <value>Align text left.</value>
+  </data>
+  <data name="JustifyRightText" xml:space="preserve">
+    <value>Right text alignment.</value>
+  </data>
+  <data name="JustifyRightTitle" xml:space="preserve">
+    <value>Align text right.</value>
+  </data>
+  <data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
+    <value>Change status operation cannot be performed for a group. Please change limit status one by one.</value>
+  </data>
+  <data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
+    <value>Entered value is not a correct e-mail address</value>
+  </data>
+  <data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
+    <value>Entered value is not a correct url address</value>
+  </data>
+  <data name="LinkingObject" xml:space="preserve">
+    <value>Reference object</value>
+  </data>
+  <data name="LinkingParameters" xml:space="preserve">
+    <value>Reference parameters</value>
+  </data>
+  <data name="ListDoesNotSupportAppend" xml:space="preserve">
+    <value>This list does not support adding elements.</value>
+  </data>
+  <data name="ListSeparator" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="LoadAdvertisementResults" xml:space="preserve">
+    <value>Advertising materials</value>
+  </data>
+  <data name="LoadMask" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="LookupEmptyValue" xml:space="preserve">
+    <value>&lt;empty value&gt;</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="MatchesNotFound" xml:space="preserve">
+    <value>No matches are found</value>
+  </data>
+  <data name="MaxDateText" xml:space="preserve">
+    <value>Date in this field should not be later than {0}</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="MergeClientsAlert" xml:space="preserve">
+    <value>After merging, the main Client will remain in the system, while the subordinate client will be hidden. The operation cannon be undone. Continue?</value>
+  </data>
+  <data name="MinDateText" xml:space="preserve">
+    <value>Date in this field should be later than {0}</value>
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="ModifiedValue" xml:space="preserve">
+    <value>Set value</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="MonthlyLowerBoundText" xml:space="preserve">
+    <value>The value should be the first date of month</value>
+  </data>
+  <data name="MonthlyUpperBoundText" xml:space="preserve">
+    <value>The value should be the last date of month</value>
+  </data>
+  <data name="MultipleMatchesFound" xml:space="preserve">
+    <value>Several matches are found</value>
+  </data>
+  <data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
+    <value>Enter name or its part in the &quot;Record search&quot; field and click the &quot;Record search&quot; icon.</value>
+  </data>
+  <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
+    <value>Enter desired data in the &quot;Search&quot; field and click the &quot;Find&quot; button. Then select required records in the &quot;Available records&quot; list and move them to the &quot;Selected records&quot; list.</value>
+  </data>
+  <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
+    <value>No record is selected.</value>
+  </data>
+  <data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
+    <value>Records found: more than 100. If the required record is not in the list, try refining your search.</value>
+  </data>
+  <data name="MustSelectOneOrMoreObject" xml:space="preserve">
+    <value>Select one or several records to perform this operation.</value>
+  </data>
+  <data name="MustSelectOnlyOneObject" xml:space="preserve">
+    <value>Select only one record to perform this operation</value>
+  </data>
+  <data name="NeedToSelectOneItem" xml:space="preserve">
+    <value>Select one record to perform this operation.</value>
+  </data>
+  <data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
+    <value>Select one or two records to complete this operation</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoteCreated" xml:space="preserve">
+    <value>Note has been created</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>November</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>October</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenText" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OrderCheck" xml:space="preserve">
+    <value>Check of the order</value>
+  </data>
+  <data name="OrderCheckFailed" xml:space="preserve">
+    <value>Failed to check the order.</value>
+  </data>
+  <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
+    <value>The order is correct, nevertheless the following warnings are found during the check:</value>
+  </data>
+  <data name="OrderCheckResults" xml:space="preserve">
+    <value>Results of the order check</value>
+  </data>
+  <data name="OrderIsNotRelatedToAccount" xml:space="preserve">
+    <value>The order is not referenced to any personal account </value>
+  </data>
+  <data name="OrderState" xml:space="preserve">
+    <value>Order status</value>
+  </data>
+  <data name="OrderValidationFailed" xml:space="preserve">
+    <value>Failed to check</value>
+  </data>
+  <data name="OriginalValue" xml:space="preserve">
+    <value>Initial value</value>
+  </data>
+  <data name="PayablePlan" xml:space="preserve">
+    <value>Due for payment (planned)</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="PaymentDatePlan" xml:space="preserve">
+    <value>Payment date, before</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
+    <value>There is no published price-list for the city {0} in the system at present</value>
+  </data>
+  <data name="PrintText" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="ProcessMessagesConfirm" xml:space="preserve">
+    <value>Do you really want to process selected messages?</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="PropertyName" xml:space="preserve">
+    <value>Editable field</value>
+  </data>
+  <data name="RefreshText" xml:space="preserve">
+    <value>Refresh the list</value>
+  </data>
+  <data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
+    <value>Planned number of issues should be within the range [1-12]</value>
+  </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>Specify value for the field &quot;{0}&quot;</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="SearchInstructions" xml:space="preserve">
+    <value>Enter the search data into the &quot;Search&quot; field and click &quot;Find&quot;. Then select the required record and click OK.</value>
+  </data>
+  <data name="SelectedRecords" xml:space="preserve">
+    <value>Selected records</value>
+  </data>
+  <data name="SelectObjectsToProcess" xml:space="preserve">
+    <value>Select messages to be processed</value>
+  </data>
+  <data name="SelectOneOrMoreRecords" xml:space="preserve">
+    <value>You must select at least one record to be deleted.</value>
+  </data>
+  <data name="SelectToWhiteList" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectToWhiteListMatherial" xml:space="preserve">
+    <value>Select AM to the white list</value>
+  </data>
+  <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
+    <value>An error occurred during AM white list selection. Try again</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>September</value>
+  </data>
+  <data name="SourceEditText" xml:space="preserve">
+    <value>Switch to the source code.</value>
+  </data>
+  <data name="SourceEditTitle" xml:space="preserve">
+    <value>Source code</value>
+  </data>
+  <data name="StartSearch" xml:space="preserve">
+    <value>Start search</value>
+  </data>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>&lt;b&gt;Status: &lt;/b&gt;</value>
+  </data>
+  <data name="SumRemainingMustBeNull" xml:space="preserve">
+    <value>The remaining amount of the order is not equal to zero. The remaining amount needs to be distributed among payments</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="TabPanelItemCloseText" xml:space="preserve">
+    <value>Close the tab</value>
+  </data>
+  <data name="TheAdvertisement" xml:space="preserve">
+    <value>Advertising material</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="TimeFormat" xml:space="preserve">
+    <value>H:i:s</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total for payment</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="UnderlineText" xml:space="preserve">
+    <value>Underline selected text.</value>
+  </data>
+  <data name="UnderlineTitle" xml:space="preserve">
+    <value>Underlined (Ctrl+U)</value>
+  </data>
+  <data name="UnknownFileSize" xml:space="preserve">
+    <value>The size is not known</value>
+  </data>
+  <data name="UploadFileQuestion" xml:space="preserve">
+    <value>Do you really want to upload the &quot;{0}&quot; file to the server?</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="WorkInProgressPleaseStandBy" xml:space="preserve">
+    <value>The job is being performed. Please wait...</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
+    <value>The current contract is out-of-date, to place an order under a contract, a new contract has to be created</value>
+  </data>
+  <data name="IsWarmClientWarningFormat" xml:space="preserve">
+    <value>Reason for opportunity is &quot;Warm Lead&quot;, since there is a &quot;{0}&quot; task for this client, closed {1}, that has the &quot;Warm Lead&quot; type</value>
+  </data>
+  <data name="BillCreationApprovalNeeded" xml:space="preserve">
+    <value>Approval is required!</value>
+  </data>
+  <data name="BillMassCreateConfirmMessage" xml:space="preserve">
+    <value>Attention! Payments will be created for the selected group of orders. Continue?</value>
+  </data>
+  <data name="RelatedOrdersDestination" xml:space="preserve">
+    <value>Destination city</value>
+  </data>
+  <data name="RelatedOrdersIsSelected" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="RelatedOrdersNoOrders" xml:space="preserve">
+    <value>No orders for bulk payment creation</value>
+  </data>
+  <data name="RelatedOrdersNumber" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="RelatedOrdersSource" xml:space="preserve">
+    <value>Source city</value>
+  </data>
+  <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
+    <value>Bulk creation of deferred payments cannot be performed if one of the orders has zero amount for payment. The list of payments for bulk creation should not contain selected orders.</value>
+  </data>
+  <data name="ValueCantBeEmpty" xml:space="preserve">
+    <value>The value cannot be empty</value>
+  </data>
+  <data name="MergeLegalPersonsAlert" xml:space="preserve">
+    <value>Attention! After merging, only the main legal entity of the Client will remain in the system, secondary legal entity of the Client will be hidden. The operation cannot be undone!</value>
+  </data>
+  <data name="MergeLegalPersonsSucceded" xml:space="preserve">
+    <value>Merged successfully</value>
+  </data>
+  <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
+    <value>Attention! You are trying to take a Client with a debt receivable!</value>
+  </data>
+  <data name="CheckClientsDebtsFailed" xml:space="preserve">
+    <value>Failed to check debts of the selected clients. Probably some of the selected clients have debts.</value>
+  </data>
+  <data name="InvalidSelectedPositionsCount" xml:space="preserve">
+    <value>Required number of selected items: {0}</value>
+  </data>
+  <data name="CanNotSelectHiddenPosition" xml:space="preserve">
+    <value>You have to change hidden reference objects to the objects available at present</value>
+  </data>
+  <data name="HiddenItem" xml:space="preserve">
+    <value>(hidden till clarification)</value>
+  </data>
+  <data name="DeletedItem" xml:space="preserve">
+    <value>(hidden forever)</value>
+  </data>
+  <data name="ListDoesNotSupportExcluding" xml:space="preserve">
+    <value>This list does not support the operation of excluding from a subdivision.</value>
+  </data>
+  <data name="OrderRepairFailed" xml:space="preserve">
+    <value>Failed to correct items of the order</value>
+  </data>
+  <data name="RepairOutdatedOrderPositions" xml:space="preserve">
+    <value>Refresh the list with actual price-list informaion</value>
+  </data>
+  <data name="RepairInProgressPleaseStandBy" xml:space="preserve">
+    <value>Correction is being made. Please wait...</value>
+  </data>
+  <data name="DiscountResetWarning" xml:space="preserve">
+    <value>Information on discounts will be deleted for all order items! Continue?</value>
+  </data>
+  <data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
+    <value>Order update will produce the following changes:</value>
+  </data>
+  <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
+    <value>This profile is already the main one</value>
+  </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value>Legal entity of the customer must be specified to create a PF</value>
+  </data>
+  <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
+    <value>Save order to create a PF</value>
+  </data>
+  <data name="GridViewColumns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="GridViewSortAscText" xml:space="preserve">
+    <value>Sort ascending</value>
+  </data>
+  <data name="GridViewSortDescText" xml:space="preserve">
+    <value>Sort descending</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="OrderIsCorrect" xml:space="preserve">
+    <value>The order is correct</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
+    <value>Do not display</value>
+  </data>
+  <data name="AdditionalServicesDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="AdditionalServicesDefault" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
+    <value>Depend on address</value>
+  </data>
+  <data name="AdditionalServicesValueNotFound" xml:space="preserve">
+    <value>Invalid value!</value>
+  </data>
+  <data name="AdditionalServicesService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="AdditionalServicesDisplayService" xml:space="preserve">
+    <value>Display service</value>
+  </data>
+  <data name="FileNameNotSpecified" xml:space="preserve">
+    <value>file name is not specified</value>
+  </data>
+  <data name="ActivityDaysAndHoursFormat" xml:space="preserve">
+    <value>Days: {0}, hours: {1}</value>
+  </data>
+  <data name="ActivityDaysFormat" xml:space="preserve">
+    <value>Days: {0}</value>
+  </data>
+  <data name="CopyCurrentOrder" xml:space="preserve">
+    <value>Copy current order</value>
+  </data>
+  <data name="CopyOrderWithTermination" xml:space="preserve">
+    <value>Create order instead of terminated one</value>
+  </data>
+  <data name="OrderCopying" xml:space="preserve">
+    <value>Copying order</value>
+  </data>
+  <data name="OrderCopyingInProgress" xml:space="preserve">
+    <value>Copying order. Please wait…</value>
+  </data>
+  <data name="OrderCopyingFailure" xml:space="preserve">
+    <value>Failed to copy order</value>
+  </data>
+  <data name="OrderCopyingCompleted" xml:space="preserve">
+    <value>Copying completed</value>
+  </data>
+  <data name="OrderCopyingSuccess" xml:space="preserve">
+    <value>Order copied. New order number is {entity}</value>
+  </data>
+  <data name="LimitStatusOpened" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="LimitStatusApproved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="LimitStatusRejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="LimitStatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AddCategory" xml:space="preserve">
+    <value>Add category</value>
+  </data>
+  <data name="BargainCreationIsInProgress" xml:space="preserve">
+    <value>Creating contract. Please wait…</value>
+  </data>
+  <data name="BargainCreation" xml:space="preserve">
+    <value>Creating contract</value>
+  </data>
+  <data name="BargainIsCreated" xml:space="preserve">
+    <value>Contract {entity} created</value>
+  </data>
+  <data name="ApplicationError" xml:space="preserve">
+    <value>Program error</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
+    <value>Please wait. Checking the selected clients for debts</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category name</value>
+  </data>
+  <data name="DummyValue" xml:space="preserve">
+    <value>Parked page</value>
+  </data>
+  <data name="DummyValueWillBeApplied" xml:space="preserve">
+    <value>A parked page will be applied instead of an advertising material.</value>
+  </data>
+  <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
+    <value>Address is not linked to map</value>
+  </data>
+  <data name="InputValidationInvalidUrl" xml:space="preserve">
+    <value>Value of the field &quot;{0}&quot; is not a correct url-address</value>
+  </data>
+  <data name="TextEditorOverflow" xml:space="preserve">
+    <value>Number of symbols exceeds permitted {0} symbols per {1}.</value>
+  </data>
+  <data name="SymbolsLeft" xml:space="preserve">
+    <value>Number of symbols remained: {0}</value>
+  </data>
+  <data name="AdsCheckTooLongWord" xml:space="preserve">
+    <value>Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.</value>
+  </data>
+  <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
+    <value>Number of lines exceeds permitted {0} lines per {1}.</value>
+  </data>
+  <data name="LineBreaksLeft" xml:space="preserve">
+    <value>Number of lines left {0}</value>
+  </data>
+  <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
+    <value>The text contains potentially dangerous elements (HTML tags) and cannot be saved.</value>
+  </data>
+  <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
+    <value>The text contains control symbols. Delete them before saving?</value>
+  </data>
+  <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
+    <value>AM element was not saved.</value>
+  </data>
+  <data name="OrderCreation" xml:space="preserve">
+    <value>Create order</value>
+  </data>
+  <data name="OrderCreationIsInProgress" xml:space="preserve">
+    <value>Creating order... Please wait...</value>
+  </data>
+  <data name="OrderIsCreated" xml:space="preserve">
+    <value>Order {entity} created</value>
+  </data>
+  <data name="OrderProcessingRequestCancelled" xml:space="preserve">
+    <value>Request canceled</value>
+  </data>
+  <data name="MessageText" xml:space="preserve">
+    <value>Text of the message</value>
+  </data>
+  <data name="MessageType" xml:space="preserve">
+    <value>Type of message</value>
+  </data>
+  <data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
+    <value>Completed: {0}    Date: {1}</value>
+  </data>
+  <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;message&quot; : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;messages&quot;:&quot;messages&quot;]})</value>
+  </data>
+  <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
+    <value>Messages for the request</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
+    <value>Do you really want to change limit status to</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>Payment number</value>
+  </data>
+  <data name="IncomingMessages" xml:space="preserve">
+    <value>Incoming messages</value>
+  </data>
+  <data name="OutgoingMessages" xml:space="preserve">
+    <value>Outgoing messages</value>
+  </data>
+  <data name="SelectMessageToSave" xml:space="preserve">
+    <value>Select messages to be saved</value>
+  </data>
+</root>
