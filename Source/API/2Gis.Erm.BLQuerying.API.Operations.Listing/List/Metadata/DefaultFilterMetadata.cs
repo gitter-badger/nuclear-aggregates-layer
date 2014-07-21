@@ -75,6 +75,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListAssociatedPositionsGroupDto>("DListAssociatedPositionsGroupInactive", x => !x.IsActive && !x.IsDeleted)
 
             .RegisterFilter<ListBargainDto>("DListBargains", x => x.IsActive && !x.IsDeleted)
+
+            .RegisterFilter<ListBargainDto>("DListInactiveBargains", x => !x.IsActive && !x.IsDeleted)
+            
             // Мои договоры
             .RegisterFilter<ListBargainDto>("DListMyBargains", x => x.IsActive && !x.IsDeleted)
 
