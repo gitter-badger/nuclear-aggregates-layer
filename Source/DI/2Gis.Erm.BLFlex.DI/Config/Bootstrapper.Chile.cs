@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
+                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
                         .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("ORD_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet));
         }
@@ -157,6 +157,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Bargain, x => x.BargainId);
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
-using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -40,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureRussiaSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                    .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}"))
+                    .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                     .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)

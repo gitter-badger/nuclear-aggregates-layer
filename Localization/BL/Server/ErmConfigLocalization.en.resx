@@ -1008,9 +1008,6 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Active opportunities</value>
   </data>
-  <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Create contract</value>
-  </data>
   <data name="DListBargains" xml:space="preserve">
     <value>Contracts</value>
   </data>
@@ -1718,6 +1715,9 @@
   </data>
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Orders rejected by me that currently have &quot;Preparation&quot; status</value>
+  </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Tasks related to Warm Leads</value>

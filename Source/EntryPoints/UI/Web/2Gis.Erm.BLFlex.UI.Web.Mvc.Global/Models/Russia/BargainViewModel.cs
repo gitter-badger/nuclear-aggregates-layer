@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [DisplayNameLocalized("BargainNumber")]
         public string Number { get; set; }
 
-        [RequiredLocalized]
+        [DisplayNameLocalized("BargainTypeVAT")]
         public LookupField BargainType { get; set; }
 
         [DisplayNameLocalized("BargainLegalPerson")]
@@ -37,6 +37,23 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public DateTime? ClosedOn { get; set; }
 
+        [DisplayNameLocalized("BargainEndDate")]
+        public DateTime? BargainEndDate { get; set; }
+
+        [RequiredLocalized]
+        [Dependency(DependencyType.Required, "BargainEndDate", "this.value=='Agent'")]
+        [Dependency(DependencyType.Disable, "BargainKind",
+            "Ext.getDom('Id').value != '0'||Ext.getDom('UserCanWorkWithAdvertisingAgencies').value.toLowerCase() == 'false'")]
+        public BargainKind BargainKind { get; set; }
+
+        public bool UserCanWorkWithAdvertisingAgencies { get; set; }
+
+        [Dependency(DependencyType.ReadOnly, "LegalPerson", "Ext.getDom('Id').value != '0'||this.value.toLowerCase() == 'true'")]
+        public bool IsLegalPersonChoosingDenied { get; set; }
+
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "Ext.getDom('Id').value != '0'||this.value.toLowerCase() == 'true'")]
+        public bool IsBranchOfficeOrganizationUnitChoosingDenied { get; set; }
+
         public override byte[] Timestamp { get; set; }
 
         [RequiredLocalized]
@@ -44,10 +61,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public override bool IsSecurityRoot
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         [Dependency(DependencyType.Required, "DocumentsComment", "this.value == 'Other'")]
@@ -65,23 +79,23 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Id = modelDto.Id;
             Number = modelDto.Number;
             BargainType = LookupField.FromReference(modelDto.BargainTypeRef);
-            LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
-            BranchOfficeOrganizationUnit = LookupField.FromReference(modelDto.BranchOfficeOrganizationUnitRef);
+            LegalPerson = LookupField.FromReference(modelDto.CustomerLegalPersonRef);
+            BranchOfficeOrganizationUnit = LookupField.FromReference(modelDto.ExecutorBranchOfficeRef);
             Comment = modelDto.Comment;
             SignedOn = modelDto.SignedOn;
             ClosedOn = modelDto.ClosedOn;
+            BargainEndDate = modelDto.BargainEndDate;
+            BargainKind = modelDto.BargainKind;
             HasDocumentsDebt = modelDto.HasDocumentsDebt;
             DocumentsComment = modelDto.DocumentsComment;
             Timestamp = modelDto.Timestamp;
+            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
+            IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            if (BargainType.Key == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             if (LegalPerson.Key == null)
             {
                 throw new ArgumentNullException();
@@ -97,15 +111,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     Id = Id,
                     Number = Number,
                     BargainTypeRef = BargainType.ToReference(),
-                    LegalPersonRef = LegalPerson.ToReference(),
-                    BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
+                    CustomerLegalPersonRef = LegalPerson.ToReference(),
+                    ExecutorBranchOfficeRef = BranchOfficeOrganizationUnit.ToReference(),
                     Comment = Comment,
                     SignedOn = SignedOn,
                     ClosedOn = ClosedOn,
+                    BargainEndDate = BargainEndDate,
+                    BargainKind = BargainKind,
                     HasDocumentsDebt = HasDocumentsDebt,
                     DocumentsComment = DocumentsComment,
                     OwnerRef = Owner.ToReference(),
-                    Timestamp = Timestamp
+                    Timestamp = Timestamp,
+                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
+                    IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied
                 };
         }
     }

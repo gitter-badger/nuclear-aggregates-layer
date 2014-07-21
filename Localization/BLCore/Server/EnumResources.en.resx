@@ -1465,7 +1465,7 @@
     <value>Online</value>
   </data>
   <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Check</value>
@@ -1501,103 +1501,103 @@
     <value>Not set</value>
   </data>
   <data name="FirmAddressContactTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CloseDealReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="DealStageNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InformationSourceNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ReasonForNewDealNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FasCommentNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ProductTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="MarketTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="UsingOtherMediaOptionNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountRoleNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FamilyStatusNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GenderNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderTerminationReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionAccountingMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionBindingObjectTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionCalculationMethodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformMinPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositionPlatformPlacementPeriodNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OrderPositionDiscountReasonNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BudgetTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="GeolocationNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="InCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="OutCityBranchesAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="StaffAmountNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AllOrdersReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ObjectBindingTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountsReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="SalesReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="RegistryDocReportTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BusinessOperationTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
     <value>Publication of AM template</value>
@@ -1606,7 +1606,7 @@
     <value>Canceling publication of AM template</value>
   </data>
   <data name="ESalesPointTypeNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypeFilial" xml:space="preserve">
     <value>Filial</value>
@@ -1621,7 +1621,7 @@
     <value>UK</value>
   </data>
   <data name="ESalesPointTypePairNoneNone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ESalesPointTypePairFilialSelf" xml:space="preserve">
     <value>Local advertising at a branch office</value>
@@ -1807,7 +1807,7 @@
     <value>The sold category</value>
   </data>
   <data name="AccountTypeNotSet" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AccountTypeCurrentAccount" xml:space="preserve">
     <value>Current account</value>
@@ -1890,5 +1890,20 @@
   <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
     <value>Agreement for a legal entity (additional language)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
+  </data>
+  <data name="DenialReasonTypeInternalRules" xml:space="preserve">
+    <value>Internal rules</value>
+  </data>
+  <data name="DenialReasonTypeLaw" xml:space="preserve">
+    <value>Advertising Act</value>
+  </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Reason for rejecting the AM</value>
+  </data>
+  <data name="BargainKindAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="BargainKindClient" xml:space="preserve">
+    <value>Client</value>
   </data>
 </root>

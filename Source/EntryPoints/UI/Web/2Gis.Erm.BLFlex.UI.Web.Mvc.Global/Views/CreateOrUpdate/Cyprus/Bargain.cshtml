@@ -1,5 +1,4 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@model Models.Cyprus.CyprusBargainViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusBargainViewModel
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
 }
@@ -17,6 +16,9 @@
 {
     <div style="display: none">
         @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.UserCanWorkWithAdvertisingAgencies)
+        @Html.HiddenFor(m => m.IsBranchOfficeOrganizationUnitChoosingDenied)
+        @Html.HiddenFor(m => m.IsLegalPersonChoosingDenied)
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
@@ -24,14 +26,18 @@
             @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ShowReadOnlyCard = true, ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.SignedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+            @Html.TemplateField(m => m.SignedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
             @Html.TemplateField(m => m.ClosedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true, ReadOnly = true })
+            @Html.TemplateField(m => m.BargainKind, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.BargainEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "4" } })
