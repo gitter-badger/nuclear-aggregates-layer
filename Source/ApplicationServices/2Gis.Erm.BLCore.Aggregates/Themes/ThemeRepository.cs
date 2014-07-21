@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 {
     public sealed class ThemeRepository : IThemeRepository
     {
-        private const int MaxThemesPerOrganizationUnit = 5;
+        private const int MaxThemesPerOrganizationUnit = 10;
         private const int MaxSkyscraperThemesPerOrganizationUnit = 1;
         private const int MaxDefaultThemesPerOrganizationUnit = 1;
 
