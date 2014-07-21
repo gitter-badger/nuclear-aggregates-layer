@@ -1,19 +1,33 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting
 {
     public sealed class EvaluateBargainNumberService : IEvaluateBargainNumberService
     {
-        private readonly string _bargainNumberTemplate;
+        private readonly string _clientBargainNumberTemplate;
+        private readonly string _agentBargainNumberTemplate;
 
-        public EvaluateBargainNumberService(string bargainNumberTemplate)
+        public EvaluateBargainNumberService(string clientBargainNumberTemplate,
+                                            string agentBargainNumberTemplate)
         {
-            _bargainNumberTemplate = bargainNumberTemplate;
+            _clientBargainNumberTemplate = clientBargainNumberTemplate;
+            _agentBargainNumberTemplate = agentBargainNumberTemplate;
         }
 
-        public string Evaluate(string sourceOrganizationUnitSyncCode1C, string destinationOrganizationUnitSyncCode1C, long bargainUniqueIndex)
+        public string Evaluate(BargainKind bargainKind, string legalPersonOrganizationUnitCode, string branchOfficeOrganizationUnitCode, long bargainUniqueIndex)
         {
-            return string.Format(_bargainNumberTemplate, sourceOrganizationUnitSyncCode1C, destinationOrganizationUnitSyncCode1C, bargainUniqueIndex);
+            switch (bargainKind)
+            {
+                case BargainKind.Agent:
+                    return string.Format(_agentBargainNumberTemplate, legalPersonOrganizationUnitCode, branchOfficeOrganizationUnitCode, bargainUniqueIndex);
+                case BargainKind.Client:
+                    return string.Format(_clientBargainNumberTemplate, legalPersonOrganizationUnitCode, branchOfficeOrganizationUnitCode, bargainUniqueIndex);
+                default:
+                    throw new ArgumentOutOfRangeException("bargainKind");
+            }
         }
     }
 }

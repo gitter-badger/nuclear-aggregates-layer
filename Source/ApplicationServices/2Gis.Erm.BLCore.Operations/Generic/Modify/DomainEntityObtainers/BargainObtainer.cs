@@ -24,14 +24,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (BargainDomainEntityDto)domainEntityDto;
 
             var entity = _finder.Find(Specs.Find.ById<Bargain>(dto.Id)).SingleOrDefault() ??
-                         new Bargain { IsActive = true };
+                         new Bargain
+                             {
+                                 IsActive = true,
+                                 OwnerCode = dto.OwnerRef.Id.Value
+                             };
 
             entity.Comment = dto.Comment;
             entity.SignedOn = dto.SignedOn;
             entity.ClosedOn = dto.ClosedOn;
+            entity.BargainKind = (int)dto.BargainKind;
+            entity.BargainEndDate = dto.BargainEndDate;
             entity.HasDocumentsDebt = (byte)dto.HasDocumentsDebt;
             entity.DocumentsComment = dto.DocumentsComment;
-            
+            entity.CustomerLegalPersonId = dto.CustomerLegalPersonRef.Id.Value;
+            entity.ExecutorBranchOfficeId = dto.ExecutorBranchOfficeRef.Id.Value;
+
             return entity;
         }
     }
