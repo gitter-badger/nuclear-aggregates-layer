@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
 
         IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode);
         ContributionTypeEnum GetOrganizationUnitContributionType(long organizationUnitId);
+        ContributionTypeEnum GetBranchOfficeOrganizationUnitContributionType(long branchOfficeOrganizationUnitId);
 
         PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId);
 
@@ -28,5 +29,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                                                                                       long branchOfficeOrganizationUnitId);
         
         string GetBranchOfficeName(long branchOfficeId);
+        string GetBranchOfficeOrganizationName(long branchOfficeOrganizationUnitId);
+        int? GetBranchOfficeOrganizationDgppid(long branchOfficeOrganizationUnitId);
+        long GetBargainTypeId(long branchOfficeOrganizationUnitId);
     }
 }

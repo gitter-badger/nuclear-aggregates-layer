@@ -15,12 +15,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
     {
         private readonly IFinder _finder;
         // FIXME {y.baranihin, 04.06.2014}: Верно, что _secureFinder не используется?
-        private readonly ISecureFinder _secureFinder;
+        // COMMENT {d.ivanov, 07.07.2014}: это очень интересный вопрос. _secureFinder убрал, чтобы глаза не мозолил
 
-        protected BranchOfficeReadModel(IFinder finder, ISecureFinder secureFinder)
+        protected BranchOfficeReadModel(IFinder finder)
         {
             _finder = finder;
-            _secureFinder = secureFinder;
         }
 
         public virtual BranchOffice GetBranchOffice(long branchOfficeId)
@@ -53,12 +52,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                           .Any();
         }
 
+        public ContributionTypeEnum GetBranchOfficeOrganizationUnitContributionType(long branchOfficeOrganizationUnitId)
+        {
+            var type = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
+                              .Select(boou => boou.BranchOffice.ContributionTypeId.Value)
+                              .Single();
+
+            return (ContributionTypeEnum)type;
+        }
+
         public PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             var primary = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId));
-            var primaryForRegionalSales = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId));
+            var primaryForRegionalSales =
+                _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId));
             return new PrimaryBranchOfficeOrganizationUnits
-        {
+                {
                     Primary = primary,
                     PrimaryForRegionalSales = primaryForRegionalSales
                 };
@@ -80,6 +89,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
         public string GetBranchOfficeName(long branchOfficeId)
         {
             return _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeId)).Select(x => x.Name).Single();
+        }
+
+        public string GetBranchOfficeOrganizationName(long branchOfficeOrganizationUnitId)
+        {
+            return _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId)).Select(x => x.ShortLegalName).Single();
+        }
+
+        public int? GetBranchOfficeOrganizationDgppid(long branchOfficeOrganizationUnitId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
+                       .Select(x => x.OrganizationUnit.DgppId)
+                       .SingleOrDefault();
+        }
+
+        public long GetBargainTypeId(long branchOfficeOrganizationUnitId)
+        {
+            return
+                _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
+                       .Select(x => x.BranchOffice.BargainTypeId.Value)
+                       .Single();
         }
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)

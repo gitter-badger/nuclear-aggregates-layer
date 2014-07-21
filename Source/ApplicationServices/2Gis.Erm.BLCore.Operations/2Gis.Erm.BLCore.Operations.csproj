@@ -98,7 +98,6 @@
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AfterSalesService\CreateAfterSaleServiceActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\AfterSalesService\CrmCreateAfterSaleServiceActivitiesHandler.cs" />
-    <Compile Include="Concrete\Old\Bargains\BargainService.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\DeleteBillsHandler.cs" />
@@ -211,7 +210,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\RemoveBargainFromOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
@@ -233,6 +231,8 @@
     <Compile Include="Concrete\Old\UserProfiles\SyncUserProfilesHandler.cs" />
     <Compile Include="Concrete\OrderPositions\CalculateCategoryRateOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\DetermineOrderBargainOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\CloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Orders\CopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderCreationStrategy.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderEditingStrategy.cs" />
@@ -299,6 +299,7 @@
     <Compile Include="Generic\Activate\ActivatePricePositionService.cs" />
     <Compile Include="Generic\Activate\ActivatePriceService.cs" />
     <Compile Include="Generic\Activate\ActivateUserService.cs" />
+    <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
     <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
     <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionsGroupService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateBranchOfficeService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateBargainOperationService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDeniedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDepartmentService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateGenericEntityService.cs" />
@@ -346,7 +348,6 @@
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementTemplateService.cs" />
-    <Compile Include="Generic\Delete\DeleteBargainService.cs" />
     <Compile Include="Generic\Delete\DeleteBillService.cs" />
     <Compile Include="Generic\Delete\DeleteCategoryGroupService.cs" />
     <Compile Include="Generic\Delete\DeleteCurrencyService.cs" />
@@ -488,6 +489,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\ThemeTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
+    <Compile Include="Generic\Modify\ModifyBargainService.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
@@ -499,7 +501,6 @@
     <Compile Include="Generic\Modify\Old\EditAssociatedPositionGroupHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAssociatedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainFileHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditBargainHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBargainTypeHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditBillHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCategoryGroupHandler.cs" />

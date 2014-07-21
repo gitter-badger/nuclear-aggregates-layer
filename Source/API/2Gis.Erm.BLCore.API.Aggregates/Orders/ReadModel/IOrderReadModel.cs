@@ -20,8 +20,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
-        CreateBargainInfo GetBargainInfoForCreate(long orderId);
-        bool TryGetExistingBargain(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderSignupDate, out Bargain existingBargain);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
 
         Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
@@ -82,7 +80,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderStateValidationInfo GetOrderStateValidationInfo(long orderId);
         bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId);
         OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost);
-        IEnumerable<Order> GetOrdersForBargain(long bargainId);
         IEnumerable<Order> GetOrdersForDeal(long dealId);
         OrderPositionRebindingDto GetOrderPositionInfo(long orderPositionId);
         OrderUsageDto GetOrderUsage(long orderId);
@@ -97,5 +94,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                       out IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions,
                                       out string message);
         long GetOrderOwnerCode(long orderId);
+
+        IReadOnlyCollection<Bargain> GetNonClosedClientBargains();
+        Bargain GetBargain(long bargainId);
+        string GetDuplicateAgentBargainNumber(long bargainId, long legalPersonId, long branchOfficeOrganizationUnitId, DateTime bargainBeginDate, DateTime bargainEndDate);
+        IDictionary<string, DateTime> GetBargainUsage(long bargainId);
+        BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId);
+        IEnumerable<OrderSuitableBargainDto> GetSuitableBargains(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderEndDistributionDate);
     }
 }

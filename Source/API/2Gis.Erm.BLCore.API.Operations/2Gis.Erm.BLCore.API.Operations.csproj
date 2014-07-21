@@ -65,6 +65,8 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
     <Compile Include="Concrete\Deals\IGenerateDealNameService.cs" />
     <Compile Include="Concrete\Deals\IReplicateDealStageOperationService.cs" />
@@ -205,6 +207,16 @@
     <Compile Include="Generic\List\ListResult.cs" />
     <Compile Include="Generic\List\ListResultType.cs" />
     <Compile Include="Generic\List\SearchListModel.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\AccessToAgentBargainCreationIsDeniedException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BargainEndDateIsLessThanSignedOnDateException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BargainKindChangingException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BargainCloseDateIsLessThanOrderEndDistributionDateException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BargainEndDateIsLessThanOrderEndDistributionDateException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BargainInUseDeactivationException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\BranchOfficeOrganizationUnitCodeIsUndefinedException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\LegalPersonOrganizationUnitCodeIsUndefinedException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -234,9 +246,6 @@
     <Compile Include="Concrete\Old\Deals\CloseDeal.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDeal.cs" />
     <Compile Include="Concrete\Old\Bargains\CloseBargainsResult.cs" />
-    <Compile Include="Concrete\Old\Bargains\EntityIdAndNumber.cs" />
-    <Compile Include="Concrete\Old\Bargains\GetOrderBargainResult.cs" />
-    <Compile Include="Concrete\Old\Bargains\IBargainService.cs" />
     <Compile Include="Concrete\Old\HotClient\CreateHotClientRequest.cs" />
     <Compile Include="Concrete\Old\HotClient\CreateHotClientResponse.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
@@ -319,7 +328,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\RemoveBargainFromOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedRequest.cs" />

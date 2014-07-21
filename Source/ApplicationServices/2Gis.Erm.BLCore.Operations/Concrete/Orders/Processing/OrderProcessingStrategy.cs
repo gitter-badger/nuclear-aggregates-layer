@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Exceptions.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -100,6 +101,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             if (!destOrganizationUnit.IsActive || destOrganizationUnit.IsDeleted)
             {
                 throw new ArgumentException(BLResources.DestOrganizationUnitIsInactive);
+            }
+
+            if (order.BargainId.HasValue && order.WorkflowStepId != (int)OrderState.OnTermination)
+            {
+                var calculatedOrderDistributionDates = OrderReadModel.CalculateDistributionDates(order.BeginDistributionDate, order.ReleaseCountPlan, order.ReleaseCountFact);
+
+                var bargainDates = _orderReadModel.GetBargainEndAndCloseDates(order.BargainId.Value);
+                if (bargainDates.BargainEndDate.HasValue && bargainDates.BargainEndDate.Value < calculatedOrderDistributionDates.EndDistributionDateFact)
+                {
+                    throw new BargainEndDateIsLessThanOrderEndDistributionDateException(BLResources.BargainEndDateIsLessThanOrderEndDistributionDate);
+                }
+
+                if (bargainDates.BargainCloseDate.HasValue && bargainDates.BargainCloseDate.Value < calculatedOrderDistributionDates.EndDistributionDateFact)
+                {
+                    throw new BargainCloseDateIsLessThanOrderEndDistributionDateException(BLResources.BargainCloseDateIsLessThanOrderEndDistributionDate);
+                }
             }
 
             ValidateOrderStateInternal(order, currentUserCode);
