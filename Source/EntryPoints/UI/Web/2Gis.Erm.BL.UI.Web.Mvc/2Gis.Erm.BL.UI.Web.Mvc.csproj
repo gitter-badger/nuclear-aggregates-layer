@@ -239,7 +239,9 @@
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
+    <Compile Include="Services\Grid\OrderGridViewService.cs" />
     <Compile Include="Services\Grid\BillViewService.cs" />
+    <Compile Include="Services\Grid\BargainGridViewService.cs" />
     <Compile Include="Services\Grid\FirmGridViewService.cs" />
     <Compile Include="Services\Grid\LegalPersonProfileViewService.cs" />
     <Compile Include="Services\Grid\LimitGridViewService.cs" />

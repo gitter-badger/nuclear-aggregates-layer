@@ -1008,9 +1008,6 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Transacciones activas</value>
   </data>
-  <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Crear contrato</value>
-  </data>
   <data name="DListBargains" xml:space="preserve">
     <value>Contratos</value>
   </data>

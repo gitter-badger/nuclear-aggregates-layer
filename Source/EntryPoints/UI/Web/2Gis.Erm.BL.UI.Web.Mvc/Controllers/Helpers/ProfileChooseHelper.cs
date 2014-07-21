@@ -114,7 +114,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
             return new ChooseProfileViewModel
                 {
                     LegalPersonId = order.LegalPersonId.Value,
-                    OrderId = order.Id,
                     DefaultLegalPersonProfileId = profileId,
                     LegalPersonProfile = profileId.HasValue ? CreateLookupField(profileId.Value) : null,
                     IsCardReadOnly = !OrderUpdateAccessAllowed(order, userId)

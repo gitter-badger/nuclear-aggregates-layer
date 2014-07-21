@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Copy;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IReplicationCodeConverter _replicationCodeConverter;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -82,7 +84,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IProcessOrderProlongationRequestSingleOperation orderProlongationOperation,
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
-                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService)
+                               IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -100,6 +103,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _orderCreationOperation = orderCreationOperation;
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
+            _determineOrderBargainOperationService = determineOrderBargainOperationService;
         }
 
         #region Ajax methods
@@ -281,6 +285,31 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     DestinationOrganizationUnitId = destinationOrganizationUnitId
                 });
             return new JsonNetResult();
+        }
+
+        [HttpPost]
+        public JsonNetResult TryDetermineBargain(long? branchOfficeOrganizationUnitId,
+                                                 long? legalPersonId,
+                                                 DateTime endDistributionDate)
+        {
+            if (!branchOfficeOrganizationUnitId.HasValue || !legalPersonId.HasValue)
+            {
+                return new JsonNetResult();
+            }
+
+            long bargainId;
+            string bargainNumber;
+
+            if (!_determineOrderBargainOperationService.TryDetermineOrderBargain(legalPersonId.Value,
+                                                                                 branchOfficeOrganizationUnitId.Value,
+                                                                                 endDistributionDate,
+                                                                                 out bargainId,
+                                                                                 out bargainNumber))
+            {
+                return new JsonNetResult();
+            }
+
+            return new JsonNetResult(new { Id = bargainId, BargainNumber = bargainNumber });
         }
 
         #endregion
@@ -479,24 +508,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             return View(viewModel);
-        }
-
-        [HttpPost]
-        public ActionResult RemoveBargain(long orderId)
-        {
-            _publicService.Handle(new RemoveBargainFromOrderRequest { OrderId = orderId });
-            return null;
-        }
-
-        [HttpPost]
-        public JsonNetResult GetBargainRemovalConfirmation(long orderId)
-        {
-            var hasAnotherOrders = _secureFinder.Find<Order>(order => order.Id == orderId)
-                                                .Select(order => order.Bargain.Orders.Any(item => item.Id != orderId && !item.IsDeleted))
-                                                .Single();
-            return new JsonNetResult(hasAnotherOrders
-                                         ? BLResources.RemoveOrderBargainLinkConfirmation
-                                         : BLResources.RemoveBargainConfirmation);
         }
 
         [HttpGet]
