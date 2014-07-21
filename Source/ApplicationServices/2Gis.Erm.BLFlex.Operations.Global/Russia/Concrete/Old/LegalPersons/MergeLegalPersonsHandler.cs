@@ -29,30 +29,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IUpdateAggregateRepository<LegalPersonProfile> _updateProfileRepository; 
         private readonly IOrderRepository _orderRepository;
-        private readonly IAccountRepository _accountRepository;
-        private readonly IBargainRepository _bargainRepository;
+        private readonly IAccountRepository _accountRepository;        
         private readonly IRussiaLegalPersonReadModel _legalPersonReadModel;
+        private readonly IUpdateAggregateRepository<Bargain> _updateBargainAggregateService;
 
         public MergeLegalPersonsHandler(
             ISecurityServiceFunctionalAccess functionalAccessService,
             ILegalPersonRepository legalPersonRepository,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
-            IBargainRepository bargainRepository,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
             IUpdateAggregateRepository<LegalPersonProfile> updateProfileRepository,
-            IRussiaLegalPersonReadModel legalPersonReadModel)
+            IRussiaLegalPersonReadModel legalPersonReadModel,
+            IUpdateAggregateRepository<Bargain> updateBargainAggregateService)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _scopeFactory = scopeFactory;
             _updateProfileRepository = updateProfileRepository;
             _legalPersonReadModel = legalPersonReadModel;
+            _updateBargainAggregateService = updateBargainAggregateService;
             _legalPersonRepository = legalPersonRepository;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
-            _bargainRepository = bargainRepository;
         }
 
         protected override EmptyResponse Handle(MergeLegalPersonsRequest request)
@@ -214,7 +214,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                 foreach (var bargain in appendedLegalPerson.Bargains)
                 {
                     bargain.CustomerLegalPersonId = mainLegalPerson.LegalPerson.Id;
-                    _bargainRepository.Update(bargain);
+                    _updateBargainAggregateService.Update(bargain);
                 }
 
                 operationScope.Updated<Bargain>(appendedLegalPerson.Bargains.Select(x => x.Id));

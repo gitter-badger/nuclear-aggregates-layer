@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureEmiratesSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}"))
+                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
                         .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("Q_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet));
         }
@@ -170,6 +170,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Bargain, x => x.BargainId);
         }
     }
 }

@@ -1903,4 +1903,19 @@
     <value>Acuerdo para la persona jurídica (idioma adicional)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="DenialReasonTypeInternalRules" xml:space="preserve">
+    <value>Reglamentos internos</value>
+  </data>
+  <data name="DenialReasonTypeLaw" xml:space="preserve">
+    <value>Ley de publicidad</value>
+  </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Motivos de rechazo de los Materiales Publicitarios</value>
+  </data>
+  <data name="BargainKindAgent" xml:space="preserve">
+    <value>De agente</value>
+  </data>
+  <data name="BargainKindClient" xml:space="preserve">
+    <value>De cliente</value>
+  </data>
 </root>

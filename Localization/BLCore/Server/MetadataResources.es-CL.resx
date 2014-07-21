@@ -1374,4 +1374,34 @@
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
     <value>Generar Acceptance Report</value>
   </data>
+  <data name="DenialReasonDescription" xml:space="preserve">
+    <value>Descripción breve</value>
+  </data>
+  <data name="DenialReasonName" xml:space="preserve">
+    <value>Título del punto de reglamento</value>
+  </data>
+  <data name="DenialReasonProofLink" xml:space="preserve">
+    <value>Enlace al párrafo de reglamento</value>
+  </data>
+  <data name="DenialReasonType" xml:space="preserve">
+    <value>Tipo del motivo de rechazo</value>
+  </data>
+  <data name="DListDenialReason" xml:space="preserve">
+    <value>Motivos de rechazo de los Materiales Publicitarios</value>
+  </data>
+  <data name="EnDenialReason" xml:space="preserve">
+    <value>Motivo de rechazo de los Materiales Publicitarios</value>
+  </data>
+  <data name="DListInactiveDenialReason" xml:space="preserve">
+    <value>Motivos de rechazo ocultos de los Materiales Publicitarios</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Tipo de acuerdo</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Modelo de ventas nuevo</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>IVA</value>
+  </data>
 </root>

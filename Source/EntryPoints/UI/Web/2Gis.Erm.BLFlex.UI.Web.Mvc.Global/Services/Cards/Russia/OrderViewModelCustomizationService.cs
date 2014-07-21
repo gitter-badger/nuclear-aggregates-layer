@@ -132,15 +132,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                 entityViewModel.ViewConfig.DisableCardToolbarItem("ChangeDeal", false);
             }
 
-            // Кнопки изменения договора закрыты при наличии сборки
-            var hasLocks = _secureFinder.Find<Order>(order => order.Id == entityViewModel.Id).SelectMany(order => order.Locks).Any(@lock => !@lock.IsDeleted);
-            if (hasLocks)
-            {
-                var bargainButtons = entityViewModel.ViewConfig.CardSettings.CardToolbar
-                    .Where(x => string.Equals(x.Name, "CreateBargain", StringComparison.OrdinalIgnoreCase) || string.Equals(x.Name, "RemoveBargain", StringComparison.OrdinalIgnoreCase))
-                    .ToArray();
-                Array.ForEach(bargainButtons, item => item.Disabled = true);
-            }
 
             {   // restrict printing of termination notice and additional agreement
                 var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated || !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination || entityViewModel.WorkflowStepId == (int)OrderState.Archive);
