@@ -1008,9 +1008,7 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Активные сделки</value>
   </data>
-  <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Создать договор</value>
-  </data>
+
   <data name="DListBargains" xml:space="preserve">
     <value>Договоры</value>
   </data>

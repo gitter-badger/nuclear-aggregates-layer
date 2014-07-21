@@ -58,6 +58,11 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.07.16 rev. 22367 - Alter bargain replication.cs" />
+    <Compile Include="2.1\2014.07.16 rev. 22366 - CRM bargain customization.cs" />
+    <Compile Include="2.1\2014.07.15 rev. 22361 - Alter bargain replication.cs" />
+    <Compile Include="2.1\2014.07.15 rev. 22356 - CRM bargain customization.cs" />
+    <Compile Include="2.1\2014.07.04 rev. 22016 - add BargainKind and  BargainEndDate columns in Billing.Bargains.cs" />
     <Compile Include="2.1\2014.06.26 rev. 21672 - Create flowOrders_DenialReason table.cs" />
     <Compile Include="2.1\2014.06.26 rev. 21673 - Insert a records into BusinessOperationServices.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
@@ -112,6 +117,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Migration15632.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_22356.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration22361.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_22366.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration22367.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

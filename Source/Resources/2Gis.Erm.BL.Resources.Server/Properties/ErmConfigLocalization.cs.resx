@@ -1008,9 +1008,6 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Aktivní obchodní transakce</value>
   </data>
-  <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Vytvořit smlouvu</value>
-  </data>
   <data name="DListBargains" xml:space="preserve">
     <value>Smlouvy</value>
   </data>
