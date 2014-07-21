@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BargainType)),
 
-                    EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.LegalPersonRef)
+                    EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.CustomerLegalPersonRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new RequiredPropertyFeature(),
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.Properties
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BargainLegalPerson)),
 
-                    EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
+                    EntityPropertyMetadata.Create<BargainDomainEntityDto>(dto => dto.ExecutorBranchOfficeRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
                                       new RequiredPropertyFeature(),

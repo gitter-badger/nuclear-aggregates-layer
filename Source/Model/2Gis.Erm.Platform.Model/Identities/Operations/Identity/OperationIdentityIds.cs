@@ -77,7 +77,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
 
         // EntityName.Bargain = 198
+        [Obsolete]
         public const int BindBargainToOrderIdentity = 19801;
+        public const int BulkCloseClientBargainsIdentity = 19802;
+        public const int DetermineOrderBargainIdentity = 19803;
 
         // EntityName.Firm = 146
         public const int ImportCardsFromServiceBusIdentity = 14601;
@@ -103,6 +106,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ExportAccountDetailsTo1CIdentity = 15102;
         public const int PrintRegionalOrderIdentity = 15103;
         public const int ReportsServiceIdentity = 15104;
+        [Obsolete]
         public const int RemoveBargainIdentity = 15105;
         public const int ChangeDealIdentity = 15106;
         public const int RepairOutdatedIdentity = 15107;

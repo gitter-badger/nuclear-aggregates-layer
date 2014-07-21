@@ -453,6 +453,10 @@
       <Link>Entities\Erm\ExportFlowOrders_DenialReason.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrders_DenialReasonDomainEntityDto.cs">
+      <Link>Entities\DTOs\ExportFlowOrders_DenialReasonDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClients.cs">
       <Link>Entities\Erm\ExportToMsCrm_HotClients.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -637,9 +641,17 @@
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -754,6 +766,7 @@
     <Compile Include="Entities\Enums\ChargesHistoryStatus.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
+    <Compile Include="Entities\Enums\BargainKind.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
@@ -811,6 +824,9 @@
     <Compile Include="IBoundedContext.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementValidationStatusChangedIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Bargain\DetermineOrderBargainIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Bargain\BulkCloseClientBargainsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
@@ -1546,7 +1562,6 @@
     <Compile Include="Identities\Operations\Identity\OperationIdentityRegistry.cs" />
     <Compile Include="Identities\Operations\Identity\OperationIdentityUtils.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Advertisement\SelectAdvertisementToWhitelistIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\SpecifyAdditionalServicesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\LegalPersonProfile\SetAsMainLegalPersonProfileIdentity.cs" />

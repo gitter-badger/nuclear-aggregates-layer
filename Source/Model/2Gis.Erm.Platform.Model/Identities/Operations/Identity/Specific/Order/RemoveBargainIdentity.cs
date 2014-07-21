@@ -1,5 +1,8 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
+﻿using System;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 {
+    [Obsolete]
     public sealed class RemoveBargainIdentity : OperationIdentityBase<RemoveBargainIdentity>, INonCoupledOperationIdentity
     {
         public override int Id
