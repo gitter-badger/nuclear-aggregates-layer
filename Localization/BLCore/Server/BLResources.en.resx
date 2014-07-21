@@ -5206,9 +5206,6 @@ Placement period: {3}.</value>
   <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
     <value>This contract cannot be hidden since it is linked to the following orders: {0}.</value>
   </data>
-  <data name="AllowedAgentBargainPeriodIsExceeded" xml:space="preserve">
-    <value>Validity period of the agent contract is exceeded</value>
-  </data>
   <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
     <value>Contract closing date is earlier than the end date of order placement</value>
   </data>
@@ -5223,5 +5220,8 @@ Placement period: {3}.</value>
   </data>
   <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
     <value>No permissions for creation of agent contract</value>
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
 </root>

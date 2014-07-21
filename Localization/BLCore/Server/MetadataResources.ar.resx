@@ -1375,24 +1375,33 @@
     <value>Generate Acceptance Report</value>
   </data>
   <data name="DenialReasonDescription" xml:space="preserve">
-    <value>Краткое описание</value>
+    <value>Short description</value>
   </data>
   <data name="DenialReasonName" xml:space="preserve">
-    <value>Заголовок пункта правил</value>
+    <value>Regulations item title</value>
   </data>
   <data name="DenialReasonProofLink" xml:space="preserve">
-    <value>Ссылка на параграф правил</value>
+    <value>Reference to a section in the regulations</value>
   </data>
   <data name="DenialReasonType" xml:space="preserve">
-    <value>Тип причины отклонения</value>
+    <value>Type of reason for rejection</value>
   </data>
   <data name="DListDenialReason" xml:space="preserve">
-    <value>Причины отклонения РМ</value>
+    <value>Reason for rejecting the AM</value>
   </data>
   <data name="EnDenialReason" xml:space="preserve">
-    <value>Причина отклонения РМ</value>
+    <value>Reason for rejecting the AM</value>
   </data>
   <data name="DListInactiveDenialReason" xml:space="preserve">
-    <value>Скрытые причины отклонения РМ</value>
+    <value>Hidden reasons for rejecting the AM</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Type of contract</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>New sales model</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>VAT</value>
   </data>
 </root>
