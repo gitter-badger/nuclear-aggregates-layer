@@ -247,75 +247,6 @@ window.InitPage = function () {
                 PrintLetterOfGuarantee: function () {
                     this.Print('PrintLetterOfGuarantee');
                 },
-                CreateBargain: function () {
-                    if (!this.checkDirty()) return;
-                    this.updateBargain(false); //Попыта получить договор на случай если он уже есть
-                    var bargain = Ext.getCmp('Bargain').getValue();
-                    var self = this;
-                    if (!bargain) {
-                        var progressWindow = Ext.MessageBox.wait(Ext.LocalizedResources.BargainCreationIsInProgress, Ext.LocalizedResources.BargainCreation);
-
-                        Ext.Ajax.request({
-                            method: 'POST',
-                            url: '/Bargain/CreateBargainForOrder',
-                            params: { orderId: this.form.Id.value },
-                            success: function (xhr) {
-                                progressWindow.hide();
-                                var response = Ext.decode(xhr.responseText);
-
-                                Ext.DoubleGis.Global.Helpers.ShowEntityLink({
-                                    title: Ext.LocalizedResources.BargainCreation,
-                                    msg: Ext.LocalizedResources.BargainIsCreated,
-                                    buttons: Ext.Msg.OK,
-                                    icon: Ext.MessageBox.INFO,
-                                    entityName: 'Bargain',
-                                    entityId: response.BargainId,
-                                    entityDescription: response.BargainNumber,
-                                    fn: function () { self.refresh(true); }
-                                });
-                            },
-                            failure: function () {
-                                progressWindow.hide();
-                                Ext.Msg.show({
-                                    title: Ext.LocalizedResources.Error,
-                                    msg: Ext.LocalizedResources.ApplicationError,
-                                    buttons: Ext.Msg.OK,
-                                    icon: Ext.MessageBox.ERROR
-                                });
-                            }
-                        });
-                    }
-                },
-                RemoveBargain: function () {
-                    if (!this.checkDirty()) return;
-                    this.Request({
-                        method: 'POST',
-                        url: '/Order/GetBargainRemovalConfirmation',
-                        params: { orderId: this.form.Id.value },
-                        scope: this,
-                        success: function (xhr) {
-                            var message = Ext.decode(xhr.responseText);
-                            Ext.MessageBox.confirm(Ext.LocalizedResources.AreYouSureWantToDeleteBargain, message, function (btn) {
-                                if (btn == 'yes') {
-                                    this.Request({
-                                        method: 'POST',
-                                        url: '/Order/RemoveBargain',
-                                        params: { orderId: this.form.Id.value },
-                                        success: function () {
-                                            this.refresh();
-                                        },
-                                        failure: function (xhr) {
-                                            alert(xhr.responseText);
-                                        }
-                                    });
-                                }
-                            }, this);
-                        },
-                        failure: function (xhr) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                },
                 ChangeDeal: function () {
                     if (!this.checkDirty()) return;
                     var params = "dialogWidth:450px; dialogHeight:200px; status:yes; scroll:no; resizable:no; ";
@@ -427,50 +358,41 @@ window.InitPage = function () {
 
                     card.isDirty &= cardWasDirty;
                 },
-                updateBargain: function (showAlert) {
-                    // Обновление отделения организации юр лица исполнителя
-                    var legalPerson = Ext.getCmp('LegalPerson').getValue();
-                    var branchOfficeOrganizationUnit = Ext.getCmp('BranchOfficeOrganizationUnit').getValue();
+                clearBargain: function () {
                     var bargain = Ext.getCmp('Bargain');
 
                     if (bargain.item) {
                         bargain.clearValue();
                     }
+                },
+                tryDetermineBargain: function () {
 
-                    var currentOrderSignupDate = Ext.getCmp("SignupDate").getValue();
-                    var currentOrderSignupDateText = currentOrderSignupDate ? currentOrderSignupDate.format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : currentOrderSignupDate;
+                    var legalPerson = Ext.getCmp('LegalPerson').getValue();
+                    var branchOfficeOrganizationUnit = Ext.getCmp('BranchOfficeOrganizationUnit').getValue();
+                    var bargain = Ext.getCmp('Bargain');
 
-                    // Для юр. лица исполнителя и юр. лица клиента производим поиск 
-                    // договора, действующего на дату подписания заказа.
+                    var currentEndDistributionDate = Ext.getCmp("EndDistributionDateFact").getValue();
+                    var currentEndDistributionDateText = currentEndDistributionDate ? currentEndDistributionDate.format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : currentEndDistributionDate;
+
                     if (legalPerson && branchOfficeOrganizationUnit) {
                         this.Items.Toolbar.disable();
                         var bargainInfoResponse = window.Ext.Ajax.syncRequest({
                             method: 'POST',
-                            url: '/Bargain/GetBargain',
-                            params: { branchOfficeOrganizationUnitId: branchOfficeOrganizationUnit.id, legalPersonId: legalPerson.id, orderSignupDate: currentOrderSignupDateText }
+                            url: '/Order/TryDetermineBargain',
+                            params: { branchOfficeOrganizationUnitId: branchOfficeOrganizationUnit.id, legalPersonId: legalPerson.id, endDistributionDate: currentEndDistributionDateText }
                         });
 
                         if ((bargainInfoResponse.conn.status >= 200 && bargainInfoResponse.conn.status < 300) || (Ext.isIE && bargainInfoResponse.conn.status == 1223)) {
                             var bargainInfo = Ext.decode(bargainInfoResponse.conn.responseText);
 
                             if (bargainInfo) {
-                                var bargainClosedOn = bargainInfo.BargainClosedOn;
-
-                                if (!bargainClosedOn || bargainClosedOn >= currentOrderSignupDate) {
+                                {
                                     bargain.setValue({ id: bargainInfo.Id, name: bargainInfo.BargainNumber });
-                                } else {
-                                    if (showAlert)
-                                        alert(Ext.LocalizedResources.CloseBargains_CurrentBargainIsObsolete);
                                 }
                             }
                             this.recalcToolbarButtonsAvailability();
                         }
-                        else {
-                            alert(bargainInfoResponse.conn.responseText);
-                        }
                     }
-
-                    this.refreshBargainButtons();
                 },
                 getMenuItem: function () {
                     var menu = this.Items.Toolbar;
@@ -719,7 +641,9 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
-            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.updateBargain(true); }, this);
+            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain();
+                this.tryDetermineBargain();
+            }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
             Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
 

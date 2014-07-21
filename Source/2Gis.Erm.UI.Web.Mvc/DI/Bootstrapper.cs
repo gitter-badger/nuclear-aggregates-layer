@@ -5,8 +5,6 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -14,7 +12,6 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
@@ -27,7 +24,6 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bargains;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Concrete;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms;
@@ -47,7 +43,6 @@ using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
@@ -56,7 +51,6 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -281,7 +275,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterTypeWithDependencies<IBargainService, BargainService>(mappingScope, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<IPrintFormTemplateService, PrintFormTemplateService>(mappingScope, CustomLifetime.PerRequest)
 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
