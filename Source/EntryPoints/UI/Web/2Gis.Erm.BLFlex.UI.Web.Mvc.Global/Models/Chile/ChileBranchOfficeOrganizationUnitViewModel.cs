@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public LookupField OrganizationUnit { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ShortLegalName { get; set; }
 
         [RequiredLocalized]
@@ -71,6 +72,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         [RutValidation]
         public string BranchOfficeAddlRut { get; set; }
 
+        [StringLengthLocalized(256)]
         public string RegistrationCertificate { get; set; }
 
         [EmailLocalized]

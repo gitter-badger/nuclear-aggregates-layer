@@ -21,18 +21,23 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         public LookupField OrganizationUnit { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ShortLegalName { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInGenitive { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInNominative { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string FullNameInNominative { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string FullNameInGenitive { get; set; }
 
         [RequiredLocalized]
