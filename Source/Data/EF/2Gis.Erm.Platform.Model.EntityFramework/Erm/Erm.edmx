@@ -248,6 +248,8 @@
           <Property Name="ExecutorBranchOfficeId" Type="bigint" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="256" />
           <Property Name="SignedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="BargainEndDate" Type="datetime2" Precision="2" />
+          <Property Name="BargainKind" Type="int" Nullable="false" />
           <Property Name="DgppId" Type="int" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
@@ -1648,6 +1650,13 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExportFlowOrders_DenialReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExportFlowOrders_Invoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -1656,13 +1665,6 @@
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
         <EntityType Name="ExportFlowOrders_Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ExportFlowOrders_DenialReason">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1986,12 +1988,12 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
-          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
-          <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
+          <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessings">
           <Key>
@@ -4016,9 +4018,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElement" EntityType="Self.ExportFlowNomenclatures_NomenclatureElement" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowNomenclatures_NomenclatureElementRelation" EntityType="Self.ExportFlowNomenclatures_NomenclatureElementRelation" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_AdvMaterial" EntityType="Self.ExportFlowOrders_AdvMaterial" Schema="Integration" store:Type="Tables" />
+          <EntitySet Name="ExportFlowOrders_DenialReason" EntityType="Self.ExportFlowOrders_DenialReason" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Invoice" EntityType="Self.ExportFlowOrders_Invoice" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Order" EntityType="Self.ExportFlowOrders_Order" Schema="Integration" store:Type="Tables" />
-          <EntitySet Name="ExportFlowOrders_DenialReason" EntityType="Self.ExportFlowOrders_DenialReason" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Resource" EntityType="Self.ExportFlowOrders_Resource" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_Theme" EntityType="Self.ExportFlowOrders_Theme" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowOrders_ThemeBranch" EntityType="Self.ExportFlowOrders_ThemeBranch" Schema="Integration" store:Type="Tables" />
@@ -6535,6 +6537,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="DocumentsComment" MaxLength="300" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="LegalPerson" Relationship="ErmModel.FK_Bargains_LegalPersons" FromRole="Bargain" ToRole="LegalPerson" />
           <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="BargainEndDate" Type="DateTime" Precision="2" />
+          <Property Name="BargainKind" Type="Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="Price">
         <Key>
@@ -10379,7 +10383,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="Bargains">
           <EntityTypeMapping TypeName="ErmModel.Bargain">
             <MappingFragment StoreEntitySet="Bargains">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="BargainKind" ColumnName="BargainKind" />
+                <ScalarProperty Name="BargainEndDate" ColumnName="BargainEndDate" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="DocumentsComment" ColumnName="DocumentsComment" />
               <ScalarProperty Name="HasDocumentsDebt" ColumnName="HasDocumentsDebt" />
               <ScalarProperty Name="ClosedOn" ColumnName="ClosedOn" />
