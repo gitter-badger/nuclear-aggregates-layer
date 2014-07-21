@@ -208,6 +208,7 @@
     <Compile Include="Generic\List\ListResultType.cs" />
     <Compile Include="Generic\List\SearchListModel.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AccessToAgentBargainCreationIsDeniedException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainEndDateIsNotSpecifiedException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\BargainEndDateIsLessThanSignedOnDateException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\BargainKindChangingException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\BargainCloseDateIsLessThanOrderEndDistributionDateException.cs" />

@@ -62,6 +62,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var entity = _bargainObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
+            if (entity.BargainKind == (int)BargainKind.Agent && entity.BargainEndDate == null)
+            {
+                throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.BargainEndDate));
+            }
+
             if (entity.BargainEndDate != null)
             {
                 entity.BargainEndDate = entity.BargainEndDate.Value.GetEndOfTheDay();
