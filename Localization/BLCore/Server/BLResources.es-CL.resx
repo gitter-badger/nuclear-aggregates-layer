@@ -5207,9 +5207,6 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
     <value>Este acuerdo no se puede ocultar, ya que está enlazado a las siguientes órdenes: {0}.</value>
   </data>
-  <data name="AllowedAgentBargainPeriodIsExceeded" xml:space="preserve">
-    <value>Está superada la vigencia permitida del acuerdo de agente</value>
-  </data>
   <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
     <value>Fecha del cierre del acuerdo es anterior a la fecha de la finalización de la publicación de la orden</value>
   </data>
@@ -5224,5 +5221,8 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
     <value>No hay permisos para crear el acuerdo de agente</value>
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
 </root>

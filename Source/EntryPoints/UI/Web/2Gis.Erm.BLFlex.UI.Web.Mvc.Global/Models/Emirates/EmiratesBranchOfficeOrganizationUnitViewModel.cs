@@ -21,20 +21,23 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public LookupField OrganizationUnit { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ShortLegalName { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInNominative { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ChiefNameInNominative { get; set; }
 
-        [StringLengthLocalized(256)]
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PaymentEssentialElements { get; set; }
 
-        [StringLengthLocalized(512)]
         [RequiredLocalized]
+        [StringLengthLocalized(512)]
         public string ActualAddress { get; set; }
 
         [StringLengthLocalized(512)]

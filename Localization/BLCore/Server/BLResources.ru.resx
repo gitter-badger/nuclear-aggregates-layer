@@ -5207,9 +5207,6 @@
   <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
     <value>Данный договор нельзя скрыть т.к. он привязан к следующим заказам: {0}.</value>
   </data>
-  <data name="AllowedAgentBargainPeriodIsExceeded" xml:space="preserve">
-    <value>Превышен допустимый срок действия агентского договора</value>
-  </data>
   <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
     <value>Дата закрытия договора меньше даты окончания размещения заказа</value>
   </data>
@@ -5224,5 +5221,8 @@
   </data>
   <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
     <value>Отсутствуют права на создание агентского договора</value>
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
 </root>
