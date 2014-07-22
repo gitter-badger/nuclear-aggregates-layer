@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
 // ReSharper disable CheckNamespace
+
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 // ReSharper restore CheckNamespace
 {
@@ -16,5 +17,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsBranchOfficeOrganizationUnitChoosingDenied { get; set; }
+
+        [DataMember]
+        public long ClientId { get; set; }
     }
 }
