@@ -85,6 +85,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                             };
                         break;
                     }
+
+                    case EntityName.Client:
+                    {
+                        dto.ClientId = parentEntityId.Value;
+                        break;
+                    }
                 }
             }
 
