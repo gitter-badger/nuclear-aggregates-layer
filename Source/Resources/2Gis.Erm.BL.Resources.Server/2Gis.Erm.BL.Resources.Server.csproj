@@ -56,6 +56,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ErmConfigLocalization.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.ar.Designer.cs">
+      <DependentUpon>Resources.ar.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\Resources.ru.Designer.cs">
       <DependentUpon>Resources.ru.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -77,6 +82,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\ErmConfigLocalization.cs.resx" />
+    <EmbeddedResource Include="Properties\ErmConfigLocalization.ar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\ErmConfigLocalization.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -89,6 +97,11 @@
       <LastGenOutput>ErmConfigLocalization.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\ErmConfigLocalization.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.ar.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.es-CL.resx" />
