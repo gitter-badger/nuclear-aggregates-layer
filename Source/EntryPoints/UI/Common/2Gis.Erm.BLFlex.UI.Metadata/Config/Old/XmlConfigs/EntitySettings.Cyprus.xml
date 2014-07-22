@@ -861,6 +861,7 @@
           <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
