@@ -122,20 +122,31 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 25 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+   Write(Html.HiddenFor(m => m.ClientId));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n    </div>\r\n    <div");
 
 WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 689), Tuple.Create("\"", 725)
+WriteAttribute("title", Tuple.Create(" title=\"", 731), Tuple.Create("\"", 767)
             
-            #line 26 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
-, Tuple.Create(Tuple.Create("", 697), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 27 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+, Tuple.Create(Tuple.Create("", 739), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 697), false)
+, 739), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -147,7 +158,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 28 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 29 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.Number, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" }, { "class", "readonly" } }));
 
             
@@ -158,7 +169,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 30 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ShowReadOnlyCard = true, ReadOnly = true }));
 
             
@@ -173,7 +184,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 33 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.SignedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -184,7 +195,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.ClosedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -199,7 +210,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.BargainKind, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -210,7 +221,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.BargainEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -222,16 +233,64 @@ WriteLiteral(" class=\"row-wrapper\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
-
             
-            #line 40 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
-       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true }));
+            #line 41 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 41 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+             if (Model.ClientId != 0)
+            {
+                
+            
+            #line default
+            #line hidden
+            
+            #line 43 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+           Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
+                    {
+                        EntityName = EntityName.LegalPerson,
+                        ShowReadOnlyCard = true,
+                        ExtendedInfo = "filterToParent=true",
+                        ParentEntityName = EntityName.Client,
+                        ParentIdPattern = "ClientId"
+                    }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </div>\r\n        <div");
+            
+            #line 50 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+                      
+            }
+            else
+            {
+                
+            
+            #line default
+            #line hidden
+            
+            #line 54 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+           Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
+                    {
+                        EntityName = EntityName.LegalPerson,
+                        ShowReadOnlyCard = true
+                    }));
+
+            
+            #line default
+            #line hidden
+            
+            #line 58 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+                      
+            }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("        </div>\r\n        <div");
 
 WriteLiteral(" class=\"row-wrapper\"");
 
@@ -240,7 +299,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 62 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true }));
 
             
@@ -255,7 +314,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 46 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 65 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "4" } }));
 
             
@@ -270,7 +329,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 68 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -285,7 +344,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
+            #line 71 "..\..\Views\CreateOrUpdate\Russia\Bargain.cshtml"
        Write(Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone));
 
             
