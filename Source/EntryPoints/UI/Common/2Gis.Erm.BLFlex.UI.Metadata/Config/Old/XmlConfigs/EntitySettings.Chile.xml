@@ -539,9 +539,7 @@
           <Script FileName="DataList/Bargain.DataList.js" />
         </Scripts>
         <ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
-          <ToolbarItem Name="CloseBargains" DisableOnEmpty="true" NameLocaleResourceId="ControlCloseBargains" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CloseBargains" Icon="Delete.gif" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
