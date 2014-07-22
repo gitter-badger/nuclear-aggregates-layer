@@ -99,11 +99,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            if (BargainType.Key == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             if (LegalPerson.Key == null)
             {
                 throw new ArgumentNullException();
