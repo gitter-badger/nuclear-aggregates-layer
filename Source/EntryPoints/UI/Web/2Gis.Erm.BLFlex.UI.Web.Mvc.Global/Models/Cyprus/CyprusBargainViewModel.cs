@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [DisplayNameLocalized("BargainNumber")]
         public string Number { get; set; }
 
-        [DisplayNameLocalized("BargainTypeVAT")]
         public LookupField BargainType { get; set; }
 
         [DisplayNameLocalized("BargainLegalPerson")]
