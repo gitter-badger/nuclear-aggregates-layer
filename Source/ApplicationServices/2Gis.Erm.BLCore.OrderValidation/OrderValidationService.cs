@@ -44,7 +44,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 { 17, typeof(ReleaseNotExistsOrderValidationRule) },
                 { 18, typeof(RequiredFieldsNotEmptyOrderValidationRule) },
                 { 20, typeof(BalanceOrderValidationRule) },
-                { 22, typeof(ValidateAdvertisementsOrderValidationRule) },
+                { 21, typeof(AdvertisementsOnlyWhiteListOrderValidationRule) },
+                { 22, typeof(AdvertisementsWithoutWhiteListOrderValidationRule) },
                 { 23, typeof(LegalPersonProfilesOrderValidationRule) },
                 { 24, typeof(WarrantyEndDateOrderValidationRule) },
                 { 25, typeof(BargainEndDateOrderValidationRule) },
@@ -65,14 +66,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 { 42, typeof(ThemePeriodOverlapsOrderPeriodValidationRule) },
                 { 43, typeof(ThemeCategoriesValidationRule) },
                 { 44, typeof(ThemePositionCountValidationRule) },
-                { 47, typeof(DummyAdvertisementOrderValidationRule) }
+                { 47, typeof(DummyAdvertisementOrderValidationRule) },
             };
 
         private static readonly Type[] CommonRules =
             {
                 typeof(AssociatedAndDeniedPricePositionsOrderValidationRule),
                 typeof(FirmBelongsToOrdersDestOrgUnitOrderValidationRule),
-                typeof(ValidateAdvertisementsOrderValidationRule),
+                typeof(AdvertisementsOnlyWhiteListOrderValidationRule),
+                typeof(AdvertisementsWithoutWhiteListOrderValidationRule),
                 typeof(CouponPeriodOrderValidationRule),
                 typeof(SelfAdvertisementOrderValidationRule),
                 typeof(IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule),
