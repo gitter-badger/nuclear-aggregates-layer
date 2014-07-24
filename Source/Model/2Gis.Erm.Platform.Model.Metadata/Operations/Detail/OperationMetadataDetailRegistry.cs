@@ -215,6 +215,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                         {
                             Properties = new[] { "ModifiedBy" }
                         };
+                case EntityName.Bargain:
+                    return new ActionHistoryMetadata
+                    {
+                        Properties = new[] { "BargainEndDate" }
+                    };
             }
 
             return null;
