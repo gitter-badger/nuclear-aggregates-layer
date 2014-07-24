@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterRelatedFilter<ListOrderDto>(EntityName.Deal, x => x.DealId)
             .RegisterRelatedFilter<ListOrderDto>(EntityName.Firm, x => x.FirmId)
             .RegisterRelatedFilter<ListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<ListOrderDto>(EntityName.Bargain, x => x.BargainId)
 
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementTemplate, x => x.AdsTemplateId)
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementElementTemplate, x => x.AdsElementTemplateId)
