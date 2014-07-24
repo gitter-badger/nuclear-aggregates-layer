@@ -21,21 +21,27 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         public LookupField OrganizationUnit { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ShortLegalName { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInGenitive { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string PositionInNominative { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ChiefNameInNominative { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string ChiefNameInGenitive { get; set; }
 
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string OperatesOnTheBasisInGenitive { get; set; }
 
         [StringLengthLocalized(256)]

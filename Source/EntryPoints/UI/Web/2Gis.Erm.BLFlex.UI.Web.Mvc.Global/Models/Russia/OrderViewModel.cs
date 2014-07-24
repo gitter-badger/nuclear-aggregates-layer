@@ -162,6 +162,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public decimal AmountWithdrawn { get; set; }
 
+        [Dependency(DependencyType.ReadOnly, "Bargain",
+            "!Ext.getCmp('LegalPerson').getValue() || !Ext.getCmp('BranchOfficeOrganizationUnit').getValue()")]
         public LookupField Bargain { get; set; }
 
         [CustomClientValidation("validateDiscountSum", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "MustBePositive")]

@@ -1008,9 +1008,7 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Активные сделки</value>
   </data>
-  <data name="ControlCreateBargain" xml:space="preserve">
-    <value>Создать договор</value>
-  </data>
+
   <data name="DListBargains" xml:space="preserve">
     <value>Договоры</value>
   </data>
@@ -1718,6 +1716,9 @@
   </data>
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
     <value>Отклоненные мною заказы, которые сейчас в статусе "На оформлении"</value>
+  </data>
+  <data name="DListOrdersFast" xml:space="preserve">
+    <value>Быстрый поиск заказов</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
     <value>Задачи по теплым клиентам</value>

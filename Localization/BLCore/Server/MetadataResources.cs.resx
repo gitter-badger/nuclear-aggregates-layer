@@ -1374,4 +1374,34 @@
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
     <value>Vytvořit Acceptance Report</value>
   </data>
+  <data name="DenialReasonDescription" xml:space="preserve">
+    <value>Krátký popis</value>
+  </data>
+  <data name="DenialReasonName" xml:space="preserve">
+    <value>Záhlaví bodu pravidel</value>
+  </data>
+  <data name="DenialReasonProofLink" xml:space="preserve">
+    <value>Odkaz na paragraf pravidel</value>
+  </data>
+  <data name="DenialReasonType" xml:space="preserve">
+    <value>Typ příčiny zamítnutí</value>
+  </data>
+  <data name="DListDenialReason" xml:space="preserve">
+    <value>Příčiny zamítnutí Reklamního Materiálu</value>
+  </data>
+  <data name="EnDenialReason" xml:space="preserve">
+    <value>Příčina zamítnutí Reklamního Materiálu</value>
+  </data>
+  <data name="DListInactiveDenialReason" xml:space="preserve">
+    <value>Skryté příčiny zamítnutí Reklamního Materiálu</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Typ smlouvy</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Nový model prodejů</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>DPH</value>
+  </data>
 </root>

@@ -157,7 +157,7 @@ Bank Name: {7}
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
     <value>1. Mass media: &quot;{0}&quot; (PC and mobile versions)  Registration certificate of {1}. Mass media issues from No. {2} to No. {3}.
-2. Internet-site 2gis.com.cy.
+2. Internet-site 2gis.ae.
 3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">

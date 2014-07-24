@@ -1374,4 +1374,34 @@
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
     <value>Generate Acceptance Report</value>
   </data>
+  <data name="DenialReasonDescription" xml:space="preserve">
+    <value>Short description</value>
+  </data>
+  <data name="DenialReasonName" xml:space="preserve">
+    <value>Regulations item title</value>
+  </data>
+  <data name="DenialReasonProofLink" xml:space="preserve">
+    <value>Reference to a section in the regulations</value>
+  </data>
+  <data name="DenialReasonType" xml:space="preserve">
+    <value>Type of reason for rejection</value>
+  </data>
+  <data name="DListDenialReason" xml:space="preserve">
+    <value>Reason for rejecting the AM</value>
+  </data>
+  <data name="EnDenialReason" xml:space="preserve">
+    <value>Reason for rejecting the AM</value>
+  </data>
+  <data name="DListInactiveDenialReason" xml:space="preserve">
+    <value>Hidden reasons for rejecting the AM</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Type of contract</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>New sales model</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>VAT</value>
+  </data>
 </root>

@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs;
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -18,8 +14,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.
     {
         private readonly IFinder _finder;
 
-        public UkraineBranchOfficeReadModel(IFinder finder, ISecureFinder secureFinder)
-            : base(finder, secureFinder)
+        public UkraineBranchOfficeReadModel(IFinder finder)
+            : base(finder)
         {
             _finder = finder;
         }
