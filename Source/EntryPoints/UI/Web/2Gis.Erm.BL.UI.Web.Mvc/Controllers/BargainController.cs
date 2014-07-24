@@ -2,18 +2,16 @@
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bargains;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -22,16 +20,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     public sealed class BargainController : ControllerBase
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IBargainService _bargainService;
+        private readonly ICloseClientBargainsOperationService _closeClientBargainsOperationService;
 
         public BargainController(
             IMsCrmSettings msCrmSettings,
             IUserContext userContext,
             ICommonLog logger,
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IBargainService bargainService,
             IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
+            IGetBaseCurrencyService getBaseCurrencyService,
+            ICloseClientBargainsOperationService closeClientBargainsOperationService)
             : base(
                 msCrmSettings,
                 userContext,
@@ -40,14 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
-            _bargainService = bargainService;
-        }
-
-        [HttpPost]
-        public JsonNetResult CreateBargainForOrder(long orderId)
-        {
-            var bargainInfo = _bargainService.CreateBargainForOrder(orderId);
-            return new JsonNetResult(new { BargainId = bargainInfo.Id, BargainNumber = bargainInfo.Number });
+            _closeClientBargainsOperationService = closeClientBargainsOperationService;
         }
 
         [HttpGet]
@@ -73,7 +64,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 try
                 {
-                    CloseBargainsResult result = _bargainService.CloseBargains(model.CloseDate.Value);
+                    var result = _closeClientBargainsOperationService.CloseClientBargains(model.CloseDate.Value);
 
                     if (result.NonClosedBargainsNumbers != null && result.NonClosedBargainsNumbers.Length > 0)
                     {
@@ -100,18 +91,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             return View(model);
-        }
-
-        [HttpPost]
-        public JsonNetResult GetBargain(long? branchOfficeOrganizationUnitId, long? legalPersonId, DateTime orderSignupDate)
-        {
-            if (!branchOfficeOrganizationUnitId.HasValue || !legalPersonId.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var resp = _bargainService.GetBargain(branchOfficeOrganizationUnitId, legalPersonId, orderSignupDate);
-            return new JsonNetResult((resp.BargainId != default(long)) ? new { Id = resp.BargainId, resp.BargainNumber, resp.BargainClosedOn } : null);
         }
     }
 }

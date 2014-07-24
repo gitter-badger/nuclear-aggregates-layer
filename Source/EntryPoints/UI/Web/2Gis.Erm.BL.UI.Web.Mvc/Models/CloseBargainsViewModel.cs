@@ -7,8 +7,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public class CloseBargainsViewModel : ViewModel
     {
-        public string BargainIds { get; set; }
-
         [RequiredLocalized]
         public DateTime? CloseDate { get; set; }
 
