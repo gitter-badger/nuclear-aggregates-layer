@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             _userContext = userContext;
         }
 
-        public long Modify(IDomainEntityDto domainEntityDto)
+        public virtual long Modify(IDomainEntityDto domainEntityDto)
         {
             var entity = _bargainObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
