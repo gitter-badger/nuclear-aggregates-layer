@@ -68,6 +68,7 @@
     <Compile Include="ADPValidationResultBuilder.cs" />
     <Compile Include="ADPValidator.cs" />
     <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
+    <Compile Include="Rules\AdvertisementsOnlyWhiteListOrderValidationRule.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />
     <Compile Include="IPriceConfigurationService.cs" />
@@ -130,7 +131,7 @@
     <Compile Include="Rules\ThemeCategoriesValidationRule.cs" />
     <Compile Include="Rules\ThemePeriodOverlapsOrderPeriodValidationRule.cs" />
     <Compile Include="Rules\ThemePositionCountValidationRule.cs" />
-    <Compile Include="Rules\ValidateAdvertisementsOrderValidationRule.cs" />
+    <Compile Include="Rules\AdvertisementsWithoutWhiteListOrderValidationRule.cs" />
     <Compile Include="Rules\WarrantyEndDateOrderValidationRule.cs" />
   </ItemGroup>
   <ItemGroup>
