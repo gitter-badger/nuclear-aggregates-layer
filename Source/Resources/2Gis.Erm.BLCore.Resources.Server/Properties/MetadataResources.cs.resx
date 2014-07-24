@@ -1375,24 +1375,30 @@
     <value>Vytvořit Acceptance Report</value>
   </data>
   <data name="DenialReasonDescription" xml:space="preserve">
-    <value>Краткое описание</value>
+    <value>Krátký popis</value>
   </data>
   <data name="DenialReasonName" xml:space="preserve">
-    <value>Заголовок пункта правил</value>
+    <value>Záhlaví bodu pravidel</value>
   </data>
   <data name="DenialReasonProofLink" xml:space="preserve">
-    <value>Ссылка на параграф правил</value>
+    <value>Odkaz na paragraf pravidel</value>
   </data>
   <data name="DenialReasonType" xml:space="preserve">
-    <value>Тип причины отклонения</value>
+    <value>Typ příčiny zamítnutí</value>
   </data>
   <data name="DListDenialReason" xml:space="preserve">
-    <value>Причины отклонения РМ</value>
+    <value>Příčiny zamítnutí Reklamního Materiálu</value>
   </data>
   <data name="EnDenialReason" xml:space="preserve">
-    <value>Причина отклонения РМ</value>
+    <value>Příčina zamítnutí Reklamního Materiálu</value>
   </data>
   <data name="DListInactiveDenialReason" xml:space="preserve">
-    <value>Скрытые причины отклонения РМ</value>
+    <value>Skryté příčiny zamítnutí Reklamního Materiálu</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Formát smlouvy</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Nový model prodejů</value>
   </data>
 </root>

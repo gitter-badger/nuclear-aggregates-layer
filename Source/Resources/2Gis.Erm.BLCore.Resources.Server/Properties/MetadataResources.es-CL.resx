@@ -1375,24 +1375,30 @@
     <value>Generar Acceptance Report</value>
   </data>
   <data name="DenialReasonDescription" xml:space="preserve">
-    <value>Краткое описание</value>
+    <value>Descripción breve</value>
   </data>
   <data name="DenialReasonName" xml:space="preserve">
-    <value>Заголовок пункта правил</value>
+    <value>Título del punto de reglamento</value>
   </data>
   <data name="DenialReasonProofLink" xml:space="preserve">
-    <value>Ссылка на параграф правил</value>
+    <value>Enlace al párrafo de reglamento</value>
   </data>
   <data name="DenialReasonType" xml:space="preserve">
-    <value>Тип причины отклонения</value>
+    <value>Tipo del motivo de rechazo</value>
   </data>
   <data name="DListDenialReason" xml:space="preserve">
-    <value>Причины отклонения РМ</value>
+    <value>Motivos de rechazo de los Materiales Publicitarios</value>
   </data>
   <data name="EnDenialReason" xml:space="preserve">
-    <value>Причина отклонения РМ</value>
+    <value>Motivo de rechazo de los Materiales Publicitarios</value>
   </data>
   <data name="DListInactiveDenialReason" xml:space="preserve">
-    <value>Скрытые причины отклонения РМ</value>
+    <value>Motivos de rechazo ocultos de los Materiales Publicitarios</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Forma de acuerdo</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Modelo de ventas nuevo</value>
   </data>
 </root>

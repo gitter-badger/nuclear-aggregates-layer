@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -15,11 +20,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     public sealed class GetBargainDtoService : GetDomainEntityDtoServiceBase<Bargain>
     {
         private readonly ISecureFinder _finder;
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IUserContext _userContext;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
-        public GetBargainDtoService(IUserContext userContext, ISecureFinder finder)
+        public GetBargainDtoService(IUserContext userContext,
+                                    ISecureFinder finder,
+                                    ISecurityServiceFunctionalAccess functionalAccessService,
+                                    ILegalPersonReadModel legalPersonReadModel,
+                                    IBranchOfficeReadModel branchOfficeReadModel)
             : base(userContext)
         {
             _finder = finder;
+            _functionalAccessService = functionalAccessService;
+            _legalPersonReadModel = legalPersonReadModel;
+            _branchOfficeReadModel = branchOfficeReadModel;
+            _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Bargain> GetDto(long entityId)
@@ -30,11 +47,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   Id = entity.Id,
                                   Number = entity.Number,
                                   BargainTypeRef = new EntityReference { Id = entity.BargainTypeId, Name = entity.BargainType.Name },
-                                  LegalPersonRef = new EntityReference { Id = entity.CustomerLegalPersonId, Name = entity.LegalPerson.LegalName },
-                                  BranchOfficeOrganizationUnitRef = new EntityReference { Id = entity.ExecutorBranchOfficeId, Name = entity.BranchOfficeOrganizationUnit.ShortLegalName },
+                                  CustomerLegalPersonRef = new EntityReference { Id = entity.CustomerLegalPersonId, Name = entity.LegalPerson.LegalName },
+                                  ExecutorBranchOfficeRef =
+                                      new EntityReference { Id = entity.ExecutorBranchOfficeId, Name = entity.BranchOfficeOrganizationUnit.ShortLegalName },
                                   Comment = entity.Comment,
                                   SignedOn = entity.SignedOn,
                                   ClosedOn = entity.ClosedOn,
+                                  BargainEndDate = entity.BargainEndDate,
+                                  BargainKind = (BargainKind)entity.BargainKind,
                                   HasDocumentsDebt = (DocumentsDebt)entity.HasDocumentsDebt,
                                   DocumentsComment = entity.DocumentsComment,
                                   OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
@@ -51,7 +71,67 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Bargain> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            throw new NotSupportedException("Creation of Bargain is not allowed");
+            var dto = new BargainDomainEntityDto { BargainKind = BargainKind.Client, SignedOn = DateTime.UtcNow.Date };
+            if (parentEntityId.HasValue)
+            {
+                switch (parentEntityName)
+                {
+                    case EntityName.LegalPerson:
+                    {
+                        dto.CustomerLegalPersonRef = new EntityReference
+                            {
+                                Id = parentEntityId,
+                                Name = _legalPersonReadModel.GetLegalPersonName(parentEntityId.Value)
+                            };
+                        break;
+                    }
+
+                    case EntityName.Client:
+                    {
+                        dto.ClientId = parentEntityId.Value;
+                        break;
+                    }
+                }
+            }
+
+            long legalPersonId;
+            if (!string.IsNullOrEmpty(extendedInfo) &&
+                long.TryParse(Regex.Match(extendedInfo, @"legalPersonId=(\d+)").Groups[1].Value, out legalPersonId))
+            {
+                dto.CustomerLegalPersonRef = new EntityReference
+                    {
+                        Id = legalPersonId,
+                        Name = _legalPersonReadModel.GetLegalPersonName(legalPersonId)
+                    };
+            }
+
+            long branchOfficeOrganizationUnitId;
+            if (!string.IsNullOrEmpty(extendedInfo) &&
+                long.TryParse(Regex.Match(extendedInfo, @"branchOfficeOrganizationUnitId=(\d+)").Groups[1].Value, out branchOfficeOrganizationUnitId))
+            {
+                dto.ExecutorBranchOfficeRef = new EntityReference
+                    {
+                        Id = branchOfficeOrganizationUnitId,
+                        Name = _branchOfficeReadModel.GetBranchOfficeOrganizationName(branchOfficeOrganizationUnitId)
+                    };
+            }
+
+            dto.IsLegalPersonChoosingDenied = dto.CustomerLegalPersonRef != null && dto.CustomerLegalPersonRef.Id.HasValue;
+            dto.IsBranchOfficeOrganizationUnitChoosingDenied = dto.ExecutorBranchOfficeRef != null && dto.ExecutorBranchOfficeRef.Id.HasValue;
+
+            return dto;
+        }
+
+        protected override void SetDtoProperties(IDomainEntityDto<Bargain> domainEntityDto,
+                                                 long entityId,
+                                                 bool readOnly,
+                                                 long? parentEntityId,
+                                                 EntityName parentEntityName,
+                                                 string extendedInfo)
+        {
+            ((BargainDomainEntityDto)domainEntityDto).UserCanWorkWithAdvertisingAgencies =
+                _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement,
+                                                                       _userContext.Identity.Code);
         }
     }
 }

@@ -141,11 +141,15 @@
     <Compile Include="LegalPersons\ReadModel\LegalPersonReadModel.cs" />
     <Compile Include="LocalMessages\LocalMessageRepository.cs" />
     <Compile Include="Orders\BargainRepository.cs" />
+    <Compile Include="Orders\Operations\Bargains\CloseClientBargainsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bargains\ActivateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bargains\DeactivateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bargains\UpdateBargainAggregateService.cs" />
+    <Compile Include="Orders\Operations\Bargains\CreateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBargainNumberService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\EvaluateBillNumberService.cs" />
     <Compile Include="Orders\Operations\OrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
-    <Compile Include="Orders\Operations\OrderCreateBargainAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Orders\Operations\Validation\OrderValidationRepository.cs" />

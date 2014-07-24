@@ -1903,4 +1903,10 @@
   <data name="EntityNameDenialReason" xml:space="preserve">
     <value>Причины отклонения РМ</value>
   </data>
+  <data name="BargainKindAgent" xml:space="preserve">
+    <value>Агентский</value>
+  </data>
+  <data name="BargainKindClient" xml:space="preserve">
+    <value>Клиентский</value>
+  </data>
 </root>

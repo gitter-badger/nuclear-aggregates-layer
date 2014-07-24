@@ -418,7 +418,7 @@
     <value>Assessment of prospects</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Code of client&apos;s legal entity</value>
+    <value>Code of client's legal entity</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Required</value>
@@ -856,7 +856,7 @@
     <value>Order classification</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Profile of client&apos;s legal entity</value>
+    <value>Profile of client's legal entity</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Short name</value>
@@ -1336,7 +1336,7 @@
     <value>Bank name</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>Representative&apos;s RUT</value>
+    <value>Representative's RUT</value>
   </data>
   <data name="Rut" xml:space="preserve">
     <value>RUT</value>
@@ -1375,24 +1375,30 @@
     <value>Generate Acceptance Report</value>
   </data>
   <data name="DenialReasonDescription" xml:space="preserve">
-    <value>Краткое описание</value>
+    <value>Short description</value>
   </data>
   <data name="DenialReasonName" xml:space="preserve">
-    <value>Заголовок пункта правил</value>
+    <value>Regulations item title</value>
   </data>
   <data name="DenialReasonProofLink" xml:space="preserve">
-    <value>Ссылка на параграф правил</value>
+    <value>Reference to a section in the regulations</value>
   </data>
   <data name="DenialReasonType" xml:space="preserve">
-    <value>Тип причины отклонения</value>
+    <value>Type of reason for rejection</value>
   </data>
   <data name="DListDenialReason" xml:space="preserve">
-    <value>Причины отклонения РМ</value>
+    <value>Reason for rejecting the AM</value>
   </data>
   <data name="EnDenialReason" xml:space="preserve">
-    <value>Причина отклонения РМ</value>
+    <value>Reason for rejecting the AM</value>
   </data>
   <data name="DListInactiveDenialReason" xml:space="preserve">
-    <value>Скрытые причины отклонения РМ</value>
+    <value>Hidden reasons for rejecting the AM</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Contract form</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>New sales model</value>
   </data>
 </root>

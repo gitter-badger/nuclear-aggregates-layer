@@ -645,9 +645,6 @@
   <data name="PeriodNotSet" xml:space="preserve">
     <value />
   </data>
-  <data name="RemoveOrderBargainLinkConfirmation" xml:space="preserve">
-    <value />
-  </data>
   <data name="PricePublishConfirmation" xml:space="preserve">
     <value />
   </data>
@@ -898,9 +895,6 @@
     <value />
   </data>
   <data name="ErrorPositionIsNotComposite" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BargainForOrderNotFound" xml:space="preserve">
     <value />
   </data>
   <data name="DisqualifyNeedToCloseAllOrders" xml:space="preserve">
@@ -3177,9 +3171,6 @@
   <data name="NoMessages" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotRemoveBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
-    <value />
-  </data>
   <data name="OrderPositionAddressNotActive" xml:space="preserve">
     <value />
   </data>
@@ -3403,9 +3394,6 @@
     <value />
   </data>
   <data name="ControlChangeLegalPersonRequisites" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RemoveBargainConfirmation" xml:space="preserve">
     <value />
   </data>
   <data name="CantEditDeactivatedDeniedPosition" xml:space="preserve">
@@ -3925,9 +3913,6 @@
     <value />
   </data>
   <data name="LockBeginDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CannotRemoveBargainBecauseLocksForOrderNotFound" xml:space="preserve">
     <value />
   </data>
   <data name="BillPaymentTypeSingle" xml:space="preserve">
@@ -5188,6 +5173,39 @@
     <value />
   </data>
   <data name="DenialReasonNameIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AgentBargainCanBeForBranchOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AgentBargainIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainEndDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainKindChangingIsNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDistributionDateOfSomeOrdersIsGreaterThanBargainEndDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value />
   </data>
 </root>

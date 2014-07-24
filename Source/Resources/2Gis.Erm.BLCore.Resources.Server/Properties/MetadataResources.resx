@@ -1396,4 +1396,10 @@
   <data name="DListInactiveDenialReason" xml:space="preserve">
     <value>Скрытые причины отклонения РМ</value>
   </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Форма договора</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Новая модель продаж</value>
+  </data>
 </root>
