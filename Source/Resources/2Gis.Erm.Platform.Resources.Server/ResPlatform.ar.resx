@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
+    <value>Access denied.{0}User:{1}.{0}Action:{2}.{0}Entity:{3}{0}</value>
+  </data>
   <data name="AnErrorOccuredWhileUpdatingFileOnFtp" xml:space="preserve">
     <value>Error occurred during file uploading to FTP=[{0}]</value>
-  </data>
-  <data name="ValueNotFound" xml:space="preserve">
-    <value>Value is not found.</value>
   </data>
   <data name="PrintFormFieldNotFilled" xml:space="preserve">
     <value>[NOT FILLED IN]</value>
@@ -129,7 +129,7 @@
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>The sting contains control symbols</value>
   </data>
-  <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
-    <value>Access denied.{0}User:{1}.{0}Action:{2}.{0}Entity:{3}{0}</value>
+  <data name="ValueNotFound" xml:space="preserve">
+    <value>Value is not found.</value>
   </data>
 </root>

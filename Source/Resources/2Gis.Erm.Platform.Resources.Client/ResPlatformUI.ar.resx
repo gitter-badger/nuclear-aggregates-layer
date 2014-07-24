@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SearchRecords" xml:space="preserve">
-    <value>Record search</value>
+  <data name="AfterPageText" xml:space="preserve">
+    <value>of {0}</value>
   </data>
   <data name="BeforePageText" xml:space="preserve">
     <value>Page</value>
   </data>
-  <data name="AfterPageText" xml:space="preserve">
-    <value>of {0}</value>
+  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
+    <value>Error encountered during changing of the session state</value>
   </data>
   <data name="FirstPageText" xml:space="preserve">
     <value>The first page</value>
@@ -132,20 +132,14 @@
   <data name="LastPageText" xml:space="preserve">
     <value>The last page</value>
   </data>
-  <data name="NextPageText" xml:space="preserve">
-    <value>Next page</value>
-  </data>
-  <data name="PrevPageText" xml:space="preserve">
-    <value>Previous page</value>
+  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
+    <value>Can't get listing view for entities of type "{0}"</value>
   </data>
   <data name="MessageNotProcessedCorrectly" xml:space="preserve">
     <value>Failed to correctly process message {0}</value>
   </data>
-  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
-    <value>Error encountered during changing of the session state</value>
-  </data>
-  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
-    <value>Can't get listing view for entities of type "{0}"</value>
+  <data name="NextPageText" xml:space="preserve">
+    <value>Next page</value>
   </data>
   <data name="NotificationsContextualTitle" xml:space="preserve">
     <value>Context</value>
@@ -155,5 +149,11 @@
   </data>
   <data name="NotificationsSystemTitle" xml:space="preserve">
     <value>System</value>
+  </data>
+  <data name="PrevPageText" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
+  <data name="SearchRecords" xml:space="preserve">
+    <value>Record search</value>
   </data>
 </root>

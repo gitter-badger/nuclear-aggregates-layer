@@ -52,6 +52,11 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             return firstDateOfMonth.AddMonths(1).AddSeconds(-1);
         }
 
+        public static DateTime GetEndOfTheDay(this DateTime dateTime)
+        {
+            return dateTime.Date.AddDays(1).AddSeconds(-1);
+        }
+
         public static int MonthDifference(this DateTime startDate, DateTime endDate)
         {
             return Math.Abs(12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month);

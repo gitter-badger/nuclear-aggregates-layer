@@ -66,6 +66,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public string DocumentsComment { get; set; }
     	[DataMember]
         public byte[] Timestamp { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> BargainEndDate { get; set; }
+    	[DataMember]
+        public BargainKind BargainKind { get; set; }
     }
 }
 

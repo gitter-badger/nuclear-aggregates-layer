@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<AdvertisementElementTemplate>(entity => entity.RestrictionType), typeof(AdvertisementElementRestrictionType) },
                 { CreateKey<AssociatedPosition>(entity => entity.ObjectBindingType), typeof(ObjectBindingType) },
                 { CreateKey<Bargain>(entity => entity.HasDocumentsDebt), typeof(DocumentsDebt) },
+                { CreateKey<Bargain>(entity => entity.BargainKind), typeof(BargainKind) },
                 { CreateKey<BargainFile>(entity => entity.FileKind), typeof(BargainFileKind) },
                 { CreateKey<Client>(entity => entity.InformationSource), typeof(InformationSource) },
                 { CreateKey<Contact>(entity => entity.GenderCode), typeof(Gender) },
