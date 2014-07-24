@@ -1,16 +1,8 @@
 ﻿var CultureSpecificOrder = {
     refreshBargainButtons: function () {
-        // Обновление договора после смены юр.лица клиента в зависимости от (юр.лица клиента & юр. лица отд. организации)
-        var legalPerson = window.Ext.getCmp('LegalPerson').getValue();
-        var branchOfficeOrganizationUnit = window.Ext.getCmp('BranchOfficeOrganizationUnit').getValue();
         var bargain = window.Ext.getCmp('Bargain').getValue();
 
-        if (bargain || !legalPerson || !branchOfficeOrganizationUnit) {
-            this.getMenuItem('Actions', 'CreateBargain').disable();
-        }
-
         if (!bargain) {
-            this.getMenuItem('Actions', 'RemoveBargain').disable();
             this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintBargainAction').disable();
         }
     },
@@ -118,6 +110,7 @@
             });
         }
 
-        this.updateBargain(true);
+        this.clearBargain();
+        this.tryDetermineBargain();
     }
 }
