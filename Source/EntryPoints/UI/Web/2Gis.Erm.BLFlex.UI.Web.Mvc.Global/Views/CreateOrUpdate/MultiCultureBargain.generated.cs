@@ -59,12 +59,22 @@ WriteLiteral("\r\n\r\n");
 
 DefineSection("CardScripts", () => {
 
-WriteLiteral("\r\n<script");
+WriteLiteral("\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 176), Tuple.Create("\"", 253)
+, Tuple.Create(Tuple.Create("", 182), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Bargain.js?", 182), true)
+            
+            #line 9 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+, Tuple.Create(Tuple.Create("", 219), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 219), false)
+);
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n    window.InitPage = function ()\r\n    {\r\n        window.Card.on(\'beforepost\'," +
-" function () { window.returnValue = true; });\r\n    }\r\n</script>\r\n");
+WriteLiteral("></script>\r\n");
 
 });
 
@@ -81,7 +91,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 20 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 15 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -92,7 +102,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 21 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 16 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
    Write(Html.HiddenFor(m => m.UserCanWorkWithAdvertisingAgencies));
 
             
@@ -103,7 +113,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 22 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 17 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
    Write(Html.HiddenFor(m => m.IsBranchOfficeOrganizationUnitChoosingDenied));
 
             
@@ -114,7 +124,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 23 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 18 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
    Write(Html.HiddenFor(m => m.IsLegalPersonChoosingDenied));
 
             
@@ -125,7 +135,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 24 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 19 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
    Write(Html.HiddenFor(m => m.ClientId));
 
             
@@ -137,14 +147,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 731), Tuple.Create("\"", 767)
+WriteAttribute("title", Tuple.Create(" title=\"", 679), Tuple.Create("\"", 715)
             
-            #line 26 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
-, Tuple.Create(Tuple.Create("", 739), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 21 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+, Tuple.Create(Tuple.Create("", 687), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 739), false)
+, 687), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -156,7 +166,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 28 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.Number, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" }, { "class", "readonly" } }));
 
             
@@ -167,7 +177,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 24 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ShowReadOnlyCard = true, ReadOnly = true }));
 
             
@@ -182,7 +192,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.SignedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
 
             
@@ -193,7 +203,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 28 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.ClosedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -208,7 +218,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 31 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.BargainKind, FieldFlex.twins, null, EnumResources.ResourceManager));
 
             
@@ -219,7 +229,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.BargainEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
 
             
@@ -232,13 +242,13 @@ WriteLiteral(" class=\"row-wrapper\"");
 WriteLiteral(">\r\n");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 40 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
              if (Model.ClientId != 0)
             {
                 
@@ -246,7 +256,7 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 37 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
                         EntityName = EntityName.LegalPerson,
@@ -260,7 +270,7 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 49 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 44 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
                       
             }
             else
@@ -270,7 +280,7 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 53 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
                         EntityName = EntityName.LegalPerson,
@@ -281,7 +291,7 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 57 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
                       
             }
 
@@ -297,7 +307,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 61 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true }));
 
             
@@ -312,7 +322,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 64 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "4" } }));
 
             
@@ -325,7 +335,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 69 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
+            #line 64 "..\..\Views\CreateOrUpdate\MultiCultureBargain.cshtml"
 Write(RenderBody());
 
             
