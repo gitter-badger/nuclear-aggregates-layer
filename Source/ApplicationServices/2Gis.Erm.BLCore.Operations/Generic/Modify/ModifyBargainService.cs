@@ -58,9 +58,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             _userContext = userContext;
         }
 
-        public long Modify(IDomainEntityDto domainEntityDto)
+        public virtual long Modify(IDomainEntityDto domainEntityDto)
         {
             var entity = _bargainObtainer.ObtainBusinessModelEntity(domainEntityDto);
+
+            if (entity.BargainKind == (int)BargainKind.Agent && entity.BargainEndDate == null)
+            {
+                throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.BargainEndDate));
+            }
 
             if (entity.BargainEndDate != null)
             {

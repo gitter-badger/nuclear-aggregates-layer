@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
         public IEnumerable<EntityName> GetDependentEntityNames(EntityName entityName)
         {
-            return new[] { EntityName.LegalPerson, EntityName.Account, EntityName.AccountDetail, EntityName.Client, EntityName.Firm, EntityName.Deal, EntityName.Order, EntityName.AdvertisementElement };
+            return new[] { EntityName.LegalPerson, EntityName.Account, EntityName.AccountDetail, EntityName.Client, EntityName.Firm, EntityName.Deal, EntityName.Order, EntityName.AdvertisementElement, EntityName.Bargain };
         }
 
         public IEnumerable<IEntityKey> GetDependentEntities(EntityName parentEntityName, EntityName targetEntityName, long parentId)
@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             {
                 case EntityName.LegalPerson:
                     return GetDependentLegalPersons(parentEntityName, parentId, forceCaching);
+
+                case EntityName.Bargain:
+                    return GetDependentBargains(parentEntityName, parentId, forceCaching);
 
                 case EntityName.Account:
                     return GetDependentAccounts(parentEntityName, parentId, forceCaching);
@@ -234,6 +237,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
                 default:
                     return new LegalPerson[0];
+            }
+        }
+
+        private IEnumerable<Bargain> GetDependentBargains(EntityName parentEntityName, long parentId, bool forceCaching)
+        {
+            switch (parentEntityName)
+            {
+                case EntityName.Bargain:
+                    return new[] { _finder.FindOne(Specs.Find.ById<Bargain>(parentId)) };
+
+                default:
+                    return new Bargain[0];
             }
         }
 

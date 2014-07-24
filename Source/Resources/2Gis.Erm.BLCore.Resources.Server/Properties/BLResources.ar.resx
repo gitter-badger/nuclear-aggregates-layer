@@ -645,9 +645,6 @@
   <data name="PeriodNotSet" xml:space="preserve">
     <value>The period of unloading is not specified</value>
   </data>
-  <data name="RemoveOrderBargainLinkConfirmation" xml:space="preserve">
-    <value>Relation of the contract with this order will be deleted but the contract will not be deleted. Continue?</value>
-  </data>
   <data name="PricePublishConfirmation" xml:space="preserve">
     <value>Do you really want to publish the price-list?</value>
   </data>
@@ -899,9 +896,6 @@
   </data>
   <data name="ErrorPositionIsNotComposite" xml:space="preserve">
     <value>This item is an element of complex</value>
-  </data>
-  <data name="BargainForOrderNotFound" xml:space="preserve">
-    <value>No contract for the order.</value>
   </data>
   <data name="DisqualifyNeedToCloseAllOrders" xml:space="preserve">
     <value>Close all orders linked to this object.</value>
@@ -3185,9 +3179,6 @@ The operation has been executed: {4}.</value>
   <data name="NoMessages" xml:space="preserve">
     <value>No messages</value>
   </data>
-  <data name="CannotRemoveBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
-    <value>The contract is linked to orders No.: {0}. Deletion is impossible.</value>
-  </data>
   <data name="OrderPositionAddressNotActive" xml:space="preserve">
     <value>Inactive address {1} is found in item {0}</value>
   </data>
@@ -3412,9 +3403,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="ControlChangeLegalPersonRequisites" xml:space="preserve">
     <value>Change requisites</value>
-  </data>
-  <data name="RemoveBargainConfirmation" xml:space="preserve">
-    <value>The contract will be permanently deleted. Continue?</value>
   </data>
   <data name="CantEditDeactivatedDeniedPosition" xml:space="preserve">
     <value>You cannot edit a deactivated prohibited item in a price-list</value>
@@ -3934,9 +3922,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="LockBeginDate" xml:space="preserve">
     <value>Beginning of hold</value>
-  </data>
-  <data name="CannotRemoveBargainBecauseLocksForOrderNotFound" xml:space="preserve">
-    <value>The order has holds, the contract cannot be deleted.</value>
   </data>
   <data name="BillPaymentTypeSingle" xml:space="preserve">
     <value>Payment 100%</value>
@@ -5201,9 +5186,42 @@ Placement period: {3}.</value>
     <value>Legal entity {0} has multiple main profiles</value>
   </data>
   <data name="AdministrationPage_DenialReason" xml:space="preserve">
-    <value>Причины отклонения РМ</value>
+    <value>Reason for rejecting the AM</value>
   </data>
   <data name="DenialReasonNameIsNotUnique" xml:space="preserve">
-    <value>Уже существует причина отклонения РМ с заголовком "{0}"</value>
+    <value>A reason for rejecting the AM already exists: &quot;{0}&quot;</value>
+  </data>
+  <data name="AgentBargainCanBeForBranchOnly" xml:space="preserve">
+    <value>Agent contract can only be created for a branch</value>
+  </data>
+  <data name="AgentBargainIsNotUnique" xml:space="preserve">
+    <value>There is an agent contract ({0}) for this pair of legal entities with an overlapping contract period</value>
+  </data>
+  <data name="BranchOfficeOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value>No code specified for the company division of the legal entity of the contractor</value>
+  </data>
+  <data name="LegalPersonOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value>No code for the company division of the legal entity of the customer</value>
+  </data>
+  <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
+    <value>This contract cannot be hidden since it is linked to the following orders: {0}.</value>
+  </data>
+  <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value>Contract closing date is earlier than the end date of order placement</value>
+  </data>
+  <data name="BargainEndDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value>Contract expiry date is earlier than the end date of order placement</value>
+  </data>
+  <data name="BargainKindChangingIsNotAllowed" xml:space="preserve">
+    <value>You cannot change the type of contract</value>
+  </data>
+  <data name="EndDistributionDateOfSomeOrdersIsGreaterThanBargainEndDate" xml:space="preserve">
+    <value>Contract expiry date is earlier than the end date of placement for the following orders: {0}</value>
+  </data>
+  <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
+    <value>No permissions for creation of agent contract</value>
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
 </root>
