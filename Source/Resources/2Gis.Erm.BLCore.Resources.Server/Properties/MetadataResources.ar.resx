@@ -418,7 +418,7 @@
     <value>Assessment of prospects</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Code of client&apos;s legal entity</value>
+    <value>Code of client's legal entity</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Required</value>
@@ -856,7 +856,7 @@
     <value>Order classification</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Profile of client&apos;s legal entity</value>
+    <value>Profile of client's legal entity</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Short name</value>
@@ -1336,7 +1336,7 @@
     <value>Bank name</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>Representative&apos;s RUT</value>
+    <value>Representative's RUT</value>
   </data>
   <data name="Rut" xml:space="preserve">
     <value>RUT</value>
@@ -1396,12 +1396,9 @@
     <value>Hidden reasons for rejecting the AM</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Type of contract</value>
+    <value>Contract form</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>New sales model</value>
-  </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>VAT</value>
   </data>
 </root>

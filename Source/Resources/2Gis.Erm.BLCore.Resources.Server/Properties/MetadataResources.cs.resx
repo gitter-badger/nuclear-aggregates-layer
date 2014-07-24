@@ -1401,7 +1401,4 @@
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Nový model prodejů</value>
   </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>DPH</value>
-  </data>
 </root>

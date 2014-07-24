@@ -1396,12 +1396,9 @@
     <value>Скрытые причины отклонения РМ</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Тип договора</value>
+    <value>Форма договора</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Новая модель продаж</value>
-  </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>НДС</value>
   </data>
 </root>
