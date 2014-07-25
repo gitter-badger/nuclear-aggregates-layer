@@ -192,6 +192,15 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 {
                     Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
+                
+                /* проверка скорости работы транспорта при исключении топологии 
+                topologyProcessingResults = new TopologyProcessingResults()
+                    {
+                        Failed = new IMessage[0],
+                        Passed = flowMessages,
+                        Succeeded = flowMessages
+                    };*/
+
 
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
 
