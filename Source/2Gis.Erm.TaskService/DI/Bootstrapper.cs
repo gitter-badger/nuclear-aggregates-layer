@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -12,7 +11,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
@@ -34,6 +33,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -51,8 +52,12 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -84,7 +89,7 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                {
+                { 
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
@@ -100,16 +105,16 @@ namespace DoubleGis.Erm.TaskService.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    settingsContainer,
+                                                    massProcessors,
+                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>()))
-                     .ConfigureServiceClient();
+                            .ConfigureServiceClient();
 
             container.ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
 
@@ -133,17 +138,17 @@ namespace DoubleGis.Erm.TaskService.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
+                    .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureIdentityInfrastructure()
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .RegisterCorporateQueues(connectionStringSettings)
-                .ConfigureQuartz()
+                    .ConfigureQuartz()
                     .ConfigureEAV()
                     .ConfigurePerformedOperationsProcessing();
         }
@@ -190,8 +195,6 @@ namespace DoubleGis.Erm.TaskService.DI
                 // services
                 // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
-                .RegisterTypeWithDependencies<ICrmTaskFactory, CrmTaskFactory>(Lifetime.PerScope, MappingScope)
-
                 .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(Lifetime.PerScope, MappingScope)
                             .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(
                                 Lifetime.PerScope,
@@ -230,33 +233,81 @@ namespace DoubleGis.Erm.TaskService.DI
             // до появления massprocessor, необходимо для правильной обработки зависимостей указанных типов
             // primary
             container.RegisterTypeWithDependencies(typeof(DBOnlinePerformedOperationsReceiver<>), Lifetime.PerScope, null)
-                     .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+                     .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
+                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientPerformedOperationsFinalProcessor), Lifetime.PerResolve, null);
             
             // final
             container.RegisterTypeWithDependencies(typeof(FinalProcessingQueueReceiver<>), Lifetime.PerScope, null)
-                     .RegisterTypeWithDependencies(typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+                     .RegisterTypeWithDependencies(typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
+                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null);
+
+
+            var messageProcessingStrategyResolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>>
+                {
+                    {
+                        FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(ReplicateToCrmPerformedOperationsPrimaryProcessor)
+                    },
+                    {
+                        FinalReplicate2MsCRMPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(ReplicateToCrmPerformedOperationsFinalProcessor)
+                    },
+                    {
+                        FinalStorageReplicateHotClientPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsPrimaryProcessor)
+                    },
+                    {
+                        FinalReplicateHotClientPerformedOperationsFlow.Instance,
+                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsFinalProcessor)
+                    },
+
+                    {
+                        ElasticRuntimeFlow.Instance,
+                        (flowType, message) => typeof(ReplicateToElasticSearchPerformedOperationsPrimaryProcessor)
+                    }
+                };
+
+
+            var messageAggregatedProcessingResultHandlerResolversMap = new Dictionary<IMessageFlow, Func<Type>>
+                {
+                    {
+                        FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
+                        () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler)
+                    },
+                    {
+                        FinalReplicate2MsCRMPerformedOperationsFlow.Instance,
+                        () => typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler)
+                    },
+                    {
+                        FinalStorageReplicateHotClientPerformedOperationsFlow.Instance,
+                        () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler)
+                    },
+                    {
+                        FinalReplicateHotClientPerformedOperationsFlow.Instance,
+                        () => typeof(ReplicateHotClientMessageAggregatedProcessingResultHandler)
+                    },
+                    {
+                        PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance,
+                        () => typeof(ReplicateToElasticSearchMessageAggregatedProcessingResultHandler)
+                    },
+                };
+
+
 
             return container.RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton)
                             .RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
-                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope, new InjectionConstructor(container, new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
-                            {
-                                { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, (x, y) => typeof(ReplicateToCrmPerformedOperationsPrimaryProcessor) },
-                                { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, (x, y) => typeof(ReplicateToCrmPerformedOperationsFinalProcessor) },
-                                { ElasticRuntimeFlow.Instance, (x, y) => typeof(ReplicateToElasticSearchPerformedOperationsPrimaryProcessor) },
-                            }))
-                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope, new InjectionConstructor(container, new Dictionary<IMessageFlow, Func<Type>> 
-                            {
-                                { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance, () => typeof(PerformedOperationsMessageAggregatedProcessingResultHandler) },
-                                { FinalReplicate2MsCRMPerformedOperationsFlow.Instance, () => typeof(ReplicateToCRMMessageAggregatedProcessingResultHandler) },
-                                { PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance, () => typeof(ReplicateToElasticSearchMessageAggregatedProcessingResultHandler) },
-                            }))
+                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope, new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageProcessingStrategyResolversMap))
+                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope, new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageAggregatedProcessingResultHandlerResolversMap))
 
                             .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                             .RegisterType<IOperationResolver, OperationResolver>(Lifetime.Singleton);
         }
+
+
+
 
         private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
         {
@@ -278,7 +329,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-
+                
                 .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
         }
     }

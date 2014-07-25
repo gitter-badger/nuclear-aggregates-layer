@@ -416,6 +416,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Production.Ukraine.config = Environments\Erm.Production.Ukraine.config
 		Environments\Erm.Test.06.config = Environments\Erm.Test.06.config
 		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
+		Environments\quartz.Production.MultiCulture.config = Environments\quartz.Production.MultiCulture.config
+		Environments\quartz.Production.Russia.config = Environments\quartz.Production.Russia.config
+		Environments\quartz.Test.08.config = Environments\quartz.Test.08.config
+		Environments\quartz.Test.108.config = Environments\quartz.Test.108.config
+		Environments\quartz.Test.208.config = Environments\quartz.Test.208.config
+		Environments\quartz.Test.308.config = Environments\quartz.Test.308.config
+		Environments\quartz.Test.408.config = Environments\quartz.Test.408.config
+		Environments\quartz.Test.508.config = Environments\quartz.Test.508.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
@@ -427,11 +435,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
 		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
 		Environments\Templates\Erm.Test.Ukraine.config = Environments\Templates\Erm.Test.Ukraine.config
+		Environments\Templates\quartz.Test.MultiCulture.config = Environments\Templates\quartz.Test.MultiCulture.config
+		Environments\Templates\quartz.Test.Russia.config = Environments\Templates\quartz.Test.Russia.config
+		Environments\Templates\quartz.Test.Russia.CRM.config = Environments\Templates\quartz.Test.Russia.CRM.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8A7FE04B-1B23-412D-AC87-D297824303A3}"
 	ProjectSection(SolutionItems) = preProject
 		Environments\Common\Erm.Release.config = Environments\Common\Erm.Release.config
+		Environments\Common\log4net.Release.config = Environments\Common\log4net.Release.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Qds.API.Core", "..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj", "{9E27F95A-5B1A-426B-9F72-AD2240FE8026}"
