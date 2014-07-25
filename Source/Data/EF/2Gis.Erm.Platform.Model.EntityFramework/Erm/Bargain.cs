@@ -64,6 +64,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte HasDocumentsDebt { get; set; }
         public string DocumentsComment { get; set; }
         public byte[] Timestamp { get; set; }
+        public Nullable<System.DateTime> BargainEndDate { get; set; }
+        public int BargainKind { get; set; }
     
         public ICollection<BargainFile> BargainFiles { get; set; }
         public ICollection<Order> Orders { get; set; }
