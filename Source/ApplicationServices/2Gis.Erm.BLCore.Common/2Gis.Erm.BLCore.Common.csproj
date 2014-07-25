@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
@@ -73,6 +75,7 @@
     <Compile Include="Infrastructure\Handlers\UseCaseResumeContext.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmDataContextExtensions.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmEntityName.cs" />
+    <Compile Include="Infrastructure\MsCRM\CrmUserDto.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +86,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

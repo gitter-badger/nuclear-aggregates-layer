@@ -8,7 +8,6 @@ using System.Text;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AfterSaleServices;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
@@ -33,16 +32,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IFinder _finder;
-        private readonly IMsCrmInteractionService _crmDynamicsInteractionService;
 
         public CrmCreateAfterSaleServiceActivitiesHandler(
             IMsCrmSettings msCrmSettings, 
-            IFinder finder, 
-            IMsCrmInteractionService crmDynamicsInteractionService)
+            IFinder finder)
         {
             _msCrmSettings = msCrmSettings;
             _finder = finder;
-            _crmDynamicsInteractionService = crmDynamicsInteractionService;
         }
 
         protected override CrmCreateAfterSaleServiceActivitiesResponse Handle(CrmCreateAfterSaleServiceActivitiesRequest request)
@@ -77,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService
                     {
                         var dealOwners = dealsMapping.Select(x => x.Value.OwnerCode).Distinct().ToArray();
                         var usersErmMapping = _finder.Find<User>(x => dealOwners.Contains(x.Id)).ToDictionary(x => x.Id, x => x.Account);
-                        var usersCrmMapping = _crmDynamicsInteractionService.GetUserMappings(usersErmMapping);
+                        var usersCrmMapping = crmDataContext.GetUserMappings(usersErmMapping);
 
                         dealToOwnerUserMapping = dealsMapping.ToDictionary(x => x.Key, x => usersCrmMapping[x.Value.OwnerCode]);
                     }

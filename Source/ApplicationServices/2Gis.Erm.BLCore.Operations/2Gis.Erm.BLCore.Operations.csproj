@@ -56,6 +56,7 @@
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\AdvertismentIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ClientIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\FirmAddressIntegrationProcessorOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\Processors\Concrete\HotClientRequestIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ImportedFirmAddressIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\IntegrationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\InvoiceIntegrationProcessorOperationService.cs" />
@@ -79,7 +79,6 @@
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeOrganizationUnitIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeTemplateIntegrationProcessorOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\Exporters\HotClientRequestOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
     <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
-    <Compile Include="Concrete\Old\Integration\MsCrm\CreateHotClientHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
@@ -251,6 +249,8 @@
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientMessageAggregatedProcessingResultHandler.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessor.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
     <Compile Include="Concrete\Withdrawals\CreateLockDetailsDuringWithdrawalOperationService.cs">
       <SubType>Code</SubType>
@@ -267,8 +267,7 @@
     <Compile Include="Concrete\Simplified\Dictionary\Currency\GetBaseCurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
-    <Compile Include="Concrete\Simplified\MS CRM\CrmTaskFactory.cs" />
-    <Compile Include="Concrete\Simplified\MS CRM\MsCrmInteractionService.cs" />
+    <Compile Include="Concrete\Simplified\MS CRM\CrmTaskUtils.cs" />
     <Compile Include="Concrete\Simplified\NoteService.cs" />
     <Compile Include="Concrete\Simplified\OperationService.cs" />
     <Compile Include="Concrete\Simplified\PrintFormTemplateService.cs" />

@@ -210,7 +210,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersInvoice = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                  "ExportFlowOrders_Invoice");
-        
+
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName ExportToMsCrmHotClients = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                  "ExportToMsCrm_HotClients");
         

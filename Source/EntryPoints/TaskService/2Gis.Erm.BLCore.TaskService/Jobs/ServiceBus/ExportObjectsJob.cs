@@ -109,14 +109,6 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                         }
                 },
                 {
-                    "mscrm.hotclient",
-                    new FlowDescription
-                        {
-                            EntityName = EntityName.HotClientRequest,
-                            IntegrationEntityName = EntityName.ExportToMsCrmHotClients
-                        }
-                },
-                {
                     "flowpricelists.pricelist",
                     new FlowDescription
                         {

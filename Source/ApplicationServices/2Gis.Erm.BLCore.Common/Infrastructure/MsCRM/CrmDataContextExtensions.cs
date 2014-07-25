@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using Microsoft.Crm.Sdk;
 using Microsoft.Crm.SdkTypeProxy;
@@ -88,6 +94,89 @@ namespace DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM
         public static ICrmEntity GetClient(this ICrmDataContext crmDataContext, Guid clientReplicationCode)
         {
             return crmDataContext.GetEntities(EntityName.account).SingleOrDefault(x => x.GetPropertyValue<Guid>("accountid") == clientReplicationCode);
+        }
+
+        public static CrmUserDto GetCrmUserInfo(this CrmDataContext crmDataContext, string userAccount)
+        {
+            var fetchXmlQuery = BuildFetchUserSettingsExpression(userAccount);
+
+            using (var service = crmDataContext.CreateService())
+            {
+                var queryResult = service.Fetch(fetchXmlQuery);
+
+                var doc = XDocument.Parse(queryResult);
+
+                foreach (var el in doc.Root.Elements("result"))
+                {
+                    var accountName = IdentityUtils.GetAccount(el.Element("domainname").Value);
+
+                    var systemUserId = new Guid(el.Element("systemuserid").Value);
+                    var timezonebias = int.Parse(el.Element("systemuserid.timezonebias").Value);
+                    var timezonedaylightbias = int.Parse(el.Element("systemuserid.timezonedaylightbias").Value);
+
+                    if (accountName.IndexOf(userAccount, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    {
+                        return new CrmUserDto { CrmUserId = systemUserId, TimeZoneTotalBias = TimeSpan.FromMinutes(timezonebias + timezonedaylightbias) };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static Dictionary<long, CrmUserDto> GetUserMappings(this CrmDataContext crmDataContext, Dictionary<long, string> usersDomainMapping)
+        {
+            var result = new Dictionary<long, CrmUserDto>(usersDomainMapping.Count);
+            var userDomainNames = usersDomainMapping.Values.ToArray();
+
+            var fetchXmlQuery = BuildFetchUserSettingsExpression(userDomainNames);
+
+            using (var service = crmDataContext.CreateService())
+            {
+                var queryResult = service.Fetch(fetchXmlQuery);
+
+                var doc = XDocument.Parse(queryResult);
+
+                // ReSharper disable PossibleNullReferenceException
+                foreach (var el in doc.Root.Elements("result"))
+                {
+                    var accountName = IdentityUtils.GetAccount(el.Element("domainname").Value);
+
+                    var systemUserId = new Guid(el.Element("systemuserid").Value);
+                    var timezonebias = Int32.Parse(el.Element("systemuserid.timezonebias").Value);
+                    var timezonedaylightbias = Int32.Parse(el.Element("systemuserid.timezonedaylightbias").Value);
+
+                    // ERM ные пользователи хранятся без домена (usersDomainMapping), CRM-ные (accountName) - с доменом.
+                    var keyValuePair = usersDomainMapping.First(x => accountName.IndexOf(x.Value, StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+                    result[keyValuePair.Key] = new CrmUserDto { CrmUserId = systemUserId, TimeZoneTotalBias = TimeSpan.FromMinutes(timezonebias + timezonedaylightbias) };
+                }
+                // ReSharper restore PossibleNullReferenceException
+            }
+
+            return result;
+        }
+
+        private static string BuildFetchUserSettingsExpression(params string[] userDomainNames)
+        {
+            var sb = new StringBuilder(1000 + (100 * userDomainNames.Length));
+
+            sb.Append("<fetch mapping=\"logical\" version=\"1.0\">");
+            sb.Append("<entity name=\"systemuser\">");
+            sb.Append("<attribute name=\"domainname\" />");
+            sb.Append("<attribute name=\"systemuserid\" />");
+            sb.Append("<filter type=\"or\">");
+
+            foreach (var userDomainName in userDomainNames)
+            {
+                sb.AppendFormat("<condition attribute=\"domainname\" operator=\"like\" value=\"%\\{0}\" />", userDomainName);
+            }
+
+            sb.Append("</filter>");
+            sb.Append("<link-entity name=\"usersettings\" from=\"systemuserid\" to=\"systemuserid\"><attribute name=\"timezonebias\" /><attribute name=\"timezonedaylightbias\" /></link-entity>");
+            sb.Append("</entity>");
+            sb.Append("</fetch>");
+            return sb.ToString();
         }
 
         // retrieve "crm" from "crm\admin" domainname
