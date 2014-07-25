@@ -406,7 +406,7 @@
     <value>Report date</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Payment date (as of)</value>
+    <value>Date (as of)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
     <value>Order No.</value>
@@ -943,7 +943,7 @@
     <value>As per payment</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Payment No.</value>
+    <value>No.</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>

@@ -2003,7 +2003,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Attention! Company address and/or the company is hidden forever</value>
   </data>
   <data name="ReleaseBlockedError" xml:space="preserve">
-    <value>Editing of invoices and items of invoices is blocked for the city {0}</value>
+    <value>Editing of orders and items of orders is blocked for the city {0}</value>
   </data>
   <data name="DateRangeError" xml:space="preserve">
     <value>End date is less than start date</value>
@@ -4980,7 +4980,7 @@ Contact: {1}</value>
     <value>You cannot cancel a completed request</value>
   </data>
   <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>No customer for the company with Invoice [{0}]</value>
+    <value>No customer for the company with Orders [{0}]</value>
   </data>
   <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
     <value>The project {0} is not linked to a company branch</value>

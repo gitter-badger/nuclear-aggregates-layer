@@ -1577,7 +1577,7 @@
     <value>Юр.лица, куратором которого я не являюсь, но у которого есть мои заказы</value>
   </data>
   <data name="DListLegalPersonsWithRegionalOrders" xml:space="preserve">
-    <value>Юридические лица, с региональными БЗ</value>
+    <value>Юридические лица, с региональными заказами</value>
   </data>
   <data name="DListLimitsAtMyBranch" xml:space="preserve">
     <value>Лимиты по филиалу</value>
@@ -1661,7 +1661,7 @@
     <value>Заказы моих подчиненных в ближайший выпуск</value>
   </data>
   <data name="DListRejectedByMeOrders" xml:space="preserve">
-    <value>Все отклоненные мною БЗ</value>
+    <value>Все отклоненные мною заказы</value>
   </data>
   <data name="DListNewFirmsOnMyTerritories" xml:space="preserve">
     <value>Новые фирмы моей территории</value>
@@ -1694,10 +1694,10 @@
     <value>Клиенты, с которыми была только одна встреча</value>
   </data>
   <data name="DListAccountsWithHostedOrdersForSubordinates" xml:space="preserve">
-    <value>Лицевые счета моих подчиненных с размещающимися БЗ</value>
+    <value>Лицевые счета моих подчиненных с размещающимися заказами</value>
   </data>
   <data name="DListMyAccountsWithHostedOrders" xml:space="preserve">
-    <value>Мои лицевые счета с размещающимися БЗ</value>
+    <value>Мои лицевые счета с размещающимися заказами</value>
   </data>
   <data name="DListApprovedOrdersWithoutAdvertisement" xml:space="preserve">
     <value>Заказы в статусе "Одобрено", у которых отсутствуют прикрепленные РМ</value>
