@@ -5222,6 +5222,6 @@ Doba zveřejnění: {3}.</value>
     <value>Chybějí práva na vytvoření agenturní smlouvy</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
-    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+    <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
   </data>
 </root>
