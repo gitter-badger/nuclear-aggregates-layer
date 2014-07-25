@@ -102,6 +102,7 @@
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisements\AdvertisementReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deals\DealReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\OrderReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\Validation\OnlyWhiteListReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElementFeatues.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElement.cs" />

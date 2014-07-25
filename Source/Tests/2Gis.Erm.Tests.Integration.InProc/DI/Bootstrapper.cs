@@ -53,9 +53,7 @@ using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -90,7 +88,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            //            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+                        //{ typeof(OnlyWhiteListReadModelTest)/*, typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) */};
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
