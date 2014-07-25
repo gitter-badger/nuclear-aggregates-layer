@@ -207,9 +207,6 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="log4net.Release.config">
-      <DependentUpon>log4net.config</DependentUpon>
-    </None>
     <Content Include="orderValidation.config" />
     <Content Include="packages.config" />
   </ItemGroup>
