@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Exceptions.Bargains;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -56,6 +57,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             var releaseCountFact = order.ReleaseCountPlan;
             var releaseNumbersDto = _orderReadModel.CalculateReleaseNumbers(order.DestOrganizationUnitId, order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
             var distributionDatesDto = _orderReadModel.CalculateDistributionDates(order.BeginDistributionDate, order.ReleaseCountPlan, releaseCountFact);
+
+            if (order.BargainId.HasValue)
+            {
+                var bargainDates = _orderReadModel.GetBargainEndAndCloseDates(order.BargainId.Value);
+                if (bargainDates.BargainEndDate.HasValue && bargainDates.BargainEndDate.Value < distributionDatesDto.EndDistributionDateFact)
+                {
+                    throw new BargainEndDateIsLessThanOrderEndDistributionDateException(BLResources.BargainEndDateIsLessThanOrderEndDistributionDate);
+                }
+
+                if (bargainDates.BargainCloseDate.HasValue && bargainDates.BargainCloseDate.Value < distributionDatesDto.EndDistributionDateFact)
+                {
+                    throw new BargainCloseDateIsLessThanOrderEndDistributionDateException(BLResources.BargainCloseDateIsLessThanOrderEndDistributionDate);
+                }
+            }
 
             order.ReleaseCountFact = releaseCountFact;
             order.EndDistributionDateFact = distributionDatesDto.EndDistributionDateFact;

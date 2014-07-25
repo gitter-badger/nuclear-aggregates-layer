@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -28,7 +27,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IDeleteGenericEntityService<Bargain> _deleteBargainService;
 
         public CloseOrderHandler(
             IDealReadModel dealReadModel,
@@ -36,7 +34,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             ISubRequestProcessor subRequestProcessor, 
             IOperationScopeFactory scopeFactory,
             IOrderRepository orderRepository,
-            IDeleteGenericEntityService<Bargain> deleteBargainService, 
             IOrderReadModel orderReadModel)
         {
             _dealReadModel = dealReadModel;
@@ -44,7 +41,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             _subRequestProcessor = subRequestProcessor;
             _scopeFactory = scopeFactory;
             _orderRepository = orderRepository;
-            _deleteBargainService = deleteBargainService;
             _orderReadModel = orderReadModel;
         }
 
@@ -70,17 +66,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             {
                 var orderPositions = _orderReadModel.GetPositions(request.OrderId);
                 _orderRepository.CloseOrder(order, request.Reason);
-
-                // Деактивировать договор
-                if (order.BargainId.HasValue)
-                {
-                    var hasOtherOrders = _orderReadModel.GetOrdersForBargain(order.BargainId.Value).Any(x => x.Id != order.Id);
-                    if (!hasOtherOrders)
-                    {
-                        _deleteBargainService.Delete(order.BargainId.Value);
-                        operationScope.Deleted<Bargain>(order.BargainId.Value);
-                    }
-                }
 
                 _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = order }, Context);
                 _subRequestProcessor.HandleSubRequest(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = order.ReleaseCountFact }, Context);

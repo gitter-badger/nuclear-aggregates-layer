@@ -20,6 +20,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             typeof(LookupField),
             typeof(DateTime),
             typeof(DateTime?),
+            typeof(TimeSpan),
+            typeof(TimeSpan?),
             typeof(Guid[]),
             typeof(long),
             typeof(long?),
@@ -42,8 +44,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         {
             return SupportedTypes.Contains(modelType) || modelType.IsEnum;
         }
-
-        #region model binders
 
         private sealed class DefaultModelBinder : System.Web.Mvc.DefaultModelBinder
         {
@@ -77,6 +77,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (modelType == typeof(DateTime) || modelType == typeof(DateTime?))
                 {
                     return BindDateTime(bindingContext);
+                }
+
+                // TIMESPAN
+                if (bindingContext.ModelType == typeof(TimeSpan) || bindingContext.ModelType == typeof(TimeSpan?))
+                {
+                    return BindTimeSpan(bindingContext);
                 }
 
                 // GUID ARRAY, Dynamics CRM pass guid arrays splitted by comma
@@ -131,8 +137,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
                 return true;
             }
-
-            #region binding helper functions
 
             private static object BindString(ModelBindingContext bindingContext)
             {
@@ -228,6 +232,32 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 return null;
             }
 
+            private static object BindTimeSpan(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+                // set null for nullable TimeSpan
+                if (bindingContext.ModelType == typeof(TimeSpan?) && (valueProviderResult == null || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue)))
+                {
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return null;
+                }
+
+                DateTime rawValue;
+                if (DateTime.TryParse(valueProviderResult.AttemptedValue, valueProviderResult.Culture, DateTimeStyles.AssumeLocal, out rawValue))
+                {
+                    var result = rawValue.TimeOfDay;
+                    valueProviderResult = new ValueProviderResult(result, valueProviderResult.AttemptedValue, valueProviderResult.Culture);
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return result;
+                }
+
+                // if cannot parse datetime, raise an error
+                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
+                return null;
+            }
+            
             private static object BindEnum(ModelBindingContext bindingContext)
             {
                 var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
@@ -288,10 +318,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 modelState.Errors.Add(requiredAttribute.FormatErrorMessage(memberDescriptor.DisplayName));
                 return false;
             }
-
-            #endregion
         }
-
-        #endregion
     }
 }

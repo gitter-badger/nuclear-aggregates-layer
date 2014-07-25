@@ -1,8 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
@@ -18,42 +17,42 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                     get { return new FindSpecification<Bargain>(x => x.ClosedOn == null); }
                 }
 
-                public static FindSpecification<Bargain> Actual(long? legalPersonId, long? branchOfficeOrganizationUnitId, DateTime orderSignupDate)
+                public static FindSpecification<Bargain> NotClosedByCertainDate(DateTime dateToCompare)
                 {
-                    return new FindSpecification<Bargain>(bargain => !bargain.IsDeleted
-                                                                     && bargain.CustomerLegalPersonId == legalPersonId
-                                                                     && bargain.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId &&
-                                                                     (bargain.ClosedOn == null || bargain.ClosedOn >= orderSignupDate) &&
-                                                                     bargain.IsActive && !bargain.IsDeleted);
+                    return new FindSpecification<Bargain>(bargain => !bargain.ClosedOn.HasValue || bargain.ClosedOn >= dateToCompare);
                 }
 
-                public static FindSpecification<Bargain> ForOrder(long? legalPersonId, long? branchOfficeOrganizationUnitId)
+                public static FindSpecification<Bargain> ByLegalPersons(long legalPersonId, long branchOfficeOrganizationUnitId)
                 {
-                    return new FindSpecification<Bargain>(bargain => !bargain.IsDeleted
-                                                                     && bargain.CustomerLegalPersonId == legalPersonId
-                                                                     && bargain.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId &&
-                                                                     bargain.IsActive && !bargain.IsDeleted);
+                    return new FindSpecification<Bargain>(bargain => bargain.CustomerLegalPersonId == legalPersonId
+                                                                     && bargain.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId);
+                }
+
+                public static FindSpecification<Bargain> ClientBargains()
+                {
+                    return new FindSpecification<Bargain>(x => x.BargainKind == (int)BargainKind.Client);
+                }
+
+                public static FindSpecification<Bargain> AgentBargains()
+                {
+                    return new FindSpecification<Bargain>(x => x.BargainKind == (int)BargainKind.Agent);
+                }
+
+                public static FindSpecification<Bargain> Duplicate(long bargainId,
+                                                                   long legalPersonId,
+                                                                   long branchOfficeOrganizationUnitId,
+                                                                   DateTime bargainBeginDate,
+                                                                   DateTime bargainEndDate)
+                {
+                    return
+                        new FindSpecification<Bargain>(
+                            x => x.Id != bargainId && x.CustomerLegalPersonId == legalPersonId && x.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId &&
+                                 x.BargainEndDate >= bargainBeginDate && x.SignedOn <= bargainEndDate);
                 }
             }
 
             public static class Select
             {
-                public static ISelectSpecification<Order, CreateBargainInfo> CreateBargainInfoSelector
-                {
-                    get
-                    {
-                        return new SelectSpecification<Order, CreateBargainInfo>(x => new CreateBargainInfo
-                            {
-                                Order = x,
-                                LegalPersonId = x.LegalPersonId,
-                                BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
-                                OrderSignupDate = x.SignupDate,
-                                BargainTypeId = x.BranchOfficeOrganizationUnit.BranchOffice.BargainTypeId,
-                                DestinationSyncCode1C = x.DestOrganizationUnit.SyncCode1C,
-                                SourceSyncCode1C = x.SourceOrganizationUnit.SyncCode1C,
-                            });
-                    }
-                }
             }
         }
     }

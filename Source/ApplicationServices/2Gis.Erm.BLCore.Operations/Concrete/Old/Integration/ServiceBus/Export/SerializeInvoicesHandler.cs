@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -16,10 +17,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 {
     public sealed class SerializeInvoicesHandler : SerializeObjectsHandler<Order, ExportFlowOrdersInvoice>
     {
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
+
         public SerializeInvoicesHandler(IExportRepository<Order> exportOperationsRepository,
-                                        ICommonLog logger)
+                                        ICommonLog logger,
+                                        ISecurityServiceUserIdentifier securityServiceUserIdentifier)
             : base(exportOperationsRepository, logger)
         {
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
         protected override ISelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
@@ -28,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 {
                     Id = x.Id,
                     Number = x.Number,
+                    FirmCode = x.FirmId,
                     FirmName = x.Firm.Name,
                     BranchSrcCode = x.SourceOrganizationUnit.DgppId.Value,
                     BranchDestCode = x.DestOrganizationUnit.DgppId.Value,
@@ -37,7 +43,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     ApprovedDate = x.ApprovalDate,
                     StartDate = x.BeginDistributionDate,
                     EndDate = x.EndDistributionDateFact,
+                    EndDatePlan = x.EndDistributionDatePlan,
                     Status = (OrderState)x.WorkflowStepId,
+                    OrderType = (OrderType)x.OrderType,
+                    OwnerCode = x.OwnerCode,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     InvoiceItems =
@@ -121,6 +130,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             var invoiceElement = new XElement("Invoice",
                                               new XAttribute("Code", invoiceDto.Id),
                                               new XAttribute("Number", invoiceDto.Number),
+                                              new XAttribute("FirmCode", invoiceDto.FirmCode),
                                               new XAttribute("FirmName", invoiceDto.FirmName),
                                               new XAttribute("BranchSrcCode", invoiceDto.BranchSrcCode),
                                               new XAttribute("BranchDestCode", invoiceDto.BranchDestCode),
@@ -129,7 +139,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                               new XAttribute("CreatedDate", invoiceDto.CreatedDate),
                                               new XAttribute("StartDate", invoiceDto.StartDate),
                                               new XAttribute("EndDate", invoiceDto.EndDate),
-                                              new XAttribute("Status", invoiceDto.Status));
+                                              new XAttribute("EndDatePlan", invoiceDto.EndDatePlan),
+                                              new XAttribute("Status", invoiceDto.Status),
+                                              new XAttribute("OrderType", invoiceDto.OrderType),
+                                              new XAttribute("UserCode", invoiceDto.UserCode));
 
             if (invoiceDto.ApprovedDate.HasValue)
             {
@@ -144,6 +157,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             invoiceElement.Add(GetInvoiceItemsElement(invoiceDto));
 
             return invoiceElement;
+        }
+
+        protected override IEnumerable<IExportableEntityDto> ProcessDtosAfterMaterialization(IEnumerable<IExportableEntityDto> entityDtos)
+        {
+            foreach (var entityDto in entityDtos.Cast<InvoiceDto>())
+            {
+                entityDto.UserCode = _securityServiceUserIdentifier.GetUserInfo(entityDto.OwnerCode).Account;
+            }
+
+            return entityDtos;
         }
 
         private static XElement GetInvoiceItemsElement(InvoiceDto invoiceDto)
@@ -210,6 +233,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             public long Id { get; set; }
             public string Number { get; set; }
+            public long FirmCode { get; set; }
             public string FirmName { get; set; }
             public int BranchSrcCode { get; set; }
             public int BranchDestCode { get; set; }
@@ -219,10 +243,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public DateTime? ApprovedDate { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
+            public DateTime EndDatePlan { get; set; }
             public OrderState Status { get; set; }
+            public OrderType OrderType { get; set; }
             public bool IsActive { get; set; }
             public bool IsDeleted { get; set; }
             public IEnumerable<InvoiceItemDto> InvoiceItems { get; set; }
+            public long OwnerCode { get; set; }
+            public string UserCode { get; set; }
         }
 
         public sealed class InvoiceItemDto

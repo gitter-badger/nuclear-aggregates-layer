@@ -1671,16 +1671,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\RemoveBargain",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(RemoveBargainFromOrderHandler),
-                        Request = typeof(RemoveBargainFromOrderRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.LimitController\SetStatus",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)

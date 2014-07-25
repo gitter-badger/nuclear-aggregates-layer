@@ -68,6 +68,7 @@
     <Compile Include="ADPValidationResultBuilder.cs" />
     <Compile Include="ADPValidator.cs" />
     <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
+    <Compile Include="Rules\AdvertisementsOnlyWhiteListOrderValidationRule.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />
     <Compile Include="IPriceConfigurationService.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Rules\IsAdvertisementLinkedWithLocatedOnTheMapAddressOrderValidationRule.cs" />
     <Compile Include="Rules\IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule.cs" />
     <Compile Include="Rules\IsPositionSupportedByExportOrderValidationRule.cs" />
-    <Compile Include="Rules\IsThereAdvantageousPurchasesRubricOrderValidationRule.cs" />
     <Compile Include="Rules\LegalPersonProfilesOrderValidationRule.cs" />
     <Compile Include="Rules\LinkingObjectsOrderValidationRule.cs" />
     <Compile Include="Rules\LockNoExistsOrderValidationRule.cs" />
@@ -124,7 +124,6 @@
     <Compile Include="Rules\OrderPositionsRefereceCurrentPriceListOrderValidationRule.cs" />
     <Compile Include="Rules\OrdersAndBargainsScansExistOrderValidationRule.cs" />
     <Compile Include="Rules\PlatformTypeOrderValidationRule.cs" />
-    <Compile Include="Rules\RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="Rules\ReleaseNotExistsOrderValidationRule.cs" />
     <Compile Include="Rules\RequiredFieldsNotEmptyOrderValidationRule.cs" />
     <Compile Include="Rules\SameAdvertisementOrderValidationRule.cs" />
@@ -132,7 +131,7 @@
     <Compile Include="Rules\ThemeCategoriesValidationRule.cs" />
     <Compile Include="Rules\ThemePeriodOverlapsOrderPeriodValidationRule.cs" />
     <Compile Include="Rules\ThemePositionCountValidationRule.cs" />
-    <Compile Include="Rules\ValidateAdvertisementsOrderValidationRule.cs" />
+    <Compile Include="Rules\AdvertisementsWithoutWhiteListOrderValidationRule.cs" />
     <Compile Include="Rules\WarrantyEndDateOrderValidationRule.cs" />
   </ItemGroup>
   <ItemGroup>
