@@ -5,7 +5,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies;
@@ -19,11 +21,9 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 {
     public sealed class UnityMessageFlowProcessorFactory : IMessageFlowProcessorFactory
     {
-        private readonly IUnityContainer _unityContainer;
-
-        private readonly IReadOnlyDictionary<IMessageFlow, Func<Type, Tuple<Type, Type>>> _resolversMap;
-
         private readonly IReadOnlyDictionary<MessageProcessingStage, Type> _messageProcessingStagesMap;
+        private readonly IReadOnlyDictionary<IMessageFlow, Func<Type, Tuple<Type, Type>>> _resolversMap;
+        private readonly IUnityContainer _unityContainer;
 
         public UnityMessageFlowProcessorFactory(IUnityContainer unityContainer)
         {
@@ -31,9 +31,15 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 
             var resolversMap = new Dictionary<IMessageFlow, Func<Type, Tuple<Type, Type>>>();
 
-            AddMapping(resolversMap, PerformedOperations, PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance);
-            AddMapping(resolversMap, PerformedOperations, PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
-            AddMapping(resolversMap, FinalProcessorCommonQueue, FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance);
+            AddMapping(resolversMap,
+                       PerformedOperations,
+                       PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
+                       PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
+                       PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
+            AddMapping(resolversMap,
+                       FinalProcessorCommonQueue,
+                       FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
+                       FinalStorageReplicateHotClientPerformedOperationsFlow.Instance);
             
             _resolversMap = resolversMap;
 
@@ -124,7 +130,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
                 topologyType, 
                 new DependencyOverrides
                         {
-                            { typeof(IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage>), stagesMap },
+                                                                               {
+                                                                                   typeof(IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage>),
+                                                                                   stagesMap
+                                                                               },
                             { typeof(MessageProcessingStage[]), processorSettings.IgnoreErrorsOnStage }
                         });
         }

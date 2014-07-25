@@ -121,7 +121,6 @@
         ImportedFirmAddress = 253,
         ExportFailedEntity = 254,
         HotClientRequest = 257,
-        ExportToMsCrmHotClients = 256,
         ExportFlowFinancialDataClient = 255,
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
@@ -19,10 +21,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 {
     public sealed class UnityMessageReceiverFactory : IMessageReceiverFactory
     {
-        private readonly IUnityContainer _unityContainer;
         private readonly IPerformedOperationsTransportSettings _performedOperationsTransportSettings;
 
         private readonly IReadOnlyDictionary<IMessageFlow, Func<Type, Type>> _resolversMap;
+        private readonly IUnityContainer _unityContainer;
 
         public UnityMessageReceiverFactory(
             IUnityContainer unityContainer,
@@ -32,8 +34,16 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             _performedOperationsTransportSettings = performedOperationsTransportSettings;
 
             var resolversMap = new Dictionary<IMessageFlow, Func<Type, Type>>();
-            AddMapping(resolversMap, PerformedOperations, AllPerformedOperationsFlow.Instance, PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance, PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
-            AddMapping(resolversMap, FinalProcessorCommonQueue, FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance);
+            AddMapping(resolversMap,
+                       PerformedOperations,
+                       AllPerformedOperationsFlow.Instance,
+                       PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
+                       PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
+                       PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
+            AddMapping(resolversMap,
+                       FinalProcessorCommonQueue,
+                       FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
+                       FinalStorageReplicateHotClientPerformedOperationsFlow.Instance);
 
             _resolversMap = resolversMap;
         }
@@ -74,7 +84,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             Func<Type, Type> resolver;
             if (!_resolversMap.TryGetValue(messageFlow, out resolver))
             {
-                throw new InvalidOperationException("Can't find message receiver resolver for message flow " + messageFlow);
+                throw new InvalidOperationException(string.Format("Can't find message receiver resolver for message flow {0}", messageFlow));
             }
 
             return resolver(messageFlowType);
@@ -94,7 +104,9 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
                 }
                 default:
                 {
-                    throw new NotSupportedException("Specified " + typeof(PerformedOperationsTransport).Name + " settings value " + _performedOperationsTransportSettings.OperationsTransport + " is not supported");
+                    throw new NotSupportedException(string.Format("Specified {0} settings value {1} is not supported",
+                                                                  typeof(PerformedOperationsTransport).Name,
+                                                                  _performedOperationsTransportSettings.OperationsTransport));
                 }
             }
         }
