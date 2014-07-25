@@ -131,6 +131,20 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
             return constructors.Single();
         }
 
+        /// <summary>
+        /// Создает дочерний контейнер и регистрирует в нем как singleton указанные зависимости, зарезолвленные из головного контейнера
+        /// </summary>
+        public static IUnityContainer CreateChildContainerWithParentDependencies(this IUnityContainer container, params Type[] dependencies)
+        {
+            var childContainer = container.CreateChildContainer();
+            foreach (var dependency in dependencies)
+            {
+                childContainer.RegisterInstance(dependency, container.Resolve(dependency));
+            }
+
+            return childContainer;
+        }
+
         private static IEnumerable<object> GetResolveSettingsForTypeDependencies(
             IUnityContainer container,
             Type type,

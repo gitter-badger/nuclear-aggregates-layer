@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (!_msCrmSettings.EnableReplication)
             {
-                _logger.WarnFormatEx("Replication to MsCRM disableв шт config. Do nothing ...");
+                _logger.WarnFormatEx("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = Enumerable.Empty<long>();
                 return;
             }
