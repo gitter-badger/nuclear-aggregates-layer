@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
                 { EntityName.ExportFlowFinancialDataClient, IntegrationService.ExportFlowFinancialDataClient },
                 { EntityName.ExportFlowPriceListsPriceList, IntegrationService.ExportFlowPriceListsPriceList },
                 { EntityName.ExportFlowPriceListsPriceListPosition, IntegrationService.ExportFlowPriceListsPriceListPosition },
-                { EntityName.ExportToMsCrmHotClients, IntegrationService.CreateHotClientTask },
                 { EntityName.ImportedFirmAddress, IntegrationService.ImportFirmAddressNames },
                 { EntityName.ExportFlowOrdersInvoice, IntegrationService.ExportFlowOrdersInvoice },
                 { EntityName.ExportFlowNomenclaturesNomenclatureElement, IntegrationService.ExportFlowNomenclaturesNomenclatureElement },

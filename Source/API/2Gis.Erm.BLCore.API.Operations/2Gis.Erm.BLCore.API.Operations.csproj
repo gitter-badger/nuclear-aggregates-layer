@@ -74,6 +74,8 @@
     <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
+    <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
+    <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardForErmServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Cards\CardServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Shared\CardType.cs" />
@@ -172,10 +174,10 @@
     <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Prices\PriceDto.cs" />
+    <Compile Include="Concrete\Processing\Final\HotClient\ReplicateHotClientFinalProcessingResultsMessage.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\HotClientRequestDto.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\RegardingObject.cs" />
     <Compile Include="Concrete\Simplified\MsCRM\Dto\UserDto.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\ICrmTaskFactory.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
@@ -247,8 +249,6 @@
     <Compile Include="Concrete\Old\Deals\CloseDeal.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDeal.cs" />
     <Compile Include="Concrete\Old\Bargains\CloseBargainsResult.cs" />
-    <Compile Include="Concrete\Old\HotClient\CreateHotClientRequest.cs" />
-    <Compile Include="Concrete\Old\HotClient\CreateHotClientResponse.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\MailSendingType.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsRequest.cs" />
@@ -364,8 +364,6 @@
     <Compile Include="Concrete\Simplified\IOperationService.cs" />
     <Compile Include="Concrete\Simplified\IPrintFormTemplateService.cs" />
     <Compile Include="Concrete\Simplified\IReportSimplifiedModel.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\CrmUserDto.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\IMsCrmInteractionService.cs" />
     <Compile Include="Generic\ActionHistory\IActionsHistoryService.cs" />
     <Compile Include="Generic\Activate\IActivateEntityService.cs" />
     <Compile Include="Generic\Activate\IActivateGenericEntityService.cs" />
