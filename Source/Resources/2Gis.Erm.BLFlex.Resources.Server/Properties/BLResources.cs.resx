@@ -153,7 +153,7 @@
     <value>Média: „{0}“ (mobilní verze). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
-    <value>Internetové stránky na adrese maps.2gis.ru</value>
+    <value>Internetové stránky na adrese 2gis.cz</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Média: „{0}“ (verze pro PC). Osvědčení o registraci {1}. Vydání od č. {2} do č. {3}. Vychází: od {4} do {5}</value>

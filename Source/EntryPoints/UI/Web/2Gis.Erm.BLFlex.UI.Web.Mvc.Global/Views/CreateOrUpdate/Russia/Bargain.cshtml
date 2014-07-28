@@ -7,12 +7,7 @@
 
 @section CardScripts
 {
-<script type="text/javascript">
-    window.InitPage = function ()
-    {
-        window.Card.on('beforepost', function () { window.returnValue = true; });
-    }
-</script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Bargain.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
 }
 
 @section CardBody
@@ -22,6 +17,7 @@
         @Html.HiddenFor(m => m.UserCanWorkWithAdvertisingAgencies)
         @Html.HiddenFor(m => m.IsBranchOfficeOrganizationUnitChoosingDenied)
         @Html.HiddenFor(m => m.IsLegalPersonChoosingDenied)
+        @Html.HiddenFor(m => m.ClientId)
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
@@ -37,7 +33,25 @@
             @Html.TemplateField(m => m.BargainEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true })
+            @if (Model.ClientId != 0)
+            {
+                @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
+                    {
+                        EntityName = EntityName.LegalPerson,
+                        ShowReadOnlyCard = true,
+                        ExtendedInfo = "filterToParent=true",
+                        ParentEntityName = EntityName.Client,
+                        ParentIdPattern = "ClientId"
+                    })
+            }
+            else
+            {
+                @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
+                    {
+                        EntityName = EntityName.LegalPerson,
+                        ShowReadOnlyCard = true
+                    })
+            }
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true })

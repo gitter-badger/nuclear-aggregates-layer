@@ -530,7 +530,7 @@
           <Field Name="ClientName" NameLocaleResourceId="NameOfClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="LegalAddress" NameLocaleResourceId="LegalAddress" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="150" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="BargainEndDate" Width="150" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
@@ -539,9 +539,7 @@
           <Script FileName="DataList/Bargain.DataList.js" />
         </Scripts>
         <ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
-          <ToolbarItem Name="CloseBargains" DisableOnEmpty="true" NameLocaleResourceId="ControlCloseBargains" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CloseBargains" Icon="Delete.gif" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -551,7 +549,7 @@
           <Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
           <Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
-          <Field Name="BargainEndDate" Width="150" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
@@ -885,6 +883,7 @@
           <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>

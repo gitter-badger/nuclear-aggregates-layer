@@ -511,7 +511,7 @@
 					<Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
 					<Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
-          <Field Name="BargainEndDate" Width="150" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>
@@ -520,9 +520,7 @@
 					<Script FileName="DataList/Bargain.DataList.js" />
 				</Scripts>
 				<ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
 					<ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
-					<ToolbarItem Name="CloseBargains" DisableOnEmpty="true" NameLocaleResourceId="ControlCloseBargains" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CloseBargains" Icon="Delete.gif" />
 				</ToolbarItems>
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -532,7 +530,7 @@
 					<Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
 					<Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
-          <Field Name="BargainEndDate" Width="150" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>

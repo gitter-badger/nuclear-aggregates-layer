@@ -1396,12 +1396,9 @@
     <value>Skryté příčiny zamítnutí Reklamního Materiálu</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Typ smlouvy</value>
+    <value>Formát smlouvy</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Nový model prodejů</value>
-  </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>DPH</value>
   </data>
 </root>

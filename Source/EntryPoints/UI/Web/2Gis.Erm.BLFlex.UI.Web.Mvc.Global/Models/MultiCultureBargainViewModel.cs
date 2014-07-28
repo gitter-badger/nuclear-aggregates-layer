@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [DisplayNameLocalized("BargainNumber")]
         public string Number { get; set; }
 
-        [DisplayNameLocalized("BargainTypeVAT")]
         public LookupField BargainType { get; set; }
 
         [DisplayNameLocalized("BargainLegalPerson")]
@@ -64,6 +63,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             get { return true; }
         }
 
+        public long ClientId { get; set; }
+
         #endregion
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
@@ -84,15 +85,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
+            ClientId = modelDto.ClientId;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            if (BargainType.Key == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             if (LegalPerson.Key == null)
             {
                 throw new ArgumentNullException();
@@ -119,7 +116,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     Timestamp = Timestamp,
                     UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
-                    IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied
+                    IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
+                    ClientId = ClientId
                 };
         }
     }
