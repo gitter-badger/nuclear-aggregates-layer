@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Transactions;
 
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
@@ -11,7 +10,7 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender
 {
-    public sealed class ServiceBusMessageSender : IServiceBusMessageSender
+    public sealed partial class ServiceBusMessageSender : IServiceBusMessageSender
     {
         private readonly IServiceBusMessageSenderSettings _serviceBusMessageSenderSettings;
         private readonly ICommonLog _logger;
@@ -55,27 +54,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 
             Interlocked.Increment(ref targetSlot.ActiveTransmissions);
 
-            TransactionScope scope = null;
-
             try
             {
-                if (_serviceBusMessageSenderSettings.UseTransactions)
-                {
-                    scope = new TransactionScope(
-                                    TransactionScopeOption.RequiresNew,
-                                    new TransactionOptions
-                                        {
-                                            IsolationLevel = IsolationLevel.Serializable,
-                                            Timeout = TimeSpan.Zero
-                                        });
-                }
-
                 targetSlot.Sender.SendBatch(messages);
-
-                if (scope != null)
-                {
-                    scope.Complete();
-                }
             }
             catch (Exception ex)
             {
@@ -84,11 +65,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             }
             finally
             {
-                if (scope != null)
-                {
-                    scope.Dispose();
-                }
-
                 Interlocked.Decrement(ref targetSlot.ActiveTransmissions);
             }
 
@@ -115,68 +91,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 
             return true;
         }
-
-        #region Поддержка IDisposable
-
-        private readonly object _disposeSync = new object();
-
-        /// <summary>
-        /// Флаг того что instance disposed
-        /// </summary>
-        private bool _isDisposed;
-
-        /// <summary>
-        /// Флаг того что instance disposed - потокобезопасный
-        /// </summary>
-        private bool IsDisposed
-        {
-            get
-            {
-                lock (_disposeSync)
-                {
-                    return _isDisposed;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        /// <summary>
-        /// Внутренний dispose класса
-        /// </summary>
-        private void Dispose(bool disposing)
-        {
-            lock (_disposeSync)
-            {
-                if (_isDisposed)
-                {
-                    return;
-                }
-
-                if (disposing)
-                {
-                    foreach (var senderSlot in _senderSlots)
-                    {
-                        senderSlot.Sender.Close();
-                        senderSlot.Factory.Close();
-                    }
-                }
-
-                // Free your own state (unmanaged objects).
-                // Set large fields to null.
-                // TODO
-
-                _isDisposed = true;
-            }
-        }
-
-        #endregion
 
         private class SenderSlot
         {

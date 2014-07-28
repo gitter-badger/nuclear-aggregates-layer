@@ -124,6 +124,7 @@
     <Compile Include="Operations\Logging\Transports\DB\DirectDBLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\DB\ITrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusMessageSender.Dispose.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageSenderSettings.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\MessageBodyType.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\OperationsLoggingServiceBusTransportUtils.cs" />

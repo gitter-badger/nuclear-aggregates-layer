@@ -122,7 +122,8 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
                     return "Empty use case";
                 }
 
-                return _operationsMap[_rootNodeId.Value].OperationIdentity.ToString();
+                const string Template = "Id={0}. Root operation: {1}";
+                return string.Format(Template, _rootNodeId.Value, _operationsMap[_rootNodeId.Value].OperationIdentity);
             }
         }
 

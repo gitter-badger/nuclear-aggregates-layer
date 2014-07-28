@@ -6,7 +6,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
     {
         private readonly StringSetting _transportEntityPath = ConfigFileSetting.String.Optional("TransportEntityPath", "performedoperations.topic.main");
         private readonly IntSetting _connectionsCount = ConfigFileSetting.Int.Optional("ConnectionsCount", 1);
-        private readonly BoolSetting _useTransactions = ConfigFileSetting.Bool.Optional("UseTransactions", true);
         private readonly string _connectionString;
 
         public ServiceBusSenderSettingsAspect(string connectionString)
@@ -22,11 +21,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
         int IServiceBusMessageSenderSettings.ConnectionsCount
         {
             get { return _connectionsCount.Value; }
-        }
-
-        bool IServiceBusMessageSenderSettings.UseTransactions
-        {
-            get { return _useTransactions.Value; }
         }
 
         string IServiceBusMessageSenderSettings.ConnectionString

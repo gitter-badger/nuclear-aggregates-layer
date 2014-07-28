@@ -6,7 +6,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
     {
         string TransportEntityPath { get; }
         int ConnectionsCount { get; }
-        bool UseTransactions { get; }
         string ConnectionString { get; }
     }
 }
