@@ -910,7 +910,7 @@
     <value>Вы действительно хотите изменить статус лимита на</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Номер счета</value>
+    <value>Номер</value>
   </data>
   <data name="IncomingMessages" xml:space="preserve">
     <value>Входящие сообщения</value>
