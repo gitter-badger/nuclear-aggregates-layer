@@ -1,4 +1,4 @@
-﻿// File updated : 21.07.2014 15:36:56
+﻿// File updated : 28.07.2014 9:21:00
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -51,7 +51,7 @@ BeginDistributionDate : 'Start of placement',
 BillCreationApprovalNeeded : 'Approval is required!',
 BillMassCreateConfirmMessage : 'Attention! Payments will be created for the selected group of orders. Continue?',
 BillMassCreateOrderHasZeroPayablePlan : 'Bulk creation of deferred payments cannot be performed if one of the orders has zero amount for payment. The list of payments for bulk creation should not contain selected orders.',
-BillNumber : 'Payment number',
+BillNumber : 'No.',
 BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',

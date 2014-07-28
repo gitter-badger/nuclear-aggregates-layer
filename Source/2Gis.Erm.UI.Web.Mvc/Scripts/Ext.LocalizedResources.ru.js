@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 21.07.2014 15:36:56
+// File updated : 28.07.2014 9:21:00
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -53,7 +53,7 @@ BeginDistributionDate : 'Начало размещения',
 BillCreationApprovalNeeded : 'Требуется согласование!',
 BillMassCreateConfirmMessage : 'Внимание! Будут созданы счета на оплату для выбранной группы заказов. Продолжить?',
 BillMassCreateOrderHasZeroPayablePlan : 'Невозможно массовое создание счетов на оплату, с использованием рассрочки, используя заказ с нулевой суммой к оплате. Не должно быть выбранных заказов в списке для массового создания счетов на оплату.',
-BillNumber : 'Номер счета',
+BillNumber : 'Номер',
 BoldText : 'Применение полужирного начертания к выделенному тексту.',
 BoldTitle : 'Полужирный (Ctrl+B)',
 Cancel : 'Отмена',
