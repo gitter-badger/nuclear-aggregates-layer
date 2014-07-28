@@ -598,7 +598,7 @@
     <value>Presence of at least one item in each order</value>
   </data>
   <data name="PrintOrderHandler_PaltformNotSupported" xml:space="preserve">
-    <value>Printing of invoice is not defined for this platform</value>
+    <value>Printing of quotation is not defined for this platform</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>Select</value>
@@ -661,7 +661,7 @@
     <value>Failed to obtain data about the user Reserve</value>
   </data>
   <data name="JointBill" xml:space="preserve">
-    <value>{0}-joint payment</value>
+    <value>{0}-joint invoice</value>
   </data>
   <data name="HouseNumberIncorrectFormat" xml:space="preserve">
     <value>Incorrect format of the building number</value>
@@ -1284,7 +1284,7 @@ Locking errors:{2}</value>
     <value>10.</value>
   </data>
   <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. The present Invoice comes into effect from {0}. The invoice No.{1} as of {2} becomes inoperative from {3}.11.</value>
+    <value>10. The present Quotation comes into effect from {0}. The Quotation No.{1} as of {2} becomes inoperative from {3}.11.</value>
   </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Unknown user</value>
@@ -1988,7 +1988,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Item {0} corresponds to a hidden price-list item. Please specify an active item from a currently valid price-list.</value>
   </data>
   <data name="PrepareJointBill" xml:space="preserve">
-    <value>Print joint payment</value>
+    <value>Print joint invoice</value>
   </data>
   <data name="EditUserOrganizationUnitHandler_WarningOrganizationUnitAlreadyExists" xml:space="preserve">
     <value>This company division is already linked to a user</value>
@@ -2003,7 +2003,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Attention! Company address and/or the company is hidden forever</value>
   </data>
   <data name="ReleaseBlockedError" xml:space="preserve">
-    <value>Editing of invoices and items of invoices is blocked for the city {0}</value>
+    <value>Editing of orders and items of orders is blocked for the city {0}</value>
   </data>
   <data name="DateRangeError" xml:space="preserve">
     <value>End date is less than start date</value>
@@ -2054,7 +2054,7 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Stop time</value>
   </data>
   <data name="MassiveOrderValidationRuleOrdersAndBargainsScansExist" xml:space="preserve">
-    <value>Availability of scans of invoices and contracts</value>
+    <value>Availability of scans of quotations and contracts</value>
   </data>
   <data name="FirstLevel" xml:space="preserve">
     <value>the 1st level</value>
@@ -3069,7 +3069,7 @@ The operation has been executed: {4}.</value>
     <value>Cannot start building, the previous build is a final one</value>
   </data>
   <data name="PrintOrderHandler_RegionalPaltformNotSupported" xml:space="preserve">
-    <value>Printing of the regional invoice is not defined for this platform</value>
+    <value>Printing of the regional quotation is not defined for this platform</value>
   </data>
   <data name="AccessSharingId" xml:space="preserve">
     <value>No.</value>
@@ -3441,7 +3441,7 @@ The operation has been executed: {4}.</value>
     <value>Selected dates should be in one calendar month</value>
   </data>
   <data name="OrderCheckOrderHasNoScans" xml:space="preserve">
-    <value>No scanned copy of the Invoice</value>
+    <value>No scanned copy of the Quotation</value>
   </data>
   <data name="ChangeTerritoryProcessingData" xml:space="preserve">
     <value>Number of selected records "{0}": {1}. Change territory?</value>
@@ -3753,7 +3753,7 @@ The operation has been executed: {4}.</value>
     <value>Access is denied.{0}Action: Merging.{0}Entity: Client {0}</value>
   </data>
   <data name="PrepareJointBillRelatedOrdersGrid" xml:space="preserve">
-    <value>Orders for which the joint payment should be printed</value>
+    <value>Orders for which the joint invoice should be printed</value>
   </data>
   <data name="WrongFileFormat" xml:space="preserve">
     <value>Incorrect format of the file [{0}]</value>
@@ -4286,7 +4286,7 @@ The operation has been executed: {4}.</value>
     <value>Empty order regional number</value>
   </data>
   <data name="JointBillFileNameTemplate" xml:space="preserve">
-    <value>{0}-joint payment.zip</value>
+    <value>{0}-joint invoice.zip</value>
   </data>
   <data name="AdditionalTextForMicrocomment" xml:space="preserve">
     <value>Additional text for microcomment</value>
@@ -4980,7 +4980,7 @@ Contact: {1}</value>
     <value>You cannot cancel a completed request</value>
   </data>
   <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>No customer for the company with Invoice [{0}]</value>
+    <value>No customer for the company with Orders [{0}]</value>
   </data>
   <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
     <value>The project {0} is not linked to a company branch</value>

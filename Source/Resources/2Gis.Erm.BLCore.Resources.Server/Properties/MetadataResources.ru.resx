@@ -406,7 +406,7 @@
     <value>День отчета</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Дата счета (От)</value>
+    <value>Дата (От)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
     <value>Номер заказа</value>
@@ -943,7 +943,7 @@
     <value>По оплате</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Номер счета</value>
+    <value>Номер</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказ</value>
