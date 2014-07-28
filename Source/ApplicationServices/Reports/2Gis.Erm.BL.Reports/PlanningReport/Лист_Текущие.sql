@@ -42,8 +42,8 @@ FROM
 	LEFT JOIN Billing.Clients c with(nolock) ON
 		c.id = f.ClientId
 	JOIN Billing.OrganizationUnits OU with(nolock) ON OU.id = o.DestOrganizationUnitId
-WHERE
-	o.SourceOrganizationUnitId = @City
+	JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
+WHERE boou.OrganizationUnitId = @City
 	AND o.BeginDistributionDate < DATEADD(m, 1, @IssueDate)
 	AND o.EndDistributionDateFact >= DATEADD(m, 1, @IssueDate)
 	AND o.IsDeleted = 0

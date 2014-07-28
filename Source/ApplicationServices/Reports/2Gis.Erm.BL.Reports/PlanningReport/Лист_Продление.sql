@@ -54,6 +54,7 @@ FROM
 			, b.PayablePlan
 		FROM
 			Billing.Orders o with(nolock)
+			JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 			JOIN billing.Platforms AS p  with(nolock) ON 
 				p.Id = o.PlatformId
 			JOIN Billing.OrderReleaseTotals ot with(nolock) ON
@@ -72,7 +73,7 @@ FROM
 			JOIN Billing.OrganizationUnits OU with(nolock) ON 
 				OU.id = o.DestOrganizationUnitId
 		WHERE
-			o.SourceOrganizationUnitId = @City
+			boou.OrganizationUnitId = @City
 			AND convert(DATE, o.EndDistributionDateFact) = DATEADD(d, -1, DATEADD(m, 1, @IssueDate))
 			AND o.EndDistributionDateFact = o.EndDistributionDatePlan
 			AND ot.ReleaseBeginDate <= @IssueDate
