@@ -48,6 +48,7 @@
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +120,7 @@
     <Compile Include="Operations\Logging\IOperationLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\IOperationResolver.cs" />
     <Compile Include="Operations\Logging\IUseCaseTracker.cs" />
+    <Compile Include="Operations\Logging\LoggingDescriptor.cs" />
     <Compile Include="Operations\Logging\LoggingTargets.cs" />
     <Compile Include="Operations\Logging\OperationLoggingSettingsAspect.cs" />
     <Compile Include="Operations\Logging\OperationScopeNode.cs" />

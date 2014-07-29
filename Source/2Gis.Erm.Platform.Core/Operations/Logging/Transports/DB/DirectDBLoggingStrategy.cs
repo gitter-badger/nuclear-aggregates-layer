@@ -1,5 +1,8 @@
-﻿using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+﻿using System.Transactions;
+
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
@@ -18,6 +21,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             _performedBusinessOperationRepository = performedBusinessOperationRepository;
         }
 
+        public LoggingSession Begin()
+        {
+            return new LoggingSession
+            {
+                Transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default)
+            };
+        }
+
         public bool TryLogUseCase(TrackedUseCase useCase, out string report)
         {
             report = null;
@@ -27,6 +38,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             _performedBusinessOperationRepository.Save();
 
             return true;
+        }
+
+        public void Complete(LoggingSession loggingSession)
+        {
+            loggingSession.Transaction.Complete();
+        }
+
+        public void Close(LoggingSession loggingSession)
+        {
+            loggingSession.Transaction.Dispose();
         }
     }
 }
