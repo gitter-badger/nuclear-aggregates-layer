@@ -1,5 +1,4 @@
-﻿
-namespace DoubleGis.Erm.Platform.API.Core.Identities
+﻿namespace DoubleGis.Erm.Platform.Common.Identities
 {
     /// <summary>
     /// Сервис генерации уникальных ID

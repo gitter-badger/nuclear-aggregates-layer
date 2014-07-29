@@ -5,11 +5,11 @@ namespace DoubleGis.Erm.Platform.Migration.Core
 {
     public sealed class AppliedVersionsInfo
     {
-        private readonly IList<long> _versionsApplied = new List<long>();
+		private readonly HashSet<long> _versionsApplied = new HashSet<long>();
 
         public long Latest()
         {
-            return _versionsApplied.OrderByDescending(x => x).FirstOrDefault();
+            return _versionsApplied.DefaultIfEmpty().Max();
         }
 
         public void AddAppliedMigration(long migration)

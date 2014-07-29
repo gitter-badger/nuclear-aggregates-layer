@@ -754,7 +754,6 @@
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
     <Compile Include="Entities\DTOs\Partial\DenialReasonDomainEntityDto.partial.cs" />
-    <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />

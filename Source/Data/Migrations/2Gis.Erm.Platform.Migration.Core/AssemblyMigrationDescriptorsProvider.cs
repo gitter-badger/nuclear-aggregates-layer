@@ -48,21 +48,19 @@ namespace DoubleGis.Erm.Platform.Migration.Core
 
         private void Initialize()
         {
-            MigrationDescriptors = new List<MigrationDescriptor>();
+	        var descriptors = new Dictionary<long, MigrationDescriptor>();
 
-            IEnumerable<MigrationDescriptor> migrationList = FindMigrations();
-
-            foreach (var migrationMetadata in migrationList)
+            foreach (var migrationMetadata in FindMigrations())
             {
-                if (MigrationDescriptors.FirstOrDefault(x => x.Version == migrationMetadata.Version) != null)
+				if (descriptors.ContainsKey(migrationMetadata.Version))
                 {
                     throw new Exception(string.Format("Duplicate migration version {0}.", migrationMetadata.Version));
                 }
 
-                MigrationDescriptors.Add(migrationMetadata);
+				descriptors.Add(migrationMetadata.Version, migrationMetadata);
             }
 
-            MigrationDescriptors.Sort((x, y) => x.Version.CompareTo(y.Version));
+	        MigrationDescriptors = descriptors.OrderBy(x => x.Key).Select(x => x.Value).ToList();
         }
 
         private IEnumerable<MigrationDescriptor> FindMigrations()

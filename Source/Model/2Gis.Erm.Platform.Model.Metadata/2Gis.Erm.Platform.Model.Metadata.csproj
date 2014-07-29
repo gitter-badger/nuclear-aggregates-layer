@@ -128,7 +128,10 @@
     <Compile Include="Entities\EAV\PropertyIdentities\AfterSaleServiceTypeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BankIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BusinessModelIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ContactIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\CommercialLicenseEndDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ClientIdIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\FirmIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\EndDistributionDateIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\AuthorIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\DocumentsAmountIdentity.cs" />

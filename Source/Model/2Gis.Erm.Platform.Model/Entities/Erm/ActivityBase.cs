@@ -7,8 +7,17 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public abstract class ActivityBase : IBaseEntity, IEntityKey, IAuditableEntity, IStateTrackingEntity, ICuratedEntity, IDeactivatableEntity, IDeletableEntity
     {
-        public long Id { get; set; }
-        public ActivityType Type { get; set; }
+	    protected ActivityBase(ActivityType type)
+	    {
+		    Type = type;
+	    }
+
+		/// <remarks>
+		/// It's not persistent property as the type itself should classify the same.
+		/// </remarks>>
+		public ActivityType Type { get; private set; }
+
+	    public long Id { get; set; }
         public string Header { get; set; }
         public DateTime ScheduledStart { get; set; }
         public DateTime ScheduledEnd { get; set; }

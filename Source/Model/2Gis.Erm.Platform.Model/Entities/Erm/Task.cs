@@ -4,6 +4,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed class Task : ActivityBase
     {
-        public ActivityTaskType TaskType { get; set; }
+	    public Task() : base(ActivityType.Task)
+	    {
+	    }
+
+	    public ActivityTaskType TaskType { get; set; }
     }
 }

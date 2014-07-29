@@ -4,7 +4,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed class Appointment : ActivityBase
     {
-        public ActivityPurpose Purpose { get; set; }
+	    public Appointment() : base(ActivityType.Appointment)
+	    {
+	    }
+
+	    public ActivityPurpose Purpose { get; set; }
         public byte AfterSaleServiceType { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Getters[typeof(byte)] = x => Convert.ToByte(x.NumericValue);
             Getters[typeof(int)] = x => Convert.ToInt32(x.NumericValue);
             Getters[typeof(long)] = x => Convert.ToInt64(x.NumericValue);
-            Getters[typeof(long?)] = x => x.NumericValue.HasValue ? (long?)Convert.ToInt64(x.NumericValue.Value) : null;
+            Getters[typeof(long?)] = x => x == null ? null : x.NumericValue.HasValue ? (long?)Convert.ToInt64(x.NumericValue.Value) : null;
             Getters[typeof(Guid)] = x => new Guid(x.TextValue);
             Getters[typeof(DateTime)] = x => x.DateTimeValue;
             Getters[typeof(DateTime?)] = x => x != null ? x.DateTimeValue : null;

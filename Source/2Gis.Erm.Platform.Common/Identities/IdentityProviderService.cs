@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-using DoubleGis.Erm.Platform.API.Core.Identities;
-
-namespace DoubleGis.Erm.Platform.Core.Identities
+namespace DoubleGis.Erm.Platform.Common.Identities
 {
     public sealed class IdentityProviderService : IIdentityProviderService
     {

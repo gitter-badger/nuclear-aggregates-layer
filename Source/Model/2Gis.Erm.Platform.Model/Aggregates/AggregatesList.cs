@@ -17,7 +17,12 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
         public static readonly IDictionary<EntityName, AggregateDescriptor> Aggregates = 
             new[]
             {
+				// TODO: reconsider the fix, we could either change the check to use a base type or keep the fix
                 ActivityAggregate.ActivityBase.ToDescriptor(),
+                ActivityAggregate.Appointment.ToDescriptor(),
+                ActivityAggregate.PhoneCall.ToDescriptor(),
+                ActivityAggregate.Task.ToDescriptor(),
+
                 AccountAggregate.Account.ToDescriptor(), 
                 AdvertisementAggregate.Advertisement.ToDescriptor(),
                 BranchOfficeAggregate.BranchOffice.ToDescriptor(),

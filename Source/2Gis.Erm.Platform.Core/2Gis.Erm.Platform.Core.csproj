@@ -78,7 +78,6 @@
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
-    <Compile Include="Identities\IdentityProviderService.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
