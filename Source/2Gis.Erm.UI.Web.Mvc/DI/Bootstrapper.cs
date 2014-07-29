@@ -36,6 +36,7 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
@@ -170,6 +171,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                 new OperationServiceInterceptionDescriptor<ModifyLegalPersonUsingHandlerService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyLegalPersonService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderUsingHandlerService>(CompareObjectMode.Shallow, new[] { "OrderPositions", "OrderReleaseTotals", "Account", "*.Count" }),
+                                new OperationServiceInterceptionDescriptor<ModifyBargainService>(CompareObjectMode.Shallow, new[] { "Orders", "BargainFiles", "LegalPerson", "BargainType", "BranchOfficeOrganizationUnit", "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderPositionUsingHandlerService>(CompareObjectMode.Shallow, new[] { "ReleasesWithdrawals, *.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyAdvertisementUsingHandlerService>(CompareObjectMode.Shallow, new[] { "AdvertisementElements, OrderPositionAdvertisements, *.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyAdvertisementElementOperationService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
