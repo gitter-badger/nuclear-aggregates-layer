@@ -81,7 +81,10 @@
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\ActivityAggregateService.cs" />
+    <Compile Include="Activities\AppointmentAggregateService.cs" />
+    <Compile Include="Activities\PhonecallAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
+    <Compile Include="Activities\TaskAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />

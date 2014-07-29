@@ -120,6 +120,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>,
                             DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+						.RegisterTypeWithDependencies<IRepository<Appointment>, DynamicStorageRepositoryDecorator<Appointment>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+						.RegisterTypeWithDependencies<IRepository<Phonecall>, DynamicStorageRepositoryDecorator<Phonecall>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+						.RegisterTypeWithDependencies<IRepository<Task>, DynamicStorageRepositoryDecorator<Task>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }
