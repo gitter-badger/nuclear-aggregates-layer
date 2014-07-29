@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 case ActivityStatus.InProgress:
                     buttonsToDisable = new[] { "Revert" };
                     break;
-                case ActivityStatus.Cancelled:
+                case ActivityStatus.Canceled:
                 case ActivityStatus.Completed:
                     buttonsToDisable = new[] { "Complete", "Cancel" };
                     entityViewModel.ViewConfig.ReadOnly = true;

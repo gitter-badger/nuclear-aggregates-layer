@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
         {
-            var phonecall = _activityReadModel.GetActivity<Phonecall>(entityId);
+            var phonecall = _activityReadModel.GetPhonecall(entityId);
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 

@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
         {
-            var appointment = _activityReadModel.GetActivity<Appointment>(entityId);
+            var appointment = _activityReadModel.GetAppointment(entityId);
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 

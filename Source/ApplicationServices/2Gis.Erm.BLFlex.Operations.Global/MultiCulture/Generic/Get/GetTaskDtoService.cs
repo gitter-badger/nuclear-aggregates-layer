@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
         {
-            var task = _activityReadModel.GetActivity<Task>(entityId);
+            var task = _activityReadModel.GetTask(entityId);
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 

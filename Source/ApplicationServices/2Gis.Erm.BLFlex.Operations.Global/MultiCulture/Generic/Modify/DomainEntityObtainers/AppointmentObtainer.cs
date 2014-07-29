@@ -1,13 +1,12 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Dynamic.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -18,20 +17,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
-        private readonly IActivityDynamicPropertiesConverter _activityDynamicPropertiesConverter;
 
-        public AppointmentObtainer(IUserContext userContext, IFinder finder, IActivityDynamicPropertiesConverter activityDynamicPropertiesConverter)
+		public AppointmentObtainer(IUserContext userContext, IFinder finder)
         {
             _userContext = userContext;
             _finder = finder;
-            _activityDynamicPropertiesConverter = activityDynamicPropertiesConverter;
         }
 
         public Appointment ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (AppointmentDomainEntityDto)domainEntityDto;
 
-            var appointment = dto.IsNew() ? new Appointment { IsActive = true } : _finder.Single<Appointment>(dto.Id, _activityDynamicPropertiesConverter);
+            var appointment = dto.IsNew() ? new Appointment { IsActive = true } : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
@@ -46,7 +43,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
             appointment.ScheduledEnd = dto.ScheduledEnd.Subtract(timeOffset);
             appointment.ActualEnd = dto.ActualEnd.HasValue ? dto.ActualEnd.Value.Subtract(timeOffset) : dto.ActualEnd;
             appointment.Status = dto.Status;
-            appointment.Type = dto.Type;
             appointment.OwnerCode = dto.OwnerRef.Id.Value;
             appointment.IsActive = dto.IsActive;
             appointment.IsDeleted = dto.IsDeleted;
